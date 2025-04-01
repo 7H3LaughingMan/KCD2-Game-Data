@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="us-ascii"?>
+<Graph Description="" Group="" enabled="1" MultiPlayer="ClientServer">
+  <Nodes>
+    <Node Id="1" Class="MaterialFX:HUDStartFX" pos="-190,10,0" flags="0">
+      <Inputs />
+    </Node>
+    <Node Id="2" Class="MaterialFX:HUDEndFX" pos="590,220,0" flags="0">
+      <Inputs />
+    </Node>
+    <Node Id="275" Class="Image:FilterRadialBlur" pos="490,-230,0" flags="0">
+      <Inputs entityId="0" Enabled="1" Disabled="1" FilterRadialBlurring_Amount="2" FilterRadialBlurring_ScreenPosX="0.5" FilterRadialBlurring_ScreenPosY="0.5" FilterRadialBlurring_Radius="-13" />
+    </Node>
+    <Node Id="277" Class="Time:Delay" pos="190,50,0" flags="0">
+      <Inputs delay="1" resetOnInput="0" unpausable="0" />
+    </Node>
+  </Nodes>
+  <Edges>
+    <Edge nodeIn="275" nodeOut="1" portIn="Enabled" portOut="Started" enabled="1" />
+    <Edge nodeIn="277" nodeOut="1" portIn="delay" portOut="Intensity" enabled="1" />
+    <Edge nodeIn="277" nodeOut="1" portIn="in" portOut="Started" enabled="1" />
+    <Edge nodeIn="2" nodeOut="277" portIn="Trigger" portOut="out" enabled="1" />
+    <Edge nodeIn="275" nodeOut="277" portIn="Disabled" portOut="out" enabled="1" />
+  </Edges>
+  <GraphTokens />
+</Graph>

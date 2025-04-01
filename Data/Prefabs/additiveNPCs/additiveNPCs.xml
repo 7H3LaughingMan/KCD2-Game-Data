@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="us-ascii"?>
+<Prefab Id="81fce098-b7dd-4b48-a235-23a5a376715a">
+  <Objects>
+    <Object EntityClass="PrefabPort" Id="18086f4c-95ee-437a-9474-4e4a685e4514" Name="outPort_area" Pos="-0.5003128,0.4197617,0" Type="Entity">
+      <Properties esPrefabPort_Type="Out" />
+    </Object>
+    <Object EntityClass="SchedulerHub" Id="1889d296-eb03-487d-9627-8c0df53adcce" Name="hub1" Pos="-1.016411,-0.0878067,0" Type="Entity">
+      <EntityLinks>
+        <Link DebugTargetName="SmartObjectHolder10" Name="_|sleep,sleep" TargetId="c9c0bf63-1369-4691-8aed-a2a949cadad1" />
+        <Link DebugTargetName="hub2" Name="_8:0-20:0,~01:00,1," TargetId="67850e00-edef-470f-85cd-283e1ecd2133" />
+        <Link DebugTargetName="SmartObjectHolder10" Name="_|sleep,2,+low_health,sleep" TargetId="c9c0bf63-1369-4691-8aed-a2a949cadad1" />
+      </EntityLinks>
+    </Object>
+    <Object EntityClass="PrefabPort" Id="50089b4a-ea0f-4c78-ae50-92caed8f3659" Name="outPort_scheduler" Pos="-0.9947891,-1.071899,0" Type="Entity">
+      <Properties esPrefabPort_Type="Out" />
+    </Object>
+    <Object Id="568d99c9-489b-4980-9425-8be0b96ab4f0" Name="additiveNPCs/additiveNPCs_door1" Pos="-0.02724457,-1.08139,0" PrefabTemplate="d5e72cf0-8a77-4f7c-9c77-6a1fddc6a37e" PrefabTemplateName="additiveNPCs/additiveNPCs_door" Type="Prefab" />
+    <Object EntityClass="SchedulerHub" Id="67850e00-edef-470f-85cd-283e1ecd2133" Name="hub2" Pos="-0.9633713,-0.5747986,0" Type="Entity">
+      <EntityLinks>
+        <Link DebugTargetName="outPort_scheduler" Name="_" TargetId="50089b4a-ea0f-4c78-ae50-92caed8f3659" />
+        <Link DebugTargetName="SmartObjectHolder10" Name="_|wakeup,1,!once,!override,wakeUp" TargetId="c9c0bf63-1369-4691-8aed-a2a949cadad1" />
+      </EntityLinks>
+    </Object>
+    <Object EntityClass="PrefabPort" Id="8290b652-a6f5-414b-8c59-f75f0483016b" Name="port_scheduler" Pos="-1.00695,0.4208679,0" Type="Entity">
+      <EntityLinks>
+        <Link DebugTargetName="hub1" TargetId="1889d296-eb03-487d-9627-8c0df53adcce" />
+      </EntityLinks>
+    </Object>
+    <Object EntityClass="SmartObjectHolder" Id="c9c0bf63-1369-4691-8aed-a2a949cadad1" Name="SmartObjectHolder10" Pos="-0.492012,-0.07991028,0" Type="Entity">
+      <Properties guidSmartObjectType="d9698bf1-b8dc-41e5-929c-244304737f24" />
+      <EntityLinks>
+        <Link DebugTargetName="outPort_area" Name="area" TargetId="18086f4c-95ee-437a-9474-4e4a685e4514" />
+        <Link DebugTargetName="SmartObjectHolder10" Name="#EnableBehaviorForNPC[wakeup,wakeUp]" TargetId="c9c0bf63-1369-4691-8aed-a2a949cadad1" />
+        <Link DebugTargetName="SmartObjectHolder10" Name="#EnableBehaviorForNPC[sleep,wakeUp]" TargetId="c9c0bf63-1369-4691-8aed-a2a949cadad1" />
+        <Link DebugTargetName="SmartObjectHolder10" Name="+Heal[sleep,25]" TargetId="c9c0bf63-1369-4691-8aed-a2a949cadad1" />
+      </EntityLinks>
+    </Object>
+  </Objects>
+  <NestedLinks>
+    <Link Name="door" SourceDebugName="SmartObjectHolder10" SourceId="c9c0bf63-1369-4691-8aed-a2a949cadad1" SourcePath="" TargetDebugName="port_entity" TargetId="2cf343b5-5ccc-4cd1-a361-21676acb544c" TargetPath="568d99c9-489b-4980-9425-8be0b96ab4f0" />
+    <Link Name="_wakeup|,door_use" SourceDebugName="SmartObjectHolder10" SourceId="c9c0bf63-1369-4691-8aed-a2a949cadad1" SourcePath="" TargetDebugName="port_scheduler" TargetId="b6e93975-b3a6-42a5-9ff2-0b0a434c27f6" TargetPath="568d99c9-489b-4980-9425-8be0b96ab4f0" />
+  </NestedLinks>
+</Prefab>

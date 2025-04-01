@@ -1,0 +1,2661 @@
+<?xml version="1.0"?>
+<!DOCTYPE storm SYSTEM "../storm.dtd">
+<storm>
+    <customSelectors>
+
+        <!-- Dude -->
+
+        <customSelector name="isPlayerHenry" mode="or">
+            <hasName name="dude" />
+            <hasName name="player_henry" />
+        </customSelector>
+
+        <customSelector name="isPlayerBohuta">
+            <hasName name="player_bohuta" />
+        </customSelector>
+
+        <customSelector name="isPlayer" mode="or">
+            <isPlayerHenry />
+            <isPlayerBohuta />
+        </customSelector>
+
+        <customSelector name="isNotPlayer">
+            <not>
+                <isPlayer />
+            </not>
+        </customSelector>
+				
+        <!-- Gender -->
+
+        <customSelector name="isMan">
+            <hasSoulArchetype name="NPC" />
+        </customSelector>
+
+        <customSelector name="isWoman">
+            <hasSoulArchetype name="NPC_Female" />
+        </customSelector>
+
+        <!-- Humans/animals/aliens/etc. -->
+
+        <customSelector name="isHuman" mode="or">
+            <isMan />
+            <isWoman />
+        </customSelector>
+
+        <!-- Test/real souls -->
+
+        <customSelector name="isTest">
+			<or>
+				<hasName name="cart_test_*" />
+				<hasName name="battleBenchmark_test_*" />
+				<hasName name="test_*" />
+                <hasName name="SpawnedEnemy_*" />
+                <hasName name="SpawnedFriend_*" />
+                <hasName name="combatEnemy_*" />
+                <hasName name="combatEnemyCuman_*" />
+                <hasName name="combatFriend_*" />
+			</or>
+        </customSelector>
+
+        <customSelector name="isNotTest">
+            <not>
+                <isTest />
+            </not>
+        </customSelector>
+
+        <!-- System souls -->
+        <customSelector name="isSystem">
+            <or>
+                <hasName name="system_crime_otloukanek" />
+            </or>
+        </customSelector>
+
+        <customSelector name="isNotSystem">
+            <not>
+                <isSystem />
+            </not>
+        </customSelector>
+
+        <!-- Cinematics souls -->
+		
+        <customSelector name="isCinematic">
+			<or>
+				<hasName name="cin_*" />
+				<hasName name="cutscene_*" />
+                <hasName name="papezskyLegat_cin_rozaNaked" />
+                <hasName name="prepadeniVlasskehoDvora_cin_annaNaked" />
+                <hasName name="socky_cin_dirtyPtacek" />
+			</or>
+        </customSelector>
+
+        <customSelector name="isNotCinematic">
+            <not>
+                <isCinematic />
+            </not>
+        </customSelector>
+		
+		<!-- Age -->
+
+        <customSelector name="isOldLady" mode="and">
+            <isWoman />
+            <or>
+            <hasVoice id="257" />
+            </or>
+        </customSelector>
+
+        <!-- Dead -->
+
+        <customSelector name="isDead" mode="or">
+            <hasVoice name="animalOrDeadBody" />
+			<hasFaction name="deadBodies" />
+			<hasName name="tzel_vojta" />
+			<hasName name="zachrana_mrtvola" />
+            <hasName name="zachrana_fatherOfHenry" />
+			<hasName name="katuvSleh_hangman" />
+			<hasName name="bohutovaVlozka_deadman_*" />
+			<hasName name="sedmStatecnych2_deadBody" />
+			<hasName name="dvojityAgent_petr" />
+			<hasName name="kkut_mazak" />
+			<hasName name="spizovaciOddil_deadVanguard_*" />
+            <hasName name="finale_battle_enemy_dead*" />
+            <hasName name="finale_battle_allies_dead*" />
+            <hasName name="finale_battle_horse_dead*" />
+            <hasName name="zoufalaObranaZaBohutu_attackers_deadBody_*" />
+            <hasName name="zoufalaObranaZaBohutu_defenders_deadBody_*" />
+            <hasName name="pytlakPtacek_poacherSlatejov" />
+            <hasName name="poustevnik_clesgin" />
+            <hasName name="zikmunduTabor_cannonAmbushDead_1" />
+            <hasName name="zikmunduTabor_cannonAmbushDead_2" />
+            <hasName name="zikmunduvTabor_ambushEnemy_dead_*" />
+            <hasName name="tbuk_neoznaceneHroby_*" />
+            <hasName name="knab_man_1" />
+            <hasName name="knab_man_2" />
+            <hasName name="hledaniPsa_deadBody" />
+            <hasName name="kkut_hangedJourneyman_*" />
+            <hasName name="kkut_hangedJourneyman_*" />
+            <hasName name="crimeScene_civilian_corpse_*" />
+            <hasName name="crimeScene_soldier_corpse_*" />
+            <hasName name="kzik_hangman_*" />
+        </customSelector>
+
+        <customSelector name="isAlive">
+            <not>
+                <isDead />
+            </not>
+        </customSelector>
+
+
+
+
+        <customSelector name="isClosedWorldNPC" mode="or">
+            <hasName name="kkut_rabbi" />
+            <hasName name="kkut_henry" />
+            <hasName name="ttro_erik" />
+            <hasName name="ttro_pista" />
+            <hasName name="kkut_markvartAulitz" />
+            <hasName name="kkut_zikmund" />
+            <hasName name="tsem_hanus" />
+            <hasName name="papezskyLegat_legate" />
+            <hasName name="krat_martinOderin" />
+            <hasName name="kpri_komar" />
+            <hasName name="tvez_henrysMother" />
+            <hasName name="prepadeniVlasskehoDvora_csaba" />
+            <hasName name="prepadeniVlasskehoDvora_giuseppe" />
+            <hasName name="pogrom_*" />
+            <hasName name="setkaniVRatbori1_tempRatiborRetinue*" />
+        </customSelector>
+
+        <customSelector name="isNotClosedWorldNPC">
+            <not>
+                <isClosedWorldNPC />
+            </not>
+        </customSelector>
+				
+        <!-- Combinations -->
+
+        <customSelector name="isValidNpc" mode="and">
+            <isNotCinematic />
+            <isNotTest />
+            <isNotSystem />
+            <isNotPlayer />
+            <isHuman />
+            <isAlive />
+        </customSelector>
+
+        <customSelector name="isValidOpenworldNpc" mode="and">
+            <isValidNpc />
+            <isNotClosedWorldNPC />
+        </customSelector>   
+
+		<!-- Events -->
+
+        <customSelector name="isEventNPC">
+            <or>
+                <hasFaction name="eventNPCs_civilians" />
+                <hasFaction name="eventNPCs_enemies" />
+                <hasFaction name="eventNPCs_death" />
+                <hasName name="taboryLapkuTrosecko_lapka*" />                
+            </or>
+        </customSelector>
+
+		<!-- Social classes -->
+		 
+        <customSelector name="hasTradesmanSocialClass">
+            <or>
+                <hasSocialClass name="armorer" />
+                <hasSocialClass name="baker" />
+                <hasSocialClass name="blacksmith" />
+                <hasSocialClass name="butcher" />
+                <hasSocialClass name="craftsman" />
+                <hasSocialClass name="miller" />
+                <hasSocialClass name="shoemaker" />
+                <hasSocialClass name="tailor" />
+                <hasSocialClass name="tanner" />
+                <hasSocialClass name="weaponsmith" />
+                <hasSocialClass name="gunsmith" />
+                <hasSocialClass name="bathhouseAbbess" />
+                <hasSocialClass name="merchant" />
+                <hasSocialClass name="herbalist" />
+                <hasSocialClass name="innkeeper" />
+                <hasSocialClass name="bartender" />
+                <hasSocialClass name="scribe" />
+                <hasSocialClass name="shootmaster" />
+                <hasSocialClass name="fisherman" />
+                <hasSocialClass name="cook" />
+                <hasSocialClass name="apothecary" />
+                <hasSocialClass name="saddler" />
+            </or>
+        </customSelector>
+
+      <customSelector name="isWarHorse">
+        <or>
+          <hasSocialClass name="horse_war_naked" />
+          <hasSocialClass name="horse_war_common" />
+          <hasSocialClass name="horse_war_battle" />
+          <hasSocialClass name="horse_war_noble" />
+        </or>
+      </customSelector>
+
+      <customSelector name="isTravelHorse">
+        <or>
+          <hasSocialClass name="horse_travel_naked" />
+          <hasSocialClass name="horse_travel_common" />
+          <hasSocialClass name="horse_travel_noble" />
+          <hasSocialClass name="horse_travel_east" />
+        </or>
+      </customSelector>
+
+      <customSelector name="isWorkHorse">
+        <or>
+          <hasSocialClass name="horse_work_naked" />
+          <hasSocialClass name="horse_work_common" />
+          <hasSocialClass name="horse_work_battle" />
+        </or>
+      </customSelector>
+
+      <customSelector name="isDraftHorse">
+        <or>
+          <hasSocialClass name="horse_draft_naked" />
+          <hasSocialClass name="horse_draft_common" />
+        </or>
+      </customSelector>
+
+        <!-- Souls without a character - used for generic characters and as a voiceover failsafe for assigning roles  -->
+        <customSelector name="hasNoCharacter">
+            <not>
+                <hasACharacter />
+            </not>
+        </customSelector>
+
+        <!-- Openworld merchants - npc who actually trade with player, not quest npcs just looking like merchants  -->
+        <!-- Merchants with Gossips with customers and security, greetings for the player and farewells commenting if the player bought something -->
+        <customSelector name="isFullTrader" mode="or">
+            <hasName name="kmis_woman_18" />
+            <hasName name="kbyl_baker" />
+            <hasName name="kkut_man_44" />
+            <hasName name="test_merchant_1" />
+            <hasName name="kkut_man_380" />
+            <hasName name="kkut_woman_32" />
+            <hasName name="tsem_woman_12" />
+            <hasName name="tsem_man_16" /> <!-- semin saddler -->
+            <hasName name="kpri_woman_8" />
+            <hasName name="tsla_vajsar" />
+            <hasName name="ttkc_man_11" />
+            <hasName name="kpri_man_20" />
+            <hasName name="kpri_man_15" />
+            <hasName name="kpri_butcher" />
+            <hasName name="kmis_man_17" />
+            <hasName name="kkut_man_3" />
+            <hasName name="kkut_man_5" />
+            <hasName name="kkut_woman_17" />
+            <hasName name="kkut_man_19" />
+            <hasName name="kkut_woman_12" />
+            <hasName name="kkut_man_11" />
+            <hasName name="kkut_woman_212" />
+            <hasName name="kkut_enderlin" />
+            <hasName name="kkut_linhart" />
+            <hasName name="kkut_johlin" />
+            <hasName name="kkut_man_224" />
+            <hasName name="kkut_krondel" />
+            <hasName name="kkut_man_239" />
+            <hasName name="kkut_man_35" />
+            <hasName name="kkut_man_29" />
+            <hasName name="kkut_man_108" />
+            <hasName name="kkut_jimram" />
+            <hasName name="kkut_perkolt" />
+            <hasName name="kkut_man_250" />
+            <hasName name="kkut_vaclavHolek" />
+            <hasName name="kkut_prokopEldris" />
+            <hasName name="ksuc_man_4" /> <!-- suchdol blacksmith -->
+            <hasName name="ksuc_man_21" /> <!-- suchdol blacksmith -->
+            <hasName name="ttac_man_4" />
+            <hasName name="ttkc_emerich" />      
+            <hasName name="ttac_procek" /> 
+            <hasName name="ttac_vojka" />
+            <hasName name="ttac_manka" />
+            <hasName name="kpri_man_12" />
+            <hasName name="ttkc_scribe" />
+            <hasName name="kbyl_man_5" />
+            <hasName name="kbyl_woman_9" />
+            <hasName name="kbyl_woman_10" /> 
+            <hasName name="kbyl_mikus" /> <!-- tailors -->
+            <hasName name="kkut_lacek" />
+            <hasName name="kkut_fifle" />
+            <hasName name="ttkc_bartosek" />
+            <hasName name="test_innkeeper" /> <!-- innkeepers -->
+            <hasName name="tzel_vavrinec" />
+            <hasName name="ksuc_man_11" />
+            <hasName name="kkut_man_121" />
+            <hasName name="kkut_geldstyk" />
+            <hasName name="kgru_gros" />
+            <hasName name="kkut_skvira" />
+            <hasName name="kkut_hospodskySvatych" />
+            <hasName name="kcer_innkeeper" />
+            <hasName name="kmal_innkeeper" />
+            <hasName name="kmis_innkeeper" />
+            <hasName name="kpec_innkeeper" />
+            <hasName name="kpri_innkeeper" />
+            <hasName name="kgru_zdimir" /> <!-- blacksmiths -->
+            <hasName name="kmis_man_13" />
+            <hasName name="ksuc_man_4" />
+            <hasName name="kzik_blacksmith" />
+            <hasName name="test_blacksmith" />
+            <hasName name="ttac_blacksmith" />
+            <hasName name="ttro_kovar" />
+            <hasName name="test_armorer" /> <!-- armorers - maybe? -->
+            <hasName name="kkut_man_32" />
+            <hasName name="kkut_man_21" />
+            <hasName name="kzik_armorer" />
+            <hasName name="kzik_man_5" />
+            <hasName name="kkut_man_224" /> <!-- weaponsmiths - maybe? -->
+            <hasName name="kkut_man_222" />
+            <hasName name="test_weaponsmith" />
+            <hasName name="test_ttkc_weaponsmith" />
+            <hasName name="kkut_spaAdministrator" /> <!-- bathhouse abbesses -->
+            <hasName name="kmal_woman_1" />
+            <hasName name="kzik_bathhouseAbess" />
+            <hasName name="test_abbess" />
+            <hasName name="tzel_woman_5" />
+            <hasName name="tkop_barnabas" />
+            <hasName name="tvid_huntsmansSon" />
+            <hasName name="tneb_man_25" />
+            <hasName name="tneb_man_26" />
+            <hasName name="tneb_jakes" />
+            <hasName name="kgru_woman_12" /> <!-- greengrocer in Grunta -->
+            <hasName name="ttkc_baska" />
+            <hasName name="kkut_man_336" />
+            <hasName name="kkut_man_337" />
+            <hasName name="kkut_woman_269" />
+            <hasName name="kkut_man_338" />
+            <hasName name="kkut_woman_270" />
+            <hasName name="kkut_woman_51" /> <!-- baker in kkut - Ceska -->
+            <hasName name="ksuc_man_7" />
+            <hasName name="kmis_woman_2" /> <!-- inkkeeper in Miskovice -->
+            <hasName name="kmis_woman_3" /> <!-- inkkeeper in Miskovice -->
+            <hasName name="kkut_woman_29" /> <!-- bartender in kkut - Kupecka -->
+            <hasName name="kkut_woman_30" /> <!-- bartender in kkut - Kupecka -->
+            <!--<hasName name="kkut_havel" />  havel in kkut - Kupecka should not have a shop, because we cant afford to record Jamie Marshalls merchant dialogues -->
+            <hasName name="ksuc_man_11" /> <!-- hospodsky slivka in Suchdol village -->
+            <hasName name="ksuc_woman_27" />
+            <hasName name="ksuc_woman_30" />
+            <hasName name="ksuc_woman_36" />
+            <hasName name="kkut_innkeeperAdamsBathhouse" />
+            <hasName name="kkut_man_232" />
+            <hasName name="kkut_man_230" />
+            <hasName name="kkut_woman_271" />
+            <hasName name="kkut_man_339" />
+            <hasName name="kkut_man_47" /> <!-- seller in kkut - Zidovska -->
+            <hasName name="kkut_woman_109" />
+            <hasName name="kkut_woman_110" />
+            <hasName name="kkut_man_344" /> <!-- inkeeper in kkut - Konsky trh -->
+            <hasName name="kkut_man_339" /> <!-- blacksmith in kkut - Konsky trh -->
+            <hasName name="kkut_man_43" /> <!-- baker in kkut - Zidovska -->
+            <hasName name="kkut_man_345" />
+            <hasName name="kkut_man_32" />
+            <hasName name="kkut_man_347" />
+            <hasName name="kkut_woman_276" />
+            <hasName name="kkut_woman_245" />
+            <hasName name="kkut_man_350" />
+            <hasName name="kkut_man_351" />
+            <hasName name="kkut_woman_249" />
+            <hasName name="kkut_man_243" />
+            <hasName name="kkut_man_352" />
+            <hasName name="ttro_man_1" />
+            <hasName name="ttro_man_8" />
+            <hasName name="ttro_man_69" />
+            <hasName name="kkut_janek" />
+            <hasName name="kkut_tyc" />
+            <hasName name="kpri_woman_17" />
+            <hasName name="kcer_woman_7" />
+            <hasName name="ttkc_woodworker" />
+            <hasName name="kkut_woman_71" /> <!-- inkkeeper in Lokal KH -->
+            <hasName name="kkut_man_389" />
+            <hasName name="kkut_man_381" />
+            <hasName name="kzik_man_50" /> <!-- shootmaster in Zikmunds camp -->
+            <hasName name="kmis_man_7" /> <!-- butcher in Miskovice -->
+            <hasName name="kmis_woman_27" /> <!-- trader in Miskovice -->
+            <hasName name="kmis_man_15" /> <!-- baker in Miskovice -->
+            <hasName name="kopa_bohunek" />
+            <hasName name="tneb_bejk" />  
+            <hasName name="ksuc_bathhouseAbess_1" /> 
+            <hasName name="krat_man_6" /> <!-- butcher in Ratbor -->
+            <hasName name="krat_man_10" /> <!-- shoemaker in Ratbor -->
+            <hasName name="kcer_man_1" /> <!-- blacksmith in Certovka -->
+            <hasName name="krab_man_30" /> <!-- huntsman in Rabstejnsko --> 
+            <hasName name="tvid_woman_1" />
+            <hasName name="kkut_woman_105" /> <!-- tailor in Konsky trh KH --> 
+            <hasName name="ttro_woman_6" /> <!-- abbess in Trosky castle --> 
+            <hasName name="kcer_man_4" /> <!-- apothecary in Certovka -->
+            <hasName name="kmal_man_13" /> <!-- shootmaster/carpenter in Malesov -->
+            <hasName name="kkut_woman_113" />
+            <hasName name="kkut_woman_114" />
+                                            <!-- Horse Handler Trosecko has a roma voice and is in UltraLightTraders -->
+            <hasName name="ksed_man_3" /> <!-- Horse Handler Kutnohorsko -->
+            <hasName name="kkut_man_64" /> <!-- Horse Trader Kuttenberg -->
+            <hasName name="tsem_man_15" /> <!-- Horse Trader Semin -->
+            <hasName name="kgru_woman_8" /> <!-- Horse Trader Grunta -->
+            <hasName name="kmal_hastal" /> <!-- Horse Trader Malesov -->
+            <hasName name="kvys_vejmolaYoung" /> <!-- Shoemaker in Vysoka -->
+			<hasName name="khor_man_26" /> <!-- blacksmith in mines Horany -->
+			
+            <hasName name="kkut_man_386" /> <!-- blacksmith in Chmelna -->
+            <hasName name="krat_woman_11" /> <!-- greenGrocer in Ratbor -->
+			<hasName name="kmal_man_7" /> <!-- merchant in Maleshov -->
+            <hasName name="kcer_woman_2" /> <!-- bartender in Certovka -->
+            <hasName name="tzel_woman_10" /> <!-- bartender in Zelejov -->
+            <hasName name="tzel_woman_11" /> <!-- bartender in Zelejov -->
+            <hasName name="kmal_woman_4" /> <!-- bartender in Malesov -->
+            <hasName name="kmal_woman_5" /> <!-- bartender in Malesov -->
+            
+            <hasName name="kkut_woman_21" /> <!-- bartender in Tarmark Lokal -->
+            <hasName name="kpri_woman_10" /> <!-- bartender in Pritoky -->
+            <hasName name="kpri_woman_11" /> <!-- bartender in Pritoky -->
+            <hasName name="kpri_woman_12" /> <!-- bartender in Pritoky -->
+            <hasName name="kpri_woman_13" /> <!-- bartender in Pritoky -->
+            <hasName name="kgru_woman_11" /> <!-- bartender in Grunta -->
+            <hasName name="kgru_woman_9" /> <!-- bartender in Grunta -->
+            <hasName name="kbyl_woman_7" /> <!-- bartender in Bylany -->
+            <hasName name="kbyl_woman_8" /> <!-- bartender in Bylany -->
+            <hasName name="kkut_woman_224" /> <!-- bartender in Platnerska -->
+            <hasName name="kkut_woman_225" /> <!-- bartender in Platnerska -->
+            <hasName name="ksta_woman_5" /> <!-- bartender in Stara Kutna -->
+            <hasName name="ksta_woman_6" /> <!-- bartender in Stara Kutna -->
+            <hasName name="ttkc_woman_1" /> <!-- bartender in Troskovice -->
+            <hasName name="kkut_woman_272" /> <!-- bartender in Dira -->
+            <hasName name="kkut_woman_273" /> <!-- bartender in Dira -->
+        </customSelector>
+
+        <!--doesnt have trader gossips -->
+        <customSelector name="isLightTrader" mode="or">
+            <hasName name="tvez_dedek" /> <!-- nomad camp - prekupnik kradeneho zbozi -->
+            <hasName name="tvez_man_6" /> <!-- nomad camp - zidovsky obchodnik -->
+            <hasName name="tvez_aranka" /> <!-- nomad camp - aranka -->
+            <hasName name="tzel_man_11" /> <!-- beggar under the Zelejov bridge -->
+            <hasName name="ttkc_barbora" />
+            <hasName name="kkut_woman_36" />
+            <hasName name="ksta_innkeeper" />
+            <hasName name="kzik_man_43" />
+            <hasName name="kkut_woman_268" />
+            <hasName name="ksuc_woman_34" />
+            <hasName name="kmis_woman_18" /> <!-- trader in Miskovice -->
+            <hasName name="tzda_man_3" />  <!-- trader in Žďar -->
+        </customSelector>
+
+        <!--doesnt have trader gossips and greetings  -->
+        <customSelector name="isVeryLightTrader" mode="or">
+            <!-- event traders -->
+            <hasName name="taboryUCesty_shop_kramar" />
+            <hasName name="taboryUCesty_shop_mikula" />
+            <hasName name="taboryUCesty_shop_henslin" />            
+            <hasName name="taboryUCesty_shop_jacob" />
+            <hasName name="taboryUCesty_shop_karol" />
+            <hasName name="taboryUCesty_shop_vencl" />
+            <hasName name="taboryUCesty_shop_elbel" />
+            <hasName name="taboryUCesty_shop_stork" />
+            <hasName name="taboryUCesty_shop_andreas" />
+            <hasName name="taboryUCesty_dealer_actors_woman" />
+            <hasName name="taboryUCesty_dealer_baltazar" />
+            <hasName name="taboryUCesty_dealer_raubritter" />
+            <hasName name="taboryUCesty_dealer_ada" />
+            <hasName name="taboryUCesty_dealer_ibrahim_woman_1" />
+            <hasName name="taboryUCesty_dealer_gregorius" />
+            <hasName name="taboryUCesty_dealer_trabant_1" />
+            <hasName name="taboryUCesty_dealer_katerina" />
+            <hasName name="taboryUCesty_dealer_smugglers_woman" />
+            <hasName name="pocestny_travelingMerchant_man*" />
+            <hasName name="pocestny_travelingMerchant_woman*" />
+
+        </customSelector>
+
+        <!--doesnt have trader gossips, greetings and farewells  -->
+        <customSelector name="isUltraLightTrader" mode="or">
+            <hasName name="tpod_krejzl" />
+            <hasName name="ttkc_inkeeper" />
+            <hasName name="tvez_pavlena" />
+            <hasName name="kkut_beta" />
+            <hasName name="tvez_mikolaj" />  <!-- Horse Handler Trosecko -->
+            <hasName name="kmis_herbalist" /> <!-- herbalist in Miskovice -->
+            <hasName name="kkut_woman_64" /> <!-- second bartender in a jewish pub -->
+            <hasName name="kmal_man_1" /> <!-- blacksmith in studfarm Maleshov -->
+            <hasName name="kcer_woman_3" /> <!-- ultralight bartender in Certovka -->
+            <hasName name="ttkc_woman_2" /> <!-- ultralight bartender in Troskovitz -->
+            <hasName name="kkut_krysa" /> <!-- ultralight bartender in Dira -->
+            <hasName name="kkut_woman_20" /> <!-- bartender in Tarmark Lokal -->
+            <hasName name="tzel_woman_9" /> <!-- bartender Marie in Zelejov -->
+        </customSelector>
+
+        
+
+        <customSelector name="isTrader" mode="or">
+            <isFullTrader />
+            <isLightTrader />
+            <isVeryLightTrader />
+            <isUltraLightTrader />
+        </customSelector>
+
+        <customSelector name="hasMerchantVoice" mode="or">
+            <hasVoice name="abigailRice" />
+            <hasVoice name="jenniferPreston" />
+            <hasVoice name="marketaRychterova" />
+            <hasVoice ID="223" /> <!-- Muž Roma 2 (Vajda) -->
+            <hasVoice name="rebeccaRisness" />
+            <hasVoice name="johnComer" />
+            <hasVoice name="jonathanMilshaw" />
+            <hasVoice name="juergenStraub" />
+            <hasVoice name="kennethChristensen" />
+            <hasVoice name="miltonWelsh" />
+            <hasVoice name="tomasZielinski" />
+            <hasVoice name="paulColtofeanu" />
+            <hasVoice name="samBarlien" />
+            <hasVoice name="jamesBeaumont" />
+            <hasVoice name="tegenShort" />
+            <hasVoice name="gabrielAndrews" />
+            <hasVoice name="chrisClarke" />
+            <hasVoice name="danielOsgerby" />            
+        </customSelector>
+
+        <customSelector name="hasLightTraderVoice" mode="or">
+            <hasVoice ID="220" /> <!-- Žena Roma Stará (Aranka) -->
+            <hasMerchantVoice />
+        </customSelector>
+
+        <customSelector name="hasVeryLightTraderVoice" mode="or">
+            <hasLightTraderVoice />
+        </customSelector>
+
+        <customSelector name="hasUltraLightTraderVoice" mode="or">
+            <hasVeryLightTraderVoice />
+            <hasVoice name="bobBordeaux" />
+            <hasVoice name="angelaAlsop" />
+            <hasVoice name="tonyaGraves" />
+            <hasVoice name="sineadPhelps" />
+            <hasVoice ID="224" /> <!-- Muž Roma 3 (Mikolaj) -->
+            <hasVoice name="sandraSchneider" />
+            <hasVoice name="steenAgro" />
+        </customSelector>
+
+        <customSelector name="hasMerchantVoiceOrNoCharacter" mode="or">
+            <hasMerchantVoice />
+            <hasNoCharacter />
+        </customSelector>
+
+        <customSelector name="hasLightTraderVoiceOrNoCharacter" mode="or">
+            <hasLightTraderVoice />
+            <hasNoCharacter />
+        </customSelector>
+
+        <customSelector name="hasVeryLightTraderVoiceOrNoCharacter" mode="or">
+            <hasVeryLightTraderVoice />
+            <hasNoCharacter />
+        </customSelector>
+
+        <customSelector name="hasUltraLightTraderVoiceOrNoCharacter" mode="or">
+            <hasUltraLightTraderVoice />
+            <hasNoCharacter />
+        </customSelector>
+
+        <customSelector name="hasRepairmanSocialClass" mode="or">
+            <hasSocialClass name="armorer" />
+            <hasSocialClass name="blacksmith" />
+            <hasSocialClass name="weaponsmith" />
+            <hasSocialClass name="tailor" />
+            <hasSocialClass name="shoemaker" />
+            <hasSocialClass name="shootmaster" />
+            <hasSocialClass name="gunsmith" />
+            <hasSocialClass name="saddler" />
+        </customSelector>
+
+        
+
+        <customSelector name="isHorseTraderWithMerchantVoice" mode="or">
+            <hasName name="kkut_man_64"/>
+            <hasName name="tsem_man_15"/>
+            <hasName name="kgru_woman_8"/>
+            <hasName name="kmal_hastal"/>
+        </customSelector>
+
+
+
+        <customSelector name="hasHandWorkerSocialClass">
+            <or>
+                <hasSocialClass name="armorer" />
+                <hasSocialClass name="baker" />
+                <hasSocialClass name="blacksmith" />
+                <hasSocialClass name="butcher" />
+                <hasSocialClass name="craftsman" />
+                <hasSocialClass name="mason" />
+                <hasSocialClass name="miller" />
+                <hasSocialClass name="quarryman" />
+                <hasSocialClass name="shoemaker" />
+                <hasSocialClass name="tailor" />
+                <hasSocialClass name="tanner" />
+                <hasSocialClass name="weaponsmith" />
+                <hasSocialClass name="gunsmith" />
+                <hasSocialClass name="herbalist" />
+                <hasSocialClass name="collier" />
+                <hasSocialClass name="villager" />
+                <hasSocialClass name="lumberjack" />
+                <hasSocialClass name="miner" />
+                <hasSocialClass name="smelter" />
+                <hasSocialClass name="blacksmithApprentice" />
+                <hasSocialClass name="farmer" />
+                <hasSocialClass name="varlet" />
+                <hasSocialClass name="saddler" />
+                <hasSocialClass name="woodworker" />
+                <hasSocialClass name="minter" />
+            </or>
+        </customSelector>
+
+		<!--
+		Each civilian social class should be included in one of the classes {isLowClass,isLowClass,isUpperClass,isNobleClass} for crime scaling
+		-->
+		<customSelector name="isLowClass" mode="or">
+			<hasSocialClass name="beggar" />
+			<hasSocialClass name="herbalist" />
+			<hasSocialClass name="refugee" />
+			<hasSocialClass name="tanner" />
+			<hasSocialClass name="ruffian" />
+			<hasSocialClass name="collier" />
+			<hasSocialClass name="bathhouseMaid" />
+			<hasSocialClass name="poacher" />
+			<hasSocialClass name="fortuneTeller" />
+			<hasSocialClass name="fightClubFighter" />
+			<hasSocialClass name="renegade" />
+			<hasSocialClass name="wench" />
+			<hasSocialClass name="gypsy" />
+			<hasSocialClass name="prisoner" />
+			<hasSocialClass name="gravedigger" />
+			<hasSocialClass name="musician" />
+		</customSelector>
+
+		<customSelector name="isMiddleClass" mode="or">
+			<hasSocialClass name="villager" />
+			<hasSocialClass name="bartender" />
+			<hasSocialClass name="baker" />
+			<hasSocialClass name="butcher" />
+			<hasSocialClass name="craftsman" />
+			<hasSocialClass name="miller" />
+			<hasSocialClass name="shoemaker" />
+			<hasSocialClass name="lumberjack" />
+			<hasSocialClass name="miner" />
+            <hasSocialClass name="smelter" />
+			<hasSocialClass name="wanderer" />
+			<hasSocialClass name="mercenary" />
+			<hasSocialClass name="bathhouseAbbess" />
+			<hasSocialClass name="mason" />
+			<hasSocialClass name="blacksmithApprentice" />
+			<hasSocialClass name="quarryman" />
+			<hasSocialClass name="housekeeper" />
+			<hasSocialClass name="farmer" />
+			<hasSocialClass name="varlet" />
+			<hasSocialClass name="herdsman" />
+			<hasSocialClass name="fisherman" />
+			<hasSocialClass name="cook" />
+			<hasSocialClass name="saddler" />
+			<hasSocialClass name="woodworker" />
+            <hasSocialClass name="merchant" />
+            <hasSocialClass name="innkeeper" />
+            <hasSocialClass name="blacksmith" />
+            <hasSocialClass name="tailor" />
+            <hasSocialClass name="apothecary" />
+            <hasSocialClass name="horsetrader" />
+            <hasSocialClass name="healer" />
+            <hasSocialClass name="townsman" />
+            <hasSocialClass name="security" />
+		</customSelector>
+
+		<customSelector name="isUpperClass" mode="or">
+			<hasSocialClass name="soldier" />
+            <hasSocialClass name="soldier_crimeAuthority" />
+			<hasSocialClass name="guard" />
+            <hasSocialClass name="guardLeader" />
+			<hasSocialClass name="armorer" />
+			<hasSocialClass name="weaponsmith" />
+			<hasSocialClass name="officer" />
+			<hasSocialClass name="shootmaster" />
+			<hasSocialClass name="watchman" />
+			<hasSocialClass name="fake_soldier" />
+			<hasSocialClass name="huntsman" />
+            <hasSocialClass name="huntsman_crimeAuthority" />
+			<hasSocialClass name="gunsmith" />
+			<hasSocialClass name="minter" />
+		</customSelector>
+
+		<customSelector name="isNobleClass" mode="or">
+			<hasSocialClass name="priest" />
+			<hasSocialClass name="monk" />
+			<hasSocialClass name="circator" />
+			<hasSocialClass name="nobleman" />
+			<hasSocialClass name="bailiff" />
+			<hasSocialClass name="scribe" />
+		</customSelector>
+
+        <customSelector name="hasNobleVoice" mode="or">
+            <hasVoice name="abigailRice" />
+            <hasVoice name="jenniferPreston" />
+            <hasVoice name="marketaRychterova" />
+            <hasVoice name="rebeccaRisness" />
+            <hasVoice name="lilyCarr" />
+            <hasVoice name="bethanRoseYoung" />
+
+            <hasVoice name="gregoryGudgeon" />
+            <hasVoice name="christopherDukes" />
+            <hasVoice name="samBarlien" />
+            <hasVoice name="peterHosking_generic" />
+            <hasVoice name="danielZappi" />
+            <hasVoice name="ianChampion" />
+            <hasVoice name="jonathanMilshaw" />
+            <hasVoice name="martinBishop" />
+            <hasVoice name="paulColtofeanu" />
+            <hasVoice name="scottYoung" />
+            <hasVoice name="tomasZielinski" />
+            <hasVoice name="johnComer" />
+        </customSelector>
+		
+		<customSelector name="isNoblemanOrTrademan">
+            <or>
+                <hasTradesmanSocialClass />
+				<isNobleClass />
+            </or>
+        </customSelector>
+
+        <customSelector name="isNotNoblemanOrTrademan">
+            <not>
+                <isNoblemanOrTrademan />
+            </not>
+        </customSelector>
+
+        <customSelector name="isCraftsmanApprentice">
+            <or>
+                <hasName name="kkut_man_348" />
+                <hasName name="kkut_man_7" />
+                <hasName name="kkut_man_8" />
+                <hasName name="kkut_man_22" />
+                <hasName name="kkut_man_23" />
+                <hasName name="kkut_man_225" />
+                <hasName name="kkut_man_317" />
+                <hasName name="kkut_man_318" />
+                <hasName name="kkut_man_213" />
+                <hasName name="kkut_man_222" />
+                <hasName name="kkut_man_348" />
+                <hasName name="kkut_man_31" />
+                <hasName name="kkut_man_37" />
+                <hasName name="kkut_man_38" />
+				<hasSocialClass name="blacksmithApprentice" />
+            </or>
+        </customSelector>
+			
+        <!-- Leader -->		
+		<customSelector name="isLeader" mode="or">
+            <hasSocialClass name="banditLeader" />
+			<hasSocialClass name="cumanLeader" />
+			<hasSocialClass name="ruffianLeader" />
+			<hasSocialClass name="guardLeader" />
+        </customSelector>
+
+        <!-- Cumans -->
+
+        <customSelector name="isCuman">
+            <or>
+                <hasSocialClass name="cuman" />
+                <hasSocialClass name="cumanLeader" />
+            </or>
+        </customSelector>
+
+        <customSelector name="isNotCuman">
+            <not>
+                <isCuman />
+            </not>
+        </customSelector>
+
+        <!-- Soldier -->
+
+        <customSelector name="isSoldier">
+            <or>
+                <hasSocialClass name="bailiff" />
+                <hasSocialClass name="soldier" />
+                <hasSocialClass name="soldier_crimeAuthority" />
+                <hasSocialClass name="bandit" />
+                <hasSocialClass name="ruffian" />
+                <hasSocialClass name="officer" />
+                <hasSocialClass name="poacher" />
+                <hasSocialClass name="mercenary" />
+                <hasSocialClass name="watchman" />
+                <hasSocialClass name="security" />
+                <hasSocialClass name="guard" />
+                <hasSocialClass name="guardLeader" />
+                <hasSocialClass name="banditLeader" />
+                <hasSocialClass name="ruffianLeader" />
+            </or>
+        </customSelector>
+		
+		<customSelector name="isNotSoldier">
+            <not>
+                <isSoldier />
+            </not>
+        </customSelector>
+
+        <!-- Huntsman -->
+        <customSelector name="isHuntsman">
+            <or>
+                <hasSocialClass name="huntsman" />
+                <hasSocialClass name="huntsman_crimeAuthority" />
+            </or>
+        </customSelector>
+
+        <customSelector name="isNotHuntsman">
+            <not>
+                <isHuntsman />
+            </not>
+        </customSelector>
+
+        <!-- Guard -->
+
+        <customSelector name="isGuard" mode="and">
+            <or>
+                <hasSocialClass name="watchman" />
+                <hasSocialClass name="guard" />
+                <hasSocialClass name="guardLeader" />
+                <hasSocialClass name="catchpole" /> 
+                <hasSocialClass name="soldier_crimeAuthority" />
+            </or>
+            <or>
+                <hasFaction name="trosecko_settlements" />
+                <hasFaction name="kutnohorsko_settlements" />
+                <hasFaction name="trosecko_justice_league" />
+            </or>
+        </customSelector>
+
+        <customSelector name="isSoldier" mode="and">
+            <or>
+                <hasSocialClass name="soldier" />
+                <hasSocialClass name="soldier_crimeAuthority" />
+                <hasSocialClass name="security" />
+                <hasSocialClass name="guard" />
+                <hasSocialClass name="guardLeader" />
+                <hasSocialClass name="officer" />
+            </or>
+        </customSelector>
+
+        <!-- Bailiff -->
+
+        <customSelector name="isBailiff" mode="and">
+            <or>
+                <hasSocialClass name="bailiff" />
+            </or>
+            <or>
+                <hasFaction name="trosecko_settlements" />
+                <hasFaction name="kutnohorsko_settlements" />
+            </or>
+        </customSelector>
+
+        <!-- isAuthorityFigure -->
+        <!-- Social classes that are used here are required to have `soul_crime_role_id="2"` -->
+        <customSelector name="isAuthorityFigure" mode="or">
+            <isGuard/>
+            <isBailiff/>
+            <hasSocialClass name="huntsman_crimeAuthority" />
+        </customSelector>
+
+        <!-- NPCs with bandit roles and voices -->
+
+        <customSelector name="isBandit" mode="and">
+            <or>
+                <isValidOpenworldNpc />
+                <isTest />
+            </or>
+            <isNotCuman />
+            <isMan />
+            <or>
+                <isPublicEnemy/>
+                <hasFaction name="trosecko_avengers" />
+            </or>
+            <or>
+                <hasFactionLabel name="camp" />
+                <hasSocialClass name="bandit" />
+                <hasSocialClass name="banditLeader" />
+                <hasSocialClass name="ruffian" />
+                <hasSocialClass name="ruffianLeader" />
+                <hasSocialClass name="poacher" />
+            </or>
+        </customSelector>
+
+		<!-- Animals -->
+		
+        <customSelector name="isDog">
+            <hasSoulArchetype name="Dog" />
+        </customSelector>
+
+        <customSelector name="isHorse">
+            <hasSoulArchetype name="Horse" />
+        </customSelector>
+
+        <customSelector name="isAnimal">
+            <or>
+                <hasSoulArchetype name="Horse" />
+                <hasSoulArchetype name="Dog" />
+                <hasFaction name="animal" />
+            </or>
+        </customSelector>
+				
+        <customSelector name="isPlayersDogCompanion">
+            <hasSoulArchetype name="Dog" />
+            <or>
+                <hasName name="player_dogCompanion_*" />
+                <hasName name="test_player_dogCompanion" />
+                <hasName name="tvez_vorech" />
+            </or>
+        </customSelector>
+
+        <customSelector name="isWolf">
+            <hasSoulArchetype name="Wolf" />
+        </customSelector>
+
+        <customSelector name="isWarDog">
+            <or>
+                <hasSoulArchetype name="Dog" />
+                <hasSoulArchetype name="WildDog" />
+            </or>
+            <hasSocialClass name="dog_aggressive" />
+        </customSelector>
+
+        <customSelector name="isBackyardDog">
+            <or>
+                <hasSoulArchetype name="Dog" />
+                <hasSoulArchetype name="WildDog" />
+            </or>
+            <hasSocialClass name="dog_home" />
+        </customSelector>
+			
+		<!-- Generic character -->
+		
+		<customSelector name="hasGenericCharacter">
+			<hasCharacterName name="GENERIC_*" />
+		</customSelector>
+
+         <!-- Civilians  -->
+         
+        <customSelector name="isCivilian">
+            <isHuman />
+            <or>
+                <hasFaction name="trosecko_justice_league" />
+                <hasFaction name="civilians" />
+            </or>
+            <not>
+                <or>
+                    <isSoldier />
+                    <isPublicEnemy />
+                    <isCuman />
+					<isDog />
+                </or>
+            </not>
+        </customSelector>
+
+        <customSelector name="isCivilianAnimal">
+            <not>
+                <isHuman />
+            </not>
+            <or>
+                <hasFaction name="trosecko_justice_league" />
+                <hasFaction name="civilians" />
+            </or>
+        </customSelector>
+        
+        <!-- Players Friends -->
+
+        <customSelector name="isPlayersFriend">
+            <or>
+				<hasFaction name="players_friends" />
+				<hasFaction name="kutnohorsko_allies" />
+				<hasFaction name="trosecko_allies" />
+            </or>
+        </customSelector>
+
+        <!-- Story related BFFs -->
+
+        <customSelector name="isBFF">
+            <or>
+                <hasName name="kkut_samuel" />
+                <hasName name="tkop_ptacek" />
+                <hasName name="prepadeni_ptacek_naked" />
+                <hasName name="tneb_bohuta" />
+                <hasName name="ksuc_petr" />
+                <hasName name="kkut_rozaRuthard" />
+                <hasName name="krat_martinOderin" />
+                <hasName name="tneb_zizka" />
+                <hasName name="kpri_komar" />
+                <hasName name="kmis_hansZUher" />
+                <hasName name="kkut_lichtenstejn" />
+                <hasName name="ttro_bergov" />
+                <hasName name="kzik_musa" />
+                <hasName name="kcer_kubenka" />
+                <hasName name="kcer_suchyCert" />
+                <hasName name="ttro_katerina" />
+                <hasName name="ksuc_jost" />
+                <hasName name="kkut_oldrichVavak" />
+                <hasName name="tsem_hanus" />
+                <hasName name="tsem_racek" />
+                <!-- <hasName name="krat_baronBrabant" /> added from Skald -->
+            </or>
+        </customSelector>
+
+        <customSelector name="hasUniqueVoiceForBff">
+            <or>
+                <hasVoice name="lukeDale" />
+                <hasVoice name="marcCram" />
+                <hasVoice name="peterHosking_hanus" />
+                <hasVoice name="adrianBouchet" />
+                <hasVoice name="euanMacnaughton" />
+                <hasVoice name="janinaAnderson" />
+                <hasVoice name="jeanPhilippeRicci" />
+                <hasVoice name="marekVasut" />
+                <hasVoice name="hainsleyBennet" />
+                <hasVoice name="lukasLatinak" />
+                <hasVoice name="konradEleryk" />
+            </or>
+        </customSelector>
+
+        <customSelector name="doesntHaveUniqueVoiceForBff">
+            <not>
+                <hasUniqueVoiceForBff />
+            </not>
+        </customSelector>
+
+        <customSelector name="isBffOrHasUniqueBffVoice">
+            <or>
+               <isBFF />
+               <hasUniqueVoiceForBff />
+            </or>
+        </customSelector>
+
+        <customSelector name="isNotBffAndHasNoUniqueBffVoice">
+            <not>
+               <isBffOrHasUniqueBffVoice />
+            </not>
+        </customSelector>
+		
+		<!-- Story related prettyGoodFriendsForever -->
+		
+		<customSelector name="isPrettyGoodFriend">
+            <or>
+                <hasName name="kcer_brabantSoldier_*" />
+                <hasName name="kkut_kunzlinRuthard" /> 		<!-- Should be BFF but it s too late for that -->
+            </or>
+        </customSelector>
+
+        <!-- Loners -->
+
+        <customSelector name="isLoner">
+                <or>
+                    <hasFaction name="trosecko_outskirts" />
+                    <hasFaction name="kutnohorsko_outskirts" />
+                    <hasFaction name="trosecko_millers" />
+                    <hasFaction name="kutnohorsko_millers" />
+                    <hasFaction name="trosecko_settlements_slatejov" />
+					<hasFaction name="kutnohorsko_settlements_certovka_commonFolk" />
+					<hasFaction name="kutnohorsko_settlements_rabstejnsko_mill" />
+                </or>
+        </customSelector>
+
+        <!-- Characters with clothing that player shouldn't be able to steal and they don't equip stuff they found on ground/in their personal stash-->
+
+        <customSelector name="hasUniqueClothing">
+            <or>
+                <hasName name="tkop_ptacek" />
+                <hasName name="tneb_bohuta" /> <!-- https://youtrack.warhorsestudios.cz/articles/KCD2-A-9615/Task:-Equipment -->
+                <hasName name="ttro_bergov" />
+                <hasName name="kkut_rozaRuthard" />
+                <hasName name="kkut_kunzlinRuthard" />
+                <hasName name="kzik_musa" />
+                <hasName name="kzik_cherthan" />
+                <hasName name="kzik_grozav" />
+                <hasName name="kzik_ditrich" />
+                <hasName name="kzik_stibor" />
+                <hasName name="kzik_stepan" />
+                <hasName name="ttro_komori" />
+                <hasName name="ttro_katerina" />
+                <hasName name="kmis_hansZUher" />
+                <hasName name="tneb_zizka" />
+                <hasName name="kpri_komar" />
+                <hasName name="kcer_kubenka" />
+                <hasName name="kcer_suchyCert" />
+                <hasName name="kkut_samuel" />
+                <hasName name="krat_baronBrabant" />
+                <hasName name="kzik_zavis" />
+                <hasName name="kkut_lichtenstejn" />
+                <hasName name="kkut_oldrichVavak" />
+                <hasName name="ksuc_jost" />
+                <hasName name="ksuc_petr" />
+            </or>
+        </customSelector>
+
+		<customSelector name="isGerman">
+			<or>
+                <hasFactionLabel name="german" />
+                <hasName name="taboryUCesty_shop_stork" />
+                <hasName name="ttkc_emerich" />
+                <hasName name="ttkc_man_18" />
+                <hasName name="ttkc_man_19" />
+                <hasName name="kcer_brabantSoldier_1" />
+                <hasName name="kcer_brabantSoldier_2" />
+                <hasName name="kcer_brabantSoldier_3" />
+                <hasName name="kgru_man_21" />
+                <hasName name="kgru_man_51" />
+                <hasName name="kgru_man_52" />
+                <hasName name="khor_maslo" />
+                <hasName name="khor_oreseller" />
+                <hasName name="kkut_andreas" />
+                <hasName name="kkut_arne" />
+                <hasName name="kkut_elsa" />
+                <hasName name="kkut_enderlin" />
+                <hasName name="kkut_geldstyk" />
+                <hasName name="kkut_goclin" />
+                <hasName name="kkut_hendl" />
+                <hasName name="kkut_henslin" />
+                <hasName name="kkut_johlin" />
+                <hasName name="kkut_jorgPrank" />
+                <hasName name="kkut_man_1" />
+                <hasName name="kkut_man_108" />
+                <hasName name="kkut_man_109" />
+                <hasName name="kkut_man_11" />
+                <hasName name="kkut_man_110" />
+                <hasName name="kkut_man_111" />
+                <hasName name="kkut_man_112" />
+                <hasName name="kkut_man_113" />
+                <hasName name="kkut_man_114" />
+                <hasName name="kkut_man_115" />
+                <hasName name="kkut_man_12" />
+                <hasName name="kkut_man_13" />
+                <hasName name="kkut_man_14" />
+                <hasName name="kkut_man_15" />
+                <hasName name="kkut_man_16" />
+                <hasName name="kkut_man_2" />
+                <hasName name="kkut_man_208" />
+                <hasName name="kkut_man_211" />
+                <hasName name="kkut_man_212" />
+                <hasName name="kkut_man_220" />
+                <hasName name="kkut_man_221" />
+                <hasName name="kkut_man_222" />
+                <hasName name="kkut_man_223" />
+                <hasName name="kkut_man_227" />
+                <hasName name="kkut_man_234" />
+                <hasName name="kkut_man_236" />
+                <hasName name="kkut_man_239" />
+                <hasName name="kkut_man_240" />
+                <hasName name="kkut_man_241" />
+                <hasName name="kkut_man_3" />
+                <hasName name="kkut_man_33" />
+                <hasName name="kkut_man_34" />
+                <hasName name="kkut_man_37" />
+                <hasName name="kkut_man_38" />
+                <hasName name="kkut_man_4" />
+                <hasName name="kkut_man_5" />
+                <hasName name="kkut_man_6" />
+                <hasName name="kkut_man_7" />
+                <hasName name="kkut_man_8" />
+                <hasName name="kkut_man_9" />
+                <hasName name="kkut_mandelina" />
+                <hasName name="kkut_markolt" />
+                <hasName name="kkut_menhart" />
+                <hasName name="kkut_oswald" />
+                <hasName name="kkut_tyc" />
+                <hasName name="kkut_warehouseGuard_1" />
+                <hasName name="kkut_warehouseGuard_2" />
+                <hasName name="kkut_warehouseGuard_3" />
+                <hasName name="kkut_woman_1" />
+                <hasName name="kkut_woman_10" />
+                <hasName name="kkut_woman_101" />
+                <hasName name="kkut_woman_102" />
+                <hasName name="kkut_woman_103" />
+                <hasName name="kkut_woman_105" />
+                <hasName name="kkut_woman_106" />
+                <hasName name="kkut_woman_2" />
+                <hasName name="kkut_woman_202" />
+                <hasName name="kkut_woman_203" />
+                <hasName name="kkut_woman_217" />
+                <hasName name="kkut_woman_224" />
+                <hasName name="kkut_woman_225" />
+                <hasName name="kkut_woman_226" />
+                <hasName name="kkut_woman_227" />
+                <hasName name="kkut_woman_228" />
+                <hasName name="kkut_woman_231" />
+                <hasName name="kkut_woman_234" />
+                <hasName name="kkut_woman_25" />
+                <hasName name="kkut_woman_26" />
+                <hasName name="kkut_woman_3" />
+                <hasName name="kkut_woman_4" />
+                <hasName name="kkut_woman_5" />
+                <hasName name="kkut_woman_8" />
+                <hasName name="kkut_woman_9" />
+                <hasName name="kmis_woman_18" />
+                <hasName name="kmis_woman_19" />
+                <hasName name="kpri_innkeeper" />
+                <hasName name="kpri_man_15" />
+                <hasName name="kpri_man_16" />
+                <hasName name="kpri_man_2" />
+                <hasName name="kpri_woman_2" />
+                <hasName name="ksta_innkeeper" />
+                <hasName name="ksta_man_5" />
+                <hasName name="ksta_man_8" />
+                <hasName name="ksta_man_9" />
+                <hasName name="ksta_woman_3" />
+                <hasName name="ksta_woman_5" />
+                <hasName name="ksta_woman_6" />
+                <hasName name="ksuc_frenczl" />
+                <hasName name="ksuc_gertaFrenczlova" />
+                <hasName name="kzik_ditrich" />
+                <hasName name="taboryUCesty_duelanti_darko" />
+                <hasName name="taboryUCesty_duelanti_ulrich" />
+                <hasName name="taboryUCesty_lukostrelba_kurzbach" />
+                <hasName name="taboryUCesty_obchod_andreas" />
+                <hasName name="taboryUCesty_obchod_elbel" />
+                <hasName name="taboryUCesty_obchod_henslin" />
+                <hasName name="taboryUCesty_obchod_stork" />
+                <hasName name="taboryUCesty_obchod_vencl" />
+                <hasName name="ttkc_man_11" />
+                <hasName name="ttkc_tradersMom" />
+                <hasName name="ttkc_woman_4" />
+                <hasName name="ttro_man_43" />
+                <hasName name="tzel_johan" />
+                <hasName name="ttro_man_1" />
+			</or>
+		</customSelector>
+
+        
+        <customSelector name="isPale" mode="or">
+            <hasSocialClass name="townsman" />
+            <hasSocialClass name="merchant" />
+            <hasSocialClass name="monk" />
+            <hasSocialClass name="circator" />
+            <hasSocialClass name="nobleman" />
+            <hasSocialClass name="scribe" />
+            <hasSocialClass name="tailor" />
+            <hasSocialClass name="apothecary" />
+        </customSelector>
+		
+		<customSelector name="isJewish" mode="or">
+			<hasFactionLabel name="jewish" />
+            <hasName name="taboryUCesty_dealer_ibrahim_man" />
+		</customSelector>
+
+        <customSelector name="isAncient" mode="or">
+            <hasName name="kutnohorskyTurnaj_fighter3a" />
+            <hasName name="kvys_bohuse" />
+            <hasName name="ttkc_gravedigger" />
+            <hasName name="ztracenaCest_jezek" />
+            <hasName name="pocestny_robbedMerchant" />
+            <hasName name="ttro_baba" />
+            <hasName name="tvez_dedek" />
+            <hasName name="sabotazLazni_duelReferee" />
+            <hasName name="tzel_olbram" />
+            <hasName name="ttkc_woodworkersFather" />
+        </customSelector>
+
+        <customSelector name="hasGenericJewishVoice" mode="or">
+            <hasVoice name="rozalieAndelova" />
+            <hasVoice name="madsHjulmand" />
+            <hasVoice name="miltonWelsh" />
+            <hasVoice name="marketaRychterova" />
+            <hasVoice name="sandraSchneider" />
+            <hasVoice name="juergenStraub" />
+            <hasVoice name="tomasZielinski" />
+        </customSelector>
+
+        <customSelector name="hasGenericGermanVoice" mode="or">
+            <hasVoice name="rozalieAndelova" />
+            <hasVoice name="madsHjulmand" />
+            <hasVoice name="miltonWelsh" />
+            <hasVoice name="marketaRychterova" />
+            <hasVoice name="kennethChristensen" />
+            <hasVoice name="juergenStraub" />
+            <hasVoice name="tomasZielinski" />
+            <hasVoice name="michaelGlantschnig" />
+        </customSelector>
+
+        <customSelector name="hasGenericPriestVoice" mode="or">
+            <hasVoice name="bobBordeaux" />
+            <hasVoice name="christopherDukes" />
+            <hasVoice name="danielZappi" />
+            <hasVoice name="gregoryGudgeon" />
+            <hasVoice name="ianChampion" />
+            <hasVoice name="johnComer" />
+            <hasVoice name="joncieElmore" />
+            <hasVoice name="martinBishop" />
+            <hasVoice name="paulColtofeanu" />
+            <hasVoice name="samBarlien" />
+            <hasVoice name="steenAgro" />
+            <hasVoice name="tomasZielinski" />
+        </customSelector>
+		
+		<customSelector name="isRomani">
+			<or>
+				<hasSocialClass name="gypsy" />
+				<hasFactionLabel name="romani" />
+			</or>
+		</customSelector>
+
+        <customSelector name="hasRomaniVoice" mode="or">
+            <hasVoice ID="219" /> 
+            <hasVoice ID="220" />
+            <hasVoice ID="222" />
+            <hasVoice ID="223" />
+            <hasVoice ID="224" />
+            <hasVoice ID="261" />
+            <hasVoice name="marcelCostea" />
+        </customSelector>
+
+        <customSelector name="hasGenericMinerVoice" mode="or">
+            <hasVoice name="jamesBeaumont" />
+            <hasVoice name="paulColtofeanu" />
+            <hasVoice name="jamieMarshall" />
+            <hasVoice name="johnComer" />
+            <hasVoice name="samBarlien" />
+        </customSelector>
+
+        <customSelector name="hasBroaderMinerVoice" mode="or">
+            <hasVoice name="alechMontyro" />
+            <hasVoice name="brianCaspe" />
+            <hasVoice name="danCollins" />
+            <hasVoice name="gabrielAndrews" />
+            <hasVoice name="gregoryGudgeon" />
+            <hasVoice name="jamesBeaumont" />
+            <hasVoice name="jamesNunn" />
+            <hasVoice name="jamieMarshall" />
+            <hasVoice name="johnComer" />
+            <hasVoice name="jonathanMilshaw" />
+            <hasVoice name="joncieElmore" />
+            <hasVoice name="kennethChristensen" />
+            <hasVoice name="miltonWelsh" />
+            <hasVoice name="paulColtofeanu" />
+            <hasVoice name="paulDean" />
+            <hasVoice name="peterHosking_generic" />
+            <hasVoice name="samBarlien" />
+            <hasVoice name="stewartMoore" />
+        </customSelector>
+
+		
+		<customSelector name="isPublicFriend" mode="and">
+			<isNotPlayer/>
+			<not>
+				<isPublicEnemy/>
+			</not>
+		</customSelector>
+
+		<!-- Location / faction based -->
+
+        <customSelector name="livesInSemin" mode="and">
+            <hasFaction name="trosecko_settlements_semin"/>
+        </customSelector>
+
+		<customSelector name="livesInNomadCamp_nomad">
+			<hasFaction name="trosecko_outskirts_romaniCamp"/>
+			<not>
+				<hasFaction name="trosecko_outskirts_romaniCamp_commonFolk_cumans"/>
+			</not>
+            <not>
+                <hasName name="lovVlku_rogue_*" />
+            </not>
+		</customSelector>
+
+		<customSelector name="livesInNomadCamp_romani">
+			<livesInNomadCamp_nomad/>
+			<isRomani/>
+		</customSelector>
+
+		<customSelector name="livesInNomadCamp_notRomani">
+			<livesInNomadCamp_nomad/>
+			<not>
+				<isRomani/>
+			</not>
+		</customSelector>
+		
+		<customSelector name="isBattleNpc">
+			<or>
+				<hasName name="nebakovObrana_attacker*" />
+				<hasName name="nebakovObrana_beforeBattle*" />
+				<hasName name="nebakovObrana_freeRanger*" />
+                <hasName name="finale_battle_enemy_*" />
+                <hasName name="finale_battle_rider_*" />
+                <hasName name="finale_afterBattle_rider_*" />
+                <hasName name="finale_battle_allies_*" />
+                <hasName name="prepadeniVlasskehoDvora_attacker_*" />
+                <hasName name="prepadeniVlasskehoDvora_civilian_*" />
+				<hasName name="zoufalaObranaZaBohutu_attackers_*" />
+				<hasName name="zoufalaObranaZaBohutu_defenders_*" />				
+			</or>
+		</customSelector>	
+
+        <!-- Can notice aromatic player -->
+
+        <customSelector name="reactsToSmell">
+            <isNotBffAndHasNoUniqueBffVoice />
+            <or>
+                <isPublicEnemy/>
+                <isNobleClass/>
+                <isUpperClass/>
+                <and>
+                    <isMiddleClass/>
+                    <isWoman />
+                </and>
+            </or>
+        </customSelector>   
+
+        <!-- Openworld marketplace sellers -->
+        <customSelector name="market_genericWares" mode="or">
+            <hasName name="kkut_additive_man_289" />
+            <hasName name="kkut_additive_man_290" />
+            <hasName name="kkut_additive_man_291" />
+            <hasName name="kkut_additive_man_292" />
+            <hasName name="kkut_additive_man_312" />
+            <hasName name="kkut_additive_woman_152" />
+            <hasName name="kkut_additive_woman_156" />
+            <hasName name="kkut_additive_woman_157" />
+            <hasName name="kkut_additive_woman_160" />
+            <hasName name="kkut_additive_woman_161" />
+            <hasName name="kkut_additive_woman_170" />
+            <hasName name="kkut_man_238" />
+            <hasName name="kkut_man_249" />            
+            <hasName name="kkut_man_349" />
+            <hasName name="kkut_man_352" />
+            <hasName name="kkut_woman_276" />        
+        </customSelector>  
+        <customSelector name="market_greengrocer" mode="or">
+            <hasName name="kpri_man_20" />
+            <hasName name="tvez_man_6" />
+            <hasName name="kbyl_woman_11" />
+            <hasName name="ttkc_woman_4" />
+            <hasName name="kkut_man_336" />
+            <hasName name="kkut_woman_268" />
+            <hasName name="kkut_man_337" />
+            <hasName name="kkut_woman_269" />
+            <hasName name="kkut_man_338" />
+            <hasName name="kkut_woman_270" />
+            <hasName name="ksuc_woman_34" />
+            <hasName name="ksuc_man_7" />
+            <hasName name="kkut_woman_245" />
+            <hasName name="kkut_man_243" />
+            <hasName name="kmis_woman_27" />
+            <hasName name="tsem_woman_12" />
+            <hasName name="kkut_man_44" />
+            <hasName name="kgru_woman_12" />
+            <hasName name="kbyl_woman_10" />
+        </customSelector>  
+        <customSelector name="market_grocer" mode="or">
+            <hasName name="kkut_man_55" />
+            <hasName name="kkut_man_47" />
+            <hasName name="kkut_man_57" />
+            <hasName name="kkut_man_56" />
+            <hasName name="kkut_man_3" />
+            <hasName name="kmal_man_7" />
+            <hasName name="kpri_man_15" />
+            <hasName name="tvez_man_6" />
+            <hasName name="kkut_woman_47" />
+            <hasName name="ttkc_woman_6" />
+            <hasName name="ttkc_woman_4" />
+            <hasName name="kkut_woman_271" />
+            <hasName name="kkut_man_339" />
+            <hasName name="kkut_additive_man_284" />
+        </customSelector>  
+        <customSelector name="market_smith" mode="or">
+            <hasName name="kkut_man_35" />
+            <hasName name="khor_man_26" />
+            <hasName name="kkut_man_225" />
+            <hasName name="kkut_man_241" />
+            <hasName name="kmis_man_13" />
+            <hasName name="kmis_man_14" />
+            <hasName name="ksuc_man_4" />
+            <hasName name="kzik_blacksmith" />
+            <hasName name="ttac_blacksmith" />
+            <hasName name="ttro_kovar" />
+            <hasName name="kkut_man_345" />
+            <hasName name="kkut_man_221" />
+            <hasName name="kkut_man_32" />
+            <hasName name="kkut_man_347" />
+            <hasName name="kkut_additive_woman_155" />
+            <hasName name="kkut_man_350" />
+            <hasName name="kkut_man_389" />
+        </customSelector>  
+        <customSelector name="market_tailor" mode="or">
+            <hasName name="kbyl_mikus" />
+            <hasName name="kkut_man_108" />
+            <hasName name="kmis_man_17" />
+            <hasName name="kkut_man_110" />
+            <hasName name="kkut_man_109" />
+            <hasName name="kkut_woman_212" />
+            <hasName name="kkut_woman_105" />
+            <hasName name="kkut_additive_man_288" />
+        </customSelector>  
+        <customSelector name="market_saddler" mode="or">
+            <hasName name="tneb_man_6" />
+            <hasName name="tneb_pelcl" />
+            <hasName name="tsem_man_16" />
+            <hasName name="kkut_woman_212" />
+            <hasName name="kkut_woman_105" />
+            <hasName name="kkut_man_351" />
+            <hasName name="kkut_man_381" />
+        </customSelector>  
+        <customSelector name="market_butcher" mode="or">
+            <hasName name="kbyl_man_5" />
+            <hasName name="kkut_man_248" />
+            <hasName name="kkut_man_251" />
+            <hasName name="kkut_man_250" />
+            <hasName name="kmis_man_7" />
+            <hasName name="kpri_butcher" />
+        </customSelector>  
+        <customSelector name="market_potter" mode="or">
+            <hasName name="kkut_man_55" />
+            <hasName name="kpri_man_15" />
+            <hasName name="tvez_man_6" />
+            <hasName name="kkut_woman_47" />
+            <hasName name="ttkc_woman_6" />
+            <hasName name="ttkc_woman_4" />
+            <hasName name="kkut_additive_woman_153" />
+            <hasName name="kkut_additive_woman_154" />
+            <hasName name="kkut_additive_man_285" />
+            <hasName name="kkut_additive_man_286" />
+            <hasName name="kkut_additive_woman_158" />
+            <hasName name="kkut_additive_man_287" />
+            <hasName name="kkut_additive_woman_159" />
+            <hasName name="kkut_additive_man_291" />
+            <hasName name="kkut_additive_woman_162" />
+        </customSelector>  
+        <customSelector name="market_coalman" mode="or">
+            <hasName name="kgru_zdimir" />
+            <hasName name="khor_man_26" />
+            <hasName name="kkut_man_225" />
+            <hasName name="kkut_man_232" />
+            <hasName name="kkut_man_230" />
+        </customSelector>  
+        <customSelector name="market_baker" mode="or">
+            <hasName name="kmis_man_15" />
+            <hasName name="kbyl_baker" />
+            <hasName name="kkut_man_59" />
+            <hasName name="kkut_man_16" />
+            <hasName name="kkut_man_58" />
+            <hasName name="kkut_man_43" />
+            <hasName name="kmis_man_1" />
+            <hasName name="kpri_man_22" />
+            <hasName name="kkut_man_60" />
+            <hasName name="tneb_ance" />
+            <hasName name="kkut_woman_36" />
+            <hasName name="kkut_woman_249" />
+            <hasName name="kpri_woman_8" />
+        </customSelector>
+
+        <customSelector name="isMarketSeller" mode="or">
+            <market_genericWares />
+            <market_greengrocer />
+            <market_grocer />
+            <market_smith />
+            <market_tailor />
+            <market_saddler />
+            <market_butcher />
+            <market_potter />
+            <market_coalman />
+            <market_baker />
+        </customSelector>
+		
+		<customSelector name="isMarketGuard">
+            <hasSocialClass name="security" />	
+            <not>
+                <hasName name="kkut_lukas" />
+            </not>
+        </customSelector>
+           <!-- S54 gossip voices -->
+         <customSelector name="hasOneOfKuklickoGossipVoices" mode="or">
+            <hasVoice name="danCollins" />
+            <hasVoice name="danielOsgerby" />
+            <hasVoice name="danielZappi" />
+            <hasVoice name="jackParr" />
+            <hasVoice name="jamesBeaumont" />
+            <hasVoice name="jamesNunn" />
+            <hasVoice name="jamieMarshall" />
+            <hasVoice name="johnComer" />
+            <hasVoice name="jonathanMilshaw" />
+            <hasVoice name="joncieElmore" />
+            <hasVoice name="madsHjulmand" />
+            <hasVoice name="miltonWelsh" />
+            <hasVoice name="paulColtofeanu" />
+            <hasVoice name="paulDean" />
+            <hasVoice name="richardKiess" />
+            <hasVoice name="rupertLazurus" />
+            <hasVoice name="samBarlien" />
+            <hasVoice name="scottYoung" />
+            <hasVoice name="steenAgro" />
+            <hasVoice name="tomasZielinski" />
+            <hasVoice name="jadeBecker" />
+            <hasVoice name="jenniferPreston" />
+            <hasVoice name="rebeccaRisness" />
+            <hasVoice name="beccaMcfadden" />
+            
+        </customSelector>
+
+        <!-- ===================================-->
+        <!-- SELECTORS FOR DUBBING OPTIMIZATION -->
+        <!-- ================================== -->
+
+        <!-- SOULS THAT GET MERCHANT VOICES -->
+        <customSelector name="getsCappedMerchantVoice" mode="or">
+            <hasRepairmanSocialClass />
+            <isTrader />
+            <market_genericWares />
+            <market_greengrocer />
+            <market_grocer />
+            <market_smith />
+            <market_tailor />
+            <market_saddler />
+            <market_butcher />
+            <market_baker />
+        </customSelector>
+        
+        <!-- UNIQUE VOICES -->
+
+        <customSelector name="hasUniqueVoice" mode="or">
+            <hasVoice name="arnostGoldflam" />
+            <hasVoice name="georgeLenz" />
+            <hasVoice name="lukasLatinak" />
+            <hasVoice name="konradEleryk" />
+            <hasVoice name="jeanPhilippeRicci" />
+            <hasVoice name="marcCram" />
+            <hasVoice name="hainsleyBennet" />
+            <hasVoice name="euanMacnaughton" />
+            <hasVoice name="tomMcKay" />
+            <hasVoice name="lukeDale" />
+            <hasVoice name="matthewWolf" />
+            <hasVoice name="adrianBouchet" />
+            <hasVoice name="peterHosking_hanus" />
+            <hasVoice name="marekVasut" />
+            <hasVoice name="janinaAnderson" />
+            <hasVoice name="loganHillier" />
+        </customSelector>
+
+        <customSelector name="hasUniqueVoice_cantBeKilledInCombat" mode="or">
+            <hasVoice name="marcCram" />
+            <hasVoice name="lukasLatinak" />
+            <hasVoice name="adrianBouchet" />
+            <hasVoice name="lukeDale" />
+            <hasVoice name="euanMacnaughton" />
+            <hasVoice name="marekVasut" />
+            <hasVoice name="janinaAnderson" />
+            <hasVoice name="loganHillier" />
+        </customSelector>
+
+        <customSelector name="hasUniqueVoice_cantBeMurderedSilently" mode="or">
+            <hasVoice name="marcCram" />
+            <hasVoice name="lukasLatinak" />
+            <hasVoice name="adrianBouchet" />
+            <hasVoice name="lukeDale" />
+            <hasVoice name="euanMacnaughton" />
+            <hasVoice name="marekVasut" />
+            <hasVoice name="loganHillier" />
+            <hasVoice name="janinaAnderson" />
+        </customSelector>
+
+        <!-- voices of generic commoners, townsmen and germans -->
+        <customSelector name="hasWidelyUsedVoice" mode="or">
+            <hasVoice ID="68" /> 
+            <hasVoice ID="78" /> 
+            <hasVoice ID="81" /> 
+            <hasVoice ID="83" /> 
+            <hasVoice ID="85" /> 
+            <hasVoice ID="86" /> 
+            <hasVoice ID="87" /> 
+            <hasVoice ID="91" /> 
+            <hasVoice ID="100" /> 
+            <hasVoice ID="106" /> 
+            <hasVoice ID="107" /> 
+            <hasVoice ID="132" /> 
+            <hasVoice ID="140" /> 
+            <hasVoice ID="144" /> 
+            <hasVoice ID="146" /> 
+            <hasVoice ID="147" /> 
+            <hasVoice ID="148" /> 
+            <hasVoice ID="149" /> 
+            <hasVoice ID="150" /> 
+            <hasVoice ID="154" /> 
+            <hasVoice ID="155" /> 
+            <hasVoice ID="158" /> 
+            <hasVoice ID="160" /> 
+            <hasVoice ID="161" /> 
+            <hasVoice ID="163" /> 
+            <hasVoice ID="164" /> 
+            <hasVoice ID="166" /> 
+            <hasVoice ID="169" /> 
+            <hasVoice ID="171" /> 
+            <hasVoice ID="172" /> 
+            <hasVoice ID="216" /> 
+            <hasVoice ID="217" /> 
+            <hasVoice ID="235" /> 
+            <hasVoice ID="238" /> 
+            <hasVoice ID="239" /> 
+            <hasVoice ID="240" /> 
+            <hasVoice ID="241" /> 
+            <hasVoice ID="242" /> 
+            <hasVoice ID="243" /> 
+            <hasVoice ID="247" /> 
+            <hasVoice ID="248" /> 
+            <hasVoice ID="253" /> 
+            <hasVoice ID="254" /> 
+            <hasVoice ID="255" /> 
+            <hasVoice ID="257" />
+        </customSelector>
+
+         <!-- Voices that fallback to voice Abigail Rice  -->
+        <customSelector name="hasVoiceThatFallbacksToAbigailRice" mode="or">
+            <hasVoice name="jenniferPreston" />
+            <hasVoice name="angelaAlsop" />
+            <hasVoice name="zenaHodneStara" />
+            <hasVoice name="andreaMiltnerova" />
+            <hasVoice name="abigailRice" />
+            <hasVoice name="tonyaGraves" />
+        </customSelector>
+
+        <!-- Voices that fallback to voice Sinead Phelps  -->
+        <customSelector name="hasVoiceThatFallbacksToSineadPhelps" mode="or">
+            <hasVoice name="sineadPhelps" />
+            <hasVoice name="rebeccaRisness" />
+            <hasVoice name="tegenShort" />
+            <hasVoice name="jadeBecker" />
+            <hasVoice name="beccaMcfadden" />
+            <hasVoice name="lilyCarr" />
+            <hasVoice name="katieGriffiths" />
+            <hasVoice name="bethanRoseYoung" />
+        </customSelector>
+
+        <!-- Voices that fallback to voice MarketaRychterova-->
+        <customSelector name="hasVoiceThatFallbacksToMarketaRychterova" mode="or">
+            <hasVoice name="marketaRychterova" />
+            <hasVoice name="rozalieAndelova" />
+        </customSelector>        
+
+        <!-- Voices that fallback to voice romani women-->
+        <customSelector name="hasVoiceThatFallbacksToRomaniWomen" mode="or">
+            <hasVoice name="F48" />
+            <hasVoice name="F49" />
+            <hasVoice name="F50" />
+        </customSelector>
+
+        
+        <!-- Voices that fallback to GabrielAndrews (2166 souls) -->
+        <customSelector name="hasVoiceThatFallbacksToGabrielAndrews" mode="or">
+            <hasVoice name="gabrielAndrews" />
+            <hasVoice name="danCollins" />
+            <hasVoice name="danBrown" />
+            <hasVoice name="danielOsgerby" />
+            <hasVoice name="douglasRussel" />
+            <hasVoice name="jamieMarshall" />
+            <hasVoice name="bobBordeaux" />
+            <hasVoice name="gregoryGudgeon" />
+            <hasVoice name="chrisClarke" />
+            <hasVoice name="peterHosking_generic" />
+            <hasVoice name="martinBishop" />
+            <hasVoice name="scottYoung" />
+            <hasVoice name="johnComer" />
+            <hasVoice name="steenAgro" />
+        </customSelector>
+
+        <!-- Voices that fallback to JamesBeaumont (1313 souls) -->
+        <customSelector name="hasVoiceThatFallbacksToJamesBeaumont" mode="or">
+            <hasVoice name="jamesBeaumont" />
+            <hasVoice name="paulDean" />
+            <hasVoice name="brianCaspe" />
+            <hasVoice name="jimHigh" />
+            <hasVoice name="michaelPitthan" />
+            <hasVoice name="ianChampion" />
+            <hasVoice name="jonathanMilshaw" />
+            <hasVoice name="stewartMoore" />
+            <hasVoice name="royMccrerey" />
+            <hasVoice name="rupertLazurus" />
+        </customSelector>
+
+        <!-- Voices that fallback to danielZappi (1378 souls) -->
+        <customSelector name="hasVoiceThatFallbacksToDanielZappi" mode="or">
+            <hasVoice name="danielZappi" />
+            <hasVoice name="paulColtofeanu" />
+            <hasVoice name="christopherDukes" />
+            <hasVoice name="alechMontyro" />
+            <hasVoice name="samBarlien" />
+            <hasVoice name="richardKiess" />
+            <hasVoice name="joncieElmore" />
+            <hasVoice name="jamesNunn" />
+            <hasVoice name="jackParr" />
+        </customSelector>
+
+        <!-- Voices that fallback to miltonWelsh (214 souls) -->
+        <customSelector name="hasVoiceThatFallbacksToMiltonWelsh" mode="or">
+            <hasVoice name="miltonWelsh" />
+            <hasVoice name="madsHjulmand" />
+            <hasVoice name="michaelGlantschnig" />
+            <hasVoice name="juergenStraub" />
+            <hasVoice name="kennethChristensen" />
+            <hasVoice name="tomasZielinski" />
+        </customSelector>
+
+        <!-- Voices that fallback to cuman men (94 souls) -->
+        <customSelector name="hasVoiceThatFallbacksToCumanMen" mode="or">
+            <hasVoice name="M28" />
+            <hasVoice name="M29" />
+            <hasVoice name="M30" />
+            <hasVoice name="M31" />
+        </customSelector>
+
+        <!-- Voices that fallback to romani men (15 souls) -->
+        <customSelector name="hasVoiceThatFallbacksToRomaniMen" mode="or">
+            <hasVoice name="M24" />
+            <hasVoice name="M25" />
+            <hasVoice name="M26" />
+            <hasVoice name="marcelCostea" />
+        </customSelector>
+
+
+
+        <customSelector name="hasFirstFemaleFallbackGroup" mode="or">
+            <hasVoiceThatFallbacksToSineadPhelps />
+        </customSelector>
+
+        <customSelector name="hasSecondFemaleFallbackGroup" mode="or">
+            <hasVoiceThatFallbacksToAbigailRice />
+            <hasVoiceThatFallbacksToMarketaRychterova />
+            <hasVoiceThatFallbacksToRomaniWomen />
+            <hasVoice name="sandraSchneider" />
+        </customSelector>
+
+        <customSelector name="hasFirstMaleFallbackGroup" mode="or">
+            <hasVoiceThatFallbacksToJamesBeaumont />
+            <hasVoiceThatFallbacksToDanielZappi />
+        </customSelector>
+
+        <customSelector name="hasSecondMaleFallbackGroup" mode="or">
+            <hasVoiceThatFallbacksToGabrielAndrews />
+            <hasVoiceThatFallbacksToMiltonWelsh />
+            <hasVoiceThatFallbacksToRomaniMen />
+            <hasVoiceThatFallbacksToCumanMen />
+        </customSelector>
+
+
+        <!-- TEMPLATE
+        <customSelector name="_excluded" mode="or">
+            <hasName name="zachrana_fatherOfHenry" />
+        </customSelector>
+        <customSelector name="_general" mode="and">
+            <isValidOpenworldNpc />
+            <not>
+                <_excluded />
+            </not>
+        </customSelector>
+        -->
+
+
+        <!-- SITUATIONS  -->
+        <!-- Uhersky tabor - gossip (named NPCs excluded) -->
+        <customSelector name="gossip_zikmundovo_everyone" mode="or">
+            <hasFaction name="kutnohorsko_settlements_zikmundovo" />
+            <hasName name="tvez_man_8" />
+        </customSelector>
+
+        <customSelector name="gossip_zikmundovo_cumans" mode="or">
+            <hasName name="kzik_man_37" />
+            <hasName name="kzik_man_38" />
+            <hasName name="kzik_man_39" />
+            <hasName name="kzik_man_40" />
+            <hasName name="kzik_man_41" />
+            <hasName name="kzik_man_42" />
+            <hasName name="kzik_man_44" />
+            <hasName name="kzik_man_45" />
+            <hasName name="kzik_man_46" />
+            <hasName name="kzik_man_47" />
+            <hasName name="kzik_man_48" />
+            <hasName name="kzik_man_49" />
+            <hasName name="kzik_man_51" />
+            
+            
+            <hasName name="kzik_laszlosSoldier_1" />
+            <hasName name="kzik_laszlosSoldier_2" />
+            <hasName name="kzik_laszlosSoldier_3" />
+            <hasName name="kzik_laszlosSoldier_4" />
+            <hasName name="kzik_laszlosSoldier_5" />
+            <hasName name="kzik_laszlosSoldier_6" />
+            <hasName name="kzik_chakan" />
+            <hasName name="kzik_basan" />
+            <hasName name="tvez_man_8" />
+        </customSelector>
+
+        <customSelector name="gossip_zikmundovo_hungarianSoldiers" mode="and">
+            <or><!-- VOICEOVER precaution - so that random settling doesn't add voiceovers -->
+                <hasVoice name="gabrielAndrews" />
+                <hasVoice name="christopherDukes" />
+                <hasVoice name="paulDean" />
+                <hasVoice name="peterHosking_generic" />
+                <hasVoice name="danCollins" />
+                <hasVoice name="jamesBeaumont" />
+                <hasVoice name="danielOsgerby" />
+                <hasVoice name="jonathanMilshaw" />
+                <hasVoice name="stewartMoore" />
+            </or>
+            <or>
+            <hasName name="kzik_blacksmith" />
+            <hasName name="kzik_sykora" />
+            <hasName name="kzik_hynekGuard_1" />
+            <hasName name="kzik_hynekGuard_2" />
+            <hasName name="kzik_hynekGuard_3" />
+            <hasName name="kzik_hynekGuard_4" />
+                <hasName name="kzik_man_1" />
+            <hasName name="kzik_man_2" />
+            <hasName name="kzik_man_3" />
+            <hasName name="kzik_man_4" />
+            <hasName name="kzik_man_5" />
+            <hasName name="kzik_man_7" />
+            <hasName name="kzik_man_8" />
+            <hasName name="kzik_man_9" />
+            <hasName name="kzik_man_10" />
+            <hasName name="kzik_man_11" />
+            <hasName name="kzik_man_12" />
+            <hasName name="kzik_man_13" />
+            <hasName name="kzik_man_14" />
+            <hasName name="kzik_man_15" />
+            <hasName name="kzik_man_16" />
+            <hasName name="kzik_man_17" />
+            <hasName name="kzik_man_18" />
+            <hasName name="kzik_man_19" />
+            <hasName name="kzik_man_20" />
+            <hasName name="kzik_man_21" />
+            <hasName name="kzik_man_22" />
+            <hasName name="kzik_man_23" />            
+                <hasName name="kzik_man_24" />            
+            <hasName name="kzik_man_25" />            
+                <hasName name="kzik_man_26" />
+                <hasName name="kzik_man_27" />
+                <hasName name="kzik_man_28" />
+                <hasName name="kzik_man_29" />
+                <hasName name="kzik_man_30" />
+                <hasName name="kzik_man_31" />
+                <hasName name="kzik_man_32" />
+                <hasName name="kzik_man_33" />
+                <hasName name="kzik_man_34" />
+            <hasName name="kzik_man_35" />
+            <hasName name="kzik_man_36" />
+            <hasName name="kzik_man_52" />
+            <hasName name="kzik_man_53" />
+            <hasName name="kzik_man_54" />
+            <hasName name="kzik_man_55" />
+            <hasName name="kzik_man_56" />
+            <hasName name="kzik_man_57" />
+            <hasName name="kzik_man_58" />
+            <hasName name="kzik_man_66" />
+            </or>
+            <!-- DUBBING OPTIMIZATION 
+                <hasName name="kzik_armorer" />
+                <hasName name="kzik_man_59" />
+                <hasName name="kzik_man_60" />
+            -->
+        </customSelector>
+
+        <!-- Situation - gossip  -->         
+        <!-- When changing these gossip rules - reflect the same changes in `contexts/situations.xml` > rule contexts_situation_gossip_everyone -->
+        <customSelector name="situation_gossip_excluded" mode="or">
+            <hasUniqueVoice />
+            <isBffOrHasUniqueBffVoice />
+             <!-- special custom gossips -->
+            <hasSocialClass name="beggar" />
+            <hasName name="ttkc_barbora" />
+            <gossip_zikmundovo_everyone />
+            <and>
+                <hasSocialClass name="miner" />
+                <hasGenericMinerVoice />
+            </and>
+            <hasSocialClass name="smelter" />
+            <hasSocialClass name="priest" />
+            <hasSocialClass name="monk" />
+            <hasName name="kkut_man_121" /> <!-- inkeeper Custont -->
+            <hasName name="kzik_blaha" /> <!-- soldier Blaha from Zikmunds camp -->
+			<hasName name="kbyl_mikus" /> <!-- Mikus from S55, general gossips didn't make sense when he was gossiping with his family -->
+			<hasName name="dvojityAgent_jan" />
+            <hasName name="tvez_bozena" /> <!-- Bozena has an ancient voice, but the generic gossips are fallbacked, so she spoke with a young voice -->
+            <isCuman />
+            <isBandit />
+            <hasRomaniVoice />
+			<isBattleNpc />
+            <hasVoice name="tonyaGraves" />
+        </customSelector>
+        <customSelector name="situation_gossip_general" mode="and">
+            <isValidOpenworldNpc />
+            <not>
+                <situation_gossip_excluded />
+            </not>
+        </customSelector>
+
+        <!-- kutnohorský turnaj - gossip -->
+        <customSelector name="kutnohorskyTurnajGossip_excluded" mode="or">            
+            <hasName name="kkut_simek" />
+            <hasName name="kkut_krahujec" />
+            <hasName name="kkut_henslin" />
+            <hasName name="kkut_jimram" />
+            <hasName name="kkut_janek" />
+            <hasName name="kkut_hynek" />
+            <hasName name="kkut_pivec" />
+            <hasName name="kkut_zuzanek" />
+            <hasName name="kkut_linhart" />
+        </customSelector>
+        <customSelector name="kutnohorskyTurnajGossip_general" mode="and">
+            <situation_gossip_general />
+            <hasWidelyUsedVoice/>
+            <hasFaction name="kutnohorsko_settlements_kutnaHora_commonFolk" />
+            <not>
+                <kutnohorskyTurnajGossip_excluded />
+            </not>
+        </customSelector>
+
+        <!-- Situation - drunk husband  -->
+        <customSelector name="situation_drunkHusband_excluded" mode="or">
+            <isBffOrHasUniqueBffVoice />
+            <isCuman />
+        </customSelector>
+        <customSelector name="situation_drunkHusband_general" mode="and">
+            <isValidOpenworldNpc />
+            <not>
+                <situation_drunkHusband_excluded />
+            </not>
+        </customSelector>   
+
+        <!-- Situation - majitelkaLazni - baths customer  -->
+        <customSelector name="situation_majitelkaLazni_customer_excluded" mode="or">
+            <isBffOrHasUniqueBffVoice />
+            <isBandit />
+            <isCuman />
+            <hasName name="kkut_adam" />
+            <hasRomaniVoice />
+        </customSelector>
+        <customSelector name="situation_majitelkaLazni_customer_general" mode="and">
+            <isValidOpenworldNpc />
+            <not>
+                <situation_majitelkaLazni_customer_excluded />
+            </not>
+        </customSelector>
+
+        <!-- Situation - gatetoll - passerby  -->
+        <customSelector name="situation_gateToll_passerby_excluded" mode="or">
+            <isBffOrHasUniqueBffVoice />
+            <isBandit />
+            <isCuman />
+            <hasVoice name="tonyaGraves" />
+        </customSelector>
+        <customSelector name="situation_gateToll_passerby_general" mode="and">
+            <isValidOpenworldNpc />
+            <not>
+                <situation_gateToll_passerby_excluded />
+            </not>
+        </customSelector>
+
+        <!-- Situation - friendlyFight  -->
+        <customSelector name="situation_friendlyFight_audience_excluded" mode="or">
+            <isBffOrHasUniqueBffVoice />
+            <isCuman />
+        </customSelector>
+        <customSelector name="situation_friendlyFight_audience_general" mode="and">
+            <isValidOpenworldNpc />
+            <not>
+                <situation_friendlyFight_audience_excluded />
+            </not>
+        </customSelector>
+
+        <!-- Situation - storyTeller - audience -->
+        <customSelector name="situation_storyTeller_audience_excluded" mode="or">
+            <isBffOrHasUniqueBffVoice />
+            <isCuman />
+        </customSelector>
+        <customSelector name="situation_storyTeller_audience_general" mode="and">
+            <isValidOpenworldNpc />
+            <not>
+                <situation_storyTeller_audience_excluded />
+            </not>
+        </customSelector>
+
+        <!-- Situation - storyTeller - teller  -->
+        <customSelector name="situation_storyTeller_teller_excluded" mode="or">
+            <isBffOrHasUniqueBffVoice />
+            <hasName name="kkut_skvira" />
+            <hasName name="kkut_jeronym" />
+            <hasName name="rvacka_*" />
+            <hasName name="sabotazLazni_nobleman" />
+            <hasName name="traskavePoselstvi_cartDriver" />
+            <isCuman />
+        </customSelector>
+        <customSelector name="situation_storyTeller_teller_general" mode="and">
+            <isValidOpenworldNpc />
+            <isCivilian/>
+            <not>
+                <situation_storyTeller_teller_excluded />
+            </not>
+        </customSelector>
+
+        <!-- Situation - lostitem  -->
+        <customSelector name="situation_lostItem_excluded" mode="or">
+            <isBffOrHasUniqueBffVoice />
+            <isCuman />
+        </customSelector>
+        <customSelector name="situation_lostItem_general" mode="and">
+            <isValidOpenworldNpc />
+            <isCivilian/>
+            <not>
+                <situation_lostItem_excluded />
+            </not>
+        </customSelector>
+
+        <!-- Situation pillory-->
+        <customSelector name="situation_pillory_audience_general_excluded" mode="or">
+            <isNobleClass />
+            <isBffOrHasUniqueBffVoice />
+            <hasSocialClass name="beggar" />
+            <isCuman />
+            <hasRomaniVoice />
+        </customSelector>
+        <customSelector name="situation_pillory_audience_general" mode="and">
+            <isValidOpenworldNpc />
+            <or>
+                <hasFaction name="trosecko_settlements_troskovice" />
+                <hasFaction name="kutnohorsko_settlements_kutnaHora" />            
+                <hasFaction name="kutnohorsko_settlements_suchdol" />
+                <hasFaction name="kutnohorsko_settlements_miskovice" />
+                <hasFaction name="kutnohorsko_settlements_malesov" />
+            </or>
+            <not>
+                <situation_pillory_audience_general_excluded />
+            </not>
+        </customSelector>
+
+        <!-- Situation Event Hlasatel -->
+        <customSelector name="situation_event_hlasatel_audience_excluded" mode="or">
+            <isBffOrHasUniqueBffVoice />
+            <isCuman />
+        </customSelector>
+        <customSelector name="situation_event_hlasatel_audience_general" mode="and">
+            <isValidOpenworldNpc />
+            <not>
+                <situation_event_hlasatel_audience_excluded />
+            </not>
+        </customSelector>
+
+        <!-- Situation Event Rvacka -->
+        <customSelector name="situation_event_rvacka_audience_excluded" mode="or">
+            <isBffOrHasUniqueBffVoice />
+            <isCuman />
+        </customSelector>
+        <customSelector name="situation_event_rvacka_audience_general" mode="and">
+            <isValidOpenworldNpc />
+            <not>
+                <situation_event_rvacka_audience_excluded />
+            </not>
+        </customSelector>
+
+        <!-- SITUATIONS END  -->
+
+
+        <!-- TAVERN  -->
+
+        <customSelector name="tavern_excluded" mode="or">
+            <isCuman />
+            <hasSocialClass name="bandit" />
+            <hasSocialClass name="banditLeader" />
+            <hasSocialClass name="poacher" />
+            <hasSocialClass name="miller" />
+            <hasRomaniVoice />
+            <hasFaction name="kutnohorsko_millers" />
+            <hasFaction name="kutnohorsko_enemies" />
+            <hasFaction name="trosecko_millers" />
+            <hasFaction name="trosecko_enemies" />
+            <hasFaction name="eventNPCs_enemies" />
+        </customSelector>
+
+
+        <customSelector name="tavern_gossip_excluded" mode="or">
+            <isBffOrHasUniqueBffVoice />
+            <gossip_zikmundovo_everyone />
+        </customSelector>
+        <customSelector name="tavern_gossip_general" mode="and">
+            <isValidOpenworldNpc />
+            <isMan />
+            <not>
+                <tavern_gossip_excluded />                
+            </not>
+            <not>
+                <tavern_excluded />
+            </not>
+        </customSelector>
+
+        <customSelector name="tavern_orderingDrinks_excluded" mode="or">
+            <isBffOrHasUniqueBffVoice />
+        </customSelector>
+        <customSelector name="tavern_orderingDrinks_general" mode="and">
+            <isValidOpenworldNpc />
+            <isMan />
+            <not>
+                <tavern_orderingDrinks_excluded />
+            </not>
+            <not>
+                <tavern_excluded />
+            </not>
+        </customSelector>
+
+        <customSelector name="tavern_dice_excluded" mode="and">
+            <isBffOrHasUniqueBffVoice />
+        </customSelector>
+        
+        <customSelector name="tavern_dice_general" mode="and">
+            <isValidOpenworldNpc />
+            <not>
+                <tavern_dice_excluded />
+            </not>
+            <not>
+                <tavern_excluded />
+            </not>
+        </customSelector>
+
+        <!-- TAVERN END  -->
+        
+        <!-- souls that dont get any openworld roles, except combat roles. -->
+        <customSelector name="isClosedWorldNPCWithCombat" mode="and">
+            <isClosedWorldNPC/>
+            <or>
+                <hasName name="ttro_erik" />
+                <hasName name="ttro_pista" />
+                <hasName name="kkut_markvartAulitz" />
+                <hasName name="kutnohorskyTurnaj_fighter*" />
+                <hasName name="prepadeniVlasskehoDvora_giuseppe"/>
+                <hasName name="prepadeniVlasskehoDvora_csaba" />
+                <hasName name="pogrom_*" />
+            </or>
+        </customSelector>
+
+        <!-- COMBAT  -->
+
+        <customSelector name="combatExcluded" mode="or">
+            <hasName name="kzik_musa" />
+            <hasName name="ksuc_jost" />
+            <hasName name="ttro_katerina" />
+        </customSelector>
+
+        <customSelector name="skirmish_surrender_excluded" mode="or">
+            <isBffOrHasUniqueBffVoice />
+            <isBattleNpc />
+            <isCuman />
+        </customSelector>
+        <customSelector name="skirmish_surrender_general" mode="and">
+            <or>
+                <isValidOpenworldNpc />
+                <isTest />
+                <isClosedWorldNPCWithCombat/>
+            </or>     
+            <isMan />
+            <not>
+                <skirmish_surrender_excluded />
+            </not>
+        </customSelector>
+
+        <!-- COMBAT END -->
+
+
+        <!-- PROFESSIONS -->
+
+        <customSelector name="profession_houseKeeper_female_excluded" mode="or">
+            <isBffOrHasUniqueBffVoice />
+        </customSelector>
+        <customSelector name="profession_houseKeeper_female_general" mode="and">
+            <isValidOpenworldNpc />
+            <isWoman />
+            <not>
+                <profession_houseKeeper_female_excluded />
+            </not>
+        </customSelector>
+
+
+        <customSelector name="profession_houseKeeper_male_excluded" mode="or">            
+            <isBffOrHasUniqueBffVoice />
+            <hasTradesmanSocialClass />
+            <isNobleClass />
+            <isCuman />
+        </customSelector>
+        <customSelector name="profession_houseKeeper_male_general" mode="and">
+            <isValidOpenworldNpc />
+            <isMan />
+            <not>
+                <profession_houseKeeper_male_excluded />
+            </not>
+        </customSelector>
+
+        <customSelector name="selftalk_mainRule_excluded" mode="or">
+            <isBffOrHasUniqueBffVoice />
+            <isCuman />
+        </customSelector>
+        <customSelector name="selftalk_mainRule" mode="and">
+            <isValidOpenworldNpc />
+            <not>
+                <selftalk_mainRule_excluded />
+            </not>
+        </customSelector>
+
+        <customSelector name="selftalkHandworker_excluded" mode="or">
+            <hasName name="tvid_tanner" />
+            <hasName name="budovaniLazni_soldier_3" />
+            <hasName name="taboryUCesty_dice_cannonball" />
+            <hasRomaniVoice />
+        </customSelector>
+        <customSelector name="selftalkHandworker_general" mode="and">
+            <selftalk_mainRule />
+            <isMan />
+            <or>
+                <hasSocialClass name="mason" />
+                <hasSocialClass name="quarryman" />
+                <hasSocialClass name="shoemaker" />
+                <hasSocialClass name="tailor" />
+                <hasSocialClass name="tanner" />
+                <hasSocialClass name="smelter" />
+                <hasSocialClass name="saddler" />
+                <hasSocialClass name="minter" />
+                <hasSocialClass name="varlet" />
+                <hasSocialClass name="miner" />
+			</or>
+            <not>
+                <selftalkHandworker_excluded />
+            </not>
+        </customSelector>
+
+
+        
+        <!-- PROFESSIONS END -->
+
+        <!-- SELF TALK -->
+        <customSelector name="selftalk_generic_excluded" mode="or">
+            <isBffOrHasUniqueBffVoice />
+        </customSelector>
+        <customSelector name="selftalk_generic_general" mode="and">
+            <selftalk_mainRule />
+            <not>
+                <selftalk_generic_excluded />
+            </not>
+        </customSelector>
+
+        <customSelector name="selftalk_singing_excluded" mode="or">
+            <isBffOrHasUniqueBffVoice />
+            <hasRomaniVoice />
+        </customSelector>
+        <customSelector name="selftalk_singing_general" mode="and">
+            <selftalk_mainRule />
+            <not>
+                <selftalk_singing_excluded />
+            </not>
+        </customSelector>
+
+        <customSelector name="selftalk_guard_working_excluded" mode="or">
+            <isBffOrHasUniqueBffVoice />
+        </customSelector>
+        <customSelector name="selftalk_guard_working" mode="and">
+            <selftalk_mainRule />
+            <isGuard />
+            <not>
+                <selftalk_guard_working_excluded />
+            </not>
+        </customSelector>
+
+        <customSelector name="selftalk_farmers_excluded" mode="or">
+            <hasRomaniVoice />
+        </customSelector>
+        <customSelector name="selftalk_farmers_general" mode="and">
+            <selftalk_mainRule />
+            <not>
+                <selftalk_farmers_excluded />
+            </not>
+        </customSelector>
+
+        <customSelector name="selftalk_butchers_excluded" mode="or">
+            <hasRomaniVoice />
+        </customSelector>
+        <customSelector name="selftalk_butchers_general" mode="and">
+            <selftalk_mainRule />
+            <isMan />
+            <not>
+                <selftalk_butchers_excluded />
+            </not>
+        </customSelector>
+
+        <customSelector name="selftalk_woodWorker_excluded" mode="or">
+            <hasRomaniVoice />
+        </customSelector>
+        <customSelector name="selftalk_woodWorker_general" mode="and">
+            <selftalk_mainRule />
+            <not>
+                <selftalk_woodWorker_excluded />
+            </not>
+        </customSelector>
+
+        <customSelector name="selftalk_woodChopper_excluded" mode="or">
+            <hasRomaniVoice />
+        </customSelector>
+        <customSelector name="selftalk_woodChopper_general" mode="and">
+            <selftalk_mainRule />
+            <not>
+                <selftalk_woodChopper_excluded />
+            </not>
+        </customSelector>
+
+        <!-- SELF TALK END-->
+
+
+        <!-- GREETINGS -->
+
+        <!-- greeting at the start of a dialogue and ending after the end -->
+        <customSelector name="greetingEndingInDialog_excluded" mode="or">
+            <isBffOrHasUniqueBffVoice />
+            <isCuman />
+        </customSelector>
+        <customSelector name="greetingEndingInDialog_general" mode="and">
+            <isValidOpenworldNpc />
+            <not>
+                <greetingEndingInDialog_excluded />
+            </not>
+        </customSelector>
+
+        <!-- greetings for nobles  - inherits general rules and adds some more restrictions -->
+        <customSelector name="greetingEndingInDialog_nobles_excluded" mode="or">
+            <hasRomaniVoice />
+            <hasName name="kkut_begginMonk_*" />
+        </customSelector>
+        <customSelector name="greetingEndingInDialog_nobles_general" mode="and">
+            <greetingEndingInDialog_general />
+            <isNobleClass />
+            <not>
+                <greetingEndingInDialog_nobles_excluded />
+            </not>
+        </customSelector>
+
+        <!-- greetings among NPCs -->
+        <customSelector name="greetingAmongNpcs_excluded" mode="or">
+            <isBffOrHasUniqueBffVoice />
+            <hasSocialClass name="beggar" />
+            <hasName name="kkut_andreas" />
+            <hasName name="kpri_man_2" />
+            <hasName name="ksed_man_3" />
+            <hasName name="kzik_ditrich" />
+            <hasName name="kzik_man_6" />
+            <hasName name="setkaniVRatbori1_chancellor" />
+            <hasName name="taboryUCesty_duel_kunes" />
+            <hasName name="taboryUCesty_duel_ulrich" />
+            <hasName name="ttro_man_39" />
+            <hasName name="ttro_man_43" />
+            <hasName name="zbranePanaSemina_moravak_1" />
+            <hasName name="kkut_haman" />
+            <hasName name="kkut_kunzlinRuthard" />
+            <hasName name="kkut_tobias" />
+            <hasName name="kkut_tyc" />
+            <hasName name="taboryUCesty_dealer_ada" />
+        </customSelector>
+        <customSelector name="greetingAmongNpcs_general" mode="and">
+            <isValidOpenworldNpc />
+            <isPublicFriend />
+            <not>
+                <greetingAmongNpcs_excluded />
+            </not>
+        </customSelector> 
+
+        <!-- greetings among NPCs for Nobles - inherits general rules and adds some more restrictions -->
+        <customSelector name="greetingAmongNpcs_nobles_excluded" mode="or">
+            <isRomani/>
+            <hasName name="kkut_begginMonk_*" />
+			<hasName name="dvojityAgent_jan" />
+        </customSelector>
+        <customSelector name="greetingAmongNpcs_nobles_general" mode="and">
+            <greetingAmongNpcs_general />
+            <isNobleClass />
+            <not>
+                <greetingAmongNpcs_nobles_excluded />
+            </not>
+        </customSelector>
+
+
+        <!-- greeting at the start of a dialogue -->
+
+
+        <!-- GREETINGS AND ENDINGS END -->
+
+        <!-- praying -->
+        <customSelector name="praying_excluded" mode="or">
+            <isCuman />
+            <hasUniqueVoice />
+            <hasGenericGermanVoice />
+            <hasGenericJewishVoice />
+            <hasRomaniVoice />
+        </customSelector>
+        <customSelector name="praying_general" mode="and">
+            <isValidOpenworldNpc />            
+            <not>
+                <praying_excluded />
+            </not>
+        </customSelector>
+
+        <!-- confessing -->
+        <customSelector name="confession_sinner_excluded" mode="or">
+            <isBffOrHasUniqueBffVoice />
+            <hasSocialClass name="priest" />
+            <isJewish />
+            <isCuman />
+        </customSelector>
+        <customSelector name="confession_sinner_general" mode="and">
+            <isValidOpenworldNpc />
+            <isMan />
+            <not>
+                <confession_sinner_excluded />
+            </not>
+        </customSelector> 
+        
+        <!-- SHOP  -->
+        <customSelector name="isCustomer_excluded" mode="or">
+            <and>
+                <isBffOrHasUniqueBffVoice />
+                <isMan />
+            </and>
+            <isSoldier />
+            <isCuman />
+            <hasRomaniVoice />
+            <hasName name="kkut_sara"/>
+            <hasName name="kkut_woman_64"/>
+        </customSelector>
+
+        <customSelector name="isCustomer_general" mode="and">
+            <isValidOpenworldNpc />
+            <not>
+                <isCustomer_excluded />
+            </not>
+        </customSelector>
+
+        <!-- ====================================== -->
+        <!-- SELECTORS FOR DUBBING OPTIMIZATION END -->
+        <!-- ====================================== -->
+
+		<!-- QUESTS  -->
+
+		<customSelector name="kocovnickaCest_nomadCamp_generic_romani_men" mode="and">
+			<isValidOpenworldNpc/>
+			<isMan/>
+            <!-- hack - changing voice of several romani men at the last moment  -->
+            <or>
+                <livesInNomadCamp_romani/>
+                <hasName name="tvez_man_19"/>
+                <hasName name="tvez_man_2"/>
+                <hasName name="tvez_man_21"/>
+            </or>
+			<not>
+				<or>
+					<hasName name="tvez_vajda"/>
+					<hasName name="tvez_tibor"/>
+				</or>
+			</not>
+		</customSelector>
+
+		<customSelector name="kocovnickaCest_nomadCamp_generic_romani_women" mode="and">
+			<isValidOpenworldNpc/>
+			<isWoman/>
+			<livesInNomadCamp_romani/>
+			<not>
+				<or>
+					<hasName name="tvez_aranka"/>
+					<hasName name="tvez_marika"/>
+				</or>
+			</not>
+		</customSelector>
+
+		<customSelector name="kocovnickaCest_nomadCamp_generic_notRomani_men" mode="and">
+			<isValidOpenworldNpc/>
+			<isMan/>
+			<livesInNomadCamp_notRomani/>
+            <not>
+                <or>
+                    <hasName name="tvez_man_19"/>
+                    <hasName name="tvez_man_2"/>
+                    <hasName name="tvez_man_21"/>
+                </or>
+            </not>
+		</customSelector>
+
+		<customSelector name="kocovnickaCest_village_generic_men" mode="and">
+			<hasWidelyUsedVoice/>
+			<isValidOpenworldNpc/>
+			<isMan/>
+			<or>
+				<hasFaction name="trosecko_settlements_semin_commonFolk_tradersAndCraftmans_food"/>
+				<hasFaction name="trosecko_settlements_semin_commonFolk_peasants"/>
+			</or>
+			<not>
+				<or>
+					<hasFaction name="trosecko_settlements_semin_commonFolk_peasants_parcel01"/>
+					<hasFaction name="trosecko_settlements_semin_commonFolk_peasants_studFarm"/>
+					<hasFaction name="trosecko_settlements_semin_commonFolk_peasants_zbranePanaSeminaVarlets"/>
+					<hasName name="tsem_man_16"/>
+					<hasName name="tsem_man_1"/>
+					<hasName name="tsem_man_2"/>
+					<hasName name="tsem_bohus"/>
+				</or>
+			</not>
+		</customSelector>
+
+		<customSelector name="kocovnickaCest_village_generic_women" mode="and">
+			<hasWidelyUsedVoice/>
+			<isValidOpenworldNpc/>
+			<isWoman/>
+			<or>
+				<hasFaction name="trosecko_settlements_semin_commonFolk_tradersAndCraftmans_food"/>
+				<hasFaction name="trosecko_settlements_semin_commonFolk_peasants"/>
+			</or>
+			<not>
+				<or>
+					<hasFaction name="trosecko_settlements_semin_commonFolk_peasants_parcel01"/>
+					<hasFaction name="trosecko_settlements_semin_commonFolk_peasants_studFarm"/>
+					<hasFaction name="trosecko_settlements_semin_commonFolk_peasants_zbranePanaSeminaVarlets"/>
+					<hasName name="tsem_woman_5"/>
+					<hasName name="tsem_woman_6"/>
+					<hasName name="tsem_bohussMother"/>
+				</or>
+			</not>
+		</customSelector>
+
+	</customSelectors>
+
+</storm>

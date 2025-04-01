@@ -1,0 +1,54 @@
+<?xml version="1.0"?>
+<!DOCTYPE storm SYSTEM "..\storm.dtd">
+<storm>
+    <customSelectors></customSelectors>
+    <rules>
+		
+        <rule name="gamblers_villagers">
+            <selectors>
+				<or>
+					<hasSocialClass name="villager" />
+					<hasSocialClass name="townsman" />
+					<hasSocialClass name="nobleman" />
+				</or>
+            </selectors>
+            <operations>
+				<setAttribute skill="gambling" minValue="0" maxValue="10" />
+            </operations>
+        </rule>
+		
+        <rule name="gamblers_soldiers">
+            <selectors>
+				<or>
+					<hasSocialClass name="bailiff" />
+                    <hasSocialClass name="soldier" />
+                    <hasSocialClass name="soldier_crimeAuthority" />
+                    <hasSocialClass name="guard" />
+                    <hasSocialClass name="guardLeader" />
+				    <hasSocialClass name="officer" />
+				</or>
+            </selectors>
+            <operations>
+				<setAttribute skill="gambling" minValue="10" maxValue="15" />
+            </operations>
+        </rule>
+		
+        <rule name="gamblers_traders">
+            <selectors>
+				<hasTradesmanSocialClass />
+            </selectors>
+            <operations>
+				<setAttribute skill="gambling" value="14" />
+            </operations>
+        </rule>
+		
+        <rule name="gamblers_pubVisitors">
+            <selectors>
+				<hasName name="*.pubVisitor*" />
+            </selectors>
+            <operations>
+				<setAttribute skill="gambling" value="17" />
+            </operations>
+        </rule>
+    </rules>
+</storm>

@@ -1,0 +1,68 @@
+<?xml version="1.0"?>
+<!DOCTYPE storm SYSTEM "storm.dtd">
+<storm>
+	<rules>
+        <rule name="bathhouseMaids_general">
+			<selectors>
+				<isValidOpenworldNpc />
+				<or>
+					<hasSocialClass name="bathhouseMaid" />
+					<hasName name="ttro_woman_6" />
+				</or>
+			</selectors>
+			<operations>
+				<addRole name="LAZEBNICE_SAMOMLUVA" />
+				<addRole name="LAZEBNICE_PO_SLUZBE" />
+				<addRole name="LAZEBNICE_BARKUJI_NA_JINDRU" />
+				<addRole name="LAZEBNICE_MYJE_ZAKAZNIKA" />
+			</operations>
+		</rule>
+
+        <rule name="bathhouseAbbess_general">
+			<selectors>
+				<isValidOpenworldNpc />
+				<hasSocialClass name="bathhouseAbbess" />
+				<!-- following voices either already recorded something or are represented on more than 1 souls, also these are merchant voices -->
+				<or>
+					<hasVoice name="abigailRice" />
+					<hasVoice name="jenniferPreston" />
+					<hasVoice name="tonyaGraves" />
+				</or>
+			</selectors>
+			<operations>
+				<addRole name="LAZEBNICE_OBJEDNANI" />
+				<addRole name="SMLOUVANI_ZENA" />
+                <addRole name="VYJEDNAVANI_ZENA" />
+				<addRole name="LAZENSKA_BORDELMAMA_OBCHOD" />
+				<addRole name="LOUCENI_PO_LAZNI_ZENA" />
+				<addRole name="MAJITELKA_ZDRAVI_JINDRU_NEBO_BOHUTU" />
+				<addRole name="MAJITELKA_VITA_V_LAZNICH" />
+			</operations>
+		</rule>
+
+        <rule name="customer_washedByMaid">
+			<selectors>
+				<isMan />
+				<situation_majitelkaLazni_customer_general />
+			</selectors>
+			<operations>
+				<addRole name="ZAKAZNIK_JE_MYT_LAZEBNICI" />
+			</operations>
+		</rule>		
+
+		<rule name="bathhousemain_certovka">
+			<selectors>
+				<isValidOpenworldNpc />
+				<or>
+					<hasName name="kcer_woman_4" />
+					<hasName name="kcer_woman_5" />
+					<hasName name="kcer_woman_6" />
+					<hasName name="kcer_woman_7" />
+				</or>
+			</selectors>
+			<operations>
+				<addRole name="LAZEBNICE_CERTOVKA" />
+			</operations>
+		</rule>
+	</rules>
+</storm>

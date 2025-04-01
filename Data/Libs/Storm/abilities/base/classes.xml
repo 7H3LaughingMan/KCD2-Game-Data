@@ -1,0 +1,1631 @@
+<?xml version="1.0"?>
+<!DOCTYPE storm SYSTEM "..\storm.dtd">
+<storm>
+
+	<customOperations>
+
+		<!-- meant for social classes that are likely to fight-->
+		<customOperation name="combatLevelBonus" mode="and"> 
+
+			<modAttribute stat="combatLevel" minMod="0.1" maxMod="0.2" />
+
+		</customOperation>
+
+		<!-- leader social class bonus-->
+		<customOperation name="leaderBonus" mode="and"> 
+
+			<modAttribute stat="charisma" minMod="2" maxMod="4" />
+			<modAttribute stat="combatLevel" minMod="0.1" maxMod="0.3" />
+
+		</customOperation>
+
+		<!-- meant for social classes that are likely to trade-->
+		<customOperation name="addCraftsmenStats" mode="and">
+
+			<modAttribute stat="charisma" minMod="2" maxMod="4" />
+			<modAttribute skill="craftsmanship" minMod="10" maxMod="16" />
+			<modAttribute stat="barter" minMod="10" maxMod="16" />
+			<modAttribute stat="shadiness" minMod="0" maxMod="0.15" />
+
+		</customOperation>
+		
+	</customOperations>
+
+	<rules>
+
+<!-- Combat classes -->
+
+		<!-- Bailiff -->
+		<rule name="rpg_socialClass_bailiffs">
+		
+			<selectors>
+				<hasSocialClass name="bailiff" />
+			</selectors>
+		
+			<operations>
+				<combatLevelBonus/>
+				<modAttribute stat="courage" minMod="4" maxMod="6" />
+				<modAttribute stat="charisma" minMod="15" maxMod="20" />
+				<modAttribute stat="speech" mod="10" />
+				<modAttribute skill="scholarship" minMod="10" maxMod="18" />
+				<modAttribute skill="drinking" minMod="10" maxMod="20" />
+				<modAttribute skill="horse_riding" minMod="4" maxMod="6" />
+			</operations>
+		
+		</rule>
+		
+		<!-- Bandit-->
+		<rule name="rpg_socialClass_bandit">
+		
+			<selectors>
+				<hasSocialClass name="bandit" />
+			</selectors>
+		
+			<operations>
+				<combatLevelBonus/>
+				<modAttribute stat="speech" mod="10" />
+				<modAttribute stat="charisma" minMod="10" maxMod="15" />
+				<modAttribute skill="stealth" minMod="2" maxMod="4" />
+				<modAttribute skill="thievery" minMod="4" maxMod="8" />
+				<modAttribute skill="horse_riding" minMod="8" maxMod="10" />
+				<modAttribute skill="survival" minMod="12" maxMod="18" />
+			</operations>
+		
+		</rule>
+
+		<!-- Bandit Leader-->
+		<rule name="rpg_socialClass_banditLeader">
+		
+			<selectors>
+				<hasSocialClass name="banditLeader" />
+			</selectors>
+		
+			<operations>
+				<combatLevelBonus/>
+				<leaderBonus/>
+				<modAttribute stat="speech" mod="10" />
+				<modAttribute stat="charisma" minMod="10" maxMod="15" />
+				<modAttribute skill="stealth" minMod="2" maxMod="4" />
+				<modAttribute skill="thievery" minMod="4" maxMod="8" />
+				<modAttribute skill="horse_riding" minMod="8" maxMod="10" />
+				<modAttribute skill="survival" minMod="12" maxMod="18" />
+			</operations>
+		
+		</rule>
+
+		<!-- Cuman -->
+		<rule name="rpg_socialClass_cuman">
+
+			<selectors>
+				<hasSocialClass name="cuman" />
+			</selectors>
+		
+			<operations>
+				<combatLevelBonus/>
+				<modAttribute stat="charisma" minMod="-4" maxMod="0" />
+				<setAttribute skill="horse_riding" minValue="8" maxValue="12" />
+				<modAttribute stat="speech" minMod="-6" maxMod="0" />
+				<modAttribute skill="stealth" minMod="-4" maxMod="0" />
+				<setAttribute skill="survival" minValue="8" maxValue="10" />
+			</operations>
+		
+		</rule>
+
+		<!-- Cuman Leader-->
+		<rule name="rpg_socialClass_cumanLeader">
+		
+			<selectors>
+				<hasSocialClass name="cumanLeader" />
+			</selectors>
+		
+			<operations>
+				<combatLevelBonus/>
+				<leaderBonus/>
+				<modAttribute stat="charisma" minMod="-4" maxMod="0" />
+				<setAttribute skill="horse_riding" minValue="8" maxValue="12" />
+				<modAttribute stat="speech" minMod="-6" maxMod="0" />
+				<modAttribute skill="stealth" minMod="-4" maxMod="0" />
+				<setAttribute skill="survival" minValue="8" maxValue="10" />
+			</operations>
+		
+		</rule>
+
+		<!-- Huntsman -->
+		<rule name="rpg_socialClass_huntsman">
+
+			<selectors>
+				<isHuntsman />
+			</selectors>
+
+			<operations>
+				<modAttribute stat="speech" mod="10" />
+				<modAttribute stat="charisma" minMod="10" maxMod="15" />
+				<modAttribute stat="hearing" minMod="8" maxMod="10" />
+				<modAttribute skill="survival" minMod="12" maxMod="16" />
+				<modAttribute skill="houndmaster" minMod="10" maxMod="16" />
+				<modAttribute skill="stealth" minMod="4" maxMod="8" />
+			</operations>
+
+		</rule>
+
+		<!-- @KCD2-357223 -->
+		<rule name="rpg_socialClass_huntsman_trosecko">
+			<selectors>
+				<and>
+					<hasFaction name="trosecko" />
+					<isHuntsman />
+				</and>
+			</selectors>
+			<operations>
+				<setAttribute stat="combatLevel" minValue="0.5" maxValue="0.7" />
+			</operations>
+		</rule>
+
+		<rule name="rpg_socialClass_huntsman_kutnohorsko">
+			<selectors>
+				<and>
+					<hasFaction name="kutnohorsko" />
+					<isHuntsman />
+				</and>
+			</selectors>
+			<operations>
+				<setAttribute stat="combatLevel" minValue="0.6" maxValue="0.8" />
+			</operations>
+		</rule>
+
+		<!-- Mercenary -->
+		<rule name="rpg_socialClass_mercenary">
+
+			<selectors>
+				<hasSocialClass name="mercenary" />
+			</selectors>
+		
+			<operations>
+				<combatLevelBonus/>
+				<leaderBonus/>
+				<modAttribute stat="charisma" minMod="14" maxMod="16" />
+				<modAttribute stat="speech" mod="12" />
+			</operations>
+		
+		</rule>
+
+		<!-- Poacher -->
+		<rule name="rpg_socialClass_poacher">
+		
+			<selectors>
+				<hasSocialClass name="poacher" />
+			</selectors>
+		
+			<operations>
+				<combatLevelBonus/>
+				<modAttribute stat="speech" mod="4" />
+				<modAttribute stat="charisma" minMod="4" maxMod="6" />
+				<modAttribute skill="survival" minMod="16" maxMod="20" />
+			</operations>
+		
+		</rule>
+
+
+		<!-- Ruffians -->
+		<rule name="rpg_socialClass_ruffians">
+		
+			<selectors>
+				<hasSocialClass name="ruffian" />
+			</selectors>
+		
+			<operations>
+				<combatLevelBonus/>
+				<modAttribute stat="speech" mod="6" />
+				<modAttribute stat="charisma" minMod="8" maxMod="10" />
+				<modAttribute skill="thievery" minMod="10" maxMod="12" />
+				<modAttribute skill="survival" minMod="10" maxMod="12" />
+			</operations>
+		
+		</rule>
+
+		<!-- Ruffians Leader-->
+		<rule name="rpg_socialClass_ruffiansLeader">
+		
+			<selectors>
+				<hasSocialClass name="ruffianLeader" />
+			</selectors>
+		
+			<operations>
+				<combatLevelBonus/>
+				<leaderBonus/>
+				<modAttribute stat="speech" mod="8" />
+				<modAttribute stat="charisma" minMod="8" maxMod="10" />
+				<modAttribute skill="thievery" minMod="10" maxMod="12" />
+				<modAttribute skill="survival" minMod="10" maxMod="12" />
+			</operations>
+		
+		</rule>
+
+		<!-- Security -->
+		<rule name="rpg_socialClass_security">
+
+			<selectors>
+				<hasSocialClass name="security" />
+			</selectors>
+		
+			<operations>
+				<combatLevelBonus/>
+				<modAttribute stat="speech" mod="8" />
+				<modAttribute stat="charisma" minMod="8" maxMod="10" />
+			</operations>
+		
+		</rule>
+
+		<!-- Soldier -->
+		<rule name="rpg_socialClass_soldiers">
+
+			<selectors>
+				<or>
+					<hasSocialClass name="soldier" />
+					<hasSocialClass name="soldier_crimeAuthority" />
+				</or>
+			</selectors>
+		
+			<operations>
+				<combatLevelBonus/>
+				<modAttribute stat="charisma" minMod="10" maxMod="15" />
+				<modAttribute stat="speech" mod="10" />
+				<modAttribute skill="stealth" minMod="2" maxMod="4" />
+				<modAttribute skill="thievery" minMod="4" maxMod="8" />
+				<modAttribute skill="horse_riding" minMod="8" maxMod="10" />
+				<modAttribute skill="survival" minMod="8" maxMod="12" />
+			</operations>
+		
+		</rule>
+
+		<!-- Guard -->
+		<rule name="rpg_socialClass_guards">
+		
+			<selectors>
+				<hasSocialClass name="guard" />
+			</selectors>
+		
+			<operations>
+				<combatLevelBonus/>
+				<modAttribute stat="charisma" minMod="10" maxMod="15" />
+				<modAttribute stat="speech" mod="10" />
+				<modAttribute skill="drinking" minMod="8" maxMod="20" scaleWith="combatLevel" />
+				<modAttribute skill="scholarship" minMod="6" maxMod="18" scaleWith="combatLevel" />
+				<modAttribute skill="stealth" minMod="2" maxMod="4" />
+				<modAttribute skill="thievery" minMod="4" maxMod="8" />
+				<modAttribute skill="horse_riding" minMod="8" maxMod="10" />
+				<modAttribute skill="survival" minMod="4" maxMod="8" />
+			</operations>
+		
+		</rule>
+
+		<!-- Catchpole -->
+		<rule name="rpg_socialClass_catchpole">
+		
+			<selectors>
+				<hasSocialClass name="catchpole" />
+			</selectors>
+		
+			<operations>
+				<combatLevelBonus/>
+				<modAttribute stat="charisma" minMod="5" maxMod="10" />
+				<modAttribute stat="speech" mod="6" />
+				<modAttribute skill="drinking" minMod="8" maxMod="15" scaleWith="combatLevel" />
+				<modAttribute skill="scholarship" minMod="6" maxMod="12" scaleWith="combatLevel" />
+				<modAttribute skill="stealth" minMod="1" maxMod="3" />
+				<modAttribute skill="thievery" minMod="2" maxMod="6" />
+				<modAttribute skill="horse_riding" minMod="6" maxMod="8" />
+				<modAttribute skill="survival" minMod="2" maxMod="6" />
+			</operations>
+		
+		</rule>
+
+		
+		<!-- Guard Leader-->
+		<rule name="rpg_socialClass_guardsLeader">
+		
+			<selectors>
+				<hasSocialClass name="guardLeader" />
+			</selectors>
+		
+			<operations>
+				<combatLevelBonus/>
+				<leaderBonus/>
+				<modAttribute stat="charisma" minMod="10" maxMod="15" />
+				<modAttribute stat="speech" mod="10" />
+				<modAttribute skill="drinking" minMod="12" maxMod="22" scaleWith="combatLevel" />
+				<modAttribute skill="scholarship" minMod="10" maxMod="20" scaleWith="combatLevel" />
+				<modAttribute skill="stealth" minMod="2" maxMod="4" />
+				<modAttribute skill="thievery" minMod="4" maxMod="8" />
+				<modAttribute skill="horse_riding" minMod="8" maxMod="10" />
+				<modAttribute skill="survival" minMod="4" maxMod="8" />
+			</operations>
+		
+		</rule>
+
+		<!-- Watchman -->
+		<rule name="rpg_socialClass_watchman">
+
+			<selectors>
+				<hasSocialClass name="watchman" />
+			</selectors>
+		
+			<operations>
+				<combatLevelBonus/>
+				<modAttribute stat="charisma" minMod="10" maxMod="15" />
+				<modAttribute stat="speech" mod="10" />
+				<modAttribute skill="drinking" minMod="6" maxMod="14" scaleWith="combatLevel" />
+				<modAttribute skill="scholarship" minMod="6" maxMod="12" scaleWith="combatLevel" />
+				<modAttribute skill="stealth" minMod="2" maxMod="4" />
+				<modAttribute skill="thievery" minMod="4" maxMod="8" />
+				<modAttribute skill="horse_riding" minMod="8" maxMod="10" />
+				<modAttribute skill="survival" minMod="4" maxMod="8" />
+			</operations>
+		
+		</rule>
+
+<!-- Craftsman classes-->
+
+		<!-- Location specific repairmen skills are at the bottom -->
+
+		<!-- Armorer -->
+		<rule name="rpg_socialClass_armorers">
+		
+			<selectors>
+				<hasSocialClass name="armorer" />
+			</selectors>
+		
+			<operations>
+				<addCraftsmenStats/>
+				<combatLevelBonus/>
+				<modAttribute stat="charisma" minMod="10" maxMod="15" />
+				<modAttribute stat="speech" mod="10" />
+				<modAttribute stat="agility" minMod="0" maxMod="2" />
+				<modAttribute stat="strength" minMod="2" maxMod="4" />
+			</operations>
+		
+		</rule>
+
+		<!-- Apothecary -->
+		<rule name="rpg_socialClass_apothecary">
+		
+			<selectors>
+				<hasSocialClass name="apothecary" />
+			</selectors>
+		
+			<operations>
+				<addCraftsmenStats/>
+				<modAttribute stat="charisma" minMod="8" maxMod="10" />
+				<modAttribute stat="speech" mod="10" />
+				<modAttribute stat="vitality" minMod="4" maxMod="6" />
+				<setAttribute skill="alchemy" value="20" />
+				<modAttribute skill="survival" minMod="16" maxMod="20" />
+			</operations>
+		
+		</rule>
+	
+		<!-- Bathhouse Abbess -->
+		<rule name="rpg_socialClass_bathhouseAbbess">
+		
+			<selectors>
+				<hasSocialClass name="bathhouseAbbess" />
+			</selectors>
+		
+			<operations>
+				<addCraftsmenStats/>
+				<modAttribute skill="tailoring" minMod="8" maxMod="10" />
+				<modAttribute stat="courage" minMod="2" maxMod="4" />
+				<modAttribute stat="charisma" minMod="8" maxMod="10" />
+				<modAttribute stat="speech" mod="10" />
+			</operations>
+		
+		</rule>
+
+		<!-- Bakers -->
+		<rule name="rpg_socialClass_bakers">
+		
+			<selectors>
+				<hasSocialClass name="baker" />
+			</selectors>
+		
+			<operations>
+				<addCraftsmenStats/>
+				<modAttribute stat="strength" minMod="4" maxMod="6" />
+				<modAttribute stat="charisma" minMod="10" maxMod="12" />
+				<modAttribute stat="speech" mod="10" />
+				<modAttribute stat="courage" minMod="4" maxMod="6" />
+			</operations>
+		
+		</rule>
+		
+		<!-- Bartenders -->
+		<rule name="rpg_socialClass_bartenders">
+		
+			<selectors>
+				<hasSocialClass name="bartender" />
+			</selectors>
+		
+			<operations>
+				<addCraftsmenStats/>
+				<modAttribute stat="charisma" minMod="10" maxMod="12" />
+				<modAttribute stat="speech" mod="10" />
+				<modAttribute skill="drinking" minMod="8" maxMod="10" />
+			</operations>
+		
+		</rule>
+
+		<!-- Blacksmiths -->
+		<rule name="rpg_socialClass_blacksmiths">
+		
+			<selectors>
+				<or>
+					<hasSocialClass name="blacksmith" />
+					<hasSocialClass name="blacksmithApprentice" />
+				</or>
+			</selectors>
+		
+			<operations>
+				<addCraftsmenStats/>
+				<combatLevelBonus/>
+				<modAttribute stat="charisma" minMod="10" maxMod="15" />
+				<modAttribute stat="speech" mod="10" />
+				<modAttribute stat="agility" minMod="0" maxMod="2" />
+				<modAttribute stat="strength" minMod="2" maxMod="4" />
+			</operations>
+		
+		</rule>
+		
+		<!-- Butchers -->
+		<rule name="rpg_socialClass_butchers">
+		
+			<selectors>
+				<hasSocialClass name="butcher" />
+			</selectors>
+		
+			<operations>
+				<addCraftsmenStats/>
+				<combatLevelBonus/>
+				<modAttribute stat="courage" minMod="6" maxMod="8" />
+				<modAttribute stat="strength" minMod="2" maxMod="4" />
+				<modAttribute stat="charisma" minMod="6" maxMod="8" />
+				<setAttribute skill="survival" minValue="4" maxValue="6" />
+				<modAttribute stat="speech" mod="10" />
+			</operations>
+		
+		</rule>
+
+		<!-- Craftsmen -->
+		<rule name="rpg_socialClass_craftsmen">
+		
+			<selectors>
+				<hasSocialClass name="craftsman" />
+			</selectors>
+		
+			<operations>
+				<addCraftsmenStats/>
+			</operations>
+		
+		</rule>
+
+		<!-- Herbalists -->
+		<rule name="rpg_socialClass_herbalists">
+
+			<selectors>
+				<hasSocialClass name="herbalist" />
+			</selectors>
+		
+			<operations>
+				<addCraftsmenStats/>
+				<modAttribute stat="agility" minMod="0" maxMod="2" />
+				<modAttribute stat="vitality" minMod="0" maxMod="2" />
+				<modAttribute stat="charisma" minMod="8" maxMod="10" />
+				<modAttribute stat="speech" mod="10" />
+				<modAttribute skill="scholarship" minMod="5" maxMod="10" />
+				<setAttribute skill="alchemy" value="20" />
+				<setAttribute skill="survival" value="20" />
+			</operations>
+		
+		</rule>
+
+		
+		<!-- Fisherman -->
+		<rule name="rpg_socialClass_fisherman">
+		
+			<selectors>
+				<hasSocialClass name="fisherman" />
+			</selectors>
+		
+			<operations>
+				<addCraftsmenStats/>
+				<setAttribute skill="fishing" value="20" />
+			</operations>
+		
+		</rule>
+
+		<!-- Saddler -->
+		<rule name="rpg_socialClass_saddler">
+
+			<selectors>
+				<hasSocialClass name="saddler" />
+			</selectors>
+		
+			<operations>
+				<addCraftsmenStats/>
+				<combatLevelBonus/>
+				<modAttribute stat="charisma" minMod="10" maxMod="15" />
+				<modAttribute stat="speech" mod="10" />
+				<modAttribute stat="agility" minMod="0" maxMod="2" />
+				<modAttribute stat="strength" minMod="2" maxMod="4" />
+				<modAttribute skill="horse_riding" minMod="6" maxMod="8" />
+			</operations>
+		
+		</rule>
+
+		<!-- Shoemaker -->
+		<rule name="rpg_socialClass_Shoemaker">
+
+			<selectors>
+				<hasSocialClass name="shoemaker" />
+			</selectors>
+		
+			<operations>
+				<addCraftsmenStats/>
+				<combatLevelBonus/>
+				<modAttribute stat="charisma" minMod="10" maxMod="15" />
+				<modAttribute stat="speech" mod="10" />
+				<modAttribute stat="agility" minMod="0" maxMod="2" />
+				<modAttribute stat="strength" minMod="2" maxMod="4" />
+				<modAttribute skill="horse_riding" minMod="6" maxMod="8" />
+			</operations>
+		
+		</rule>
+
+		<!-- Gunsmith -->
+		<rule name="rpg_socialClass_gunsmith">
+		
+			<selectors>
+				<hasSocialClass name="gunsmith" />
+			</selectors>
+		
+			<operations>
+				<addCraftsmenStats/>
+				<combatLevelBonus/>
+				<modAttribute stat="charisma" minMod="10" maxMod="15" />
+				<modAttribute stat="speech" mod="10" />
+				<modAttribute stat="agility" minMod="0" maxMod="2" />
+				<modAttribute stat="strength" minMod="2" maxMod="4" />
+			</operations>
+		
+		</rule>
+
+		<!-- Horsetrader-->
+		<rule name="rpg_socialClass_horsetrader">
+
+			<selectors>
+				<hasSocialClass name="horsetrader" />
+			</selectors>
+		
+			<operations>
+				<addCraftsmenStats/>
+				<modAttribute stat="charisma" minMod="10" maxMod="15" />
+				<modAttribute stat="speech" mod="10" />
+				<modAttribute stat="agility" minMod="0" maxMod="2" />
+				<modAttribute stat="strength" minMod="2" maxMod="4" />
+				<modAttribute skill="horse_riding" minMod="12" maxMod="16" />
+			</operations>
+		
+		</rule>
+		
+		<!-- Innkeepers -->
+		<rule name="rpg_socialClass_innkeepers">
+		
+			<selectors>
+				<hasSocialClass name="innkeeper" />
+			</selectors>
+		
+			<operations>
+				<addCraftsmenStats/>
+				<modAttribute stat="charisma" minMod="10" maxMod="15" />
+				<modAttribute stat="speech" mod="10" />
+				<modAttribute stat="strength" minMod="4" maxMod="6" />
+				<modAttribute skill="drinking" minMod="12" maxMod="14" />
+				<modAttribute skill="thievery" minMod="2" maxMod="4" />
+			</operations>
+		
+		</rule>
+
+		<!-- Merchants -->
+		<rule name="rpg_socialClass_merchants">
+		
+			<selectors>
+				<hasSocialClass name="merchant" />
+			</selectors>
+		
+			<operations>	
+				<addCraftsmenStats/>
+				<modAttribute stat="charisma" minMod="10" maxMod="15" />
+				<modAttribute stat="speech" mod="10" />
+			</operations>
+		
+		</rule>
+		
+		<!-- Millers -->
+
+		<rule name="rpg_socialClass_millers">
+		
+			<selectors>
+				<hasSocialClass name="miller" />
+			</selectors>
+		
+			<operations>
+				<addCraftsmenStats/>
+				<modAttribute stat="charisma" minMod="-2" maxMod="0" />
+				<modAttribute stat="strength" minMod="2" maxMod="6" />
+				<modAttribute skill="thievery" minMod="14" maxMod="18" />
+				<!-- trade abilities are in ../world/traders.xml -->
+			</operations>
+		
+		</rule>
+		
+		<!-- Shootmaster -->
+		<rule name="rpg_socialClass_shootmaster">
+		
+			<selectors>
+				<hasSocialClass name="shootmaster" />
+			</selectors>
+		
+			<operations>
+				<addCraftsmenStats/>
+				<combatLevelBonus/>
+				<modAttribute stat="agility" minMod="2" maxMod="4" />
+				<modAttribute stat="charisma" minMod="10" maxMod="15" />
+				<modAttribute stat="speech" mod="10" />
+				<modAttribute skill="marksmanship" minMod="12" maxMod="16" />
+			</operations>
+		
+		</rule>
+
+		<!-- Weaponsmiths -->
+		<rule name="rpg_socialClass_weaponsmiths">
+
+			<selectors>
+				<hasSocialClass name="weaponsmith" />
+			</selectors>
+		
+			<operations>
+				<addCraftsmenStats/>
+				<combatLevelBonus/>
+				<modAttribute stat="charisma" minMod="10" maxMod="15" />
+				<modAttribute stat="speech" mod="10" />
+				<modAttribute stat="strength" minMod="2" maxMod="4" />
+			</operations>
+		
+		</rule>
+
+		<!-- Tailors -->
+		<rule name="rpg_socialClass_tailors">
+
+			<selectors>
+				<hasSocialClass name="tailor" />
+			</selectors>
+		
+			<operations>
+				<addCraftsmenStats/>
+				<modAttribute stat="charisma" minMod="10" maxMod="15" />
+				<modAttribute stat="speech" mod="10" />
+				<modAttribute stat="agility" minMod="2" maxMod="4" />
+			</operations>
+		
+		</rule>
+
+				
+
+<!-- Peasant classes -->
+
+		<!-- Bathhouse Maid -->
+		<rule name="rpg_socialClass_bathhouseMaid">
+
+			<selectors>
+				<hasSocialClass name="bathhouseMaid" />
+			</selectors>
+		
+			<operations>
+				<modAttribute stat="agility" minMod="0" maxMod="2" />
+				<modAttribute stat="charisma" minMod="4" maxMod="8" />
+				<modAttribute skill="drinking" minMod="8" maxMod="10" />
+				<modAttribute skill="tailoring" minMod="8" maxMod="10" />
+			</operations>
+		
+		</rule>
+
+		<!-- Beggars -->
+		<rule name="rpg_socialClass_beggars">
+		
+			<selectors>
+				<hasSocialClass name="beggar" />
+			</selectors>
+		
+			<operations>
+				<modAttribute stat="charisma" minMod="-2" maxMod="0" />
+				<modAttribute stat="vitality" minMod="-2" maxMod="0" />
+				<modAttribute stat="strength" minMod="-2" maxMod="0" />
+				<modAttribute stat="speech" minMod="0" maxMod="2" />
+				<modAttribute skill="thievery" minMod="8" maxMod="10" />
+			</operations>
+		
+		</rule>
+		
+		<!-- Circators -->
+		<rule name="rpg_socialClass_circators">
+		
+			<selectors>
+				<hasSocialClass name="circator" />
+			</selectors>
+		
+			<operations>
+				<modAttribute stat="charisma" minMod="2" maxMod="4" />
+				<modAttribute stat="courage" minMod="2" maxMod="4" />
+			</operations>
+		
+		</rule>
+		
+		<!-- Colliers -->
+		<rule name="rpg_socialClass_collier">
+		
+			<selectors>
+				<hasSocialClass name="collier" />
+			</selectors>
+		
+			<operations>
+				<modAttribute stat="agility" minMod="2" maxMod="4" />
+				<modAttribute stat="courage" minMod="2" maxMod="4" />
+				<modAttribute stat="strength" minMod="2" maxMod="6" />
+				<modAttribute stat="agility" minMod="2" maxMod="4" />
+				<setAttribute skill="survival" minValue="6" maxValue="8" />
+			</operations>
+		
+		</rule>
+
+		<!-- Housekeeper -->
+		<rule name="rpg_socialClass_housekeeper">
+		
+			<selectors>
+				<hasSocialClass name="housekeeper" />
+			</selectors>
+
+			<operations>
+				<modAttribute stat="courage" minMod="0" maxMod="2" />
+			</operations>
+		
+		</rule>
+
+		<!-- Wench -->
+		<rule name="rpg_socialClass_wench">
+		
+			<selectors>
+				<hasSocialClass name="wench" />
+			</selectors>
+
+			<operations>
+				<modAttribute stat="agility" minMod="1" maxMod="2" />
+				<modAttribute stat="vitality" minMod="1" maxMod="2" />
+			</operations>
+		
+		</rule>
+
+		<!-- Farmer -->
+		<rule name="rpg_socialClass_farmer">
+		
+			<selectors>
+				<hasSocialClass name="farmer" />
+			</selectors>
+		
+			<operations>
+				<modAttribute stat="strength" minMod="2" maxMod="6" />
+				<modAttribute stat="courage" minMod="2" maxMod="4" />
+			</operations>
+		
+		</rule>
+
+		<!-- Varlet -->
+		<rule name="rpg_socialClass_varlet">
+		
+			<selectors>
+				<hasSocialClass name="varlet" />
+			</selectors>
+		
+			<operations>
+				<modAttribute stat="courage" minMod="2" maxMod="6" />
+				<modAttribute skill="thievery" minMod="0" maxMod="2" />
+			</operations>
+		
+		</rule>
+
+		<!-- Herdsman/Shepherd -->
+		<rule name="rpg_socialClass_herdsman">
+		
+			<selectors>
+				<hasSocialClass name="herdsman" />
+			</selectors>
+		
+			<operations>
+				<addPerk name="Boid friend" />
+				<modAttribute stat="courage" minMod="6" maxMod="8" />
+				<modAttribute stat="agility" minMod="2" maxMod="4" />
+				<modAttribute stat="vitality" minMod="2" maxMod="4" />
+				<modAttribute skill="survival" minMod="8" maxMod="12" />
+				<modAttribute skill="houndmaster" minMod="8" maxMod="12" />
+			</operations>
+		
+		</rule>
+
+		<!-- Healer -->
+		<rule name="rpg_socialClass_healer">
+		
+			<selectors>
+				<hasSocialClass name="healer" />
+			</selectors>
+		
+			<operations>
+				<combatLevelBonus/>
+				<modAttribute skill="alchemy" minMod="4" maxMod="10" />
+				<setAttribute skill="first_aid" value="20" />
+			</operations>
+		
+		</rule>
+
+		<!-- Musician -->
+		<rule name="rpg_socialClass_musician">
+		
+			<selectors>
+				<hasSocialClass name="musician" />
+			</selectors>
+		
+			<operations>
+				<modAttribute stat="speech" minMod="0" maxMod="2" />
+				<modAttribute skill="drinking" minMod="10" maxMod="12" />
+			</operations>
+		
+		</rule>
+
+		<!-- Gypsy-->
+		<rule name="rpg_socialClass_gypsy">
+		
+			<selectors>
+				<hasSocialClass name="gypsy" />
+			</selectors>
+		
+			<operations>
+				<modAttribute stat="courage" minMod="4" maxMod="8" />
+			</operations>
+		
+		</rule>
+
+		<!-- Prisoner -->
+		<rule name="rpg_socialClass_prisoner">
+		
+			<selectors>
+				<hasSocialClass name="prisoner" />
+			</selectors>
+		
+			<operations>
+				<modAttribute stat="agility" minMod="-2" maxMod="0" />
+				<modAttribute stat="strength" minMod="-4" maxMod="0" />
+				<modAttribute stat="vitality" minMod="-4" maxMod="0" />
+				<modAttribute skill="thievery" minMod="0" maxMod="2" />
+			</operations>
+		
+		</rule>
+
+
+		<!-- Cook -->
+		<rule name="rpg_socialClass_cook">
+		
+			<selectors>
+				<hasSocialClass name="cook" />
+			</selectors>
+		
+			<operations>
+				<setAttribute skill="cooking" value="16" />
+			</operations>
+		
+		</rule>
+
+
+		<!-- Gravedigger -->
+		<rule name="rpg_socialClass_gravedigger">
+		
+			<selectors>
+				<hasSocialClass name="gravedigger" />
+			</selectors>
+		
+			<operations>
+				<modAttribute stat="strength" minMod="4" maxMod="6" />
+				<modAttribute stat="speech" minMod="-2" maxMod="0" />
+				<modAttribute skill="survival" minMod="10" maxMod="12" />
+			</operations>
+		
+		</rule>
+		
+		<!-- Lumberjacks -->
+		<rule name="rpg_socialClass_lumberjacks">
+		
+			<selectors>
+				<hasSocialClass name="lumberjack" />
+			</selectors>
+		
+			<operations>
+				<modAttribute stat="strength" minMod="4" maxMod="6" />
+				<modAttribute stat="agility" minMod="2" maxMod="4" />
+				<modAttribute stat="courage" minMod="4" maxMod="6" />
+			</operations>
+		
+		</rule>
+		
+		<!-- Masons/quarrymen -->
+		<rule name="rpg_socialClass_masons">
+		
+			<selectors>
+				<or>
+					<hasSocialClass name="mason" />
+					<hasSocialClass name="quarryman" />
+				</or>
+			</selectors>
+		
+			<operations>
+				<combatLevelBonus/>
+				<modAttribute stat="strength" minMod="4" maxMod="6" />
+				<modAttribute stat="agility" minMod="2" maxMod="4" />
+				<modAttribute stat="courage" minMod="4" maxMod="6" />
+			</operations>
+		
+		</rule>
+		
+		<!-- Monks -->
+		<rule name="rpg_socialClass_monks">
+		
+			<selectors>
+				<hasSocialClass name="monk" />
+			</selectors>
+		
+			<operations>
+				<modAttribute stat="vitality" minMod="0" maxMod="2" />
+				<setAttribute skill="scholarship" value="20" />
+			</operations>
+		
+		</rule>
+
+		<!-- Miner -->
+		<rule name="rpg_socialClass_miner">
+		
+			<selectors>
+				<or>
+					<hasSocialClass name="miner" />
+				</or>
+			</selectors>
+		
+			<operations>
+				<combatLevelBonus/>
+				<modAttribute stat="strength" minMod="4" maxMod="6" />
+				<modAttribute stat="agility" minMod="2" maxMod="4" />
+				<modAttribute stat="courage" minMod="4" maxMod="6" />
+			</operations>
+		
+		</rule>
+
+		<!-- Smelter -->
+		<rule name="rpg_socialClass_smelter">
+		
+			<selectors>
+				<or>
+					<hasSocialClass name="smelter" />
+				</or>
+			</selectors>
+		
+			<operations>
+				<combatLevelBonus/>
+				<modAttribute stat="strength" minMod="4" maxMod="6" />
+				<modAttribute stat="agility" minMod="2" maxMod="4" />
+				<modAttribute stat="courage" minMod="4" maxMod="6" />
+			</operations>
+		
+		</rule>
+	
+		<!-- Noblemen -->
+		<rule name="rpg_socialClass_noblemen">
+		
+			<selectors>
+				<hasSocialClass name="nobleman" />
+			</selectors>
+		
+			<operations>
+				<combatLevelBonus/>
+				<modAttribute skill="speech" minMod="0" maxMod="2" />
+				<modAttribute stat="charisma" minMod="8" maxMod="10" />
+				<modAttribute stat="courage" minMod="8" maxMod="12" />
+				<setAttribute skill="scholarship" value="10" />
+				<modAttribute skill="drinking" minMod="10" maxMod="12" />
+			</operations>
+		
+		</rule>
+
+
+	
+		<!-- Priests -->
+		<rule name="rpg_socialClass_priests">
+		
+			<selectors>
+				<hasSocialClass name="priest" />
+			</selectors>
+		
+			<operations>
+				<modAttribute stat="speech" minMod="0" maxMod="2" />
+				<modAttribute stat="charisma" minMod="8" maxMod="10" />
+				<setAttribute skill="scholarship" value="15" />
+			</operations>
+		
+		</rule>
+
+		<!-- Refugees -->
+		<rule name="rpg_socialClass_refugees">
+		
+			<selectors>
+				<hasSocialClass name="refugee" />
+			</selectors>
+		
+			<operations>
+				<modAttribute stat="charisma" minMod="-2" maxMod="0" />
+				<modAttribute stat="agility" minMod="-2" maxMod="0" />
+				<modAttribute stat="courage" minMod="-2" maxMod="0" />
+				<modAttribute stat="hearing" minMod="-2" maxMod="0" />
+				<modAttribute stat="strength" minMod="-2" maxMod="0" />
+				<modAttribute stat="vision" minMod="-4" maxMod="0" />
+				<modAttribute stat="vitality" minMod="-2" maxMod="0" />
+				<modAttribute skill="survival" minMod="4" maxMod="6" />
+			</operations>
+		
+		</rule>
+	
+		<!-- Scribes -->
+		<rule name="rpg_socialClass_scribes">
+		
+			<selectors>
+				<hasSocialClass name="scribe" />
+			</selectors>
+		
+			<operations>
+				<addCraftsmenStats/>
+				<modAttribute stat="charisma" minMod="10" maxMod="15" />
+				<modAttribute stat="speech" mod="10" />
+				<setAttribute skill="scholarship" value="20" />
+			</operations>
+		
+		</rule>
+	
+	
+		<!-- Tanners -->
+		<rule name="rpg_socialClass_tanners">
+		
+			<selectors>
+				<hasSocialClass name="tanner" />
+			</selectors>
+		
+			<operations>
+				<addCraftsmenStats/>
+				<modAttribute stat="charisma" minMod="8" maxMod="10" />
+				<modAttribute stat="speech" mod="8" />
+				<modAttribute stat="agility" minMod="0" maxMod="2" />
+				<modAttribute stat="strength" minMod="0" maxMod="2" />
+			</operations>
+		
+		</rule>
+	
+		<!-- Townsmen -->
+		<rule name="rpg_socialClass_townsmen">
+		
+			<selectors>
+				<hasSocialClass name="townsman" />
+			</selectors>
+		
+			<operations>
+				<modAttribute stat="courage" minMod="4" maxMod="6" />
+				<modAttribute stat="charisma" minMod="4" maxMod="6" />
+				<modAttribute stat="speech" minMod="4" maxMod="6" />
+				<modAttribute skill="scholarship" minMod="10" maxMod="12" />
+
+			</operations>
+		
+		</rule>
+	
+		<!-- Villagers -->
+
+		<!-- 
+
+		<rule name="rpg_socialClass_villagers">
+		
+			<selectors>
+				<hasSocialClass name="villager" />
+			</selectors>
+		
+		</rule>
+
+		-->
+
+		<!-- Wanderer -->
+		<rule name="rpg_socialClass_wanderer">
+
+			<selectors>
+				<hasSocialClass name="wanderer" />
+			</selectors>
+		
+			<operations>
+				<combatLevelBonus/>
+				<modAttribute stat="speech" mod="10" />
+				<modAttribute stat="charisma" minMod="10" maxMod="15" />
+				<modAttribute stat="hearing" minMod="8" maxMod="10" />
+				<modAttribute skill="survival" minMod="12" maxMod="16" />
+				<modAttribute skill="houndmaster" minMod="10" maxMod="16" />
+				<modAttribute skill="stealth" minMod="4" maxMod="8" />
+			</operations>
+		
+		</rule>
+
+		<!-- Woodworker -->
+		<rule name="rpg_socialClass_woodworker">
+		
+			<selectors>
+				<hasSocialClass name="woodworker" />
+			</selectors>
+		
+			<operations>
+				<combatLevelBonus/>
+				<modAttribute stat="speech" minMod="0" maxMod="2" />
+			</operations>
+		
+		</rule>
+
+<!-- Horses -->
+
+    <rule name="rpg_socialClass_horse_war_naked">
+
+      <selectors>
+        <hasSocialClass name="horse_war_naked" />
+      </selectors>
+
+      <operations>
+        <modAttribute stat="combatLevel" minMod="0.1" maxMod="0.3" />
+      </operations>
+
+    </rule>
+
+    <rule name="rpg_socialClass_horse_war_common">
+
+      <selectors>
+        <hasSocialClass name="horse_war_common" />
+      </selectors>
+
+      <operations>
+        <modAttribute stat="combatLevel" minMod="0.4" maxMod="0.6" />
+      </operations>
+
+    </rule>
+
+    <rule name="rpg_socialClass_horse_war_battle">
+
+      <selectors>
+        <hasSocialClass name="horse_war_battle" />
+      </selectors>
+
+      <operations>
+        <modAttribute stat="combatLevel" minMod="0.6" maxMod="1" />
+      </operations>
+
+    </rule>
+
+      <rule name="rpg_socialClass_horse_war_noble">
+
+        <selectors>
+          <hasSocialClass name="horse_war_noble" />
+        </selectors>
+
+        <operations>
+          <modAttribute stat="combatLevel" minMod="0.8" maxMod="1" />
+        </operations>
+
+    </rule>
+
+    <rule name="rpg_socialClass_horse_travel_naked">
+
+      <selectors>
+        <hasSocialClass name="horse_travel_naked" />
+      </selectors>
+
+      <operations>
+        <modAttribute stat="combatLevel" minMod="0.1" maxMod="0.3" />
+      </operations>
+
+    </rule>
+
+    <rule name="rpg_socialClass_horse_travel_common">
+
+      <selectors>
+        <hasSocialClass name="horse_travel_common" />
+      </selectors>
+
+      <operations>
+        <modAttribute stat="combatLevel" minMod="0.3" maxMod="0.7" />
+      </operations>
+
+    </rule>
+
+    <rule name="rpg_socialClass_horse_travel_noble">
+
+      <selectors>
+        <hasSocialClass name="horse_travel_noble" />
+      </selectors>
+
+      <operations>
+        <modAttribute stat="combatLevel" minMod="0.7" maxMod="1" />
+      </operations>
+
+    </rule>
+
+    <rule name="rpg_socialClass_horse_travel_east">
+
+      <selectors>
+        <hasSocialClass name="horse_travel_east" />
+      </selectors>
+
+      <operations>
+        <modAttribute stat="combatLevel" minMod="0.5" maxMod="0.7" />
+      </operations>
+
+    </rule>
+
+    <rule name="rpg_socialClass_horse_work_naked">
+
+      <selectors>
+        <hasSocialClass name="horse_work_naked" />
+      </selectors>
+
+      <operations>
+        <modAttribute stat="combatLevel" minMod="0.2" maxMod="0.5" />
+      </operations>
+
+    </rule>
+
+    <rule name="rpg_socialClass_horse_work_common">
+
+      <selectors>
+        <hasSocialClass name="horse_work_common" />
+      </selectors>
+
+      <operations>
+        <modAttribute stat="combatLevel" minMod="0.5" maxMod="0.7" />
+      </operations>
+
+    </rule>
+
+    <rule name="rpg_socialClass_horse_work_battle">
+
+      <selectors>
+        <hasSocialClass name="horse_work_battle" />
+      </selectors>
+
+      <operations>
+        <modAttribute stat="combatLevel" minMod="0.7" maxMod="1" />
+      </operations>
+
+    </rule>
+
+    <rule name="rpg_socialClass_horse_draft_naked">
+
+      <selectors>
+        <hasSocialClass name="horse_draft_naked" />
+      </selectors>
+
+      <operations>
+        <modAttribute stat="combatLevel" minMod="0.1" maxMod="0.5" />
+      </operations>
+
+    </rule>
+
+    <rule name="rpg_socialClass_horse_draft_common">
+
+      <selectors>
+        <hasSocialClass name="horse_draft_common" />
+      </selectors>
+
+      <operations>
+        <modAttribute stat="combatLevel" minMod="0.4" maxMod="1" />
+      </operations>
+
+    </rule>
+
+
+	<!-- KCD2-281892 - Skills for repairmen -->
+	<!-- ================================= -->
+	
+	<!-- Armorer - skills: armourer -->
+	<rule name="rpg_socialClass_armorer_trosecko">
+		<selectors>
+			<hasSocialClass name="armorer"/>
+			<hasFaction name="trosecko" />
+		</selectors>
+		<operations>
+			<setAttribute skill="armourer" minValue="10" maxValue="14" />
+		</operations>
+	</rule>
+	<rule name="rpg_socialClass_armorer_trosky">
+		<selectors>
+			<hasSocialClass name="armorer"/>
+			<hasFaction name="trosecko_settlements_trosky" />
+		</selectors>
+		<operations>
+			<setAttribute skill="armourer" minValue="15" maxValue="19" />
+		</operations>
+	</rule>
+	<rule name="rpg_socialClass_armorer_kutnohorsko">
+		<selectors>
+			<hasSocialClass name="armorer"/>
+			<hasFaction name="kutnohorsko" />
+		</selectors>
+		<operations>
+			<setAttribute skill="armourer" minValue="15" maxValue="19" />
+		</operations>
+	</rule>
+	<rule name="rpg_socialClass_armorer_kutnaHora">
+		<selectors>
+			<hasSocialClass name="armorer"/>
+			<hasFaction name="kutnohorsko_settlements_kutnaHora" />
+		</selectors>
+		<operations>
+			<setAttribute skill="armourer" minValue="20" maxValue="24" />
+		</operations>
+	</rule>
+
+	<!-- Blacksmith - skills: weaponsmithing, armourer -->
+	<rule name="rpg_socialClass_blacksmith_trosecko">
+		<selectors>
+			<hasSocialClass name="blacksmith"/>
+			<hasFaction name="trosecko" />
+		</selectors>
+		<operations>
+			<setAttribute skill="weaponsmithing" minValue="10" maxValue="14" />
+			<setAttribute skill="armourer" minValue="10" maxValue="14" />
+		</operations>
+	</rule>
+	<rule name="rpg_socialClass_blacksmith_trosky">
+		<selectors>
+			<hasSocialClass name="blacksmith"/>
+			<hasFaction name="trosecko_settlements_trosky" />
+		</selectors>
+		<operations>
+			<setAttribute skill="weaponsmithing" minValue="15" maxValue="19" />
+			<setAttribute skill="armourer" minValue="15" maxValue="19" />
+		</operations>
+	</rule>
+	<rule name="rpg_socialClass_blacksmith_kutnohorsko">
+		<selectors>
+			<hasSocialClass name="blacksmith"/>
+			<hasFaction name="kutnohorsko" />
+		</selectors>
+		<operations>
+			<setAttribute skill="weaponsmithing" minValue="15" maxValue="19" />
+			<setAttribute skill="armourer" minValue="15" maxValue="19" />
+		</operations>
+	</rule>
+	<rule name="rpg_socialClass_blacksmith_kutnaHora">
+		<selectors>
+			<hasSocialClass name="blacksmith"/>
+			<hasFaction name="kutnohorsko_settlements_kutnaHora" />
+		</selectors>
+		<operations>
+			<setAttribute skill="weaponsmithing" minValue="20" maxValue="24" />
+			<setAttribute skill="armourer" minValue="20" maxValue="24" />
+		</operations>
+	</rule>
+
+	<!-- Weaponsmith - skills: weaponsmithing -->
+	<rule name="rpg_socialClass_weaponsmith_trosecko">
+		<selectors>
+			<hasSocialClass name="weaponsmith"/>
+			<hasFaction name="trosecko" />
+		</selectors>
+		<operations>
+			<setAttribute skill="weaponsmithing" minValue="10" maxValue="14" />
+		</operations>
+	</rule>
+	<rule name="rpg_socialClass_weaponsmith_trosky">
+		<selectors>
+			<hasSocialClass name="weaponsmith"/>
+			<hasFaction name="trosecko_settlements_trosky" />
+		</selectors>
+		<operations>
+			<setAttribute skill="weaponsmithing" minValue="15" maxValue="19" />
+		</operations>
+	</rule>
+	<rule name="rpg_socialClass_weaponsmith_kutnohorsko">
+		<selectors>
+			<hasSocialClass name="weaponsmith"/>
+			<hasFaction name="kutnohorsko" />
+		</selectors>
+		<operations>
+			<setAttribute skill="weaponsmithing" minValue="15" maxValue="19" />
+		</operations>
+	</rule>
+	<rule name="rpg_socialClass_weaponsmith_kutnaHora">
+		<selectors>
+			<hasSocialClass name="weaponsmith"/>
+			<hasFaction name="kutnohorsko_settlements_kutnaHora" />
+		</selectors>
+		<operations>
+			<setAttribute skill="weaponsmithing" minValue="20" maxValue="24" />
+		</operations>
+	</rule>
+	<!-- Tailor - skills: tailoring -->
+	<rule name="rpg_socialClass_tailor_trosecko">
+		<selectors>
+			<hasSocialClass name="tailor"/>
+			<hasFaction name="trosecko" />
+		</selectors>
+		<operations>
+			<setAttribute skill="tailoring" minValue="10" maxValue="14" />
+		</operations>
+	</rule>
+	<rule name="rpg_socialClass_tailor_trosky">
+		<selectors>
+			<hasSocialClass name="tailor"/>
+			<hasFaction name="trosecko_settlements_trosky" />
+		</selectors>
+		<operations>
+			<setAttribute skill="tailoring" minValue="15" maxValue="19" />
+		</operations>
+	</rule>
+	<rule name="rpg_socialClass_tailor_kutnohorsko">
+		<selectors>
+			<hasSocialClass name="tailor"/>
+			<hasFaction name="kutnohorsko" />
+		</selectors>
+		<operations>
+			<setAttribute skill="tailoring" minValue="15" maxValue="19" />
+		</operations>
+	</rule>
+	<rule name="rpg_socialClass_tailor_kutnaHora">
+		<selectors>
+			<hasSocialClass name="tailor"/>
+			<hasFaction name="kutnohorsko_settlements_kutnaHora" />
+		</selectors>
+		<operations>
+			<setAttribute skill="tailoring" minValue="20" maxValue="24" />
+		</operations>
+	</rule>
+
+	<!-- Shoemaker & saddler - skills: shoemaking -->
+	<rule name="rpg_socialClass_shoemakerSaddler_trosecko">
+		<selectors>
+			<or>
+				<hasSocialClass name="saddler" />
+				<hasSocialClass name="shoemaker"/>
+			</or>
+			<hasFaction name="trosecko" />
+		</selectors>
+		<operations>
+			<setAttribute skill="shoemaking" minValue="10" maxValue="14" />
+		</operations>
+	</rule>
+	<rule name="rpg_socialClass_shoemakerSaddler_trosky">
+		<selectors>
+			<or>
+				<hasSocialClass name="saddler" />
+				<hasSocialClass name="shoemaker"/>
+			</or>
+			<hasFaction name="trosecko_settlements_trosky" />
+		</selectors>
+		<operations>
+			<setAttribute skill="shoemaking" minValue="15" maxValue="19" />
+		</operations>
+	</rule>
+	<rule name="rpg_socialClass_shoemakerSaddler_kutnohorsko">
+		<selectors>
+			<or>
+				<hasSocialClass name="saddler" />
+				<hasSocialClass name="shoemaker"/>
+			</or>
+			<hasFaction name="kutnohorsko" />
+		</selectors>
+		<operations>
+			<setAttribute skill="shoemaking" minValue="15" maxValue="19" />
+		</operations>
+	</rule>
+	<rule name="rpg_socialClass_shoemakerSaddler_kutnaHora">
+		<selectors>
+			<or>
+				<hasSocialClass name="saddler" />
+				<hasSocialClass name="shoemaker"/>
+			</or>
+			<hasFaction name="kutnohorsko_settlements_kutnaHora" />
+		</selectors>
+		<operations>
+			<setAttribute skill="shoemaking" minValue="20" maxValue="24" />
+		</operations>
+	</rule>
+
+	<!-- Shootmaster - skills: bowyery -->
+	<rule name="rpg_socialClass_shootmaker_trosecko">
+		<selectors>
+			<hasSocialClass name="shootmaster"/>
+			<hasFaction name="trosecko" />
+		</selectors>
+		<operations>
+			<setAttribute skill="bowyery" minValue="10" maxValue="14" />
+		</operations>
+	</rule>
+	<rule name="rpg_socialClass_shootmaker_trosky">
+		<selectors>
+			<hasSocialClass name="shootmaster"/>
+			<hasFaction name="trosecko_settlements_trosky" />
+		</selectors>
+		<operations>
+			<setAttribute skill="bowyery" minValue="15" maxValue="19" />
+		</operations>
+	</rule>
+	<rule name="rpg_socialClass_shootmaker_kutnohorsko">
+		<selectors>
+			<hasSocialClass name="shootmaster"/>
+			<hasFaction name="kutnohorsko" />
+		</selectors>
+		<operations>
+			<setAttribute skill="bowyery" minValue="15" maxValue="19" />
+		</operations>
+	</rule>
+	<rule name="rpg_socialClass_shootmaker_kutnaHora">
+		<selectors>
+			<hasSocialClass name="shootmaster"/>
+			<hasFaction name="kutnohorsko_settlements_kutnaHora" />
+		</selectors>
+		<operations>
+			<setAttribute skill="bowyery" minValue="20" maxValue="24" />
+		</operations>
+	</rule>
+
+	<!-- Gunsmith - skills: gunsmithing -->
+	<rule name="rpg_socialClass_gunsmith_trosecko">
+		<selectors>
+			<hasSocialClass name="gunsmith"/>
+			<hasFaction name="trosecko" />
+		</selectors>
+		<operations>
+			<setAttribute skill="gunsmithing" minValue="10" maxValue="14" />
+		</operations>
+	</rule>
+	<rule name="rpg_socialClass_gunsmith_trosky">
+		<selectors>
+			<hasSocialClass name="gunsmith"/>
+			<hasFaction name="trosecko_settlements_trosky" />
+		</selectors>
+		<operations>
+			<setAttribute skill="gunsmithing" minValue="15" maxValue="19" />
+		</operations>
+	</rule>
+	<rule name="rpg_socialClass_gunsmith_kutnohorsko">
+		<selectors>
+			<hasSocialClass name="gunsmith"/>
+			<hasFaction name="kutnohorsko" />
+		</selectors>
+		<operations>
+			<setAttribute skill="gunsmithing" minValue="15" maxValue="19" />
+		</operations>
+	</rule>
+	<rule name="rpg_socialClass_gunsmith_kutnaHora">
+		<selectors>
+			<hasSocialClass name="gunsmith"/>
+			<hasFaction name="kutnohorsko_settlements_kutnaHora" />
+		</selectors>
+		<operations>
+			<setAttribute skill="gunsmithing" minValue="20" maxValue="24" />
+		</operations>
+	</rule>
+
+  </rules>
+</storm>

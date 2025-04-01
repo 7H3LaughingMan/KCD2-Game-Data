@@ -1,0 +1,1569 @@
+<FXLib>
+
+<!-- 
+Possible effects:
+  <Decal minScale="..." maxscale="..." rotation="..." growTime="..." assembledecals="..." forceedge="..." lifetime="..." >
+    <Material>MaterialToUse</Material>
+  </Decal>
+  
+  <Particle>
+    <Name userdata="..." scale="..." maxdist="..." minscale="..." maxscale="..." maxscaledist="..." attach="...">particle.name</Name>
+    <Direction>DirectionType</Direction>
+  </Particle>
+  
+  <Audio trigger=â€ťfootstepâ€ť>
+    <Switch name=â€ťSwitch1â€ť state=â€ťswitch1_stateâ€ť />
+    <Switch name=â€ťSwitch2â€ť state=â€ťswtich2_stateâ€ť />
+    <Switch ... />
+  </Audio>
+  
+  <FlowGraph name="..." maxdist="..." param1="..." param2="..." />
+-->
+
+<Effect name="blank_event">
+</Effect>
+
+<Effect name="default">
+</Effect>
+
+<Effect name="vegetation">
+  <Audio trigger="bush1">
+  </Audio>
+</Effect>
+
+<Effect name="veg_hit">
+  <Audio trigger="bush1_hit">
+  </Audio>
+</Effect>
+
+<!-- BODY COLLISIONS -->
+
+<Effect name="body_fabric_passed">
+  <Audio trigger="f_ge_body_fabric_passed">
+  </Audio>
+</Effect>
+
+<Effect name="body_fabric_stopped">
+  <Audio trigger="f_ge_body_fabric_stopped">
+  </Audio>
+</Effect>
+
+<Effect name="body_plate_passed">
+  <Audio trigger="f_ge_body_plate_passed">
+  </Audio>
+</Effect>
+
+<Effect name="body_plate_stopped">
+  <Audio trigger="f_ge_body_plate_stopped">
+  </Audio>
+</Effect>
+
+<!-- LEGACY GENERAL COLLISIONS -->
+
+<!-- ARM COMBAT -->
+
+<Effect name="punch_metal">
+  <Audio trigger="c_mfx_punch_metal">
+  </Audio>
+</Effect>
+
+<Effect name="punch_stone">
+  <Audio trigger="c_mfx_punch_stone">
+  </Audio>
+</Effect>
+
+<Effect name="punch_wood">
+  <Audio trigger="c_mfx_punch_wood">
+  </Audio>
+</Effect>
+
+<Effect name="blunt_armed_face_fabric">
+  <Audio trigger="c_blunt_armed_face_fabric_npc">
+  </Audio>
+  <RandEffect>
+		<Particle>
+			<Name direction="Reverse" minscale="1" maxscale="1" maxscaledist="10" attach="1">collisions.combat.hit_stopped_sword_fabric</Name>
+		</Particle>	
+	</RandEffect>
+</Effect>
+
+<Effect name="blunt_unarmed_face_fabric">
+  <Audio trigger="c_blunt_unarmed_face_fabric_npc">
+  </Audio>
+    <RandEffect>
+		<Particle>
+			<Name direction="Reverse" minscale="1" maxscale="1" maxscaledist="10" attach="1">collisions.combat.hit_stopped_sword_fabric</Name>
+		</Particle>	
+	</RandEffect>
+</Effect>
+
+<Effect name="blunt_armed_body_fabric">
+  <Audio trigger="c_blunt_armed_body_fabric_npc">
+  </Audio>
+  <RandEffect>
+		<Particle>
+			<Name direction="Reverse" minscale="1.0" maxscale="1.4" maxscaledist="10" attach="1">collisions.combat.test_green</Name>
+		</Particle>	
+	</RandEffect>
+</Effect>
+
+<Effect name="blunt_unarmed_body_fabric">
+  <Audio trigger="c_blunt_unarmed_body_fabric_npc">
+  </Audio>
+      <RandEffect>
+		<Particle>
+			<Name direction="Reverse" minscale="1.0" maxscale="1.4" maxscaledist="10" attach="1">collisions.combat.test_green</Name>
+		</Particle>	
+	</RandEffect>
+</Effect>
+
+<Effect name="blunt_armed_face_chainmail">
+  <Audio trigger="c_blunt_armed_face_chainmail_npc">
+  </Audio>
+        <RandEffect>
+		<Particle>
+			<Name direction="Reverse" minscale="1.0" maxscale="1.4" maxscaledist="10" attach="1">collisions.combat.hit_stopped_sword_fabric</Name>
+		</Particle>	
+	</RandEffect>
+</Effect>
+
+<Effect name="blunt_unarmed_face_chainmail">
+  <Audio trigger="c_blunt_unarmed_face_chainmail_npc">
+  </Audio>
+          <RandEffect>
+		<Particle>
+			<Name direction="Reverse" minscale="1.0" maxscale="1.4" maxscaledist="10" attach="1">collisions.combat.hit_stopped_sword_fabric</Name>
+		</Particle>	
+	</RandEffect>
+</Effect>
+
+<Effect name="blunt_armed_body_chainmail">
+  <Audio trigger="c_blunt_armed_body_chainmail_npc">
+  </Audio>
+</Effect>
+
+<Effect name="blunt_unarmed_body_chainmail">
+  <Audio trigger="c_blunt_unarmed_body_chainmail_npc">
+  </Audio>
+            <RandEffect>
+		<Particle>
+			<Name direction="Reverse" minscale="1.0" maxscale="1.4" maxscaledist="10" attach="1">collisions.combat.hit_stopped_sword_fabric</Name>
+		</Particle>	
+	</RandEffect>
+</Effect>
+
+<Effect name="blunt_armed_face_plate">
+  <Audio trigger="c_blunt_armed_face_plate_npc">
+  </Audio>
+</Effect>
+
+<Effect name="blunt_unarmed_face_plate">
+  <Audio trigger="c_blunt_unarmed_face_plate_npc">
+  </Audio>
+            <RandEffect>
+		<Particle>
+			<Name direction="Reverse" minscale="1.0" maxscale="1.4" maxscaledist="10" attach="1">collisions.combat.hit_stopped_sword_fabric</Name>
+		</Particle>	
+	</RandEffect>
+</Effect>
+
+<Effect name="blunt_armed_body_plate">
+  <Audio trigger="c_blunt_armed_body_plate_npc">
+  </Audio>
+</Effect>
+
+<Effect name="blunt_unarmed_body_plate">
+  <Audio trigger="c_blunt_unarmed_body_plate_npc">
+  </Audio>
+            <RandEffect>
+		<Particle>
+			<Name direction="Reverse" minscale="1.0" maxscale="1.4" maxscaledist="10" attach="1">collisions.combat.hit_stopped_sword_fabric</Name>
+		</Particle>	
+	</RandEffect>
+</Effect>
+
+
+<!-- ARROW IMPACTS -->
+
+<Effect name="hit_passed_arrow_fabric">
+  <Audio trigger="c_mfx_fabric_arrow_passed">
+  </Audio>
+	<RandEffect>
+		<Particle>
+			<Name direction="Reverse" minscale="1.0" maxscale="1.4" maxscaledist="10" attach="1">collisions.combat.hit_passed_arrow_fabric</Name>
+		</Particle>	
+	</RandEffect>
+</Effect>
+
+<Effect name="hit_stopped_arrow_fabric">
+  <Audio trigger="c_mfx_fabric_arrow_stopped">
+  </Audio>
+	<RandEffect>
+		<Particle>
+			<Name direction="Reverse" minscale="1.0" maxscale="1.2" maxscaledist="80" attach="1">collisions.combat.hit_stopped_arrow_fabric</Name>
+		</Particle>	
+	</RandEffect>		
+</Effect>
+
+<Effect name="hit_passed_arrow_chainmail">
+  <Audio trigger="c_mfx_chainmail_arrow_passed">
+  </Audio>
+	<RandEffect>
+		<Particle>
+			<Name direction="Reverse" minscale="0.5" maxscale="1.0" maxscaledist="80" attach="1">collisions.combat.sword_plate</Name>
+		</Particle>
+		<!--	<Particle>
+			<Name direction="ricochet" minscale="1.0" maxscale="1.2" maxscaledist="80">collisions.test_smoke.b</Name>
+		</Particle>	-->	
+	</RandEffect>	
+</Effect>
+
+<Effect name="hit_stopped_arrow_chainmail">
+  <Audio trigger="c_mfx_chainmail_arrow_stopped">
+  </Audio>
+	<RandEffect>
+		<Particle>
+			<Name direction="Reverse" minscale="0.5" maxscale="1.0" maxscaledist="80" attach="1">collisions.combat.sword_plate</Name>
+		</Particle>
+		<!--	<Particle>
+			<Name direction="ricochet" minscale="1.0" maxscale="1.2" maxscaledist="80">collisions.test_smoke.b</Name>
+		</Particle>	-->
+	</RandEffect>	
+</Effect>
+
+<Effect name="hit_passed_arrow_plate">
+  <Audio trigger="c_mfx_plate_arrow_passed">
+  </Audio>
+	<RandEffect>
+		<Particle>
+			<Name direction="Reverse" minscale="0.9" maxscale="1.2" maxscaledist="80" attach="1">collisions.combat.sword_body_stab</Name>
+		</Particle>	
+	</RandEffect>	
+</Effect>
+
+<Effect name="hit_stopped_arrow_plate">
+  <Audio trigger="c_mfx_plate_arrow_stopped">
+  </Audio>
+	<RandEffect>
+		<Particle>
+			<Name direction="Reverse" minscale="0.9" maxscale="1.2" maxscaledist="80" attach="1">collisions.combat.hit_stopped_arrow_plate</Name>
+		</Particle>	
+	</RandEffect>	
+</Effect>
+
+<!-- BULLET IMPACTS -->
+
+<Effect name="hit_passed_bullet_fabric">
+  <Audio trigger="c_mfx_fabric_bullet_passed">
+  </Audio>
+	<RandEffect>
+		<Particle>
+			<Name direction="Reverse" minscale="1.0" maxscale="1.4" maxscaledist="10" attach="1">collisions.combat.hit_passed_arrow_fabric</Name>
+		</Particle>	
+	</RandEffect>
+</Effect>
+
+<Effect name="hit_stopped_bullet_fabric">
+  <Audio trigger="c_mfx_fabric_bullet_stopped">
+  </Audio>
+	<RandEffect>
+		<Particle>
+			<Name direction="Reverse" minscale="1.0" maxscale="1.2" maxscaledist="80" attach="1">collisions.combat.hit_stopped_arrow_fabric</Name>
+		</Particle>	
+	</RandEffect>		
+</Effect>
+
+<Effect name="hit_passed_bullet_chainmail">
+  <Audio trigger="c_mfx_chainmail_bullet_passed">
+  </Audio>
+	<RandEffect>
+		<Particle>
+			<Name direction="Reverse" minscale="0.5" maxscale="1.0" maxscaledist="80" attach="1">collisions.combat.sword_plate</Name>
+		</Particle>
+		<!--	<Particle>
+			<Name direction="ricochet" minscale="1.0" maxscale="1.2" maxscaledist="80">collisions.test_smoke.b</Name>
+		</Particle>	-->	
+	</RandEffect>	
+</Effect>
+
+<Effect name="hit_stopped_bullet_chainmail">
+  <Audio trigger="c_mfx_chainmail_bullet_stopped">
+  </Audio>
+	<RandEffect>
+		<Particle>
+			<Name direction="Reverse" minscale="0.5" maxscale="1.0" maxscaledist="80" attach="1">collisions.combat.sword_plate</Name>
+		</Particle>
+		<!--	<Particle>
+			<Name direction="ricochet" minscale="1.0" maxscale="1.2" maxscaledist="80">collisions.test_smoke.b</Name>
+		</Particle>	-->
+	</RandEffect>	
+</Effect>
+
+<Effect name="hit_passed_bullet_plate">
+  <Audio trigger="c_mfx_plate_bullet_passed">
+  </Audio>
+	<RandEffect>
+		<Particle>
+			<Name direction="Reverse" minscale="0.9" maxscale="1.2" maxscaledist="80" attach="1">collisions.combat.sword_body_stab</Name>
+		</Particle>	
+	</RandEffect>	
+</Effect>
+
+<Effect name="hit_stopped_bullet_plate">
+  <Audio trigger="c_mfx_plate_bullet_stopped">
+  </Audio>
+	<RandEffect>
+		<Particle>
+			<Name direction="Reverse" minscale="0.9" maxscale="1.2" maxscaledist="80" attach="1">collisions.combat.hit_stopped_bullet_plate</Name>
+		</Particle>	
+	</RandEffect>	
+</Effect>
+
+<!-- PLAYER COLLISIONS -->
+
+<!-- ARM COMBAT -->
+
+<Effect name="blunt_armed_face_fabric_player">
+  <Audio trigger="c_blunt_armed_face_fabric_player">
+  </Audio>
+  <RandEffect>
+		<Particle>
+			<Name direction="Reverse" minscale="1.0" maxscale="1.4" maxscaledist="10" attach="1">collisions.combat.hit_passed_blunt_unarmed</Name>
+		</Particle>	
+	</RandEffect>
+</Effect>
+
+<Effect name="blunt_unarmed_face_fabric_player">
+  <Audio trigger="c_blunt_unarmed_face_fabric_player">
+  </Audio>
+  <RandEffect>
+		<Particle>
+			<Name direction="Reverse" minscale="1.0" maxscale="1.4" maxscaledist="10" attach="1">collisions.combat.hit_passed_blunt_unarmed</Name>
+		</Particle>	
+	</RandEffect>
+</Effect>
+
+<Effect name="blunt_armed_body_fabric_player">
+  <Audio trigger="c_blunt_armed_body_fabric_player">
+  </Audio>
+  <RandEffect>
+		<Particle>
+			<Name direction="Reverse" minscale="1.0" maxscale="1.4" maxscaledist="10" attach="1">collisions.combat.hit_unarmed</Name>
+		</Particle>	
+	</RandEffect>
+</Effect>
+
+<Effect name="blunt_unarmed_body_fabric_player">
+  <Audio trigger="c_blunt_unarmed_body_fabric_player">
+  </Audio>
+    <RandEffect>
+		<Particle>
+			<Name direction="Reverse" minscale="1.0" maxscale="1.4" maxscaledist="10" attach="1">collisions.combat.hit_unarmed</Name>
+		</Particle>	
+	</RandEffect>
+</Effect>
+
+<Effect name="blunt_armed_face_chainmail_player">
+  <Audio trigger="c_blunt_armed_face_chainmail_player">
+  </Audio>
+    <RandEffect>
+		<Particle>
+			<Name direction="Reverse" minscale="1.0" maxscale="1.4" maxscaledist="10" attach="1">collisions.combat.hit_passed_blunt_unarmed</Name>
+		</Particle>	
+	</RandEffect>
+</Effect>
+
+<Effect name="blunt_unarmed_face_chainmail_player">
+  <Audio trigger="c_blunt_unarmed_face_chainmail_player">
+  </Audio>
+    <RandEffect>
+		<Particle>
+			<Name direction="Reverse" minscale="1.0" maxscale="1.4" maxscaledist="10" attach="1">collisions.combat.hit_passed_blunt_unarmed</Name>
+		</Particle>	
+	</RandEffect>
+</Effect>
+
+<Effect name="blunt_armed_body_chainmail_player">
+  <Audio trigger="c_blunt_armed_body_chainmail_player">
+  </Audio>
+    <RandEffect>
+		<Particle>
+			<Name direction="Reverse" minscale="1.0" maxscale="1.4" maxscaledist="10" attach="1">collisions.combat.hit_unarmed</Name>
+		</Particle>	
+	</RandEffect>
+</Effect>
+
+<Effect name="blunt_unarmed_body_chainmail_player">
+  <Audio trigger="c_blunt_unarmed_body_chainmail_player">
+  </Audio>
+    <RandEffect>
+		<Particle>
+			<Name direction="Reverse" minscale="1.0" maxscale="1.4" maxscaledist="10" attach="1">collisions.combat.hit_unarmed</Name>
+		</Particle>	
+	</RandEffect>
+</Effect>
+
+<Effect name="blunt_armed_face_plate_player">
+  <Audio trigger="c_blunt_armed_face_plate_player">
+  </Audio>
+    <RandEffect>
+		<Particle>
+			<Name direction="Reverse" minscale="1.0" maxscale="1.4" maxscaledist="10" attach="1">collisions.combat.hit_unarmed</Name>
+		</Particle>	
+	</RandEffect>
+</Effect>
+
+<Effect name="blunt_unarmed_face_plate_player">
+  <Audio trigger="c_blunt_unarmed_face_plate_player">
+  </Audio>
+    <RandEffect>
+		<Particle>
+			<Name direction="Reverse" minscale="1.0" maxscale="1.4" maxscaledist="10" attach="1">collisions.combat.hit_unarmed</Name>
+		</Particle>	
+	</RandEffect>
+</Effect>
+
+<Effect name="blunt_armed_body_plate_player">
+  <Audio trigger="c_blunt_armed_body_plate_player">
+  </Audio>
+    <RandEffect>
+		<Particle>
+			<Name direction="Reverse" minscale="1.0" maxscale="1.4" maxscaledist="10" attach="1">collisions.combat.hit_unarmed</Name>
+		</Particle>	
+	</RandEffect>
+</Effect>
+
+<Effect name="blunt_unarmed_body_plate_player">
+  <Audio trigger="c_blunt_unarmed_body_plate_player">
+  </Audio>
+    <RandEffect>
+		<Particle>
+			<Name direction="Reverse" minscale="1.0" maxscale="1.4" maxscaledist="10" attach="1">collisions.combat.hit_unarmed</Name>
+		</Particle>	
+	</RandEffect>
+</Effect>
+
+<!-- AXE IMPACTS PLAYER -->
+
+<Effect name="axe_metal_clash_player">
+  <Audio trigger="c_w_axe_clash_player">
+  </Audio>
+	<RandEffect>
+		<Particle>
+			<Name direction="Reverse" minscale="1.0" maxscale="1.2" maxscaledist="80" attach="1">collisions.combat.sword_sword</Name>
+		</Particle>
+		<!--	<Particle>
+			<Name direction="ricochet" minscale="1.0" maxscale="1.2" maxscaledist="80">collisions.test_smoke.b</Name>
+		</Particle>	-->
+	</RandEffect>
+	<FlowGraph name="sword_sword" />
+</Effect>
+
+<Effect name="hit_passed_axe_fabric_player">
+  <Audio trigger="c_mfx_fabric_axe_passed_player">
+  </Audio>
+      <RandEffect>
+		<Particle>
+			<Name direction="Reverse" minscale="0.9" maxscale="1.0" maxscaledist="10" attach="1">collisions.combat.hit_passed_blunt</Name>
+		</Particle>	
+	</RandEffect>
+</Effect>
+
+<Effect name="hit_stopped_axe_fabric_player">
+  <Audio trigger="c_mfx_fabric_axe_stopped_player">
+  </Audio>
+        <RandEffect>
+		<Particle>
+			<Name direction="Reverse" minscale="0.9" maxscale="1.0" maxscaledist="10" attach="1">collisions.combat.hit_stopped_sword_fabric</Name>
+		</Particle>	
+	</RandEffect>
+</Effect>
+
+<Effect name="hit_passed_axe_chainmail_player">
+  <Audio trigger="c_mfx_chainmail_axe_passed_player">
+  </Audio>
+          <RandEffect>
+		<Particle>
+			<Name direction="Reverse" minscale="0.9" maxscale="1.0" maxscaledist="10" attach="1">collisions.combat.hit_passed_blunt_plate</Name>
+		</Particle>	
+	</RandEffect>
+</Effect>
+
+<Effect name="hit_stopped_axe_chainmail_player">
+  <Audio trigger="c_mfx_chainmail_axe_stopped_player">
+  </Audio>
+            <RandEffect>
+		<Particle>
+			<Name direction="Reverse" minscale="1.0" maxscale="1.0" maxscaledist="10" attach="1">collisions.combat.hit_stopped_mace_plate</Name>
+		</Particle>	
+	</RandEffect>
+</Effect>
+
+<Effect name="hit_passed_axe_plate_player">
+  <Audio trigger="c_mfx_plate_axe_passed_player">
+  </Audio>
+            <RandEffect>
+		<Particle>
+			<Name direction="Reverse" minscale="1.0" maxscale="1.0" maxscaledist="10" attach="1">collisions.combat.hit_passed_blunt_plate</Name>
+		</Particle>	
+	</RandEffect>
+</Effect>
+
+<Effect name="hit_stopped_axe_plate_player">
+  <Audio trigger="c_mfx_plate_axe_stopped_player">
+  </Audio>
+              <RandEffect>
+		<Particle>
+			<Name direction="Reverse" minscale="1.0" maxscale="1.0" maxscaledist="10" attach="1">collisions.combat.hit_stopped_mace_plate</Name>
+		</Particle>	
+	</RandEffect>
+</Effect>
+
+
+<!-- MACE IMPACTS PLAYER -->
+
+<Effect name="hit_passed_mace_fabric_player">
+  <Audio trigger="c_mfx_fabric_mace_passed_player">
+  </Audio>
+        <RandEffect>
+		<Particle>
+			<Name direction="Reverse" minscale="1.0" maxscale="1.0" maxscaledist="10" attach="1">collisions.combat.hit_passed_blunt</Name>
+		</Particle>	
+	</RandEffect>
+</Effect>
+
+<Effect name="hit_stopped_mace_fabric_player">
+  <Audio trigger="c_mfx_fabric_mace_stopped_player">
+  </Audio>
+          <RandEffect>
+		<Particle>
+			<Name direction="Reverse" minscale="1.0" maxscale="1.0" maxscaledist="10" attach="1">collisions.combat.hit_stopped_sword_fabric</Name>
+		</Particle>	
+	</RandEffect>
+</Effect>
+
+<Effect name="hit_passed_mace_chainmail_player">
+  <Audio trigger="c_mfx_chainmail_mace_passed_player">
+  </Audio>
+            <RandEffect>
+		<Particle>
+			<Name direction="Reverse" minscale="1.0" maxscale="1.0" maxscaledist="10" attach="1">collisions.combat.hit_passed_blunt_plate</Name>
+		</Particle>	
+	</RandEffect>
+</Effect>
+
+<Effect name="hit_stopped_mace_chainmail_player">
+  <Audio trigger="c_mfx_chainmail_mace_stopped_player">
+  </Audio>
+            <RandEffect>
+		<Particle>
+			<Name direction="Reverse" minscale="1.0" maxscale="1.0" maxscaledist="10" attach="1">collisions.combat.hit_stopped_mace_plate</Name>
+		</Particle>	
+	</RandEffect>
+</Effect>
+
+<Effect name="hit_passed_mace_plate_player">
+  <Audio trigger="c_mfx_plate_mace_passed_player">
+  </Audio>
+              <RandEffect>
+		<Particle>
+			<Name direction="Reverse" minscale="1.0" maxscale="1.0" maxscaledist="10" attach="1">collisions.combat.hit_passed_blunt_plate</Name>
+		</Particle>	
+	</RandEffect>
+</Effect>
+
+<Effect name="hit_stopped_mace_plate_player">
+  <Audio trigger="c_mfx_plate_mace_stopped_player">
+  </Audio>
+              <RandEffect>
+		<Particle>
+			<Name direction="Reverse" minscale="1.0" maxscale="1.0" maxscaledist="10" attach="1">collisions.combat.hit_stopped_mace_plate</Name>
+		</Particle>	
+	</RandEffect>
+</Effect>
+
+<!-- IRON SWORD IMPACTS -->
+
+<Effect name="hit_stopped_shield_player">
+  <Audio trigger="c_mfx_sword_shield_wood_player">
+  </Audio>
+</Effect>
+
+<Effect name="lngsw_lngsw_clash_player">
+  <Audio trigger="c_w_sword_clash_player">
+  </Audio>
+	<RandEffect>
+		<Particle>
+			<Name direction="Reverse" minscale="1.0" maxscale="1.2" maxscaledist="80" attach="1">collisions.combat.sword_sword</Name>
+		</Particle>
+		<!--	<Particle>
+			<Name direction="ricochet" minscale="1.0" maxscale="1.2" maxscaledist="80">collisions.test_smoke.b</Name>
+		</Particle>	-->
+	</RandEffect>
+	<FlowGraph name="sword_sword" />
+</Effect>
+
+<Effect name="hit_passed_sword_fabric_player">
+  <Audio trigger="c_mfx_fabric_sword_passed_player">
+  </Audio>
+	<RandEffect>
+		<Particle>
+			<Name direction="Reverse" minscale="1.0" maxscale="1.2" maxscaledist="80" attach="1">collisions.combat.hit_passed_sword_fabric</Name>
+		</Particle>	
+	</RandEffect>		
+</Effect>
+
+<Effect name="hit_passed_stab_fabric_player">
+  <Audio trigger="c_mfx_fabric_sword_stab_passed_player">
+  </Audio>
+	<RandEffect>
+		<Particle>
+			<Name direction="Reverse" minscale="1.0" maxscale="1.2" maxscaledist="80" attach="1">collisions.combat.hit_passed_stab_fabric</Name>
+		</Particle>	
+	</RandEffect>		
+</Effect>
+
+<Effect name="hit_stopped_stab_fabric_player">
+  <Audio trigger="c_mfx_fabric_sword_stab_stopped_player">
+  </Audio>
+	<RandEffect>
+		<Particle>
+			<Name direction="Reverse" minscale="1.0" maxscale="1.2" maxscaledist="80" attach="1">collisions.combat.hit_stopped_sword_fabric</Name>
+		</Particle>	
+	</RandEffect>		
+</Effect>
+
+<Effect name="hit_passed_blunt_fabric_player">
+  <Audio trigger="c_mfx_fabric_sword_blunt_passed_player">
+  </Audio>
+	<RandEffect>
+		<Particle>
+			<Name direction="Reverse" minscale="1.0" maxscale="1.2" maxscaledist="80" attach="1">collisions.combat.sword_body_stab</Name>
+		</Particle>	
+	</RandEffect>		
+</Effect>
+
+
+<Effect name="hit_stopped_sword_fabric_player">
+  <Audio trigger="c_mfx_fabric_sword_stopped_player">
+  </Audio>
+	<RandEffect>
+		<Particle>
+			<Name direction="Reverse" minscale="1.0" maxscale="1.2" maxscaledist="80" attach="1">collisions.combat.hit_stopped_sword_fabric</Name>
+		</Particle>	
+	</RandEffect>		
+</Effect>
+
+<Effect name="hit_stopped_blunt_fabric_player">
+  <Audio trigger="c_mfx_fabric_sword_blunt_stopped_player">
+  </Audio>
+	<RandEffect>
+		<Particle>
+			<Name direction="Reverse" minscale="1.0" maxscale="1.2" maxscaledist="80" attach="1">collisions.combat.hit_stopped_sword_fabric</Name>
+		</Particle>	
+	</RandEffect>		
+</Effect>
+
+
+<Effect name="hit_passed_sword_chainmail_player">
+  <Audio trigger="c_mfx_chainmail_sword_passed_player">
+  </Audio>
+	<RandEffect>
+		<Particle>
+			<Name direction="Reverse" minscale="0.9" maxscale="1.2" maxscaledist="80" attach="1">collisions.combat.hit_passed_sword_plate</Name>
+		</Particle>
+		<!--	<Particle>
+			<Name direction="ricochet" minscale="1.0" maxscale="1.2" maxscaledist="80">collisions.test_smoke.b</Name>
+		</Particle>	-->	
+	</RandEffect>	
+</Effect>
+
+<Effect name="hit_passed_blunt_chainmail_player">
+  <Audio trigger="c_mfx_chainmail_sword_blunt_passed_player">
+  </Audio>
+	<RandEffect>
+		<Particle>
+			<Name direction="Reverse" minscale="0.9" maxscale="1.2" maxscaledist="80" attach="1">collisions.combat.hit_passed_sword_plate</Name>
+		</Particle>
+		<!--	<Particle>
+			<Name direction="ricochet" minscale="1.0" maxscale="1.2" maxscaledist="80">collisions.test_smoke.b</Name>
+		</Particle>	-->	
+	</RandEffect>		
+</Effect>
+
+<Effect name="hit_stopped_sword_chainmail_player">
+  <Audio trigger="c_mfx_chainmail_sword_stopped_player">
+  </Audio>
+	<RandEffect>
+		<Particle>
+			<Name direction="Reverse" minscale="0.5" maxscale="1.0" maxscaledist="80" attach="1">collisions.combat.sword_plate</Name>
+		</Particle>
+		<!--	<Particle>
+			<Name direction="ricochet" minscale="1.0" maxscale="1.2" maxscaledist="80">collisions.test_smoke.b</Name>
+		</Particle>	-->	
+	</RandEffect>	
+</Effect>
+
+<Effect name="hit_stopped_blunt_chainmail_player">
+  <Audio trigger="c_mfx_chainmail_sword_blunt_stopped_player">
+  </Audio>
+	<RandEffect>
+		<Particle>
+			<Name direction="Reverse" minscale="0.5" maxscale="1.0" maxscaledist="80" attach="1">collisions.combat.sword_plate</Name>
+		</Particle>
+		<!--	<Particle>
+			<Name direction="ricochet" minscale="1.0" maxscale="1.2" maxscaledist="80">collisions.test_smoke.b</Name>
+		</Particle>	-->	
+	</RandEffect>		
+</Effect>
+
+<Effect name="hit_passed_sword_plate_player">
+  <Audio trigger="c_mfx_plate_sword_passed_player">
+  </Audio>
+	<RandEffect>
+		<Particle>
+			<Name direction="Reverse" minscale="0.9" maxscale="1.2" maxscaledist="80" attach="1">collisions.combat.hit_passed_sword_plate</Name>
+		</Particle>	
+	</RandEffect>	
+</Effect>
+
+<Effect name="hit_passed_blunt_plate_player">
+  <Audio trigger="c_mfx_plate_sword_blunt_passed_player">
+  </Audio>
+	<RandEffect>
+		<Particle>
+			<Name direction="Reverse" minscale="0.9" maxscale="1.2" maxscaledist="80" attach="1">collisions.combat.hit_passed_sword_plate</Name>
+		</Particle>	
+	</RandEffect>	
+</Effect>
+
+<Effect name="hit_stopped_sword_plate_player">
+  <Audio trigger="c_mfx_plate_sword_stopped_player">
+  </Audio>
+	<RandEffect>
+		<Particle>
+			<Name direction="Reverse" minscale="0.9" maxscale="1.2" maxscaledist="80" attach="1">collisions.combat.sword_plate</Name>
+		</Particle>	
+	</RandEffect>	
+</Effect>
+
+<Effect name="hit_stopped_blunt_plate_player">
+  <Audio trigger="c_mfx_plate_sword_blunt_stopped_player">
+  </Audio>
+	<RandEffect>
+		<Particle>
+			<Name direction="Reverse" minscale="0.9" maxscale="1.2" maxscaledist="80" attach="1">collisions.combat.sword_plate</Name>
+		</Particle>	
+	</RandEffect>	
+</Effect>
+
+<!-- WOODEN SWORD IMPACTS -->
+
+<Effect name="wooden_sword_clash_player">
+  <Audio trigger="c_w_wsword_clash_player">
+  </Audio>
+	<RandEffect>
+		<Particle>
+			<Name direction="Reverse" minscale="1.0" maxscale="1.2" maxscaledist="80" attach="1">collisions.combat.wooden_sword_wooden_sword</Name>
+		</Particle>
+	</RandEffect>
+</Effect>
+
+<Effect name="hit_passed_wsword_fabric_player">
+  <Audio trigger="c_mfx_fabric_sword_wood_passed_player">
+  </Audio>
+	<RandEffect>
+		<Particle>
+			<Name direction="Reverse" minscale="1.0" maxscale="1.2" maxscaledist="80" attach="1">collisions.combat.hit_stopped_sword_fabric</Name>
+		</Particle>	
+	</RandEffect>		
+</Effect>
+
+<Effect name="hit_stopped_wsword_fabric_player">
+  <Audio trigger="c_mfx_fabric_sword_wood_stopped_player">
+  </Audio>
+
+	<RandEffect>
+		<Particle>
+			<Name direction="Reverse" minscale="1.0" maxscale="1.2" maxscaledist="80" attach="1">collisions.combat.hit_stopped_sword_fabric</Name>
+		</Particle>	
+	</RandEffect>		
+</Effect>
+
+<Effect name="hit_passed_wsword_chainmail_player">
+  <Audio trigger="c_mfx_chainmail_sword_wood_passed_player">
+  </Audio>
+
+	<RandEffect>
+		<Particle>
+			<Name direction="Reverse" minscale="1.0" maxscale="1.2" maxscaledist="80" attach="1">collisions.combat.hit_stopped_sword_fabric</Name>
+		</Particle>	
+	</RandEffect>		
+</Effect>
+
+<Effect name="hit_stopped_wsword_chainmail_player">
+  <Audio trigger="c_mfx_chainmail_sword_wood_passed_player">
+  </Audio>
+
+	<RandEffect>
+		<Particle>
+			<Name direction="Reverse" minscale="1.0" maxscale="1.2" maxscaledist="80" attach="1">collisions.combat.hit_stopped_sword_fabric</Name>
+		</Particle>	
+	</RandEffect>		
+</Effect>
+
+<Effect name="hit_passed_wsword_plate_player">
+  <Audio trigger="c_mfx_plate_sword_wood_passed_player">
+  </Audio>
+	<RandEffect>
+		<Particle>
+			<Name direction="Reverse" minscale="1.0" maxscale="1.2" maxscaledist="80" attach="1">collisions.combat.hit_stopped_sword_fabric</Name>
+		</Particle>	
+	</RandEffect>		
+</Effect>
+
+<Effect name="hit_stopped_wsword_plate_player">
+  <Audio trigger="c_mfx_plate_sword_wood_passed_player">
+  </Audio>
+	<RandEffect>
+		<Particle>
+			<Name direction="Reverse" minscale="1.0" maxscale="1.2" maxscaledist="80" attach="1">collisions.combat.hit_stopped_sword_fabric</Name>
+		</Particle>	
+	</RandEffect>		
+</Effect>
+
+<!-- NPC COLLISIONS -->
+
+<!-- ARM COMBAT -->
+
+<Effect name="blunt_armed_face_fabric_npc">
+  <Audio trigger="c_blunt_armed_face_fabric_npc">
+  </Audio>
+    <RandEffect>
+		<Particle>
+			<Name direction="Reverse" minscale="1.0" maxscale="1.0" maxscaledist="10" attach="1">collisions.combat.hit_passed_blunt_unarmed</Name>
+		</Particle>	
+	</RandEffect>
+</Effect>
+
+<Effect name="blunt_unarmed_face_fabric_npc">
+  <Audio trigger="c_blunt_unarmed_face_fabric_npc">
+  </Audio>
+      <RandEffect>
+		<Particle>
+			<Name direction="Reverse" minscale="1.0" maxscale="1.0" maxscaledist="10" attach="1">collisions.combat.hit_passed_blunt_unarmed</Name>
+		</Particle>	
+	</RandEffect>
+</Effect>
+
+<Effect name="blunt_armed_body_fabric_npc">
+  <Audio trigger="c_blunt_armed_body_fabric_npc">
+  </Audio>
+      <RandEffect>
+		<Particle>
+			<Name direction="Reverse" minscale="1.0" maxscale="1.0" maxscaledist="10" attach="1">collisions.combat.hit_unarmed</Name>
+		</Particle>	
+	</RandEffect>
+</Effect>
+
+<Effect name="blunt_unarmed_body_fabric_npc">
+  <Audio trigger="c_blunt_unarmed_body_fabric_npc">
+  </Audio>
+        <RandEffect>
+		<Particle>
+			<Name direction="Reverse" minscale="1.0" maxscale="1.0" maxscaledist="10" attach="1">collisions.combat.hit_unarmed</Name>
+		</Particle>	
+	</RandEffect>
+</Effect>
+
+<Effect name="blunt_armed_face_chainmail_npc">
+  <Audio trigger="c_blunt_armed_face_chainmail_npc">
+  </Audio>
+</Effect>
+
+<Effect name="blunt_unarmed_face_chainmail_npc">
+  <Audio trigger="c_blunt_unarmed_face_chainmail_npc">
+  </Audio>
+      <RandEffect>
+		<Particle>
+			<Name direction="Reverse" minscale="1.0" maxscale="1.0" maxscaledist="10" attach="1">collisions.combat.hit_passed_blunt_unarmed</Name>
+		</Particle>	
+	</RandEffect>
+</Effect>
+
+<Effect name="blunt_armed_body_chainmail_npc">
+  <Audio trigger="c_blunt_armed_body_chainmail_npc">
+  </Audio>
+        <RandEffect>
+		<Particle>
+			<Name direction="Reverse" minscale="1.0" maxscale="1.0" maxscaledist="10" attach="1">collisions.combat.hit_unarmed</Name>
+		</Particle>	
+	</RandEffect>
+</Effect>
+
+<Effect name="blunt_unarmed_body_chainmail_npc">
+  <Audio trigger="c_blunt_unarmed_body_chainmail_npc">
+  </Audio>
+        <RandEffect>
+		<Particle>
+			<Name direction="Reverse" minscale="1.0" maxscale="1.0" maxscaledist="10" attach="1">collisions.combat.hit_unarmed</Name>
+		</Particle>	
+	</RandEffect>
+</Effect>
+
+<Effect name="blunt_armed_face_plate_npc">
+  <Audio trigger="c_blunt_armed_face_plate_npc">
+  </Audio>
+        <RandEffect>
+		<Particle>
+			<Name direction="Reverse" minscale="1.0" maxscale="1.0" maxscaledist="10" attach="1">collisions.combat.hit_unarmed</Name>
+		</Particle>	
+	</RandEffect>
+</Effect>
+
+<Effect name="blunt_unarmed_face_plate_npc">
+  <Audio trigger="c_blunt_unarmed_face_plate_npc">
+  </Audio>
+        <RandEffect>
+		<Particle>
+			<Name direction="Reverse" minscale="1.0" maxscale="1.0" maxscaledist="10" attach="1">collisions.combat.hit_unarmed</Name>
+		</Particle>	
+	</RandEffect>
+</Effect>
+
+<Effect name="blunt_armed_body_plate_npc">
+  <Audio trigger="c_blunt_armed_body_plate_npc">
+  </Audio>
+        <RandEffect>
+		<Particle>
+			<Name direction="Reverse" minscale="1.0" maxscale="1.0" maxscaledist="10" attach="1">collisions.combat.hit_unarmed</Name>
+		</Particle>	
+	</RandEffect>
+</Effect>
+
+<Effect name="blunt_unarmed_body_plate_npc">
+  <Audio trigger="c_blunt_unarmed_body_plate_npc">
+  </Audio>
+        <RandEffect>
+		<Particle>
+			<Name direction="Reverse" minscale="1.0" maxscale="1.0" maxscaledist="10" attach="1">collisions.combat.hit_unarmed</Name>
+		</Particle>	
+	</RandEffect>
+</Effect>
+
+<!-- AXE IMPACTS NPC -->
+
+<Effect name="axe_metal_clash_npc">
+  <Audio trigger="c_w_axe_clash_npc">
+  </Audio>
+	<RandEffect>
+		<Particle>
+			<Name direction="Reverse" minscale="1.0" maxscale="1.2" maxscaledist="80" attach="1">collisions.combat.sword_sword</Name>
+		</Particle>
+		<!--	<Particle>
+			<Name direction="ricochet" minscale="1.0" maxscale="1.2" maxscaledist="80">collisions.test_smoke.b</Name>
+		</Particle>	-->
+	</RandEffect>
+	<FlowGraph name="sword_sword" />
+</Effect>
+
+<Effect name="hit_passed_axe_fabric_npc">
+  <Audio trigger="c_mfx_fabric_axe_passed_npc">
+  </Audio>
+        <RandEffect>
+		<Particle>
+			<Name direction="Reverse" minscale="0.9" maxscale="1.0" maxscaledist="10" attach="1">collisions.combat.hit_passed_blunt</Name>
+		</Particle>	
+	</RandEffect>
+</Effect>
+
+<Effect name="hit_stopped_axe_fabric_npc">
+  <Audio trigger="c_mfx_fabric_axe_stopped_npc">
+  </Audio>
+          <RandEffect>
+		<Particle>
+			<Name direction="Reverse" minscale="0.9" maxscale="1.0" maxscaledist="10" attach="1">collisions.combat.hit_stopped_sword_fabric</Name>
+		</Particle>	
+	</RandEffect>
+</Effect>
+
+<Effect name="hit_passed_axe_chainmail_npc">
+  <Audio trigger="c_mfx_chainmail_axe_passed_npc">
+  </Audio>
+            <RandEffect>
+		<Particle>
+			<Name direction="Reverse" minscale="0.9" maxscale="1.0" maxscaledist="10" attach="1">collisions.combat.hit_passed_blunt_plate</Name>
+		</Particle>	
+	</RandEffect>
+</Effect>
+
+<Effect name="hit_stopped_axe_chainmail_npc">
+  <Audio trigger="c_mfx_chainmail_axe_stopped_npc">
+  </Audio>
+              <RandEffect>
+		<Particle>
+			<Name direction="Reverse" minscale="1.0" maxscale="1.0" maxscaledist="10" attach="1">collisions.combat.hit_stopped_mace_plate</Name>
+		</Particle>	
+	</RandEffect>
+</Effect>
+
+<Effect name="hit_passed_axe_plate_npc">
+  <Audio trigger="c_mfx_plate_axe_passed_npc">
+  </Audio>
+              <RandEffect>
+		<Particle>
+			<Name direction="Reverse" minscale="1.0" maxscale="1.0" maxscaledist="10" attach="1">collisions.combat.hit_passed_blunt_plate</Name>
+		</Particle>	
+	</RandEffect>
+</Effect>
+
+<Effect name="hit_stopped_axe_plate_npc">
+  <Audio trigger="c_mfx_plate_axe_stopped_npc">
+  </Audio>
+                <RandEffect>
+		<Particle>
+			<Name direction="Reverse" minscale="1.0" maxscale="1.0" maxscaledist="10" attach="1">collisions.combat.hit_stopped_mace_plate</Name>
+		</Particle>	
+	</RandEffect>
+</Effect>
+
+
+<!-- MACE IMPACTS NPC -->
+
+<Effect name="hit_passed_mace_fabric_npc">
+  <Audio trigger="c_mfx_fabric_mace_passed_npc">
+  </Audio>
+    <RandEffect>
+		<Particle>
+			<Name direction="Reverse" minscale="0.9" maxscale="1.1" maxscaledist="10" attach="1">collisions.combat.hit_stopped_blunt_plate</Name>
+		</Particle>	
+	</RandEffect>
+</Effect>
+
+<Effect name="hit_stopped_mace_fabric_npc">
+  <Audio trigger="c_mfx_fabric_mace_stopped_npc">
+  </Audio>
+    <RandEffect>
+		<Particle>
+			<Name direction="Reverse" minscale="0.9" maxscale="1.1" maxscaledist="10" attach="1">collisions.combat.hit_stopped_blunt_plate</Name>
+		</Particle>	
+	</RandEffect>
+</Effect>
+
+<Effect name="hit_passed_mace_chainmail_npc">
+  <Audio trigger="c_mfx_chainmail_mace_passed_npc">
+  </Audio>
+      <RandEffect>
+		<Particle>
+			<Name direction="Reverse" minscale="0.9" maxscale="1.1" maxscaledist="10" attach="1">collisions.combat.hit_stopped_blunt_plate</Name>
+		</Particle>	
+	</RandEffect>
+</Effect>
+
+<Effect name="hit_stopped_mace_chainmail_npc">
+  <Audio trigger="c_mfx_chainmail_mace_stopped_npc">
+  </Audio>
+        <RandEffect>
+		<Particle>
+			<Name direction="Reverse" minscale="0.9" maxscale="1.1" maxscaledist="10" attach="1">collisions.combat.hit_stopped_blunt_plate</Name>
+		</Particle>	
+	</RandEffect>
+</Effect>
+
+<Effect name="hit_passed_mace_plate_npc">
+  <Audio trigger="c_mfx_plate_mace_passed_npc">
+  </Audio>
+        <RandEffect>
+		<Particle>
+			<Name direction="Reverse" minscale="0.9" maxscale="1.1" maxscaledist="10" attach="1">collisions.combat.hit_passed_blunt_plate</Name>
+		</Particle>	
+	</RandEffect>
+</Effect>
+
+<Effect name="hit_stopped_mace_plate_npc">
+  <Audio trigger="c_mfx_plate_mace_stopped_npc">
+  </Audio>
+          <RandEffect>
+		<Particle>
+			<Name direction="Reverse" minscale="0.9" maxscale="1.1" maxscaledist="10" attach="1">collisions.combat.hit_stopped_blunt_plate</Name>
+		</Particle>	
+	</RandEffect>
+</Effect>
+
+<!-- IRON SWORD IMPACTS -->
+
+<Effect name="hit_stopped_shield_npc">
+  <Audio trigger="c_mfx_sword_shield_wood_npc">
+  </Audio>
+</Effect>
+
+<Effect name="lngsw_lngsw_clash_npc">
+  <Audio trigger="c_w_sword_clash_npc">
+  </Audio>
+	<RandEffect>
+		<Particle>
+			<Name direction="Reverse" minscale="1.0" maxscale="1.2" maxscaledist="80" attach="1">collisions.combat.sword_sword</Name>
+		</Particle>
+		<!--	<Particle>
+			<Name direction="ricochet" minscale="1.0" maxscale="1.2" maxscaledist="80">collisions.test_smoke.b</Name>
+		</Particle>	-->
+	</RandEffect>
+	<FlowGraph name="sword_sword" />
+</Effect>
+
+<Effect name="hit_passed_sword_fabric_npc">
+  <Audio trigger="c_mfx_fabric_sword_passed_npc">
+  </Audio>
+	<RandEffect>
+		<Particle>
+			<Name direction="Reverse" minscale="1.0" maxscale="1.2" maxscaledist="80" attach="1">collisions.combat.hit_passed_sword_fabric</Name>
+		</Particle>	
+	</RandEffect>		
+</Effect>
+
+<Effect name="hit_passed_stab_fabric_npc">
+  <Audio trigger="c_mfx_fabric_sword_stab_passed_npc">
+  </Audio>
+	<RandEffect>
+		<Particle>
+			<Name direction="Reverse" minscale="1.0" maxscale="1.2" maxscaledist="80" attach="1">collisions.combat.hit_passed_stab_fabric</Name>
+		</Particle>	
+	</RandEffect>		
+</Effect>
+
+<Effect name="hit_stopped_stab_fabric_npc">
+  <Audio trigger="c_mfx_fabric_sword_stab_stopped_npc">
+  </Audio>
+	<RandEffect>
+		<Particle>
+			<Name direction="Reverse" minscale="1.0" maxscale="1.2" maxscaledist="80" attach="1">collisions.combat.hit_stopped_sword_fabric</Name>
+		</Particle>	
+	</RandEffect>		
+</Effect>
+
+<Effect name="hit_passed_blunt_fabric_npc">
+  <Audio trigger="c_mfx_fabric_sword_blunt_passed_npc">
+  </Audio>
+	<RandEffect>
+		<Particle>
+			<Name direction="Reverse" minscale="1.0" maxscale="1.2" maxscaledist="80" attach="1">collisions.combat.sword_body_stab</Name>
+		</Particle>	
+	</RandEffect>		
+</Effect>
+
+
+<Effect name="hit_stopped_sword_fabric_npc">
+  <Audio trigger="c_mfx_fabric_sword_stopped_npc">
+  </Audio>
+	<RandEffect>
+		<Particle>
+			<Name direction="Reverse" minscale="1.0" maxscale="1.2" maxscaledist="80" attach="1">collisions.combat.hit_stopped_sword_fabric</Name>
+		</Particle>	
+	</RandEffect>		
+</Effect>
+
+<Effect name="hit_stopped_blunt_fabric_npc">
+  <Audio trigger="c_mfx_fabric_sword_blunt_stopped_npc">
+  </Audio>
+	<RandEffect>
+		<Particle>
+			<Name direction="Reverse" minscale="1.0" maxscale="1.2" maxscaledist="80" attach="1">collisions.combat.hit_stopped_sword_fabric</Name>
+		</Particle>	
+	</RandEffect>		
+</Effect>
+
+
+<Effect name="hit_passed_sword_chainmail_npc">
+  <Audio trigger="c_mfx_chainmail_sword_passed_npc">
+  </Audio>
+	<RandEffect>
+		<Particle>
+			<Name direction="Reverse" minscale="0.9" maxscale="1.2" maxscaledist="80" attach="1">collisions.combat.hit_passed_sword_plate</Name>
+		</Particle>
+		<!--	<Particle>
+			<Name direction="ricochet" minscale="1.0" maxscale="1.2" maxscaledist="80">collisions.test_smoke.b</Name>
+		</Particle>	-->	
+	</RandEffect>	
+</Effect>
+
+<Effect name="hit_passed_blunt_chainmail_npc">
+  <Audio trigger="c_mfx_chainmail_sword_blunt_passed_npc">
+  </Audio>
+	<RandEffect>
+		<Particle>
+			<Name direction="Reverse" minscale="0.9" maxscale="1.2" maxscaledist="80" attach="1">collisions.combat.hit_passed_sword_plate</Name>
+		</Particle>
+		<!--	<Particle>
+			<Name direction="ricochet" minscale="1.0" maxscale="1.2" maxscaledist="80">collisions.test_smoke.b</Name>
+		</Particle>	-->	
+	</RandEffect>		
+</Effect>
+
+<Effect name="hit_stopped_sword_chainmail_npc">
+  <Audio trigger="c_mfx_chainmail_sword_stopped_npc">
+  </Audio>
+	<RandEffect>
+		<Particle>
+			<Name direction="Reverse" minscale="0.5" maxscale="1.0" maxscaledist="80" attach="1">collisions.combat.sword_plate</Name>
+		</Particle>
+		<!--	<Particle>
+			<Name direction="ricochet" minscale="1.0" maxscale="1.2" maxscaledist="80">collisions.test_smoke.b</Name>
+		</Particle>	-->	
+	</RandEffect>	
+</Effect>
+
+<Effect name="hit_stopped_blunt_chainmail_npc">
+  <Audio trigger="c_mfx_chainmail_sword_blunt_stopped_npc">
+  </Audio>
+	<RandEffect>
+		<Particle>
+			<Name direction="Reverse" minscale="0.5" maxscale="1.0" maxscaledist="80" attach="1">collisions.combat.sword_plate</Name>
+		</Particle>
+		<!--	<Particle>
+			<Name direction="ricochet" minscale="1.0" maxscale="1.2" maxscaledist="80">collisions.test_smoke.b</Name>
+		</Particle>	-->	
+	</RandEffect>		
+</Effect>
+
+<Effect name="hit_passed_sword_plate_npc">
+  <Audio trigger="c_mfx_plate_sword_passed_npc">
+  </Audio>
+	<RandEffect>
+		<Particle>
+			<Name direction="Reverse" minscale="0.9" maxscale="1.2" maxscaledist="80" attach="1">collisions.combat.hit_passed_sword_plate</Name>
+		</Particle>	
+	</RandEffect>	
+</Effect>
+
+<Effect name="hit_passed_blunt_plate_npc">
+  <Audio trigger="c_mfx_plate_sword_blunt_passed_npc">
+  </Audio>
+	<RandEffect>
+		<Particle>
+			<Name direction="Reverse" minscale="0.9" maxscale="1.2" maxscaledist="80" attach="1">collisions.combat.hit_passed_sword_plate</Name>
+		</Particle>	
+	</RandEffect>	
+</Effect>
+
+<Effect name="hit_stopped_sword_plate_npc">
+  <Audio trigger="c_mfx_plate_sword_stopped_npc">
+  </Audio>
+	<RandEffect>
+		<Particle>
+			<Name direction="Reverse" minscale="0.9" maxscale="1.2" maxscaledist="80" attach="1">collisions.combat.sword_plate</Name>
+		</Particle>	
+	</RandEffect>	
+</Effect>
+
+<Effect name="hit_stopped_blunt_plate_npc">
+  <Audio trigger="c_mfx_plate_sword_blunt_stopped_npc">
+  </Audio>
+	<RandEffect>
+		<Particle>
+			<Name direction="Reverse" minscale="0.9" maxscale="1.2" maxscaledist="80" attach="1">collisions.combat.sword_plate</Name>
+		</Particle>	
+	</RandEffect>	
+</Effect>
+
+<!-- WOODEN SWORD IMPACTS -->
+
+<Effect name="wooden_sword_clash_npc">
+  <Audio trigger="c_w_wsword_clash_npc">
+  </Audio>
+	<RandEffect>
+		<Particle>
+			<Name direction="Reverse" minscale="1.0" maxscale="1.2" maxscaledist="80" attach="1">collisions.combat.wooden_sword_wooden_sword</Name>
+		</Particle>
+	</RandEffect>
+</Effect>
+
+<Effect name="hit_passed_wsword_fabric_npc">
+  <Audio trigger="c_mfx_fabric_sword_wood_passed_npc">
+  </Audio>
+	<RandEffect>
+		<Particle>
+			<Name direction="Reverse" minscale="1.0" maxscale="1.2" maxscaledist="80" attach="1">collisions.combat.hit_stopped_sword_fabric</Name>
+		</Particle>	
+	</RandEffect>		
+</Effect>
+
+<Effect name="hit_stopped_wsword_fabric_npc">
+  <Audio trigger="c_mfx_fabric_sword_wood_stopped_npc">
+  </Audio>
+
+	<RandEffect>
+		<Particle>
+			<Name direction="Reverse" minscale="1.0" maxscale="1.2" maxscaledist="80" attach="1">collisions.combat.hit_stopped_sword_fabric</Name>
+		</Particle>	
+	</RandEffect>		
+</Effect>
+
+<Effect name="hit_passed_wsword_chainmail_npc">
+  <Audio trigger="c_mfx_chainmail_sword_wood_passed_npc">
+  </Audio>
+
+	<RandEffect>
+		<Particle>
+			<Name direction="Reverse" minscale="1.0" maxscale="1.2" maxscaledist="80" attach="1">collisions.combat.hit_stopped_sword_fabric</Name>
+		</Particle>	
+	</RandEffect>		
+</Effect>
+
+<Effect name="hit_stopped_wsword_chainmail_npc">
+  <Audio trigger="c_mfx_chainmail_sword_wood_passed_npc">
+  </Audio>
+
+	<RandEffect>
+		<Particle>
+			<Name direction="Reverse" minscale="1.0" maxscale="1.2" maxscaledist="80" attach="1">collisions.combat.hit_stopped_sword_fabric</Name>
+		</Particle>	
+	</RandEffect>		
+</Effect>
+
+<Effect name="hit_passed_wsword_plate_npc">
+  <Audio trigger="c_mfx_plate_sword_wood_passed_npc">
+  </Audio>
+	<RandEffect>
+		<Particle>
+			<Name direction="Reverse" minscale="1.0" maxscale="1.2" maxscaledist="80" attach="1">collisions.combat.hit_stopped_sword_fabric</Name>
+		</Particle>	
+	</RandEffect>		
+</Effect>
+
+<Effect name="hit_stopped_wsword_plate_npc">
+  <Audio trigger="c_mfx_plate_sword_wood_passed_npc">
+  </Audio>
+	<RandEffect>
+		<Particle>
+			<Name direction="Reverse" minscale="1.0" maxscale="1.2" maxscaledist="80" attach="1">collisions.combat.hit_stopped_sword_fabric</Name>
+		</Particle>	
+	</RandEffect>		
+</Effect>
+
+<!-- STONE (BOULDER) HITS -->
+
+<Effect name="stone_body">
+  <Audio trigger="f_stone_body">
+  </Audio>
+  	<RandEffect>
+		<Particle>
+			<Name direction="Reverse" minscale="1.0" maxscale="1.2" maxscaledist="80" attach="1">collisions.combat.hit_boulder</Name>
+		</Particle>	
+	</RandEffect>	
+</Effect>
+
+<Effect name="stone_forest">
+  <Audio trigger="f_stone_forest">
+  </Audio>
+</Effect>
+
+<Effect name="stone_grass">
+  <Audio trigger="f_stone_grass">
+  </Audio>
+</Effect>
+
+<Effect name="stone_grassdry">
+  <Audio trigger="f_stone_grassdry">
+  </Audio>
+</Effect>
+
+<Effect name="stone_metal">
+  <Audio trigger="f_stone_metal">
+  </Audio>
+</Effect>
+
+<Effect name="stone_mud">
+  <Audio trigger="f_stone_mud">
+  </Audio>
+</Effect>
+
+<Effect name="stone_mudwater">
+  <Audio trigger="f_stone_mudwater">
+  </Audio>
+</Effect>
+
+<Effect name="stone_soil">
+  <Audio trigger="f_stone_soil">
+  </Audio>
+</Effect>
+
+<Effect name="stone_stone">
+  <Audio trigger="f_stone_stone">
+  </Audio>
+</Effect>
+
+<Effect name="stone_water">
+  <Audio trigger="f_stone_water">
+  </Audio>
+</Effect>
+
+<Effect name="stone_wood">
+  <Audio trigger="f_stone_wood">
+  </Audio>
+</Effect>
+
+<!-- DECOY (LITTLE STONE) HITS -->
+
+<Effect name="decoy_body">
+  <Audio trigger="f_decoy_body">
+  </Audio>
+      	<RandEffect>
+		<Particle>
+			<Name direction="Reverse" minscale="1.0" maxscale="1.2" maxscaledist="80" attach="1">collisions.destructibles.arrow_sack</Name>
+		</Particle>	
+	</RandEffect>
+</Effect>
+
+<Effect name="decoy_bushes">
+  <Audio trigger="f_decoy_bushes">
+  </Audio>
+      	<RandEffect>
+		<Particle>
+			<Name direction="Reverse" minscale="1.0" maxscale="1.2" maxscaledist="80" attach="1">collisions.destructibles.arrow_grass</Name>
+		</Particle>	
+	</RandEffect>
+</Effect>
+
+<Effect name="decoy_forest">
+  <Audio trigger="f_decoy_forest">
+  </Audio>
+    	<RandEffect>
+		<Particle>
+			<Name direction="Reverse" minscale="1.0" maxscale="1.2" maxscaledist="80" attach="1">collisions.destructibles.arrow_soil</Name>
+		</Particle>	
+	</RandEffect>
+</Effect>
+
+<Effect name="decoy_grass">
+  <Audio trigger="f_decoy_grass">
+  </Audio>
+      	<RandEffect>
+		<Particle>
+			<Name direction="Reverse" minscale="1.0" maxscale="1.2" maxscaledist="80" attach="1">collisions.destructibles.arrow_grass</Name>
+		</Particle>	
+	</RandEffect>
+</Effect>
+
+<Effect name="decoy_grassdry">
+  <Audio trigger="f_decoy_grassdry">
+  </Audio>
+      	<RandEffect>
+		<Particle>
+			<Name direction="Reverse" minscale="1.0" maxscale="1.2" maxscaledist="80" attach="1">collisions.destructibles.arrow_grass</Name>
+		</Particle>	
+	</RandEffect>
+</Effect>
+
+<Effect name="decoy_chainmail">
+  <Audio trigger="f_decoy_chainmail">
+  </Audio>
+      	<RandEffect>
+		<Particle>
+			<Name direction="Reverse" minscale="1.0" maxscale="1.2" maxscaledist="80" attach="1">collisions.destructibles.arrow_metal</Name>
+		</Particle>	
+	</RandEffect>
+</Effect>
+
+<Effect name="decoy_metal">
+  <Audio trigger="f_decoy_metal">
+  </Audio>
+      	<RandEffect>
+		<Particle>
+			<Name direction="Reverse" minscale="1.0" maxscale="1.2" maxscaledist="80" attach="1">collisions.destructibles.arrow_metal</Name>
+		</Particle>	
+	</RandEffect>
+</Effect>
+
+<Effect name="decoy_mud">
+  <Audio trigger="f_decoy_mud">
+  </Audio>
+      	<RandEffect>
+		<Particle>
+			<Name direction="Reverse" minscale="1.0" maxscale="1.2" maxscaledist="80" attach="1">collisions.destructibles.arrow_mud</Name>
+		</Particle>	
+	</RandEffect>
+</Effect>
+
+<Effect name="decoy_mudwater">
+  <Audio trigger="f_decoy_mudwater">
+  </Audio>
+      	<RandEffect>
+		<Particle>
+			<Name direction="Reverse" minscale="1.0" maxscale="1.2" maxscaledist="80" attach="1">collisions.destructibles.arrow_mud</Name>
+		</Particle>	
+	</RandEffect>
+</Effect>
+
+<Effect name="decoy_plate">
+  <Audio trigger="f_decoy_plate">
+  </Audio>
+      	<RandEffect>
+		<Particle>
+			<Name direction="Reverse" minscale="1.0" maxscale="1.2" maxscaledist="80" attach="1">collisions.destructibles.arrow_metal</Name>
+		</Particle>	
+	</RandEffect>
+</Effect>
+
+<Effect name="decoy_soil">
+  <Audio trigger="f_decoy_soil">
+  </Audio>
+      	<RandEffect>
+		<Particle>
+			<Name direction="Reverse" minscale="1.0" maxscale="1.2" maxscaledist="80" attach="1">collisions.destructibles.arrow_soil</Name>
+		</Particle>	
+	</RandEffect>
+</Effect>
+
+<Effect name="decoy_stone">
+  <Audio trigger="f_decoy_stone">
+  </Audio>
+      	<RandEffect>
+		<Particle>
+			<Name direction="Reverse" minscale="1.0" maxscale="1.2" maxscaledist="80" attach="1">collisions.destructibles.arrow_stone</Name>
+		</Particle>	
+	</RandEffect>
+</Effect>
+
+<Effect name="decoy_thatch">
+  <Audio trigger="f_decoy_thatch">
+  </Audio>
+      	<RandEffect>
+		<Particle>
+			<Name direction="Reverse" minscale="1.0" maxscale="1.2" maxscaledist="80" attach="1">collisions.destructibles.arrow_straw</Name>
+		</Particle>	
+	</RandEffect>
+</Effect>
+
+<Effect name="decoy_water">
+  <Audio trigger="f_decoy_water">
+  </Audio>
+        	<RandEffect>
+		<Particle>
+			<Name direction="Reverse" minscale="1.0" maxscale="1.2" maxscaledist="80" attach="1">collisions.destructibles.arrow_water</Name>
+		</Particle>	
+	</RandEffect>
+</Effect>
+
+<Effect name="decoy_wood">
+  <Audio trigger="f_decoy_wood">
+  </Audio>
+        	<RandEffect>
+		<Particle>
+			<Name direction="Reverse" minscale="1.0" maxscale="1.2" maxscaledist="80" attach="1">collisions.destructibles.arrow_wood</Name>
+		</Particle>	
+	</RandEffect>
+</Effect>
+
+<!-- HIT RIDER HEAD ON HORSE -->
+
+<Effect name="hit_rider_head_stone">
+  <Audio trigger="f_hit_rider_head_stone">
+  </Audio>
+</Effect>
+
+<Effect name="hit_rider_head_wood">
+  <Audio trigger="f_hit_rider_head_wood">
+  </Audio>
+</Effect>
+
+</FXLib>

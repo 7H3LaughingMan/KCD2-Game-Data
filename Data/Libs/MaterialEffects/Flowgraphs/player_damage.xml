@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="us-ascii"?>
+<Graph MultiPlayer="ServerOnly">
+  <Nodes>
+    <Node Id="274" Class="MaterialFX:HUDStartFX" pos="-620,-410,0" flags="0">
+      <Inputs />
+    </Node>
+    <Node Id="292" Class="MaterialFX:HUDEndFX" pos="-220,-250,0" flags="0">
+      <Inputs />
+    </Node>
+    <Node Id="354" Class="Image:FilterRadialBlur" pos="370,-920,0" flags="0">
+      <Inputs entityId="0" Enabled="1" Disabled="1" FilterRadialBlurring_Amount="0" FilterRadialBlurring_ScreenPosX="0.5" FilterRadialBlurring_ScreenPosY="0.5" FilterRadialBlurring_Radius="-20" />
+    </Node>
+    <Node Id="363" Class="Math:Mul" pos="180,-870,0" flags="0">
+      <Inputs A="0" B="3" />
+    </Node>
+    <Node Id="365" Name="stamina" Class="_commentbox" pos="-110,-980,0" flags="0">
+      <Inputs TextSize="1" DisplayFilled="1" DisplayBox="1" SortPriority="16" />
+      <ResizeBorder X="0" Y="0" Width="1110" Height="530" />
+      <NodeSize Width="1110" Height="557.64062" />
+      <Color r="0.5" g="0.5" b="0.5" />
+      <Author author="" />
+    </Node>
+    <Node Id="373" Class="Image:ScreenFader" pos="10,-20,0" flags="0">
+      <Inputs FadeGroup="FX:Blood" UseCurColor="0" FadeInTime="2" FadeOutTime="0" color_FadeColor="1,1,1" tex_TextureName="textures/ui/blood_ui.tif" UpdateAlways="0" FadeAlpha="1" Priority="20" Persistent="0" />
+    </Node>
+    <Node Id="375" Class="Math:Sub" pos="-220,-860,0" flags="0">
+      <Inputs A="0" B="0.5" />
+    </Node>
+    <Node Id="376" Class="Math:Clamp" pos="-40,-870,0" flags="0">
+      <Inputs in="0" min="0" max="1" />
+    </Node>
+    <Node Id="378" Class="Audio:Trigger" pos="610,-670,0" flags="0">
+      <Inputs entityId="0" audioTrigger_PlayTrigger="special_player_stamina" audioTrigger_StopTrigger="" />
+    </Node>
+    <Node Id="380" Class="Audio:Rtpc" pos="780,-530,0" flags="0">
+      <Inputs entityId="0" audioRTPC_Name="player_stamina" value="0" />
+    </Node>
+    <Node Id="384" Class="Math:Sub" pos="580,-510,0" flags="0">
+      <Inputs A="1" B="0" />
+    </Node>
+    <Node Id="398" Class="Actor:LocalPlayer" pos="410,-640,0" flags="0">
+      <Inputs />
+    </Node>
+    <Node Id="399" Class="Game:Start" pos="270,-550,0" flags="0">
+      <Inputs InGame="1" InEditor="1" />
+    </Node>
+    <Node Id="400" Class="Audio:Trigger" pos="820,-180,0" flags="0">
+      <Inputs entityId="0" audioTrigger_PlayTrigger="special_player_health" audioTrigger_StopTrigger="" />
+    </Node>
+    <Node Id="403" Class="Actor:LocalPlayer" pos="620,-150,0" flags="0">
+      <Inputs />
+    </Node>
+    <Node Id="404" Class="Game:Start" pos="480,-60,0" flags="0">
+      <Inputs InGame="1" InEditor="1" />
+    </Node>
+    <Node Id="407" Name="\n\n___WARNING:_This_flowgraph_is_obsolete!\n____Use_&apos;player-health&apos;_and_&apos;player-stamina&apos;_flowgraphs_instead!____\n\n\n" Class="_comment" pos="-330,-400,0" flags="0" />
+  </Nodes>
+  <Edges>
+    <Edge nodeIn="373" nodeOut="274" portIn="FadeAlpha" portOut="BlendOutTime" enabled="1" />
+    <Edge nodeIn="373" nodeOut="274" portIn="FadeOut" portOut="BlendOutTime" enabled="1" />
+    <Edge nodeIn="375" nodeOut="274" portIn="A" portOut="Intensity" enabled="1" />
+    <Edge nodeIn="384" nodeOut="274" portIn="B" portOut="Intensity" enabled="1" />
+    <Edge nodeIn="354" nodeOut="363" portIn="FilterRadialBlurring_Amount" portOut="out" enabled="1" />
+    <Edge nodeIn="376" nodeOut="375" portIn="in" portOut="out" enabled="1" />
+    <Edge nodeIn="363" nodeOut="376" portIn="A" portOut="out" enabled="1" />
+    <Edge nodeIn="380" nodeOut="384" portIn="value" portOut="out" enabled="1" />
+    <Edge nodeIn="378" nodeOut="398" portIn="entityId" portOut="entityId" enabled="1" />
+    <Edge nodeIn="378" nodeOut="399" portIn="Play" portOut="output" enabled="1" />
+    <Edge nodeIn="400" nodeOut="403" portIn="entityId" portOut="entityId" enabled="1" />
+    <Edge nodeIn="400" nodeOut="404" portIn="Play" portOut="output" enabled="1" />
+  </Edges>
+</Graph>

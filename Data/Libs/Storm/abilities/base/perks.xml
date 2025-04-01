@@ -1,0 +1,245 @@
+<?xml version="1.0"?>
+<!DOCTYPE storm SYSTEM "..\storm.dtd">
+<storm>
+	<customSelectors>
+								
+		<customSelector name="hasGoodWeaponSkill">
+			<or>
+				<hasAttribute skill="heavy_weapons" minValue="12" />
+				<hasAttribute skill="marksmanship" minValue="12" />
+				<hasAttribute skill="weapon_dagger" minValue="12" />
+				<hasAttribute skill="weapon_large" minValue="12" />
+				<hasAttribute skill="weapon_shield" minValue="12" />
+				<hasAttribute skill="weapon_sword" minValue="12" />
+				<hasAttribute skill="weapon_unarmed" minValue="12" />
+			</or>
+		</customSelector>
+				
+	</customSelectors>
+	<rules>
+	
+		<!-- Dodge -->
+		
+		<rule name="combatPerks_dodge">
+		
+			<selectors>
+				<isHuman />
+				<or>
+				
+					<!-- A/ Combat level -->
+					<hasCombatLevel minValue="0.5" />
+					
+					<!-- B/ Combat level and a little luck -->
+					<and>
+						<hasCombatLevel minValue="0.3" maxValue="0.5" />
+						<hasRandomValue min="0" max="0.5" />
+					</and>
+					
+					<!-- C/ Good agility -->
+					<hasAttribute stat="agility" minValue="15" />
+					
+					<!-- D/ Good defense -->
+					<hasAttribute skill="defense" minValue="15" />
+					
+				</or>
+				<isNotPlayer />
+				<not>
+					<isWoman />
+				</not>
+			</selectors>
+		
+			<operations>
+			
+				<addPerk name="Dodger" />
+				
+			</operations>
+		
+		</rule>
+		
+		<!-- Hunt attack -->
+		
+		<rule name="combatPerks_huntAttack">
+		
+			<selectors>
+				<isHuman />
+				<isNotPlayer />
+				<not>
+					<isWoman />
+				</not>
+			</selectors>
+		
+			<operations>
+			
+				<addPerk name="Hunt attack" />
+				
+			</operations>
+		
+		</rule>
+		
+		
+		<!-- Perfect block -->
+		<!-- Riposte -->
+		
+		<rule name="combatPerks_perfectBlock">
+		
+			<selectors>
+				<isHuman />
+				<or>
+				
+					<!-- A/ Combat level -->
+					<hasCombatLevel minValue="0.3" />
+					
+					<!-- B/ Combat level and a little luck -->
+					<and>
+						<hasCombatLevel minValue="0.2" maxValue="0.3" />
+						<hasRandomValue min="0" max="0.5" />
+					</and>
+					
+					<!-- C/ Good agility -->
+					<hasAttribute stat="agility" minValue="10" />
+					
+					<!-- D/ Good defense -->
+					<hasAttribute skill="defense" minValue="10" />
+					
+				</or>
+				<isNotPlayer />
+				<not>
+					<isWoman />
+				</not>
+			</selectors>
+		
+			<operations>
+			
+				<addPerk name="Perfect Block" />
+				<addPerk name="Riposte" />
+				
+			</operations>
+		
+		</rule>
+		
+		
+		<!-- Master strike -->
+		<!-- Using master strikes / Master strike perk -->
+		
+		<rule name="combatPerks_masterStrike">
+		
+			<selectors>
+				<isHuman />
+				<or>
+				
+					<!-- A/ Combat level -->
+					<hasCombatLevel minValue="0.75" />
+					
+					<!-- B/ Combat level and a little luck -->
+					<and>
+						<hasCombatLevel minValue="0.65" maxValue="0.75" />
+						<hasRandomValue min="0" max="0.5" />
+					</and>
+					
+					<!-- C/ Good fencing -->
+					<hasAttribute skill="fencing" minValue="22" />
+					
+					
+				</or>
+				<isNotPlayer />
+				<not>
+					<isWoman />
+				</not>
+			</selectors>
+		
+			<operations>
+			
+				<addPerk name="Master strike" />
+				
+			</operations>
+		
+		</rule>
+		
+		<!-- Unarmed master strike -->
+		<!-- Using unarmed master strikes / unarmed master strike perk -->
+		<!-- Need to be added after Vadim Petrov creates proper perk suitable for npc -->
+		<rule name="combatPerks_unarmedMasterStrike">
+		
+			<selectors>
+				<isHuman />
+				<or>
+				
+					<!-- A/ Combat level -->
+					<hasCombatLevel minValue="0.75" />
+					
+					<!-- B/ Combat level and a little luck -->
+					<and>
+						<hasCombatLevel minValue="0.65" maxValue="0.75" />
+						<hasRandomValue min="0" max="0.5" />
+					</and>
+					
+					<!-- C/ Good fencing -->
+					<hasAttribute skill="weapon_unarmed" minValue="22" />
+					
+					
+				</or>
+				<isNotPlayer />
+				<not>
+					<isWoman />
+				</not>
+			</selectors>
+		
+			<operations>
+			
+				<addPerk name="Unarmed master strike" />
+				
+			</operations>
+		
+		</rule>
+
+		<!-- Pulling from horse / Bailman perk -->
+		<!-- Using longswords as one handed weapon / Arm of Beowulf perk -->
+		
+		<rule name="combatPerks_bailman">
+		
+			<selectors>
+				<isHuman />
+				<isNotPlayer />
+				<isMan />
+			</selectors>
+		
+			<operations>
+			
+				<addPerk name="Bailman" />
+				<addPerk name="Arm of Beowulf" />
+				
+			</operations>
+		
+		</rule>
+		
+
+		
+		<rule name="equipment_deterioration_reduction">		
+			<selectors>
+				<or>
+					<hasName name="tkop_ptacek" />
+					<hasName name="tneb_zizka" />
+					<hasName name="tneb_bohuta" />
+					<hasName name="kkut_samuel" />
+					<hasName name="kkut_lichtenstejn" />
+					<hasName name="ksuc_jost" />
+					<hasName name="ttro_katerina" />
+					<hasName name="kkut_rozaRuthard" />
+					<hasName name="kcer_suchyCert" />
+					<hasName name="kcer_kubenka" />
+					<hasName name="kpri_komar" />				
+					<hasName name="kzik_musa" />
+					<hasName name="ttro_erik" />
+					<hasName name="krat_baronBrabant" />
+				</or>
+			</selectors>		
+			<operations>	
+				<!-- vv KCD2-213288 vv -->			
+				<addPerk name="equipment_deterioration_reduction" />			
+			</operations>		
+		</rule>
+		
+		
+		
+    </rules>
+</storm>

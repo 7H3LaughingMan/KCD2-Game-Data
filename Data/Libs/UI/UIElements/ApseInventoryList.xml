@@ -1,0 +1,207 @@
+<UIElements name="Editor">
+
+  <UIElement name="ApseInventoryList" lazy_update="0" mouseevents="1" cursor="0" controller_input="1">
+
+    <GFx file="ApseInventoryList.gfx" layer="0">
+      <Constraints>
+        <Align mode="fixdyntexsize" valign="center" halign="center" scale="1" max="0" screen_resize="1" />
+        <Position width="2048" height="2048"/>
+      </Constraints>
+    </GFx>
+    <!-- editor mode -->
+    <functions>
+      <function name="Activate" funcname="fc_activate">
+        <param name="Animate" desc="" type="boolean"/>
+      </function>
+      <function name="Deactivate" funcname="fc_deactivate">
+        <param name="Animate" desc="" type="boolean"/>
+      </function>
+
+      <function name="GetFocusedItem" funcname="fc_getFocusedItem" />
+
+      <function name="FocusPrev" funcname="fc_focusPrev" />
+      <function name="FocusNext" funcname="fc_focusNext" />
+      <function name="SortPrev" funcname="fc_sortPrev" />
+      <function name="SortNext" funcname="fc_sortNext" />
+      <function name="TabPrev" funcname="fc_tabPrev" />
+      <function name="TabNext" funcname="fc_tabNext" />
+      <function name="ToggleCategory" funcname="fc_toggleCategory" />
+      
+      <function name="SetItems" funcname="fc_setItems" >
+        <param name="InventoryIdx" desc="0 = first inv, 1 = second inv" type="int"/>
+      </function>
+      <function name="ClearItems" funcname="fc_clearItems" >
+        <param name="InventoryIdx" desc="0 = first inv, 1 = second inv" type="int"/>
+      </function>
+      <function name="AddItem" funcname="fc_addItem" >
+        <param name="InventoryIdx" desc="0 = first inv, 1 = second inv" type="int"/>
+      </function>
+      <function name="RemoveItem" funcname="fc_removeItem">
+        <param name="Id" desc="" type="string"/>
+        <param name="InventoryIdx" desc="0 = first inv, 1 = second inv" type="int"/>
+      </function>
+      <function name="ChangeItem" funcname="fc_changeItem" >
+        <param name="InventoryIdx" desc="0 = first inv, 1 = second inv" type="int"/>
+      </function>
+
+      <function name="FocusItem" funcname="fc_focusItem" >
+        <param name="Id" desc="" type="string"/>
+      </function>
+
+      <function name="LeftDoubleClick" funcname="fc_leftDoubleClick">
+        <param name="ClientId" desc="" type="int"/>
+      </function>
+
+      <function name="SetInventoriesId" funcname="fc_setInventoriesId" >
+        <param name="PlayerId" desc="wuid of player inventory" type="string"/>
+        <param name="HorseId" desc="wuid of horse inventory" type="string"/>
+      </function>
+
+      <function name="SetCarriedWeight" funcname="fc_setCarriedWeight" >
+        <param name="CarriedWeight" desc="" type="float"/>
+        <param name="InventoryId" desc="" type="string"/>
+      </function>
+
+      <function name="SetCapacity" funcname="fc_setCapacity" >
+        <param name="Capacity" desc="" type="float"/>
+        <param name="InventoryId" desc="" type="string"/>
+      </function>
+
+      <function name="SetOutfitFlag" funcname="fc_setOutfitFlag" >
+        <param name="Outfit" desc="" type="int"/>
+      </function>
+      <function name="UpdateOutfitFlag" funcname="fc_updateOutfitFlag" >
+        <param name="NewOutfit" desc="" type="int"/>
+        <param name="OldOutfit" desc="" type="int"/>
+      </function>
+
+      <function name="OpenQAMSubmenu" funcname="fc_openQAMSubmenu" />
+      <function name="CloseQAMSubmenu" funcname="fc_closeQAMSubmenu" />
+
+      <!-- for shop -->
+      <function name="SetShopMode" funcname="fc_setShopMode">
+        <param name="IsTrader" desc="" type="bool"/>
+        <param name="PlayerId" desc="wuid of player inventory" type="string"/>
+      </function>
+
+      <function name="SetSums" funcname="fc_setSums" >
+        <function name="MoneyPlayer" desc="" type="float"/>
+        <function name="MoneyTrader" desc="" type="float"/>
+      </function>
+
+      <function name="UpdateSums" funcname="fc_updateSums" >
+        <function name="PlayerSum" desc="" type="float"/>
+        <function name="TraderSum" desc="" type="float"/>
+      </function>
+
+      <function name="ChangeSelection" funcname="fc_changeSelection" >
+        <param name="Id" desc="" type="string"/>
+        <param name="IsSelected" desc="" type="bool"/>
+      </function>
+
+      <!-- user config -->
+      <function name="SetUserConfig" funcname="fc_setUserConfig">
+        <param name="Tab" desc="" type="int"/>
+        <param name="Sort" desc="" type="int"/>
+        <param name="Heading" desc="" type="bool"/>
+        <param name="FocusId" desc="" type="string"/>
+      </function>
+
+      <function name="GetCurrentTab" funcname="fc_getCurrentTab" />
+      <function name="GetCurrentSort" funcname="fc_getCurrentSort" />
+      <function name="GetCurrentHeading" funcname="fc_getCurrentHeading" />
+
+      <!-- drag&drop -->
+      <function name="SetDropActiveAreas" funcname="fc_setDropActiveAreas">
+        <param name="Activate" desc="" type="bool"/>
+      </function>
+
+    </functions>
+
+   <events>
+      <!-- Audio -->
+			<event name="OnPlayAudio" fscommand="onPlayAudio" desc="execute global audio trigger">
+				<param name="TriggerName" desc="" type="string"/>
+			</event>
+
+			<event name="OnStopAudio" fscommand="onStopAudio" desc="stop global audio trigger">
+				<param name="TriggerName" desc="" type="string"/>
+			</event>
+
+			<event name="OnSetVolumeAudio" fscommand="onSetVolumeAudio" desc="set volume via rtpc">
+				<param name="TriggerName" desc="" type="string"/>
+				<param name="Volume" desc="" type="float"/>
+      </event>
+
+      <!-- General event -->
+      <event name="OnGeneralEvent" fscommand="onGeneralEvent" desc="" >
+				<param name="Name" desc="" type="string"/>
+        <param name="ClientId" desc="" type="int"/>
+      </event>
+
+      <!-- Custom events -->
+      <event name="OnFocusChanged" fscommand="onFocusChanged" desc="" >
+				<param name="Ids" desc="one or more id if item is stacked in flash" type="string"/>
+        <param name="IsExpandable" desc="item has childreen" type="bool"/>
+        <param name="IsExpand" desc="item is currently in state expand" type="bool"/>
+        <param name="ClientId" desc="" type="int"/>
+      </event>
+
+      <event name="OnDoubleClicked" fscommand="onDoubleClicked" desc="" >
+				<param name="Ids" desc="one or more id if item is stacked in flash" type="string"/>
+        <param name="ClientId" desc="" type="int"/>
+      </event>
+
+      <event name="OnFocusTab" fscommand="onFocusTab" desc="" >
+				<param name="Tab" desc="" type="int"/>
+        <param name="ClientId" desc="" type="int"/>
+      </event>
+
+      <event name="OnUnfocusTab" fscommand="onUnfocusTab" desc="" >
+        <param name="Tab" desc="" type="int"/>
+        <param name="ClientId" desc="" type="int"/>
+      </event>
+
+      <event name="OnHighlightTab" fscommand="onHighlightTab" desc="" >
+				<param name="Tab" desc="" type="int"/>
+        <param name="ClientId" desc="" type="int"/>
+      </event>
+
+      <event name="OnUnhighlightTab" fscommand="onUnhighlightTab" desc="" >
+				<param name="Tab" desc="" type="int"/>
+        <param name="ClientId" desc="" type="int"/>
+      </event>
+
+      <!-- Tooltips -->
+      <event name="OnShowTooltip" fscommand="onShowTooltip" desc="" >
+				<param name="Text" desc="" type="string"/>
+      </event>
+
+      <event name="OnHideTooltip" fscommand="onHideTooltip" desc="" >
+        <param name="Text" desc="" type="string"/>
+      </event>
+
+      <!-- Drag&Drop -->
+      <event name="OnStartDrag" fscommand="onStartDrag" desc="" >
+        <param name="Ids" desc="one or more id if item is stacked in flash" type="string"/>
+        <param name="ClientId" desc="" type="int"/>
+      </event>
+
+      <event name="OnDropActiveAreaChanged" fscommand="onDropActiveAreaChanged" desc="" >
+        <param name="AreaId" type="string"/>
+        <param name="Active" type="bool"/>
+        <param name="Enable" type="bool"/>
+      </event>
+    </events>
+
+    <arrays>
+      <array name="Items" varname="g_ItemsA" />
+      <array name="DropActiveAreas" varname="g_DropActiveAreasA" />
+    </arrays>
+
+	<MovieClips>
+	</MovieClips>
+
+  </UIElement>
+
+</UIElements>

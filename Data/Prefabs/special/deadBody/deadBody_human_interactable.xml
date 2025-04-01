@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="us-ascii"?>
+<Prefab Id="c210ae69-e9b0-422c-b47a-a92cd434065e">
+	<Objects>
+		<Object EntityClass="SchedulerHub" Id="123407f1-c1ec-4302-b7da-630200e7294f" Name="deadBody_scheduler_hub" Pos="0.3000031,0.3999996,1" Type="Entity">
+			<EntityLinks>
+				<Link DebugTargetName="so_deadBody" Name="_,|deadBody_scheduler,L,!instant,deadBody_scheduler" TargetId="9d8d739c-e205-4eed-a800-39a9d49e0c94" />
+				<Link DebugTargetName="so_deadBody" Name="_,|deadBody_scheduler,D,!instant,deadBody_scheduler_allowedMLOD" TargetId="9d8d739c-e205-4eed-a800-39a9d49e0c94" />
+			</EntityLinks>
+		</Object>
+		<Object EntityClass="PrefabPort" Id="43721fe7-11b9-4e3b-bf67-4f43810d8500" Name="_deadBody_module" Pos="-0.3000031,0.3999996,2" Type="Entity">
+			<EntityLinks>
+				<Link DebugTargetName="deadBody_module_hub" TargetId="6b71079c-60d7-4236-a3e9-2211f6a3c490" />
+			</EntityLinks>
+		</Object>
+		<Object EntityClass="PrefabPort" Id="524a0c51-9493-4acd-9168-799bb77de8b2" Name="_deadBody_scheduler" Pos="0.3000031,0.3999996,2" Type="Entity">
+			<EntityLinks>
+				<Link DebugTargetName="deadBody_scheduler_hub" TargetId="123407f1-c1ec-4302-b7da-630200e7294f" />
+			</EntityLinks>
+		</Object>
+		<Object EntityClass="SchedulerHub" Id="6b71079c-60d7-4236-a3e9-2211f6a3c490" Name="deadBody_module_hub" Pos="-0.3000031,0.3999996,1" Type="Entity">
+			<EntityLinks>
+				<Link DebugTargetName="so_deadBody" Name="_,|deadBody_module,L,!instant,deadBody_module" TargetId="9d8d739c-e205-4eed-a800-39a9d49e0c94" />
+				<Link DebugTargetName="so_deadBody" Name="_,|deadBody_module,D,!instant,deadBody_module_allowedMLOD" TargetId="9d8d739c-e205-4eed-a800-39a9d49e0c94" />
+			</EntityLinks>
+		</Object>
+		<Object EntityClass="PrefabPort" Id="7e50c271-e8d8-4bf2-ba29-620bf1235665" Name="deadBody_smartObject" Pos="0,0,2" Type="Entity">
+			<EntityLinks>
+				<Link DebugTargetName="so_deadBody" TargetId="9d8d739c-e205-4eed-a800-39a9d49e0c94" />
+			</EntityLinks>
+		</Object>
+		<Object EntityClass="SO_DeadBody_Human_Interactable" Id="9d8d739c-e205-4eed-a800-39a9d49e0c94" Name="so_deadBody" Type="Entity">
+			<Properties guidSmartObjectType="b382d3cd-697e-4a5f-a33b-5e7915bcc1fe" soclass_SmartObjectHelpers="deadBody_interactable" />
+			<EntityLinks>
+				<Link DebugTargetName="ghostDummy_body" Name="ghostDummy_body" TargetId="a26adbcc-0431-4df1-9bb6-872b08c61d90" />
+				<Link DebugTargetName="ghostDummy_interactant" Name="ghostDummy_interactant" TargetId="b28c2f53-2b5b-4af6-a7cc-3d41ce169ef4" />
+				<Link DebugTargetName="so_deadBody" Name="#AddContext[deadBody_scheduler,crime_ignoredCorpse]" TargetId="9d8d739c-e205-4eed-a800-39a9d49e0c94" />
+				<Link DebugTargetName="so_deadBody" Name="#AddContext[deadBody_scheduler,ForceForbidAutoTorch]" TargetId="9d8d739c-e205-4eed-a800-39a9d49e0c94" />
+				<Link DebugTargetName="so_deadBody" Name="#AddContext[deadBody_module,ForceForbidAutoTorch]" TargetId="9d8d739c-e205-4eed-a800-39a9d49e0c94" />
+			</EntityLinks>
+		</Object>
+		<Object EntityClass="GhostDummy" Id="a26adbcc-0431-4df1-9bb6-872b08c61d90" Name="ghostDummy_body" Type="Entity" />
+		<Object EntityClass="GhostDummy" Id="b28c2f53-2b5b-4af6-a7cc-3d41ce169ef4" Name="ghostDummy_interactant" Pos="-0.1636276,0.01495266,0" Rotate="0.5735762,0,0,-0.8191522" Type="Entity" />
+		<Object EntityClass="SchedulerHub" Id="c733e973-56ab-4fa7-98d5-288d28877832" Name="interactant_role_hub" Pos="0.7,0,1" Type="Entity">
+			<EntityLinks>
+				<Link DebugTargetName="interactant_behavior_hub" Name="_,|interactant" TargetId="f8e3046c-da4a-4395-97dd-48e3e0e17d9d" />
+				<Link DebugTargetName="so_deadBody" Name="_,1,!ff,deadBody_interactant" TargetId="9d8d739c-e205-4eed-a800-39a9d49e0c94" />
+			</EntityLinks>
+		</Object>
+		<Object EntityClass="PrefabPort" Id="ec6e53ff-6656-488b-8132-97a76a35c4ce" Name="_interactant" Pos="0.7,0,2" Type="Entity">
+			<EntityLinks>
+				<Link DebugTargetName="interactant_role_hub" TargetId="c733e973-56ab-4fa7-98d5-288d28877832" />
+			</EntityLinks>
+		</Object>
+		<Object EntityClass="SchedulerHub" Id="f8e3046c-da4a-4395-97dd-48e3e0e17d9d" Name="interactant_behavior_hub" Pos="0.7,0,0.5" Type="Entity">
+			<EntityLinks>
+				<Link DebugTargetName="so_deadBody" Name="_,&amp;interactant|,!slow,deadBody_interactant" TargetId="9d8d739c-e205-4eed-a800-39a9d49e0c94" />
+			</EntityLinks>
+		</Object>
+	</Objects>
+</Prefab>

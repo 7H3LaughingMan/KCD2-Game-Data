@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="us-ascii"?>
+<Prefab Id="6f405f3c-42f0-40cb-8102-e9c5edcb4a2e">
+	<Tags>
+		<Tag>guard</Tag>
+		<Tag>guard_important</Tag>
+	</Tags>
+	<Objects>
+		<Object EntityClass="PrefabPort" Id="12881536-9a1f-4d40-a54e-1393e500c5bc" Name="outPort_resource" Pos="0.3763199,0,1.853573" Type="Entity">
+			<Properties esPrefabPort_Type="Out" />
+		</Object>
+		<Object EntityClass="GhostDummy" Id="76618980-b27b-4b52-a609-9154422a5509" Name="guard_lngsw_loop3" Pos="-0.3763,0,0.0001" Rotate="-4.371139e-08,-0,0,1" Type="Entity">
+			<Properties object_Model="objects/intermediates/poses/guard_lngsw_loop.cgf" />
+		</Object>
+		<Object EntityClass="DetailMovementSmartObject" Id="a4ca75ad-af10-4753-ae8c-c3061071490b" Name="smartObject" Pos="-0.3763275,0,9.918213e-05" Type="Entity">
+			<Properties guidSmartObjectType="47674689-9047-a0f5-6fe0-512ef3f49984" />
+			<EntityLinks>
+				<Link DebugTargetName="smartObject" Name="#EnableBehaviorForNPC[arrival,kick]" TargetId="a4ca75ad-af10-4753-ae8c-c3061071490b" />
+				<Link DebugTargetName="smartObject" Name="#EnableBehaviorForNPC[guard,guard]" TargetId="a4ca75ad-af10-4753-ae8c-c3061071490b" />
+				<Link DebugTargetName="outPort_resource" Name="resources" TargetId="12881536-9a1f-4d40-a54e-1393e500c5bc" />
+				<Link DebugTargetName="smartObject" Name="#ChangeBehaviorState[guard,arrive,NoRequests]" TargetId="a4ca75ad-af10-4753-ae8c-c3061071490b" />
+				<Link DebugTargetName="smartObject" Name="#EnableBehaviorForNPC[guardOffDuty,guard]" TargetId="a4ca75ad-af10-4753-ae8c-c3061071490b" />
+				<Link DebugTargetName="smartObject" Name="#EnableBehaviorForNPC[kick,kick]" TargetId="a4ca75ad-af10-4753-ae8c-c3061071490b" />
+				<Link DebugTargetName="smartObject" Name="#EnableBehaviorForNPC[kick,guard]" TargetId="a4ca75ad-af10-4753-ae8c-c3061071490b" />
+				<Link DebugTargetName="smartObject" Name="#EnableBehaviorForNPC[arrival,guard]" TargetId="a4ca75ad-af10-4753-ae8c-c3061071490b" />
+				<Link DebugTargetName="smartObject" Name="#ChangeBehaviorState[kick,arrive,Disabled]" TargetId="a4ca75ad-af10-4753-ae8c-c3061071490b" />
+				<Link DebugTargetName="smartObject" Name="#EnableBehaviorForNPC[arrival,arrive]" TargetId="a4ca75ad-af10-4753-ae8c-c3061071490b" />
+				<Link DebugTargetName="smartObject" Name="#ChangeBehaviorState[arrival,arrive,NoRequests]" TargetId="a4ca75ad-af10-4753-ae8c-c3061071490b" />
+			</EntityLinks>
+		</Object>
+		<Object EntityClass="PrefabPort" Id="bf43ff07-7b5e-4df4-b8f7-b23a6fd7097d" Name="port_use" Pos="-0.3763275,0,1.853573" Type="Entity">
+			<EntityLinks>
+				<Link DebugTargetName="hub" TargetId="febd5c11-9151-4e0b-b250-d788fa1734db" />
+			</EntityLinks>
+		</Object>
+		<Object EntityClass="SchedulerHub" Id="febd5c11-9151-4e0b-b250-d788fa1734db" Name="hub" Pos="-0.3763275,0,1.054306" Type="Entity">
+			<EntityLinks>
+				<Link DebugTargetName="smartObject" Name="_inShift|arrival,!corpse,arrive" TargetId="a4ca75ad-af10-4753-ae8c-c3061071490b" />
+				<Link DebugTargetName="smartObject" Name="_inShift|kick,1,!priv,!corpse,kick" TargetId="a4ca75ad-af10-4753-ae8c-c3061071490b" />
+				<Link DebugTargetName="smartObject" Name="_inShift|guard,L,2,!corpse,guard" TargetId="a4ca75ad-af10-4753-ae8c-c3061071490b" />
+				<Link DebugTargetName="smartObject" Name="_!inShift|guardOffDuty,L,2,!corpse,guard" TargetId="a4ca75ad-af10-4753-ae8c-c3061071490b" />
+				<Link DebugTargetName="smartObject" Name="_|guard,D,03:00,!once,!corpse,guard" TargetId="a4ca75ad-af10-4753-ae8c-c3061071490b" />
+			</EntityLinks>
+		</Object>
+	</Objects>
+</Prefab>

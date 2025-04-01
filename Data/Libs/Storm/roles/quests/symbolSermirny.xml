@@ -1,0 +1,45 @@
+<?xml version="1.0"?>
+<!DOCTYPE storm SYSTEM "..\storm.dtd">
+<storm>
+	<rules>
+		<rule name="symbolSermirny_gossip_kutnahorsko">
+			<selectors>
+				<hasName name="kkut_*" />
+				<!--hopefully temporary voiceover optimization-->
+				<or>
+					<hasVoice name="gabrielAndrews" />
+					<hasVoice name="samBarlien" />
+					<hasVoice name="brianCaspe" />
+					<hasVoice name="danCollins" />
+				</or>
+				<not>
+					<hasName name="kkut_menhart" />
+				</not>
+				<situation_gossip_general />
+				<isMan />
+			</selectors>
+			<operations>
+				<addRole name="KUTNOHORSKY_MESTAN_1_GOSSIP_O_SERMIRNE" />
+				<addRole name="KUTNOHORSKY_MESTAN_2_GOSSIP_O_SERMIRNE" />
+			</operations>
+		</rule>
+
+		<rule name="symbolSermirny_jimramCommentWin">
+			<selectors>
+				<hasName name="kkut_jimram" />
+			</selectors>
+			<operations>
+				<addRole name="JIMRAM_KOMENTUJE_VITEZSTVI" />
+			</operations>
+		</rule>
+
+		<rule name="symbolSermirny_jimramAfterUnconscious">
+			<selectors>
+				<hasName name="kkut_jimram" />
+			</selectors>
+			<operations>
+				<addRole name="JIMRAM_REZNIK_SE_PROBRAL_Z_BEZVEDOMI" />
+			</operations>
+		</rule>
+    </rules>
+</storm>

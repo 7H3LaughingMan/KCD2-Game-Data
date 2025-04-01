@@ -1,0 +1,110 @@
+<AmbushPLRConfigurations>
+  <configurations>
+  	<cfg align="bandits">
+  		<spawnGroups>
+  			<grp class="bandits" minCnt="2" maxCnt="4" />
+        <grp class="dogs" minCnt="0" maxCnt="1" />
+  		</spawnGroups>
+  	</cfg>
+    <cfg align="bandits">
+      <spawnGroups>
+				<grp class="raubritters" minCnt="1" maxCnt="2" />
+				<grp class="bandits" minCnt="1" maxCnt="2" />
+      </spawnGroups>
+    </cfg>
+  	<cfg align="cumans">
+  		<spawnGroups>
+				<grp class="cumans" minCnt="2" maxCnt="4" />
+				<grp class="cumanArchers" minCnt="2" maxCnt="2" />
+  		</spawnGroups>
+  	</cfg>
+    <cfg align="cumans">
+      <spawnGroups>
+        <grp class="cumans" minCnt="3" maxCnt="4" />
+        <grp class="dogs" minCnt="0" maxCnt="1" />
+      </spawnGroups>
+    </cfg>
+  	<cfg align="lynchMob">
+  		<spawnGroups>
+  			<grp class="lynchmob" minCnt="3" maxCnt="6" />
+        <grp class="dogs" minCnt="0" maxCnt="1" />
+  		</spawnGroups>
+  	</cfg>
+    <cfg align="boars">
+      <spawnGroups>
+        <grp class="pigs" minCnt="1" maxCnt="2" />
+      </spawnGroups>
+    </cfg>
+		<cfg align="drunkards">
+			<spawnGroups>
+				<grp class="drunkards" minCnt="2" maxCnt="3" />
+			</spawnGroups>
+		</cfg>
+  </configurations>
+  <randomElements>
+    <element name="enemy">
+      <probTable>
+        <cell outValue="bandits" probability="0.25" />
+        <cell outValue="cumans" probability="0.25" />
+        <cell outValue="lynchMob" probability="0.25" />
+        <!-- <cell outValue="boars" probability="0.20" /> -->
+        <cell outValue="drunkards" probability="0.25" />
+      </probTable>
+    </element>
+    <element name="groupOrSolo">
+      <probTable>
+        <cell dependentValue="bandits" outValue="group" probability="0.6" />
+        <cell dependentValue="bandits" outValue="solo" probability="0.4" />
+        <cell dependentValue="cumans" outValue="group" probability="0.6" />
+        <cell dependentValue="cumans" outValue="solo" probability="0.4" />
+        <cell dependentValue="lynchMob" outValue="group" probability="1" />
+        <cell dependentValue="boars" outValue="group" probability="1" />
+        <cell dependentValue="drunkards" outValue="group" probability="0.6" />
+        <cell dependentValue="drunkards" outValue="solo" probability="0.4" />
+      </probTable>
+    </element>
+    <element name="scene" dependency="enemy">
+      <probTable>
+        <cell dependentValue="bandits" outValue="assault"      probability="0.25" />
+        <cell dependentValue="bandits" outValue="lure"         probability="0.15" />
+        <cell dependentValue="bandits" outValue="obstacle"     probability="0.30" />
+        <cell dependentValue="bandits" outValue="halt"         probability="0.30" />
+        <cell dependentValue="cumans" outValue="assault"       probability="0.25" />
+        <cell dependentValue="cumans" outValue="lure"          probability="0.20" />
+        <cell dependentValue="cumans" outValue="obstacle"      probability="0.30" />
+        <cell dependentValue="cumans" outValue="halt"          probability="0.25" />
+        <cell dependentValue="lynchMob" outValue="assault"     probability="0.30" />
+        <cell dependentValue="lynchMob" outValue="lure"        probability="0.20" />
+        <cell dependentValue="lynchMob" outValue="obstacle"    probability="0.25" />
+        <cell dependentValue="lynchMob" outValue="halt"        probability="0.25" />
+        <cell dependentValue="boars" outValue="assault"        probability="1" />
+				<cell dependentValue="drunkards" outValue="assault"        probability="1" />
+      </probTable>
+    </element>
+    <element name="lureType" dependency="enemy">
+      <probTable>
+        <!-- <cell dependentValue="bandits" outValue="chest"  probability="0" /> -->
+		<cell dependentValue="bandits" outValue="person"  probability="0.5" />
+		<cell dependentValue="bandits" outValue="corpse"  probability="0.5" />
+		<cell dependentValue="cumans" outValue="corpse"  probability="1" />
+		<!-- <cell dependentValue="cumans" outValue="chest"  probability="0.5" /> -->
+        <cell dependentValue="lynchMob" outValue="person"  probability="0.8" />
+		<cell dependentValue="lynchMob" outValue="corpse"  probability="0.2" />
+        <!-- Irrelevant, lure cannot happen for these enemies. Just needs a value for the script to work-->
+		<cell dependentValue="boars" outValue="corpse"  probability="1" />
+		<cell dependentValue="drunkards" outValue="corpse"  probability="1" />
+      </probTable>
+    </element>
+    <element name="reaction" dependency="scene">
+      <probTable>
+        <cell dependentValue="obstacle" outValue="attack" probability="0.5" />
+        <cell dependentValue="obstacle" outValue="bark" probability="0.5" />
+        <cell dependentValue="lure" outValue="attack" probability="0.5" />
+        <cell dependentValue="lure" outValue="bark" probability="0.5" />
+        <cell dependentValue="assault" outValue="attack" probability="1" />
+        <cell dependentValue="halt" outValue="attack" probability="0.1" />
+        <cell dependentValue="halt" outValue="bark" probability="0.9" />
+      </probTable>
+    </element>
+  </randomElements>
+</AmbushPLRConfigurations>

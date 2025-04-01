@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="us-ascii"?>
+<Graph isModule="1" moduleName="HORSEGetOnHorse" Description="" Group="" enabled="1" MultiPlayer="ClientServer">
+  <ModuleInputsOutputs>
+    <Port Name="RiderEntity" Type="3" Input="1" />
+    <Port Name="HorseEntity" Type="3" Input="1" />
+  </ModuleInputsOutputs>
+  <Nodes>
+    <Node Id="1" Class="Module:Start_HORSEGetOnHorse" pos="-160,-100,0" flags="1" />
+    <Node Id="2" Class="Module:End_HORSEGetOnHorse" pos="730,-90,0" flags="0">
+      <Inputs />
+    </Node>
+    <Node Id="5" Class="AI:AnimEx" pos="301,-141,0" flags="0">
+      <Inputs entityId="0" OneShot="1" animstateEx_Animation="" Speed="-1" Stance="-1" Position="0,0,0" StartRadius="0.1,0.1,0.1" Direction="0,0,0" DirTolerance="180" TargetRadius="0.05" ProjectOnEnd="1" />
+    </Node>
+    <Node Id="6" Class="Human:Horse" pos="541,-111,0" flags="0">
+      <Inputs entityId="0" HorseId="0" />
+    </Node>
+  </Nodes>
+  <Edges>
+    <Edge nodeIn="5" nodeOut="1" portIn="Cancel" portOut="Cancel" enabled="1" />
+    <Edge nodeIn="5" nodeOut="1" portIn="entityId" portOut="RiderEntity" enabled="1" />
+    <Edge nodeIn="5" nodeOut="1" portIn="Sync" portOut="Start" enabled="1" />
+    <Edge nodeIn="6" nodeOut="1" portIn="HorseId" portOut="HorseEntity" enabled="1" />
+    <Edge nodeIn="6" nodeOut="1" portIn="entityId" portOut="RiderEntity" enabled="1" />
+    <Edge nodeIn="6" nodeOut="5" portIn="Mount" portOut="succeed" enabled="1" />
+    <Edge nodeIn="2" nodeOut="6" portIn="Cancel" portOut="Failed" enabled="1" />
+    <Edge nodeIn="2" nodeOut="6" portIn="Success" portOut="Finished" enabled="1" />
+  </Edges>
+  <GraphTokens />
+</Graph>

@@ -1,0 +1,182 @@
+<?xml version="1.0"?>
+<!DOCTYPE storm SYSTEM "../storm.dtd">
+<storm>
+	<rules>
+
+		<rule name="spizovaciOddil_commander">
+			<selectors>
+				<hasName name="spizovaciOddil_partyCommander" />
+			</selectors>
+			<operations>
+				<addRole name="SPIZOVACI_ODDIL_VELITEL" />	
+				<addRole name="SPIZOVACI_ODDIL_VELITEL_BARKUJE_U_VOZU" />			
+				<addRole name="SPIZOVACI_ODDIL_VELITEL_NAPADA_VESNICANY" />				
+			</operations>
+		</rule>
+		
+		<rule name="spizovaciOddil_head">
+			<selectors>
+				<hasName name="kboh_villageHead_bynek" />
+			</selectors>
+			<operations>
+				<addRole name="BYNEK_BOHOUNOVICE" />
+				<addRole name="SPIZOVACI_ODDIL_VESNICANI_PO_BOJI" />
+			</operations>
+		</rule>
+		
+		<rule name="spizovaciOddil_villagers">
+			<selectors>
+				<and>
+					<hasFaction name="kutnohorsko_settlements_bohounovice_commonFolk" />
+					<not>
+						<hasName name="kboh_villageHead_bynek" />
+					</not>
+					<not>
+						<hasName name="kboh_vitek_lazar" />
+					</not>
+				</and>
+			</selectors>
+			<operations>
+				<addRole name="SPIZOVACI_ODDIL_DIALOG_INCLUDER_ANYONE" />
+				<addRole name="SPIZOVACI_ODDIL_VESNICANI_PO_BOJI" />
+			</operations>
+		</rule>
+		
+		<rule name="spizovaciOddil_lazar">
+			<selectors>
+				<hasName name="kboh_vitek_lazar" />
+			</selectors>
+			<operations>
+				<addRole name="VITEK_BOHOUNOVICE" />
+				<addRole name="ZRANENY_VITEK_Z_BOHOUNOVIC_MLUVI_ZE_SPANI" />
+			</operations>
+		</rule>
+		
+		<rule name="spizovaciOddil_house1head">
+			<selectors>
+				<hasName name="kboh_smil" />
+			</selectors>
+			<operations>
+				<addRole name="SMIL_BOHOUNOVICE" />
+			</operations>
+		</rule>
+		
+		<rule name="spizovaciOddil_house2head">
+			<selectors>
+				<hasName name="kboh_kuratko" />
+			</selectors>
+			<operations>
+				<addRole name="STATKAR_KURATKO_BOHOUNOVICE" />
+			</operations>
+		</rule>
+		
+		<rule name="spizovaciOddil_house3head">
+			<selectors>
+				<hasName name="kboh_vrba" />
+			</selectors>
+			<operations>
+				<addRole name="VRBA_BOHOUNOVICE" />
+			</operations>
+		</rule>
+		
+		<rule name="spizovaciOddil_house4head">
+			<selectors>
+				<hasName name="kboh_sovka" />
+			</selectors>
+			<operations>
+				<addRole name="SOVKA_BOHOUNOVICE" />
+			</operations>
+		</rule>
+		
+		<rule name="spizovaciOddil_bynekWife">
+			<selectors>
+				<hasName name="kboh_bynekWife" />
+			</selectors>
+			<operations>
+				<addRole name="MATKA_SOVKY_BOHOUNOVICE" />
+			</operations>
+		</rule>
+		
+		<rule name="spizovaciOddil_kurakotJr">
+			<selectors>
+				<hasName name="kboh_kuratkoJr" />
+			</selectors>
+			<operations>
+				<addRole name="KURATKUV_SYN_BOHOUNOVICE" />
+			</operations>
+		</rule>
+		
+		<rule name="spizovaciOddil_kurakotWife">
+			<selectors>
+				<hasName name="kboh_kuratkoWife" />
+			</selectors>
+			<operations>
+				<addRole name="KURATKOVA_ZENA_BOHOUNOVICE" />
+			</operations>
+		</rule>
+		
+		<rule name="spizovaciOddil_kurakotDaughter">
+			<selectors>
+				<hasName name="kboh_kuratkoDaughter" />
+			</selectors>
+			<operations>
+				<addRole name="KURATKOVA_DCERA_BOHOUNOVICE" />
+			</operations>
+		</rule>
+		
+		<rule name="spizovaciOddil_smilWife">
+			<selectors>
+				<hasName name="kboh_smilWife" />
+			</selectors>
+			<operations>
+				<addRole name="SMILOVA_ZENA_BOHOUNOVICE" />
+			</operations>
+		</rule>
+		
+		<rule name="spizovaciOddil_smilJr">
+			<selectors>
+				<hasName name="kboh_smilJr" />
+			</selectors>
+			<operations>
+				<addRole name="SMILUV_SYN_BOHOUNOVICE" />
+			</operations>
+		</rule>
+		
+		<rule name="spizovaciOddil_cuman1">
+			<selectors>
+				<hasName name="spizovaciOddil_cuman_1" />
+			</selectors>
+			<operations>
+				<addRole name="SPIZOVACI_ODDIL_KUMAN1" />
+			</operations>
+		</rule>
+		
+		<rule name="spizovaciOddil_cuman2">
+			<selectors>
+				<hasName name="spizovaciOddil_cuman_2" />
+			</selectors>
+			<operations>
+				<addRole name="SPIZOVACI_ODDIL_KUMAN_2" />
+			</operations>
+		</rule>
+		
+		<rule name="spizovaciOddil_cuman3">
+			<selectors>
+				<hasName name="spizovaciOddil_cuman_3" />
+			</selectors>
+			<operations>
+				<addRole name="SPIZOVACI_ODDIL_KUMAN_3" />
+			</operations>
+		</rule>
+		
+		<rule name="spizovaciOddil_vrbova">
+			<selectors>
+				<hasName name="kboh_vrbaWife" />
+			</selectors>
+			<operations>
+				<addRole name="VRBOVA_ZENA_BOHOUNOVICE" />
+			</operations>
+		</rule>
+
+    </rules>
+</storm>

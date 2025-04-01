@@ -1,0 +1,1706 @@
+<?xml version="1.0"?>
+<!DOCTYPE storm SYSTEM "..\..\storm.dtd">
+<storm>
+	<rules>
+		
+		<!-- Social classes -->
+		<!-- ============== -->
+		
+		<!-- GENERAL -->
+		
+		<rule name="inventory_villager_male" Mode="and">
+			
+			<selectors>
+				<or>
+					<hasSocialClass name="farmer" />
+					<hasSocialClass name="villager" />
+					<hasSocialClass name="tanner" />
+					<hasSocialClass name="merchant" />
+				</or>
+				<isMan />
+				<hasRandomValue min="0" max="0.5" />
+			</selectors>
+			
+			<operations>
+				<setInventory preset="inventory_villager_male"/>
+			</operations>
+			
+		</rule>
+
+		<rule name="inventory_villager_male" Mode="and">
+			
+			<selectors>
+				<or>
+					<hasSocialClass name="farmer" />
+					<hasSocialClass name="villager" />
+					<hasSocialClass name="tanner" />
+					<hasSocialClass name="merchant" />
+				</or>
+				<isMan />
+				<hasRandomValue min="0.5" max="1" />
+			</selectors>
+			
+			<operations>
+				<setInventory preset="inventory_villager_male_armed"/>
+			</operations>
+			
+		</rule>
+
+		<rule name="inventory_villager_male_loner" Mode="and">
+
+			<selectors>
+				<or>
+					<hasSocialClass name="farmer" />
+					<hasSocialClass name="villager" />
+					<hasSocialClass name="tanner" />
+					<hasSocialClass name="merchant" />
+				</or>
+				<isMan />
+				<isLoner />
+			</selectors>
+
+			<operations>
+				<setInventory preset="inventory_villager_male_armed"/>
+			</operations>
+
+		</rule>
+
+		<rule name="inventory_villager_female" Mode="and">
+			
+			<selectors>
+				<or>
+					<hasSocialClass name="villager" />
+					<hasSocialClass name="merchant" />
+				</or>
+				<isWoman />
+			</selectors>
+			
+			<operations>
+				<setInventory preset="inventory_villager_female"/>
+			</operations>
+			
+		</rule>
+		
+		<rule name="inventory_housekeeper_female" Mode="and">
+			
+			<selectors>
+				<hasSocialClass name="housekeeper" />
+				<isWoman />
+			</selectors>
+			<operations>
+				<setInventory preset="inventory_villager_female"/>
+			</operations>
+			
+		</rule>
+		
+		<rule name="inventory_villager_female_old" Mode="and">
+			
+			<selectors>
+				<hasSocialClass name="housekeeper" />
+				<isOldLady />
+			</selectors>
+			<operations>
+				<setInventory preset="inventory_villager_female_old"/>
+			</operations>
+			
+		</rule>
+		
+		<rule name="inventory_villager_wench" Mode="and">
+			
+			<selectors>
+				<hasSocialClass name="wench" />
+				<isWoman />
+			</selectors>
+			<operations>
+				<setInventory preset="inventory_wench_female"/>
+			</operations>
+			
+		</rule>
+		
+		<rule name="inventory_villager_wench_old" Mode="and">
+			
+			<selectors>
+				<hasSocialClass name="wench" />
+				<isOldLady />
+			</selectors>
+			<operations>
+				<setInventory preset="inventory_wench_female_old"/>
+			</operations>
+			
+		</rule>
+		
+		<rule name="inventory_townsman">
+			
+			<selectors>
+				<or>
+					<and>
+						<or>
+							<hasSocialClass name="townsman" />
+							<hasSocialClass name="bailiff" />
+						</or>
+						<hasRandomValue min="0" max="0.5" />
+						<isMan />
+					</and>
+					<and>
+						<or>
+							<hasSocialClass name="merchant" />
+							<hasSocialClass name="craftsman" />
+							<hasTradesmanSocialClass/>
+						</or>
+						<hasRandomValue min="0" max="0.5" />
+						<hasFaction name="kutnohorsko_settlements_kutnaHora" />
+						<isMan />
+					</and>
+				</or>
+			</selectors>
+			
+			<operations>
+				<setInventory preset="inventory_burgher_male"/>
+			</operations>
+			
+		</rule>
+
+		<rule name="inventory_townsman">
+			
+			<selectors>
+				<or>
+					<and>
+						<or>
+							<hasSocialClass name="townsman" />
+							<hasSocialClass name="bailiff" />
+						</or>
+						<hasRandomValue min="0.5" max="1" />
+						<isMan />
+					</and>
+					<and>
+						<or>
+							<hasSocialClass name="merchant" />
+							<hasSocialClass name="craftsman" />
+							<hasTradesmanSocialClass/>
+						</or>
+						<hasRandomValue min="0.5" max="1" />
+						<hasFaction name="kutnohorsko_settlements_kutnaHora" />
+						<isMan />
+					</and>
+				</or>
+			</selectors>
+			
+			<operations>
+				<setInventory preset="inventory_burgher_male_armed"/>
+			</operations>
+			
+		</rule>
+		
+		<rule name="inventory_scribe">
+			
+			<selectors>
+				<hasSocialClass name="scribe" />
+				<isMan />
+			</selectors>
+			
+			<operations>
+				<setInventory preset="inventory_scribe"/>
+			</operations>
+			
+		</rule>
+		
+		<rule name="inventory_townswoman" Mode="and">
+			
+			<selectors>
+				<or>
+					<and>
+						<hasSocialClass name="townsman" />
+						<isWoman />
+					</and>
+					<and>
+						<or>
+							<hasSocialClass name="merchant" />
+							<hasSocialClass name="craftsman" />
+							<hasTradesmanSocialClass/>
+						</or>
+						<hasFaction name="kutnohorsko_settlements_kutnaHora" />
+						<isWoman />
+					</and>
+				</or>
+			</selectors>
+			
+			<operations>
+				<setInventory preset="inventory_burgher_female"/>
+			</operations>
+			
+		</rule>
+		
+		<rule name="inventory_nobleman" Mode="and">
+			
+			<selectors>
+				<or>
+					<hasFaction name="kutnohorsko_settlements_kutnaHora_nobility" />
+					<hasSocialClass name="nobleman" />
+				</or>
+				<isMan />
+			</selectors>
+			
+			<operations>
+				<setInventory preset="inventory_noble_male"/>
+			</operations>
+			
+		</rule>
+		
+		<rule name="inventory_noblewoman" Mode="and">
+			
+			<selectors>
+				<or>
+					<hasFaction name="kutnohorsko_settlements_kutnaHora_nobility" />
+					<hasSocialClass name="nobleman" />
+				</or>
+				<isWoman />
+			</selectors>
+			
+			<operations>
+				<setInventory preset="inventory_noble_female"/>
+			</operations>
+			
+		</rule>
+		
+		<rule name="inventory_jew_male" Mode="and">
+			
+			<selectors>
+				<isJewish />
+				<isMan />
+			</selectors>
+			
+			<operations>
+				<setInventory preset="inventory_jew_male"/>
+			</operations>
+			
+		</rule>
+		
+		<rule name="inventory_jew_male_fancy" Mode="and">
+			
+			<selectors>
+				<isJewish />
+				<isMan />
+				<or>
+					<and>
+						<hasSocialClass name="townsman" />
+						<hasRandomValue min="0" max="0.5" />
+					</and>
+					<hasSocialClass name="merchant" />
+				</or>
+			</selectors>
+			
+			<operations>
+				<setInventory preset="inventory_jew_male_fancy"/>
+			</operations>
+			
+		</rule>
+		
+		<rule name="inventory_jew_female" Mode="and">
+			
+			<selectors>
+				<isJewish />
+				<isWoman />
+			</selectors>
+			
+			<operations>
+				<setInventory preset="inventory_jew_female_poor"/>
+			</operations>
+			
+		</rule>
+		
+		<rule name="inventory_jew_female_fancy" Mode="and">
+			
+			<selectors>
+				<isJewish />
+				<isWoman />
+				<or>
+					<hasSocialClass name="townsman" />
+					<hasSocialClass name="merchant" />
+				</or>
+			</selectors>
+			
+			<operations>
+				<setInventory preset="inventory_jew_female_fancy"/>
+			</operations>
+			
+		</rule>
+		
+		<!-- PROFESSIONS -->
+		
+		<rule name="inventory_labourer_male" Mode="and">
+			
+			<selectors>
+				<or>
+					<hasSocialClass name="varlet" />
+					<hasSocialClass name="collier" />
+					<hasSocialClass name="lumberjack" />
+					<hasSocialClass name="quarryman" />
+					<hasSocialClass name="woodworker" />			
+				</or>
+				<isMan />
+				<hasRandomValue min="0" max="0.5" />
+			</selectors>
+			
+			<operations>
+				<setInventory preset="inventory_labourer"/>
+			</operations>
+			
+		</rule>
+
+		<rule name="inventory_labourer_male_armed" Mode="and">
+			
+			<selectors>
+				<or>
+					<hasSocialClass name="varlet" />
+					<hasSocialClass name="collier" />
+					<hasSocialClass name="lumberjack" />
+					<hasSocialClass name="quarryman" />
+					<hasSocialClass name="woodworker" />			
+				</or>
+				<isMan />
+				<hasRandomValue min="0.5" max="1" />
+			</selectors>
+			
+			<operations>
+				<setInventory preset="inventory_labourer_armed"/>
+			</operations>
+			
+		</rule>
+
+		<rule name="inventory_labourer_male_loner" Mode="and">
+
+			<selectors>
+				<or>
+					<hasSocialClass name="varlet" />
+					<hasSocialClass name="collier" />
+					<hasSocialClass name="lumberjack" />
+					<hasSocialClass name="quarryman" />
+					<hasSocialClass name="woodworker" />			
+				</or>
+				<isMan />
+				<isLoner />
+			</selectors>
+
+			<operations>
+				<setInventory preset="inventory_labourer_armed"/>
+			</operations>
+
+		</rule>
+
+		<rule name="inventory_fisherman" Mode="and">
+			
+			<selectors>
+				<hasSocialClass name="fisherman" />
+			</selectors>
+			
+			<operations>
+				<setInventory preset="inventory_fisherman"/>
+			</operations>
+			
+		</rule>
+
+		<rule name="inventory_fisherman_loner" Mode="and">
+
+			<selectors>
+					<hasSocialClass name="fisherman" />
+					<isLoner />
+			</selectors>
+
+			<operations>
+				<setInventory preset="inventory_fisherman_loner"/>
+			</operations>
+
+		</rule>
+
+		<rule name="inventory_horseSeller" Mode="and">
+			
+			<selectors>
+				<hasRole name="PODKONI_PO_NAKUPU_MUZ" />
+				<isTrader /> 
+			</selectors>
+			
+			<operations>
+				<setInventory preset="inventory_horseSeller"/>
+			</operations>
+			
+		</rule>
+		
+		<rule name="inventory_horseTrader" Mode="and">
+			
+			<selectors>
+				<hasSocialClass name="horsetrader" />
+				<isMan/>
+			</selectors>
+			
+			<operations>
+				<setInventory preset="inventory_horseTrader"/>
+			</operations>
+			
+		</rule>
+		
+		<rule name="inventory_horseTrader_female" Mode="and">
+			
+			<selectors>
+				<hasSocialClass name="horsetrader" />
+				<isWoman/>
+			</selectors>
+			
+			<operations>
+				<setInventory preset="inventory_horseTrader_female"/>
+			</operations>
+			
+		</rule>
+		
+		
+		<rule name="inventory_innkeeper_male" Mode="and">
+			
+			<selectors>
+				<hasSocialClass name="innkeeper" />
+				<isMan />
+			</selectors>
+			
+			<operations>
+				<setInventory preset="inventory_innkeeper_male"/>
+			</operations>
+			
+		</rule>
+		
+		<rule name="inventory_bathhouseabess" Mode="and">
+			
+			<selectors>
+				<hasSocialClass name="bathhouseAbbess" />
+				<isWoman />
+			</selectors>
+			
+			<operations>
+				<setInventory preset="inventory_bathhouseabess"/>
+			</operations>
+		</rule>
+		
+		<rule name="inventory_bathhouseMaid" Mode="and">
+			
+			<selectors>
+				<hasSocialClass name="bathhouseMaid" />
+				<isWoman />
+			</selectors>
+			
+			<operations>
+				<setInventory preset="inventory_bathmaid"/>
+			</operations>
+		</rule>
+		
+		
+		<rule name="inventory_bartender_female" Mode="and">
+			
+			<selectors>
+				<or>
+					<hasSocialClass name="bartender" />
+					<hasSocialClass name="cook" />
+				</or>
+				<isWoman />
+			</selectors>
+			
+			<operations>
+				<setInventory preset="inventory_bartender_female"/>
+			</operations>
+			
+		</rule>
+		
+		<rule name="inventory_beggar_male" Mode="and">
+			
+			<selectors>
+				<hasSocialClass name="beggar" />
+				<isMan />
+			</selectors>
+			
+			<operations>
+				<setInventory preset="inventory_beggar_male"/>
+			</operations>
+			
+		</rule>
+		
+		<rule name="inventory_beggar_female" Mode="and">
+			
+			<selectors>
+				<hasSocialClass name="beggar" />
+				<isWoman />
+			</selectors>
+			
+			<operations>
+				<setInventory preset="inventory_beggar_female"/>
+			</operations>
+			
+		</rule>
+		
+		<rule name="inventory_blacksmith">
+			
+			<selectors>
+				<hasSocialClass name="blacksmith" />
+			</selectors>
+			
+			<operations>
+				<setInventory preset="inventory_blacksmith"/>
+			</operations>
+			
+		</rule>
+		
+		<rule name="inventory_saddler">
+			
+			<selectors>
+				<hasSocialClass name="saddler" />
+			</selectors>
+			
+			<operations>
+				<setInventory preset="inventory_saddler"/>
+			</operations>
+			
+		</rule>
+		
+		<rule name="inventory_shoemaker">
+			
+			<selectors>
+				<hasSocialClass name="shoemaker" />	
+			</selectors>
+			
+			<operations>
+				<setInventory preset="inventory_shoemaker"/>
+			</operations>
+			
+		</rule>
+		
+		<rule name="inventory_apprentice">
+			
+			<selectors>
+				<isCraftsmanApprentice />
+				<isMan />
+			</selectors>
+			
+			<operations>
+				<setInventory preset="inventory_apprentice"/>
+			</operations>
+			
+		</rule>
+		
+		<rule name="inventory_weaponsmith">
+			
+			<selectors>
+				<or>
+					<hasSocialClass name="armorer" />
+					<hasSocialClass name="weaponsmith" />
+				</or>
+			</selectors>
+			
+			<operations>
+				<setInventory preset="inventory_weaponsmith"/>
+			</operations>
+			
+		</rule>
+		
+		
+		<rule name="inventory_miller">
+			
+			<selectors>
+				<hasSocialClass name="miller" />
+			</selectors>
+			
+			<operations>
+				<setInventory preset="inventory_miller"/>
+			</operations>
+			
+		</rule>
+
+		<rule name="inventory_miller_loner">
+
+			<selectors>
+				<hasSocialClass name="miller" />
+				<isLoner/>
+			</selectors>
+
+			<operations>
+				<setInventory preset="inventory_miller_loner"/>
+			</operations>
+
+		</rule>
+
+		<rule name="inventory_miner">
+			
+			<selectors>
+				<hasSocialClass name="miner" />
+			</selectors>
+			
+			<operations>
+				<setInventory preset="inventory_miner"/>
+			</operations>
+			
+		</rule>
+
+		<rule name="inventory_miner_loner">
+
+			<selectors>
+				<hasSocialClass name="miner" />
+				<isLoner/>
+			</selectors>
+
+			<operations>
+				<setInventory preset="inventory_miner_loner"/>
+			</operations>
+
+		</rule>
+
+		<rule name="inventory_gastroman">
+			
+			<selectors>
+				<or>
+					<hasSocialClass name="baker" />
+					<hasSocialClass name="cook" />
+				</or>
+				<isMan />
+			</selectors>
+			
+			<operations>
+				<setInventory preset="inventory_gastroman"/>
+			</operations>
+			
+		</rule>
+		
+		<rule name="inventory_apothecary">
+			
+			<selectors>
+				<hasSocialClass name="apothecary" />
+				<isMan />
+			</selectors>
+			
+			<operations>
+				<setInventory preset="inventory_apothecary"/>
+			</operations>
+			
+		</rule>
+		
+		<rule name="inventory_herbalist_male">
+			
+			<selectors>
+				<hasSocialClass name="herbalist" />
+				<isMan />
+			</selectors>
+			
+			<operations>
+				<setInventory preset="inventory_herbalist_male"/>
+			</operations>
+			
+		</rule>
+
+		<rule name="inventory_herbalist_male_loner">
+
+			<selectors>
+				<hasSocialClass name="herbalist" />
+				<isMan />
+				<isLoner/>
+			</selectors>
+
+			<operations>
+				<setInventory preset="inventory_herbalist_male_loner"/>
+			</operations>
+
+		</rule>
+
+		<rule name="inventory_herbalist_female">
+			
+			<selectors>
+				<hasSocialClass name="herbalist" />
+				<isWoman />
+			</selectors>
+			
+			<operations>
+				<setInventory preset="inventory_herbalist_female"/>
+			</operations>
+			
+		</rule>
+		
+		<rule name="inventory_cleric">
+			
+			<selectors>
+				<or>
+					<hasSocialClass name="monk" />
+					<hasSocialClass name="priest" />
+				</or>
+				<isMan />
+			</selectors>
+			
+			<operations>
+				<setInventory preset="inventory_cleric"  Health="1"/>
+			</operations>
+			
+		</rule>
+		
+		<rule name="inventory_huntsman">
+			
+			<selectors>
+				<isHuntsman />
+				<isMan />
+			</selectors>
+			
+			<operations>
+				<setInventory preset="inventory_huntsman"/>
+			</operations>
+			
+		</rule>
+		
+		<rule name="inventory_shootmaster">
+			
+			<selectors>
+				<hasSocialClass name="shootmaster" />
+				<isMan />
+			</selectors>
+			
+			<operations>
+				<setInventory preset="inventory_shootmaster"/>
+			</operations>
+			
+		</rule>
+		
+		<rule name="inventory_minter">
+			
+			<selectors>
+				<hasSocialClass name="minter" />
+				<isMan />
+			</selectors>
+			
+			<operations>
+				<setInventory preset="inventory_minter"/>
+			</operations>
+			
+		</rule>
+		
+		<rule name="inventory_butcher">
+			
+			<selectors>
+				<hasSocialClass name="butcher" />
+				<isMan />
+			</selectors>
+			
+			<operations>
+				<setInventory preset="inventory_butcher"/>
+			</operations>
+			
+		</rule>
+		
+		<rule name="inventory_smelter">
+			<selectors>
+				<hasSocialClass name="smelter" />
+			</selectors>
+			
+			<operations>
+				<setInventory preset="inventory_smelter"/>
+			</operations>
+		</rule>
+		
+		<rule name="inventory_vineyardworker">
+			<selectors>
+				<isMan/>
+				<hasFaction name="kutnohorsko_settlements_lorec_commonFolk_vineyard_staff" />
+			</selectors>
+			<operations>
+				<setInventory preset="inventory_vineyardworkers"/>
+			</operations>
+		</rule>
+		
+		<rule name="inventory_herdsman" Mode="and">
+			<selectors>
+				<or>
+					<hasSocialClass name="herdsman" />
+				</or>
+			</selectors>
+			<operations>
+				<setInventory preset="inventory_herdsman"/>
+			</operations>
+		</rule>
+		
+		<rule name="inventory_herdsman_loner" Mode="and">
+			<selectors>
+				<or>
+					<hasSocialClass name="herdsman" />
+				</or>
+				<isLoner/>
+			</selectors>
+			<operations>
+				<setInventory preset="inventory_herdsman_loner"/>
+			</operations>
+		</rule>
+		
+		<rule name="inventory_tailor" Mode="and">
+			<selectors>
+				<or>
+					<hasSocialClass name="tailor" />
+				</or>
+			</selectors>
+			<operations>
+				<setInventory preset="inventory_tailor"/>
+			</operations>
+		</rule>
+		
+		<rule name="inventory_gravedigger" Mode="and">
+			<selectors>
+				<or>
+					<hasSocialClass name="gravedigger" />
+				</or>
+			</selectors>
+			<operations>
+				<setInventory preset="inventory_gravedigger"/>
+			</operations>
+		</rule>
+
+		<rule name="inventory_gravedigger_loner" Mode="and">
+			<selectors>
+				<or>
+					<hasSocialClass name="gravedigger" />
+				</or>
+				<isLoner/>
+			</selectors>
+			<operations>
+				<setInventory preset="inventory_gravedigger_loner"/>
+			</operations>
+		</rule>
+
+		<rule name="inventory_musician" Mode="and">
+			<selectors>
+				<or>
+					<hasSocialClass name="musician" />
+				</or>
+			</selectors>
+			<operations>
+				<setInventory preset="inventory_musician"/>
+			</operations>
+		</rule>
+		
+		<rule name="inventory_additive_traderWealth" Mode="and">
+			
+			<selectors>
+				<isTrader/>
+			<not>
+				<or>
+					<hasSocialClass name="fisherman" />
+					<hasSocialClass name="bartender" />
+					<hasSocialClass name="farmer" />
+				</or>
+			</not>
+			</selectors>
+			
+			<operations>
+				<addInventory preset="inventory_additive_traderWealth"/>
+			</operations>
+			
+		</rule>
+		
+		<!-- COMBATANTS -->
+		
+		<rule name="inventory_combatants_kut" Mode="and">
+			<selectors>
+				<or>
+					<hasSocialClass name="soldier" /> <!-- Temporary -->
+					<hasSocialClass name="soldier_crimeAuthority" />
+					<hasSocialClass name="guard" /> <!-- Temporary -->
+					<hasSocialClass name="guardLeader" />
+					<hasSocialClass name="mercenary" />
+					<hasSocialClass name="officer" />
+				</or>
+				<or>
+					<hasFaction name="kutnohorsko_enemies" />
+					<hasFaction name="kutnohorsko" />
+					<isFromEventsKutnohorskoZonesEquip />
+				</or>
+				<hasRandomValue min="0" max="0.75" />
+			</selectors>
+			<operations>
+				<setInventory preset="inventory_combatants_kut"/>
+			</operations>
+		</rule>
+		
+		<rule name="inventory_combatants_tro" Mode="and">
+			<selectors>
+				<or>
+					<hasSocialClass name="soldier" /> <!-- Temporary -->
+					<hasSocialClass name="soldier_crimeAuthority" />
+					<hasSocialClass name="guard" /> <!-- Temporary -->
+					<hasSocialClass name="guardLeader" />
+					<hasSocialClass name="mercenary" />
+					<hasSocialClass name="officer" />
+				</or>
+				<or>
+					<hasFaction name="trosecko_enemies" />
+					<hasFaction name="trosecko" />
+					<isFromEventsTroseckoZonesEquip />
+				</or>
+				<hasRandomValue min="0" max="0.75" />
+			</selectors>
+			<operations>
+				<setInventory preset="inventory_combatants_tro"/>
+			</operations>
+		</rule>
+		
+		<rule name="inventory_combatantsMarksman_kut" Mode="and">
+			<selectors>
+				<or>
+					<hasSocialClass name="soldier" /> <!-- Temporary -->
+					<hasSocialClass name="soldier_crimeAuthority" />
+					<hasSocialClass name="guard" /> <!-- Temporary -->
+					<hasSocialClass name="guardLeader" />
+					<hasSocialClass name="mercenary" />
+					<hasSocialClass name="officer" />
+				</or>
+				<or>
+					<hasFaction name="kutnohorsko_enemies" />
+					<hasFaction name="kutnohorsko" />
+					<isFromEventsKutnohorskoZonesEquip />
+				</or>
+				<hasRandomValue min="0.75" max="1" />
+			</selectors>
+			<operations>
+				<setInventory preset="inventory_combatantsMarksman_kut"/>
+			</operations>
+		</rule>
+		
+		<rule name="inventory_combatantsMarksman_tro" Mode="and">
+			<selectors>
+				<or>
+					<hasSocialClass name="soldier" /> <!-- Temporary -->
+					<hasSocialClass name="soldier_crimeAuthority" />
+					<hasSocialClass name="guard" /> <!-- Temporary -->
+					<hasSocialClass name="guardLeader" />
+					<hasSocialClass name="mercenary" />
+					<hasSocialClass name="officer" />
+				</or>
+				<or>
+					<hasFaction name="trosecko_enemies" />
+					<hasFaction name="trosecko" />
+					<isFromEventsTroseckoZonesEquip />
+				</or>
+				<hasRandomValue min="0.75" max="1" />
+			</selectors>
+			<operations>
+				<setInventory preset="inventory_combatantsMarksman_tro"/>
+			</operations>
+		</rule>
+
+		<rule name="inventory_banditLeader_tro" Mode="and">
+			<selectors>
+				<or>
+					<hasSocialClass name="banditLeader" />
+					<hasSocialClass name="ruffianLeader" />
+				</or>◘
+				<or>
+					<hasFaction name="trosecko_enemies" />
+					<hasFaction name="trosecko" />
+					<isFromEventsTroseckoZonesEquip />
+				</or>
+			</selectors>
+			<operations>
+				<setInventory preset="inventory_banditLeader_tro"/>
+			</operations>
+		</rule>
+
+		<rule name="inventory_banditLeader_kut" Mode="and">
+			<selectors>
+				<or>
+					<hasSocialClass name="banditLeader" />
+					<hasSocialClass name="ruffianLeader" />
+				</or>◘
+				<or>
+					<hasFaction name="kutnohorsko_enemies" />
+					<hasFaction name="kutnohorsko" />
+					<isFromEventsKutnohorskoZonesEquip />
+				</or>
+			</selectors>
+			<operations>
+				<setInventory preset="inventory_banditLeader_kut"/>
+			</operations>
+		</rule>
+		
+		<rule name="inventory_bandit_kut" Mode="and">
+			<selectors>
+				<or>
+					<hasSocialClass name="bandit" />
+					<hasSocialClass name="ruffian" />
+				</or>
+				<or>
+					<hasFaction name="kutnohorsko_enemies" />
+					<hasFaction name="kutnohorsko" />
+					<isFromEventsKutnohorskoZonesEquip />
+				</or>
+				<hasRandomValue min="0" max="0.75" />
+			</selectors>
+			<operations>
+				<setInventory preset="inventory_bandit_kut"/>
+			</operations>
+		</rule>
+		
+		<rule name="inventory_bandit_tro" Mode="and">
+			<selectors>
+				<or>
+					<hasSocialClass name="bandit" />
+					<hasSocialClass name="ruffian" />
+				</or>
+				<or>
+					<hasFaction name="trosecko_enemies" />
+					<hasFaction name="trosecko" />
+					<isFromEventsTroseckoZonesEquip />
+				</or>
+				<hasRandomValue min="0" max="0.75" />
+			</selectors>
+			<operations>
+				<setInventory preset="inventory_bandit_tro"/>
+			</operations>
+		</rule>
+		
+		<rule name="inventory_banditMarksman_kut" Mode="and">
+			<selectors>
+				<or>
+					<hasSocialClass name="bandit" />
+					<hasSocialClass name="ruffian" />
+				</or>
+				<or>
+					<hasFaction name="kutnohorsko_enemies" />
+					<hasFaction name="kutnohorsko" />
+					<isFromEventsKutnohorskoZonesEquip />
+				</or>
+				<hasRandomValue min="0.75" max="1" />
+			</selectors>
+			<operations>
+				<setInventory preset="inventory_banditMarksman_kut"/>
+			</operations>
+		</rule>
+		
+		<rule name="inventory_banditMarksman_tro" Mode="and">
+			<selectors>
+				<or>
+					<hasSocialClass name="bandit" />
+					<hasSocialClass name="ruffian" />
+				</or>
+				<or>
+					<hasFaction name="trosecko_enemies" />
+					<hasFaction name="trosecko" />
+					<isFromEventsTroseckoZonesEquip />
+				</or>
+				<hasRandomValue min="0.75" max="1" />
+			</selectors>
+			<operations>
+				<setInventory preset="inventory_banditMarksman_tro"/>
+			</operations>
+		</rule>
+		
+		<rule name="inventory_poachers" Mode="and">
+			<selectors>
+				<or>
+					<hasSocialClass name="poacher" />
+				</or>
+			</selectors>
+			<operations>
+				<setInventory preset="inventory_poacher"/>
+			</operations>
+		</rule>
+		
+		<rule name="inventory_security" Mode="and">
+			<selectors>
+				<or>
+					<hasSocialClass name="security" />
+					<hasSocialClass name="catchpole" />
+				</or>
+			</selectors>
+			<operations>
+				<setInventory preset="inventory_security"/>
+			</operations>
+		</rule>
+		
+		
+		<rule name="inventory_cuman_tro" Mode="and">
+			<selectors>
+				<or>
+					<hasSocialClass name="cuman" />
+				</or>
+				<or>
+					<hasFaction name="trosecko_enemies" />
+					<hasFaction name="trosecko" />
+					<isFromEventsTroseckoZonesEquip />
+				</or>
+				<hasRandomValue min="0" max="0.75" />
+			</selectors>
+			<operations>
+				<setInventory preset="inventory_cuman_tro"/>
+			</operations>
+		</rule>
+
+		<rule name="inventory_cumanLeader_tro" Mode="and">
+			<selectors>
+				<hasSocialClass name="cumanLeader" />
+				<or>
+					<hasFaction name="trosecko_enemies" />
+					<hasFaction name="trosecko" />
+					<isFromEventsTroseckoZonesEquip />
+				</or>
+			</selectors>
+			<operations>
+				<setInventory preset="inventory_cumanLeader_tro"/>
+			</operations>
+		</rule>
+
+		<rule name="inventory_cumanMarksman_tro" Mode="and">
+			<selectors>
+				<or>
+					<hasSocialClass name="cuman" />
+				</or>
+				<or>
+					<hasFaction name="trosecko_enemies" />
+					<hasFaction name="trosecko" />
+					<isFromEventsTroseckoZonesEquip />
+				</or>
+				<hasRandomValue min="0.75" max="1" />
+			</selectors>
+			<operations>
+				<setInventory preset="inventory_cumanMarksman_tro"/>
+			</operations>
+		</rule>
+		
+		<rule name="inventory_cuman_kut" Mode="and">
+			<selectors>
+				<or>
+					<hasSocialClass name="cuman" />
+				</or>
+				<or>
+					<hasFaction name="kutnohorsko_enemies" />
+					<hasFaction name="kutnohorsko" />
+					<isFromEventsKutnohorskoZonesEquip />
+				</or>
+				<hasRandomValue min="0" max="0.75" />
+			</selectors>
+			<operations>
+				<setInventory preset="inventory_cuman_kut"/>
+			</operations>
+		</rule>
+
+		<rule name="inventory_cumanLeader_kut" Mode="and">
+			<selectors>
+				<hasSocialClass name="cumanLeader" />
+				<or>
+					<hasFaction name="kutnohorsko_enemies" />
+					<hasFaction name="kutnohorsko" />
+					<isFromEventsKutnohorskoZonesEquip />
+				</or>
+			</selectors>
+			<operations>
+				<setInventory preset="inventory_cumanLeader_kut"/>
+			</operations>
+		</rule>
+
+		<rule name="inventory_cumanMarksman_kut" Mode="and">
+			<selectors>
+				<or>
+					<hasSocialClass name="cuman" />
+				</or>
+				<or>
+					<hasFaction name="kutnohorsko_enemies" />
+					<hasFaction name="kutnohorsko" />
+					<isFromEventsKutnohorskoZonesEquip />
+				</or>
+				<hasRandomValue min="0.75" max="1" />
+			</selectors>
+			<operations>
+				<setInventory preset="inventory_cumanMarksman_kut"/>
+			</operations>
+		</rule>
+		
+		<rule name="inventory_beggarMonk" Mode="and">
+			<selectors>
+				<hasFaction name="kutnohorsko_settlements_kutnaHora_clergy_beggingMonks" />
+			</selectors>
+			<operations>
+				<setInventory preset="inventory_beggarMonk"/>
+			</operations>
+		</rule>
+
+		<rule name="inventory_ruffianKH" Mode="and">
+			<selectors>
+				<hasFaction name="kutnohorsko_settlements_kutnaHora_commonFolk_peasants_additiveNPCs" />
+				<hasSocialClass name="ruffian" />
+			</selectors>
+			<operations>
+				<setInventory preset="inventory_ruffianKH"/>
+			</operations>
+		</rule>
+
+
+		
+		
+		<!-- HORSES -->
+		
+		<rule name="inventory_horse_war_naked" Mode="and">
+			
+			<selectors>
+				<isHorse/>
+				<hasSocialClass name="horse_war_naked" /> 
+			</selectors>
+			
+			<operations>
+				<setInventory preset="inventory_horse_war_naked"/>
+			</operations>
+			
+		</rule>
+		
+		<rule name="inventory_horse_war_common" Mode="and">
+			
+			<selectors>
+				<isHorse/>
+				<hasSocialClass name="horse_war_common" /> 
+			</selectors>
+			
+			<operations>
+				<setInventory preset="inventory_horse_war_common"/>
+			</operations>
+			
+		</rule>
+		
+		<rule name="inventory_horse_war_battle" Mode="and">
+			
+			<selectors>
+				<isHorse/>
+				<hasSocialClass name="horse_war_battle"/> 
+			</selectors>
+			
+			<operations>
+				<setInventory preset="inventory_horse_war_battle" /> <!-- Temporary-->
+			</operations>
+			
+		</rule>
+		
+		<rule name="inventory_horse_war_noble" Mode="and">
+			
+			<selectors>
+				<isHorse/>
+				<hasSocialClass name="horse_war_noble" /> 
+			</selectors>
+			
+			<operations>
+				<setInventory preset="inventory_horse_war_noble"/> <!-- Temporary-->
+			</operations>
+			
+		</rule>
+		
+		<rule name="inventory_horse_travel_naked" Mode="and">
+			
+			<selectors>
+				<isHorse/>
+				<hasSocialClass name="horse_travel_naked" /> 
+			</selectors>
+			
+			<operations>
+				<setInventory preset="inventory_horse_travel_naked"/> <!-- Temporary-->
+			</operations>
+			
+		</rule>
+		
+		<rule name="inventory_horse_travel_common" Mode="and">
+			
+			<selectors>
+				<isHorse/>
+				<hasSocialClass name="horse_travel_common" /> 
+			</selectors>
+			
+			<operations>
+				<setInventory preset="inventory_horse_travel_common"/>
+			</operations>
+			
+		</rule>
+		
+		<rule name="inventory_horse_travel_noble" Mode="and">
+			
+			<selectors>
+				<isHorse/>
+				<hasSocialClass name="horse_travel_noble" />
+			</selectors>
+			
+			<operations>
+				<setInventory preset="inventory_horse_travel_noble"/>
+			</operations>
+			
+		</rule>
+		
+		<rule name="inventory_horse_travel_east" Mode="and">
+			
+			<selectors>
+				<isHorse/>
+				<hasSocialClass name="horse_travel_east" />
+			</selectors>
+			
+			<operations>
+				<setInventory preset="inventory_horse_travel_east"/>
+			</operations>
+			
+		</rule>
+		
+		<rule name="inventory_horse_work_naked" Mode="and">
+			
+			<selectors>
+				<isHorse/>
+				<hasSocialClass name="horse_work_naked" />
+			</selectors>
+			
+			<operations>
+				<setInventory preset="inventory_horse_work_naked"/>
+			</operations>
+			
+		</rule>
+		
+		<rule name="inventory_horse_work_common" Mode="and">
+			
+			<selectors>
+				<isHorse/>
+				<hasSocialClass name="horse_work_common" />
+			</selectors>
+			
+			<operations>
+				<setInventory preset="inventory_horse_work_common"/>
+			</operations>
+			
+		</rule>
+		
+		<rule name="inventory_horse_work_battle" Mode="and">
+			
+			<selectors>
+				<isHorse/>
+				<hasSocialClass name="horse_work_battle" />
+			</selectors>
+			
+			<operations>
+				<setInventory preset="inventory_horse_work_battle"/>
+			</operations>
+			
+		</rule>
+		
+		<rule name="inventory_horse_draft_naked" Mode="and">
+			
+			<selectors>
+				<isHorse/>
+				<hasSocialClass name="horse_draft_naked" />
+			</selectors>
+			
+			<operations>
+				<setInventory preset="inventory_horse_draft_naked"/>
+			</operations>
+			
+		</rule>
+		
+		<rule name="inventory_horse_draft_common" Mode="and">
+			
+			<selectors>
+				<isHorse/>
+				<hasSocialClass name="horse_draft_common" />
+			</selectors>
+			
+			<operations>
+				<setInventory preset="inventory_horse_draft_common"/>
+			</operations>
+			
+		</rule>
+
+	
+		<!-- =================LIGHT RULES============= -->
+		
+		<rule name="inventory_additive_torch" Mode="and">
+			
+			<selectors>
+				<or>
+					<hasSocialClass name="bailiff" />
+					<hasSocialClass name="bandit" />
+					<hasSocialClass name="banditLeader" />
+					<hasSocialClass name="beggar" />
+					<hasSocialClass name="catchpole" />
+					<hasSocialClass name="fightClubFighter" />
+					<hasSocialClass name="cuman" />
+					<hasSocialClass name="cumanLeader" />
+					<hasSocialClass name="guard" />
+					<hasSocialClass name="guardLeader" />
+					<hasSocialClass name="huntsman" />
+					<hasSocialClass name="huntsman_crimeAuthority" />
+					<hasSocialClass name="mercenary" />
+					<hasSocialClass name="officer" />
+					<hasSocialClass name="poacher" />
+					<hasSocialClass name="renegade" />
+					<hasSocialClass name="ruffian" />
+					<hasSocialClass name="soldier" />
+					<hasSocialClass name="soldier_crimeAuthority" />
+					<hasSocialClass name="wanderer" />
+					<hasSocialClass name="refugee" />
+					<hasName name="damaVNesnazich_marketa" />
+					<hasName name="ttro_man_37" />
+					<hasName name="ttro_man_39" />
+					<hasName name="ttro_man_40" />
+					<hasName name="ttro_man_41" />
+					<hasName name="ttro_man_42" />
+					<hasName name="ttro_man_43" />
+					<hasName name="ttro_man_44" />
+					<hasName name="istvanFlipped" />
+					<hasName name="kkut_lichtenstejn" />
+					<hasName name="kkut_samuel" />
+					<hasName name="kkut_zikmund" />
+					<hasName name="kmis_hansZUher" />
+					<hasName name="kpri_komar" />
+					<hasName name="ksuc_jost" />
+					<hasName name="kzik_musa" />
+					<hasName name="tkop_ptacek" />
+					<hasName name="tsem_racek" />
+					<hasName name="ttro_bergov" />
+					<hasName name="ttro_komori" />
+					<hasName name="poustevnik_sebald" />
+					<hasName name="poustevnik_arn" />
+				</or>
+				<not>
+					<or>
+						<hasFaction name="kutnohorsko_settlements_zikmundovo_soldiers_cumans" />
+						<hasFaction name="kutnohorsko_settlements_zikmundovo_soldiers_magyars" />
+						<hasFaction name="kutnohorsko_settlements_zikmundovo_soldiers_mercenaries" />
+						<hasFaction name="kutnohorsko_settlements_zikmundovo_soldiers_dvojityAgentLaszlosSecurity" />
+						<hasName name="tvez_kocour" />
+						<hasName name="tneb_bohuta" />
+						<hasName name="khor_oreseller" />
+						<hasName name="kkut_tobias" />
+						<hasName name="tneb_hejkal" />
+						<hasName name="ttkc_drozd" />
+						<hasName name="prepadeni_banditForDuel" />
+						<hasName name="hledaniPsa_deadBody" />
+					</or>
+				</not>
+			</selectors>
+			
+			<operations>
+				<addInventory preset="light_torch"/>
+			</operations>
+			
+		</rule>
+		
+		<rule name="inventory_additive_torch_half_chance" Mode="and">
+			
+			<selectors>
+				<or>
+					<hasFaction name="kutnohorsko_settlements_zikmundovo_soldiers_cumans" />
+					<hasFaction name="kutnohorsko_settlements_zikmundovo_soldiers_magyars" />
+					<hasFaction name="kutnohorsko_settlements_zikmundovo_soldiers_mercenaries" />
+					<hasFaction name="kutnohorsko_settlements_zikmundovo_soldiers_dvojityAgentLaszlosSecurity" />
+				</or>
+				<hasRandomValue min="0" max="0.5" />
+				
+			</selectors>
+			
+			<operations>
+				<addInventory preset="light_torch"/>
+			</operations>
+			
+		</rule>
+		
+		<rule name="inventory_additive_lamp" Mode="and">
+			
+			<selectors>
+				<or>
+					<hasSocialClass name="apothecary" />
+					<hasSocialClass name="armorer" />
+					<hasSocialClass name="baker" />
+					<hasSocialClass name="bartender" />
+					<hasSocialClass name="bathhouseAbbess" />
+					<hasSocialClass name="bathhouseMaid" />
+					<hasSocialClass name="blacksmith" />
+					<hasSocialClass name="blacksmithApprentice" />
+					<hasSocialClass name="butcher" />
+					<hasSocialClass name="bathhouseMaid" />
+					<hasSocialClass name="collier" />
+					<hasSocialClass name="bathhouseMaid" />
+					<hasSocialClass name="cook" />
+					<hasSocialClass name="craftsman" />
+					<hasSocialClass name="farmer" />
+					<hasSocialClass name="fisherman" />
+					<hasSocialClass name="gravedigger" />
+					<hasSocialClass name="gunsmith" />
+					<hasSocialClass name="gypsy" />
+					<hasSocialClass name="healer" />
+					<hasSocialClass name="herbalist" />
+					<hasSocialClass name="herdsman" />
+					<hasSocialClass name="horsetrader" />
+					<hasSocialClass name="housekeeper" />
+					<hasSocialClass name="innkeeper" />
+					<hasSocialClass name="mason" />
+					<hasSocialClass name="merchant" />
+					<hasSocialClass name="miller" />
+					<hasSocialClass name="miner" />
+					<hasSocialClass name="minter" />
+					<hasSocialClass name="monk" />
+					<hasSocialClass name="musician" />
+					<hasSocialClass name="priest" />
+					<hasSocialClass name="quarryman" />
+					<hasSocialClass name="saddler" />
+					<hasSocialClass name="security" />
+					<hasSocialClass name="shoemaker" />
+					<hasSocialClass name="shootmaster" />
+					<hasSocialClass name="smelter" />
+					<hasSocialClass name="tailor" />
+					<hasSocialClass name="tanner" />
+					<hasSocialClass name="varlet" />
+					<hasSocialClass name="villager" />
+					<hasSocialClass name="weaponsmith" />
+					<hasSocialClass name="wench" />
+					<hasSocialClass name="woodworker" />
+					<hasName name="tvez_kocour" />
+					<hasName name="poustevnik_niclas" />
+				</or>
+				<not>
+					<or>
+						<hasName name="damaVNesnazich_marketa" />
+						<hasName name="ttro_man_37" />
+						<hasName name="ttro_man_39" />
+						<hasName name="ttro_man_40" />
+						<hasName name="ttro_man_41" />
+						<hasName name="ttro_man_42" />
+						<hasName name="ttro_man_43" />
+						<hasName name="ttro_man_44" />
+						<hasName name="istvanFlipped" />
+						<hasName name="kkut_lichtenstejn" />
+						<hasName name="kkut_samuel" />
+						<hasName name="kkut_zikmund" />
+						<hasName name="kmis_hansZUher" />
+						<hasName name="kpri_komar" />
+						<hasName name="ksuc_jost" />
+						<hasName name="kzik_musa" />
+						<hasName name="tkop_ptacek" />
+						<hasName name="tsem_racek" />
+						<hasName name="ttro_bergov" />
+						<hasName name="ttro_komori" />
+						<hasName name="tneb_bohuta" />
+						<hasName name="khor_oreseller" />
+						<hasName name="khor_oreseller" />
+						<hasName name="kkut_tobias" />
+						<hasName name="tneb_hejkal" />
+						<hasName name="ttkc_drozd" />
+					</or>
+				</not>
+			</selectors>
+			
+			<operations>
+				<addInventory preset="light_lamp"/>
+			</operations>
+			
+		</rule>
+		
+		<rule name="inventory_additive_lampFancy" Mode="and">
+			
+			<selectors>
+				<or>
+					<hasSocialClass name="circator" />
+					<hasSocialClass name="nobleman" />
+					<hasSocialClass name="scribe" />
+					<hasSocialClass name="townsman" />
+					<hasName name="khor_oreseller" />
+					<hasName name="kkut_tobias" />
+					<hasName name="tneb_hejkal" />
+					<hasName name="ttkc_drozd" />
+				</or>
+				<not>
+					<or>
+						<hasName name="tvez_kocour" />
+						<hasName name="damaVNesnazich_marketa" />
+						<hasName name="ttro_man_37" />
+						<hasName name="ttro_man_39" />
+						<hasName name="ttro_man_40" />
+						<hasName name="ttro_man_41" />
+						<hasName name="ttro_man_42" />
+						<hasName name="ttro_man_43" />
+						<hasName name="ttro_man_44" />
+						<hasName name="istvanFlipped" />
+						<hasName name="kkut_lichtenstejn" />
+						<hasName name="kkut_samuel" />
+						<hasName name="kkut_zikmund" />
+						<hasName name="kmis_hansZUher" />
+						<hasName name="kpri_komar" />
+						<hasName name="ksuc_jost" />
+						<hasName name="kzik_musa" />
+						<hasName name="tkop_ptacek" />
+						<hasName name="tsem_racek" />
+						<hasName name="ttro_bergov" />
+						<hasName name="ttro_komori" />
+						<hasName name="tneb_bohuta" />
+					</or>
+				</not>
+			</selectors>
+			
+			<operations>
+				<addInventory preset="light_lampFancy"/>
+			</operations>
+			
+		</rule>
+		
+		<!-- social classam none, player a prisoner neprirazuji zadne svetlo -->
+		
+		<!-- HOBBIES -->
+		
+		<rule name="inventory_additive_randomDicePlayerVillager" Mode="and">
+			
+			<selectors>
+				<hasRandomValue min="0" max="0.05" />
+				<isHuman/>
+				<or>
+					<hasSocialClass name="bailiff" />
+					<hasSocialClass name="bartender" />
+					<hasSocialClass name="bathhouseMaid" />
+					<hasSocialClass name="blacksmith" />
+					<hasSocialClass name="blacksmithApprentice" />
+					<hasSocialClass name="butcher" />
+					<hasSocialClass name="baker" />
+					<hasSocialClass name="catchpole" />
+					<hasSocialClass name="craftsman" />
+					<hasSocialClass name="farmer" />
+					<hasSocialClass name="gravedigger" />
+					<hasSocialClass name="guard" />
+					<hasSocialClass name="guardLeader" />
+					<hasSocialClass name="gypsy" />
+					<hasSocialClass name="housekeeper" />
+					<hasSocialClass name="apothecary" />
+					<hasSocialClass name="armorer" />
+					<hasSocialClass name="gunsmith" />
+					<hasSocialClass name="horsetrader" />
+					<hasSocialClass name="mason" />
+					<hasSocialClass name="merchant" />
+					<hasSocialClass name="saddler" />
+					<hasSocialClass name="scribe" />
+					<hasSocialClass name="security" />
+					<hasSocialClass name="shoemaker" />
+					<hasSocialClass name="tailor" />
+					<hasSocialClass name="townsman" />
+					<hasSocialClass name="varlet" />
+					<hasSocialClass name="villager" />
+					<hasSocialClass name="weaponsmith" />
+					<hasSocialClass name="wench" />
+					<hasSocialClass name="woodworker" />
+				</or>
+				<not>
+					<hasName name="ttkc_man_16" />
+					<hasName name="ttac_woman_5" />
+					<hasName name="tzel_rowdy_3" />
+					<hasName name="ttkc_man_16" />
+					<hasName name="kpri_man_25" />
+					<hasName name="kbyl_cernik" />
+					<hasName name="ksuc_man_57" />
+					<hasName name="kmis_man_8" />
+					<hasName name="kcer_brabantSoldier_2" />
+					<hasName name="krat_baronBrabant" />
+					<hasName name="ksta_man_6" />
+					<hasName name="kkut_man_122" />
+					<hasName name="kkut_additive_man_62" />
+					<hasName name="kkut_additive_man_30" />
+					<hasName name="kkut_vlach" />
+					<hasName name="kkut_man_39" />
+					<hasName name="kkut_man_236" />
+				</not>
+			</selectors>
+			
+			<operations>
+				<addInventory preset="inventory_additive_randomDicePlayer"/>
+			</operations>
+			
+		</rule> 
+
+	</rules>
+</storm>

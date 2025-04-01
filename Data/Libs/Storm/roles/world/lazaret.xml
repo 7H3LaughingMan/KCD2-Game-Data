@@ -1,0 +1,126 @@
+<?xml version="1.0"?>
+<!DOCTYPE storm SYSTEM "storm.dtd">
+<storm>
+	<customSelectors>
+		<customSelector name="isQuestInjured">
+			<or>
+				<hasName name="setkaniVRatbori1_ratiborNoble14" />
+				<hasName name="setkaniVRatbori1_ratiborNoble2" />
+				<hasName name="setkaniVRatbori1_ratiborNoble3" />
+				<hasName name="setkaniVRatbori1_ratiborNoble5" />
+				<hasName name="rutinaAVypad_friend_guard_1" />
+				<hasName name="rutinaAVypad_friend_wounded" />
+				<hasName name="pogrom_injuredInFinalPart4" />
+				<hasName name="pogrom_injuredInFinalPart2" />
+				<hasName name="hladAZmar_prepareToLeave_guard5" />
+				<hasName name="hladAZmar_prepareToLeave_guard6" />
+				<hasName name="ksuc_man_3" />
+				<!-- <hasName name="kpri_komar" /> the generic injury moans sometimes use czech words and kpri_komar can't speak czech - he needs his own bark -->
+				<hasName name="kbyl_mikus" />
+				<hasName name="tneb_marek" />
+				<hasName name="tneb_cverk" />
+				<hasName name="tneb_kozlik" />
+				<hasName name="finale_man_6" />
+				<hasName name="finale_man_7" />
+				<hasName name="finale_man_5" />
+				<hasName name="finale_man_8" />
+				<hasName name="finale_man_32" />
+				<hasName name="ksuc_wolfram" />
+				<hasName name="tneb_kuba" />
+				<hasName name="tneb_man_25" />
+				<hasName name="zoufalaObranaZaBohutu_defenders_courtyardSoldier_7" />
+				<hasName name="setkaniVRatbori1_ratiborGuard7" />
+				<hasName name="setkaniVRatbori1_ratiborGuard8" />
+				<hasName name="rutinaAVypad_friend_guard_1" />
+				<hasName name="pogrom_injuredOnStreet" />
+				<hasName name="pogrom_injuredInFinalPart1" />
+				<hasName name="pogrom_injuredInFinalPart3" />
+				<hasName name="finale_man_33" />
+				<hasName name="kzik_man_5" /> 
+				<hasName name="kzik_man_58" />
+				<hasName name="krat_krystofOderin" />
+				<hasName name="kkut_man_127" />
+				<hasName name="kkut_man_128" />
+				<hasName name="kkut_man_129" />
+				<hasName name="tzel_bretislav" />
+				<hasName name="tzel_johan" />
+				<hasName name="tzel_fiala" />
+				<hasName name="ttro_herman" />
+				<hasName name="ttro_tomas" />
+				<hasName name="ttro_cernyBartos" />
+				<hasName name="tneb_pasko" />
+				<hasName name="tneb_kubajz" />
+				<hasName name="poustevnik_clesgin" />
+				<hasName name="setkaniVRatbori1_ratiborNoble1" />
+				<hasName name="oblehaniSuchdole_woundedSoldier_1" />
+				<hasName name="oblehaniSuchdole_woundedSoldier_2" />
+				<hasName name="tneb_mikes" />
+			</or>
+		</customSelector>
+
+		<customSelector name="isQuestHealerFemale">
+			<or>
+				<hasSocialClass name="bathhouseMaid" />
+				<hasName name="tneb_klara" />
+				<hasName name="ttro_katerina" />
+				<hasName name="tvez_aranka" />
+				<hasName name="ttro_woman_13" />
+				<hasName name="tzel_woman_8" />
+				<hasName name="kkut_woman_34" />
+				<hasName name="kkut_woman_40" />
+				<hasName name="kkut_woman_117" />
+				<hasName name="kkut_woman_116" />
+				<hasName name="kkut_woman_115" />
+				<hasName name="tzel_woman_8" />
+				<hasName name="tzel_woman_7" />
+				<hasName name="tzel_woman_6" />
+				<hasName name="setkaniVRatbori1_ratiborMaid5" />
+				<hasName name="setkaniVRatbori1_ratiborNobleWoman1" />
+				<hasName name="setkaniVRatbori1_ratiborNobleWoman2" />
+				<hasName name="ksuc_gertaFrenczlova" />
+				<hasName name="kkut_woman_39" />
+				<hasName name="setkaniVRatbori1_ratiborMaid4" />
+				<hasName name="kmis_marta" />
+				<hasName name="pogrom_womanInFinalPart3" />
+			</or>
+		</customSelector>
+
+		<customSelector name="isQuestHealerMale">
+			<or>
+				<hasName name="kzik_musa" />
+				<hasName name="kkut_samuel" />
+				<hasName name="poustevnik_niclas" />
+			</or>
+		</customSelector>
+	</customSelectors>
+	
+	<rules>
+		<!-- Tu bude asi nějaká konkrétní soula pro lore -->
+		<rule name="injured">
+			<selectors>
+				<isQuestInjured/>
+			</selectors>
+			<operations>
+				<addRole name="RANENY_STENA_MUZ1" />
+			</operations>
+		</rule>
+
+		<rule name="healer_man">
+			<selectors>
+				<isQuestHealerMale/>
+			</selectors>
+			<operations>
+				<addRole name="OSETRUJICI_KLIDNI_RANENEHO_MUZ" />
+			</operations>
+		</rule>		
+
+		<rule name="healer_woman">
+			<selectors>
+				<isQuestHealerFemale/>
+			</selectors>
+			<operations>
+				<addRole name="OSETRUJICI_KLIDNI_RANENEHO_ZENA" />
+			</operations>
+		</rule>
+	</rules>
+</storm>

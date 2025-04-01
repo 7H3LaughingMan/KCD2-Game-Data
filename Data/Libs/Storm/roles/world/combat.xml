@@ -1,0 +1,446 @@
+<?xml version="1.0"?>
+<!DOCTYPE storm SYSTEM "storm.dtd">
+<storm>
+	<rules>
+		<rule name="combat_man">
+			<selectors>
+				<isMan />
+				<or>
+					<isValidOpenworldNpc />
+					<isClosedWorldNPCWithCombat />
+				</or>
+				<not>
+					<combatExcluded />
+				</not>
+			</selectors>
+			<operations>
+				<addRole name="BOJ_HEKANI" />
+				<addRole name="BOJ_ODDYCHOVANI" />
+				<addRole name="COMBAT_SHOUT_OPPONENT" />
+				<addRole name="HEKANI_PRI_POHYBU" />
+				<addRole name="HEKANI_V_CLINCHI" />
+				<addRole name="ZASAH_ZBRANI_SILNY_MUZ" />
+				<addRole name="ZASAH_ZBRANI_SLABY_MUZ" />
+				<addRole name="HEKANI_PRI_POHYBU_OPONENT" />
+			</operations>
+		</rule>
+
+		<rule name="combat_man_killingInCombat">
+			<selectors>
+				<isMan />
+				<or>
+					<isValidOpenworldNpc />
+					<isClosedWorldNPCWithCombat />
+				</or>
+				<not>
+					<combatExcluded />
+				</not>
+				<not>
+					<hasUniqueVoice_cantBeKilledInCombat />
+				</not>
+			</selectors>
+			<operations>
+				<addRole name="RANENY_NA_ZEMI_MUZ" />
+				<addRole name="SMRTELNY_ZASAH_MUZ" />
+			</operations>
+		</rule>
+
+		<rule name="combat_man_murderingSilently">
+			<selectors>
+				<isMan />
+				<or>
+					<isValidOpenworldNpc />
+					<isClosedWorldNPCWithCombat />
+				</or>
+				<not>
+					<combatExcluded />
+				</not>
+				<not>
+					<hasUniqueVoice_cantBeMurderedSilently />
+				</not>
+			</selectors>
+			<operations>
+				<addRole name="SKRCENI_V_CLINCHI" />
+				<addRole name="TICHE_ZABITI_V_CLINCHI_MUZ" />
+				<addRole name="HLASITE_ZABITI_V_CLINCHI_MUZ" />
+				<addRole name="VYPROSTENI_ZE_SKRCENI_V_CLINCHI" />
+			</operations>
+		</rule>
+		
+		<rule name="combat_woman">
+			<selectors>
+				<isWoman />
+				<or>
+					<isValidOpenworldNpc />
+					<isClosedWorldNPCWithCombat />
+				</or>
+				<not>
+					<combatExcluded />
+				</not>
+			</selectors>
+			<operations>
+				<addRole name="ZASAH_ZBRANI_SILNY_ZENA" />
+				<addRole name="ZASAH_ZBRANI_SLABY_ZENA" />
+			</operations>
+		</rule>
+
+		<rule name="combat_woman_killingInCombat">
+			<selectors>
+				<isWoman />
+				<or>
+					<isValidOpenworldNpc />
+					<isClosedWorldNPCWithCombat />
+				</or>
+				<not>
+					<combatExcluded />
+				</not>
+				<not>
+					<hasUniqueVoice_cantBeKilledInCombat />
+				</not>
+			</selectors>
+			<operations>				
+				<addRole name="RANENY_NA_ZEMI_ZENA" />
+				<addRole name="SMRTELNY_ZASAH_ZENA" />
+			</operations>
+		</rule>
+
+		<rule name="combat_woman_murderingSilently">
+			<selectors>
+				<isWoman />
+				<or>
+					<isValidOpenworldNpc />
+					<isClosedWorldNPCWithCombat />
+				</or>
+				<not>
+					<combatExcluded />
+				</not>
+				<not>
+					<hasUniqueVoice_cantBeMurderedSilently />
+				</not>
+			</selectors>
+			<operations>
+				<addRole name="TICHE_ZABITI_V_CLINCHI_ZENA" />
+				<addRole name="HLASITE_ZABITI_V_CLINCHI_ZENA" />
+			</operations>
+		</rule>
+
+		<rule name="combat_shout_opponent">
+			<selectors>
+			<or>
+				<isValidNpc />
+				<isWarDog />
+				<isWolf />
+				<isDog />
+			</or>
+			</selectors>
+			<operations>
+				
+				<addRole name="COMBAT_SHOUT_OPPONENT" />
+				
+			</operations>
+		</rule>
+		
+
+		<rule name="skirmish">
+			<selectors>
+				<or>
+					<isValidOpenworldNpc />
+					<isClosedWorldNPCWithCombat />
+					<isTest />
+				</or>
+				<not>
+					<combatExcluded />
+				</not>
+				<isMan />
+			</selectors>
+			<operations>
+				<addRole name="PROTISTRANA" />
+				<addRole name="COMBAT_SHOUT_SOURCE" />		
+				<addRole name="SKIRMISH_NPC_VZDAVANI" />
+			</operations>
+		</rule>
+
+		<rule name="skirmish-tauntReaction">
+			<selectors>
+				<or>
+					<isValidOpenworldNpc />
+					<isClosedWorldNPCWithCombat />
+					<isTest />
+				</or>
+				<not>
+					<combatExcluded />
+				</not>
+				<isNotCuman />
+				<isMan />
+			</selectors>
+			<operations>
+				<addRole name="SKIRMISH_NPC_NADAVANI" />
+			</operations>
+		</rule>
+
+		<rule name="skirmish_surrendering">
+			<selectors>
+				<skirmish_surrender_general />
+				<not>
+					<combatExcluded />
+				</not>
+			</selectors>
+			<operations>				
+				<addRole name="NPC_NEAKCEPTUJE_HRACOVO_VZDAVANI" />
+				<addRole name="NPC_NEAKCEPTUJE_HRACOVO_VZDAVANI_NEVZDAVACI_KONTEXT" />
+			</operations>
+		</rule>
+		
+		<rule name="skirmish_surrendering_battle">
+			<selectors>
+				<isBattleNpc />
+				<not>
+					<combatExcluded />
+				</not>
+			</selectors>
+			<operations>				
+				<addRole name="NPC_NEAKCEPTUJE_HRACOVO_VZDAVANI_NEVZDAVACI_KONTEXT" />
+			</operations>
+		</rule>
+		
+		<rule name="base_fighter">
+			<selectors>
+				<or>
+					<isValidOpenworldNpc />
+					<isClosedWorldNPCWithCombat />
+					<isTest />
+				</or>
+				<isNotCuman />
+				<isMan />
+				<not>
+					<combatExcluded />
+				</not>
+			</selectors>
+			<operations>
+
+				<!-- EVENT: Hit -->
+				<addRole name="SOLDIER_ZASAHNUL_V_COMBATU" />
+				<addRole name="SOLDIER_DOSTAL_ZASAH_V_COMBATU" />
+				<addRole name="SOLDIER_VIDEL_SPOLUBOJOVNIKA_ZASAHNOUT" />
+
+				<!-- EVENT: Target -->
+				<addRole name="SOLDIER_ZACILI_NA_NEPRITELE" />	
+				<addRole name="SOLDIER_BYL_ZATARGETEN_NEPRITELEM"/>
+				<addRole name="SPOLUBOJOVNIK_ZATARGETIL_MUJ_TARGET_SOLDIER"/>
+
+				<!-- EVENT: Join SoulAdded -->
+				<removeRole name="NPC_VIDI_NEPRITELE_A_BUDE_UTOCIT_MUZ" />
+				<addRole name="SOLDIER_NA_ZACATKU_BOJE" />
+				<removeRole name="NPC_VIDI_COMBAT_A_BUDE_SE_ZAPOJOVAT_MUZ" />
+				<addRole name="SOLDIER_SE_PRIDAVA_DO_PROBIHAJICIHO_BOJE" />
+				<addRole name="SOLDIER_KOMENTUJE_PRIDANI_PRATELSKEHO_UCASTNIKA_DO_SOUBOJE" />
+				<addRole name="SOLDIER_KOMENTUJE_PRIDANI_NEPRATELSKEHO_UCASTNIKA_DO_SOUBOJE" />
+
+				<!-- EVENT: Idle -->	
+				<addRole name="SOLDIER_MLUVI_V_BOJI" />
+
+				<!-- EVENT: Combo -->	
+				<addRole name="SOLDIER_UDELAL_KOMBO" />
+				<addRole name="SOLDIER_DOSTAL_KOMBEM" />
+				<addRole name="SOLDIER_VIDEL_SPOLUBOJOVNIKA_UDELAT_KOMBO" />
+				<addRole name="SOLDIER_VIDEL_SPOLUBOJOVNIKA_DOSTAT_KOMBEM" />
+
+				<!-- EVENT: Death -->
+				<addRole name="SOLDIER_KOMENTUJE_SMRT" />
+				<addRole name="SOLDIER_KOMENTUJE_ZABITI_OPONENTA_SPOLUBOJOVNIKEM" />
+				<addRole name="SOLDIER_VIDEL_SMRT_SPOLUBOJOVNIKA" />
+				<addRole name="SOLDIER_KOMENTUJE_BEZVEDOMI_OPONENTA" />
+
+				<!-- EVENT: Flee -->		
+				<addRole name="SOLDIER_KOMENTUJE_UTEK_NEPRITELE" />
+				<addRole name="SOLDIER_UTIKA_Z_BOJE" />
+
+				<!-- EVENT: Master strike -->	
+				<addRole name="SOLDIER_DOSTAL_MASTER_STRIKE" />
+				<addRole name="SOLDIER_UDELAL_MASTERSTRIKE" />
+				<addRole name="SOLDIER_VIDEL_SPOLUBOJOVNIKA_UDELAT_MASTERSTRIKE" />
+				<addRole name="SOLDIER_VIDEL_SPOLUBOJOVNIKA_DOSTAT_MASTER_STRIKE" />
+
+				<!-- EVENT: Weapon break -->	
+				<addRole name="SOLDIER_ZNICILA_SE_MI_ZBRAN" />
+				<addRole name="SOLDIER_OPONENTOVI_SE_ZNICILA_ZBRAN" />
+
+				<!-- EVENT: Weapon change -->
+				<addRole name="SOLDIER_SI_VYMENIL_ZBRAN" />
+				<addRole name="OPONENT_SI_VYMENIL_ZBRAN_SOLDIER" />				
+
+				<!-- EVENT: Targeting obstacle -->
+				<addRole name="SOLDIER_NECO_PREKAZI_PRI_STRELBE" />
+
+				<!-- EVENT: Victory -->	
+				<addRole name="SOLDIER_KOMENTUJE_VITEZSTVI" />
+				
+				<!-- EVENT: Block -->	
+				<addRole name="SOLDIER_VYBLOKOVAL_ZASAH_V_COMBATU" />
+				
+				<!-- Dog -->
+				<addRole name="SOLDIER_BYL_ZATARGETEN_PSEM" />
+				<addRole name="SOLDIER_PES_ZASAHNUL_NEPRITELE" />
+				<addRole name="SOLDIER_PES_ZATARGETIL_SPOJENCE" />
+				<addRole name="SOLDIER_NEPRATELSKY_PES_ME_ZASAHNUL" />
+				
+			</operations>
+		</rule>
+
+		<rule name="base_fighter_surrendering">
+			<selectors>
+				<skirmish_surrender_general/>
+				<not>
+					<combatExcluded />
+				</not>
+			</selectors>
+			<operations>				
+				<!-- Surrender -->
+				<addRole name="NPC_NEAKCEPTUJE_HRACOVO_VZDAVANI_TRETI_STRANA" />
+				<addRole name="NPC_NEAKCEPTUJE_HRACOVO_VZDAVANI_VRAZDA" />
+
+				<!-- Mercy -->
+				<addRole name="NPC_SE_VZDAVA_HRACI_MUZ" />
+				<addRole name="NPC_SE_VZDA_HRACI_V_DIALOGU_MUZ" />
+			</operations>
+		</rule>
+
+		<rule name="base_fighter_surrendering_reduced">
+			<selectors>
+				<skirmish_surrender_general/>
+				<not>
+					<combatExcluded />
+				</not>
+				<not>
+					<or>
+						<hasVoice name="miltonWelsh" />
+						<hasVoice name="tomasZielinski" />
+						<hasVoice name="madsHjulmand" />
+						<hasVoice name="kennethChristensen" />
+						<hasVoice name="michaelGlantschnig" />
+						<hasVoice name="loganHillier" />
+						<hasRomaniVoice />
+					</or>
+				</not>
+			</selectors>
+			<operations>
+				<!-- Mercy -->
+				<addRole name="NPC_BYLO_ZAMITNUTO_VZDAVANI_MUZ" />
+				<addRole name="NPC_PREDALO_VECI_A_UTIKA_MUZ" />
+				<addRole name="NPC_PROPUSTENE_PO_VZDAVANI_MUZ" />
+			</operations>
+		</rule>		
+		
+		<rule name="cuman">
+			<selectors>
+				<isCuman />
+			</selectors>
+		<operations>
+				<addRole name="KUMAN_DOSTAL_COMBEM" />
+				<addRole name="KUMAN_DOSTAL_ZASAH_MASTER_STRIKEM" />
+				<addRole name="KUMAN_DOSTAL_ZASAH_V_COMBATU" />
+				<addRole name="KUMAN_KOMENTUJE_BEZVEDOMI" />
+				<addRole name="KUMAN_KOMENTUJE_PODARENY_ZASAH" />
+				<addRole name="KUMAN_KOMENTUJE_SMRT" />	
+				<addRole name="KUMAN_KOMENTUJE_UTEK_NEPRITELE_Z_BOJE" />
+				<addRole name="KUMAN_KOMENTUJE_VITEZSTVI" />				
+				<addRole name="KUMAN_MLUVI_V_BOJI" /> 
+				<addRole name="KUMAN_NA_ZACATKU_SOUBOJE" />
+				<addRole name="KUMAN_NEPRATELSKY_PES_ME_ZASAHNUL" />
+				<addRole name="KUMAN_NEPRATELSKY_PES_ME_ZATARGETIL" />
+				<addRole name="KUMAN_PES_ZATARGETIL_SPOJENCE" />
+				<addRole name="KUMAN_PROVEDL_MASTER_STRIKE" />
+				<addRole name="KUMAN_SE_PRIDAVA_DO_PROBIHAJICIHO_BOJE" />
+				<addRole name="KUMAN_SPOLUBOJOVNIK_UDELAL_KOMBO_NA_MUJ_CIL" />
+				<addRole name="KUMAN_SPOLUBOJOVNIK_UDELAL_MASTER_STRIKE_NA_MUJ_CIL" />
+				<addRole name="KUMAN_SPOLUBOJOVNIK_DOSTAL_MASTERSTRIKE_OD_MEHO_CILE" />
+				<addRole name="KUMAN_UDELAL_KOMBO" />
+				<addRole name="KUMAN_VIDEL_SPOLUBOJOVNIKA_DOSTAT_KOMBEM" />
+				<addRole name="KUMAN_VIDEL_SPOLUBOJOVNIKA_ZABIT_OPONENTA" />
+				<addRole name="NEKDO_SI_ME_ZATARGETIL_KUMAN" />
+				<addRole name="NEKOHO_TARGETIM_KUMAN" />
+				<addRole name="NPC_NEAKCEPTUJE_HRACOVO_VZDAVANI_TRETI_STRANA_KUMAN" />
+				<addRole name="OPONENTOVI_SE_ZNICILA_ZBRAN_KUMAN" />
+				<addRole name="PODARENY_ZASAH_SPOLUBOJOVNIKA_KUMAN" />
+				<addRole name="UTIKAM_Z_BOJE_KUMAN" />
+				<addRole name="SPOLUBOJOVNIK_ZATARGETIL_MUJ_TARGET_KUMAN" />
+				<addRole name="ZNICILA_SE_MI_ZBRAN_KUMAN" />	
+				<addRole name="KUMAN_NECO_MI_PREKAZI_VE_STRELBE" />
+
+
+				
+				<!-- EVENT: Weapon change -->
+				<addRole name="MENIM_SI_ZBRAN_KUMAN" />
+				<addRole name="OPONENT_SI_VYMENIL_ZBRAN_KUMAN" />
+
+
+
+
+		</operations>
+		</rule>
+		
+		<rule name="combatDog">
+			<selectors>
+				<hasName name="tvez_vorech" />
+			</selectors>
+		<operations>
+				<addRole name="PROTISTRANA_PES" />
+				<addRole name="PROTISTRANA_PES_SOURCE" />
+		</operations>
+		</rule>
+
+		<rule name="friendlyFight-first">
+			<selectors>
+				<hasSecondMaleFallbackGroup />
+				<or>
+					<isValidOpenworldNpc />
+					<isClosedWorldNPCWithCombat />
+					<isTest />
+				</or>
+				<not>
+					<isBattleNpc />
+				</not>
+				<not>
+					<combatExcluded />
+				</not>
+				<not>
+					<hasUniqueVoice />
+				</not>
+				<isMan />
+			</selectors>
+			<operations>
+				<addRole name="PO_SOUBOJI_MUZ1" />
+			</operations>
+		</rule>
+		
+		<rule name="friendlyFight-second">
+			<selectors>
+				<or>
+					<hasVoiceThatFallbacksToJamesBeaumont />
+            		<hasVoiceThatFallbacksToDanielZappi />
+            		<hasVoiceThatFallbacksToMiltonWelsh />
+            	</or>
+				<or>
+					<isValidOpenworldNpc />
+					<isClosedWorldNPCWithCombat />
+					<isTest />
+				</or>
+				<not>
+					<isBattleNpc />
+				</not>
+				<not>
+					<combatExcluded />
+				</not>
+				<not>
+					<hasUniqueVoice />
+				</not>
+				<isMan />
+			</selectors>
+			<operations>
+				<addRole name="PO_SOUBOJI_MUZ2" />
+			</operations>
+		</rule>
+		
+		
+    </rules>
+</storm>

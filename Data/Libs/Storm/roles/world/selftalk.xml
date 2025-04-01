@@ -1,0 +1,401 @@
+<?xml version="1.0"?>
+<!DOCTYPE storm SYSTEM "storm.dtd">
+<storm>
+	<rules>
+		<!-- UNCAPPED -->
+		<rule name="selftalk-generic-men">
+			<selectors>
+				<selftalk_generic_general />
+				<isMan />
+			</selectors>
+			<operations>
+				<addRole name="MUZ_SAMOMLUVA_OBECNA"/>
+				<addRole name="PISKANI_VESELE_MUZ"/>
+				<addRole name="PISKANI_POSMUTNELE_MUZ"/>
+			</operations>
+		</rule>
+
+		<!-- UNCAPPED -->
+		<rule name="selftalk-generic-women">
+			<selectors>
+				<selftalk_generic_general />
+				<isWoman />
+			</selectors>
+			<operations>
+				<addRole name="ZENA_SAMOMLUVA_OBECNA"/>
+				<addRole name="PISKANI_VESELE_ZENA"/>
+				<addRole name="PISKANI_POSMUTNELE_ZENA"/>
+			</operations>
+		</rule>
+
+		<!-- CAPPED - romani -->
+		<rule name="selftalk-singing-men">
+			<selectors>
+				<selftalk_singing_general />
+				<isMan />
+			</selectors>
+			<operations>
+				<addRole name="NPC_SI_ZPIVA_V_OW_MUZ"/>
+			</operations>
+		</rule>
+
+		<!-- CAPPED - romani + old women -->
+		<rule name="selftalk-singing-women">
+			<selectors>
+				<selftalk_singing_general />
+				<isWoman />
+				<not>
+					<hasVoice name="zenaHodneStara" />
+				</not>
+			</selectors>
+			<operations>
+				<addRole name="NPC_SI_ZPIVA_V_OW_ZENA"/>
+			</operations>
+		</rule>
+		
+		<!-- Handworkers are only male -->
+		<!-- run from animations and professions -->
+		<rule name="selftalk-HandWorker">
+			<selectors>
+				<selftalkHandworker_general />
+				<!-- following voices either already recorded something or are represented on more than 1 souls -->
+				<or>
+					<hasVoice name="brianCaspe" />
+					<hasVoice name="gabrielAndrews" />
+					<hasVoice name="gregoryGudgeon" />
+					<hasVoice name="chrisClarke" />
+					<hasVoice name="paulDean" />
+					<hasVoice name="samBarlien" />
+					<hasVoice name="danCollins" />
+					<hasVoice name="jamesBeaumont" />
+					<hasVoice name="alechMontyro" />
+					<hasVoice name="jamieMarshall" />
+					<hasVoice name="jonathanMilshaw" />
+					<hasVoice name="madsHjulmand" />
+					<hasVoice name="miltonWelsh" />
+					<hasVoice name="paulColtofeanu" />
+					<hasVoice name="kennethChristensen" />
+					<hasVoice name="tomasZielinski" />
+					<hasVoice name="johnComer" />
+					<hasVoice name="jamesNunn" />
+					<hasVoice name="rupertLazurus" />
+					<hasVoice name="jackParr" />
+					<hasVoice name="steenAgro" />
+				</or>
+			</selectors>
+			<operations>
+				<addRole name="REMESLNIK_SAMOMLUVA"/>
+			</operations>
+		</rule>
+		
+		<!-- run from animations -->
+		<rule name="selftalk-HandWorker-sigh">
+			<selectors>
+				<selftalk_mainRule />
+				<!-- following voices either already recorded something or are represented on more than 1 souls -->
+				<or>
+					<hasVoice name="brianCaspe" />
+					<hasVoice name="danBrown" />
+					<hasVoice name="gabrielAndrews" />
+					<hasVoice name="gregoryGudgeon" />
+					<hasVoice name="chrisClarke" />
+					<hasVoice name="christopherDukes" />
+					<hasVoice name="paulDean" />
+					<hasVoice name="samBarlien" />
+					<hasVoice name="peterHosking_generic" />
+					<hasVoice name="danCollins" />
+					<hasVoice name="jamesBeaumont" />
+					<hasVoice name="alechMontyro" />
+					<hasVoice name="danielOsgerby" />
+					<hasVoice name="danielZappi" />
+					<hasVoice name="ianChampion" />
+					<hasVoice name="jamieMarshall" />
+					<hasVoice name="jonathanMilshaw" />
+					<hasVoice name="madsHjulmand" />
+					<hasVoice name="martinBishop" />
+					<hasVoice name="miltonWelsh" />
+					<hasVoice name="paulColtofeanu" />
+					<hasVoice name="richardKiess" />
+					<hasVoice name="juergenStraub" />
+					<hasVoice name="kennethChristensen" />
+					<hasVoice name="bobBordeaux" />
+					<hasVoice name="stewartMoore" />
+					<hasVoice name="tomasZielinski" />
+					<hasVoice name="johnComer" />
+					<hasVoice name="joncieElmore" />
+					<hasVoice name="jamesNunn" />
+					<hasVoice name="rupertLazurus" />
+					<hasVoice name="jackParr" />
+					<hasVoice name="steenAgro" />
+				</or>
+				<isMan />
+			</selectors>
+			<operations>
+				<addRole name="POVZDECH_PRI_PRACI_MUZ"/>
+			</operations>
+		</rule>
+
+		<!-- run from animations -->
+		<rule name="selftalk-farmer-working-man">
+			<selectors>
+				<selftalk_farmers_general />
+				<isMan />
+				<!-- following voices either already recorded something or are represented on more than 1 souls -->
+				<or>
+					<hasVoice name="brianCaspe" />
+					<hasVoice name="danBrown" />
+					<hasVoice name="gabrielAndrews" />
+					<hasVoice name="gregoryGudgeon" />
+					<hasVoice name="chrisClarke" />
+					<hasVoice name="christopherDukes" />
+					<hasVoice name="paulDean" />
+					<hasVoice name="samBarlien" />
+					<hasVoice name="peterHosking_generic" />
+					<hasVoice name="danCollins" />
+					<hasVoice name="jamesBeaumont" />
+					<hasVoice name="alechMontyro" />
+					<hasVoice name="danielOsgerby" />
+					<hasVoice name="danielZappi" />
+					<hasVoice name="ianChampion" />
+					<hasVoice name="jamieMarshall" />
+					<hasVoice name="jonathanMilshaw" />
+					<hasVoice name="madsHjulmand" />
+					<hasVoice name="martinBishop" />
+					<hasVoice name="miltonWelsh" />
+					<hasVoice name="paulColtofeanu" />
+					<hasVoice name="scottYoung" />
+					<hasVoice name="juergenStraub" />
+					<hasVoice name="kennethChristensen" />
+					<hasVoice name="bobBordeaux" />
+					<hasVoice name="stewartMoore" />
+					<hasVoice name="tomasZielinski" />
+					<hasVoice name="johnComer" />
+					<hasVoice name="joncieElmore" />
+					<hasVoice name="jamesNunn" />
+					<hasVoice name="rupertLazurus" />
+					<hasVoice name="jackParr" />
+					<hasVoice name="steenAgro" />
+				</or>
+			</selectors>
+			<operations>
+				<addRole name="ROLNIK_SAMOMLUVA"/>
+			</operations>
+		</rule>
+		
+		<!-- run from animations -->
+		<!-- almost all women already recorded it  -->
+		<rule name="selftalk-farmer-working-woman">
+			<selectors>
+				<selftalk_farmers_general />
+				<isWoman />				
+			</selectors>
+			<operations>
+				<addRole name="ROLNIK_SAMOMLUVA_ZENA"/>
+			</operations>
+		</rule>
+
+		<!-- male camper only -->
+		<!-- run from animations -->
+		<rule name="selftalk-butcher-working">
+			<selectors>
+				<selftalk_butchers_general />
+				<!-- following voices either already recorded something or are represented on more than 3 souls -->
+				<or>
+					<hasVoice name="brianCaspe" />
+					<hasVoice name="danBrown" />
+					<hasVoice name="gabrielAndrews" />
+					<hasVoice name="gregoryGudgeon" />
+					<hasVoice name="chrisClarke" />
+					<hasVoice name="christopherDukes" />
+					<hasVoice name="paulDean" />
+					<hasVoice name="samBarlien" />
+					<hasVoice name="peterHosking_generic" />
+					<hasVoice name="danCollins" />
+					<hasVoice name="jamesBeaumont" />
+					<hasVoice name="alechMontyro" />
+					<hasVoice name="douglasRussel" />
+					<hasVoice name="jonathanMilshaw" />
+					<hasVoice name="paulColtofeanu" />
+					<hasVoice name="stewartMoore" />
+					<hasVoice name="johnComer" />
+					<hasVoice name="steenAgro" />
+				</or>				
+			</selectors>
+			<operations>
+				<addRole name="REZNIK_SAMOMLUVA"/>
+			</operations>
+		</rule>
+
+		<!-- male only -->
+		<!-- run from animations -->
+		<!-- Capped by 12 merchant voices -->
+		<rule name="selftalk-blacksmith-working">
+			<selectors>
+				<selftalk_mainRule />
+				<hasMerchantVoice />
+				<or>
+					<hasSocialClass name="blacksmith" />
+					<hasSocialClass name="blacksmithApprentice" />
+				</or>
+			</selectors>
+			<operations>
+				<addRole name="KOVAR_SAMOMLUVA"/>
+			</operations>
+		</rule>
+
+		<!-- male only -->
+		<!-- run from animations -->
+		<rule name="selftalk-woodworker-working">
+			<selectors>
+				<selftalk_woodWorker_general />
+				<isMan />
+				<!-- following voices were represented at a time when we fixed an issue of the bark not being played on many souls -->
+				<or>
+		            <hasVoice name="brianCaspe" />
+					<hasVoice name="danBrown" />
+					<hasVoice name="gabrielAndrews" />
+					<hasVoice name="gregoryGudgeon" />
+					<hasVoice name="chrisClarke" />
+					<hasVoice name="christopherDukes" />
+					<hasVoice name="jimHigh" />
+					<hasVoice name="michaelPitthan" />
+					<hasVoice name="paulDean" />
+					<hasVoice name="samBarlien" />
+					<hasVoice name="peterHosking_generic" />
+					<hasVoice name="danCollins" />
+					<hasVoice name="jamesBeaumont" />
+					<hasVoice name="alechMontyro" />
+					<hasVoice name="danielOsgerby" />
+					<hasVoice name="danielZappi" />
+					<hasVoice name="douglasRussel" />
+					<hasVoice name="ianChampion" />
+					<hasVoice name="jamieMarshall" />
+					<hasVoice name="jonathanMilshaw" />
+					<hasVoice name="madsHjulmand" />
+					<hasVoice name="martinBishop" />
+					<hasVoice name="michaelGlantschnig" />
+					<hasVoice name="miltonWelsh" />
+					<hasVoice name="paulColtofeanu" />
+					<hasVoice name="richardKiess" />
+					<hasVoice name="scottYoung" />
+					<hasVoice name="juergenStraub" />
+					<hasVoice name="kennethChristensen" />
+					<hasVoice name="bobBordeaux" />
+					<hasVoice name="stewartMoore" />
+					<hasVoice name="royMccrerey" />
+					<hasVoice name="tomasZielinski" />
+					<hasVoice name="johnComer" />
+					<hasVoice name="joncieElmore" />
+					<hasVoice name="jamesNunn" />
+					<hasVoice name="rupertLazurus" />
+					<hasVoice name="jackParr" />
+					<hasVoice name="steenAgro" />
+		        </or>
+			</selectors>
+			<operations>
+				<addRole name="TRUHLAR_MLUVI_PRI_PRACI"/>
+			</operations>
+		</rule>
+
+		<!-- male only -->
+		<!-- run from switch soliloquy -->
+		<!-- capped by 10 guard voices -->
+		<rule name="selftalk-guard-working">
+			<selectors>
+				<selftalk_guard_working />				
+			</selectors>
+			<operations>
+				<addRole name="STRAZNY_SAMOMLUVA"/>
+			</operations>
+		</rule>
+
+		<!-- male only -->
+		<!-- run from animations and professions -->
+		<rule name="selftalk-collier-working">
+			<selectors>
+				<selftalk_mainRule />
+           		<hasSocialClass name="collier" />
+           		<!-- we have about 15 colliers in the whole game. There is a place where there are 9 colliers so Im capping it there. -->
+           		<or>
+	           		<hasVoice name="peterHosking_generic" />
+					<hasVoice name="jonathanMilshaw" />
+					<hasVoice name="steenAgro" />
+					<hasVoice name="paulDean" />
+					<hasVoice name="ianChampion" />
+					<hasVoice name="martinBishop" />
+					<hasVoice name="paulColtofeanu" />
+					<hasVoice name="scottYoung" />
+					<hasVoice name="danBrown" />
+				</or>
+			</selectors>
+			<operations>
+				<addRole name="UHLIR_SAMOMLUVA"/>
+			</operations>
+		</rule>
+		
+		<!-- male only -->
+		<!-- run from animations -->
+		<rule name="selftalk-woodChopper-working">
+			<selectors>
+				<selftalk_woodChopper_general />
+           		<isMan />
+				<!-- following voices were represented at a time when we fixed an issue of the bark not being played on many souls -->
+				<or>
+		            <hasVoice name="brianCaspe" />
+					<hasVoice name="danBrown" />
+					<hasVoice name="gabrielAndrews" />
+					<hasVoice name="gregoryGudgeon" />
+					<hasVoice name="chrisClarke" />
+					<hasVoice name="christopherDukes" />
+					<hasVoice name="jimHigh" />
+					<hasVoice name="michaelPitthan" />
+					<hasVoice name="paulDean" />
+					<hasVoice name="samBarlien" />
+					<hasVoice name="peterHosking_generic" />
+					<hasVoice name="danCollins" />
+					<hasVoice name="jamesBeaumont" />
+					<hasVoice name="alechMontyro" />
+					<hasVoice name="danielOsgerby" />
+					<hasVoice name="danielZappi" />
+					<hasVoice name="douglasRussel" />
+					<hasVoice name="ianChampion" />
+					<hasVoice name="jamieMarshall" />
+					<hasVoice name="jonathanMilshaw" />
+					<hasVoice name="madsHjulmand" />
+					<hasVoice name="martinBishop" />
+					<hasVoice name="michaelGlantschnig" />
+					<hasVoice name="miltonWelsh" />
+					<hasVoice name="paulColtofeanu" />
+					<hasVoice name="richardKiess" />
+					<hasVoice name="scottYoung" />
+					<hasVoice name="juergenStraub" />
+					<hasVoice name="kennethChristensen" />
+					<hasVoice name="bobBordeaux" />
+					<hasVoice name="stewartMoore" />
+					<hasVoice name="royMccrerey" />
+					<hasVoice name="tomasZielinski" />
+					<hasVoice name="johnComer" />
+					<hasVoice name="joncieElmore" />
+					<hasVoice name="jamesNunn" />
+					<hasVoice name="rupertLazurus" />
+					<hasVoice name="jackParr" />
+					<hasVoice name="steenAgro" />
+		        </or>
+			</selectors>
+			<operations>
+				<addRole name="SAMOMLUVA_SEKANI_DREVA_MUZ"/>
+			</operations>
+		</rule>
+
+		<!-- unique -->
+		<!-- run from switch soliloquy -->
+		<rule name="selftalk-ptacek">
+			<selectors>
+				<hasName name="tkop_ptacek" />
+			</selectors>
+			<operations>
+				<addRole name="PTACEK_SAMOMLUVA"/>
+			</operations>
+		</rule>
+	</rules>
+</storm>

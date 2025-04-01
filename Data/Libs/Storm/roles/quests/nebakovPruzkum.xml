@@ -1,0 +1,294 @@
+<?xml version="1.0"?>
+<!DOCTYPE storm SYSTEM "!storm.dtd">
+<storm>
+	<rules>
+
+		<rule name="nebakovPruzkum_stablemaster">
+			<selectors>
+				<hasName name="ttro_man_8" />
+			</selectors>
+			<operations>
+				<addRole name="PACHOLEK_OD_KONI_TROSKY" />
+			</operations>
+		</rule>		
+		
+		<rule name="nebakovPruzkum_klara">
+			<selectors>
+				<hasName name="tneb_klara" />
+			</selectors>
+			<operations>
+				<addRole name="DEVECKA_KLARA_NEBAKOV" />
+			</operations>
+		</rule>		
+		
+		<rule name="nebakovPruzkum_nebak">
+			<selectors>
+				<hasName name="tneb_nebak" />
+			</selectors>
+			<operations>
+				<addRole name="JAROMIR_Z_NEBAKOVA" />
+			</operations>
+		</rule>		
+		
+		<rule name="nebakovPruzkum_captainMichal">
+			<selectors>
+				<hasName name="tneb_michal" />
+			</selectors>
+			<operations>
+				<addRole name="KAPITAN_VOJAKU_NEBAKOV" />
+				<addRole name="KAPITAN_VOJAKU_NEBAKOV_ZASAHL_HRACE" />
+			</operations>
+		</rule>		
+		
+		<rule name="nebakovPruzkum_dicePlayer">
+			<selectors>
+				<hasName name="tneb_cverk" />
+			</selectors>
+			<operations>
+				<addRole name="VOJAK_NEBAKOV_KOSTKY" />
+				<addDiceRoles_man />
+			</operations>
+		</rule>		
+		
+		<rule name="nebakovPruzkum_mikes">
+			<selectors>
+				<hasName name="tneb_mikes" />
+			</selectors>
+			<operations>
+				<addRole name="MIKES_NEBAKOV" />
+				<addRole name="MIKES_NEBAKOV_POZDRAVY" />
+				<addRole name="MIKES_NEBAKOV_TRESPASS" />
+			</operations>
+		</rule>		
+		
+		<rule name="nebakovPruzkum_kozlik">
+			<selectors>
+				<hasName name="tneb_kozlik" />
+			</selectors>
+			<operations>
+				<addRole name="KOZLIK_NEBAKOV" />
+				<addRole name="KOZLIK_NEBAKOV_POZDRAVY" />
+				<addRole name="KOZLIK_NEBAKOV_TRESPASS" />
+			</operations>
+		</rule>		
+		
+		<rule name="nebakovPruzkum_kozlikAMikes">
+			<selectors>
+				<or>
+					<hasName name="tneb_kozlik" />
+					<hasName name="tneb_mikes" />
+				</or>
+			</selectors>
+			<operations>
+				<addRole name="MIKES_NEBO_KOZLIK_NEBAKOV_ROZLOUCENI_PO_DIALOGU" />
+				<addRole name="MIKES_NEBO_KOZLIK_NEBAKOV" />
+			</operations>
+		</rule>		
+		
+		<rule name="nebakovPruzkum_braveCivilian">
+			<selectors>
+				<hasName name="tneb_man_27" />
+			</selectors>
+			<operations>
+				<addRole name="STATECNY_CIVIL_NEBAKOV" />
+			</operations>
+		</rule>		
+		
+		<rule name="nebakovPruzkum_civilians">
+			<selectors>
+				<hasName name="tneb_man_27" />
+				<hasName name="tneb_man_28" />
+				<hasName name="tneb_man_1" />
+				<hasName name="tneb_man_2" />
+			</selectors>
+			<operations>
+				<addRole name="CIVILISTI_NEBAKOV" />
+			</operations>
+		</rule>
+		
+		<rule name="nebakovPruzkum_civilianGuard">
+			<selectors>
+				<hasName name="tneb_man_21" />
+			</selectors>
+			<operations>
+				<addRole name="VOJAK_NEBAKOV_U_CIVILISTU" />
+			</operations>
+		</rule>		
+		
+		<rule name="nebakovPruzkum_stablemaster_nebakov">
+			<selectors>
+				<hasName name="tneb_pelcl" />
+			</selectors>
+			<operations>
+				<addRole name="STAJMISTR_NEBAKOV" />
+				<addRole name="VOJAK_OD_KONI_NEBAKOV_CROSSCOUNTRY_KONEC" />
+				<addRole name="VOJAK_OD_KONI_NEBAKOV_CROSSCOUNTRY_HRAC_VYHRAL" />
+				<addRole name="STAJMISTR_NEBAKOV_SHOWRUNNER_HRAC_NEJEDE" />
+			</operations>
+		</rule>		
+		
+		<rule name="nebakovPruzkum_hertlPrisonGuard">
+			<selectors>
+				<hasName name="tneb_hertl" />
+			</selectors>
+			<operations>
+				<addRole name="VEZENSKA_STRAZ_NEBAKOV" />
+				<addRole name="VEZENSKA_STRAZ_NEBAKOV_CROSSCOUNTRY_PROJETI_BRANOU" />
+			</operations>
+		</rule>		
+		
+		<rule name="nebakovPruzkum_marekArcher">
+			<selectors>
+				<hasName name="tneb_marek" />
+			</selectors>
+			<operations>
+				<addRole name="VOJAK_NEBAKOV_STRELBA" />
+				<addRole name="VOJAK_NEBAKOV_STRELBA_CHEERING" />
+			</operations>
+		</rule>		
+		
+		<rule name="nebakovPruzkum_vojaci">
+			<selectors>
+				<or>
+					<and>
+						<hasFaction name="trosecko_settlements_tvrzNebakov_soldiers" />
+						<hasName name="tneb_*" />
+					</and>
+					<hasName name="tneb_mikes" />
+					<hasName name="tneb_kozlik" />
+				</or>
+			</selectors>
+			<operations>
+				<addRole name="VOJACI_NEBAKOV" />
+				<addRole name="NEBAKOV_PRUZKUM_VOJAK_VYHANI_HRACE_Z_TRESPASSU_PTACEK_CHCE_ODJET_IN" />
+				<addRole name="NEBAKOV_PRUZKUM_VOJAK_VYHANI_HRACE_Z_TRESPASSU_PTACEK_CHCE_ODJET_LOOP" />
+				<addRole name="NEBAKOV_PRUZKUM_VOJAK_VYHANI_HRACE_Z_TRESPASSU_PTACEK_CHCE_ODJET_OUT" />
+				<addRole name="NEBAKOV_PRUZKUM_VOJAK_ZADRZEL_HRACE_PRO_TRESPASS" />
+			</operations>
+		</rule>
+		
+		<rule name="nebakovPruzkum_bergov">
+			<selectors>
+				<hasName name="ttro_bergov" />
+			</selectors>
+			<operations>
+				<addRole name="BERGOV" />
+			</operations>
+		</rule>		
+		
+		<rule name="nebakovPruzkum_gateGuard">
+			<selectors>
+				<hasName name="tneb_man_19" />
+			</selectors>
+			<operations>
+				<addRole name="STRAZ_NEBAKOV_JDI_PRYC" />
+				<addRole name="NEBAKOV_PRUZKUM_PATROLA_NUDLE" />
+			</operations>
+		</rule>	
+		
+		<rule name="nebakovPruzkum_higherWallsGuard">
+			<selectors>
+				<hasName name="tneb_man_18" />
+			</selectors>
+			<operations>
+				<addRole name="NEBAKOV_PRUZKUM_PATROLA_HORNI_HRADBY" />
+			</operations>
+		</rule>	
+		
+		<rule name="nebakovPruzkum_cook">
+			<selectors>
+				<hasName name="tneb_man_5" />
+			</selectors>
+			<operations>
+				<addRole name="NEBAKOV_PRUZKUM_KUCHAR" />
+			</operations>
+		</rule>	
+		
+		<rule name="nebakovPruzkum_gateInnerGuard">
+			<selectors>
+				<hasName name="tneb_man_15" />
+			</selectors>
+			<operations>
+				<addRole name="VOJAK_NEBAKOV_STRAZCE_BRANKY" />
+			</operations>
+		</rule>	
+		
+		<rule name="nebakovPruzkum_cheeringGuards">
+			<selectors>
+				<or>
+					<hasName name="tneb_man_17" />
+					<hasName name="tneb_man_18" />
+					<hasName name="tneb_man_19" />
+					<hasName name="tneb_marek" />
+				</or>
+			</selectors>
+			<operations>
+				<addRole name="DUELOVE_FANDENI_NEBAKOVSI_VOJAKOVE" />
+			</operations>
+		</rule>	
+		
+		<rule name="nebakovPruzkum_smithNebakov">
+			<selectors>
+				<hasName name="tneb_volek" />
+			</selectors>
+			<operations>
+				<addRole name="KOVAR_NEBAKOV" />
+			</operations>
+		</rule>	
+		
+		<rule name="nebakovPruzkum_cernyBartos">
+			<selectors>
+				<hasName name="ttro_cernyBartos" />
+			</selectors>
+			<operations>
+				<addRole name="CERNY_BARTOS" />
+			</operations>
+		</rule>	
+
+		<rule name="nebakovPruzkum_ptacek">
+			<selectors>
+				<hasName name="tkop_ptacek" />
+			</selectors>
+			<operations>
+				<addRole name="PTACEK_VOLA_NA_HRACE_CO_ODESEL" />
+				<addRole name="PTACEK_VOLA_NA_HRACE_CO_SE_VRATIL" />
+			</operations>
+		</rule>	
+
+		<rule name="nebakovPruzkum_tesar">
+			<selectors>
+				<hasName name="tneb_man_9" />
+			</selectors>
+			<operations>
+				<addRole name="NEBAKOV_PRUZKUM_HEJTR" />
+			</operations>
+		</rule>	
+
+		<rule name="nebakovPruzkum_predhradiGuards">
+			<selectors>
+				<or>
+					<hasName name="tneb_man_21" />
+					<hasName name="tneb_man_2" />
+				</or>
+			</selectors>
+			<operations>
+				<addRole name="NEBAKOV_VYHANECI_CHAT_VOJAK_V_PREDHRADI" />
+			</operations>
+		</rule>	
+
+		<rule name="nebakovPruzkum_civilistNebakov">
+			<selectors>
+				<or>
+					<hasName name="tneb_man_1" />
+					<hasName name="tneb_man_27" />
+					<hasName name="tneb_man_28" />
+				</or>
+			</selectors>
+			<operations>
+				<addRole name="CIVILISTI_NEBAKOV" />
+			</operations>
+		</rule>	
+
+		
+    </rules>
+</storm>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="us-ascii"?>
+<Graph>
+  <Nodes>
+    <Node Id="2" Class="MaterialFX:HUDEndFX" pos="730,10,0" flags="0">
+        <Inputs />
+    </Node>
+    <Node Id="18" Class="Image:FilterChromaShift" pos="510,390,0" flags="0">
+      <Inputs entityId="0" Enabled="1" Disabled="1" FilterChromaShift_User_Amount="0" />
+    </Node>
+    <Node Id="20" Class="Math:Mul" pos="270,430,0" flags="0">
+      <Inputs A="0" B="0.4" />
+    </Node>
+    <Node Id="21" Class="MaterialFX:HUDStartFX" pos="50,150,0" flags="0">
+      <Inputs />
+    </Node>
+  </Nodes>
+  <Edges>
+    <Edge nodeIn="18" nodeOut="20" portIn="FilterChromaShift_User_Amount" portOut="out" enabled="1" />
+    <Edge nodeIn="18" nodeOut="21" portIn="Enabled" portOut="Started" enabled="1" />
+    <Edge nodeIn="20" nodeOut="21" portIn="A" portOut="Intensity" enabled="1" />
+  </Edges>
+</Graph>

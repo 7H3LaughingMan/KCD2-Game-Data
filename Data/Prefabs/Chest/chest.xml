@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="us-ascii"?>
+<Prefab Id="9731b7cc-034d-44c9-b094-c646cfb03498">
+  <Tags>
+    <Tag>home</Tag>
+    <Tag>home_important</Tag>
+  </Tags>
+  <Objects>
+    <Object EntityClass="PrefabPort" Id="3505ae71-e709-4933-bd83-f917985ff667" Name="outPort_stash" Pos="0.2,-0.75,1.5" Type="Entity">
+      <Properties esPrefabPort_Icon="outStash" esPrefabPort_Type="Out" />
+    </Object>
+    <Object EntityClass="PrefabPort" Id="4488a98e-6dda-4951-9155-d9001f8abece" Name="port_use" Pos="-0.2,-0.5,1.5" Type="Entity">
+      <EntityLinks>
+        <Link DebugTargetName="hub" TargetId="f8cb587b-9e65-4458-bdfe-1f5d62148a82" />
+      </EntityLinks>
+    </Object>
+    <Object EntityClass="PrefabPort" Id="630cccb2-7fa1-428c-bb44-1c39f38a0126" Name="port_stashEntity" Pos="0.2,-0.5,1.5" Type="Entity">
+      <Properties esPrefabPort_Icon="inStash" />
+      <EntityLinks>
+        <Link DebugTargetName="stash" TargetId="ad58a15d-1fc8-4aa9-bacb-6a169182e6bb" />
+      </EntityLinks>
+    </Object>
+    <Object EntityClass="Stash" Id="ad58a15d-1fc8-4aa9-bacb-6a169182e6bb" Name="stash" Pos="-0.006454468,0.1452789,0.02408218" Type="Entity">
+      <Properties object_Model="Objects/characters/assets/chest/chest_rustic_a.cdf" sPickPlaceAnimTag="slaveChest+pickPlaceChest02" sWH_AI_EntityCategory="Chest">
+        <Lock bLocked="1" />
+      </Properties>
+      <EntityLinks>
+        <Link DebugTargetName="outPort_stash" TargetId="3505ae71-e709-4933-bd83-f917985ff667" />
+      </EntityLinks>
+    </Object>
+    <Object EntityClass="SmartObjectHolder" Id="ecfb411f-6ae4-49c5-ac34-c64cbf684143" Name="smartObject" Pos="-0.006454468,0.1452789,0.02408218" Type="Entity">
+      <Properties guidSmartObjectType="10756f6b-01cb-468c-a3ae-336375b8444a" soclass_SmartObjectHelpers="GenU_chestCheck" />
+      <EntityLinks>
+        <Link DebugTargetName="stash" Name="stash" TargetId="ad58a15d-1fc8-4aa9-bacb-6a169182e6bb" />
+      </EntityLinks>
+    </Object>
+    <Object EntityClass="SchedulerHub" Id="f8cb587b-9e65-4458-bdfe-1f5d62148a82" Name="hub" Pos="-0.2,-0.5,1" Type="Entity">
+      <EntityLinks>
+        <Link DebugTargetName="smartObject" Name="_use" TargetId="ecfb411f-6ae4-49c5-ac34-c64cbf684143" />
+      </EntityLinks>
+    </Object>
+  </Objects>
+</Prefab>

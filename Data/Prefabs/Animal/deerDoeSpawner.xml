@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="us-ascii"?>
+<Prefab Id="43377b9c-24b3-410d-9a43-72415a5f844a">
+  <Tags>
+    <Tag>animal</Tag>
+  </Tags>
+  <Objects>
+    <Object EntityClass="PrefabPort" Id="33678f75-089d-4896-b2d0-a75d7758fcce" Name="outPort_defaultArea" Pos="0,0.004997253,1.297401" Type="Entity">
+      <Properties esPrefabPort_Type="Out" />
+    </Object>
+    <Object EntityClass="PrefabPort" Id="389b24ef-2379-4ebc-b4f0-3c067ec918bb" Name="port_slaves" Pos="-0.3456459,0.02493668,1.297401" Type="Entity">
+      <EntityLinks>
+        <Link DebugTargetName="AnimalSpawner" Name="masterSpawner" TargetId="502b937e-5d4e-4941-a749-985e250fc473" />
+        <Link DebugTargetName="SchedulerHub4" Name="_" TargetId="de8f4194-31da-4f74-bc8e-000c40d89c9d" />
+      </EntityLinks>
+    </Object>
+    <Object EntityClass="AnimalSpawner" Id="502b937e-5d4e-4941-a749-985e250fc473" Name="AnimalSpawner" Type="Entity">
+      <Properties AnimalCount="1" guidSoul="03501abb-222b-4b7a-a0ba-6e7fd33a4fb8" RespawnDays="1" />
+      <EntityLinks>
+        <Link DebugTargetName="SchedulerHub4" Name="_" TargetId="de8f4194-31da-4f74-bc8e-000c40d89c9d" />
+        <Link DebugTargetName="outPort_spawnArea" Name="spawnArea" TargetId="83f92d2b-e5ff-4658-8b69-d1fddd207ae9" />
+      </EntityLinks>
+    </Object>
+    <Object EntityClass="PrefabPort" Id="83f92d2b-e5ff-4658-8b69-d1fddd207ae9" Name="outPort_spawnArea" Pos="0,0.3251495,1.297401" Type="Entity">
+      <Properties esPrefabPort_Type="Out" />
+    </Object>
+    <Object EntityClass="SmartObjectHolder" Id="9fa299ea-101a-4bbb-b059-582d6ce9097e" Name="SmartObjectHolder3" Pos="0,-0.5,0" Type="Entity">
+      <Properties guidSmartObjectType="e99c0277-c0cf-4ef8-a6eb-426a6782ee96" />
+      <EntityLinks>
+        <Link DebugTargetName="outPort_eatArea" Name="_eat|,1," TargetId="b4109a1e-b500-4d71-befc-fd4f513dac70" />
+        <Link DebugTargetName="outPort_defaultArea" Name="_eat|" TargetId="33678f75-089d-4896-b2d0-a75d7758fcce" />
+      </EntityLinks>
+    </Object>
+    <Object EntityClass="PrefabPort" Id="b4109a1e-b500-4d71-befc-fd4f513dac70" Name="outPort_eatArea" Pos="0,-0.4869995,1.297401" Type="Entity">
+      <Properties esPrefabPort_Type="Out" />
+    </Object>
+    <Object EntityClass="SchedulerHub" Id="de8f4194-31da-4f74-bc8e-000c40d89c9d" Name="SchedulerHub4" Pos="-0.02110672,-0.237648,0" Type="Entity">
+      <EntityLinks>
+        <Link DebugTargetName="SmartObjectHolder3" Name="_|eat,!override,use_eat" TargetId="9fa299ea-101a-4bbb-b059-582d6ce9097e" />
+      </EntityLinks>
+    </Object>
+  </Objects>
+</Prefab>

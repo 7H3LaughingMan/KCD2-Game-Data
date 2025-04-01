@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="us-ascii"?>
+<Graph>
+  <Nodes>
+    <Node Id="274" Class="MaterialFX:HUDStartFX" pos="-240,-160,0" flags="0">
+      <Inputs />
+    </Node>
+    <Node Id="292" Class="MaterialFX:HUDEndFX" pos="20,-60,0" flags="0">
+      <Inputs />
+    </Node>
+    <Node Id="344" Class="Camera:ViewShakeEx" pos="20,-450,0" flags="0">
+      <Inputs entityId="0" Restrict="0" View="1" GroundOnly="0" Smooth="0" Angle="0.7,0.7,0.7" Shift="0.01,0.01,0.01" Frequency="12" Randomness="0.5" Distance="0" RangeMin="0" RangeMax="30" SustainDuration="0" FadeInDuration="0" FadeOutDuration="1.5" Preset="0" />
+    </Node>
+    <Node Id="510" Class="Audio:Trigger" pos="110,80,0" flags="0">
+      <Inputs entityId="0" audioTrigger_PlayTrigger="special_player_death" audioTrigger_StopTrigger="" />
+    </Node>
+    <Node Id="511" Class="Actor:LocalPlayer" pos="-170,50,0" flags="0">
+      <Inputs />
+    </Node>
+    <Node Id="512" Name="player_death_sound" Class="_commentbox" pos="100,40,0" flags="0">
+      <Inputs TextSize="1" DisplayFilled="1" DisplayBox="1" SortPriority="16" />
+      <ResizeBorder X="0" Y="0" Width="300" Height="130" />
+      <NodeSize Width="300" Height="157.82751" />
+      <Color r="0.5" g="0.5" b="0.5" />
+      <Author author="" />
+    </Node>
+  </Nodes>
+  <Edges>
+    <Edge nodeIn="292" nodeOut="274" portIn="Trigger" portOut="Started" enabled="1" />
+    <Edge nodeIn="344" nodeOut="274" portIn="Trigger" portOut="Started" enabled="1" />
+    <Edge nodeIn="510" nodeOut="274" portIn="Play" portOut="Started" enabled="1" />
+    <Edge nodeIn="510" nodeOut="511" portIn="entityId" portOut="entityId" enabled="1" />
+  </Edges>
+</Graph>

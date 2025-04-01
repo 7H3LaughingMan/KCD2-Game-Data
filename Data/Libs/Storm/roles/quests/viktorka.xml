@@ -1,0 +1,131 @@
+<?xml version="1.0"?>
+<!DOCTYPE storm SYSTEM "!storm.dtd">
+<storm>
+	<rules>
+	
+		<rule name="viktorka_kovarka">
+			<selectors>
+				<hasName name="kmis_marta" />
+			</selectors>
+			<operations>
+				<addRole name="KOVARKA_VIKTORKA" />
+				<addRole name="KOVARKA_VIKTORKA_ZDRAVI_HRACE" />
+			</operations>
+		</rule>
+		
+		<rule name="viktorka_sedlak">
+			<selectors>
+				<hasName name="kmis_kuba" />
+			</selectors>
+			<operations>
+				<addRole name="SEDLAK_VIKTORKA" />
+			</operations>
+		</rule>	
+		
+		<rule name="viktorka_vojak">
+			<selectors>
+				<hasName name="kzik_cerny" />
+			</selectors>
+			<operations>
+				<addRole name="CERNY_VOJAK" />
+			</operations>
+		</rule>	
+		
+		<rule name="viktorka_viktorka">
+			<selectors>
+				<hasName name="kmis_viktorka" />
+			</selectors>
+			<operations>
+				<addRole name="VIKTORKA" />
+			</operations>
+		</rule>	
+		
+		<rule name="viktorka_korenarka">
+			<selectors>
+				<hasFaction name="kutnohorsko" />
+				<hasSocialClass name="herbalist" />
+				<isWoman />
+			</selectors>
+			<operations>
+				<addRole name="KORENARKA_VIKTORKA" />
+			</operations>
+		</rule>	
+		
+		<rule name="viktorka_campBlacksmith">
+			<selectors>
+				<hasName name="kzik_blacksmith" />
+			</selectors>
+			<operations>
+				<addRole name="PRODEJCE_ZE_ZIKMUNDOVA_TABORA_VIKTORKA" />
+			</operations>
+		</rule>	
+		
+		<rule name="viktorka_campCitizens">
+			<selectors>
+				<isValidOpenworldNpc />
+				<isMan />
+				<hasName name="kzik_*" />
+				<hasSocialClass name="soldier_crimeAuthority" />
+				<or>
+					<hasFaction name="kutnohorsko_settlements_zikmundovo_commonFolk" />
+					<hasFaction name="kutnohorsko_settlements_zikmundovo_soldiers" />
+				</or>
+				<not>
+					<or>
+					<hasName name="kzik_blacksmith" />
+					<hasName name="kzik_cerny" />
+					<hasFaction name="kutnohorsko_settlements_zikmundovo_soldiers_cumans" />
+					<hasFaction name="kutnohorsko_settlements_zikmundovo_soldiers_kovaniKutnohorskoBasan" />
+					<hasFaction name="kutnohorsko_settlements_zikmundovo_soldiers_dvojityAgentLaszlosSecurity" />
+					</or>
+				</not>
+			</selectors>
+			<operations>
+				<addRole name="VOJAK_V_TABORE_VIKTORKA" />
+			</operations>
+		</rule>	
+		
+		<rule name="viktorka_farmersInMiskovice">
+			<selectors>
+				<isValidOpenworldNpc />
+				<hasName name="kmis_*" />
+				<hasSocialClass name="farmer" />
+				<isMan />
+				<not>
+					<hasName name="kmis_kuba" />
+				</not>
+			</selectors>
+			<operations>
+				<addRole name="SEDLACI_MISKOVICE_VIKTORKA" />
+			</operations>
+		</rule>	
+		
+		<rule name="viktorka_miskoviceBlacksmith">
+			<selectors>
+				<hasName name="kmis_man_13" />
+			</selectors>
+			<operations>
+				<addRole name="KOVAR_MISKOVICE_VIKTORKA" />
+			</operations>
+		</rule>	
+		
+		<rule name="viktorka_miskoviceBlacksmithHenchman">
+			<selectors>
+				<hasName name="kmis_man_14" />
+			</selectors>
+			<operations>
+				<addRole name="KOVAROVIC_PREMEK" />
+			</operations>
+		</rule>	
+		
+		<rule name="viktorka_questTipster">
+			<selectors>
+				<hasName name="kmis_innkeeper" />
+			</selectors>
+			<operations>
+				<addRole name="QUEST_TIPSTER_VIKTORKA_MUZ" />
+			</operations>
+		</rule>	
+		
+    </rules>
+</storm>

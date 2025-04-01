@@ -1,0 +1,76 @@
+<?xml version="1.0"?>
+<!DOCTYPE storm SYSTEM "..\storm.dtd">
+<storm>
+	<rules>
+		<rule name="test_npcs">
+			<selectors>
+				<hasFaction name="test_npcs" />
+			</selectors>
+			<operations>
+				<setReputation reputation="1" />
+			</operations>
+		</rule>
+		<rule name="civilians">
+			<selectors>
+				<isCivilian />
+			</selectors>
+			<operations>
+				<setReputation reputation="0.5" />
+			</operations>
+		</rule>
+		<rule name="civiliansAnimals">
+			<selectors>
+				<isCivilianAnimal />
+			</selectors>
+			<operations>
+				<setReputation reputation="0.5" />
+			</operations>
+		</rule>
+		<rule name="allies">
+			<selectors>
+				<isPlayersFriend />
+			</selectors>
+			<operations>
+				<setReputation reputation="1" />
+			</operations>
+		</rule>
+		<rule name="soldiers">
+			<selectors>
+				<or>
+					<isSoldier />
+					<isHuntsman />
+				</or>
+			</selectors>
+			<operations>
+				<setReputation reputation="0.5" />
+			</operations>
+		</rule>
+		<rule name="enemies">
+			<selectors>
+				<isPublicEnemy />
+			</selectors>
+			<operations>
+				<setReputation reputation="0" />
+			</operations>
+		</rule>
+		<rule name="enemies_in_civil">
+			<selectors>
+				<or>
+					<hasFaction name="kutnohorsko_settlements_zikmundovo" />
+					<hasFaction name="trosecko_outskirts_romaniCamp" />
+				</or>
+			</selectors>
+			<operations>
+				<setReputation reputation="0.5" />
+			</operations>
+		</rule>
+		<rule name="animal_aggressive">
+			<selectors>
+				<hasFaction name="animal_wild_enemy" />
+			</selectors>
+			<operations>
+				<setReputation reputation="-1" />
+			</operations>
+		</rule>
+	</rules>
+</storm>

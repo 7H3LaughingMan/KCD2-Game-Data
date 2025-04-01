@@ -1,0 +1,45 @@
+﻿<?xml version="1.0" encoding="us-ascii"?>
+<Prefab Id="b418184a-775a-4415-829d-d2bfd383d8d1">
+	<Objects>
+		<Object EntityClass="SmartObjectHolder" Id="0f58191e-b9d9-472a-ba34-01961afbdcdf" Name="so_tiedSpot" Type="Entity">
+			<Properties guidSmartObjectType="433e3c99-6913-6280-eb28-f7f600545aaf" soclass_SmartObjectHelpers="tiedSpot_sitting" />
+			<EntityLinks>
+				<Link DebugTargetName="so_tiedSpot" Name="syncHost" TargetId="0f58191e-b9d9-472a-ba34-01961afbdcdf" />
+			</EntityLinks>
+		</Object>
+		<Object EntityClass="PrefabPort" Id="592d2cd2-52f0-4f6c-9d9a-b7f0095ee9b1" Name="_beTied_port" Pos="0,-0.5,1.8" Type="Entity">
+			<EntityLinks>
+				<Link DebugTargetName="beTied_hub" TargetId="a949ff97-88cd-4f02-9ac4-68b5d628679b" />
+			</EntityLinks>
+		</Object>
+		<Object EntityClass="ActionTrigger" Id="6246b91d-543c-4f3f-93f3-c0e3a96ac619" Name="untie_trigger" Pos="0,0.1771851,0.1651497" Scale="0.25,0.25,0.25" Type="Entity">
+			<Properties bQuestSystemTrigger="1">
+				<Click bAllowTorch="1" bDelayedReportUse="1" bSaveLock="1" esActionType="JoinedAnimation" fActiveDistance="1.1" sAction="TiedUpOut_Master" sAnimationResourceOverride="untying" sTriggerPointId="untyingFinished" UseMessage="@ui_hud_untie">
+					<Angle fAngleTolerance="90" />
+					<Synchro sKeyContextLinkName="syncHost" sKeyName="tiedSpot_untying" sTimeout="3s" />
+				</Click>
+			</Properties>
+			<EntityLinks>
+				<Link DebugTargetName="so_tiedSpot" TargetId="0f58191e-b9d9-472a-ba34-01961afbdcdf" />
+			</EntityLinks>
+		</Object>
+		<Object EntityClass="PrefabPort" Id="76e9acff-9bdb-4b4a-877e-9b8a79bd3909" Name="tiedSpot_trigger" Pos="0.25,-0.25,1.8" Type="Entity">
+			<EntityLinks>
+				<Link DebugTargetName="untie_trigger" TargetId="6246b91d-543c-4f3f-93f3-c0e3a96ac619" />
+			</EntityLinks>
+		</Object>
+		<Object EntityClass="PrefabPort" Id="9e577690-fbd3-40c5-9790-950a0931da78" Name="tiedSpot_smartObject" Pos="-0.25,-0.25,1.8" Type="Entity">
+			<EntityLinks>
+				<Link DebugTargetName="so_tiedSpot" TargetId="0f58191e-b9d9-472a-ba34-01961afbdcdf" />
+			</EntityLinks>
+		</Object>
+		<Object EntityClass="GhostDummy" Id="a7007f67-9ea9-4cea-ab6b-9c041a01145c" Name="beTied_dummy" Pos="0,-0.2334595,0" Rotate="4.371139e-08,0,0,1" Type="Entity">
+			<Properties object_Model="objects/characters/humans/male/body/male_body_test.cgf" />
+		</Object>
+		<Object EntityClass="SchedulerHub" Id="a949ff97-88cd-4f02-9ac4-68b5d628679b" Name="beTied_hub" Pos="0,0,1" Type="Entity">
+			<EntityLinks>
+				<Link DebugTargetName="so_tiedSpot" Name="_,!instant,beTied" TargetId="0f58191e-b9d9-472a-ba34-01961afbdcdf" />
+			</EntityLinks>
+		</Object>
+	</Objects>
+</Prefab>

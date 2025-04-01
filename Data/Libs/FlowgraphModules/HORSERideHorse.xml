@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="us-ascii"?>
+<Graph isModule="1" moduleName="HORSERideHorse" Description="" Group="" enabled="1" MultiPlayer="ClientServer">
+  <ModuleInputsOutputs>
+    <Port Name="Horse" Type="3" Input="1" />
+    <Port Name="Speed" Type="3" Input="1" />
+    <Port Name="Position" Type="4" Input="1" />
+  </ModuleInputsOutputs>
+  <Nodes>
+    <Node Id="1" Class="Module:Start_HORSERideHorse" pos="-110,30,0" flags="0" />
+    <Node Id="2" Class="Module:End_HORSERideHorse" pos="590,40,0" flags="0">
+      <Inputs />
+    </Node>
+    <Node Id="5" Class="AI:AnimEx" pos="230,-60,0" flags="1">
+      <Inputs entityId="0" OneShot="1" animstateEx_Animation="" Speed="2" Stance="-1" Position="0,0,0" StartRadius="0.1,0.1,0.1" Direction="0,0,0" DirTolerance="180" TargetRadius="0.05" ProjectOnEnd="1" />
+    </Node>
+  </Nodes>
+  <Edges>
+    <Edge nodeIn="5" nodeOut="1" portIn="entityId" portOut="Horse" enabled="1" />
+    <Edge nodeIn="5" nodeOut="1" portIn="Position" portOut="Position" enabled="1" />
+    <Edge nodeIn="5" nodeOut="1" portIn="Sync" portOut="Start" enabled="1" />
+    <Edge nodeIn="2" nodeOut="5" portIn="Cancel" portOut="fail" enabled="1" />
+    <Edge nodeIn="2" nodeOut="5" portIn="Success" portOut="succeed" enabled="1" />
+  </Edges>
+  <GraphTokens />
+</Graph>

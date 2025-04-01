@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="us-ascii"?>
+<Prefab Id="9752c357-b146-4233-b24d-621d4d0fe329">
+	<Objects>
+		<Object EntityClass="PrefabPort" Id="3654f3f4-c328-4ad4-8114-95d17a348ec2" Name="so_hostageSituation_port" Pos="0,0.3000031,2" Rotate="-4.371139e-08,0,0,1" Type="Entity">
+			<EntityLinks>
+				<Link DebugTargetName="so_hostageSituation" TargetId="3d50ab9a-178b-4c85-a375-d74dcabf87bf" />
+			</EntityLinks>
+		</Object>
+		<Object EntityClass="SmartObjectHolder" Id="3d50ab9a-178b-4c85-a375-d74dcabf87bf" Name="so_hostageSituation" Type="Entity">
+			<Properties guidSmartObjectType="87d450da-bc0e-4790-aabb-eeadad01bc3b" soclass_SmartObjectHelpers="hostageSituation_maleHoldsFemale" />
+			<EntityLinks>
+				<Link DebugTargetName="sword_droppedByKidnapper_slot" Name="sword_droppedByKidnapper_slot" TargetId="f224425a-5753-4b00-9009-781f3f012f95" />
+				<Link DebugTargetName="sword_droppedByHostage_slot" Name="sword_droppedByHostage_slot" TargetId="56d441e4-e5e4-4ecd-a925-9f9e129c2553" />
+				<Link DebugTargetName="rope_cuffs_slot" Name="rope_cuffs_slot" TargetId="c8095327-f48b-412d-8565-508e870fa5ac" />
+				<Link DebugTargetName="so_hostageSituation" Name="syncHost" TargetId="3d50ab9a-178b-4c85-a375-d74dcabf87bf" />
+				<Link DebugTargetName="sword_pickingUpByHostage_slot" Name="sword_pickingUpByHostage_slot" TargetId="a06b3152-0272-4853-9c14-22b6d8213f8d" />
+			</EntityLinks>
+		</Object>
+		<Object EntityClass="PrefabPort" Id="4443b1ba-82ea-4b15-8cdc-2166e18d92bc" Name="untying_trigger_port" Pos="-0.9974,0.3169,2" Scale="0.3,0.3,0.3" Type="Entity">
+			<EntityLinks>
+				<Link DebugTargetName="untying_trigger" TargetId="96d902f3-f9c6-4364-bf98-b861c6a7b6b8" />
+			</EntityLinks>
+		</Object>
+		<Object EntityClass="ItemSlot" Id="56d441e4-e5e4-4ecd-a925-9f9e129c2553" Name="sword_droppedByHostage_slot" Pos="0.3272324,1.348572,0.01589966" Rotate="0.7035305,-0.1045536,0.6996607,0.06773659" Type="Entity">
+			<Properties bOwnedByHome="0" bSpawnOnStart="0" guidItemClassId="652db434-b7d6-448f-8671-10ca787ba1e2" nRestockPeriodDays="0" />
+		</Object>
+		<Object EntityClass="GhostDummy" Id="6837d67d-99c0-48d6-bd58-740a63f2cde6" Name="hostage_dummy" Pos="-0.01450729,0.1637497,-0.008934021" Type="Entity">
+			<Properties object_Model="objects/characters/humans/female/body/female_body.cgf" />
+		</Object>
+		<Object EntityClass="GhostDummy" Id="8f9f1f8e-d225-466c-aca5-6c72b0e0b491" Name="kidnapper_dummy" Pos="0.1109848,-0.2154388,-0.01045609" Type="Entity">
+			<Properties object_Model="objects/characters/humans/male/body/male_body_test.cgf" />
+		</Object>
+		<Object EntityClass="ActionTrigger" Id="96d902f3-f9c6-4364-bf98-b861c6a7b6b8" Name="untying_trigger" Pos="-0.8666458,0.3168564,0.390461" Scale="0.3,0.3,0.3" Type="Entity">
+			<Properties bQuestSystemTrigger="1">
+				<Click esActionType="JoinedAnimation" sAction="Quest_HostageSituation_PlayerUntyingHostageOnGround" sAnimationResourceOverride="player" sTriggerPointId="untyingFinished" UseMessage="@ui_hud_untie">
+					<Angle fAngleTolerance="60" />
+					<Synchro sKeyContextLinkName="syncHost" sKeyName="PlayerUntyingHostageOnGround" sTimeout="5s" />
+				</Click>
+			</Properties>
+			<EntityLinks>
+				<Link DebugTargetName="so_hostageSituation" TargetId="3d50ab9a-178b-4c85-a375-d74dcabf87bf" />
+			</EntityLinks>
+		</Object>
+		<Object EntityClass="SchedulerHub" Id="997cdb89-c580-4402-9756-62c6665ad38f" Name="hostage_hub" Pos="-0.2999992,0,1" Type="Entity">
+			<EntityLinks>
+				<Link DebugTargetName="so_hostageSituation" Name="_,1,maleHoldsTiedFemale_hostage" TargetId="3d50ab9a-178b-4c85-a375-d74dcabf87bf" />
+				<Link DebugTargetName="so_hostageSituation" Name="_,1,!slow,maleHoldsTiedFemale_hostageTiedOnGround" TargetId="3d50ab9a-178b-4c85-a375-d74dcabf87bf" />
+				<Link DebugTargetName="so_hostageSituation" Name="_,A,!instant,maleHoldsTiedFemale_hostageTiedDeadOnGround" TargetId="3d50ab9a-178b-4c85-a375-d74dcabf87bf" />
+			</EntityLinks>
+		</Object>
+		<Object EntityClass="ItemSlot" Id="a06b3152-0272-4853-9c14-22b6d8213f8d" Name="sword_pickingUpByHostage_slot" Pos="0.01502991,0.5765686,0.03033447" Rotate="-0.04316038,-0.7056659,-0.0431753,0.7059099" Type="Entity">
+			<Properties bInvisibleContent="1" guidItemClassId="652db434-b7d6-448f-8671-10ca787ba1e2" nRestockPeriodDays="0" />
+		</Object>
+		<Object EntityClass="PrefabPort" Id="a253f5d4-f752-4e80-b552-4e8f90008e0f" Name="_kidnapper_port" Pos="0.2999992,0,2" Type="Entity">
+			<EntityLinks>
+				<Link DebugTargetName="kidnapper_hub" TargetId="afaf055b-1ce8-43ec-947d-0d998042b01c" />
+			</EntityLinks>
+		</Object>
+		<Object EntityClass="SchedulerHub" Id="afaf055b-1ce8-43ec-947d-0d998042b01c" Name="kidnapper_hub" Pos="0.2999992,0,1" Type="Entity">
+			<EntityLinks>
+				<Link DebugTargetName="so_hostageSituation" Name="_,maleHoldsTiedFemale_kidnapper" TargetId="3d50ab9a-178b-4c85-a375-d74dcabf87bf" />
+			</EntityLinks>
+		</Object>
+		<Object EntityClass="ItemSlot" Id="c8095327-f48b-412d-8565-508e870fa5ac" Name="rope_cuffs_slot" Type="Entity">
+			<Properties bInvisibleContent="1" guidItemClassId="417ddcb8-51cc-4c45-b2b8-ff95fedc5dc1" />
+		</Object>
+		<Object EntityClass="ItemSlot" Id="f224425a-5753-4b00-9009-781f3f012f95" Name="sword_droppedByKidnapper_slot" Pos="0.01502991,0.5765686,0.03033447" Rotate="-0.04316039,-0.7056659,-0.0431753,0.7059099" Type="Entity">
+			<Properties bInvisibleContent="1" bOwnedByHome="0" bSpawnOnStart="0" guidItemClassId="652db434-b7d6-448f-8671-10ca787ba1e2" nRestockPeriodDays="0" />
+		</Object>
+		<Object EntityClass="PrefabPort" Id="fb52b37c-6a60-4636-af62-f314934d65a7" Name="_hostage_port" Pos="-0.2999992,0,2" Type="Entity">
+			<EntityLinks>
+				<Link DebugTargetName="hostage_hub" TargetId="997cdb89-c580-4402-9756-62c6665ad38f" />
+			</EntityLinks>
+		</Object>
+	</Objects>
+</Prefab>

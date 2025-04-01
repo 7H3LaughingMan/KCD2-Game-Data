@@ -1,0 +1,720 @@
+<?xml version="1.0"?>
+<!DOCTYPE storm SYSTEM "storm.dtd">
+<storm>
+	
+	<rules>
+
+		<!-- Generic male/female rules -->
+		<rule name="roles_situations_male" mode="and">
+			<selectors>
+				<situation_drunkHusband_general/>
+				<isMan />
+			</selectors>
+			<operations>
+				<addRole name="SITUACE_OPILY_MANZEL_MUZ" />
+			</operations>
+		</rule>	
+
+		<rule name="roles_situations_female" mode="and">
+			<selectors>
+				<situation_drunkHusband_general/>
+				<isWoman />
+			</selectors>
+			<operations>
+				<addRole name="SITUACE_OPILY_MANZEL_ZENA" />
+			</operations>
+		</rule>
+
+		<!-- SITUATION_GOSSIP -->
+		<!-- COMMON -->
+		<rule name="roles_situation_gossip_common_man">
+			<selectors>
+				<situation_gossip_general />
+				<isMan />
+				<or>
+					<isLowClass />
+					<isMiddleClass />
+					<isUpperClass />
+				</or>
+			</selectors>
+			<operations>
+                <addRole name="GOSSIP_OBECNY_MUZ_1" />
+                <addRole name="GOSSIP_OBECNY_MUZ_2" />
+			</operations>
+		</rule>
+
+		<rule name="roles_situation_gossip_common_woman" mode="and">
+			<selectors>
+				<situation_gossip_general />
+				<isWoman />
+				<or>
+					<isLowClass />
+					<isMiddleClass />
+					<isUpperClass />
+				</or>
+			</selectors>
+			<operations>
+                <addRole name="GOSSIP_OBECNY_ZENA_1" />
+                <addRole name="GOSSIP_OBECNY_ZENA_2" />
+                <addRole name="FALLBACK_GOSSIP_OBECNY_ZENA_1" />
+                <addRole name="FALLBACK_GOSSIP_OBECNY_ZENA_2" />
+			</operations>
+		</rule>
+		<!-- BEGGAR -->
+		<rule name="roles_situation_gossip_beggar_man">
+			<selectors>
+				<isValidOpenworldNpc />
+				<isMan />
+				<hasSocialClass name="beggar" />
+				<or>
+					<hasVoice name="danBrown" />
+					<hasVoice name="samBarlien" />
+					<hasVoice name="chrisClarke" />
+					<hasVoice name="paulColtofeanu" />
+					<hasVoice name="peterHosking_generic" />
+					<hasVoice name="christopherDukes" />
+					<hasVoice name="danielOsgerby" />
+					<hasVoice name="martinBishop" />
+					<hasVoice name="jonathanMilshaw" />
+					<hasVoice name="paulDean" />
+					<hasVoice name="danCollins" />
+					<hasVoice name="alechMontyro" />
+					<hasVoice name="danielZappi" />
+					<hasVoice name="gabrielAndrews" />
+					<hasVoice name="brianCaspe" />
+					<hasVoice name="jamesBeaumont" />
+					<hasVoice name="joncieElmore" />
+					<hasVoice name="jamesNunn" />
+					<hasVoice name="rupertLazurus" />
+					<hasVoice name="johnComer" />
+					<hasVoice name="jackParr" />
+					<hasVoice name="steenAgro" />
+					<hasVoice name="ianChampion" />
+					<hasVoice name="scottYoung" />
+					<hasVoice name="madsHjulmand" />
+					<hasVoice name="miltonWelsh" />
+					<hasVoice name="juergenStraub" />
+				</or>
+			</selectors>
+			<operations>
+				<addRole name="GOSSIP_ZEBRACI_MUZ_1" />
+				<addRole name="GOSSIP_ZEBRACI_MUZ_2" />
+			</operations>
+		</rule>
+		<rule name="roles_situation_gossip_beggar_woman">
+			<selectors>
+				<isValidOpenworldNpc />
+				<isWoman />
+				<hasSocialClass name="beggar" />
+				<or>
+					<hasVoice name="abigailRice" />
+					<hasVoice name="beccaMcfadden" />
+					<hasVoice name="angelaAlsop" />
+					<hasVoice name="rozalieAndelova" />
+					<hasVoice name="marketaRychterova" />
+					<hasVoice name="rebeccaRisness" />
+					<hasVoice name="bethanRoseYoung" />
+					<hasVoice name="jadeBecker" />
+					<hasVoice name="jenniferPreston" />
+				</or>
+			</selectors>
+			<operations>
+				<addRole name="GOSSIP_ZEBRACI_ZENA_1" />
+			</operations>
+		</rule>
+		<!-- NOBLE -->
+		<rule name="roles_situation_gossip_noble_man">
+			<selectors>
+				<greetingAmongNpcs_nobles_general />
+				<isMan/>
+				<isNobleClass />
+				<hasNobleVoice />
+			</selectors>
+			<operations>
+                <addRole name="GOSSIP_OBECNY_UROZENY_1" />
+                <addRole name="GOSSIP_OBECNY_UROZENY_2" />
+			</operations>
+		</rule>
+
+		<rule name="roles_situation_gossip_noble_woman" mode="and">
+			<selectors>
+				<greetingAmongNpcs_nobles_general />
+				<isWoman/>
+				<isNobleClass />
+				<hasNobleVoice />
+			</selectors>
+			<operations>
+                <addRole name="GOSSIP_OBECNY_UROZENA_1" />
+			</operations>
+		</rule>
+		<!-- NOBLE WOMAN with COMMON WOMAN -->
+		<rule name="roles_situation_gossip_noble_woman" mode="and">
+			<selectors>
+				<greetingAmongNpcs_nobles_general />
+				<isWoman/>
+				<isNobleClass />
+				<hasFirstFemaleFallbackGroup />
+			</selectors>
+			<operations>
+                <addRole name="GOSSIP_UROZENA_SE_BAVI_S_COMMONERKOU_UROZENA" />
+			</operations>
+		</rule>
+		<rule name="roles_situation_gossip_common_woman" mode="and">
+			<selectors>
+				<situation_gossip_general />
+				<isWoman />
+				<or>
+					<isLowClass />
+					<isMiddleClass />
+					<isUpperClass />
+				</or>
+				<hasSecondFemaleFallbackGroup />
+			</selectors>
+			<operations>
+                <addRole name="GOSSIP_UROZENA_SE_BAVI_S_COMMONERKOU_COMMONERKA" />
+			</operations>
+		</rule>
+		<!-- BANDIT -->
+		<rule name="roles_situation_gossip_bandit">
+			<selectors>
+				<isBandit/>
+			</selectors>
+			<operations>
+				<addRole name="LAPKA_MLUVI_V_TABORE_MUZ" />
+				<addRole name="LAPKA_MLUVI_V_TABORE_1_MUZ" />
+				<addRole name="LAPKA_MLUVI_V_TABORE_2_MUZ" />
+			</operations>
+		</rule>
+		<!-- Zikmund tabor - uhri -->
+		<rule name="roles_situation_gossip_sigismundCamp_hungarians">
+			<selectors>
+				<isValidOpenworldNpc />
+				<gossip_zikmundovo_hungarianSoldiers />
+			</selectors>
+			<operations>
+				<addRole name="UHERSKY_VOJAK_1" />
+				<addRole name="UHERSKY_VOJAK_2" />
+			</operations>
+		</rule>
+		<!-- Zikmund tabor - kumani -->
+		<rule name="roles_situation_gossip_sigismundCamp_cumans">
+			<selectors>
+				<isValidOpenworldNpc />
+				<gossip_zikmundovo_cumans />
+				<or>
+				  <hasVoice name="M28" />
+				  <hasVoice name="M30" />
+				  <hasVoice name="M29" />
+				  <hasVoice name="M31" />
+				</or>
+			</selectors>
+			<operations>
+				<addRole name="GOSSIP_V_TABORE_KUMAN_1" />
+				<addRole name="GOSSIP_V_TABORE_KUMAN_2" />
+			</operations>
+		</rule>
+		<!-- Haviri -->
+		<rule name="roles_situation_gossip_miners">
+			<selectors>
+				<isValidOpenworldNpc />
+				<hasSocialClass name="miner" />
+				<hasGenericMinerVoice />
+			</selectors>
+			<operations>
+				<addRole name="GOSSIP_HAVIR_MUZ_1" />
+				<addRole name="GOSSIP_HAVIR_MUZ_2" />
+			</operations>
+		</rule>
+		<!-- Cumans KCD2-234376 -->
+		<rule name="roles_situation_gossip_cumans_camp">
+			<selectors>
+				<isValidOpenworldNpc />
+				<isCuman />		
+				<not>
+					<gossip_zikmundovo_cumans />
+				</not>
+			</selectors>
+			<operations>
+				<addRole name="LAPKA_MLUVI_V_TABORE_1_KUMAN" />
+				<addRole name="LAPKA_MLUVI_V_TABORE_2_KUMAN" />
+			</operations>
+		</rule>
+		<!-- SMELTER KCD2-213272 -->
+		<rule name="roles_situation_gossip_smelter_man">
+			<selectors>
+				<isValidOpenworldNpc />
+				<isMan />
+				<hasSocialClass name="smelter" />	
+				<hasGenericMinerVoice />
+			</selectors>
+			<operations>
+				<addRole name="GOSSIP_HUTNIK_MUZ_1" />
+				<addRole name="GOSSIP_HUTNIK_MUZ_2" />
+			</operations>
+		</rule>
+		<!-- SITUATION_MAJITELKALAZNI -->
+		<rule name="roles_situation_majitelkaLazni_owner" mode="and">
+			<selectors>
+				<hasSocialClass name="bathhouseAbbess" />
+				<isCivilian/>
+				<isValidOpenworldNpc />
+			</selectors>
+			<operations>
+				<addRole name="SITUACE_MAJITELKA_LAZNI" />
+			</operations>
+		</rule>
+        <rule name="roles_situation_majitelkaLazni_other_maid" mode="and">
+			<selectors>
+				<hasSocialClass name="bathhouseMaid" />
+				<isValidOpenworldNpc />
+			</selectors>
+			<operations>
+				<addRole name="SITUACE_LAZEBNICE" />
+			</operations>
+		</rule>
+        <rule name="roles_situation_majitelkaLazni_other_man" mode="and">
+			<selectors>
+				<isMan />
+				<situation_majitelkaLazni_customer_general />
+			</selectors>
+			<operations>
+				<addRole name="SITUACE_ZAKAZNIK_LAZNI" />
+			</operations>
+		</rule>
+
+        <!-- /SITUATION_MAJITELKALAZNI -->
+
+		<!-- SITUATION_GATETOLL -->
+		<rule name="roles_situation_gateToll_passerBy_man" mode="and">
+			<selectors>
+				<isMan />
+				<situation_gateToll_passerby_general />
+			</selectors>
+			<operations>
+				<addRole name="SITUACE_MUZ_NA_BRANE" />
+			</operations>
+		</rule>	
+		<rule name="roles_situation_gateToll_passerBy_woman" mode="and">
+			<selectors>
+				<isWoman />
+				<situation_gateToll_passerby_general />
+			</selectors>
+			<operations>
+				<addRole name="SITUACE_ZENA_NA_BRANE" />
+			</operations>
+		</rule>	
+		<rule name="roles_situation_gateToll_gateGuard">
+			<!-- guards (not bailiffs, not huntsmen) -->
+			<selectors>
+				<isGuard />
+				<not>
+					<hasName name="kkut_commander" />
+				</not>
+			</selectors>
+			<operations>
+				<addRole name="SITUACE_STRAZ_NA_BRANE" />
+			</operations>
+		</rule>	
+		<!-- /SITUATION_GATETOLL -->
+
+		<!-- SITUATION_STORYTELLER -->
+		<rule name="roles_situation_storyteller_talker" mode="and">
+			<selectors>
+				<situation_storyTeller_teller_general />
+				<isMan />
+			</selectors>
+			<operations>
+				<addRole name="SITUACE_VYPRAVEC_VYPRAVEC" />
+			</operations>
+		</rule>	
+		<rule name="roles_situation_storyteller_listener_woman" mode="and">
+			<selectors>
+				<situation_storyTeller_audience_general />
+				<isWoman />
+			</selectors>
+			<operations>
+				<addRole name="SITUACE_VYPRAVEC_REAKCE_ZENA" />
+			</operations>
+		</rule>	
+		<rule name="roles_situation_storyteller_listener_man" mode="and">
+			<selectors>
+				<situation_storyTeller_audience_general />
+				<isMan />
+				<isPublicFriend/>
+			</selectors>
+			<operations>
+				<addRole name="SITUACE_VYPRAVEC_REAKCE_MUZ" />
+			</operations>
+		</rule>	
+		<!-- /SITUATION_STORYTELLER -->
+
+		<!-- SITUATION_LOSTITEM -->
+		<rule name="roles_situation_lostitem_man" mode="and">
+			<selectors>
+				<situation_lostItem_general />
+				<isMan />
+			</selectors>
+			<operations>
+				<addRole name="ZAZNAMENAL_ZTRACENOU_VEC_MUZ" />
+				<addRole name="NASEL_ZTRACENOU_VEC_MUZ" />
+				<addRole name="NENASEL_ZTRACENOU_VEC_MUZ" />
+			</operations>
+		</rule>	
+		<rule name="roles_situation_lostitem_woman" mode="and">
+			<selectors>
+				<situation_lostItem_general />
+				<isWoman />
+			</selectors>
+			<operations>
+				<addRole name="ZAZNAMENALA_ZTRACENOU_VEC_ZENA" />
+				<addRole name="NASLA_ZTRACENOU_VEC_ZENA" />
+				<addRole name="NENASLA_ZTRACENOU_VEC_ZENA" />
+			</operations>
+		</rule>	
+		<!-- /SITUATION_LOSTITEM -->
+
+		<!-- SITUATION_FRIENDLYFIGHT_AUDIENCE -->
+		<rule name="roles_situation_friendlyFight_audience_man" mode="and">
+			<selectors>
+				<situation_friendlyFight_audience_general />
+				<isMan />
+			</selectors>
+			<operations>
+				<addRole name="TRENINKOVY_DIVAK_MUZ" />
+			</operations>
+		</rule>	
+		<rule name="roles_situation_friendlyFight_audience_woman" mode="and">
+			<selectors>
+				<situation_friendlyFight_audience_general />
+				<isWoman />
+			</selectors>
+			<operations>
+				<addRole name="TRENINKOVY_SOUBOJ_DIVAK_ZENA" />
+			</operations>
+		</rule>	
+		<!-- /SITUATION_FRIENDLYFIGHT_AUDIENCE -->
+
+		<!-- SITUATION_PILLORY-->
+		<rule name="roles_situation_pillory_audience_woman" mode="and">
+			<selectors>
+				<situation_pillory_audience_general />
+				<isWoman />
+			</selectors>
+			<operations>
+				<addRole name="SITUACE_PRANYR_REAKCE_NEGATIVNI_ZENA" />
+				<addRole name="SITUACE_PRANYR_REAKCE_POZITIVNI_ZENA" />
+			</operations>
+		</rule>	
+
+		<rule name="roles_situation_pillory_audience_man" mode="and">
+			<selectors>
+				<situation_pillory_audience_general />
+				<isMan />
+			</selectors>
+			<operations>
+				<addRole name="SITUACE_PRANYR_REAKCE_NEGATIVNI_MUZ" />
+				<addRole name="SITUACE_PRANYR_REAKCE_POZITIVNI_MUZ" />
+			</operations>
+		</rule>	
+		<!-- /SITUATION_PILLORY-->
+
+		<!-- SITUATION_EVENT_HLASATEL -->
+		<rule name="roles_situation_event_hlasatel_audience_woman" mode="and">
+			<selectors>
+				<situation_event_hlasatel_audience_general />
+				<isWoman />
+			</selectors>
+			<operations>
+				<addRole name="EVENT_HLASATEL_POSLUCHAC_SOUHLASI_ZENA" />
+				<addRole name="EVENT_HLASATEL_POSLUCHAC_NESOUHLASI_ZENA" />
+			</operations>
+		</rule>	
+
+		<rule name="roles_situation_event_hlasatel_audience_man" mode="and">
+			<selectors>
+				<situation_event_hlasatel_audience_general />
+				<isMan />
+			</selectors>
+			<operations>				
+				<addRole name="EVENT_HLASATEL_POSLUCHAC_SOUHLASI_MUZ" />
+				<addRole name="EVENT_HLASATEL_POSLUCHAC_NESOUHLASI_MUZ" />
+			</operations>
+		</rule>	
+		<!-- /SITUATION_EVENT_HLASATEL-->
+
+		<!-- SITUATION_EVENT_RVACKA -->
+		<rule name="roles_situation_event_rvacka_audience_woman" mode="and">
+			<selectors>
+				<situation_event_rvacka_audience_general />
+				<isWoman />
+			</selectors>
+			<operations>
+				<addRole name="EVENT_RVACKA_KOLEMJDOUCI_ZENA" />
+			</operations>
+		</rule>	
+
+		<rule name="roles_situation_event_rvacka_audience_man" mode="and">
+			<selectors>
+				<situation_event_rvacka_audience_general />
+				<isMan />
+			</selectors>
+			<operations>
+				<addRole name="EVENT_RVACKA_KOLEMJDOUCI_MUZ" />
+			</operations>
+		</rule>	
+		<!-- /SITUATION_EVENT_RVACKA -->				
+
+		<!-- Situation beggar -->
+		<rule name="roles_situation_beggar_man">
+			<selectors>
+				<isValidOpenworldNpc />
+				<or>
+					<and>
+						<hasSocialClass name="beggar" />
+						<isMan />
+					</and>
+					<hasFaction name="kutnohorsko_settlements_kutnaHora_clergy_beggingMonks" />
+				</or>
+				<!-- following voices either already recorded something or are represented on more than 1 souls -->
+				<or>
+					<hasVoice name="brianCaspe" />
+					<hasVoice name="danBrown" />
+					<hasVoice name="gabrielAndrews" />
+					<hasVoice name="chrisClarke" />
+					<hasVoice name="paulDean" />
+					<hasVoice name="samBarlien" />
+					<hasVoice name="peterHosking_generic" />
+					<hasVoice name="danCollins" />
+					<hasVoice name="jamesBeaumont" />
+					<hasVoice name="alechMontyro" />
+					<hasVoice name="danielOsgerby" />
+					<hasVoice name="danielZappi" />
+					<hasVoice name="jonathanMilshaw" />
+					<hasVoice name="martinBishop" />
+					<hasVoice name="scottYoung" />
+					<hasVoice name="johnComer" />
+					<hasVoice name="joncieElmore" />
+					<hasVoice name="jamesNunn" />
+					<hasVoice name="rupertLazurus" />
+					<hasVoice name="steenAgro" />
+				</or>
+			</selectors>
+			<operations>
+				<addRole name="ZEBRAK_DEKUJE_ZA_ALMUZNU_MUZ" />
+				<addRole name="ZEBRAK_ZEBRA_O_ALMUZNU_MUZ" />
+			</operations>
+		</rule>
+
+		<rule name="roles_situation_beggar_woman">
+			<selectors>
+				<isValidOpenworldNpc />
+				<hasSocialClass name="beggar" />
+				<isWoman />
+				<!-- following voices already recorded something.-->
+				<or>
+					<hasVoice name="abigailRice" />
+					<hasVoice name="beccaMcfadden" />
+					<hasVoice name="angelaAlsop" />
+					<hasVoice name="rebeccaRisness" />
+					<hasVoice name="bethanRoseYoung" />
+					<hasVoice name="jadeBecker" />
+					<hasVoice name="jenniferPreston" />
+				</or>
+			</selectors>
+			<operations>
+				<addRole name="ZEBRAK_DEKUJE_ZA_ALMUZNU_ZENA" />
+				<addRole name="ZEBRACKA_ZEBRA_O_ALMUZNU_ZENA" />
+			</operations>
+		</rule>
+
+		<rule name="roles_situation_beggarGiver_man" Mode="and">
+			<selectors>
+				<isValidOpenworldNpc />
+				<isMan />
+				<not>
+					<or>
+						<hasSocialClass name="beggar" />
+						<hasSocialClass name="monk" />		
+						<isSoldier />
+						<isHuntsman />
+					</or>
+				</not>
+			</selectors>
+			<operations>
+				<addRole name="MECENAS_PRIJIMA_DIKY_ZA_ALMUZNU_MUZ" />
+			</operations>
+		</rule>
+		<rule name="roles_situation_beggarGiver_woman" Mode="and">
+			<selectors>
+				<isValidOpenworldNpc />
+				<isWoman />
+				<not>
+					<or>
+						<hasSocialClass name="beggar" />
+						<hasSocialClass name="monk" />		
+						<isSoldier />
+						<isHuntsman />
+					</or>
+				</not>
+			</selectors>
+		
+			<operations>
+				<addRole name="MECENAS_PRIJIMA_DIKY_ZA_ALMUZNU_ZENA" />
+			</operations>
+		</rule>
+		<!-- /Situation beggar -->
+
+		<!-- OW gossip Trosky -->
+		<rule name="roles_situation_gossip_troskyBergov">
+			<selectors>
+					<hasName name="ttro_bergov"/>
+			</selectors>
+			<operations>
+				<addRole name="OTA_Z_BERGOVA_GOSSIP" />
+			</operations>
+		</rule>
+		<rule name="roles_situation_gossip_troskyNikodem">
+			<selectors>
+					<hasName name="ttro_man_4"/>
+			</selectors>
+			<operations>
+				<addRole name="FARAR_NIKODEM_TROSKY_GOSSIP" />
+			</operations>
+		</rule>
+		<rule name="roles_situation_gossip_troskyKomori">
+			<selectors>
+					<hasName name="ttro_komori"/>
+			</selectors>
+			<operations>
+				<addRole name="KOMORI_TROSKY_GOSSIP" />
+			</operations>
+		</rule>
+		<rule name="roles_situation_gossip_troskyKaterina">
+			<selectors>
+					<hasName name="ttro_katerina"/>
+			</selectors>
+			<operations>
+				<addRole name="KATERINA_GOSSIP" />
+			</operations>
+		</rule>
+
+		<!-- OW gossip Certovka -->
+		<rule name="roles_situation_gossip_certovkaSam">
+			<selectors>
+					<hasName name="kkut_samuel"/>
+			</selectors>
+			<operations>
+				<addRole name="SAMUEL_GOSSIP" />
+			</operations>
+		</rule>
+		<rule name="roles_situation_gossip_certovkaPtacek">
+			<selectors>
+					<hasName name="tkop_ptacek"/>
+			</selectors>
+			<operations>
+				<addRole name="PTACEK_GOSSIP" />
+			</operations>
+		</rule>
+		<rule name="roles_situation_gossip_certovkaKomar">
+			<selectors>
+					<hasName name="kpri_komar"/>
+			</selectors>
+			<operations>
+				<addRole name="KOMAR_GOSSIP" />
+			</operations>
+		</rule>
+		<rule name="roles_situation_gossip_certovkaHans">
+			<selectors>
+					<hasName name="kmis_hansZUher"/>
+			</selectors>
+			<operations>
+				<addRole name="HANS_UHER_GOSSIP" />
+			</operations>
+		</rule>
+		<rule name="roles_situation_gossip_certovkaBrabant">
+			<selectors>
+					<hasName name="krat_baronBrabant"/>
+			</selectors>
+			<operations>
+				<addRole name="BRABANT_GOSSIP" />
+			</operations>
+		</rule>
+		<rule name="roles_situation_gossip_certovkaUrso">
+			<selectors>
+					<hasName name="kcer_brabantSoldier_1"/>
+			</selectors>
+			<operations>
+				<addRole name="URSO_VON_MORGENSTERN_GOSSIP" />
+			</operations>
+		</rule>
+		<rule name="roles_situation_gossip_certovkaMusa">
+			<selectors>
+					<hasName name="kzik_musa"/>
+			</selectors>
+			<operations>
+				<addRole name="MUSA_GOSSIP" />
+			</operations>
+		</rule>
+		<rule name="roles_situation_gossip_certovkaCert">
+			<selectors>
+					<hasName name="kcer_suchyCert"/>
+			</selectors>
+			<operations>
+				<addRole name="SUCHY_CERT_GOSSIP" />
+			</operations>
+		</rule>
+		<rule name="roles_situation_gossip_certovkaZizka">
+			<selectors>
+					<hasName name="tneb_zizka"/>
+			</selectors>
+			<operations>
+				<addRole name="ZIZKA_GOSSIP" />
+			</operations>
+		</rule>
+		<rule name="roles_situation_gossip_certovkaHospodsky">
+			<selectors>
+					<hasName name="kcer_innkeeper"/>
+			</selectors>
+			<operations>
+				<addRole name="HOSPODSKY_CERTOVKA_GOSSIP" />
+			</operations>
+		</rule>
+		<rule name="roles_situation_gossip_certovkaBohuta">
+			<selectors>
+					<hasName name="tneb_bohuta"/>
+			</selectors>
+			<operations>
+				<addRole name="BOHUTA_GOSSIP" />
+			</operations>
+		</rule>
+		
+		<rule name="roles_situation_gossip_certovkaMikes">
+			<selectors>
+					<hasName name="tneb_mikes"/>
+			</selectors>
+			<operations>
+				<addRole name="MIKES_CERTOVKA" />
+			</operations>
+		</rule>
+		
+		<rule name="roles_situation_gossip_certovkaKozlik">
+			<selectors>
+					<hasName name="tneb_kozlik"/>
+			</selectors>
+			<operations>
+				<addRole name="KOZLIK_CERTOVKA" />
+			</operations>
+		</rule>
+		
+
+		<!-- OW gossip Ruthardka -->
+		<rule name="roles_situation_gossip_ruthardkaRoza">
+			<selectors>
+					<hasName name="kkut_rozaRuthard"/>
+			</selectors>
+			<operations>
+				<addRole name="ROZA_GOSSIP" />
+			</operations>
+		</rule>
+    </rules>
+</storm>

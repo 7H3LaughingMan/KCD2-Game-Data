@@ -1,0 +1,46 @@
+<MovementTransitions>
+	<General minDistAfterDirectionChange = "2.5"/>
+
+	<Transitions>
+		<!--Relaxed idle to move / move to idle -->
+		<Start animGraphSignal="IdleToMove"            stances="normal,injured" pseudoSpeed="walk"    minDist = "1.0" travelAngle=  "0" travelAngleTolerance="360" targetTravelAngle="0" targetTravelAngleTolerance="50" turnExitPct="0.9" />
+		<Start animGraphSignal="IdleToMove"            stances="normal,injured" pseudoSpeed="run"     minDist = "1.4" travelAngle=  "0" travelAngleTolerance="360" targetTravelAngle="0" targetTravelAngleTolerance="50" turnExitPct="0.9" />
+		<Start animGraphSignal="IdleToMove"            stances="normal" 		pseudoSpeed="sprint"  minDist = "2" travelAngle=  "0" travelAngleTolerance="360" targetTravelAngle="0" targetTravelAngleTolerance="50" turnExitPct="0.9" />
+				
+		<!--Walk to idle -->
+		<Stop  animGraphSignal="MoveToIdle"            stances="normal,injured" pseudoSpeed="walk"   minDist = "0.9" maxDist = "1.2" prepareDist = "2.0" travelAngle=  "0" travelAngleTolerance="5" prepareTravelAngleTolerance="45"  minAnimSegmentNormalizedTime="0.0" maxAnimSegmentNormalizedTime="0.25" />
+		<Stop  animGraphSignal="MoveToIdle"            stances="normal,injured" pseudoSpeed="walk"   minDist = "0.6" maxDist = "0.8" prepareDist = "2.0" travelAngle=  "0" travelAngleTolerance="5" prepareTravelAngleTolerance="45"  minAnimSegmentNormalizedTime="0.25" maxAnimSegmentNormalizedTime="0.5" />
+		<Stop  animGraphSignal="MoveToIdle"            stances="normal,injured" pseudoSpeed="walk"   tag="long"  minDist = "1.8" maxDist = "2.1" prepareDist = "2.1" travelAngle=  "0" travelAngleTolerance="5" prepareTravelAngleTolerance="45" minAnimSegmentNormalizedTime="0.5" maxAnimSegmentNormalizedTime="0.75" />
+		<Stop  animGraphSignal="MoveToIdle"            stances="normal,injured" pseudoSpeed="walk"   tag="long"  minDist = "1.3" maxDist = "1.6" prepareDist = "1.6" travelAngle=  "0" travelAngleTolerance="5" prepareTravelAngleTolerance="45" minAnimSegmentNormalizedTime="0.75" maxAnimSegmentNormalizedTime="1.0" />
+
+		<!--Run to idle -->
+		<Stop  animGraphSignal="MoveToIdle"            stances="normal,injured" pseudoSpeed="run"    minDist = "0.6" maxDist = "1.0" prepareDist = "1.5" travelAngle=  "0" travelAngleTolerance="5" prepareTravelAngleTolerance="45"  minAnimSegmentNormalizedTime="0.0" maxAnimSegmentNormalizedTime="0.25" />
+		<Stop  animGraphSignal="MoveToIdle"            stances="normal,injured" pseudoSpeed="run"    minDist = "0.6" maxDist = "1.0" prepareDist = "1.5" travelAngle=  "0" travelAngleTolerance="5" prepareTravelAngleTolerance="45"  minAnimSegmentNormalizedTime="0.25" maxAnimSegmentNormalizedTime="0.5" />
+		<Stop  animGraphSignal="MoveToIdle"            stances="normal,injured" pseudoSpeed="run"    tag="long"  minDist = "1.9" maxDist = "2.0" prepareDist = "3.0" travelAngle=  "0" travelAngleTolerance="5" prepareTravelAngleTolerance="45" minAnimSegmentNormalizedTime="0.5" maxAnimSegmentNormalizedTime="0.75" />
+		<Stop  animGraphSignal="MoveToIdle"            stances="normal,injured" pseudoSpeed="run"    tag="long"  minDist = "1.2" maxDist = "1.5" prepareDist = "3.0" travelAngle=  "0" travelAngleTolerance="5" prepareTravelAngleTolerance="45" minAnimSegmentNormalizedTime="0.75" maxAnimSegmentNormalizedTime="1.0" /> 
+		
+		<!--Sprint to idle -->
+		<Stop  animGraphSignal="MoveToIdle"            stance="normal" pseudoSpeed="sprint"    minDist = "1.0" maxDist = "1.6" prepareDist = "2.0" travelAngle=  "0" travelAngleTolerance="5" prepareTravelAngleTolerance="45"  minAnimSegmentNormalizedTime="0.0" maxAnimSegmentNormalizedTime="0.25" />
+		<Stop  animGraphSignal="MoveToIdle"            stance="normal" pseudoSpeed="sprint"    minDist = "1.0" maxDist = "1.6" prepareDist = "2.0" travelAngle=  "0" travelAngleTolerance="5" prepareTravelAngleTolerance="45"  minAnimSegmentNormalizedTime="0.25" maxAnimSegmentNormalizedTime="0.5" />
+		<Stop  animGraphSignal="MoveToIdle"            stance="normal" pseudoSpeed="sprint"    tag="long"  minDist = "2.7" maxDist = "3.4" prepareDist = "3.5" travelAngle=  "0" travelAngleTolerance="5" prepareTravelAngleTolerance="45" minAnimSegmentNormalizedTime="0.5" maxAnimSegmentNormalizedTime="0.75" />
+		<Stop  animGraphSignal="MoveToIdle"            stance="normal" pseudoSpeed="sprint"    tag="long"  minDist = "2.1" maxDist = "2.9" prepareDist = "3.0" travelAngle=  "0" travelAngleTolerance="5" prepareTravelAngleTolerance="45" minAnimSegmentNormalizedTime="0.75" maxAnimSegmentNormalizedTime="1.0" /> 
+	
+		<!--Relaxed Juke -->
+		<DirectionChange animGraphSignal="Juke90Left"	stance="normal" pseudoSpeed="walk"     minDist = "3.00" maxDist = "3.10" prepareDist = "4.00" travelAngle=  "0"   travelAngleTolerance="20" prepareTravelAngleTolerance="45"  jukeAngle="+90"	jukeAngleTolerance="10"  targetTravelAngle="+90" targetTravelAngleTolerance="20"/>	
+		<DirectionChange animGraphSignal="Juke90Right"	stance="normal" pseudoSpeed="walk"     minDist = "3.00" maxDist = "3.10" prepareDist = "4.00" travelAngle=  "0"   travelAngleTolerance="20" prepareTravelAngleTolerance="45"  jukeAngle="-90"	jukeAngleTolerance="10"  targetTravelAngle="-90" targetTravelAngleTolerance="20"/>	
+		<DirectionChange animGraphSignal="Juke180Left"	stance="normal" pseudoSpeed="walk"     minDist = "3.00" maxDist = "3.10" prepareDist = "4.00" travelAngle=  "0"   travelAngleTolerance="20" prepareTravelAngleTolerance="45"  jukeAngle="+180"	jukeAngleTolerance="10"  targetTravelAngle="+180" targetTravelAngleTolerance="20"/>	
+		<DirectionChange animGraphSignal="Juke180Right"	stance="normal" pseudoSpeed="walk"     minDist = "3.00" maxDist = "3.10" prepareDist = "4.00" travelAngle=  "0"   travelAngleTolerance="20" prepareTravelAngleTolerance="45"  jukeAngle="-180"	jukeAngleTolerance="10"  targetTravelAngle="-180" targetTravelAngleTolerance="20"/>	
+
+		<DirectionChange animGraphSignal="Juke90Left"	stance="normal" pseudoSpeed="run"     minDist = "3.00" maxDist = "3.10" prepareDist = "4.00" travelAngle=  "0"   travelAngleTolerance="20" prepareTravelAngleTolerance="45"  jukeAngle="+90"	jukeAngleTolerance="10"  targetTravelAngle="+90" targetTravelAngleTolerance="20"/>	
+		<DirectionChange animGraphSignal="Juke90Right"	stance="normal" pseudoSpeed="run"     minDist = "3.00" maxDist = "3.10" prepareDist = "4.00" travelAngle=  "0"   travelAngleTolerance="20" prepareTravelAngleTolerance="45"  jukeAngle="-90"	jukeAngleTolerance="10"  targetTravelAngle="-90" targetTravelAngleTolerance="20"/>	
+		<DirectionChange animGraphSignal="Juke180Left"	stance="normal" pseudoSpeed="run"     minDist = "3.00" maxDist = "3.10" prepareDist = "4.00" travelAngle=  "0"   travelAngleTolerance="20" prepareTravelAngleTolerance="45"  jukeAngle="+180"	jukeAngleTolerance="10"  targetTravelAngle="+180" targetTravelAngleTolerance="20"/>	
+		<DirectionChange animGraphSignal="Juke180Right"	stance="normal" pseudoSpeed="run"     minDist = "3.00" maxDist = "3.10" prepareDist = "4.00" travelAngle=  "0"   travelAngleTolerance="20" prepareTravelAngleTolerance="45"  jukeAngle="-180"	jukeAngleTolerance="10"  targetTravelAngle="-180" targetTravelAngleTolerance="20"/>	
+
+	<!--Combat idle to move / move to idle ****TEST****  ****TEST****  ****TEST****  ****TEST****  ****TEST****  ****TEST****  ****TEST**** COMBAT MOVEMENT DOESN'T SUPPORT THIS YET -->
+		<Start animGraphSignal="CombatIdleToMove"       stance="combat" pseudoSpeed="walk"    minDist = "0.10" travelAngle=  "0" travelAngleTolerance="360" targetTravelAngle="0" targetTravelAngleTolerance="50" turnExitPct="0.9" />
+		<Start animGraphSignal="CombatIdleToMove"       stance="combat" pseudoSpeed="run"     minDist = "0.10" travelAngle=  "0" travelAngleTolerance="360" targetTravelAngle="0" targetTravelAngleTolerance="50" turnExitPct="0.9" />
+		
+		<Stop  animGraphSignal="CombatMoveToIdle"       stance="combat" pseudoSpeed="walk"   minDist = "1.3" maxDist = "1.4" prepareDist = "1.50" travelAngle=  "0" travelAngleTolerance="5" prepareTravelAngleTolerance="45" />
+		<Stop  animGraphSignal="CombatMoveToIdle"       stance="combat" pseudoSpeed="run"    minDist = "3.0" maxDist = "3.0" prepareDist = "3.25" travelAngle=  "0" travelAngleTolerance="5" prepareTravelAngleTolerance="45" />
+		</Transitions>
+</MovementTransitions>

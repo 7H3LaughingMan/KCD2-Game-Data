@@ -1,0 +1,45 @@
+﻿<?xml version="1.0" encoding="us-ascii"?>
+<Prefab Id="61a55eea-fb87-46db-946f-a5ecea8854e5">
+	<Objects>
+		<Object EntityClass="SchedulerHub" Id="048762c7-68ed-4609-a608-aac7f00be9a8" Name="beTied_hub" Pos="0,0,1" Type="Entity">
+			<EntityLinks>
+				<Link DebugTargetName="so_tiedSpot" Name="_,!instant,beTied" TargetId="dac229d0-5e02-4985-9108-dfaf35c5d642" />
+			</EntityLinks>
+		</Object>
+		<Object EntityClass="ActionTrigger" Id="6321fe54-b759-4f20-a4d4-8e5320d1adac" Name="untie_trigger" Pos="0,-0.2257385,0.2010403" Rotate="4.371139e-08,0,0,1" Scale="0.25,0.25,0.25" Type="Entity">
+			<Properties bQuestSystemTrigger="1">
+				<Click bAllowTorch="1" bDelayedReportUse="1" bSaveLock="1" esActionType="JoinedAnimation" fActiveDistance="1.1" sAction="TiedUpOut_Master" sAnimationResourceOverride="untying" sTriggerPointId="untyingFinished" UseMessage="@generic_a_rozriznout_pouta_KiJ3">
+					<Angle fAngleTolerance="90" />
+					<Synchro sKeyContextLinkName="syncHost" sKeyName="tiedSpot_untying" sTimeout="3s" />
+				</Click>
+			</Properties>
+			<EntityLinks>
+				<Link DebugTargetName="so_tiedSpot" TargetId="dac229d0-5e02-4985-9108-dfaf35c5d642" />
+			</EntityLinks>
+		</Object>
+		<Object EntityClass="PrefabPort" Id="73be2751-e9e2-445f-ad88-6bd017ffdf7a" Name="_beTied_port" Pos="0,-0.5,1.8" Type="Entity">
+			<EntityLinks>
+				<Link DebugTargetName="beTied_hub" TargetId="048762c7-68ed-4609-a608-aac7f00be9a8" />
+			</EntityLinks>
+		</Object>
+		<Object EntityClass="PrefabPort" Id="92b6ed82-b2b8-437c-8d7a-f044b8c82429" Name="tiedSpot_trigger" Pos="0.25,-0.25,1.8" Type="Entity">
+			<EntityLinks>
+				<Link DebugTargetName="untie_trigger" TargetId="6321fe54-b759-4f20-a4d4-8e5320d1adac" />
+			</EntityLinks>
+		</Object>
+		<Object EntityClass="GhostDummy" Id="a41eef10-00a8-4b21-a0a9-6837f3da947e" Name="beTied_dummy" Pos="0.9181366,0.1103134,0.1768932" Rotate="0.6532815,0.270598,-0.6532815,-0.2705981" Type="Entity">
+			<Properties object_Model="objects/characters/humans/male/body/male_body_test.cgf" />
+		</Object>
+		<Object EntityClass="PrefabPort" Id="acb02574-247c-49f9-827e-cf1f03da19ea" Name="tiedSpot_smartObject" Pos="-0.25,-0.25,1.8" Type="Entity">
+			<EntityLinks>
+				<Link DebugTargetName="so_tiedSpot" TargetId="dac229d0-5e02-4985-9108-dfaf35c5d642" />
+			</EntityLinks>
+		</Object>
+		<Object EntityClass="SmartObjectHolder" Id="dac229d0-5e02-4985-9108-dfaf35c5d642" Name="so_tiedSpot" Type="Entity">
+			<Properties guidSmartObjectType="433e3c99-6913-6280-eb28-f7f600545aaf" soclass_SmartObjectHelpers="tiedSpot_lying" />
+			<EntityLinks>
+				<Link DebugTargetName="so_tiedSpot" Name="syncHost" TargetId="dac229d0-5e02-4985-9108-dfaf35c5d642" />
+			</EntityLinks>
+		</Object>
+	</Objects>
+</Prefab>

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="us-ascii"?>
+<Prefab Id="4149afb6-4222-4a7e-80fa-2856aa9acce8">
+	<Tags>
+		<Tag>butcher</Tag>
+	</Tags>
+	<Objects>
+		<Object EntityClass="FoodProcessingTrigger" Id="50f09026-3799-416d-bd94-38aeac5f59a9" Name="SequenceTrigger5" Pos="-0.0028,-0.4544,0.648" Rotate="-4.371139e-08,-0,0,1" Scale="0.45,0.45,0.45" Type="Entity">
+			<Properties>
+				<Click fZToleration="2" InventoryMultiFilter="food.meat.raw|food.meat.dryable|food.dairy.dryable" UseMessage="@ui_use_smokehouse">
+					<Angle fAngleTolerance="90" />
+				</Click>
+				<Script Misc="foodProcessingType:smoking" />
+			</Properties>
+			<EntityLinks>
+				<Link DebugTargetName="smartObject" TargetId="ec2df158-9c60-44c5-8806-051900c3d2ed" />
+			</EntityLinks>
+		</Object>
+		<Object EntityClass="PrefabPort" Id="923cc498-2b17-434d-9ab6-4a987e2fd543" Name="port_smokeHouseEntity" Pos="0,0,3.624485" Type="Entity">
+			<EntityLinks>
+				<Link DebugTargetName="smartObject" TargetId="ec2df158-9c60-44c5-8806-051900c3d2ed" />
+			</EntityLinks>
+		</Object>
+		<Object EntityClass="AnimObject" Id="ba580ba7-a73f-4b46-841b-7135d5544999" Name="AnimObject1" Type="Entity">
+			<Properties bInteractiveCollisionClass="1" object_Model="objects/characters/assets/smokehouses/smokehouse_a.chr" />
+		</Object>
+		<Object EntityClass="SmartObjectHolder" Id="ec2df158-9c60-44c5-8806-051900c3d2ed" Name="smartObject" Type="Entity">
+			<Properties guidSmartObjectType="13611b23-88fe-4ff1-98e5-a6f7135be645" soclass_SmartObjectHelpers="butcherSmokehouse">
+				<Script Misc="isSmokehouse:true" />
+			</Properties>
+			<EntityLinks>
+				<Link DebugTargetName="SequenceTrigger5" TargetId="50f09026-3799-416d-bd94-38aeac5f59a9" />
+			</EntityLinks>
+		</Object>
+		<Object EntityClass="ParticleEffect" Id="fff029a7-88e7-46da-8bed-100104cafb7b" Name="ParticleEffect2" Pos="0.06422806,-0.4611588,1.611989" Rotate="0.7071067,0.7071068,0,0" Type="ParticleEntity">
+			<Properties ParticleEffect="WH_Particels.smokes.smokehouse" />
+		</Object>
+	</Objects>
+</Prefab>

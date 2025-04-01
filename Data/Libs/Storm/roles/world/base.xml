@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+<!DOCTYPE storm SYSTEM "storm.dtd">
+<storm>
+	<rules>
+		<rule name="npcBaseMetarole">
+			<selectors>
+				<isNotPlayer />
+			</selectors>
+			<operations>
+				<addMetarole name="NPC" />
+				<addMetarole name="NPC_IN_ENCLOSED_QUEST" />
+			</operations>
+		</rule>
+
+		<rule name="speakTriggerModule">
+			<selectors>
+				<isNotPlayer/>
+			</selectors>
+			<operations>
+				<addRole name="SPEAKTRIGGER_SPEAKER_SCRIPT"/>
+				<addRole name="SPEAKTRIGGER_SPEAKER_IN_ENCLOSED_QUEST_SCRIPT"/>
+			</operations>
+		</rule>
+
+		<rule name="roleForGeneratingDialogueAnimationsPreviews">
+			<selectors>
+				<or>
+					<hasName name="tbuk_zibrid" />
+					<hasName name="tvez_pavlena" />
+				</or>
+			</selectors>
+			<operations>
+				<addRole name="ANIMATION_PREVIEW_GENERATOR"/>
+			</operations>
+		</rule>
+	</rules>
+</storm>

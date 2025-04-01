@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="us-ascii"?>
+<Prefab Id="88b34ee7-c620-4ba0-a752-b1681e893954">
+	<Tags>
+		<Tag>camp</Tag>
+		<Tag>camp_important</Tag>
+	</Tags>
+	<Objects>
+		<Object EntityClass="SchedulerHub" Id="1553151d-f8b5-4954-bdde-2551e6fd35a5" Name="Hub" Pos="0.05239105,0.9883652,0.9868469" Type="Entity">
+			<EntityLinks>
+				<Link DebugTargetName="smartObject" Name="_|sleeper,use" TargetId="aab95d98-4cd0-4815-986e-290f98b946c9" />
+			</EntityLinks>
+		</Object>
+		<Object Id="2537248e-e206-4645-a5e2-cda3513d4616" Name="tentBrush" Pos="0.197998,0.8693848,-0.0007171631" Prefab="Objects/manmade/structures/living/tents/tent_small_forest_a.cgf" RainOccluder="1" RndFlags="180060000408" Rotate="0.0126799,7.50822e-10,-8.95249e-08,0.9999196" Type="Brush">
+			<CollisionFiltering>
+				<Type gcc_ignore_z_correction="1" gcc_interactive="1" />
+				<Ignore gcc_interactive="1" />
+			</CollisionFiltering>
+		</Object>
+		<Object EntityClass="GhostDummy" Id="2dabd6ca-e6a9-4ef1-94fe-df46faffff93" Name="pose_bed_low1" Pos="0.23596,1.289658,0" Rotate="0.7071068,0,0,-0.7071068" Type="Entity">
+			<Properties object_Model="objects/intermediates/poses/pose_bed_low.cgf" />
+		</Object>
+		<Object EntityClass="PrefabPort" Id="33ba9611-f617-46c1-b5ad-82cdddff2f87" Name="port_use" Pos="0.1266937,0.9883652,1.829536" Type="Entity">
+			<EntityLinks>
+				<Link DebugTargetName="Hub" TargetId="1553151d-f8b5-4954-bdde-2551e6fd35a5" />
+			</EntityLinks>
+		</Object>
+		<Object EntityClass="ActionTrigger" Id="380f03df-0cdd-4006-a0bf-921e73f05854" Name="ActionTrigger12" Pos="0.23596,1.289658,0" Scale="0.39,0.39,0.39" Type="Entity">
+			<Properties InteractorPriorityOverride="1">
+				<Click bAllowNoOwner="0" bCheckOwner="1" sAction="lying" UseMessage="@ui_hud_sleep_and_save" UseNotOwnerMessage="@ui_hud_sleep" />
+			</Properties>
+			<EntityLinks>
+				<Link DebugTargetName="smartObject" TargetId="aab95d98-4cd0-4815-986e-290f98b946c9" />
+			</EntityLinks>
+		</Object>
+		<Object EntityClass="PrefabPort" Id="9b04c29e-7b93-4fee-8bf5-05a740c06e19" Name="outPort_stash" Pos="-1.166451,0.9883728,1.829536" Type="Entity">
+			<Properties esPrefabPort_Type="Out" />
+		</Object>
+		<Object EntityClass="PrefabPort" Id="a2678d83-9cf9-476e-9899-5a8c83147ccc" Name="port_bedEntity" Pos="-0.4133072,0.9883728,1.829536" Type="Entity">
+			<EntityLinks>
+				<Link DebugTargetName="smartObject" TargetId="aab95d98-4cd0-4815-986e-290f98b946c9" />
+			</EntityLinks>
+		</Object>
+		<Object EntityClass="StanceSmartObject" Id="aab95d98-4cd0-4815-986e-290f98b946c9" Name="smartObject" Pos="0.23596,1.289658,0" Rotate="-4.371139e-08,0,0,1" Scale="0.39,0.39,0.39" Type="Entity">
+			<Properties bOwnedByHome="1" guidSmartObjectType="425d4fdf-8dcd-4a2b-fdc5-cbb1b5d25b89" soclass_SmartObjectHelpers="Bed_1Place_Tent" sWH_AI_EntityCategory="Bed">
+				<Bed esReadingQuality="bed_ground" esSleepQuality="low" />
+				<Script esBedTypes="GroundBed" />
+			</Properties>
+			<EntityLinks>
+				<Link DebugTargetName="ActionTrigger12" Name="mTrigger" TargetId="380f03df-0cdd-4006-a0bf-921e73f05854" />
+				<Link DebugTargetName="smartObject" Name="+Heal[sleeper,25]" TargetId="aab95d98-4cd0-4815-986e-290f98b946c9" />
+				<Link DebugTargetName="outPort_stash" Name="#ChangeEquipment[sleeper,sleepUnequip,Unequip,ExcludeInstantPreSearch] " TargetId="9b04c29e-7b93-4fee-8bf5-05a740c06e19" />
+			</EntityLinks>
+		</Object>
+		<Object EntityClass="PrefabPort" Id="ae7dc79a-9ca5-4600-95cc-6f07e88ecd2c" Name="port_sequenceTriggerEntity" Pos="0.6299438,0.9884033,1.829536" Type="Entity">
+			<EntityLinks>
+				<Link DebugTargetName="ActionTrigger12" TargetId="380f03df-0cdd-4006-a0bf-921e73f05854" />
+			</EntityLinks>
+		</Object>
+		<Object Id="e3377063-f9ac-44b3-ba31-36c5f4912d3c" IgnoreTerrainLayerBlend="1" Name="bed_makeshift_a1" Pos="0.2959785,1.275513,-0.0007019043" Prefab="Objects/manmade/common_furniture/beds/low/bed_makeshift_a.cgf" RndFlags="100040000408" Rotate="-0.7132505,0,0,0.7009093" Type="Brush">
+			<CollisionFiltering>
+				<Type gcc_interactive="1" />
+			</CollisionFiltering>
+		</Object>
+		<Object ColorRGB="C8" Exclusion="1" Height="2" Id="f5712b72-e4cc-42b3-b47a-1049bbb14019" Name="exclusionArea" Pos="1.43763,-0.1574707,-0.1419678" Type="NavigationArea">
+			<Points>
+				<Point Pos="0,0,0" />
+				<Point Pos="-2.457817,0.05509186,0" />
+				<Point Pos="-2.484756,1.129974,0" />
+				<Point Pos="-0.1621704,1.239899,0" />
+			</Points>
+			<SoundData Floor="0" Roof="0" Side1="0" Side2="0" Side3="0" Side4="0" />
+		</Object>
+	</Objects>
+</Prefab>

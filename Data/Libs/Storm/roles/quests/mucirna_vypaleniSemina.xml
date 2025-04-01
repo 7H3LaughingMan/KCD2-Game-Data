@@ -1,0 +1,276 @@
+<?xml version="1.0"?>
+<!DOCTYPE storm SYSTEM "!storm.dtd">
+<storm>
+	<rules>
+
+		<rule name="mucirna_vypaleniSemina_hasek">
+			<selectors>
+				<hasName name="ttro_hasek" />
+			</selectors>
+			<operations>
+				<addRole name="PURKRABI_HASEK" />
+				<addRole name="HASEK_VOLA_NA_JINDRU_ABY_SE_VRATIL" />
+			</operations>
+		</rule>
+
+		<rule name="mucirna_vypaleniSemina_anezka">
+			<selectors>
+				<hasName name="ttkc_woman_10" />
+			</selectors>
+			<operations>
+				<addRole name="ANEZKA" />
+			</operations>
+		</rule>
+
+		<rule name="mucirna_vypaleniSemina_seminJr">
+			<selectors>
+				<hasName name="tsem_seminjr" />
+			</selectors>
+			<operations>
+				<addRole name="SEMIN_JUNIOR" />
+			</operations>
+		</rule>
+
+		<rule name="mucirna_vypaleniSemina_ptacek">
+			<selectors>
+				<hasName name="tkop_ptacek" />
+			</selectors>
+			<operations>
+				<addRole name="PTACEK" />
+			</operations>
+		</rule>
+
+		<rule name="mucirna_vypaleniSemina_bergov">
+			<selectors>
+				<hasName name="ttro_bergov" />
+			</selectors>
+			<operations>
+				<addRole name="BERGOV" />
+			</operations>
+		</rule>
+
+		<rule name="mucirna_vypaleniSemina_captive">
+			<selectors>
+				<hasName name="ttro_zajatec" />
+			</selectors>
+			<operations>
+				<addRole name="ZAJATEC_MUCIRNA_TROSKY" />
+			</operations>
+		</rule>
+
+		<rule name="mucirna_vypaleniSemina_seminWomenSkirmish">
+			<selectors>
+				<isValidOpenworldNpc />
+				<hasName name="tsem_woman_*" />
+			</selectors>
+			<operations>
+				<addRole name="ZENA_PRI_BITVE_NA_SEMINE" />
+			</operations>
+		</rule>
+
+		<rule name="mucirna_vypaleniSemina_soldiers">
+			<selectors>
+				<isValidOpenworldNpc />
+				<hasFaction name="trosecko_settlements_trosky_soldiers_mucirnaVypaleniSeminaSoldiers" />
+			</selectors>
+			<operations>
+				<addRole name="VOJAK_OD_HEJTMANA_NA_SEMINE" />
+				<addRole name="HASKUV_VOJAK_NA_SEMINE" />
+				<addRole name="VOJAK_OD_HEJTMANA_NA_SEMINE_NASEL_MRTVOLU" />
+				<addRole name="HASKUV_VOJAK_NA_SEMINE_NASEL_MRTVOLU" />
+			</operations>
+		</rule>
+
+		<rule name="mucirna_vypaleniSemina_man_1">
+			<selectors>
+				<hasName name="mucirna_vypaleniSemina_man_1" />
+			</selectors>
+			<operations>
+				<addRole name="MUCIRNA_VOJAK_PRED_TROSKAMI_1" />
+				<addRole name="VOJAK_NA_SEMINE_PO_BITVE" />
+			</operations>
+		</rule>
+
+		<rule name="mucirna_vypaleniSemina_man_2">
+			<selectors>
+				<hasName name="mucirna_vypaleniSemina_man_2" />
+			</selectors>
+			<operations>
+				<addRole name="MUCIRNA_VOJAK_PRED_TROSKAMI_2" />
+			</operations>
+		</rule>
+
+		<rule name="mucirna_vypaleniSemina_man_3">
+			<selectors>
+				<hasName name="mucirna_vypaleniSemina_man_3" />
+			</selectors>
+			<operations>
+				<addRole name="MUCIRNA_VOJAK_PRED_TROSKAMI_3" />
+			</operations>
+		</rule>
+
+		<rule name="mucirna_vypaleniSemina_seminMen">
+			<selectors>
+				<isValidOpenworldNpc />
+				<or>
+					<hasFaction name="trosecko_settlements_semin_nobility_lordsOfSemin" />
+					<hasFaction name="trosecko_settlements_semin_nobility_commanders" />
+					<hasFaction name="trosecko_settlements_semin_soldiers_militia" />
+					<hasFaction name="trosecko_settlements_semin_soldiers_guards" />
+					<hasFaction name="trosecko_settlements_semin_commonFolk_peasants_studFarm" />
+				</or>
+				<isMan />
+				<not>
+					<hasName name="tsem_man_14" />
+				</not>
+			</selectors>
+			<operations>
+				<addRole name="MUZ_PRI_BITVE_ZA_SEMIN" />
+			</operations>
+		</rule>
+
+		<rule name="mucirna_vypaleniSemina_bystandersInTroskovice">
+			<selectors>
+				<hasName name="ttkc_man_11" />
+			</selectors>
+			<operations>
+				<addRole name="VESNICAN_REAGUJE_NA_HASKA_1" />
+			</operations>
+		</rule>
+
+		<rule name="mucirna_vypaleniSemina_seminJrWife">
+			<selectors>
+				<hasName name="ttkc_woman_10" />
+			</selectors>
+			<operations>
+				<addRole name="ZENA_PRI_BITVE_NA_SEMINE" />
+			</operations>
+		</rule>
+
+		<rule name="mucirna_vypaleniSemina_torchedGossip_men">
+			<selectors>
+				<and>
+					<or>
+						<!-- these voices are an optimization. Cant afford more-->
+						<hasVoice name="brianCaspe" />
+						<hasVoice name="danBrown" />
+						<hasVoice name="gabrielAndrews" />
+						<hasVoice name="gregoryGudgeon" />
+						<hasVoice name="chrisClarke" />
+						<hasVoice name="christopherDukes" />
+						<hasVoice name="paulDean" />
+						<hasVoice name="samBarlien" />
+						<hasVoice name="danCollins" />
+						<hasVoice name="jamesBeaumont" />
+						<hasVoice name="alechMontyro" />
+						<hasVoice name="danielOsgerby" />
+						<hasVoice name="danielZappi" />
+						<hasVoice name="ianChampion" />
+						<hasVoice name="jonathanMilshaw" />
+						<hasVoice name="martinBishop" />
+						<hasVoice name="johnComer" />
+						<hasVoice name="jamesNunn" />
+						<hasVoice name="rupertLazurus" />
+						<hasVoice name="jackParr" />
+					</or>
+					<isValidOpenworldNpc />
+					<isMan />
+					<or>
+						<isLowClass />
+						<isMiddleClass />
+					</or>
+					<or>
+						<hasName name="tzel_*" />
+						<hasName name="tsem_*" />
+						<hasName name="ttkc_*" />
+					</or>
+					<not>
+						<or>
+							<hasName name="ttkc_jakes" />
+							<hasName name="ttkc_man_18" />
+							<hasName name="ttkc_woodworkersFather" />
+							<hasName name="tzel_fiala" />
+							<hasName name="tzel_frantisek" />
+							<hasName name="tzel_johan" />
+						</or>
+					</not>
+				</and>
+			</selectors>
+			<operations>
+				<addRole name="GOSSIP_O_HORICIM_SEMINE_MUZ_1" />
+				<addRole name="GOSSIP_O_HORICIM_SEMINE_MUZ_2" />
+			</operations>
+		</rule>
+
+		<rule name="mucirna_vypaleniSemina_torchedGossip_women_talkingToaMan">
+			<selectors>
+				<and>
+					<not>
+						<hasGenericGermanVoice />
+					</not>
+					<isValidOpenworldNpc />
+					<or>
+						<isLowClass />
+						<isMiddleClass />
+					</or>
+					<or>
+						<hasName name="tzel_*" />
+						<hasName name="tsem_*" />
+						<hasName name="ttkc_*" />
+					</or>
+					<isWoman />
+				</and>
+			</selectors>
+			<operations>
+				<addRole name="GOSSIP_O_HORICIM_SEMINE_ZENA_MLUVI_S_MUZEM" />
+			</operations>
+		</rule>
+
+
+
+		<rule name="mucirna_vypaleniSemina_torchedGossip_women_part1">
+			<selectors>
+				<and>
+					<hasFirstFemaleFallbackGroup />
+					<isValidOpenworldNpc />
+					<or>
+						<isLowClass />
+						<isMiddleClass />
+					</or>
+					<or>
+						<hasName name="tzel_*" />
+						<hasName name="tsem_*" />
+						<hasName name="ttkc_*" />
+					</or>
+					<isWoman />
+				</and>
+			</selectors>
+			<operations>
+				<addRole name="GOSSIP_O_HORICIM_SEMINE_ZENA_1" />
+			</operations>
+		</rule>
+
+		<rule name="mucirna_vypaleniSemina_torchedGossip_women_part2">
+			<selectors>
+				<and>
+					<hasSecondFemaleFallbackGroup />
+					<isValidOpenworldNpc />
+					<or>
+						<isLowClass />
+						<isMiddleClass />
+					</or>
+					<or>
+						<hasName name="tzel_*" />
+						<hasName name="tsem_*" />
+						<hasName name="ttkc_*" />
+					</or>
+					<isWoman />
+				</and>
+			</selectors>
+			<operations>
+				<addRole name="GOSSIP_O_HORICIM_SEMINE_ZENA_2" />
+			</operations>
+		</rule>
+
+	</rules>
+</storm>

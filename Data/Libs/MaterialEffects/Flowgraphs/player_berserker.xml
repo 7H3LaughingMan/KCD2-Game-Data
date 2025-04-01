@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="us-ascii"?>
+<Graph>
+  <Nodes>
+    <Node Id="1" Class="MaterialFX:HUDStartFX" pos="-30,0,0" flags="0">
+      <Inputs />
+    </Node>
+    <Node Id="2" Class="MaterialFX:HUDEndFX" pos="830,-160,0" flags="0">
+      <Inputs />
+    </Node>
+    <Node Id="7" Class="Vec3:ToVec3" pos="610,180,0" flags="0">
+      <Inputs x="1" y="0" z="0" />
+    </Node>
+    <Node Id="11" Class="Math:Mul" pos="200,180,0" flags="0">
+      <Inputs A="0" B="0.35" />
+    </Node>
+    <Node Id="12" Class="Math:Sub" pos="400,180,0" flags="0">
+      <Inputs A="1" B="0" />
+    </Node>
+    <Node Id="16" Class="Image:FilterVisualArtifacts" pos="820,0,0" flags="0">
+      <Inputs entityId="0" Enabled="1" Disabled="1" VisualArtifacts_Vsync="0" VisualArtifacts_VsyncFreq="1" VisualArtifacts_Interlacing="0" VisualArtifacts_InterlacingTile="1" VisualArtifacts_InterlacingRot="0" VisualArtifacts_SyncWavePhase="0" VisualArtifacts_SyncWaveFreq="0" VisualArtifacts_SyncWaveAmplitude="0" FilterArtifacts_ChromaShift="0" FilterArtifacts_Grain="0" clr_VisualArtifacts_ColorTint="1,1,1" tex_VisualArtifacts_Mask="" />
+    </Node>
+  </Nodes>
+  <Edges>
+    <Edge nodeIn="11" nodeOut="1" portIn="A" portOut="Intensity" enabled="1" />
+    <Edge nodeIn="16" nodeOut="1" portIn="Enabled" portOut="Started" enabled="1" />
+    <Edge nodeIn="16" nodeOut="7" portIn="clr_VisualArtifacts_ColorTint" portOut="vec3" enabled="1" />
+    <Edge nodeIn="12" nodeOut="11" portIn="B" portOut="out" enabled="1" />
+    <Edge nodeIn="7" nodeOut="12" portIn="y" portOut="out" enabled="1" />
+    <Edge nodeIn="7" nodeOut="12" portIn="z" portOut="out" enabled="1" />
+  </Edges>
+</Graph>

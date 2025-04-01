@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="us-ascii"?>
+<Prefab Id="a8b354ff-db12-430d-9352-d835b408fd81">
+	<Tags>
+		<Tag>miller</Tag>
+		<Tag>miller_important</Tag>
+	</Tags>
+	<Objects>
+		<Object EntityClass="PrefabPort" Id="14859d71-aedc-418f-bd2c-34d8cf42fc97" Name="port" Pos="0,0.01173401,2" Type="Entity">
+			<EntityLinks>
+				<Link DebugTargetName="hub" TargetId="a263f18e-0293-475d-b356-6cf4ba3316c3" />
+			</EntityLinks>
+		</Object>
+		<Object EntityClass="TagPoint" Id="20c6cd08-1715-41af-8e1c-2d4182a4dac0" Name="sackReservationPoint" Pos="0.5,0,0" Type="TagPoint">
+			<EntityLinks>
+				<Link DebugTargetName="outPort_sack" TargetId="92fba0f8-37d1-41d5-b875-67aaa513d618" />
+			</EntityLinks>
+		</Object>
+		<Object EntityClass="SmartObjectHolder" Id="885bf088-81e9-47b3-b477-765e7006d68f" Name="smartObject" Pos="0,0,0.1" Type="Entity">
+			<Properties guidSmartObjectType="42f38e85-be6b-b78d-c8ce-c115daa0a7ad" />
+			<EntityLinks>
+				<Link DebugTargetName="outPort_sack" Name="slot" TargetId="92fba0f8-37d1-41d5-b875-67aaa513d618" />
+				<Link DebugTargetName="sackReservationPoint" Name="schedulerReservedItem[&apos;use_carrySack&apos;,&apos;miller_carrySack&apos;]" TargetId="20c6cd08-1715-41af-8e1c-2d4182a4dac0" />
+				<Link DebugTargetName="smartObject" Name="+Soil[carrySack,3]" TargetId="885bf088-81e9-47b3-b477-765e7006d68f" />
+			</EntityLinks>
+		</Object>
+		<Object EntityClass="PrefabPort" Id="92fba0f8-37d1-41d5-b875-67aaa513d618" Name="outPort_sack" Pos="0,0.323288,2" Type="Entity">
+			<Properties esPrefabPort_Icon="outSack" esPrefabPort_Type="Out" />
+		</Object>
+		<Object EntityClass="SchedulerHub" Id="a263f18e-0293-475d-b356-6cf4ba3316c3" Name="hub" Pos="0,0,1" Type="Entity">
+			<EntityLinks>
+				<Link DebugTargetName="smartObject" Name="_|carrySack,M,use_carrySack" TargetId="885bf088-81e9-47b3-b477-765e7006d68f" />
+			</EntityLinks>
+		</Object>
+	</Objects>
+	<NestedLinks>
+		<Link Name="" SourceDebugName="outPort_target" SourceId="c32c202a-2082-48ef-aa63-0ea79ea62577" SourcePath="55bc5d06-5a98-4e26-8bec-9ed64f838b79" TargetDebugName="port_placeSack" TargetId="e6f1228b-6123-4339-a975-a804ec398ed3" TargetPath="d7eaa2f5-d122-490e-82c5-a3efa2500338" />
+	</NestedLinks>
+</Prefab>

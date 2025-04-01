@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="us-ascii"?>
+<Prefab Id="64164d60-baf4-4454-a28d-e6d8473d0f02">
+  <Tags>
+    <Tag>home</Tag>
+  </Tags>
+  <Objects>
+    <Object EntityClass="PrefabPort" Id="1f1c126f-09fd-4951-b3ca-f9ae51b24534" Name="port_feedingHen" Pos="0.002700806,0.4586487,2.564072" Type="Entity">
+      <EntityLinks>
+        <Link DebugTargetName="feedingHenHub" TargetId="a18e0504-f2f9-499b-a896-df281307cb9d" />
+      </EntityLinks>
+    </Object>
+    <Object EntityClass="PrefabPort" Id="503f5142-c039-4515-b4b4-afa90ba84576" Name="outPort_benches" Pos="0.4797745,0.007492065,2.564072" Type="Entity">
+      <Properties esPrefabPort_Type="Out" />
+    </Object>
+    <Object EntityClass="PrefabPort" Id="56779aef-1815-47d2-bac7-bb1d8fef42ff" Name="port_pluckingHen" Pos="0.002700806,0.8220978,2.564072" Type="Entity">
+      <EntityLinks>
+        <Link DebugTargetName="pluckingHenHub" TargetId="bda89a43-9070-4da7-9848-77c6b724273f" />
+      </EntityLinks>
+    </Object>
+    <Object EntityClass="TagPoint" Id="61b8d9b5-fa46-4c86-87e8-b96755aa95bc" Name="schedulerReservedItem_pluckingHen" Pos="-0.9839478,-0.08349609,0" Type="TagPoint" />
+    <Object EntityClass="TagPoint" Id="68aa78ad-1bb4-4b08-af07-7777630d1a79" Name="schedulerReservedItem_feedingHen" Pos="-0.960907,0.1322784,0" Type="TagPoint" />
+    <Object EntityClass="TagPoint" Id="770e3b8f-4182-418d-b589-07b9afc25bfd" Name="schedulerReservedItem_pickingEggs" Pos="-0.9854889,-0.3144531,0" Type="TagPoint" />
+    <Object EntityClass="PrefabPort" Id="883543ab-829e-4d71-8b81-8c3c24b09037" Name="port_pickingEggs" Pos="0,0,2.564072" Type="Entity">
+      <EntityLinks>
+        <Link DebugTargetName="pickingEggsHub" TargetId="c2a077bc-3056-44b3-8e85-67bb8e38e3b0" />
+      </EntityLinks>
+    </Object>
+    <Object Id="89946487-88a6-40ee-b590-3cda258c5fd0" Name="henCare_scatterGrain1" Pos="0.6167297,-1.541077,-1.907349e-06" PrefabTemplate="bc70ab93-5957-4d67-9d67-083238509577" PrefabTemplateName="animalcare/henCare_scatterGrain" Type="Prefab" />
+    <Object EntityClass="SchedulerHub" Id="a18e0504-f2f9-499b-a896-df281307cb9d" Name="feedingHenHub" Pos="0,0.454895,1.631901" Type="Entity">
+      <EntityLinks>
+        <Link DebugTargetName="smartObject" Name="_|feedingHen,F,feedingHen" TargetId="dd02fd31-3c9b-42d7-b8d8-27ef55a2e161" />
+      </EntityLinks>
+    </Object>
+    <Object Id="a9eb06b5-acea-4159-9a51-981a3cc50c6c" Name="henCare_deadHenPlace1" Pos="2.870438,0.1390076,0" PrefabTemplate="d21f32d8-b259-46e0-b1c8-81caca50d927" PrefabTemplateName="animalcare/henCare_deadHenPlace" Type="Prefab" />
+    <Object EntityClass="SchedulerHub" Id="bda89a43-9070-4da7-9848-77c6b724273f" Name="pluckingHenHub" Pos="0,0.8183441,1.631901" Type="Entity">
+      <EntityLinks>
+        <Link DebugTargetName="smartObject" Name="_|pluckingHen,F,23:00,!override,pluckingHen" TargetId="dd02fd31-3c9b-42d7-b8d8-27ef55a2e161" />
+      </EntityLinks>
+    </Object>
+    <Object EntityClass="SchedulerHub" Id="c2a077bc-3056-44b3-8e85-67bb8e38e3b0" Name="pickingEggsHub" Pos="0,0,1.631901" Type="Entity">
+      <EntityLinks>
+        <Link DebugTargetName="smartObject" Name="_|pickingEggs,F,pickingEggs" TargetId="dd02fd31-3c9b-42d7-b8d8-27ef55a2e161" />
+      </EntityLinks>
+    </Object>
+    <Object EntityClass="SmartObjectHolder" Id="dd02fd31-3c9b-42d7-b8d8-27ef55a2e161" Name="smartObject" Type="Entity">
+      <Properties guidSmartObjectType="435143c3-e1e7-be52-f7f9-306b5340ab9c" />
+      <EntityLinks>
+        <Link DebugTargetName="outPort_benches" Name="_pluckingHen|,23:00" TargetId="503f5142-c039-4515-b4b4-afa90ba84576" />
+        <Link DebugTargetName="smartObject" Name="+Soil[pluckingHen,2]" TargetId="dd02fd31-3c9b-42d7-b8d8-27ef55a2e161" />
+        <Link DebugTargetName="schedulerReservedItem_pickingEggs" Name="schedulerReservedItem[&apos;pickingEggs&apos;,&apos;housekeeper_hen_eggBasket&apos;]" TargetId="770e3b8f-4182-418d-b589-07b9afc25bfd" />
+        <Link DebugTargetName="schedulerReservedItem_feedingHen" Name="schedulerReservedItem[&apos;feedingHen&apos;,&apos;housekeeper_hen_grainSack&apos;]" TargetId="68aa78ad-1bb4-4b08-af07-7777630d1a79" />
+        <Link DebugTargetName="schedulerReservedItem_pluckingHen" Name="schedulerReservedItem[&apos;pluckingHen&apos;,&apos;housekeeper_hen_chicken&apos;]" TargetId="61b8d9b5-fa46-4c86-87e8-b96755aa95bc" />
+        <Link DebugTargetName="smartObject" Name="+Soil[pickingEggs,2]" TargetId="dd02fd31-3c9b-42d7-b8d8-27ef55a2e161" />
+        <Link DebugTargetName="smartObject" Name="+Soil[feedingHen,2]" TargetId="dd02fd31-3c9b-42d7-b8d8-27ef55a2e161" />
+      </EntityLinks>
+    </Object>
+    <Object Id="ebca36b8-9fbd-4a73-805c-82d7b1dbd43e" Name="henCare_coop1" Pos="-0.5124435,2.5336,0" PrefabTemplate="e5f7d4ca-ba0a-43c5-816b-cff784fb8617" PrefabTemplateName="animalcare/henCare_coop" Type="Prefab" />
+    <Object Id="f5e0e67f-82b1-449e-a541-ea99eeccd95d" Name="animalcare/henCare_eggBasket1" Pos="1.161842,-0.1925507,0" PrefabTemplate="62fb2fc3-fb93-4cdb-824e-27663c0b073d" PrefabTemplateName="animalcare/henCare_eggBasket" Type="Prefab" />
+    <Object Id="f90a0483-e9c3-4893-b437-f44334614367" Name="animalcare/henCare_grainSack1" Pos="1.381775,1.456558,0" PrefabTemplate="0968902c-951d-47a9-b4a7-d69789c8214a" PrefabTemplateName="animalcare/henCare_grainSack" Type="Prefab" />
+    <Object EntityClass="PrefabPort" Id="fcda9e41-240b-4edb-81e3-fe8bc5e2e2bd" Name="port_entity" Pos="-1.352249,0.6414795,2.71019" Type="Entity" />
+    <Object EntityClass="PrefabPort" Id="febe2d6b-0712-49d0-b785-c432b1df9058" Name="outPort_slotHenFireplace" Pos="0.4797745,0.3605652,2.564072" Type="Entity">
+      <Properties esPrefabPort_Type="Out" />
+    </Object>
+  </Objects>
+  <NestedLinks>
+    <Link Name="" SourceDebugName="SmartObjectHolder7" SourceId="dd02fd31-3c9b-42d7-b8d8-27ef55a2e161" SourcePath="" TargetDebugName="PrefabPort2" TargetId="1de85182-0cfd-49b9-8d56-b83ea40e7e9f" TargetPath="EBCA36B8-9FBD-4A73-805C-82D7B1DBD43E" />
+    <Link Name="henGrainScatterPivot" SourceDebugName="smartObject" SourceId="dd02fd31-3c9b-42d7-b8d8-27ef55a2e161" SourcePath="" TargetDebugName="PrefabPort3" TargetId="cff234ab-c6b8-4252-afcc-37d977481f87" TargetPath="89946487-88a6-40ee-b590-3cda258c5fd0" />
+    <Link Name="" SourceDebugName="outPort_hen" SourceId="6a345b17-b090-4d47-916e-f7cde6bbf44d" SourcePath="ebca36b8-9fbd-4a73-805c-82d7b1dbd43e" TargetDebugName="outPort_slotHenFireplace" TargetId="febe2d6b-0712-49d0-b785-c432b1df9058" TargetPath="" />
+    <Link Name="" SourceDebugName="port_entity" SourceId="fcda9e41-240b-4edb-81e3-fe8bc5e2e2bd" SourcePath="" TargetDebugName="port_grainSackSlot" TargetId="39a80cc4-fc3f-419f-9dfb-5480dc579d32" TargetPath="f90a0483-e9c3-4893-b437-f44334614367" />
+    <Link Name="" SourceDebugName="port_entity" SourceId="fcda9e41-240b-4edb-81e3-fe8bc5e2e2bd" SourcePath="" TargetDebugName="port_eggBasketSlot" TargetId="ebd4b85d-ce57-45fc-ae2a-0a9c9e361d6c" TargetPath="f5e0e67f-82b1-449e-a541-ea99eeccd95d" />
+    <Link Name="" SourceDebugName="schedulerReservedItem_pickingEggs" SourceId="770e3b8f-4182-418d-b589-07b9afc25bfd" SourcePath="" TargetDebugName="port_eggBasketSlot" TargetId="ebd4b85d-ce57-45fc-ae2a-0a9c9e361d6c" TargetPath="f5e0e67f-82b1-449e-a541-ea99eeccd95d" />
+    <Link Name="" SourceDebugName="schedulerReservedItem_feedingHen" SourceId="68aa78ad-1bb4-4b08-af07-7777630d1a79" SourcePath="" TargetDebugName="port_grainSackSlot" TargetId="39a80cc4-fc3f-419f-9dfb-5480dc579d32" TargetPath="f90a0483-e9c3-4893-b437-f44334614367" />
+    <Link Name="" SourceDebugName="schedulerReservedItem_pluckingHen" SourceId="61b8d9b5-fa46-4c86-87e8-b96755aa95bc" SourcePath="" TargetDebugName="port_henSlot" TargetId="0b2ae62c-136e-403c-a896-fe24e953f81d" TargetPath="ebca36b8-9fbd-4a73-805c-82d7b1dbd43e" />
+  </NestedLinks>
+</Prefab>

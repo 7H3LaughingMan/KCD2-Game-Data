@@ -1,0 +1,182 @@
+<?xml version="1.0"?>
+<!DOCTYPE storm SYSTEM "../../storm.dtd">
+<storm>
+  <rules>
+    <!-- Guards reaction -->
+		<rule name="rvacka_guards">
+			<selectors>
+				<isAuthorityFigure />
+			</selectors>
+			<operations>
+				<addRole name="EVENT_RVACKA_STRAZ" />
+			</operations>
+		</rule>
+
+    <rule name="rvacka_common">
+      <selectors>
+        <hasName name="rvacka_*" />
+        <not>
+          <isCuman />
+        </not>
+      </selectors>
+      <operations>
+        <addRole name="EVENT_RVACKA_PORAZENY" />
+        <addRole name="EVENT_RVACKA_VITEZ" />        
+      </operations>
+    </rule>
+    
+
+    <!-- Drunkard -->
+    <rule name="rvacka_drunkard">
+      <selectors>
+        <hasName name="rvacka_drunkard" />
+      </selectors>
+      <operations>
+        <addRole name="EVENT_RVACKA_OPILEC" />
+      </operations>
+    </rule>
+    <rule name="rvacka_bouncer_1">
+      <selectors>
+        <hasName name="rvacka_bouncer_1" />
+      </selectors>
+      <operations>
+        <addRole name="EVENT_RVACKA_VYHAZOVAC_1" />
+      </operations>
+    </rule>
+    <rule name="rvacka_bouncer_2">
+      <selectors>
+        <hasName name="rvacka_bouncer_2" />
+      </selectors>
+      <operations>
+        <addRole name="EVENT_RVACKA_VYHAZOVAC_2" />
+      </operations>
+    </rule>
+
+    <!-- Cheater -->
+    <rule name="rvacka_cheater">
+      <selectors>
+        <hasName name="rvacka_cheater" />
+      </selectors>
+      <operations>
+        <addRole name="EVENT_RVACKA_PODVADEJICI_HRAC" />
+      </operations>
+    </rule>
+    <rule name="rvacka_player_1">
+      <selectors>
+        <hasName name="rvacka_player_1" />
+      </selectors>
+      <operations>
+        <addRole name="EVENT_RVACKA_HRAC_1" />
+      </operations>
+    </rule>
+    <rule name="rvacka_player_2">
+      <selectors>
+        <hasName name="rvacka_player_2" />
+      </selectors>
+      <operations>
+        <addRole name="EVENT_RVACKA_HRAC_2" />
+      </operations>
+    </rule>
+
+    <!-- Jealous -->
+    <rule name="rvacka_voyeur">
+      <selectors>
+        <hasName name="rvacka_voyeur" />
+      </selectors>
+      <operations>
+        <addRole name="EVENT_RVACKA_CUMIL" />
+      </operations>
+    </rule>
+    <rule name="rvacka_jealous">
+      <selectors>
+        <hasName name="rvacka_jealous" />
+      </selectors>
+      <operations>
+        <addRole name="EVENT_RVACKA_ZARLIVEC" />
+      </operations>
+    </rule>
+    <rule name="rvacka_girl">
+      <selectors>
+        <hasName name="rvacka_girl" />
+      </selectors>
+      <operations>
+        <addRole name="EVENT_RVACKA_SLECNA" />
+      </operations>
+    </rule>
+
+    <!-- HoneyPie -->
+    <rule name="rvacka_apprentice_1">
+      <selectors>
+        <hasName name="rvacka_apprentice_1" />
+      </selectors>
+      <operations>
+        <addRole name="EVENT_RVACKA_TOVARYS_1" />
+      </operations>
+    </rule>
+    <rule name="rvacka_apprentice_2">
+      <selectors>
+        <hasName name="rvacka_apprentice_2" />
+      </selectors>
+      <operations>
+        <addRole name="EVENT_RVACKA_TOVARYS_2" />
+      </operations>
+    </rule>
+    <rule name="rvacka_apprentice_3">
+      <selectors>
+        <hasName name="rvacka_apprentice_3" />
+      </selectors>
+      <operations>
+        <addRole name="EVENT_RVACKA_TOVARYS_3" />
+      </operations>
+    </rule>
+
+    <!-- Neighbours -->
+    <rule name="rvacka_neighbour_1">
+      <selectors>
+        <hasName name="rvacka_neighbour_1" />
+      </selectors>
+      <operations>
+        <addRole name="EVENT_RVACKA_SOUSED_1" />
+      </operations>
+    </rule>
+    <rule name="rvacka_neighbour_2">
+      <selectors>
+        <hasName name="rvacka_neighbour_2" />
+      </selectors>
+      <operations>
+        <addRole name="EVENT_RVACKA_SOUSED_2" />
+      </operations>
+    </rule>  
+
+    <!-- Generic czech -->
+    <rule name="rvacka_generic_firstCzech">
+      <selectors>
+        <hasName name="rvacka_firstCzech_*" />
+      </selectors>
+      <operations>
+        <addRole name="EVENT_RVACKA_CECH_1" />
+      </operations>
+    </rule>
+
+    <rule name="rvacka_generic_secondCzech">
+      <selectors>
+        <hasName name="rvacka_secondCzech_*" />
+      </selectors>
+      <operations>
+        <addRole name="EVENT_RVACKA_CECH_2" />
+      </operations>
+    </rule>    
+
+    <!-- Generic cuman -->
+		<rule name="rvacka_generic_cuman">
+      <selectors>
+        <hasName name="rvacka_cuman_*" />
+      </selectors>
+			<operations>
+				<addRole name="EVENT_RVACKA_KUMAN_1" />		
+				<addRole name="EVENT_RVACKA_KUMAN_2" />
+			</operations>
+		</rule>    
+
+  </rules>
+</storm>

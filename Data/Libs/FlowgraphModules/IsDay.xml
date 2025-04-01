@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="us-ascii"?>
+<Graph isModule="1" moduleName="IsDay" Description="" Group="" enabled="1" MultiPlayer="ClientServer">
+  <ModuleInputsOutputs>
+    <Port Name="IsDay" Type="6" Input="0" />
+  </ModuleInputsOutputs>
+  <Nodes>
+    <Node Id="1" Class="Module:Start_IsDay" pos="-100,10,0" flags="0" />
+    <Node Id="2" Class="Module:End_IsDay" pos="1000,0,0" flags="0">
+      <Inputs IsDay="0" />
+    </Node>
+    <Node Id="4" Class="Time:TimeOfDay" pos="230,0,0" flags="0">
+      <Inputs Time="0" ForceUpdate="0" Speed="1" />
+    </Node>
+    <Node Id="6" Class="Mission:GameTokenGet" pos="230,-110,0" flags="0">
+      <Inputs gametoken_Token="Level.day" />
+    </Node>
+    <Node Id="11" Class="Math:Less" pos="500,-70,0" flags="0">
+      <Inputs A="0" B="0" />
+    </Node>
+    <Node Id="13" Class="Mission:GameTokenGet" pos="220,160,0" flags="0">
+      <Inputs gametoken_Token="Level.night" />
+    </Node>
+    <Node Id="14" Class="Math:Less" pos="500,60,0" flags="0">
+      <Inputs A="0" B="0" />
+    </Node>
+    <Node Id="32" Class="Logic:AND" pos="690,0,0" flags="1">
+      <Inputs A="0" B="0" Always="1" />
+    </Node>
+  </Nodes>
+  <Edges>
+    <Edge nodeIn="4" nodeOut="1" portIn="Get" portOut="Start" enabled="1" />
+    <Edge nodeIn="6" nodeOut="1" portIn="Trigger" portOut="Start" enabled="1" />
+    <Edge nodeIn="13" nodeOut="1" portIn="Trigger" portOut="Start" enabled="1" />
+    <Edge nodeIn="11" nodeOut="4" portIn="B" portOut="CurTime" enabled="1" />
+    <Edge nodeIn="14" nodeOut="4" portIn="A" portOut="CurTime" enabled="1" />
+    <Edge nodeIn="11" nodeOut="6" portIn="A" portOut="OutValue" enabled="1" />
+    <Edge nodeIn="32" nodeOut="11" portIn="A" portOut="out" enabled="1" />
+    <Edge nodeIn="14" nodeOut="13" portIn="B" portOut="OutValue" enabled="1" />
+    <Edge nodeIn="32" nodeOut="14" portIn="B" portOut="out" enabled="1" />
+    <Edge nodeIn="2" nodeOut="32" portIn="IsDay" portOut="out" enabled="1" />
+    <Edge nodeIn="2" nodeOut="32" portIn="Success" portOut="out" enabled="1" />
+  </Edges>
+  <GraphTokens />
+</Graph>

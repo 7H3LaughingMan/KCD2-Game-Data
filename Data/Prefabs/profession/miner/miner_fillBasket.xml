@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="us-ascii"?>
+<Prefab Id="9c08e9f6-4aad-410f-8ecf-1a5a2759a5a7">
+  <Tags>
+    <Tag>ignore</Tag>
+    <Tag>miner</Tag>
+  </Tags>
+  <Objects>
+    <Object EntityClass="PrefabPort" Id="1c406cf3-f75f-4c98-b4ea-d645a8941f39" Name="outPort_roastingHole" Pos="0.5,0,2" Type="Entity">
+      <Properties esPrefabPort_Type="Out" />
+    </Object>
+    <Object EntityClass="SmartObjectHolder" Id="26ed208c-04d1-4c60-b294-6544bf41fffb" Name="smartObject" Type="Entity">
+      <Properties guidSmartObjectType="4369398a-335b-31a0-b666-11896b370db4" soclass_SmartObjectHelpers="Miner_Stoupa" />
+      <EntityLinks>
+        <Link DebugTargetName="outPort_roastingHole" Name="roastingHole" TargetId="1c406cf3-f75f-4c98-b4ea-d645a8941f39" />
+        <Link DebugTargetName="basket" Name="basket" TargetId="366fa47d-2310-41a5-9385-b8609457efb7" />
+        <Link DebugTargetName="shovel" Name="shovel" TargetId="eafa263c-bdc5-4850-861e-7a58c81e1312" />
+      </EntityLinks>
+    </Object>
+    <Object EntityClass="ItemSlot" Id="366fa47d-2310-41a5-9385-b8609457efb7" Name="basket" Pos="-1,-0.5,0" Type="Entity">
+      <Properties guidItemClassId="ae882e5f-b0a7-42b1-9a9f-ef064e97ef7d" />
+    </Object>
+    <Object EntityClass="PrefabPort" Id="5849b94e-e5f5-4dd0-a610-896df716870e" Name="port_fillBucket" Pos="0,0,2.000099" Type="Entity">
+      <EntityLinks>
+        <Link DebugTargetName="hub" TargetId="6d4f95f8-cbe5-4248-80cd-eddcd6ae0657" />
+      </EntityLinks>
+    </Object>
+    <Object EntityClass="SchedulerHub" Id="6d4f95f8-cbe5-4248-80cd-eddcd6ae0657" Name="hub" Pos="0,0,1.000099" Type="Entity">
+      <EntityLinks>
+        <Link DebugTargetName="smartObject" Name="x_1,1:00,!0:10,use_fillBasket" TargetId="26ed208c-04d1-4c60-b294-6544bf41fffb" />
+        <Link DebugTargetName="smartObject" Name="x_!once,use_emptyBasket" TargetId="26ed208c-04d1-4c60-b294-6544bf41fffb" />
+        <Link DebugTargetName="smartObject" Name="_use" TargetId="26ed208c-04d1-4c60-b294-6544bf41fffb" />
+      </EntityLinks>
+    </Object>
+    <Object EntityClass="ItemSlot" Id="eafa263c-bdc5-4850-861e-7a58c81e1312" Name="shovel" NoStaticDecals="1" Pos="0,0.2,0" Rotate="-4.371139e-08,0,0,1" Type="Entity">
+      <Properties guidItemClassId="717dd863-e555-433d-8c90-7a74b5ac29b8" />
+    </Object>
+  </Objects>
+</Prefab>

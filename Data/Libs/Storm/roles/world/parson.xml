@@ -1,0 +1,61 @@
+<?xml version="1.0"?>
+<!DOCTYPE storm SYSTEM "storm.dtd">
+<storm>
+    <rules>
+        <rule name="confession_sinner_man">
+            <selectors>
+                <confession_sinner_general />
+            </selectors>
+            <operations>
+                <addRole name="ZPOVIDANY_MUZ" />
+            </operations>
+        </rule>
+
+        <rule name="confession_parson_man">
+            <selectors>
+                <and>
+                    <isMan />
+                    <isValidOpenworldNpc />
+                    <hasSocialClass name="priest" />
+                    <not>
+					    <hasUniqueVoice />
+				    </not>
+                    <hasGenericPriestVoice />
+                </and>
+            </selectors>
+            <operations>
+                <addRole name="KNEZ_ZPOVIDA_MUZ" />
+            </operations>
+        </rule>
+
+        <rule name="praying_man">
+            <selectors>
+                <and>
+                    <isMan />
+                    <praying_general />
+                </and>
+            </selectors>
+            <operations>
+                <addRole name="MODLITBA_DENNI_MUZ" />
+                <addRole name="MODLITBA_PRED_SPANKEM_MUZ" />
+                <addRole name="MODLITBA_RANNI_MUZ" />
+                <addRole name="NPC_KONCI_MODLITBU_MUZ" />
+            </operations>
+        </rule>
+
+        <rule name="praying_woman">
+            <selectors>
+                <and>
+                    <isWoman />
+                    <praying_general />
+                </and>
+            </selectors>
+            <operations>
+                <addRole name="MODLITBA_DENNI_ZENA" />
+                <addRole name="MODLITBA_PRED_SPANKEM_ZENA" />
+                <addRole name="MODLITBA_RANNI_ZENA" />
+                <addRole name="NPC_KONCI_MODLITBU_ZENA" />
+            </operations>
+        </rule>
+    </rules>
+</storm>

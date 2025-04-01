@@ -1,0 +1,283 @@
+<?xml version="1.0"?>
+<!DOCTYPE storm SYSTEM "!storm.dtd">
+<storm>
+	<rules>
+
+		<rule name="mysi_procek" >
+			<selectors>
+				<hasName name="ttac_procek" />
+			</selectors>
+			<operations>
+				<addRole name="PROCEK" />
+			</operations>
+		</rule>
+
+		<rule name="mysi_procek_tipster" >
+			<selectors>
+				<hasName name="ttac_procek" />
+			</selectors>
+			<operations>
+				<addRole name="QUEST_TIPSTER_MYSI_PROCEK" />
+			</operations>
+		</rule>
+
+		<rule name="mysi_drozd_tipster" >
+			<selectors>
+				<hasName name="ttkc_drozd" />
+			</selectors>
+			<operations>
+				<addRole name="QUEST_TIPSTER_MYSI_DROZD" />
+			</operations>
+		</rule>
+
+		<rule name="mysi_vavrinec" >
+			<selectors>
+				<hasName name="tzel_vavrinec" />
+			</selectors>
+			<operations>
+				<addRole name="HOSPODSKY_VAVRINEC_ZELEJOV" />
+			</operations>
+		</rule>
+
+		<rule name="mysi_frantisek" >
+			<selectors>
+				<hasName name="tzel_frantisek" />
+			</selectors>
+			<operations>
+				<addRole name="FRANTISEK_ZELEJOV" />
+			</operations>
+		</rule>
+
+		<rule name="mysi_devecka" >
+			<selectors>
+				<hasName name="tzel_eliska" />
+			</selectors>
+			<operations>
+				<addRole name="DEVECKA_OLBRAMOVA" />
+			</operations>
+		</rule>
+
+		<rule name="mysi_devecka2" >
+			<selectors>
+				<hasName name="tzel_maid" />
+			</selectors>
+			<operations>
+				<addRole name="DEVECKA_OLBRAMOVA2" />
+			</operations>
+		</rule>
+
+		<rule name="mysi_celedin" >
+			<selectors>
+				<hasName name="tzel_farmhand_1" />
+			</selectors>
+			<operations>
+				<addRole name="CELEDIN_OLBRAMUV" />
+			</operations>
+		</rule>
+
+		<rule name="mysi_celedinChcani" >
+			<selectors>
+				<hasName name="tzel_farmhand_1" />
+			</selectors>
+			<operations>
+				<addRole name="CELEDIN_CHCANI" />
+			</operations>
+		</rule>
+
+		<rule name="mysi_celedin2" >
+			<selectors>
+				<hasName name="tzel_farmhand_2" />
+			</selectors>
+			<operations>
+				<addRole name="CELEDIN_OLBRAMUV2" />
+			</operations>
+		</rule>
+
+		<rule name="mysi_kovar" >
+			<selectors>
+				<hasName name="ttac_blacksmith" />
+			</selectors>
+			<operations>
+				<addRole name="KOVAR_TACHOV" />
+				<addRole name="VYJEDNAVANI_MUZ"/>
+			</operations>
+		</rule>
+
+		<rule name="mysi_krejci" >
+			<selectors>
+				<hasName name="ttkc_bartosek" />
+			</selectors>
+			<operations>
+				<addRole name="KREJCI_BARTOSEK" />
+			</operations>
+		</rule>
+
+		<rule name="mysi_kovar_bribeForRecipe">
+			<selectors>
+				<hasName name="ttac_blacksmith" />
+			</selectors>
+			<operations>
+				<addRole name="VYJEDNAVANI_MUZ" />
+			</operations>
+		</rule>
+
+		<rule name="mysi_crimeStodola_male">
+			<selectors>
+				<or>
+					<hasName name="tzel_farmhand_1" />
+					<hasName name="tzel_farmhand_2" />
+					<hasName name="tzel_farmhand_3" />
+					<hasName name="tzel_man_3" />
+					<hasName name="tzel_man_4" />
+					<hasName name="tzel_man_5" />
+					<hasName name="tzel_man_7" />
+				</or>
+			</selectors>
+			<operations>
+				<addRole name="ZELEJAK_REAKCE_NA_CRIME_V_S21" />
+			</operations>
+		</rule>
+
+		<rule name="mysi_olbram_reakceNaCrime">
+			<selectors>
+				<hasName name="tzel_olbram" />
+			</selectors>
+			<operations>
+				<addRole name="OLBRAM_REAKCE_NA_CRIME_V_S21" />
+				<addRole name="OLBRAM_ZATYKANI_V_S21" />
+			</operations>
+		</rule>
+
+		<rule name="mysi_crimeStodola_nadavani">
+			<selectors>
+				<or>
+					<hasName name="tzel_farmhand_1" />
+					<hasName name="tzel_farmhand_2" />
+					<hasName name="tzel_farmhand_3" />
+					<hasName name="tzel_man_3" />
+					<hasName name="tzel_man_4" />
+					<hasName name="tzel_man_5" />
+					<hasName name="tzel_man_7" />
+				</or>
+			</selectors>
+			<operations>
+				<addRole name="ZELEJAK_NADAVA_HRACI" />
+			</operations>
+		</rule>
+		<rule name="mysi_crimeStodola_arrestOverride">
+			<selectors>
+				<or>
+					<hasName name="tzel_farmhand_1" />
+					<hasName name="tzel_farmhand_2" />
+					<hasName name="tzel_farmhand_3" />
+					<hasName name="tzel_man_3" />
+					<hasName name="tzel_man_4" />
+					<hasName name="tzel_man_5" />
+					<hasName name="tzel_man_7" />
+				</or>
+			</selectors>
+			<operations>
+				<addRole name="ZELEJAK_ZATYKANI_V_S21" />
+			</operations>
+		</rule>
+
+		<rule name="mysi_gossipplebs_men">
+			<selectors>
+				<isMan />
+				<isCivilian/>
+				<isNotPlayer />
+				<hasName name="tzel_*" />
+				<not>
+					<hasName name="tzel_olbram"/>
+				</not>
+				<or>
+					<hasVoice name="danBrown" />
+					<hasVoice name="jamesBeaumont" />
+					<hasVoice name="danielZappi" />
+					<hasVoice name="ianChampion" />
+					<hasVoice name="jonathanMilshaw" />
+					<hasVoice name="alechMontyro" />
+					<hasVoice name="rupertLazurus" />
+					<hasVoice name="jackParr" />
+					<hasVoice name="martinBishop" />
+					<hasVoice name="michaelGlantschnig" />
+					<hasVoice name="bobBordeaux" />
+					<hasVoice name="gabrielAndrews" />
+					<hasVoice name="christopherDukes" />
+					<hasVoice name="samBarlien" />
+					<hasVoice name="johnComer" />
+				</or>
+			</selectors>
+			<operations>
+				<addRole name="ZELEJOV_O_BYKOVI_MUZ" />
+				<addRole name="ZELEJOV_O_BYKOVI_MUZ2" />
+			</operations>
+		</rule>
+
+		<rule name="mysi_gossipplebs_women">
+			<selectors>
+				<isWoman />
+				<isCivilian/>
+				<isNotPlayer />
+				<hasName name="tzel_*" />
+				<or>
+				  <hasVoice name="jadeBecker" />
+				  <hasVoice name="jenniferPreston" />
+				  <hasVoice name="abigailRice" />
+				  <hasVoice name="andreaMiltnerova" />
+				  <hasVoice name="rebeccaRisness" />
+				  <hasVoice name="bethanRoseYoung" />
+				  <hasVoice name="tegenShort" />
+				  <hasVoice name="angelaAlsop" />
+				  <hasVoice name="beccaMcfadden" />
+				</or>
+			</selectors>
+			<operations>
+				<addRole name="ZELEJOV_O_BYKOVI_ZENA" />
+				<addRole name="ZELEJOV_O_BYKOVI_ZENA2" />
+			</operations>
+		</rule>
+		
+		<rule name="mysi_byk_muz_1">
+			<selectors>
+				<hasName name="tzel_frantisek" />
+			</selectors>
+			<operations>
+				<addRole name="ZELEJOV_O_POMALOVANYM_BYKOVI_MUZ" />
+			</operations>
+		</rule>
+		<rule name="mysi_byk_muz_2">
+			<selectors>
+				<hasName name="tzel_man_1" />
+			</selectors>
+			<operations>
+				<addRole name="ZELEJOV_O_POMALOVANYM_BYKOVI_MUZ2" />
+			</operations>
+		</rule>
+		<rule name="mysi_byk_zena_1">
+			<selectors>
+				<hasName name="tzel_woman_3" />
+			</selectors>
+			<operations>
+				<addRole name="ZELEJOV_O_POMALOVANYM_BYKOVI_ZENA" />
+			</operations>
+		</rule>
+		<rule name="mysi_byk_zena_2">
+			<selectors>
+				<hasName name="tzel_woman_2" />
+			</selectors>
+			<operations>
+				<addRole name="ZELEJOV_O_POMALOVANYM_BYKOVI_ZENA2" />
+			</operations>
+		</rule>
+
+		<rule name="mysi_byk">
+			<selectors>
+				<hasName name="mysi_bull" />
+			</selectors>
+			<operations>
+				<addRole name="BYK_ARNOST" />
+			</operations>
+		</rule>
+    </rules>
+</storm>

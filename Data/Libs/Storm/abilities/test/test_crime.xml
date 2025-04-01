@@ -1,0 +1,76 @@
+<?xml version="1.0"?>
+<!DOCTYPE storm SYSTEM "..\storm.dtd">
+<storm>
+	<rules>
+		<rule name="test_crime_merchants">		
+			<selectors>
+				<hasName name="test_crime_merchant_*" />
+			</selectors>	
+			<operations>						
+				<modAttribute stat="barter" minMod="6" maxMod="8" />
+				<modAttribute stat="charisma" minMod="4" maxMod="6" />
+				<modAttribute stat="speech" minMod="4" maxMod="8" />
+				<modAttribute skill="thievery" minMod="2" maxMod="4" />
+				<modAttribute stat="vision" minMod="2" maxMod="4" />			
+			</operations>		
+		</rule>	
+		<rule name="test_crime_guards">		
+			<selectors>
+				<hasName name="test_crime_guard_*" />
+			</selectors>	
+			<operations>
+				<modAttribute stat="strength" minMod="9" maxMod="11" />
+				<modAttribute stat="agility" minMod="9" maxMod="11" />
+				<modAttribute stat="courage" minMod="9" maxMod="11" />							
+				<setAttribute stat="charisma" minValue="9" maxValue="11" />
+				<setAttribute stat="speech" minValue="9" maxValue="11" />
+				<modAttribute stat="vision" minMod="3" maxMod="6" />		
+			</operations>		
+		</rule>
+		<rule name="test_crime_civilians">		
+			<selectors>
+				<hasName name="test_crime_civilian_*" />
+			</selectors>	
+			<operations>						
+				<modAttribute stat="charisma" minMod="-2" maxMod="0" />	
+				<modAttribute stat="vision" minMod="2" maxMod="4" />	
+			</operations>		
+		</rule>
+		<rule name="test_crime_enemies">		
+			<selectors>
+				<or>
+					<hasName name="test_crime_bandit_*" />				
+					<hasName name="test_crime_cuman_*" />
+				</or>
+			</selectors>	
+			<operations>						
+				<modAttribute stat="strength" minMod="5" maxMod="11" />
+				<modAttribute stat="agility" minMod="5" maxMod="11" />
+				<modAttribute stat="courage" minMod="9" maxMod="11" />	
+				<modAttribute stat="vision" minMod="2" maxMod="4" />								
+			</operations>		
+		</rule>
+		<rule name="test_crime_civilians_tough">		
+			<selectors>
+				<hasName name="test_crime_civilian_tough_*" />
+			</selectors>	
+			<operations>						
+				<setAttribute stat="strength" minValue="15" maxValue="20" />
+				<setAttribute stat="agility" minValue="15" maxValue="20" />
+				<setAttribute stat="courage" minValue="15" maxValue="20" />	
+				<setAttribute stat="vision" minValue="15" maxValue="20" />	
+			</operations>		
+		</rule>
+		<rule name="test_crime_archers">		
+			<selectors>
+				<hasName name="test_crime_archer_*" />
+			</selectors>	
+			<operations>						
+				<setAttribute stat="strength" minValue="15" maxValue="20" />
+				<setAttribute stat="agility" minValue="15" maxValue="20" />
+				<setAttribute stat="courage" minValue="15" maxValue="20" />	
+				<setAttribute stat="vision" minValue="15" maxValue="20" />	
+			</operations>		
+		</rule>
+    </rules>
+</storm>

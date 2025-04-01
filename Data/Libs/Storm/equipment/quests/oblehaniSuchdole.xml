@@ -1,0 +1,504 @@
+<?xml version="1.0"?>
+<!DOCTYPE storm SYSTEM "..\storm.dtd">
+<storm>
+	<rules>
+
+	<!-- INITIAL BATTLE ======================================================== -->
+
+		<!-- DEFENDERS -->
+		<!-- Wall defenders -->
+		<rule name="inventory_oblehaniSuchdole_wall_defender">
+			<selectors>
+				<or>
+					<hasName Name="oblehaniSuchdole_spojenciB_obrance*" />
+					<hasName Name="oblehaniSuchdole_spojenciA_strelec*" />
+					<hasName Name="oblehaniSuchdole_guard*" />
+					<hasName Name="oblehaniSuchdole_nocniUtok_spojenec*" />
+					<hasName Name="oblehaniSuchdole_recruitmentGuard*" />
+				</or>
+			</selectors>
+			<operations>
+				<setInventory preset="inventory_oblehaniSuchdole_wall_defender" />
+			</operations>
+		</rule>
+
+		<rule name="inventory_oblehaniSuchdole_defenseLeader">
+			<selectors>
+				<or>
+					<hasName Name="oblehaniSuchdole_recruitmentGuard_1" />
+					<hasName Name="oblehaniSuchdole_recruitmentGuard_3" />
+				</or>
+			</selectors>
+			<operations>
+				<setInventory preset="inventory_oblehaniSuchdole_defender_melee" />
+			</operations>
+		</rule>
+
+		<rule name="inventory_oblehaniSuchdole_defenderHeavyCrossbow">
+			<selectors>
+				<hasName Name="oblehaniSuchdole_recruitmentGuard_2" />
+			</selectors>
+			<operations>
+				<setInventory preset="inventory_oblehaniSuchdole_defender_shooter_light_crossbow" />
+			</operations>
+		</rule>
+
+		<rule name="inventory_oblehaniSuchdole_defenderMediumCrossbow">
+			<selectors>
+				<hasName Name="oblehaniSuchdole_recruitmentGuard_5" />
+			</selectors>
+			<operations>
+				<setInventory preset="inventory_oblehaniSuchdole_defender_shooter_medium_crossbow" />
+			</operations>
+		</rule>
+
+		<!-- ATTACKERS -->
+		<!-- GROUP D - axemen charging the gate -->
+		<rule name="inventory_oblehaniSuchdole_attacker_axemen">
+			<selectors>
+				<or>
+					<hasName Name="oblehaniSuchdole_neprateleD_utocnikNaBranu1" />
+					<hasName Name="oblehaniSuchdole_neprateleD_utocnikNaBranu2" />
+					<hasName Name="oblehaniSuchdole_neprateleD_utocnikNaBranu3" />
+				</or>
+			</selectors>
+			<operations>
+				<setInventory preset="inventory_oblehaniSuchdole_attacker_axemen" />
+			</operations>
+		</rule>w
+				
+		<rule name="inventory_oblehaniSuchdole_attacker_axemen">
+			<selectors>
+				<or>
+					<hasName Name="oblehaniSuchdole_neprateleD_utocnikNaBranu4" />
+					<hasName Name="oblehaniSuchdole_neprateleD_utocnikNaBranu5" />
+					<hasName Name="oblehaniSuchdole_neprateleD_utocnikNaBranu6" />
+				</or>
+			</selectors>
+			<operations>
+				<setInventory preset="inventory_oblehaniSuchdole_attacker_axemen_without_shield" />
+			</operations>
+		</rule>
+
+		<!-- GROUPS A, B, G - soldiers storming the walls -->
+		<rule name="inventory_oblehaniSuchdole_attacker_wall_stormer">
+			<selectors>
+				<or>
+					<hasName Name="oblehaniSuchdole_neprateleA_pesak*" />
+					<hasName Name="oblehaniSuchdole_neprateleB_pesak*" />
+					<hasName Name="oblehaniSuchdole_neprateleG_zebrikar*" />
+				</or>
+			</selectors>
+			<operations>
+				<setInventory preset="inventory_oblehaniSuchdole_attacker_wall_stormer" />
+			</operations>
+		</rule>
+
+		<!-- GROUPS A, B, G - soldiers storming the walls - soldiers with ranged weapons-->
+		<rule name="inventory_oblehaniSuchdole_attacker_wall_stormer_crossbow_medium">
+			<selectors>
+				<or>
+					<hasName Name="oblehaniSuchdole_neprateleA_pesak24" />
+					<hasName Name="oblehaniSuchdole_neprateleB_pesak22" />
+				</or>
+			</selectors>
+			<operations>
+				<setInventory preset="weapons_melee_shield_crossbow_medium" />
+			</operations>
+		</rule>
+
+		<rule name="inventory_oblehaniSuchdole_attacker_wall_stormer_crossbow_light">
+			<selectors>
+				<or>
+					<hasName Name="oblehaniSuchdole_neprateleA_pesak23" />
+					<hasName Name="oblehaniSuchdole_neprateleB_pesak3" />
+					<hasName Name="oblehaniSuchdole_neprateleB_pesak23" />
+				</or>
+			</selectors>
+			<operations>
+				<setInventory preset="weapons_melee_shield_crossbow_light" />
+			</operations>
+		</rule>
+
+		<rule name="inventory_oblehaniSuchdole_attacker_wall_stormer_bow">
+			<selectors>
+				<or>
+					<hasName Name="oblehaniSuchdole_neprateleA_pesak11" />
+					<hasName Name="oblehaniSuchdole_neprateleA_pesak18" />
+					<hasName Name="oblehaniSuchdole_neprateleB_pesak25" />
+				</or>
+			</selectors>
+			<operations>
+				<setInventory preset="weapons_melee_shield_bow" />
+			</operations>
+		</rule>
+
+		<rule name="inventory_oblehaniSuchdole_attacker_wall_stormer_rifle">
+			<selectors>
+				<or>
+					<hasName Name="oblehaniSuchdole_neprateleA_pesak8" />
+					<hasName Name="oblehaniSuchdole_neprateleA_pesak22" />
+					<hasName Name="oblehaniSuchdole_neprateleB_pesak6" />
+				</or>
+			</selectors>
+			<operations>
+				<setInventory preset="weapons_melee_shield_rifle" />
+			</operations>
+		</rule>
+
+
+		<!-- GROUPS C - pavisars, never NPC -->
+		<rule name="inventory_oblehaniSuchdole_attacker_pavisar_heavy_crossbow">
+			<selectors>
+				<or>
+					<hasName Name="oblehaniSuchdole_neprateleC_pesak32" />
+					<hasName Name="oblehaniSuchdole_neprateleC_pesak23" />
+					<hasName Name="oblehaniSuchdole_neprateleC_pesak29" />
+					<hasName Name="oblehaniSuchdole_neprateleC_pesak26" />
+					<hasName Name="oblehaniSuchdole_neprateleC_pesak25" />
+					<hasName Name="oblehaniSuchdole_neprateleC_pesak15" />
+					<hasName Name="oblehaniSuchdole_neprateleC_pesak6" />
+					<hasName Name="oblehaniSuchdole_neprateleC_pesak10" />
+					<hasName Name="oblehaniSuchdole_neprateleC_pesak1" />
+				</or>
+			</selectors>
+			<operations>
+				<setInventory preset="inventory_oblehaniSuchdole_attacker_pavisar_heavy_crossbow" />
+			</operations>
+		</rule>
+
+		<rule name="inventory_oblehaniSuchdole_attacker_pavisar_medium_crossbow">
+			<selectors>
+				<or>
+					<hasName Name="oblehaniSuchdole_neprateleC_pesak31" />
+					<hasName Name="oblehaniSuchdole_neprateleC_pesak21" />
+					<hasName Name="oblehaniSuchdole_neprateleC_pesak19" />
+					<hasName Name="oblehaniSuchdole_neprateleC_pesak17" />
+					<hasName Name="oblehaniSuchdole_neprateleC_pesak7" />
+					<hasName Name="oblehaniSuchdole_neprateleC_pesak14" />
+					<hasName Name="oblehaniSuchdole_neprateleC_pesak4" />
+					<hasName Name="oblehaniSuchdole_neprateleC_pesak3" />
+					<hasName Name="oblehaniSuchdole_neprateleC_pesak9" />
+				</or>
+			</selectors>
+			<operations>
+				<setInventory preset="inventory_oblehaniSuchdole_attacker_pavisar_medium_crossbow" />
+			</operations>
+		</rule>
+
+		<rule name="inventory_oblehaniSuchdole_attacker_pavisar_light_crossbow">
+			<selectors>
+				<or>
+					<hasName Name="oblehaniSuchdole_neprateleC_pesak30" />
+					<hasName Name="oblehaniSuchdole_neprateleC_pesak20" />
+					<hasName Name="oblehaniSuchdole_neprateleC_pesak27" />
+					<hasName Name="oblehaniSuchdole_neprateleC_pesak16" />
+					<hasName Name="oblehaniSuchdole_neprateleC_pesak13" />
+					<hasName Name="oblehaniSuchdole_neprateleC_pesak5" />
+					<hasName Name="oblehaniSuchdole_neprateleC_pesak2" />
+				</or>
+			</selectors>
+			<operations>
+				<setInventory preset="inventory_oblehaniSuchdole_attacker_pavisar_light_crossbow" />
+			</operations>
+		</rule>
+
+		<rule name="inventory_oblehaniSuchdole_attacker_pavisar_rifle">
+			<selectors>
+				<or>
+					<hasName Name="oblehaniSuchdole_neprateleC_pesak24" />
+					<hasName Name="oblehaniSuchdole_neprateleC_pesak22" />
+					<hasName Name="oblehaniSuchdole_neprateleC_pesak28" />
+					<hasName Name="oblehaniSuchdole_neprateleC_pesak18" />
+					<hasName Name="oblehaniSuchdole_neprateleC_pesak8" />
+					<hasName Name="oblehaniSuchdole_neprateleC_pesak12" />
+					<hasName Name="oblehaniSuchdole_neprateleC_pesak11" />
+				</or>
+			</selectors>
+			<operations>
+				<setInventory preset="inventory_oblehaniSuchdole_attacker_pavisar_rifle" />
+			</operations>
+		</rule>
+
+	<!-- EXTRAS ========================================================== -->
+		<rule name="inventory_oblehaniSuchdole_extras_commanders">
+			<selectors>
+				<or>
+					<hasName Name="oblehaniSuchdole_extras_commandPoint_1" />
+					<hasName Name="oblehaniSuchdole_extras_commandPoint_2" />
+					<hasName Name="oblehaniSuchdole_extras_commandPoint_3" />
+					<hasName Name="oblehaniSuchdole_extras_commandPoint_4" />
+					<hasName Name="oblehaniSuchdole_extras_commandPoint_5" />
+				</or>
+			</selectors>
+			<operations>
+				<setInventory preset="inventory_finale_praguer_generic" />
+			</operations>
+		</rule>
+
+		<rule name="inventory_oblehaniSuchdole_extras_footmen">
+			<selectors>
+				<or>
+					<hasName Name="oblehaniSuchdole_extras_station_4_1" />
+					<hasName Name="oblehaniSuchdole_extras_station_4_2" />
+					<hasName Name="oblehaniSuchdole_extras_station_4_3" />
+					<hasName Name="oblehaniSuchdole_extras_station_3_1" />
+					<hasName Name="oblehaniSuchdole_extras_station_3_2" />
+					<hasName Name="oblehaniSuchdole_extras_station_3_3" />
+					<hasName Name="oblehaniSuchdole_extras_villageGroup_1" />
+					<hasName Name="oblehaniSuchdole_extras_villageGroup_2" />
+					<hasName Name="oblehaniSuchdole_extras_villageGroup_3" />
+					<hasName Name="oblehaniSuchdole_extras_villageGroup_4" />
+					<hasName Name="oblehaniSuchdole_extras_villageGroup_5" />
+					<hasName Name="oblehaniSuchdole_extras_villageGroup_6" />
+					<hasName Name="oblehaniSuchdole_extras_villageGroup_7" />
+					<hasName Name="oblehaniSuchdole_extras_villageGroup_8" />
+					<hasName Name="oblehaniSuchdole_extras_villageGroup_9" />
+					<hasName Name="oblehaniSuchdole_extras_villageGroup_10" />
+					<hasName Name="oblehaniSuchdole_extras_villageGroup_11" />
+					<hasName Name="oblehaniSuchdole_extras_villageGroup_12" />
+					<hasName Name="oblehaniSuchdole_extras_villageGroup_13" />
+					<hasName Name="oblehaniSuchdole_extras_villageGroup_14" />
+					<hasName Name="oblehaniSuchdole_extras_villageGroup_15" />
+					<hasName Name="oblehaniSuchdole_extras_villageGroup_16" />
+					<hasName Name="oblehaniSuchdole_extras_villageGroup_17" />
+					<hasName Name="oblehaniSuchdole_extras_villageGroup_18" />
+					<hasName Name="oblehaniSuchdole_extras_villageGroup_19" />
+					<hasName Name="oblehaniSuchdole_extras_villageGroup_20" />
+					<hasName Name="oblehaniSuchdole_extras_villageGroup_21" />
+					<hasName Name="oblehaniSuchdole_extras_villageGroup_22" />
+					<hasName Name="oblehaniSuchdole_extras_villageGroup_23" />
+					<hasName Name="oblehaniSuchdole_extras_villageGroup_24" />
+					<hasName Name="oblehaniSuchdole_extras_villageGroup_25" />
+				</or>
+			</selectors>
+			<operations>
+				<setInventory preset="inventory_oblehaniSuchdole_attacker_wall_stormer" />
+			</operations>
+		</rule>
+
+		<rule name="inventory_oblehaniSuchdole_extras_riders">
+			<selectors>
+				<or>
+					<hasName Name="oblehaniSuchdole_extras_messenger_1" />
+					<hasName Name="oblehaniSuchdole_extras_turntable*" />
+				</or>
+			</selectors>
+			<operations>
+				<setInventory preset="inventory_finale_praguer_generic" />
+			</operations>
+		</rule>
+ 
+		<rule name="inventory_oblehaniSuchdole_extras_horses">
+			<selectors>
+				<or>
+					<hasName Name="oblehaniSuchdole_extras_villageGroup_horse*" />
+					<hasName Name="oblehaniSuchdole_extras_station_horse*" />
+					<hasName Name="oblehaniSuchdole_extras_messenger_horse*" />
+					<hasName Name="oblehaniSuchdole_extras_commandPoint_horse*" />
+				</or>
+			</selectors>
+			<operations>
+				<setInventory preset="horse_prague" />
+			</operations>
+		</rule>
+
+		<rule name="inventory_oblehaniSuchdole_defender_wounded">
+			<selectors>
+				<hasName Name="oblehaniSuchdole_woundedSoldier*" />
+			</selectors>
+			<operations>
+				<setInventory preset="inventory_oblehaniSuchdole_pisek_injured_soldier" />
+			</operations>
+		</rule>
+
+		<rule name="inventory_oblehaniSuchdole_defender_animchar_shooter_bow">
+			<selectors>
+				<or>
+					<hasName Name="oblehaniSuchdole_spojenciA_strelec4" />
+					<hasName Name="oblehaniSuchdole_spojenciA_strelec6" />
+					<hasName Name="oblehaniSuchdole_spojenciA_strelec8" />
+					<hasName Name="oblehaniSuchdole_spojenciA_strelec10" />
+				</or>
+			</selectors>
+			<operations>
+				<setInventory preset="inventory_oblehaniSuchdole_defender_shooter_bow" />
+			</operations>
+		</rule>
+
+		<rule name="inventory_oblehaniSuchdole_defender_animchar_shooter_crossbow_medium">
+			<selectors>
+				<or>
+					<hasName Name="oblehaniSuchdole_spojenciA_strelec3" />
+					<hasName Name="oblehaniSuchdole_spojenciA_strelec5" />
+					<hasName Name="oblehaniSuchdole_spojenciA_strelec9" />
+					<hasName Name="oblehaniSuchdole_spojenciA_strelec12" />
+				</or>
+			</selectors>
+			<operations>
+				<setInventory preset="inventory_oblehaniSuchdole_defender_shooter_medium_crossbow" />
+			</operations>
+		</rule>
+
+		<rule name="inventory_oblehaniSuchdole_defender_animchar_shooter_crossbow_light">
+			<selectors>
+				<or>
+					<hasName Name="oblehaniSuchdole_spojenciA_strelec7" />
+					<hasName Name="oblehaniSuchdole_spojenciA_strelec11" />
+				</or>
+			</selectors>
+			<operations>
+				<setInventory preset="inventory_oblehaniSuchdole_defender_shooter_light_crossbow" />
+			</operations>
+		</rule>
+
+		<rule name="inventory_oblehaniSuchdole_defender_patrol_halberds">
+			<selectors>
+				<or>
+					<hasName Name="oblehaniSuchdole_spojenciC_halapartnik*" />
+					<hasName Name="oblehaniSuchdole_guard_1" />
+				</or>
+			</selectors>
+			<operations>
+				<setInventory preset="inventory_zoufalaObranaZaBohutu_halberd" />
+			</operations>
+		</rule>
+
+		<rule name="inventory_oblehaniSuchdole_defender_pavisars_at_gate">
+			<selectors>
+				<or>
+					<hasName Name="oblehaniSuchdole_spojenciD_pavezy1" />
+					<hasName Name="oblehaniSuchdole_spojenciD_pavezy2" />
+				</or>
+			</selectors>
+			<operations>
+				<setInventory preset="inventory_oblehaniSuchdole_defender_crossbowman" />
+			</operations>
+		</rule>
+
+		<rule name="inventory_oblehaniSuchdole_defender_swordsmen_at_gate">
+			<selectors>
+				<or>
+					<hasName Name="oblehaniSuchdole_spojenciD_pavezy3" />
+					<hasName Name="oblehaniSuchdole_spojenciD_pavezy4" />
+				</or>
+			</selectors>
+			<operations>
+				<setInventory preset="inventory_oblehaniSuchdole_defender_archer" />
+			</operations>
+		</rule>
+
+
+	<!-- NIGHT ATTACK ========================================================== -->
+		<!-- ENEMIES -->
+		<!-- Masquerading enemy in suchdol colors -->
+		<rule name="inventory_oblehaniSuchdole_fake_guard">
+			<selectors>
+				<hasName Name="oblehaniSuchdole_nepretaleF_nocniUtok_1" />
+			</selectors>
+			<operations>
+				<setInventory preset="inventory_oblehaniSuchdole_fake_guard" />
+			</operations>
+		</rule>
+
+		<!-- ninjas -->
+		<rule name="inventory_oblehaniSuchdole_attacker_night" Mode="And">
+			<selectors>
+				<or>
+					<hasName Name="oblehaniSuchdole_nepretaleF_nocniUtok*" />
+					<hasName Name="oblehaniSuchdole_nepretaleE_nocniUtok*" />
+				</or>
+				<not>
+					<hasName Name="oblehaniSuchdole_nepretaleF_nocniUtok_1" />
+				</not>
+			</selectors>
+			<operations>
+				<setInventory preset="inventory_oblehaniSuchdole_attacker_night" />
+			</operations>
+		</rule>
+
+	<!-- QUEST CHARACTERS PRESETS ============================================== -->
+		<rule name="inventory_oblehaniSuchdole_janek">
+			<selectors>
+				<hasName Name="oblehaniSuchdole_janek" />
+			</selectors>
+			<operations>
+				<setInventory preset="inventory_oblehaniSuchdole_janek" />
+			</operations>
+		</rule>
+
+		<rule name="inventory_oblehaniSuchdole_jaroslav">
+			<selectors>
+				<hasName Name="oblehaniSuchdole_jaroslav" />
+			</selectors>
+			<operations>
+				<setInventory preset="inventory_oblehaniSuchdole_jaroslav" />
+			</operations>
+		</rule>
+
+		<rule name="inventory_oblehaniSuchdole_archeryJudge">
+			<selectors>
+				<hasName Name="oblehaniSuchdole_archeryJudge" />
+			</selectors>
+			<operations>
+				<setInventory preset="inventory_oblehaniSuchdole_archeryJudge" />
+			</operations>
+		</rule>
+
+	<!-- BILLBOARD ARMY ============================================== -->
+		<rule name="inventory_oblehaniSuchdole_billboard_1">
+			<selectors>
+				<hasName Name="oblehaniSuchdole_billboard_1" />
+			</selectors>
+			<operations>
+				<setInventory preset="inventory_oblehaniSuchdole_billboard_1" />
+			</operations>
+		</rule>
+
+		<rule name="inventory_oblehaniSuchdole_billboard_2">
+			<selectors>
+				<hasName Name="oblehaniSuchdole_billboard_2" />
+			</selectors>
+			<operations>
+				<setInventory preset="inventory_oblehaniSuchdole_billboard_2" />
+			</operations>
+		</rule>
+
+		<rule name="inventory_oblehaniSuchdole_billboard_3">
+			<selectors>
+				<hasName Name="oblehaniSuchdole_billboard_3" />
+			</selectors>
+			<operations>
+				<setInventory preset="inventory_oblehaniSuchdole_billboard_3" />
+			</operations>
+		</rule>		
+
+		<rule name="inventory_oblehaniSuchdole_billboard_4">
+			<selectors>
+				<hasName Name="oblehaniSuchdole_billboard_4" />
+			</selectors>
+			<operations>
+				<setInventory preset="inventory_oblehaniSuchdole_billboard_4" />
+			</operations>
+		</rule>		
+
+		<rule name="inventory_oblehaniSuchdole_billboard_5">
+			<selectors>
+				<hasName Name="oblehaniSuchdole_billboard_5" />
+			</selectors>
+			<operations>
+				<setInventory preset="inventory_oblehaniSuchdole_billboard_5" />
+			</operations>
+		</rule>		
+
+		<rule name="inventory_oblehaniSuchdole_billboard_6">
+			<selectors>
+				<hasName Name="oblehaniSuchdole_billboard_6" />
+			</selectors>
+			<operations>
+				<setInventory preset="inventory_oblehaniSuchdole_billboard_6" />
+			</operations>
+		</rule>
+
+	</rules>
+</storm>

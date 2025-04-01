@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="us-ascii"?>
+<Prefab Id="f6a5d971-3544-415b-a75a-33bd9dcac9e4">
+	<Tags>
+		<Tag>home</Tag>
+		<Tag>home_important</Tag>
+	</Tags>
+	<Objects>
+		<Object EntityClass="GhostDummy" Id="2a73508c-327f-43d3-9f5b-5b63940e80c3" Name="sitting_bench_idle_3" Pos="-0.3499985,0,0" Rotate="-4.371139e-08,0,0,1" Type="Entity">
+			<Properties object_Model="objects/intermediates/poses/sitting_bench_idle_01.cgf" />
+		</Object>
+		<Object EntityClass="StanceSmartObject" Id="2abd3242-6ae8-44b0-9308-1fa8b45dfb83" Name="smartObject" Pos="0.35,0,0" Rotate="4.371139e-08,0,0,1" Type="Entity">
+			<Properties bOwnedByHome="1" guidSmartObjectType="57cbebae-c19a-443b-8945-999d8ee87955" soclass_SmartObjectHelpers="Sit_1Place_Bench_Low" sWH_AI_EntityCategory="Seat">
+				<Bed esReadingQuality="bench_notable" />
+				<Script esBedTypes="Chair" />
+			</Properties>
+			<EntityLinks>
+				<Link DebugTargetName="sitActionTrigger" TargetId="9a75ab97-3bea-47bd-a310-2d281361639e" />
+				<Link DebugTargetName="smartObject" Name="neighbor" TargetId="30c4dd1b-79c4-43b5-839a-d155d6942f73" />
+			</EntityLinks>
+		</Object>
+		<Object EntityClass="StanceSmartObject" Id="30c4dd1b-79c4-43b5-839a-d155d6942f73" Name="smartObject" Pos="-0.35,0,0" Rotate="4.371139e-08,0,0,1" Type="Entity">
+			<Properties bOwnedByHome="1" guidSmartObjectType="57cbebae-c19a-443b-8945-999d8ee87955" soclass_SmartObjectHelpers="Sit_1Place_Bench_Low" sWH_AI_EntityCategory="Seat">
+				<Bed esReadingQuality="bench_notable" />
+				<Script esBedTypes="Chair" />
+			</Properties>
+			<EntityLinks>
+				<Link DebugTargetName="sitActionTrigger" TargetId="71984dd5-b3de-401f-9853-efac16b4732b" />
+				<Link DebugTargetName="smartObject" Name="neighbor" TargetId="2abd3242-6ae8-44b0-9308-1fa8b45dfb83" />
+			</EntityLinks>
+		</Object>
+		<Object EntityClass="PrefabPort" Id="30eaa662-6f7d-4fcf-8bb1-1ad6baf1dff9" Name="port_benchEntity" Pos="-0.2574997,-0.2364349,1" Type="Entity">
+			<EntityLinks>
+				<Link DebugTargetName="smartObject" TargetId="30c4dd1b-79c4-43b5-839a-d155d6942f73" />
+			</EntityLinks>
+		</Object>
+		<Object EntityClass="PrefabPort" Id="5645e209-b030-4e99-80a3-730c6d1b7c9c" Name="port_master" Pos="0.0039,-0.3,1.5" Type="Entity">
+			<EntityLinks>
+				<Link DebugTargetName="hub" TargetId="852f855e-37b7-44bb-b573-adb67af95fca" />
+				<Link DebugTargetName="hub" TargetId="b0c54773-ade2-464e-bbcb-cfa3c6b16dca" />
+			</EntityLinks>
+		</Object>
+		<Object EntityClass="PrefabPort" Id="5856b139-0485-497b-ac82-d54804236f8e" Name="port_actionTrigger_2" Pos="-0.2575073,-0.34375,0.46101" Type="Entity">
+			<EntityLinks>
+				<Link DebugTargetName="sitActionTrigger" TargetId="71984dd5-b3de-401f-9853-efac16b4732b" />
+			</EntityLinks>
+		</Object>
+		<Object EntityClass="ActionTrigger" Id="71984dd5-b3de-401f-9853-efac16b4732b" Name="sitActionTrigger" Pos="-0.254,-0.1889,0.45" Scale="0.135,0.135,0.135" Type="Entity">
+			<Properties bExported_to_game="1" bExported_to_test="1" bSaved_by_game="1" InteractorPriorityOverride="1">
+				<Click UseMessage="@ui_use_sit" />
+			</Properties>
+			<EntityLinks>
+				<Link DebugTargetName="smartObject" TargetId="30c4dd1b-79c4-43b5-839a-d155d6942f73" />
+			</EntityLinks>
+		</Object>
+		<Object EntityClass="SchedulerHub" Id="852f855e-37b7-44bb-b573-adb67af95fca" Name="hub" Pos="-0.2575,0,0.75" Type="Entity">
+			<EntityLinks>
+				<Link DebugTargetName="smartObject" Name="_use" TargetId="30c4dd1b-79c4-43b5-839a-d155d6942f73" />
+			</EntityLinks>
+		</Object>
+		<Object EntityClass="PrefabPort" Id="893ed5eb-bdf9-4ca0-83d1-3760ad985c5a" Name="port_use" Pos="0.2574997,-0.003936768,1" Type="Entity">
+			<EntityLinks>
+				<Link DebugTargetName="hub" TargetId="b0c54773-ade2-464e-bbcb-cfa3c6b16dca" />
+			</EntityLinks>
+		</Object>
+		<Object EntityClass="ActionTrigger" Id="9a75ab97-3bea-47bd-a310-2d281361639e" Name="sitActionTrigger" Pos="0.293396,-0.1984482,0.4499969" Scale="0.135,0.135,0.135" Type="Entity">
+			<Properties bExported_to_game="1" bExported_to_test="1" bSaved_by_game="1" InteractorPriorityOverride="1">
+				<Click UseMessage="@ui_use_sit" />
+			</Properties>
+			<EntityLinks>
+				<Link DebugTargetName="smartObject" TargetId="2abd3242-6ae8-44b0-9308-1fa8b45dfb83" />
+			</EntityLinks>
+		</Object>
+		<Object EntityClass="SchedulerHub" Id="b0c54773-ade2-464e-bbcb-cfa3c6b16dca" Name="hub" Pos="0.2575,0,0.75" Type="Entity">
+			<EntityLinks>
+				<Link DebugTargetName="smartObject" Name="_use" TargetId="2abd3242-6ae8-44b0-9308-1fa8b45dfb83" />
+			</EntityLinks>
+		</Object>
+		<Object EntityClass="PrefabPort" Id="c688861d-c518-4977-95fc-04c4063bd0be" Name="port_benchEntity" Pos="0.2574997,-0.2910309,1" Type="Entity">
+			<EntityLinks>
+				<Link DebugTargetName="smartObject" TargetId="2abd3242-6ae8-44b0-9308-1fa8b45dfb83" />
+			</EntityLinks>
+		</Object>
+		<Object EntityClass="PrefabPort" Id="d7ebc74f-7c1f-4a23-b3fe-9cc103c0d8b3" Name="port_use2" Pos="-0.2574997,0.006362915,1" Type="Entity">
+			<EntityLinks>
+				<Link DebugTargetName="hub" TargetId="852f855e-37b7-44bb-b573-adb67af95fca" />
+			</EntityLinks>
+		</Object>
+		<Object Id="e34524da-012e-45dc-ad4d-eb88228e88be" Name="benchBrush" Prefab="Objects/manmade/common_furniture/benches/low/bench_shabby_d.cgf" Rotate="-4.371139e-08,-0,0,1" Type="Brush">
+			<CollisionFiltering>
+				<Type gcc_interactive="1" />
+			</CollisionFiltering>
+		</Object>
+		<Object EntityClass="GhostDummy" Id="f3ea3369-8715-430c-9a4b-2216bbb6604d" Name="sitting_bench_idle_4" Pos="0.3499985,0,0" Rotate="-4.371139e-08,0,0,1" Type="Entity">
+			<Properties object_Model="objects/intermediates/poses/sitting_bench_idle_01.cgf" />
+		</Object>
+		<Object EntityClass="PrefabPort" Id="f8e8d375-81cf-4c3d-adf1-66fb015fcb87" Name="port_actionTrigger_1" Pos="0.2575073,-0.3455811,0.4603596" Type="Entity">
+			<EntityLinks>
+				<Link DebugTargetName="sitActionTrigger" TargetId="9a75ab97-3bea-47bd-a310-2d281361639e" />
+			</EntityLinks>
+		</Object>
+	</Objects>
+</Prefab>

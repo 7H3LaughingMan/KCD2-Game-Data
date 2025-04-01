@@ -1,0 +1,224 @@
+<?xml version="1.0"?>
+<!DOCTYPE storm SYSTEM "..\storm.dtd">
+<storm>
+	<rules>
+	
+	<!-->BATTLE</-->
+		<rule name="inventory_hladAZmar_enemy_archers">
+			<selectors>
+				<or>
+					<hasName Name="hladAZmar_battle_westshooterSoldier_*" />
+					<hasName Name="hladAZmar_battle_southshooterSoldier_*" />
+					<hasName Name="hladAZmar_battle_forecourtArcher_enemy_*" />
+				</or>
+			</selectors>
+			<operations>
+				<setInventory preset="inventory_hladAZmar_enemy_archers" />
+			</operations>
+		</rule>
+	
+		<rule name="inventory_hladAZmar_enemy_shootersAroundCastle">
+			<selectors>
+				<and>
+					<or>
+						<hasName Name="hladAZmar_battle_locationSouth_*" />
+						<hasName Name="hladAZmar_battle_locationWest_*" />
+					</or>
+					<hasGender name="Male" />
+				</and>
+			</selectors>
+			<operations>
+				<setInventory preset="inventory_hladAZmar_enemy_archers" />
+			</operations>
+		</rule>
+	
+		<rule name="inventory_hladAZmar_friends_archers">
+			<selectors>
+				<or>
+					<hasName Name="hladAZmar_battle_forecourtArcher_friend_*" />
+					<hasName Name="hladAZmar_battle_southPalisade_friend_*" />
+					<hasName Name="hladAZmar_battle_westPalisade_friend_*" />
+				</or>
+			</selectors>
+			<operations>
+				<setInventory preset="inventory_oblehaniSuchdole_wall_defender" />
+			</operations>
+		</rule>
+	
+		<rule name="inventory_hladAZmar_zizka">
+			<selectors>
+				<hasName Name="hladAZmar_battle_forecourtArcher_zizka" />
+			</selectors>
+			<operations>
+				<setInventory preset="inventory_hladAZmar_zizka" />
+			</operations>
+		</rule>
+	
+		<rule name="inventory_hladAZmar_enemy_soldiers">
+			<selectors>
+				<or>
+					<hasName Name="hladAZmar_battle_westPalisade_enemy_*" />
+					<hasName Name="hladAZmar_battle_westLadderSoldier_*" />
+					<hasName Name="hladAZmar_battle_southLadderSoldier_*" />
+					<hasName Name="hladAZmar_battle_southPalisade_enemy_*" />
+					<hasName Name="hladAZmar_battle_towerBehindDoor_enemy_*" />
+					<hasName Name="hladAZmar_battle_towerAtDoor_enemy_*" />
+					<hasName Name="hladAZmar_battle_deadAnimchar_2" />
+					<hasName Name="hladAZmar_battle_deadAnimchar_4" />
+					<hasName Name="hladAZmar_battle_deadAnimchar_5" />
+					<hasName Name="hladAZmar_battle_deadAnimchar_6" />
+					<hasName Name="hladAZmar_battle_horseRider_*" />
+				</or>
+			</selectors>
+			<operations>
+				<setInventory preset="inventory_oblehaniSuchdole_attacker_wall_stormer" />
+			</operations>
+		</rule>
+	
+		<rule name="inventory_hladAZmar_friends_soldiers">
+			<selectors>
+				<or>
+					<hasName Name="hladAZmar_battle_westPalisade_friend_(?!3)" /> <!-- Negation of index 3-->
+					<hasName Name="hladAZmar_battle_westPalisade_alternativeFriend_*" />
+					<hasName Name="hladAZmar_battle_deadAnimchar_1" />
+					<hasName Name="hladAZmar_battle_deadAnimchar_3" />
+				</or>
+			</selectors>
+			<operations>
+				<setInventory preset="inventory_oblehaniSuchdole_defender_ranged" />
+			</operations>
+		</rule>
+	
+		<rule name="inventory_hladAZmar_extras_horses">
+			<selectors>
+				<or>
+					<hasName Name="hladAZmar_battle_horse_*" />
+					<hasName Name="hladAZmar_battle_locationSouth_horse_*" />
+				</or>
+			</selectors>
+			<operations>
+				<setInventory preset="horse_prague" />
+			</operations>
+		</rule>
+	
+		<rule name="inventory_hladAZmar_friend_soldiers_axe">
+			<selectors>
+				<or>
+					<hasName Name="hladAZmar_battle_westPalisade_friend_3" />
+					<hasName Name="hladAZmar_battle_westPalisade_deadFriend_*" />
+				</or>
+			</selectors>
+			<operations>
+				<setInventory preset="inventory_hladAZmar_friends_axe" />
+			</operations>
+		</rule>
+
+		<rule name="inventory_hladAZmar_enemy_battle_deadAnimchar">
+			<selectors>
+				<or>
+					<hasName Name="hladAZmar_battle_deadAnimchar*" />
+					<hasName Name="hladAZmar_afterBattle_deadBody*" />
+				</or>
+			</selectors>
+			<operations>
+				<setInventory preset="inventory_finale_praguer_generic_dead" />
+			</operations>
+		</rule>
+
+		<rule name="inventory_hladAZmar_afterbattle_forecourtArcher_enemy">
+			<selectors>
+				<hasName Name="hladAZmar_afterbattle_forecourtArcher_enemy*" />
+			</selectors>
+			<operations>
+				<setInventory preset="inventory_oblehaniSuchdole_attacker_ranged_animchar" />
+			</operations>
+		</rule>
+
+
+
+	<!-->QUEST OUTFITS</-->
+
+		<rule name="inventory_hladAZmar_guards_ranged">
+			<selectors>
+				<or>
+					<hasName Name="hladAZmar_prepareToLeave_guard*" />
+					<hasName Name="hladAZmar_beforeBattle_guard1" />
+					<hasName Name="hladAZmar_beforeBattle_guard2" />
+					<hasName Name="hladAZmar_beforeBattle_guard3" />
+					<hasName Name="hladAZmar_beforeBattle_guard4" />
+					<hasName Name="hladAZmar_beforeBattle_guard5" />
+					<hasName Name="hladAZmar_beforeBattle_guard11" />
+					<hasName Name="hladAZmar_beforeBattle_guard12" />
+					<hasName Name="hladAZmar_beforeBattle_guard13" />
+					<hasName Name="hladAZmar_beforeBattle_guard16" />
+					<hasName Name="hladAZmar_beforeBattle_guard17" />
+					<hasName Name="hladAZmar_beforeBattle_guard7" />
+				</or>
+			</selectors>
+			<operations>
+				<setInventory preset="inventory_oblehaniSuchdole_defender_ranged" />
+			</operations>
+		</rule>
+
+		<rule name="inventory_hladAZmar_guards_halberds">
+			<selectors>
+				<or>
+					<hasName Name="hladAZmar_beforeBattle_guard6" />
+					<hasName Name="hladAZmar_beforeBattle_guard18" />
+					<hasName Name="hladAZmar_beforeBattle_guard19" />
+					<hasName Name="hladAZmar_beforeBattle_guard20" />
+					<hasName Name="hladAZmar_beforeBattle_guard21" />
+					<hasName Name="hladAZmar_beforeBattle_guard14" />
+					<hasName Name="hladAZmar_beforeBattle_guard9" />
+					<hasName Name="hladAZmar_beforeBattle_guard22" />
+				</or>
+			</selectors>
+			<operations>
+				<setInventory preset="inventory_rutinaAVypad_defender_halberd" />
+			</operations>
+		</rule>
+
+		<rule name="inventory_hladAZmar_guards_generic">
+			<selectors>
+				<or>
+					<hasName Name="hladAZmar_guardNearFrenczlovaRoom" />
+					<hasName Name="hladAZmar_beforeBattle_guard10" />
+				</or>
+			</selectors>
+			<operations>
+				<setInventory preset="inventory_hladAZmar_frenczlGuard" />
+			</operations>
+		</rule>
+
+		<rule name="inventory_hladAZmar_gravedigger">
+			<selectors>
+				<hasName Name="hladAZmar_graveDigger" />
+			</selectors>
+			<operations>
+				<setInventory preset="inventory_hladAZmar_gravedigger" />
+			</operations>
+		</rule>
+
+		<rule name="inventory_hladAZmar_boadiceaHorse">
+			<selectors>
+				<hasName Name="hladAZmar_boadiceaHorse" />
+			</selectors>
+			<operations>
+				<setInventory preset="inventory_hladAZmar_boadiceaHorse" />
+			</operations>
+		</rule>
+
+		<rule name="inventory_hladAZmar_guards_injured">
+			<selectors>
+				<or>
+					<hasName Name="hladAZmar_beforeBattle_guard8" />
+					<hasName Name="hladAZmar_beforeBattle_guard15" />
+				</or>
+			</selectors>
+			<operations>
+				<setInventory preset="inventory_oblehaniSuchdole_pisek_injured_soldier" />
+			</operations>
+		</rule>
+		
+	</rules>
+</storm>

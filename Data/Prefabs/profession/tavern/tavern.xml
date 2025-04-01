@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="us-ascii"?>
+<Prefab Id="21d537db-d831-4c65-af80-fb5317a11f93">
+	<Tags>
+		<Tag>tavern</Tag>
+		<Tag>tavern_important</Tag>
+	</Tags>
+	<Objects>
+		<Object EntityClass="SchedulerHub" Id="0eec54af-7856-4712-be2e-42f2aedf5c72" Name="preactivitiesHub" Pos="0,2.5,1.25" Type="Entity">
+			<EntityLinks>
+				<Link DebugTargetName="customerHub" Name="_|customerFirst,1,1:00,!once" TargetId="3c386a98-ef99-4ecf-9539-509e506acb2f" />
+				<Link DebugTargetName="activitiesHub" Name="_|customerFirst" TargetId="2866e36d-fb6f-4893-9980-6dddda141bb7" />
+			</EntityLinks>
+		</Object>
+		<Object EntityClass="SchedulerHub" Id="2866e36d-fb6f-4893-9980-6dddda141bb7" Name="activitiesHub" Pos="2,-0.6133423,0.5" Type="Entity">
+			<EntityLinks>
+				<Link DebugTargetName="outPort_customerActivities" Name="_" TargetId="c95bfbd3-b9e5-4b55-82f9-da0f49244d45" />
+				<Link DebugTargetName="customerHub" Name="_" TargetId="3c386a98-ef99-4ecf-9539-509e506acb2f" />
+				<Link DebugTargetName="outPort_customerActivities" Name="#AddContext[customerFirst,ForceForbidAutoTorch]" TargetId="c95bfbd3-b9e5-4b55-82f9-da0f49244d45" />
+			</EntityLinks>
+		</Object>
+		<Object EntityClass="PrefabPort" Id="2c94cfe1-bb3a-4854-8293-e43f5994bfe9" Name="outPort_areaLabel" Pos="2,-2,1" Type="Entity">
+			<Properties esPrefabPort_Icon="outArea" esPrefabPort_Type="Out" />
+		</Object>
+		<Object EntityClass="SchedulerHub" Id="2ebd4ef5-2e44-4506-871b-851bc346c4e7" Name="hub" Pos="2,1,0" Type="Entity">
+			<EntityLinks>
+				<Link DebugTargetName="bartenderStupidHub" Name="_bartender|" TargetId="fa4ce9de-87fd-4c19-ba87-4e0d49b6b796" />
+				<Link DebugTargetName="outPort_innkeeperActivities" Name="_innkeeper|" TargetId="a1ce1e98-ccdf-4604-a7a4-0b717bc5b5d6" />
+				<Link DebugTargetName="outPort_areaLabel" Name="#ChangeAreaLabel[innkeeper,+antitrespass] " TargetId="2c94cfe1-bb3a-4854-8293-e43f5994bfe9" />
+				<Link DebugTargetName="outPort_areaLabel" Name="#ChangeAreaLabel[innkeeper,+publicServiceTrespassOverride] " TargetId="2c94cfe1-bb3a-4854-8293-e43f5994bfe9" />
+				<Link DebugTargetName="activitiesHub" Name="#EnableRoleOnHub[bartender,customerFirst]" TargetId="2866e36d-fb6f-4893-9980-6dddda141bb7" />
+				<Link DebugTargetName="activitiesHub_DrinkOnly" Name="#EnableRoleOnHub[bartender,customerFirst]" TargetId="5b8e2069-a5c8-4aba-b798-5f5bf5b1fb80" />
+				<Link DebugTargetName="outPort_tables_customers_sun" Name="#EnableRoleOnHub[bartender,customerFirst]" TargetId="91e7ed36-4287-4c01-856c-94322f45ded4" />
+				<Link DebugTargetName="outPort_tables_customers_anyWeather" Name="#EnableRoleOnHub[bartender,customerFirst]" TargetId="523b3d4e-8708-4037-b9b7-cc28d9a7766d" />
+				<Link DebugTargetName="outPort_areaLabel" Name="#ChangeAreaLabel[bartender,+antitrespass] " TargetId="2c94cfe1-bb3a-4854-8293-e43f5994bfe9" />
+				<Link DebugTargetName="outPort_areaLabel" Name="#ChangeAreaLabel[bartender,+publicServiceTrespassOverride] " TargetId="2c94cfe1-bb3a-4854-8293-e43f5994bfe9" />
+				<Link DebugTargetName="bartenderStupidHub" Name="#AddContext[bartender,tavern_bartender]" TargetId="fa4ce9de-87fd-4c19-ba87-4e0d49b6b796" />
+				<Link DebugTargetName="outPort_innkeeperActivities" Name="#AddContext[innkeeper,tavern_innkeeper]" TargetId="a1ce1e98-ccdf-4604-a7a4-0b717bc5b5d6" />
+				<Link DebugTargetName="outPort_tables_staff" Name="#AddContext[innkeeper,tavern_innkeeper]" TargetId="ff5dcfde-f082-4fb1-a357-44aeadd65d9a" />
+				<Link DebugTargetName="bartenderStupidHub" Name="#AddContext[bartender,profession_onDuty]" TargetId="fa4ce9de-87fd-4c19-ba87-4e0d49b6b796" />
+				<Link DebugTargetName="outPort_innkeeperActivities" Name="#AddContext[innkeeper,profession_onDuty]" TargetId="a1ce1e98-ccdf-4604-a7a4-0b717bc5b5d6" />
+				<Link DebugTargetName="outPort_tables_staff" Name="#AddContext[innkeeper,profession_onDuty]" TargetId="ff5dcfde-f082-4fb1-a357-44aeadd65d9a" />
+				<Link DebugTargetName="tavern_shop" Name="#OpenShop[innkeeper]" TargetId="792becd4-05a1-42f9-9286-f56549a972e0" />
+				<Link DebugTargetName="tavern_shop" Name="#OpenShop[bartender]" TargetId="792becd4-05a1-42f9-9286-f56549a972e0" />
+				<Link DebugTargetName="bartenderStupidHub" Name="#AddContext[bartender,soliloquy_enable]" TargetId="fa4ce9de-87fd-4c19-ba87-4e0d49b6b796" />
+				<Link DebugTargetName="outPort_tables_staff" Name="#AddContext[innkeeper,soliloquy_enable]" TargetId="ff5dcfde-f082-4fb1-a357-44aeadd65d9a" />
+				<Link DebugTargetName="tavern_shop" Name="#AddContext[innkeeper,shop_sellerReadyToSell]" TargetId="792becd4-05a1-42f9-9286-f56549a972e0" />
+				<Link DebugTargetName="tavern_shop" Name="#AddContext[bartender,shop_sellerReadyToSell]" TargetId="792becd4-05a1-42f9-9286-f56549a972e0" />
+				<Link DebugTargetName="outPort_areaLabel" Name="#ChangeAreaLabel[innkeeper,+suppressTorchWarning] " TargetId="2c94cfe1-bb3a-4854-8293-e43f5994bfe9" />
+				<Link DebugTargetName="outPort_areaLabel" Name="#ChangeAreaLabel[bartender,+suppressTorchWarning] " TargetId="2c94cfe1-bb3a-4854-8293-e43f5994bfe9" />
+				<Link DebugTargetName="outPort_tables_staff" Name="_innkeeper|innkeeper,M" TargetId="ff5dcfde-f082-4fb1-a357-44aeadd65d9a" />
+				<Link DebugTargetName="outPort_tables_customers_anyWeather" Name="_@tavernVillage_closing,use_innkeeper_closing" TargetId="523b3d4e-8708-4037-b9b7-cc28d9a7766d" />
+				<Link DebugTargetName="outPort_tables_customers_sun" Name="_@tavernVillage_closing,use_innkeeper_closing" TargetId="91e7ed36-4287-4c01-856c-94322f45ded4" />
+			</EntityLinks>
+		</Object>
+		<Object EntityClass="SchedulerHub" Id="3848b595-9f79-420e-9e6b-0679792a8ff7" Name="preactivitiesHub_drinkOnly" Pos="-0.25,2.5,1.25" Type="Entity">
+			<EntityLinks>
+				<Link DebugTargetName="customerHub_DrinkOnly" Name="_|customerFirst,1,1:00,!once" TargetId="ec1aab33-0832-4d95-95a5-822b79a9111c" />
+				<Link DebugTargetName="activitiesHub_DrinkOnly" Name="_|customerFirst" TargetId="5b8e2069-a5c8-4aba-b798-5f5bf5b1fb80" />
+			</EntityLinks>
+		</Object>
+		<Object EntityClass="PrefabPort" Id="3a053ed4-d4d6-41ee-901f-cf4529ad3d38" Name="portCustomer_eatOnly" Pos="0.25,2.5,2" Type="Entity">
+			<Properties esPrefabPort_Icon="inFood" />
+			<EntityLinks>
+				<Link DebugTargetName="preactivitiesHub_2" TargetId="915a31d6-5ee4-4a72-ae6d-c55e49fa9ed8" />
+			</EntityLinks>
+		</Object>
+		<Object EntityClass="SchedulerHub" Id="3c386a98-ef99-4ecf-9539-509e506acb2f" Name="customerHub" Pos="0,2.5,0.5" Type="Entity">
+			<EntityLinks>
+				<Link DebugTargetName="outPort_tables_customers_anyWeather" Name="#AddContext[customerFirst,ForceForbidAutoTorch]" TargetId="523b3d4e-8708-4037-b9b7-cc28d9a7766d" />
+				<Link DebugTargetName="outPort_tables_customers_sun" Name="#AddContext[customerFirst,ForceForbidAutoTorch]" TargetId="91e7ed36-4287-4c01-856c-94322f45ded4" />
+				<Link DebugTargetName="outPort_tables_customers_anyWeather" Name="_&amp;customerFirst|guest,12:00,!override,use_customer" TargetId="523b3d4e-8708-4037-b9b7-cc28d9a7766d" />
+				<Link DebugTargetName="outPort_tables_customers_sun" Name="_&amp;customerFirst|guest,1,12:00,!override,!sun,use_customer" TargetId="91e7ed36-4287-4c01-856c-94322f45ded4" />
+			</EntityLinks>
+		</Object>
+		<Object EntityClass="PrefabPort" Id="4aa3fb96-ebaa-4b0f-8bbf-20f0ec50bb5b" Name="port_ownership" Pos="-0.3862305,1.238525,2" Type="Entity">
+			<EntityLinks>
+				<Link DebugTargetName="tavern_shop" Name="owner" TargetId="792becd4-05a1-42f9-9286-f56549a972e0" />
+			</EntityLinks>
+		</Object>
+		<Object EntityClass="PrefabPort" Id="523b3d4e-8708-4037-b9b7-cc28d9a7766d" Name="outPort_tables_customers_anyWeather" Pos="-1,-0.5,2" Type="Entity">
+			<Properties esPrefabPort_Icon="outTable" esPrefabPort_Type="Out" />
+		</Object>
+		<Object EntityClass="PrefabPort" Id="566e73e7-e38b-480e-8da5-e524043e8421" Name="outPort_bartenderActivities" Pos="2,0,1" Type="Entity">
+			<Properties esPrefabPort_Icon="outWomanActivities" esPrefabPort_Type="Out" />
+		</Object>
+		<Object EntityClass="SchedulerHub" Id="5b8e2069-a5c8-4aba-b798-5f5bf5b1fb80" Name="activitiesHub_DrinkOnly" Pos="2,-1,0.5" Type="Entity">
+			<EntityLinks>
+				<Link DebugTargetName="outPort_customerActivities" Name="_" TargetId="c95bfbd3-b9e5-4b55-82f9-da0f49244d45" />
+				<Link DebugTargetName="customerHub_DrinkOnly" Name="_" TargetId="ec1aab33-0832-4d95-95a5-822b79a9111c" />
+				<Link DebugTargetName="outPort_customerActivities" Name="#AddContext[customerFirst,ForceForbidAutoTorch]" TargetId="c95bfbd3-b9e5-4b55-82f9-da0f49244d45" />
+			</EntityLinks>
+		</Object>
+		<Object EntityClass="SchedulerHub" Id="5bb5b191-3bfb-4e97-aa43-889aae07ff6d" Name="InnkeeperHub" Pos="2,2.5,1" Type="Entity">
+			<EntityLinks>
+				<Link DebugTargetName="hub" Name="_|innkeeper,$innkeeper" TargetId="2ebd4ef5-2e44-4506-871b-851bc346c4e7" />
+				<Link DebugTargetName="hub" Name="_|bartender,$bartender" TargetId="2ebd4ef5-2e44-4506-871b-851bc346c4e7" />
+			</EntityLinks>
+		</Object>
+		<Object EntityClass="Shop" Id="792becd4-05a1-42f9-9286-f56549a972e0" Name="tavern_shop" Pos="0,1,0" Type="Entity">
+			<Properties iShopId="169" sShopName="common_innkeeper" />
+			<EntityLinks>
+				<Link DebugTargetName="outPort_doors" Name="shopDoor" TargetId="f5a346a3-f733-4e2e-abd8-277b78418a6f" />
+				<Link DebugTargetName="outPort_shopChest" Name="shopStash" TargetId="fee64cfc-1f79-485c-b92f-d2c36e9cc43b" />
+			</EntityLinks>
+		</Object>
+		<Object EntityClass="SchedulerHub" Id="915a31d6-5ee4-4a72-ae6d-c55e49fa9ed8" Name="preactivitiesHub_2" Pos="0.25,2.5,1.25" Type="Entity">
+			<EntityLinks>
+				<Link DebugTargetName="customerHub_EatOnly" Name="_|customerFirst" TargetId="c6df3bf7-3d44-4bc7-810e-89f883f63ab9" />
+			</EntityLinks>
+		</Object>
+		<Object EntityClass="PrefabPort" Id="91e7ed36-4287-4c01-856c-94322f45ded4" Name="outPort_tables_customers_sun" Pos="-1,-1.5,2" Type="Entity">
+			<Properties esPrefabPort_Icon="outTablesun" esPrefabPort_Type="Out" />
+		</Object>
+		<Object EntityClass="PrefabPort" Id="96f6b241-619d-4dba-abfa-2d49cf6038b2" Name="port_shop" Pos="0.5,-3,1" Type="Entity">
+			<Properties esPrefabPort_Icon="inShop" />
+		</Object>
+		<Object EntityClass="PrefabPort" Id="a1ce1e98-ccdf-4604-a7a4-0b717bc5b5d6" Name="outPort_innkeeperActivities" Pos="2,1,1" Type="Entity">
+			<Properties esPrefabPort_Icon="outManActivities" esPrefabPort_Type="Out" />
+		</Object>
+		<Object EntityClass="PrefabPort" Id="be517763-2ba2-47f9-b272-4ebc54f4761d" Name="portCustomer_use" Pos="0,2.5,2" Type="Entity">
+			<Properties esPrefabPort_Icon="inFoodAndBeer" />
+			<EntityLinks>
+				<Link DebugTargetName="preactivitiesHub" TargetId="0eec54af-7856-4712-be2e-42f2aedf5c72" />
+			</EntityLinks>
+		</Object>
+		<Object EntityClass="SchedulerHub" Id="c6df3bf7-3d44-4bc7-810e-89f883f63ab9" Name="customerHub_EatOnly" Pos="0.25,2.5,0.5" Type="Entity">
+			<EntityLinks>
+				<Link DebugTargetName="outPort_tables_customers_sun" Name="#AddContext[customerFirst,ForceForbidAutoTorch]" TargetId="91e7ed36-4287-4c01-856c-94322f45ded4" />
+				<Link DebugTargetName="outPort_tables_customers_anyWeather" Name="#AddContext[customerFirst,ForceForbidAutoTorch]" TargetId="523b3d4e-8708-4037-b9b7-cc28d9a7766d" />
+				<Link DebugTargetName="outPort_tables_customers_anyWeather" Name="_&amp;customerFirst|guest,12:00,!override,use_customerEatOnly" TargetId="523b3d4e-8708-4037-b9b7-cc28d9a7766d" />
+				<Link DebugTargetName="outPort_tables_customers_sun" Name="_&amp;customerFirst|guest,1,12:00,!override,!sun,use_customerEatOnly" TargetId="91e7ed36-4287-4c01-856c-94322f45ded4" />
+			</EntityLinks>
+		</Object>
+		<Object EntityClass="PrefabPort" Id="c95bfbd3-b9e5-4b55-82f9-da0f49244d45" Name="outPort_customerActivities" Pos="2,-1,1" Type="Entity">
+			<Properties esPrefabPort_Icon="outManActivities3" esPrefabPort_Type="Out" />
+		</Object>
+		<Object EntityClass="PrefabPort" Id="d3aee282-e334-4f8a-9866-032fdf0d7b46" Name="portInnkeeperAndBartender_use" Pos="2,2.5,2" Type="Entity">
+			<Properties esPrefabPort_Icon="inManAndWoman" />
+			<EntityLinks>
+				<Link DebugTargetName="InnkeeperHub" TargetId="5bb5b191-3bfb-4e97-aa43-889aae07ff6d" />
+			</EntityLinks>
+		</Object>
+		<Object EntityClass="PrefabPort" Id="d94a9a1a-e5df-4a95-b3e3-9cd1bdeba1ae" Name="port_shopkeeper" Pos="-0.166748,1.238525,2" Type="Entity">
+			<EntityLinks>
+				<Link DebugTargetName="tavern_shop" Name="shopKeeper" TargetId="792becd4-05a1-42f9-9286-f56549a972e0" />
+			</EntityLinks>
+		</Object>
+		<Object EntityClass="PrefabPort" Id="e7e160b3-d40e-4cf8-ae2b-b1edbdd3edce" Name="port_NamedLinkToShop" Pos="0,1.236084,2" Type="Entity">
+			<EntityLinks>
+				<Link DebugTargetName="tavern_shop" TargetId="792becd4-05a1-42f9-9286-f56549a972e0" />
+			</EntityLinks>
+		</Object>
+		<Object EntityClass="SchedulerHub" Id="ec1aab33-0832-4d95-95a5-822b79a9111c" Name="customerHub_DrinkOnly" Pos="-0.25,2.5,0.5" Type="Entity">
+			<EntityLinks>
+				<Link DebugTargetName="outPort_tables_customers_anyWeather" Name="#AddContext[customerFirst,ForceForbidAutoTorch]" TargetId="523b3d4e-8708-4037-b9b7-cc28d9a7766d" />
+				<Link DebugTargetName="outPort_tables_customers_sun" Name="#AddContext[customerFirst,ForceForbidAutoTorch]" TargetId="91e7ed36-4287-4c01-856c-94322f45ded4" />
+				<Link DebugTargetName="outPort_tables_customers_anyWeather" Name="_&amp;customerFirst|guest,12:00,!override,use_customerDrinkOnly" TargetId="523b3d4e-8708-4037-b9b7-cc28d9a7766d" />
+				<Link DebugTargetName="outPort_tables_customers_sun" Name="_&amp;customerFirst|guest,1,12:00,!override,!sun,use_customerDrinkOnly" TargetId="91e7ed36-4287-4c01-856c-94322f45ded4" />
+			</EntityLinks>
+		</Object>
+		<Object EntityClass="PrefabPort" Id="ed939485-f664-4983-9c02-dfa98559ddd7" Name="portCustomer_drinkOnly" Pos="-0.25,2.5,2" Type="Entity">
+			<Properties esPrefabPort_Icon="inBeer" />
+			<EntityLinks>
+				<Link DebugTargetName="preactivitiesHub_drinkOnly" TargetId="3848b595-9f79-420e-9e6b-0679792a8ff7" />
+			</EntityLinks>
+		</Object>
+		<Object EntityClass="PrefabPort" Id="f5a346a3-f733-4e2e-abd8-277b78418a6f" Name="outPort_doors" Pos="2,-3,1" Type="Entity">
+			<Properties esPrefabPort_Icon="outDoor" esPrefabPort_Type="Out" />
+		</Object>
+		<Object EntityClass="SchedulerHub" Id="fa4ce9de-87fd-4c19-ba87-4e0d49b6b796" Name="bartenderStupidHub" Pos="1.5,1,0" Type="Entity">
+			<EntityLinks>
+				<Link DebugTargetName="outPort_tables_staff" Name="_|bartender,1" TargetId="ff5dcfde-f082-4fb1-a357-44aeadd65d9a" />
+				<Link DebugTargetName="outPort_bartenderActivities" Name="_" TargetId="566e73e7-e38b-480e-8da5-e524043e8421" />
+			</EntityLinks>
+		</Object>
+		<Object EntityClass="PrefabPort" Id="fee64cfc-1f79-485c-b92f-d2c36e9cc43b" Name="outPort_shopChest" Pos="1,-3,1" Type="Entity">
+			<Properties esPrefabPort_Icon="outStash" esPrefabPort_Type="Out" />
+		</Object>
+		<Object EntityClass="PrefabPort" Id="ff5dcfde-f082-4fb1-a357-44aeadd65d9a" Name="outPort_tables_staff" Pos="-1,0,1" Type="Entity">
+			<Properties esPrefabPort_Icon="outTableStaff" esPrefabPort_Type="Out" />
+		</Object>
+	</Objects>
+</Prefab>

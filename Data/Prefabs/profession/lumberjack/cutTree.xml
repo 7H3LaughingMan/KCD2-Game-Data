@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="us-ascii"?>
+<Prefab Id="9a4cd2ae-eab7-4e96-903b-5814f8862f49">
+  <Tags>
+    <Tag>lumberjack</Tag>
+    <Tag>lumberjack_important</Tag>
+  </Tags>
+  <Objects>
+    <Object Id="79025665-5e8c-4959-8ebe-899c14ad7ba3" Name="logging_tree_fagus1" Pos="0.03578186,0.001464844,0" Prefab="Objects/manmade/task_specific_props/wood_industry/loggingcamp/logging_tree_fagus.cgf" Type="Brush">
+      <CollisionFiltering>
+        <Type gcc_interactive="1" />
+      </CollisionFiltering>
+    </Object>
+    <Object EntityClass="PrefabPort" Id="81fc5f99-29db-437d-aab6-791c4e410e20" Name="outPort_bigAxe" Pos="0.5853615,0,1.343624" Type="Entity">
+      <Properties esPrefabPort_Type="Out" />
+    </Object>
+    <Object EntityClass="SmartObjectHolder" Id="ac320a71-5685-4816-a239-0a929d5fbce7" Name="SmartObjectHolder4" Type="Entity">
+      <Properties guidSmartObjectType="d5792e02-efa9-46a9-b863-e95da83b906a" soclass_SmartObjectHelpers="GenU_cuttingTree" />
+      <EntityLinks>
+        <Link DebugTargetName="outPort_bigAxe" Name="axeSlot" TargetId="81fc5f99-29db-437d-aab6-791c4e410e20" />
+      </EntityLinks>
+    </Object>
+    <Object EntityClass="SchedulerHub" Id="b64e10e9-3717-4a15-8c02-12a758ceb223" Name="SchedulerHub3" Pos="0,0,0.6414223" Type="Entity">
+      <EntityLinks>
+        <Link DebugTargetName="SmartObjectHolder4" Name="_M,use_cutTree" TargetId="ac320a71-5685-4816-a239-0a929d5fbce7" />
+      </EntityLinks>
+    </Object>
+    <Object EntityClass="PrefabPort" Id="b8940cbc-972c-4c56-8dc1-8084439bcf5a" Name="port_use" Pos="0,0,1.343624" Type="Entity">
+      <EntityLinks>
+        <Link DebugTargetName="SchedulerHub3" TargetId="b64e10e9-3717-4a15-8c02-12a758ceb223" />
+      </EntityLinks>
+    </Object>
+  </Objects>
+</Prefab>

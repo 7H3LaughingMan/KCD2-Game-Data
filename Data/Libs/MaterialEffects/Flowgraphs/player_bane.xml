@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="us-ascii"?>
+<Graph>
+  <Nodes>
+    <Node Id="2" Class="MaterialFX:HUDEndFX" pos="720,10,0" flags="0">
+      <Inputs />
+    </Node>
+    <Node Id="18" Class="Image:FilterChromaShift" pos="510,270,0" flags="0">
+      <Inputs entityId="0" Enabled="1" Disabled="1" FilterChromaShift_User_Amount="0" />
+    </Node>
+    <Node Id="20" Class="Math:Mul" pos="270,310,0" flags="0">
+      <Inputs A="0" B="0.5" />
+    </Node>
+    <Node Id="21" Class="MaterialFX:HUDStartFX" pos="50,30,0" flags="0">
+      <Inputs />
+    </Node>
+    <Node Id="22" Class="Image:FilterVisualArtifacts" pos="420,-310,0" flags="0">
+      <Inputs entityId="0" Enabled="1" Disabled="1" VisualArtifacts_Vsync="0" VisualArtifacts_VsyncFreq="1" VisualArtifacts_Interlacing="0" VisualArtifacts_InterlacingTile="1" VisualArtifacts_InterlacingRot="0" VisualArtifacts_SyncWavePhase="5" VisualArtifacts_SyncWaveFreq="1" VisualArtifacts_SyncWaveAmplitude="0.1" FilterArtifacts_ChromaShift="0" FilterArtifacts_Grain="0" clr_VisualArtifacts_ColorTint="1,1,1" tex_VisualArtifacts_Mask="" />
+    </Node>
+  </Nodes>
+  <Edges>
+    <Edge nodeIn="18" nodeOut="20" portIn="FilterChromaShift_User_Amount" portOut="out" enabled="1" />
+    <Edge nodeIn="18" nodeOut="21" portIn="Enabled" portOut="Started" enabled="1" />
+    <Edge nodeIn="20" nodeOut="21" portIn="A" portOut="Intensity" enabled="1" />
+    <Edge nodeIn="22" nodeOut="21" portIn="Enabled" portOut="Started" enabled="1" />
+  </Edges>
+</Graph>

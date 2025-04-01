@@ -1,0 +1,85 @@
+<?xml version="1.0"?>
+<!DOCTYPE storm SYSTEM "storm.dtd">
+<storm>
+	<customSelectors>
+		<customSelector name="isBartenderWithoutSocialClass" mode="or" >
+			<hasName name="ttro_katerina" />
+		</customSelector>
+	</customSelectors>
+	<rules>
+		<rule name="tavernVisitor_gossips">
+			<selectors>
+				<tavern_gossip_general />
+			</selectors>
+			<operations>
+				<addRole name="GOSSIP_V_HOSPODE_MUZ_1" />
+				<addRole name="GOSSIP_V_HOSPODE_MUZ_2" />
+				<addRole name="POPIJENI_V_HOSPODE_MUZ_1" />
+				<addRole name="POPIJENI_V_HOSPODE_MUZ_2" />
+			</operations>
+		</rule>
+
+		<rule name="tavernVisitor_orderingDrinks">
+			<selectors>
+				<tavern_orderingDrinks_general />
+			</selectors>
+			<operations>
+				<addRole name="ZAKAZNIK_OBJEDNANI_MUZ" />
+				<addRole name="ZAKAZNIK_PRIPITEK_MUZ" />
+				<addRole name="ZAKAZNIK_CEKA_MUZ" />
+				<addRole name="ZAKAZNIK_OBJEDNANI_JIDLA_MUZ" />
+				<addRole name="ZAKAZNIK_SAMOMLUVA" />
+			</operations>
+		</rule>
+
+		<rule name="hospodsky">
+			<selectors>
+				<isValidOpenworldNpc />
+				<hasSocialClass name="innkeeper" />
+				<isMan/>
+			</selectors>
+			<operations>
+				<addRole name="HOSPODSKY_SE_BAVI_SE_ZAKAZNIKEM" />
+				<addRole name="HOSPODSKY_U_STOLU" />
+				<addRole name="HOSPODSKY_ZAVIRA_HOSPODU" />
+				<addRole name="HOSPODSKY_SAMOMLUVA" />
+				<addRole name="HOSPODSKY_UTIRA_STUL" />
+				<addRole name="HOSPODSKY_NESE_OBJEDNAVKU" />
+			</operations>
+		</rule>
+		
+		<rule name="hospodskaZaviracka">
+			<selectors>
+				<isValidOpenworldNpc />
+				<hasSocialClass name="innkeeper" />
+				<isWoman/>
+				<not>
+					<or>
+						<hasName name="kkut_woman_71" />
+					</or>
+				</not>
+			</selectors>
+			<operations>
+				<addRole name="HOSPODSKA_ZAVIRA_HOSPODU" />
+			</operations>
+		</rule>
+
+		<rule name="senkyrkaAHospodska">
+			<selectors>
+				<isValidOpenworldNpc />
+				<isWoman/>
+				<or>
+					<hasSocialClass name="bartender" />
+					<hasSocialClass name="innkeeper" />
+					<isBartenderWithoutSocialClass />	
+				</or>
+			</selectors>
+			<operations>
+				<addRole name="HOSPODSKA_UTIRA_STUL" />
+				<addRole name="HOSPODSKA_NESE_OBJEDNAVKU" />
+				<addRole name="HOSPODSKA_OBJEDNAVKA" />
+				<addRole name="HOSPODSKA_SAMOMLUVA" />
+			</operations>
+		</rule>		
+    </rules>
+</storm>

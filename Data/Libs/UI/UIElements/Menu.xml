@@ -1,0 +1,379 @@
+<UIElements name="Menus">
+
+  <UIElement name="Menu" mouseevents="1" cursor="1" controller_input="1">
+
+    <GFx file="Menu.gfx" layer="45">
+      <Constraints>
+        <Align mode="fullscreen" scale="1" />
+      </Constraints>
+    </GFx>
+
+    <!-- init -->
+
+    <functions>
+
+      <function name="SetInput" funcname="fc_setInput">
+        <param name="ActionId" desc="" type="string" />
+        <param name="ActivationMode" desc="" type="int" />
+      </function>
+
+      <function name="SetGameMode" funcname="fc_setGameMode">
+        <param name="Mode" desc="" type="int" />
+      </function>
+
+      <function name="SetInputId" funcname="fc_setInputId">
+        <param name="InputId" desc="1 keyboard, 2 xbox, 4 ps" type="int" />
+      </function>
+
+      <function name="ClearAll" funcname="fc_clearAll" desc="" />
+
+      <function name="SetMenuColor" funcname="fc_setMenuColor" desc="">
+        <param name="isInGameMenu" desc="true is in game; false in main menu" type="bool" />
+      </function>
+
+      <function name="SetContainer" funcname="fc_setContainer" desc="Setup a new screen start">
+          <param name="containerIndex" desc="" type="int" />
+          <param name="ButtonXPos" desc="" type="int" />
+          <param name="ButtonYPos" desc="" type="int" />
+          <param name="MaxButtons" desc="" type="int" />
+      </function>
+
+      <function name="SetTitleBox" funcname="fc_setTitleBox" desc="">
+          <param name="header" type="string" desc="" />
+          <param name="buttonHalfWidth" type="int" />
+      </function>
+
+      <function name="SetActiveUser" funcname="fc_setActiveUser" desc="">
+          <param name="userName" type="string" desc="" />
+      </function>
+
+      <!-- NVidia highlights -->
+      <function name="SetNvidiaButton" funcname="fc_setNvidiaButton" desc="">
+          <param name="enable" type="bool" desc="" />
+      </function>
+
+      <function name="SetVersion" funcname="fc_setVersion" desc="">
+          <param name="version" type="string" desc="" />
+      </function>
+
+      <!-- add buttons -->
+      <function name="AddBasicButton" funcname="fc_addBasicButton" desc="Adds a simple button to the menu">
+        <param name="id" desc="id to identify object" type="string" />
+        <param name="containerIndex" desc="index of container" type="int" />
+        <param name="uiText" desc="" type="string" />
+        <param name="tooltip" desc="" type="string" />
+        <param name="disable" desc="" type="bool" />
+      </function>
+
+      <function name="AddValueButton" funcname="fc_addValueButton" desc="">
+        <param name="buttonId" desc="" type="string"/>
+        <param name="containerIndex" desc="index of container" type="int" />
+        <param name="uiText" desc="" type="string" />
+        <param name="value" desc="" type="float" />
+        <param name="min" desc="" type="float" />
+        <param name="max" desc="" type="float" />
+        <param name="tooltip" desc="" type="string" />
+        <param name="disable" desc="" type="bool" />
+      </function>
+
+      <function name="AddChoicesButton" funcname="fc_addChoicesButton" desc="">
+        <param name="buttonId" desc="" type="string"/>
+        <param name="containerIndex" desc="index of container" type="int" />
+        <param name="uiText" desc="" type="string" />
+        <param name="tooltip" desc="" type="string" />
+        <param name="disable" desc="" type="bool" />
+      </function>
+
+      <function name="AddChoiceOption" funcname="fc_addChoice" desc="">
+        <param name="choiceId" desc="id of choice" type="int" />
+        <param name="buttonId" desc="" type="string"/>
+        <param name="containerIndex" desc="index of container" type="int" />
+        <param name="uiText" desc="" type="string" />
+        <param name="tooltip" desc="" type="string" />
+        <param name="disable" desc="" type="bool" />
+      </function>
+
+      <function name="AddLoadButton" funcname="fc_addLoadButton" desc="Adds an item to a listbox">
+        <param name="saveIdx" desc="" type="int"/>
+        <param name="playlineIdx" desc="" type="int"/>
+        <param name="data" desc="" type="string"/>
+        <param name="tooltip" desc="" type="string" />
+        <param name="disable" desc="" type="bool" />
+      </function>
+
+      <function name="AddPlaylineButton" funcname="fc_addPlaylineButton" desc="Adds an item to a listbox">
+        <param name="playlineIdx" desc="" type="int"/>
+        <param name="uiText" desc="" type="string" />
+        <param name="data" desc="" type="string"/>
+        <param name="tooltip" desc="" type="string" />
+        <param name="disable" desc="" type="bool" />
+      </function>
+
+      <function name="AddHelpOverlayButton" funcname="fc_addHelpOverlayButton" desc="Adds an item to a listbox">
+        <param name="buttonId" desc="" type="string"/>
+        <param name="containerIndex" desc="index of container" type="int" />
+        <param name="uiText" desc="ui name of dlc" type="string"/>
+      </function>
+
+      <function name="AddDLCButton" funcname="fc_addDLCButton" desc="Adds an item to a listbox">
+        <param name="buttonId" desc="" type="string"/>
+        <param name="containerIndex" desc="index of container" type="int" />
+        <param name="uiText" desc="ui name of dlc" type="string"/>
+        <param name="helpscreen" desc="helpscreen name of dlc" type="string"/>
+        <param name="state" desc="" type="int" />
+      </function>
+
+      <!-- set get buttons -->
+      <function name="SetDisable" funcname="fc_setDisable" desc="">
+        <param name="buttonId" desc="" type="string"/>
+        <param name="containerIndex" desc="index of container" type="int" />
+        <param name="tooltip" desc="" type="string" />
+        <param name="disable" desc="true is disable, false enable" type="bool" />
+      </function>
+
+      <function name="GetValue" funcname="fc_getValue" desc="">
+        <param name="id" desc="" type="string" />
+        <param name="containerIndex" desc="index of container" type="int" />
+      </function>
+
+      <function name="SetValue" funcname="fc_setValue" desc="">
+        <param name="id" desc="" type="string" />
+        <param name="containerIndex" desc="index of container" type="int" />
+        <param name="value" type="float" desc="" />
+      </function>
+
+      <function name="GetChoice" funcname="fc_getChoice" desc="">
+        <param name="id" desc="" type="string" />
+        <param name="containerIndex" type="int" desc="index of container" />
+      </function>
+
+      <function name="SetChoice" funcname="fc_setChoice" desc="">
+        <param name="id" desc="" type="string" />
+        <param name="containerIndex" desc="index of container" type="int" />
+        <param name="choiceId" type="int" desc="" />
+      </function>
+
+      <function name="SelectButton" funcname="fc_selectButton" desc="">
+        <param name="id" desc="" type="string" />
+        <param name="containerIndex" desc="index of container" type="int" />
+      </function>
+
+      <!-- confirmation -->
+      <function name="AddConfirmation" funcname="fc_addConfirmation" desc="">
+        <param name="confirmationId" desc="" type="string" />
+        <param name="uiQuestion" desc="" type="string" />
+        <param name="uiAnswer0" desc="" type="string" />
+        <param name="uiAnswer1" desc="" type="string" />
+        <param name="defaultAnswer" desc="id of selected button" type="int" />
+        <param name="backAnswer" desc="id of button equivalent with back action or -1 for none" type="int" />
+      </function>
+
+      <function name="RemoveConfirmation" funcname="fc_removeConfirmation" desc="" >
+        <param name="confirmationId" desc="" type="string" />
+      </function>
+
+      <!-- loading hints -->
+      <function name="ShowLoadingHint" funcname="fc_showLoadingHint" desc="" />
+
+      <!-- help -->
+      <function name="ShowHelpOverlay" funcname="fc_showHelpOverlay" desc="">
+        <param name="page" desc="" type="string" />
+        <param name="fromGame" desc="" type="bool" />
+        <param name="holdClose" desc="" type="bool" />
+        <param name="isSpecial" desc="" type="bool" />
+      </function>
+
+      <function name="HideHelpOverlay" funcname="fc_hideHelpOverlay" desc="" />
+
+	  <function name="SetSupportUrl" funcname="fc_setSupportUrl" desc="" />
+		
+      <!-- PROS -->
+      <function name="SetPros" funcname="fc_setPros" desc="" >
+        <param name="isConnection" desc="" type="bool" />
+      </function>
+	  <function name="ShowRootMenu" funcname="fc_showRootMenu" desc="" />
+
+      <!-- credits -->
+      <function name="ShowCredits" funcname="fc_showCredits" desc="" >
+        <param name="type" desc="0=full, 1=first part, 2=second part" type="int" />
+      </function>
+
+      <function name="HideCredits" funcname="fc_hideCredits" desc="" />
+
+      <function name="ShowHCMode" funcname="fc_showHCMode" desc=""/>
+
+      <function name="SetCredits" funcname="fc_setCredits" desc="" />
+
+      <!-- keybinds -->
+      <function name="SetControlsContainers" funcname="fc_setControlsContainers" desc="">
+        <param name="controller" desc="" type="int" />
+      </function>
+
+      <function name="SetGroup" funcname="fc_setGroup" desc="">
+        <param name="groupId" desc="" type="string" />
+        <param name="uiName" desc="" type="string" />
+        <param name="order" desc="" type="int" />
+      </function>
+
+      <function name="KeybindsSetSuperaction" funcname="fc_keybindsSetSuperaction" desc="">
+        <param name="controller" desc="1=keyboard, 2=xboxpad, 4=ps4pad" type="int" />
+        <param name="superactionId" desc="" type="string" />
+        <param name="groupId" desc="" type="string" />
+        <param name="order" desc="" type="int" />
+        <param name="uiName" desc="" type="string" />
+        <param name="uiTooltip" desc="" type="string" />
+        <param name="slot1Input" desc="" type="string" />
+        <param name="slot2Input" desc="" type="string" />
+        <param name="changeable" desc="true = can be rebound, false = can not be rebound" type="bool" />
+      </function>
+
+      <function name="KeybindsSetConflict" funcname="fc_keybindsSetConflict" desc="">
+        <param name="controller" desc="1=keyboard, 2=xboxpad, 4=ps4pad" type="int" />
+        <param name="superactionId" desc="" type="string" />
+        <param name="slot" desc="" type="int" />
+        <param name="conflicts" desc="true = slot conflicts with some other superaction, false = ok" type="bool" />
+      </function>
+
+      <function name="KeybindsChangeInput" funcname="fc_keybindsChangeInput" desc="">
+        <param name="controller" desc="1=keyboard, 2=xboxpad, 4=ps4pad" type="int" />
+        <param name="superactionId" desc="" type="string" />
+        <param name="slot" desc="" type="int" />
+        <param name="input" desc="" type="string" />
+      </function>
+
+      <!-- others -->
+      <function name="PrepareUpdateLanguage" funcname="fc_prepareUpdateLanguage" desc="because langue is set latter" />
+
+      <function name="CheckIsSelectDisabledChoice" funcname="fc_checkIsSelectDisabledChoice" desc="" />
+
+      <function name="IsSomeButtonChanged" funcname="fc_isSomeButtonChanged" desc="" />
+
+      <!-- pros -->
+      <function name="SetProsUrl" funcname="fc_setProsUrl" desc="" >
+        <param name="url" desc="" type="string" />
+      </function>
+      
+
+    </functions>
+
+    <events>
+		  <!-- buttons -->
+		  <event name="OnButton" fscommand="onBasicButton" desc="">
+			  <param name="Id" desc="Button Id" type="string" />
+		  </event>
+
+      <event name="OnPlaylineButton" fscommand="onPlaylineButton" desc="">
+			  <param name="PlaylineIdx" desc="Playline index" type="int" />
+		  </event>
+
+		  <event name="OnConfirm" fscommand="onConfirmButton" desc="">
+			  <param name="id" desc=""  type="string" />
+        <param name="res" desc=""  type="int" />
+		  </event>
+
+      <event name="OnLoadButton" fscommand="onLoadButton" desc="">
+			  <param name="saveId" desc="id of save" type="int" />
+        <param name="playlineId" desc="id of playline" type="int" />
+		  </event>
+
+      <event name="OnDeleteLoadButton" fscommand="onDeleteLoadButton" desc="">
+        <param name="saveId" desc="id of save" type="int" />
+      </event>
+
+      <event name="OnScreenButton" fscommand="onScreenButton" desc="">
+			  <param name="helpscreen" desc="name of helpscreen" type="string" />
+        <param name="isSpecial" desc="dlc, pros, etc." type="bool" />
+		  </event>
+
+      <event name="OnInteractiveValue" fscommand="onInteractiveValue" desc="">
+	     <param name="id" desc=""  type="string" />
+        <param name="value" desc=""  type="float" />
+      </event>
+
+      <event name="OnGamaButtonFocus" fscommand="onGamaButtonFocus" desc="">
+	     <param name="enable" desc=""  type="bool" />
+      </event>
+
+      <event name="OnHelpOverlayClose" fscommand="onHelpOverlayClose" desc="">
+        <param name="id" desc=""  type="string" />
+      </event>
+
+      <event name="OnFirstTimeOverlayClose" fscommand="onFirstTimeOverlayClose" desc="">
+        <param name="id" desc=""  type="string" />
+        <param name="accept" desc=""  type="bool" />
+      </event>
+
+      <event name="OnAudioSetup" fscommand="onAudioSetup" desc="">
+	     <param name="id" desc=""  type="string" />
+        <param name="value" desc=""  type="bool" />
+      </event>
+
+		  <!-- controls -->
+		  <event name="OnControlChanged" fscommand="onControl" desc="" />
+
+      <!-- hc mode -->
+      <event name="OnHCModeConfirm" fscommand="onHCModeConfirm" desc="">
+        <param name="perkList" desc=""  type="string" />
+      </event>
+
+      <!-- credits-->
+		  <event name="OnCredits" fscommand="onCredits" desc="" />
+
+      <event name="OnCreditsHide" fscommand="onCreditsHide" desc="" />
+
+			<!-- keybinds -->
+		  <event name="OnKeybindsChangeInput" fscommand="onChangeInputKeybinds" desc="">
+			  <param name="controller" desc="1=keyboard, 2=xboxpad, 4=ps4pad" type="int" />
+			  <param name="superactionId" desc="" type="string" />
+			  <param name="slot" desc="" type="int" />
+			  <param name="action" desc="0=rebind, 1=clear, 2=default" type="int" />
+      </event>
+
+      <!-- open web page -->
+      <event name="OnOpenWebPage" fscommand="onOpenWebPage" desc="" >
+        <param name="url" desc="url address" type="string"/>
+      </event>
+		
+	  <!-- open social media web page -->
+      <event name="OnOpenWebPageSocial" fscommand="onOpenWebPageSocial" desc="" >
+        <param name="url" desc="url address" type="string"/>
+      </event>
+
+      <!-- pros -->
+      <event name="OnGetProsQRCode" fscommand="onGetProsQRCode" desc="" />
+
+			<!-- Audio -->
+			<event name="OnPlayAudio" fscommand="onPlayAudio" desc="execute global audio trigger">
+				<param name="TriggerName" desc="" type="string"/>
+			</event>
+
+			<event name="OnStopAudio" fscommand="onStopAudio" desc="stop global audio trigger">
+				<param name="TriggerName" desc="" type="string"/>
+			</event>
+
+			<event name="OnSetVolumeAudio" fscommand="onSetVolumeAudio" desc="set volume via rtpc">
+				<param name="TriggerName" desc="" type="string"/>
+				<param name="Volume" desc="" type="float"/>
+			</event>
+
+			<!-- Buttons -->
+			<event name="GetButtonId" fscommand="getButtonId" desc="return button id from action name">
+				<param name="ActionName" desc="" type="string"/>
+			</event>
+
+      <!-- NVidia highlights -->
+      <event name="OnShowHighlights" fscommand="onShowHighlights" desc="open highlights" />
+
+  </events>
+
+  <arrays>
+      <array name="HelpScreenNames" varname="g_HelpScreenNamesA" />
+      <array name="CreditsRoles" varname="g_CreditsRolesA" />
+      <array name="Rewards" varname="g_RewardsA" />
+      <array name="ProsBanners" varname="g_ProsBannersA" />
+  </arrays>
+
+ </UIElement>
+
+
+</UIElements>

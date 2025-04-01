@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="us-ascii"?>
+<Prefab Id="6c000bfd-562c-49a0-910c-c88f34242a61">
+  <Objects>
+    <Object EntityClass="Battlement" Id="3d77b840-3421-4930-9d5b-245deae7fddc" Name="Battlement" Pos="-0.6766815,0.3973999,-0.04552078" Rotate="0.7372774,0,0,-0.6755902" Type="Battlement">
+      <Properties vectorPoint1="-0.0479736,-0.610168,3.8147e-06" />
+      <EntityLinks>
+        <Link DebugTargetName="Pile" Name="blockingMinigame,StoneThrowing" TargetId="9cd43d7d-38bc-4fd2-98cd-e8c306a329a9" />
+      </EntityLinks>
+      <Points>
+        <Point Pos="0,0,0" />
+        <Point Pos="-0.04797363,-0.6101685,3.814697e-06" />
+      </Points>
+      <SoundData Floor="0" Roof="0" Side1="0" Side2="0" />
+    </Object>
+    <Object EntityClass="TagPoint" Id="3ed2b3f9-edf5-47ae-a916-b09a6b98fb66" Name="PickPoint" Pos="-0.4496078,0.09737396,-1.062263" Type="TagPoint" />
+    <Object EntityClass="StoneThrowingNode" Id="9b5423b4-5af8-48d9-9f0e-8ffe34f0167c" Name="StoneThrowingNode1" Pos="-0.9294968,0.01669312,-1" Type="Entity" />
+    <Object EntityClass="StoneThrowingPile" Id="9cd43d7d-38bc-4fd2-98cd-e8c306a329a9" Name="Pile" Pos="0.1009369,0.1152954,-1" Rotate="0.3826833,0,0,0.9238796" Scale="0.6,0.6,0.6" Type="Entity">
+      <Properties esThrowType="walls" object_Model="objects/special/primitive_sphere.cgf" />
+      <EntityLinks>
+        <Link DebugTargetName="StoneThrowingNode1" Name="path" TargetId="9b5423b4-5af8-48d9-9f0e-8ffe34f0167c" />
+        <Link DebugTargetName="OutputPort" TargetId="a028e700-f2cc-4706-a9ea-e63e8d8efcdf" />
+        <Link DebugTargetName="Battlement" Name="blockingMinigame,BattleArchery,0" TargetId="3d77b840-3421-4930-9d5b-245deae7fddc" />
+        <Link DebugTargetName="PickPoint" Name="pickPoint" TargetId="3ed2b3f9-edf5-47ae-a916-b09a6b98fb66" />
+      </EntityLinks>
+    </Object>
+    <Object EntityClass="PrefabPort" Id="a028e700-f2cc-4706-a9ea-e63e8d8efcdf" Name="OutputPort" Pos="-0.4227905,-1.187927,0.110096" Type="Entity">
+      <Properties esPrefabPort_Type="Out" />
+    </Object>
+    <Object EntityClass="PrefabPort" Id="ba9ea65b-8917-4d18-8b68-f645a501d701" Name="InputPort" Pos="0.7084351,-1.169495,0.2000008" Type="Entity">
+      <EntityLinks>
+        <Link DebugTargetName="Pile" TargetId="9cd43d7d-38bc-4fd2-98cd-e8c306a329a9" />
+        <Link DebugTargetName="Battlement" TargetId="3d77b840-3421-4930-9d5b-245deae7fddc" />
+      </EntityLinks>
+    </Object>
+    <Object Id="c8227b16-e96c-4f19-a2e9-46e3ce0de5a8" Name="hurlingStone/hurlingStonePile_a3" Pos="0,-0.3064,-1" PrefabTemplate="6c000bfd-562c-49a0-910c-c88f34242a60" PrefabTemplateName="hurlingStone/hurlingStonePile_a" Type="Prefab" />
+  </Objects>
+  <NestedLinks>
+    <Link Name="stone" SourceDebugName="StoneThrowingPile2" SourceId="9cd43d7d-38bc-4fd2-98cd-e8c306a329a9" SourcePath="" TargetDebugName="StoneLinkPort" TargetId="ba9ea65b-8917-4d18-8b68-f645a501d701" TargetPath="c8227b16-e96c-4f19-a2e9-46e3ce0de5a8" />
+  </NestedLinks>
+</Prefab>

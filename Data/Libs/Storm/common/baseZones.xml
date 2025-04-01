@@ -1,0 +1,424 @@
+<?xml version="1.0"?>
+<!DOCTYPE storm SYSTEM "../storm.dtd">
+<storm>
+    <customSelectors>
+
+        <!-- Random events CL to zone map -->
+
+        <customSelector name="isFromEventsTroseckoZone1" mode="and">
+            <isEventNPC />
+            <hasCombatLevel minValue="0" maxValue="0.39" />
+        </customSelector>
+
+        <customSelector name="isFromEventsTroseckoZone2" mode="and">
+            <isEventNPC />
+            <hasCombatLevel minValue="0.39" maxValue="0.52" />
+        </customSelector>        
+
+        <customSelector name="isFromEventsTroseckoZone3" mode="and">
+            <isEventNPC />
+            <hasCombatLevel minValue="0.52" maxValue="0.65" />
+        </customSelector> 
+
+        <customSelector name="isFromEventsTroseckoZone4" mode="and">
+            <isEventNPC />
+            <hasCombatLevel minValue="0.65" maxValue="0.78" />
+        </customSelector> 
+
+        <customSelector name="isFromEventsKutnohorskoZone1" mode="and">
+            <isEventNPC />
+            <hasCombatLevel minValue="0.65" maxValue="0.78" />
+        </customSelector> 
+
+        <customSelector name="isFromEventsKutnohorskoZone2" mode="and">
+            <isEventNPC />
+            <hasCombatLevel minValue="0.78" maxValue="0.91" />
+        </customSelector> 
+
+        <customSelector name="isFromEventsKutnohorskoZone3" mode="and">
+            <isEventNPC />
+            <hasCombatLevel minValue="0.91" maxValue="0.95" />
+        </customSelector> 
+
+        <customSelector name="isFromEventsKutnohorskoZone4" mode="and">
+            <isEventNPC />
+            <hasCombatLevel minValue="0.95" maxValue="1" />
+        </customSelector>   
+
+        <customSelector name="isFromEventsTroseckoZonesEquip" mode="and">
+            <isEventNPC />
+            <hasCombatLevel minValue="0" maxValue="0.83" />
+        </customSelector>
+
+        <customSelector name="isFromEventsKutnohorskoZonesEquip" mode="and">
+            <isEventNPC />
+            <hasCombatLevel minValue="0.83" maxValue="1" />
+        </customSelector>
+
+        <!-- Closed castles -->
+
+        <customSelector name="isFromClosedCastle" mode="or">
+            <hasName name="ttro_closedCastle_*" />
+            <hasName name="tneb_closedCastle_*" />
+            <hasName name="krat_closedCastle_*" />
+            <hasName name="kmal_closedCastle_*" />
+            <hasName name="kkut_closedCastle_*" />
+        </customSelector>   
+
+        <!-- Trosecko sub-zones -->
+
+        <customSelector name="isFromApolena" mode="or">
+            <hasName name="tapo_*" />
+            <hasName name="poustevnik_*" />
+        </customSelector>
+
+        <customSelector name="isFromBukovina" mode="or">
+            <hasName name="tbuk_*" />
+            <hasName name="hledaniPsa_*" />
+            <hasName name="lovVlku_*" />
+        </customSelector>
+
+         <customSelector name="isFromKopanina" mode="or">
+            <hasName name="tkop_*" />
+        </customSelector>
+
+        <customSelector name="isFromKrcak" mode="or">
+            <hasName name="tkrc_*" />
+        </customSelector>
+
+        <customSelector name="isFromNebakov" mode="or">
+            <hasName name="tneb_*" />
+            <hasName name="nebakovObrana_*" />
+            <hasName name="nebakovPruzkum_*" />
+        </customSelector>
+
+        <customSelector name="isFromPodseminsko" mode="or">
+            <hasName name="tpod_*" />
+        </customSelector>
+
+        <customSelector name="isFromSemin" mode="or">
+            <hasName name="tsem_*" />
+            <hasName name="taboryLapku_*" />
+            <hasName name="taboryLapkuTrosecko_*" />
+            <hasName name="zbranePanaSemina_*" />
+        </customSelector>
+
+        <customSelector name="isFromSlatejov" mode="or">
+            <hasName name="tsla_*" />
+        </customSelector>
+
+        <customSelector name="isFromTachov" mode="or">
+            <hasName name="ttac_*" />
+        </customSelector>
+
+        <customSelector name="isFromTroskovice" mode="or">
+            <hasName name="ttkc_*" />
+            <hasName name="rasuvUcen_*" />
+            <hasName name="socky_*" />
+        </customSelector>
+
+        <customSelector name="isFromTrosky" mode="or">
+            <hasName name="ttro_*" />
+            <hasName name="mucirna_vypaleniSemina_*" />
+            <hasName name="utokNaNebakov_*" />
+            <hasName name="vezniNaTroskach_*" />
+            <hasName name="extraGuards_trosky_soldiers_guards_*" />
+        </customSelector>
+
+        <customSelector name="isFromVezicko2" mode="or"> <!-- level 14 -->
+            <and>
+                <hasName name="tvez_*" />
+                <or>
+                    <hasFaction name="trosecko_enemies_poachers_campVezicko" />
+                    <hasFaction name="trosecko_enemies_bandits_zizkaGuardPOI" />
+                    <hasFaction name="trosecko_enemies_bandits_campVezicko" /> 
+                </or>
+            </and>
+        </customSelector>
+
+        <customSelector name="isFromVezicko1" mode="or"> <!-- level 8 -->
+            <and>
+                <hasName name="tvez_*" />
+                <not>
+					<isFromVezicko2 />
+				</not>
+            </and>
+            <hasName name="kocovnickaCest_*" />
+            <hasName name="kumaniNaTrosecku_*" />
+            <hasName name="prepadeni_*" />
+            <hasName name="zachrana_*" />
+        </customSelector>
+
+        <customSelector name="isFromVidlak1" mode="or"> <!-- level 8 -->
+            <and>
+                <hasName name="tvid_*" />
+                <or>
+                    <hasFaction name="trosecko_outskirts_gamekeepers_vidlak" />
+                </or>
+            </and>
+            <hasName name="pytlakPtacek_*" />
+        </customSelector>
+
+        <customSelector name="isFromVidlak2" mode="or"> <!-- level 14 -->
+            <and>
+                <hasName name="tvid_*" />
+                <or>
+                    <hasFaction name="trosecko_outskirts_tanners_vidlak" />
+                    <hasFaction name="trosecko_outskirts_charcoalburners_campVidlak" />
+                    <hasFaction name="trosecko_outskirts_fishermans_vidlak" />
+                </or>
+            </and>
+        </customSelector>
+
+        <customSelector name="isFromZdar" mode="or">
+            <hasName name="tzda_*" />
+            <hasName name="bohutovaVlozka_*" />
+        </customSelector>
+
+        <customSelector name="isFromZelejov" mode="or">
+            <hasName name="tzel_*" />
+            <hasName name="kejkliri_*" />
+        </customSelector>
+
+        <!-- Trosecko zones -->
+
+        <customSelector name="isFromTroseckoZone1" mode="or">
+            <isFromKrcak />
+            <isFromSemin />
+            <isFromTachov />
+            <isFromTroskovice />
+            <isFromVezicko1 />
+            <isFromZelejov />
+            <isFromVidlak1 />
+            <isFromEventsTroseckoZone1 />
+        </customSelector>
+
+        <customSelector name="isFromTroseckoZone2" mode="or">
+            <isTest/>
+            <isFromBukovina />
+            <isFromPodseminsko />
+            <isFromSlatejov />
+            <isFromTrosky />
+            <isFromZdar />
+            <isFromEventsTroseckoZone2 />
+        </customSelector>
+
+        <customSelector name="isFromTroseckoZone3" mode="or">
+            <isFromApolena />            
+            <isFromNebakov />            
+            <isFromVidlak2 />
+            <isFromVezicko2 />
+            <isFromEventsTroseckoZone3 />
+        </customSelector>
+
+        <customSelector name="isFromTroseckoZone4" mode="or">
+            <isFromKopanina />
+            <isFromEventsTroseckoZone4 />
+        </customSelector>
+
+        <!-- Kutnohorsko sub-zones -->
+
+        <customSelector name="isFromBohounovice" mode="or">
+            <hasName name="kboh_*" />
+            <hasName name="spizovaciOddil_*" />
+            <hasName name="hromovyKamen_*" />
+        </customSelector>
+
+        <customSelector name="isFromBylansko" mode="or">
+            <hasName name="kbyl_*" />
+            <hasName name="zakopanyZitrek_*" />
+            <hasName name="drak_*" />
+        </customSelector>
+
+        <customSelector name="isFromCertovka" mode="or">
+            <hasName name="kcer_*" />
+            <hasName name="sedmStatecnych_*" />
+        </customSelector>
+
+        <customSelector name="isFromGrunta" mode="or">
+            <hasName name="kgru_*" />
+            <hasName name="magickySip_*" />
+        </customSelector>
+
+        <customSelector name="isFromHoransko" mode="or">
+            <hasName name="khor_*" />
+        </customSelector>
+
+        <customSelector name="isFromKopecVysoka" mode="or">
+            <hasName name="kkop_*" />
+            <hasName name="taborOdboje_*" />
+        </customSelector>
+
+        <customSelector name="isFromKuklicko" mode="or">
+            <hasName name="kkuk_*" />
+        </customSelector>
+
+        <customSelector name="isFromKutnaHora" mode="or">
+            <hasName name="kkut_*" />
+            <hasName name="budovaniLazni_*" />
+            <hasName name="havirskyTurnaj_*" />
+            <hasName name="papezskyLegat_*" />
+            <hasName name="pogrom_*" />
+            <hasName name="prepadeniVlasskehoDvora_*" />
+            <hasName name="proMistraZavet_*" />
+            <hasName name="sesivaniTonici_*" />
+            <hasName name="setkaniVRatbori1_*" />
+            <hasName name="traskavePoselstvi_*" />
+            <hasName name="hledaniLichtenstejna_*" />
+            <hasName name="sermiri_*" />
+            <hasName name="sabotazLazni_*" />
+            <hasName name="kralovskeStribro_*" />
+            <hasName name="kubaParalu_*" />
+            <hasName name="extraGuards_kutnaHora_soldiers_guards_*" />
+        </customSelector>
+
+        <customSelector name="isFromLorec" mode="or">
+            <hasName name="klor_*" />
+        </customSelector>
+
+        <customSelector name="isFromMalesov" mode="or">
+            <hasName name="kmal_*" />
+            <hasName name="ukradenyKun_*" />
+            <hasName name="utokNaMalesov_*" />
+            <hasName name="zachranaPtacka_*" />
+        </customSelector>
+
+        <customSelector name="isFromMezholezsko" mode="or">
+            <hasName name="kmez_*" />
+        </customSelector>
+
+        <customSelector name="isFromMiskovicko" mode="or">
+            <hasName name="kmis_*" />
+        </customSelector>
+
+        <customSelector name="isFromNaBylance" mode="or">
+            <hasName name="knab_*" />
+        </customSelector>
+
+        <customSelector name="isFromOpatovicko" mode="or">
+            <hasName name="kopa_*" />
+        </customSelector>
+
+        <customSelector name="isFromPritoky" mode="or">
+            <hasName name="kpri_*" />
+            <hasName name="damaVNesnazich_*" />
+            <hasName name="mapaKPokladu_*" />
+            <hasName name="sedmStatecnych2_*" />
+        </customSelector>
+
+        <customSelector name="isFromRabstejnsko" mode="or">
+            <hasName name="krab_*" />
+            <hasName name="sMlynariNejsouZerty_*" />
+        </customSelector>
+
+        <customSelector name="isFromRatboricko" mode="or">
+            <hasName name="krat_*" />
+            <hasName name="setkaniVRatbori2_*" />
+        </customSelector>
+
+        <customSelector name="isFromRozcesti" mode="or">
+            <hasName name="kroz_*" />
+        </customSelector>
+
+        <customSelector name="isFromSedlecko" mode="or">
+            <hasName name="ksed_*" />
+            <hasName name="stareKosti_*" />
+        </customSelector>
+
+        <customSelector name="isFromStaraKutna" mode="or">
+            <hasName name="ksta_*" />
+            <hasName name="dvojityAgent_*" />
+            <hasName name="skladPaseraku_*" />
+            <hasName name="tarasMura_*" />
+        </customSelector>
+
+        <customSelector name="isFromSuchdol" mode="or">
+            <hasName name="ksuc_*" />
+            <hasName name="erik_*" />
+            <hasName name="finale_*" />
+            <hasName name="hladAZmar_*" />
+            <hasName name="oblehaniSuchdole_*" />
+            <hasName name="prijezdNaSuchdol_*" />
+            <hasName name="rutinaAVypad_*" />
+            <hasName name="zoufalaObranaZaBohutu_*" />
+            <hasName name="stealthMiseZaJindru_*" />
+            <hasName name="poPytlackeStezce_*" />
+        </customSelector>
+
+        <customSelector name="isFromSukov" mode="or">
+            <hasName name="ksuk_*" />
+            <hasName name="ksus_*" />
+            <hasName name="listovniTajemstvi_*" />
+        </customSelector>
+
+        <customSelector name="isFromVlciHory" mode="or">
+            <hasName name="kvlc_*" />
+        </customSelector>
+
+        <customSelector name="isFromVrchlicko" mode="or">
+            <hasName name="kvrc_*" />
+            <hasName name="bratriZCimburka_*" />
+            <hasName name="svatyAntonin_*" />
+        </customSelector>
+
+        <customSelector name="isFromVysoka" mode="or">
+            <hasName name="kvys_*" />
+            <hasName name="spravedlnost_*" />
+        </customSelector>
+
+        <customSelector name="isFromZikmundovo" mode="or">
+            <hasName name="kzik_*" />
+            <hasName name="ztracenaCest_*" />
+            <hasName name="zikmunduvTabor_*" />
+        </customSelector>
+
+        <!-- Kutnohorsko zones -->
+
+        <customSelector name="isFromKutnohorskoZone1" mode="or">
+            <isFromLorec />
+            <isFromMiskovicko />
+            <isFromRozcesti />
+            <isFromSedlecko />
+            <isFromSuchdol />
+            <isFromEventsKutnohorskoZone1 />
+        </customSelector>
+
+        <customSelector name="isFromKutnohorskoZone2" mode="or">
+            <isFromBylansko />
+            <isFromCertovka />
+            <isFromKopecVysoka />
+            <isFromKuklicko />
+            <isFromPritoky />
+            <isFromStaraKutna />
+            <isFromVysoka />
+            <isFromEventsKutnohorskoZone2 />
+        </customSelector>
+
+        <customSelector name="isFromKutnohorskoZone3" mode="or">
+            <isFromBohounovice />
+            <isFromGrunta />
+            <isFromHoransko />
+            <isFromNaBylance />
+            <isFromRatboricko />
+            <isFromVrchlicko />
+            <isFromEventsKutnohorskoZone3 />
+        </customSelector>
+
+        <customSelector name="isFromKutnohorskoZone4" mode="or">
+            <isFromMalesov />
+            <isFromMezholezsko />
+            <isFromOpatovicko/>
+            <isFromRabstejnsko />
+            <isFromSukov/>
+            <isFromVlciHory />
+            <isFromZikmundovo/>
+            <isFromEventsKutnohorskoZone4 />
+        </customSelector>
+
+        <customSelector name="isFromKutnaHoraZone" mode="or">
+            <isFromKutnaHora />
+            <isFromClosedCastle />
+        </customSelector>                                     
+
+	</customSelectors>
+</storm>

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="us-ascii"?>
+<Prefab Id="866f23e4-b2ef-440f-91b5-eb3b996afac2">
+	<Tags>
+		<Tag>home</Tag>
+	</Tags>
+	<Objects>
+		<Object EntityClass="GhostDummy" Id="2848c823-39a9-411e-9140-62b8915ec63f" Name="housekeeper_milking_loop1" Type="Entity">
+			<Properties object_Model="objects/intermediates/poses/housekeeper_milking_loop.cgf" />
+		</Object>
+		<Object EntityClass="CattleCow" Id="2df35d0a-3168-48c8-9416-67a20da0c821" Name="cow_static" Type="Entity">
+			<Properties guidSharedSoulId="979a19e2-6bfe-4878-b9d1-84a20bbfd83c" />
+			<EntityLinks>
+				<Link DebugTargetName="smartObject" Name="_|cow,1,useCow" TargetId="b6cadef4-7c84-4ee6-8621-d52ff4933b79" />
+				<Link DebugTargetName="smartObject" Name="_|cow,useCowDefault" TargetId="b6cadef4-7c84-4ee6-8621-d52ff4933b79" />
+				<Link DebugTargetName="outPort_cowEntity" Name="home" TargetId="795d2d7f-ded6-41bb-b1ad-d47f09cafb95" />
+			</EntityLinks>
+		</Object>
+		<Object EntityClass="ItemSlot" Id="466e329b-afa9-4fbb-aa83-e141099f3e75" Name="milkBucketSlot" NoStaticDecals="1" Pos="-1.134003,-0.6398163,0" Type="Entity">
+			<Properties guidItemClassId="103d0347-3728-471d-84ec-738eb19d9fe1" />
+		</Object>
+		<Object EntityClass="SchedulerHub" Id="683f61d7-e1df-4f51-b520-617e08ff72fd" Name="hub" Pos="-0.5396957,0.1582642,1.033487" Type="Entity">
+			<EntityLinks>
+				<Link DebugTargetName="smartObject" Name="_|master,F,use" TargetId="b6cadef4-7c84-4ee6-8621-d52ff4933b79" />
+			</EntityLinks>
+		</Object>
+		<Object EntityClass="PrefabPort" Id="795d2d7f-ded6-41bb-b1ad-d47f09cafb95" Name="outPort_cowEntity" Pos="-0.6285934,0.6168823,1.757126" Type="Entity">
+			<Properties esPrefabPort_Type="Out" />
+		</Object>
+		<Object EntityClass="ItemSlot" Id="9d926209-f01b-4a34-ba05-923b4c061782" Name="tempMilkBucketSlot" NoStaticDecals="1" Pos="0.1388,-0.2984,0.01" Rotate="0.3650365,-0.001471779,-0.002797371,0.9309878" Type="Entity">
+			<Properties bSpawnOnStart="0" guidItemClassId="103d0347-3728-471d-84ec-738eb19d9fe1" />
+		</Object>
+		<Object EntityClass="PrefabPort" Id="9ec3ebeb-d26d-4e12-8b00-9cd122999e59" Name="port_use" Pos="-0.6285934,0.1116333,1.757126" Type="Entity">
+			<EntityLinks>
+				<Link DebugTargetName="hub" TargetId="683f61d7-e1df-4f51-b520-617e08ff72fd" />
+			</EntityLinks>
+		</Object>
+		<Object EntityClass="SmartObjectHolder" Id="b6cadef4-7c84-4ee6-8621-d52ff4933b79" Name="smartObject" Type="Entity">
+			<Properties guidSmartObjectType="462f118a-d4f1-8d06-193f-a784f7e1f09f" soclass_SmartObjectHelpers="animalCare_cow" />
+			<EntityLinks>
+				<Link DebugTargetName="tempMilkBucketSlot" Name="tempBucketSlot" TargetId="9d926209-f01b-4a34-ba05-923b4c061782" />
+				<Link DebugTargetName="smartObject" Name="#ChangeBehaviorState[cow,use,Enabled]" TargetId="b6cadef4-7c84-4ee6-8621-d52ff4933b79" />
+				<Link DebugTargetName="smartObject" Name="#ChangeBehaviorState[master,useCow,Enabled]" TargetId="b6cadef4-7c84-4ee6-8621-d52ff4933b79" />
+				<Link DebugTargetName="smartObject" Name="+Soil[master,4]" TargetId="b6cadef4-7c84-4ee6-8621-d52ff4933b79" />
+				<Link DebugTargetName="schedulerReservedItem_use" Name="schedulerReservedItem[&apos;use&apos;,&apos;housekeeper_cow_bucket&apos;]" TargetId="f7c0dc30-4acf-408b-a87a-7c41101e4b34" />
+				<Link DebugTargetName="smartObject" Name="#AddContext[cow,crime_animal_suppressImpulsesDuringActivity]" TargetId="b6cadef4-7c84-4ee6-8621-d52ff4933b79" />
+			</EntityLinks>
+		</Object>
+		<Object EntityClass="TagPoint" Id="f7c0dc30-4acf-408b-a87a-7c41101e4b34" Name="schedulerReservedItem_use" Pos="-1.19725,0.3049469,1.907349e-06" Type="TagPoint">
+			<EntityLinks>
+				<Link DebugTargetName="milkBucketSlot" TargetId="466e329b-afa9-4fbb-aa83-e141099f3e75" />
+			</EntityLinks>
+		</Object>
+	</Objects>
+</Prefab>

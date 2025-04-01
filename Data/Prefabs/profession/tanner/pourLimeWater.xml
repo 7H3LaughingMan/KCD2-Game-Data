@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="us-ascii"?>
+<Prefab Id="47962c0f-01f9-4b43-9fc4-517112849a34">
+  <Tags>
+    <Tag>ignore</Tag>
+    <Tag>tanner</Tag>
+    <Tag>tanner_important</Tag>
+  </Tags>
+  <Objects>
+    <Object EntityClass="SchedulerHub" Id="0315bd50-0852-46ae-aabd-12fbc2f66774" Name="hub" Pos="0,0,1" Type="Entity">
+      <EntityLinks>
+        <Link DebugTargetName="smartObject" Name="_!override,use" TargetId="a41467f5-7199-43b4-939d-e806a681fb01" />
+      </EntityLinks>
+    </Object>
+    <Object EntityClass="ItemSlot" Id="12cdabed-ac25-472a-a204-28a3bbae322d" Name="SetAsideBucketItemSlot" Pos="0.23,1.6,0" Rotate="-4.371139e-08,0,0,1" Type="Entity">
+      <Properties bSpawnOnStart="0" guidItemClassId="979b2602-f161-4b9d-8774-738119196ba1" />
+    </Object>
+    <Object Id="1f96d7be-7fc6-4cef-a969-5b2bf89540f9" Name="sack_02_grain1" Pos="0.3,1,0" Prefab="Objects/manmade/common_furniture/sacks/sack_flour.cgf" Rotate="0.7071068,0,0,-0.7071068" Type="Brush">
+      <CollisionFiltering>
+        <Type gcc_interactive="1" />
+      </CollisionFiltering>
+    </Object>
+    <Object EntityClass="PrefabPort" Id="4d92118e-2975-435c-bd2a-f4768add7076" Name="outPort_bucket" Pos="0.5,0,2" Type="Entity">
+      <Properties esPrefabPort_Type="Out" />
+    </Object>
+    <Object EntityClass="PrefabPort" Id="752b1886-037f-4770-ab39-3da6599dcf73" Name="outPort_waterSource" Pos="0.5,0.5,2" Type="Entity">
+      <Properties esPrefabPort_Type="Out" />
+    </Object>
+    <Object Id="84f84a5f-6b28-4703-be87-246e0632303c" Name="water_tube_water1" Prefab="objects/manmade/common_furniture/tubs/water_tub_a.cgf" Type="Brush">
+      <CollisionFiltering>
+        <Type gcc_interactive="1" />
+      </CollisionFiltering>
+    </Object>
+    <Object EntityClass="PrefabPort" Id="966437d4-45a5-4beb-96ce-8da5431aa62d" Name="port_tanner_pourLimeWater" Pos="0,0,2" Type="Entity">
+      <EntityLinks>
+        <Link DebugTargetName="hub" TargetId="0315bd50-0852-46ae-aabd-12fbc2f66774" />
+      </EntityLinks>
+    </Object>
+    <Object EntityClass="SmartObjectHolder" Id="9af08a5d-0c4d-416a-85c5-480a2e0d7c77" Name="pourSO" Pos="0.4,2.15,0" Rotate="0.7071068,0,0,-0.7071067" Type="Entity">
+      <Properties soclass_SmartObjectHelpers="pourFlour" />
+    </Object>
+    <Object EntityClass="ItemSlot" Id="a2f3b10d-e011-43f0-92bf-c62d0c79429d" Name="scoopSlot" Pos="0.1288376,1.118896,0.5832405" Rotate="0.07838437,-0.003422398,-0.04348495,0.9959685" Type="Entity">
+      <Properties guidItemClassId="700410e9-a4c2-4a57-bfe6-b7d49954ab5a" />
+    </Object>
+    <Object EntityClass="SmartObjectHolder" Id="a41467f5-7199-43b4-939d-e806a681fb01" Name="smartObject" Rotate="0.7071068,0,0,-0.7071068" Type="Entity">
+      <Properties guidSmartObjectType="d6d2045c-8979-4d6c-b2ee-9b29bb65d0aa" soclass_SmartObjectHelpers="pourWater" />
+      <EntityLinks>
+        <Link DebugTargetName="outPort_bucket" Name="bucket" TargetId="4d92118e-2975-435c-bd2a-f4768add7076" />
+        <Link DebugTargetName="outPort_waterSource" Name="_refillWatertube" TargetId="752b1886-037f-4770-ab39-3da6599dcf73" />
+        <Link DebugTargetName="pourSO" Name="pourSmartObject" TargetId="9af08a5d-0c4d-416a-85c5-480a2e0d7c77" />
+        <Link DebugTargetName="SetAsideBucketItemSlot" Name="bucketSetAsideSlot" TargetId="12cdabed-ac25-472a-a204-28a3bbae322d" />
+        <Link DebugTargetName="scoopSlot" Name="scoopSlot" TargetId="a2f3b10d-e011-43f0-92bf-c62d0c79429d" />
+      </EntityLinks>
+    </Object>
+    <Object EntityClass="PrefabPort" Id="b72a6890-bfdf-41a3-878f-1589dfc4d7af" Name="outPort_lime" Pos="0.5,-0.5,2" Type="Entity">
+      <Properties esPrefabPort_Type="Out" />
+    </Object>
+  </Objects>
+</Prefab>

@@ -1,0 +1,96 @@
+<?xml version="1.0"?>
+<!DOCTYPE storm SYSTEM "storm.dtd">
+<storm>
+	<customSelectors>
+		<customSelector name="isKhorMiner">
+			<or>
+				<hasName name="khor_man_8" />
+				<hasName name="khor_man_9" />
+				<hasName name="khor_man_14" />
+				<hasName name="khor_man_15" />
+				<hasName name="khor_man_16" />
+				<hasName name="khor_man_17" />
+			</or>
+		</customSelector>
+
+		<customSelector name="isKhorForeman">
+			<or>
+				<hasName name="khor_man_21" />
+				<hasName name="khor_man_22" />
+			</or>
+		</customSelector>
+
+		<customSelector name="isKhorGuard">
+			<or>
+				<hasName name="khor_man_18" />
+				<hasName name="khor_man_19" />
+				<hasName name="khor_man_20" />
+			</or>
+		</customSelector>
+	</customSelectors>
+	
+	<rules>
+		<!-- Tu bude asi nějaká konkrétní soula pro lore -->
+		<rule name="miner">
+			<selectors>
+				<isKhorMiner/>
+			</selectors>
+			<operations>
+				<addRole name="HORNIK" />
+			</operations>
+		</rule>
+
+		<rule name="miner_hello">
+			<selectors>
+				<or>
+					<isKhorMiner/>
+					<isKhorForeman/>
+				</or>
+			</selectors>
+			<operations>
+				<addRole name="HORNIK_MLUVI_V_DOLE_MUZ_1" />
+				<addRole name="HORNIK_MLUVI_V_DOLE_MUZ_2" />
+				<addRole name="POZDRAV_HORNIK" />
+			</operations>
+		</rule>		
+
+		<rule name="mine_guard">
+			<selectors>
+				<isKhorGuard/>
+			</selectors>
+			<operations>
+				<addRole name="STRAZ_DOLY" />
+				<addRole name="STRAZ_DOLY_POZDRAV" />
+			</operations>
+		</rule>
+
+		<rule name="miner_trespass">
+			<selectors>
+				<isKhorMiner/>
+			</selectors>
+			<operations>
+				<addRole name="HORNIK_VYHAZI_Z_TRESPASSU" />
+			</operations>
+		</rule>
+
+		<rule name="mine_guardtrespass">
+			<selectors>
+				<isKhorGuard/>
+			</selectors>
+			<operations>
+				<addRole name="STRAZ_DOLY_VYHAZUJE_HRACE_Z_TRESPASSU_UVOD1" />
+				<addRole name="STRAZ_DOLY_VYHAZUJE_HRACE_Z_TRESPASSU_ESKALACE" />
+			</operations>
+		</rule>
+
+		<rule name="headminer_trespass">
+			<selectors>
+				<isKhorForeman/>
+			</selectors>
+			<operations>
+				<addRole name="PREDAK_DOLY_VYHAZOVANI_Z_TRESPASSU" />
+			</operations>
+		</rule>
+
+	</rules>
+</storm>

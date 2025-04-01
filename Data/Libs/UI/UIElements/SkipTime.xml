@@ -1,0 +1,91 @@
+<UIElements name="Menus">
+
+  <UIElement name="SkipTime" mouseevents="1" cursor="1" controller_input="1" events_exclusive="0">
+
+    <GFx file="SkipTime.gfx" layer="35">
+      <Constraints>
+        <Align mode="fullscreen" />
+      </Constraints>
+    </GFx>
+
+    <functions>
+		<!-- Common stuff -->
+		<function name="AddDialog" funcname="fc_addDialog" desc="Adds a dialog to the screen">
+			<param name="Type" desc="Wait, Warning, Error, AcceptDecline, Confirm, Okay or Input" type="int" />
+			<param name="Message" desc="" type="string" />
+			<param name="Visual" desc="" type="string" />
+			<param name="AudioTrigger" desc="" type="string" />
+			<param name="BaseSpotQuality" desc="" type="float" />
+      		<param name="BuffedSpotQuality" desc="" type="float" />
+		</function>
+
+		<function name="SetInterval" funcname="fc_setInterval" desc="set yelow progress interval">
+			<param name="hours" desc="" type="float" />
+		</function>
+
+		<function name="RemoveDialog" funcname="fc_removeDialog" desc="Removes a dialog from the screen"/>
+
+      	<function name="StartAction" funcname="fc_startAction" desc="Emulate function on button action"/>
+
+		<function name="SetStats" funcname="fc_setStats" desc="Set players stats for skip time">
+			<param name="Health" desc="" type="float" />
+			<param name="Vigour" desc="" type="float" />
+			<param name="Food" desc="" type="float" />
+			<param name="Read" desc="" type="float" />
+			<param name="healthPrevent" desc="" type="bool" />
+			<param name="foodPrevent" desc="" type="bool" />
+			<param name="sleepPrevent" desc="" type="bool" />
+			<param name="readPrevent" desc="" type="bool" />
+			<param name="overReadPrevent" desc="" type="bool" />
+		</function>
+
+		<function name="SetTime" funcname="fc_setTime" desc="Sets current time">
+			<param name="Time" desc="" type="float" />
+		</function>
+
+    	<function name="FadeOutDialog" funcname="fc_fadeOutDialog" desc=""/>
+
+		<function name="TurnLeft" funcname="fc_turnLeft" desc=""/>
+		<function name="TurnRight" funcname="fc_turnRight" desc=""/>
+		<function name="Confirm" funcname="fc_confirm" desc=""/>
+		<function name="Cancel" funcname="fc_cancel" desc=""/>
+
+    </functions>
+
+    <events>
+
+		<event name="OnConfirm" fscommand="onConfirm" desc="">
+			<param name="Return" desc="Return value" type="int" />
+			<param name="Param" desc="hours how long should skip" type="float" />
+		</event>
+
+  		<event name="OnStatsSimulation" fscommand="onStatsSimulation" desc="">
+			<param name="Time" desc="Delta time in seconds" type="float" />
+		</event>
+
+		<event name="OnSetFaderState" fscommand="onSetFaderState" desc="">
+			<param name="State" desc="0 on, 1 start, 2 stop, 3 off" type="int" />
+			<param name="Layout" desc="optional param for image" type="string" />
+		</event>
+
+    	<event name="OnFaderSuspend" fscommand="onFaderSuspend" desc=""/>
+
+      <!-- Audio -->
+			<event name="OnPlayAudio" fscommand="onPlayAudio" desc="execute global audio trigger">
+				<param name="TriggerName" desc="" type="string"/>
+			</event>
+
+			<event name="OnStopAudio" fscommand="onStopAudio" desc="stop global audio trigger">
+				<param name="TriggerName" desc="" type="string"/>
+			</event>
+
+			<event name="OnSetVolumeAudio" fscommand="onSetVolumeAudio" desc="set volume via rtpc">
+				<param name="TriggerName" desc="" type="string"/>
+				<param name="Volume" desc="" type="float"/>
+			</event>
+
+    </events>
+
+  </UIElement>
+
+</UIElements>

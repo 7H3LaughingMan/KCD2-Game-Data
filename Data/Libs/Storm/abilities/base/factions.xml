@@ -1,0 +1,221 @@
+<?xml version="1.0"?>
+<!DOCTYPE storm SYSTEM "..\..\storm.dtd">
+<storm>
+
+	<rules>
+
+		<rule name="rpg_faction_troskoviceSoldiers" mode="and">
+			<selectors>
+
+				<hasFaction name="trosecko_settlements_troskovice" />
+				<isSoldier />
+				
+			</selectors>
+
+			<operations>
+
+				<modAttribute stat="combatLevel" minMod="0.05" maxMod="0.1" />
+
+			</operations>
+		</rule>
+		
+		
+		<rule name="rpg_faction_troskySoldiers" mode="and">
+			<selectors>
+
+				<hasFaction name="trosecko_settlements_trosky" />
+				<isSoldier />
+
+			</selectors>
+
+			<operations>
+
+				<modAttribute stat="combatLevel" minMod="0.1" maxMod="0.2" />
+
+			</operations>
+		</rule>
+
+		<rule name="rpg_faction_nebakovSoldiers" mode="and">
+			<selectors>
+
+				<hasFaction name="trosecko_settlements_tvrzNebakov" />
+				<isSoldier />
+
+			</selectors>
+
+			<operations>
+
+				<modAttribute stat="combatLevel" mod="0.1" />
+
+			</operations>
+		</rule>
+
+		<rule name="rpg_faction_seminSoldiers" mode="and">
+			<selectors>
+
+				<hasFaction name="trosecko_settlements_semin" />
+				<isSoldier />
+
+			</selectors>
+
+			<operations>
+
+				<modAttribute stat="combatLevel" minMod="0.05" maxMod="0.1" />
+
+			</operations>
+		</rule>
+
+		<rule name="rpg_faction_kutnohorskoSoldiers" mode="and">
+			<selectors>
+				<hasFaction name="kutnohorsko" />
+				<or>
+					<isSoldier />
+					<isCuman />
+				</or>
+			</selectors>
+
+			<operations>
+
+				<modAttribute stat="combatLevel" minMod="0.1" maxMod="0.2" />
+
+			</operations>
+		</rule>
+
+		<rule name="rpg_faction_kutnaHoraSoldiers" mode="and">
+			<selectors>
+				<hasFaction name="kutnohorsko_settlements_kutnaHora" />
+				<or>
+					<isSoldier />
+					<isCuman />
+				</or>
+			</selectors>
+
+			<operations>
+
+				<modAttribute stat="combatLevel" minMod="0.2" maxMod="0.25"/>
+
+			</operations>
+		</rule>
+
+		<rule name="rpg_faction_zikmundovoSoldiers" mode="and">
+			<selectors>
+				<hasFaction name="kutnohorsko_settlements_zikmundovo" />
+				<or>
+					<isSoldier />
+					<isCuman />
+				</or>
+			</selectors>
+
+			<operations>
+
+				<modAttribute stat="combatLevel" minMod="0.1" maxMod="0.15" />
+
+			</operations>
+		</rule>
+
+		<rule name="rpg_faction_miskoviceSoldiers" mode="and">
+			<selectors>
+				<hasFaction name="kutnohorsko_settlements_miskovice" />
+				<isSoldier />
+			</selectors>
+
+			<operations>
+
+				<modAttribute stat="combatLevel" minMod="0.01" maxMod="0.05" />
+
+			</operations>
+		</rule>
+
+		<rule name="rpg_faction_pritokySoldiers" mode="and">
+			<selectors>
+				<hasFaction name="kutnohorsko_settlements_pritoky" />
+				<isSoldier />
+			</selectors>
+
+			<operations>
+
+				<modAttribute stat="combatLevel" minMod="0.01" maxMod="0.03" />
+
+			</operations>
+		</rule>
+
+		<rule name="rpg_faction_malesovSoldiers" mode="and">
+			<selectors>
+				<hasFaction name="kutnohorsko_settlements_malesov" />
+				<isSoldier />
+			</selectors>
+
+			<operations>
+
+				<modAttribute stat="combatLevel" minMod="0.01" maxMod="0.05" />
+
+			</operations>
+		</rule>
+
+		<rule name="rpg_faction_suchdolSoldiers" mode="and">
+			<selectors>
+				<hasFaction name="kutnohorsko_settlements_suchdol" />
+				<isSoldier />
+			</selectors>
+
+			<operations>
+
+				<modAttribute stat="combatLevel" minMod="0.01" maxMod="0.03" />
+
+			</operations>
+		</rule>
+
+		<!-- Location specific rules-->
+		<rule name="rpg_kutnohorskoCraftsmen" mode="and">
+			<selectors>
+				<hasFaction name="kutnohorsko" />
+				<hasTradesmanSocialClass />
+			</selectors>
+
+			<operations>
+				<modAttribute stat="vision" minMod="0" maxMod="2" />
+				<modAttribute stat="barter" minMod="4" maxMod="6" />
+				<modAttribute stat="charisma" minMod="3" maxMod="5" />
+				<modAttribute skill="speech" minMod="3" maxMod="5" />
+			</operations>
+		</rule>
+
+		<rule name="rpg_kutnaHoraCraftsmen" mode="and">
+			<selectors>
+				<hasFaction name="kutnohorsko_settlements_kutnaHora" />
+				<hasTradesmanSocialClass />
+			</selectors>
+
+			<operations>
+				<modAttribute stat="vision" minMod="0" maxMod="2" />
+				<modAttribute stat="barter" minMod="4" maxMod="8" />
+			</operations>
+		</rule>
+
+		<rule name="rpg_kutnaHoraBourgeoisie" mode="and">
+			<selectors>
+				<hasFaction name="kutnohorsko_settlements_kutnaHora" />
+				<or>
+					<isCivilian />
+					<hasTradesmanSocialClass />
+				</or>
+			</selectors>
+
+			<operations>
+				<modAttribute stat="courage" minMod="2" maxMod="4" />
+				<modAttribute stat="speech" minMod="4" maxMod="6" />
+			</operations>
+		</rule>
+
+		<rule name="rpg_loners"> <!-- requested in https://youtrack.warhorsestudios.cz/issue/KCD2-45030 -->
+			<selectors>
+				<isLoner />
+			</selectors>
+
+			<operations>
+				<modAttribute stat="courage" minMod="4" maxMod="7" />
+			</operations>
+		</rule>
+
+	</rules>
+</storm>

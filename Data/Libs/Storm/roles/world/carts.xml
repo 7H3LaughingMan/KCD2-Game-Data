@@ -1,0 +1,121 @@
+<?xml version="1.0"?>
+<!DOCTYPE storm SYSTEM "storm.dtd">
+<storm>
+	<rules>
+		<rule name="cart_chat_test">
+			<selectors>
+				<hasName name="cart_test_npcLeftFront" />
+			</selectors>
+			<operations>
+				<addRole name="VOZY_TESTER" />
+			</operations>
+		</rule>
+
+		<rule name="cart_driver_chat">
+			<selectors>
+				<or>
+					<hasName name="karavanyVeSvete_armedCaravan_german_1" />
+					<hasName name="karavanyVeSvete_armedCaravan_german_2" />
+					<hasName name="karavanyVeSvete_armedCaravan_german_3" />
+					<hasName name="karavanyVeSvete_merchantCaravan_merchant_1" />
+					<hasName name="karavanyVeSvete_merchantCaravan_merchant_2" />
+		  			<hasName name="karavanyVeSvete_civilianCaravan_mason_4" />
+					<hasName name="karavanyVeSvete_civilianCaravan_mason_5" />
+					<hasName name="karavanyVeSvete_civilianCaravan_mason_6" />			
+					<hasName name="karavanyVeSvete_civilianCaravan_collier_5" />
+					<hasName name="karavanyVeSvete_civilianCaravan_collier_1" />
+					<hasName name="karavanyVeSvete_civilianCaravan_collier_3" />			
+					<hasName name="karavanyVeSvete_civilianCaravan_farmer_man_1" />
+					<hasName name="karavanyVeSvete_civilianCaravan_farmer_man_2" />
+					<hasName name="karavanyVeSvete_civilianCaravan_farmer_man_3" />
+					<hasName name="karavanyVeSvete_civilianCaravan_civilian_man_4" />						
+					<hasName name="karavanyVeSvete_civilianCaravan_civilian_man_5" />							
+					<hasName name="karavanyVeSvete_civilianCaravan_civilian_man_6" />	
+					<hasName name="karavanyVeSvete_armedCaravan_soldier_3" />						
+					<hasName name="karavanyVeSvete_armedCaravan_soldier_4" />							
+					<hasName name="karavanyVeSvete_armedCaravan_soldier_5" />																													
+				</or>
+				<isMan />
+			</selectors>
+			<operations>
+				<addRole name="VOZY_A_KARAVANY_VOZKA_CHATUJE_S_HRACEM_MUZ" />
+			</operations>
+		</rule>		
+
+		<rule name="cart_driver">
+			<selectors>
+				<or>
+					<hasName name="karavanyVeSvete_armedCaravan_german*" />
+					<hasName name="karavanyVeSvete_armedCaravan_soldier*" />
+					<hasName name="karavanyVeSvete_merchantCaravan_merchant*" />
+		  			<hasName name="karavanyVeSvete_civilianCaravan*" />				
+					<hasName name="ttkc_man_13" />
+					<hasName name="cart_test_npcDriver" />
+					<hasName name="test_crime_merchant_8" />
+					<hasName name="tsla_man_1" />
+					<hasName name="tsla_man_2" />
+					<hasName name="ttkc_oldrich" />
+					<hasName name="ttkc_gravedigger" />
+					<hasName name="ksuc_nomad" />
+				</or>
+				<isMan />
+			</selectors>
+			<operations>
+				<addRole name="VOZY_A_KARAVANY_VOZKA_VEZE_HRACE_MUZ" />
+				<addRole name="VOZY_A_KARAVANY_VOZKA_VYHANI_HRACE_MUZ" />
+
+				<addRole name="VOZY_A_KARAVANY_VOZKA_STOJICI_START_MUZ" />
+				<addRole name="VOZY_A_KARAVANY_VOZKA_SEDICI_START_MUZ" />
+				<addRole name="VOZY_A_KARAVANY_VOZKA_POPOHANENI_MUZ" />
+				<addRole name="VOZY_A_KARAVANY_VOZKA_UKONCENI_JIZDY_MUZ" />
+			</operations>
+		</rule>
+
+		<!-- SPECIAL removals -->
+		<rule name="cart_levelSwitch_ksuc_nomad">
+			<selectors>
+				<hasName name="ksuc_nomad" />
+			</selectors>
+			<operations>
+				<removeRole name="VOZY_A_KARAVANY_VOZKA_VEZE_HRACE_MUZ" />
+			</operations>
+		</rule>
+
+		<rule name="cart_gossip_man">
+			<selectors>
+				<or>
+					<hasName name="karavanyVeSvete_armedCaravan_german*" />
+					<hasName name="karavanyVeSvete_armedCaravan_soldier*" />
+					<hasName name="karavanyVeSvete_merchantCaravan*" />
+					<hasName name="karavanyVeSvete_civilianCaravan*" />
+				</or>
+				<isMan />
+			</selectors>
+			<operations>
+				<addRole name="GOSSIP_NA_VOZE_MUZ_MUZ_MUZ" />
+				<addRole name="GOSSIP_NA_VOZE_MUZ_MUZ_MUZ2" />
+			</operations>
+		</rule>
+
+		<rule name="cart_gossip_manWhoCanPossiblyDriveWithWoman">
+			<selectors>
+				<hasName name="karavanyVeSvete_civilianCaravan*" />
+				<isMan />
+			</selectors>
+			<operations>
+				<addRole name="GOSSIP_NA_VOZE_MUZ_ZENA_MUZ" />
+			</operations>
+		</rule>
+
+		<rule name="cart_gossip_woman">
+			<selectors>
+				<hasName name="karavanyVeSvete_civilianCaravan*" />
+				<isWoman />
+			</selectors>
+			<operations>
+				<addRole name="GOSSIP_NA_VOZE_MUZ_ZENA_ZENA" />
+			</operations>
+		</rule>
+
+	</rules>
+</storm>

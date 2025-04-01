@@ -1,0 +1,53 @@
+<UIElements name="Menus">
+
+	<UIElement name="GameOver" controller_input="1">
+
+		<GFx file="GameOver.gfx" layer="40">
+			<Constraints>
+				<Align mode="fullscreen" scale="1"/>
+			</Constraints>
+		</GFx>
+
+		<functions>
+			<function name="Show" funcname="fc_show">
+				<param name="message" desc="" type="string"/>
+				<param name="type" desc="id=0 is game over, id=1 is game finished" type="int"/>
+			</function>
+
+			<function name="Hide" funcname="fc_hide"/>
+
+			<function name="SetInputId" funcname="fc_setInputId">
+        		<param name="InputId" desc="1 keyboard, 2 xbox, 4 ps" type="int" />
+      		</function>
+
+		</functions>
+
+		<events>
+			<event name="OnPictureShown" fscommand="onPictureShown" desc=""/>
+
+			<event name="OnPictureHided" fscommand="onPictureHided" desc=""/>
+
+			<!-- Audio -->
+			<event name="OnPlayAudio" fscommand="onPlayAudio" desc="execute global audio trigger">
+				<param name="TriggerName" desc="" type="string"/>
+			</event>
+
+			<event name="OnStopAudio" fscommand="onStopAudio" desc="stop global audio trigger">
+				<param name="TriggerName" desc="" type="string"/>
+			</event>
+
+			<event name="OnSetVolumeAudio" fscommand="onSetVolumeAudio" desc="set volume via rtpc">
+				<param name="TriggerName" desc="" type="string"/>
+				<param name="Volume" desc="" type="float"/>
+			</event>
+			
+		 <!-- Buttons -->
+		<event name="GetButtonId" fscommand="getButtonId" desc="return button id from action name">
+			 <param name="ActionName" desc="" type="string"/>
+		 </event>
+
+		</events>
+
+	</UIElement>
+
+</UIElements>

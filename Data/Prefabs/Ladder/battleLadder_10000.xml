@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="us-ascii"?>
+<Prefab Id="418f4383-30c6-4585-ab1c-e9dee9d67e07">
+	<Objects>
+		<Object EntityClass="TriggerArea" Id="07ad6326-4523-4102-87f6-a9d00b759959" Name="aroundTriggerArea" Pos="-1.5,-2.5,8.5" Type="WH_TriggerArea">
+			<Points>
+				<Point Pos="0,0,0" />
+				<Point Pos="3.013977,0.005310059,-0.1" />
+				<Point Pos="3.003693,-0.9919434,-0.1" />
+				<Point Pos="2.527649,-1.524658,-0.1" />
+				<Point Pos="1.515656,-1.991882,-0.1" />
+				<Point Pos="0.5134888,-1.484009,-0.1" />
+				<Point Pos="0.004150391,-0.9805908,-0.1" />
+			</Points>
+			<SoundData Floor="0" Roof="0" Side1="0" Side2="0" Side3="0" Side4="0" Side5="0" Side6="0" Side7="0" />
+		</Object>
+		<Object EntityClass="InteractionTrigger" Id="14028124-f171-48ea-9a70-fc93810bea90" Name="pushTrigger" Pos="-0.02105713,-2.113525,9.644394" Scale="0.5,0.5,0.5" Type="Entity">
+			<Properties bQuestSystemTrigger="1">
+				<Click bIsActive="0" bIsActiveInCombat="1" />
+				<Hold bIsActive="1" bIsActiveInCombat="1" UseMessage="@push_ladder" />
+			</Properties>
+		</Object>
+		<Object EntityClass="TagPoint" Id="6284e2cd-2e04-43dd-b065-16e649e0f692" Name="waitPoint_1" Pos="1,1,0" Rotate="4.371139e-08,0,0,1" Type="TagPoint" />
+		<Object EntityClass="ParticleEffect" Id="6d6f749b-14f3-4332-9d50-692982b567a0" Name="crashParticleEffect" Pos="0.0001,5,0" Rotate="0.7071068,0,0,0.7071068" Type="Entity">
+			<Properties bActive="0" CountScale="9" ParticleEffect="WH_Particels.other.q_conquest_gatecrush" />
+		</Object>
+		<Object EntityClass="SmartObjectHolder" Id="6f29f593-2ae8-475f-9dd2-13d6071b281c" Name="SmartObjectHolder13" Pos="0.082,-2.9485,8.8281" Rotate="0.6283025,0.7779692,0,0" Type="Entity">
+			<Properties guidSmartObjectType="8b1ffebf-d5fc-42f6-abde-ebbff7099a43" soclass_SmartObjectHelpers="BattleLadderPush_10000" />
+			<EntityLinks>
+				<Link DebugTargetName="ladderSlot" Name="ladderSlot" TargetId="a8b2f8de-60cd-4cd1-ba18-fa09697ea950" />
+				<Link DebugTargetName="dropSlot" Name="dropSlot" TargetId="c979115e-b859-460c-b1e8-10b465b8b855" />
+				<Link DebugTargetName="ladder" Name="ladder" TargetId="b850967d-2f1b-460e-aa6c-eb3e8097b27c" />
+				<Link DebugTargetName="waitPoint_1" Name="queue" TargetId="6284e2cd-2e04-43dd-b065-16e649e0f692" />
+				<Link DebugTargetName="pushTrigger" Name="trigger" TargetId="14028124-f171-48ea-9a70-fc93810bea90" />
+				<Link DebugTargetName="waitPoint_1_2" Name="queue" TargetId="fef5c4de-43ef-43fb-a145-704b73b3e42b" />
+				<Link DebugTargetName="waitPoint_1_2_2" Name="queue" TargetId="7b24b873-3e08-41c0-8cf1-fc5c234a5c0b" />
+				<Link DebugTargetName="aroundTriggerArea" Name="impactArea" TargetId="07ad6326-4523-4102-87f6-a9d00b759959" />
+				<Link DebugTargetName="crashParticleEffect" Name="particle" TargetId="6d6f749b-14f3-4332-9d50-692982b567a0" />
+			</EntityLinks>
+		</Object>
+		<Object EntityClass="TagPoint" Id="7b24b873-3e08-41c0-8cf1-fc5c234a5c0b" Name="waitPoint_1_2_2" Pos="-0.8200989,1.046387,0" Rotate="4.371139e-08,0,0,1" Type="TagPoint" />
+		<Object EntityClass="PrefabPort" Id="84a05c7e-7352-44ee-b710-3b653471e32b" Name="port_placeSlot" Pos="0,-1.5,10" Type="Entity">
+			<EntityLinks>
+				<Link DebugTargetName="ladderSlot" TargetId="a8b2f8de-60cd-4cd1-ba18-fa09697ea950" />
+			</EntityLinks>
+		</Object>
+		<Object EntityClass="PrefabPort" Id="97f23c20-3003-4d0d-9e00-4cc46b72ef66" Name="port_area" Pos="0,-2.5,10" Type="Entity">
+			<Properties esPrefabPort_Icon="inArea" />
+			<EntityLinks>
+				<Link DebugTargetName="aroundTriggerArea" TargetId="07ad6326-4523-4102-87f6-a9d00b759959" />
+			</EntityLinks>
+		</Object>
+		<Object EntityClass="ItemSlot" Id="a8b2f8de-60cd-4cd1-ba18-fa09697ea950" Name="ladderSlot" Rotate="0.9943842,0.1058302,0,0" Type="Entity">
+			<Properties guidItemClassId="7b48df55-ee12-4bf4-895d-c38d3c443302" guidSmartObjectType="def0005e-0000-0000-0000-def00000005e" nRestockPeriodDays="0" sManipulationAnimTag="battleLadder" soclass_SmartObjectHelpers="battleLadderPlacement" />
+		</Object>
+		<Object EntityClass="Ladder" Id="b850967d-2f1b-460e-aa6c-eb3e8097b27c" Name="ladder" Rotate="0.9943842,0.1058302,0,0" Type="Entity">
+			<Properties bDrawWeaponOntop="1" bTopOnPalisade="1" fileModel="objects/manmade/common_fixtures/ladders/ladder_siege_10m.cgf" guidSmartObjectType="def0005e-0000-0000-0000-def00000005e" height="9.75" soclass_SmartObjectHelpers="Ladder">
+				<Offsets bShowHelpers="1" getOnDistanceAwayTop="9.5" />
+			</Properties>
+			<EntityLinks>
+				<Link DebugTargetName="ladder" Name="ladderHeight[&apos;10&apos;]" TargetId="b850967d-2f1b-460e-aa6c-eb3e8097b27c" />
+			</EntityLinks>
+		</Object>
+		<Object EntityClass="ItemSlot" Id="c979115e-b859-460c-b1e8-10b465b8b855" Name="dropSlot" Pos="0,0,0.02724075" Rotate="0.7071067,-0.7071068,0,0" Type="Entity">
+			<Properties bSpawnOnStart="0" guidItemClassId="7b48df55-ee12-4bf4-895d-c38d3c443302" nRestockPeriodDays="0" />
+		</Object>
+		<Object EntityClass="PrefabPort" Id="cf847d5e-1ef9-4ac0-930a-3f293bc297d8" Name="port_trigger" Pos="0,-2,10" Type="Entity">
+			<Properties esPrefabPort_Icon="inTrigger" />
+			<EntityLinks>
+				<Link DebugTargetName="pushTrigger" TargetId="14028124-f171-48ea-9a70-fc93810bea90" />
+			</EntityLinks>
+		</Object>
+		<Object EntityClass="PrefabPort" Id="efcf73d0-0e41-4f12-b078-96b34fea5910" Name="port_ladder" Pos="0,-1,10" Type="Entity">
+			<EntityLinks>
+				<Link DebugTargetName="ladder" TargetId="b850967d-2f1b-460e-aa6c-eb3e8097b27c" />
+			</EntityLinks>
+		</Object>
+		<Object EntityClass="PrefabPort" Id="f2170f16-5048-4bed-98fd-3170a4efa376" Name="port_smartObject" Pos="0.5,-2,10" Type="Entity">
+			<Properties esPrefabPort_Icon="inEntity" />
+			<EntityLinks>
+				<Link DebugTargetName="SmartObjectHolder13" TargetId="6f29f593-2ae8-475f-9dd2-13d6071b281c" />
+			</EntityLinks>
+		</Object>
+		<Object EntityClass="TagPoint" Id="fef5c4de-43ef-43fb-a145-704b73b3e42b" Name="waitPoint_1_2" Pos="0.01489258,1.815308,-1.907349e-06" Rotate="4.371139e-08,0,0,1" Type="TagPoint" />
+	</Objects>
+</Prefab>

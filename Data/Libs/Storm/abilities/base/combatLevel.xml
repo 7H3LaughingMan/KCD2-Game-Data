@@ -1,0 +1,68 @@
+<?xml version="1.0"?>
+<!DOCTYPE storm SYSTEM "..\storm.dtd">
+<storm>
+	<rules>
+	
+		<rule name="combatLevel_base">
+		
+			<selectors>
+				<or>
+					<isHuman/>			
+					<isWolf />
+					<isWarDog/>
+					<isBackyardDog />
+					<isPlayersDogCompanion />
+				</or>
+				<isNotPlayer/>
+			</selectors>
+		
+			<operations>
+				<modAttribute stat="courage" minMod="0" maxMod="30" scaleWith="combatLevel" />
+				<modAttribute stat="strength" minMod="0" maxMod="30" scaleWith="combatLevel"/>
+				<modAttribute stat="agility" minMod="0" maxMod="30" scaleWith="combatLevel"/>
+				<modAttribute stat="vitality" minMod="0" maxMod="30" scaleWith="combatLevel"/>
+
+				<modAttribute skill="marksmanship" minMod="0" maxMod="30" scaleWith="combatLevel" />
+				<modAttribute skill="defense" minMod="0" maxMod="30" scaleWith="combatLevel" />
+				<modAttribute skill="heavy_weapons" minMod="0" maxMod="30" scaleWith="combatLevel" />
+				<modAttribute skill="weapon_unarmed" minMod="0" maxMod="30" scaleWith="combatLevel" />
+				<modAttribute skill="weapon_large" minMod="0" maxMod="30" scaleWith="combatLevel" />
+				<modAttribute skill="weapon_sword" minMod="0" maxMod="30" scaleWith="combatLevel" />
+				
+			</operations>	
+
+		</rule>
+
+		<rule name="combatLevel_human">
+		
+			<selectors>
+				<isHuman/>
+				<isNotPlayer/>
+			</selectors>
+		
+			<operations>
+				<modAttribute stat="vision" minMod="1" maxMod="10" scaleWith="combatLevel"/>
+				<modAttribute stat="hearing" minMod="1" maxMod="10" scaleWith="combatLevel" />
+			</operations>	
+
+		</rule>
+
+		<rule name="combatLevel_dog">
+			<selectors>		
+				<or>				
+					<isWolf />
+					<isWarDog/>
+					<isBackyardDog />
+					<isPlayersDogCompanion />
+				</or>
+			</selectors>
+		
+			<operations>
+				<modAttribute stat="vision" minMod="14" maxMod="22" scaleWith="combatLevel"/>
+				<modAttribute stat="hearing" minMod="30" maxMod="30" scaleWith="combatLevel" />
+			</operations>	
+
+		</rule>
+		
+    </rules>
+</storm>

@@ -1,0 +1,242 @@
+<?xml version="1.0"?>
+<!DOCTYPE storm SYSTEM "../storm.dtd">
+<storm>
+	<rules>
+
+		<rule name="hromovyKamen_kona">
+			<selectors>
+				<hasName name="kgru_kona" />
+			</selectors>
+			<operations>
+				<addRole name="KONA_GRUNTA" />
+			</operations>
+		</rule>
+		
+		<rule name="hromovyKamen_thomlin">
+			<selectors>
+				<hasName name="khor_thomlin" />
+			</selectors>
+			<operations>
+				<addRole name="THOMLIN_HORANY" />
+			</operations>
+		</rule>
+		
+		<rule name="hromovyKamen_pena">
+			<selectors>
+				<hasName name="krat_pena" />
+			</selectors>
+			<operations>
+				<addRole name="PENA_DOLANY" />
+			</operations>
+		</rule>
+			
+		<rule name="hromovyKamen_jenik">
+			<selectors>
+				<hasName name="krat_jenik" />
+			</selectors>
+			<operations>
+				<addRole name="JENIK_DOLANY" />
+			</operations>
+		</rule>
+		
+		<rule name="hromovyKamen_sefBanditu">
+			<selectors>
+				<hasName name="hromovyKamen_banditLeader" />
+			</selectors>
+			<operations>
+				<addRole name="ONDREJ_BERANI_HLAVA" />
+			</operations>
+		</rule>
+		
+		<rule name="hromovyKamen_bandita1">
+			<selectors>
+				<hasName name="hromovyKamen_bandit_1" />
+			</selectors>
+			<operations>
+				<addRole name="HROMOVY_KAMEN_BANDITA_1" />
+			</operations>
+		</rule>
+
+		<rule name="leceniPecky_gossip_women" >
+			<selectors>
+				<hasName name="ksuc_*" />
+				<hasWidelyUsedVoice/>
+				<isWoman />
+			</selectors>
+			<operations>
+				<addRole name="PECKY_LECENI_VYSLEDEK_ZENA_1" />
+				<addRole name="PECKY_LECENI_VYSLEDEK_ZENA_2" />
+			</operations>
+		</rule>
+
+		<rule name="leceniPecky_gossip_men" >
+			<selectors>
+				<hasName name="ksuc_*" />
+				<hasWidelyUsedVoice/>
+				<isMan />
+			</selectors>
+			<operations>
+				<addRole name="PECKY_LECENI_VYSLEDEK_MUZ_1" />
+				<addRole name="PECKY_LECENI_VYSLEDEK_MUZ_2" />
+			</operations>
+		</rule>
+		
+		<rule name="hromovyKamen_mlada">
+			<selectors>
+				<hasName name="ksuc_mlada" />
+			</selectors>
+			<operations>
+				<addRole name="MLADA_PECKY" />
+				<removeRole name="PECKY_LECENI_VYSLEDEK_ZENA_1" />
+				<removeRole name="PECKY_LECENI_VYSLEDEK_ZENA_2" />
+			</operations>
+		</rule>
+		
+		<rule name="hromovyKamen_petr">
+			<selectors>
+				<hasName name="ksuc_petr_2" />
+			</selectors>
+			<operations>
+				<addRole name="VESNICAN_PETR_DOLANY" />
+				<removeRole name="PECKY_LECENI_VYSLEDEK_MUZ_1" />
+				<removeRole name="PECKY_LECENI_VYSLEDEK_MUZ_2" />
+			</operations>
+		</rule>
+		
+		<rule name="hromovyKamen_sefBanditu_bribe">
+			<selectors>
+				<hasName name="hromovyKamen_banditLeader" />
+			</selectors>
+			<operations>
+				<addRole name="VYJEDNAVANI_MUZ" />
+			</operations>
+		</rule>
+		
+		<rule name="hromovyKamen_tipster_zena">
+			<selectors>
+				<hasName name="kgru_woman_8" />
+			</selectors>
+			<operations>
+				<addRole name="QUEST_TIPSTER_HANNA_Z_GRUNTY_MAIN" />
+				<addRole name="QUEST_TIPSTER_HROMOVY_KAMEN_PODKONNI_HANNA" />
+			</operations>
+		</rule>
+		
+		<rule name="hromovyKamen_tipster_muz">
+			<selectors>
+				<hasName name="kgru_gros" />
+			</selectors>
+			<operations>
+				<addRole name="QUEST_TIPSTER_HROMOVY_KAMEN_HOSPODSKY_GROS" />
+			</operations>
+		</rule>
+		
+		<rule name="hromovyKamen_ratiborice_gossip_zena">
+			<selectors>
+                <or>
+					<hasName name="krat_woman_1" />
+					<hasName name="krat_woman_5" />
+					<hasName name="krat_woman_6" />
+					<hasName name="krat_woman_7" />
+					<hasName name="krat_woman_8" />
+					<hasName name="krat_woman_11" />
+					<hasName name="krat_woman_12" />
+					<hasName name="krat_woman_13" />
+					<hasName name="krat_woman_14" />
+				</or>
+			</selectors>
+			<operations>
+				<addRole name="DOLANY_JENIK_OSVOBOZEN_ZENA_1" />
+				<addRole name="DOLANY_JENIK_OSVOBOZEN_ZENA_2" />
+			</operations>
+		</rule>
+		
+		<rule name="hromovyKamen_ratiborice_gossip_muz">
+			<selectors>
+				<or>
+					<hasName name="krat_man_1" />
+					<hasName name="krat_man_2" />
+					<hasName name="krat_man_4" />
+					<hasName name="krat_man_6" />
+					<hasName name="krat_man_9" />
+				</or>
+			</selectors>
+			<operations>
+				<addRole name="DOLANY_JENIK_OSVOBOZEN_MUZ_1" />
+				<addRole name="DOLANY_JENIK_OSVOBOZEN_MUZ_2" />
+			</operations>
+		</rule>
+		
+		<rule name="hromovyKamen_horany_gossip_zena">
+			<selectors>
+                <or>
+					<hasName name="khor_woman_1" />
+					<hasName name="khor_woman_2" />
+					<hasName name="khor_woman_3" />
+					<hasName name="khor_woman_4" />
+					<hasName name="khor_woman_5" />
+					<hasName name="khor_woman_6" />
+				</or>
+			</selectors>
+			<operations>
+				<addRole name="HORANY_THOMLIN_ZBIT_ZENA_1" />
+				<addRole name="HORANY_THOMLIN_ZBIT_ZENA_2" />
+			</operations>
+		</rule>
+		
+		<rule name="hromovyKamen_horany_gossip_muz">
+			<selectors>
+                <or>
+					<hasName name="khor_man_1" />
+					<hasName name="khor_man_2" />
+					<hasName name="khor_man_6" />
+					<hasName name="khor_man_7" />
+					<hasName name="khor_man_8" />
+					<hasName name="khor_man_9" />
+					<hasName name="khor_man_10" />
+					<hasName name="khor_man_11" />
+					<hasName name="khor_man_12" />
+					<hasName name="khor_man_13" />
+					<hasName name="khor_man_14" />
+					<hasName name="khor_man_15" />
+					<hasName name="khor_man_16" />
+					<hasName name="khor_man_17" />
+					<hasName name="khor_man_18" />
+					<hasName name="khor_man_19" />
+					<hasName name="khor_man_20" />
+					<hasName name="khor_man_21" />
+					<hasName name="khor_man_22" />
+					<hasName name="khor_man_23" />
+					<hasName name="khor_man_24" />
+					<hasName name="khor_man_25" />
+					<hasName name="khor_man_26" />
+				</or>
+			</selectors>
+			<operations>
+				<addRole name="HORANY_THOMLIN_ZBIT_MUZ_1" />
+				<addRole name="HORANY_THOMLIN_ZBIT_MUZ_2" />
+			</operations>
+		</rule>
+		
+		<rule name="hromovyKamen_banditCamp_entrace">
+			<selectors>
+                <or>
+					<hasName name="kboh_man_7" />
+					<hasName name="kboh_man_8" />
+					<hasName name="kboh_man_9" />
+					<hasName name="kboh_man_10" />
+					<hasName name="kboh_man_11" />
+					<hasName name="hromovyKamen_bandit_1" />
+					<hasName name="hromovyKamen_bandit_2" />
+				</or>
+			</selectors>
+			<operations>
+				<addRole name="HROMOVY_KAMEN_ODNREJUV_VOJAK_DAVA_SVOLENI_K_FREEROAMU" />
+				<addRole name="HROMOVY_KAMEN_ONDREJUV_VOJAK_CAMP_CHAT" />
+			</operations>
+		</rule>
+
+
+		
+    </rules>
+</storm>

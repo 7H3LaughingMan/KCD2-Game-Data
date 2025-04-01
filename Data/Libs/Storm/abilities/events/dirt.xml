@@ -1,0 +1,46 @@
+<?xml version="1.0"?>
+<!DOCTYPE storm SYSTEM "..\storm.dtd">
+<storm>
+	<rules>
+		<rule name="eventNPC_baseDirt">
+			<selectors>
+                <isEventNPC />
+                <not>
+                    <hasSocialClass name="nobleman" />
+                </not>
+			</selectors>
+			<operations>
+				<setAttribute stat="initialDirtiness" minValue="0.15" maxValue="0.25" />
+			</operations>
+		</rule>
+
+		<rule name="eventNPC_additionalDirt_small">
+			<selectors>
+                <or>
+                    <hasName name="taboryUCesty_archery_miner*"/>                    
+                    <hasName name="taboryUCesty_archery_hunter*"/>
+                    <hasName name="taboryUCesty_archery_beastmaster*"/>
+                    <hasName name="taboryUCesty_duel_bohus*"/>
+                    <hasName name="taboryUCesty_duel_jira*"/>
+                    <hasName name="taboryUCesty_shop_henslin*"/>
+                    <hasName name="taboryUCesty_shop_mikula*"/>
+                    <hasName name="taboryUCesty_shop_kramar*"/>
+                </or>
+			</selectors>
+			<operations>
+				<modAttribute stat="initialDirtiness" mod="0.25"/>
+			</operations>
+		</rule>
+
+		<rule name="eventNPC_additionalDirt_big">
+			<selectors>
+                <hasName name="taboryUCesty_archery_prospector*"/>
+			</selectors>
+			<operations>
+				<modAttribute stat="initialDirtiness" mod="0.45"/>
+			</operations>
+		</rule>        
+     
+    </rules>
+</storm>
+

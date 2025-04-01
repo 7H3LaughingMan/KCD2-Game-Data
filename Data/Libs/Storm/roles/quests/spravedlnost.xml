@@ -1,0 +1,294 @@
+﻿<?xml version="1.0"?>
+<!DOCTYPE storm SYSTEM "!storm.dtd">
+<storm>
+	<rules>
+
+		
+		<rule name="spravedlnost_pavel">
+			<selectors>
+				<hasName name="kvys_pavel" />
+			</selectors>
+			<operations>
+				<addRole name="PACHOLEK_PAVEL_VYSOKA" />
+			</operations>
+		</rule>		
+		
+		
+		<rule name="spravedlnost_vorsila">
+			<selectors>
+				<hasName name="kvys_vorsila" />
+			</selectors>
+			<operations>
+				<addRole name="VORSILA_VYSOKA" />
+			</operations>
+		</rule>		
+		
+		<rule name="spravedlnost_pivec">
+			<selectors>
+				<hasName name="kvys_pivec" />
+			</selectors>
+			<operations>
+				<addRole name="PIVEC_VYSOKA" />
+			</operations>
+		</rule>		
+		
+				
+		<rule name="spravedlnost_buchty_baba">
+			<selectors>
+				<hasName name="kvys_bohuse" />
+			</selectors>
+			<operations>
+				<addRole name="BOHUSE_VYSOKA" />
+			</operations>
+		</rule>
+		
+		<rule name="spravedlnost_veljmolaYoung">
+			<selectors>
+				<hasName name="kvys_vejmolaYoung" />
+			</selectors>
+			<operations>
+				<addRole name="MLADSI_VEJMOLA_VYSOKA" />
+			</operations>
+		</rule>
+		
+		<rule name="spravedlnost_veljmolaOld">
+			<selectors>
+				<hasName name="kvys_vejmolaOld" />
+			</selectors>
+			<operations>
+				<addRole name="STARSI_VEJMOLA_VYSOKA" />
+			</operations>
+		</rule>
+		
+		<rule name="spravedlnost_vorsilaMother">
+			<selectors>
+				<hasName name="kvys_vorsilaMother" />
+			</selectors>
+			<operations>
+				<addRole name="VORSILINA_MATKA_VYSOKA" />
+			</operations>
+		</rule>
+
+		<rule name="ksuc_hejtman">
+			<selectors>
+				<hasName name="ksuc_frenczl" />
+			</selectors>
+			<operations>
+				<addRole name="HEJTMAN_SUCHDOL" />
+			</operations>
+		</rule>
+		
+		<rule name="kkut_obchodnici_se_smisenym_zbozim">
+			<selectors>
+			<or>
+				<hasName name="kkut_man_3" />
+				<hasName name="kkut_man_47" />
+			</or>
+			</selectors>
+			<operations>
+				<addRole name="KUPEC_KUTNA_HORA_2" />
+			</operations>
+		</rule>
+
+		<rule name="kkut_obchodnice_se_smisenym_zbozim">
+			<selectors>
+			<or>
+				<hasName name="kkut_woman_17" />				
+			</or>
+			</selectors>
+			<operations>
+				<addRole name="KUPEC_KUTNA_HORA_2_ZENA" />
+			</operations>
+		</rule>
+		
+		<rule name="kkut_ostatni_obchdodnici">
+			<selectors>
+			<and>
+				<not>
+					<hasName name="kkut_man_3" />
+				</not>
+				<not>
+					<hasName name="kkut_man_47" />
+				</not>
+				<not>
+					<hasName name="kkut_woman_17" />	
+				</not>
+				<not>
+					<hasName name="kkut_johlin" />
+				</not>
+				<not>
+					<hasName name="kkut_linhart" />
+				</not>
+				<not>
+					<hasName name="kkut_tyc" />
+				</not>
+				<not>
+					<hasName name="kkut_skvira" />
+				</not>
+				<not>
+					<hasSocialClass name="innkeeper" />
+				</not>
+				<hasName name="kkut_*" />
+				<isTrader />
+				<isMan/>
+			</and>
+			</selectors>
+			<operations>
+				<addRole name="OSTATNI_OBCHODNICI_HLEDANI_SPRAVEDLNOSTI" />
+			</operations>
+		</rule>
+		
+		<rule name="kkut_ostatni_obchdodnice_zena">
+			<selectors>
+			<and>
+				<or><!--voiceover capping-->
+					<hasVoice name="jenniferPreston" />
+					<hasVoice name="abigailRice" />
+					<hasVoice name="rebeccaRisness" />
+					<hasVoice name="tegenShort" />
+					<hasVoice name="marketaRychterova" />
+					<hasVoice name="sandraSchneider" />
+					<hasVoice name="tonyaGraves" />
+				</or>
+				<not>
+					<hasName name="kkut_man_3" />
+				</not>
+				<not>
+					<hasName name="kkut_man_47" />
+				</not>
+				<not>
+					<hasName name="kkut_woman_17" />	
+				</not>
+				<not>
+					<hasName name="kkut_johlin" />
+				</not>
+				<not>
+					<hasName name="kkut_linhart" />
+				</not>
+				<not>
+					<hasName name="kkut_tyc" />
+				</not>
+				<not>
+					<hasName name="kkut_skvira" />
+				</not>
+				
+				<hasName name="kkut_*" />
+				<isTrader />
+				<isWoman/>
+			</and>
+			</selectors>
+			<operations>
+				<addRole name="OSTATNI_OBCHODNICI_HLEDANI_SPRAVEDLNOSTI_ZENA" />
+			</operations>
+		</rule>
+		
+		<rule name="kkut_hospodsti">
+			<selectors>
+				<and>
+					<not>
+						<or>
+							<hasName name="kkut_skvira" />
+							<hasName name="kkut_woman_71" />
+						</or>
+					</not>
+					<hasSocialClass name="innkeeper" />
+					<hasName name="kkut_*" />
+				</and>
+			</selectors>
+			<operations>
+				<addRole name="HOSPODSTI_HLEDANI_SPRAVEDLNOSTI" />
+			</operations>
+		</rule>
+			
+		<rule name="kkut_svecKupec_johlin">
+			<selectors>
+				<hasName name="kkut_johlin" />
+			</selectors>
+			<operations>
+				<addRole name="JOHLIN_SVEC_KUTNA_HORA" />
+			</operations>
+		</rule>
+		
+		<rule name="kkut_svecMistr_linhart">
+			<selectors>
+				<hasName name="kkut_linhart" />
+			</selectors>
+			<operations>
+				<addRole name="LINHART_SVEC_KUTNA_HORA" />
+			</operations>
+		</rule>
+		
+		<rule name="kkut_placeholder_knihar">
+			<selectors>
+				<hasName name="kkut_tyc" />
+			</selectors>
+			<operations>
+				<addRole name="OBCHODNIK_S_KNIHAMI_KUTNA_HORA" />
+			</operations>
+		</rule>
+		
+		<rule name="kkut_prekupnik">
+			<selectors>
+				<hasName name="kkut_skvira" />
+			</selectors>
+			<operations>
+				<addRole name="PREKUPNIK_KUTNA_HORA" />
+				<addRole name="VYJEDNAVANI_MUZ" />
+			</operations>
+		</rule>
+		
+		<rule name="kvys_priest">
+			<selectors>
+				<hasName name="kvys_priest" />
+			</selectors>
+			<operations>
+				<addRole name="FARAR_ANTONIN_VYSOKA" />
+			</operations>
+		</rule>
+
+		<rule name="vesnicani_vysoka">
+			<selectors>
+				<and>
+					<hasName name="kvys_*" />
+					<not>
+						<or>
+							<hasName name="kvys_priest" />
+							<hasName name="kvys_vorsilaMother" />
+							<hasName name="kvys_vejmolaOld" />
+							<hasName name="kvys_vejmolaYoung" />
+							<hasName name="kvys_pavel" />
+							<hasName name="kvys_vorsila" />
+							<hasName name="kvys_pivec" />
+							<hasName name="kvys_bohuse" />
+						</or>
+					</not>
+				</and>
+			</selectors>
+			<operations>
+				<addRole name="VESNICAN_VYSOKA" />
+			</operations>
+		</rule>
+
+		<rule name="kmis_innkeeper">
+			<selectors>
+				<hasName name="kmis_innkeeper" />
+			</selectors>
+			<operations>
+				<addRole name="QUEST_TIPSTER_SPRAVEDLNOST_HOSPODSKY_V_MISKOVICICH" />
+			</operations>
+		</rule>
+
+		<rule name="vysoka_strazni">
+			<selectors>
+				<or>
+				<hasName name="kvys_man_6" />
+				<hasName name="kvys_man_7" />
+				</or>
+			</selectors>
+			<operations>
+				<addRole name="STRAZ_VYSOKA" />
+			</operations>
+		</rule>
+
+    </rules>
+</storm>

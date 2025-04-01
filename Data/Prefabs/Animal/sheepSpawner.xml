@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="us-ascii"?>
+<Prefab Id="206e75a9-61f9-41df-a945-7d7689cfcc49">
+  <Tags>
+    <Tag>animal</Tag>
+  </Tags>
+  <Objects>
+    <Object EntityClass="PrefabPort" Id="1b81d2cd-c034-4dbd-a9fc-71bc45178b1a" Name="outPort_sleepArea" Pos="0,-0.9998016,1.297401" Type="Entity">
+      <Properties esPrefabPort_Type="Out" />
+    </Object>
+    <Object EntityClass="PrefabPort" Id="33678f75-089d-4896-b2d0-a75d7758fcce" Name="outPort_defaultArea" Pos="-0.004308701,0.004486084,1.297401" Type="Entity">
+      <Properties esPrefabPort_Type="Out" />
+    </Object>
+    <Object EntityClass="PrefabPort" Id="389b24ef-2379-4ebc-b4f0-3c067ec918bb" Name="port_slaves" Pos="-0.3456459,0.02493668,1.297401" Type="Entity">
+      <EntityLinks>
+        <Link DebugTargetName="AnimalSpawner" Name="masterSpawner" TargetId="502b937e-5d4e-4941-a749-985e250fc473" />
+        <Link DebugTargetName="SchedulerHub4" Name="_" TargetId="de8f4194-31da-4f74-bc8e-000c40d89c9d" />
+      </EntityLinks>
+    </Object>
+    <Object EntityClass="AnimalSpawner" Id="502b937e-5d4e-4941-a749-985e250fc473" Name="AnimalSpawner" Type="Entity">
+      <Properties guidSoul="43049911-d3fe-9315-b963-fb4ecc601d8f" RespawnDays="1" />
+      <EntityLinks>
+        <Link DebugTargetName="SchedulerHub4" Name="_" TargetId="de8f4194-31da-4f74-bc8e-000c40d89c9d" />
+        <Link DebugTargetName="outPort_spawnArea" Name="spawnArea" TargetId="9191e097-bc44-4f73-a93b-79422980e621" />
+        <Link DebugTargetName="outPort_home" Name="home" TargetId="c888f6ab-03ee-43f6-9bb0-fc2ed17ee691" />
+      </EntityLinks>
+    </Object>
+    <Object EntityClass="PrefabPort" Id="88a601b4-afbb-4085-8a7d-a55a0c107b23" Name="outPort_relaxArea" Pos="0,-0.7364197,1.297401" Type="Entity">
+      <Properties esPrefabPort_Type="Out" />
+    </Object>
+    <Object EntityClass="PrefabPort" Id="9191e097-bc44-4f73-a93b-79422980e621" Name="outPort_spawnArea" Pos="-0.01908302,0.5106583,1.297401" Type="Entity">
+      <Properties esPrefabPort_Type="Out" />
+    </Object>
+    <Object EntityClass="SmartObjectHolder" Id="9fa299ea-101a-4bbb-b059-582d6ce9097e" Name="SmartObjectHolder3" Pos="0,-0.5,0" Type="Entity">
+      <Properties guidSmartObjectType="fe4996fd-b752-44b5-bbe0-d0f613a739d4" />
+      <EntityLinks>
+        <Link DebugTargetName="outPort_eatArea" Name="_eat|,1," TargetId="b4109a1e-b500-4d71-befc-fd4f513dac70" />
+        <Link DebugTargetName="outPort_relaxArea" Name="_relax|,1," TargetId="88a601b4-afbb-4085-8a7d-a55a0c107b23" />
+        <Link DebugTargetName="outPort_defaultArea" Name="_eat|" TargetId="33678f75-089d-4896-b2d0-a75d7758fcce" />
+        <Link DebugTargetName="outPort_defaultArea" Name="_relax|" TargetId="33678f75-089d-4896-b2d0-a75d7758fcce" />
+        <Link DebugTargetName="SmartObjectHolder3" Name="animalBoid[reactToThreats(true),runTreshold(1),safeDistance(7.0),threat(7.0),cohesion(2.0),alignment(0.6),separation(6.0),targetSeparation(2.5),herdSize(10.0)]" TargetId="9fa299ea-101a-4bbb-b059-582d6ce9097e" />
+        <Link DebugTargetName="outPort_sleepArea" Name="_sleep|,1," TargetId="1b81d2cd-c034-4dbd-a9fc-71bc45178b1a" />
+        <Link DebugTargetName="outPort_defaultArea" Name="_sleep|," TargetId="33678f75-089d-4896-b2d0-a75d7758fcce" />
+      </EntityLinks>
+    </Object>
+    <Object EntityClass="PrefabPort" Id="b4109a1e-b500-4d71-befc-fd4f513dac70" Name="outPort_eatArea" Pos="0,-0.4679337,1.297401" Type="Entity">
+      <Properties esPrefabPort_Type="Out" />
+    </Object>
+    <Object EntityClass="PrefabPort" Id="c888f6ab-03ee-43f6-9bb0-fc2ed17ee691" Name="outPort_home" Pos="0.3724384,0.004486084,1.297401" Type="Entity">
+      <Properties esPrefabPort_Type="Out" />
+    </Object>
+    <Object EntityClass="SchedulerHub" Id="de8f4194-31da-4f74-bc8e-000c40d89c9d" Name="SchedulerHub4" Pos="-0.02110672,-0.237648,0" Type="Entity">
+      <EntityLinks>
+        <Link DebugTargetName="SmartObjectHolder3" Name="_|eat,01:00,!once,!override,use_eat" TargetId="9fa299ea-101a-4bbb-b059-582d6ce9097e" />
+        <Link DebugTargetName="SmartObjectHolder3" Name="_|sleep,02:00,!override,use_sleep" TargetId="9fa299ea-101a-4bbb-b059-582d6ce9097e" />
+        <Link DebugTargetName="SmartObjectHolder3" Name="_|relax,01:00,!once,!override,use_relax" TargetId="9fa299ea-101a-4bbb-b059-582d6ce9097e" />
+      </EntityLinks>
+    </Object>
+  </Objects>
+</Prefab>

@@ -1,0 +1,374 @@
+<?xml version="1.0"?>
+<!DOCTYPE storm SYSTEM "storm.dtd">
+<storm>
+	<rules>
+
+  <!-- Default -->
+
+		<rule name="body_male">
+			<selectors>
+				<isMan/>
+			</selectors>
+			<operations>
+				<setBody name="m_body*" />
+			</operations>
+		</rule>
+
+    <rule name="body_female">
+			<selectors>
+				<isWoman/>
+			</selectors>
+			<operations>
+				<setBody name="f_body*" />
+			</operations>
+		</rule>
+
+
+    <rule name="body_player">
+			<selectors>
+				<or>
+					<isPlayer/>
+					<hasName name="player_naked" />
+				</or>
+			</selectors>
+			<operations>
+				<setBody name="henry_body" />
+			</operations>
+		</rule>
+
+    <rule name="body_cutscene_henry_whipped_mild">
+			<selectors>
+				<hasName name="cutscene_henry_whipped_mild" />
+			</selectors>
+			<operations>
+				<setBody name="henry_whipped_two_slashes" />
+			</operations>
+		</rule>
+
+    <rule name="body_cutscene_henry_whipped_severe">
+			<selectors>
+				<hasName name="cutscene_henry_whipped_severe" />
+			</selectors>
+			<operations>
+				<setBody name="henry_whipped_four_slashes" />
+			</operations>
+		</rule>
+
+
+     <!-- ANIMALS -->
+
+    <rule name="body_default">
+      <selectors>
+        <isHorse/>
+      </selectors>
+      <operations>
+        <setBody name="Horse_*" />
+      </operations>
+    </rule>
+
+    <rule name="body_warhorse">
+      <selectors>
+          <isWarHorse/>
+      </selectors>
+      <operations>
+        <setHead name="War_horse" />
+      </operations>
+    </rule>
+
+    <rule name="body_travelhorse">
+      <selectors>
+          <isTravelHorse/>
+      </selectors>
+      <operations>
+        <setHead name="Travel_horse" />
+      </operations>
+    </rule>
+
+    <rule name="body_workhorse">
+      <selectors>
+          <isWorkHorse/>
+      </selectors>
+      <operations>
+        <setHead name="Work_horse" />
+      </operations>
+    </rule>
+
+    <rule name="body_drafthorse">
+      <selectors>
+          <isDraftHorse/>
+      </selectors>
+      <operations>
+        <setHead name="Draft_horse" />
+      </operations>
+    </rule>
+
+	 	<rule name="body_dog"> <!-- generic dog body without a social class specifying its body -->
+			<selectors>
+        <or>
+          <hasSoulArchetype name="Dog" />
+          <hasSoulArchetype name="WildDog" />
+        </or>
+			</selectors>
+			<operations>
+				<setBody name="dog_generic*" />
+			</operations>
+		</rule>
+
+		<rule name="body_wardog"> <!-- specific dog body for both dog and wilddog -->
+			<selectors>
+				<isWarDog />
+			</selectors>
+			<operations>
+				<setBody name="dog_generic_wardog*" />
+			</operations>
+		</rule>
+
+		<rule name="body_backyarddog"> <!-- specific dog body for both dog and wilddog -->
+			<selectors>
+				<isBackyardDog />
+			</selectors>
+			<operations>
+				<setBody name="dog_generic_backyard*" />
+			</operations>
+		</rule>
+
+		<rule name="body_tvez_vorech">
+			<selectors>
+				<hasName name="tvez_vorech"/>
+			</selectors>
+			<operations>
+				<setBody name="dog_henry" />
+			</operations>
+		</rule>
+
+		<rule name="body_red_deer_stag">
+			<selectors>
+				<hasSoulArchetype name="RedDeerStag" />
+			</selectors>
+			<operations>
+				<setBody name="red_deer_stag_body*" />
+			</operations>
+		</rule>
+
+		<rule name="body_pig">
+			<selectors>
+				<hasSoulArchetype name="Pig" />
+			</selectors>
+			<operations>
+				<setBody name="pig_body*" />
+			</operations>
+		</rule>
+
+		<rule name="body_boar">
+			<selectors>
+				<hasSoulArchetype name="Boar" />
+			</selectors>
+			<operations>
+				<setBody name="boar_body_*" />
+			</operations>
+		</rule>
+
+		<rule name="body_red_deer_doe">
+			<selectors>
+				<hasSoulArchetype name="RedDeerDoe" />
+			</selectors>
+			<operations>
+				<setBody name="red_deer_doe_body*" />
+			</operations>
+		</rule>
+
+		<rule name="body_roe_deer_buck">
+			<selectors>
+				<hasSoulArchetype name="RoeDeerBuck" />
+			</selectors>
+			<operations>
+				<setBody name="roe_deer_buck_body*" />
+			</operations>
+		</rule>
+
+		<rule name="body_roe_deer_hind">
+			<selectors>
+				<hasSoulArchetype name="RoeDeerHind" />
+			</selectors>
+			<operations>
+				<setBody name="roe_deer_hind_body*" />
+			</operations>
+		</rule>
+
+		<rule name="body_sheep_ewe_normal">
+			<selectors>
+				<hasSoulArchetype name="SheepEwe" />
+			</selectors>
+			<operations>
+				<setBody name="sheep_ewe_body*" />
+				<setHead name="no_bell" />
+			</operations>
+		</rule>
+
+		<rule name="body_sheep_ewe_bells">
+			<selectors>
+			<and>
+				<hasSoulArchetype name="SheepEwe" />
+				<hasRandomValue min="0" max="0.1" />
+			</and>
+			</selectors>
+			<operations>
+				<setHead name="bell*" />
+			</operations>
+		</rule>
+
+		<rule name="body_sheep_ewe_black">
+			<selectors>
+			<and>
+				<hasSoulArchetype name="SheepEwe" />
+				<hasRandomValue min="0" max="0.02" />
+			</and>
+			</selectors>
+			<operations>
+				<setBody name="sheep_ewe_rare_black" />
+			</operations>
+		</rule>
+
+		<rule name="body_sheep_ram">
+			<selectors>
+				<hasSoulArchetype name="SheepRam" />
+			</selectors>
+			<operations>
+				<setBody name="sheep_ram_body*" />
+			</operations>
+		</rule>
+
+		<rule name="body_cattle_cow">
+			<selectors>
+				<hasSoulArchetype name="CattleCow" />
+			</selectors>
+			<operations>
+				<setBody name="cattle_cow_body*" />
+			</operations>
+		</rule>
+
+		<rule name="body_cattle_bull">
+			<selectors>
+				<hasSoulArchetype name="CattleBull" />
+			</selectors>
+			<operations>
+				<setBody name="cattle_bull_body*" />
+			</operations>
+		</rule>
+
+    <rule name="body_wolf">
+			<selectors>
+				<isWolf />
+			</selectors>
+			<operations>
+				<setBody name="wolf_body*" />
+			</operations>
+		</rule>
+
+	<rule name="body_hare">
+			<selectors>
+				<hasSoulArchetype name="Hare" />
+			</selectors>
+			<operations>
+				<setBody name="hare_body*" />
+			</operations>
+		</rule>
+
+    <!-- ANIMALS CUSTOM -->
+
+    <rule name="body_rasuvUcen_dog">
+      <selectors>
+        <hasName name="rasuvUcen_dog"/>
+      </selectors>
+      <operations>
+        <setBody name="dog_generic_wardog_beast" />
+      </operations>
+    </rule>
+	
+	    <rule name="appearance_hledaniPsa_secondPack_wolf1">
+      <selectors>
+        <hasName name="hledaniPsa_secondPack_wolf1"/>
+      </selectors>
+      <operations>
+        <setBody name="unique_alpha" />
+      </operations>
+    </rule>
+	
+	    <rule name="appearance_socky_cutscene_deer">
+      <selectors>
+        <hasName name="socky_cutscene_deer"/>
+      </selectors>
+      <operations>
+        <setBody name="red_deer_stag_body_neutral" />
+      </operations>
+    </rule>	
+
+	    <rule name="appearance_sedmStatecnych2_cow">
+      <selectors>
+        <hasName name="sedmStatecnych2_cow"/>
+      </selectors>
+      <operations>
+        <setBody name="cattle_cow_body_sorrel" />
+      </operations>
+    </rule>		
+
+      <!-- UNIQUE CHARACTERS -->
+
+    <rule name="bodies_caucaussian_pale">
+		<selectors>
+        	<or>
+		<hasName name="kkut_arne" />
+        <hasName name="kkut_bocek" />
+        <hasName name="kcer_suchyCert" />
+        <hasName name="krat_baronBrabant" />
+        <hasName name="ttro_erik" />
+        <hasName name="zachrana_fatherOfHenry" />
+        <hasName name="ksuc_jost" />
+        <hasName name="kpri_komar" />
+        <hasName name="hledaniLichtenstejna_kozina" />
+        <hasName name="kcer_kubenka" />
+        <hasName name="kkut_lichtenstejn" />
+        <hasName name="krat_krystofOderin" />
+        <hasName name="ksuc_petr" />
+        <hasName name="tsem_racek" />
+        <hasName name="kkut_kunzlinRuthard" />
+        <hasName name="tsem_seminsr" />
+        <hasName name="tsem_suk" />
+        <hasName name="kmis_hansZUher" />
+        <hasName name="kkut_oldrichVavak" />
+        <hasName name="kkut_zikmund" />
+        </or>
+			</selectors>
+			<operations>
+				<setBody name="m_body_pale*" />
+			</operations>
+		</rule>
+
+    <rule name="bodies_caucaussian_tan">
+			<selectors>
+        <or>
+		<hasName name="ttro_bergov" />
+        <hasName name="tneb_bohuta" />
+        <hasName name="tsem_hanus" />
+        <hasName name="tneb_zizka" />
+        </or>
+			</selectors>
+			<operations>
+				<setBody name="m_body_tan*" />
+			</operations>
+		</rule>
+
+    <rule name="body_mysi_bull">
+			<selectors>
+				<hasName name="mysi_bull" />
+			</selectors>
+			<operations>
+				<setBody name="bull_white_mysi" />
+			</operations>
+		</rule>
+
+  <!-- GROUPS -->
+
+
+	</rules>
+</storm>

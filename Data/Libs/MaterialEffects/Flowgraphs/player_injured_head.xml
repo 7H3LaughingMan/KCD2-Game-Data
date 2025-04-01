@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="us-ascii"?>
+<Graph>
+  <Nodes>
+    <Node Id="1" Class="MaterialFX:HUDStartFX" pos="-590,10,0" flags="0">
+      <Inputs />
+    </Node>
+    <Node Id="28" Class="MaterialFX:HUDEndFX" pos="820,180,0" flags="0">
+      <Inputs />
+    </Node>
+    <Node Id="32" Class="Effects:SpawnParticleEffect" pos="680,-50,0" flags="0">
+      <Inputs t_Activate="0" Position="0,0,0" Effect="collisions.combat.blood_head" />
+    </Node>
+    <Node Id="34" Class="Time:Delay" pos="450,190,0" flags="0">
+      <Inputs delay="1" resetOnInput="0" unpausable="0" />
+    </Node>
+    <Node Id="39" Class="Math:Div" pos="-90,210,0" flags="0">
+      <Inputs A="5" B="0" />
+    </Node>
+    <Node Id="40" Name="the_smaller_the_intensity,_the_longer_delay_\nbetween_blood_particle_spawning" Class="_comment" pos="100,240,0" flags="0" />
+    <Node Id="44" Class="Math:Less" pos="-240,-20,0" flags="0">
+      <Inputs A="0.75" B="0.75" />
+    </Node>
+    <Node Id="45" Class="Logic:Gate" pos="50,-10,0" flags="0">
+      <Inputs Closed="0" />
+    </Node>
+    <Node Id="46" Class="Logic:Any" pos="50,100,0" flags="0" InHideMask="1022">
+      <Inputs />
+    </Node>
+    <Node Id="47" Class="Math:Power" pos="-310,210,0" flags="0">
+      <Inputs base="0.9" power="6" />
+    </Node>
+    <Node Id="48" Name="bleeding_starts_when_injury_intensity_reaches_0.75\n(when_the_bleeding_icon_appears_in_the_gui)" Class="_comment" pos="-380,-90,0" flags="0" />
+    <Node Id="69" Class="Logic:Gate" pos="50,-110,0" flags="0">
+      <Inputs Closed="0" />
+    </Node>
+    <Node Id="70" Class="Logic:Any" pos="50,-170,0" flags="0" InHideMask="1022">
+      <Inputs />
+    </Node>
+    <Node Id="71" Class="Logic:Gate" pos="450,-50,0" flags="0">
+      <Inputs Closed="0" />
+    </Node>
+    <Node Id="72" Class="Logic:Any" pos="330,130,0" flags="0" InHideMask="1020">
+      <Inputs />
+    </Node>
+    <Node Id="73" Name="Protection_for_only_one_start_and_one_stop,_so_it_is_triggered_when_bool_value_is_changed" Class="_comment" pos="-170,-210,0" flags="0" />
+  </Nodes>
+  <Edges>
+    <Edge nodeIn="44" nodeOut="1" portIn="B" portOut="Intensity" enabled="1" />
+    <Edge nodeIn="47" nodeOut="1" portIn="base" portOut="Intensity" enabled="1" />
+    <Edge nodeIn="71" nodeOut="34" portIn="In" portOut="out" enabled="1" />
+    <Edge nodeIn="34" nodeOut="39" portIn="delay" portOut="out" enabled="1" />
+    <Edge nodeIn="45" nodeOut="44" portIn="Open" portOut="false" enabled="1" />
+    <Edge nodeIn="45" nodeOut="44" portIn="In" portOut="true" enabled="1" />
+    <Edge nodeIn="69" nodeOut="44" portIn="In" portOut="false" enabled="1" />
+    <Edge nodeIn="69" nodeOut="44" portIn="Open" portOut="true" enabled="1" />
+    <Edge nodeIn="46" nodeOut="45" portIn="in1" portOut="Out" enabled="1" />
+    <Edge nodeIn="71" nodeOut="45" portIn="Open" portOut="Out" enabled="1" />
+    <Edge nodeIn="72" nodeOut="45" portIn="in2" portOut="Out" enabled="1" />
+    <Edge nodeIn="45" nodeOut="46" portIn="Close" portOut="out" enabled="1" />
+    <Edge nodeIn="39" nodeOut="47" portIn="B" portOut="out" enabled="1" />
+    <Edge nodeIn="70" nodeOut="69" portIn="in1" portOut="Out" enabled="1" />
+    <Edge nodeIn="71" nodeOut="69" portIn="Close" portOut="Out" enabled="1" />
+    <Edge nodeIn="69" nodeOut="70" portIn="Close" portOut="out" enabled="1" />
+    <Edge nodeIn="32" nodeOut="71" portIn="t_Activate" portOut="Out" enabled="1" />
+    <Edge nodeIn="72" nodeOut="71" portIn="in1" portOut="Out" enabled="1" />
+    <Edge nodeIn="34" nodeOut="72" portIn="in" portOut="out" enabled="1" />
+  </Edges>
+</Graph>

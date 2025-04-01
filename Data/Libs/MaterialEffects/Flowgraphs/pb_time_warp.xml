@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="us-ascii"?>
+<Graph Description="" Group="" enabled="1" MultiPlayer="ClientServer">
+  <Nodes>
+    <Node Id="1" Class="MaterialFX:HUDStartFX" pos="80,10,0" flags="0">
+      <Inputs />
+    </Node>
+    <Node Id="2" Class="MaterialFX:HUDEndFX" pos="690,-60,0" flags="0">
+      <Inputs />
+    </Node>
+    <Node Id="3" Class="Image:FilterRadialBlur" pos="650,90,0" flags="1">
+      <Inputs entityId="0" Enabled="1" Disabled="1" FilterRadialBlurring_Amount="0.2" FilterRadialBlurring_ScreenPosX="0.5" FilterRadialBlurring_ScreenPosY="0.5" FilterRadialBlurring_Radius="1" />
+    </Node>
+    <Node Id="273" Class="Math:Less" pos="360,-190,0" flags="0">
+      <Inputs A="0" B="0.01" />
+    </Node>
+    <Node Id="275" Class="Image:FilterRadialBlur" pos="710,-240,0" flags="0">
+      <Inputs entityId="0" Enabled="1" Disabled="1" FilterRadialBlurring_Amount="0" FilterRadialBlurring_ScreenPosX="0.5" FilterRadialBlurring_ScreenPosY="0.5" FilterRadialBlurring_Radius="1" />
+    </Node>
+  </Nodes>
+  <Edges>
+    <Edge nodeIn="3" nodeOut="1" portIn="Enabled" portOut="Started" enabled="1" />
+    <Edge nodeIn="273" nodeOut="1" portIn="A" portOut="Intensity" enabled="1" />
+    <Edge nodeIn="2" nodeOut="273" portIn="Trigger" portOut="true" enabled="1" />
+    <Edge nodeIn="275" nodeOut="273" portIn="Enabled" portOut="true" enabled="1" />
+  </Edges>
+  <GraphTokens />
+</Graph>

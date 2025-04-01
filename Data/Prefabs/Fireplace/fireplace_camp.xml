@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="us-ascii"?>
+<Prefab Id="90425fc9-018a-4c36-854e-79ee25ad4195">
+	<Tags>
+		<Tag>camp</Tag>
+		<Tag>camp_important</Tag>
+	</Tags>
+	<Objects>
+		<Object EntityClass="TagPoint" Id="00a84251-3a14-42cb-98cc-1e2cfb0edfa8" Name="schedulerReservedItem_dailyCheck" Pos="-0.1137714,1.520218,0" Type="TagPoint">
+			<EntityLinks>
+				<Link DebugTargetName="outPort_bowls" TargetId="b1360179-2bef-416a-ab2b-13009f2b9b27" />
+			</EntityLinks>
+		</Object>
+		<Object EntityClass="PrefabPort" Id="05f8222c-4adc-4572-be75-a878a0897c35" Name="outPort_wood" Pos="0.9490356,-0.9628792,2.152168" Type="Entity">
+			<Properties esPrefabPort_Type="Out" />
+		</Object>
+		<Object EntityClass="KettleActionTrigger" Id="13fca017-f2f2-4b01-851d-4706ddea5c6e" Name="KettleActionTrigger3" Pos="0.01607895,-0.01803589,0.3002625" Scale="0.29729,0.29729,0.29729" Type="Entity">
+			<Properties>
+				<Click bAllowTorch="1" bCheckOwner="1" bDelayedReportUse="1" esActionType="Animation" fActiveDistance="1.7" sAction="BehaviorEatingBoiler" sPersistentKettleStateVariable="persistentStorage" UseMessage="@ui_eat_kettle" />
+				<Hold bAllowTorch="1" bIsActive="1" esActionType="Animation" fActiveDistance="1.7" InventoryFilter="poison.*.*" sAction="BehaviorPoisoningBoiler" UseMessage="@ui_put_into_kettle" />
+			</Properties>
+			<EntityLinks>
+				<Link DebugTargetName="smartObject" TargetId="49e21232-ddd2-4868-8184-6b67c7dcb374" />
+			</EntityLinks>
+		</Object>
+		<Object EntityClass="FoodProcessingTrigger" Id="250d4990-71f0-4f61-8f23-ab898342fadc" Name="TriggerFireplace" Pos="0.2583504,-0.6935883,0.1670952" Rotate="-0.04361933,0,0,0.9990482" Scale="0.1988033,0.1988033,0.1988033" Type="Entity">
+			<Properties>
+				<Click fActiveDistance="1.7" InventoryMultiFilter="food.meat.raw|food.fruit.apple|food.fruit.pear|food.mushroom.vegetable|food.dairy.raw|food.bowel.raw|food.vegetable.vegetable" UseMessage="@ui_cook_item">
+					<Angle fAngleTolerance="110" />
+				</Click>
+				<Hold fActiveDistance="1.7" UseMessage="@ui_use_fire" />
+				<Script Misc="foodProcessingType:cooking" />
+			</Properties>
+			<EntityLinks>
+				<Link DebugTargetName="smartObject" TargetId="49e21232-ddd2-4868-8184-6b67c7dcb374" />
+			</EntityLinks>
+		</Object>
+		<Object EntityClass="RuntimePrefab" Id="3530e436-2dec-4326-9684-4f8aafeb347b" Name="Procedural/Fireplace/fireplace_steam_off1_prc" Pos="0.00664711,0.01708984,0.5837631" Type="Entity">
+			<Properties guidPrefabTemplate="ce0ee77c-1085-4c46-b2ed-b0fd82367cc4" />
+		</Object>
+		<Object EntityClass="SchedulerHub" Id="3992a547-df9e-4087-b309-0a21ebe9186a" Name="hub" Pos="0.1194534,-0.9628754,1.314392" Type="Entity">
+			<EntityLinks>
+				<Link DebugTargetName="smartObject" Name="_|cooking,cooking" TargetId="49e21232-ddd2-4868-8184-6b67c7dcb374" />
+			</EntityLinks>
+		</Object>
+		<Object EntityClass="TagPoint" Id="3c679901-1490-4736-8f47-5cd36b681d02" Name="schedulerReservedItem_eating" Pos="-0.4719639,1.538956,0" Type="TagPoint">
+			<EntityLinks>
+				<Link DebugTargetName="outPort_bowls" TargetId="b1360179-2bef-416a-ab2b-13009f2b9b27" />
+			</EntityLinks>
+		</Object>
+		<Object EntityClass="GhostDummy" Id="47d35b1b-feb1-41a3-bc5e-c27cec9d2dca" Name="cooking_scoop_loop1" Type="Entity">
+			<Properties object_Model="objects/intermediates/poses/cooking_scoop_loop.cgf" />
+		</Object>
+		<Object EntityClass="FireplaceSmartObject" Id="49e21232-ddd2-4868-8184-6b67c7dcb374" Name="smartObject" Type="Entity">
+			<Properties bOwnedByHome="1" guidSmartObjectType="4bc755a4-2a23-8c76-58ac-aec3fb002689" soclass_SmartObjectHelpers="fireplaceCamp" />
+			<EntityLinks>
+				<Link DebugTargetName="outPort_wood" TargetId="05f8222c-4adc-4572-be75-a878a0897c35" />
+				<Link DebugTargetName="TriggerFireplace" Name="trigger_fire" TargetId="250d4990-71f0-4f61-8f23-ab898342fadc" />
+				<Link DebugTargetName="TriggerFireplace" Name="kettleTrigger[&apos;pan&apos;]" TargetId="250d4990-71f0-4f61-8f23-ab898342fadc" />
+				<Link DebugTargetName="scoopSlot" Name="scoopSlot" TargetId="b7433bf8-ce38-4472-9c6f-1ba5b46f859f" />
+				<Link DebugTargetName="outHubBench" Name="_getMash|,23:00" TargetId="9e648427-296d-4069-a775-e79e86819bba" />
+				<Link DebugTargetName="outHubBench" Name="_eating|,23:00" TargetId="9e648427-296d-4069-a775-e79e86819bba" />
+				<Link DebugTargetName="smartObject" Name="#EnableBehaviorForNPC[getMash,eating]" TargetId="49e21232-ddd2-4868-8184-6b67c7dcb374" />
+				<Link DebugTargetName="smartObject" Name="#EnableBehaviorForNPC[eating,eating]" TargetId="49e21232-ddd2-4868-8184-6b67c7dcb374" />
+				<Link DebugTargetName="Procedural/Fireplace/fireplace_off1_prc" Name="proceduralObject[&apos;fire&apos;]" TargetId="cc8986e8-d754-4bff-a19d-50e9c958edfa" />
+				<Link DebugTargetName="KettleActionTrigger3" Name="kettleTrigger[&apos;kettle&apos;]" TargetId="13fca017-f2f2-4b01-851d-4706ddea5c6e" />
+				<Link DebugTargetName="Procedural/Fireplace/fireplace_steam_off1_prc" Name="proceduralObject[&apos;steam&apos;]" TargetId="3530e436-2dec-4326-9684-4f8aafeb347b" />
+				<Link DebugTargetName="Procedural/Fireplace/cauldron_camp/fireplace_camp_cauldron_empty1_prc" Name="proceduralObject[&apos;cauldron&apos;]" TargetId="fb4b1b8f-857e-4b79-a1f2-48387d8f4d91" />
+				<Link DebugTargetName="schedulerReservedItem_eating" Name="schedulerReservedItem[&apos;eating&apos;,&apos;housekeeper_eating_bowl&apos;]" TargetId="3c679901-1490-4736-8f47-5cd36b681d02" />
+				<Link DebugTargetName="schedulerReservedItem_getMash" Name="schedulerReservedItem[&apos;getMash&apos;,&apos;housekeeper_eating_bowl&apos;]" TargetId="56384a65-3cf5-444d-85e6-e69fb7f7551e" />
+				<Link DebugTargetName="schedulerReservedItem_dailyCheck" Name="schedulerReservedItem[&apos;dailyCheck&apos;,&apos;housekeeper_eating_bowl&apos;]" TargetId="00a84251-3a14-42cb-98cc-1e2cfb0edfa8" />
+			</EntityLinks>
+		</Object>
+		<Object EntityClass="TagPoint" Id="56384a65-3cf5-444d-85e6-e69fb7f7551e" Name="schedulerReservedItem_getMash" Pos="-0.309309,1.537872,0" Type="TagPoint">
+			<EntityLinks>
+				<Link DebugTargetName="outPort_bowls" TargetId="b1360179-2bef-416a-ab2b-13009f2b9b27" />
+			</EntityLinks>
+		</Object>
+		<Object EntityClass="PrefabPort" Id="63f99404-a8b8-4f28-b5e4-0fb11e952462" Name="port_cooking" Pos="0.1067505,-0.9628754,2.152168" Type="Entity">
+			<Properties esPrefabPort_Icon="cookingIn" />
+			<EntityLinks>
+				<Link DebugTargetName="hub" TargetId="3992a547-df9e-4087-b309-0a21ebe9186a" />
+			</EntityLinks>
+		</Object>
+		<Object Id="724f58ab-0ba4-4dbd-88df-6076d2ca5cc6" Name="fireplaceBrush" Prefab="objects/manmade/task_specific_props/food_processing/cooking/camp_cooking_c_old.cgf" Type="Brush" ViewDistRatio="50">
+			<CollisionFiltering>
+				<Type gcc_interactive="1" />
+			</CollisionFiltering>
+		</Object>
+		<Object EntityClass="SchedulerHub" Id="75dcd00a-f3d1-4daf-98f8-02622276c556" Name="hub" Pos="-0.2318192,-0.9628792,1.314392" Type="Entity">
+			<EntityLinks>
+				<Link DebugTargetName="smartObject" Name="_campStoking" TargetId="49e21232-ddd2-4868-8184-6b67c7dcb374" />
+			</EntityLinks>
+		</Object>
+		<Object EntityClass="PrefabPort" Id="781d7fba-e732-4487-9c15-2dc972aa09e1" Name="outPort_groundPlace" Pos="1.21793,-0.7025909,2.152168" Type="Entity">
+			<Properties esPrefabPort_Type="Out" />
+		</Object>
+		<Object EntityClass="SchedulerHub" Id="78d36ef2-60cc-4d64-9d1f-9e8c86027629" Name="hub" Pos="-0.5502014,-0.9628792,1.314392" Type="Entity">
+			<EntityLinks>
+				<Link DebugTargetName="smartObject" Name="_campTinkering" TargetId="49e21232-ddd2-4868-8184-6b67c7dcb374" />
+			</EntityLinks>
+		</Object>
+		<Object EntityClass="PrefabPort" Id="8625c1c2-55dc-4136-a377-78c0c2c12290" Name="outPort_bench" Pos="1.21793,-0.9604492,2.152168" Type="Entity">
+			<Properties esPrefabPort_Type="Out" />
+		</Object>
+		<Object EntityClass="SchedulerHub" Id="9074aee2-1977-4d94-93f3-fffab9c10408" Name="hub_eat" Pos="-0.8412819,-0.9628754,1.314392" Type="Entity">
+			<EntityLinks>
+				<Link DebugTargetName="smartObject" Name="_|eating,1,!override,eating" TargetId="49e21232-ddd2-4868-8184-6b67c7dcb374" />
+				<Link DebugTargetName="smartObject" Name="_|getMash,0,!override,getMash" TargetId="49e21232-ddd2-4868-8184-6b67c7dcb374" />
+			</EntityLinks>
+		</Object>
+		<Object EntityClass="SchedulerHub" Id="9e648427-296d-4069-a775-e79e86819bba" Name="outHubBench" Pos="1.21793,-0.9628754,1.314869" Type="Entity">
+			<EntityLinks>
+				<Link DebugTargetName="outPort_bench" Name="_20:00," TargetId="8625c1c2-55dc-4136-a377-78c0c2c12290" />
+				<Link DebugTargetName="outPort_groundPlace" Name="_M,20:00," TargetId="781d7fba-e732-4487-9c15-2dc972aa09e1" />
+			</EntityLinks>
+		</Object>
+		<Object EntityClass="PrefabPort" Id="9f37f3fc-89eb-401b-a794-5c788ad7e737" Name="port_stoking" Pos="-0.2318192,-0.9628792,2.152168" Type="Entity">
+			<EntityLinks>
+				<Link DebugTargetName="hub" TargetId="75dcd00a-f3d1-4daf-98f8-02622276c556" />
+			</EntityLinks>
+		</Object>
+		<Object EntityClass="PrefabPort" Id="aa7951d0-0427-4f0f-84ed-f4470bae577a" Name="port_eat" Pos="-0.8539848,-0.9628754,2.152168" Type="Entity">
+			<Properties esPrefabPort_Icon="eatIn" />
+			<EntityLinks>
+				<Link DebugTargetName="hub_eat" TargetId="9074aee2-1977-4d94-93f3-fffab9c10408" />
+			</EntityLinks>
+		</Object>
+		<Object EntityClass="PrefabPort" Id="b1360179-2bef-416a-ab2b-13009f2b9b27" Name="outPort_bowls" Pos="1.470627,-0.9628754,2.152168" Type="Entity">
+			<Properties esPrefabPort_Type="Out" />
+		</Object>
+		<Object EntityClass="ItemSlot" Id="b7433bf8-ce38-4472-9c6f-1ba5b46f859f" Name="scoopSlot" NoStaticDecals="1" Pos="-0.123,-0.225,0.7096" Rotate="-0.2369032,0.8884388,0.3569809,0.1646759" Type="Entity">
+			<Properties guidItemClassId="30b2916b-37be-4d62-ad7f-2389b137fd58" />
+		</Object>
+		<Object EntityClass="RuntimePrefab" Id="cc8986e8-d754-4bff-a19d-50e9c958edfa" Name="Procedural/Fireplace/fireplace_off1_prc" Pos="0.02028275,-0.03160095,0.02713013" Type="Entity">
+			<Properties guidPrefabTemplate="26e2bbda-5b3b-40b1-8cb9-44fd25d9b91f" />
+		</Object>
+		<Object Id="daefc11d-38d4-430f-8443-aab9dc638b85" Name="pan_d2" Pos="-0.4078,-0.7714,0.163" Prefab="Objects/manmade/task_specific_props/household/cooking_eating/pans/pan_d.cgf" Rotate="0.6688063,0,0,0.7434367" Type="Brush" />
+		<Object Id="db5c3311-49dc-4513-9640-6be7f610dde3" Material="materials/decals/decal_burned_ash" Name="Decal741" Pos="0.08007812,0.08557129,-0.03733826" ProjectionDepth="0.5" Rotate="0.7880108,0,0,-0.6156614" SortPriority="100" Type="Decal" />
+		<Object EntityClass="PrefabPort" Id="e2ea0b8b-c617-45e9-b3cb-81e741bdc2de" Name="port_tinkering" Pos="-0.5502014,-0.9628792,2.152168" Type="Entity">
+			<EntityLinks>
+				<Link DebugTargetName="hub" TargetId="78d36ef2-60cc-4d64-9d1f-9e8c86027629" />
+			</EntityLinks>
+		</Object>
+		<Object EntityClass="PrefabPort" Id="ee8b8679-e2d4-42d6-a60a-e6e5e8b6abda" Name="port_fireplaceEntity" Pos="-1.67318,-0.9628754,2.152168" Type="Entity">
+			<EntityLinks>
+				<Link DebugTargetName="smartObject" TargetId="49e21232-ddd2-4868-8184-6b67c7dcb374" />
+			</EntityLinks>
+		</Object>
+		<Object Id="f9861373-c664-47f3-957e-ae84a6959a11" Name="branches_a1" Pos="-1.49,-0.0494,0" Prefab="Objects/manmade/task_specific_props/household/firewood/branches/branches_a.cgf" Type="Brush">
+			<CollisionFiltering>
+				<Type gcc_interactive="1" />
+			</CollisionFiltering>
+		</Object>
+		<Object EntityClass="RuntimePrefab" Id="fb4b1b8f-857e-4b79-a1f2-48387d8f4d91" Name="Procedural/Fireplace/cauldron_camp/fireplace_camp_cauldron_empty1_prc" Pos="0.005187988,-0.0174408,0.1960983" Rotate="-4.371139e-08,0,0,1" Type="Entity">
+			<Properties guidPrefabTemplate="25083250-2e7f-47ee-9652-aa705f6a6d40" />
+		</Object>
+	</Objects>
+</Prefab>

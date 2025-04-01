@@ -1,0 +1,35 @@
+<?xml version="1.0" standalone="yes" ?>
+
+<!ELEMENT storm (customSelectors?,rules?) >
+<!ELEMENT customSelectors (customSelector*) >
+<!ATTLIST customSelector name CDATA #IMPLIED mode CDATA #IMPLIED >
+
+
+<!ELEMENT rules (rule*)>
+
+<!ELEMENT rule (selectors,operations)>
+<!ATTLIST rule name CDATA #IMPLIED >
+
+
+<!ELEMENT operations (addRole*,removeRole*)>
+
+<!ELEMENT selectors (not|or|and|hasFaction|hasGender|hasHobby|hasName|hasShop|hasSuperfaction)*>
+<!ELEMENT customSelector (not|or|and|hasFaction|hasGender|hasHobby|hasName|hasShop|hasSuperfaction)*>
+<!ELEMENT or (not|or|and|hasFaction|hasGender|hasHobby|hasName|hasShop|hasSuperfaction)* >
+<!ELEMENT and (not|or|and|hasFaction|hasGender|hasHobby|hasName|hasShop|hasSuperfaction)* >
+<!ELEMENT not (not|or|and|hasFaction|hasGender|hasHobby|hasName|hasShop|hasSuperfaction)* >
+
+<!ELEMENT hasFaction EMPTY >
+<!ATTLIST hasFaction faction CDATA #IMPLIED >
+<!ELEMENT hasGender EMPTY >
+<!ATTLIST hasGender gender CDATA #IMPLIED >
+<!ELEMENT hasHobby EMPTY >
+<!ATTLIST hasHobby hobby CDATA #IMPLIED >
+<!ELEMENT hasShop EMPTY >
+<!ELEMENT hasName EMPTY >
+<!ATTLIST hasName name CDATA #IMPLIED >
+
+<!ELEMENT addRole EMPTY>
+<!ATTLIST addRole name CDATA #IMPLIED >
+<!ELEMENT removeRole EMPTY>
+<!ATTLIST removeRole name CDATA #IMPLIED >

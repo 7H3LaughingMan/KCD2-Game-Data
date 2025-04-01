@@ -1,0 +1,72 @@
+<UIElements name="Menus">
+
+	<UIElement name="Pickpocketing" controller_input="1" events_exclusive="1">
+
+		<GFx file="Pickpocketing.gfx" layer="27">
+			<Constraints>
+				<Align mode="dynamic" valign="center" halign="center" scale="1" max="0"  />
+			</Constraints>
+		</GFx>
+
+		<functions>
+			<function name="SetBoostProgress" funcname="fc_setBoostProgress">
+				<param name="Progress" desc="0-1" type="float" />
+				<param name="Minimal" desc="" type="float" />
+				<param name="Time" desc="boost time for minigame in sec" type="int" />
+				<param name="FailProbability" desc="1 is red, 0 is green" type="float" />
+			</function>
+
+			<function name="SetPickpocketing" funcname="fc_setPickpocketing">
+				<param name="Time" desc="current time for minigame in sec" type="float" />
+				<param name="MaxTime" desc="full time for minigame in sec" type="float" />
+				<param name="SelectorSpeed" desc="" type="float" />
+				<param name="PerkEasyWayOut" desc="move back is twice faster" type="bool" />
+			</function>
+
+			<function name="PauseTime" funcname="fc_pauseTime">
+				<param name="Pause" desc="" type="bool" />
+			</function>
+
+			<function name="MoveLeft" funcname="fc_moveLeft" />
+
+			<function name="MoveRight" funcname="fc_moveRight" />
+
+			<function name="DoAction" funcname="fc_doAction" />
+
+		</functions>
+
+		<events>
+			<event name="OnClose" fscommand="onClose" desc="">
+				<param name="Result" desc="true if success" type="bool"/>
+				<param name="ItemsId" desc="itemsId with |" type="string"/>
+			</event>
+
+			<event name="OnActionHintState" fscommand="onActionHintState" desc="">
+				<param name="actionName" desc="name of action" type="string"/>
+				<param name="visible" desc="changing visibility button" type="bool"/>
+				<param name="enable" desc="changing enable button" type="bool"/>
+			</event>
+
+			<!-- Audio -->
+			<event name="OnPlayAudio" fscommand="onPlayAudio" desc="execute global audio trigger">
+				<param name="TriggerName" desc="" type="string"/>
+			</event>
+
+			<event name="OnStopAudio" fscommand="onStopAudio" desc="stop global audio trigger">
+				<param name="TriggerName" desc="" type="string"/>
+			</event>
+
+			<event name="OnSetVolumeAudio" fscommand="onSetVolumeAudio" desc="set volume via rtpc">
+				<param name="TriggerName" desc="" type="string"/>
+				<param name="Volume" desc="" type="float"/>
+			</event>
+
+		</events>
+
+		<arrays>
+			<array name="Items" varname="g_ItemsA" />
+		</arrays>
+
+	</UIElement>
+
+</UIElements>

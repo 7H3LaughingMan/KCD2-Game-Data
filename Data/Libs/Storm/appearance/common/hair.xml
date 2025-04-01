@@ -1,0 +1,98 @@
+<?xml version="1.0"?>
+<!DOCTYPE storm SYSTEM "storm.dtd">
+<storm>
+	<rules>
+
+  		<!-- GENERAL -->
+
+		<rule name="hair_man">
+			<selectors>
+				<isMan />
+			</selectors>
+			<operations>
+				<setHair name="m_hair_0*" />
+			</operations>
+		</rule>
+
+		<rule name="beard_man">
+			<selectors>
+				<and>
+				<isMan />
+				<hasRandomValue min="0" max="0.66" />
+				</and>
+			</selectors>
+			<operations>
+				<setBeard name="m_beard*" />
+			</operations>
+		</rule>
+		
+		<rule name="beard_bandit">
+			<selectors>
+				<and>
+				<isBandit />
+				<isMan />
+				<hasRandomValue min="0" max="0.9" />
+				</and>
+			</selectors>
+			<operations>
+				<setBeard name="m_beard*" />
+			</operations>
+		</rule>
+
+		<rule name="beard_beggar">
+			<selectors>
+				<and>
+				<hasSocialClass name="beggar" />
+				<isMan />
+			</and>
+			</selectors>
+			<operations>
+				<setBeard name="m_beard*" />
+			</operations>
+		</rule>
+
+		<rule name="beard_cuman">
+			<selectors>
+				<and>
+				<hasSocialClass name="cuman" />
+				<isMan />
+			</and>
+			</selectors>
+			<operations>
+				<setBeard name="m_beard*" />
+			</operations>
+		</rule>
+
+		<rule name="hair_woman">
+			<selectors>
+				<isWoman />
+			</selectors>
+			<operations>
+				<setHair name="f_hair_0*" />
+			</operations>
+		</rule>
+
+		<rule name="hair_horse">
+			<selectors>
+				<isHorse/>
+			</selectors>
+			<operations>
+				<setHair name="horse_hair_*" />
+			</operations>
+		</rule>
+
+		<rule name="hair_clergy_beard">
+			<selectors>
+				<or>
+					<hasSocialClass name="monk" />
+					<hasSocialClass name="priest" />
+				</or>
+					<isMan />
+			</selectors>
+			<operations>
+				<setBeard name="m_beard_00" />
+			</operations>
+		</rule>
+
+  </rules>
+</storm>

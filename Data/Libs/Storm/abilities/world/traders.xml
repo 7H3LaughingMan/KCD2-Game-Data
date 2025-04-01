@@ -1,0 +1,174 @@
+<?xml version="1.0"?>
+<!DOCTYPE storm SYSTEM "..\..\storm.dtd">
+<storm>
+    <rules>
+        <!-- rules based on https://youtrack.warhorsestudios.cz/issue/KCD2-309432 -->
+
+		<!-- base rules -->
+        <rule name="rpg_traders_base_settlement">
+            <selectors>
+                <isTrader />
+                <hasFactionLabel name="settlement"/>
+            </selectors>
+            <operations>
+                <setAttribute stat="shadiness" value="0.3" />
+				<setAttribute stat="barter" value="15" />
+            </operations>
+        </rule>
+
+        <rule name="rpg_traders_base_camp">
+            <selectors>
+                <isTrader />
+                <hasFactionLabel name="camp"/>
+            </selectors>
+            <operations>
+                <setAttribute stat="shadiness" value="0.5" />
+				<setAttribute stat="barter" value="12" />
+            </operations>
+        </rule>
+
+        <rule name="rpg_traders_base_solitude">
+            <selectors>
+                <isTrader />
+                <hasFactionLabel name="solitude"/>
+            </selectors>
+            <operations>
+                <setAttribute stat="shadiness" value="0.5" />
+				<setAttribute stat="barter" value="9" />
+            </operations>
+        </rule>
+
+        <rule name="rpg_traders_base_miller">
+            <selectors>
+                <isTrader />
+                <hasSocialClass name="miller" />
+            </selectors>
+            <operations>
+                <setAttribute stat="shadiness" value="1" />
+				<setAttribute stat="barter" value="18" />
+            </operations>
+        </rule>
+
+
+        <!-- specific rules, should overwrite the base ones -->
+        <rule name="rpg_traders_tr_trosky">
+            <selectors>
+				<isTrader />
+                <hasFaction name="trosecko_settlements_trosky" />
+            </selectors>
+            <operations>
+				<setAttribute stat="shadiness" value="0.2" />
+				<setAttribute stat="barter" value="18" />
+            </operations>
+        </rule>
+
+        <rule name="rpg_traders_kh_jewish">
+            <selectors>
+                <isTrader />
+                <hasFactionLabel name="jewish" />
+            </selectors>
+            <operations>
+				<setAttribute stat="shadiness" value="0.2" />
+				<setAttribute stat="barter" value="24" />
+            </operations>
+        </rule>
+
+        <rule name="rpg_traders_kh_centre">
+            <selectors>
+                <and>
+                    <isTrader/>
+                      <or>
+                        <hasFaction name="kutnohorsko_settlements_kutnaHora_commonFolk_tradersAndCraftmans_radnicni"/>
+                        <hasFaction name="kutnohorsko_settlements_kutnaHora_commonFolk_tradersAndCraftmans_tarmark"/>
+                        <hasFaction name="kutnohorsko_settlements_kutnaHora_commonFolk_tradersAndCraftmans_vinna"/>
+                        <!-- hasFaction name="kutnohorsko_settlements_kutnaHora_commonFolk_tradersAndCraftmans_vlasska"/-->
+                        <hasFaction name="kutnohorsko_settlements_kutnaHora_commonFolk_tradersAndCraftmans_platnerska"/>
+
+                        <hasFaction name="kutnohorsko_settlements_kutnaHora_commonFolk_peasants_radnicni"/>
+                        <hasFaction name="kutnohorsko_settlements_kutnaHora_commonFolk_peasants_tarmark"/>
+                        <hasFaction name="kutnohorsko_settlements_kutnaHora_commonFolk_peasants_vinna"/>
+                        <hasFaction name="kutnohorsko_settlements_kutnaHora_commonFolk_peasants_vlasska"/>
+                        <hasFaction name="kutnohorsko_settlements_kutnaHora_commonFolk_peasants_platnerska"/>
+
+                        <hasFaction name="kutnohorsko_settlements_kutnaHora_commonFolk_tavernLokal"/>
+                        <hasFaction name="kutnohorsko_settlements_kutnaHora_commonFolk_tavernPlatnerska"/>
+                        <hasFaction name="kutnohorsko_settlements_kutnaHora_commonFolk_tavernSvatych"/>
+                      </or>
+                  </and>
+            </selectors>
+            <operations>
+				<setAttribute stat="shadiness" value="0.05" />
+				<setAttribute stat="barter" value="22.5" />
+            </operations>
+        </rule>
+
+        <rule name="rpg_traders_kh_richDistricts">
+            <selectors>
+                <and>
+                    <isTrader/>
+                      <or>
+                        <hasFaction name="kutnohorsko_settlements_kutnaHora_commonFolk_tradersAndCraftmans_kupecka"/>
+                        <!-- hasFaction name="kutnohorsko_settlements_kutnaHora_commonFolk_tradersAndCraftmans_hradecka"/-->
+                        <hasFaction name="kutnohorsko_settlements_kutnaHora_commonFolk_tradersAndCraftmans_leflirska"/>
+
+                        <hasFaction name="kutnohorsko_settlements_kutnaHora_commonFolk_peasants_kupecka"/>
+                        <hasFaction name="kutnohorsko_settlements_kutnaHora_commonFolk_peasants_hradecka"/>
+                        <hasFaction name="kutnohorsko_settlements_kutnaHora_commonFolk_peasants_leflirska"/>
+                        
+                        <hasFaction name="kutnohorsko_settlements_kutnaHora_commonFolk_tavernSesivanejch"/>
+                        <hasFaction name="kutnohorsko_settlements_kutnaHora_commonFolk_tavernCisareKarla"/>
+                        <hasFaction name="kutnohorsko_settlements_kutnaHora_commonFolk_adamBathouse"/>
+                      </or>
+                  </and>
+            </selectors>
+            <operations>
+				<setAttribute stat="shadiness" value="0.15" />
+				<setAttribute stat="barter" value="19.5" />
+            </operations>
+        </rule>
+
+        
+        <rule name="rpg_traders_kh_poorDistricts">
+            <selectors>
+                <and>
+                    <isTrader/>
+                      <or>
+                        <hasFaction name="kutnohorsko_settlements_kutnaHora_commonFolk_tradersAndCraftmans_chmelna"/>
+                        <hasFaction name="kutnohorsko_settlements_kutnaHora_commonFolk_tradersAndCraftmans_ceska"/>
+                        <hasFaction name="kutnohorsko_settlements_kutnaHora_commonFolk_tradersAndCraftmans_havirska"/>
+                        <!-- hasFaction name="kutnohorsko_settlements_kutnaHora_commonFolk_tradersAndCraftmans_kostelni"/-->
+                        <hasFaction name="kutnohorsko_settlements_kutnaHora_commonFolk_tradersAndCraftmans_konskyTrh"/>
+                        <!-- hasFaction name="kutnohorsko_settlements_kutnaHora_commonFolk_tradersAndCraftmans_pach"/-->
+
+                        <hasFaction name="kutnohorsko_settlements_kutnaHora_commonFolk_peasants_chmelna"/>
+                        <hasFaction name="kutnohorsko_settlements_kutnaHora_commonFolk_peasants_ceska"/>
+                        <hasFaction name="kutnohorsko_settlements_kutnaHora_commonFolk_peasants_havirska"/>
+                        <hasFaction name="kutnohorsko_settlements_kutnaHora_commonFolk_peasants_kostelni"/>
+                        <hasFaction name="kutnohorsko_settlements_kutnaHora_commonFolk_peasants_konskyTrh"/>
+                        <hasFaction name="kutnohorsko_settlements_kutnaHora_commonFolk_peasants_pach"/>
+
+                        <hasFaction name="kutnohorsko_settlements_kutnaHora_commonFolk_tavernDira"/>
+                        <hasFaction name="kutnohorsko_settlements_kutnaHora_commonFolk_chmelnaBathouse"/>
+
+                      </or>
+                  </and>
+            </selectors>
+            <operations>
+				<setAttribute stat="shadiness" value="0.30" />
+				<setAttribute stat="barter" value="13.5" />
+            </operations>
+        </rule>
+
+        <rule name="rpg_traders_kh_zikmundCamp">
+            <selectors>
+                <isTrader/>
+                <hasFaction name="kutnohorsko_settlements_zikmundovo"/>
+            </selectors>
+            <operations>
+				<setAttribute stat="shadiness" value="0.20" />
+				<setAttribute stat="barter" value="16.5" />
+            </operations>
+        </rule>
+
+    </rules>
+</storm>

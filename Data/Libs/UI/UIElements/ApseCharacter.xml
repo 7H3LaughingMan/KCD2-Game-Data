@@ -1,0 +1,145 @@
+<UIElements name="Editor">
+
+  <UIElement name="ApseCharacter" mouseevents="1" cursor="0" controller_input="1">
+
+    <GFx file="ApseCharacter.gfx" layer="20">
+      <Constraints>
+         <Align mode="fixdyntexsize" valign="center" halign="center" scale="1" screen_resize="1" />
+      </Constraints>
+    </GFx>
+
+    <functions>
+      <function name="SetCompanionsName" funcname="fc_setCompanionsName">
+        <param name="HorseName" desc="" type="string"/>
+        <param name="DogName" desc="" type="string"/>
+      </function>
+
+      <function name="SetSoulProperties" funcname="fc_setSoulProperties"/>
+      <function name="SetArmorStats" funcname="fc_setArmorStats" />
+      <function name="SetWeaponStats" funcname="fc_setWeaponStats" />
+
+      <function name="SetSlots" funcname="fc_setSlots">
+        <param name="IsFirstSet" desc="" type="bool"/>
+      </function>
+
+      <function name="SetDropActiveSlots" funcname="fc_setDropActiveSlots">
+        <param name="Activate" desc="" type="bool"/>
+      </function>
+
+      <function name="ChangeSoulProperty" funcname="fc_changeSoulProperty">
+        <param name="Id" desc="" type="string"/>
+        <param name="SoulId" desc="" type="string"/>
+        <param name="BaseLevel" desc="" type="int"/>
+        <param name="BuffedLevel" desc="" type="int"/>
+      </function>
+
+      <function name="UpdateArmorStats" funcname="fc_updateArmorStats" />
+      <function name="UpdateWeaponStats" funcname="fc_updateWeaponStats" />
+
+      <function name="SetBuffs" funcname="fc_setBuffs" />
+      <function name="AddBuff" funcname="fc_addBuff" />
+      <function name="RemoveBuff" funcname="fc_removeBuff" >
+        <param name="Id" desc="" type="string"/>
+      </function>
+      <function name="UpdateBuff" funcname="fc_updateBuff" >
+        <param name="Id" desc="" type="string"/>
+        <param name="PrimaryProgress" desc="" type="float"/>
+        <param name="SecondaryProgress" desc="" type="int"/>
+      </function>
+      <function name="SwapBuffId" funcname="fc_swapBuffId" >
+        <param name="OldBuffId" desc="" type="string"/>
+        <param name="NewBuffId" desc="" type="string"/>
+      </function>
+
+      <function name="OutfitActivate" funcname="fc_outfitActivate" />
+      <function name="OutfitDeactivate" funcname="fc_outfitDeactivate" />
+
+      <function name="Clear" funcname="fc_clear" />
+
+      <function name="LeftDoubleClick" funcname="fc_leftDoubleClick" />
+
+      <!-- Shop -->
+      <function name="SetShopInfo" funcname="fc_setShopInfo" >
+        <param name="CarriedWeight" desc="" type="float"/>
+        <param name="Capacity" desc="" type="float"/>
+        <param name="ReputationValue" desc="" type="float"/>
+        <param name="ReputationIcon" desc="" type="int"/>
+      </function>
+
+    </functions>
+
+    <events>
+      <event name="OnShowQAMSlotArrows" fscommand="onShowQAMSlotArrows" desc="">
+        <param name="Id" desc="" type="string"/>
+        <param name="X" desc="" type="int"/>
+        <param name="Y" desc="" type="int"/>
+        <param name="IsLeft" desc="" type="bool"/>
+        <param name="IsRight" desc="" type="bool"/>
+        <param name="IsTop" desc="" type="bool"/>
+        <param name="IsBottom" desc="" type="bool"/>
+      </event>
+
+      <event name="OnHideQAMSlotArrows" fscommand="onHideQAMSlotArrows" desc="">
+        <param name="Id" desc="" type="string"/>
+      </event>
+
+      <!-- Audio -->
+      <event name="OnPlayAudio" fscommand="onPlayAudio" desc="execute global audio trigger">
+        <param name="TriggerName" desc="" type="string"/>
+      </event>
+
+      <!-- Custom events -->
+      <event name="OnDoubleClicked" fscommand="onDoubleClicked" desc="" >
+				<param name="SlotId" desc="" type="string"/>
+        <param name="ItemId" desc="" type="string"/>
+      </event>
+
+      <!-- Outfits -->
+      <event name="OnOutfitClicked" fscommand="onOutfitClicked" desc="" >
+				<param name="OutfitId" desc="" type="int"/>
+      </event>
+      <event name="OnHighlightOutfit" fscommand="onHighlightOutfit" desc="" >
+				<param name="OutfitId" desc="" type="int"/>
+      </event>
+      <event name="OnUnhighlightOutfit" fscommand="onUnhighlightOutfit" desc="" >
+				<param name="OutfitId" desc="" type="int"/>
+      </event>
+
+      <!-- Tooltips -->
+      <event name="OnShowTooltip" fscommand="onShowTooltip" desc="" >
+				<param name="Text" desc="" type="string"/>
+      </event>
+
+      <event name="OnHideTooltip" fscommand="onHideTooltip" desc="" >
+        <param name="Text" desc="" type="string"/>
+      </event>
+
+      <!-- Drag&Drop -->
+      <event name="OnStartDrag" fscommand="onStartDrag" desc="" >
+        <param name="SlotId" desc="id of slot" type="string"/>
+        <param name="ItemId" desc="id of item" type="string"/>
+      </event>
+
+      <event name="OnSlotDropActiveChanged" fscommand="onSlotDropActiveChanged" desc="" >
+        <param name="SlotId" type="string"/>
+        <param name="Active" type="bool"/>
+        <param name="Enable" type="bool"/>
+      </event>
+
+    </events>
+
+    <arrays>
+      <array name="SoulProperties" varname="g_SoulPropertiesA" />
+      <array name="ArmorStats" varname="g_ArmorStatsA" />
+      <array name="WeaponStats" varname="g_WeaponStatsA" />
+      <array name="Slots" varname="g_SlotsA" />
+      <array name="DropActiveSlots" varname="g_DropActiveSlotsA" />
+      <array name="Buffs" varname="g_BuffsA" />
+    </arrays>
+
+	<MovieClips>
+	</MovieClips>
+
+  </UIElement>
+
+</UIElements>

@@ -1,0 +1,51 @@
+<UIElements name="Menus">
+
+	<UIElement name="HorseInspect" mouseevents="1" controller_input="1">
+
+		<GFx file="HorseInspect.gfx" layer="30">
+			<Constraints>
+				<Align mode="dynamic" valign="center" halign="center" scale="1" max="0" />
+			</Constraints>
+		</GFx>
+
+		<functions>
+			<function name="Show" funcname="fc_show">
+				<param name="PlayerHorseName" desc="" type="string"/>
+				<param name="NewHorseName" desc="" type="string"/>
+			</function>
+
+			<function name="Hide" funcname="fc_hide" />
+
+		</functions>
+
+		<events>
+
+			<event name="OnDialogHided" fscommand="onDialogHided" desc=""/>
+
+			<event name="OnSetFaderState" fscommand="onSetFaderState" desc="">
+				<param name="State" desc="0 on, 1 start, 2 stop, 3 off" type="int" />
+			</event>
+
+			<!-- Audio -->
+			<event name="OnPlayAudio" fscommand="onPlayAudio" desc="execute global audio trigger">
+				<param name="TriggerName" desc="" type="string"/>
+			</event>
+
+			<event name="OnStopAudio" fscommand="onStopAudio" desc="stop global audio trigger">
+				<param name="TriggerName" desc="" type="string"/>
+			</event>
+
+			<event name="OnSetVolumeAudio" fscommand="onSetVolumeAudio" desc="set volume via rtpc">
+				<param name="TriggerName" desc="" type="string"/>
+				<param name="Volume" desc="" type="float"/>
+			</event>
+
+		</events>
+
+		<arrays>
+			<array name="HorseSoulPropetries" varname="g_HorseSoulPropertiesA" />
+		</arrays>
+
+	</UIElement>
+
+</UIElements>

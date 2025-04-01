@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="us-ascii"?>
+<Graph>
+  <Nodes>
+    <Node Id="1" Class="MaterialFX:HUDStartFX" pos="-190,270,0" flags="0">
+      <Inputs />
+    </Node>
+    <Node Id="2" Class="MaterialFX:HUDEndFX" pos="1190,20,0" flags="0">
+      <Inputs />
+    </Node>
+    <Node Id="21" Class="Math:Less" pos="410,390,0" flags="0">
+      <Inputs A="0.3" B="0" />
+    </Node>
+    <Node Id="22" Class="Image:FilterBlur" pos="710,390,0" flags="0">
+      <Inputs entityId="0" Enabled="1" Disabled="1" FilterBlurring_Type="0" FilterBlurring_Amount="0" />
+    </Node>
+    <Node Id="24" Name="od_0,3_zacina_pribyvat_blur,_intenzita^2,_aby_rostl_zpocatku_pomaleji" Class="_commentbox" pos="210,310,0" flags="0">
+      <Inputs TextSize="1" DisplayFilled="1" DisplayBox="1" SortPriority="16" />
+      <ResizeBorder X="0" Y="0" Width="700" Height="260" />
+      <NodeSize Width="700" Height="288.64429" />
+      <Color r="0.5" g="0.5" b="0.5" />
+      <Author author="" />
+    </Node>
+    <Node Id="25" Class="Math:Power" pos="410,510,0" flags="0">
+      <Inputs base="0" power="2" />
+    </Node>
+    <Node Id="37" Class="Math:Mul" pos="610,530,0" flags="0">
+      <Inputs A="0" B="1.9" />
+    </Node>
+    <Node Id="38" Class="Image:EffectGhosting" pos="460,690,0" flags="0">
+      <Inputs entityId="0" Enabled="0" Disabled="1" ImageGhosting_Amount="0.92" />
+    </Node>
+    <Node Id="48" Class="Math:Less" pos="230,690,0" flags="0">
+      <Inputs A="0.9" B="0" />
+    </Node>
+    <Node Id="49" Name="od_0,9_je_ghosting" Class="_commentbox" pos="210,640,0" flags="0">
+      <Inputs TextSize="1" DisplayFilled="1" DisplayBox="1" SortPriority="16" />
+      <ResizeBorder X="0" Y="0" Width="460" Height="140" />
+      <NodeSize Width="460" Height="168.64429" />
+      <Color r="0.5" g="0.5" b="0.5" />
+      <Author author="" />
+    </Node>
+    <Node Id="117" Class="Image:FilterChromaShift" pos="990,-340,0" flags="0">
+      <Inputs entityId="0" Enabled="0" Disabled="1" FilterChromaShift_User_Amount="0" />
+    </Node>
+    <Node Id="122" Class="Math:Add" pos="270,510,0" flags="0">
+      <Inputs A="0" B="0.1" />
+    </Node>
+  </Nodes>
+  <Edges>
+    <Edge nodeIn="21" nodeOut="1" portIn="B" portOut="Intensity" enabled="1" />
+    <Edge nodeIn="38" nodeOut="1" portIn="ImageGhosting_Amount" portOut="Intensity" enabled="1" />
+    <Edge nodeIn="48" nodeOut="1" portIn="B" portOut="Intensity" enabled="1" />
+    <Edge nodeIn="122" nodeOut="1" portIn="A" portOut="Intensity" enabled="1" />
+    <Edge nodeIn="22" nodeOut="21" portIn="Enabled" portOut="out" enabled="1" />
+    <Edge nodeIn="37" nodeOut="25" portIn="A" portOut="out" enabled="1" />
+    <Edge nodeIn="22" nodeOut="37" portIn="FilterBlurring_Amount" portOut="out" enabled="1" />
+    <Edge nodeIn="38" nodeOut="48" portIn="Disabled" portOut="false" enabled="1" />
+    <Edge nodeIn="38" nodeOut="48" portIn="Enabled" portOut="out" enabled="1" />
+    <Edge nodeIn="25" nodeOut="122" portIn="base" portOut="out" enabled="1" />
+  </Edges>
+</Graph>

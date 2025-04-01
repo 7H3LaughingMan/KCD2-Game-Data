@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="us-ascii"?>
+<Prefab Id="0fdc714a-85f9-4100-b1a2-d3a7e1f94fba">
+	<Objects>
+		<Object Id="019ca4d2-fbd9-435d-bd21-a420769cdcfa" Name="well_castle_base_a1" Prefab="Objects/manmade/structures/industrial/waterworks/wells/well_castle_base_a.cgf" RainOccluder="1" RndFlags="180060000408" Type="Brush">
+			<CollisionFiltering>
+				<Type gcc_interactive="1" />
+			</CollisionFiltering>
+		</Object>
+		<Object EntityClass="GhostDummy" Id="2e655b58-f76c-4848-9a95-2fdd4d14a736" Name="quest_well_female1" Type="Entity">
+			<Properties object_Model="objects/intermediates/poses/quest_well_female.cgf" />
+		</Object>
+		<Object EntityClass="SmartObjectHolder" Id="65d2f9a8-ac0b-4841-845d-e4a6c6085d71" Name="smartObject" Type="Entity">
+			<Properties guidSmartObjectType="60d4e0c4-bbe1-40f7-a58e-2a0ad72acee0" soclass_SmartObjectHelpers="waterWell" sWH_AI_EntityCategory="well">
+				<Script Misc="source:well" />
+			</Properties>
+			<EntityLinks>
+				<Link DebugTargetName="wellAnimObject" Name="animObject" TargetId="a1107042-ed05-4427-a31f-1b4f2621a542" />
+				<Link DebugTargetName="ItemSlot8" Name="slot" TargetId="8ece050e-b6a0-4940-8b77-5ec02bcc6c15" />
+			</EntityLinks>
+		</Object>
+		<Object EntityClass="ItemSlot" Id="8ece050e-b6a0-4940-8b77-5ec02bcc6c15" Name="ItemSlot8" Pos="-0.88,0.41,0" Rotate="-0.3420202,0,0,0.9396926" Type="Entity">
+			<Properties bSpawnOnStart="0" guidItemClassId="979b2602-f161-4b9d-8774-738119196ba1" />
+		</Object>
+		<Object EntityClass="AnimObject" Id="a1107042-ed05-4427-a31f-1b4f2621a542" Name="wellAnimObject" Type="Entity">
+			<Properties bInteractiveCollisionClass="1" bUpdateOnlyByScript="1" object_Model="Data/Objects/characters/assets/well/well.cdf" sWH_AI_EntityCategory="Well">
+				<Animation bResetOnUnslaved="1" />
+				<Physics>
+					<CollisionFiltering>
+						<collisionType bT_gcc_interactive="1" />
+					</CollisionFiltering>
+				</Physics>
+			</Properties>
+		</Object>
+		<Object EntityClass="PrefabPort" Id="c2dcfa3f-e5ee-424d-a297-43a3f8eb47e9" Name="port_resource" Pos="0,0,3.3" Type="Entity">
+			<EntityLinks>
+				<Link DebugTargetName="hub" TargetId="c79cf4d6-0798-4aa4-88ed-867a097411a6" />
+			</EntityLinks>
+		</Object>
+		<Object EntityClass="SchedulerHub" Id="c79cf4d6-0798-4aa4-88ed-867a097411a6" Name="hub" Pos="0,0,3" Type="Entity">
+			<EntityLinks>
+				<Link DebugTargetName="smartObject" Name="_refillWatertube" TargetId="65d2f9a8-ac0b-4841-845d-e4a6c6085d71" />
+			</EntityLinks>
+		</Object>
+		<Object EntityClass="PrefabPort" Id="e185aa9e-fd2e-4e9b-b24d-c1695c905464" Name="port_entity" Pos="0,-1,3.3" Type="Entity">
+			<EntityLinks>
+				<Link DebugTargetName="smartObject" TargetId="65d2f9a8-ac0b-4841-845d-e4a6c6085d71" />
+			</EntityLinks>
+		</Object>
+	</Objects>
+</Prefab>

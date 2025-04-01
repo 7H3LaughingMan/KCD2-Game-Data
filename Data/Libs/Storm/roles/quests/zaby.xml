@@ -1,0 +1,270 @@
+<?xml version="1.0"?>
+<!DOCTYPE storm SYSTEM "storm.dtd">
+<storm>
+	<rules>
+
+		<!--
+			General topics for the player in Tachov
+			***************************************
+
+			All of those roles have metarole NPC
+
+			Women roles are split in half (or whichever
+			the random value in hasRandomValue is set to),
+			while men all get both roles. Again, unless
+			I've chnaged it and did not update this note,
+			which would be dumb of me.
+
+			Men are done analogously.
+		-->
+
+		<rule name="zaby_topic_men_1" >
+			<selectors>
+				<hasName name="ttac_*" />
+				<isMan />
+				<not>
+					<hasName name="ttac_smolik"/>
+				</not>
+				<hasRandomValue minValue="0.0" maxValue="0.2" />
+			</selectors>
+			<operations>
+				<addRole name="TACHOV_O_MAJCE_MUZ" />
+				<addRole name="TACHOV_O_PASACKOVI_MUZ" />
+			</operations>
+		</rule>
+
+		<rule name="zaby_topic_men_2" >
+			<selectors>
+				<hasName name="ttac_blacksmith" />
+				<hasName name="ttac_man_1" />
+				<hasName name="ttac_man_4" />
+				
+			</selectors>
+			<operations>
+				<addRole name="TACHOV_O_PASACKOVI_MUZ_2" />
+			</operations>
+		</rule>
+		
+		<rule name="zaby_topic_women_1" >
+			<selectors>
+				<hasName name="ttac_*" />
+				<isWoman />
+				<hasRandomValue minValue="0.0" maxValue="0.2" />
+			</selectors>
+			<operations>
+				<addRole name="TACHOV_O_MAJCE_ZENA" />
+				<addRole name="TACHOV_O_PASACKOVI_ZENA" />
+			</operations>
+		</rule>
+
+
+
+		<!--
+			General topics in Tachov between NPCs
+			*************************************
+
+			All of those roles have metarole Gossip
+		-->
+
+		<rule name="zaby_majka_gossip_men" >
+			<selectors>
+				<hasName name="ttac_*" />
+				<!-- these voices were assigned as of October 2023 and we cant afford more -->
+				<or>
+					<hasVoice name="chrisClarke" />
+					<hasVoice name="christopherDukes" />
+					<hasVoice name="paulDean" />
+					<hasVoice name="samBarlien" />
+					<hasVoice name="alechMontyro" />
+					<hasVoice name="jonathanMilshaw" />
+					<hasVoice name="paulColtofeanu" />
+					<hasVoice name="scottYoung" />
+					<hasVoice name="rupertLazurus" />
+				</or>
+				<not>
+					<hasName name="ttac_smolik"/>
+				</not>
+				<isMan />
+			</selectors>
+			<operations>
+				<addRole name="TACHOVAK_OBECNY_SITUACE_1" /> <!-- TACHOV O MAJCE SITUACE MUZ -->
+				<addRole name="TACHOVAK_OBECNY_SITUACE_2" /> <!-- TACHOV O MAJCE SITUACE MUZ2 -->
+				<addRole name="TACHOV_O_DOBYTKU_SITUACE_MUZ" />
+				<addRole name="TACHOV_O_DOBYTKU_SITUACE_MUZ2" />
+			</operations>
+		</rule>
+
+		<rule name="zaby_majka_gossip_women" >
+			<selectors>
+				<hasName name="ttac_*" />
+				<!-- these voices were assigned as of October 2023 and we cant afford more -->
+				<or>
+					<hasVoice name="jenniferPreston" />
+					<hasVoice name="beccaMcfadden" />
+					<hasVoice name="rebeccaRisness" />
+					<hasVoice name="lilyCarr" />
+					<hasVoice name="tegenShort" />
+					<hasVoice name="jadeBecker" />
+					<hasVoice name="andreaMiltnerova" />
+				</or>
+				<isWoman />
+			</selectors>
+			<operations>
+				<addRole name="TACHOVANDA_OBECNA_SITUACE_1" /> <!-- TACHOV O MAJCE SITUACE ZENA -->
+				<addRole name="TACHOVANDA_OBECNA_SITUACE_2" /> <!-- TACHOV O MAJCE SITUACE ZENA2 -->
+				<addRole name="TACHOV_O_DOBYTKU_SITUACE_ZENA" />
+				<addRole name="TACHOV_O_DOBYTKU_SITUACE_ZENA2" />
+			</operations>
+		</rule>
+
+		<!--
+			Special rules
+			*************
+		-->
+
+		<rule name="zaby_questTipster" >
+			<selectors>
+				<hasName name="tzel_vavrinec" />
+			</selectors>
+			<operations>
+				<addRole name="QUEST_TIPSTER_ZABY_MUZ" />
+			</operations>
+		</rule>
+
+		<rule name="zaby_olbram" >
+			<selectors>
+				<hasName name="tzel_olbram" />
+			</selectors>
+			<operations>
+				<addRole name="OLBRAM" />
+			</operations>
+		</rule>
+
+		<rule name="zaby_procek" >
+			<selectors>
+				<hasName name="ttac_procek" />
+			</selectors>
+			<operations>
+				<addRole name="PROCEK" />
+				<removeRole name="TACHOV_O_PASACKOVI_MUZ" />
+				<removeRole name="TACHOV_O_PASACKOVI_MUZ_2" />
+				<removeRole name="TACHOV_O_MAJCE_MUZ" />
+				<removeRole name="TACHOVAK_OBECNY_SITUACE_1" />
+				<removeRole name="TACHOVAK_OBECNY_SITUACE_2" />
+				<removeRole name="TACHOV_O_DOBYTKU_SITUACE_MUZ" />
+				<removeRole name="TACHOV_O_DOBYTKU_SITUACE_MUZ2" />
+			</operations>
+		</rule>
+
+		<rule name="zaby_manka">
+			<selectors>
+				<hasName name="ttac_manka" />
+			</selectors>
+			<operations>
+				<addRole name="MANKA" />
+				<removeRole name="TACHOV_O_MAJCE_ZENA" />
+				<removeRole name="TACHOV_O_PASACKOVI_ZENA" />
+				<removeRole name="TACHOVANDA_OBECNA_SITUACE_1" />
+				<removeRole name="TACHOVANDA_OBECNA_SITUACE_2" /> 
+				<removeRole name="TACHOV_O_DOBYTKU_SITUACE_ZENA" />
+				<removeRole name="TACHOV_O_DOBYTKU_SITUACE_ZENA2" />
+			</operations>
+		</rule>
+
+		<rule name="zaby_vojka">
+			<selectors>
+				<hasName name="ttac_vojka" />
+			</selectors>
+			<operations>
+				<addRole name="VOJKA" />
+				<removeRole name="TACHOV_O_MAJCE_ZENA" />
+				<removeRole name="TACHOV_O_PASACKOVI_ZENA" />
+				<removeRole name="TACHOVANDA_OBECNA_SITUACE_1" />
+				<removeRole name="TACHOVANDA_OBECNA_SITUACE_2" /> 
+				<removeRole name="TACHOV_O_DOBYTKU_SITUACE_ZENA" />
+				<removeRole name="TACHOV_O_DOBYTKU_SITUACE_ZENA2" />
+			</operations>
+		</rule>
+
+		<rule name="zaby_henik">
+			<selectors>
+				<hasName name="ttac_henik" />
+			</selectors>
+			<operations>
+				<addRole name="HENIK" />
+				<removeRole name="TACHOV_O_MAJCE_MUZ" />
+			</operations>
+		</rule>
+
+		<rule name="zaby_alsik">
+			<selectors>
+				<hasName name="ttac_alsik" />
+			</selectors>
+			<operations>
+				<addRole name="ALSIK" />
+				<addRole name="ALSIK_VYHANI_HRACE_Z_TRESPASSU" />
+				<addRole name="ALSIK_JDE_DO_BOJE_S_HRACEM" />
+				<removeRole name="TACHOV_O_PASACKOVI_MUZ" />
+				<removeRole name="TACHOV_O_PASACKOVI_MUZ_2" />
+				<removeRole name="TACHOV_O_MAJCE_MUZ" />
+				<removeRole name="TACHOVAK_OBECNY_SITUACE_1" />
+				<removeRole name="TACHOVAK_OBECNY_SITUACE_2" />
+				<removeRole name="TACHOV_O_DOBYTKU_SITUACE_MUZ" />
+				<removeRole name="TACHOV_O_DOBYTKU_SITUACE_MUZ2" />
+			</operations>
+		</rule>
+		
+		<rule name="zaby_zatykani">
+			<selectors>
+				<hasName name="ttac_*" />
+				<isMan />
+			</selectors>
+			<operations>
+				<addRole name="TACHOVAK_ZATYKA_ZABY" />
+				<addMetarole name="TACHOVAK_ZATYKANI_V_S22" />				
+			</operations>
+		</rule>
+
+		<rule name="zaby_zatykani_zeny">
+			<selectors>
+				<hasName name="ttac_*" />
+				<isWoman />
+			</selectors>
+			<operations>
+				<addRole name="TACHOVAK_ZATYKA_ZENA_ZABY" />
+				<addMetarole name="TACHOVAK_ZATYKANI_V_S22" />				
+			</operations>
+		</rule>
+		
+		<rule name="zaby_tachovanda_pradlo_1">
+			<selectors>
+				<hasName name="ttac_woman_2" />
+				<isWoman />
+			</selectors>
+			<operations>
+				<addRole name="TACHOV_PRADLO_ZENA" />
+			</operations>
+		</rule>
+		
+		<rule name="zaby_tachovanda_pradlo_2">
+			<selectors>
+				<hasName name="ttac_woman_3" />
+				<isWoman />
+			</selectors>
+			<operations>
+				<addRole name="TACHOV_PRADLO_ZENA2" />
+			</operations>
+		</rule>
+		
+		<rule name="zaby_tachovanda_pradlo_2">
+			<selectors>
+				<hasName name="ttac_woman_3" />
+				<isWoman />
+			</selectors>
+			<operations>
+				<addRole name="TACHOV_PRADLO_ZENA2" />
+			</operations>
+		</rule>
+	
+    </rules>
+</storm>

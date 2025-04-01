@@ -1,0 +1,117 @@
+<?xml version="1.0"?>
+<!DOCTYPE storm SYSTEM "storm.dtd">
+<storm>
+	<customOperations>
+	
+		<customOperation name="addGenericRepairmenRoles" >
+			<addRole name="SMLOUVANI_MUZ" />
+			<addRole name="VYJEDNAVANI_MUZ" />
+            <addRole name="POZDRAV_PO_REPAIRU_BEZNY_MUZ" />
+            <addRole name="POZDRAV_PO_REPAIRU_VELKY_MUZ" />
+		</customOperation>
+	
+	</customOperations>
+    <rules>
+	
+        <rule name="repairman">
+            <selectors>
+            	<isValidOpenworldNpc />
+            	<isMan /> <!-- Women never ever repair stuff, because no actress recorded the lines for refusing repair wh -->
+            	<hasMerchantVoiceOrNoCharacter />
+				<hasRepairmanSocialClass />
+            </selectors>
+            <operations>
+                <addRole name="OPRAVAR" />
+				<addGenericRepairmenRoles />
+            </operations>
+        </rule>
+	
+        <rule name="repairman_armorer">
+            <selectors>
+            	<isValidOpenworldNpc />
+            	<isMan />
+            	<hasMerchantVoiceOrNoCharacter />
+				<hasSocialClass name="armorer" />
+            </selectors>
+            <operations>
+                <addRole name="OPRAVAR_PLATNER" />
+            </operations>
+        </rule>
+	
+        <rule name="repairman_weaponsmith">
+            <selectors>
+            	<isValidOpenworldNpc />
+            	<isMan />
+            	<hasMerchantVoiceOrNoCharacter />
+				<hasSocialClass name="weaponsmith" />
+            </selectors>
+            <operations>
+                <addRole name="OPRAVAR_MECIR" />
+            </operations>
+        </rule>
+	
+        <rule name="repairman_tailor">
+            <selectors>
+            	<isValidOpenworldNpc />
+            	<isMan />
+            	<hasMerchantVoiceOrNoCharacter />
+				<or>
+					<hasSocialClass name="tailor" />
+					<hasSocialClass name="saddler" />
+				</or>
+            </selectors>
+            <operations>
+                <addRole name="OPRAVAR_KREJCI" />
+            </operations>
+        </rule>
+	
+        <rule name="repairman_shoemaker">
+            <selectors>
+            	<isValidOpenworldNpc />
+            	<isMan />
+            	<hasMerchantVoiceOrNoCharacter />
+				<hasSocialClass name="shoemaker" />
+            </selectors>
+            <operations>
+                <addRole name="OPRAVAR_SVEC" />
+            </operations>
+        </rule>
+	
+        <rule name="repairman_gunsmith">
+            <selectors>
+            	<isValidOpenworldNpc />
+            	<isMan />
+            	<hasMerchantVoiceOrNoCharacter />
+				<hasSocialClass name="gunsmith" />
+            </selectors>
+            <operations>
+                <addRole name="OPRAVAR_PUSKAR" />
+            </operations>
+        </rule>
+	
+        <rule name="repairman_shootmaster">
+            <selectors>
+            	<isValidOpenworldNpc />
+            	<isMan />
+            	<hasMerchantVoiceOrNoCharacter />
+				<hasSocialClass name="shootmaster" />
+            </selectors>
+            <operations>
+                <addRole name="OPRAVAR_STRELMISTR" />
+            </operations>
+        </rule>
+	
+        <rule name="repairman_blacksmith">
+            <selectors>
+            	<isValidOpenworldNpc />
+            	<isMan />
+            	<hasMerchantVoiceOrNoCharacter />
+				<hasSocialClass name="blacksmith" />
+            </selectors>
+            <operations>
+                <addRole name="OPRAVAR_KOVAR" />
+            </operations>
+        </rule>
+		
+    </rules>
+</storm>

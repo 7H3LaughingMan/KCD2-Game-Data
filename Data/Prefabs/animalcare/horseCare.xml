@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="us-ascii"?>
+<Prefab Id="28c4ba4a-2cea-4916-bfeb-052e5cd606cc">
+  <Tags>
+    <Tag>ignore</Tag>
+  </Tags>
+  <Objects>
+    <Object EntityClass="PrefabPort" Id="2bf704fe-cabc-436d-af96-1740dffacc52" Name="port_grooming" Pos="0,0.09737396,2.983799" Type="Entity">
+      <EntityLinks>
+        <Link DebugTargetName="leftHub" TargetId="dddd3364-c5b3-4ccb-8777-a2825bc314dd" />
+        <Link DebugTargetName="rightHub" TargetId="4596d174-e56d-481a-a599-8777a51fc641" />
+      </EntityLinks>
+    </Object>
+    <Object EntityClass="PrefabPort" Id="38eb3bf2-a1ca-48e1-bac6-14dedc68f771" Name="outPort_home" Pos="0,-0.3925171,2.983799" Type="Entity">
+      <Properties esPrefabPort_Type="Out" />
+    </Object>
+    <Object EntityClass="PrefabPort" Id="3f2cf819-2b6c-4648-b00f-b4aaed4ec5b8" Name="outPort_bucket" Pos="0,-0.4783478,1.96213" Type="Entity">
+      <Properties esPrefabPort_Type="Out" />
+    </Object>
+    <Object EntityClass="SchedulerHub" Id="4596d174-e56d-481a-a599-8777a51fc641" Name="rightHub" Pos="0.5448685,0.1003418,1.742685" Type="Entity">
+      <EntityLinks>
+        <Link DebugTargetName="smartObject" Name="_|grooming_right,use_grooming_right" TargetId="d98af2e5-f69b-45b9-a931-b49aff0435a1" />
+      </EntityLinks>
+    </Object>
+    <Object EntityClass="SchedulerHub" Id="5f4d6a18-267d-414b-bdca-888741360022" Name="customHorseHub" Pos="0.01031494,0.4500885,2.260681" Type="Entity">
+      <EntityLinks>
+        <Link DebugTargetName="smartObject" Name="_1,use_grooming_horse" TargetId="d98af2e5-f69b-45b9-a931-b49aff0435a1" />
+        <Link DebugTargetName="smartObject" Name="_1,use_water_horse" TargetId="d98af2e5-f69b-45b9-a931-b49aff0435a1" />
+      </EntityLinks>
+    </Object>
+    <Object EntityClass="PrefabPort" Id="6b03e3a5-96d8-45de-965b-3741b21072fd" Name="port_groomingLeft" Pos="-0.4347153,0.1003418,2.434526" Type="Entity">
+      <EntityLinks>
+        <Link DebugTargetName="leftHub" TargetId="dddd3364-c5b3-4ccb-8777-a2825bc314dd" />
+      </EntityLinks>
+    </Object>
+    <Object EntityClass="SchedulerHub" Id="92428a43-a973-4712-8a72-0fabe2cda758" Name="hub_2" Pos="0,-0.2590485,0.5465279" Type="Entity">
+      <EntityLinks>
+        <Link DebugTargetName="smartObject" Name="_|water,!override,use_water" TargetId="d98af2e5-f69b-45b9-a931-b49aff0435a1" />
+      </EntityLinks>
+    </Object>
+    <Object EntityClass="Horse" Id="9ed61820-420f-4880-a61a-4f9459d52ed1" Name="horse" Pos="0,0,0.009998322" Type="Entity">
+      <Properties guidSharedSoulId="fc0e6251-b314-4398-b83f-3a66a52961ee" />
+      <EntityLinks>
+        <Link DebugTargetName="smartObject" Name="_1,use_grooming_horse" TargetId="d98af2e5-f69b-45b9-a931-b49aff0435a1" />
+        <Link DebugTargetName="smartObject" Name="_1,use_water_horse" TargetId="d98af2e5-f69b-45b9-a931-b49aff0435a1" />
+        <Link DebugTargetName="smartObject" Name="_useWait" TargetId="d98af2e5-f69b-45b9-a931-b49aff0435a1" />
+        <Link DebugTargetName="outPort_home" Name="home" TargetId="38eb3bf2-a1ca-48e1-bac6-14dedc68f771" />
+      </EntityLinks>
+    </Object>
+    <Object EntityClass="PrefabPort" Id="c24f24ac-5eb5-4c3d-a9de-16be4bbef768" Name="port_customHorse" Pos="0,0.4599457,2.983799" Type="Entity">
+      <EntityLinks>
+        <Link DebugTargetName="customHorseHub" TargetId="5f4d6a18-267d-414b-bdca-888741360022" />
+      </EntityLinks>
+    </Object>
+    <Object EntityClass="PrefabPort" Id="c5945b3e-7b3d-4c2d-acb2-af94a8ea8054" Name="port_water" Pos="0,-0.2590485,1.96213" Type="Entity">
+      <EntityLinks>
+        <Link DebugTargetName="hub_2" TargetId="92428a43-a973-4712-8a72-0fabe2cda758" />
+      </EntityLinks>
+    </Object>
+    <Object EntityClass="PrefabPort" Id="d4688c0b-acc0-415f-92f6-681d5778555c" Name="outPort_waterResource" Pos="0,-0.7288513,1.96213" Type="Entity">
+      <Properties esPrefabPort_Type="Out" />
+    </Object>
+    <Object EntityClass="SmartObjectHolder" Id="d98af2e5-f69b-45b9-a931-b49aff0435a1" Name="smartObject" Pos="0,0,0.01" Type="Entity">
+      <Properties guidSmartObjectType="51024908-c039-4e19-b05e-170729e721ff" soclass_SmartObjectHelpers="animalCare_horse" />
+      <EntityLinks>
+        <Link DebugTargetName="smartObject" Name="#ChangeBehaviorState[water,use_water_horse,Enabled]" TargetId="d98af2e5-f69b-45b9-a931-b49aff0435a1" />
+        <Link DebugTargetName="outPort_bucket" Name="bucket" TargetId="3f2cf819-2b6c-4648-b00f-b4aaed4ec5b8" />
+        <Link DebugTargetName="outPort_waterResource" Name="_" TargetId="d4688c0b-acc0-415f-92f6-681d5778555c" />
+      </EntityLinks>
+    </Object>
+    <Object EntityClass="SchedulerHub" Id="dddd3364-c5b3-4ccb-8777-a2825bc314dd" Name="leftHub" Pos="-0.442646,0.1003418,1.744278" Type="Entity">
+      <EntityLinks>
+        <Link DebugTargetName="smartObject" Name="_|grooming_left,use_grooming_left" TargetId="d98af2e5-f69b-45b9-a931-b49aff0435a1" />
+      </EntityLinks>
+    </Object>
+    <Object EntityClass="PrefabPort" Id="f0d2bcc9-0bba-4973-82c4-04036191b1c0" Name="port_grooming_right" Pos="0.4185772,0.1003418,2.434526" Type="Entity">
+      <EntityLinks>
+        <Link DebugTargetName="rightHub" TargetId="4596d174-e56d-481a-a599-8777a51fc641" />
+      </EntityLinks>
+    </Object>
+  </Objects>
+</Prefab>

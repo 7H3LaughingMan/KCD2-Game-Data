@@ -1,0 +1,227 @@
+<?xml version="1.0"?>
+<!DOCTYPE storm SYSTEM "!storm.dtd">
+<storm>
+	<rules>
+
+		<rule name="prepadeni_ptacek">
+			<selectors>
+				<or>
+					<hasName name="tkop_ptacek" />
+				</or>
+			</selectors>
+			<operations>
+				<addRole name="PTACEK" />
+			</operations>
+		</rule>
+
+		<rule name="prepadeni_tomas">
+			<selectors>
+				<hasName name="ttro_tomas" />
+			</selectors>
+			<operations>
+				<addRole name="HEJTMAN_TOMAS" />
+			</operations>
+		</rule>
+
+		<rule name="prepadeni_voves">
+			<selectors>
+				<hasName name="prepadeni_voves" />
+			</selectors>
+			<operations>
+				<addRole name="ZBROJNOS_VOVES" />
+				<addRole name="POZDRAVY_PRO_PTACKUV_DOPROVOD_CESTOU" />
+			</operations>
+		</rule>
+
+		<rule name="prepadeni_mikulas">
+			<selectors>
+				<hasName name="prepadeni_mikulas" />
+			</selectors>
+			<operations>
+				<addRole name="ZBROJNOS_MIKULAS" />
+				<addRole name="ZBROJNOS_MIKULAS_ZDRAVI_JINDRICHA" />
+				<addRole name="POZDRAVY_PRO_PTACKUV_DOPROVOD_CESTOU" />
+			</operations>
+		</rule>
+
+		<rule name="prepadeni_konrad">
+			<selectors>
+				<hasName name="prepadeni_konrad" />
+			</selectors>
+			<operations>
+				<addRole name="ZBROJNOS_KONRAD" />
+				<addRole name="POZDRAVY_PRO_PTACKUV_DOPROVOD_CESTOU" />
+			</operations>
+		</rule>
+
+		<rule name="prepadeni_pivec">
+			<selectors>
+				<hasName name="prepadeni_pivec" />
+			</selectors>
+			<operations>
+				<addRole name="ZBROJNOS_PIVEC" />
+				<addRole name="POZDRAVY_PRO_PTACKUV_DOPROVOD_CESTOU" />
+			</operations>
+		</rule>
+
+		<rule name="prepadeni_bandit_1">
+			<selectors>
+				<hasName name="prepadeni_bandit_1" />
+			</selectors>
+			<operations>
+				<addRole name="PREPADENI_BANDITA_VELITEL" />
+			</operations>
+		</rule>
+
+		<rule name="prepadeni_bandit_2">
+			<selectors>
+				<hasName name="prepadeni_bandit_2" />
+			</selectors>
+			<operations>
+				<addRole name="LAPKA_UTEK_2" />
+				<addRole name="LAPKA_BARKUJE_PRI_PRONASLEDOVANI" />
+				<addRole name="PREPADENI_BANDITA_HLIDKUJE_U_SPADENEHO_STROMU_1" />
+			</operations>
+		</rule>
+
+		<rule name="prepadeni_bandit_3">
+			<selectors>
+				<hasName name="prepadeni_bandit_3" />
+			</selectors>
+			<operations>
+				<addRole name="LAPKA_UTEK_2" />
+				<addRole name="LAPKA_BARKUJE_PRI_PRONASLEDOVANI" />
+				<addRole name="PREPADENI_BANDITA_HLIDKUJE_U_SPADENEHO_STROMU_2" />
+			</operations>
+		</rule>
+
+		<rule name="prepadeni_banditsFirstGroup">
+			<selectors>
+				<or>
+					<hasName name="prepadeni_bandit_1" />
+					<hasName name="prepadeni_bandit_2" />
+					<hasName name="prepadeni_bandit_3" />
+					<hasName name="prepadeni_bandit_4" />
+				</or>
+			</selectors>
+			<operations>
+				<addRole name="LAPKA_SI_VSIMNE_PTACKA" />
+			</operations>
+		</rule>
+
+		<rule name="prepadeni_bandit_5">
+			<selectors>
+				<hasName name="prepadeni_bandit_5" />
+			</selectors>
+			<operations>
+				<addRole name="LAPKA_V_PRUSMYKU" />
+				<addRole name="LAPKA_ODVOLAVA_PRONASLEDOVANI" />
+			</operations>
+		</rule>
+
+		<rule name="prepadeni_banditArcherLeader">
+			<selectors>
+				<hasName name="prepadeni_banditArcherLeader" />
+			</selectors>
+			<operations>
+				<addRole name="LAPKA_VELI_LUKOSTRELCUM" />
+			</operations>
+		</rule>
+
+		<rule name="prepadeni_bandit_11">
+			<selectors>
+				<hasName name="prepadeni_bandit_11" />
+			</selectors>
+			<operations>
+				<addRole name="LAPKOVE_PATRAJI_VE_SKALACH" />
+			</operations>
+		</rule>
+
+		<rule name="prepadeni_bandit_12">
+			<selectors>
+				<hasName name="prepadeni_bandit_12" />
+			</selectors>
+			<operations>
+				<addRole name="PREPADENI_BLOUDICI_BANDITA" />
+				<addRole name="LAPKOVE_PATRAJI_VE_SKALACH_2" />
+			</operations>
+		</rule>
+
+		<rule name="prepadeni_banditArcherOnHill">
+			<selectors>
+				<hasName name="prepadeni_banditArcherOnHill" />
+			</selectors>
+			<operations>
+				<addRole name="LUKOSTRELEC_UTEK" />
+			</operations>
+		</rule>
+
+		<rule name="prepadeni_fansAtTrainingGround">
+			<selectors>
+				<or>
+					<hasName name="prepadeni_konrad" />
+					<hasName name="prepadeni_pivec" />
+				</or>
+			</selectors>
+			<operations>
+				<addRole name="DRUZINA_KOMENTUJE_ZASAH_DO_PTACKA" />
+				<addRole name="DRUZINA_REAGUJE_NA_ZASAH_DO_ARMORU" />
+				<addRole name="DRUZINA_REAGUJE_NA_NEPODARENY_CHAIN_STRIKE" />
+				<addRole name="DRUZINA_REAGUJE_NA_CHAIN_STRIKE" />
+				<addRole name="DRUZINA_REAGUJE_NA_ZASAH_PRI_BLOKU" />
+				<addRole name="DRUZINA_REAGUJE_NA_BLOK" />
+				<addRole name="DRUZINA_REAGUJE_NA_ZASAH" />
+				<addRole name="DRUZINA_FANDI_PRI_DUELU" />
+				<addRole name="DRUZINA_REAGUJE_NA_PB_V_DUELU" />
+				<addRole name="DRUZINA_REAGUJE_NA_ZASAH_V_DUELU" />
+				<addRole name="DRUZINA_MLCI" />
+			</operations>
+		</rule>
+
+		<rule name="prepadeni_bandit_13">
+			<selectors>
+				<hasName name="prepadeni_bandit_13" />
+			</selectors>
+			<operations>
+				<addRole name="PREPADENI_BANDITA_U_BALVANU_1" />
+			</operations>
+		</rule>
+
+		<rule name="prepadeni_bandit_14">
+			<selectors>
+				<hasName name="prepadeni_bandit_14" />
+			</selectors>
+			<operations>
+				<addRole name="PREPADENI_BANDITA_U_BALVANU_2" />
+			</operations>
+		</rule>
+
+		<rule name="prepadeni_banditWithTorch_1">
+			<selectors>
+				<hasName name="prepadeni_banditWithTorch_1" />
+			</selectors>
+			<operations>
+				<addRole name="PREPADENI_BANDITA_V_BLUDISTI_1" />
+			</operations>
+		</rule>
+
+		<rule name="prepadeni_banditWithTorch_2">
+			<selectors>
+				<hasName name="prepadeni_banditWithTorch_2" />
+			</selectors>
+			<operations>
+				<addRole name="PREPADENI_BANDITA_V_BLUDISTI_2" />
+			</operations>
+		</rule>
+
+		<rule name="prepadeni_guard">
+			<selectors>
+				<hasName name="prepadeni_guard" />
+			</selectors>
+			<operations>
+				<addRole name="PREPADENI_HLIDACKA_V_RAKOSI" />
+			</operations>
+		</rule>
+
+    </rules>
+</storm>

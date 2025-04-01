@@ -1,0 +1,175 @@
+<?xml version="1.0"?>
+<!DOCTYPE storm SYSTEM "storm.dtd">
+<storm>
+	<rules>
+
+		<rule name="socky_TavernRegulars" >
+			<selectors>
+				<or>
+					<hasName name="ttkc_man_15" />
+					<hasName name="ttkc_man_10" />
+					<hasName name="ttkc_dusko" />
+					<hasName name="ttkc_man_18" />
+					<hasName name="ttkc_bailiffSon" />
+					<hasName name="tsla_man_2" />
+					<hasName name="ttkc_prasta" />
+					<hasName name="ttac_man_6" />
+					<hasName name="tpod_krejzl" />
+					<hasName name="ttac_blacksmith" />
+					<hasName name="ttac_man_3" />
+					<hasName name="ttac_man_5" />
+				</or>
+			</selectors>
+			<operations>
+				<addRole name="SOCKY_STAMGASTI_V_HOSPODE" />
+				<addRole name="SOCKY_STAMGASTI_V_HOSPODE_REDUCED" />
+			</operations>
+		</rule>
+
+		<rule name="socky_TavernRegularsReduced" >
+			<selectors>
+				<or>
+					<hasName name="ttkc_bailiffSon" />
+					<hasName name="ttac_man_6" />
+					<hasName name="tpod_krejzl" />
+					<hasName name="ttac_blacksmith" />
+				</or>
+			</selectors>
+			<operations>
+				<removeRole name="SOCKY_STAMGASTI_V_HOSPODE_REDUCED" />
+			</operations>
+		</rule>
+
+		<rule name="socky_coachman" >
+			<selectors>
+				<hasName name="socky_coachman" />
+			</selectors>
+			<operations>
+				<addRole name="VOZKA_SOCKY" />
+			</operations>
+		</rule>
+
+		<rule name="socky_bailiffSon" >
+			<selectors>
+				<hasName name="ttkc_bailiffSon" />
+			</selectors>
+			<operations>
+				<addRole name="RYCHTARUV_SYN_TROSKOVICE" />
+			</operations>
+		</rule>
+
+		<rule name="ttac_blacksmith_gossip" >
+			<selectors>
+				<hasName name="ttac_blacksmith" />
+			</selectors>
+			<operations>
+				<addRole name="KOVAR_TACHOV_GOSSIP" />
+			</operations>
+		</rule>
+
+		<rule name="socky_mlynar_gossip" >
+			<selectors>
+				<hasName name="tpod_krejzl" />
+			</selectors>
+			<operations>
+				<addRole name="MLYNAR_KREJZL_GOSSIP" />
+			</operations>
+		</rule>
+
+		<rule name="socky_bailiffSon_gossip" >
+			<selectors>
+				<hasName name="ttkc_bailiffSon" />
+			</selectors>
+			<operations>
+				<addRole name="RYCHTARUV_SYN_TROSKOVICE_GOSSIP" />
+			</operations>
+		</rule>
+
+		<rule name="socky_bailiffSonTable_gossip" >
+			<selectors>
+				<or>
+					<hasName name="ttkc_man_18" />
+					<hasName name="tsla_man_2" />
+				</or>
+			</selectors>
+			<operations>
+				<addRole name="SOCKY_STAMGASTI_GOSSIP" />
+			</operations>
+		</rule>
+
+		<rule name="socky_TavernRegulars_gossip" >
+			<selectors>
+				<or>
+					<hasName name="ttkc_man_15" />
+					<hasName name="ttkc_man_10" />
+					<hasName name="ttkc_dusko" />
+					<hasName name="ttac_man_3" />
+					<hasName name="ttac_man_5" />
+				</or>
+			</selectors>
+			<operations>
+				<addRole name="SOCKY_STAMGASTI_GOSSIP_2" />
+				<addRole name="SOCKY_STAMGASTI_GOSSIP_3" />
+			</operations>
+		</rule>
+
+		<rule name="socky_mares_gossip" >
+			<selectors>
+				<hasName name="ttac_man_6" />
+			</selectors>
+			<operations>
+				<addRole name="OPILEC_MARES_SOCKY" />
+				<addRole name="OPILEC_MARES_SOCKY_GOSSIP" />
+			</operations>
+		</rule>
+
+		<rule name="socky_prasta_gossip" >
+			<selectors>
+				<hasName name="ttkc_prasta" />
+			</selectors>
+			<operations>
+				<addRole name="PASAK_PRASTA_Z_TROSKOVIC_GOSSIP" />
+			</operations>
+		</rule>
+
+		<rule name="socky_custom_crime" >
+			<selectors>
+				<isValidOpenworldNpc />
+				<isMan />
+				<or>
+					<hasRole name="SOCKY_STAMGASTI_V_HOSPODE" />
+					<hasName name="ttkc_*" />
+					<hasName name="socky_coachman" />
+				</or>
+			</selectors>
+			<operations>
+				<addRole name="SOCKY_CRIME_ARREST" />
+				<addRole name="SOCKY_CRIME_SELFHELP" />
+			</operations>
+		</rule>
+		
+		<rule name="socky_custom_crime" >
+			<selectors>
+				<or>				
+					<hasName name="ttkc_woman_6" />
+					<hasName name="ttkc_woman_1" />
+				</or>
+			</selectors>
+			<operations>
+				<addRole name="SOCKY_CRIME_ARREST_ZENA" />
+				<addRole name="SOCKY_CRIME_SELFHELP_ZENA" />
+			</operations>
+		</rule>		
+		
+		<rule name="socky_custom_crime_innkeeper" >
+			<selectors>			
+				<hasName name="ttkc_inkeeper" />
+			</selectors>
+			<operations>
+				<addRole name="SOCKY_CRIME_ARREST_HOSPODSKA" />
+				<addRole name="SOCKY_CRIME_SELFHELP_HOSPODSKA" />
+			</operations>
+		</rule>	
+				
+    </rules>
+</storm>

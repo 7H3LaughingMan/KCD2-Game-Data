@@ -1,0 +1,215 @@
+<?xml version="1.0"?>
+<!DOCTYPE storm SYSTEM "storm.dtd">
+<storm>
+	<customSelectors>
+
+		<customSelector name="animal_isWild" mode="or">
+			<hasSoulArchetype name="RedDeerStag" />
+			<hasSoulArchetype name="RedDeerDoe" />
+			<hasSoulArchetype name="RoeDeerBuck" />
+			<hasSoulArchetype name="RoeDeerHind" />
+			<hasSoulArchetype name="Boar" />
+			<hasSoulArchetype name="Hare" />
+		</customSelector>
+
+		<customSelector name="animal_isDomestic" mode="or">
+			<hasSoulArchetype name="SheepEwe" />
+			<hasSoulArchetype name="SheepRam" />
+			<hasSoulArchetype name="Horse" />
+			<hasSoulArchetype name="CattleBull" />
+			<hasSoulArchetype name="CattleCow" />
+			<hasSoulArchetype name="Dog" />
+			<hasSoulArchetype name="Pig" />
+		</customSelector>
+
+		<customSelector name="animal_isCombatable" mode="or">
+			<hasSoulArchetype name="Dog" />
+			<hasSoulArchetype name="Wolf" />
+			<hasSoulArchetype name="WildDog" />
+		</customSelector>
+        
+		<customSelector name="animal_isDogBreed" mode="or">
+			<hasSoulArchetype name="Dog" />
+			<hasSoulArchetype name="Wolf" />
+			<hasSoulArchetype name="WildDog" />
+		</customSelector>
+        
+  	<customSelector name="animal_unsprayableHorses" mode="or">
+			<hasName name="tvez_horse_3" />
+			<hasName name="tvez_horse_4" />
+			<hasName name="tvez_horse_5" />
+			<hasName name="tvez_horse_6" />
+      <hasName name="ksta_horse_2" />
+      <hasName name="ksta_horse_3" />
+		</customSelector>
+        
+	</customSelectors>
+
+	<rules>
+
+		<rule name="contexts_playerDog">
+			<selectors>
+				<isPlayersDogCompanion />
+			</selectors>
+			<operations>
+				<addContext name="switch_playerDog" />
+				<addContext name="switch_disabledInformationSystem" />
+			</operations>
+		</rule>
+
+		<rule name="contexts_wildAnimals">
+			<selectors>
+				<animal_isWild />
+			</selectors>
+			<operations>
+				<addContext name="crime_isWildAnimal" />
+			</operations>
+		</rule>
+
+		<rule name="contexts_domesticAnimals">
+			<selectors>
+				<animal_isDomestic />
+			</selectors>
+			<operations>
+				<addContext name="crime_isDomesticAnimal" />
+			</operations>
+		</rule>
+
+		<rule name="contexts_combatableAnimals">
+			<selectors>
+				<animal_isCombatable />
+			</selectors>
+			<operations>
+				<addContext name="crime_isCombatableAnimal" />
+			</operations>
+		</rule>
+        
+		<rule name="contexts_animalCanBeStartled">
+			<selectors>
+				<hasSoulArchetype name="Horse" />
+			</selectors>
+			<operations>
+				<addContext name="switch_animalCanBeStartled" />
+			</operations>
+		</rule>
+
+        <!-- EntityContext per animal archetype -->
+        <rule name="contexts_isBoar">
+			<selectors>
+				<hasSoulArchetype name="Boar" />
+			</selectors>
+			<operations>
+				<addContext name="switch_isBoar" />
+			</operations>
+		</rule>
+		<rule name="contexts_isPig">
+			<selectors>
+				<hasSoulArchetype name="Pig" />
+			</selectors>
+			<operations>
+				<addContext name="switch_isPig" />
+			</operations>
+		</rule>
+        <rule name="contexts_isCow">
+			<selectors>
+				<or>
+					<hasSoulArchetype name="CattleCow" />
+					<hasSoulArchetype name="CattleBull" />
+				</or>
+			</selectors>
+			<operations>
+				<addContext name="switch_isCow" />
+			</operations>
+		</rule>
+        <rule name="contexts_isDog">
+			<selectors>
+				<hasSoulArchetype name="Dog" />
+			</selectors>
+			<operations>
+				<addContext name="switch_isDog" />
+			</operations>
+		</rule>
+		<rule name="contexts_isWildDog">
+			<selectors>
+				<hasSoulArchetype name="WildDog" />
+			</selectors>
+			<operations>
+				<addContext name="switch_isWildDog" />
+				<addContext name="crime_animal_legalToKill" />
+				<addContext name="crime_legalToLoot" />
+			</operations>
+		</rule>
+		<rule name="contexts_isWolf">
+			<selectors>
+				<hasSoulArchetype name="Wolf" />
+			</selectors>
+			<operations>
+				<addContext name="switch_isWolf" />
+				<addContext name="crime_animal_legalToKill" />
+				<addContext name="crime_legalToLoot" />
+			</operations>
+		</rule>
+		<rule name="contexts_isHare">
+			<selectors>
+				<hasSoulArchetype name="Hare" />
+			</selectors>
+			<operations>
+				<addContext name="switch_isHare" />
+				<addContext name="crime_animal_legalToKill" />
+				<addContext name="crime_legalToLoot" />
+			</operations>
+		</rule>
+        <rule name="contexts_isHorse">
+			<selectors>
+				<hasSoulArchetype name="Horse" />
+			</selectors>
+			<operations>
+				<addContext name="switch_isHorse" />
+			</operations>
+		</rule>
+		<rule name="contexts_isRedDeer">
+			<selectors>
+				<or>
+					<hasSoulArchetype name="RedDeerStag" />
+					<hasSoulArchetype name="RedDeerDoe" />
+					<hasSoulArchetype name="RoeDeerBuck" />
+					<hasSoulArchetype name="RoeDeerHind" />
+				</or>
+			</selectors>
+			<operations>
+				<addContext name="switch_isRedDeer" />
+			</operations>
+		</rule>
+        <rule name="contexts_isSheep">
+			<selectors>
+				<or> 
+					<hasSoulArchetype name="SheepEwe" />
+					<hasSoulArchetype name="SheepRam" />
+				</or>
+			</selectors>
+			<operations>
+				<addContext name="switch_isSheep" />
+			</operations>
+		</rule>
+
+        <rule name="contexts_isDogBreed">
+			<selectors>
+				<animal_isDogBreed />
+			</selectors>
+			<operations>
+				<addContext name="switch_isDogBreed" />
+			</operations>
+		</rule>
+        
+        <!-- Horse Handler -->
+        <rule name="context_unsprayableHorses">
+			<selectors>
+				<animal_unsprayableHorses />
+			</selectors>
+			<operations>
+				<addContext name="crime_disableHorseRespraying" />
+			</operations>
+		</rule>
+        
+    </rules>
+</storm>

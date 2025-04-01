@@ -1,0 +1,56 @@
+<UIElements name="Editor">
+
+  <UIElement name="GeneralBook" lazy_update="0">
+
+    <GFx file="GeneralBook.gfx" layer="0">
+      <Constraints>
+         <Align mode="fixdyntexsize" valign="center" halign="center" />
+       <Position width="1024" height="1024"/>
+      </Constraints>
+    </GFx>
+
+   <functions>
+    <function name="SetFullBook" funcname="fc_setFullBook">
+      <param name="DyslexiaLevel" desc="from 0 (max) to 1 (none)" type="float" />
+      <param name="Type" desc="enum in table E_DocumentTypes" type="int" />
+      <param name="VisualCategory" desc="enum in table E_VisualCategory" type="int" />
+    </function>
+
+    <function name="NextPageBegin" funcname="fc_NextPageBegin" />
+    <function name="PrevPageBegin" funcname="fc_PrevPageBegin" />
+    <function name="NextPageEnd" funcname="fc_NextPageEnd" />
+    <function name="PrevPageEnd" funcname="fc_PrevPageEnd" />
+   </functions>
+
+   <events>
+     <event name="OnBookPosition" fscommand="OnBookPosition" desc="Book hints">
+       <param name="isPrev" desc="some page is before current" type="bool"/>
+       <param name="isNext" desc="some page is after current" type="bool"/>
+     </event>
+
+      <!-- Audio -->
+			<event name="OnPlayAudio" fscommand="onPlayAudio" desc="execute global audio trigger">
+				<param name="TriggerName" desc="" type="string"/>
+			</event>
+
+			<event name="OnStopAudio" fscommand="onStopAudio" desc="stop global audio trigger">
+				<param name="TriggerName" desc="" type="string"/>
+			</event>
+
+			<event name="OnSetVolumeAudio" fscommand="onSetVolumeAudio" desc="set volume via rtpc">
+				<param name="TriggerName" desc="" type="string"/>
+				<param name="Volume" desc="" type="float"/>
+      </event>
+    </events>
+
+  <arrays>
+    <array name="Texts" varname="g_TextsA" />
+    <array name="Images" varname="g_ImagesA" />
+  </arrays>
+
+	<MovieClips>
+	</MovieClips>
+
+
+  </UIElement>
+</UIElements>

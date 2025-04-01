@@ -1,0 +1,326 @@
+<?xml version="1.0"?>
+<!DOCTYPE storm SYSTEM "!storm.dtd">
+<storm>
+	<rules>
+
+		<!-- BANDIT -->
+
+		<rule name="bohutovaVlozka_velitelLapku">
+			<selectors>
+				<hasName name="bohutovaVlozka_bandit_1" />
+			</selectors>
+			<operations>
+				<addRole name="LAPKA_NEBAKOV_BOHUTA" />
+			</operations>
+		</rule>
+
+		<rule name="bohutovaVlozka_banditNoSpeak">
+			<selectors>
+				<and>
+					<not>
+						<or>
+							<hasName name="bohutovaVlozka_bandit_1" />
+							<hasName name="bohutovaVlozka_bandit_2" />
+							<hasName name="bohutovaVlozka_bandit_7" />
+							<hasName name="bohutovaVlozka_bandit_8" />
+						</or>
+					</not>
+					<or>
+						<hasName name="bohutovaVlozka_bandit_*" />
+					</or>
+				</and>
+			</selectors>
+			<operations>
+				<addRole name="LAPKA_V_ROKLI_BOHUTOVA_VLOZKA_NOSPEAK_1" />
+				<addRole name="LAPKA_V_ROKLI_BOHUTOVA_VLOZKA_NOSPEAK_2" />
+				<addRole name="LAPKA_V_ROKLI_BOHUTOVA_VLOZKA_NOSPEAK_3" />
+				<addRole name="LAPKA_V_ROKLI_BOHUTOVA_VLOZKA_NOSPEAK_4" />
+			</operations>
+		</rule>
+		<!-- can be dead, primary speaker -->
+		<rule name="bohutovaVlozka_bandit_7">
+			<selectors>
+				<hasName name="bohutovaVlozka_bandit_7" />
+			</selectors>
+			<operations>
+				<addRole name="LAPKA_V_ROKLI_BOHUTOVA_VLOZKA_1" />
+				<addRole name="LAPKA_V_ROKLI_BOHUTOVA_VLOZKA" />
+				<addRole name="LAPKA_V_ROKLI_PREPADA_ERIKA_BOHUTOVA_VLOZKA" />
+				<addRole name="LAPKA_V_ROKLI_REAGUJE_NA_ZVUK_BOHUTOVA_VLOZKA" />
+			</operations>
+		</rule>
+		<!-- can be dead, secondary speaker -->
+		<rule name="bohutovaVlozka_bandit_8">
+			<selectors>
+				<hasName name="bohutovaVlozka_bandit_8" />
+			</selectors>
+			<operations>
+				<addRole name="LAPKA_V_ROKLI_BOHUTOVA_VLOZKA_2" />
+				<addRole name="LAPKA_V_ROKLI_BOHUTOVA_VLOZKA" />
+				<addRole name="LAPKA_V_ROKLI_PREPADA_ERIKA_BOHUTOVA_VLOZKA" />
+				<addRole name="LAPKA_V_ROKLI_REAGUJE_NA_ZVUK_BOHUTOVA_VLOZKA" />
+			</operations>
+		</rule>
+		<!-- always alive, failsafe speaker (doesnt speak, selected to have the same voice as bandit_7) -->
+		<rule name="bohutovaVlozka_bandit_2">
+			<selectors>
+				<hasName name="bohutovaVlozka_bandit_2" />
+			</selectors>
+			<operations>
+				<addRole name="LAPKA_V_ROKLI_PREPADA_ERIKA_BOHUTOVA_VLOZKA" />
+			</operations>
+		</rule>
+
+		<!-- SPECIAL - SINGLE SOUL -->
+
+		<rule name="bohutovaVlozka_bohutaNPC">
+			<selectors>
+				<hasName name="tneb_bohuta" />
+			</selectors>
+			<operations>
+				<addRole name="BOHUTA_NPC" />
+			</operations>
+		</rule>
+		<rule name="bohutovaVlozka_michal">
+			<selectors>
+				<hasName name="tzel_michal" />
+			</selectors>
+			<operations>
+				<addRole name="MICHAL" />
+			</operations>
+		</rule>
+		<rule name="bohutovaVlozka_david">
+			<selectors>
+				<hasName name="tzel_david" />
+			</selectors>
+			<operations>
+				<addRole name="DAVID" />
+			</operations>
+		</rule>
+		<rule name="bohutovaVlozka_vavrinec">
+			<selectors>
+				<hasName name="tzel_vavrinec" />
+			</selectors>
+			<operations>
+				<addRole name="HOSPODSKY_VAVRINEC_ZELEJOV" />
+			</operations>
+		</rule>
+		<rule name="bohutovaVlozka_nebak">
+			<selectors>
+				<hasName name="tneb_nebak" />
+			</selectors>
+			<operations>
+				<addRole name="JAROMIR_Z_NEBAKOVA" />
+			</operations>
+		</rule>
+		<rule name="bohutovaVlozka_zizka">
+			<selectors>
+				<hasName name="tneb_zizka" />
+			</selectors>
+			<operations>
+				<addRole name="JAN_ZIZKA_Z_TROCNOVA" />
+				<addRole name="ZIZKA_VZPOURA_NEBAKOV" />
+				<addRole name="ZIZKA_ZASAHL_ZRADCE" />
+			</operations>
+		</rule>
+		<rule name="bohutovaVlozka_pista">
+			<selectors>
+				<hasName name="ttro_pista" />
+			</selectors>
+			<operations>
+				<addRole name="PISTA" />
+			</operations>
+		</rule>
+		<rule name="bohutovaVlozka_bohuta">
+			<selectors>
+				<isPlayerBohuta />
+			</selectors>
+			<operations>
+				<addRole name="BOHUTA_PLAYER" />
+				<addRole name="BOHUTA_NEMUZE_Z_MAPY" />
+			</operations>
+		</rule>
+		<rule name="bohutovaVlozka_erik">
+			<selectors>
+				<hasName name="ttro_erik" />
+			</selectors>
+			<operations>
+				<addRole name="ERIK" />
+			</operations>
+		</rule>
+		<rule name="bohutovaVlozka_ance">
+			<selectors>
+				<hasName name="tneb_ance" />
+			</selectors>
+			<operations>
+				<addRole name="ZENA_Z_MLYNA_BOHUTOVA_VLOZKA" />
+			</operations>
+		</rule>
+		<rule name="bohutovaVlozka_kuba">
+			<selectors>
+				<hasName name="tneb_kuba" />
+			</selectors>
+			<operations>
+				<addRole name="MUZ_Z_MLYNA_BOHTUVA_VLOZKA" />
+				<addRole name="KUBA" />
+			</operations>
+		</rule>
+		<rule name="bohutovaVlozka_dorota">
+			<selectors>
+				<hasName name="tzel_woman_5" />
+			</selectors>
+			<operations>
+				<addRole name="LAZEBNICE_KOMENTUJE_ZRANENI_BOHUTOVA_VLOZKA" />
+			</operations>
+		</rule>
+		<rule name="bohutovaVlozka_fisherman">
+			<selectors>
+				<hasName name="tneb_man_25" />
+			</selectors>
+			<operations>
+				<addRole name="RYBAR_BOHUTOVA_VLOZKA" />
+			</operations>
+		</rule>
+
+		<!-- ERIKS SOLDIERS -->
+
+		<rule name="bohutovaVlozka_erikoviMuzi">
+			<selectors>
+				<or>
+					<hasName name="bohutovaVlozka_eriksCompany_man_1*" />
+					<hasName name="bohutovaVlozka_eriksCompany_man_2" />
+					<hasName name="bohutovaVlozka_eriksCompany_man_3" />
+					<hasName name="bohutovaVlozka_eriksCompany_man_4" />
+					<hasName name="bohutovaVlozka_eriksCompany_man_5" />
+					<hasName name="bohutovaVlozka_eriksCompany_man_6" />
+					<hasName name="bohutovaVlozka_eriksCompany_man_7" />
+					<hasName name="bohutovaVlozka_eriksCompany_man_8" />
+					<hasName name="bohutovaVlozka_eriksCompany_man_9" />
+				</or>
+			</selectors>
+			<operations>
+				<addRole name="VOJAK_OD_ERIKA" />
+				<addRole name="PROTISTRANA" />
+			</operations>
+		</rule>
+		<rule name="bohutovaVlozka_eriksFirstMan">
+			<selectors>
+				<hasName name="bohutovaVlozka_eriksCompany_man_1" />
+			</selectors>
+			<operations>
+				<addRole name="VOJAK_OD_ERIKA_1" />
+			</operations>
+		</rule>
+		<rule name="bohutovaVlozka_zizkasMen">
+			<selectors>
+				<or>
+					<hasName name="tneb_man_7" />
+					<hasName name="tneb_man_8" />
+					<hasName name="tneb_man_9" />
+					<hasName name="tneb_michal" />
+					<hasName name="tneb_marek" />
+					<hasName name="tneb_pasko" />
+					<hasName name="tneb_man_10" />
+					<hasName name="tneb_cverk" />
+					<hasName name="zachrana_seeker_1" />
+					<hasName name="zachrana_seeker_2" />
+				</or>
+			</selectors>
+			<operations>
+				<addRole name="VOJAK_NEBAKOV_VZPOURA" />
+				<addRole name="PROTISTRANA" />
+			</operations>
+		</rule>
+
+		<!-- TAVERN -->
+
+		<rule name="bohutovaVlozka_gossip_role_man">
+			<selectors>
+				<or>
+					<hasName name="tzel_rowdy_1" />
+					<hasName name="tzel_rowdy_2" />
+					<hasName name="tzel_rowdy_3" />
+					<hasName name="tzel_groom" />
+					<hasName name="tzel_michal" />
+					<hasName name="tzel_david" />
+				</or>
+			</selectors>
+			<operations>
+				<addRole name="MUZ_O_UDALOSTECH_V_ROKLI_BOHUTOVA_VLOZKA_1" />
+				<addRole name="MUZ_O_UDALOSTECH_V_ROKLI_BOHUTOVA_VLOZKA_2" />
+			</operations>
+		</rule>
+		<rule name="bohutovaVlozka_selftalk_role_man">
+			<selectors>
+				<or>
+					<hasName name="tzel_rowdy_1" />
+					<hasName name="tzel_rowdy_2" />
+					<hasName name="tzel_groom" />
+					<hasName name="tzel_michal" />
+					<hasName name="tzel_david" />
+				</or>
+			</selectors>
+			<operations>
+				<addRole name="MUZ_O_UDALOSTECH_V_ROKLI_BOHUTOVA_VLOZKA" />
+			</operations>
+		</rule>
+		<rule name="bohutovaVlozka_gossip_role_woman">
+			<selectors>
+				<or>
+					<hasName name="tzel_woman_6" />
+					<hasName name="tzel_woman_7" />
+				</or>
+			</selectors>
+			<operations>
+				<addRole name="ZENA_O_UDALOSTECH_V_ROKLI_BOHUTOVA_VLOZKA_1" />
+			</operations>
+		</rule>
+		<rule name="bohutovaVlozka_zelejov_commonFolk_tavern_man_notSpecial">
+			<selectors>
+				<or>
+					<hasVoice name="danBrown" />
+					<hasVoice name="gabrielAndrews" />
+					<hasVoice name="chrisClarke" />
+					<hasVoice name="paulDean" />
+					<hasVoice name="samBarlien" />
+					<hasVoice name="danCollins" />
+					<hasVoice name="jamesBeaumont" />
+					<hasVoice name="alechMontyro" />
+					<hasVoice name="ianChampion" />
+					<hasVoice name="martinBishop" />
+					<hasVoice name="michaelGlantschnig" />
+					<hasVoice name="rupertLazurus" />
+					<hasVoice name="jackParr" />
+				</or>
+				<and>
+					<not>
+						<hasName name="tzel_vavrinec" />
+					</not>
+					<not>
+						<hasName name="tzel_michal" />
+					</not>
+					<not>
+						<hasName name="tzel_david" />
+					</not>
+					<hasFaction name="trosecko_settlements_zelejov_commonFolk_tavern" />
+					<isMan />
+				</and>
+			</selectors>
+			<operations>
+				<addRole name="MUZ_V_HOSPODE_BOHUTOVA_VLOZKA" />
+			</operations>
+		</rule>
+		<rule name="bohutovaVlozka_zelejov_commonFolk_tavern_man_notSpecial">
+			<selectors>
+				<and>
+					<hasFaction name="trosecko_settlements_zelejov_commonFolk_tavern" />
+					<hasVoice name="jenniferPreston" />
+					<isWoman />
+				</and>
+			</selectors>
+			<operations>
+				<addRole name="ZENA_V_HOSPODE_BOHUTOVA_VLOZKA" />
+			</operations>
+		</rule>
+	</rules>
+</storm>

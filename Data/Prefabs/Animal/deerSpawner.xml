@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="us-ascii"?>
+<Prefab Id="df19d05d-dffc-45b0-8ba2-bdaed832f109">
+	<Tags>
+		<Tag>animal</Tag>
+	</Tags>
+	<Objects>
+		<Object EntityClass="PrefabPort" Id="33678f75-089d-4896-b2d0-a75d7758fcce" Name="outPort_defaultArea" Pos="0.02232742,0.004478455,1.297401" Type="Entity">
+			<Properties esPrefabPort_Type="Out" />
+		</Object>
+		<Object EntityClass="PrefabPort" Id="389b24ef-2379-4ebc-b4f0-3c067ec918bb" Name="port_slaves" Pos="-0.3456459,0.02493668,1.297401" Type="Entity">
+			<EntityLinks>
+				<Link DebugTargetName="AnimalSpawner" Name="masterSpawner" TargetId="502b937e-5d4e-4941-a749-985e250fc473" />
+				<Link DebugTargetName="SchedulerHub2" Name="_" TargetId="cb2db123-f388-4624-9242-d16eac3b62ec" />
+			</EntityLinks>
+		</Object>
+		<Object EntityClass="AnimalSpawner" Id="502b937e-5d4e-4941-a749-985e250fc473" Name="AnimalSpawner" Type="Entity">
+			<Properties guidSoul="e6ff4f52-9e77-4b81-9e6d-aef3c4aeb627" RespawnDays="1" />
+			<EntityLinks>
+				<Link DebugTargetName="SchedulerHub2" Name="_" TargetId="cb2db123-f388-4624-9242-d16eac3b62ec" />
+				<Link DebugTargetName="outPort_spawnArea" Name="spawnArea" TargetId="ba57c325-3293-4395-bc95-8feb873555f6" />
+			</EntityLinks>
+		</Object>
+		<Object EntityClass="SmartObjectHolder" Id="9fa299ea-101a-4bbb-b059-582d6ce9097e" Name="SmartObjectHolder3" Pos="0,-0.5,0" Type="Entity">
+			<Properties bExported_to_game="1" bExported_to_test="1" guidSmartObjectType="e99c0277-c0cf-4ef8-a6eb-426a6782ee96" />
+			<EntityLinks>
+				<Link DebugTargetName="outPort_defaultArea" Name="_eat|" TargetId="33678f75-089d-4896-b2d0-a75d7758fcce" />
+				<Link DebugTargetName="outPort_defaultArea" Name="_idle|" TargetId="33678f75-089d-4896-b2d0-a75d7758fcce" />
+			</EntityLinks>
+		</Object>
+		<Object EntityClass="PrefabPort" Id="ba57c325-3293-4395-bc95-8feb873555f6" Name="outPort_spawnArea" Pos="0.4136391,0.004478455,1.297401" Type="Entity">
+			<Properties esPrefabPort_Type="Out" />
+		</Object>
+		<Object EntityClass="SchedulerHub" Id="cb2db123-f388-4624-9242-d16eac3b62ec" Name="SchedulerHub2" Pos="-0.07847214,-0.2372284,0.04325485" Type="Entity">
+			<EntityLinks>
+				<Link DebugTargetName="SmartObjectHolder3" Name="_|eat,01:00,!override,use_eat" TargetId="9fa299ea-101a-4bbb-b059-582d6ce9097e" />
+				<Link DebugTargetName="SmartObjectHolder3" Name="_R01:00,use_moo" TargetId="9fa299ea-101a-4bbb-b059-582d6ce9097e" />
+				<Link DebugTargetName="SmartObjectHolder3" Name="_|idle,00:20,!once,!override,use_idle" TargetId="9fa299ea-101a-4bbb-b059-582d6ce9097e" />
+			</EntityLinks>
+		</Object>
+	</Objects>
+</Prefab>

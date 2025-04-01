@@ -1,0 +1,273 @@
+<?xml version="1.0"?>
+<!DOCTYPE storm SYSTEM "..\storm.dtd">
+<storm>
+	<rules>
+		<rule name="ambroz">
+			<selectors>
+				<hasName name="tapo_ambroz" />
+			</selectors>
+			<operations>
+				<addRole name="POUSTEVNIK_AMBROZ" />
+			</operations>
+		</rule>
+		
+		<rule name="konrad">
+			<selectors>
+				<hasName name="tapo_konrad" />
+			</selectors>
+			<operations>
+				<addRole name="RYTIR_KONRAD" />
+			</operations>
+		</rule>
+		
+		<rule name="smith">
+			<selectors>
+				<hasName name="ttac_blacksmith" />
+			</selectors>
+			<operations>
+				<addRole name="KOVAR_TACHOV" />
+			</operations>
+		</rule>
+		
+		<rule name="villagers_massTopics_male">
+			<selectors>
+				<or>
+					<hasName name="ttkc_man_1" />
+					<hasName name="ttkc_man_11" />
+					<hasName name="ttkc_man_17" />
+					<hasName name="ttkc_bartosek" />
+					<hasName name="ttkc_baska" />
+					<hasName name="ttkc_jezek" />
+					<hasName name="ttkc_gravedigger" />
+					<hasName name="ttkc_scribe" />
+					<hasName name="ttkc_woodworkersFather" />
+					<and>
+            <hasTradesmanSocialClass />
+						<hasGender name="Male" />
+						<hasFaction name="trosecko_settlements_troskovice_commonFolk" />
+					</and>
+				</or>
+			</selectors>
+			<operations>
+				<addRole name="VESNICAN_Z_TROSKOVIC_SE_BAVI_O_POUSTEVNIKOVI" />
+			</operations>
+		</rule>
+		
+		<rule name="villagers_massTopics_female">
+			<selectors>
+				<not>
+					<hasName name="ttkc_inkeeper" />
+				</not>
+				<not>
+					<hasName name="ttkc_woman_1" />
+				</not>
+				<or>
+					<hasName name="ttkc_woman_2" />
+					<hasName name="ttkc_woman_3" />
+					<hasName name="ttkc_tradersMom" />
+					<and>
+            <hasTradesmanSocialClass />
+						<hasGender name="Female" />
+						<hasFaction name="trosecko_settlements_troskovice_commonFolk" />
+					</and>
+				</or>
+			</selectors>
+			<operations>
+				<addRole name="VESNICANKA_Z_TROSKOVIC_SE_BAVI_O_POUSTEVNIKOVI" />
+			</operations>
+		</rule>
+		
+		
+		<rule name="villagers_massTopicsRefuse_male">
+			<selectors>
+				<or>
+					<hasName name="ttkc_drozd" />
+                    <hasName name="ttkc_man_10" />
+					<hasName name="ttkc_man_9" />
+					<hasName name="ttkc_oldrich" />
+					<hasName name="ttkc_man_7" />
+					<hasName name="ttkc_man_2" />
+					<hasName name="ttkc_man_3" />
+					<hasName name="ttkc_man_4" />
+					<hasName name="ttkc_woodworker" />
+				</or>
+			</selectors>
+			<operations>
+				<addRole name="VESNICAN_Z_TROSKOVIC_SE_NEBAVI_O_POUSTEVNIKOVI" />
+			</operations>
+		</rule>
+		
+		<rule name="villagers_massTopicsRefuse_female">
+			<selectors>
+				<or>
+					<hasName name="ttkc_woman_8" />
+					<hasName name="ttkc_woman_10" />
+					<hasName name="ttkc_marusa" />
+					<hasName name="ttkc_olina" />
+				</or>
+			</selectors>
+			<operations>
+				<addRole name="VESNICANKA_Z_TROSKOVIC_SE_NEBAVI_O_POUSTEVNIKOVI" />
+			</operations>
+		</rule>
+		
+		<rule name="troskovice_gossip_male">
+			<selectors>
+				<hasWidelyUsedVoice/>
+				<hasFaction name="trosecko_settlements_troskovice_commonFolk" />
+				<hasGender name="Male" />
+			</selectors>
+			<operations>
+				<addRole name="VESNICAN_Z_TROSKOVIC_O_DABLU" />
+				<addRole name="VESNICAN_Z_TROSKOVIC_O_DABLU_2" />
+			</operations>
+		</rule>
+		
+		<rule name="troskovice_gossip_female">
+			<selectors>
+				<hasWidelyUsedVoice/>
+				<hasFaction name="trosecko_settlements_troskovice_commonFolk" />
+				<hasGender name="Female" />
+				<not>
+					<hasName name="ttkc_inkeeper" />
+				</not>
+			</selectors>
+			<operations>
+				<addRole name="VESNICANKA_Z_TROKOVIC_O_DABLU_2" />
+				<addRole name="VESNICANKA_Z_TROSKOVIC_O_DABLU" />
+			</operations>
+		</rule>
+		
+		<rule name="gerta">
+			<selectors>
+				<hasName name="ttkc_gerta" />
+			</selectors>
+			<operations>
+				<addRole name="GERTA_Z_LEKARNY" />
+			</operations>
+		</rule>
+		
+		<rule name="safarik">
+			<selectors>
+				<hasName name="tapo_safarik" />
+			</selectors>
+			<operations>
+				<addRole name="SAFARIK" />
+			</operations>
+		</rule>
+		
+		<rule name="innkeeper">
+			<selectors>
+				<hasName name="ttkc_inkeeper" />
+			</selectors>
+			<operations>
+				<addRole name="HOSPODSKA_TROSKOVICE" />
+			</operations>
+		</rule>
+		
+		<rule name="los_stamgastos">
+			<selectors>
+				<or>
+					<hasName name="ttkc_jezek" />
+					<hasName name="ttkc_bailiffSon" />
+					<hasName name="ttkc_man_18" />
+					<hasName name="ttkc_man_19" />
+					<hasName name="ttkc_man_13" />
+				</or>
+			</selectors>
+			<operations>
+				<addRole name="STAMGAST_TROSKOVICE_BARK_O_POUSTEVNIKOVI" />
+			</operations>
+		</rule>
+		
+		<rule name="vdova">
+			<selectors>
+				<hasName name="ttkc_marketa" />
+			</selectors>
+			<operations>
+				<addRole name="VDOVA_MARKETA" />
+			</operations>
+		</rule>
+        
+        		<rule name="vdova_se_modli">
+			<selectors>
+				<hasName name="ttkc_marketa" />
+			</selectors>
+			<operations>
+				<addRole name="VDOVA_MARKETA_SE_MODLI" />
+			</operations>
+		</rule>
+		
+		<rule name="friars">
+			<selectors>
+				<or>
+					<hasName name="poustevnik_arn" />
+					<hasName name="poustevnik_niclas" />
+					<hasName name="poustevnik_sebald" />
+				</or>
+			</selectors>
+			<operations>
+				<addRole name="POUSTEVNIK_RYTIRI" />
+				<addRole name="POUSTEVNIK_RYTIRI_TRESPASS_VYHANENI" />
+                <addRole name="VYJEDNAVANI_MUZ" />
+			</operations>
+		</rule>
+		
+		<rule name="friar_arn">
+			<selectors>
+				<hasName name="poustevnik_arn" />
+			</selectors>
+			<operations>
+				<addRole name="RYTIR_ARN" />
+            </operations>
+		</rule>
+		
+		<rule name="friar_niclas">
+			<selectors>
+				<hasName name="poustevnik_niclas" />
+			</selectors>
+			<operations>
+				<addRole name="RYTIR_NICLAS" />
+                <addRole name="RYTIR_NICLAS_SE_MODLI" />
+			</operations>
+		</rule>
+		
+		<rule name="friar_sebald">
+			<selectors>
+				<hasName name="poustevnik_sebald" />
+			</selectors>
+			<operations>
+				<addRole name="RYTIR_SEBALD" />
+                <addRole name="RYTIR_SEBALD_OSETRUJE" />
+			</operations>
+		</rule>
+		
+		<rule name="friar_clesgin">
+			<selectors>
+				<hasName name="poustevnik_clesgin" />
+			</selectors>
+			<operations>
+				<addRole name="POUSTEVNIK_FRATER_CLESGIN" />
+			</operations>
+		</rule>
+		
+		<rule name="vasko">
+			<selectors>
+				<hasName name="tvez_vasko" />
+			</selectors>
+			<operations>
+				<addRole name="VASKO" />
+			</operations>
+		</rule>
+        
+        		<rule name="beta_innkeeper">
+			<selectors>
+				<hasName name="ttkc_inkeeper" />
+			</selectors>
+			<operations>
+				<addRole name="POUSTEVNIK_HOSPODSKA_TROSKOVICE" />
+			</operations>
+		</rule>
+		
+    </rules>
+</storm>

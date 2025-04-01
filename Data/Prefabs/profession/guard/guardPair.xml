@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="us-ascii"?>
+<Prefab Id="2d39c720-f0da-42b3-81f0-ddc810da1c3c">
+  <Tags>
+    <Tag>guard</Tag>
+    <Tag>ignore</Tag>
+  </Tags>
+  <Objects>
+    <Object EntityClass="PrefabPort" Id="151c61d8-3a33-4637-95d4-f1a556c15b4d" Name="port_master" Pos="-0.9269066,0.5569611,1.485966" Type="Entity">
+      <EntityLinks>
+        <Link DebugTargetName="hub_master" TargetId="46ca22a7-c1eb-47bf-9870-11e887ff0c0c" />
+      </EntityLinks>
+    </Object>
+    <Object EntityClass="SchedulerHub" Id="46ca22a7-c1eb-47bf-9870-11e887ff0c0c" Name="hub_master" Pos="-0.9847641,0.5277557,9.918213e-05" Type="Entity">
+      <EntityLinks>
+        <Link DebugTargetName="smartObject" Name="_|master,!override,master" TargetId="dd5a761b-c293-422e-9d4a-44f4f47b6c03" />
+      </EntityLinks>
+    </Object>
+    <Object EntityClass="PrefabPort" Id="57ff54a0-ba13-45da-8149-cee67cda3c3f" Name="outPort_guardPoints" Pos="1.005308,-0.5375061,9.918213e-05" Type="Entity">
+      <Properties esPrefabPort_Type="Out" />
+    </Object>
+    <Object EntityClass="PrefabPort" Id="9e8fa48a-3876-4ca8-bf76-b5d2676a1356" Name="port_slave" Pos="-1.04164,-0.5431213,1.414654" Type="Entity">
+      <EntityLinks>
+        <Link DebugTargetName="hub_slave" TargetId="b669a31b-f3af-4ebe-b077-4ba2aa30a7c2" />
+      </EntityLinks>
+    </Object>
+    <Object EntityClass="SchedulerHub" Id="b669a31b-f3af-4ebe-b077-4ba2aa30a7c2" Name="hub_slave" Pos="-1.017079,-0.5243225,9.918213e-05" Type="Entity">
+      <EntityLinks>
+        <Link DebugTargetName="smartObject" Name="_|slave,slave" TargetId="dd5a761b-c293-422e-9d4a-44f4f47b6c03" />
+      </EntityLinks>
+    </Object>
+    <Object EntityClass="SmartObjectHolder" Id="dd5a761b-c293-422e-9d4a-44f4f47b6c03" Name="smartObject" Pos="0.01435089,-0.5277405,9.918213e-05" Type="Entity">
+      <Properties guidSmartObjectType="501ab2ca-e47e-4f33-a108-b5c5cc16f08e" />
+      <EntityLinks>
+        <Link DebugTargetName="smartObject" Name="#ChangeBehaviorState[master,slave,Enabled,MLodMaster]" TargetId="dd5a761b-c293-422e-9d4a-44f4f47b6c03" />
+        <Link DebugTargetName="outPort_guardPoints" TargetId="57ff54a0-ba13-45da-8149-cee67cda3c3f" />
+      </EntityLinks>
+    </Object>
+  </Objects>
+</Prefab>

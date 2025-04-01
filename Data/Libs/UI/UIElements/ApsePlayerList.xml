@@ -1,0 +1,160 @@
+<UIElements name="Editor">
+
+  <UIElement name="ApsePlayerList" lazy_update="0" mouseevents="1" cursor="0" controller_input="1">
+
+    <GFx file="ApsePlayerList.gfx" layer="0">
+      <Constraints>
+        <Align mode="fixdyntexsize" valign="center" halign="center" scale="1" max="0" screen_resize="1"/>
+        <Position width="2048" height="2048"/>
+      </Constraints>
+    </GFx>
+    <!-- editor mode -->
+    <functions>
+      <function name="Activate" funcname="fc_activate">
+        <param name="Animate" desc="" type="boolean"/>
+      </function>
+      <function name="Deactivate" funcname="fc_deactivate">
+        <param name="Animate" desc="" type="boolean"/>
+      </function>
+
+      <function name="GetFocusedItem" funcname="fc_getFocusedItem" />
+
+      <function name="FocusPrev" funcname="fc_focusPrev" />
+      <function name="FocusNext" funcname="fc_focusNext" />
+      <function name="TabPrev" funcname="fc_tabPrev" />
+      <function name="TabNext" funcname="fc_tabNext" />
+      <function name="ToggleExpand" funcname="fc_toggleExpand" />
+
+      <function name="SetSoulProperties" funcname="fc_setSoulProperties">
+        <param name="PlayerId" desc="" type="string"/>
+        <param name="HorseId" desc="" type="string"/>
+        <param name="DogId" desc="" type="string"/>
+      </function>
+
+      <function name="ChangeSoulProperty" funcname="fc_changeSoulProperty" />
+
+      <function name="SetCombos" funcname="fc_setCombos" />
+
+      <function name="SetBuffs" funcname="fc_setBuffs" />
+      <function name="AddBuff" funcname="fc_addBuff" />
+      <function name="RemoveBuff" funcname="fc_removeBuff" >
+        <param name="Id" desc="" type="string"/>
+      </function>
+      <function name="UpdateBuff" funcname="fc_updateBuff" >
+        <param name="Id" desc="" type="string"/>
+        <param name="PrimaryProgress" desc="" type="float"/>
+        <param name="SecondaryProgress" desc="" type="int"/>
+      </function>
+      <function name="SwapBuffId" funcname="fc_swapBuffId" >
+        <param name="OldBuffId" desc="" type="string"/>
+        <param name="NewBuffId" desc="" type="string"/>
+      </function>
+
+      <function name="SetReputations" funcname="fc_setReputations" />
+      
+      <function name="SetStatistics" funcname="fc_setStatistics" />
+
+      <function name="ClearAll" funcname="fc_clearAll" />
+
+      <function name="LeftDoubleClick" funcname="fc_leftDoubleClick" >
+        <param name="ClientId" desc="" type="int"/>
+      </function>
+
+      <function name="SetDogMode" funcname="fc_setDogMode" >
+        <param name="Id" desc="" type="string"/>
+        <param name="Mode" desc="" type="string"/>
+      </function>
+
+      <!-- user config -->
+      <function name="SetUserConfig" funcname="fc_setUserConfig">
+        <param name="Tab" desc="" type="int"/>
+        <param name="Sort" desc="" type="int"/>
+        <param name="Heading" desc="" type="bool"/>
+        <param name="FocusId" desc="" type="string"/>
+      </function>
+
+      <function name="GetCurrentTab" funcname="fc_getCurrentTab" />
+      <function name="GetCurrentSort" funcname="fc_getCurrentSort" />
+      <function name="GetCurrentHeading" funcname="fc_getCurrentHeading" />
+
+    </functions>
+
+   <events>
+      <!-- Audio -->
+			<event name="OnPlayAudio" fscommand="onPlayAudio" desc="execute global audio trigger">
+				<param name="TriggerName" desc="" type="string"/>
+			</event>
+
+			<event name="OnStopAudio" fscommand="onStopAudio" desc="stop global audio trigger">
+				<param name="TriggerName" desc="" type="string"/>
+			</event>
+
+			<event name="OnSetVolumeAudio" fscommand="onSetVolumeAudio" desc="set volume via rtpc">
+				<param name="TriggerName" desc="" type="string"/>
+				<param name="Volume" desc="" type="float"/>
+      </event>
+
+      <!-- General event -->
+      <event name="OnGeneralEvent" fscommand="onGeneralEvent" desc="" >
+				<param name="Name" desc="" type="string"/>
+        <param name="ClientId" desc="" type="int"/>
+      </event>
+
+      <!-- Custom events -->
+      <event name="OnFocusChanged" fscommand="onFocusChanged" desc="" >
+				<param name="Ids" desc="one or more id if item is stacked in flash" type="string"/>
+        <param name="IsExpandable" desc="item has childreen" type="bool"/>
+        <param name="IsExpand" desc="item is currently in state expand" type="bool"/>
+        <param name="ClientId" desc="" type="int"/>
+      </event>
+
+      <event name="OnDoubleClicked" fscommand="onDoubleClicked" desc="" >
+				<param name="Ids" desc="one or more id if item is stacked in flash" type="string"/>
+        <param name="ClientId" desc="" type="int"/>
+      </event>
+
+      <event name="OnFocusTab" fscommand="onFocusTab" desc="" >
+				<param name="Tab" desc="" type="int"/>
+        <param name="ClientId" desc="" type="int"/>
+      </event>
+
+      <event name="OnUnfocusTab" fscommand="onUnfocusTab" desc="" >
+        <param name="Tab" desc="" type="int"/>
+        <param name="ClientId" desc="" type="int"/>
+      </event>
+
+      <event name="OnHighlightTab" fscommand="onHighlightTab" desc="" >
+				<param name="Tab" desc="" type="int"/>
+        <param name="ClientId" desc="" type="int"/>
+      </event>
+
+      <event name="OnUnhighlightTab" fscommand="onUnhighlightTab" desc="" >
+				<param name="Tab" desc="" type="int"/>
+        <param name="ClientId" desc="" type="int"/>
+      </event>
+
+      <!-- Tooltips -->
+      <event name="OnShowTooltip" fscommand="onShowTooltip" desc="" >
+				<param name="Text" desc="" type="string"/>
+      </event>
+
+      <event name="OnHideTooltip" fscommand="onHideTooltip" desc="" >
+        <param name="Text" desc="" type="string"/>
+      </event>
+
+    </events>
+
+    <arrays>
+      <array name="SoulPropetries" varname="g_SoulPropertiesA" />
+      <array name="Combos" varname="g_CombosA" />
+      <array name="Buffs" varname="g_BuffsA" />
+      <array name="Reputations" varname="g_ReputationsA" />
+      <array name="Statistics" varname="g_StatisticsA" />
+    </arrays>
+
+	<MovieClips>
+	</MovieClips>
+
+  </UIElement>
+
+</UIElements>

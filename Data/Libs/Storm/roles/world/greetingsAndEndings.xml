@@ -1,0 +1,169 @@
+<?xml version="1.0"?>
+<!DOCTYPE storm SYSTEM "storm.dtd">
+<storm>
+	<rules>
+
+		<!-- ===================== -->
+		<!-- Greetings in dialogues-->
+		<!-- ====================== -->
+
+		<rule name="greetingAtDialogStart_endingsAtDialogEnd-commonMen">
+			<selectors>
+				<greetingEndingInDialog_general />
+				<isMan />
+				<or>
+					<isLowClass />
+					<isMiddleClass />
+					<isUpperClass />
+					<isRomani/>
+				</or>
+			</selectors>
+			<operations>
+				<addRole name="POZDRAV_MUZ" />
+				<addRole name="ROZLOUCENI_S_HRACEM_COMMON_MUZ" />
+			</operations>
+		</rule>
+
+		<rule name="greetingAtDialogStart_endingsAtDialogEnd-commonWomen">
+			<selectors>
+				<greetingEndingInDialog_general />
+				<isWoman />
+				<or>
+					<isLowClass />
+					<isMiddleClass />
+					<isUpperClass />
+					<isRomani/>
+				</or>
+			</selectors>
+			<operations>
+				<addRole name="POZDRAV_ZENA" />
+				<addRole name="ROZLOUCENI_S_HRACEM_COMMON_ZENA" />
+			</operations>
+		</rule>
+
+		<rule name="greetingAtDialogStart-miners">
+			<selectors>
+				<greetingEndingInDialog_general />
+				<hasSocialClass name="miner" />
+				<isMan />
+				<hasBroaderMinerVoice />
+			</selectors>
+			<operations>
+				<removeRole name="POZDRAV_MUZ" />
+				<addRole name="POZDRAV_HORNIK" />
+			</operations>
+		</rule>
+
+		<!-- POZDRAV_MUZ and POZDRAV_MUZ_SLECHTIC are roles to be assigned to distinct groups of NPCs. Same goes for ROZLOUCENI  -->
+		<rule name="greetingAtDialogStart_endingsAtDialogEnd-noblemen">
+			<selectors>
+				<greetingEndingInDialog_nobles_general />
+				<hasNobleVoice />
+				<isMan />
+			</selectors>
+			<operations>
+				<addRole name="POZDRAV_NOBLE_MUZ" />
+				<addRole name="ROZLOUCENI_S_HRACEM_NOBLE_MUZ" />
+			</operations>
+		</rule>
+
+		<rule name="greetingAtDialogStart_endingsAtDialogEnd-noblewomen">
+			<selectors>
+				<greetingEndingInDialog_nobles_general />
+				<hasNobleVoice />
+				<isWoman />
+			</selectors>
+			<operations>
+				<addRole name="POZDRAV_NOBLE_ZENA" />
+				<addRole name="ROZLOUCENI_S_HRACEM_NOBLE_ZENA" />
+			</operations>
+		</rule>
+
+
+
+		<!-- ===================== -->
+		<!-- Greetings among NPCs -->
+		<!-- ====================== -->
+		
+		<rule name="roles_greetingAmongNpcs_commonMan">
+			<selectors>
+				<greetingAmongNpcs_general />
+				<isMan />
+				<or>
+					<isLowClass />
+					<isMiddleClass />
+					<isUpperClass />
+				</or>
+			</selectors>
+			<operations>
+				<addRole name="SOUSEDSKY_POZDRAV_A_MUZ" />
+				<addRole name="SOUSEDSKY_POZDRAV_B_MUZ" />
+				<addRole name="UCTIVY_POZDRAV_MUZ" />
+				<addRole name="ROZLOUCENI_COMMON_MUZ" />
+				<addRole name="ROZLOUCENI_MUZ_1" />
+				<addRole name="ROZLOUCENI_MUZ_2" />
+			</operations>
+		</rule>
+
+		<rule name="roles_greetingAmongNpcs_noblemen">
+			<selectors>
+				<greetingAmongNpcs_nobles_general />
+				<hasNobleVoice />
+				<isMan/>
+			</selectors>
+			<operations>
+				<addRole name="POZDRAV_NOBLE_A_MUZ" />
+				<addRole name="POZDRAV_NOBLE_B_MUZ" />
+				<addRole name="ROZLOUCENI_NOBLE_MUZ" />
+				<addRole name="ROZLOUCENI_NOBLE_MUZ_1" />
+				<addRole name="ROZLOUCENI_NOBLE_MUZ_2" />
+			</operations>
+		</rule>
+	
+		<rule name="roles_greetingAmongNpcs_commonWoman">
+			<selectors>
+				<greetingAmongNpcs_general />
+				<isWoman />
+				<or>
+					<isLowClass />
+					<isMiddleClass />
+					<isUpperClass />
+				</or>
+			</selectors>
+			<operations>
+				<addRole name="SOUSEDSKY_POZDRAV_A_ZENA" />
+				<addRole name="SOUSEDSKY_POZDRAV_B_ZENA" />
+				<addRole name="UCTIVY_POZDRAV_ZENA" />
+				<addRole name="ROZLOUCENI_COMMON_ZENA" />
+				<addRole name="ROZLOUCENI_ZENA_1" />
+				<addRole name="ROZLOUCENI_ZENA_2" />				
+			</operations>
+		</rule>
+
+		<rule name="roles_greetingAmongNpcs_noblewomen">
+			<selectors>
+				<greetingAmongNpcs_nobles_general />
+				<hasNobleVoice />
+				<isWoman />
+			</selectors>
+			<operations>
+				<addRole name="POZDRAV_JINEHO_NPC_NOBLE_ZENA" />
+				<addRole name="ROZLOUCENI_NOBLE_ZENA" />
+			</operations>
+		</rule>
+
+
+		<rule name="roles_greetingsAndGoodbyes_cumans">
+			<selectors>
+				<greetingAmongNpcs_general />
+				<isCuman />
+			</selectors>
+			<operations>
+				<addRole name="POZDRAV_KUMAN_A" />
+				<addRole name="POZDRAV_KUMAN_B" />
+				<addRole name="ROZLOUCENI_KUMAN_A" />
+				<addRole name="ROZLOUCENI_KUMAN_B" />
+			</operations>
+		</rule>
+	</rules>
+</storm>

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="us-ascii"?>
+<Prefab Id="1206d0d4-9308-4f80-8a29-f8593110da59">
+  <Tags>
+    <Tag>miner</Tag>
+  </Tags>
+  <Objects>
+    <Object EntityClass="PrefabPort" Id="116de468-0d5a-4667-a7a3-5b44669c6767" Name="outPort_pickaxe" Pos="-0.5,0,1.5" Type="Entity">
+      <Properties esPrefabPort_Icon="outPickaxe" esPrefabPort_Type="Out" />
+    </Object>
+    <Object EntityClass="TagPoint" Id="1a43c299-0639-4b6b-a1c1-6ae9f5129bd5" Name="pickaxeReservationPoint" Pos="-0.5,0,0" Type="TagPoint">
+      <EntityLinks>
+        <Link DebugTargetName="outPort_pickaxe" TargetId="116de468-0d5a-4667-a7a3-5b44669c6767" />
+      </EntityLinks>
+    </Object>
+    <Object EntityClass="PrefabPort" Id="75e015b9-ebff-49c9-98cf-4c319f5af2be" Name="port" Pos="-0.5,0.5,1.5" Type="Entity">
+      <EntityLinks>
+        <Link DebugTargetName="hub" TargetId="a7ed9259-e145-4327-a5db-b8b046f611bb" />
+      </EntityLinks>
+    </Object>
+    <Object EntityClass="SmartObjectHolder" Id="a16a1e94-f73a-432e-801a-95b7282f4f0b" Name="smartObject" Pos="-0.5,0.5,0" Type="Entity">
+      <Properties guidSmartObjectType="4701d47f-db2c-ee1d-3795-270a5844dead" soclass_SmartObjectHelpers="Stonemason_Pickaxe" />
+      <EntityLinks>
+        <Link DebugTargetName="pickaxeReservationPoint" Name="schedulerReservedItem[&apos;use_mining&apos;,&apos;miner_pickaxe&apos;]" TargetId="1a43c299-0639-4b6b-a1c1-6ae9f5129bd5" />
+      </EntityLinks>
+    </Object>
+    <Object EntityClass="SchedulerHub" Id="a7ed9259-e145-4327-a5db-b8b046f611bb" Name="hub" Pos="-0.5,0.5,1" Type="Entity">
+      <EntityLinks>
+        <Link DebugTargetName="smartObject" Name="_use_mining" TargetId="a16a1e94-f73a-432e-801a-95b7282f4f0b" />
+      </EntityLinks>
+    </Object>
+    <Object EntityClass="GhostDummy" Id="ef2dc715-d55a-4e74-8126-ed0b4e04e198" Name="miner_mining_dummy" Pos="-0.5,0.5,0" Type="Entity">
+      <Properties object_Model="objects/intermediates/poses/stonemason_pick_loop.cgf" />
+    </Object>
+  </Objects>
+</Prefab>

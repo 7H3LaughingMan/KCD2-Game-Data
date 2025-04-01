@@ -1,0 +1,499 @@
+<?xml version="1.0"?>
+<!DOCTYPE storm SYSTEM "..\storm.dtd">
+<storm>
+	<customSelectors>
+	
+		<!-- 
+			in KCD the Storm used to run through all the rules and for each setGenericCharacterNamePattern command it...
+				* assigned just a pattern to the souls
+				* then at the very end of the execution it assigned the characters based on that pattern
+			now in Barbora Storm runs through all the rules and for each  setGenericCharacterNamePattern command it...
+				* assigns a new character directly
+				* therefore if there are souls that apply to selectors in multiple rules, the first rule wins
+				* therefore the most specific and critical rules should be assigned first
+		-->
+	
+		<customSelector name="needsCharacter" mode="and">
+			<isValidNpc />
+			<hasNoCharacter />
+			<isAlive />
+		</customSelector>
+		
+		
+		<!-- 05.10.2021 Has the crime branch been merged to main yet? If it has, consider using/creating custom selectors from/in the base storm file - isBandit, isGerman ... -->
+
+	</customSelectors>
+	<rules>
+		
+		<!-- ============================================================ MEN ============================================  -->
+
+		<!-- Market sellers not having a shop - potters - czech  -->
+		<rule name="male_potter_czech_characters">
+			<selectors>
+				<needsCharacter />
+				<isMan />
+				<market_potter />
+				<not>
+					<isGerman />
+				</not>
+			</selectors>
+			<operations>
+				<setGenericCharacterNamePattern pattern="char_GENERIC_MAN_MARKET_POTTER_CZECH_*" />
+			</operations>			
+		</rule>
+
+		<!-- Market sellers not having a shop - potters - german  -->
+		<rule name="male_potter_german_characters">
+			<selectors>
+				<needsCharacter />
+				<isMan />
+				<market_potter />
+				<isGerman />
+			</selectors>
+			<operations>
+				<setGenericCharacterNamePattern pattern="char_GENERIC_MAN_MARKET_POTTER_GERMAN_*" />
+			</operations>			
+		</rule>
+
+		<!-- Market sellers not having a shop - coalmen  -->
+		<rule name="male_coalmen_characters">
+			<selectors>
+				<needsCharacter />
+				<isMan />
+				<market_coalman />
+			</selectors>
+			<operations>
+				<setGenericCharacterNamePattern pattern="char_GENERIC_MAN_MARKET_COALMAN_CZECH_*" />
+			</operations>			
+		</rule>
+
+		<!-- Romani Merchants -->
+		<rule name="romani_merchants_characters">
+			<selectors>
+				<needsCharacter />
+				<isMan />
+				<getsCappedMerchantVoice />
+				<isRomani />
+			</selectors>
+			<operations>
+				<setGenericCharacterNamePattern pattern="char_GENERIC_MAN_MERCHANT_ROMANI_*" />
+			</operations>			
+		</rule>
+
+		<!-- Jewish Merchants -->
+		<rule name="jewish_merchants_characters">		
+			<selectors>
+				<needsCharacter />
+				<isMan />
+				<getsCappedMerchantVoice />
+				<isJewish />				
+			</selectors>
+			<operations>
+				<setGenericCharacterNamePattern pattern="char_GENERIC_MAN_MERCHANT_JEW_*" />
+			</operations>			
+		</rule>
+
+		<!-- German Merchants -->
+		<rule name="german_merchants_characters">		
+			<selectors>
+				<needsCharacter />
+				<isMan />
+				<getsCappedMerchantVoice />
+				<isGerman />
+			</selectors>
+			<operations>
+				<setGenericCharacterNamePattern pattern="char_GENERIC_MAN_MERCHANT_GERMAN_*" />
+			</operations>			
+		</rule>
+
+		<!-- generic Merchants -->
+		<rule name="generic_merchants_characters">		
+			<selectors>
+				<needsCharacter />
+				<isMan />
+				<getsCappedMerchantVoice />
+			</selectors>
+			<operations>
+				<setGenericCharacterNamePattern pattern="char_GENERIC_MAN_MERCHANT_CZECH_*" />
+			</operations>			
+		</rule>
+		
+		<!-- Cumans -->
+		<rule name="cumans_characters">		
+			<selectors>
+				<needsCharacter />
+				<isMan />
+				<isCuman />
+			</selectors>
+			<operations>
+				<setGenericCharacterNamePattern pattern="char_GENERIC_MAN_CUMAN_*" />
+			</operations>			
+		</rule>
+		
+		<!-- Jews -->
+		<rule name="jews_characters">		
+			<selectors>
+				<needsCharacter />
+				<isMan />
+				<isJewish />				
+			</selectors>
+			
+			<operations>
+				<setGenericCharacterNamePattern pattern="char_GENERIC_MAN_JEW_*" />
+			</operations>			
+		</rule>
+		
+
+		<!-- Germans -->
+		<rule name="germans_characters">		
+			<selectors>
+				<needsCharacter />
+				<isMan />
+				<isGerman />
+			</selectors>
+			
+			<operations>
+				<setGenericCharacterNamePattern pattern="char_GENERIC_MAN_GERMAN_*" />
+			</operations>			
+		</rule>
+		
+
+		
+		<!-- Romani -->
+		<rule name="romani_characters">		
+			<selectors>
+				<needsCharacter />
+				<isMan />
+				<isRomani />
+			</selectors>
+			
+			<operations>
+				<setGenericCharacterNamePattern pattern="char_GENERIC_MAN_ROMA_*" />
+			</operations>			
+		</rule>
+		
+		<!-- Enemies - Cumans possibly not needed
+		<rule name="enemyCuman_characters">		
+			<selectors>
+				<needsCharacter />
+				<isMan />
+				<or>
+					<hasSocialClass name="REPLACEME" />
+				</or>
+			</selectors>
+			
+			<operations>
+				<setGenericCharacterNamePattern pattern="char_GENERIC_MAN_ENEMY_CUMAN_*" />
+			</operations>			
+		</rule>
+		
+		-->
+		
+
+		<!-- GameKeepers -->
+		<rule name="gamekeepers_characters">
+			<selectors>
+				<needsCharacter />
+				<isMan />
+				<hasSocialClass name="huntsman_crimeAuthority" />
+			</selectors>
+			<operations>
+				<setGenericCharacterNamePattern pattern="char_GENERIC_MAN_GAMEKEEPER_*" />
+			</operations>			
+		</rule>
+
+		<!-- Guards (gamekeepers were already added in the rule gamekeepers_characters above ) -->
+		<rule name="guard_characters">
+			<selectors>
+				<needsCharacter />
+				<isMan />
+				<isAuthorityFigure />
+			</selectors>
+			<operations>
+				<setGenericCharacterNamePattern pattern="char_GENERIC_MAN_GUARD_*" />
+			</operations>			
+		</rule>
+
+		<!-- 
+		Enemies - bandits 
+		the selector isBandit is the same one used for bandit roles. This is important because we need to controll which voice gets bandit roles in order to save money on voiceovers
+		-->
+		<rule name="bandit_characters">		
+			<selectors>
+				<needsCharacter />
+				<isMan />
+				<isBandit/>
+			</selectors>
+			<operations>
+				<setGenericCharacterNamePattern pattern="char_GENERIC_MAN_ENEMY_BANDIT_*" />
+			</operations>
+		</rule>
+
+		<!-- generic Nobles -->
+		<rule name="generic_nobles_characters">		
+			<selectors>
+				<needsCharacter />
+				<isMan />
+				<greetingAmongNpcs_nobles_general />
+			</selectors>
+			<operations>
+				<setGenericCharacterNamePattern pattern="char_GENERIC_MAN_NOBLEMAN_*" />
+			</operations>			
+		</rule>
+		
+		<!-- Townsmen -->
+		<rule name="townsman_characters">		
+			<selectors>
+				<needsCharacter />
+				<isMan />
+				<or>
+					<hasSocialClass name="nobleman" />
+					<hasSocialClass name="townsman" />
+					<hasSocialClass name="scribe" />
+				</or>
+			</selectors>
+			
+			<operations>
+				<setGenericCharacterNamePattern pattern="char_GENERIC_MAN_TOWNSMAN_*" />
+			</operations>			
+		</rule>
+
+		
+		<!-- Miners -->
+		<rule name="miner_characters">		
+			<selectors>
+				<needsCharacter />
+				<isMan />
+				<or>
+					<hasSocialClass name="miner" />
+				</or>
+			</selectors>
+			
+			<operations>
+				<setGenericCharacterNamePattern pattern="char_GENERIC_MAN_MINER_*" />
+			</operations>			
+		</rule>
+
+
+		<!-- Soldiers -->
+		<rule name="soldiers_characters">
+			<selectors>
+				<needsCharacter />
+				<isMan />
+				<or>
+					<hasSocialClass name="watchman" />
+					<hasSocialClass name="soldier" />
+					<hasSocialClass name="shootmaster" />
+					<hasSocialClass name="security" />
+					<hasSocialClass name="fake_soldier" />
+					<hasSocialClass name="officer" />
+					<hasSocialClass name="mercenary" />
+				</or>
+			</selectors>
+			
+			<operations>
+				<setGenericCharacterNamePattern pattern="char_GENERIC_MAN_SOLDIER_*" />
+			</operations>			
+		</rule>
+
+		<!-- Common men - fallback -->
+		<rule name="commoners_characters_fallback">		
+			<selectors>
+				<needsCharacter />
+				<isMan />
+			</selectors>
+			
+			<operations>
+				<setGenericCharacterNamePattern pattern="char_GENERIC_MAN_COMMONER_*" />
+			</operations>			
+		</rule>
+
+<!-- ============================================================ WOMEN ============================================  -->
+
+		
+		<!-- MERCHANTS -->
+
+		<!-- Market sellers not having a shop - potters - czech  -->
+		<rule name="female_potter_czech_characters">
+			<selectors>
+				<needsCharacter />
+				<isWoman />
+				<market_potter />
+				<not>
+					<isGerman />
+				</not>
+			</selectors>
+			<operations>
+				<setGenericCharacterNamePattern pattern="char_GENERIC_WOMAN_MARKET_POTTER_CZECH_*" />
+			</operations>			
+		</rule>
+
+		<!-- Market sellers not having a shop - potters - german  -->
+		<rule name="female_potter_german_characters">
+			<selectors>
+				<needsCharacter />
+				<isWoman />
+				<market_potter />
+				<isGerman />
+			</selectors>
+			<operations>
+				<setGenericCharacterNamePattern pattern="char_GENERIC_WOMAN_MARKET_POTTER_GERMAN_*" />
+			</operations>			
+		</rule>
+
+		<!-- romani Merchants -->
+		<rule name="romani_merchants_characters_women">		
+			<selectors>
+				<needsCharacter />
+				<isWoman />
+				<getsCappedMerchantVoice />
+				<isRomani />
+			</selectors>
+			<operations>
+				<setGenericCharacterNamePattern pattern="char_GENERIC_WOMAN_MERCHANT_ROMANI_*" />
+			</operations>			
+		</rule>
+
+
+		<!-- jewish Merchants -->
+		<rule name="jewish_merchants_characters_women">		
+			<selectors>
+				<needsCharacter />
+				<isWoman />
+				<getsCappedMerchantVoice />
+				<isJewish />
+			</selectors>
+			<operations>
+				<setGenericCharacterNamePattern pattern="char_GENERIC_WOMAN_MERCHANT_JEW_*" />
+			</operations>			
+		</rule>
+
+
+		<!-- german Merchants -->
+		<rule name="german_merchants_characters_women">		
+			<selectors>
+				<needsCharacter />
+				<isWoman />
+				<getsCappedMerchantVoice />
+				<isGerman />
+			</selectors>
+			<operations>
+				<setGenericCharacterNamePattern pattern="char_GENERIC_WOMAN_MERCHANT_GERMAN_*" />
+			</operations>			
+		</rule>
+
+
+		<!-- generic Merchants -->
+		<rule name="generic_merchants_characters_women">		
+			<selectors>
+				<needsCharacter />
+				<isWoman />
+				<getsCappedMerchantVoice />
+			</selectors>
+			<operations>
+				<setGenericCharacterNamePattern pattern="char_GENERIC_WOMAN_MERCHANT_CZECH_*" />
+			</operations>			
+		</rule>
+		
+
+		<!-- Old women 
+		<rule name="oldWoman_characters">		
+			<selectors>
+				<needsCharacter />
+				<isWoman />
+				<or>
+					<hasSocialClass name="herbalist" />
+				</or>
+			</selectors>
+			
+			<operations>
+				<setGenericCharacterNamePattern pattern="char_GENERIC_WOMAN_OLD_*" />
+			</operations>			
+		</rule>
+		-->
+
+		<!-- Jewish women -->
+		<rule name="jewishWoman_characters">		
+			<selectors>
+				<needsCharacter />;
+				<isWoman />
+				<isJewish />
+			</selectors>
+			
+			<operations>
+				<setGenericCharacterNamePattern pattern="char_GENERIC_WOMAN_JEW_*" />
+			</operations>			
+		</rule>
+
+		<!-- German women -->
+		<rule name="germanWoman_characters">		
+			<selectors>
+				<needsCharacter />
+				<isWoman />
+				<isGerman />
+			</selectors>
+			
+			<operations>
+				<setGenericCharacterNamePattern pattern="char_GENERIC_WOMAN_GERMAN_*" />
+			</operations>			
+		</rule>
+
+		<!-- Romani women -->
+		<rule name="romaniWoman_characters">		
+			<selectors>
+				<needsCharacter />
+				<isWoman />
+				<isRomani />
+			</selectors>
+			
+			<operations>
+				<setGenericCharacterNamePattern pattern="char_GENERIC_WOMAN_ROMA_*" />
+			</operations>			
+		</rule>
+
+		
+		<!-- generic Nobles - women -->
+		<rule name="generic_noblewomen_characters">		
+			<selectors>
+				<needsCharacter />
+				<isWoman />
+				<greetingAmongNpcs_nobles_general />
+			</selectors>
+			<operations>
+				<setGenericCharacterNamePattern pattern="char_GENERIC_WOMAN_NOBLEWOMAN_*" />
+			</operations>			
+		</rule>
+
+
+		<!-- Townswomen -->
+		<rule name="townswomen_characters">		
+			<selectors>
+				<needsCharacter />
+				<isWoman />
+				<or>
+					<hasSocialClass name="nobleman" />
+					<hasSocialClass name="townsman" />
+					<hasSocialClass name="bailiff" />
+					<hasSocialClass name="scribe" />
+				</or>
+			</selectors>
+			
+			<operations>
+				<setGenericCharacterNamePattern pattern="char_GENERIC_WOMAN_TOWNSWOMAN_*" />
+			</operations>			
+		</rule>
+
+		<!-- Common women - fallback -->
+		<rule name="commonWomen_characters_fallback">		
+			<selectors>
+				<needsCharacter />
+				<isWoman />
+			</selectors>
+			
+			<operations>
+				<setGenericCharacterNamePattern pattern="char_GENERIC_WOMAN_COMMONER_*" />
+			</operations>			
+		</rule>
+
+    </rules>
+</storm>

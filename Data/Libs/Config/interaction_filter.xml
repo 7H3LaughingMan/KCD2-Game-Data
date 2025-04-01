@@ -1,0 +1,130 @@
+<!--
+	<filter>
+		- has to contain either <allow_all /> or <deny_all /> child element
+		- if contains <allow_all />, then it can also contain <deny_interaction /> elements to make exception from the allow_all rule
+		- if it contains <deny_all />, then it can contain <deny_interaction /> (to set specific reason for single interaction) and <allow_interaction/> (to make exception from the deny_all rule)
+	</filter>
+-->
+
+<interaction_filter>
+	
+	<!-- Interaction names are accessible in lua with global value inr_*, for example inr_sharpening, inr_alchemy -->
+	<interactions>
+		<!-- minigames -->
+		<bookReading />
+		<alchemy />
+		<transcription />
+		<sharpening />
+		<holeDigging />
+		<herbGathering />
+		<stoneThrowing />
+		<dice />
+		
+		<!-- stash -->
+		<stashClose />
+		<stashOpen />
+		<stashShop />
+		<stashUnlock />
+		<stashLockpick />
+		
+		<!-- pickable item -->
+		<pickableSteal />
+		<pickableShop />
+		<pickableLoot />
+		<pickablePickup />
+		
+		<!-- NPC -->
+		<pickupCorpse />
+		<stealthKill />
+		<knockOut />
+		<pullDown />
+		<talk />
+		<chatFollow />
+		<steal />
+		<mercyKill />
+		<loot />
+		<use_alch />
+		
+		<!-- door -->
+		<doorUnlock />
+		<doorOpen />
+		<doorClose />
+		<doorLockpick />
+		
+		<!-- bed -->
+		<chair />
+		<bench />
+		<bedSleep />
+		<bedSit />
+		
+		<!-- horse -->
+		<horseMount />
+		<horseBond />
+		<horseLoot />
+		<horseInspect />
+		
+		<!-- lockpickable -->
+		<lockpickableUnlock />
+		<lockpickableLockpick />
+
+		<!-- other -->
+		<captionRead />
+		<ladder />
+		<scriptTrigger />
+		<indulgence />
+		<carryItem />
+		
+	</interactions>
+	
+	<filter name="CarryCorpse" default_priority="0" default_reason="@ui_hud_carry_corpse_reason">
+		<deny_all />
+		
+		<allow_interaction name="stashClose" />
+		<allow_interaction name="stashOpen" />
+		<allow_interaction name="stashShop" />
+		<allow_interaction name="stashUnlock" />
+		<allow_interaction name="pickableSteal" />
+		<allow_interaction name="pickableShop" />
+		<allow_interaction name="pickableLoot" />
+		<allow_interaction name="talk" />
+		<allow_interaction name="chatFollow" />
+		<allow_interaction name="steal" />
+		<allow_interaction name="loot" />
+		<allow_interaction name="captionRead" />
+		<allow_interaction name="horseLoot" />
+		<allow_interaction name="horseInspect" />
+        <allow_interaction name="scriptTrigger" />
+		
+	</filter>
+	
+	<filter name="Sitting" default_priority="0" default_reason="@ui_hud_sitting_reason" >
+		<deny_all />
+		
+		<allow_interaction name="bookReading" />
+		<allow_interaction name="stashClose" />
+		<allow_interaction name="stashOpen" />
+		<allow_interaction name="stashShop" />
+		<allow_interaction name="stashUnlock" />
+		<allow_interaction name="pickableShop" />
+		<allow_interaction name="pickableLoot" />
+		<allow_interaction name="talk" />
+		<allow_interaction name="chatFollow" />
+		<allow_interaction name="loot" />
+		<allow_interaction name="captionRead" />
+		<allow_interaction name="horseLoot" />
+		<allow_interaction name="horseInspect" />
+		<allow_interaction name="dice" />
+        <allow_interaction name="scriptTrigger" />
+		
+	</filter>
+
+	<filter name="Alchemy" default_priority="0" default_reason="@ui_hud_alchemy_reason" >
+		<deny_all />		
+		<allow_interaction name="use_alch" />		
+	</filter>	
+	
+	<filter name="Dialog" default_priority="0">
+		<deny_all />
+	</filter>	
+	
+</interaction_filter>

@@ -1,0 +1,56 @@
+<?xml version="1.0"?>
+<!DOCTYPE storm SYSTEM "..\storm.dtd">
+<storm>
+	<rules>
+		<rule name="voiceGroup_guards">
+			<selectors>
+				<isNotTest />
+				<isAuthorityFigure />
+			</selectors>
+			<operations>
+				<assignVoiceGroup name="Guards" />
+			</operations>
+		</rule>
+		<rule name="voiceGroup_bandits">
+			<selectors>
+				<isNotTest />
+				<isBandit />
+			</selectors>
+			<operations>
+				<assignVoiceGroup name="Bandits" />
+			</operations>
+		</rule>
+		<rule name="voiceGroup_cumans">
+			<selectors>
+				<isNotTest />
+				<isCuman />
+			</selectors>
+			<operations>
+				<assignVoiceGroup name="Cumans" />
+			</operations>
+		</rule>
+		<rule name="voiceGroup_ultralightMerchants">
+			<selectors>
+				<isNotTest />
+				<isUltraLightTrader />
+			</selectors>
+			<operations>
+				<assignVoiceGroup name="UltralightMerchants" />
+			</operations>
+		</rule>
+		<rule name="voiceGroup_merchants">
+			<selectors>
+				<isNotTest />
+				<or>
+					<isFullTrader />
+		            <isLightTrader />
+		            <isVeryLightTrader />
+					<isHorseTraderWithMerchantVoice />
+				</or>
+			</selectors>
+			<operations>
+				<assignVoiceGroup name="Merchants" />
+			</operations>
+		</rule>
+    </rules>
+</storm>

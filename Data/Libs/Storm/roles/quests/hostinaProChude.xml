@@ -1,0 +1,186 @@
+<?xml version="1.0"?>
+<!DOCTYPE storm SYSTEM "..\storm.dtd">
+<storm>
+	<rules>
+		<rule name="hostinaProChude_innkeeper">
+			<selectors>
+				<hasName name="kkut_skvira" />
+			</selectors>
+			<operations>
+				<addRole name="HOSTINSKY_DIRA" />
+			</operations>
+		</rule>
+		<rule name="hostinaProChude_cenek">
+			<selectors>
+				<hasName name="kkut_cenek" />
+			</selectors>
+			<operations>
+				<addRole name="CENEK" />
+			</operations>
+		</rule>
+		
+		<rule name="hostinaProChude_stulec">
+			<selectors>
+				<hasName name="kkut_stulec" />
+			</selectors>
+			<operations>
+				<addRole name="STULEC" />
+			</operations>
+		</rule>
+		
+		<rule name="hostinaProChude_krysa">
+			<selectors>
+				<hasName name="kkut_krysa" />
+			</selectors>
+			<operations>
+				<addRole name="KRYSA" />
+			</operations>
+		</rule>
+		
+		<rule name="hostinaProChude_vepr">
+			<selectors>
+				<hasName name="kkut_vepr" />
+			</selectors>
+			<operations>
+				<addRole name="VEPR" />
+			</operations>
+		</rule>
+		
+		<rule name="hostinaProChude_vazoun">
+			<selectors>
+				<hasName name="kkut_vazoun" />
+			</selectors>
+			<operations>
+				<addRole name="VAZOUN" />
+			</operations>
+		</rule>
+		
+		<rule name="hostinaProChude_tovarystvo">
+			<selectors>
+				<or>
+					<hasName name="kkut_cenek" />
+					<hasName name="kkut_krysa" />
+					<hasName name="kkut_vepr" />
+					<hasName name="kkut_vazoun" />
+				</or>
+			</selectors>
+			<operations>
+				<addRole name="TOVARYSI" />
+				<addRole name="TOVARYSI_VIDI_HRACE_V_TRESPASSU_HOSPODY" />
+				<addRole name="TOVARYSI_VYHANEJI_HRACE_Z_TRESPASSU" />
+				<addRole name="TOVARYSI_BARKY_ZATIMCO_CEKAJI_A_SLEDUJI_HRACE" />
+				<addRole name="TOVARYSI_HRAC_ODESEL_Z_TRESPASSU_HOSPODY" />
+			</operations>
+		</rule>
+		<rule name="hostinaProChude_skeleton">
+			<selectors>
+				<or>
+					<hasName name="kkut_cenek" />
+					<hasName name="kkut_krysa" />
+					<hasName name="kkut_vepr" />
+					<hasName name="kkut_vazoun" />
+					<hasName name="kkut_stulec" />
+					<hasName name="ttro_katerina" />
+				</or>
+			</selectors>
+			<operations>
+				<addRole name="DIRA_REAKCE_NA_KOSTLIVCE" />
+			</operations>
+		</rule>
+		
+		<rule name="hostinaProChude_chudina_kostelni_muz">
+			<selectors>
+				<hasWidelyUsedVoice/>
+				<or>
+					<hasFaction name="kutnohorsko_settlements_kutnaHora_commonFolk_peasants_leflirska_beggars" />
+					<hasFaction name="kutnohorsko_settlements_kutnaHora_commonFolk_peasants_havirska_beggars" />
+					<hasFaction name="kutnohorsko_settlements_kutnaHora_commonFolk_peasants_kostelni_beggars" />
+					<hasFaction name="kutnohorsko_settlements_kutnaHora_clergy_beggingMonks" />
+					<hasName name="kkut_man_124" />
+				</or>
+				<isMan />
+			</selectors>
+			<operations>
+				<addRole name="HOSTINA_PRO_CHUDE_CHUDAK_Z_KOSTELNI_CTVRTI_MUZ" />
+				<addRole name="HOSTINA_PRO_CHUDE_CHUDAK_Z_KOSTELNI_CTVRTI_MUZ_2" />
+				<addRole name="HOSTINA_PRO_CHUDE_CHUDAK_MUZ" />
+				<addRole name="HOSTINA_PRO_CHUDE_CHUDAK_MUZ_2" />
+			</operations>
+		</rule>
+		<rule name="hostinaProChude_chudina_kostelni_zena">
+			<selectors>
+				<hasWidelyUsedVoice/>
+				<or>
+					<hasFaction name="kutnohorsko_settlements_kutnaHora_commonFolk_peasants_leflirska_beggars" />
+					<hasFaction name="kutnohorsko_settlements_kutnaHora_commonFolk_peasants_havirska_beggars" />
+					<hasFaction name="kutnohorsko_settlements_kutnaHora_commonFolk_peasants_kostelni_beggars" />
+					<hasFaction name="kutnohorsko_settlements_kutnaHora_clergy_beggingMonks" />
+				</or>
+				<hasSocialClass name="beggar" />
+				<isWoman />
+			</selectors>
+			<operations>
+				<addRole name="HOSTINA_PRO_CHUDE_CHUDAK_Z_KOSTELNI_CTVRTI_ZENA" />
+				<addRole name="HOSTINA_PRO_CHUDE_CHUDAK_Z_KOSTELNI_CTVRTI_ZENA_2" />
+				<addRole name="HOSTINA_PRO_CHUDE_CHUDAK_ZENA" />
+				<addRole name="HOSTINA_PRO_CHUDE_CHUDAK_ZENA_2" />
+			</operations>
+		</rule>
+		
+		<rule name="hostinaProChude_guards">
+			<selectors>
+				<isValidOpenworldNpc />
+				<hasFaction name="kutnohorsko_settlements_kutnaHora_soldiers_guards" />
+				<or>
+					<hasVoice name="brianCaspe" />
+					<hasVoice name="danielOsgerby" />
+					<hasVoice name="peterHosking_generic" />
+					<hasVoice name="paulDean" />
+					<hasVoice name="stewartMoore" />
+					<hasVoice name="jonathanMilshaw" />
+					<hasVoice name="danCollins" />
+					<hasVoice name="christopherDukes" />
+					<hasVoice name="jamesBeaumont" />
+					<hasVoice name="gabrielAndrews" />
+					<hasVoice name="douglasRussel" />
+				</or>
+				<not>
+					<or>
+						<hasName name="kutnohorskyTurnaj_fanOnWallMale_*" />
+						<hasName name="kkut_closedCastle_vlasskyDvur_*" />
+						<hasName name="prepadeniVlasskehoDvora_guard_*" />
+						<hasName name="sermiri_kumelBodyguard_*" />
+					</or>
+				</not>
+			</selectors>
+			<operations>
+				<addRole name="STRAZ_KUTNA_HORA" />
+			</operations>
+		</rule>
+		<rule name="hostinaProChude_bailiff">
+			<selectors>
+				<hasName name="kkut_andreas" />
+			</selectors>
+			<operations>
+				<addRole name="RYCHTAR_PLUMEL_KUTNA_HORA" />
+			</operations>
+		</rule>
+		<rule name="hostinaProChude_obchodnikSeZelim">
+			<selectors>
+				<hasName name="ksta_man_5" />
+			</selectors>
+			<operations>
+				<addRole name="OBCHODNIK_SE_ZELIM" />
+			</operations>
+		</rule>
+		
+		<rule name="hostinaProChude_katerina">
+			<selectors>
+				<hasName name="ttro_katerina" />
+			</selectors>
+			<operations>
+				<addRole name="KATERINA" />
+			</operations>
+		</rule>
+    </rules>
+</storm>

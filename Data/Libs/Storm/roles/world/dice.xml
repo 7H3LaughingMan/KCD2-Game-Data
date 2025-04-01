@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<!DOCTYPE storm SYSTEM "../storm.dtd">
+<storm>
+  <!-- 
+  selector is in storm/common/base.xml 
+  operations are in storm/common/roles_operations.xml
+  -->
+  <rules>
+    <rule name="dice_man">
+      <selectors>
+        <tavern_dice_general />
+        <isMan />
+      </selectors>
+      <operations>
+        <addDiceRoles_man />
+      </operations>
+    </rule>
+
+    <rule name="dice_woman">
+      <selectors>
+        <tavern_dice_general />
+        <isWoman />
+      </selectors>
+      <operations>
+           <addDiceRoles_woman />
+      </operations>
+    </rule>
+
+    <rule name="dice_bffs">
+      <selectors>
+          <isValidOpenworldNpc />
+          <hasVoice name="lukeDale" />
+      </selectors>
+      <operations>
+        <addDiceRoles_man_ingameBarksOnly/>
+      </operations>
+    </rule>
+  </rules>
+</storm>

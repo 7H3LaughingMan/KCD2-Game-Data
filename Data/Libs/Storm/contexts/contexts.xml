@@ -1,0 +1,674 @@
+<?xml version="1.0"?>
+<!DOCTYPE storm SYSTEM "storm.dtd">
+<storm>
+	<customSelectors>
+
+		<customSelector name="trosecko_civilians" mode="or">
+			<hasSocialClass name="villager" />
+			<hasSocialClass name="soldier" />
+			<hasSocialClass name="soldier_crimeAuthority" />
+			<hasSocialClass name="guard" />
+			<hasSocialClass name="guardLeader" />
+		</customSelector>
+		
+		<!--
+		{isLowClass,isLowClass,isUpperClass,isNobleClass} selectors are in Data/Libs/Storm/common/base.xml
+		-->
+		
+	</customSelectors>
+
+	<rules>
+
+		<rule name="contexts_playableButNotSonOfBlacksmith">
+			<selectors>
+	            <isPlayer />
+	            <not>
+	            	<isPlayerHenry />
+	            </not>
+			</selectors>
+			<operations>
+				<addContext name="minigame_disabledBlacksmithing"/>
+			</operations>
+		</rule>
+
+
+		<rule name="contexts_additionalPerceptionThreshold">
+			<selectors>
+				<isNotCinematic />
+	            <isNotPlayer />
+	            <isHuman />
+	            <isAlive />
+			</selectors>
+			<operations>
+				<addContext name="switch_recognizingThreshold"/>
+			</operations>
+		</rule>
+	
+		<rule name="enemies_neverAcceptSurrender">
+			<selectors>
+				<or>
+					<hasFaction name="kutnohorsko_enemies_cumans_relikviarVrchlickoCamp" />
+				</or>
+			</selectors>
+			<operations>
+				<addContext name="combat_neverAcceptSurrender"/>
+			</operations>
+		</rule>
+	
+		<rule name="contexts_punishmentMultiplier_negative">
+			<selectors>
+				<isLowClass/>
+			</selectors>
+			<operations>
+				<addContext name="crime_punishmentMultiplier_negative" />
+			</operations>
+		</rule>
+
+		<rule name="contexts_punishmentMultiplier_low">
+			<selectors>
+				<isMiddleClass/>
+			</selectors>
+			<operations>
+				<addContext name="crime_punishmentMultiplier_low" />
+			</operations>
+		</rule>
+
+		<rule name="contexts_punishmentMultiplier_high">
+			<selectors>
+				<isUpperClass/>
+			</selectors>
+			<operations>
+				<addContext name="crime_punishmentMultiplier_high" />
+			</operations>
+		</rule>
+
+		<rule name="contexts_punishmentMultiplier_veryHigh">
+			<selectors>
+				<or>
+					<isNobleClass/>
+					<!--  
+					KCD2-415449 - Laszlo is by lore a nobleman but because of his cuman social class there is too low a fine for his murder
+
+					Cuman voiceovers are closely tied to souls social class - the selector isCuman is used in 30 different role-assigning rules 
+					Making the voiceovers dependent on voices not social classes would be the clean way of solving this.
+					Unfortunately this bug came in 2024 and I deemed it too risky to refactor each of the 30 rules. 
+					I am truly sorry :(
+
+					Hence...
+					-->
+					<hasName name="kzik_laszlo" />
+				</or>
+			</selectors>
+			<operations>
+				<addContext name="crime_punishmentMultiplier_veryHigh" />
+			</operations>
+		</rule>
+
+		<rule name="contexts_reactToSmell">
+			<selectors>
+				<reactsToSmell/>				
+			</selectors>
+			<operations>
+				<addContext name="crime_canReactToSmell" />
+			</operations>
+		</rule>
+
+		<rule name="contexts_disableCheckHomeStashes">
+			<selectors>
+				<isNobleClass/>				
+			</selectors>
+			<operations>
+				<addContext name="crime_disableCheckHomeStashes" />
+			</operations>
+		</rule>
+
+		<rule name="contexts_authority">
+			<selectors>
+				<isAuthorityFigure />
+			</selectors>
+			<operations>
+				<addContext name="crime_isAuthority" />
+				<addContext name="AllowGenericRandomEventParticipation" />				
+				<addContext name="combat_neverSurrenderOrFlee" />
+			</operations>
+		</rule>
+
+		<rule name="contexts_frisk">
+			<selectors>
+				<isGuard/>
+			</selectors>
+			<operations>
+				<addContext name="crime_canFriskPlayer" />
+			</operations>
+		</rule>
+
+		<rule name="contexts_reactToMissingNpcVolume">
+			<selectors>
+				<or>
+					<isGuard/>
+					<isBailiff/>
+					<hasFactionLabel name="camp" />
+				</or>
+			</selectors>
+			<operations>
+				<addContextPreset name="crime_spawnAndReactToMissingVolume" />
+			</operations>
+		</rule>
+
+		<rule name="contexts_security" >
+			<selectors>
+				<hasSocialClass name="security" />
+			</selectors>
+			<operations>
+				<addContext name="crime_isSecurity" />
+				<addContext name="crime_isHelpingNonmates" />
+				<addContext name="combat_neverSurrenderOrFlee" />
+				<addContext name="combat_alwaysJoinSkirmish" />
+			</operations>
+		</rule>
+
+		<rule name="contexts_seller" >
+			<selectors>
+				<isValidOpenworldNpc />
+            	<isTrader />
+			</selectors>
+			<operations>
+				<addContext name="crime_reportToSecurity" />
+			</operations>
+		</rule>
+
+		<rule name="contexts_seller" >
+			<selectors>
+				<isValidOpenworldNpc />
+            	<isTrader />
+			</selectors>
+			<operations>
+				<addContext name="crime_reportToSecurity" />
+			</operations>
+		</rule>		
+
+		<!-- best friends forever -->
+		<rule name="contexts_bffs">
+			<selectors>
+				<isBFF />
+			</selectors>
+			<operations>
+				<addContextPreset name="crime_bestFriendsForever" />
+			</operations>
+		</rule>
+		
+		<!-- pretty good friends forever -->
+		<rule name="contexts_prettyGoodFriend">
+			<selectors>
+				<isPrettyGoodFriend />
+			</selectors>
+			<operations>
+				<addContextPreset name="crime_prettyGoodFriendsForever" />
+			</operations>
+		</rule>
+
+		<rule name="contexts_loners" >
+			<selectors>
+				<isLoner />
+			</selectors>
+			<operations>
+				<addContext name="crime_isLoner" />
+			</operations>
+		</rule>
+
+		<rule name="contexts_campers" >
+			<selectors>
+				<hasFactionLabel name="camp" />
+			</selectors>
+			<operations>
+				<addContext name="crime_isCamper" />				
+			</operations>
+		</rule>	
+
+		<rule name="contexts_publicFriends">
+			<selectors mode="and">
+				<isPublicFriend/>
+				<isMan/>
+				<isNotTest/>
+			</selectors>
+			<operations>
+				<addContext name ="combat_forceUnarmedWhileInUnarmedSkirmishAndHealthy"/>
+			</operations>
+		</rule>
+
+		<rule name="contexts_leader">
+			<selectors>
+				<isLeader/>
+			</selectors>
+			<operations>
+				<addContext name="combat_leader" />
+			</operations>
+		</rule>
+
+		<rule name="contexts_disableKeyGeneration">
+			<selectors>
+				<or>
+					<and>
+						<hasFactionLabel name="camp" />
+						<not>
+							<isLeader/>
+						</not>
+						<not>
+							<or>
+								<hasFaction name="trosecko_outskirts_romaniCamp"/>
+								<hasFaction name="trosecko_outskirts_charcoalburners_campVidlak"/>
+								<hasFaction name="trosecko_outskirts_woodcutters_campPodseminsko"/>
+								<hasFaction name="trosecko_outskirts_woodcutters_campPodseminsko2"/>
+								<hasName name="pytlakPtacek_poacher_1"/>
+								<hasName name="tvez_man_23"/>
+							</or>
+						</not>
+					</and>
+					<isDead/>
+					<hasFaction name="kutnohorsko_settlements_kutnaHora_commonFolk_peasants_havirska_beggars"/>
+				</or>
+			</selectors>
+			<operations>
+				<addContext name="crime_disableKeyGeneration" />
+			</operations>
+		</rule>
+
+		<rule name="contexts_cuman">
+			<selectors>
+				<or>
+					<hasSocialClass name="cuman" />
+					<hasSocialClass name="cumanLeader" />
+				</or>
+			</selectors>
+			<operations>
+				<addContext name="crime_isCuman" />
+			</operations>
+		</rule>
+
+		<rule name="contexts_courageness">
+			<selectors>
+				<isMan/>
+				<or>
+					<hasAttribute stat="courage" minValue="15" maxValue="30" />
+					<isPublicEnemy/>
+					<isSoldier />
+					<isHuntsman />
+				</or>
+			</selectors>
+			<operations>
+				<addContext name="crime_isCourageous" />
+			</operations>
+		</rule>
+
+		<rule name="contexts_publicEnemiesArrest">
+			<selectors>
+					<isPublicEnemy/>
+			</selectors>
+			<operations>
+				<addContext name="crime_useAttackForArrest" />
+			</operations>
+		</rule>
+
+		<rule name="contexts_zikmundsCampSoldiersSelfhelp">
+			<selectors>
+				<and>
+				<hasFaction name="kutnohorsko_settlements_zikmundovo_soldiers" />
+					<or>
+						<hasSocialClass name="bailiff" />
+						<hasSocialClass name="soldier" />
+						<hasSocialClass name="bandit" />
+						<hasSocialClass name="cuman" />
+						<hasSocialClass name="officer" />
+						<hasSocialClass name="poacher" />
+						<hasSocialClass name="mercenary" />
+						<hasSocialClass name="banditLeader" />
+						<hasSocialClass name="ruffianLeader" />
+					</or>
+				</and>
+			</selectors>
+			<operations>
+				<addContext name="combat_alwaysJoinSkirmish" />
+			</operations>
+		</rule>
+
+
+		<!--TO BE DELETED-->
+		<!--
+		<rule name="contexts_frisk_crimeTest">
+			<selectors>
+				<hasName name="ttro_man_35" />
+			</selectors>
+			<operations>
+				<addContext name="crime_canFriskPlayer" />
+			</operations>
+		</rule>
+		-->
+		
+		<rule name="contexts_frisk_crimeTest2">
+			<selectors>
+				<hasName name="test_crime_merchant_6" />
+			</selectors>
+			<operations>
+				<addContext name="switch_disabledPickpocketReaction" />
+				<addContext name="crime_ignoredPickpocket" />
+			</operations>
+		</rule>
+		
+		<rule name="enemies_neverAcceptSurrender">
+			<selectors>
+				<or>
+					<hasFaction name="kutnohorsko_enemies_cumans_relikviarVrchlickoCamp" />
+					<hasFaction name="trosecko_outskirts_romaniCamp_commonFolk_cumans" />
+				</or>
+			</selectors>
+			<operations>
+				<addContext name="combat_neverSurrenderOrFlee"/>
+			</operations>
+		</rule>
+
+		<rule name="contexts_sellingToBranded">
+			<selectors>
+				<or>
+					<hasName name="ksed_man_3" />
+					<hasName name="tvez_mikolaj" />
+				</or>
+			</selectors>
+			<operations>
+				<addContext name="crime_shopkeeperIgnorePlayerBrand" />
+			</operations>
+		</rule>		
+		
+		<!-- TEST ONLY -->
+		<rule name="contexts_campers">
+			<selectors>
+				<isTest/>
+				<hasName name="test_crime_bandit_*" />
+			</selectors>
+			<operations>
+				<addContext name="crime_isCamper" />
+				<addContext name="crime_spawnMissingNpcVolume" />
+				<addContext name="crime_reactToMissingNpcVolume" />
+			</operations>
+		</rule>	
+		
+		<rule name="contexts_combatTestNPCs">
+			<selectors>
+				<or>
+				<hasName name="test_battle_NPC1" />
+				<hasName name="test_battle_NPC2" />
+				<hasName name="test_battle_NPC3" />
+				</or>
+			</selectors>
+			<operations>
+				<addContext name="combat_alwaysJoinSkirmish" />
+			</operations>
+		</rule>	
+
+		<rule name="contexts_friendlyCampers">
+			<selectors>
+				<hasName name="test_crime_camper_*" />
+			</selectors>
+			<operations>
+				<addContext name="crime_isCamper" />
+			</operations>
+		</rule>	
+
+		<rule name="contexts_test_loners">
+			<selectors>
+				<isTest/>
+				<hasName name="test_crime_loner_*" />
+			</selectors>
+			<operations>
+				<addContext name="crime_isLoner" />
+			</operations>
+		</rule>	
+		<rule name="contexts_test_guards">
+			<selectors>
+				<isTest/>
+				<hasName name="test_crime_guard_*" />
+			</selectors>
+			<operations>
+				<addContext name="crime_isAuthority" />
+				<addContext name="AllowGenericRandomEventParticipation" />
+				<addContext name="crime_punishmentMultiplier_high"/>
+				<addContext name="crime_canFriskPlayer" />
+				<addContext name="combat_neverSurrenderOrFlee" />
+			</operations>
+		</rule>	
+
+		<rule name="contexts_everybodyCrime">
+			<selectors>
+				<isTest/>
+				<hasName name="test_crime_*" />
+			</selectors>
+			<operations>
+				<addContext name="crime_resetsReputation" />
+			</operations>
+		</rule>
+
+
+		<!-- GAMEKEEPER STUFF -->
+		<rule name="contexts_isGameKeeper">
+			<selectors>
+				<hasSocialClass name="huntsman_crimeAuthority" />
+			</selectors>
+			<operations>
+				<addContext name="crime_isGameKeeper" />
+			</operations>
+		</rule>
+		
+		<!-- SkillTeacher flavor hunting -->
+		<rule name="survivalFlavor_hunting">
+			<selectors>
+				<or>
+				<hasName name="tvid_huntsman" />
+				<hasName name="tvid_huntsmansSon" />
+				<hasName name="tvez_tibor" />
+				</or>
+			</selectors>
+			<operations>
+				<addContext name="skillTeachers_survivalFlavor_hunting" />
+			</operations>
+		</rule>	
+
+		<!-- SkillTeacher flavor herbalism -->
+		<rule name="survivalFlavor_herbalism">
+			<selectors>
+				<or>
+					<hasName name="kgru_bathmaid_2"/>
+					<hasName name="tvez_aranka"/>
+					<hasName name="tzel_woman_6"/>
+					<hasName name="tkop_barnabas"/>
+					<hasName name="tzel_fiala"/>
+					<hasName name="tvez_bozena"/>
+					<hasName name="tvez_pavlena"/>
+					<hasName name="ttkc_emerich"/>
+					<hasName name="kkut_havel"/>
+					<hasName name="ksuc_man_11"/>  <!-- hospodsky slivka -->
+					<hasName name="krat_fararHroznata"/>
+				</or>
+			</selectors>
+			<operations>
+				<addContext name="skillTeachers_survivalFlavor_herbalism"/>
+			</operations>
+		</rule>
+		
+		<!-- SkillTeacher flavor maintenance -->
+		<rule name="craftsmanshipFlavor_maintenance">
+			<selectors>
+				<or>
+					<hasName name="kgru_bathmaid_2"/>
+					<hasName name="tzel_woman_6"/>
+					<hasName name="kkut_frantisek"/>
+					<hasName name="kbyl_mikus"/>
+					<hasName name="tsem_man_2"/>
+					<hasName name="ttkc_bartosek"/>
+					<hasName name="kkut_jimram"/>
+					<hasName name="kkut_vazoun"/>
+					<hasName name="tzel_olbram"/>
+					<hasName name="kkut_holec"/>
+					<hasName name="kpri_krizan"/>
+					<hasName name="kkut_linhart"/>
+					<hasName name="kmal_hastal"/>
+				</or>
+			</selectors>
+			<operations>
+				<addContext name="skillTeachers_craftsmanshipFlavor_maintenance"/>
+			</operations>
+		</rule>
+		
+		<!-- SkillTeacher flavor blacksmithing -->
+		<rule name="craftsmanshipFlavor_blacksmithing">
+			<selectors>
+				<or>
+					<hasName name="kgru_zdimir"/>
+					<hasName name="kmis_marta"/>
+					<hasName name="kmis_man_14"/>
+					<hasName name="ttac_blacksmith"/>
+					<hasName name="kkut_prokopEldris"/>
+					<hasName name="kkut_krondel"/>
+					<hasName name="kkut_man_241"/>
+					<hasName name="kgru_vokrak"/>
+				</or>
+			</selectors>
+			<operations>
+				<addContext name="skillTeachers_craftsmanshipFlavor_blacksmithing"/>
+			</operations>
+		</rule>
+
+		<!-- Souls that don't comment on player's horse-->
+		
+		<rule name="contexts_dontCommentPlayersHorse">
+			<selectors>
+				<or>
+					<hasSocialClass name="horsetrader" />
+				</or>
+			</selectors>
+			<operations>
+				<addContext name="crime_dontCommentPlayersHorse" />
+			</operations>
+		</rule>
+
+		<rule name="contexts_deadBodies">
+			<selectors>
+				<isDead/>
+			</selectors>
+			<operations>
+				<addContext name="crime_deadBody" />
+			</operations>
+		</rule>
+		
+		<rule name="contexts_disabledInformationBroadcast">
+			<selectors>
+				<not>
+				 	<hasFactionLabel name="settlement" />
+				</not>
+			</selectors>
+			<operations>
+				<addContext name="crime_skipInformationBroadcast" />
+			</operations>
+		</rule>		
+
+		<!-- #KCD2-362792 -->
+		<rule name="contexts_horseHandlers">
+			<selectors>
+				<or>
+					<hasName name="tvez_mikolaj"/>
+					<hasName name="ksed_man_3"/>
+				</or>
+			</selectors>
+			<operations>
+				<addContext name="switch_isHorseHandler" />
+			</operations>
+		</rule>		
+
+		<!-- Voice over characteristics -->
+		<rule name="contexts_voiceGerman">
+			<selectors>
+				<isGerman />
+			</selectors>
+			<operations>
+				<addContext name="vo_german" />
+			</operations>
+		</rule>			
+		<rule name="contexts_voiceAncient">
+			<selectors>
+				<isAncient />
+			</selectors>
+			<operations>
+				<addContext name="vo_ancient" />
+			</operations>
+		</rule>
+
+		<rule name="contexts_voiceJewish">
+			<selectors>
+				<isJewish />
+			</selectors>
+			<operations>
+				<addContext name="vo_jewish" />
+			</operations>
+		</rule>
+		
+		<rule name="context_fleeOnDrawnWeapon">
+			<selectors>	
+				<isMan/>	
+				<isPublicFriend />
+				<not>
+					<or>
+						<isSoldier />
+						<isLoner />
+					</or>
+				</not>
+			</selectors>
+			<operations>
+				<addContext name="combat_fleeOnDrawnWeaponInUnarmedCombat" />
+			</operations>
+		</rule>
+
+		<rule name="contexts_noble_autoWash">
+			<selectors>
+					<or>
+						<hasSocialClass name="nobleman"/>
+						<hasFaction name="trosecko_settlements_troskovice_nobility"/>
+						<hasFaction name="kutnohorsko_settlements_suchdol_nobility"/>
+						<hasFaction name="kutnohorsko_settlements_bylany_nobility"/>
+						<hasFaction name="kutnohorsko_settlements_ratboricko_nobility"/>
+						<hasFaction name="kutnohorsko_settlements_vysoka_nobility"/>
+						<hasFaction name="kutnohorsko_settlements_pecky_nobility"/>
+						<hasFaction name="kutnohorsko_settlements_zikmundovo_nobility"/>
+						<hasFaction name="kutnohorsko_settlements_grunta_nobility"/>
+						<hasFaction name="kutnohorsko_settlements_pritoky_nobility"/>
+						<hasFaction name="kutnohorsko_settlements_staraKutna_nobility"/>
+						<hasFaction name="kutnohorsko_settlements_kutnaHora_nobility"/>
+						<hasFaction name="kutnohorsko_settlements_miskovice_nobility"/>
+						<hasFaction name="trosecko_settlements_trosky_nobility"/>
+						<hasFaction name="trosecko_settlements_semin_nobility"/>
+				</or>
+			</selectors>
+			<operations>
+				<addContext name="switch_static_periodicallyAutoWash" />
+			</operations>
+		</rule>
+
+		<rule name="contexts_bathhouse_nakedReaction">
+			<selectors>
+					<or>
+						<hasSocialClass name="bathhouseMaid"/>
+						<hasSocialClass name="bathhouseAbbess"/>
+				</or>
+			</selectors>
+			<operations>
+				<addContext name="speech_disableNakedPlayerReactionsForNPC" />
+			</operations>
+		</rule>
+		<rule name="not_surrendering_event_cumans">
+			<selectors>
+				<isEventNPC/>
+				<isCuman/>
+			</selectors>
+			<operations>
+				<addContext name="combat_neverMercyAlwaysFlee" />
+			</operations>
+		</rule>	
+    </rules>
+</storm>

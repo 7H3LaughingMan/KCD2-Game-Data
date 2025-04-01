@@ -1,0 +1,107 @@
+<roadsideCorpseConfigurations>
+  <randomElements>
+    <element name="crime">
+      <probTable>
+        <cell outValue="theft" probability="0.333" />
+        <cell outValue="rape" probability="0.333" />
+        <cell outValue="poach" probability="0.333" />
+      </probTable>
+    </element>
+    <element name="murderer" dependency="crime">
+      <probTable>
+        <cell dependentValue="theft" outValue="thug"      probability="0.6" />
+        <cell dependentValue="theft" outValue="merchant"  probability="0.2" />
+        <cell dependentValue="theft" outValue="rogue"     probability="0.2" />
+        <cell dependentValue="rape"  outValue="thug"      probability="0.2" />
+        <cell dependentValue="rape"  outValue="merchant"  probability="0.6" />
+        <cell dependentValue="rape"  outValue="rogue"     probability="0.2" />
+        <cell dependentValue="poach" outValue="thug"      probability="0.2" />
+        <cell dependentValue="poach" outValue="merchant"  probability="0.2" />
+        <cell dependentValue="poach" outValue="rogue"     probability="0.6" />
+      </probTable>
+    </element>
+    <element name="reaction" dependency="crime">
+      <probTable>
+        <cell dependentValue="theft"  outValue="run"  probability="0.6" />
+        <cell dependentValue="theft"  outValue="hide" probability="0.1" />
+        <cell dependentValue="theft"  outValue="loot" probability="0.3" />
+        <cell dependentValue="rape"   outValue="run"  probability="0.6" />
+        <cell dependentValue="rape"   outValue="hide" probability="0.2" />
+        <cell dependentValue="rape"   outValue="loot" probability="0.2" />
+        <cell dependentValue="poach"  outValue="run"  probability="0.6" />
+        <cell dependentValue="poach"  outValue="hide" probability="0.2" />
+        <cell dependentValue="poach"  outValue="loot" probability="0.2" />
+      </probTable>
+    </element>
+    <element name="scene" dependency="reaction">
+      <probTable>
+        <cell dependentValue="run"  outValue="murderer/Spawn" probability="0.3" />
+        <cell dependentValue="run"  outValue="innocent/Spawn" probability="0.2" />
+        <cell dependentValue="run"  outValue="innocent/Loot"  probability="0.2" />
+        <cell dependentValue="run"  outValue="innocent/Hide"  probability="0.3" />
+        <cell dependentValue="hide" outValue="murderer/Hide"  probability="1" />
+        <cell dependentValue="loot" outValue="murderer/Loot"  probability="1" />
+      </probTable>
+    </element>
+    <element name="weapon" dependency="reaction">
+      <probTable>
+        <cell dependentValue="run"  outValue="drop"    probability="0.2" />
+        <cell dependentValue="run"  outValue="keep"    probability="0.7" />
+        <cell dependentValue="run"  outValue="despawn" probability="0.1" />
+        <cell dependentValue="hide" outValue="drop"    probability="0.7" />
+        <cell dependentValue="hide" outValue="keep"    probability="0.2" />
+        <cell dependentValue="hide" outValue="despawn" probability="0.1" />
+        <cell dependentValue="loot" outValue="drop"    probability="0.4" />
+        <cell dependentValue="loot" outValue="keep"    probability="0.4" />
+        <cell dependentValue="loot" outValue="despawn" probability="0.2" />
+      </probTable>
+    </element>
+    <element name="innocentNPC">
+      <probTable>
+        <cell outValue="thug"     probability="0.333" />
+        <cell outValue="merchant" probability="0.333" />
+        <cell outValue="rogue"    probability="0.333" />
+      </probTable>
+    </element>
+    <element name="innocentHasWeapon" dependency="weapon" >
+      <probTable>
+        <cell dependentValue="despawn" outValue="true"     probability="0.3" />
+        <cell dependentValue="despawn" outValue="false" probability="0.7" />
+				<cell dependentValue="keep" outValue="true"     probability="0.3" />
+				<cell dependentValue="keep" outValue="false" probability="0.7" />
+      </probTable>
+    </element>
+  <element name="responseHide" dependency="scene">
+    <probTable>
+      <cell dependentValue="innocent/Hide" outValue="confident"     probability="0.7" />
+      <cell dependentValue="innocent/Hide" outValue="nervous"     probability="0.3" />
+      <cell dependentValue="murderer/Hide" outValue="confident"     probability="0.3" />
+      <cell dependentValue="murderer/Hide" outValue="nervous"     probability="0.7" />
+    </probTable>
+  </element>
+  <element name="responseLoot" dependency="scene">
+    <probTable>
+      <cell dependentValue="innocent/Loot" outValue="confident"     probability="0.7" />
+      <cell dependentValue="innocent/Loot" outValue="nervous"     probability="0.3" />
+      <cell dependentValue="murderer/Loot" outValue="confident"     probability="0.3" />
+      <cell dependentValue="murderer/Loot" outValue="nervous"     probability="0.7" />
+    </probTable>
+  </element>
+    <element name="responseWeapon" dependency="scene">
+      <probTable>
+        <cell dependentValue="innocent/Hide" outValue="confident"     probability="0.7" />
+        <cell dependentValue="innocent/Hide" outValue="nervous"     probability="0.3" />
+        <cell dependentValue="innocent/Loot" outValue="confident"     probability="0.7" />
+        <cell dependentValue="innocent/Loot" outValue="nervous"     probability="0.3" />
+        <cell dependentValue="innocent/Spawn" outValue="confident"     probability="0.7" />
+        <cell dependentValue="innocent/Spawn" outValue="nervous"     probability="0.3" />
+        <cell dependentValue="murderer/Hide" outValue="confident"     probability="0.3" />
+        <cell dependentValue="murderer/Hide" outValue="nervous"     probability="0.7" />
+        <cell dependentValue="murderer/Loot" outValue="confident"     probability="0.3" />
+        <cell dependentValue="murderer/Loot" outValue="nervous"     probability="0.7" />
+        <cell dependentValue="murderer/Spawn" outValue="confident"     probability="0.3" />
+        <cell dependentValue="murderer/Spawn" outValue="nervous"     probability="0.7" />
+      </probTable>
+    </element>
+  </randomElements>
+</roadsideCorpseConfigurations>

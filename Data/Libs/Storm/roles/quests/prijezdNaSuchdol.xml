@@ -1,0 +1,81 @@
+<?xml version="1.0"?>
+<!DOCTYPE storm SYSTEM "!storm.dtd">
+<storm>
+	<rules>
+		<rule name="prijezdNaSuchdol_guardsCustomArrestRole">
+			<selectors>
+				<or>
+					<and>
+						<hasName name="ksuc_*" />
+						<or>
+							<hasSocialClass name="guard" />
+							<hasSocialClass name="soldier_crimeAuthority" />
+							<hasSocialClass name="guardLeader" />
+						</or>
+					</and>
+					<hasName name="ksuc_dobros" />
+					<hasName name="ksuc_frenczl" />
+				</or>
+			</selectors>
+			<operations>
+				<addRole name="CRIME_AUTORITA_SUCHDOL" />
+			</operations>
+		</rule>
+
+		<rule name="prijezdNaSuchdol_hejtmanSuchdol">
+			<selectors>
+				<hasName name="ksuc_frenczl" />
+			</selectors>
+			<operations>
+				<addRole name="HEJTMAN_SUCHDOL" />
+			</operations>
+		</rule>
+
+		<rule name="prijezdNaSuchdol_fortressBlacksmith">
+			<selectors>
+				<hasName name="ksuc_man_21" />
+			</selectors>
+			<operations>
+				<addRole name="KOVAR_M31" />
+			</operations>
+		</rule>
+			
+		<rule name="prijezdNaSuchdol_katerina">
+			<selectors>
+				<hasName name="ttro_katerina" />
+			</selectors>
+			<operations>
+				<addRole name="KATERINA" />
+				<addRole name="KATERINA1" />
+			</operations>
+		</rule>
+
+		<rule name="prijezdNaSuchdol_schovanka_suchdol">
+			<selectors>
+				<hasName name="ksuc_woman_16" />
+			</selectors>
+			<operations>
+				<addRole name="SCHOVANKA_SUCHDOL" />
+				<addRole name="LAZEBNICE_ZIZKA" />
+			</operations>
+		</rule>
+
+		<rule name="prijezdNaSuchdol_jost">
+			<selectors>
+				<hasName name="ksuc_jost" />
+			</selectors>
+			<operations>
+				<addRole name="MARKRABE_JOST" />
+			</operations>
+		</rule>
+
+		<rule name="prijezdNaSuchdol_atmosphereCartFarmer">
+			<selectors>
+				<hasName name="prijezdNaSuchdol_atmosphereCartFarmer" />
+			</selectors>
+			<operations>
+				<addRole name="VOZKA_M31" />
+			</operations>
+		</rule>
+    </rules>
+</storm>

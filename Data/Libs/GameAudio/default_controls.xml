@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="us-ascii"?>
+<ATLConfig atl_name="default_controls">
+	<AudioTriggers>
+		<ATLTrigger atl_name="fmodex_reset" />
+		<ATLTrigger atl_name="get_focus" />
+		<ATLTrigger atl_name="lose_focus" />
+		<ATLTrigger atl_name="mute_all" />
+		<ATLTrigger atl_name="unmute_all" />
+		<ATLTrigger atl_name="do_nothing" />
+		<ATLTrigger atl_name="audio_setup_fistfight" path="_system" />
+		<ATLTrigger atl_name="audio_setup_inventory_onepane" path="_system">
+			<FmodSnapshotAsEvent fmod_id="3208953" fmod_name="snapshot:/setups/setup_inventory_onepane" distance_culling="65535" sword_mat="-1" sword_mat_opponent="-1" />
+		</ATLTrigger>
+		<ATLTrigger atl_name="audio_setup_blackscreen" path="_system">
+			<FmodSnapshotAsEvent fmod_id="711681" fmod_name="snapshot:/setups/setup_blackscreen" distance_culling="65535" sword_mat="-1" sword_mat_opponent="-1" />
+		</ATLTrigger>
+		<ATLTrigger atl_name="audio_setup_combat" path="_system" />
+		<ATLTrigger atl_name="audio_setup_head_hit" path="_system">
+			<FmodEvent fmod_id="4163098" fmod_name="event:/special/player_hit_head" distance_culling="65535" osh_preset="-1" pausable="0" sword_mat="-1" sword_mat_opponent="-1" />
+		</ATLTrigger>
+		<ATLTrigger atl_name="audio_setup_menu" path="_system">
+			<FmodSnapshotAsEvent fmod_id="711686" fmod_name="snapshot:/setups/setup_main_menu" distance_culling="65535" sword_mat="-1" sword_mat_opponent="-1" />
+		</ATLTrigger>
+		<ATLTrigger atl_name="audio_setup_cutscene" path="_system">
+			<SqcVariable fmod_id="33000" fmod_name="cutscene:on" on_stop="cutscene:off" />
+			<FmodSnapshotAsEvent fmod_id="711682" fmod_name="snapshot:/setups/setup_cutscene" distance_culling="65535" sword_mat="-1" sword_mat_opponent="-1" />
+		</ATLTrigger>
+		<ATLTrigger atl_name="audio_setup_between_cutscenes" path="_system">
+			<SqcVariable fmod_id="112" fmod_name="silence_between_cutscenes:on" on_stop="silence_between_cutscenes:off" />
+		</ATLTrigger>
+		<ATLTrigger atl_name="audio_setup_skiptime" path="_system">
+			<SqcVariable fmod_id="113" fmod_name="skiptime:on" on_stop="skiptime:off" />
+			<FmodSnapshotAsEvent fmod_id="711687" fmod_name="snapshot:/setups/setup_skiptime" distance_culling="65535" sword_mat="-1" sword_mat_opponent="-1" />
+		</ATLTrigger>
+		<ATLTrigger atl_name="audio_setup_dialogue" path="_system">
+			<SqcVariable fmod_id="115" fmod_name="dialog:on" on_stop="dialog:off" />
+			<FmodSnapshotAsEvent fmod_id="711683" fmod_name="snapshot:/setups/setup_dialog" distance_culling="65535" sword_mat="-1" sword_mat_opponent="-1" />
+		</ATLTrigger>
+		<ATLTrigger atl_name="audio_setup_inventory" path="_system">
+			<FmodSnapshotAsEvent fmod_id="1308096" fmod_name="snapshot:/setups/setup_inventory" distance_culling="65535" sword_mat="-1" sword_mat_opponent="-1" />
+		</ATLTrigger>
+		<ATLTrigger atl_name="audio_setup_video" path="_system">
+			<SqcVariable fmod_id="118" fmod_name="silence:on" on_stop="silence:off" />
+			<SqcVariable fmod_id="119" fmod_name="min_age_silence_off:0" />
+			<FmodSnapshotAsEvent fmod_id="711688" fmod_name="snapshot:/setups/setup_video" distance_culling="65535" sword_mat="-1" sword_mat_opponent="-1" />
+		</ATLTrigger>
+		<ATLTrigger atl_name="audio_setup_alchemy" path="_system">
+			<SqcVariable fmod_id="123" fmod_name="alchemy:on" on_stop="alchemy:off" />
+		</ATLTrigger>
+		<ATLTrigger atl_name="audio_setup_hc_enabling" path="_system">
+			<SqcVariable fmod_id="125" fmod_name="silence_hc:on" on_stop="silence_hc:off" />
+			<FmodSnapshotAsEvent fmod_id="711684" fmod_name="snapshot:/setups/setup_hc_enabling" distance_culling="65535" sword_mat="-1" sword_mat_opponent="-1" />
+		</ATLTrigger>
+	</AudioTriggers>
+	<AudioRTPCs>
+		<ATLRtpc atl_name="object_speed" />
+	</AudioRTPCs>
+	<AudioSwitches>
+		<ATLSwitch atl_name="ObstrOcclCalcType">
+			<ATLSwitchState atl_name="Ignore">
+				<ATLSwitchRequest atl_name="ObstructionOcclusionCalculationType">
+					<ATLValue atl_name="ignore" />
+				</ATLSwitchRequest>
+			</ATLSwitchState>
+			<ATLSwitchState atl_name="MultiRay">
+				<ATLSwitchRequest atl_name="ObstructionOcclusionCalculationType">
+					<ATLValue atl_name="multi_ray" />
+				</ATLSwitchRequest>
+			</ATLSwitchState>
+			<ATLSwitchState atl_name="SingleRay">
+				<ATLSwitchRequest atl_name="ObstructionOcclusionCalculationType">
+					<ATLValue atl_name="single_ray" />
+				</ATLSwitchRequest>
+			</ATLSwitchState>
+		</ATLSwitch>
+		<ATLSwitch atl_name="environment_listener">
+			<ATLSwitchState atl_name="Dude">
+				<FmodExSwitch FMOD_name="EnvironmentListenerObject">
+					<FmodExSwitchState FMOD_name="dude" />
+				</FmodExSwitch>
+				<WhSwitch fmod_id="150" fmod_name="player_audio_object_hack" />
+				<WhSwitchState fmod_id="151" fmod_name="player_audio_object_hack:=this_is_player" />
+			</ATLSwitchState>
+		</ATLSwitch>
+		<ATLSwitch atl_name="1stOr3rdP">
+			<ATLSwitchState atl_name="1stP">
+				<FmodExSwitch FMOD_name="switch_firstperson_thirdperson">
+					<FmodExSwitchState FMOD_name="first_person" />
+				</FmodExSwitch>
+			</ATLSwitchState>
+			<ATLSwitchState atl_name="3rdP">
+				<FmodExSwitch FMOD_name="switch_firstperson_thirdperson">
+					<FmodExSwitchState FMOD_name="third_person" />
+				</FmodExSwitch>
+			</ATLSwitchState>
+		</ATLSwitch>
+		<ATLSwitch atl_name="object_velocity_tracking">
+			<ATLSwitchState atl_name="on">
+				<ATLSwitchRequest atl_name="object_velocity_tracking">
+					<ATLValue atl_name="on" />
+				</ATLSwitchRequest>
+			</ATLSwitchState>
+			<ATLSwitchState atl_name="off">
+				<ATLSwitchRequest atl_name="object_velocity_tracking">
+					<ATLValue atl_name="off" />
+				</ATLSwitchRequest>
+			</ATLSwitchState>
+		</ATLSwitch>
+		<ATLSwitch atl_name="cutscene_skipped_notification" path="system">
+			<ATLSwitchState atl_name="cutscene_skipped">
+				<WhSwitchState fmod_id="160" fmod_name="cutscene_skipped" />
+			</ATLSwitchState>
+			<ATLSwitchState atl_name="cutscene_not_skipped">
+				<WhSwitchState fmod_id="161" fmod_name="cutscene_not_skipped" />
+			</ATLSwitchState>
+		</ATLSwitch>
+	</AudioSwitches>
+</ATLConfig>

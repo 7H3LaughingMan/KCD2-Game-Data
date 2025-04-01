@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="us-ascii"?>
+<Prefab Id="c0a647ee-916c-45e4-b74a-0bc52b1e1bee">
+	<Objects>
+		<Object EntityClass="ActionTrigger" Id="32d5a3dd-89ad-4b58-ab3e-977be211aef7" Name="ActionTrigger" Pos="0.03439045,-0.03668213,0.4500999" Rotate="-4.371139e-08,0,0,1" Scale="0.135,0.135,0.135" Type="Entity">
+			<Properties bExported_to_game="1" bExported_to_test="1" bSaved_by_game="1" InteractorPriorityOverride="1">
+				<Click UseMessage="@ui_use_sit">
+					<Angle fAngleTolerance="90" />
+				</Click>
+			</Properties>
+			<EntityLinks>
+				<Link DebugTargetName="smartObject" TargetId="483df049-18f4-4dbc-aaae-54ca6f3450b5" />
+			</EntityLinks>
+		</Object>
+		<Object Id="3d756bbf-c08a-4a1e-b5a0-e0374edf21c8" Name="benchBrush" Pos="0.003490448,0.1664124,9.918213e-05" Prefab="Objects/manmade/common_furniture/benches/low/bench_shabby_c.cgf" Rotate="-4.371139e-08,-0,0,1" Type="Brush">
+			<CollisionFiltering>
+				<Type gcc_interactive="1" />
+			</CollisionFiltering>
+		</Object>
+		<Object EntityClass="StanceSmartObject" Id="483df049-18f4-4dbc-aaae-54ca6f3450b5" Name="smartObject" Pos="0,0.1664,0.0001" Rotate="4.371139e-08,0,0,1" Type="Entity">
+			<Properties bOwnedByHome="1" guidSmartObjectType="57cbebae-c19a-443b-8945-999d8ee87955" soclass_SmartObjectHelpers="Sit_1Place_Bench_Low_Table_BothBack" sWH_AI_EntityCategory="Seat">
+				<Bed esReadingQuality="bench_table" />
+				<Script esBedTypes="Chair" />
+			</Properties>
+			<EntityLinks>
+				<Link DebugTargetName="ActionTrigger" TargetId="32d5a3dd-89ad-4b58-ab3e-977be211aef7" />
+				<Link DebugTargetName="outPort_oppositeNeighbor" Name="oppositeNeighbor" TargetId="d3929cb5-bb1d-4c0e-9c87-331f49cae5e1" />
+				<Link DebugTargetName="smartObject" Name="withTable" TargetId="483df049-18f4-4dbc-aaae-54ca6f3450b5" />
+			</EntityLinks>
+		</Object>
+		<Object EntityClass="PrefabPort" Id="834d922f-ec56-4ac2-889b-60405f6f4ace" Name="port_benchEntity" Pos="0.003490448,-0.1664124,1.685631" Type="Entity">
+			<EntityLinks>
+				<Link DebugTargetName="smartObject" TargetId="483df049-18f4-4dbc-aaae-54ca6f3450b5" />
+			</EntityLinks>
+		</Object>
+		<Object EntityClass="GhostDummy" Id="89754850-9658-4723-b2d8-e915218da5ba" Name="sitting_table_idle_1" Pos="0,0.1663971,9.918213e-05" Rotate="4.371139e-08,0,0,1" Type="Entity">
+			<Properties object_Model="objects/intermediates/poses/sitting_table_idle_01.cgf" />
+		</Object>
+		<Object EntityClass="SchedulerHub" Id="c6468546-ca95-43bb-9627-af8df516c585" Name="hub" Pos="0.003490448,0.1664124,0.8835831" Type="Entity">
+			<EntityLinks>
+				<Link DebugTargetName="smartObject" Name="_use" TargetId="483df049-18f4-4dbc-aaae-54ca6f3450b5" />
+			</EntityLinks>
+		</Object>
+		<Object EntityClass="PrefabPort" Id="c9edac48-7f9c-4d9f-a1d8-84295bb5c267" Name="port_use" Pos="0.003490448,0.1541901,1.697544" Type="Entity">
+			<EntityLinks>
+				<Link DebugTargetName="hub" TargetId="c6468546-ca95-43bb-9627-af8df516c585" />
+			</EntityLinks>
+		</Object>
+		<Object EntityClass="PrefabPort" Id="d3929cb5-bb1d-4c0e-9c87-331f49cae5e1" Name="outPort_oppositeNeighbor" Pos="0.003490448,0.5108337,0.6016502" Type="Entity">
+			<Properties esPrefabPort_Type="Out" />
+		</Object>
+	</Objects>
+</Prefab>

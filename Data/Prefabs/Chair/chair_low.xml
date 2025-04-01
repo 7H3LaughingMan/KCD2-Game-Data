@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="us-ascii"?>
+<Prefab Id="db4ebe0c-6f9f-4f74-a462-771d9289720a">
+	<Tags>
+		<Tag>home</Tag>
+	</Tags>
+	<Objects>
+		<Object EntityClass="TagPoint" Id="03a23e82-f394-4642-9bb3-8260db859eeb" Name="chairPointIn" Pos="0,-0.3,0" Type="TagPoint" />
+		<Object EntityClass="GhostDummy" Id="353a6cc9-980e-4e3b-92c6-7a4e509bf6e4" Name="sitting_table_idle_3" Pos="-0.004989624,-0.3312836,0.001113892" Type="Entity">
+			<Properties object_Model="objects/intermediates/poses/sitting_table_idle_01.cgf" />
+		</Object>
+		<Object EntityClass="Chair" Id="4cfd117d-7c2d-4a1c-a9be-b9cf4d3b9bbd" Name="chairEntity" Pos="0,-0.3,0" Type="Entity">
+			<Properties object_Model="Objects/manmade/common_furniture/chairs/high/chair_rustic_b.cgf">
+				<Physics>
+					<CollisionFiltering>
+						<collisionType bT_gcc_interactive="1" />
+					</CollisionFiltering>
+				</Physics>
+			</Properties>
+		</Object>
+		<Object EntityClass="SchedulerHub" Id="6d1f1595-7e2c-4454-b157-17ee23561918" Name="hub" Pos="-0.02108002,-0.2581024,1.208412" Type="Entity">
+			<EntityLinks>
+				<Link DebugTargetName="smartObject" Name="_use" TargetId="cd35945c-acbe-42a0-8a29-7309e9ab69cb" />
+			</EntityLinks>
+		</Object>
+		<Object EntityClass="TagPoint" Id="850cb8bc-b943-473b-96e2-36f2ce29759d" Name="chairPointOut" Pos="0,-0.3,0" Type="TagPoint" />
+		<Object EntityClass="PrefabPort" Id="b0af31e6-31d6-49fc-8f1c-4409050deb98" Name="outPort_oppositeNeighbor" Pos="-7.629395e-06,-0.741272,0.6621208" Type="Entity">
+			<Properties esPrefabPort_Type="Out" />
+		</Object>
+		<Object EntityClass="PrefabPort" Id="b84441ae-74de-4584-a083-2733544e21e0" Name="port_chairEntity" Pos="-7.629395e-06,0.1490479,2.288982" Type="Entity">
+			<EntityLinks>
+				<Link DebugTargetName="smartObject" TargetId="cd35945c-acbe-42a0-8a29-7309e9ab69cb" />
+			</EntityLinks>
+		</Object>
+		<Object EntityClass="ActionTrigger" Id="c9ea6fe3-9a93-457e-b8d8-122638c3d297" Name="ActionTrigger2" Pos="-0.03903961,0.03901672,0.4503784" Scale="0.135,0.135,0.135" Type="Entity">
+			<Properties InteractorPriorityOverride="1">
+				<Click UseMessage="@ui_use_sit" />
+			</Properties>
+			<EntityLinks>
+				<Link DebugTargetName="smartObject" TargetId="cd35945c-acbe-42a0-8a29-7309e9ab69cb" />
+			</EntityLinks>
+		</Object>
+		<Object EntityClass="StanceSmartObject" Id="cd35945c-acbe-42a0-8a29-7309e9ab69cb" Name="smartObject" Pos="0,-0.3,0" Type="Entity">
+			<Properties guidSmartObjectType="57cbebae-c19a-443b-8945-999d8ee87955" soclass_SmartObjectHelpers="Sit_1Place_Chair_Low" sWH_AI_EntityCategory="SeatChair">
+				<Bed esReadingQuality="bench_notable" />
+				<Script esBedTypes="Chair" />
+			</Properties>
+			<EntityLinks>
+				<Link DebugTargetName="chairEntity" Name="attachable" TargetId="4cfd117d-7c2d-4a1c-a9be-b9cf4d3b9bbd" />
+				<Link DebugTargetName="ActionTrigger2" TargetId="c9ea6fe3-9a93-457e-b8d8-122638c3d297" />
+				<Link DebugTargetName="outPort_oppositeNeighbor" Name="oppositeNeighbor" TargetId="b0af31e6-31d6-49fc-8f1c-4409050deb98" />
+				<Link DebugTargetName="chairPointOut" Name="chairPointOut" TargetId="850cb8bc-b943-473b-96e2-36f2ce29759d" />
+				<Link DebugTargetName="chairPointIn" Name="chairPointIn" TargetId="03a23e82-f394-4642-9bb3-8260db859eeb" />
+			</EntityLinks>
+		</Object>
+		<Object EntityClass="PrefabPort" Id="eca0e6c9-1746-4431-a975-2063ef85cbc9" Name="port_use" Pos="-7.629395e-06,-0.2562561,2.277786" Type="Entity">
+			<EntityLinks>
+				<Link DebugTargetName="hub" TargetId="6d1f1595-7e2c-4454-b157-17ee23561918" />
+			</EntityLinks>
+		</Object>
+	</Objects>
+</Prefab>

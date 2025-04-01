@@ -1,0 +1,94 @@
+<UIElements name="Editor">
+
+  <UIElement name="ApseMapLegendList" lazy_update="0" mouseevents="1" cursor="0" controller_input="1">
+
+    <GFx file="ApseMapLegendList.gfx" layer="0">
+      <Constraints>
+        <Align mode="fixdyntexsize" valign="center" halign="center" scale="1" screen_resize="1"/>
+        <Position width="1024" height="2048"/>
+      </Constraints>
+    </GFx>
+    <!-- editor mode -->
+    <functions>
+      <function name="Activate" funcname="fc_activate">
+        <param name="Animate" desc="" type="boolean"/>
+      </function>
+      <function name="Deactivate" funcname="fc_deactivate">
+        <param name="Animate" desc="" type="boolean"/>
+      </function>
+
+      <function name="GetFocusedItem" funcname="fc_getFocusedItem" />
+
+      <function name="FocusPrev" funcname="fc_focusPrev" />
+      <function name="FocusNext" funcname="fc_focusNext" />
+      <function name="ToggleExpand" funcname="fc_toggleExpand" />
+      
+      <function name="SetMapLegendItems" funcname="fc_setItems" />
+      <function name="Clear" funcname="fc_clear" />
+
+      <function name="SetItemVisibility" funcname="fc_setItemVisibility" >
+        <param name="ItemName" desc="" type="string"/>
+        <param name="Visibility" desc="" type="bool"/>
+      </function>
+      <function name="SetAllItemsVisibility" funcname="fc_setAllItemsVisibility" >
+        <param name="Visibility" desc="" type="bool"/>
+      </function>
+
+      <function name="LeftDoubleClick" funcname="fc_leftDoubleClick">
+        <param name="ClientId" desc="" type="int"/>
+      </function>
+
+      <!-- user config -->
+      <function name="SetUserConfig" funcname="fc_setUserConfig">
+        <param name="Tab" desc="" type="int"/>
+        <param name="Sort" desc="" type="int"/>
+        <param name="Heading" desc="" type="bool"/>
+        <param name="FocusId" desc="" type="string"/>
+      </function>
+
+      <function name="GetCurrentTab" funcname="fc_getCurrentTab" />
+      <function name="GetCurrentSort" funcname="fc_getCurrentSort" />
+      <function name="GetCurrentHeading" funcname="fc_getCurrentHeading" />
+    
+    </functions>
+
+   <events>
+      <!-- Audio -->
+			<event name="OnPlayAudio" fscommand="onPlayAudio" desc="execute global audio trigger">
+				<param name="TriggerName" desc="" type="string"/>
+			</event>
+
+			<event name="OnStopAudio" fscommand="onStopAudio" desc="stop global audio trigger">
+				<param name="TriggerName" desc="" type="string"/>
+			</event>
+
+			<event name="OnSetVolumeAudio" fscommand="onSetVolumeAudio" desc="set volume via rtpc">
+				<param name="TriggerName" desc="" type="string"/>
+				<param name="Volume" desc="" type="float"/>
+      </event>
+
+      <!-- Custom events -->
+      <event name="OnFocusChanged" fscommand="onFocusChanged" desc="" >
+				<param name="Ids" desc="one or more id if item is stacked in flash" type="string"/>
+        <param name="IsExpandable" desc="item has childreen" type="bool"/>
+        <param name="IsExpand" desc="item is currently in state expand" type="bool"/>
+        <param name="ClientId" desc="" type="int"/>
+      </event>
+
+      <event name="OnDoubleClicked" fscommand="onDoubleClicked" desc="" >
+				<param name="Ids" desc="one or more id if item is stacked in flash" type="string"/>
+        <param name="ClientId" desc="" type="int"/>
+      </event>
+
+    </events>
+
+    <arrays>
+      <array name="MapLegendItems" varname="g_ItemsA" />
+    </arrays>
+
+	<MovieClips>
+	</MovieClips>
+
+  </UIElement>
+
+</UIElements>

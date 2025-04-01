@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="us-ascii"?>
+<Prefab Id="b6410dc0-71a9-45a2-bde6-2a634fdce2bd">
+	<Objects>
+		<Object EntityClass="WHCartMountPoint" Id="0cd7b325-d253-4d6a-b0c9-5d2bfc2739ec" Material="materials/special/nodraw" Name="MountPointBack" Parent="43a35f15-d232-4d63-8d49-a0813e0c5584" Pos="-0.01662415,0.8249779,-0.009906769" Rotate="-0.008726443,0,0,0.9999619" Type="Entity" />
+		<Object EntityClass="PrefabPort" Id="1802d5aa-3cb2-40de-ace5-64b064544c1e" Name="outPort_path" Pos="0.699028,-2.656517,0.5102997" Type="Entity">
+			<Properties esForwardedLinkName="Source" esPrefabPort_Type="Out" />
+		</Object>
+		<Object EntityClass="PrefabPort" Id="208a722a-a95d-429e-920c-a0f625541c18" Name="outPort_caravanaLeader" Pos="0.699028,-2.067314,0.5102997" Type="Entity">
+			<Properties esPrefabPort_Type="Out" />
+		</Object>
+		<Object EntityClass="SchedulerHub" Id="221ac75c-389e-4e35-a8d5-81b1adc8b8b0" Name="cart_user_hub" Pos="0.5522461,-1.304983,0.527873" Rotate="0.8038569,0,0,0.5948227" Type="Entity">
+			<EntityLinks>
+				<Link DebugTargetName="WHCart" Name="_driver|,cart_driver" TargetId="43a35f15-d232-4d63-8d49-a0813e0c5584" />
+				<Link DebugTargetName="WHCart" Name="_passenger|,cart_passenger" TargetId="43a35f15-d232-4d63-8d49-a0813e0c5584" />
+				<Link DebugTargetName="WHCart" Name="_horse|,cart_horse" TargetId="43a35f15-d232-4d63-8d49-a0813e0c5584" />
+				<Link DebugTargetName="WHCart" Name="_accompany|,cart_accompany" TargetId="43a35f15-d232-4d63-8d49-a0813e0c5584" />
+			</EntityLinks>
+		</Object>
+		<Object EntityClass="GeomEntity" Geometry="objects/manmade/vehicles/carts/cart_b_wheel_right.cgf" Id="2e2f365d-99af-48f1-8b05-8ba63f059000" Name="wheel_fr" Parent="bb89b706-510a-4121-aa40-2ec6629fddd2" Pos="0.8101074,-0.1177221,0.6357224" Type="GeomEntity">
+			<Properties bInteractiveCollisionClass="1" />
+		</Object>
+		<Object EntityClass="TagPoint" Id="40c0c753-fc87-4dd0-9c99-37ead16dace7" Name="accompanyTarget" Pos="0.04363081,-2.82206,0.09587669" Rotate="0.9996573,0,0,-0.02617699" Type="TagPoint" />
+		<Object EntityClass="WHCart" Id="43a35f15-d232-4d63-8d49-a0813e0c5584" Name="WHCart" Parent="bb89b706-510a-4121-aa40-2ec6629fddd2" Pos="0.08606005,0.168047,-0.04965591" Rotate="0.9998477,-0.01745241,1.677799e-10,-1.117823e-08" Type="Entity">
+			<Properties guidSmartObjectType="cbbbbbdb-df9e-41b5-8fed-783b4372e15c" sCartType="twoWheeled" soclass_SmartObjectHelpers="Cart2" />
+			<EntityLinks>
+				<Link DebugTargetName="outPort_caravanaLeader" TargetId="208a722a-a95d-429e-920c-a0f625541c18" />
+				<Link DebugTargetName="outPort_path" Name="path" TargetId="1802d5aa-3cb2-40de-ace5-64b064544c1e" />
+				<Link DebugTargetName="accompanyTarget" Name="accompany_target" TargetId="40c0c753-fc87-4dd0-9c99-37ead16dace7" />
+			</EntityLinks>
+		</Object>
+		<Object EntityClass="PrefabPort" Id="5df23826-8c7d-4f3e-a17e-eae9ed79fd4f" Name="port_user" Pos="-0.606102,-2.165611,0.5102997" Type="Entity">
+			<EntityLinks>
+				<Link DebugTargetName="WHCart" Name="carts_user" TargetId="43a35f15-d232-4d63-8d49-a0813e0c5584" />
+			</EntityLinks>
+		</Object>
+		<Object EntityClass="PrefabPort" Id="98ab6a09-2469-4309-8c98-6583b99f020c" Name="port_userScheduler" Pos="-0.606102,-1.73204,0.5102997" Type="Entity">
+			<EntityLinks>
+				<Link DebugTargetName="cart_user_hub" TargetId="221ac75c-389e-4e35-a8d5-81b1adc8b8b0" />
+			</EntityLinks>
+		</Object>
+		<Object EntityClass="GeomEntity" Geometry="objects/manmade/vehicles/carts/cart_b_wheel_left.cgf" Id="b7a8a53a-1d59-4b10-a5f4-5f63c6a9717c" Name="wheel_fl" Parent="bb89b706-510a-4121-aa40-2ec6629fddd2" Pos="-0.7781366,-0.1177266,0.6357222" Type="GeomEntity">
+			<Properties bInteractiveCollisionClass="1" />
+		</Object>
+		<Object EntityClass="GeomEntity" Geometry="objects/manmade/vehicles/carts/cart_b_front_part.cgf" Id="bb89b706-510a-4121-aa40-2ec6629fddd2" Name="frontPart" Pos="-0.08605957,-0.1696777,0.04376221" Rotate="0.9998477,0.01745241,5.366021e-11,3.07419e-09" Type="GeomEntity">
+			<Properties bInteractiveCollisionClass="1" />
+		</Object>
+		<Object EntityClass="ParticleEffect" Id="be6eb65d-1e46-4de8-ad47-8eb016db452a" Name="particle_wheel_left_front" Parent="bb89b706-510a-4121-aa40-2ec6629fddd2" Pos="-0.7616405,-0.1400576,0.006729126" Rotate="0.7193399,0.6946583,-1.327351e-10,-4.288668e-09" Type="ParticleEntity">
+			<Properties bActive="0" ParticleEffect="WH_Particels.other.wagon_wheel" />
+		</Object>
+		<Object EntityClass="WHCartMountPoint" Id="d7db8987-ab5e-4afe-b1a0-5f50c83b0537" Material="materials/special/nodraw" Name="MountPointFront" Parent="43a35f15-d232-4d63-8d49-a0813e0c5584" Pos="0.01973511,2.116768,-0.3452492" Rotate="0.7071067,0,0,-0.7071068" Type="Entity" />
+		<Object EntityClass="PrefabPort" Id="e36a9a4a-785e-4c6c-86a6-ba1b34195e33" Name="port_caravanaSlave" Pos="-0.606102,-2.638809,0.5102997" Type="Entity">
+			<EntityLinks>
+				<Link DebugTargetName="WHCart" Name="carts_wagonSlave" TargetId="43a35f15-d232-4d63-8d49-a0813e0c5584" />
+			</EntityLinks>
+		</Object>
+		<Object EntityClass="ParticleEffect" Id="ff996e11-3968-4397-99a4-829265a70bf1" Name="particle_wheel_right_front" Parent="bb89b706-510a-4121-aa40-2ec6629fddd2" Pos="0.7910442,-0.140213,0.002355576" Rotate="0.7193399,0.6946583,-1.327351e-10,-4.288668e-09" Type="ParticleEntity">
+			<Properties bActive="0" ParticleEffect="WH_Particels.other.wagon_wheel" />
+		</Object>
+	</Objects>
+</Prefab>

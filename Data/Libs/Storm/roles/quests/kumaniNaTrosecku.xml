@@ -1,0 +1,327 @@
+<?xml version="1.0"?>
+<!DOCTYPE storm SYSTEM "../../storm.dtd">
+<storm>
+	<rules>
+
+		<!-- TIPSTERS -->
+
+		<rule name="kumaniNaTrosecku_smith">
+			<selectors>
+				<hasName name="ttac_blacksmith" />
+			</selectors>
+			<operations>
+				<addRole name="KOVAR_TACHOV" />
+				<addRole name="QUEST_TIPSTER_KUMANI_KOVAR_RADOVAN" />
+			</operations>
+		</rule>
+		<rule name="kumaniNaTrosecku_miller">
+			<selectors>
+				<hasName name="tpod_krejzl" />
+			</selectors>
+			<operations>
+				<addRole name="MLYNAR_KREJZL" />
+				<addRole name="QUEST_TIPSTER_KUMANI_MLYNAR_KREJZL" />
+			</operations>
+		</rule>
+
+		<!-- NOMADS -->
+
+		<rule name="kumaniNaTrosecku_jealousMan">
+			<selectors>
+				<hasName name="tvez_man_2" />
+			</selectors>
+			<operations>
+				<addRole name="ZARLIVY_KOCOVNIK_TABOR" />
+				<addRole name="KUMANI_NA_TROSECKU_ZARLIVY_KOCOVNIK_MLUVI_V_BOJI" />
+			</operations>
+		</rule>
+		<rule name="kumaniNaTrosecku_vajda">
+			<selectors>
+				<hasName name="tvez_vajda" />
+			</selectors>
+			<operations>
+				<addRole name="VAJDA" />
+			</operations>
+		</rule>
+		<rule name="kumaniNaTrosecku_aranka">
+			<selectors>
+				<hasName name="tvez_aranka" />
+			</selectors>
+			<operations>
+				<addRole name="ARANKA" />
+			</operations>
+		</rule>
+		<rule name="kumaniNaTrosecku_nomadWoman">
+			<selectors>
+				<livesInNomadCamp_nomad />
+				<isWoman />
+				<not>
+					<or>
+						<hasName name="tvez_aranka" />
+						<hasName name="tvez_woman_2" />
+						<hasName name="tvez_concubine" />
+					</or>
+				</not>
+			</selectors>
+			<operations>
+				<addRole name="OBECNE_O_KUMANECH_KOCOVNICE" />
+			</operations>
+		</rule>
+		<rule name="kumaniNaTrosecku_nomadMan">
+			<selectors>
+				<livesInNomadCamp_nomad />
+				<isMan />
+				<not>
+					<hasName name="tvez_vajda" />
+				</not>
+			</selectors>
+			<operations>
+				<addRole name="OBECNE_O_KUMANECH_KOCOVNIK" />
+			</operations>
+		</rule>
+
+		<!-- SEMIN -->
+
+		<rule name="kumaniNaTrosecku_seminMenNotKnowingCumanCamp">
+			<selectors mode="and">
+				<livesInSemin />
+				<isMan />
+				<not>
+					<or>
+						<hasName name="tsem_seminsr" />
+						<hasName name="tsem_seminjr" />
+						<hasName name="tsem_suk" />
+						<hasName name="tsem_nechuta" />
+					</or>
+				</not>
+			</selectors>
+			<operations>
+				<addRole name="MUZ_O_KUMANECH_SEMIN" />
+				<addRole name="OBECNY_DIALOG_O_KUMANECH_SEMIN_MUZ" />
+			</operations>
+		</rule>
+		<rule name="kumaniNaTrosecku_seminWomenNotKnowingCumanCamp">
+			<selectors>
+				<livesInSemin />
+				<isWoman />
+			</selectors>
+			<operations>
+				<addRole name="ZENA_O_KUMANECH_SEMIN" />
+				<addRole name="OBECNY_DIALOG_O_KUMANECH_SEMIN_ZENA" />
+			</operations>
+		</rule>
+		<rule name="kumaniNaTrosecku_seminOld">
+			<selectors>
+				<hasName name="tsem_seminsr" />
+			</selectors>
+			<operations>
+				<addRole name="SEMIN" />
+				<addRole name="MUZ_NAVADI_JINDRU_NA_KORENARKU_NEBO_PASTEVCE_KUMANI_NA_TROSECKU" />
+			</operations>
+		</rule>
+		<rule name="kumaniNaTrosecku_seminYoung">
+			<selectors>
+				<hasName name="tsem_seminjr" />
+			</selectors>
+			<operations>
+				<addRole name="SEMIN_JUNIOR" />
+				<addRole name="MUZ_NAVADI_JINDRU_NA_KORENARKU_NEBO_PASTEVCE_KUMANI_NA_TROSECKU" />
+			</operations>
+		</rule>
+		<rule name="kumaniNaTrosecku_suk">
+			<selectors>
+				<hasName name="tsem_suk" />
+			</selectors>
+			<operations>
+				<addRole name="SUK_SEMIN" />
+				<addRole name="MUZ_NAVADI_JINDRU_NA_KORENARKU_NEBO_PASTEVCE_KUMANI_NA_TROSECKU" />
+			</operations>
+		</rule>
+
+		<!-- OTHER PEOPLE HINTING CAMP LOCATION -->
+
+		<rule name="kumaniNaTrosecku_shepherd">
+			<selectors>
+				<hasName name="tsem_nechuta" />
+			</selectors>
+			<operations>
+				<addRole name="PASTEVEC_KUMANI" />
+			</operations>
+		</rule>
+		<rule name="kumaniNaTrosecku_herbalist">
+			<selectors>
+				<hasName name="tvez_bozena" />
+			</selectors>
+			<operations>
+				<addRole name="KORENARKA_KUMANI" />
+			</operations>
+		</rule>
+
+		<!-- INN -->
+
+		<rule name="kumaniNaTrosecku_innkeeper">
+			<selectors>
+				<hasName name="ttkc_inkeeper" />
+			</selectors>
+			<operations>
+				<addRole name="HOSPODSKA_TROSKOVICE" />
+				<addRole name="HOSPODSKA_TROSKOVICE_VIDI_ZASAH_UNARMED" />
+				<addRole name="KUMANI_NA_TROSECKU_HOSPODSKA_TROSKOVICE_JE_NASTVANA_NA_JINDRU" />
+			</operations>
+		</rule>
+		<rule name="kumaniNaTrosecku_cook">
+			<selectors>
+				<hasName name="ttkc_man_16" />
+			</selectors>
+			<operations>
+				<addRole name="KUMANI_NA_TROSECKU_KUCHAR" />
+			</operations>
+		</rule>
+		<rule name="kumaniNaTrosecku_womanBarkingInPub">
+			<selectors>
+				<hasName name="ttkc_woman_2" />
+			</selectors>
+			<operations>
+				<addRole name="ZENA_NADAVA_KUMANUM" />
+				<addRole name="KUMANI_NA_TROSECKU_ZENA_V_HOSPODE_NADAVA_NA_KUMANY" />
+			</operations>
+		</rule>
+
+		<!-- VILLAGERS -->
+
+		<rule name="kumaniNaTrosecku_vujtek">
+			<selectors>
+				<hasName name="ttkc_man_19" />
+			</selectors>
+			<operations>
+				<addRole name="KUMANI_NA_TROSECKU_VUJTEK" />
+				<addRole name="KUMANI_NA_TROSECKU_VUJTEK_V_BOJI_NADAVA_KUMANUM" />
+				<addRole name="MUZ_NAVADI_JINDRU_NA_KORENARKU_NEBO_PASTEVCE_KUMANI_NA_TROSECKU" />
+				<addRole name="MUZ_NADAVA_KUMANUM_U_HOSPODSKEHO_STOLU_1" />
+				<addRole name="MUZ_NADAVA_KUMANUM_U_HOSPODSKEHO_STOLU_2" />
+				<addRole name="KUMANI_NA_TROSECKU_VUJTEK_VYHRAL_V_HOSPODE_SKIRMISH" />
+			</operations>
+		</rule>
+		<rule name="kumaniNaTrosecku_friendsOfBailiffSon">
+			<selectors>
+				<or>
+					<hasName name="ttkc_jakes" />
+					<hasName name="ttkc_man_18" />
+					<hasName name="ttkc_prasta" />
+				</or>
+			</selectors>
+			<operations>
+				<addRole name="MUZ_NADAVA_KUMANUM" />
+				<addRole name="MUZ_NADAVA_KUMANUM_2" />
+				<addRole name="MUZ_NADAVA_KUMANUM_3" />
+				<addRole name="MUZ_NADAVA_KUMANUM_U_HOSPODSKEHO_STOLU_1" />
+				<addRole name="MUZ_NADAVA_KUMANUM_U_HOSPODSKEHO_STOLU_2" />
+				<addRole name="KUMANI_NA_TROSECKU_VESNICAN_V_HOSPODE" />
+				<addRole name="KUMANI_NA_TROSECKU_VESNICAN_VYHRAL_V_HOSPODE_SKIRMISH" />
+			</operations>
+		</rule>
+
+		<rule name="kumaniNaTrosecku_troskoviceExtraGuard">
+			<selectors>
+				<hasName name="kumaniNaTrosecku_troskoviceExtraGuard" />
+			</selectors>
+			<operations>
+				<addRole name="KUMANI_NA_TROSECKU_GUARD_RESI_CRIME_PRI_BITCE" />
+			</operations>
+		</rule>
+
+		<!-- CUMANS -->
+
+		<rule name="kumaniNaTrosecku_guardingCuman">
+			<selectors>
+				<hasName name="tvez_man_12" />
+			</selectors>
+			<operations>
+				<addRole name="HLIDAJICI_KUMAN_KUMANI_NA_TROSECKU" />
+			</operations>
+		</rule>
+		<rule name="kumaniNaTrosecku_drunkCumans">
+			<selectors>
+				<or>
+					<hasName name="tvez_man_9" />
+					<hasName name="tvez_man_11" />
+					<hasName name="tvez_man_12" />
+				</or>
+			</selectors>
+			<operations>
+				<addRole name="OPILY_KUMAN_Z_TABORA" />
+				<addRole name="OPILY_KUMAN_Z_TABORA_2" />
+			</operations>
+		</rule>
+		<rule name="kumaniNaTrosecku_jasak">
+			<selectors>
+				<hasName name="tvez_man_8" />
+			</selectors>
+			<operations>
+				<addRole name="JASAK" />
+				<addRole name="OPILY_KUMAN_Z_TABORA" />
+				<addRole name="KUMAN_VYZNAVA_LASKU_V_TABORE" />
+				<addRole name="JASAK_VIDI_COMBAT_A_BUDE_SE_ZAPOJOVAT" />
+				<addRole name="JASAK_VIDI_NEPRITELE_A_BUDE_UTOCIT" />
+				<addRole name="KUMANI_NA_TROSECKU_JASAK_VOLA_NA_HRACE_KDYZ_OPUSTIL_TOUR" />
+				<addRole name="KUMANI_NA_TROSECKU_JASAK_VOLA_NA_HRACE_KDYZ_SE_VRACI_DO_TOURU" />
+			</operations>
+		</rule>
+		<rule name="kumaniNaTrosecku_singingCuman">
+			<selectors>
+				<or>
+					<hasName name="tvez_vasko" />
+					<hasName name="tvez_man_8" />
+				</or>
+			</selectors>
+			<operations>
+				<addRole name="KUMAN_SI_ZPIVA_V_LESE" />
+			</operations>
+		</rule>
+		<rule name="kumaniNaTrosecku_vasko">
+			<selectors>
+				<hasName name="tvez_vasko" />
+			</selectors>
+			<operations>
+				<addRole name="VASKO" />
+				<addRole name="KUMANI_NA_TROSECKU_VASKO_VYHRAL_V_HOSPODE_SKIRMISH" />
+				<addRole name="KUMANI_NA_TROSECKU_VASKO_VOLA_NA_HRACE_KDYZ_OPUSTIL_TOUR" />
+				<addRole name="KUMANI_NA_TROSECKU_VASKO_VOLA_NA_HRACE_KDYZ_SE_VRACI_DO_TOURU" />
+			</operations>
+		</rule>
+		<rule name="kumaniNaTrosecku_cumansInPub">
+			<selectors>
+				<or>
+					<hasName name="tvez_man_8" />
+					<hasName name="tvez_man_9" />
+					<hasName name="tvez_man_11" />
+				</or>
+			</selectors>
+			<operations>
+				<addRole name="KUMAN_U_STOLU_TROSKOVICE_1" />
+				<addRole name="KUMAN_U_STOLU_TROSKOVICE_2" />
+				<addRole name="KUMAN_U_STOLU_TROSKOVICE_3" />
+				<addRole name="KUMANI_NA_TROSECKU_KUMAN_VYHRAL_V_HOSPODE_SKIRMISH" />
+			</operations>
+		</rule>
+
+		<!-- SPECIAL -->
+
+		<rule name="kumaniNaTrosecku_talkingDog">
+			<selectors>
+				<hasName name="kumaniNaTrosecku_dogInForest" />
+			</selectors>
+			<operations>
+				<addRole name="MLUVICI_PES_U_KUMANU" />
+			</operations>
+		</rule>
+		<rule name="kumaniNaTrosecku_courtesan">
+			<selectors>
+				<hasName name="tvez_woman_2" />
+			</selectors>
+			<operations>
+				<addRole name="KURTIZANA_O_KUMANECH_TABOR" />
+			</operations>
+		</rule>
+	</rules>
+</storm>

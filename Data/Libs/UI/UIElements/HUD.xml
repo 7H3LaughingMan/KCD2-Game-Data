@@ -1,0 +1,740 @@
+<UIElements name="Menus">
+  <UIElement name="hud" render_lockless="0" mouseevents="1">
+
+    <GFx file="hud.gfx" layer="25">
+      <Constraints>
+        <Align mode="fullscreen" />
+      </Constraints>
+    </GFx>
+
+    <functions>
+
+      <function name="SetGameMode" funcname="fc_setGameMode">
+        <param name="Mode" desc="" type="int" />
+      </function>
+
+      <function name="SetGameDude" funcname="fc_setGameDude">
+        <param name="Dude" desc="" type="int" />
+      </function>
+
+      <function name="SetInputId" funcname="fc_setInputId">
+        <param name="InputId" desc="1 keyboard, 2 xbox, 4 ps" type="int" />
+      </function>
+
+      <!-- Reset all -->
+      <function name="ResetAll" funcname="fc_resetAll" />
+      
+      <function name="ResetAfterGameplayStart" funcname="fc_resetAfterGameStart" />
+
+      <function name="ClearNotificationQueue" funcname="fc_clearNotificationQueue" />
+
+      <!-- Bubble text -->
+      <function name="SetBubbleText" funcname="fc_setBubbleText">
+        <param name="Id" desc="id of bubble from 1 to 16" type="int" />
+        <param name="Text" desc="text of bubble" type="string" />
+		<param name="SpeakerName" desc="Name of the speaker" type="string" />
+		<param name="PlayerDistance" desc="Distance to the player" type="float" />		  
+      </function>
+
+      <!-- Ratio strips -->
+      <function name="SetRatioPreset" funcname="fc_setRatioPreset">
+        <param name="Preset" desc="E_RatioStripsPreset" type="int" />
+      </function>
+
+      <!-- Game log -->
+      <function name="ShowGameLog" funcname="fc_showGameLog">
+      <param name="Type" desc="" type="int" />
+        <param name="Level" desc="" type="int" />
+        <param name="Text" desc="Message that should be logged" type="string" />
+      </function>
+
+      <function name="SetPlayingGameLogEvent" funcname="fc_setPlayingGameLogEvent">
+        <param name="Playing" desc="" type="bool" />
+        <param name="Flush" desc="" type="bool" />
+      </function>
+
+      <!-- Item hint-->
+      <function name="ShowItemHint" funcname="fc_showItemHint">
+        <param name="Name" desc="Item name in case of picking" type="string" />
+        <param name="Amount" desc="" type="int" />
+        <param name="MainStat" desc="" type="float" />
+        <param name="Health" desc="" type="float" />
+        <param name="Weight" desc="" type="float" />
+        <param name="Price" desc="" type="float" />
+      </function>
+
+      <function name="HideItemHint" funcname="fc_hideItemHint" />
+
+      <!-- Tooltip -->
+      <function name="ShowTooltip" funcname="fc_showTooltip">
+        <param name="Text" desc="Tooltip from other UI" type="string" />
+        <param name="X" desc="x position" type="int" />
+        <param name="Y" desc="y position" type="int" />
+      </function>
+
+      <function name="UpdateTooltip" funcname="fc_updateTooltip">
+        <param name="X" desc="x position" type="int" />
+        <param name="Y" desc="y position" type="int" />
+      </function>
+
+      <function name="HideTooltip" funcname="fc_hideTooltip" />
+
+      <!-- Drag&Drop -->
+      <function name="ShowDraggedAlternate" funcname="fc_showDraggedAlternate">
+        <param name="IconPath" desc="" type="string" />
+      </function>
+
+      <function name="HideDraggedAlternate" funcname="fc_hideDraggedAlternate"/>
+
+      <function name="SetDraggedAlternateState" funcname="fc_setDraggedAlternateState">
+        <param name="State" desc="" type="int" />
+      </function>
+
+      <!-- QAM Arrows -->
+      <function name="ShowQAMArrows" funcname="fc_showQAMArrows">
+        <param name="X" desc="x position" type="int" />
+        <param name="Y" desc="y position" type="int" />
+        <param name="IsLeft" desc="" type="bool" />
+        <param name="IsRight" desc="" type="bool" />
+        <param name="IsTop" desc="" type="bool" />
+        <param name="IsBottom" desc="" type="bool" />
+      </function>
+
+      <function name="HideQAMArrows" funcname="fc_hideQAMArrows" />
+
+      <!-- Action hints -->
+      <function name="SetActionHints" funcname="fc_setActionHints">
+        <param name="ChatName" desc="name of npc" type="string" />
+        <param name="FollowName" desc="name of npc" type="string" />
+        <param name="EntityName" desc="name of npc" type="string" />
+        <param name="SeparatorBeforeFollow" desc="0 none, 1 only space, 2 space line space, 3 space line big space " type="int" />
+        <param name="SeparatorBeforeEntity" desc="0 none, 1 only space, 2 space line space, 3 space line big space " type="int" />
+        <param name="SeparatorBeforePlayer" desc="0 none, 1 only space, 2 space line space, 3 space line big space " type="int" />
+      </function>
+
+      <!-- Compass -->
+      <function name="AddCompassMarker" funcname="fc_addCompassMarker">
+        <param name="MarkerID" desc="ID of the mark" type="int"/>
+        <param name="MarkerType" desc="Type enum of the mark" type="string"/>
+        <param name="QuestColor" desc="Id of tracking color" type="int"/>
+        <param name="ObjectiveNumber" desc="id of objective" type="int"/>
+        <param name="Distance" desc="Distance to player in meters" type="float"/>
+        <param name="Frame" desc="Frame of compass" type="int"/>
+        <param name="IsInsideArea" desc="" type="bool"/>
+        <param name="IsInsideArea2D" desc="" type="bool"/>
+        <param name="NearThreshold" desc="Distance of maximum alpha" type="float"/>
+        <param name="LayerThreshold" desc="Distance of switch layer" type="float"/>
+        <param name="FarThreshold" desc="Distance of minimum alpha" type="float"/>
+      </function>
+
+      <function name="RemoveCompassMarker" funcname="fc_removeCompassMarker">
+        <param name="MarkID" desc="ID of the mark" type="int"/>
+      </function>
+
+      <function name="ResetCompassMarkers" funcname="fc_resetCompassMarkers" />
+
+      <function name="UpdateCompass" funcname="fc_updateCompass">
+        <param name="Frame" desc="Frame of compass" type="int"/>
+      </function>
+
+      <!-- Interactive dialog -->
+      <function name="SetDialogSequences" funcname="fc_setDialogSequences">
+        <param name="IsOnRight" desc="True when list should be displayed on right." type="bool" />
+      </function>
+
+      <function name="ClearDialogSequences" funcname="fc_clearDialogSequences" />
+
+      <function name="SetActiveSequenceChanged" funcname="fc_activeSequenceChanged">
+        <param name="Index" desc="Active sequence index (zero based)" type="int" />
+        <param name="Stopper" desc="Call animation that you can not continue" type="int" />
+      </function>
+
+      <function name="SetEnableSequenceChanged" funcname="fc_enableSequenceChanged">
+        <param name="Index" desc="Sequence index (zero based)" type="int" />
+        <param name="IsEnable" desc="" type="bool" />
+      </function>
+
+      <!-- Interactive dialog - money transfer -->
+      <function name="ShowMoney" funcname="fc_showMoney">
+        <param name="Money" desc="Money which you have" type="float" />
+      </function>
+
+      <function name="HideMoney" funcname="fc_hideMoney"/>
+      
+      <!-- Interactive dialog - time limit -->
+      <function name="SetDialogTimeLimit" funcname="fc_setDialogTimeLimit" />
+
+      <function name="UpdateDialogTimeLimit" funcname="fc_updateDialogTimeLimit">
+        <param name="limit" desc="from 1 to 0 count down" type="float" />
+      </function>
+      
+      <function name="ClearDialogTimeLimit" funcname="fc_clearDialogTimeLimit" />
+
+      <!-- Interactive dialogue - skillChecks -->
+      <function name="SetSkillChecks" funcname="fc_setSkillChecks">
+        <param name="Reputation" desc="enum" type="int" />
+      </function>
+
+      <function name="ClearSkillChecks" funcname="fc_clearSkillChecks" />
+
+      <!-- Interactive dialogue - haggle -->
+      <function name="SetDialogHaggle" funcname="fc_setDialogHaggle">
+        <param name="Min" desc="Min input value." type="int" />
+        <param name="Max" desc="Max input value." type="int" />
+        <param name="NpcValue" desc="Current npc value." type="int" />
+        <param name="PlayerValue" desc="Current player input value." type="int" />
+        <param name="PreviousNpcValue" desc="Previous npc value." type="int" />
+        <param name="OriginalValue" desc="Previous player input value." type="int" />
+        <param name="Anger" desc="How much is npc angry from 0 (happy) to 1 (angry)." type="float" />
+        <param name="PreviousAnger" desc="Prewious how much is npc angry from 0 (happy) to 1 (angry)." type="float" />
+        <param name="Money" desc="Prewious how much is npc angry from 0 (happy) to 1 (angry)." type="float" />
+        <param name="IsOnRight" desc="True when sequence list should be displayed on right." type="bool" />
+      </function>
+
+      <function name="SetDialogShiftMovieClips" funcname="fc_setDialogShiftMovieClips">
+        <param name="Enable" desc="" type="bool" />
+      </function>
+
+      <!-- Interactive dialogue - crime list -->
+      <function name="ShowCrimeList" funcname="fc_showCrimeList">
+        <param name="TotalFine" desc="" type="int" />
+      </function>
+
+      <function name="HideCrimeList" funcname="fc_hideCrimeList" />
+
+      <function name="ScrollCrimeList" funcname="fc_scrollCrimeList">
+        <param name="Dir" desc="" type="int" />
+      </function>
+
+      <!-- Subtitles -->
+      <function name="SetSubtitles" funcname="fc_setSubtitles">
+        <param name="Text" desc="Subtitles text to be set. (can be HTML)" type="string" />
+		<param name="SpeakerName" desc="Name of the speaker" type="string" />
+		<param name="IsPlayer" desc="Is player speaking" type="bool" />
+      </function>
+	  
+	  <function name="SetSubtitleSpeakerNameEnable" funcname="fc_setSubtitleSpeakerNameEnable">
+        <param name="IsEnable" desc="Enable the name of the speaking character" type="bool" />
+      </function>
+	  
+	  <function name="SetSubtitleBgEnable" funcname="fc_setSubtitleBgEnable">
+        <param name="IsEnable" desc="Enable the background for subtitles" type="bool" />
+      </function>
+	  
+	  <function name="SetSubtitleSize" funcname="fc_setSubtitleSize">
+        <param name="Size" desc="Subtitle size" type="int" />
+      </function>
+	  
+	  <function name="ClearSubtitles" funcname="fc_clearSubtitles"/>
+	  
+	  <!-- Narrative Subtitles -->
+	  <function name="SetNarrativeSubtitles" funcname="fc_setNarrativeSubtitles">
+		  <param name="Text" desc="Subtitles text to be set" type="string" />
+		  <param name="Layout" desc="Subtitle position defined via enum" type="string" />
+      <param name="FadeIn" desc="Time of fadein in milisec" type="int" />
+    </function>
+		
+	  <function name="HideNarrativeSubtitles" funcname="fc_hideNarrativeSubtitles">
+      <param name="FadeIn" desc="Time of fadein in milisec" type="int" />
+    </function>
+
+      <!-- Tutorial message -->
+      <function name="ShowTutorial" funcname="fc_showTutorial">
+        <param name="Id" desc="" type="string" />
+        <param name="Text" desc="Tutorial message text to be set. (can be HTML)" type="string" />
+        <param name="Duration" desc="" type="int" />
+        <param name="InDialogue" desc="should synchronize with showing dialogue prompts" type="bool" />
+        <param name="Priority" desc="" type="int" />
+        <param name="Layout" desc="" type="int" />
+        <param name="ActionHintEnable" desc="" type="bool" />
+        <param name="OverlayLink" desc="" type="string" />
+      </function>
+
+      <function name="HideTutorial" funcname="fc_hideTutorial" >
+        <param name="Id" desc="" type="string" />
+      </function>
+
+      <function name="HideCurrentTutorial" funcname="fc_hideCurrentTutorial" />
+      <function name="HideAllTutorials" funcname="fc_hideAllTutorials" />
+
+      <function name="SetPlayingTutorialEvent" funcname="fc_setPlayingTutorialEvent">
+        <param name="Playing" desc="" type="bool" />
+        <param name="Flush" desc="" type="bool" />
+      </function>
+
+      <!-- Discovered message -->
+      <function name="ShowDiscoveredCodex" funcname="fc_showDiscoveredCodex">
+        <param name="Name" desc="name of Location/POI/etc." type="string" />
+        <param name="IconId" desc="id of icon if exist" type="string" />
+        <param name="PerkId" desc="id of perk" type="string" />
+      </function>
+      
+      <function name="ShowDiscoveredPoi" funcname="fc_showDiscoveredPoi">
+        <param name="Type" desc="enum define type Poi" type="int" />
+        <param name="Name" desc="name of Location/POI/etc." type="string" />
+        <param name="IconId" desc="id of icon if exist" type="string" />
+        <param name="PerkId" desc="id of perk" type="string" />
+      </function>
+
+      <function name="ShowDiscoveredLocation" funcname="fc_showDiscoveredLocation">
+        <param name="Type" desc="enum define type common or unique" type="int" />
+        <param name="Name" desc="name of Location" type="string" />
+        <param name="IconId" desc="id of icon if exist" type="string" />
+        <param name="PerkId" desc="id of perk" type="string" />
+      </function>
+
+      <function name="HideCodexActionHint" funcname="fc_hideCodexActionHint" />
+
+      <!-- Buff -->
+      <function name="AddBuff" funcname="fc_addBuff">
+        <param name="BuffId" desc="unique name of buff" type="string" />
+        <param name="IconId" desc="number of key frame with buff" type="int"/>
+        <param name="Type" desc="buff/debuff/bleeding" type="int"/>
+        <param name="Order" desc="ess then zero is left, greater is right" type="int"/>
+        <param name="Progress" desc="from 0 to 1" type="float"/>
+        <param name="SecondProgress" desc="two state" type="int"/>
+        <param name="PerkUIName" desc="name of perk" type="string"/>
+        <param name="PerkIconId" desc="id of perk" type="string"/>
+      </function>
+
+      <function name="UpdateBuff" funcname="fc_updateBuff">
+        <param name="BuffId" desc="unique name of buff" type="string" />
+        <param name="Progress" desc="from 0 to 1" type="float"/>
+        <param name="SecondProgress" desc="two state" type="int"/>
+      </function>
+
+      <function name="RemoveBuff" funcname="fc_removeBuff">
+        <param name="BuffId" desc="unique name of buff" type="string" />
+      </function>
+
+      <function name="SwapBuffId" funcname="fc_swapBuffId">
+        <param name="OldBuffId" desc="previous unique name of buff" type="string" />
+        <param name="NewBuffId" desc="new unique name of buff" type="string" />
+      </function>
+
+      <!-- Level up -->
+      <function name="ShowLevelUp" funcname="fc_showLevelUp">
+        <param name="Stat" desc="unique name of stat" type="string" />
+        <param name="StatName" desc="string key" type="string" />
+        <param name="Type" desc="ui type" type="int" />
+        <param name="Level" desc="base level" type="int" />
+        <param name="PerkPoints" desc="count new perk points" type="int" />
+      </function>
+
+      <function name="SetPlayingCommonEvent" funcname="fc_setPlayingCommonEvent">
+        <param name="Playing" desc="" type="bool" />
+        <param name="Flush" desc="" type="bool" />
+      </function>
+
+      <!-- Xp -->
+      <function name="ShowLevelXpGain" funcname="fc_showLevelXpGain">
+        <param name="Stat" desc="unique name of stat" type="string" />
+        <param name="StatName" desc="string key" type="string" />
+        <param name="Type" desc="ui type" type="int" />
+      </function>
+
+      <!-- Reputation notification -->
+      <function name="ShowReputationChanged" funcname="fc_showReputationChanged">
+        <param name="EventId" desc="id of event" type="int" />
+        <param name="Message" desc="string key" type="string" />
+      </function>
+
+      <!-- Crime state-->
+      <function name="SetCrimeState" funcname="fc_setCrimeState">
+        <param name="state" desc="0 nothing, ..." type="int" />
+      </function>
+
+      <function name="SetCrimeRecognizingValue" funcname="fc_setCrimeRecognizingValue">
+        <param name="value" desc="" type="int" />
+      </function>
+
+      <!-- Trespass state -->
+      <function name="SetTrespassState" funcname="fc_setTrespassState">
+        <param name="state" desc="0 for hide, 1 for state private area, 2 for trespassing" type="int" />
+      </function>
+
+      <!-- Wanted state -->
+      <function name="SetWantedState" funcname="fc_setWantedState">
+        <param name="state" desc="0 for hide, 1 for show" type="int" />
+      </function>
+
+      <!-- Fader Dialog -->
+      <function name="SetFaderState" funcname="fc_setFaderState">
+        <param name="State" desc="0 on, 1 start, 2 stop, 3 off" type="int" />
+        <param name="Layout" desc="optional param for image" type="string" />
+      </function>
+
+      <function name="SetFullModeVignette" funcname="fc_setFullModeVignette">
+        <param name="Value" desc="0 to 1" type="float" />
+      </function>
+
+      <!-- Set progress of hold cursor -->
+      <function name="SetProgress" funcname="fc_setProgress">
+			  <param name="Value" desc="Set progress" type="int" />
+        <param name="ActionId" desc="id of action hint" type="string" />
+        <param name="HintClass" desc="id of action hint" type="string" />
+		  </function>
+
+      <!-- Show denial cursor -->
+      <function name="ShowDenialAttack" funcname="fc_showDenialAttack" />
+
+      <!-- Info text -->
+      <function name="ShowInfoText" funcname="fc_showInfoText">
+        <param name="Text" desc="" type="string" />
+        <param name="Priority" desc="higher number is higher priority" type="int" />
+        <param name="Duration" desc="time in milisec" type="int" />
+        <param name="Background" desc="it has big shadow under text" type="bool" />
+      </function>
+
+      <function name="HideInfoText" funcname="fc_hideInfoText"/>
+
+      <function name="SetPlayingInfoText" funcname="fc_setPlayingInfoText">
+        <param name="Playing" desc="" type="bool" />
+        <param name="Flush" desc="" type="bool" />
+      </function>
+
+      <!-- Objective event -->
+      <function name="ShowObjectiveEvent" funcname="fc_showObjectiveEvent">
+        <param name="Type" desc="Enum of event 0-6" type="int" />
+        <param name="Name" desc="Name of objective" type="string" />
+        <param name="QuestType" desc="main/side/..." type="int" />
+        <param name="QuestTrackingId" desc="" type="int" />
+        <param name="QuestId" desc="" type="string" />
+        <param name="QuestUiName" desc="" type="string" />
+		<param name="ObjectiveIndex" desc="" type="int" />
+        <param name="Tracker" desc="Objective progress values" type="string" />
+      </function>
+
+      <!-- Quest event -->
+      <function name="ShowQuestEvent" funcname="fc_showQuestEvent">
+        <param name="QuestId" desc="" type="string" />
+        <param name="Type" desc="Enum of event 0-6" type="int" />
+        <param name="Name" desc="Name of quest/objective" type="string" />
+        <param name="QuestType" desc="main/side/..." type="int" />
+		    <param name="TrackingId" desc="none/blue/..." type="int" />  
+      </function>
+
+      <function name="SetPlayingFancyEvent" funcname="fc_setPlayingFancyEvent">
+        <param name="Playing" desc="" type="bool" />
+        <param name="Flush" desc="" type="bool" />
+      </function>
+
+      <function name="ShowPerkUsed" funcname="fc_showPerkUsed">
+        <param name="IconName" desc="" type="string" />
+        <param name="UiName" desc="" type="string" />
+      </function>
+
+      <function name="ShowPerkGained" funcname="fc_showPerkGained">
+        <param name="IconName" desc="" type="string" />
+        <param name="UiName" desc="" type="string" />
+      </function>
+
+      <function name="ShowComboLearned" funcname="fc_showComboLearned">
+        <param name="IconName" desc="" type="string" />
+        <param name="UiName" desc="" type="string" />
+      </function>
+
+      <function name="ShowNotification" funcname="fc_showNotification">
+        <param name="infoText" desc="text" type="string" />
+      </function>
+
+      <!-- Fast travel result -->
+      <function name="ShowRandomEventResult" funcname="fc_showRandomEventResult">
+        <param name="Type" desc="Enum of event 0-2" type="int" />
+        <param name="Result" desc="Text of result" type="string" />
+        <param name="Name" desc="Name of event" type="string" />
+      </function>
+
+      <!-- Skill check -->
+      <function name="ShowSkillCheckResult" funcname="fc_showSkillCheckResult">
+        <param name="Name" desc="Name of skillcheck" type="string" />
+        <param name="Result" desc="Enum of result: 0 fail, 1 succes" type="int" />
+      </function>
+
+      <function name="SetPlayingSkillCheckEvent" funcname="fc_setPlayingSkillCheckEvent">
+        <param name="Playing" desc="" type="bool" />
+        <param name="Flush" desc="" type="bool" />
+      </function>
+
+      <!-- Items count -->
+      <function name="ShowItemCount" funcname="fc_showItemCount">
+        <param name="Id" desc="" type="string" />
+        <param name="UiName" desc="" type="string" />
+        <param name="IconId" desc="" type="int" />
+        <param name="Count" desc="count of items" type="int" />
+      </function>
+
+      <function name="HideItemCount" funcname="fc_hideItemCount">
+        <param name="Id" desc="" type="string" />
+      </function>
+
+      <!-- Items transfer -->
+      <function name="ShowItemTransfer" funcname="fc_showItemTransfer">
+        <param name="ClassId" desc="" type="string" />
+        <param name="UiName" desc="" type="string" />
+        <param name="IconId" desc="" type="string" />
+        <param name="Count" desc="count of items" type="int" />
+        <param name="Direction" desc="to player = 0, from player = 1" type="int" />
+      </function>
+
+      <function name="SetPlayingItemTransferEvent" funcname="fc_setPlayingItemTransferEvent">
+        <param name="Playing" desc="" type="bool" />
+        <param name="Flush" desc="" type="bool" />
+      </function>
+
+      <!-- QAM -->
+      <function name="OpenQAM" funcname="fc_openQAM">
+        <param name="Type" desc="none = 0, weapon = 1, food = 2" type="int" />
+      </function>
+
+      <function name="CloseQAM" funcname="fc_closeQAM">
+        <param name="WeaponSlotId" desc="0-3" type="int" />
+        <param name="FoodSlotId" desc="0-3" type="int" />
+      </function>
+
+      <function name="SetSelectedQAMSlot" funcname="fc_setSelectedQAMSlot" >
+        <param name="Type" desc="weapon = 1, food = 2" type="int" />
+        <param name="SlotId" desc="0-3" type="int" />
+      </function>
+
+      <function name="SetFocusedQAMSlot" funcname="fc_setFocusedQAMSlot" >
+        <param name="Type" desc="weapon = 1, food = 2" type="int" />
+        <param name="SlotId" desc="0-3" type="int" />
+      </function>
+
+      <function name="SetQAMSlots" funcname="fc_setQAMSlots" >
+        <param name="Type" desc="weapon = 1, food = 2" type="int" />
+      </function>
+
+      <function name="UpdateQAMHoldProgress" funcname="fc_updateQAMHoldProgress" >
+        <param name="Type" desc="weapon = 1, food = 2" type="int" />
+        <param name="Progress" desc="0 - 1" type="float" />
+      </function>
+
+      <!-- Dice minigame score -->
+      <function name="ShowDiceScore" funcname="fc_showDiceScore">
+        <param name="TargetScore" desc="" type="int" />
+        <param name="PlayerName" desc="" type="int" />
+        <param name="CurrentPlayer" desc="" type="int" />
+        <param name="TotalPlayer" desc="" type="int" />
+        <param name="SelectedPlayer" desc="" type="int" />
+        <param name="BadgePlayerName" desc="" type="string" />
+        <param name="BadgePlayerCurrent" desc="" type="int" />
+        <param name="BadgePlayerTotal" desc="" type="int" />
+        <param name="CurrentNPC" desc="" type="int" />
+        <param name="TotalNPC" desc="" type="int" />
+        <param name="SelectedNPC" desc="" type="int" />
+        <param name="BadgeNPCName" desc="" type="string" />
+        <param name="BadgeNPCCurrent" desc="" type="int" />
+        <param name="BadgeNPCTotal" desc="" type="int" />
+      </function>
+
+      <function name="HideDiceScore" funcname="fc_hideDiceScore"/>
+
+      <function name="AddDiceSelector" funcname="fc_addDiceSelector">
+        <param name="Id" desc="" type="int" />
+        <param name="X" desc="position in 1920x1080 space" type="float" />
+        <param name="Y" desc="position in 1920x1080 space" type="float" />
+        <param name="IsPlayer" desc="true if it is player, false if it is opponent" type="bool" />
+      </function>
+
+      <function name="RemoveDiceSelector" funcname="fc_removeDiceSelector">
+        <param name="Id" desc="" type="int" />
+      </function>
+
+      <function name="ShowDiceCursor" funcname="fc_showDiceCursor">
+        <param name="X" desc="position in 1920x1080 space" type="float" />
+        <param name="Y" desc="position in 1920x1080 space" type="float" />
+      </function>
+
+      <function name="HideDiceCursor" funcname="fc_hideDiceCursor" />
+
+      <function name="ShowDiceProperties" funcname="fc_showDiceProperties">
+        <param name="DiceName" desc="" type="string" />
+        <param name="DiceValue" desc="" type="int" />
+      </function>
+
+      <function name="HideDiceProperties" funcname="fc_hideDiceProperties" />
+
+      <!-- Shooting Contest -->
+      <function name="ShowShootingContestTable" funcname="fc_showShootingContestTable">
+        <param name="playerName" desc="ui name of player" type="string" />
+        <param name="opponentName1" desc="ui name of first opponent" type="string" />
+        <param name="opponentName2" desc="ui name of second opponent" type="string" />
+        <param name="playerArrows" desc="count of arrows" type="int" />
+        <param name="opponentArrows1" desc="count of arrows" type="int" />
+        <param name="opponentArrows2" desc="count of arrows" type="int" />
+        <param name="isTargetVisible" desc="" type="bool" />
+      </function>
+
+      <function name="HideShootingContestTable" funcname="fc_hideShootingContestTable" />
+
+      <function name="UpdateShootingContestTable" funcname="fc_updateShootingContestTable">
+        <param name="playerArrows" desc="count of arrows" type="int" />
+        <param name="opponentArrows1" desc="count of arrows" type="int" />
+        <param name="opponentArrows2" desc="count of arrows" type="int" />
+        <param name="playerPoints" desc="players score" type="int" />
+        <param name="opponentPoints1" desc="first opponents score" type="int" />
+        <param name="opponentPoints2" desc="second opponents score" type="int" />
+      </function>
+
+      <function name="ShowShootingHit" funcname="fc_showShootingHit">
+        <param name="xPos" desc="from -1 to 1" type="float" />
+        <param name="yPos" desc="from -1 to 1" type="float" />
+      </function>
+
+      <function name="ShowHorseShootingContestTable" funcname="fc_showHorseShootingContestTable">
+        <param name="playerName" desc="ui name of player" type="string" />
+        <param name="opponentName" desc="ui name of first opponent" type="string" />
+        <param name="playerScore" desc="ui name of second opponent" type="int" />
+        <param name="opponentScore" desc="count of arrows" type="int" />
+        <param name="trackName" desc="count of arrows" type="string" />
+      </function>
+
+      <function name="HideHorseShootingContestTable" funcname="fc_hideHorseShootingContestTable" />
+
+      <function name="UpdateHorseShootingContestTable" funcname="fc_updateHorseShootingContestTable">
+        <param name="playerScore" desc="count of points" type="int" />
+      </function>
+
+      <function name="ShowWatermark" funcname="fc_showWatermark">
+        <param name="UserId" desc="" type="string" />
+      </function>
+
+    </functions>
+
+		<events>
+      <event name="OnShowCodexActionHint" fscommand="onShowCodexActionHint" desc="">
+        <param name="show" desc="" type="bool"/>
+        <param name="perkId" desc="" type="string"/>
+      </event>
+      <event name="OnShowTutorialActionHint" fscommand="onShowTutorialActionHint" desc="">
+        <param name="show" desc="" type="bool"/>
+        <param name="overlayLink" desc="" type="string"/>
+      </event>
+
+      <event name="OnShootingContestRemoved" fscommand="onShootingContestRemoved" desc="" />
+
+      <!-- Audio -->
+      <event name="OnPlayAudio" fscommand="onPlayAudio" desc="execute global audio trigger">
+        <param name="TriggerName" desc="" type="string"/>
+      </event>
+
+      <event name="OnStopAudio" fscommand="onStopAudio" desc="stop global audio trigger">
+        <param name="TriggerName" desc="" type="string"/>
+      </event>
+
+      <event name="OnSetVolumeAudio" fscommand="onSetVolumeAudio" desc="set volume via rtpc">
+        <param name="TriggerName" desc="" type="string"/>
+        <param name="Volume" desc="" type="float"/>
+      </event>
+
+      <!-- Buttons -->
+      <event name="GetButtonId" fscommand="getButtonId" desc="return button id from action name">
+        <param name="ActionName" desc="" type="string"/>
+      </event>
+
+      <event name="OnActionButtonActivated" fscommand="onActionButtonActivated" desc="button activated">
+        <param name="ActionName" desc="" type="string"/>
+        <param name="ActivationMode" desc="" type="int"/>
+      </event>
+
+    </events>
+
+	  <MovieClips>
+		  <MovieClip name="MasterSwitch" instancename="all" />
+
+      <!-- master elements for visibility switch from code -->
+      <MovieClip name="Compass" instancename="tc.compass" />
+      <MovieClip name="Stats" instancename="bc.mc_StatsContainer.mc_StatsEle" />
+      <MovieClip name="QAMWeapon" instancename="bc.mc_StatsContainer.qamWeapon" />
+      <MovieClip name="QAMFood" instancename="bc.mc_StatsContainer.qamFood" />
+      <MovieClip name="Subtitles" instancename="bc.subtitles" />
+      <MovieClip name="InfoText" instancename="cccursor.infoText" />
+      <MovieClip name="GameLog" instancename="tr.gameLog" />
+      <MovieClip name="Hints" instancename="br.actionHints" />
+      <MovieClip name="DialogLeft" instancename="cl" />
+      <MovieClip name="DialogRight" instancename="cr" />
+      <MovieClip name="TutorialInDialog" instancename="tutorialInDialog" />
+      <MovieClip name="Cursor" instancename="cccursor.actioncursor" />
+      <MovieClip name="DiceCursor" instancename="cccursor.dice" />
+      <MovieClip name="Crime" instancename="tc.crime" />
+      <MovieClip name="Wanted" instancename="tc.wanted" />
+      <MovieClip name="Trespassing" instancename="tc.trespassing" />
+      <MovieClip name="Bubbles" instancename="cccursor.bubbles" />
+
+      <MovieClip name="PopUpBackground" instancename="popUp" />
+      <MovieClip name="TutorialMessage" instancename="tl.tutorial" />
+      <MovieClip name="FancyEvent" instancename="tc.fancyEvent" />
+      <MovieClip name="SkillCheck" instancename="bc.skillCheck" />
+      <MovieClip name="ItemTransfer" instancename="bl.itemTransfer" />
+      <MovieClip name="Buffs" instancename="bc.buffs" />
+      <MovieClip name="CommonEvent" instancename="tr.commonEvent" />
+      <MovieClip name="RatioStrips" instancename="ratioStrips" />
+      <MovieClip name="ShootingContest" instancename="bl.shootingContest" />
+      <MovieClip name="DiceContainer" instancename="bl.diceScoreContainer" />
+      <MovieClip name="Vignette" instancename="vignette" />
+      <MovieClip name="Fader" instancename="fader" />
+
+      <!-- other elements control from code and flow graph -->
+
+      <MovieClip name="CursorOutline" instancename="cccursor.actioncursor.ActionCursorOutline" />
+      <MovieClip name="CursorCross" instancename="cccursor.actioncursor.ActionCursorCross" />
+      <MovieClip name="CombatCursorCross" instancename="cccursor.actioncursor.CombatCursorCross" />
+      <MovieClip name="CursorCrossPBSlot" instancename="cccursor.actioncursor.CombatCursorCross.pbslot" />
+      <MovieClip name="CursorCrossOpponentLock" instancename="cccursor.actioncursor.CombatCursorCross.lock" />
+
+	    <MovieClip name="CompassStrip" instancename="tc.compass.compassStrip" />
+      <MovieClip name="CompassMarksOver" instancename="tc.compass.compassMarkersOver" />
+      <MovieClip name="CompassMarksUnder" instancename="tc.compass.compassMarkersUnder" />
+
+      <MovieClip name="HealthBar" instancename="bc.mc_StatsContainer.mc_StatsEle.mc_HealthBar" />
+      <MovieClip name="HealthBreak" instancename="bc.mc_StatsContainer.mc_StatsEle.mc_Break" />
+
+      <MovieClip name="StaminaBar" instancename="bc.mc_StatsContainer.mc_StatsEle.mc_StaminaBar" />
+      <MovieClip name="StaminaBreak" instancename="bc.mc_StatsContainer.mc_StatsEle.mc_StaminaBreak" />
+      <MovieClip name="StaminaBackground" instancename="bc.mc_StatsContainer.mc_StatsEle.mc_StaminaBackground" />
+
+      <MovieClip name="HorseStaminaBarContainer" instancename="bc.mc_StatsContainer.mc_StatsEle.mc_HorseStaminaAnimBar" />
+      <MovieClip name="HorseStaminaBar" instancename="bc.mc_StatsContainer.mc_StatsEle.mc_HorseStaminaAnimBar.mc_HorseStaminaBar" />
+      <MovieClip name="HorseStaminaBreakContainer" instancename="bc.mc_StatsContainer.mc_StatsEle.mc_HorseStaminaAnimBreak" />
+      <MovieClip name="HorseStaminaBreak" instancename="bc.mc_StatsContainer.mc_StatsEle.mc_HorseStaminaAnimBreak.mc_HorseStaminaBreak" />
+	    <MovieClip name="HorseStaminaBreakInside" instancename="bc.mc_StatsContainer.mc_StatsEle.mc_HorseStaminaAnimBreak.mc_HorseStaminaBreak.inside" />
+	    <MovieClip name="HorseSpeedBar" instancename="bc.mc_StatsContainer.mc_StatsEle.mc_HorseSpeedAnim.mc_HorseSpeed" />
+	    <MovieClip name="HorseSpeedBarContainer" instancename="bc.mc_StatsContainer.mc_StatsEle.mc_HorseSpeedAnim" />
+
+      <MovieClip name="OpponentHealthBarContainer" instancename="bc.mc_StatsContainer.mc_StatsEle.mc_OponentHealthAnimBar" />
+      <MovieClip name="OpponentHealthBar" instancename="bc.mc_StatsContainer.mc_StatsEle.mc_OponentHealthAnimBar.mc_OponentHealthBar" />
+      <MovieClip name="OpponentHealthBreakContainer" instancename="bc.mc_StatsContainer.mc_StatsEle.mc_OponentHealthAnimBreak" />
+      <MovieClip name="OpponentHealthBreak" instancename="bc.mc_StatsContainer.mc_StatsEle.mc_OponentHealthAnimBreak.mc_OponentHealthBreak" />
+
+      <MovieClip name="bubble1" instancename="cccursor.bubbles.mc_speachText1" />
+      <MovieClip name="bubble2" instancename="cccursor.bubbles.mc_speachText2" />
+      <MovieClip name="bubble3" instancename="cccursor.bubbles.mc_speachText3" />
+      <MovieClip name="bubble4" instancename="cccursor.bubbles.mc_speachText4" />
+      <MovieClip name="bubble5" instancename="cccursor.bubbles.mc_speachText5" />
+      <MovieClip name="bubble6" instancename="cccursor.bubbles.mc_speachText6" />
+      <MovieClip name="bubble7" instancename="cccursor.bubbles.mc_speachText7" />
+      <MovieClip name="bubble8" instancename="cccursor.bubbles.mc_speachText8" />
+      <MovieClip name="bubble9" instancename="cccursor.bubbles.mc_speachText9" />
+      <MovieClip name="bubble10" instancename="cccursor.bubbles.mc_speachText10" />
+      <MovieClip name="bubble11" instancename="cccursor.bubbles.mc_speachText11" />
+      <MovieClip name="bubble12" instancename="cccursor.bubbles.mc_speachText12" />
+      <MovieClip name="bubble13" instancename="cccursor.bubbles.mc_speachText13" />
+      <MovieClip name="bubble14" instancename="cccursor.bubbles.mc_speachText14" />
+      <MovieClip name="bubble15" instancename="cccursor.bubbles.mc_speachText15" />
+      <MovieClip name="bubble16" instancename="cccursor.bubbles.mc_speachText16" />
+
+	  </MovieClips>
+
+    <arrays>
+      <array name="SequenceList" varname="g_SequencesA" />
+      <array name="QAMSlots" varname="g_QAMSlotsA" />
+      <array name="SkillChecks" varname="g_SkillChecksA" />
+      <array name="CrimeListData" varname="g_CrimeListDataA" />
+      <array name="ActionHints" varname="g_ActionHintsA" />
+      <array name="CompassMarkers" varname="g_CompassMarkersA" />
+    </arrays>
+
+  </UIElement>
+</UIElements>

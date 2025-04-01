@@ -1,0 +1,120 @@
+<?xml version="1.0"?>
+<!DOCTYPE storm SYSTEM "storm.dtd">
+<storm>
+
+	<rules>
+	
+		<rule name="forAllDogCompanion">
+			<selectors>
+				<hasSocialClass name="dogCompanion" />
+			</selectors>
+			<operations>
+				<addRole name="COMBAT_SHOUT_OPPONENT" />
+			</operations>			
+		</rule>
+				
+		<rule name="player_dogCompanion">
+			<selectors>
+				<isPlayersDogCompanion />
+			</selectors>
+			<operations>
+				<addRole name="DOG_COMPANION" />
+				<addRole name="VORECH" />
+			</operations>
+		</rule>
+		
+		<rule name="npc_giveDogBackToPlayer">
+			<selectors>
+				<or>
+					<hasName name="tzel_vavrinec*" />
+					<hasName name="kcer_innkeeper" />
+				</or>
+			</selectors>
+			<operations>
+				<addRole name="NPC_VRACI_HRACI_PSA" />
+			</operations>
+		</rule>
+		
+		<rule name="npc_reactionOnDog_none_man">
+			<selectors>
+				<isMan />
+				<isValidOpenworldNpc />
+				<isNotCuman />
+				<not>
+					<hasUniqueVoice />
+				</not>
+			</selectors>
+			<operations>
+				<addRole name="NPC_REAGUJE_NA_HRACOVA_PSA_MUZ" />
+			</operations>			
+		</rule>		
+		
+		<rule name="npc_reactionOnDog_none_woman">
+			<selectors>
+				<isWoman />
+				<isValidOpenworldNpc />
+				<not>
+					<hasUniqueVoice />
+				</not>
+			</selectors>
+			<operations>
+				<addRole name="NPC_REAGUJE_NA_HRACOVA_PSA_ZENA" />
+			</operations>			
+		</rule>
+		
+		<rule name="npc_reactionOnDog_forsaken_man">
+			<selectors>
+				<isMan />
+				<isValidOpenworldNpc />
+				<isNotCuman />
+				<not>
+					<hasUniqueVoice />
+				</not>
+			</selectors>
+			<operations>
+				<addRole name="NPC_REAGUJE_NA_OSAMOCENEHO_PSA_MUZ" />
+			</operations>			
+		</rule>
+		
+		<rule name="npc_reactionOnDog_forsaken_woman">
+			<selectors>
+				<isWoman />
+				<isValidOpenworldNpc />
+				<not>
+					<hasUniqueVoice />
+				</not>
+			</selectors>
+			<operations>
+				<addRole name="NPC_REAGUJE_NA_OSAMOCENEHO_PSA_ZENA" />
+			</operations>			
+		</rule>
+		
+		<rule name="npc_reactionOnDog_sniffing_man">
+			<selectors>
+				<isMan />
+				<isValidOpenworldNpc />
+				<isNotCuman />
+				<not>
+					<hasUniqueVoice />
+				</not>
+			</selectors>
+			<operations>
+				<addRole name="NPC_REAGUJE_NA_PSA_U_STANKU_MUZ" />
+			</operations>			
+		</rule>
+		
+		<rule name="npc_reactionOnDog_sniffing_woman">
+			<selectors>
+				<isWoman />
+				<isValidOpenworldNpc />
+				<not>
+					<hasUniqueVoice />
+				</not>
+			</selectors>
+			<operations>
+				<addRole name="NPC_REAGUJE_NA_PSA_U_STANKU_ZENA" />
+			</operations>			
+		</rule>
+
+    </rules>
+</storm>

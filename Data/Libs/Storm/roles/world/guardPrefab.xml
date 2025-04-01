@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+<!DOCTYPE storm SYSTEM "storm.dtd">
+<storm>
+	<customSelectors>
+		<customSelector name="possiblyUsesGuardPrefab" mode="or" >
+			<or>
+				<isValidOpenworldNpc />
+				<isTest />
+			</or>
+			<isNotCuman />
+			<not>
+				<hasRomaniVoice />
+			</not>
+			<not>
+				<isGerman />
+			</not>
+			<isMan />
+			<isNotBffAndHasNoUniqueBffVoice />
+		</customSelector>
+	</customSelectors>
+
+	<rules>
+		<rule name="guardPrefab-first">
+			<selectors>
+				<possiblyUsesGuardPrefab />
+				<hasFirstMaleFallbackGroup />
+			</selectors>
+			<operations>
+				<addRole name="VYMENA_STRAZI_MA_HLIDCE_MUZ1" />
+			</operations>
+		</rule>
+		<rule name="guardPrefab-second">
+			<selectors>
+				<possiblyUsesGuardPrefab />
+				<hasSecondMaleFallbackGroup />
+			</selectors>
+			<operations>
+				<addRole name="VYMENA_STRAZI_NA_HLIDCE_MUZ2" />
+			</operations>
+		</rule>
+    </rules>
+</storm>

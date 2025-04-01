@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<!DOCTYPE storm SYSTEM "storm.dtd">
+<storm>
+	<rules>
+		<rule name="kocovnickaCest_wolvesAttack">
+			<selectors>
+				<hasName name="kocovnickaCest_wolf*" />
+			</selectors>
+			<operations>
+				<addContext name="combat_alwaysJoinSkirmish" />
+				<addContext name="crime_animal_forceInstantAttackOnEnemy" />
+				<addContext name="crime_animal_legalToKill" />
+			</operations>
+		</rule>
+
+		<rule name="kocovnickaCest_gossipContext">
+			<selectors>
+				<or>
+					<kocovnickaCest_nomadCamp_generic_romani_men/>
+					<kocovnickaCest_nomadCamp_generic_romani_women/>
+					<kocovnickaCest_nomadCamp_generic_notRomani_men/>
+					<kocovnickaCest_village_generic_men/>
+					<kocovnickaCest_village_generic_women/>
+				</or>
+			</selectors>
+			<operations>
+				<addContext name="situation_gossip" />
+			</operations>
+		</rule>
+    </rules>
+</storm>

@@ -1,0 +1,45 @@
+<?xml version="1.0"?>
+<!DOCTYPE storm SYSTEM "../storm.dtd">
+<storm>
+	<rules>
+
+		<rule name="kzikOpenworld_soldiers_custom_arrest" mode="and">
+			<selectors>
+        <or>
+				  <hasFaction name="kutnohorsko_settlements_zikmundovo_soldiers_mercenaries" />
+          <hasFaction name="kutnohorsko_settlements_zikmundovo_soldiers_prague" />
+          <hasName name="kzik_man_25" />
+          <hasName name="kzik_man_53" />
+          <hasName name="kzik_man_2" />
+          <hasName name="kzik_man_57" />
+          <hasName name="kzik_tomas" />
+        </or>
+				<isSoldier />
+			</selectors>
+			<operations>
+        <addRole name="ZK_TABOR_STRAZ_U_DOLNI_BRANY" />
+        <addRole name="STRAZNY_ZATYKANI_ZIKMUND_TABOR" />
+			</operations>
+		</rule>
+
+    <rule name="kzikOpenworld_bonzak">
+      <selectors>
+        <hasName name="kzik_blaha" />
+      </selectors>
+      <operations>
+        <addRole name="BONZAK" />
+      </operations>
+    </rule>
+
+    <rule name="kzikOpenworld_woman_gossip" mode="and">
+      <selectors>
+        <hasFaction name="kutnohorsko_settlements_zikmundovo_commonFolk" />
+        <isWoman />
+      </selectors>
+      <operations>
+        <addRole name="TABOROVA_ZENA" />
+      </operations>
+    </rule>
+    <!--gossip v uherském táboře END-->
+  </rules>
+</storm>

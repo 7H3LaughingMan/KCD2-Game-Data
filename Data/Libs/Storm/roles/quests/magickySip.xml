@@ -1,0 +1,69 @@
+<?xml version="1.0"?>
+<!DOCTYPE storm SYSTEM "../storm.dtd">
+<storm>
+	<rules>
+
+		<rule name="magickySip_karel">
+			<selectors>
+				<hasName name="magickySip_karelSip" />
+			</selectors>
+			<operations>
+				<addRole name="KAREL_ZVANY_SIP" />
+			</operations>
+		</rule>
+        
+		<rule name="magickySip_pecha">
+			<selectors>
+				<hasName name="kgru_pecha" />
+			</selectors>
+			<operations>
+				<addRole name="PECHA" />
+			</operations>
+		</rule>
+
+        <rule name="magickySip_zajic">
+			<selectors>
+				<hasName name="kgru_zajic" />
+			</selectors>
+			<operations>
+				<addRole name="ZAJIC" />
+			</operations>
+		</rule>
+
+        <rule name="magickySip_gravedigger">
+			<selectors>
+				<hasName name="ksed_gravedigger" />
+			</selectors>
+			<operations>
+				<addRole name="HROBNIK_SEDLEC" />
+			</operations>
+		</rule>
+
+		<rule name="magickySip_gossip_man">
+			<selectors>
+				<isValidOpenworldNpc />
+				<hasFaction name="kutnohorsko_enemies_bandits_magickySipCampCertovka" />
+				<not>
+                    <or>
+                        <hasName name="kgru_pecha"/>
+                        <hasName name="kgru_zajic"/>
+                        <hasName name="magickySip_karelSip"/>
+                    </or>
+                </not>
+			</selectors>
+			<operations>
+				<addRole name="BANDITA_PECHUV_TABOR" />
+			</operations>
+		</rule>
+
+		<rule name="magickySip_tipster">
+			<selectors>
+				<hasName name="kcer_innkeeper" />
+			</selectors>
+			<operations>
+				<addRole name="QUEST_TIPSTER_MAGICKY_SIP_MUZ" />
+				<addRole name="HOSPODSKY_TIPSTER" />
+			</operations>
+		</rule>
+    </rules>
+</storm>

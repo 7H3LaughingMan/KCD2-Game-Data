@@ -1,0 +1,330 @@
+<?xml version="1.0"?>
+<!DOCTYPE storm SYSTEM "..\storm.dtd">
+<storm>
+
+	<rules>
+		
+		<!-- ============================================================================================== -->
+		<!-- DOGS -->
+		<rule name="rpg_class_trosecko_backyarddog">
+			<selectors>
+				<isBackyardDog />
+				<or>
+					<hasFaction name="trosecko" />
+					<hasFaction name="animal_wild_enemy_trosecko" />
+					<hasFaction name="animal_wild_neutral" />	<!-- fallback -->
+					<hasFaction name="animal_wild_enemy" />	<!-- fallback -->
+				</or>
+			</selectors>
+
+			<operations>
+				<modAttribute stat="combatLevel" minMod="0.2" maxMod="0.4" />
+			</operations>
+		</rule>
+
+		<rule name="rpg_class_kutnohorsko_backyarddog">
+			<selectors>
+				<isBackyardDog />
+				<or>
+					<hasFaction name="kutnohorsko" />
+					<hasFaction name="animal_wild_enemy_kutnohorsko" />
+				</or>
+			</selectors>
+
+			<operations>
+				<modAttribute stat="combatLevel" minMod="0.35" maxMod="0.55" />
+			</operations>
+		</rule>
+
+
+		<rule name="rpg_class_trosecko_wardog">
+			<selectors>
+				<isWarDog />
+				<or>
+					<hasFaction name="trosecko" />
+					<hasFaction name="animal_wild_enemy_trosecko" />
+					<hasFaction name="animal_wild_neutral" />	<!-- fallback -->
+					<hasFaction name="animal_wild_enemy" />	<!-- fallback -->
+				</or>
+			</selectors>
+
+			<operations>
+				<modAttribute stat="combatLevel" minMod="0.4" maxMod="0.6" />
+			</operations>
+		</rule>
+
+		<rule name="rpg_class_kutnohorsko_wardog">
+			<selectors>
+				<isWarDog />
+				<or>
+					<hasFaction name="kutnohorsko" />
+					<hasFaction name="animal_wild_enemy_kutnohorsko" />
+				</or>
+			</selectors>
+
+			<operations>
+				<modAttribute stat="combatLevel" minMod="0.5" maxMod="0.7" />
+			</operations>
+		</rule>
+
+		<rule name="rpg_class_trosecko_wolf">
+			<selectors>
+				<isWolf />
+				<or>
+					<hasFaction name="trosecko" />
+					<hasFaction name="animal_wild_enemy_trosecko" />
+					<hasFaction name="animal_wild_enemy" />	<!-- fallback -->
+				</or>
+			</selectors>
+
+			<operations>
+				<modAttribute stat="combatLevel" minMod="0.25" maxMod="0.5" />
+			</operations>
+		</rule>
+
+		<rule name="rpg_class_kutnohorsko_wolf">
+			<selectors>
+				<isWolf />
+				<or>
+					<hasFaction name="kutnohorsko" />
+					<hasFaction name="animal_wild_enemy_kutnohorsko" />
+				</or>
+			</selectors>
+
+			<operations>
+				<modAttribute stat="combatLevel" minMod="0.4" maxMod="0.65" />
+			</operations>
+		</rule>
+
+		<!-- 
+			yoinked from base.xml
+		<rule name="rpg_socialClass_wolf">
+		
+			<selectors>
+				<hasSocialClass name="wolf" />
+			</selectors>
+		
+			<operations>
+				<modAttribute stat="agility" minMod="2" maxMod="4" />
+				<modAttribute stat="courage" minMod="4" maxMod="8" />
+				<modAttribute stat="strength" minMod="4" maxMod="8" />
+				<modAttribute stat="vision" minMod="2" maxMod="4" />
+			</operations>
+		
+		</rule>
+
+	-->
+
+		<!-- ============================================================================================== -->
+		<!-- Other animals -->
+
+		<!-- Horse default-->
+		<rule name="rpg_animal_horse">
+			<selectors>
+				<isHorse />
+			</selectors>
+
+			<operations>
+				<setAttribute stat="strength" value="5" />
+				<setAttribute stat="agility" value="5" />
+				<setAttribute stat="vitality" value="5" />
+				<modAttribute stat="vision" minMod="11" maxMod="14" />
+				<modAttribute stat="hearing" minMod="23" maxMod="27" />
+				<setAttribute stat="courage" value="10" />
+			</operations>
+		</rule>
+
+		<rule name="rpg_animal_sheep_ewe" mode="and">
+			<selectors>
+				<hasSoulArchetype name="SheepEwe" />
+			</selectors>
+
+			<operations>
+				<addPerk name="Boid friend" />
+				<modAttribute stat="strength" minMod="8" maxMod="13" />
+				<modAttribute stat="agility" minMod="8" maxMod="14" />
+				<modAttribute stat="vitality" minMod="8" maxMod="14" />
+				<modAttribute stat="vision" minMod="8" maxMod="12" />
+				<modAttribute stat="hearing" minMod="20" maxMod="25" />
+				<modAttribute stat="courage" minMod="4" maxMod="6" />
+			</operations>
+		</rule>
+
+		<rule name="rpg_animal_sheep_ram" mode="and">
+			<selectors>
+				<hasSoulArchetype name="SheepRam" />
+			</selectors>
+
+			<operations>
+				<addPerk name="Boid friend" />
+				<modAttribute stat="strength" minMod="10" maxMod="16" />
+				<modAttribute stat="agility" minMod="8" maxMod="14" />
+				<modAttribute stat="vitality" minMod="10" maxMod="18" />
+				<modAttribute stat="vision" minMod="8" maxMod="12" />
+				<modAttribute stat="hearing" minMod="20" maxMod="24" />
+				<modAttribute stat="courage" minMod="14" maxMod="18" />
+			</operations>
+		</rule>
+
+		<rule name="rpg_animal_hare" mode="and">
+			<selectors>
+				<hasSoulArchetype name="Hare" />
+			</selectors>
+
+			<operations>
+				<addPerk name="Boid friend" />
+				<modAttribute stat="strength" minMod="4" maxMod="6" />
+				<modAttribute stat="agility" minMod="15" maxMod="25" />
+				<modAttribute stat="vitality" minMod="14" maxMod="18" />
+				<modAttribute stat="vision" minMod="8" maxMod="12" />
+				<modAttribute stat="hearing" minMod="30" maxMod="30" />
+				<modAttribute stat="courage" minMod="4" maxMod="6" />
+			</operations>
+		</rule>
+
+		<rule name="rpg_animal_pig" mode="and">
+			<selectors>
+				<hasSoulArchetype name="Pig" />
+			</selectors>
+
+			<operations>
+				<addPerk name="Boid friend" />
+				<modAttribute stat="strength" minMod="9" maxMod="11" />
+				<modAttribute stat="agility" minMod="6" maxMod="8" />
+				<modAttribute stat="vitality" minMod="10" maxMod="16" />
+				<modAttribute stat="vision" minMod="10" maxMod="12" />
+				<modAttribute stat="hearing" minMod="22" maxMod="25" />
+				<modAttribute stat="courage" minMod="10" maxMod="14" />
+			</operations>
+		</rule>
+
+		<rule name="rpg_animal_hen" mode="and">
+			<selectors>
+				<hasSoulArchetype name="Hen" />
+			</selectors>
+
+			<operations>
+				<modAttribute stat="strength" minMod="4" maxMod="6" />
+				<modAttribute stat="agility" minMod="4" maxMod="6" />
+				<modAttribute stat="vitality" minMod="4" maxMod="6" />
+				<modAttribute stat="vision" minMod="8" maxMod="12" />
+				<modAttribute stat="hearing" minMod="8" maxMod="12" />
+				<modAttribute stat="courage" minMod="4" maxMod="6" />
+			</operations>
+		</rule>
+
+		<rule name="rpg_animal_redDeer" mode="and">
+			<selectors>
+				<hasSoulArchetype name="RedDeerStag" />
+			</selectors>
+
+			<operations>
+				<addPerk name="Boid friend" />
+				<modAttribute stat="strength" minMod="18" maxMod="20" />
+				<modAttribute stat="agility" minMod="18" maxMod="20" />
+				<modAttribute stat="vitality" minMod="18" maxMod="25" />
+				<modAttribute stat="vision" minMod="13" maxMod="17" />
+				<modAttribute stat="hearing" minMod="28" maxMod="30" />
+				<modAttribute stat="courage" minMod="18" maxMod="20" />
+			</operations>
+		</rule>
+
+		<rule name="rpg_animal_redDeerDoe" mode="and">
+			<selectors>
+				<hasSoulArchetype name="RedDeerDoe" />
+			</selectors>
+
+			<operations>
+				<addPerk name="Boid friend" />
+				<modAttribute stat="strength" minMod="14" maxMod="16" />
+				<modAttribute stat="agility" minMod="14" maxMod="16" />
+				<modAttribute stat="vitality" minMod="14" maxMod="18" />
+				<modAttribute stat="vision" minMod="13" maxMod="17" />
+				<modAttribute stat="hearing" minMod="25" maxMod="28" />
+				<modAttribute stat="courage" minMod="10" maxMod="12" />
+			</operations>
+		</rule>
+
+		<rule name="rpg_animal_roeDeerBuck" mode="and">
+			<selectors>
+				<hasSoulArchetype name="RoeDeerBuck" />
+			</selectors>
+
+			<operations>
+				<addPerk name="Boid friend" />
+				<modAttribute stat="strength" minMod="14" maxMod="16" />
+				<modAttribute stat="agility" minMod="14" maxMod="16" />
+				<modAttribute stat="vitality" minMod="14" maxMod="18" />
+				<modAttribute stat="vision" minMod="12" maxMod="16" />
+				<modAttribute stat="hearing" minMod="28" maxMod="30" />
+				<modAttribute stat="courage" minMod="14" maxMod="16" />
+			</operations>
+		</rule>
+
+		<rule name="rpg_animal_roeDeerHind" mode="and">
+			<selectors>
+				<hasSoulArchetype name="RoeDeerHind" />
+			</selectors>
+
+			<operations>
+				<addPerk name="Boid friend" />
+				<modAttribute stat="strength" minMod="14" maxMod="16" />
+				<modAttribute stat="agility" minMod="14" maxMod="16" />
+				<modAttribute stat="vitality" minMod="14" maxMod="18" />
+				<modAttribute stat="vision" minMod="12" maxMod="16" />
+				<modAttribute stat="hearing" minMod="25" maxMod="28" />
+				<modAttribute stat="courage" minMod="14" maxMod="16" />
+			</operations>
+		</rule>
+
+		<rule name="rpg_animal_cow" mode="and">
+			<selectors>
+				<hasSoulArchetype name="CattleCow" />
+			</selectors>
+
+			<operations>
+				<addPerk name="Boid friend" />
+				<modAttribute stat="strength" minMod="18" maxMod="20" />
+				<modAttribute stat="agility" minMod="14" maxMod="16" />
+				<modAttribute stat="vitality" minMod="18" maxMod="22" />
+				<modAttribute stat="vision" minMod="10" maxMod="13" />
+				<modAttribute stat="hearing" minMod="22" maxMod="26" />
+				<modAttribute stat="courage" minMod="12" maxMod="16" />
+			</operations>
+		</rule>
+
+		<rule name="rpg_animal_boar" mode="and">
+			<selectors>
+				<hasSoulArchetype name="Boar" />
+			</selectors>
+
+			<operations>
+				<addPerk name="Boid friend" />
+				<modAttribute stat="strength" minMod="18" maxMod="20" />
+				<modAttribute stat="agility" minMod="16" maxMod="20" />
+				<modAttribute stat="vitality" minMod="20" maxMod="25" />
+				<modAttribute stat="vision" minMod="10" maxMod="13" />
+				<modAttribute stat="hearing" minMod="24" maxMod="27" />
+				<modAttribute stat="courage" minMod="18" maxMod="25" />
+			</operations>
+		</rule>
+
+		<rule name="rpg_animal_bull" mode="and">
+
+			<selectors>
+				<hasSoulArchetype name="CattleBull" />
+			</selectors>
+
+			<operations>
+				<addPerk name="Boid friend" />
+				<modAttribute stat="strength" minMod="18" maxMod="28" />
+				<modAttribute stat="agility" minMod="16" maxMod="20" />
+				<modAttribute stat="vitality" minMod="20" maxMod="26" />
+				<modAttribute stat="vision" minMod="12" maxMod="16" />
+				<modAttribute stat="hearing" minMod="22" maxMod="26" />
+				<modAttribute stat="courage" minMod="24" maxMod="26" />
+			</operations>
+		</rule>
+
+	</rules>
+</storm>

@@ -1,0 +1,61 @@
+<?xml version="1.0"?>
+<!DOCTYPE storm SYSTEM "..\storm.dtd">
+<storm>
+	<rules>
+
+		<!-- Base values -->
+		<rule name="rpg_base_human">
+		
+			<selectors>
+				<isHuman />
+				<isNotPlayer />
+			</selectors>
+		
+			<operations>
+
+				<setAttribute stat="shadiness" value="0" />
+				<modAttribute stat="speech" minMod="1" maxMod="5" />
+
+				<modAttribute stat="vision" minMod="13" maxMod="15" />
+				<modAttribute stat="hearing" minMod="13" maxMod="15" />
+				<modAttribute stat="courage" minMod="4" maxMod="6" />
+				
+				<modAttribute skill="thievery" minMod="0" maxMod="4" />
+				<modAttribute skill="horse_riding" minMod="4" maxMod="8" />
+			</operations>
+		
+		</rule>
+		
+		<!-- Men -->
+		<rule name="rpg_man">
+		
+			<selectors>
+				<isMan />
+				<isNotPlayer />
+			</selectors>
+		
+			<operations>
+				<!-- Designers requested that unarmed men in game should have at least some combat stats & skills in case they get weapons when angriness is high -->
+				<modAttribute stat="combatLevel" minMod="0.1" maxMod="0.2" />
+				<modAttribute stat="strength" minMod="2" maxMod="4" />
+			</operations>
+		
+		</rule>
+		
+		<!-- Women -->
+		<rule name="rpg_women">
+		
+			<selectors>
+				<isWoman />
+			</selectors>
+		
+			<operations>
+				<modAttribute stat="strength"  minMod="1" maxMod="2"/>
+				<modAttribute stat="agility"  minMod="1" maxMod="2"/>
+				<modAttribute stat="vitality"  minMod="1" maxMod="2" />
+			</operations>
+		
+		</rule>
+		
+    </rules>
+</storm>

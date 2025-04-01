@@ -1,0 +1,58 @@
+<?xml version="1.0"?>
+<!DOCTYPE storm SYSTEM "..\storm.dtd">
+<storm>
+	<rules>
+	
+		<rule name="rpg_combatLevel_base">
+		
+			<selectors>
+				<or>
+					<isHuman/>			
+					<isWolf />
+					<isWarDog/>
+					<isBackyardDog />
+					<isPlayersDogCompanion />
+				</or>
+				<isNotPlayer/>
+			</selectors>
+		
+			<operations>
+				<modAttribute stat="agility" minMod="0" maxMod="30" scaleWith="combatLevel"/>
+				<modAttribute stat="strength" minMod="0" maxMod="30" scaleWith="combatLevel"/>
+				<modAttribute stat="vitality" minMod="0" maxMod="30" scaleWith="combatLevel"/>
+				<modAttribute stat="courage" minMod="10" maxMod="30" scaleWith="combatLevel" />
+				
+				<modAttribute skill="defense" minMod="0" maxMod="30" scaleWith="combatLevel" />
+				<!-- modAttribute skill="fencing" minMod="0" maxMod="30" scaleWith="combatLevel" / --> <!-- Can't be set directly, disable for now [PP] -->
+				<modAttribute skill="heavy_weapons" minMod="0" maxMod="30" scaleWith="combatLevel" />
+				<modAttribute skill="horse_riding" minMod="0" maxMod="30" scaleWith="combatLevel" />
+				<modAttribute skill="marksmanship" minMod="0" maxMod="30" scaleWith="combatLevel" />
+			
+				<modAttribute skill="weapon_dagger" minMod="0" maxMod="30" scaleWith="combatLevel" />
+				<modAttribute skill="weapon_large" minMod="0" maxMod="30" scaleWith="combatLevel" />
+				<modAttribute skill="weapon_shield" minMod="0" maxMod="30" scaleWith="combatLevel" />
+				<modAttribute skill="weapon_sword" minMod="0" maxMod="30" scaleWith="combatLevel" />
+				<modAttribute skill="weapon_unarmed" minMod="0" maxMod="30" scaleWith="combatLevel" />
+			</operations>	
+
+		</rule>
+		
+		<rule name="rpg_combatLevel_dog">
+			<selectors>		
+				<or>				
+					<isWolf />
+					<isWarDog/>
+					<isBackyardDog />
+					<isPlayersDogCompanion />
+				</or>
+			</selectors>
+		
+			<operations>
+				<setAttribute stat="vision" minValue="14" maxValue="22" scaleWith="combatLevel"/>
+				<setAttribute stat="hearing" value="30" />
+			</operations>	
+
+		</rule>
+
+    </rules>
+</storm>

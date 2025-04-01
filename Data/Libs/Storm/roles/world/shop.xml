@@ -1,0 +1,486 @@
+<?xml version="1.0"?>
+<!DOCTYPE storm SYSTEM "storm.dtd">
+<storm>
+    <rules>
+
+		 <!-- Universal customer roles - woman -->
+        <rule name="shop_customer_woman">
+            <selectors>
+                <isCustomer_general />
+                <isWoman />
+            </selectors>
+            <operations>
+                <addRole name="GOSSIP_OBCHODNICE_ZAKAZNICE_ZAKAZNICE" />
+				<addRole name="GOSSIP_OBCHODNIK_ZAKAZNICE_ZAKAZNICE" />
+            </operations>
+        </rule>
+		
+		<rule name="shop_customer_man">
+            <selectors>
+                <isCustomer_general />
+                <isMan />
+            </selectors>
+            <operations>
+                <addRole name="GOSSIP_OBCHODNICE_ZAKAZNIK_ZAKAZNIK" />
+				<addRole name="GOSSIP_OBCHODNIK_ZAKAZNIK_ZAKAZNIK" />
+            </operations>
+        </rule>
+		
+        <!-- Full shop roles - man -->
+        <rule name="shop_man">
+            <selectors>
+                <isValidOpenworldNpc />
+                <hasMerchantVoiceOrNoCharacter />
+                <isMan />
+                <isFullTrader />
+            </selectors>
+            <operations>
+                <addShopRoles_essential_man />
+                <addShopRoles_greeting_man />
+                <addShopRoles_ending_man />
+                <addShopRoles_gossips_customers_man />
+            </operations>
+        </rule>
+
+        <!--  market sellers dont get security -->
+        <rule name="shop_men_security_gossip">
+            <selectors>
+                <isValidOpenworldNpc />
+                <hasMerchantVoiceOrNoCharacter />
+                <isMan />
+                <isFullTrader />
+                <not>
+                    <isMarketSeller />
+                </not>
+            </selectors>
+            <operations>
+               <addShopRoles_gossips_security_man />
+            </operations>
+        </rule>
+
+        <!-- Full shop roles - woman -->
+        <rule name="shop_woman">
+            <selectors>
+                <isValidOpenworldNpc />
+                <hasMerchantVoiceOrNoCharacter />
+                <isWoman />
+                <isFullTrader />
+            </selectors>
+            <operations>
+                <addShopRoles_essential_woman />
+                <addShopRoles_greeting_woman />
+                <addShopRoles_ending_woman />
+                <addShopRoles_gossips_customers_woman />
+            </operations>
+        </rule>
+
+        <!-- Bartenders, baths owners and market sellers dont get security -->
+        <rule name="shop_woman_security_gossip">
+            <selectors>
+                <isValidOpenworldNpc />
+                <hasMerchantVoiceOrNoCharacter />
+                <isWoman />
+                <isFullTrader />
+                <not>
+                    <or>
+                        <isMarketSeller />
+                        <hasName name="kkut_woman_12" /> <!-- kkut_woman_12 has a shop building but for some reason we decided not to assign a security guard to her -->
+                        <hasSocialClass name="bartender" />
+                        <hasSocialClass name="bathhouseAbbess" />
+                        <hasVoice name="marketaRychterova" />
+                    </or>
+                </not>
+            </selectors>
+            <operations>
+               <addShopRoles_gossips_security_woman />
+            </operations>
+        </rule>
+        
+
+        <!-- isLightTrader roles - man -->
+        <rule name="shop_isLightTrader_man">
+            <selectors>
+                <isValidOpenworldNpc />
+                <hasLightTraderVoiceOrNoCharacter />
+                <isMan />
+                <isLightTrader />
+            </selectors>
+            <operations>
+                <addShopRoles_essential_man />
+                <addShopRoles_greeting_man />
+                <addShopRoles_ending_man />
+            </operations>
+        </rule>
+
+        <!-- isLightTrader roles - woman -->
+        <rule name="shop_isLightTrader_woman">
+            <selectors>
+                <isValidOpenworldNpc />
+                <hasLightTraderVoiceOrNoCharacter />
+                <isWoman />
+                <isLightTrader />
+            </selectors>
+            <operations>
+                <addShopRoles_essential_woman />
+                <addShopRoles_greeting_woman />
+                <addShopRoles_ending_woman />
+            </operations>
+        </rule>
+
+
+        <!-- isVeryLightTrader roles - man -->
+        <rule name="shop_isVeryLightTrader_man">
+            <selectors>
+                <isValidOpenworldNpc />
+                <hasVeryLightTraderVoiceOrNoCharacter />
+                <isMan />
+                <isVeryLightTrader />
+            </selectors>
+            <operations>
+                <addShopRoles_essential_man />
+                <addShopRoles_ending_man />
+            </operations>
+        </rule>
+
+        <!-- isVeryLightTrader roles - woman -->
+        <rule name="shop_isVeryLightTrader_woman">
+            <selectors>
+                <isValidOpenworldNpc />
+                <hasVeryLightTraderVoiceOrNoCharacter />
+                <isWoman />
+                <isVeryLightTrader />
+            </selectors>
+            <operations>
+                <addShopRoles_essential_woman />
+                <addShopRoles_ending_woman />
+            </operations>
+        </rule>
+
+        
+        <!-- isUltraLightTrader roles - man -->
+        <rule name="shop_isUltraLightTrader_man">
+            <selectors>
+                <isValidOpenworldNpc />
+                <hasUltraLightTraderVoiceOrNoCharacter />
+                <isMan />
+                <isUltraLightTrader />
+            </selectors>
+            <operations>
+                <addShopRoles_essential_man />
+            </operations>
+        </rule>
+
+        <!-- isUltraLightTrader roles - woman -->
+        <rule name="shop_isUltraLightTrader_woman">
+            <selectors>
+                <isValidOpenworldNpc />
+                <hasUltraLightTraderVoiceOrNoCharacter />
+                <isWoman />
+                <isUltraLightTrader />
+            </selectors>
+            <operations>
+                <addShopRoles_essential_woman />
+            </operations>
+        </rule>
+
+
+        <!-- In house shop roles - man -->
+        <rule name="shop_inside_man">
+            <selectors>
+                <hasMerchantVoiceOrNoCharacter />
+                <isValidOpenworldNpc />
+                <isFullTrader />
+                <isMan />
+                <not>
+                    <isMarketSeller />
+                </not>
+            </selectors>
+            <operations>
+                <addShopRoles_welcomeInShop_man />
+            </operations>
+        </rule>
+
+        <!-- In house shop roles - woman -->
+        <rule name="shop_inside_woman">
+            <selectors>
+                <hasMerchantVoiceOrNoCharacter />
+                <isValidOpenworldNpc />
+                <isFullTrader />
+                <isWoman />
+                <not>
+                    <isMarketSeller />
+                </not>
+            </selectors>
+            <operations>
+                <addShopRoles_welcomeInShop_woman />
+            </operations>
+        </rule>
+
+        <!-- Market roles - man -->
+        <rule name="shop_market_man">
+            <selectors>
+                <!-- Following voices recorded something, or are merchant voices -->
+                <or>
+                    <hasVoice name="gabrielAndrews" />
+                    <hasVoice name="gregoryGudgeon" />
+                    <hasVoice name="chrisClarke" />
+                    <hasVoice name="christopherDukes" />
+                    <hasVoice name="paulDean" />
+                    <hasVoice name="samBarlien" />
+                    <hasVoice name="jamesBeaumont" />
+                    <hasVoice name="danielZappi" />
+                    <hasVoice name="jamieMarshall" />
+                    <hasVoice name="jonathanMilshaw" />
+                    <hasVoice name="madsHjulmand" />
+                    <hasVoice name="miltonWelsh" />
+                    <hasVoice name="paulColtofeanu" />
+                    <hasVoice name="juergenStraub" />
+                    <hasVoice name="kennethChristensen" />
+                    <hasVoice name="tomasZielinski" />
+                    <hasVoice name="johnComer" />
+                </or>
+                <isMan />
+                <isMarketSeller />
+            </selectors>
+            <operations>
+                <addRole name="VYVOLAVANI_NA_TRHU_UNIVERZAL_MUZ" />
+            </operations>
+        </rule>
+
+        <rule name="shop_market_greengrocer_man">
+            <selectors>
+                <hasMerchantVoiceOrNoCharacter />
+                <isMan />
+                <isMarketSeller />
+                <market_greengrocer />
+            </selectors>
+            <operations>
+                <addRole name="VYVOLAVANI_NA_TRHU_ZELINAR_MUZ" />
+            </operations>
+        </rule>
+        <rule name="shop_market_baker_man">
+            <selectors>
+                <hasMerchantVoiceOrNoCharacter />
+                <isMan />
+                <isMarketSeller />
+                <market_baker />
+            </selectors>
+            <operations>
+                <addRole name="VYVOLAVANI_NA_TRHU_PEKAR_MUZ" />
+            </operations>
+        </rule>
+        <rule name="shop_market_smith_man">
+            <selectors>
+                <hasMerchantVoiceOrNoCharacter />
+                <isMan />
+                <isMarketSeller />
+                <market_smith />
+            </selectors>
+            <operations>
+                <addRole name="VYVOLAVANI_NA_TRHU_KOVAR_MUZ" />
+            </operations>
+        </rule>
+        <rule name="shop_market_potter_man">
+            <selectors>
+                <!-- Following voices recorded something -->
+                <or>
+                    <hasVoice name="jamesBeaumont" /> <!-- GENERIC_MAN_MERCHANT_CZECH_07 -->
+                    <hasVoice name="miltonWelsh" /> <!-- GENERIC_MAN_MERCHANT_GERMAN_01 -->
+                    <hasVoice name="juergenStraub" /> <!-- GENERIC_MAN_MERCHANT_GERMAN_02 -->
+                </or>
+                <isMan />
+                <isMarketSeller />
+                <market_potter />
+            </selectors>
+            <operations>
+                <addRole name="VYVOLAVANI_NA_TRHU_HRNCIR_MUZ" />
+            </operations>
+        </rule>
+        <rule name="shop_market_saddler_man">
+            <selectors>
+                <hasMerchantVoiceOrNoCharacter />
+                <isMan />
+                <isMarketSeller />
+                <market_saddler />
+            </selectors>
+            <operations>
+                <addRole name="VYVOLAVANI_NA_TRHU_SVEC_MUZ" />
+            </operations>
+        </rule>
+        <rule name="shop_market_tailor_man">
+            <selectors>
+                <hasMerchantVoiceOrNoCharacter />
+                <isMan />
+                <isMarketSeller />
+                <market_tailor />
+            </selectors>
+            <operations>
+                <addRole name="VYVOLAVANI_NA_TRHU_KREJCI_MUZ" />
+            </operations>
+        </rule>
+        <rule name="shop_market_coalman_man">
+            <selectors>
+                <!-- Following voices recorded something -->
+                <or>
+                    <hasVoice name="jamesBeaumont" /> <!-- GENERIC_MAN_MERCHANT_CZECH_07 -->
+                    <hasVoice name="jonathanMilshaw" /> <!-- GENERIC_MAN_MERCHANT_CZECH_06 -->
+                    <hasVoice name="johnComer" /> <!-- GENERIC_MAN_MERCHANT_CZECH_04 -->
+                </or>
+                <isMan />
+                <isMarketSeller />
+                <market_coalman />
+            </selectors>
+            <operations>
+                <addRole name="VYVOLAVANI_NA_TRHU_UHLIR_MUZ" />
+            </operations>
+        </rule>
+        <rule name="shop_market_butcher_man">
+            <selectors>
+                <hasMerchantVoiceOrNoCharacter />
+                <isMan />
+                <isMarketSeller />
+                <market_butcher />
+            </selectors>
+            <operations>
+                <addRole name="VYVOLAVANI_NA_TRHU_REZNIK_MUZ" />
+            </operations>
+        </rule>
+        <rule name="shop_market_grocer_man">
+            <selectors>
+                <hasMerchantVoiceOrNoCharacter />
+                <isMan />
+                <isMarketSeller />
+                <market_grocer />
+            </selectors>
+            <operations>
+                <addRole name="VYVOLAVANI_NA_TRHU_SMISENE_ZBOZI_MUZ" />
+            </operations>
+        </rule>
+
+        <!-- Market roles - woman -->
+        <rule name="shop_market_woman">
+            <selectors>
+                <or>
+                    <!-- Following voices recorded something, have named characters or are merchants. Romani merchant voice not included -->
+                    <hasVoice name="abigailRice" />
+                    <hasVoice name="jenniferPreston" />
+                    <hasVoice name="rozalieAndelova" />
+                    <hasVoice name="marketaRychterova" />
+                    <hasVoice name="rebeccaRisness" />
+                    <hasVoice name="bethanRoseYoung" />
+                    <hasVoice name="tegenShort" />
+                </or>
+                <isWoman />
+                <isMarketSeller />
+            </selectors>
+            <operations>
+                <addRole name="VYVOLAVANI_NA_TRHU_UNIVERZAL_ZENA" />
+            </operations>
+        </rule>
+
+        <rule name="shop_market_greengrocer_woman">
+            <selectors>
+                <hasMerchantVoiceOrNoCharacter />
+                <isWoman />
+                <isMarketSeller />
+                <market_greengrocer />
+            </selectors>
+            <operations>
+                <addRole name="VYVOLAVANI_NA_TRHU_ZELINARKA_ZENA" />
+            </operations>
+        </rule>
+        <rule name="shop_market_baker_woman">
+            <selectors>
+                <hasMerchantVoiceOrNoCharacter />
+                <isWoman />
+                <isMarketSeller />
+                <market_baker />
+            </selectors>
+            <operations>
+                <addRole name="VYVOLAVANI_NA_TRHU_PEKARKA_ZENA" />
+            </operations>
+        </rule>
+        <rule name="shop_market_potter_woman">
+            <selectors>
+                <or>
+                    <hasVoice name="abigailRice" /> <!-- GENERIC_WOMAN_MERCHANT_CZECH_03 -->
+                    <hasVoice name="katieGriffiths" /> <!-- GENERIC_WOMAN_TOWNSWOMAN_04 -->
+                    <hasVoice name="marketaRychterova" /> <!-- GENERIC_WOMAN_MERCHANT_GERMAN_01 -->
+                    <hasVoice name="rebeccaRisness" /> <!-- GENERIC_WOMAN_MERCHANT_CZECH_02 -->
+                </or>
+                <isWoman />
+                <isMarketSeller />
+                <market_potter />
+            </selectors>
+            <operations>
+                <addRole name="VYVOLAVANI_NA_TRHU_HRNCIRKA_ZENA" />
+            </operations>
+        </rule>
+        <rule name="shop_market_tailor_woman">
+            <selectors>
+                <hasMerchantVoiceOrNoCharacter />
+                <isWoman />
+                <isMarketSeller />
+                <market_tailor />
+            </selectors>
+            <operations>
+                <addRole name="VYVOLAVANI_NA_TRHU_KREJCI_ZENA" />
+            </operations>
+        </rule>
+        <rule name="shop_market_grocer_woman">
+            <selectors>
+                <hasMerchantVoiceOrNoCharacter />
+                <isWoman />
+                <isMarketSeller />
+                <market_grocer />
+            </selectors>
+            <operations>
+                <addRole name="VYVOLAVANI_NA_TRHU_SMISENE_ZBOZI_ZENA" />
+            </operations>
+        </rule> 
+		<rule name="shop_market_guard">
+            <selectors>
+                <isMan />
+                <isMarketGuard />
+                <!-- Following voices recorded something, have named characters or are widely represented -->
+                <or>
+                    <hasVoice name="gabrielAndrews" />
+                    <hasVoice name="paulDean" />
+                    <hasVoice name="jamesBeaumont" />
+                    <hasVoice name="danielZappi" />
+                    <hasVoice name="madsHjulmand" />
+                    <hasVoice name="miltonWelsh" />
+                    <hasVoice name="juergenStraub" />
+                    <hasVoice name="tomasZielinski" />
+                    <hasVoice name="jamesNunn" />
+                    <hasVoice name="rupertLazurus" />
+                    <hasVoice name="jackParr" />
+                </or>
+            </selectors>
+            <operations>
+                <addRole name="GOSSIP_SPECIFICKY_STRAZ1" />
+				<addRole name="GOSSIP_SPECIFICKY_STRAZ2" />
+            </operations>
+        </rule>
+
+        <!-- Testing -->
+        <rule name="test_merchant">
+            <selectors>
+                <or>
+                    <hasName name="test_merchant_1" />
+                    <hasName name="test_crime_merchant_8" />
+                </or>
+            </selectors>
+            <operations>
+				<addShopRoles_essential_man />
+                <addShopRoles_greeting_man />
+                <addShopRoles_ending_man />
+                <addShopRoles_gossips_customers_man />
+                <addShopRoles_gossips_security_man />
+                <addShopRoles_welcomeInShop_man />
+            </operations>
+        </rule>
+
+
+    </rules>
+</storm>

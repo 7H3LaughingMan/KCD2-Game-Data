@@ -1,0 +1,262 @@
+<?xml version="1.0"?>
+<!DOCTYPE storm SYSTEM "storm.dtd">
+<storm>
+	<rules>
+
+		<!-- 
+		Situation beggar
+		-->
+		<rule name="contexts_situation_beggarGiver" Mode="and">
+			<selectors>
+				<isHuman />
+				<isNotPlayer />
+				<not>
+					<or>
+						<hasSocialClass name="beggar" />
+						<hasSocialClass name="monk" />		
+						<isSoldier />
+						<isHuntsman />
+					</or>
+				</not>
+			</selectors>
+		
+			<operations>
+				<addContext name="situation_beggarGiver" />
+			</operations>
+		</rule>
+
+        <!-- SITUATION_MAJITELKALAZNI -->
+		<rule name="contexts_situation_majitelkaLazni_owner">
+			<selectors>
+				<hasSocialClass name="bathhouseAbbess" />
+			</selectors>
+			<operations>
+				<addContext name="situation_majitelkaLazni_owner" />
+			</operations>
+		</rule>
+        <rule name="contexts_situation_majitelkaLazni_other_maid" >
+			<selectors>
+				<hasSocialClass name="bathhouseMaid" />
+			</selectors>
+			<operations>
+				<addContext name="situation_majitelkaLazni_other" />
+			</operations>
+		</rule>
+        <rule name="contexts_situation_majitelkaLazni_other_man">
+			<selectors>
+				<situation_majitelkaLazni_customer_general />
+				<isMan />
+			</selectors>
+			<operations>
+				<addContext name="situation_majitelkaLazni_other" />
+			</operations>
+		</rule>
+		<!-- /SITUATION_MAJITELKALAZNI -->
+
+		<!-- SITUATION_GOSSIP -->
+		<rule name="contexts_situation_gossip_everyone"> 
+			<selectors>
+				<or>
+					<situation_gossip_general />
+					<gossip_zikmundovo_cumans />
+					<gossip_zikmundovo_hungarianSoldiers />
+					<hasSocialClass name="beggar" />
+					<hasSocialClass name="miner" />
+					<hasSocialClass name="smelter" />
+					<isBandit />
+					<isCuman />
+				</or>
+			</selectors>
+			<operations>
+				<addContext name="situation_gossip" />
+			</operations>
+		</rule>
+
+		<rule name="contexts_situation_fistfightsPodseminsko" >
+			<selectors>
+				<or>
+					<hasName name="tpod_krejzl"/>
+					<hasName name="tpod_jan"/>
+					<hasName name="tpod_malik"/>
+					<hasName name="tpod_vira"/>
+				</or>
+			</selectors>
+			<operations>
+				<addContext name="situation_gossip" />
+			</operations>
+		</rule>
+
+		<rule name="contexts_situation_fistfightsKutnohorsko" >
+			<selectors>
+				<or>
+					<!-- Horany -->
+					<hasName name="khor_man_1"/>
+					<hasName name="khor_woman_1"/>
+					<hasName name="khor_woman_2"/>
+					<hasName name="khor_man_2"/>
+					<hasName name="khor_thomlin"/>
+					<hasName name="khor_man_24"/>
+					<hasName name="kgru_man_53"/>
+					<!-- /Horany -->
+
+					<!-- KutnaHora -->
+					<hasName name="kkut_cenek"/>
+					<hasName name="kkut_krysa"/>
+					<hasName name="kkut_strnad"/>
+					<hasName name="kkut_stulec"/>
+					<hasName name="kkut_vepr"/>
+					<hasName name="kkut_man_124"/>
+					<hasName name="kkut_man_125"/>
+					<hasName name="kkut_vazoun"/>
+					<!-- /KutnaHora -->
+				</or>
+			</selectors>
+			<operations>
+				<addContext name="situation_gossip" />
+			</operations>
+		</rule>		
+
+		<rule name="contexts_situation_ow_gossip">
+			<selectors>
+				<or>
+					<hasName name="kcer_brabantSoldier_1"/>
+					<hasName name="kcer_innkeeper"/>
+					<hasName name="kcer_suchyCert"/>
+					<hasName name="kkut_samuel"/>
+					<hasName name="kmis_hansZUher"/>
+					<hasName name="kpri_komar"/>
+					<hasName name="krat_baronBrabant"/>
+					<hasName name="kzik_musa"/>
+					<hasName name="tkop_ptacek"/>
+					<hasName name="tneb_bohuta"/>
+					<hasName name="tneb_zizka"/>
+					<hasName name="ttro_bergov"/>
+					<hasName name="ttro_katerina"/>
+					<hasName name="ttro_komori"/>
+					<hasName name="ttro_man_4"/>
+					<hasName name="kcer_woman_4" />
+					<hasName name="kcer_woman_5" />
+					<hasName name="kcer_woman_6" />
+					<hasName name="kcer_woman_7" />
+					<hasName name="kkut_rozaRuthard" />
+					<hasName name="tneb_kozlik" />
+					<hasName name="tneb_mikes" />
+					<hasName name="bratriZCimburka_cuman_1" />	
+					<hasName name="bratriZCimburka_cuman_2" />
+					<hasName name="bratriZCimburka_cuman_3" />
+					<hasName name="bratriZCimburka_cuman_4" />
+					<hasName name="bratriZCimburka_cuman_5" />
+					<hasName name="bratriZCimburka_cuman_6" />
+					<hasName name="bratriZCimburka_cuman_7" />
+					<hasName name="bratriZCimburka_cuman_8" />					
+				</or>
+			</selectors>
+			<operations>
+				<addContext name="situation_gossip" />
+			</operations>
+		</rule>
+
+
+		<rule name="contexts_situationPolish_journeymen">
+			<selectors>
+				<or>	
+					<hasSocialClass name="blacksmithApprentice" />
+					<isCraftsmanApprentice />
+				</or>
+			</selectors>
+			<operations>
+				<addContext name="situationPolish_isCraftsmanApprentice" />
+			</operations>
+		</rule>
+		
+
+		<!-- /SITUATION_GOSSIP -->
+        
+		<!-- SITUATION_GATETOLL -->
+		<rule name="contexts_situation_gateToll_passerBy">
+			<selectors>
+				<situation_gateToll_passerby_general />
+			</selectors>
+			<operations>
+				<addContext name="situation_gateToll_passerBy" />
+			</operations>
+		</rule>	
+		<!-- /SITUATION_GATETOLL -->
+
+		<!-- SITUATION_STORYTELLER -->
+		<rule name="contexts_situation_storyteller_listener">
+			<selectors>
+				<or>
+					<and>
+						<situation_storyTeller_audience_general />
+						<isWoman />
+					</and>
+					<and>
+						<situation_storyTeller_audience_general />
+						<isMan />
+						<isPublicFriend/>
+					</and>
+				</or>
+			</selectors>
+			<operations>
+				<addContext name="situation_storyteller_listener" />
+			</operations>
+		</rule>	
+
+		<rule name="contexts_situation_storyteller_listener_excluded">
+			<selectors>
+				<or>
+					<hasName name="ttac_alsik" /> <!-- KCD2-151642-->
+					<hasName name="ttac_henik" /> <!-- KCD2-151642-->
+					<hasName name="ttac_procek" /> <!-- KCD2-151642-->
+				</or>
+			</selectors>
+
+			<operations>
+				<removeContext name="situation_storyteller_listener" />
+			</operations>
+
+		</rule>
+
+		<!-- /SITUATION_STORYTELLER -->
+
+		<!-- SITUATION_LOSTITEM -->
+		<!--
+		Disabled as per Štepan.Paviza request
+		https://youtrack.warhorsestudios.cz/issue/KCD2-62213/
+		<rule name="contexts_situation_lostitem">
+			<selectors>
+				<situation_lostItem_general />
+			</selectors>
+			<operations>
+				<addContext name="situation_lostItemNPC" />
+			</operations>
+		</rule>			
+		-->
+		<!-- /SITUATION_LOSTITEM -->
+
+		<!-- SITUATION_FLUTIST -->
+		<rule name="contexts_situation_flutist_listener">
+			<selectors>
+				<isHuman />
+				<isNotPlayer />
+			</selectors>
+			<operations>
+				<addContext name="situation_flutist_listener" />
+			</operations>
+		</rule>			
+		<!-- /SITUATION_FLUTIST -->
+
+		<!-- SITUATION_FRIENDLYFIGHT_AUDIENCE -->
+		<rule name="contexts_situation_friendlyFight_audience">
+			<selectors>
+				<situation_friendlyFight_audience_general />
+			</selectors>
+			<operations>
+				<addContext name="situation_friendlyFight_audience" />
+			</operations>
+		</rule>		
+		<!-- /SITUATION_FRIENDLYFIGHT_AUDIENCE -->
+		
+    </rules>
+</storm>

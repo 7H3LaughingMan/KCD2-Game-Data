@@ -1,0 +1,40 @@
+<?xml version="1.0"?>
+<!DOCTYPE storm SYSTEM "storm.dtd">
+<storm>
+	<rules>
+
+		<rule name="levelSwitch_vozkaZKutnohorska">
+			<selectors>
+				<hasName name="ksuc_nomad" />
+			</selectors>
+			<operations>
+				<addRole name="PREVOZNIK_KH_TO_TROS_VYHAZUJE_HRACE_Z_VOZU" />
+				<addRole name="PREVOZNIK_KUTNOHORSKO" />
+			</operations>
+		</rule>
+
+        <rule name="levelSwitch_vozkaZTrosecka">
+			<selectors>
+				<hasName name="tsla_nomad" />
+			</selectors>
+			<operations>
+				<addRole name="PREVOZNIK_TROS_TO_KH_VYHAZUJE_HRACE_Z_VOZU" />
+				<addRole name="PREVOZNIK_TROSECKO" />
+			</operations>
+		</rule>
+
+		<!-- only man easteregg bark -->
+        <rule name="levelSwitch_pasazierBark">
+			<selectors>
+				<or>
+					<hasName name="levelSwitch_man_1" />
+					<hasName name="levelSwitch_man_2" />
+				</or>
+			</selectors>
+			<operations>
+				<addRole name="LEVELSWITCH_PASAZIER_BARKUJE_NA_HRACA" />
+			</operations>
+		</rule>
+
+	</rules>
+</storm>

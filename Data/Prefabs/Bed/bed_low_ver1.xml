@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="us-ascii"?>
+<Prefab Id="1e2d0350-535d-482d-8cda-4dbed1f61c2f">
+	<Tags>
+		<Tag>home</Tag>
+		<Tag>home_important</Tag>
+	</Tags>
+	<Objects>
+		<Object EntityClass="PrefabPort" Id="07f7e567-c19d-4bfe-b369-e715f5aa29c9" Name="port_bedEntity" Pos="0.002727509,-0.4810944,1.025934" Type="Entity">
+			<EntityLinks>
+				<Link DebugTargetName="smartObject" TargetId="2c7b10a0-6da3-4325-acb6-e2addd682444" />
+			</EntityLinks>
+		</Object>
+		<Object EntityClass="BedTrigger" Id="0bfb6f1f-f9bc-42c5-9ca9-5f79a824904e" Name="BedTrigger12" Pos="0.1564407,-0.09442902,0.3592186" Scale="0.39,0.39,0.39" Type="Entity">
+			<Properties InteractorPriorityOverride="1">
+				<Click bAllowNoOwner="0" bCheckOwner="1" sAction="lying" UseMessage="@ui_hud_sleep_and_save" UseNotOwnerMessage="@ui_hud_sleep" />
+			</Properties>
+			<EntityLinks>
+				<Link DebugTargetName="smartObject" TargetId="2c7b10a0-6da3-4325-acb6-e2addd682444" />
+			</EntityLinks>
+		</Object>
+		<Object EntityClass="StanceSmartObject" Id="2c7b10a0-6da3-4325-acb6-e2addd682444" Name="smartObject" Pos="0,0,0.01641846" Rotate="0.7071068,0,0,-0.7071068" Type="Entity">
+			<Properties bOwnedByHome="1" guidSmartObjectType="425d4fdf-8dcd-4a2b-fdc5-cbb1b5d25b89" soclass_SmartObjectHelpers="Bed_1Place_Low_Var1" sWH_AI_EntityCategory="Bed">
+				<Bed esReadingQuality="bed_ground" esSleepQuality="low" />
+				<Script esBedTypes="GroundBed" />
+			</Properties>
+			<EntityLinks>
+				<Link DebugTargetName="BedTrigger12" Name="mTrigger" TargetId="0bfb6f1f-f9bc-42c5-9ca9-5f79a824904e" />
+				<Link DebugTargetName="smartObject" Name="+Heal[sleeper,25]" TargetId="2c7b10a0-6da3-4325-acb6-e2addd682444" />
+				<Link DebugTargetName="outPort_stash" Name="#ChangeEquipment[sleeper,sleepUnequip,Unequip,ExcludeInstantPreSearch] " TargetId="72e00b7e-1f34-4fb8-92ae-f4bbf12e9dd0" />
+				<Link DebugTargetName="outPort_stash" Name="#ChangeEquipment[sleeperAngry,sleepAngryUnequip,Unequip,ExcludeInstantPreSearch] " TargetId="72e00b7e-1f34-4fb8-92ae-f4bbf12e9dd0" />
+				<Link DebugTargetName="smartObject" Name="+Heal[sleeperAngry,25]" TargetId="2c7b10a0-6da3-4325-acb6-e2addd682444" />
+			</EntityLinks>
+		</Object>
+		<Object EntityClass="PrefabPort" Id="72e00b7e-1f34-4fb8-92ae-f4bbf12e9dd0" Name="outPort_stash" Pos="-0.5244637,-0.4810944,1.025934" Type="Entity">
+			<Properties esPrefabPort_Type="Out" />
+		</Object>
+		<Object EntityClass="SchedulerHub" Id="8af0a4f2-f9da-42ac-b9aa-05e6a3e0bcbe" Name="hub_usedByPlayer" Pos="-0.178421,-0.3157043,0.3883591" Type="Entity">
+			<EntityLinks>
+				<Link DebugTargetName="smartObject" Name="_&amp;usedByPlayer|,usedByPlayer" TargetId="2c7b10a0-6da3-4325-acb6-e2addd682444" />
+			</EntityLinks>
+		</Object>
+		<Object EntityClass="SchedulerHub" Id="a03b213a-5b87-4771-957f-e8189996e25b" Name="hub6" Pos="0.03746796,0.00201416,0.5989037" Type="Entity">
+			<EntityLinks>
+				<Link DebugTargetName="smartObject" Name="_|sleeper,use" TargetId="2c7b10a0-6da3-4325-acb6-e2addd682444" />
+				<Link DebugTargetName="smartObject" Name="_|sleeperAngry,1,%0.600000,use" TargetId="2c7b10a0-6da3-4325-acb6-e2addd682444" />
+				<Link DebugTargetName="hub_usedByPlayer" Name="_|usedByPlayer" TargetId="8af0a4f2-f9da-42ac-b9aa-05e6a3e0bcbe" />
+			</EntityLinks>
+		</Object>
+		<Object Id="a338cc81-938c-405b-9ce1-a5b3e4058f61" IgnoreTerrainLayerBlend="1" Name="bedBrush" Pos="0.1323414,0,0.01641846" Prefab="objects/manmade/common_furniture/beds/low/bed_shabby_a.cgf" RndFlags="100040000408" Rotate="0.7071068,0,0,-0.7071068" Type="Brush">
+			<CollisionFiltering>
+				<Type gcc_interactive="1" />
+			</CollisionFiltering>
+		</Object>
+		<Object EntityClass="GhostDummy" Id="bd9eb9aa-12d1-4d7b-9925-c8a9555a1e4c" Name="pose_bed_low1" Pos="0,0,0.01641846" Rotate="0.7071068,0,0,-0.7071068" Type="Entity">
+			<Properties object_Model="objects/intermediates/poses/pose_bed_low.cgf" />
+		</Object>
+		<Object EntityClass="PrefabPort" Id="ea6fe6c5-7df7-45d1-a009-d3ff9e3713b7" Name="port_sequenceTriggerEntity" Pos="0.5287666,0,1.025936" Type="Entity">
+			<EntityLinks>
+				<Link DebugTargetName="BedTrigger12" TargetId="0bfb6f1f-f9bc-42c5-9ca9-5f79a824904e" />
+			</EntityLinks>
+		</Object>
+		<Object EntityClass="PrefabPort" Id="ee390c25-8895-4e96-82b4-00cc3f16c5ae" Name="port_use" Pos="0,0,1.025936" Type="Entity">
+			<EntityLinks>
+				<Link DebugTargetName="hub6" TargetId="a03b213a-5b87-4771-957f-e8189996e25b" />
+			</EntityLinks>
+		</Object>
+	</Objects>
+</Prefab>

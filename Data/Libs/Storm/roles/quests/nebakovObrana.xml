@@ -1,0 +1,145 @@
+<?xml version="1.0"?>
+<!DOCTYPE storm SYSTEM "!storm.dtd">
+<storm>
+	<rules>
+		<rule name="nebakovObrana_zatykani">
+			<selectors>
+				<hasName name="tneb*" />
+				<isAuthorityFigure />
+			</selectors>
+			<operations>
+				<addRole name="STRAZNY_ZATYKANI_NEBAKOVOBRANA" />
+			</operations>
+		</rule>
+		<rule name="nebakovObrana_svepomoc">
+			<selectors>
+				<hasName name="tneb*" />
+				<isValidOpenworldNpc />
+				<isNotCuman />
+				<isMan />
+				<isNotBffAndHasNoUniqueBffVoice />
+			</selectors>
+			<operations>
+				<addRole name="SVEPOMOC_CIVILISTA_MUZ_NEBAKOVOBRANA" />
+			</operations>
+		</rule>
+		<rule name="nebakovObrana_michal">
+			<selectors>
+				<hasName name="tneb_michal" />
+			</selectors>
+			<operations>
+				<addRole name="POBOCNIK_MICHAL" />
+			</operations>
+		</rule>		
+		<rule name="nebakovObrana_bejk">
+			<selectors>
+				<hasName name="tneb_bejk" />
+			</selectors>
+			<operations>
+				<addRole name="BEJK" />
+				<removeRole name="OPRAVAR_KOVAR" />
+				<removeRole name="OPRAVAR" />
+			</operations>
+		</rule>		
+		<rule name="nebakovObrana_kecal">
+			<selectors>
+				<hasName name="tneb_kecal" />
+			</selectors>
+			<operations>
+				<addRole name="KECAL" />
+			</operations>
+		</rule>
+		<rule name="nebakovObrana_pasko">
+			<selectors>
+				<hasName name="tneb_pasko" />
+			</selectors>
+			<operations>
+				<addRole name="PASKO" />
+			</operations>
+		</rule>
+		<rule name="nebakovObrana_kubajz">
+			<selectors>
+				<hasName name="tneb_kubajz" />
+			</selectors>
+			<operations>
+				<addRole name="KUBAJZ" />
+			</operations>
+		</rule>
+		<rule name="nebakovObrana_klara">
+			<selectors>
+				<hasName name="tneb_klara" />
+			</selectors>
+			<operations>
+				<addRole name="KLARA" />
+			</operations>
+		</rule>
+		<rule name="nebakovObrana_cverk">
+			<selectors>
+				<hasName name="tneb_cverk" />
+			</selectors>
+			<operations>
+				<addRole name="CVERK" />
+			</operations>
+		</rule>
+		<rule name="nebakovObrana_marek">
+			<selectors>
+				<hasName name="tneb_marek" />
+			</selectors>
+			<operations>
+				<addRole name="MAREK" />
+			</operations>
+		</rule>
+		<rule name="nebakovObrana_hertl">
+			<selectors>
+				<or>
+					<hasName name="tneb_hertl" />
+					<hasName name="nebakovObrana_strelniceNPC" />
+				</or>
+			</selectors>
+			<operations>
+				<addRole name="NPC_STRELNICE_NEBAKOV" />
+				<addRole name="OBRANA_NEBAKOVA_NPC_CHVALI_ZASAH_Z_PUSEK" />
+				<addRole name="SPEAKTRIGGER_SPEAKER_SCRIPT" />
+			</operations>
+		</rule>	
+		<rule name="nebakovObrana_bohuta">
+			<selectors>
+				<hasName name="tneb_bohuta" />
+			</selectors>
+			<operations>
+				<addRole name="OBRANA_NEBAKOV_BOHUTA_ZASAHL_PRESNE_TERC" />
+				<addRole name="OBRANA_NEBAKOVA_BOHUTA_ZASAHL_DOBRE_TERC" />
+				<addRole name="OBRANA_NEBAKOVA_BOHUTA_ZASAHL_SPATNE_TERC" />
+				<addRole name="OBRANA_NEBAKOVA_BOHUTA_MINUL_PRI_STRELBE_NA_TERC" />
+				<addRole name="OBRANA_NEBAKOVA_BOHUTA_VYHRAL_SOUTEZ_VE_STRELBE" />
+				<addRole name="OBRANA_NEBAKOV_BOHUTA_CHVALI_PRI_STRELBE_Z_PUSEK" />
+			</operations>
+		</rule>
+
+		<rule name="nebakovObrana_attackers">
+			<selectors>
+				<hasName name="nebakovObrana_attackerGroup*" />
+			</selectors>
+			<operations>
+				<addRole name="PRAZAN_KRICI_DO_UTOKU" />
+				<addRole name="PRAZAN_S_ZEBRIKEM_POKLADA_ZEBRIK" />
+				<addRole name="PRAZAN_CEKA_NA_VYSTUP_NA_HRADBU" />
+				<addRole name="VOJAK_SE_STAHUJU_Z_UTOKU" />
+				<addRole name="VOJAK_V_BITVE_PRCHA" />
+				<addRole name="SEKERNIK_UTOCI_NA_BRANU" />
+			</operations>
+		</rule>
+
+		<rule name="nebakovObrana_archers">
+			<selectors>
+				<or>
+					<hasName name="nebakovObrana_beforeBattleRanged*" />
+					<hasName name="nebakovObrana_freeRanger*" />
+				</or>	
+			</selectors>
+			<operations>
+				<addRole name="STRELEC_STRILI_NA_HRADBY" />
+			</operations>
+		</rule>
+    </rules>
+</storm>

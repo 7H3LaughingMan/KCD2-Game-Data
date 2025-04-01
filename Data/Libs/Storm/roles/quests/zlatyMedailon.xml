@@ -1,0 +1,237 @@
+<?xml version="1.0"?>
+<!DOCTYPE storm SYSTEM "!storm.dtd">
+<storm>
+	<rules>
+
+		<rule name="zlatyMedailon_drozd">
+			<selectors>
+				<hasName name="ttkc_drozd" />
+			</selectors>
+			<operations>
+				<addRole name="RYCHTAR_DROZD" />
+			</operations>
+		</rule>		
+
+		<rule name="zlatyMedailon_baska">
+			<selectors>
+				<hasName name="ttkc_baska" />
+			</selectors>
+			<operations>
+				<addRole name="REZNIK_TROSKOVICE" />
+			</operations>
+		</rule>		
+
+		<rule name="zlatyMedailon_milena">
+			<selectors>
+				<hasName name="ttkc_milena" />
+			</selectors>
+			<operations>
+				<addRole name="MILENA" />
+			</operations>
+		</rule>	
+
+		<rule name="zlatyMedailon_eliska">
+			<selectors>
+				<hasName name="tzel_eliska" />
+			</selectors>
+			<operations>
+				<addRole name="ELISKA_ZELEJOV" />
+			</operations>
+		</rule>
+
+		<rule name="zlatyMedailon_adam">
+			<selectors>
+				<hasName name="tzel_adam" />
+			</selectors>
+			<operations>
+				<addRole name="ADAM_ZELEJOV" />
+				<addRole name="PACHOLEK_ADAM_ZELEJOV_POZDRAV" />
+			</operations>
+		</rule>
+
+
+		<rule name="zlatyMedailon_lida">
+			<selectors>
+				<hasName name="tzel_lida" />
+			</selectors>
+			<operations>
+				<addRole name="LIDA" />
+			</operations>
+		</rule>	
+
+		<rule name="zlatyMedailon_zvest">
+			<selectors>
+				<hasName name="tzel_zvest" />
+			</selectors>
+			<operations>
+				<addRole name="ZVEST" />
+			</operations>
+		</rule>				
+		
+		<rule name="zlatyMedailon_dedek">
+			<selectors>
+				<hasName name="tvez_dedek" />
+			</selectors>
+			<operations>
+				<addRole name="PREKUPNIK_DEDEK_VEZICKO" />
+				<addRole name="VYJEDNAVANI_MUZ" />
+			</operations>
+		</rule>		
+
+		<rule name="zlatyMedailon_chramosta">
+			<selectors>
+				<hasName name="tvez_chramosta" />
+			</selectors>
+			<operations>
+				<addRole name="CHRAMOSTA" />
+			</operations>
+		</rule>		
+
+		<rule name="zlatyMedailon_kobera">
+			<selectors>
+				<hasName name="tvez_kobera" />
+			</selectors>
+			<operations>
+				<addRole name="JAKUB_KOBERA" />
+			</operations>
+		</rule>		
+
+		<rule name="zlatyMedailon_kopidlo">
+			<selectors>
+				<hasName name="tvez_kopidlo" />
+			</selectors>
+			<operations>
+				<addRole name="KOPIDLO" />
+			</operations>
+		</rule>	
+
+		<rule name="zlatyMedailon_poachers">
+			<selectors>
+				<or>
+					<hasName name="zlatyMedailon_poacher_1" />
+					<hasName name="zlatyMedailon_poacher_2" />
+				</or>
+			</selectors>
+			<operations>
+				<addRole name="PYTLAK_MEDAILON_OBA" />
+				<addRole name="VYJEDNAVANI_MUZ" />
+				<addRole name="PYTLAK_MEDAILON_OBA_VYHANENI_Z_TRESPASSU" />
+			</operations>
+		</rule>
+
+		<rule name="zlatyMedailon_poacher_1">
+			<selectors>
+				<hasName name="zlatyMedailon_poacher_1" />
+			</selectors>
+			<operations>
+				<addRole name="PYTLAK_MEDAILON_A" />
+			</operations>
+		</rule>	
+
+		<rule name="zlatyMedailon_poacher_2">
+			<selectors>
+				<hasName name="zlatyMedailon_poacher_2" />
+			</selectors>
+			<operations>
+				<addRole name="PYTLAK_MEDAILON_B" />
+			</operations>
+		</rule>	
+		
+		<rule name="zlatyMedailon_zelejov_woman">
+			<selectors>
+				<hasFaction name="trosecko_settlements_zelejov" />
+				<isWoman/>
+                <not>
+                    <or>
+                        <hasName name="tzel_milena"/>
+                        <hasName name="tzel_eliska"/>
+                        <hasName name="tzel_lida"/>
+                    </or>
+                </not>
+			</selectors>
+			<operations>
+				<addRole name="ZELEJOVSTI_O_PRSTENU_ZENA" />
+			</operations>
+		</rule>	
+		
+		<rule name="zlatyMedailon_zelejov_man">
+			<selectors>
+				<hasFaction name="trosecko_settlements_zelejov" />
+				<isMan/>
+                <not>
+                    <or>
+                        <hasName name="tzel_zvest"/>
+                        <hasName name="tzel_adam"/>
+                    </or>
+                </not>
+			</selectors>
+			<operations>
+				<addRole name="ZELEJOVSTI_O_PRSTENU_MUZ" />
+			</operations>
+		</rule>	
+
+		<rule name="zlatyMedailon_nomadCamp_man">
+			<selectors>
+				<livesInNomadCamp_nomad/>
+				<isMan/>
+                <not>
+                    <or>
+                        <hasName name="tvez_dedek"/>
+                        <hasName name="tvez_chramosta"/>
+                        <!-- Dubbing optimization -->
+						<!--<hasName name="tvez_kobera"/>-->
+                        <hasName name="tvez_kopidlo"/>
+						<hasName name="tvez_vajda"/>
+                    </or>
+                </not>
+			</selectors>
+			<operations>
+				<addRole name="KOCOVNIK_OBECNE_MUZ_O_VOJTOVI"/>
+				<addRole name="VYJEDNAVANI_MUZ"/>
+			</operations>
+		</rule>	
+
+		<rule name="zlatyMedailon_nomadCamp_woman">
+			<selectors>
+				<livesInNomadCamp_nomad/>
+				<isWoman/>
+                <not>
+                    <hasName name="tvez_aranka"/>
+                </not>
+			</selectors>
+			<operations>
+				<addRole name="KOCOVNICE_OBECNE_ZENA_O_VOJTOVI"/>
+				<!-- Dubbing optimization -->
+				<!--addRole name="VYJEDNAVANI_ZENA" /-->
+			</operations>
+		</rule>
+
+		<rule name="zlatyMedailon_vajda">
+			<selectors>
+				<hasName name="tvez_vajda" />
+			</selectors>
+			<operations>
+				<addRole name="VAJDA" />
+			</operations>
+		</rule>	
+
+		<rule name="zlatyMedailon_aranka">
+			<selectors>
+				<hasName name="tvez_aranka" />
+			</selectors>
+			<operations>
+				<addRole name="ARANKA" />
+			</operations>
+		</rule>
+
+		<rule name="zlatyMedailon_olbram">
+			<selectors>
+				<hasName name="tzel_olbram" />
+			</selectors>
+			<operations>
+				<addRole name="OLBRAM" />
+			</operations>
+		</rule>
+
+    </rules>
+</storm>

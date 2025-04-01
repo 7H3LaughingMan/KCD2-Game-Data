@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="us-ascii"?>
+<Graph>
+  <Nodes>
+    <Node Id="1" Class="MaterialFX:HUDStartFX" pos="-3180,-130,0" flags="0">
+      <Inputs />
+    </Node>
+    <Node Id="2" Class="MaterialFX:HUDEndFX" pos="1260,-320,0" flags="0">
+      <Inputs />
+    </Node>
+    <Node Id="4" Class="Effects:SpawnParticleEffect" pos="-1800,70,0" flags="0">
+      <Inputs t_Activate="0" Position="0,0,0" Effect="WH_Particels.other.eye_blink" />
+    </Node>
+    <Node Id="9" Class="Camera:ViewShakeEx" pos="-2060,180,0" flags="0">
+      <Inputs entityId="0" Restrict="0" View="0" GroundOnly="0" Smooth="0" Angle="-45,0,0" Shift="0,0,0" Frequency="0.35" Randomness="0" Distance="0" RangeMin="0" RangeMax="30" SustainDuration="2.1" FadeInDuration="0" FadeOutDuration="0" Preset="0" />
+    </Node>
+    <Node Id="10" Class="Image:FilterBlur" pos="-980,-380,0" flags="0">
+      <Inputs entityId="0" Enabled="1" Disabled="1" FilterBlurring_Type="0" FilterBlurring_Amount="0" />
+    </Node>
+    <Node Id="12" Class="Interpol:Float" pos="-1840,-90,0" flags="0">
+      <Inputs StartValue="0.8" EndValue="0" Time="3" UpdateFrequency="0" />
+    </Node>
+    <Node Id="14" Class="Time:Delay" pos="-2060,-190,0" flags="0">
+      <Inputs delay="3" resetOnInput="0" unpausable="0" />
+    </Node>
+    <Node Id="15" Class="Interpol:Float" pos="-1840,-280,0" flags="0">
+      <Inputs StartValue="0" EndValue="0.8" Time="1" UpdateFrequency="0" />
+    </Node>
+    <Node Id="16" Class="Logic:Any" pos="-1530,-210,0" flags="0">
+      <Inputs />
+    </Node>
+    <Node Id="17" Class="Math:LessCheck" pos="-2510,-170,0" flags="0">
+      <Inputs A="0" B="0.25" />
+    </Node>
+    <Node Id="18" Class="Logic:Any" pos="1090,-320,0" flags="0">
+      <Inputs />
+    </Node>
+    <Node Id="19" Name="closing_eyes_when_intensity_&lt;_0.25_and_&gt;0" Class="_commentbox" pos="-2140,-470,0" flags="0">
+      <Inputs TextSize="1" DisplayFilled="1" DisplayBox="1" SortPriority="16" />
+      <ResizeBorder X="0" Y="0" Width="1380" Height="970" />
+      <NodeSize Width="1380" Height="1002.5992" />
+      <Color r="0.5" g="0.5" b="0.5" />
+      <Author author="" />
+    </Node>
+    <Node Id="21" Class="Math:LessCheck" pos="-2330,-910,0" flags="0">
+      <Inputs A="0.25" B="0" />
+    </Node>
+    <Node Id="23" Class="Time:Delay" pos="-1510,-910,0" flags="0">
+      <Inputs delay="2.5" resetOnInput="0" unpausable="0" />
+    </Node>
+    <Node Id="24" Name="yawning" Class="_commentbox" pos="-2140,-970,0" flags="0">
+      <Inputs TextSize="1" DisplayFilled="1" DisplayBox="1" SortPriority="16" />
+      <ResizeBorder X="0" Y="0" Width="890" Height="460" />
+      <NodeSize Width="890" Height="488.5285" />
+      <Color r="0.5" g="0.5" b="0.5" />
+      <Author author="" />
+    </Node>
+    <Node Id="25" Class="Time:Delay" pos="-2770,-280,0" flags="0">
+      <Inputs delay="0.01" resetOnInput="0" unpausable="0" />
+    </Node>
+    <Node Id="27" Class="Audio:Trigger" pos="-2070,-750,0" flags="0">
+      <Inputs entityId="0" audioTrigger_PlayTrigger="n_ge_yawning" audioTrigger_StopTrigger="" />
+    </Node>
+    <Node Id="118" Class="Math:LessCheck" pos="-1390,100,0" flags="0">
+      <Inputs A="0" B="0.5" />
+    </Node>
+    <Node Id="119" Class="Math:Equal" pos="-1970,-400,0" flags="0">
+      <Inputs A="0" B="1" />
+    </Node>
+    <Node Id="121" Class="Logic:Gate" pos="-1320,-260,0" flags="0">
+      <Inputs Closed="0" />
+    </Node>
+    <Node Id="122" Class="Logic:Any" pos="-1150,-310,0" flags="0">
+      <Inputs />
+    </Node>
+    <Node Id="123" Class="Logic:NOT" pos="-1390,-380,0" flags="0">
+      <Inputs in="0" />
+    </Node>
+    <Node Id="124" Class="Audio:Trigger" pos="-1690,240,0" flags="0">
+      <Inputs entityId="0" audioTrigger_PlayTrigger="special_player_fainting" audioTrigger_StopTrigger="" />
+    </Node>
+    <Node Id="127" Class="Math:Random" pos="-620,180,0" flags="0">
+      <Inputs min="0" max="1" />
+    </Node>
+    <Node Id="128" Class="Math:LessCheck" pos="-390,300,0" flags="0">
+      <Inputs A="0" B="0.5" />
+    </Node>
+    <Node Id="131" Class="System:ExecuteScript" pos="-230,280,0" flags="0">
+      <Inputs Script="DialogUtils.RequestPlayerMonologByMetarole(&apos;HRAC_UNAVA_BARK&apos;)" />
+    </Node>
+    <Node Id="136" Class="System:ExecuteScript" pos="360,370,0" flags="0">
+      <Inputs Script="XGenAIModule.ProduceSoundWUID(11, player.this.id, 1); " />
+    </Node>
+    <Node Id="137" Name="Bark/Sound" Class="_commentbox" pos="-420,150,0" flags="0">
+      <Inputs TextSize="1" DisplayFilled="1" DisplayBox="1" SortPriority="16" />
+      <ResizeBorder X="0" Y="0" Width="1640" Height="440" />
+      <NodeSize Width="1640" Height="469.1908" />
+      <Color r="0.5" g="0.5" b="0.5" />
+      <Author author="" />
+    </Node>
+    <Node Id="138" Class="Logic:Blocker" pos="-2360,80,0" flags="0">
+      <Inputs Block="0" />
+    </Node>
+    <Node Id="139" Class="Math:Less" pos="-2550,80,0" flags="0">
+      <Inputs A="0.5" B="0" />
+    </Node>
+    <Node Id="140" Name="Param2_is_1_when_3rd_person_camera_is_active:_block_camera_shake_and_eye_closing" Class="_comment" pos="-2700,150,0" flags="0" />
+    <Node Id="142" Class="System:ExecuteScript" pos="-230,370,0" flags="0">
+      <Inputs Script="DialogUtils.RequestPlayerMonologByMetarole(&apos;HRAC_UNAVA_ZVUK&apos;)" />
+    </Node>
+  </Nodes>
+  <Edges>
+    <Edge nodeIn="17" nodeOut="1" portIn="A" portOut="Intensity" enabled="1" />
+    <Edge nodeIn="21" nodeOut="1" portIn="B" portOut="Intensity" enabled="1" />
+    <Edge nodeIn="25" nodeOut="1" portIn="in" portOut="Started" enabled="1" />
+    <Edge nodeIn="118" nodeOut="1" portIn="A" portOut="Param1" enabled="1" />
+    <Edge nodeIn="119" nodeOut="1" portIn="A" portOut="Intensity" enabled="1" />
+    <Edge nodeIn="139" nodeOut="1" portIn="B" portOut="Param2" enabled="1" />
+    <Edge nodeIn="16" nodeOut="12" portIn="in2" portOut="Value" enabled="1" />
+    <Edge nodeIn="118" nodeOut="12" portIn="Check" portOut="Done" enabled="1" />
+    <Edge nodeIn="12" nodeOut="14" portIn="Start" portOut="out" enabled="1" />
+    <Edge nodeIn="16" nodeOut="15" portIn="in1" portOut="Value" enabled="1" />
+    <Edge nodeIn="121" nodeOut="16" portIn="In" portOut="out" enabled="1" />
+    <Edge nodeIn="10" nodeOut="17" portIn="Enabled" portOut="true" enabled="1" />
+    <Edge nodeIn="14" nodeOut="17" portIn="in" portOut="true" enabled="1" />
+    <Edge nodeIn="15" nodeOut="17" portIn="Start" portOut="true" enabled="1" />
+    <Edge nodeIn="124" nodeOut="17" portIn="Play" portOut="true" enabled="1" />
+    <Edge nodeIn="138" nodeOut="17" portIn="In" portOut="true" enabled="1" />
+    <Edge nodeIn="2" nodeOut="18" portIn="Trigger" portOut="out" enabled="1" />
+    <Edge nodeIn="23" nodeOut="21" portIn="in" portOut="true" enabled="1" />
+    <Edge nodeIn="27" nodeOut="21" portIn="Play" portOut="true" enabled="1" />
+    <Edge nodeIn="18" nodeOut="23" portIn="in1" portOut="out" enabled="1" />
+    <Edge nodeIn="17" nodeOut="25" portIn="Check" portOut="out" enabled="1" />
+    <Edge nodeIn="21" nodeOut="25" portIn="Check" portOut="out" enabled="1" />
+    <Edge nodeIn="18" nodeOut="118" portIn="in2" portOut="true" enabled="1" />
+    <Edge nodeIn="127" nodeOut="118" portIn="generate" portOut="false" enabled="1" />
+    <Edge nodeIn="128" nodeOut="118" portIn="Check" portOut="false" enabled="1" />
+    <Edge nodeIn="121" nodeOut="119" portIn="Open" portOut="false" enabled="1" />
+    <Edge nodeIn="121" nodeOut="119" portIn="Close" portOut="true" enabled="1" />
+    <Edge nodeIn="123" nodeOut="119" portIn="in" portOut="true" enabled="1" />
+    <Edge nodeIn="122" nodeOut="121" portIn="in2" portOut="Out" enabled="1" />
+    <Edge nodeIn="10" nodeOut="122" portIn="FilterBlurring_Amount" portOut="out" enabled="1" />
+    <Edge nodeIn="122" nodeOut="123" portIn="in1" portOut="out" enabled="1" />
+    <Edge nodeIn="128" nodeOut="127" portIn="A" portOut="out" enabled="1" />
+    <Edge nodeIn="131" nodeOut="128" portIn="Call" portOut="true" enabled="1" />
+    <Edge nodeIn="142" nodeOut="128" portIn="Call" portOut="false" enabled="1" />
+    <Edge nodeIn="18" nodeOut="131" portIn="in5" portOut="Failed" enabled="1" />
+    <Edge nodeIn="18" nodeOut="131" portIn="in3" portOut="Success" enabled="1" />
+    <Edge nodeIn="18" nodeOut="136" portIn="in4" portOut="Success" enabled="1" />
+    <Edge nodeIn="4" nodeOut="138" portIn="t_Activate" portOut="Out" enabled="1" />
+    <Edge nodeIn="9" nodeOut="138" portIn="Trigger" portOut="Out" enabled="1" />
+    <Edge nodeIn="138" nodeOut="139" portIn="Block" portOut="out" enabled="1" />
+    <Edge nodeIn="18" nodeOut="142" portIn="in6" portOut="Failed" enabled="1" />
+    <Edge nodeIn="136" nodeOut="142" portIn="Call" portOut="Success" enabled="1" />
+  </Edges>
+</Graph>

@@ -1,0 +1,301 @@
+<?xml version="1.0"?>
+<!DOCTYPE storm SYSTEM "!../../../../storm.dtd">
+<storm>
+	<rules>
+
+		<rule name="finale_father">
+			<selectors>
+				<hasName name="zachrana_fatherOfHenry" />
+			</selectors>
+			<operations>
+				<addRole name="JINDRICHUV_OTEC" />
+			</operations>
+		</rule>
+
+		<rule name="finale_mother">
+			<selectors>
+				<hasName name="tvez_henrysMother" />
+			</selectors>
+			<operations>
+				<addRole name="JINDRICHOVA_MATKA" />
+			</operations>
+		</rule>
+
+		<rule name="finale_cert">
+			<selectors>
+				<hasName name="kcer_suchyCert" />
+			</selectors>
+			<operations>
+				<addRole name="SUCHY_CERT" />
+				<addRole name="HYNEK_SUCHY_CERT" />
+			</operations>
+		</rule>
+
+		<rule name="finale_ptacek">
+			<selectors>
+				<hasName name="tkop_ptacek" />
+			</selectors>
+			<operations>
+				<addRole name="PTACEK" />
+			</operations>
+		</rule>
+
+		<rule name="finale_samuel">
+			<selectors>
+				<hasName name="kkut_samuel" />
+			</selectors>
+			<operations>
+				<addRole name="SAMUEL" />
+				<addRole name="SAM" />
+			</operations>
+		</rule>
+
+		<rule name="finale_bohuta">
+			<selectors>
+				<hasName name="tneb_bohuta" />
+			</selectors>
+			<operations>
+				<addRole name="BOHUTA_NPC" />
+			</operations>
+		</rule>
+
+		<rule name="finale_hanus">
+			<selectors>
+				<hasName name="tsem_hanus" />
+			</selectors>
+			<operations>
+				<addRole name="HANUS_Z_LIPE" />
+			</operations>
+		</rule>
+
+		<rule name="finale_katerina">
+			<selectors>
+				<hasName name="ttro_katerina" />
+			</selectors>
+			<operations>
+				<addRole name="KATERINA" />
+				<addRole name="KATERINA1" />
+			</operations>
+		</rule>
+
+		<rule name="finale_musa">
+			<selectors>
+				<hasName name="kzik_musa" />
+			</selectors>
+			<operations>
+				<addRole name="MUSA_Z_MALI" />
+			</operations>
+		</rule>
+
+		<rule name="finale_jostSoldier">
+			<selectors>
+				<hasName name="finale_man_*" />
+			</selectors>
+			<operations>
+				<addRole name="JOSTUV_VOJAK_FINALE_ZDRAVI_HRACE" />
+				<addRole name="FINALE_JOSTUV_VOJAK_CHATUJE_NA_HRACE" />
+			</operations>
+		</rule>
+
+		<rule name="finale_hans">
+			<selectors>
+				<hasName name="kmis_hansZUher" />
+			</selectors>
+			<operations>
+				<addRole name="HANS_UHER" />
+			</operations>
+		</rule>
+
+		<rule name="finale_kubenka">
+			<selectors>
+				<hasName name="kcer_kubenka" />
+			</selectors>
+			<operations>
+				<addRole name="KUBENKA" />
+			</operations>
+		</rule>
+
+		<rule name="finale_playersSoldiers">
+			<selectors>
+				<or>
+					<hasName name="ksuc_dobros" /> <!-- lovčí Dobroš -->
+					<hasName name="ksuc_wolfram" /> <!-- ras Wolfram -->
+					<hasName name="tneb_mikes" /> <!-- Mikeš -->
+					<hasName name="tneb_kozlik" /> <!-- Kozlík -->
+					<hasName name="oblehaniSuchdole_janek" /> <!-- Janek -->
+					<hasName name="oblehaniSuchdole_jaroslav" /> <!-- Jaroslav -->
+				</or>
+			</selectors>
+			<operations>
+				<addRole name="HRACUV_MUZ_PO_BITVE" />
+				<addRole name="FINALE_VOJAK_Z_HRACOVY_JEDNOTKY" />
+				<addRole name="FINALE_VOJAK_Z_HRACOVY_JEDNOTKY_SE_MODLI" />
+			</operations>
+		</rule>
+
+		<rule name="finale_battle_allies">
+			<selectors>
+				<and>
+					<hasName name="finale_battle_allies*" />
+					<not>
+						<hasName name="finale_battle_allies_dead*" />
+					</not>
+				</and>
+			</selectors>
+			<operations>
+				<addRole name="SPOLUBOJOVNIK_FINALE" />
+				<addRole name="VOJAK_NA_MOSTE_FINALE" />
+			</operations>
+		</rule>
+
+		<rule name="finale_battle_ladderGuy">
+			<selectors>
+				<hasName name="finale_battle_allies_1" />
+			</selectors>
+			<operations>
+				<addRole name="VOJAK_BEZI_NA_HRADBU_FINALE" />
+			</operations>
+		</rule>		
+
+		<rule name="finale_battle_enemies">
+			<selectors>
+				<hasName name="finale_battle_enemy*" />
+				
+				<not>
+					<hasName name="finale_battle_enemy_dead*" />
+				</not>
+			</selectors>
+			<operations>
+				<addRole name="PROTISTRANA" />
+				<addRole name="NPC_NEAKCEPTUJE_HRACOVO_VZDAVANI" />
+				<addRole name="NPC_NEAKCEPTUJE_HRACOVO_VZDAVANI_NEVZDAVACI_KONTEXT" />
+			</operations>
+		</rule>
+
+		<rule name="finale_battle_boss">
+			<selectors>
+				<hasName name="finale_battle_enemy_boss" />
+			</selectors>
+			<operations>
+				<addRole name="LAMPRECHT_VON_PRAG" />
+				<addRole name="PROTISTRANA" />
+				<addRole name="NPC_NEAKCEPTUJE_HRACOVO_VZDAVANI" />
+				<addRole name="NPC_NEAKCEPTUJE_HRACOVO_VZDAVANI_NEVZDAVACI_KONTEXT" />
+			</operations>
+		</rule>		
+
+		<rule name="finale_markvartGuard">
+			<selectors>
+				<hasName name="finale_man_29" />
+			</selectors>
+			<operations>
+				<addRole name="VOJAK_PRED_MRTVYM_MARKVARTEM" />
+			</operations>
+		</rule>
+
+		<rule name="finale_dyingSoldier_1">
+			<selectors>
+				<hasName name="finale_battle_enemy_groupADying_1" />
+			</selectors>
+			<operations>
+				<addRole name="FINALE_UMIRAJICI_VOJAK_STENA_1" />
+			</operations>
+		</rule>
+
+		<rule name="finale_dyingSoldier_2">
+			<selectors>
+				<hasName name="finale_battle_enemy_groupADying_2" />
+			</selectors>
+			<operations>
+				<addRole name="FINALE_UMIRAJICI_VOJAK_STENA_2" />
+			</operations>
+		</rule>
+
+		<!-- Jobst soldier flavor dialogs -->
+
+		<rule name="finale_patrollingMan">
+			<selectors>
+				<or>
+					<hasName name="finale_man_19" />
+					<hasName name="finale_man_20" />
+					<hasName name="finale_man_21" />
+					<hasName name="finale_man_22" />
+					<hasName name="finale_man_23" />
+				</or>
+			</selectors>
+			<operations>
+				<addRole name="JOSTUV_VOJAK_MLUVI_PRI_PATROLE" />
+			</operations>
+		</rule>
+
+		<rule name="finale_lootingMan">
+			<selectors>
+				<or>
+					<hasName name="finale_man_9" />
+					<hasName name="finale_man_10" />
+					<hasName name="finale_man_11" />
+					<hasName name="finale_man_12" />
+					<hasName name="finale_man_13" />
+				</or>
+			</selectors>
+			<operations>
+				<addRole name="JOSTUV_VOJAK_MLUVI_PRI_OKRADANI_MRTVYCH" />
+			</operations>
+		</rule>
+
+		<rule name="finale_man_17">
+			<selectors>
+				<hasName name="finale_man_17" />
+			</selectors>
+			<operations>
+				<addRole name="FINALE_JOSTUV_VOJAK_POPIJI_PO_BITVE_1" />
+			</operations>
+		</rule>
+
+		<rule name="finale_man_18">
+			<selectors>
+				<hasName name="finale_man_18" />
+			</selectors>
+			<operations>
+				<addRole name="FINALE_JOSTUV_VOJAK_POPIJI_PO_BITVE_2" />
+			</operations>
+		</rule>
+		
+		<rule name="finale_man_15">
+			<selectors>
+				<hasName name="finale_man_15" />
+			</selectors>
+			<operations>
+				<addRole name="FINALE_JOSTUV_VOJAK_POPIJI_PO_BITVE_3" />
+			</operations>
+		</rule>
+
+		<rule name="finale_man_26">
+			<selectors>
+				<hasName name="finale_man_26" />
+			</selectors>
+			<operations>
+				<addRole name="FINALE_JOSTUV_VOJAK_POPIJI_PO_BITVE_4" />
+			</operations>
+		</rule>
+
+		<rule name="finale_man_27">
+			<selectors>
+				<hasName name="finale_man_27" />
+			</selectors>
+			<operations>
+				<addRole name="FINALE_JOSTUV_VOJAK_POPIJI_PO_BITVE_5" />
+			</operations>
+		</rule>
+
+		<rule name="finale_man_28">
+			<selectors>
+				<hasName name="finale_man_28" />
+			</selectors>
+			<operations>
+				<addRole name="FINALE_JOSTUV_VOJAK_POPIJI_PO_BITVE_6" />
+			</operations>
+		</rule>
+
+	</rules>
+</storm>

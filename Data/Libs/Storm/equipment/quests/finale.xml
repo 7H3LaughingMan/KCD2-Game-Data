@@ -1,0 +1,126 @@
+<?xml version="1.0"?>
+<!DOCTYPE storm SYSTEM "..\storm.dtd">
+<storm>
+	<rules>
+		<rule name="inventory_finale_jost_army">
+			<selectors>
+				<or>
+					<hasName Name="finale_battle_allies*" />
+					<hasName Name="finale_man_*" />
+				</or>
+				<not>
+					<hasName Name="finale_man_33" />
+				</not>
+			</selectors>
+			<operations>
+				<setInventory preset="inventory_finale_jost_army" />
+			</operations>
+		</rule>
+
+		<rule name="inventory_enemies">
+			<selectors>
+				<and>
+					<not>
+						<hasName Name="*dead*" />
+					</not>
+					<or>
+						<hasName Name="finale_battle_enemy_groupA_*" />
+						<hasName Name="finale_battle_enemy_groupB_*" />
+						<hasName Name="finale_battle_enemy_wall_2" />
+						<hasName Name="finale_battle_enemy_wall_3" />
+						<hasName Name="finale_battle_enemy_wall_4" />
+						<hasName Name="finale_battle_enemy_axeman" />
+					</or>
+				</and>
+			</selectors>
+			<operations>
+				<setInventory preset="inventory_finale_praguer_generic" />
+			</operations>
+		</rule>
+
+		<rule name="inventory_enemies_dead">
+			<selectors>
+				<and>
+					<isMan />
+					<or>
+						<hasName Name="finale_*enemy*dead*" />
+						<hasName Name="finale_*enemy*Dead*" />
+						<hasName Name="finale_*dying*" />
+					</or>
+				</and>
+			</selectors>
+			<operations>
+				<setInventory preset="inventory_finale_praguer_generic_dead" />
+			</operations>
+		</rule>
+
+		<rule name="inventory_allies_dead">
+			<selectors>
+				<and>
+					<isMan />
+					<hasName Name="finale_*allies*dead*" />
+					<not>
+						<hasName Name="finale_battle_enemy_dead_29*" />
+					</not>
+				</and>
+			</selectors>
+			<operations>
+				<setInventory preset="inventory_finale_jost_army" />
+			</operations>
+		</rule>
+
+		<rule name="inventory_enemies_boss">
+			<selectors>
+				<hasName Name="finale_battle_enemy_boss" />
+			</selectors>
+			<operations>
+				<setInventory preset="inventory_finale_boss" />
+			</operations>
+		</rule>
+
+		<rule name="inventory_enemies_wallHalberd">
+			<selectors>
+				<hasName Name="finale_battle_enemy_wall_1" />
+			</selectors>
+			<operations>
+				<setInventory preset="inventory_finale_wallGuy" />
+			</operations>
+		</rule>
+
+		<rule name="inventory_lamprecht_von_prag">
+			<selectors>
+				<hasName Name="finale_battle_enemy_boss" />
+			</selectors>
+			<operations>
+				<setInventory preset="inventory_lamprecht_von_prag" />
+			</operations>
+		</rule>
+
+		<rule name="inventory_finale_hanus_army">
+			<selectors>
+				<hasName Name="finale_hanusSoldier_*" />
+			</selectors>
+			<operations>
+				<setInventory preset="inventory_finale_hanus_army" />
+			</operations>
+		</rule>
+
+		<rule name="inventory_finale_limmy">
+			<selectors>
+				<hasName Name="finale_battle_enemy_dead_29*" />
+			</selectors>
+			<operations>
+				<addInventory preset="inventory_finale_limmy" />
+			</operations>
+		</rule>
+
+		<rule name="inventory_finale_healedSoldier">
+			<selectors>
+				<hasName Name="finale_man_33" />
+			</selectors>
+			<operations>
+				<setInventory preset="inventory_finale_healedSoldier" />
+			</operations>
+		</rule>
+	</rules>
+</storm>

@@ -1,0 +1,70 @@
+<?xml version="1.0"?>
+<!DOCTYPE storm SYSTEM "storm.dtd">
+<storm>
+	<rules>
+        <rule name="vezniNaTroskach_contextsApolenaSoldier">
+			<selectors>
+				<hasName name="vezniNaTroskach_tapo_soldier_*" />
+			</selectors>
+			<operations>
+				<addContext name="vezniNaTroskach_apolenaSoldier" />
+				<addContext name="crime_shortCorpseLookAround" />
+				<addContext name="ForceAllowAutoTorch" />
+			</operations>
+		</rule>
+
+		<rule name="vezniNaTroskach_forbidUsingTorch">
+			<selectors>
+				<hasName name="vezniNaTroskach_tapo_soldier_55" />
+			</selectors>
+			<operations>
+				<addContext name="ForceForbidAutoTorch" />
+			</operations>
+		</rule>
+
+		<rule name="vezniNaTroskach_contextsApolenaDogs">
+			<selectors>
+				<hasName name="vezniNaTroskach_tapo_dog_*" />
+			</selectors>
+			<operations>
+				<addContext name="combat_alwaysJoinSkirmish" />
+			</operations>
+		</rule>
+
+		<rule name="vezniNaTroskach_contextIsGroupMember">
+			<selectors>
+				<and>
+					<or>
+						<hasName name="vezniNaTroskach_tapo_soldier_*" />	
+						<hasName name="vezniNaTroskach_ttro_*" />
+					</or>
+					<not>
+						<hasName name="vezniNaTroskach_tapo_soldier_49" />
+					</not>	
+				</and>
+			</selectors>
+			<operations>
+				<addContext name="crime_isGroupMember" />
+			</operations>
+		</rule>
+
+		<rule name="vezniNaTroskach_questSoldiers">
+			<selectors>
+				<or>
+					<hasName name="vezniNaTroskach_tapo_soldier_*" />	
+					<hasName name="vezniNaTroskach_ttro_*" />
+				</or>
+			</selectors>
+			<operations>
+				<addContext name="combat_neverSurrenderOrFlee" />
+				<addContext name="combat_forceArmed" />
+				<addContext name="combat_neverAcceptSurrender" />
+				<addContext name="crime_legalToLoot" />
+				<addContext name="crime_disableKeyGeneration" />
+				<addContext name="combat_alwaysJoinSkirmish" />
+				<addContext name="crime_useAttackForArrest" />
+			</operations>
+		</rule>
+    </rules>
+</storm>
+	

@@ -1,0 +1,72 @@
+<UIElements name="Common">
+
+	<UIElement name="Overlay" >
+
+		<GFx file="Overlay.gfx" layer="5">
+			<Constraints>
+				<Align mode="fullscreen" scale="1" />
+			</Constraints>
+		</GFx>
+
+		<functions>
+
+			<function name="AddOverlay" funcname="fc_addOverlay">
+				<param name="layer" desc="" type="int"/>
+				<param name="type" desc="" type="int"/>
+				<param name="show" desc="" type="bool"/>
+			</function>
+
+			<function name="SetAngle" funcname="fc_setAngle">
+				<param name="x" desc="" type="float"/>
+				<param name="y" desc="" type="float"/>
+				<param name="z" desc="" type="float"/>
+			</function>
+
+			<function name="SetAlpha" funcname="fc_setAlpha">
+				<param name="layer" desc="" type="int"/>
+				<param name="alpha" desc="" type="int"/>
+			</function>
+
+			<function name="RemoveAllOverlays" funcname="fc_removeAllOverlays"/>
+
+			<function name="RemoveOverlay" funcname="fc_removeOverlay">
+				<param name="layer" desc="" type="int"/>
+			</function>
+
+			<function name="ShowOverlays" funcname="fc_showOverlays">
+				<param name="animation" desc="if overlay should play animation" type="bool"/>
+			</function>
+
+			<function name="HideOverlays" funcname="fc_hideOverlays">
+				<param name="animation" desc="if overlay should play animation" type="bool"/>
+			</function>
+
+			<function name="ShowCinematicOverlay" funcname="fc_showCinematicOverlay">
+				<param name="name" desc="name of overlay" type="string"/>
+			</function>
+
+			<function name="HideCinematicOverlay" funcname="fc_hideCinematicOverlay" />
+
+		</functions>
+
+		<events>
+			<event name="OnLastOverlayRemoved" fscommand="onLastOverlayRemoved" desc="" />
+			
+			<!-- Audio -->
+			<event name="OnPlayAudio" fscommand="onPlayAudio" desc="execute global audio trigger">
+				<param name="TriggerName" desc="" type="string"/>
+			</event>
+
+			<event name="OnStopAudio" fscommand="onStopAudio" desc="stop global audio trigger">
+				<param name="TriggerName" desc="" type="string"/>
+			</event>
+
+			<event name="OnSetVolumeAudio" fscommand="onSetVolumeAudio" desc="set volume via rtpc">
+				<param name="TriggerName" desc="" type="string"/>
+				<param name="Volume" desc="" type="float"/>
+			</event>
+		</events>
+
+	</UIElement>
+
+</UIElements>

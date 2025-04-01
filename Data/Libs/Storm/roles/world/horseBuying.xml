@@ -1,0 +1,95 @@
+<?xml version="1.0"?>
+<!DOCTYPE storm SYSTEM "storm.dtd">
+<storm>
+	<rules>
+		<!-- 
+					=======================================================PLEASE READ!!===================================================================================== 
+
+			 			When adding a new male horse cleaner, please make sure 
+			 			  * he has either a named character and the voice of Gabriel Andrews 
+			 			  * or assign the character GENERIC_MAN_MERCHANT_CZECH_02 
+			 			For women
+			 			  * the voice "Rebecca Risness"
+			 			  * or the character GENERIC_WOMAN_MERCHANT_CZECH_02
+
+					=========================================================================================================================================================
+ 		-->
+
+		<rule name="horseBuying_haggle"> 
+			<selectors>
+				<isMan />
+				<hasMerchantVoiceOrNoCharacter />
+				<isHorseTraderWithMerchantVoice />
+			</selectors>
+			<operations>
+				<addRole name="VYJEDNAVANI_MUZ"/>
+				<addRole name="SMLOUVANI_MUZ"/>
+			</operations>
+		</rule>
+
+		<rule name="horseBuying_handler_trosecko"> 
+			<selectors>
+				<hasName name="tvez_mikolaj"/>
+			</selectors>
+			<operations>
+				<addRole name="KONSKY_HANDLIR_TROSECKO"/>
+        <addRole name="PODKONI_PO_NAKUPU_MUZ" />
+			</operations>
+		</rule>
+
+		<rule name="horseBuying_handler_kutnohorsko">
+			<selectors>
+                <hasName name="ksed_man_3"/>
+			</selectors>
+			<operations>
+        <addRole name="KONSKY_HANDLIR_KUTNOHORSKO"/>
+				<addRole name="PODKONI_PO_NAKUPU_MUZ" />
+			</operations>
+		</rule>
+
+		<rule name="horseBuying_trader_semin">
+			<selectors>
+				<hasName name="tsem_man_15"/>
+			</selectors>
+			<operations>
+				<addRole name="PODKONI_TROSECKO" />
+				<addRole name="PODKONI_MYCKA_MUZ" />
+				<addRole name="PODKONI_PO_NAKUPU_MUZ" />
+			</operations>
+		</rule>
+
+		<rule name="horseBuying_trader_grunta">
+			<selectors>
+				<hasName name="kgru_woman_8"/>
+			</selectors>
+			<operations>
+				<addRole name="PODKONI_GRUNTA" />
+				<addRole name="PODKONI_MYCKA_ZENA" />
+				<addRole name="PODKONI_PO_NAKUPU_ZENA" />
+			</operations>
+		</rule>
+
+		<rule name="horseBuying_trader_malesov">
+			<selectors>
+				<hasName name="kmal_hastal"/>
+			</selectors>
+			<operations>
+				<addRole name="PODKONI_MALESOV" />
+				<addRole name="PODKONI_MYCKA_MUZ" />
+				<addRole name="PODKONI_PO_NAKUPU_MUZ" />
+			</operations>
+		</rule>
+
+		<rule name="horseBuying_trader_kutnaHora">
+			<selectors>
+				<hasName name="kkut_man_64"/>
+			</selectors>
+			<operations>
+				<addRole name="PODKONI_KUTNA_HORA" />
+				<addRole name="PODKONI_MYCKA_MUZ" />
+				<addRole name="PODKONI_PO_NAKUPU_MUZ" />
+			</operations>
+		</rule>
+		
+	</rules>
+</storm>

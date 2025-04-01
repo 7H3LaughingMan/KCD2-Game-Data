@@ -1,0 +1,106 @@
+<?xml version="1.0"?>
+<!DOCTYPE storm SYSTEM "!storm.dtd">
+<storm>
+	<rules>
+
+		<rule name="kutnohorskyTurnaj_initGuy" >
+			<selectors>
+				<hasName name="kkut_menhart" />
+			</selectors>
+			<operations>
+				<addRole name="MENHART_Z_FRANKFURTU" />
+			</operations>
+		</rule>
+
+		<rule name="kutnohorskyTurnaj_reditel" >
+			<selectors>
+				<hasName name="kkut_kumel" />
+			</selectors>
+			<operations>
+				<addRole name="FRIDUS_KUMEL" />
+			</operations>
+		</rule>
+
+		<rule name="kutnohorskyTurnaj_healerGirl" >
+			<selectors>
+				<hasName name="kutnohorskyTurnaj_lazebnice" />
+			</selectors>
+			<operations>
+				<addRole name="KUTNOHORSKY_TURNAJ_LAZEBNICE" />
+			</operations>
+		</rule>
+
+		<rule name="kutnohorskyTurnaj_gearMaster" >
+			<selectors>
+				<hasName name="kutnohorskyTurnaj_gearmaster" />
+			</selectors>
+			<operations>
+				<addRole name="KUTNOHORSKY_TURNAJ_SPRAVCE_VYBAVENI" />
+			</operations>
+		</rule>
+
+		<rule name="kutnohorskyTurnaj_divakZena" >
+			<selectors>
+				<or>
+				<hasName name="kutnohorskyTurnaj_fanWoman1" />
+				<hasName name="kutnohorskyTurnaj_fanWoman2" />
+				<hasName name="kutnohorskyTurnaj_fanWoman3" />
+				<hasName name="kutnohorskyTurnaj_fanWoman4" />
+				<hasName name="kutnohorskyTurnaj_fanWoman5" />
+				<hasName name="kutnohorskyTurnaj_fanWoman6" />
+				</or>
+			</selectors>
+			<operations>
+				<addRole name="KUTNOHORSKY_TURNAJ_GOSSIP_ZENA_1" />
+				<addRole name="KUTNOHORSKY_TURNAJ_GOSSIP_ZENA_2" />
+				<addRole name="KUTNOHORSKY_TURNAJ_FANOUSEK_ZENA" />
+				<addRole name="GOSSIP_OBECNY_ZENA_1" />
+				<addRole name="GOSSIP_OBECNY_ZENA_2" />
+			</operations>
+		</rule>
+
+		<rule name="kutnohorskyTurnaj_divakMuz" >
+			<selectors>
+				<or>
+				<hasName name="kutnohorskyTurnaj_fanMan1" />
+				<hasName name="kutnohorskyTurnaj_fanMan2" />
+				<hasName name="kutnohorskyTurnaj_fanMan3" />
+				<hasName name="kutnohorskyTurnaj_fanMan4" />
+				<hasName name="kutnohorskyTurnaj_fanMan5" />
+				<hasName name="kutnohorskyTurnaj_fanMan6" />
+				</or>
+			</selectors>
+			<operations>
+				<addRole name="KUTNOHORSKY_TURNAJ_GOSSIP_MUZ_1" />
+				<addRole name="KUTNOHORSKY_TURNAJ_GOSSIP_MUZ_2" />
+				<addRole name="KUTNOHORSKY_TURNAJ_FANOUSEK_MUZ" />
+				<addRole name="GOSSIP_OBECNY_MUZ_1" />
+				<addRole name="GOSSIP_OBECNY_MUZ_2" />
+		
+			</operations>
+		</rule>
+
+		<rule name="kutnohorskyTurnaj_gossipMan" >
+			<selectors>
+				<kutnohorskyTurnajGossip_general />
+				<isMan/>
+			</selectors>
+			<operations>
+				<addRole name="KUTNOHORSKY_TURNAJ_GOSSIP_MUZ_1" />
+				<addRole name="KUTNOHORSKY_TURNAJ_GOSSIP_MUZ_2" />
+			</operations>
+		</rule>
+
+		<rule name="kutnohorskyTurnaj_gossipWoman" >
+			<selectors>
+				<kutnohorskyTurnajGossip_general />
+				<isWoman/>
+			</selectors>
+			<operations>
+				<addRole name="KUTNOHORSKY_TURNAJ_GOSSIP_ZENA_1" />
+				<addRole name="KUTNOHORSKY_TURNAJ_GOSSIP_ZENA_2" />
+			</operations>
+		</rule>
+
+	</rules>
+</storm>

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="us-ascii"?>
+<Prefab Id="513c0ec2-5375-4db3-a5b2-acbe184c1f77">
+	<Objects>
+		<Object EntityClass="ItemSlot" Id="099511a1-722b-4d38-92a4-e304a8289db5" Name="rope_cuffs_slot" Type="Entity">
+			<Properties bInvisibleContent="1" guidItemClassId="4ec42492-9f9c-4261-adbd-5de9d92bd07f" />
+		</Object>
+		<Object EntityClass="PrefabPort" Id="1020b17a-1006-4f61-8af2-8d47faaa75ae" Name="so_hangman_port" Pos="-1,1,2" Type="Entity">
+			<EntityLinks>
+				<Link DebugTargetName="so_hangman" TargetId="967dbc8e-96de-43ac-acbe-b271e8412f39" />
+			</EntityLinks>
+		</Object>
+		<Object EntityClass="PrefabPort" Id="5e8e761b-db2e-43bb-a6ff-0260004046a5" Name="_hangman_port" Pos="0,2,2" Type="Entity">
+			<EntityLinks>
+				<Link DebugTargetName="hangman_hub" TargetId="685c3db0-f576-440d-af3f-bebbc6840433" />
+			</EntityLinks>
+		</Object>
+		<Object EntityClass="SchedulerHub" Id="685c3db0-f576-440d-af3f-bebbc6840433" Name="hangman_hub" Pos="0,2,1" Type="Entity">
+			<EntityLinks>
+				<Link DebugTargetName="so_hangman" Name="_,!instant,hangman_hanging" TargetId="967dbc8e-96de-43ac-acbe-b271e8412f39" />
+			</EntityLinks>
+		</Object>
+		<Object EntityClass="AnimObject" Id="826bf0ac-0a95-4c68-b863-9854c27a1cdf" Name="rope" Pos="-0.7292,2.2715,0" Rotate="4.371139e-08,0,0,1" Type="Entity">
+			<Properties object_Model="objects/characters/assets/hangmans_halter/hangmans_halter.cdf">
+				<Animation bResetOnUnslaved="1" />
+			</Properties>
+		</Object>
+		<Object EntityClass="PrefabPort" Id="92278714-07b8-4597-9010-4bc1a4f3a789" Name="cutOff_trigger_port" Pos="-0.8264008,-0.08190155,2" Rotate="0.7071067,0,0,-0.7071068" Scale="0.28,0.28,0.28" Type="Entity">
+			<EntityLinks>
+				<Link DebugTargetName="cutOff_trigger" TargetId="b7da70ac-ca49-4b5b-a7fe-f1b58a0c1f03" />
+			</EntityLinks>
+		</Object>
+		<Object EntityClass="SmartObjectHolder" Id="967dbc8e-96de-43ac-acbe-b271e8412f39" Name="so_hangman" Type="Entity">
+			<Properties guidSmartObjectType="f9e6086e-2afa-46cc-ad53-d7884ddea323" soclass_SmartObjectHelpers="hangman" />
+			<EntityLinks>
+				<Link DebugTargetName="rope" Name="rope" TargetId="826bf0ac-0a95-4c68-b863-9854c27a1cdf" />
+				<Link DebugTargetName="so_hangman" Name="syncHost" TargetId="967dbc8e-96de-43ac-acbe-b271e8412f39" />
+				<Link DebugTargetName="rope_cuffs_slot" Name="rope_cuffs_slot" TargetId="099511a1-722b-4d38-92a4-e304a8289db5" />
+			</EntityLinks>
+		</Object>
+		<Object EntityClass="ActionTrigger" Id="b7da70ac-ca49-4b5b-a7fe-f1b58a0c1f03" Name="cutOff_trigger" Pos="-0.826355,-0.08187103,1.072678" Rotate="0.8038568,0,0,0.5948228" Scale="0.35,0.35,0.35" Type="Entity">
+			<Properties bQuestSystemTrigger="1">
+				<Click bIsActiveInCombat="1" bIsActiveInTenseCircumstance="1" esActionType="JoinedAnimation" sAction="Quest_HangmanCutoff" sAnimationResourceOverride="player">
+					<Angle fAngleTolerance="80" />
+					<Synchro sKeyContextLinkName="syncHost" sKeyName="hangman_cutoff" sTimeout="3s" />
+				</Click>
+			</Properties>
+			<EntityLinks>
+				<Link DebugTargetName="so_hangman" TargetId="967dbc8e-96de-43ac-acbe-b271e8412f39" />
+			</EntityLinks>
+		</Object>
+	</Objects>
+</Prefab>
