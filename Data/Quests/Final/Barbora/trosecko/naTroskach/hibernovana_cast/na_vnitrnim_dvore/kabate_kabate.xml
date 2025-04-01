@@ -54,6 +54,9 @@
 				<Port Name="ruzenec_u_tomase_sestry_nebo_jarka" Direction="In" Type="bool">
 					<DesignName StringName="kabate_ka_ruzenec_u_tomas_FTU7" Text="Růženec u Tomáše sestry nebo Jarka" />
 				</Port>
+				<Port Name="hrac_ma_u_sebe_ruzenec_1" Direction="In" Type="bool">
+					<DesignName StringName="kabate_ka_hrac_ma_u_sebe__qzrt" Text="Hráč má u sebe růženec" />
+				</Port>
 			</Ports>
 			<Definitions>
 				<Definition File="kabate_kabate/kabat__vraceni_ruzence.xml" />
@@ -82,6 +85,7 @@
 						<Vertex>vertex33</Vertex>
 						<Vertex>vertex34</Vertex>
 					</Edge>
+					<Edge From="watchbool.onchangedtotrue" To="Exec" />
 				</If>
 				<IfFunction Name="ifor12" PositionY="1000" PositionX="100" MethodName="math::boolean::Or" DeclaringType="math::boolean">
 					<Edge From="sezen_kabatovi_ruzenec.Active" To="A">
@@ -211,15 +215,24 @@
 					<Edge From="or16.bool" To="aktivace_watch_krabicky" />
 					<Edge From="cs_poprava_afterplayed" To="sledovany_stav" />
 				</watch_pro_abort_objectivu>
+				<watchbool Name="watchbool" PositionY="620" PositionX="-480" Namespace="utils.general">
+					<Edge From="hrac_ma_u_sebe_ruzenec_1" To="watchedstate" />
+					<Edge From="sezen_kabatovi_ruzenec.Active" To="isactive">
+						<Vertex>2ISY7go9</Vertex>
+						<Vertex>KMNkknnr</Vertex>
+					</Edge>
+				</watchbool>
 			</Nodes>
 			<EdgeVertices>
 				<EdgeVertex Name="0vvNJqcj" PositionY="-109" PositionX="2083" />
+				<EdgeVertex Name="2ISY7go9" PositionY="601" PositionX="635" />
 				<EdgeVertex Name="2kr2xmwc" PositionY="90" PositionX="-440" />
 				<EdgeVertex Name="6e9sq5qy" PositionY="1350" PositionX="-910" />
 				<EdgeVertex Name="9euwja2L" PositionY="1320" PositionX="-880" />
 				<EdgeVertex Name="Bs98CP0m" PositionY="-64" PositionX="707" />
 				<EdgeVertex Name="dRAHgDzC" PositionY="-99" PositionX="704" />
 				<EdgeVertex Name="GIvWReJC" PositionY="-73" PositionX="2090" />
+				<EdgeVertex Name="KMNkknnr" PositionY="595" PositionX="-481" />
 				<EdgeVertex Name="vertex19" PositionY="1450" PositionX="1120" />
 				<EdgeVertex Name="vertex20" PositionY="1450" PositionX="410" />
 				<EdgeVertex Name="vertex21" PositionY="1470" PositionX="1120" />

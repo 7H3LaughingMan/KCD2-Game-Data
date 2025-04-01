@@ -78,6 +78,11 @@
 						<Vertex>vertex39</Vertex>
 					</Edge>
 					<Edge From="ifareacheck1371215.True" To="SetTrue" />
+					<Edge From="startOnce.OnTrue" To="SetTrue">
+						<Vertex>Dmuzm41V</Vertex>
+						<Vertex>0NsU6Nqb</Vertex>
+						<Vertex>A3D7pptn</Vertex>
+					</Edge>
 				</State>
 				<BuffEffect Name="buff1371228" PositionY="2250" PositionX="-210">
 					<Constant Name="BuffGUID" Value="74cf0c29-d03e-4233-9352-b91ca5ea69ea" />
@@ -152,22 +157,13 @@
 						<Vertex>900VrCvp</Vertex>
 					</Edge>
 				</EntityContextTrigger>
-				<fightstart Name="fightstart" PositionY="1820" PositionX="650" Namespace="utils.combat">
+				<fightstart Name="fightstart" PositionY="2010" PositionX="830" Namespace="utils.combat">
 					<Asset Name="target" Alias="player" />
 					<Constant Name="prioritytarget" Value="false" />
-					<Edge From="ifand1371257.True" To="startfight">
-						<Vertex>tdLflo91</Vertex>
-						<Vertex>k60V1fen</Vertex>
-					</Edge>
-					<Edge From="combathistorytrigger1371253.OnCombatHistoryBegins" To="startfight" />
-					<Edge From="neprobihaDialogNeboPresvedceni.True" To="startfight" />
-					<Edge From="zacit_boj_s_hledacem" To="startfight">
-						<Vertex>vertex64</Vertex>
-						<Vertex>UCKAzzGW</Vertex>
-					</Edge>
 					<Edge From="firstelement327850.Value" To="attacker">
 						<Vertex>vertex52</Vertex>
 					</Edge>
+					<Edge From="startOnce.OnTrue" To="startfight" />
 				</fightstart>
 				<FirstElement Name="firstelement1371251" PositionY="650" PositionX="-1560" TypeT="wh::rpgmodule::Souls">
 					<Edge From="hledac" To="Array" />
@@ -360,6 +356,18 @@
 						<Vertex>nssqWvhv</Vertex>
 					</Edge>
 				</SoulSkirmishTrigger>
+				<State Name="startOnce" PositionY="1790" PositionX="570" TypeT="bool">
+					<Edge From="zacit_boj_s_hledacem" To="SetTrue">
+						<Vertex>vertex64</Vertex>
+						<Vertex>UCKAzzGW</Vertex>
+					</Edge>
+					<Edge From="ifand1371257.True" To="SetTrue">
+						<Vertex>tdLflo91</Vertex>
+						<Vertex>k60V1fen</Vertex>
+					</Edge>
+					<Edge From="neprobihaDialogNeboPresvedceni.True" To="SetTrue" />
+					<Edge From="combathistorytrigger1371253.OnCombatHistoryBegins" To="SetTrue" />
+				</State>
 				<Switch Name="switch1371278" PositionY="1120" PositionX="-660" TypeT="SpeedEnum" ValueTypes="movementSpeed" SwitchValues="Run Sprint">
 					<Constant Name="RunValue1" Value="run" />
 					<Constant Name="SprintValue1" Value="sprint" />
@@ -409,8 +417,11 @@
 				</Switch>
 			</Nodes>
 			<EdgeVertices>
+				<EdgeVertex Name="0NsU6Nqb" PositionY="-31" PositionX="860" />
 				<EdgeVertex Name="900VrCvp" PositionY="593" PositionX="387" />
+				<EdgeVertex Name="A3D7pptn" PositionY="-37" PositionX="-696" />
 				<EdgeVertex Name="CaXqL9CC" PositionY="610" PositionX="360" />
+				<EdgeVertex Name="Dmuzm41V" PositionY="1942" PositionX="1070" />
 				<EdgeVertex Name="h7fhI6pD" PositionY="-39" PositionX="-1154" />
 				<EdgeVertex Name="k60V1fen" PositionY="2143" PositionX="450" />
 				<EdgeVertex Name="nssqWvhv" PositionY="588" PositionX="93" />

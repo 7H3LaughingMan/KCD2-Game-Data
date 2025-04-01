@@ -22,12 +22,16 @@
 			<Definitions>
 				<Definition File="get_everyone_ready/haste_feast_no_timeskip.xml" />
 				<Definition File="get_everyone_ready/closemaindoor_unlockinnerdoors.xml" />
+				<Definition File="get_everyone_ready/skipinformationbroadcast.xml" />
 			</Definitions>
 			<Nodes>
 				<Function Name="addbuff11" PositionY="-60" PositionX="-1040" MethodName="wh::rpgmodule::AddBuff" DeclaringType="wh::rpgmodule">
 					<Asset Name="Souls" Alias="soulsToRevive" />
 					<Constant Name="Buff" Value="bd22f98a-e61f-4d83-b39c-79d1d85b6b91" />
-					<Edge From="hotovo" To="Exec" />
+					<Edge From="skipinformationbroadcast.onactive" To="Exec">
+						<Vertex>HLtGMtF5</Vertex>
+						<Vertex>5YzpKEJJ</Vertex>
+					</Edge>
 				</Function>
 				<Function Name="advanceworldtime32" PositionY="-420" PositionX="-920" MethodName="wh::rpgmodule::AdvanceWorldTime" DeclaringType="wh::rpgmodule">
 					<Constant Name="TimeOfDay" Value="14h30m" />
@@ -75,7 +79,9 @@
 					<Edge From="cutscenehandler4.AfterPlay" To="fastforward__enable_behaviors">
 						<Vertex>vertex32</Vertex>
 					</Edge>
-					<Edge From="savegamewithnotification31.OnDone" To="cutscene_finished_and_save_made" />
+					<Edge From="skipinformationbroadcast.ondone" To="cutscene_finished_and_save_made">
+						<Vertex>XpTyeIW1</Vertex>
+					</Edge>
 				</Output>
 				<Function Name="removebuff32" PositionY="-60" PositionX="-570" MethodName="wh::rpgmodule::RemoveBuff" DeclaringType="wh::rpgmodule">
 					<Asset Name="Souls" Alias="soulsToRevive" />
@@ -91,6 +97,15 @@
 						<Vertex>vertex40</Vertex>
 					</Edge>
 				</SaveGameWithNotification>
+				<skipinformationbroadcast Name="skipinformationbroadcast" PositionY="650" PositionX="-280">
+					<Edge From="hotovo" To="active">
+						<Vertex>3yLs2V8T</Vertex>
+					</Edge>
+					<Edge From="savegamewithnotification31.OnDone" To="done">
+						<Vertex>X2zVUqgB</Vertex>
+						<Vertex>GsParLTI</Vertex>
+					</Edge>
+				</skipinformationbroadcast>
 				<stopcrime Name="stopcrime" PositionY="-550" PositionX="-1190" Namespace="utils.crime">
 					<Asset Name="npcs" Alias="soulsToForgetCrimes" />
 					<Constant Name="forgetcrimeinformations" Value="true" />
@@ -98,10 +113,16 @@
 				</stopcrime>
 			</Nodes>
 			<EdgeVertices>
+				<EdgeVertex Name="3yLs2V8T" PositionY="690" PositionX="-1310" />
+				<EdgeVertex Name="5YzpKEJJ" PositionY="610" PositionX="-1030" />
+				<EdgeVertex Name="GsParLTI" PositionY="540" PositionX="-260" />
+				<EdgeVertex Name="HLtGMtF5" PositionY="610" PositionX="-30" />
 				<EdgeVertex Name="vertex23" PositionY="-200" PositionX="390" />
 				<EdgeVertex Name="vertex31" PositionY="-390" PositionX="-230" />
 				<EdgeVertex Name="vertex32" PositionY="-180" PositionX="390" />
 				<EdgeVertex Name="vertex40" PositionY="-160" PositionX="390" />
+				<EdgeVertex Name="X2zVUqgB" PositionY="540" PositionX="820" />
+				<EdgeVertex Name="XpTyeIW1" PositionY="860" PositionX="860" />
 			</EdgeVertices>
 			<Assets>
 				<CutsceneHolderAsset Name="kh1_entryCutscene" />

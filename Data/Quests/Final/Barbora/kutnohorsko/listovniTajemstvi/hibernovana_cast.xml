@@ -72,8 +72,17 @@
 				<Port Name="hornici_se_pokusili_zabit_hrace" Direction="Out" Type="bool">
 					<DesignName StringName="hibernova_hornici_se_poku_ojWK" Text="horníci se pokusili zabít hráče" />
 				</Port>
+				<Port Name="hrac_utek_z_boje_s_horniky_v_opustenem_dome" Direction="Out" Type="bool">
+					<DesignName StringName="hibernova_hrac_utek_z_boj_NmpW" Text="hráč utek z boje s horníky v opuštěném domě" />
+				</Port>
 				<Port Name="stav_jdi_do_kutne_hory_napsat_dopis" Direction="Out" Type="ProgressFailableAbortable">
 					<DesignName StringName="hibernova_stav_jdi_do_kut_EThB" Text="stav jdi do Kutné Hory napsat dopis" />
+				</Port>
+				<Port Name="hrac_zautocil_na_horniky_po_psani_dopisu" Direction="Out" Type="trigger">
+					<DesignName StringName="hibernova_hrac_zautocil_n_7Nzn" Text="hráč zaútočil na horníky po psaní dopisu" />
+				</Port>
+				<Port Name="hornici_zautocili_na_hrace_po_psani_dopisu" Direction="Out" Type="trigger">
+					<DesignName StringName="hibernova_hornici_zautoci_MLiq" Text="horníci zaútočili na hráče po psaní dopisu" />
 				</Port>
 			</Ports>
 			<Definitions>
@@ -100,6 +109,11 @@
 						<Vertex>0hSBxr6C</Vertex>
 						<Vertex>pesc4qSd</Vertex>
 						<Vertex>RpPDcfIS</Vertex>
+					</Edge>
+					<Edge From="hrac_jde_udavat.hrac_uzavrel_quest_pres_rychtare" To="hrac_uzavrel_quest_pres_rychtare">
+						<Vertex>vertex29</Vertex>
+						<Vertex>vertex30</Vertex>
+						<Vertex>fUYkkTfr</Vertex>
 					</Edge>
 				</bitka_u_horniku_v_tabore>
 				<chlap_sedi_v_hospode Name="chlap_sedi_v_hospode" PositionY="-80" PositionX="-690" />
@@ -152,6 +166,7 @@
 					<Edge From="hrac_jde_udavat.hrac_uzavrel_quest_pres_rychtare" To="hrac_uzavrel_quest_pres_rychtare">
 						<Vertex>vertex29</Vertex>
 						<Vertex>vertex30</Vertex>
+						<Vertex>fUYkkTfr</Vertex>
 						<Vertex>vertex31</Vertex>
 					</Edge>
 					<Edge From="triggersequence3.A" To="dones_dopis_majiteli_sachty" />
@@ -312,6 +327,18 @@
 					</Edge>
 					<Edge From="bitka_u_horniku_v_tabore.start_bitky_na_strane_horniku" To="start_bitky_na_strane_horniku" />
 					<Edge From="bitka_u_horniku_v_tabore.start_bitky_na_strane_markolta" To="start_bitky_na_strane_markolta" />
+					<Edge From="opusteny_dum_v_kh.hrac_utek_z_boje_s_horniky_v_opustenem_dome" To="hrac_utek_z_boje_s_horniky_v_opustenem_dome">
+						<Vertex>YmEQMLAP</Vertex>
+						<Vertex>uLRsSzA4</Vertex>
+					</Edge>
+					<Edge From="opusteny_dum_v_kh.hrac_zautocil_na_horniky_po_psani_dopisu" To="hrac_zautocil_na_horniky_po_psani_dopisu">
+						<Vertex>zFJxxkRf</Vertex>
+						<Vertex>WHyEqb6b</Vertex>
+					</Edge>
+					<Edge From="opusteny_dum_v_kh.hornici_zautocili_na_hrace_po_psani_dopisu" To="hornici_zautocili_na_hrace_po_psani_dopisu">
+						<Vertex>8wwvGMNh</Vertex>
+						<Vertex>JTqvVlJn</Vertex>
+					</Edge>
 				</Output>
 				<oziveni_npcs Name="oziveni_npcs" PositionY="-950" PositionX="200">
 					<Edge From="listovaniTajemstvi.OnActive" To="ozivit_npcs" />
@@ -345,19 +372,23 @@
 				<EdgeVertex Name="0gcDQfzN" PositionY="1700" PositionX="1080" />
 				<EdgeVertex Name="0hSBxr6C" PositionY="380" PositionX="1180" />
 				<EdgeVertex Name="0U5du4Fx" PositionY="900" PositionX="2200" />
+				<EdgeVertex Name="8wwvGMNh" PositionY="1812" PositionX="874" />
 				<EdgeVertex Name="AJ9j7lLR" PositionY="897" PositionX="1376" />
 				<EdgeVertex Name="d5rW9lDI" PositionY="1080" PositionX="930" />
 				<EdgeVertex Name="DQQHLIc8" PositionY="1170" PositionX="930" />
 				<EdgeVertex Name="dshK2qD2" PositionY="1720" PositionX="3060" />
 				<EdgeVertex Name="dUMD6AEV" PositionY="900" PositionX="1930" />
 				<EdgeVertex Name="FPY2f4wP" PositionY="1737" PositionX="863" />
+				<EdgeVertex Name="fUYkkTfr" PositionY="-400" PositionX="1910" />
 				<EdgeVertex Name="fWYx1tWf" PositionY="1060" PositionX="930" />
 				<EdgeVertex Name="InUaaz5V" PositionY="1742" PositionX="3065" />
 				<EdgeVertex Name="JFs5FCVp" PositionY="1210" PositionX="1320" />
+				<EdgeVertex Name="JTqvVlJn" PositionY="1818" PositionX="3068" />
 				<EdgeVertex Name="MncfhQST" PositionY="380" PositionX="3050" />
 				<EdgeVertex Name="pesc4qSd" PositionY="1140" PositionX="1270" />
 				<EdgeVertex Name="RpPDcfIS" PositionY="1140" PositionX="1790" />
 				<EdgeVertex Name="ufJLD4T2" PositionY="770" PositionX="990" />
+				<EdgeVertex Name="uLRsSzA4" PositionY="1765" PositionX="3066" />
 				<EdgeVertex Name="vertex10" PositionY="-340" PositionX="1370" />
 				<EdgeVertex Name="vertex11" PositionY="-450" PositionX="2810" />
 				<EdgeVertex Name="vertex12" PositionY="-470" PositionX="-120" />
@@ -393,7 +424,10 @@
 				<EdgeVertex Name="vertex6" PositionY="920" PositionX="1940" />
 				<EdgeVertex Name="vertex9" PositionY="-350" PositionX="2200" />
 				<EdgeVertex Name="VXpXvHJY" PositionY="430" PositionX="3050" />
+				<EdgeVertex Name="WHyEqb6b" PositionY="1796" PositionX="3066" />
 				<EdgeVertex Name="WJT1SLnT" PositionY="1100" PositionX="930" />
+				<EdgeVertex Name="YmEQMLAP" PositionY="1760" PositionX="1079" />
+				<EdgeVertex Name="zFJxxkRf" PositionY="1790" PositionX="874" />
 			</EdgeVertices>
 			<Text StringName="hibernovana_cast_yhSd" Text="hibernovaná část" />
 		</Module>

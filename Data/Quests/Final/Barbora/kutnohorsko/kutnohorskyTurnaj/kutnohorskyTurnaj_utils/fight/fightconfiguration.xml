@@ -17,12 +17,17 @@
 				</Port>
 			</Ports>
 			<Nodes>
+				<BuffEffect Name="buff80" PositionY="-920" PositionX="510">
+					<Constant Name="BuffGUID" Value="a2088337-e015-4c28-8ab2-043f6925c087" />
+					<Edge From="active" To="IsActive" />
+					<Edge From="makearray21.Array" To="Souls" />
+				</BuffEffect>
 				<Function Name="compare75" PositionY="650" PositionX="-160" TypeT="wh::rpgmodule::I_Soul*" MethodName="Control::Compare" DeclaringType="Control">
 					<Constant Name="Op" Value="Equals" />
 					<Asset Name="ValueB" Alias="player" />
 					<Edge From="fighter_a" To="ValueA" />
 				</Function>
-				<fightconfiguration_indifference Name="fightconfiguration_indifference" PositionY="140" PositionX="480" Namespace="utils.combat">
+				<fightconfiguration_indifference Name="fightconfiguration_indifference" PositionY="170" PositionX="470" Namespace="utils.combat">
 					<Constant Name="unarmedonly" Value="false" />
 					<Edge From="makearray21.Array" To="souls" />
 					<Edge From="active" To="isactive">
@@ -30,7 +35,7 @@
 						<Vertex>vertex4</Vertex>
 					</Edge>
 				</fightconfiguration_indifference>
-				<fightconfiguration_protections Name="fightconfiguration_protections" PositionY="930" PositionX="460" Namespace="utils.combat">
+				<fightconfiguration_protections Name="fightconfiguration_protections" PositionY="910" PositionX="410" Namespace="utils.combat">
 					<Constant Name="immortality" Value="true" />
 					<Edge From="makearray21.Array" To="souls" />
 					<Edge From="active" To="isactive">
@@ -52,6 +57,7 @@
 				<fightconfiguration_surrendering Name="fightconfiguration_surrendering" PositionY="510" PositionX="820" Namespace="utils.combat">
 					<Constant Name="neversurrenderorflee" Value="false" />
 					<Constant Name="neveracceptsurrender" Value="false" />
+					<Constant Name="preventkillingunconscioushostileplayer" Value="false" />
 					<Constant Name="decentmercy" Value="true" />
 					<Constant Name="alwaysmercy" Value="true" />
 					<Edge From="active" To="isactive">
@@ -69,6 +75,26 @@
 				<MakeArray Name="onlyoponnent" PositionY="260" PositionX="-210" TypeT="wh::rpgmodule::Souls">
 					<Edge From="fighter_b" To="A" />
 				</MakeArray>
+				<SetEntityContext Name="playerCombatIndifference" PositionY="-710" PositionX="520">
+					<Constant Name="Context" Value="combat_indifference" />
+					<Asset Name="Souls" Alias="player" />
+					<Edge From="active" To="IsActive" />
+				</SetEntityContext>
+				<SetEntityContext Name="playerCombatInvisibility" PositionY="-520" PositionX="510">
+					<Constant Name="Context" Value="combat_invisible" />
+					<Asset Name="Souls" Alias="player" />
+					<Edge From="active" To="IsActive" />
+				</SetEntityContext>
+				<SetEntityContext Name="setentitycontext5_1" PositionY="1050" PositionX="850">
+					<Constant Name="Context" Value="combat_calmDownAfterSurrendering" />
+					<Edge From="switch78.Value1" To="Souls" />
+					<Edge From="active" To="IsActive">
+						<Vertex>vertex5</Vertex>
+						<Vertex>vertex4</Vertex>
+						<Vertex>o4vburUc</Vertex>
+						<Vertex>eJA2eHYr</Vertex>
+					</Edge>
+				</SetEntityContext>
 				<SetEntityContext Name="setentitycontext52" PositionY="1360" PositionX="450">
 					<Constant Name="Context" Value="combat_forceMelee" />
 					<Edge From="makearray21.Array" To="Souls" />
@@ -85,13 +111,13 @@
 						<Vertex>vertex4</Vertex>
 					</Edge>
 				</SetEntityContext>
-				<SetEntityContext Name="setentitycontext55" PositionY="-60" PositionX="480">
+				<SetEntityContext Name="setentitycontext55" PositionY="-170" PositionX="500">
 					<Constant Name="Context" Value="combat_invisible" />
-					<Edge From="makearray21.Array" To="Souls" />
 					<Edge From="active" To="IsActive">
 						<Vertex>vertex5</Vertex>
 						<Vertex>vertex4</Vertex>
 					</Edge>
+					<Edge From="makearray21.Array" To="Souls" />
 				</SetEntityContext>
 				<SetEntityContext Name="setentitycontext57" PositionY="1560" PositionX="440">
 					<Constant Name="Context" Value="crime_ignoredNPCHitVolume" />
@@ -101,7 +127,7 @@
 						<Vertex>vertex4</Vertex>
 					</Edge>
 				</SetEntityContext>
-				<SetEntityContext Name="setentitycontext74" PositionY="-290" PositionX="490">
+				<SetEntityContext Name="setentitycontext74" PositionY="-350" PositionX="490">
 					<Constant Name="Context" Value="combat_ableToReceiveSurrenderMessage" />
 					<Edge From="active" To="IsActive">
 						<Vertex>vertex5</Vertex>
@@ -117,6 +143,14 @@
 						<Vertex>vertex4</Vertex>
 						<Vertex>o4vburUc</Vertex>
 						<Vertex>eJA2eHYr</Vertex>
+					</Edge>
+				</SetEntityContext>
+				<SetEntityContext Name="setentitycontextPreventDisarmingMasterstrikes" PositionY="10" PositionX="480">
+					<Constant Name="Context" Value="combat_preventMasterstrikeWeaponDisarm" />
+					<Edge From="makearray21.Array" To="Souls" />
+					<Edge From="active" To="IsActive">
+						<Vertex>vertex5</Vertex>
+						<Vertex>vertex4</Vertex>
 					</Edge>
 				</SetEntityContext>
 				<Switch Name="switch78" PositionY="640" PositionX="500" TypeT="bool" ValueTypes="wh::rpgmodule::Souls" SwitchValues="true false">

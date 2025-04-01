@@ -45,8 +45,16 @@
 				<ConstantPort Name="fight_s_sazkou" Direction="In" Type="bool" Value="true">
 					<DesignName StringName="after_fig_fight_s_sazkou_Sfvl" Text="Fight s sazkou" />
 				</ConstantPort>
+				<Port Name="dialogparams_pro_forcovany_dialog" Direction="Out" Type="wh::dialogmodule::DialogParams*">
+					<DesignName StringName="after_fig_dialogparams_pr_uNt4" Text="DialogParams pro forcovaný dialog" />
+				</Port>
 			</Ports>
 			<Nodes>
+				<Function Name="createdialogparams23" PositionY="490" PositionX="2430" MethodName="wh::dialogmodule::CreateDialogParams" DeclaringType="wh::dialogmodule">
+					<Constant Name="MovePlayer" Value="true" />
+					<Constant Name="RotateParticipants" Value="true" />
+					<Edge From="makearray3.Array" To="Participants" />
+				</Function>
 				<HasMoney_Soul Name="HasMoney_Soul" PositionY="40" PositionX="1340" Namespace="utils.money">
 					<Edge From="opponent" To="soul">
 						<Vertex>vertex33</Vertex>
@@ -89,6 +97,13 @@
 						<Vertex>vertex6</Vertex>
 					</Edge>
 				</If>
+				<MakeArray Name="makearray3" PositionY="490" PositionX="1890" TypeT="wh::rpgmodule::Souls">
+					<Edge From="opponent" To="A">
+						<Vertex>vertex33</Vertex>
+						<Vertex>vertex19</Vertex>
+						<Vertex>vertex28</Vertex>
+					</Edge>
+				</MakeArray>
 				<MoveMoney_SoulToSoul Name="MoveMoney_SoulToSoul" PositionY="20" PositionX="1940" Namespace="utils.money">
 					<Asset Name="tosoul" Alias="player" />
 					<Constant Name="allowpartialmatch" Value="true" />
@@ -132,6 +147,7 @@
 						<Vertex>vertex11</Vertex>
 						<Vertex>vertex30</Vertex>
 					</Edge>
+					<Edge From="createdialogparams23.DialogParams" To="dialogparams_pro_forcovany_dialog" />
 				</Output>
 				<State Name="talkToOpponentAfterFight_objective" PositionY="50" PositionX="390" RequiredForOutput="trosecko kutnohorsko" TypeT="ProgressAbortable">
 					<Edge From="ifStarted.True" To="SetAborted" />

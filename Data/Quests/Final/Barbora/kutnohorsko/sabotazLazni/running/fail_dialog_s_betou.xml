@@ -13,7 +13,7 @@
 					<SelectedSoul Role="HENRY" Voice="tomMcKay" Type="Wave" Language="ENG" />
 					<SelectedSoul Role="BETA_MAJITELKA_LAZNI" Voice="tonyaGraves" Type="Wave" Language="ENG" />
 				</SelectedSouls>
-				<Decision Name="dec1" Priority="SideQuestSubmission">
+				<Decision Name="dec1" Priority="SideQuestAssignment">
 					<Sequences>
 						<Sequence EntryCondition="Port('adam_je_mrtvev_behem_questu') AND &#xD;&#xA;!ThisSequenceUsed()" EndType="Decision" Name="seq1">
 							<DesignName StringName="fail_dial_seq1_EeZ0" Text="seq1" />
@@ -22,7 +22,8 @@
 								<Response Role="HENRY" ReferenceLength="2.17">
 									<Text StringName="fail_henry_co_Q0Og" Text="Podařilo se ti sehnat nějaký další hlasy konšelů?" />
 									<Commands>
-										<FacialMoodCommand Role="BETA_MAJITELKA_LAZNI" FacialMood="sad1" />
+										<FacialMoodCommand Role="BETA_MAJITELKA_LAZNI" FacialMood="sad2" />
+										<FacialMoodCommand FacialMood="thinking2" />
 										<AnimationCommand Delay="0.04" FragmentId="ADLG_Gesture" Guid="82614ed5-8978-4c2d-8771-aeab0b05a4e7" Variant="14" />
 										<CameraCommand CameraType="CloseUp" />
 									</Commands>
@@ -43,12 +44,14 @@
 									</Parenthetical>
 									<Text StringName="fail_henry_co_se_stalo_DvAQ" Text="Co?" />
 									<Commands>
+										<FacialMoodCommand FacialMood="nervous2" />
 										<CameraCommand CameraType="CloseUp" />
 									</Commands>
 								</Response>
 								<Response Role="BETA_MAJITELKA_LAZNI" StartDelay="0.21" ReferenceLength="1.72">
 									<Text StringName="fail_beta_maji_adama_nekd_xjQP" Text="Adama někdo zabil!" />
 									<Commands>
+										<FacialMoodCommand FacialMood="sad3" />
 										<AnimationCommand Delay="0.47" FragmentId="ADLG_Gesture" Guid="0ab09611-db48-4378-9218-4a5539f328c3" Variant="1" />
 										<CameraCommand CameraType="CloseUp" />
 									</Commands>
@@ -59,6 +62,7 @@
 									</Parenthetical>
 									<Text StringName="fail_beta_maji_nevis_vo_t_ZbO4" Text="Nevíš vo tom náhodou něco, že ne?" />
 									<Commands>
+										<FacialMoodCommand FacialMood="thinking3" />
 										<AnimationCommand Delay="-0.01" FragmentId="ADLG_Disagree" Guid="091e2dd0-6079-467c-b878-66ed9ab3edc6" Variant="0" />
 									</Commands>
 								</Response>
@@ -76,6 +80,7 @@
 												<Text StringName="fail_henry_jo_todle_zupV" Text="Jo todle..." />
 												<Commands>
 													<FacialMoodCommand Role="BETA_MAJITELKA_LAZNI" FacialMood="angry1" />
+													<FacialMoodCommand FacialMood="nervous2" />
 													<AnimationCommand Delay="0.02" FragmentId="ADLG_Scratch" Guid="33a30772-99df-4046-aebf-cda098e322b2" Variant="2" DesiredDuration="2.39" />
 													<CameraCommand CameraType="CloseUp" />
 												</Commands>
@@ -93,6 +98,7 @@
 												<Text StringName="fail_henry_ale_mela_bys_b_bFQb" Text="Ale měla bys bejt ráda." />
 												<Commands>
 													<MoodCommand Role="BETA_MAJITELKA_LAZNI" Delay="0.74" Mood="angry" />
+													<FacialMoodCommand FacialMood="happy1" />
 													<AnimationCommand Delay="0.02" FragmentId="ADLG_Nod" Guid="2ddda320-2a14-4160-b352-ad7c194f57b3" Variant="0" />
 												</Commands>
 											</Response>
@@ -119,6 +125,7 @@
 												</Parenthetical>
 												<Text StringName="fail_henry_nejses_rada_jAKk" Text="Nejseš ráda? Je po problému, ne?" />
 												<Commands>
+													<FacialMoodCommand FacialMood="thinking2" />
 													<AnimationCommand Delay="1.88" FragmentId="ADLG_Confusion" Guid="19e1b926-8753-4893-af45-10d39fa3a985" Variant="0" />
 													<AnimationCommand Role="BETA_MAJITELKA_LAZNI" Delay="2.84" FragmentId="ADLG_Emphasis" Guid="63ba102b-6f42-4f87-ae49-746afebe1596" Variant="0" />
 													<CameraCommand CameraType="CloseShot" />
@@ -130,6 +137,7 @@
 												</Parenthetical>
 												<Text StringName="fail_beta_maji_ty_lazne_z_vP5i" Text="Ale hovno! Teď ty jeho lázně chce převzít městská rada a provozovat si je sama!" />
 												<Commands>
+													<FacialMoodCommand FacialMood="angry2" />
 													<CameraCommand CameraType="Medium" />
 												</Commands>
 											</Response>
@@ -148,6 +156,7 @@
 												</Parenthetical>
 												<Text StringName="fail_henry_sakra_urNN" Text="Sakra..." />
 												<Commands>
+													<FacialMoodCommand FacialMood="nervous1" />
 													<CameraCommand CameraType="CloseShot" />
 													<LookAtCommand Delay="0.53" LookAtRole="BETA_MAJITELKA_LAZNI" Offset="BottomRight" TransitionDuration="5" />
 												</Commands>
@@ -167,6 +176,7 @@
 												</Parenthetical>
 												<Text StringName="fail_beta_maji_radsi_bez__uwAv" Text="Radši zmiz! Všecko jenom posereš!" />
 												<Commands>
+													<FacialMoodCommand FacialMood="angry3" />
 													<AnimationCommand Delay="2.36" FragmentId="ADLG_You" Guid="222319d2-f4d6-f7a0-bcf3-92d739eaff9a" Variant="1" />
 													<CameraCommand CameraType="CloseShot" />
 													<LookAtCommand Role="HENRY" Delay="0.84" LookAtRole="BETA_MAJITELKA_LAZNI" />
@@ -182,6 +192,7 @@
 												<Text StringName="fail_henry_to_jsem_nevedel_lxN8" Text="To jsem nevěděl." />
 												<Commands>
 													<FacialMoodCommand Role="BETA_MAJITELKA_LAZNI" FacialMood="angry1" />
+													<FacialMoodCommand FacialMood="thinking1" />
 													<AnimationCommand Delay="0.02" FragmentId="ADLG_Disagree" Guid="9befa935-0e58-4e32-ae2a-a033cc94f2e2" Variant="3" />
 													<CameraCommand CameraType="CloseUp" />
 												</Commands>
@@ -212,6 +223,7 @@
 												</Parenthetical>
 												<Text StringName="fail_beta_maji_nic_se_nev_JHvV" Text="Nic není vyřešený!" />
 												<Commands>
+													<FacialMoodCommand FacialMood="angry2" />
 													<AnimationCommand Delay="0.04" FragmentId="ADLG_Frustration" Guid="559c4856-a553-47f4-a7ce-cce43e70613d" Variant="0" />
 													<CameraCommand CameraType="Medium" />
 												</Commands>
@@ -231,6 +243,7 @@
 												</Parenthetical>
 												<Text StringName="fail_henry_sakra_to_me_mr_dP6I" Text="Jo tak. To mě mrzí." />
 												<Commands>
+													<FacialMoodCommand FacialMood="sad1" />
 													<CameraCommand CameraType="CloseUp" />
 													<LookAtCommand Delay="0.03" LookAtRole="BETA_MAJITELKA_LAZNI" Offset="BottomRight" TransitionDuration="4" />
 													<LookAtCommand Delay="2.22" LookAtRole="BETA_MAJITELKA_LAZNI" />
@@ -242,6 +255,7 @@
 												</Parenthetical>
 												<Text StringName="fail_beta_maji_ale_to_nen_xd5a" Text="Nemůžeš za to. Aspoň ses mi snažíl pomoct, takže děkuju." />
 												<Commands>
+													<FacialMoodCommand FacialMood="sad1" />
 													<AnimationCommand Delay="0.02" FragmentId="ADLG_Disagree" Guid="e75df559-6860-4234-bdac-0bf6fb204b31" Variant="4" />
 													<AnimationCommand Delay="3.85" FragmentId="ADLG_Nod" Guid="e19b4783-39a0-4a4e-951d-018bc8ad1a03" Variant="0" />
 													<CameraCommand CameraType="CloseShot" />

@@ -6,22 +6,29 @@
 				<Port Name="druhy_den_rano" Direction="In" Type="bool">
 					<DesignName StringName="jezdci_u__druhy_den_rano_zXCP" Text="druhý den ráno" />
 				</Port>
+				<Port Name="kone_nastreamovany" Direction="In" Type="bool">
+					<DesignName StringName="komori_s__kone_nastreamov_kGQH" Text="koně nastreamovány" />
+				</Port>
 			</Ports>
 			<Nodes>
+				<Function Name="and33" PositionY="-70" PositionX="-360" MethodName="math::boolean::And" DeclaringType="math::boolean">
+					<Edge From="druhy_den_rano" To="A" />
+					<Edge From="kone_nastreamovany" To="B" />
+				</Function>
 				<BuffEffect Name="buff1_1_1" PositionY="-970" PositionX="10">
 					<Asset Name="Souls" Alias="questHorses" />
 					<Constant Name="BuffGUID" Value="730503bf-735a-4f47-baae-c2d84ee77524" />
-					<Edge From="druhy_den_rano" To="IsActive" />
+					<Edge From="and33.bool" To="IsActive" />
 				</BuffEffect>
 				<BuffEffect Name="buff1_1_2" PositionY="-790" PositionX="10">
 					<Asset Name="Souls" Alias="questHorses" />
 					<Constant Name="BuffGUID" Value="f46120bf-b45f-4ec5-95c6-03d526cb40bf" />
-					<Edge From="druhy_den_rano" To="IsActive" />
+					<Edge From="and33.bool" To="IsActive" />
 				</BuffEffect>
 				<BuffEffect Name="buff4" PositionY="-600" PositionX="10">
 					<Asset Name="Souls" Alias="questHorses" />
 					<Constant Name="BuffGUID" Value="360e7fef-1051-446a-b133-7f5970af00f7" />
-					<Edge From="druhy_den_rano" To="IsActive" />
+					<Edge From="and33.bool" To="IsActive" />
 				</BuffEffect>
 				<EnableBehavior Name="enablebehaviormoveonhorse2" PositionY="-150" PositionX="10" Signature="moveOnHorse" EventSet="">
 					<Constant Name="Behavior" Value="waitOnSpotWithHorse" />
@@ -30,7 +37,7 @@
 					<Asset Name="horse" Alias="komoriHorse" />
 					<Asset Name="moveData" Alias="ingameSpot_komori" />
 					<Constant Name="speed" Value="alertedWalk" />
-					<Edge From="druhy_den_rano" To="IsActive" />
+					<Edge From="and33.bool" To="IsActive" />
 				</EnableBehavior>
 				<EnableBehavior Name="enablebehaviormoveonhorse2_1" PositionY="520" PositionX="10" Signature="moveOnHorse" EventSet="">
 					<Constant Name="Behavior" Value="waitOnSpotWithHorse" />
@@ -39,7 +46,7 @@
 					<Asset Name="horse" Alias="hermanHorse" />
 					<Asset Name="moveData" Alias="ingameSpot_herman" />
 					<Constant Name="speed" Value="alertedWalk" />
-					<Edge From="druhy_den_rano" To="IsActive" />
+					<Edge From="and33.bool" To="IsActive" />
 				</EnableBehavior>
 				<EnableBehavior Name="enablebehaviormoveonhorse2_2" PositionY="180" PositionX="10" Signature="moveOnHorse" EventSet="">
 					<Constant Name="Behavior" Value="waitOnSpotWithHorse" />
@@ -48,7 +55,7 @@
 					<Asset Name="horse" Alias="bartosHorse" />
 					<Asset Name="moveData" Alias="ingameSpot_bartos" />
 					<Constant Name="speed" Value="alertedWalk" />
-					<Edge From="druhy_den_rano" To="IsActive" />
+					<Edge From="and33.bool" To="IsActive" />
 				</EnableBehavior>
 				<EnableBehavior Name="enablebehaviorwuiddata35" PositionY="1520" PositionX="10" Signature="wuidData" EventSet="">
 					<Constant Name="Behavior" Value="moveAndWait" />
@@ -56,7 +63,7 @@
 					<Asset Name="NPC" Alias="jesekHorse" />
 					<Constant Name="ForceKick" Value="true" />
 					<Asset Name="data" Alias="jesekHorse_waitSpot" />
-					<Edge From="druhy_den_rano" To="IsActive">
+					<Edge From="and33.bool" To="IsActive">
 						<Vertex>vertex1</Vertex>
 						<Vertex>vertex2</Vertex>
 					</Edge>
@@ -67,7 +74,7 @@
 					<Asset Name="NPC" Alias="janHorse" />
 					<Constant Name="ForceKick" Value="true" />
 					<Asset Name="data" Alias="janHorse_waitSpot" />
-					<Edge From="druhy_den_rano" To="IsActive">
+					<Edge From="and33.bool" To="IsActive">
 						<Vertex>vertex1</Vertex>
 					</Edge>
 				</EnableBehavior>
@@ -78,7 +85,7 @@
 					<Constant Name="ForceKick" Value="true" />
 					<Constant Name="string" Value="hankoHorse" />
 					<Asset Name="wuid" Alias="so_hankoMaintenance" />
-					<Edge From="druhy_den_rano" To="IsActive">
+					<Edge From="and33.bool" To="IsActive">
 						<Vertex>vertex1</Vertex>
 						<Vertex>vertex2</Vertex>
 						<Vertex>vertex3</Vertex>
@@ -91,7 +98,7 @@
 					<Constant Name="ForceKick" Value="true" />
 					<Constant Name="string" Value="hankoHorse" />
 					<Asset Name="wuid" Alias="so_hankoMaintenance" />
-					<Edge From="druhy_den_rano" To="IsActive">
+					<Edge From="and33.bool" To="IsActive">
 						<Vertex>vertex1</Vertex>
 						<Vertex>vertex2</Vertex>
 						<Vertex>vertex3</Vertex>
@@ -104,7 +111,7 @@
 					<Constant Name="ForceKick" Value="true" />
 					<Constant Name="string" Value="olbramHorse" />
 					<Asset Name="wuid" Alias="so_olbramMaintenance" />
-					<Edge From="druhy_den_rano" To="IsActive">
+					<Edge From="and33.bool" To="IsActive">
 						<Vertex>vertex1</Vertex>
 						<Vertex>vertex2</Vertex>
 						<Vertex>vertex3</Vertex>
@@ -118,7 +125,7 @@
 					<Constant Name="ForceKick" Value="true" />
 					<Constant Name="string" Value="olbramHorse" />
 					<Asset Name="wuid" Alias="so_olbramMaintenance" />
-					<Edge From="druhy_den_rano" To="IsActive">
+					<Edge From="and33.bool" To="IsActive">
 						<Vertex>vertex1</Vertex>
 						<Vertex>vertex2</Vertex>
 						<Vertex>vertex3</Vertex>
@@ -128,7 +135,7 @@
 				<SetEntityContext Name="setentitycontext31" PositionY="-410" PositionX="10">
 					<Constant Name="Context" Value="switch_disabledHitReaction" />
 					<Asset Name="Souls" Alias="questHorses" />
-					<Edge From="druhy_den_rano" To="IsActive" />
+					<Edge From="and33.bool" To="IsActive" />
 				</SetEntityContext>
 			</Nodes>
 			<EdgeVertices>

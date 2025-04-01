@@ -32,6 +32,7 @@
 									<Text StringName="ptac_henry_slysels_na_hra_UCHk" Text="Slyšels? Na hradě jsou prej čerti." />
 									<Commands>
 										<FacialMoodCommand Role="PTACEK" FacialMood="angry1" />
+										<FacialMoodCommand FacialMood="thinking2" />
 										<AnimationCommand Delay="2.19" FragmentId="ADLG_Gesture" Guid="f7b6478f-50ab-4615-975b-b70e831408c4" Variant="25" />
 										<CameraCommand CameraType="CloseUp" />
 									</Commands>
@@ -49,11 +50,14 @@
 										<CameraCommand Role="HENRY" Delay="4.27" CameraType="CloseUp" />
 									</Commands>
 								</Response>
-								<Response Role="HENRY">
+								<Response Role="HENRY" ReferenceLength="1.97">
 									<Parenthetical>
 										<Text StringName="ptac_henry_udivene_ctGe" Text="udiveně" />
 									</Parenthetical>
 									<Text StringName="ptac_henry_coze_jak_J6pF" Text="Cože? Jak?" />
+									<Commands>
+										<FacialMoodCommand FacialMood="nervous1" />
+									</Commands>
 								</Response>
 								<Response Role="PTACEK" ReferenceLength="4.12">
 									<Text StringName="ptac_ptacek_kdyz_reknes_c_Zx21" Text="Když řekneš &quot;čert&quot;, tak se objeví. To nevíš? " />
@@ -72,6 +76,7 @@
 								<Response Role="HENRY" ReferenceLength="1.41">
 									<Text StringName="ptac_henry_ted_si_ho_sam__TVPH" Text="Teď si ho sám použil!" />
 									<Commands>
+										<FacialMoodCommand FacialMood="nervous2" />
 										<CameraCommand CameraType="CloseUp" />
 									</Commands>
 								</Response>
@@ -91,7 +96,7 @@
 							</Elements>
 							<Decision Name="dec2" Priority="SideQuestSubmission" DesignName="Troleni?">
 								<Sequences>
-									<Sequence EndType="Decision" Name="seq4">
+									<Sequence EndType="Decision" GrayOutIfSequencesUsed="Never" Name="seq4">
 										<DesignName StringName="ptacek_fl_seq4_SiUp" Text="seq4" />
 										<UiPrompt StringName="ui_ptacek_fl_seq4_tKow" Text="Čert!" />
 										<Triggers>
@@ -101,7 +106,7 @@
 											<Response Role="HENRY" ReferenceLength="0.81">
 												<Text StringName="ptac_henry_certi_TZMX" Text="Čert! " />
 												<Commands>
-													<FacialMoodCommand FacialMood="yell" />
+													<FacialMoodCommand FacialMood="happy1" />
 													<CameraCommand CameraType="CloseUp" />
 												</Commands>
 											</Response>
@@ -118,7 +123,7 @@
 															<Text StringName="ptac_ptacek_prestan_vole_Tvsf" Text="Přestaň, blázne! " />
 															<Commands>
 																<MoodCommand Mood="angry" />
-																<FacialMoodCommand FacialMood="angry1" />
+																<FacialMoodCommand FacialMood="angry2" />
 																<CameraCommand CameraType="CloseUp" />
 															</Commands>
 														</Response>
@@ -134,6 +139,7 @@
 															</Parenthetical>
 															<Text StringName="ptac_ptacek_zahravas_si_s_tumK" Text="Vůbec nevíš, s čím si zahráváš. " />
 															<Commands>
+																<FacialMoodCommand FacialMood="nervous2" />
 																<AnimationCommand Delay="0.44" FragmentId="ADLG_Disagree_light" Guid="15f89e0e-e7ac-5745-ffbc-dde6a23c99dc" Variant="0" />
 															</Commands>
 														</Response>
@@ -148,6 +154,7 @@
 														<Response Role="PTACEK" ReferenceLength="5.77">
 															<Text StringName="ptac_ptacek_myslim_to_vaz_21tI" Text="Fajn! Když to potřebuješ tak hrozně vědět, tak ti to povím. Bylo mi asi pět..." />
 															<Commands>
+																<FacialMoodCommand FacialMood="thinking2" />
 																<AnimationCommand Delay="0.02" FragmentId="ADLG_Frustration" Guid="66924018-bb87-46e7-b19a-08a3f28cb3ef" Variant="2" DesiredDuration="1.48" />
 																<CameraCommand CameraType="CloseUp" />
 															</Commands>
@@ -180,20 +187,25 @@
 															</Parenthetical>
 															<Text StringName="ptac_ptacek_zahravas_si_s_OQsh" Text="Vim, že jsem ho spolknul, protože to, co jsem druhej den vykadil..." />
 															<Commands>
+																<FacialMoodCommand FacialMood="nervous1" />
 																<AnimationCommand Delay="0.23" FragmentId="ADLG_Nod" Guid="c05d1d1b-ecca-45b7-8434-c2d21c80187b" Variant="1" />
 																<AnimationCommand Delay="3.33" FragmentId="ADLG_Disagree" Guid="9befa935-0e58-4e32-ae2a-a033cc94f2e2" Variant="3" DesiredDuration="1.1" />
 																<CameraCommand CameraType="CloseShot" />
 															</Commands>
 														</Response>
-														<Response Role="PTACEK">
+														<Response Role="PTACEK" ReferenceLength="3.24">
 															<Parenthetical>
 																<Text StringName="ptac_ptacek_otresene_0vPz" Text="otřeseně" />
 															</Parenthetical>
 															<Text StringName="ptac_ptacek_brr_nic_takov_Qblt" Text="Brr... Nic takovýho jsem v životě neviděl. " />
+															<Commands>
+																<FacialMoodCommand FacialMood="nervous2" />
+															</Commands>
 														</Response>
 														<Response Role="PTACEK" ReferenceLength="2.12">
 															<Text StringName="ptac_ptacek_melo_to_oci_a_GAWF" Text="Mělo to oči a drápy a tak vůbec... " />
 															<Commands>
+																<FacialMoodCommand FacialMood="nervous3" />
 																<AnimationCommand Delay="1.25" FragmentId="ADLG_Gesture" Guid="34ac6648-6fd5-4005-84ec-632a56223892" Variant="5" />
 															</Commands>
 														</Response>
@@ -212,7 +224,7 @@
 															<Text StringName="ptac_ptacek_fajn_kdyz_to__2Iao" Text="Sám jseš!" />
 															<Commands>
 																<MoodCommand Mood="angry" />
-																<FacialMoodCommand FacialMood="angry1" />
+																<FacialMoodCommand FacialMood="angry2" />
 																<AnimationCommand FragmentId="ADLG_Intense" Guid="7eb36d19-2dca-1d6b-f182-4da4742e06c0" Variant="0" DesiredDuration="2" />
 																<CameraCommand CameraType="CloseUp" />
 															</Commands>
@@ -240,6 +252,7 @@
 												<Commands>
 													<FacialMoodCommand Role="PTACEK" FacialMood="angry1" />
 													<MoodCommand Role="PTACEK" Mood="angry" />
+													<FacialMoodCommand FacialMood="happy1" />
 													<AnimationCommand Delay="1.79" FragmentId="ADLG_Gesture" Guid="0229b273-f5e4-4cb2-a60f-332f72774af3" Variant="1" DesiredDuration="1.42" />
 													<AnimationCommand Delay="0.02" FragmentId="ADLG_Laugh" Guid="a332b333-53d7-766c-4436-4e59a79d295b" Variant="1" DesiredDuration="1.72" />
 													<CameraCommand CameraType="CloseShot" />

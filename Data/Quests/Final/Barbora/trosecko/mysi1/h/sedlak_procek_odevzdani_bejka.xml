@@ -53,15 +53,21 @@
 				<Function Name="deathcheck95" PositionY="350" PositionX="30" MethodName="wh::rpgmodule::DeathCheck" DeclaringType="wh::rpgmodule">
 					<Asset Name="Souls" Alias="bull" />
 				</Function>
-				<If Name="ifMalaOdmena" PositionY="640" PositionX="1270">
+				<If Name="ifMalaOdmena" PositionY="650" PositionX="1260">
 					<Edge From="sedlak_procek_odevzdani_bejka.odevzdan_radne__mala_odmena" To="Condition" />
-					<Edge From="sedlak_procek_odevzdani_bejka.bejk_splnen_radne" To="Exec" />
+					<Edge From="ifStrednaOdmena_1.False" To="Exec">
+						<Vertex>4UPQljwz</Vertex>
+						<Vertex>YNx7p9Ro</Vertex>
+					</Edge>
 				</If>
-				<If Name="ifStrednaOdmena_1" PositionY="490" PositionX="1270">
+				<If Name="ifStrednaOdmena_1" PositionY="470" PositionX="1260">
 					<Edge From="sedlak_procek_odevzdani_bejka.odevzdan_radne__stredna_odmena" To="Condition" />
-					<Edge From="sedlak_procek_odevzdani_bejka.bejk_splnen_radne" To="Exec" />
+					<Edge From="ifVelkaOdmena.False" To="Exec">
+						<Vertex>GUj7mFL2</Vertex>
+						<Vertex>m9nScCNC</Vertex>
+					</Edge>
 				</If>
-				<IfFunction Name="ifVelkaOdmena" PositionY="300" PositionX="1270" MethodName="math::boolean::Or" DeclaringType="math::boolean">
+				<IfFunction Name="ifVelkaOdmena" PositionY="230" PositionX="1260" MethodName="math::boolean::Or" DeclaringType="math::boolean">
 					<Edge From="sedlak_procek_odevzdani_bejka.odevzdan_radne__velka_odmena" To="A" />
 					<Edge From="sedlak_procek_odevzdani_bejka.bejk_splnen_radne" To="Exec" />
 					<Edge From="sedlak_procek_odevzdani_bejka.odevzdan_radne__velka_odmena_2" To="B" />
@@ -95,7 +101,7 @@
 					<Constant Name="ValueB" Value="AsPunishment" />
 					<Edge From="zadani_state" To="ValueA" />
 				</Function>
-				<rewards Name="rewards" PositionY="470" PositionX="1520" Namespace="mysi_utils">
+				<rewards Name="rewards" PositionY="460" PositionX="1740" Namespace="mysi_utils">
 					<Edge From="ifMalaOdmena.True" To="dokonceni_questu__mensi" />
 					<Edge From="ifStrednaOdmena_1.True" To="dokonceni_questu__stredni" />
 					<Edge From="ifVelkaOdmena.True" To="dokonceni_questu__vetsi" />
@@ -123,6 +129,9 @@
 				</sedlak_procek_odevzdani_bejka>
 			</Nodes>
 			<EdgeVertices>
+				<EdgeVertex Name="4UPQljwz" PositionY="630" PositionX="1440" />
+				<EdgeVertex Name="GUj7mFL2" PositionY="440" PositionX="1420" />
+				<EdgeVertex Name="m9nScCNC" PositionY="440" PositionX="1290" />
 				<EdgeVertex Name="vertex17" PositionY="-90" PositionX="1180" />
 				<EdgeVertex Name="vertex18" PositionY="-70" PositionX="1180" />
 				<EdgeVertex Name="vertex38" PositionY="-20" PositionX="-190" />
@@ -134,6 +143,7 @@
 				<EdgeVertex Name="vertex57" PositionY="-40" PositionX="1180" />
 				<EdgeVertex Name="vertex58" PositionY="-20" PositionX="1180" />
 				<EdgeVertex Name="vertex59" PositionY="10" PositionX="1180" />
+				<EdgeVertex Name="YNx7p9Ro" PositionY="630" PositionX="1270" />
 			</EdgeVertices>
 		</DialogWrapper>
 	</Skald>

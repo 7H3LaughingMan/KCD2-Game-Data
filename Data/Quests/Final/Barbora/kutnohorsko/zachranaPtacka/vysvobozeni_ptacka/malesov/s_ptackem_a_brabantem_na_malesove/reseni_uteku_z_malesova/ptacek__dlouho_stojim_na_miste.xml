@@ -12,6 +12,9 @@
 				<Port Name="ptacek_ma_zbran" Direction="In" Type="bool">
 					<DesignName StringName="ptacek__d_ptacek_ma_zbran_E49H" Text="Ptáček má zbraň" />
 				</Port>
+				<Port Name="hrac_zkusil_nedavno_priskrtit_ptacka" Direction="In" Type="bool">
+					<DesignName StringName="ptacek__d_hrac_zkusil_ned_pLkf" Text="Hráč zkusil nedávno přiškrtit Ptáčka" />
+				</Port>
 			</Ports>
 			<Text StringName="ptacek__dlouho_stojim_na__LY9M" Text="Ptáček - dlouho stojim na místě" />
 			<Elements>
@@ -22,7 +25,7 @@
 			<Dialogue Type="ingame monolog" TechnicalStatus="Enabled" DefaultMaxDistance="10" Initiator="NonPlayer" ClashPriority="Flavor">
 				<Decision Name="dec1" Priority="MainQuestSubmission" Alias="zachranaPtacka_ptacekDlouhoStojimNaMiste">
 					<Sequences>
-						<Sequence EntryCondition="Port('ptacek_a_brabant_jsou_na_ceste_ke_konim')" EndType="Decision" Name="seq10">
+						<Sequence EntryCondition="Port('ptacek_a_brabant_jsou_na_ceste_ke_konim') AND &#xD;&#xA;!Port('hrac_zkusil_nedavno_priskrtit_ptacka')" EndType="Decision" Name="seq10">
 							<DesignName StringName="ptacek__d_seq10_88MC" Text="seq10" />
 							<Elements>
 								<Response Role="PTACEK" />
@@ -151,7 +154,7 @@
 								</Sequences>
 							</Decision>
 						</Sequence>
-						<Sequence EntryCondition="!Port('ptacek_a_brabant_jsou_na_ceste_ke_konim')" EndType="Decision" Name="seq11">
+						<Sequence EntryCondition="!Port('ptacek_a_brabant_jsou_na_ceste_ke_konim') AND &#xD;&#xA;!Port('hrac_zkusil_nedavno_priskrtit_ptacka')" EndType="Decision" Name="seq11">
 							<DesignName StringName="ptacek__d_seq11_f7UY" Text="seq11" />
 							<Elements>
 								<Response Role="PTACEK" />

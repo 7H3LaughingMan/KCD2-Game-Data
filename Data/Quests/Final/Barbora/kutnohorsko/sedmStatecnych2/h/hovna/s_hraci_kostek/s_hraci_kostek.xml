@@ -38,7 +38,7 @@
 				</Port>
 			</Ports>
 			<Text StringName="s_hraci_kostek_c8sB" Text="S hráči kostek" />
-			<Dialogue TechnicalStatus="Enabled" DefaultMaxDistance="10" GesturesSetDate="2024-06-22T01:01:20.5489826+02:00" GesturesSetResponseCount="69">
+			<Dialogue TechnicalStatus="Enabled" DefaultMaxDistance="10" AllowFarewell="false" AllowGreeting="false" GesturesSetDate="2024-06-22T01:01:20.5489826+02:00" GesturesSetResponseCount="69">
 				<SelectedSouls>
 					<SelectedSoul Role="HENRY" Voice="tomMcKay" Type="Wave" Language="ENG" />
 					<SelectedSoul Role="HRAC_KOSTEK_BYLANY" Voice="danielZappi" Type="Wave" Language="ENG" />
@@ -102,25 +102,29 @@
 															<Text StringName="s_hr_hrac_kost_tak_se_mi__U2Ol" Text="Tak se mi líbíš! Tady máš. A do dna!" />
 															<Commands>
 																<AnimationCommand Delay="1.18" FragmentId="ADLG_Give" Guid="c82ba550-1031-4af2-ebc4-ccea2f571cb8" Variant="1" />
+																<AnimationPropCommand Role="HENRY" Delay="2.94" FragmentId="ADLG_DrinkTankard_Fast_Spawn" Guid="c9a4df19-9dc2-4052-b9ee-68c53e21f3ef" Variant="0" Attachment="ADLG_DrinkTankard_Fast_Spawn_0" Prop="jindrichTankard" />
 																<CameraCommand CameraType="CloseUp" />
 															</Commands>
 														</Response>
-														<Response Role="HENRY">
+														<Response Role="HENRY" StartDelay="1.37" ReferenceLength="2.61">
 															<Parenthetical>
 																<Text StringName="s_hr_henry_jindra_pije_m2Bu" Text="Jindra pije" />
 															</Parenthetical>
 															<Text StringName="s_hr_henry__qfLD" Text="&lt;...&gt;" />
 															<Commands>
-																<CameraCommand />
+																<FacialMoodCommand FacialMood="customLipSync" />
+																<CameraCommand Delay="-1.33" CameraType="CloseUp" />
 															</Commands>
 														</Response>
-														<Response Role="HENRY" ReferenceLength="7.57">
+														<Response Role="HENRY" StartDelay="3.64" ReferenceLength="7.57">
 															<Parenthetical>
 																<Text StringName="s_hr_henry_vydechne_po_po_Zote" Text="vydechne po pořádném napití" />
 															</Parenthetical>
 															<Text StringName="s_hr_henry_to_bodlo_a_hos_EpsJ" Text="To bodlo. Tak co ten Raněk? Nevíte kam zmizel?" />
 															<Commands>
+																<FacialMoodCommand FacialMood="happy1" />
 																<AnimationCommand Delay="4.31" FragmentId="ADLG_Confusion" Guid="5da7fd8b-7cec-40c8-a723-f3cc47022f36" Variant="4" />
+																<CameraCommand Delay="0.7" />
 															</Commands>
 														</Response>
 													</Elements>
@@ -508,7 +512,7 @@
 																																							<Text StringName="s_hr_henry__Uvm2" Text="&lt;...&gt;" />
 																																							<Commands>
 																																								<FacialMoodCommand FacialMood="happy3" />
-																																								<MoodCommand Delay="0" Mood="happy" />
+																																								<MoodCommand Mood="happy" />
 																																								<AnimationCommand Delay="0.02" FragmentId="ADLG_Laugh" Guid="bf3d7750-45f6-5fe2-56a2-316a7beace82" Variant="2" />
 																																								<CameraCommand />
 																																							</Commands>
@@ -902,7 +906,7 @@
 								<Response Role="HENRY" ReferenceLength="5.21">
 									<Text StringName="s_hr_henry_prej_jste_hral_bwZY" Text="To vy jste hráli v Přítokách kostky s Raňkem? Nevíte o něm něco?" />
 									<Commands>
-										<AnimationCommand Delay="0" FragmentId="ADLG_You" Guid="f44fe4ae-ec67-6b08-eb50-1ef109daf53e" Variant="5" />
+										<AnimationCommand FragmentId="ADLG_You" Guid="f44fe4ae-ec67-6b08-eb50-1ef109daf53e" Variant="5" />
 										<AnimationCommand Delay="3.87" FragmentId="ADLG_Confusion" Guid="5da7fd8b-7cec-40c8-a723-f3cc47022f36" Variant="4" />
 										<CameraCommand />
 									</Commands>
@@ -911,6 +915,9 @@
 						</Sequence>
 					</Sequences>
 				</Decision>
+				<Props>
+					<Prop Name="jindrichTankard" />
+				</Props>
 			</Dialogue>
 		</FaderDialog>
 	</Skald>

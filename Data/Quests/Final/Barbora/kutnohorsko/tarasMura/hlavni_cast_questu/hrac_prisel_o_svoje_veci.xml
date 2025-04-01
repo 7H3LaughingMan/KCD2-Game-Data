@@ -29,6 +29,14 @@
 				<Function Name="createitemclassdescriptor5_1" PositionY="1510" PositionX="280" MethodName="wh::entitymodule::CreateItemClassDescriptor" DeclaringType="wh::entitymodule">
 					<Constant Name="QuestFilter" Value="Fail" />
 				</Function>
+				<EntityContextTrigger Name="entitycontexttrigger16" PositionY="-490" PositionX="-160">
+					<Constant Name="Context" Value="crime_interruptAttack" />
+					<Asset Name="Souls" Alias="taras" />
+					<Edge From="retrieveGear.Active" To="IsActive">
+						<Vertex>0PzItQ5I</Vertex>
+						<Vertex>hStg07oG</Vertex>
+					</Edge>
+				</EntityContextTrigger>
 				<If Name="if10" PositionY="590" PositionX="-150">
 					<Edge From="jindra_vylezl_z_dolu" To="Exec" />
 					<Edge From="stateOfPlayerAndHisStolenStuff.InMines" To="Condition">
@@ -36,11 +44,14 @@
 						<Vertex>H9gb7GUP</Vertex>
 					</Edge>
 				</If>
-				<InteractorOverride Name="interactoroverride6" PositionY="10" PositionX="710">
+				<InteractorOverride Name="interactoroverride6" PositionY="0" PositionX="860">
 					<Asset Name="Object" Alias="playerItemStash" />
 					<Constant Name="Type" Value="Press" />
 					<Constant Name="ActionPrompt" Value="hrac_pris_vzit_si_zpatky__T34N" />
 					<Edge From="retrieveGear.Active" To="IsActive" />
+					<Edge From="tarasInCombat.State" To="EnabledInteractor">
+						<Vertex>qsWegkkr</Vertex>
+					</Edge>
 				</InteractorOverride>
 				<jindrich_barkuje_kdyz_sebere_svoje_veci Name="jindrich_barkuje_kdyz_sebere_svoje_veci" PositionY="410" PositionX="1350" />
 				<retrieveGear Name="objectiveVisual2" PositionY="-180" PositionX="780" RequiredForOutput="kutnohorsko">
@@ -78,7 +89,7 @@
 					</Edge>
 					<Edge From="or8.bool" To="IsActive" />
 				</PlayerOutfitOverride>
-				<Function Name="requestmonologue3" PositionY="20" PositionX="1400" MethodName="wh::xgenaimodule::RequestMonologue" DeclaringType="wh::xgenaimodule">
+				<Function Name="requestmonologue3" PositionY="30" PositionX="1710" MethodName="wh::xgenaimodule::RequestMonologue" DeclaringType="wh::xgenaimodule">
 					<Asset Name="Souls" Alias="player" />
 					<Constant Name="DecisionAlias" Value="tarasMura_jindrichBarkujeKdyzSebereSvojeVeci" />
 					<Edge From="triggersequence9.A" To="Exec" />
@@ -106,18 +117,27 @@
 					</Edge>
 					<Edge From="if10.True" To="SetOutsideMines" />
 				</State>
-				<TriggerSequence Name="triggersequence9" PositionY="10" PositionX="1120">
+				<State Name="tarasInCombat" PositionY="-490" PositionX="380" TypeT="bool">
+					<Constant Name="DefaultValue" Value="true" />
+					<Constant Name="Value" Value="true" />
+					<Edge From="entitycontexttrigger16.OnContextAdded" To="SetFalse" />
+					<Edge From="entitycontexttrigger16.OnContextRemoved" To="SetTrue" />
+				</State>
+				<TriggerSequence Name="triggersequence9" PositionY="20" PositionX="1430">
 					<Edge From="interactoroverride6.OnInteraction" To="Exec" />
 				</TriggerSequence>
 			</Nodes>
 			<EdgeVertices>
+				<EdgeVertex Name="0PzItQ5I" PositionY="-171" PositionX="503" />
 				<EdgeVertex Name="b72LTAEo" PositionY="1010" PositionX="970" />
 				<EdgeVertex Name="eXnctEbX" PositionY="340" PositionX="300" />
 				<EdgeVertex Name="H9gb7GUP" PositionY="373" PositionX="-131" />
+				<EdgeVertex Name="hStg07oG" PositionY="-180" PositionX="-140" />
 				<EdgeVertex Name="pCfNL5D4" PositionY="315" PositionX="309" />
+				<EdgeVertex Name="qsWegkkr" PositionY="230" PositionX="680" />
 				<EdgeVertex Name="r8s6WD0a" PositionY="1610" PositionX="980" />
-				<EdgeVertex Name="S1XDF6cI" PositionY="320" PositionX="1242" />
-				<EdgeVertex Name="sxLkUyXc" PositionY="340" PositionX="1260" />
+				<EdgeVertex Name="S1XDF6cI" PositionY="330" PositionX="1560" />
+				<EdgeVertex Name="sxLkUyXc" PositionY="350" PositionX="1570" />
 				<EdgeVertex Name="tB3WFcbj" PositionY="375" PositionX="542" />
 				<EdgeVertex Name="vertex3" PositionY="-220" PositionX="663" />
 				<EdgeVertex Name="vertex4" PositionY="-230" PositionX="1520" />

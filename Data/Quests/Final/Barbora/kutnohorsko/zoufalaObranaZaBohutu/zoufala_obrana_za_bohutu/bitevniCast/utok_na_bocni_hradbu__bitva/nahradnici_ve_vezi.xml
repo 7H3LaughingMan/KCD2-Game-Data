@@ -6,12 +6,21 @@
 				<Port Name="zacit_strilet_z_veze" Direction="In" Type="trigger">
 					<DesignName StringName="nahradnic_zacit_strilet_z_oTVS" Text="Začít střílet z věže" />
 				</Port>
+				<Port Name="stop" Direction="In" Type="trigger">
+					<DesignName StringName="nahradnic_stop_cvfb" Text="Stop" />
+				</Port>
 			</Ports>
 			<Nodes>
 				<Function Name="add3" PositionY="210" PositionX="1210" MethodName="math::integer::Add" DeclaringType="math::integer">
 					<Edge From="battlesituationproperties1.AliveCount" To="A" />
 					<Edge From="battlesituationproperties1_1.AliveCount" To="B" />
 				</Function>
+				<AddFactionRelationBetweenArrays Name="addfactionrelationbetweenarrays26" PositionY="960" PositionX="360">
+					<Constant Name="RelationValue" Value="0" />
+					<Asset Name="SoulArray0" Alias="towerShooters" />
+					<Asset Name="SoulArray1" Alias="backWallShooterAttackers" />
+					<Edge From="sideWallReinforcements.Updated" To="IsActive" />
+				</AddFactionRelationBetweenArrays>
 				<AreaTriggerAnonymous Name="areatriggeranonymous19" PositionY="-250" PositionX="340">
 					<Asset Name="Areas" Alias="sideWallTowerArea" />
 					<Edge From="sideWallReinforcements.Active" To="IsActive" />
@@ -88,6 +97,7 @@
 						<Vertex>33maLw9g</Vertex>
 						<Vertex>Ezla2wmn</Vertex>
 					</Edge>
+					<Edge From="stop" To="SetDone" />
 				</State>
 			</Nodes>
 			<EdgeVertices>

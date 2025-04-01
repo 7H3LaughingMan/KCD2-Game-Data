@@ -54,9 +54,6 @@
 				<Port Name="probiha_streamovani_bijcu" Direction="In" Type="bool">
 					<DesignName StringName="hlavni_ca_probiha_streamo_FkVU" Text="Probíhá streamování bijců" />
 				</Port>
-				<Port Name="polylog_dokoncen__marian_chatuje_tip" Direction="Out" Type="trigger">
-					<DesignName StringName="hlavni_ca_polylog_dokonce_wkWT" Text="Polylog dokončen - Marián chatuje tip" />
-				</Port>
 				<Port Name="zacni_leavelevel" Direction="Out" Type="trigger">
 					<DesignName StringName="hlavni_ca_zacni_leavelevel_Aba2" Text="začni leaveLevel" />
 				</Port>
@@ -73,18 +70,18 @@
 					<Edge From="escapeMines.active" To="A" />
 					<Edge From="escapeMines.activeAlternative" To="B" />
 				</Function>
-				<MemberFunction Name="addblood20" PositionY="1510" PositionX="1380" MethodName="AddBlood" DeclaringType="wh::rpgmodule::I_Soul">
+				<MemberFunction Name="addblood20" PositionY="1580" PositionX="1400" MethodName="AddBlood" DeclaringType="wh::rpgmodule::I_Soul">
 					<Asset Name="Soul" Alias="taras" />
 					<Edge From="adddirt17.OnExec" To="Exec" />
 					<Edge From="makearray21.Array" To="BodyParts" />
 					<Edge From="makearray22.Array" To="Values" />
 				</MemberFunction>
-				<MemberFunction Name="adddirt17" PositionY="1510" PositionX="810" MethodName="AddDirt" DeclaringType="wh::rpgmodule::I_Soul">
+				<MemberFunction Name="adddirt17" PositionY="1580" PositionX="790" MethodName="AddDirt" DeclaringType="wh::rpgmodule::I_Soul">
 					<Asset Name="Soul" Alias="taras" />
 					<Constant Name="Value" Value="0.05" />
 					<Edge From="jindrich_pada_do_sachty.pad_do_diry_beforeplay" To="Exec" />
 				</MemberFunction>
-				<Function Name="advanceworldtime19" PositionY="1700" PositionX="810" MethodName="wh::rpgmodule::AdvanceWorldTime" DeclaringType="wh::rpgmodule">
+				<Function Name="advanceworldtime19" PositionY="1780" PositionX="790" MethodName="wh::rpgmodule::AdvanceWorldTime" DeclaringType="wh::rpgmodule">
 					<Constant Name="TimeOfDay" Value="03h30m" />
 					<Edge From="jindrich_pada_do_sachty.cs_afterplay" To="Exec" />
 				</Function>
@@ -153,7 +150,7 @@
 					<Constant Name="suppressreputationpenalties" Value="true" />
 					<Edge From="or15.bool" To="isactive" />
 				</fightconfiguration_reputation>
-				<hrac_prisel_o_svoje_veci Name="hrac_prisel_o_svoje_veci" PositionY="1100" PositionX="1380" RequiredForOutput="kutnohorsko">
+				<hrac_prisel_o_svoje_veci Name="hrac_prisel_o_svoje_veci" PositionY="1120" PositionX="1390" RequiredForOutput="kutnohorsko">
 					<Edge From="jindrich_pada_do_sachty.cs_afterplay" To="jindrich_se_probouzi_po_cutscene">
 						<Vertex>vertex49</Vertex>
 						<Vertex>vertex48</Vertex>
@@ -172,11 +169,9 @@
 						<Vertex>vertex13</Vertex>
 						<Vertex>vertex17</Vertex>
 					</Edge>
-					<Edge From="areatrigger5.OnEnter" To="Exec">
-						<Vertex>UN9LGh8T</Vertex>
-					</Edge>
+					<Edge From="areatrigger5.OnEnter" To="Exec" />
 				</If>
-				<If Name="if25" PositionY="1200" PositionX="2490">
+				<If Name="if25" PositionY="1150" PositionX="2470">
 					<Edge From="hrac_prisel_o_svoje_veci.hrac_ziskal_zpatky_veci" To="Exec">
 						<Vertex>vertex59</Vertex>
 						<Vertex>vertex64</Vertex>
@@ -199,7 +194,7 @@
 					<Constant Name="Content_forgetCrimeInfo" Value="true" />
 					<Edge From="areatrigger5.OnEnter" To="Exec" />
 				</InstantSendMessage>
-				<cin_s4050k_tarasmura__shaft_fall Name="jindrich_pada_do_sachty" PositionY="130" PositionX="420">
+				<cin_s4050k_tarasmura__shaft_fall Name="jindrich_pada_do_sachty" PositionY="200" PositionX="400">
 					<Edge From="quest_je_aktivni" To="quest_uz_je_aktivni">
 						<Vertex>vertex16</Vertex>
 						<Vertex>vertex20</Vertex>
@@ -207,13 +202,13 @@
 					<Edge From="if1.True" To="jindrich_nastartoval_quest_alternativne" />
 					<Edge From="if1.False" To="priprav_obet_objective_done" />
 				</cin_s4050k_tarasmura__shaft_fall>
-				<MakeArray Name="makearray21" PositionY="1720" PositionX="1090" TypeT="wh::entitymodule::BodyParts">
+				<MakeArray Name="makearray21" PositionY="1800" PositionX="1070" TypeT="wh::entitymodule::BodyParts">
 					<Constant Name="A" Value="head" />
 				</MakeArray>
-				<MakeArray Name="makearray22" PositionY="1890" PositionX="1090" TypeT="wh::conceptmodule::Floats">
+				<MakeArray Name="makearray22" PositionY="1960" PositionX="1070" TypeT="wh::conceptmodule::Floats">
 					<Constant Name="A" Value="0.35" />
 				</MakeArray>
-				<MakeArray Name="makearray29" PositionY="1950" PositionX="520" TypeT="wh::rpgmodule::Souls">
+				<MakeArray Name="makearray29" PositionY="2020" PositionX="500" TypeT="wh::rpgmodule::Souls">
 					<Asset Name="A" Alias="knezMarian" />
 					<Asset Name="B" Alias="predakVladimir" />
 				</MakeArray>
@@ -221,6 +216,7 @@
 					<Constant Name="Toggle" Value="STORY_S40_QUEST_ACTIVE" />
 					<Edge From="activeSomehow.bool" To="IsActive" />
 				</SkaldBoxProbe>
+				<objectivename Name="objectivename" PositionY="1260" PositionX="1810" Namespace="utils.commonstrings" />
 				<escapeMines Name="objectiveVisual8" PositionY="170" PositionX="1750" RequiredForOutput="kutnohorsko">
 					<Edge From="escapeMines.State" To="Progress" />
 				</escapeMines>
@@ -279,9 +275,6 @@
 					<Edge From="debrief_po_vylezu_z_dolu.marian_je_skillteacher_a_tipuje" To="marian_je_skillteacher_a_tipuje">
 						<Vertex>n0BkxS8o</Vertex>
 					</Edge>
-					<Edge From="debrief_po_vylezu_z_dolu.polylog_dokoncen__marian_chatuje_tip" To="polylog_dokoncen__marian_chatuje_tip">
-						<Vertex>gNsjFJxJ</Vertex>
-					</Edge>
 					<Edge From="debrief_po_vylezu_z_dolu.zacni_leavelevel" To="zacni_leavelevel">
 						<Vertex>D9WefLD2</Vertex>
 					</Edge>
@@ -300,16 +293,21 @@
 						<Vertex>vertex18</Vertex>
 					</Edge>
 				</Function>
-				<revive Name="revive" PositionY="1850" PositionX="810" Namespace="utils.general">
+				<revive Name="revive" PositionY="1920" PositionX="790" Namespace="utils.general">
 					<Edge From="makearray29.Array" To="souls" />
 					<Edge From="jindrich_pada_do_sachty.cs_afterplay" To="exec" />
 				</revive>
-				<SaveGame Name="savegame16" PositionY="1200" PositionX="980">
-					<Constant Name="Objective" Value="escapeMines" />
-					<Edge From="jindrich_pada_do_sachty.jindrich_v_cutscene_spadl_do_dolu__radne" To="EnqueueSave" />
+				<SaveGame Name="savegame16" PositionY="1420" PositionX="2060">
+					<Edge From="objectivename.startquest" To="ObjectiveNameOverride" />
 					<Edge From="jindrich_pada_do_sachty.jindrich_v_cutscene_spadl_do_dolu__alternativne" To="EnqueueSave" />
 				</SaveGame>
-				<MemberFunction Name="setstate31" PositionY="2050" PositionX="800" MethodName="SetState" DeclaringType="wh::rpgmodule::I_Soul">
+				<SaveGame Name="savegame16_1" PositionY="1660" PositionX="2040">
+					<Constant Name="Objective" Value="escapeMines" />
+					<Edge From="jindrich_pada_do_sachty.jindrich_v_cutscene_spadl_do_dolu__radne" To="EnqueueSave">
+						<Vertex>KSUn7H23</Vertex>
+					</Edge>
+				</SaveGame>
+				<MemberFunction Name="setstate31" PositionY="2120" PositionX="780" MethodName="SetState" DeclaringType="wh::rpgmodule::I_Soul">
 					<Asset Name="Soul" Alias="player" />
 					<Constant Name="State" Value="exhaust" />
 					<Constant Name="Value" Value="100" />
@@ -353,17 +351,16 @@
 				<EdgeVertex Name="F7fzo5sh" PositionY="0" PositionX="-222" />
 				<EdgeVertex Name="f8YWDNLw" PositionY="702" PositionX="1371" />
 				<EdgeVertex Name="fdqe6wNp" PositionY="1070" PositionX="980" />
-				<EdgeVertex Name="G1a4AwKh" PositionY="1420" PositionX="1670" />
-				<EdgeVertex Name="gNsjFJxJ" PositionY="1108" PositionX="2627" />
+				<EdgeVertex Name="G1a4AwKh" PositionY="1460" PositionX="1660" />
 				<EdgeVertex Name="I8WJGKUN" PositionY="-20" PositionX="-940" />
-				<EdgeVertex Name="Is0HBl6r" PositionY="1421" PositionX="966" />
+				<EdgeVertex Name="Is0HBl6r" PositionY="1460" PositionX="980" />
+				<EdgeVertex Name="KSUn7H23" PositionY="1480" PositionX="1890" />
 				<EdgeVertex Name="Lq92sekP" PositionY="727" PositionX="1360" />
 				<EdgeVertex Name="LtkdBKg8" PositionY="10" PositionX="-620" />
 				<EdgeVertex Name="lVUcoS98" PositionY="1010" PositionX="1600" />
 				<EdgeVertex Name="n0BkxS8o" PositionY="1090" PositionX="2613" />
 				<EdgeVertex Name="pMMcoKwu" PositionY="156" PositionX="-617" />
 				<EdgeVertex Name="pPsQm5SJ" PositionY="130" PositionX="1280" />
-				<EdgeVertex Name="UN9LGh8T" PositionY="270" PositionX="-230" />
 				<EdgeVertex Name="vertex1" PositionY="60" PositionX="900" />
 				<EdgeVertex Name="vertex12" PositionY="1030" PositionX="2610" />
 				<EdgeVertex Name="vertex13" PositionY="40" PositionX="-610" />
@@ -406,8 +403,8 @@
 				<EdgeVertex Name="vertex58" PositionY="1110" PositionX="2350" />
 				<EdgeVertex Name="vertex59" PositionY="1130" PositionX="1760" />
 				<EdgeVertex Name="vertex6" PositionY="970" PositionX="1600" />
-				<EdgeVertex Name="vertex60" PositionY="1370" PositionX="3000" />
-				<EdgeVertex Name="vertex61" PositionY="1370" PositionX="2520" />
+				<EdgeVertex Name="vertex60" PositionY="1340" PositionX="3020" />
+				<EdgeVertex Name="vertex61" PositionY="1340" PositionX="2520" />
 				<EdgeVertex Name="vertex62" PositionY="340" PositionX="1800" />
 				<EdgeVertex Name="vertex63" PositionY="340" PositionX="2870" />
 				<EdgeVertex Name="vertex64" PositionY="1130" PositionX="2350" />

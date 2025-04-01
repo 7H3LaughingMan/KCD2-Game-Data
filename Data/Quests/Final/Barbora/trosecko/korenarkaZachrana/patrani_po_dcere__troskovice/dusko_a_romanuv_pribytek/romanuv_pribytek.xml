@@ -24,6 +24,15 @@
 				<Definition File="romanuv_pribytek/jindrich_vstoupil_do_romanova_domu.xml" />
 			</Definitions>
 			<Nodes>
+				<Function Name="and19" PositionY="-740" PositionX="-100" MethodName="math::boolean::And" DeclaringType="math::boolean">
+					<Edge From="romanHouseSearch.Started" To="B" />
+					<Edge From="inRomansAreaCheck.True" To="A" />
+				</Function>
+				<AreaTrigger Name="areatrigger17" PositionY="-920" PositionX="-910">
+					<Asset Name="Souls" Alias="player" />
+					<Asset Name="Areas" Alias="duskoBarkingArea" />
+					<Edge From="romanHouseSearch.Started" To="IsActive" />
+				</AreaTrigger>
 				<AreaTrigger Name="areatrigger5" PositionY="280" PositionX="-890">
 					<Asset Name="Souls" Alias="player" />
 					<Asset Name="Areas" Alias="romanRoomEntrance" />
@@ -62,6 +71,10 @@
 						<Vertex>vertex23</Vertex>
 					</Edge>
 				</If>
+				<State Name="inRomansAreaCheck" PositionY="-1090" PositionX="-540" TypeT="Tribool">
+					<Edge From="areatrigger17.OnEnter" To="SetTrue" />
+					<Edge From="areatrigger17.OnLeave" To="SetFalse" />
+				</State>
 				<State Name="inRomansRoom" PositionY="230" PositionX="-1450" TypeT="InRomansRoom">
 					<Edge From="areatrigger5.OnAllEnter" To="SetInteractorsActive">
 						<Vertex>vertex36</Vertex>
@@ -121,6 +134,11 @@
 					<Constant Name="Objective" Value="romanHouseSearch" />
 					<Edge From="inRomansRoom.OnAreaBarkActive" To="EnqueueSave" />
 				</SaveGame>
+				<SetEntityContext Name="setentitycontext16" PositionY="-740" PositionX="130">
+					<Constant Name="Context" Value="crime_ignoreLockpicking" />
+					<Asset Name="Souls" Alias="dusko" />
+					<Edge From="and19.bool" To="IsActive" />
+				</SetEntityContext>
 			</Nodes>
 			<EdgeVertices>
 				<EdgeVertex Name="vertex21" PositionY="-120" PositionX="-1390" />

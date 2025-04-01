@@ -32,6 +32,11 @@
 				<Definition File="dog/pes_neposloucha__stealth_varianty.xml" />
 			</Definitions>
 			<Nodes>
+				<Function Name="addbuff9" PositionY="1360" PositionX="900" MethodName="wh::rpgmodule::AddBuff" DeclaringType="wh::rpgmodule">
+					<Asset Name="Souls" Alias="companionDog" />
+					<Constant Name="Buff" Value="4bc0b081-a57e-4e6e-8297-6d9db58b39b2" />
+					<Edge From="watch10.OnChanged" To="Exec" />
+				</Function>
 				<Function Name="and1" PositionY="340" PositionX="1160" MethodName="math::boolean::And" DeclaringType="math::boolean">
 					<Edge From="not2.bool" To="A" />
 					<Edge From="stream.hledanipsadonehaste" To="B">
@@ -39,11 +44,6 @@
 						<Vertex>vertex4</Vertex>
 					</Edge>
 				</Function>
-				<BuffEffect Name="buff8" PositionY="770" PositionX="340">
-					<Asset Name="Souls" Alias="companionDog" />
-					<Constant Name="BuffGUID" Value="4bc0b081-a57e-4e6e-8297-6d9db58b39b2" />
-					<Edge From="or5.bool" To="IsActive" />
-				</BuffEffect>
 				<chat Name="chat">
 					<Edge From="vraceni_psa_hraci.vraceni_psa_hraci" To="vraceni_psa_hraci">
 						<Vertex>vertex1</Vertex>
@@ -118,6 +118,10 @@
 				<vraceni_psa_hraci Name="vraceni_psa_hraci" PositionY="0" PositionX="370">
 					<Edge From="chat.vorech_opusten" To="active" />
 				</vraceni_psa_hraci>
+				<Watch Name="watch10" PositionY="1360" PositionX="630" TypeT="bool">
+					<Edge From="or5.bool" To="IsActive" />
+					<Edge From="or5.bool" To="WatchedState" />
+				</Watch>
 			</Nodes>
 			<EdgeVertices>
 				<EdgeVertex Name="AWIkFuNY" PositionY="220" PositionX="20" />

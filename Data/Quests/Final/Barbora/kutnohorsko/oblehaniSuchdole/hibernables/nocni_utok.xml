@@ -214,13 +214,6 @@
 						<Vertex>vertex35</Vertex>
 					</Edge>
 				</healing>
-				<healing Name="healing_1" PositionY="-830" PositionX="430" Namespace="utils.general">
-					<Asset Name="souls" Alias="player" />
-					<Edge From="odraz_nocni_utok.OnDone" To="instanthealandremoveallinjuriesandpoisons">
-						<Vertex>vertex19</Vertex>
-						<Vertex>vertex33</Vertex>
-					</Edge>
-				</healing>
 				<IfFunction Name="ifand19" PositionY="-300" PositionX="-680" MethodName="math::boolean::And" DeclaringType="math::boolean">
 					<Edge From="timer12.Running" To="A">
 						<Vertex>vertex54</Vertex>
@@ -252,6 +245,11 @@
 					<Asset Name="Souls" Alias="player" />
 					<Asset Name="Areas" Alias="nocniUtok_areaZebriku" />
 					<Edge From="odraz_nocni_utok.OnActive" To="Exec" />
+				</IfFunction>
+				<IfFunction Name="ifdeathcheck85" PositionY="-280" PositionX="-2010" MethodName="wh::rpgmodule::DeathCheck" DeclaringType="wh::rpgmodule">
+					<Asset Name="Souls" Alias="nepritelSMozkem6" />
+					<Edge From="nightAttackInitAndStart.OnAttackStarts" To="Exec" />
+					<Edge From="nightAttackInitAndStart.OnDone" To="Exec" />
 				</IfFunction>
 				<IfFunction Name="init" PositionY="-550" PositionX="-2600" MethodName="math::boolean::And" DeclaringType="math::boolean">
 					<Edge From="init_utoku" To="Exec" />
@@ -386,9 +384,14 @@
 						<Vertex>QuccnGts</Vertex>
 					</Edge>
 				</IfFunction>
-				<Function Name="joinarrays13" PositionY="-1240" PositionX="430" TypeT="wh::rpgmodule::Souls" MethodName="utilities::array::JoinArrays" DeclaringType="utilities::array">
+				<Function Name="joinarrays13" PositionY="-1240" PositionX="420" TypeT="wh::rpgmodule::Souls" MethodName="utilities::array::JoinArrays" DeclaringType="utilities::array">
 					<Asset Name="A" Alias="obranci_killable" />
 					<Asset Name="B" Alias="obranci_nonkillable" />
+				</Function>
+				<Function Name="kill86" PositionY="-280" PositionX="-1740" MethodName="wh::rpgmodule::Kill" DeclaringType="wh::rpgmodule">
+					<Asset Name="Souls" Alias="nepritelSMozkem6" />
+					<Constant Name="HideBody" Value="true" />
+					<Edge From="ifdeathcheck85.True" To="Exec" />
 				</Function>
 				<MakeArray Name="makearray40" PositionY="-490" PositionX="-1090" TypeT="wh::xgenaimodule::SmartObjects">
 					<Asset Name="A" Alias="nocniUtok_posily" />
@@ -406,7 +409,7 @@
 					<Constant Name="Toggle" Value="STORY_M48A_BATTLE_2_NIGHT_ATTACK" />
 					<Edge From="odraz_nocni_utok.Active" To="IsActive" />
 				</SkaldBoxProbe>
-				<SaveLock Name="nightAttack" PositionY="-550" PositionX="-1730">
+				<SaveLock Name="nightAttack" PositionY="-550" PositionX="-1740">
 					<Constant Name="LockReason" Value="Script" />
 					<Edge From="or76.bool" To="IsActive" />
 				</SaveLock>
@@ -453,7 +456,7 @@
 						<Vertex>vertex12</Vertex>
 					</Edge>
 				</State>
-				<Function Name="or76" PositionY="-550" PositionX="-1990" MethodName="math::boolean::Or" DeclaringType="math::boolean">
+				<Function Name="or76" PositionY="-550" PositionX="-2010" MethodName="math::boolean::Or" DeclaringType="math::boolean">
 					<Edge From="nightAttackInitAndStart.Init" To="A" />
 					<Edge From="nightAttackInitAndStart.InitDone" To="B" />
 					<Edge From="nightAttackInitAndStart.InitAndStart" To="C" />

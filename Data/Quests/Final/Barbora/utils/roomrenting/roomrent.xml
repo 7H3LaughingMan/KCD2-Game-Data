@@ -27,6 +27,9 @@
 				<Port Name="disable" Direction="In" Type="trigger">
 					<DesignName StringName="roomrent_disable_UuB8" Text="Disable" />
 				</Port>
+				<Port Name="levelswitched" Direction="In" Type="trigger">
+					<DesignName StringName="roomrent_levelswitched_HvFI" Text="LevelSwitched" />
+				</Port>
 			</Ports>
 			<Definitions>
 				<Definition File="roomrent/muz_v_hostinci_pronajem.xml" />
@@ -75,14 +78,6 @@
 						<Vertex>vertex44</Vertex>
 					</Edge>
 				</ContainsElement>
-				<expectedeffect Name="expectedeffect" PositionY="-750" PositionX="2240" Namespace="crime.trespass">
-					<Constant Name="extenduntilplayerleavestrespass" Value="true" />
-					<Edge From="or32.bool" To="isactive" />
-					<Edge From="souls" To="npcs">
-						<Vertex>vertex66</Vertex>
-						<Vertex>XoNcwzvb</Vertex>
-					</Edge>
-				</expectedeffect>
 				<MemberFunction Name="getderivedstat30" PositionY="170" PositionX="-1030" MethodName="GetDerivedStat" DeclaringType="wh::rpgmodule::I_Soul">
 					<Asset Name="Soul" Alias="player" />
 					<Constant Name="DerivedStat" Value="charisma" />
@@ -111,6 +106,13 @@
 						<Vertex>vertex46</Vertex>
 						<Vertex>vertex47</Vertex>
 						<Vertex>vertex48</Vertex>
+					</Edge>
+				</If>
+				<If Name="if34_1" PositionY="-1130" PositionX="1220">
+					<Edge From="state24.infinite" To="Condition" />
+					<Edge From="levelswitched" To="Exec">
+						<Vertex>oLrdaVWK</Vertex>
+						<Vertex>7VldXdCy</Vertex>
 					</Edge>
 				</If>
 				<IfFunction Name="ifcompare28" PositionY="-10" PositionX="1270" TypeT="wh::framework::TimeOfDay" MethodName="Control::Compare" DeclaringType="Control">
@@ -219,6 +221,7 @@
 					</Edge>
 					<Edge From="state24.OnoneNight" To="Exec" />
 					<Edge From="state24.Oninfinite" To="Exec" />
+					<Edge From="if34_1.True" To="Exec" />
 				</Function>
 				<Function Name="or32" PositionY="-90" PositionX="1740" MethodName="math::boolean::Or" DeclaringType="math::boolean">
 					<Edge From="state24.oneNight" To="A" />
@@ -381,7 +384,9 @@
 			</Nodes>
 			<EdgeVertices>
 				<EdgeVertex Name="2PP3LHPz" PositionY="-1496" PositionX="882" />
+				<EdgeVertex Name="7VldXdCy" PositionY="-1230" PositionX="1040" />
 				<EdgeVertex Name="MgMvfxcm" PositionY="-1429" PositionX="-1794" />
+				<EdgeVertex Name="oLrdaVWK" PositionY="-1222" PositionX="-1667" />
 				<EdgeVertex Name="SbdJ0cjX" PositionY="-1440" PositionX="820" />
 				<EdgeVertex Name="vertex10" PositionY="-610" PositionX="-60" />
 				<EdgeVertex Name="vertex11" PositionY="-210" PositionX="1350" />
@@ -425,7 +430,6 @@
 				<EdgeVertex Name="vertex61" PositionY="1300" PositionX="110" />
 				<EdgeVertex Name="vertex62" PositionY="1300" PositionX="-160" />
 				<EdgeVertex Name="vertex63" PositionY="67" PositionX="-1102" />
-				<EdgeVertex Name="vertex66" PositionY="-1210" PositionX="-1710" />
 				<EdgeVertex Name="vertex72" PositionY="420" PositionX="-1610" />
 				<EdgeVertex Name="vertex74" PositionY="420" PositionX="170" />
 				<EdgeVertex Name="vertex76" PositionY="130" PositionX="-950" />
@@ -439,7 +443,6 @@
 				<EdgeVertex Name="vertex96" PositionY="-1595" PositionX="2134" />
 				<EdgeVertex Name="vertex97" PositionY="-1605" PositionX="-1865" />
 				<EdgeVertex Name="vertex98" PositionY="-220" PositionX="2160" />
-				<EdgeVertex Name="XoNcwzvb" PositionY="-1225" PositionX="2035" />
 				<EdgeVertex Name="zdumyeS8" PositionY="-1489" PositionX="-1800" />
 			</EdgeVertices>
 			<Assets>

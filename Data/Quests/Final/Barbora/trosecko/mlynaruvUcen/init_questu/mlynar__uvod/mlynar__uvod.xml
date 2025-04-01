@@ -99,7 +99,7 @@
 								</Response>
 							</Elements>
 						</Sequence>
-						<Sequence SpeechCoef="0" EntryCondition="!Port('svatba_ukoncena') AND &#xD;&#xA;!SequenceUsed('mlynar_prvnihovor_nesvatba') AND&#xD;&#xA;!Port('hrac_mluvil_s_mlynarem_o_svatbe') AND &#xD;&#xA;Port('mlynar_je_ve_mlyne')" EndType="Decision" Name="seq24">
+						<Sequence EntryCondition="!Port('svatba_ukoncena') AND &#xD;&#xA;!SequenceUsed('mlynar_prvnihovor_nesvatba') AND&#xD;&#xA;!Port('hrac_mluvil_s_mlynarem_o_svatbe') AND &#xD;&#xA;Port('mlynar_je_ve_mlyne')" EndType="Decision" SpeechCoef="0" Name="seq24">
 							<DesignName StringName="mlynar__u_seq24_rHke" Text="seq24" />
 							<UiPrompt StringName="ui_mlynar__u_seq24_RN0J" Text="Prý sháníš pomocníka?" />
 							<Elements>
@@ -161,7 +161,7 @@
 											</Response>
 										</Elements>
 									</Sequence>
-									<Sequence SpeechCoef="0" EndType="Decision" Reputation="quest_decrease_1_micro" Name="seq28">
+									<Sequence EndType="Decision" SpeechCoef="0" Reputation="quest_decrease_1_micro" Name="seq28">
 										<DesignName StringName="mlynar__u_seq28_vyY6" Text="seq28" />
 										<UiPrompt StringName="ui_mlynar__u_seq28_WRWA" Text="Rád bych se dostal na svatbu." />
 										<Elements>
@@ -293,7 +293,7 @@
 																								<Text StringName="mlyn_mlynar_kr_pravda_pra_cAmo" Text="Hmm... bojem, říkáš?" />
 																								<Commands>
 																									<MoodCommand Delay="-1.51" Mood="pensive" />
-																									<AnimationHeadCommand Delay="0.09" FragmentId="ADLG_FA_IDontKnow" Guid="d227ac07-3fc2-4fe1-892a-712f70fd76a1" Variant="1" />
+																									<AnimationHeadCommand Delay="0.09" FragmentId="ADLG_FA_IDontKnow" Guid="d227ac07-3fc2-4fe1-892a-712f70fd76a1" Variant="6" />
 																									<CameraCommand Delay="0.01" CameraType="Medium" />
 																								</Commands>
 																							</Response>
@@ -401,7 +401,7 @@
 																					<Commands>
 																						<FacialMoodCommand FacialMood="whisper" />
 																						<AnimationCommand Delay="-0.44" FragmentId="ADLG_Whisper" Guid="ab7e9df3-ca07-5c59-a645-70a47952b384" Variant="1" />
-																						<AnimationHeadCommand Delay="-0.4" FragmentId="ADLG_FA_IDontKnow" Guid="7c0fe7e8-8250-4f30-9020-f9bb5bf0a2af" Variant="0" DesiredDuration="3.19" />
+																						<AnimationHeadCommand Delay="-0.4" FragmentId="ADLG_FA_IDontKnow" Guid="7c0fe7e8-8250-4f30-9020-f9bb5bf0a2af" Variant="1" DesiredDuration="3.19" />
 																						<CameraCommand Delay="-0.44" CameraType="CloseShot" />
 																					</Commands>
 																				</Response>
@@ -617,7 +617,7 @@
 																						</Elements>
 																						<Decision Name="dec4" Priority="SideQuestSubmission" DesignName="Pokr.">
 																							<Sequences>
-																								<Sequence SpeechCoef="0" EndType="Decision" Name="noseni_pochybnych_pytlu_aktivni">
+																								<Sequence EndType="Decision" SpeechCoef="0" Name="noseni_pochybnych_pytlu_aktivni">
 																									<DesignName StringName="mlynar__u_noseni_pochybny_DDCT" Text="Nošení pochybných pytlů aktivní" />
 																									<Elements>
 																										<Response Role="HENRY" ReferenceLength="3.12">
@@ -653,7 +653,7 @@
 																									</Elements>
 																									<Decision Name="dec7" Priority="SideQuestSubmission" DesignName="Nosit pytle?">
 																										<Sequences>
-																											<Sequence SpeechCoef="0" EndType="Decision" Name="seq12">
+																											<Sequence EndType="Decision" SpeechCoef="0" Name="seq12">
 																												<DesignName StringName="mlynar__u_seq12_WCda" Text="seq12" />
 																												<UiPrompt StringName="ui_mlynar__u_seq12_FP1f" Text="Budu nosit pytle." />
 																												<Elements>
@@ -671,7 +671,7 @@
 																												</Elements>
 																												<Decision Name="dec5" Priority="SideQuestSubmission" DesignName="Budu">
 																													<Sequences>
-																														<Sequence SpeechCoef="0" EndType="Decision" Name="dostal_postel_a_stash_old">
+																														<Sequence EndType="Decision" SpeechCoef="0" Name="dostal_postel_a_stash_old">
 																															<DesignName StringName="mlynar__u_dostal_postel_a_urph" Text="dostane postel a stash" />
 																															<Elements>
 																																<Response Role="MLYNAR_KREJZL" ReferenceLength="7.33">
@@ -718,7 +718,7 @@
 																																			</Response>
 																																		</Elements>
 																																	</Sequence>
-																																	<Sequence EntryCondition="Port('jindra_ma_kone') &#xD;&#xA;OR &#xD;&#xA;(!Port('jindra_ma_kone') &#xD;&#xA;AND &#xD;&#xA;SequenceUsed('kun'))" EndType="EndDialogue" Visibility="Public" Name="dostal_postel_a_stash">
+																																	<Sequence EntryCondition="Port('jindra_ma_kone') &#xD;&#xA;OR &#xD;&#xA;(!Port('jindra_ma_kone') &#xD;&#xA;AND &#xD;&#xA;SequenceUsed('kun'))" EndType="EndDialogue" Visibility="Public" Reputation="quest_reward_4_normal" Name="dostal_postel_a_stash">
 																																		<DesignName StringName="mlynar__u_dostal_postel_a_Ph1c" Text="dostal postel a stash" />
 																																		<Triggers>
 																																			<Port Name="spusteni_aktivity_noseni_pytlu" />
@@ -824,7 +824,7 @@
 																	</Sequences>
 																</Decision>
 															</Sequence>
-															<Sequence EndType="GoTo" GoToDecision="dec5" Reputation="quest_reward_5_notable" Name="seq1">
+															<Sequence EndType="GoTo" GoToDecision="dec5" Name="seq1">
 																<DesignName StringName="mlynar__u_seq1_Gxze" Text="seq1" />
 																<UiPrompt StringName="ui_mlynar__u_seq1_Jn1X" Text="Dobře, budu nosit pytle." />
 																<Elements>
@@ -902,7 +902,7 @@
 								</Response>
 							</Elements>
 						</Sequence>
-						<Sequence SpeechCoef="0" EntryCondition="Port('svatba_ukoncena') AND  &#xD;&#xA;!Port('hrac_mluvil_s_mlynarem_o_svatbe') AND &#xD;&#xA;Port('mlynar_je_ve_mlyne')&#xD;&#xA;AND &#xD;&#xA;!SequenceUsed('mlynar_prvnihovor_nesvatba')" EndType="Decision" Name="seq27">
+						<Sequence EntryCondition="Port('svatba_ukoncena') AND  &#xD;&#xA;!Port('hrac_mluvil_s_mlynarem_o_svatbe') AND &#xD;&#xA;Port('mlynar_je_ve_mlyne')&#xD;&#xA;AND &#xD;&#xA;!SequenceUsed('mlynar_prvnihovor_nesvatba')" EndType="Decision" SpeechCoef="0" Name="seq27">
 							<DesignName StringName="mlynar__u_seq27_hLY0" Text="seq27" />
 							<UiPrompt StringName="ui_mlynar__u_seq27_Vsm1" Text="Prý se tu dají vydělat groše?" />
 							<Elements>
@@ -948,7 +948,7 @@
 												<Commands>
 													<FacialMoodCommand Role="HENRY" FacialMood="neutral" />
 													<FacialMoodCommand FacialMood="thinking2" />
-													<AnimationHeadCommand Delay="0.05" FragmentId="ADLG_FA_IDontKnow" Guid="d227ac07-3fc2-4fe1-892a-712f70fd76a1" Variant="1" />
+													<AnimationHeadCommand Delay="0.05" FragmentId="ADLG_FA_IDontKnow" Guid="d227ac07-3fc2-4fe1-892a-712f70fd76a1" Variant="6" />
 													<CameraCommand CameraType="CloseShot" />
 													<LookAtCommand Delay="0.85" LookAtRole="HENRY" Offset="BottomCenter" TransitionDuration="0.6" />
 												</Commands>

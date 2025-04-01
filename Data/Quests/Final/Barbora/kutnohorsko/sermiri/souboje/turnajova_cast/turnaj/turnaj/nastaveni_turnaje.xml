@@ -43,13 +43,15 @@
 					<Asset Name="final_dialog" Alias="finalDialog" />
 					<Edge From="turnaj_bezi.State" To="fastforward" />
 				</fastforward>
-				<fightconfiguration_surrendering Name="fightconfiguration_surrendering" PositionY="-530" PositionX="1090" Namespace="utils.combat">
+				<fightconfiguration_surrendering Name="fightconfiguration_surrendering" PositionY="-520" PositionX="1140" Namespace="utils.combat">
 					<Constant Name="neversurrenderorflee" Value="true" />
 					<Constant Name="neveracceptsurrender" Value="false" />
 					<Constant Name="decentmercy" Value="false" />
 					<Constant Name="alwaysmercy" Value="false" />
 					<Edge From="makearray114.Array" To="souls" />
-					<Edge From="turnaj_bezi.State" To="isactive" />
+					<Edge From="turnaj_bezi.State" To="isactive">
+						<Vertex>JbavaIlz</Vertex>
+					</Edge>
 				</fightconfiguration_surrendering>
 				<FilterInput Name="filterinput64" PositionY="-320" PositionX="420">
 					<Edge From="makearray65.Array" To="Filters" />
@@ -76,7 +78,7 @@
 					<Asset Name="L" Alias="Patricij" />
 					<Asset Name="M" Alias="divaci" />
 				</Function>
-				<MakeArray Name="makearray114" PositionY="-690" PositionX="840" TypeT="wh::rpgmodule::Souls">
+				<MakeArray Name="makearray114" PositionY="-690" PositionX="860" TypeT="wh::rpgmodule::Souls">
 					<Asset Name="A" Alias="Jimram" />
 					<Asset Name="B" Alias="Mikulas" />
 					<Asset Name="C" Alias="Linhart" />
@@ -90,7 +92,6 @@
 				</MakeArray>
 				<MakeArray Name="makearray65" PositionY="-190" PositionX="90" TypeT="Strings">
 					<Constant Name="A" Value="no_dog" />
-					<Constant Name="B" Value="no_horse" />
 				</MakeArray>
 				<Output Name="Output">
 					<Edge From="turnaj_bezi.State" To="turnaj_aktivni" />
@@ -114,6 +115,13 @@
 					</Edge>
 					<Edge From="joinarrays113.Array" To="Souls" />
 				</SetEntityContext>
+				<SetEntityContext Name="setentitycontext119" PositionY="-750" PositionX="1120">
+					<Constant Name="Context" Value="crime_questSurrender" />
+					<Edge From="turnaj_bezi.State" To="IsActive">
+						<Vertex>JbavaIlz</Vertex>
+					</Edge>
+					<Edge From="makearray114.Array" To="Souls" />
+				</SetEntityContext>
 				<SetGameContext Name="setgamecontext104" PositionY="-200" PositionX="800">
 					<Constant Name="Context" Value="crime_global_ignorePlayersDrawnWeapon" />
 					<Edge From="turnaj_bezi.State" To="IsActive" />
@@ -128,6 +136,10 @@
 				</SetGameContext>
 				<SetGameContext Name="setgamecontext116" PositionY="130" PositionX="890">
 					<Constant Name="Context" Value="NoDog" />
+					<Edge From="turnaj_bezi.State" To="IsActive" />
+				</SetGameContext>
+				<SetGameContext Name="setgamecontext117" PositionY="-160" PositionX="400">
+					<Constant Name="Context" Value="DisableHorseCall" />
 					<Edge From="turnaj_bezi.State" To="IsActive" />
 				</SetGameContext>
 				<SetGameContext Name="setgamecontext63" PositionY="140" PositionX="450">
@@ -155,6 +167,7 @@
 			</Nodes>
 			<EdgeVertices>
 				<EdgeVertex Name="c21dUnlc" PositionY="307" PositionX="1187" />
+				<EdgeVertex Name="JbavaIlz" PositionY="-463" PositionX="1067" />
 				<EdgeVertex Name="lMnLEF39" PositionY="988" PositionX="1606" />
 				<EdgeVertex Name="ST2edmxt" PositionY="294" PositionX="1156" />
 				<EdgeVertex Name="WmftcALT" PositionY="742" PositionX="448" />

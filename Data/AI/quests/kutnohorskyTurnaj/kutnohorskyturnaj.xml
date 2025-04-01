@@ -63,6 +63,7 @@
 		<Root OneTimeOnly="false" FailState="Recoverable" saveVersion="2">
 			<Behavior canSkip="1">
 				<Sequence>
+					<WaitAction />
 					<GetType WUID="$wuidData" OutString="$wuidType" ShowTrueIdentity="false" TreatPlayerAsNPC="true" />
 					<ContinuousSwitch>
 						<IfCondition failOnCondition="false" condition="$usingActivity == false">
@@ -111,44 +112,46 @@
 							</Loop>
 						</IfCondition>
 						<IfCondition failOnCondition="false" condition="$usingActivity == true">
-							<FuseBox StatusPropagation="Child" OneCleanup="true" saveVersion="2">
-								<Child canSkip="1">
-									<Sequence>
-										<SuppressFailure>
-											<Semaphore SemaphoreCount="3" atomic="false" OutsideQueuePosVariable="" InsidePosVariable="" TimerType="GameTime" OutsideTimerValue="&apos;2s&apos;" LockManagerType="Local" SemaphoreName="&apos;maxIdleFighters&apos;">
-												<Sequence>
-													<RandomItem Array="$wuidDataArray" Result="$selectedWuid" Clamp="-1" />
-													<Selector>
-														<GraphSearch Origin="$selectedWuid" Borders="" depth="1" selection="true" SearchPattern="Depth" EdgePruning="&apos;parent,inventory&apos;" AllowedEdges="" SubGraph="" AllowSubtraph="false" includeOrigin="false" excludeOrigin="false" failOnEmpty="true" SetOperationChoice="Intersection|And" errorOnEmpty="false" shortCircuit="false" skipTraversed="true">
-															<LinkTagFilter tag="&apos;reserved&apos;" prune="true" negprune="unknown" Parent="" Child="" Data="" />
-														</GraphSearch>
-														<SubtreeDecorator saveVersion="2">
-															<Init canSkip="1">
-																<AddLink From="$selectedWuid" To="$this.id" Tag="&apos;reserved&apos;" Data="" LinkOpHandleMode="Error" />
-															</Init>
-															<Subtree canSkip="1">
-																<Selector>
-																	<CallBehavior Target="$selectedWuid" BehaviorName="&apos;use&apos;" ignoreDropUnloading="false" nodeLabel="37719935" />
-																	<CallBehavior Target="$selectedWuid" BehaviorName="&apos;washFace&apos;" ignoreDropUnloading="false" nodeLabel="40124586" />
-																</Selector>
-															</Subtree>
-															<Cleanup canSkip="1">
-																<RemoveLink From="$selectedWuid" To="$this.id" Tag="&apos;reserved&apos;" LinkOpHandleMode="Error" />
-															</Cleanup>
-														</SubtreeDecorator>
-													</Selector>
-													<Expression expressions="$usingActivity = false" />
-												</Sequence>
-											</Semaphore>
-										</SuppressFailure>
-										<Turn target="$__object.id" align="false" />
-										<Wait duration="&apos;3s&apos;" timeType="GameTime" doFail="false" variation="&apos;5s&apos;" />
-									</Sequence>
-								</Child>
-								<OnSuccess canSkip="1">
-									<Expression expressions="$usingActivity = false" />
-								</OnSuccess>
-							</FuseBox>
+							<Loop count="-1">
+								<FuseBox StatusPropagation="Child" OneCleanup="true" saveVersion="2">
+									<Child canSkip="1">
+										<Sequence>
+											<SuppressFailure>
+												<Semaphore SemaphoreCount="3" atomic="false" OutsideQueuePosVariable="" InsidePosVariable="" TimerType="GameTime" OutsideTimerValue="&apos;2s&apos;" LockManagerType="Local" SemaphoreName="&apos;maxIdleFighters&apos;">
+													<Sequence>
+														<RandomItem Array="$wuidDataArray" Result="$selectedWuid" Clamp="-1" />
+														<Selector>
+															<GraphSearch Origin="$selectedWuid" Borders="" depth="1" selection="true" SearchPattern="Depth" EdgePruning="&apos;parent,inventory&apos;" AllowedEdges="" SubGraph="" AllowSubtraph="false" includeOrigin="false" excludeOrigin="false" failOnEmpty="true" SetOperationChoice="Intersection|And" errorOnEmpty="false" shortCircuit="false" skipTraversed="true">
+																<LinkTagFilter tag="&apos;reserved&apos;" prune="true" negprune="unknown" Parent="" Child="" Data="" />
+															</GraphSearch>
+															<SubtreeDecorator saveVersion="2">
+																<Init canSkip="1">
+																	<AddLink From="$selectedWuid" To="$this.id" Tag="&apos;reserved&apos;" Data="" LinkOpHandleMode="Error" />
+																</Init>
+																<Subtree canSkip="1">
+																	<Selector>
+																		<CallBehavior Target="$selectedWuid" BehaviorName="&apos;use&apos;" ignoreDropUnloading="false" nodeLabel="37719935" />
+																		<CallBehavior Target="$selectedWuid" BehaviorName="&apos;washFace&apos;" ignoreDropUnloading="false" nodeLabel="40124586" />
+																	</Selector>
+																</Subtree>
+																<Cleanup canSkip="1">
+																	<RemoveLink From="$selectedWuid" To="$this.id" Tag="&apos;reserved&apos;" LinkOpHandleMode="Error" />
+																</Cleanup>
+															</SubtreeDecorator>
+														</Selector>
+														<Expression expressions="$usingActivity = false" />
+													</Sequence>
+												</Semaphore>
+											</SuppressFailure>
+											<Turn target="$__object.id" align="false" />
+											<Wait duration="&apos;3s&apos;" timeType="GameTime" doFail="false" variation="&apos;5s&apos;" />
+										</Sequence>
+									</Child>
+									<OnSuccess canSkip="1">
+										<Expression expressions="$usingActivity = false" />
+									</OnSuccess>
+								</FuseBox>
+							</Loop>
 						</IfCondition>
 					</ContinuousSwitch>
 				</Sequence>
@@ -186,6 +189,9 @@
 				<Behavior>
 					<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
 						<OutputBreakpoints />
+						<WaitAction hasInputBreakpoint="0" comment="" breakpointFlags="0">
+							<OutputBreakpoints />
+						</WaitAction>
 						<GetType hasInputBreakpoint="0" comment="" breakpointFlags="0">
 							<OutputBreakpoints />
 						</GetType>
@@ -268,73 +274,76 @@
 							</IfCondition>
 							<IfCondition hasInputBreakpoint="0" comment="" breakpointFlags="0">
 								<OutputBreakpoints />
-								<FuseBox hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
+								<Loop hasInputBreakpoint="0" comment="" breakpointFlags="0">
 									<OutputBreakpoints />
-									<Child>
-										<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
-											<OutputBreakpoints />
-											<SuppressFailure hasInputBreakpoint="0" comment="" breakpointFlags="0">
+									<FuseBox hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
+										<OutputBreakpoints />
+										<Child>
+											<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
 												<OutputBreakpoints />
-												<Semaphore hasInputBreakpoint="0" comment="" breakpointFlags="0">
+												<SuppressFailure hasInputBreakpoint="0" comment="" breakpointFlags="0">
 													<OutputBreakpoints />
-													<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
+													<Semaphore hasInputBreakpoint="0" comment="" breakpointFlags="0">
 														<OutputBreakpoints />
-														<RandomItem hasInputBreakpoint="0" comment="" breakpointFlags="0">
+														<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
 															<OutputBreakpoints />
-														</RandomItem>
-														<Selector hasInputBreakpoint="0" comment="" breakpointFlags="0">
-															<OutputBreakpoints />
-															<GraphSearch hasInputBreakpoint="0" comment="" breakpointFlags="0">
+															<RandomItem hasInputBreakpoint="0" comment="" breakpointFlags="0">
 																<OutputBreakpoints />
-																<LinkTagFilter hasInputBreakpoint="0" comment="" breakpointFlags="0">
+															</RandomItem>
+															<Selector hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																<OutputBreakpoints />
+																<GraphSearch hasInputBreakpoint="0" comment="" breakpointFlags="0">
 																	<OutputBreakpoints />
-																</LinkTagFilter>
-															</GraphSearch>
-															<SubtreeDecorator hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
+																	<LinkTagFilter hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																		<OutputBreakpoints />
+																	</LinkTagFilter>
+																</GraphSearch>
+																<SubtreeDecorator hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
+																	<OutputBreakpoints />
+																	<Init>
+																		<AddLink hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																			<OutputBreakpoints />
+																		</AddLink>
+																	</Init>
+																	<Subtree>
+																		<Selector hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																			<OutputBreakpoints />
+																			<CallBehavior hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																				<OutputBreakpoints />
+																			</CallBehavior>
+																			<CallBehavior hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																				<OutputBreakpoints />
+																			</CallBehavior>
+																		</Selector>
+																	</Subtree>
+																	<Cleanup>
+																		<RemoveLink hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																			<OutputBreakpoints />
+																		</RemoveLink>
+																	</Cleanup>
+																</SubtreeDecorator>
+															</Selector>
+															<Expression hasInputBreakpoint="0" comment="" breakpointFlags="0">
 																<OutputBreakpoints />
-																<Init>
-																	<AddLink hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																		<OutputBreakpoints />
-																	</AddLink>
-																</Init>
-																<Subtree>
-																	<Selector hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																		<OutputBreakpoints />
-																		<CallBehavior hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																			<OutputBreakpoints />
-																		</CallBehavior>
-																		<CallBehavior hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																			<OutputBreakpoints />
-																		</CallBehavior>
-																	</Selector>
-																</Subtree>
-																<Cleanup>
-																	<RemoveLink hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																		<OutputBreakpoints />
-																	</RemoveLink>
-																</Cleanup>
-															</SubtreeDecorator>
-														</Selector>
-														<Expression hasInputBreakpoint="0" comment="" breakpointFlags="0">
-															<OutputBreakpoints />
-														</Expression>
-													</Sequence>
-												</Semaphore>
-											</SuppressFailure>
-											<Turn hasInputBreakpoint="0" comment="" breakpointFlags="0">
+															</Expression>
+														</Sequence>
+													</Semaphore>
+												</SuppressFailure>
+												<Turn hasInputBreakpoint="0" comment="" breakpointFlags="0">
+													<OutputBreakpoints />
+												</Turn>
+												<Wait hasInputBreakpoint="0" comment="" breakpointFlags="0">
+													<OutputBreakpoints />
+												</Wait>
+											</Sequence>
+										</Child>
+										<OnSuccess>
+											<Expression hasInputBreakpoint="0" comment="" breakpointFlags="0">
 												<OutputBreakpoints />
-											</Turn>
-											<Wait hasInputBreakpoint="0" comment="" breakpointFlags="0">
-												<OutputBreakpoints />
-											</Wait>
-										</Sequence>
-									</Child>
-									<OnSuccess>
-										<Expression hasInputBreakpoint="0" comment="" breakpointFlags="0">
-											<OutputBreakpoints />
-										</Expression>
-									</OnSuccess>
-								</FuseBox>
+											</Expression>
+										</OnSuccess>
+									</FuseBox>
+								</Loop>
 							</IfCondition>
 						</ContinuousSwitch>
 					</Sequence>
@@ -917,7 +926,7 @@
 			<Behavior canSkip="1">
 				<Sequence>
 					<Wait duration="&apos;3s&apos;" timeType="GameTime" doFail="false" variation="&apos;2s&apos;" />
-					<RandomGate opensWithChance="0.500000" saveVersion="2">
+					<RandomGate opensWithChance="1.000000" saveVersion="2">
 						<Then canSkip="1">
 							<Sequence>
 								<GraphSearch Origin="$data" Borders="" depth="1" selection="true" SearchPattern="Depth" EdgePruning="&apos;parent,inventory&apos;" AllowedEdges="" SubGraph="" AllowSubtraph="false" includeOrigin="false" excludeOrigin="false" failOnEmpty="true" SetOperationChoice="Intersection|And" errorOnEmpty="false" shortCircuit="false" skipTraversed="true">
@@ -959,7 +968,7 @@
 						<Wait hasInputBreakpoint="0" comment="" breakpointFlags="0">
 							<OutputBreakpoints />
 						</Wait>
-						<RandomGate hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
+						<RandomGate hasInputBreakpoint="0" comment="spodni vetev nefunguje. Nejsou nalikovane smart objecty" breakpointFlags="0" saveVersion="2">
 							<OutputBreakpoints />
 							<Then>
 								<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
@@ -1429,9 +1438,9 @@
 	<BehaviorTree name="fan_cheeringPositive" is_function="0">
 		<Variables>
 			<Variable name="entityType" type="_string" values="" isPersistent="0" form="single" />
-			<Variable name="gender" type="enum:humanGender" values="enum:humanGender.male" isPersistent="0" form="single" />
+			<Variable name="gender" type="enum:humanGender" values="$enum:humanGender.male" isPersistent="0" form="single" />
 			<Variable name="spot" type="_wuid" values="" isPersistent="0" form="single" />
-			<Variable name="spotType" type="enum:tournamentCrowdSpotType" values="enum:tournamentCrowdSpotType.standing" isPersistent="0" form="single" />
+			<Variable name="spotType" type="enum:tournamentCrowdSpotType" values="$enum:tournamentCrowdSpotType.standing" isPersistent="0" form="single" />
 			<Variable name="unstanceVariant" type="_string" values="" isPersistent="0" form="single" />
 		</Variables>
 		<Parameters>
@@ -1640,9 +1649,9 @@
 	<BehaviorTree name="fan_cheeringNegative" is_function="0">
 		<Variables>
 			<Variable name="entityType" type="_string" values="" isPersistent="0" form="single" />
-			<Variable name="gender" type="enum:humanGender" values="enum:humanGender.male" isPersistent="0" form="single" />
+			<Variable name="gender" type="enum:humanGender" values="$enum:humanGender.male" isPersistent="0" form="single" />
 			<Variable name="spot" type="_wuid" values="" isPersistent="0" form="single" />
-			<Variable name="spotType" type="enum:tournamentCrowdSpotType" values="enum:tournamentCrowdSpotType.standing" isPersistent="0" form="single" />
+			<Variable name="spotType" type="enum:tournamentCrowdSpotType" values="$enum:tournamentCrowdSpotType.standing" isPersistent="0" form="single" />
 			<Variable name="unstanceVariant" type="_string" values="" isPersistent="0" form="single" />
 		</Variables>
 		<Parameters>
@@ -1895,12 +1904,16 @@
 		<Root OneTimeOnly="false" FailState="Recoverable" saveVersion="2">
 			<Behavior canSkip="1">
 				<Sequence>
-					<Function_speech_monolog alias="$data" canBeDelayed="false" context="" dramaticBark="false" lookAtId="" metarole="" target="" wait="true" nodeLabel="47993014" />
+					<SuppressFailure>
+						<Function_speech_schedulerMonolog alias="$data" animationApproach="$enum:animationApproach.ingameDialogPoseAndAnimations" context="" lookAtId="" metarole="" skipInLod="true" subtitlesDown="false" nodeLabel="51872418" />
+					</SuppressFailure>
 					<InstantCallback_empty EventName="&apos;OnFinished&apos;" />
 				</Sequence>
 			</Behavior>
 		</Root>
-		<ForestContainer />
+		<ForestContainer>
+			<Function_speech_monolog alias="$data" canBeDelayed="false" context="" dramaticBark="false" lookAtId="" metarole="" target="" wait="true" nodeLabel="47993014" />
+		</ForestContainer>
 		<EditorData Signature="stringData" EventSet="endNotification">
 			<Variables>
 				<Variable name="data" comment="" />
@@ -1911,16 +1924,23 @@
 				<Behavior>
 					<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
 						<OutputBreakpoints />
-						<Function_speech_monolog hasInputBreakpoint="0" comment="" breakpointFlags="0">
+						<SuppressFailure hasInputBreakpoint="0" comment="" breakpointFlags="0">
 							<OutputBreakpoints />
-						</Function_speech_monolog>
+							<Function_speech_schedulerMonolog hasInputBreakpoint="0" comment="" breakpointFlags="0">
+								<OutputBreakpoints />
+							</Function_speech_schedulerMonolog>
+						</SuppressFailure>
 						<InstantCallback_empty hasInputBreakpoint="0" comment="" breakpointFlags="0">
 							<OutputBreakpoints />
 						</InstantCallback_empty>
 					</Sequence>
 				</Behavior>
 			</Root>
-			<Forest />
+			<Forest>
+				<Function_speech_monolog editorPosX="400" editorPosY="-460" hasInputBreakpoint="0" comment="" breakpointFlags="0">
+					<OutputBreakpoints />
+				</Function_speech_monolog>
+			</Forest>
 			<Comments />
 		</EditorData>
 	</BehaviorTree>
@@ -2102,34 +2122,36 @@
 		<Root OneTimeOnly="false" FailState="Recoverable" saveVersion="2">
 			<Behavior canSkip="1">
 				<Sequence>
-					<Switch>
-						<IfCondition failOnCondition="false" condition="$integerData == 1">
-							<Sequence>
-								<DrawAction WeaponSet="Primary" fullBody="true" tags="&apos;showOff&apos;" useSelectedWeaponSet="false" />
-								<Wait duration="&apos;4s&apos;" timeType="GameTime" doFail="false" variation="" />
-							</Sequence>
-						</IfCondition>
-						<IfCondition failOnCondition="false" condition="$integerData == 2">
-							<AnyDecorator preset="bothHands_changeEquipment" enabled="true">
+					<SuppressFailure>
+						<Switch>
+							<IfCondition failOnCondition="false" condition="$integerData == 1">
 								<Sequence>
-									<AnimationAction fragment="&apos;Soldier_Cheers&apos;" tags="" eventReferenceObject="" alignObject="" slaveObject="" resourceOverride="" allowTorchForPlayer="false" />
+									<DrawAction WeaponSet="Primary" fullBody="true" tags="&apos;showOff&apos;" useSelectedWeaponSet="false" />
+									<Wait duration="&apos;4s&apos;" timeType="GameTime" doFail="false" variation="" />
+								</Sequence>
+							</IfCondition>
+							<IfCondition failOnCondition="false" condition="$integerData == 2">
+								<AnyDecorator preset="bothHands_changeEquipment" enabled="true">
+									<Sequence>
+										<AnimationAction fragment="&apos;Soldier_Cheers&apos;" tags="" eventReferenceObject="" alignObject="" slaveObject="" resourceOverride="" allowTorchForPlayer="false" />
+										<WaitAction />
+									</Sequence>
+								</AnyDecorator>
+							</IfCondition>
+							<IfCondition failOnCondition="false" condition="$integerData == 3">
+								<Sequence>
+									<AnimationAction fragment="&apos;Greetings&apos;" tags="&apos;bowBig&apos;" eventReferenceObject="" alignObject="" slaveObject="" resourceOverride="" allowTorchForPlayer="false" />
 									<WaitAction />
 								</Sequence>
-							</AnyDecorator>
-						</IfCondition>
-						<IfCondition failOnCondition="false" condition="$integerData == 3">
-							<Sequence>
-								<AnimationAction fragment="&apos;Greetings&apos;" tags="&apos;bowBig&apos;" eventReferenceObject="" alignObject="" slaveObject="" resourceOverride="" allowTorchForPlayer="false" />
-								<WaitAction />
-							</Sequence>
-						</IfCondition>
-						<IfCondition failOnCondition="false" condition="$integerData == 4">
-							<Sequence>
-								<AnimationAction fragment="&apos;Soldier_Cheers&apos;" tags="&apos;player&apos;" eventReferenceObject="" alignObject="" slaveObject="" resourceOverride="" allowTorchForPlayer="false" />
-								<WaitAction />
-							</Sequence>
-						</IfCondition>
-					</Switch>
+							</IfCondition>
+							<IfCondition failOnCondition="false" condition="$integerData == 4">
+								<Sequence>
+									<AnimationAction fragment="&apos;Soldier_Cheers&apos;" tags="&apos;player&apos;" eventReferenceObject="" alignObject="" slaveObject="" resourceOverride="" allowTorchForPlayer="false" />
+									<WaitAction />
+								</Sequence>
+							</IfCondition>
+						</Switch>
+					</SuppressFailure>
 					<InstantCallback_empty EventName="&apos;OnFinished&apos;" />
 				</Sequence>
 			</Behavior>
@@ -2145,23 +2167,38 @@
 				<Behavior>
 					<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
 						<OutputBreakpoints />
-						<Switch hasInputBreakpoint="0" comment="" breakpointFlags="0">
+						<SuppressFailure hasInputBreakpoint="0" comment="" breakpointFlags="0">
 							<OutputBreakpoints />
-							<IfCondition hasInputBreakpoint="0" comment="" breakpointFlags="0">
+							<Switch hasInputBreakpoint="0" comment="" breakpointFlags="0">
 								<OutputBreakpoints />
-								<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
+								<IfCondition hasInputBreakpoint="0" comment="" breakpointFlags="0">
 									<OutputBreakpoints />
-									<DrawAction hasInputBreakpoint="0" comment="" breakpointFlags="0">
+									<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
 										<OutputBreakpoints />
-									</DrawAction>
-									<Wait hasInputBreakpoint="0" comment="" breakpointFlags="0">
+										<DrawAction hasInputBreakpoint="0" comment="" breakpointFlags="0">
+											<OutputBreakpoints />
+										</DrawAction>
+										<Wait hasInputBreakpoint="0" comment="" breakpointFlags="0">
+											<OutputBreakpoints />
+										</Wait>
+									</Sequence>
+								</IfCondition>
+								<IfCondition hasInputBreakpoint="0" comment="" breakpointFlags="0">
+									<OutputBreakpoints />
+									<AnyDecorator hasInputBreakpoint="0" comment="" breakpointFlags="0">
 										<OutputBreakpoints />
-									</Wait>
-								</Sequence>
-							</IfCondition>
-							<IfCondition hasInputBreakpoint="0" comment="" breakpointFlags="0">
-								<OutputBreakpoints />
-								<AnyDecorator hasInputBreakpoint="0" comment="" breakpointFlags="0">
+										<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
+											<OutputBreakpoints />
+											<AnimationAction hasInputBreakpoint="0" comment="" breakpointFlags="0">
+												<OutputBreakpoints />
+											</AnimationAction>
+											<WaitAction hasInputBreakpoint="0" comment="" breakpointFlags="0">
+												<OutputBreakpoints />
+											</WaitAction>
+										</Sequence>
+									</AnyDecorator>
+								</IfCondition>
+								<IfCondition hasInputBreakpoint="0" comment="" breakpointFlags="0">
 									<OutputBreakpoints />
 									<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
 										<OutputBreakpoints />
@@ -2172,33 +2209,21 @@
 											<OutputBreakpoints />
 										</WaitAction>
 									</Sequence>
-								</AnyDecorator>
-							</IfCondition>
-							<IfCondition hasInputBreakpoint="0" comment="" breakpointFlags="0">
-								<OutputBreakpoints />
-								<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
+								</IfCondition>
+								<IfCondition hasInputBreakpoint="0" comment="" breakpointFlags="0">
 									<OutputBreakpoints />
-									<AnimationAction hasInputBreakpoint="0" comment="" breakpointFlags="0">
+									<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
 										<OutputBreakpoints />
-									</AnimationAction>
-									<WaitAction hasInputBreakpoint="0" comment="" breakpointFlags="0">
-										<OutputBreakpoints />
-									</WaitAction>
-								</Sequence>
-							</IfCondition>
-							<IfCondition hasInputBreakpoint="0" comment="" breakpointFlags="0">
-								<OutputBreakpoints />
-								<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
-									<OutputBreakpoints />
-									<AnimationAction hasInputBreakpoint="0" comment="" breakpointFlags="0">
-										<OutputBreakpoints />
-									</AnimationAction>
-									<WaitAction hasInputBreakpoint="0" comment="" breakpointFlags="0">
-										<OutputBreakpoints />
-									</WaitAction>
-								</Sequence>
-							</IfCondition>
-						</Switch>
+										<AnimationAction hasInputBreakpoint="0" comment="" breakpointFlags="0">
+											<OutputBreakpoints />
+										</AnimationAction>
+										<WaitAction hasInputBreakpoint="0" comment="" breakpointFlags="0">
+											<OutputBreakpoints />
+										</WaitAction>
+									</Sequence>
+								</IfCondition>
+							</Switch>
+						</SuppressFailure>
 						<InstantCallback_empty hasInputBreakpoint="0" comment="" breakpointFlags="0">
 							<OutputBreakpoints />
 						</InstantCallback_empty>
@@ -2340,7 +2365,7 @@
 												</Then>
 												<Else canSkip="1">
 													<Synchronize SemaphoreCount="$integerData" InsideTimerValue="&apos;-1&apos;" InvalidateOnExpire="false" atomic="false" OutsideQueuePosVariable="" InsidePosVariable="" TimerType="GameTime" OutsideTimerValue="&apos;50s&apos;" LockManagerType="Local" SemaphoreName="&apos;waitToFight&apos;" RunLogic="KeepRunning">
-														<Wait duration="&apos;-1&apos;" timeType="GameTime" doFail="false" variation="" />
+														<Wait duration="&apos;4s&apos;" timeType="GameTime" doFail="false" variation="" />
 													</Synchronize>
 												</Else>
 											</ActorStateCheck>
@@ -2353,18 +2378,25 @@
 					<Else canSkip="1">
 						<EntityContextElement context="speech_readyForSwitchDialog" enabled="true">
 							<Sequence>
-								<Wait duration="&apos;3s&apos;" timeType="GameTime" doFail="false" variation="" />
-								<ExactMove directionType="AlignWithEntity" directionSpecification="$wuidData" animationTriggerDist="0.150000" precise="true" changeNPCState="true" fastForwardIncludesMove="true" destinationSpecification="$wuidData" destinationSpecification2="" destinationSpecification3="" speed="RelaxedWalk" additionalParams="" pathFindingParams="" staminaPolicy="" pathInfo="" />
-								<ActorStateCheck Who="$__player" State="skipTime" FailWithSubtreeMissing="false" saveVersion="2">
-									<Then canSkip="1">
-										<InstantCallback_empty EventName="&apos;OnFinished&apos;" />
-									</Then>
-									<Else canSkip="1">
-										<Synchronize SemaphoreCount="$integerData" InsideTimerValue="&apos;-1&apos;" InvalidateOnExpire="false" atomic="false" OutsideQueuePosVariable="" InsidePosVariable="" TimerType="GameTime" OutsideTimerValue="&apos;50s&apos;" LockManagerType="Local" SemaphoreName="&apos;waitToFight&apos;" RunLogic="Halt">
+								<DistanceCondition Origin="$this.id" ReferencePt="$wuidData" Low="1.000000" High="1.000000" Negation="true" ValueOnMiddle="false" failOnCondition="false">
+									<Move stopWithinDistance="0.200000" stopDistanceVariation="0.100000" rayCasteFlee="false" successDistance="2.000000" changeNPCState="true" fastForwardIncludesMove="false" destinationSpecification="$wuidData" destinationSpecification2="" destinationSpecification3="" speed="RelaxedWalk" additionalParams="" pathFindingParams="" staminaPolicy="" pathInfo="" />
+								</DistanceCondition>
+								<Parallel successMode="Any" failureMode="Any">
+									<Sequence>
+										<ExactMove directionType="AlignWithEntity" directionSpecification="$wuidData" animationTriggerDist="0.150000" precise="true" changeNPCState="true" fastForwardIncludesMove="true" destinationSpecification="$wuidData" destinationSpecification2="" destinationSpecification3="" speed="RelaxedWalk" additionalParams="" pathFindingParams="" staminaPolicy="" pathInfo="" />
+										<Wait duration="&apos;-1&apos;" timeType="GameTime" doFail="false" variation="" />
+									</Sequence>
+									<ActorStateCheck Who="$__player" State="skipTime" FailWithSubtreeMissing="false" saveVersion="2">
+										<Then canSkip="1">
 											<InstantCallback_empty EventName="&apos;OnFinished&apos;" />
-										</Synchronize>
-									</Else>
-								</ActorStateCheck>
+										</Then>
+										<Else canSkip="1">
+											<Synchronize SemaphoreCount="$integerData" InsideTimerValue="&apos;-1&apos;" InvalidateOnExpire="false" atomic="false" OutsideQueuePosVariable="" InsidePosVariable="" TimerType="GameTime" OutsideTimerValue="&apos;50s&apos;" LockManagerType="Local" SemaphoreName="&apos;waitToFight&apos;" RunLogic="Halt">
+												<InstantCallback_empty EventName="&apos;OnFinished&apos;" />
+											</Synchronize>
+										</Else>
+									</ActorStateCheck>
+								</Parallel>
 							</Sequence>
 						</EntityContextElement>
 					</Else>
@@ -2508,28 +2540,40 @@
 								<OutputBreakpoints />
 								<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
 									<OutputBreakpoints />
-									<Wait hasInputBreakpoint="0" comment="" breakpointFlags="0">
+									<DistanceCondition hasInputBreakpoint="0" comment="" breakpointFlags="0">
 										<OutputBreakpoints />
-									</Wait>
-									<ExactMove hasInputBreakpoint="0" comment="" breakpointFlags="0">
+										<Move hasInputBreakpoint="0" comment="" breakpointFlags="0">
+											<OutputBreakpoints />
+										</Move>
+									</DistanceCondition>
+									<Parallel hasInputBreakpoint="0" comment="" breakpointFlags="0">
 										<OutputBreakpoints />
-									</ExactMove>
-									<ActorStateCheck hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
-										<OutputBreakpoints />
-										<Then>
-											<InstantCallback_empty hasInputBreakpoint="0" comment="" breakpointFlags="0">
+										<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
+											<OutputBreakpoints />
+											<ExactMove hasInputBreakpoint="0" comment="" breakpointFlags="0">
 												<OutputBreakpoints />
-											</InstantCallback_empty>
-										</Then>
-										<Else>
-											<Synchronize hasInputBreakpoint="0" comment="" breakpointFlags="0">
+											</ExactMove>
+											<Wait hasInputBreakpoint="0" comment="" breakpointFlags="0">
 												<OutputBreakpoints />
+											</Wait>
+										</Sequence>
+										<ActorStateCheck hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
+											<OutputBreakpoints />
+											<Then>
 												<InstantCallback_empty hasInputBreakpoint="0" comment="" breakpointFlags="0">
 													<OutputBreakpoints />
 												</InstantCallback_empty>
-											</Synchronize>
-										</Else>
-									</ActorStateCheck>
+											</Then>
+											<Else>
+												<Synchronize hasInputBreakpoint="0" comment="" breakpointFlags="0">
+													<OutputBreakpoints />
+													<InstantCallback_empty hasInputBreakpoint="0" comment="" breakpointFlags="0">
+														<OutputBreakpoints />
+													</InstantCallback_empty>
+												</Synchronize>
+											</Else>
+										</ActorStateCheck>
+									</Parallel>
 								</Sequence>
 							</EntityContextElement>
 						</Else>
@@ -3914,7 +3958,9 @@
 		</EditorData>
 	</BehaviorTree>
 	<BehaviorTree name="reditel_monologOnTagpoint" is_function="0">
-		<Variables />
+		<Variables>
+			<Variable name="alias" type="_string" values="" isPersistent="0" form="single" />
+		</Variables>
 		<Parameters>
 			<Variable name="string" type="_string" values="" isPersistent="0" form="single" requirementType="In" />
 			<Variable name="wuid" type="_wuid" values="" isPersistent="0" form="single" requirementType="In" />
@@ -3928,16 +3974,22 @@
 					<Else canSkip="1">
 						<Sequence>
 							<ExactMove directionType="AlignWithEntity" directionSpecification="$wuid" animationTriggerDist="0.150000" precise="true" changeNPCState="true" fastForwardIncludesMove="false" destinationSpecification="$wuid" destinationSpecification2="" destinationSpecification3="" speed="AlertedWalk" additionalParams="" pathFindingParams="" staminaPolicy="" pathInfo="" />
-							<Function_speech_monolog alias="$string" canBeDelayed="false" context="" dramaticBark="false" lookAtId="" metarole="" target="" wait="true" nodeLabel="71709637" />
+							<Expression expressions="$alias = $string" />
+							<SuppressFailure>
+								<Function_speech_schedulerMonolog alias="$alias" animationApproach="$enum:animationApproach.ingameDialogPoseAndAnimations" context="" lookAtId="" metarole="" skipInLod="false" subtitlesDown="false" nodeLabel="69270767" />
+							</SuppressFailure>
 							<InstantCallback_empty EventName="&apos;OnFinished&apos;" />
 						</Sequence>
 					</Else>
 				</IsTimeSkipping>
 			</Behavior>
 		</Root>
-		<ForestContainer />
+		<ForestContainer>
+			<Function_speech_monolog alias="$string" canBeDelayed="false" context="" dramaticBark="false" lookAtId="" metarole="" target="" wait="true" nodeLabel="71709637" />
+		</ForestContainer>
 		<EditorData Signature="wuidData_string" EventSet="endNotification">
 			<Variables>
+				<Variable name="alias" comment="" />
 				<Variable name="string" comment="" />
 				<Variable name="wuid" comment="" />
 			</Variables>
@@ -3958,9 +4010,15 @@
 								<ExactMove hasInputBreakpoint="0" comment="" breakpointFlags="0">
 									<OutputBreakpoints />
 								</ExactMove>
-								<Function_speech_monolog hasInputBreakpoint="0" comment="" breakpointFlags="0">
+								<Expression hasInputBreakpoint="0" comment="" breakpointFlags="0">
 									<OutputBreakpoints />
-								</Function_speech_monolog>
+								</Expression>
+								<SuppressFailure hasInputBreakpoint="0" comment="" breakpointFlags="0">
+									<OutputBreakpoints />
+									<Function_speech_schedulerMonolog hasInputBreakpoint="0" comment="" breakpointFlags="0">
+										<OutputBreakpoints />
+									</Function_speech_schedulerMonolog>
+								</SuppressFailure>
 								<InstantCallback_empty hasInputBreakpoint="0" comment="" breakpointFlags="0">
 									<OutputBreakpoints />
 								</InstantCallback_empty>
@@ -3969,7 +4027,11 @@
 					</IsTimeSkipping>
 				</Behavior>
 			</Root>
-			<Forest />
+			<Forest>
+				<Function_speech_monolog editorPosX="920" editorPosY="-110" hasInputBreakpoint="0" comment="" breakpointFlags="0">
+					<OutputBreakpoints />
+				</Function_speech_monolog>
+			</Forest>
 			<Comments />
 		</EditorData>
 	</BehaviorTree>

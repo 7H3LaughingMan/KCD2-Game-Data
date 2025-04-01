@@ -12,11 +12,17 @@
 				<Port Name="hrac_jde_sam_do_kempu" Direction="In" Type="trigger">
 					<DesignName StringName="cesta_do__hrac_jde_sam_do_bZCT" Text="Hráč jde sám do kempu" />
 				</Port>
+				<Port Name="quest_failed" Direction="In" Type="trigger">
+					<DesignName StringName="cesta_do__quest_failed_eFVV" Text="quest failed" />
+				</Port>
 				<Port Name="hrac_se_souhlasil_strilet" Direction="Out" Type="trigger">
 					<DesignName StringName="cesta_do__hrac_odevzdalhr_suCm" Text="hráč se souhlasil strilet" />
 				</Port>
 				<Port Name="banditi_napadnou_hrace" Direction="Out" Type="trigger">
 					<DesignName StringName="cesta_do__banditi_napadno_Dtj6" Text="banditi napadnou hráče" />
+				</Port>
+				<Port Name="quest_splnen" Direction="Out" Type="trigger">
+					<DesignName StringName="cesta_do__quest_splnen_a9uG" Text="quest splněn" />
 				</Port>
 				<Port Name="pecha_zaplatil_a_nechce_strelit" Direction="Out" Type="trigger">
 					<DesignName StringName="cesta_do__pecha_zaplatil__uMjW" Text="Pecha zaplatil a nechce střelit" />
@@ -35,7 +41,7 @@
 					<Asset Name="CutsceneHolder" Alias="circleOfDeath" />
 					<Edge From="priprava_na_divadlo.hrac_pripraven_strilet" To="EnqueueCutscene" />
 				</CutsceneHandler>
-				<State Name="goToCamp" PositionY="-220" PositionX="570" RequiredForOutput="kutnohorsko" TypeT="PechasKemp">
+				<State Name="goToCamp" PositionY="-290" PositionX="570" RequiredForOutput="kutnohorsko" TypeT="PechasKemp">
 					<Edge From="ifcompare22.True" To="SetGoToPechasCamp" />
 					<Edge From="ifcompare22.False" To="SetFindPechasCamp" />
 					<Edge From="kontrola_prichodu_do_kempu.hrac_prisel_do_kempu" To="SetTalkToPecha">
@@ -55,8 +61,16 @@
 						<Vertex>vertex15</Vertex>
 						<Vertex>vertex8</Vertex>
 					</Edge>
+					<Edge From="if37.True" To="SetAborted" />
 				</State>
-				<IfFunction Name="ifcompare22" PositionY="-150" PositionX="290" TypeT="wh::questmodule::QuestProgress" MethodName="Control::Compare" DeclaringType="Control">
+				<If Name="if37" PositionY="60" PositionX="270">
+					<Edge From="or38.bool" To="Condition">
+						<Vertex>D0j6F1Dj</Vertex>
+						<Vertex>WH19ETK1</Vertex>
+					</Edge>
+					<Edge From="quest_failed" To="Exec" />
+				</If>
+				<IfFunction Name="ifcompare22" PositionY="-150" PositionX="270" TypeT="wh::questmodule::QuestProgress" MethodName="Control::Compare" DeclaringType="Control">
 					<Constant Name="Op" Value="Equals" />
 					<Constant Name="ValueB" Value="Done" />
 					<Edge From="hrac_jde_sam_do_kempu" To="Exec" />
@@ -79,6 +93,10 @@
 					<Edge From="goToCamp.FindPechasCamp" To="A" />
 					<Edge From="goToCamp.GoToPechasCamp" To="B" />
 				</Function>
+				<Function Name="or38" PositionY="80" PositionX="1260" MethodName="math::boolean::Or" DeclaringType="math::boolean">
+					<Edge From="or24.bool" To="A" />
+					<Edge From="goToCamp.TalkToPecha" To="B" />
+				</Function>
 				<Output Name="Output">
 					<Edge From="o_sipu_s_pechou.banditi_napadnou_hrace" To="banditi_napadnou_hrace">
 						<Vertex>vertex14</Vertex>
@@ -90,6 +108,10 @@
 					<Edge From="kontrola_prichodu_do_kempu.hrac_prisel_do_kempu" To="hrac_prisel_do_kempu">
 						<Vertex>KG2mSHDU</Vertex>
 						<Vertex>fNn7jB7o</Vertex>
+					</Edge>
+					<Edge From="o_sipu_s_pechou.quest_splnen" To="quest_splnen">
+						<Vertex>nBINlYWt</Vertex>
+						<Vertex>gFptwXzj</Vertex>
 					</Edge>
 				</Output>
 				<PlayerAction_DrawWeapon Name="PlayerAction_DrawWeapon" PositionY="-350" PositionX="2760" Namespace="utils.player">
@@ -103,9 +125,9 @@
 				<priprava_na_divadlo Name="priprava_na_divadlo" PositionY="-70" PositionX="2060">
 					<Edge From="o_sipu_s_pechou.hrac_se_souhlasil_strilet" To="hrac_se_souhlasil_strilet" />
 				</priprava_na_divadlo>
-				<MemberFunction Name="revive30" PositionY="-510" PositionX="2760" MethodName="Revive" DeclaringType="wh::rpgmodule::I_Soul">
+				<MemberFunction Name="revive30" PositionY="-520" PositionX="2760" MethodName="Revive" DeclaringType="wh::rpgmodule::I_Soul">
 					<Asset Name="Soul" Alias="kontrolujiciBandita" />
-					<Edge From="cutscenehandler1.AfterPlay" To="Exec" />
+					<Edge From="cutscenehandler1.BeforePlay" To="Exec" />
 				</MemberFunction>
 				<AddReward Name="reward28" PositionY="220" PositionX="2070">
 					<Edge From="o_sipu_s_pechou.pecha_zaplatil_a_nechce_strelit" To="AddReward" />
@@ -122,8 +144,11 @@
 				</TriggerSequence>
 			</Nodes>
 			<EdgeVertices>
+				<EdgeVertex Name="D0j6F1Dj" PositionY="320" PositionX="1430" />
 				<EdgeVertex Name="fNn7jB7o" PositionY="388" PositionX="2923" />
+				<EdgeVertex Name="gFptwXzj" PositionY="420" PositionX="2920" />
 				<EdgeVertex Name="KG2mSHDU" PositionY="385" PositionX="1632" />
+				<EdgeVertex Name="nBINlYWt" PositionY="420" PositionX="1960" />
 				<EdgeVertex Name="vertex12" PositionY="270" PositionX="1530" />
 				<EdgeVertex Name="vertex13" PositionY="270" PositionX="580" />
 				<EdgeVertex Name="vertex14" PositionY="210" PositionX="2880" />
@@ -133,6 +158,7 @@
 				<EdgeVertex Name="vertex19" PositionY="298" PositionX="1628" />
 				<EdgeVertex Name="vertex7" PositionY="350" PositionX="2920" />
 				<EdgeVertex Name="vertex8" PositionY="350" PositionX="580" />
+				<EdgeVertex Name="WH19ETK1" PositionY="320" PositionX="300" />
 			</EdgeVertices>
 			<Assets>
 				<CutsceneHolderAsset Name="circleOfDeath" />

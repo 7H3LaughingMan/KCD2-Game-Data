@@ -73,6 +73,9 @@
 				<Port Name="henik_u_majky_ceka_na_rande" Direction="In" Type="bool">
 					<DesignName StringName="s_henikem_henik_u_majky_c_E5uL" Text="Heník u májky, čeká na rande" />
 				</Port>
+				<Port Name="manka_mrtva" Direction="In" Type="bool">
+					<DesignName StringName="s_henikem_manka_mrtva_Xda4" Text="Manka mrtvá" />
+				</Port>
 			</Ports>
 			<Text StringName="with_henik_sbmt" Text="S Heníkem" />
 			<Dialogue TechnicalStatus="Enabled" AllowFarewell="false" GesturesSetDate="2023-12-20T00:11:20.1420829+01:00" GesturesSetResponseCount="69">
@@ -82,7 +85,7 @@
 				</SelectedSouls>
 				<Decision Name="dec1" Priority="SideQuestSubmission">
 					<Sequences>
-						<Sequence EntryCondition="Port('enabled') &amp;&#xD;&#xA;!Port('uz_sem_mluvil_s_mankou_o_henikovi') &amp;&#xD;&#xA;!SequenceUsed('zkusil_jsem_prvni_skillcheck') &amp;&#xD;&#xA;!Port('majka_uriznuta__nelze_uz_plnit_rande')&#xD;&#xA;AND &#xD;&#xA;!Port('vyprovokovat_henika_seqused') AND&#xD;&#xA;!ThisSequenceUsed()" EndType="Decision" Visibility="Internal" Name="jak_to_jde">
+						<Sequence EntryCondition="Port('enabled') &amp;&#xD;&#xA;!Port('uz_sem_mluvil_s_mankou_o_henikovi') &amp;&#xD;&#xA;!SequenceUsed('zkusil_jsem_prvni_skillcheck') &amp;&#xD;&#xA;!Port('majka_uriznuta__nelze_uz_plnit_rande') AND &#xD;&#xA;!Port('vyprovokovat_henika_seqused') AND&#xD;&#xA;!ThisSequenceUsed() AND &#xD;&#xA;!Port('manka_mrtva')" EndType="Decision" Visibility="Internal" Name="jak_to_jde">
 							<DesignName StringName="with_henik_jak_to_jde_LQGb" Text="Jak to jde?" />
 							<UiPrompt StringName="ui_with_henik_jak_to_jde_YXqo" Text="Jak se ti vede?" />
 							<Elements>
@@ -157,7 +160,7 @@
 										</Elements>
 										<Decision Name="dec16" Priority="SideQuestSubmission">
 											<Sequences>
-												<Sequence SpeechCoef="0" EndType="Decision" Visibility="Internal" Name="zkusil_jsem_prvni_skillcheck">
+												<Sequence EndType="Decision" SpeechCoef="0" Visibility="Internal" Name="zkusil_jsem_prvni_skillcheck">
 													<DesignName StringName="with_henik_seq3_ceq5" Text="zkusil jsem první skillcheck" />
 													<Elements>
 														<Response Role="HENRY" />
@@ -689,7 +692,7 @@
 								</Response>
 							</Elements>
 						</Sequence>
-						<Sequence EntryCondition="Port('enabled') &amp;&#xD;&#xA;Port('rande_navratovka') &amp;&#xD;&#xA;!Port('majka_uriznuta__nelze_uz_plnit_rande')" EndType="Decision" SkillCheckType="impress" Type="Skillcheck" SkillCheck="Medium" Name="seq19">
+						<Sequence EntryCondition="Port('enabled') &amp;&#xD;&#xA;Port('rande_navratovka') &amp;&#xD;&#xA;!Port('majka_uriznuta__nelze_uz_plnit_rande') AND &#xD;&#xA;!Port('manka_mrtva')" EndType="Decision" SkillCheckType="impress" Type="Skillcheck" SkillCheck="Medium" Name="seq19">
 							<DesignName StringName="with_henik_seq19_WKV7" Text="seq19" />
 							<UiPrompt StringName="ui_with_henik_seq19_3Gp7" Text="Moje nabídka pořád platí." />
 							<Elements>
@@ -735,7 +738,7 @@
 								</Sequences>
 							</Decision>
 						</Sequence>
-						<Sequence EntryCondition="Port('enabled') &amp;&#xD;&#xA;Port('uz_sem_mluvil_s_mankou_o_henikovi') &amp;&#xD;&#xA;!Port('mluvil_jsem_o_tobe_s_mankou_seqused') AND &#xD;&#xA;!ThisSequenceUsed()" EndType="GoTo" GoToDecision="dec10" Visibility="Public" Name="mluvil_jsem_o_tobe_s_mankou">
+						<Sequence EntryCondition="Port('enabled') &amp;&#xD;&#xA;Port('uz_sem_mluvil_s_mankou_o_henikovi') &amp;&#xD;&#xA;!Port('mluvil_jsem_o_tobe_s_mankou_seqused') AND &#xD;&#xA;!ThisSequenceUsed() AND &#xD;&#xA;!Port('manka_mrtva')" EndType="GoTo" GoToDecision="dec10" Visibility="Public" Name="mluvil_jsem_o_tobe_s_mankou">
 							<DesignName StringName="with_henik_mluvil_jsem_o__uLfQ" Text="Mluvil jsem o tobě s Mankou" />
 							<UiPrompt StringName="ui_with_henik_mluvil_jsem_Fx0e" Text="Mluvil jsem o tobě s Mankou." />
 							<Elements>
@@ -761,7 +764,7 @@
 								</Response>
 							</Elements>
 						</Sequence>
-						<Sequence EntryCondition="Port('enabled') &amp;&#xD;&#xA;Port('bude_rande') &amp;&#xD;&#xA;!Port('dobry_zpravy_o_rande_seqused') &amp;&#xD;&#xA;!Port('majka_uriznuta__nelze_uz_plnit_rande') &amp;&#xD;&#xA;!Port('henik_u_majky_ceka_na_rande') &amp;&#xD;&#xA;!Port('rande_bylo_zacato')" Visibility="Public" Name="dobry_zpravy_o_rande">
+						<Sequence EntryCondition="Port('enabled') &amp;&#xD;&#xA;Port('bude_rande') &amp;&#xD;&#xA;!Port('dobry_zpravy_o_rande_seqused') &amp;&#xD;&#xA;!Port('majka_uriznuta__nelze_uz_plnit_rande') &amp;&#xD;&#xA;!Port('henik_u_majky_ceka_na_rande') &amp;&#xD;&#xA;!Port('rande_bylo_zacato') AND &#xD;&#xA;!Port('manka_mrtva')" Visibility="Public" Name="dobry_zpravy_o_rande">
 							<DesignName StringName="with_henik_dobry_zpravy_o_964F" Text="Dobrý zprávy o rande" />
 							<UiPrompt StringName="ui_with_henik_dobry_zprav_Ewdw" Text="Manka souhlasí se schůzkou." />
 							<Triggers>
@@ -800,7 +803,7 @@
 								</Response>
 							</Elements>
 						</Sequence>
-						<Sequence EntryCondition="Port('enabled') &amp;&#xD;&#xA;Port('nebude_rande') &amp;&#xD;&#xA;!Port('spatny_zpravy_o_rande_seqused') &amp;&#xD;&#xA;!Port('majka_uriznuta__nelze_uz_plnit_rande')" Visibility="Public" Name="spatny_zpravy_o_rande">
+						<Sequence EntryCondition="Port('enabled') &amp;&#xD;&#xA;Port('nebude_rande') &amp;&#xD;&#xA;!Port('spatny_zpravy_o_rande_seqused') &amp;&#xD;&#xA;!Port('majka_uriznuta__nelze_uz_plnit_rande') AND &#xD;&#xA;!Port('manka_mrtva')" Visibility="Public" Name="spatny_zpravy_o_rande">
 							<DesignName StringName="with_henik_spatny_zpravy__0jnN" Text="Špatný zprávy o rande" />
 							<UiPrompt StringName="ui_with_henik_spatny_zpra_2iWK" Text="Mance se ten nápad nezdál." />
 							<Elements>
@@ -1054,7 +1057,7 @@
 								</Response>
 							</Elements>
 						</Sequence>
-						<Sequence EntryCondition="Port('enabled') &amp;&#xD;&#xA;(SequenceUsed('jak_to_jde') OR  &#xD;&#xA;SequenceUsed('failnul_jsem_prvni_skillcheck')) &amp;&#xD;&#xA;!Port('uz_sem_mluvil_s_mankou_o_henikovi') &amp;&#xD;&#xA;!Port('majka_uriznuta__nelze_uz_plnit_rande') AND &#xD;&#xA;!SequenceUsed('problemy_succes')" EndType="GoTo" GoToDecision="dec16" SkillCheckType="persuade" Type="Skillcheck" SkillCheck="Medium" Name="seq42">
+						<Sequence EntryCondition="Port('enabled') &amp;&#xD;&#xA;(SequenceUsed('jak_to_jde') OR  &#xD;&#xA;SequenceUsed('failnul_jsem_prvni_skillcheck')) &amp;&#xD;&#xA;!Port('uz_sem_mluvil_s_mankou_o_henikovi') &amp;&#xD;&#xA;!Port('majka_uriznuta__nelze_uz_plnit_rande') AND &#xD;&#xA;!SequenceUsed('problemy_succes') AND &#xD;&#xA;!Port('manka_mrtva')" EndType="GoTo" GoToDecision="dec16" SkillCheckType="persuade" Type="Skillcheck" SkillCheck="Medium" Name="seq42">
 							<DesignName StringName="s_henikem_seq42_YwJ5" Text="seq42" />
 							<UiPrompt StringName="ui_s_henikem_seq42_soVz" Text="Něco tě trápí?" />
 							<Elements>

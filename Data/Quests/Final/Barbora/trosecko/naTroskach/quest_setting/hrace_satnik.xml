@@ -6,6 +6,9 @@
 				<Port Name="quest_active" Direction="In" Type="bool">
 					<DesignName StringName="hrace_sat_quest_active_MU4p" Text="Quest active" />
 				</Port>
+				<Port Name="stav_questu" Direction="In" Type="wh::questmodule::QuestProgress">
+					<DesignName StringName="hrace_sat_stav_questu_cRLt" Text="stav questu" />
+				</Port>
 				<Port Name="konec_final_dialogu" Direction="In" Type="trigger">
 					<DesignName StringName="hrace_sat_konec_final_dia_olue" Text="Konec final dialogu" />
 				</Port>
@@ -24,8 +27,14 @@
 				<State Name="hraceSatnikState" PositionY="70" PositionX="-1830" TypeT="hraceSatnikProgress">
 					<Edge From="pred_final_cs" To="SetBeforeFinalPolylog" />
 					<Edge From="konec_final_dialogu" To="SetAfterFuinalPolylog" />
-					<Edge From="nasilne_vraceni_vybavy_pred_prepnutim_levelu" To="SetDone" />
+					<Edge From="ifcompare75.True" To="SetDone" />
 				</State>
+				<IfFunction Name="ifcompare75" PositionY="330" PositionX="-2170" TypeT="wh::questmodule::QuestProgress" MethodName="Control::Compare" DeclaringType="Control">
+					<Constant Name="Op" Value="Equals" />
+					<Constant Name="ValueB" Value="Done" />
+					<Edge From="stav_questu" To="ValueA" />
+					<Edge From="nasilne_vraceni_vybavy_pred_prepnutim_levelu" To="Exec" />
+				</IfFunction>
 				<Function Name="or72" PositionY="-130" PositionX="-1130" MethodName="math::boolean::Or" DeclaringType="math::boolean">
 					<Edge From="and70.bool" To="A" />
 					<Edge From="hraceSatnikState.BeforeFinalPolylog" To="B" />

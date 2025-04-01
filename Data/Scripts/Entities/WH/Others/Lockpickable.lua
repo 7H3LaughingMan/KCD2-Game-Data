@@ -35,6 +35,8 @@ Lockpickable =
 		},
 
 		fUseDistance 	= 1.5,
+		fUseLockpickDistance = 1.5,
+		fUseLockpickAngle = 0.8,
 		bSkipAngleCheck = false,
 		fUseAngle = 0.3,
 		fUseXOffset = 0,
@@ -226,7 +228,7 @@ function Lockpickable:GetActions(user, firstFast)
 		AddInteractorAction( output, firstFast, Action():hint( "@ui_hud_unlock" ):action( "use" ):func( Lockpickable.OnUsed ):interaction( inr_lockpickableUnlock ) )
 	end
 
-	if ((self.nUserId == 0) and (self.Properties.Lock.bCanLockPick == true) and (self.bLocked == true) and user.soul:HaveSkill('thievery')) then
+	if ((self.nUserId == 0) and (self.Properties.Lock.bCanLockPick == true) and (self.bLocked == true) and user.soul:HaveSkill('thievery') and (EntityCommon.IsUsableForLockpick(user, self) == 1)) then
 		local canUseMinigame = Minigame.CanUseMinigame(user.id);
 		AddInteractorAction( output, firstFast, Action():hint( '@' .. Crime.BuildLockpickPromptStrName(self.Properties.Lock.fLockDifficulty) ):action( "use" ):hintType( AHT_HOLD ):enabled( canUseMinigame ):func( Lockpickable.OnUsedHold ):interaction( inr_lockpickableLockpick ) )
 	end
@@ -259,7 +261,7 @@ function Lockpickable:OnUsedHold(user, slot)
 		return
 	end
 
-	if ((self.Properties.Lock.bCanLockPick == true) and (self.bLocked == true)) then
+	if ((self.Properties.Lock.bCanLockPick == true) and (self.bLocked == true) and (EntityCommon.IsUsableForLockpick(user, self) == 1)) then
 		Minigame.StartLockPicking(self.id)
 	end
 end

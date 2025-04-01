@@ -81,6 +81,21 @@
 				<Port Name="tour_do_troskovic_je_aktivni" Direction="Out" Type="bool">
 					<DesignName StringName="hrac_se_n_tour_do_troskov_h0a6" Text="Tour do Troskovic je aktivní" />
 				</Port>
+				<Port Name="jindra_opousti_suka_a_semina_behem_posledniho_jejich_objectivu" Direction="Out" Type="trigger">
+					<DesignName StringName="hrac_se_n_jindra_opousti__fdqu" Text="Jindra opouští Suka a Semína během posledního jejich objectivu" />
+				</Port>
+				<Port Name="posledni_objective_semina_je_aktivni" Direction="In" Type="bool">
+					<DesignName StringName="hrac_se_n_posledni_object_spbe" Text="Poslední objective Semína je aktivní" />
+				</Port>
+				<Port Name="hrac_solo_vyvrazdil_campy" Direction="In" Type="trigger">
+					<DesignName StringName="hrac_se_n_hrac_solo_vyvra_32CD" Text="Hráč solo vraždí campy" />
+				</Port>
+				<Port Name="vykaslani_je_ve_stavu_objectivedonekovar" Direction="Out" Type="bool">
+					<DesignName StringName="hrac_se_n_vykaslani_je_ve_oEQG" Text="Vykašlání je ve stavu DoneObjectiveKovář" />
+				</Port>
+				<Port Name="zjistijaktodopadlo_obj_state" Direction="Out" Type="Progress">
+					<DesignName StringName="hrac_se_n_zjistijaktodopa_BKjf" Text="ZjistiJakToDopadlo obj state" />
+				</Port>
 			</Ports>
 			<Definitions>
 				<Definition File="hrac_se_na_to_vykaslal/semin__quest_se_odehral_sam.xml" />
@@ -154,11 +169,15 @@
 				<If Name="if_active" PositionY="1570" PositionX="-580">
 					<Edge From="vykaslaniSeStav.OnHracMimo_SaSzpet" To="Exec">
 						<Vertex>F6rf9D38</Vertex>
+						<Vertex>ldUhtUsP</Vertex>
 					</Edge>
 					<Edge From="TourADistance.Active" To="Condition">
 						<Vertex>YuAlS9tM</Vertex>
 						<Vertex>vYUrdhfX</Vertex>
 						<Vertex>sHWSH4bD</Vertex>
+					</Edge>
+					<Edge From="vykaslaniSeStav.OnDoneObjectiveKovar" To="Exec">
+						<Vertex>ldUhtUsP</Vertex>
 					</Edge>
 				</If>
 				<If Name="if_henryKilledBanditsSolo" PositionY="-1370" PositionX="-860">
@@ -219,13 +238,68 @@
 						<Vertex>bKwFAj0r</Vertex>
 						<Vertex>8z6BK5Wl</Vertex>
 					</Edge>
-					<Edge From="vykaslaniSeStav.OnZacalaSvatba" To="Exec" />
+					<Edge From="vykaslaniSeStav.OnZacalaSvatba" To="Exec">
+						<Vertex>5FN1yMPE</Vertex>
+					</Edge>
+					<Edge From="hrac_solo_vyvrazdil_campy" To="Exec">
+						<Vertex>2LChsx5n</Vertex>
+						<Vertex>5FN1yMPE</Vertex>
+					</Edge>
+				</If>
+				<IfFunction Name="ifActiveZjistiJakToDopadloAndSasWrongState" PositionY="-2040" PositionX="-1300" MethodName="math::boolean::And" DeclaringType="math::boolean">
+					<Edge From="patchtriggerFix524293.OnPatch" To="Exec" />
+					<Edge From="ZjistiJakToDopadlo.Active" To="A">
+						<Vertex>rqVLLEn8</Vertex>
+						<Vertex>lHUo94Wv</Vertex>
+					</Edge>
+					<Edge From="vykaslaniSeStav.HracMimo_SaSpokracuji" To="B">
+						<Vertex>KDvxqBgK</Vertex>
+						<Vertex>lVgYeXDN</Vertex>
+					</Edge>
+				</IfFunction>
+				<If Name="ifAlreadyStateAfterBandits" PositionY="-220" PositionX="-1870">
+					<Edge From="if_playerLeftAfterCampFightDone.False" To="Exec">
+						<Vertex>vertex92</Vertex>
+						<Vertex>vertex63</Vertex>
+					</Edge>
+					<Edge From="if_playerLeftAfterCampFightDone.True" To="Exec">
+						<Vertex>vertex92</Vertex>
+						<Vertex>vertex63</Vertex>
+					</Edge>
+					<Edge From="jindra_zabil_hlidku_prilis_brzy" To="Exec" />
+					<Edge From="hrac_na_to_kasle_po_troskovicich" To="Exec" />
+					<Edge From="or33.bool" To="Condition">
+						<Vertex>RMM8xvqC</Vertex>
+						<Vertex>QYhUUUNs</Vertex>
+					</Edge>
 				</If>
 				<IfFunction Name="ifand30" PositionY="1400" PositionX="660" MethodName="math::boolean::And" DeclaringType="math::boolean">
 					<Edge From="DistanceTriggerAndCheck_1.onmatch" To="Exec" />
 					<Edge From="DistanceTriggerAndCheck_1.check" To="A" />
 					<Edge From="DistanceTriggerAndCheck.check" To="B" />
 					<Edge From="DistanceTriggerAndCheck.onmatch" To="Exec" />
+				</IfFunction>
+				<IfFunction Name="ifnot39" PositionY="-380" PositionX="-1880" MethodName="math::boolean::Not" DeclaringType="math::boolean">
+					<Edge From="if_playerLeftBeforeTroskovice.True" To="Exec">
+						<Vertex>vertex60</Vertex>
+						<Vertex>vertex61</Vertex>
+					</Edge>
+					<Edge From="ifand30.True" To="Exec">
+						<Vertex>vertex79</Vertex>
+						<Vertex>vertex86</Vertex>
+						<Vertex>vertex80</Vertex>
+					</Edge>
+					<Edge From="vykaslaniSeStav.DoneObjectiveKovar" To="Value">
+						<Vertex>XMb90oDA</Vertex>
+						<Vertex>5848gfPo</Vertex>
+						<Vertex>UFtJmurr</Vertex>
+					</Edge>
+					<Edge From="playerSkipTimeTrigger.SkipTimeEnded" To="Exec">
+						<Vertex>z5esdots</Vertex>
+						<Vertex>vertex79</Vertex>
+						<Vertex>vertex86</Vertex>
+						<Vertex>vertex80</Vertex>
+					</Edge>
 				</IfFunction>
 				<IntermissionTrigger Name="intermissiontrigger24" PositionY="1070" PositionX="750">
 					<Edge From="and29.bool" To="IsActive">
@@ -260,7 +334,9 @@
 				</Function>
 				<Function Name="or33" PositionY="400" PositionX="-300" MethodName="math::boolean::Or" DeclaringType="math::boolean">
 					<Edge From="vykaslaniSeStav.HracMimo_SaSzpet" To="A" />
-					<Edge From="vykaslaniSeStav.DoneObjectiveKovar" To="B" />
+					<Edge From="vykaslaniSeStav.DoneObjectiveKovar" To="B">
+						<Vertex>XMb90oDA</Vertex>
+					</Edge>
 					<Edge From="vykaslaniSeStav.ZacalaSvatba" To="C" />
 				</Function>
 				<Output Name="Output">
@@ -321,7 +397,20 @@
 						<Vertex>vertex84</Vertex>
 						<Vertex>onqfIwAa</Vertex>
 					</Edge>
+					<Edge From="vykaslaniSeStav.DoneObjectiveKovar" To="vykaslani_je_ve_stavu_objectivedonekovar">
+						<Vertex>XMb90oDA</Vertex>
+					</Edge>
+					<Edge From="ZjistiJakToDopadlo.State" To="zjistijaktodopadlo_obj_state">
+						<Vertex>M9YHa66B</Vertex>
+					</Edge>
 				</Output>
+				<PatchTrigger Name="patchtriggerFix524293" PositionY="-1950" PositionX="-1750">
+					<Constant Name="TransitionToVersion" Value="ver_01_02" />
+				</PatchTrigger>
+				<ActorSkipTimeTrigger Name="playerSkipTimeTrigger" PositionY="1850" PositionX="120">
+					<Asset Name="Soul" Alias="player" />
+					<Edge From="TourADistance.Active" To="IsActive" />
+				</ActorSkipTimeTrigger>
 				<pockej_az_se_semin_se_sukem_vrati Name="pockej_az_se_semin_se_sukem_vrati" PositionY="-1750" PositionX="100" RequiredForOutput="trosecko">
 					<Edge From="CekaniNaNavratSeminaSuka.State" To="Progress">
 						<Vertex>vertex30</Vertex>
@@ -392,6 +481,7 @@
 					<Constant Name="movementspeed" Value="run" />
 					<Asset Name="currenttagpoint" Alias="tpSeminSukTourTrosecko" />
 					<Asset Name="finaltagpoint" Alias="tpSeminSukTourTrosecko" />
+					<Constant Name="disableorca" Value="false" />
 					<Constant Name="followtype" Value="none" />
 					<Asset Name="followablesoul" Alias="semin" />
 					<Constant Name="followablesoulpreferedposition" Value="none" />
@@ -433,41 +523,34 @@
 					<Edge From="if_active.True" To="SetDone">
 						<Vertex>ogwP3JuI</Vertex>
 					</Edge>
+					<Edge From="playerSkipTimeTrigger.SkipTimeEnded" To="SetDone">
+						<Vertex>z5esdots</Vertex>
+						<Vertex>vertex79</Vertex>
+						<Vertex>vertex86</Vertex>
+						<Vertex>V1GK2Cuc</Vertex>
+					</Edge>
 				</State>
 				<State Name="vykaslaniSeStav" PositionY="-640" PositionX="-1580" TypeT="VykaslaniStav">
 					<Edge From="progresspredtroseckem" To="SetHracVeSkupinePredTroskovicemi" />
 					<Edge From="progresspotrosecku" To="SetHracVeSkupinePoTroskovicich" />
-					<Edge From="if_playerLeftBeforeTroskovice.True" To="SetHracMimo_SaSodstream">
-						<Vertex>vertex60</Vertex>
-						<Vertex>vertex61</Vertex>
-					</Edge>
 					<Edge From="intermissiontrigger24.OnIntermission" To="SetHracMimo_SaSzpet">
 						<Vertex>vertex71</Vertex>
 						<Vertex>csSgjGam</Vertex>
 						<Vertex>vertex73</Vertex>
 					</Edge>
 					<Edge From="zjisti_od_sas_jak_poridili" To="SetHracMimo_SaSzpet" />
-					<Edge From="hrac_na_to_kasle_po_troskovicich" To="SetHracMimo_SaSpokracuji" />
 					<Edge From="oznam_vysledek_kovarovi" To="SetDoneObjectiveKovar" />
-					<Edge From="if_playerLeftAfterCampFightDone.False" To="SetHracMimo_SaSpokracuji">
-						<Vertex>vertex92</Vertex>
-						<Vertex>vertex63</Vertex>
-					</Edge>
-					<Edge From="ifand30.True" To="SetHracMimo_SaSodstream">
-						<Vertex>vertex79</Vertex>
-						<Vertex>vertex86</Vertex>
-						<Vertex>vertex80</Vertex>
-					</Edge>
 					<Edge From="distancetrigger22.OnMatch" To="SetHracMimo_SaSzpet">
 						<Vertex>vertex71</Vertex>
 						<Vertex>csSgjGam</Vertex>
 						<Vertex>vertex73</Vertex>
 					</Edge>
-					<Edge From="jindra_zabil_hlidku_prilis_brzy" To="SetHracMimo_SaSpokracuji" />
 					<Edge From="abortuji_aktivni_objectivy" To="SetZacalaSvatba" />
-					<Edge From="if_playerLeftAfterCampFightDone.True" To="SetHracMimo_SaSpokracuji">
-						<Vertex>vertex92</Vertex>
-						<Vertex>vertex63</Vertex>
+					<Edge From="ifnot39.True" To="SetHracMimo_SaSodstream" />
+					<Edge From="ifAlreadyStateAfterBandits.False" To="SetHracMimo_SaSpokracuji" />
+					<Edge From="ifActiveZjistiJakToDopadloAndSasWrongState.True" To="SetHracMimo_SaSzpet">
+						<Vertex>zPXYJcDV</Vertex>
+						<Vertex>qWaWBQPm</Vertex>
 					</Edge>
 				</State>
 				<zjisti_jak_to_dopadl_se_ztracenym_vozem Name="zjisti_jak_to_dopadl_se_ztracenym_vozem" PositionY="-1740" PositionX="610" RequiredForOutput="trosecko">
@@ -486,7 +569,10 @@
 			</Nodes>
 			<EdgeVertices>
 				<EdgeVertex Name="0HDobMpj" PositionY="380" PositionX="-1580" />
+				<EdgeVertex Name="2LChsx5n" PositionY="-830" PositionX="-1580" />
+				<EdgeVertex Name="5848gfPo" PositionY="60" PositionX="-1080" />
 				<EdgeVertex Name="5c7qu6wa" PositionY="-170" PositionX="410" />
+				<EdgeVertex Name="5FN1yMPE" PositionY="-830" PositionX="-860" />
 				<EdgeVertex Name="5hfCfYH7" PositionY="-170" PositionX="-590" />
 				<EdgeVertex Name="8z6BK5Wl" PositionY="-728" PositionX="-411" />
 				<EdgeVertex Name="9aVHsTaF" PositionY="-1306" PositionX="1872" />
@@ -503,8 +589,13 @@
 				<EdgeVertex Name="EkLPjR9C" PositionY="-190" PositionX="210" />
 				<EdgeVertex Name="F6rf9D38" PositionY="-110" PositionX="-740" />
 				<EdgeVertex Name="If8N2bqj" PositionY="-680" PositionX="1700" />
+				<EdgeVertex Name="KDvxqBgK" PositionY="-1780" PositionX="-1150" />
 				<EdgeVertex Name="kjGRYUqw" PositionY="-210" PositionX="-590" />
+				<EdgeVertex Name="ldUhtUsP" PositionY="-62" PositionX="-698" />
+				<EdgeVertex Name="lHUo94Wv" PositionY="-1867" PositionX="-521" />
 				<EdgeVertex Name="lLmoxJCg" PositionY="-340" PositionX="-40" />
+				<EdgeVertex Name="M9YHa66B" PositionY="-1419" PositionX="1787" />
+				<EdgeVertex Name="lVgYeXDN" PositionY="-1778" PositionX="-1303" />
 				<EdgeVertex Name="nHBnSom1" PositionY="-170" PositionX="240" />
 				<EdgeVertex Name="NjdzlAzL" PositionY="-190" PositionX="-590" />
 				<EdgeVertex Name="ogwP3JuI" PositionY="1550" PositionX="-230" />
@@ -512,8 +603,12 @@
 				<EdgeVertex Name="pVS0lnUp" PositionY="1006" PositionX="-306" />
 				<EdgeVertex Name="PwVHKgPo" PositionY="-950" PositionX="-970" />
 				<EdgeVertex Name="QJBJlejs" PositionY="-110" PositionX="-590" />
+				<EdgeVertex Name="qWaWBQPm" PositionY="-1680" PositionX="-1510" />
 				<EdgeVertex Name="qxw3Ge42" PositionY="-950" PositionX="-1560" />
+				<EdgeVertex Name="QYhUUUNs" PositionY="648" PositionX="-1545" />
 				<EdgeVertex Name="RkQCIlcB" PositionY="970" PositionX="-350" />
+				<EdgeVertex Name="RMM8xvqC" PositionY="644" PositionX="-144" />
+				<EdgeVertex Name="rqVLLEn8" PositionY="-1810" PositionX="790" />
 				<EdgeVertex Name="SAYutV4j" PositionY="-150" PositionX="1680" />
 				<EdgeVertex Name="SECRbH6X" PositionY="1003" PositionX="-694" />
 				<EdgeVertex Name="sHWSH4bD" PositionY="1770" PositionX="-570" />
@@ -521,6 +616,8 @@
 				<EdgeVertex Name="subJtFXI" PositionY="-560" PositionX="-680" />
 				<EdgeVertex Name="TbqDVGtR" PositionY="-990" PositionX="-650" />
 				<EdgeVertex Name="TLrAxgqw" PositionY="-990" PositionX="-130" />
+				<EdgeVertex Name="UFtJmurr" PositionY="60" PositionX="-1830" />
+				<EdgeVertex Name="V1GK2Cuc" PositionY="1560" PositionX="-280" />
 				<EdgeVertex Name="vertex30" PositionY="-1570" PositionX="320" />
 				<EdgeVertex Name="vertex31" PositionY="-1570" PositionX="110" />
 				<EdgeVertex Name="vertex44" PositionY="0" PositionX="1430" />
@@ -556,8 +653,11 @@
 				<EdgeVertex Name="vertex94" PositionY="190" PositionX="1470" />
 				<EdgeVertex Name="vYUrdhfX" PositionY="1770" PositionX="-50" />
 				<EdgeVertex Name="W8erhNUb" PositionY="-530" PositionX="1650" />
+				<EdgeVertex Name="XMb90oDA" PositionY="20" PositionX="-950" />
 				<EdgeVertex Name="XmQDGr32" PositionY="-193" PositionX="1696" />
 				<EdgeVertex Name="YuAlS9tM" PositionY="1523" PositionX="35" />
+				<EdgeVertex Name="z5esdots" PositionY="1980" PositionX="820" />
+				<EdgeVertex Name="zPXYJcDV" PositionY="-1680" PositionX="-1090" />
 			</EdgeVertices>
 			<Types>
 				<Type TypeName="VykaslaniStav">

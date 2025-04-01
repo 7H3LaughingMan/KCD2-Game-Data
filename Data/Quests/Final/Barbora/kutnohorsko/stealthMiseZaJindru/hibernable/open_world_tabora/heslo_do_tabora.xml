@@ -15,13 +15,21 @@
 				<Definition File="heslo_do_tabora/dialog_mezi_vojaky_o_heslu_2.xml" />
 			</Definitions>
 			<Nodes>
-				<dialog_mezi_vojaky_o_heslu_1 Name="dialog_mezi_vojaky_o_heslu_1" PositionY="-670" PositionX="-870">
+				<SoulDeathTrigger Name="deathtrigger12" PositionY="-1020" PositionX="160">
+					<Edge From="or13.bool" To="IsActive" />
+					<Edge From="makearray14.Array" To="Souls" />
+				</SoulDeathTrigger>
+				<SoulDeathTrigger Name="deathtrigger12_1" PositionY="220" PositionX="200">
+					<Edge From="or13_1.bool" To="IsActive" />
+					<Edge From="makearray14_1.Array" To="Souls" />
+				</SoulDeathTrigger>
+				<dialog_mezi_vojaky_o_heslu_1 Name="dialog_mezi_vojaky_o_heslu_1" PositionY="-920" PositionX="-880">
 					<Edge From="heslo" To="heslo" />
 				</dialog_mezi_vojaky_o_heslu_1>
-				<dialog_mezi_vojaky_o_heslu_2 Name="dialog_mezi_vojaky_o_heslu_2" PositionY="250" PositionX="-840">
+				<dialog_mezi_vojaky_o_heslu_2 Name="dialog_mezi_vojaky_o_heslu_2" PositionY="310" PositionX="-870">
 					<Edge From="heslo" To="heslo" />
 				</dialog_mezi_vojaky_o_heslu_2>
-				<focuscamonscene Name="focuscamonscene" PositionY="440" PositionX="-840" Namespace="stealthmisezajindru">
+				<focuscamonscene Name="focuscamonscene" PositionY="550" PositionX="-870" Namespace="stealthmisezajindru">
 					<Asset Name="area_for_dialog" Alias="startIngameDialogAboutPassword_2" />
 					<Asset Name="target_npc" Alias="aulitzsSoldier_5" />
 					<Constant Name="action_prompt" Value="open_worl_poslechnout_si__352A" />
@@ -34,8 +42,13 @@
 						<Vertex>vertex8</Vertex>
 					</Edge>
 					<Edge From="start_questu" To="setwaitforplayer" />
+					<Edge From="deathtrigger12_1.OnDeath" To="setafterdialog">
+						<Vertex>8tjo1RM2</Vertex>
+						<Vertex>vertex7</Vertex>
+						<Vertex>vertex8</Vertex>
+					</Edge>
 				</focuscamonscene>
-				<focuscamonscene Name="focuscamonscene_1" PositionY="-470" PositionX="-870" Namespace="stealthmisezajindru">
+				<focuscamonscene Name="focuscamonscene_1" PositionY="-680" PositionX="-880" Namespace="stealthmisezajindru">
 					<Asset Name="area_for_dialog" Alias="startIngameDialogAboutPassword_1" />
 					<Asset Name="target_npc" Alias="aulitzsSoldier_3" />
 					<Constant Name="action_prompt" Value="open_worl_poslechnout_si__352A" />
@@ -48,36 +61,49 @@
 						<Vertex>vertex3</Vertex>
 						<Vertex>vertex4</Vertex>
 					</Edge>
+					<Edge From="deathtrigger12.OnDeath" To="setafterdialog">
+						<Vertex>nI09E7Ps</Vertex>
+						<Vertex>vertex3</Vertex>
+						<Vertex>vertex4</Vertex>
+					</Edge>
 				</focuscamonscene>
-				<moveandwait Name="moveandwait" PositionY="-950" PositionX="-390" Namespace="stealthmisezajindru">
+				<MakeArray Name="makearray14" PositionY="-860" PositionX="-70" TypeT="wh::rpgmodule::Souls">
+					<Asset Name="A" Alias="aulitzsSoldier_3" />
+					<Asset Name="B" Alias="aulitzsSoldier_4" />
+				</MakeArray>
+				<MakeArray Name="makearray14_1" PositionY="360" PositionX="-60" TypeT="wh::rpgmodule::Souls">
+					<Asset Name="A" Alias="aulitzsSoldier_5" />
+					<Asset Name="B" Alias="aulitzsSoldier_6" />
+				</MakeArray>
+				<moveandwait Name="moveandwait" PositionY="-1280" PositionX="-400" Namespace="stealthmisezajindru">
 					<Asset Name="soul" Alias="aulitzsSoldier_3" />
 					<Asset Name="tagpoint" Alias="aboutPassword_1" />
 					<Edge From="focuscamonscene_1.waiting_for_player" To="isactive">
 						<Vertex>vertex11</Vertex>
 					</Edge>
 				</moveandwait>
-				<moveandwait Name="moveandwait_1" PositionY="-780" PositionX="-390" Namespace="stealthmisezajindru">
+				<moveandwait Name="moveandwait_1" PositionY="-1120" PositionX="-400" Namespace="stealthmisezajindru">
 					<Asset Name="soul" Alias="aulitzsSoldier_4" />
 					<Asset Name="tagpoint" Alias="aboutPassword_2" />
 					<Edge From="focuscamonscene_1.waiting_for_player" To="isactive">
 						<Vertex>vertex11</Vertex>
 					</Edge>
 				</moveandwait>
-				<moveandwait Name="moveandwait_1_1" PositionY="150" PositionX="-370" Namespace="stealthmisezajindru">
+				<moveandwait Name="moveandwait_1_1" PositionY="100" PositionX="-360" Namespace="stealthmisezajindru">
 					<Asset Name="soul" Alias="aulitzsSoldier_6" />
 					<Asset Name="tagpoint" Alias="aboutPassword_4" />
 					<Edge From="focuscamonscene.waiting_for_player" To="isactive">
 						<Vertex>vertex12</Vertex>
 					</Edge>
 				</moveandwait>
-				<moveandwait Name="moveandwait_2" PositionY="-30" PositionX="-370" Namespace="stealthmisezajindru">
+				<moveandwait Name="moveandwait_2" PositionY="-80" PositionX="-360" Namespace="stealthmisezajindru">
 					<Asset Name="soul" Alias="aulitzsSoldier_5" />
 					<Asset Name="tagpoint" Alias="aboutPassword_3" />
 					<Edge From="focuscamonscene.waiting_for_player" To="isactive">
 						<Vertex>vertex12</Vertex>
 					</Edge>
 				</moveandwait>
-				<npcdialogonspots Name="npcdialogonspots" PositionY="-590" PositionX="-450" Namespace="utils.speech">
+				<npcdialogonspots Name="npcdialogonspots" PositionY="-880" PositionX="-460" Namespace="utils.speech">
 					<Asset Name="npc_initiator" Alias="aulitzsSoldier_3" />
 					<Asset Name="npc_receiver" Alias="aulitzsSoldier_4" />
 					<Asset Name="smart_entity" Alias="qSO" />
@@ -90,9 +116,11 @@
 					<Constant Name="animationapproach" Value="ingameDialogPoseAndAnimations" />
 					<Constant Name="initiator_haveweapondrawn" Value="false" />
 					<Constant Name="receiver_haveweapondrawn" Value="false" />
-					<Edge From="focuscamonscene_1.dialog_active" To="active" />
+					<Edge From="focuscamonscene_1.dialog_active" To="active">
+						<Vertex>nVAIg8NL</Vertex>
+					</Edge>
 				</npcdialogonspots>
-				<npcdialogonspots Name="npcdialogonspots_1" PositionY="340" PositionX="-420" Namespace="utils.speech">
+				<npcdialogonspots Name="npcdialogonspots_1" PositionY="350" PositionX="-420" Namespace="utils.speech">
 					<Asset Name="npc_initiator" Alias="aulitzsSoldier_5" />
 					<Asset Name="npc_receiver" Alias="aulitzsSoldier_6" />
 					<Asset Name="smart_entity" Alias="qSO" />
@@ -105,16 +133,38 @@
 					<Constant Name="animationapproach" Value="ingameDialogPoseAndAnimations" />
 					<Constant Name="initiator_haveweapondrawn" Value="false" />
 					<Constant Name="receiver_haveweapondrawn" Value="false" />
-					<Edge From="focuscamonscene.dialog_active" To="active" />
+					<Edge From="focuscamonscene.dialog_active" To="active">
+						<Vertex>aSoDQPFm</Vertex>
+					</Edge>
 				</npcdialogonspots>
+				<Function Name="or13" PositionY="-1020" PositionX="-70" MethodName="math::boolean::Or" DeclaringType="math::boolean">
+					<Edge From="focuscamonscene_1.waiting_for_player" To="A">
+						<Vertex>vertex11</Vertex>
+					</Edge>
+					<Edge From="focuscamonscene_1.dialog_active" To="B">
+						<Vertex>nVAIg8NL</Vertex>
+					</Edge>
+				</Function>
+				<Function Name="or13_1" PositionY="200" PositionX="-60" MethodName="math::boolean::Or" DeclaringType="math::boolean">
+					<Edge From="focuscamonscene.waiting_for_player" To="A">
+						<Vertex>vertex12</Vertex>
+					</Edge>
+					<Edge From="focuscamonscene.dialog_active" To="B">
+						<Vertex>aSoDQPFm</Vertex>
+					</Edge>
+				</Function>
 			</Nodes>
 			<EdgeVertices>
-				<EdgeVertex Name="vertex11" PositionY="-780" PositionX="-460" />
-				<EdgeVertex Name="vertex12" PositionY="100" PositionX="-450" />
-				<EdgeVertex Name="vertex3" PositionY="-130" PositionX="-140" />
-				<EdgeVertex Name="vertex4" PositionY="-130" PositionX="-850" />
-				<EdgeVertex Name="vertex7" PositionY="790" PositionX="-120" />
-				<EdgeVertex Name="vertex8" PositionY="790" PositionX="-800" />
+				<EdgeVertex Name="8tjo1RM2" PositionY="890" PositionX="300" />
+				<EdgeVertex Name="aSoDQPFm" PositionY="320" PositionX="-450" />
+				<EdgeVertex Name="nI09E7Ps" PositionY="-340" PositionX="300" />
+				<EdgeVertex Name="nVAIg8NL" PositionY="-900" PositionX="-470" />
+				<EdgeVertex Name="vertex11" PositionY="-1160" PositionX="-480" />
+				<EdgeVertex Name="vertex12" PositionY="50" PositionX="-440" />
+				<EdgeVertex Name="vertex3" PositionY="-340" PositionX="-150" />
+				<EdgeVertex Name="vertex4" PositionY="-340" PositionX="-860" />
+				<EdgeVertex Name="vertex7" PositionY="890" PositionX="-130" />
+				<EdgeVertex Name="vertex8" PositionY="890" PositionX="-870" />
 			</EdgeVertices>
 			<Assets>
 				<TriggerAreaAsset Name="startIngameDialogAboutPassword_1" />
@@ -125,7 +175,7 @@
 				<TriggerAreaAsset Name="startIngameDialogAboutPassword_2" />
 			</Assets>
 			<Notes>
-				<Note Name="note11" PositionY="-250" PositionX="-400">
+				<Note Name="note11" PositionY="-460" PositionX="-410">
 					<Text StringName="heslo_do__note11_XfEe" Text="vyčkat na trigger port sync do dialogu - KCD2-88629" />
 				</Note>
 				<Note Name="note11_1" PositionY="730" PositionX="-380">

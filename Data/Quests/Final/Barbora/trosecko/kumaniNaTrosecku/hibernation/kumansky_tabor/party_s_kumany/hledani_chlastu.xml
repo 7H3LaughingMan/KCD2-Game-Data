@@ -9,6 +9,9 @@
 				<Port Name="jindra_mluvil_s_vaskem_o_nedostatku_chlastu" Direction="In" Type="bool">
 					<DesignName StringName="hledani_c_jindra_mluvil_s_f3gf" Text="Jindra mluvil s Vaskem o nedostatku chlastu" />
 				</Port>
+				<Port Name="party_probiha" Direction="In" Type="bool">
+					<DesignName StringName="hledani_c_party_probiha_LjMh" Text="Party probíhá" />
+				</Port>
 				<Port Name="prochazka_probiha" Direction="Out" Type="bool">
 					<DesignName StringName="hledani_c_prochazka_probi_C3pE" Text="Procházka probíhá" />
 				</Port>
@@ -42,6 +45,12 @@
 				<Port Name="jindra_ma_odevzdat_chlast_kumanum" Direction="Out" Type="bool">
 					<DesignName StringName="hledani_c_jindra_ma_odevz_djug" Text="Jindra má odevzdat chlast Kumánům" />
 				</Port>
+				<Port Name="predcasny_konec_sledovani_odchazeni" Direction="In" Type="trigger">
+					<DesignName StringName="hledani_c_predcasny_konec_PxBk" Text="Předčasný konec sledování odcházení" />
+				</Port>
+				<Port Name="nechat_hraci_item_mimo_hibernaci" Direction="Out" Type="trigger">
+					<DesignName StringName="hledani_c_nechat_hraci_it_VvkC" Text="Nechat hráči item chlastu mimo hibernaci" />
+				</Port>
 			</Ports>
 			<Definitions>
 				<Definition File="hledani_chlastu/prochazka_lesem.xml" />
@@ -64,6 +73,14 @@
 					<Edge From="getBooze_objective.OnGetTheBoozeFromStash" To="jindra_vi_o_skrysi_s_chlastem">
 						<Vertex>vertex139</Vertex>
 						<Vertex>vertex138</Vertex>
+					</Edge>
+					<Edge From="party_probiha" To="party_probiha">
+						<Vertex>WgtSzyjW</Vertex>
+						<Vertex>JNtGUdoe</Vertex>
+					</Edge>
+					<Edge From="predcasny_konec_sledovani_odchazeni" To="predcasny_konec_sledovani_odchazeni">
+						<Vertex>UQpWI6Hr</Vertex>
+						<Vertex>ddsdAsyR</Vertex>
 					</Edge>
 				</chlast>
 				<fastkowakeup Name="fastkowakeup" PositionY="80" PositionX="-1370" Namespace="kumani_na_trosecku">
@@ -129,6 +146,10 @@
 						<Vertex>vertex142</Vertex>
 						<Vertex>vertex77</Vertex>
 					</Edge>
+					<Edge From="predcasny_konec_sledovani_odchazeni" To="Exec">
+						<Vertex>vertex142</Vertex>
+						<Vertex>vertex77</Vertex>
+					</Edge>
 				</IfFunction>
 				<InstantSendMessage Name="instantsendmessagekettlesignalonfireplacephasechange_lightFire" PositionY="-140" PositionX="-2540" MessageType="kettle:signal:onFireplacePhaseChange">
 					<Asset Name="Receiver" Alias="cumanFireplace" />
@@ -159,6 +180,12 @@
 						<Vertex>vertex163</Vertex>
 					</Edge>
 					<Edge From="jindra_odesel_behem_vecirku" To="abortuji_aktivni_objectivy">
+						<Vertex>vertex142</Vertex>
+						<Vertex>vertex77</Vertex>
+						<Vertex>vertex103</Vertex>
+						<Vertex>vertex163</Vertex>
+					</Edge>
+					<Edge From="predcasny_konec_sledovani_odchazeni" To="abortuji_aktivni_objectivy">
 						<Vertex>vertex142</Vertex>
 						<Vertex>vertex77</Vertex>
 						<Vertex>vertex103</Vertex>
@@ -220,6 +247,14 @@
 						<Vertex>vertex155</Vertex>
 						<Vertex>M37u5fyp</Vertex>
 					</Edge>
+					<Edge From="predcasny_konec_sledovani_odchazeni" To="abort_aktivnich_objectivu">
+						<Vertex>vertex142</Vertex>
+						<Vertex>vertex77</Vertex>
+						<Vertex>vertex103</Vertex>
+						<Vertex>vertex163</Vertex>
+						<Vertex>vertex164</Vertex>
+						<Vertex>vertex96</Vertex>
+					</Edge>
 				</navrat_do_tabora>
 				<Function Name="or39" PositionY="-1230" PositionX="-860" MethodName="math::boolean::Or" DeclaringType="math::boolean">
 					<Edge From="switch31.Value1" To="B">
@@ -262,6 +297,10 @@
 					<Edge From="navrat_do_tabora.jindra_ma_odevzdat_chlast_kumanum" To="jindra_ma_odevzdat_chlast_kumanum">
 						<Vertex>0HhdTv3W</Vertex>
 					</Edge>
+					<Edge From="chlast.nechat_hraci_item_mimo_hibernaci" To="nechat_hraci_item_mimo_hibernaci">
+						<Vertex>RAQ0I3XC</Vertex>
+						<Vertex>ApqLbnBv</Vertex>
+					</Edge>
 				</Output>
 				<pes_v_lese Name="pes_v_lese" PositionY="40" PositionX="300">
 					<Edge From="prochazka_lesem.pes_jde_na_misto_v_lese" To="pes_vybiha_na_misto_setkani" />
@@ -284,6 +323,13 @@
 						<Vertex>vertex90</Vertex>
 					</Edge>
 					<Edge From="kuman_omdli_reakci_na_psa.kuman_omdliva" To="kuman_omdliva" />
+					<Edge From="predcasny_konec_sledovani_odchazeni" To="abortuji_aktivni_objectivy">
+						<Vertex>vertex142</Vertex>
+						<Vertex>vertex77</Vertex>
+						<Vertex>vertex103</Vertex>
+						<Vertex>vertex163</Vertex>
+						<Vertex>vertex164</Vertex>
+					</Edge>
 				</pes_v_lese>
 				<prochazka_lesem Name="prochazka_lesem" PositionY="-340" PositionX="-490">
 					<Edge From="switch7.Value1" To="doprovazejici_npc">
@@ -354,10 +400,15 @@
 				<EdgeVertex Name="0HhdTv3W" PositionY="50" PositionX="1620" />
 				<EdgeVertex Name="606gkCyt" PositionY="-730" PositionX="1570" />
 				<EdgeVertex Name="8Bz92Fpg" PositionY="-730" PositionX="-820" />
-				<EdgeVertex Name="bvFNQJ6u" PositionY="82" PositionX="-1463" />
+				<EdgeVertex Name="ApqLbnBv" PositionY="540" PositionX="1770" />
+				<EdgeVertex Name="bvFNQJ6u" PositionY="80" PositionX="-1290" />
+				<EdgeVertex Name="ddsdAsyR" PositionY="890" PositionX="350" />
 				<EdgeVertex Name="HGGE6d8R" PositionY="340" PositionX="-660" />
+				<EdgeVertex Name="JNtGUdoe" PositionY="660" PositionX="310" />
 				<EdgeVertex Name="M37u5fyp" PositionY="-700" PositionX="1090" />
-				<EdgeVertex Name="QQRNU7dY" PositionY="0" PositionX="760" />
+				<EdgeVertex Name="QQRNU7dY" PositionY="-10" PositionX="760" />
+				<EdgeVertex Name="RAQ0I3XC" PositionY="540" PositionX="1040" />
+				<EdgeVertex Name="UQpWI6Hr" PositionY="890" PositionX="-2590" />
 				<EdgeVertex Name="vertex103" PositionY="840" PositionX="-2570" />
 				<EdgeVertex Name="vertex125" PositionY="580" PositionX="-2380" />
 				<EdgeVertex Name="vertex126" PositionY="580" PositionX="-1660" />
@@ -405,6 +456,7 @@
 				<EdgeVertex Name="vertex77" PositionY="500" PositionX="-2710" />
 				<EdgeVertex Name="vertex90" PositionY="80" PositionX="-720" />
 				<EdgeVertex Name="vertex96" PositionY="840" PositionX="940" />
+				<EdgeVertex Name="WgtSzyjW" PositionY="660" PositionX="-2750" />
 				<EdgeVertex Name="zajW72wK" PositionY="-750" PositionX="1280" />
 			</EdgeVertices>
 			<Types>

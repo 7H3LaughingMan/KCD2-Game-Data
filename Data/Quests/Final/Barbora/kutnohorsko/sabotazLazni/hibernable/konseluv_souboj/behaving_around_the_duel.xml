@@ -42,6 +42,12 @@
 				<Port Name="slechtic_zabit" Direction="In" Type="bool">
 					<DesignName StringName="behaving__zz_5LlT" Text="šlechtic zabit" />
 				</Port>
+				<Port Name="npc_duel_is_ended" Direction="In" Type="bool">
+					<DesignName StringName="behaving__npc_duel_is_end_dS5s" Text="NPC duel is ended" />
+				</Port>
+				<Port Name="player_not_on_pillory" Direction="In" Type="bool">
+					<DesignName StringName="behaving__player_on_pillo_FT2R" Text="player on pillory" />
+				</Port>
 			</Ports>
 			<Definitions>
 				<Definition File="behaving_around_the_duel/barky_slechtice_po_souboji.xml" />
@@ -53,13 +59,17 @@
 					<Constant Name="Buff" Value="46683e3b-e261-412f-b402-99ee17dda62a" />
 					<Edge From="setafterduel" To="Exec" />
 				</Function>
-				<Function Name="and10" PositionY="-170" PositionX="1560" MethodName="math::boolean::And" DeclaringType="math::boolean">
+				<Function Name="and10" PositionY="-210" PositionX="1560" MethodName="math::boolean::And" DeclaringType="math::boolean">
 					<Edge From="or9.bool" To="A">
 						<Vertex>NhSH1d0r</Vertex>
 						<Vertex>dnTyLlL6</Vertex>
 					</Edge>
 					<Edge From="not12.bool" To="B" />
 					<Edge From="not12_1.bool" To="C" />
+					<Edge From="player_not_on_pillory" To="D">
+						<Vertex>JbXQHDxJ</Vertex>
+						<Vertex>7jogApWj</Vertex>
+					</Edge>
 				</Function>
 				<Function Name="areacheck5" PositionY="1070" PositionX="170" MethodName="wh::rpgmodule::AreaCheck" DeclaringType="wh::rpgmodule">
 					<Asset Name="Areas" Alias="duelArea" />
@@ -146,7 +156,7 @@
 					</Edge>
 				</EnableBehavior>
 				<EnableBehavior Name="enablebehaviorwuiddata1_2" PositionY="-470" PositionX="210" Signature="wuidData" EventSet="">
-					<Constant Name="Behavior" Value="waitForPlayer" />
+					<Constant Name="Behavior" Value="waitForPlayer_inDuel" />
 					<Asset Name="SmartEntity" Alias="qSO" />
 					<Asset Name="NPC" Alias="duelReferee" />
 					<Asset Name="data" Alias="duringDuelPoint_duelReferee" />
@@ -184,7 +194,7 @@
 					</Edge>
 				</EnableBehavior>
 				<EnableBehavior Name="enablebehaviorwuiddata1_3_1_1" PositionY="-470" PositionX="780" Signature="wuidData" EventSet="">
-					<Constant Name="Behavior" Value="waitForPlayer" />
+					<Constant Name="Behavior" Value="waitForPlayer_inDuel" />
 					<Asset Name="SmartEntity" Alias="qSO" />
 					<Asset Name="NPC" Alias="noblemansValet" />
 					<Asset Name="data" Alias="duringDuelPoint_noblemansValet" />
@@ -194,7 +204,7 @@
 					</Edge>
 				</EnableBehavior>
 				<EnableBehavior Name="enablebehaviorwuiddata1_3_1_2" PositionY="-470" PositionX="1080" Signature="wuidData" EventSet="">
-					<Constant Name="Behavior" Value="waitForPlayer" />
+					<Constant Name="Behavior" Value="waitForPlayer_inDuel" />
 					<Asset Name="SmartEntity" Alias="qSO" />
 					<Asset Name="NPC" Alias="fifle" />
 					<Asset Name="data" Alias="duringDuelPoint_fifle" />
@@ -246,6 +256,7 @@
 				<Function Name="or15" PositionY="1220" PositionX="180" MethodName="math::boolean::Or" DeclaringType="math::boolean">
 					<Edge From="souboj_vyhran" To="A" />
 					<Edge From="souboj_prohran" To="B" />
+					<Edge From="npc_duel_is_ended" To="C" />
 				</Function>
 				<Function Name="or2" PositionY="-440" PositionX="-90" MethodName="math::boolean::Or" DeclaringType="math::boolean">
 					<Edge From="duelBehaviors.DuringDuel" To="A" />
@@ -263,14 +274,14 @@
 					</Edge>
 				</Function>
 				<Function Name="or9" PositionY="-140" PositionX="1070" MethodName="math::boolean::Or" DeclaringType="math::boolean">
+					<Edge From="duelBehaviors.DuelDone" To="B">
+						<Vertex>SB5Vl4p3</Vertex>
+						<Vertex>gc7pNgaL</Vertex>
+					</Edge>
 					<Edge From="duelBehaviors.AfterDuel" To="A">
 						<Vertex>vertex14</Vertex>
 						<Vertex>vertex16</Vertex>
 						<Vertex>vertex17</Vertex>
-					</Edge>
-					<Edge From="duelBehaviors.DuelDone" To="B">
-						<Vertex>SB5Vl4p3</Vertex>
-						<Vertex>gc7pNgaL</Vertex>
 					</Edge>
 				</Function>
 				<Output Name="Output">
@@ -320,12 +331,14 @@
 			<EdgeVertices>
 				<EdgeVertex Name="1ExXXWml" PositionY="20" PositionX="1070" />
 				<EdgeVertex Name="1rXESmRj" PositionY="310" PositionX="1270" />
+				<EdgeVertex Name="7jogApWj" PositionY="286" PositionX="1528" />
 				<EdgeVertex Name="8hJxGoMA" PositionY="310" PositionX="190" />
 				<EdgeVertex Name="dnTyLlL6" PositionY="-130" PositionX="1500" />
 				<EdgeVertex Name="FT2B8ESh" PositionY="330" PositionX="980" />
 				<EdgeVertex Name="g6mnhmfy" PositionY="370" PositionX="790" />
 				<EdgeVertex Name="G9KbuvAw" PositionY="350" PositionX="1530" />
 				<EdgeVertex Name="gc7pNgaL" PositionY="350" PositionX="980" />
+				<EdgeVertex Name="JbXQHDxJ" PositionY="290" PositionX="190" />
 				<EdgeVertex Name="lpExFM3C" PositionY="330" PositionX="1530" />
 				<EdgeVertex Name="NhSH1d0r" PositionY="-130" PositionX="1340" />
 				<EdgeVertex Name="Qkz7mwEY" PositionY="20" PositionX="1730" />

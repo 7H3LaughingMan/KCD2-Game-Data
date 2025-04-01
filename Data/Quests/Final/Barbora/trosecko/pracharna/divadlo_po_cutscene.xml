@@ -18,15 +18,6 @@
 					<Constant Name="Value" Value="1" />
 					<Edge From="dobry_konec_trigger" To="Exec" />
 				</MemberFunction>
-				<Function Name="and9" PositionY="610" PositionX="-60" MethodName="math::boolean::And" DeclaringType="math::boolean">
-					<Edge From="bonkaAfterCS.Polylog" To="A">
-						<Vertex>J7eXcVKC</Vertex>
-					</Edge>
-					<Edge From="krejzlAfterCS.Polylog" To="B">
-						<Vertex>M0AQSlQS</Vertex>
-						<Vertex>PnB31QUI</Vertex>
-					</Edge>
-				</Function>
 				<bonka__krejzl__po_cutscene Name="bonka__krejzl__po_cutscene" PositionY="240" PositionX="-130" />
 				<bonka__zink__po_cutscene Name="bonka__zink__po_cutscene" PositionY="-110" PositionX="-110" />
 				<State Name="bonkaAfterCS" PositionY="180" PositionX="-950" TypeT="BonkaBehavior">
@@ -128,8 +119,17 @@
 					<Constant Name="animationapproach" Value="ingameDialogPoseAndAnimations" />
 					<Constant Name="initiator_haveweapondrawn" Value="false" />
 					<Constant Name="receiver_haveweapondrawn" Value="false" />
-					<Edge From="and9.bool" To="active" />
+					<Edge From="or13.bool" To="active" />
 				</npcdialogonspots>
+				<Function Name="or13" PositionY="610" PositionX="-90" MethodName="math::boolean::Or" DeclaringType="math::boolean">
+					<Edge From="krejzlAfterCS.Polylog" To="B">
+						<Vertex>M0AQSlQS</Vertex>
+						<Vertex>PnB31QUI</Vertex>
+					</Edge>
+					<Edge From="bonkaAfterCS.Polylog" To="A">
+						<Vertex>J7eXcVKC</Vertex>
+					</Edge>
+				</Function>
 				<State Name="zinkAfterCS" PositionY="-180" PositionX="-950" TypeT="ZinkBehavior">
 					<Edge From="dobry_konec_trigger" To="SetStarted">
 						<Vertex>vertex3</Vertex>

@@ -24,8 +24,8 @@
 				<Port Name="parfem_uz_znam" Direction="Out" Type="trigger">
 					<DesignName StringName="dialog_o__parfem_uz_mam_XjVn" Text="parfém už znám" />
 				</Port>
-				<Port Name="hrac_ma_u_sebe_vhodne_saty" Direction="In" Type="bool">
-					<DesignName StringName="dialog_o__hrac_ma_u_sebe__a1E0" Text="hráč má u sebe vhodné šaty" />
+				<Port Name="hrac_ma_u_sebe_jakekoliv_saty" Direction="In" Type="bool">
+					<DesignName StringName="dialog_o__hrac_ma_u_sebe__a1E0" Text="hráč má u sebe jakékoliv šaty" />
 				</Port>
 			</Ports>
 			<Text StringName="dialog_o_parfemu_kXCP" Text="Dialog o parfému" />
@@ -50,6 +50,7 @@
 									<Commands>
 										<MoodCommand Role="LAZEBNICE_ADAMA_3" Mood="nervous" />
 										<FacialMoodCommand Role="LAZEBNICE_ADAMA_3" FacialMood="happy1" />
+										<FacialMoodCommand FacialMood="thinking2" />
 										<AnimationCommand Delay="0.04" FragmentId="ADLG_Gesture" Guid="82614ed5-8978-4c2d-8771-aeab0b05a4e7" Variant="14" />
 										<CameraCommand CameraType="CloseUp" />
 									</Commands>
@@ -119,6 +120,7 @@
 									</Parenthetical>
 									<Text StringName="dial_henry_tak_co_bys_cht_CpQI" Text="Jasný, tak kolik chceš?" />
 									<Commands>
+										<FacialMoodCommand FacialMood="arrogant2" />
 										<AnimationCommand Delay="1.39" FragmentId="ADLG_Gesture" Guid="002ace53-8d31-4d61-b729-4bae5c80b2e5" Variant="0" />
 										<CameraCommand CameraType="CloseShot" />
 									</Commands>
@@ -139,6 +141,7 @@
 									</Parenthetical>
 									<Text StringName="dial_henry__7bfH" Text="&lt;...&gt;" />
 									<Commands>
+										<FacialMoodCommand FacialMood="nervous1" />
 										<AnimationCommand Delay="0.02" FragmentId="ADLG_Confusion" Guid="3ee18b27-3ab6-44ff-973a-dac45dd39426" Variant="1" />
 										<CameraCommand CameraType="CloseUp" />
 									</Commands>
@@ -156,7 +159,7 @@
 							</Elements>
 							<Decision Name="dec2" Priority="SideQuestSubmission">
 								<Sequences>
-									<Sequence EntryCondition="SequenceUsed('prvni_nabidka') OR SequenceUsed('ukonceni_pred_odevzdanim') AND &#xD;&#xA;Port('hrac_ma_u_sebe_vhodne_saty')" EndType="GoTo" GoToDecision="dec10" Name="seq26">
+									<Sequence EntryCondition="SequenceUsed('prvni_nabidka') OR SequenceUsed('ukonceni_pred_odevzdanim') AND &#xD;&#xA;Port('hrac_ma_u_sebe_jakekoliv_saty')" EndType="GoTo" GoToDecision="dec10" Name="seq26">
 										<DesignName StringName="dialog_o__seq26_SCpq" Text="seq26" />
 										<UiPrompt StringName="ui_dialog_o__seq26_YhUh" Text="Mám pro tebe šaty." />
 										<Elements>
@@ -164,6 +167,7 @@
 												<Text StringName="dial_henry_mam_pro_tebe_n_HE9n" Text="Mám pro tebe nějaký ty šaty, jak si chtěla." />
 												<Commands>
 													<FacialMoodCommand Role="LAZEBNICE_ADAMA_3" FacialMood="happy1" />
+													<FacialMoodCommand FacialMood="happy1" />
 													<AnimationCommand Delay="0.04" FragmentId="ADLG_Gesture" Guid="82614ed5-8978-4c2d-8771-aeab0b05a4e7" Variant="14" />
 													<CameraCommand CameraType="CloseUp" />
 												</Commands>
@@ -180,7 +184,7 @@
 											</Response>
 										</Elements>
 									</Sequence>
-									<Sequence EntryCondition="!ThisSequenceUsed() AND&#xD;&#xA;!SequenceUsed('ukonceni_pred_odevzdanim') AND &#xD;&#xA;Port('hrac_ma_u_sebe_vhodne_saty')" EndType="Decision" Visibility="Internal" Name="prvni_nabidka">
+									<Sequence EntryCondition="!ThisSequenceUsed() AND&#xD;&#xA;!SequenceUsed('ukonceni_pred_odevzdanim') AND &#xD;&#xA;Port('hrac_ma_u_sebe_jakekoliv_saty')" EndType="Decision" Visibility="Internal" Name="prvni_nabidka">
 										<DesignName StringName="dialog_o__prvni_nabidka_LZbA" Text="prvni nabidka" />
 										<UiPrompt StringName="ui_dialog_o__prvni_nabidka_Lr2O" Text="Náhodou tady šaty mám." />
 										<Elements>
@@ -188,6 +192,7 @@
 												<Text StringName="dial_henry_nahodou_tady_n_RmqF" Text="Náhodou tady nějaký šatičky mám." />
 												<Commands>
 													<FacialMoodCommand Role="LAZEBNICE_ADAMA_3" FacialMood="happy1" />
+													<FacialMoodCommand FacialMood="happy1" />
 													<CameraCommand CameraType="CloseUp" />
 												</Commands>
 											</Response>
@@ -233,6 +238,7 @@
 																		</Parenthetical>
 																		<Text StringName="dial_lazebnice_priste_zku_6JBm" Text="Todle?" />
 																		<Commands>
+																			<FacialMoodCommand FacialMood="sad1" />
 																			<AnimationCommand Delay="0.04" FragmentId="ADLG_Surprised" Guid="364379fe-358d-4b99-9356-3a769ebe21cb" Variant="1" />
 																			<CameraCommand CameraType="CloseUp" />
 																		</Commands>
@@ -246,6 +252,7 @@
 																		</Parenthetical>
 																		<Text StringName="dial_lazebnice_chci_nejak_0qbJ" Text="Chci nějaký hezký!" />
 																		<Commands>
+																			<FacialMoodCommand FacialMood="angry1" />
 																			<AnimationCommand Delay="0.65" FragmentId="ADLG_Nod" Guid="e19b4783-39a0-4a4e-951d-018bc8ad1a03" Variant="0" />
 																		</Commands>
 																	</Response>
@@ -272,7 +279,8 @@
 																		</Parenthetical>
 																		<Text StringName="dial_lazebnice_no_pani_ty_gy32" Text="Teda! Ty jsou perfektní!" />
 																		<Commands>
-																			<FacialMoodCommand FacialMood="happy1" />
+																			<FacialMoodCommand FacialMood="happy2" />
+																			<FacialMoodCommand Role="HENRY" FacialMood="happy1" />
 																			<AnimationCommand Delay="1.37" FragmentId="ADLG_Agree" Guid="f0f76cf7-bf3c-416e-83df-3f9594209321" Variant="3" />
 																			<CameraCommand CameraType="CloseUp" />
 																		</Commands>
@@ -300,6 +308,7 @@
 																					<Text StringName="dial_lazebnice_ten_konsel_KePH" Text="Jasně, jasně! Vždycky je to stejný." />
 																					<Commands>
 																						<FacialMoodCommand FacialMood="happy1" />
+																						<FacialMoodCommand Role="HENRY" FacialMood="thinking1" />
 																						<AnimationCommand Delay="0.1" FragmentId="ADLG_Agree" Guid="abded27f-7bf0-44fb-b568-a2d149d54ce6" Variant="2" />
 																						<CameraCommand CameraType="CloseShot" />
 																					</Commands>
@@ -376,6 +385,8 @@
 																							<Response Role="HENRY" ReferenceLength="1.81">
 																								<Text StringName="dial_henry_mohla_bys_mi_t_lwic" Text="Mohla bys mi ten voňavej volej ukázat?" />
 																								<Commands>
+																									<FacialMoodCommand FacialMood="thinking2" />
+																									<FacialMoodCommand Role="LAZEBNICE_ADAMA_3" FacialMood="thinking2" />
 																									<AnimationCommand FragmentId="ADLG_Gesture" Guid="f7b6478f-50ab-4615-975b-b70e831408c4" Variant="25" />
 																									<CameraCommand CameraType="CloseUp" />
 																								</Commands>
@@ -402,6 +413,8 @@
 																							<Response Role="HENRY" ReferenceLength="4.84">
 																								<Text StringName="dial_henry_rikala_si_ze_s_ZJAe" Text="Říkala si, že se v lázni Náz baví s Adamem. Nevíš vo čem?" />
 																								<Commands>
+																									<FacialMoodCommand FacialMood="thinking1" />
+																									<FacialMoodCommand Role="LAZEBNICE_ADAMA_3" FacialMood="arrogant1" />
 																									<AnimationCommand Delay="0.02" FragmentId="ADLG_Gesture" Guid="89606b07-8fa2-4d25-9b3d-da39e1476038" Variant="15" DesiredDuration="5.32" />
 																									<CameraCommand CameraType="CloseUp" />
 																								</Commands>
@@ -419,11 +432,15 @@
 																							<Response Role="LAZEBNICE_ADAMA_3" ReferenceLength="3.52">
 																								<Text StringName="dial_lazebnice_vo_mestsky_zF6n" Text="Vo městský radě, vo penězích... bla bla bla..." />
 																								<Commands>
+																									<FacialMoodCommand FacialMood="arrogant3" />
 																									<AnimationCommand Delay="2.23" FragmentId="ADLG_Gesture" Guid="c8e675d6-3b68-4fa7-95a3-af6eab91e6a4" Variant="17" />
 																								</Commands>
 																							</Response>
-																							<Response Role="LAZEBNICE_ADAMA_3">
+																							<Response Role="LAZEBNICE_ADAMA_3" ReferenceLength="1.55">
 																								<Text StringName="dial_lazebnice_radsi_si_h_92IQ" Text="Radši si hledím svýho." />
+																								<Commands>
+																									<FacialMoodCommand FacialMood="happy1" />
+																								</Commands>
 																							</Response>
 																						</Elements>
 																					</Sequence>
@@ -437,6 +454,8 @@
 																								</Parenthetical>
 																								<Text StringName="dial_henry_jak_ten_olej_v_qcE3" Text="Jak ten volej vypadá? To je v nějakým korbelu..." />
 																								<Commands>
+																									<FacialMoodCommand FacialMood="thinking2" />
+																									<FacialMoodCommand Role="LAZEBNICE_ADAMA_3" FacialMood="thinking1" />
 																									<AnimationCommand Delay="0.02" FragmentId="ADLG_Confusion" Guid="5da7fd8b-7cec-40c8-a723-f3cc47022f36" Variant="4" />
 																									<CameraCommand CameraType="CloseUp" />
 																								</Commands>
@@ -457,6 +476,7 @@
 																								</Parenthetical>
 																								<Text StringName="dial_lazebnice_jo_a_je_na_0q3q" Text="Jo a je na něm něco nakreslenýho." />
 																								<Commands>
+																									<FacialMoodCommand FacialMood="happy1" />
 																									<AnimationCommand Delay="0.55" FragmentId="ADLG_Emphasis" Guid="4abb7e77-72cf-42f1-9924-3d448055b4d4" Variant="2" />
 																								</Commands>
 																							</Response>
@@ -472,6 +492,8 @@
 																										<Response Role="HENRY" ReferenceLength="1.77">
 																											<Text StringName="dial_henry_takovy_barevny_s19B" Text="Něco jako barevný kytky?" />
 																											<Commands>
+																												<FacialMoodCommand FacialMood="thinking2" />
+																												<FacialMoodCommand Role="LAZEBNICE_ADAMA_3" FacialMood="happy1" />
 																												<AnimationCommand Delay="0.59" FragmentId="ADLG_Gesture" Guid="772acf5a-6278-4ba5-b562-50981cf99cda" Variant="12" />
 																												<CameraCommand CameraType="CloseUp" />
 																											</Commands>
@@ -486,11 +508,14 @@
 																												<CameraCommand CameraType="CloseUp" />
 																											</Commands>
 																										</Response>
-																										<Response Role="LAZEBNICE_ADAMA_3" StartDelay="0.19">
+																										<Response Role="LAZEBNICE_ADAMA_3" StartDelay="0.19" ReferenceLength="1.07">
 																											<Parenthetical>
 																												<Text StringName="dial_lazebnice_trochu_zar_RTSN" Text="trochu zaraženě" />
 																											</Parenthetical>
 																											<Text StringName="dial_lazebnice_jak_to_vis_9EZa" Text="Jak to víš?" />
+																											<Commands>
+																												<FacialMoodCommand FacialMood="thinking3" />
+																											</Commands>
 																										</Response>
 																										<Response Role="HENRY" ReferenceLength="3.15">
 																											<Parenthetical>
@@ -498,6 +523,7 @@
 																											</Parenthetical>
 																											<Text StringName="dial_henry_vzpomel_jsem_s_iGy4" Text="Eee... vzpoměl jsem si, že už sem vlastně něco takovýho viděl." />
 																											<Commands>
+																												<FacialMoodCommand FacialMood="nervous1" />
 																												<CameraCommand CameraType="CloseShot" />
 																												<LookAtCommand Delay="0.04" LookAtRole="LAZEBNICE_ADAMA_3" Offset="MiddleRight" TransitionDuration="3" />
 																												<LookAtCommand Delay="2.21" LookAtRole="LAZEBNICE_ADAMA_3" />
@@ -509,12 +535,14 @@
 																											</Parenthetical>
 																											<Text StringName="dial_lazebnice_aha_7E2v" Text="Aha..." />
 																											<Commands>
+																												<FacialMoodCommand FacialMood="happy1" />
 																												<CameraCommand CameraType="CloseUp" />
 																											</Commands>
 																										</Response>
 																										<Response Role="HENRY" ReferenceLength="2.85">
 																											<Text StringName="dial_henry_musim_uz_jit_a_6SPq" Text="No, musím už jít, ale díky." />
 																											<Commands>
+																												<FacialMoodCommand FacialMood="happy1" />
 																												<AnimationCommand Delay="2.13" FragmentId="ADLG_Nod" Guid="f219ea89-720f-4384-b0f6-57044649e8dd" Variant="4" />
 																												<CameraCommand CameraType="CloseUp" />
 																											</Commands>
@@ -537,6 +565,7 @@
 																										<Response Role="LAZEBNICE_ADAMA_3" ReferenceLength="1.57">
 																											<Text StringName="dial_lazebnice_takovy_bar_mtKl" Text="Takový barevný kytky." />
 																											<Commands>
+																												<FacialMoodCommand FacialMood="thinking2" />
 																												<AnimationCommand FragmentId="ADLG_Gesture" Guid="962a4745-715f-478e-85ce-61c4bb981afa" Variant="9" />
 																												<CameraCommand CameraType="CloseShot" />
 																											</Commands>
@@ -553,6 +582,8 @@
 																													<Response Role="HENRY" ReferenceLength="3.49">
 																														<Text StringName="dial_henry_a_co_by_se_sta_DAHB" Text="A co by se stalo, kdybys ten volej třeba rozbila, nebo ho někdo ukrad?" />
 																														<Commands>
+																															<FacialMoodCommand FacialMood="thinking3" />
+																															<FacialMoodCommand Role="LAZEBNICE_ADAMA_3" FacialMood="nervous3" />
 																															<AnimationCommand FragmentId="ADLG_Confusion" Guid="4fcec99e-67a8-4f82-9734-675a1804203e" Variant="3" />
 																															<AnimationCommand Role="LAZEBNICE_ADAMA_3" Delay="3.47" FragmentId="ADLG_Deny" Guid="2e96ab9c-6081-eee2-7c89-ff557ca6914c" Variant="0" />
 																															<CameraCommand CameraType="CloseUp" />
@@ -573,6 +604,7 @@
 																													<Response Role="LAZEBNICE_ADAMA_3" StartDelay="0.19" ReferenceLength="4.01">
 																														<Text StringName="dial_lazebnice_adam_by_si_EmZH" Text="Adam by šílel, ale nejvíc by byl nasranej asi ten Náz." />
 																														<Commands>
+																															<FacialMoodCommand FacialMood="angry1" />
 																															<AnimationCommand Delay="1.6" FragmentId="ADLG_Emphasis" Guid="68c4ec63-0567-4c43-b48e-86ee96ddf9ee" Variant="3" />
 																														</Commands>
 																													</Response>
@@ -585,6 +617,7 @@
 																													<Response Role="LAZEBNICE_ADAMA_3" ReferenceLength="3.81">
 																														<Text StringName="dial_lazebnice_vobcas_si__XBIf" Text="Vobčas si říkám, že k nám chodí jen kvůli tomu, jak ta koupel voní." />
 																														<Commands>
+																															<FacialMoodCommand FacialMood="thinking3" />
 																															<CameraCommand CameraType="CloseShot" />
 																														</Commands>
 																													</Response>
@@ -613,6 +646,7 @@
 																														</Parenthetical>
 																														<Text StringName="dial_lazebnice_ja_dekuju__kart" Text="Já děkuju za šaty." />
 																														<Commands>
+																															<FacialMoodCommand FacialMood="happy1" />
 																															<AnimationCommand Delay="0.1" FragmentId="ADLG_Nod" Guid="e19b4783-39a0-4a4e-951d-018bc8ad1a03" Variant="0" />
 																															<CameraCommand CameraType="CloseUp" />
 																														</Commands>
@@ -653,6 +687,7 @@
 															<Commands>
 																<FacialMoodCommand Role="LAZEBNICE_ADAMA_3" FacialMood="happy1" />
 																<MoodCommand Role="LAZEBNICE_ADAMA_3" Mood="nervous" />
+																<FacialMoodCommand FacialMood="happy1" />
 																<AnimationCommand Delay="0.04" FragmentId="ADLG_Nod" Guid="ca364fe9-66bd-48fa-8178-0e49459d7038" Variant="2" />
 																<CameraCommand CameraType="CloseUp" />
 															</Commands>
@@ -683,6 +718,7 @@
 									<Commands>
 										<MoodCommand Role="LAZEBNICE_ADAMA_3" Mood="nervous" />
 										<FacialMoodCommand Role="LAZEBNICE_ADAMA_3" FacialMood="happy1" />
+										<FacialMoodCommand FacialMood="thinking1" />
 										<AnimationCommand Delay="1.66" FragmentId="ADLG_Gesture" Guid="82614ed5-8978-4c2d-8771-aeab0b05a4e7" Variant="14" />
 										<CameraCommand CameraType="CloseUp" />
 									</Commands>

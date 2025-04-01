@@ -17,6 +17,7 @@
 				<Function Name="and2" PositionY="-60" PositionX="-350" MethodName="math::boolean::And" DeclaringType="math::boolean">
 					<Edge From="cimbros_cimburk_pristreamovan" To="B" />
 					<Edge From="quest_bratri_z_cimburka_done" To="A" />
+					<Edge From="loadedprofilestate.isloaded" To="C" />
 				</Function>
 				<AreaTrigger Name="areatrigger1" PositionY="-100" PositionX="-70">
 					<Asset Name="Souls" Alias="balsan" />
@@ -27,6 +28,9 @@
 					<Edge From="areatrigger1.OnEnter" To="SetCimburk" />
 					<Edge From="areatrigger1.OnLeave" To="SetOutOfCimburk" />
 				</State>
+				<loadedprofilestate Name="loadedprofilestate" PositionY="60" PositionX="-640" Namespace="utils.streaming">
+					<Asset Name="profiles" Alias="balsanProfile" />
+				</loadedprofilestate>
 				<Output Name="Output">
 					<Edge From="balsanNaCimbruku.Cimburk" To="balsan_je_na_cimburku" />
 				</Output>
@@ -38,6 +42,9 @@
 					<StateTypeEnumeration Name="OutOfCimburk" ObjectiveValueType="None" />
 				</Type>
 			</Types>
+			<Assets>
+				<ProfileAsset Name="balsanProfile" AssetProfiles="bratrizcimburka_balsan" />
+			</Assets>
 			<Text StringName="balsan_na_cimburku_CMy9" Text="Balšán na cimburku" />
 		</Module>
 	</Skald>

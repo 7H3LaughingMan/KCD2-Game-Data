@@ -20,6 +20,7 @@
 				<addbloodallbodyparts Name="addbloodallbodyparts" PositionY="1300" PositionX="870" Namespace="utils.general">
 					<Asset Name="soul" Alias="player_bohuta" />
 					<Constant Name="value" Value="-1" />
+					<Constant Name="absolute" Value="false" />
 					<Edge From="seznameni_s_krystofem_1.domluveno" To="add_blood">
 						<Vertex>lFfyXK7R</Vertex>
 					</Edge>
@@ -27,6 +28,7 @@
 				<addbloodallbodyparts Name="addbloodallbodyparts_1" PositionY="1470" PositionX="870" Namespace="utils.general">
 					<Asset Name="soul" Alias="krystof" />
 					<Constant Name="value" Value="-1" />
+					<Constant Name="absolute" Value="false" />
 					<Edge From="seznameni_s_krystofem_1.domluveno" To="add_blood">
 						<Vertex>lFfyXK7R</Vertex>
 					</Edge>
@@ -55,6 +57,12 @@
 						<Vertex>vertex8</Vertex>
 					</Edge>
 				</State>
+				<EnableBehavior Name="enablebehaviorendnotification16" PositionY="170" PositionX="1220" Signature="" EventSet="endNotification">
+					<Constant Name="Behavior" Value="waitAndHolster" />
+					<Asset Name="SmartEntity" Alias="qso" />
+					<Asset Name="NPC" Alias="krystof" />
+					<Edge From="holsterWeaponKrystof.State" To="IsActive" />
+				</EnableBehavior>
 				<healing Name="healing" PositionY="-660" PositionX="1470" Namespace="utils.general">
 					<Asset Name="souls" Alias="krystof" />
 					<Edge From="state8.OnSurrendering" To="instanthealandremoveallinjuriesandpoisons" />
@@ -63,6 +71,13 @@
 					<Edge From="seznameni_s_krystofem_1.domluveno" To="instanthealandremoveallinjuriesandpoisons" />
 					<Edge From="makearray13.Array" To="souls" />
 				</healing>
+				<State Name="holsterWeaponKrystof" PositionY="190" PositionX="940" TypeT="bool">
+					<Edge From="seznameni_s_krystofem_1.AfterPlay" To="SetTrue" />
+					<Edge From="enablebehaviorendnotification16.OnFinished" To="SetFalse">
+						<Vertex>h1wg5VFv</Vertex>
+						<Vertex>7UTB5M3j</Vertex>
+					</Edge>
+				</State>
 				<If Name="if1" PositionY="-150" PositionX="1260">
 					<Edge From="questsurrenderprotection.isactive" To="Condition">
 						<Vertex>vertex14</Vertex>
@@ -94,12 +109,9 @@
 				</Output>
 				<questsurrenderprotection Name="questsurrenderprotection" PositionY="-120" PositionX="1560" Namespace="utils.combat">
 					<Asset Name="soul" Alias="krystof" />
+					<Constant Name="calm_down_after_surrender" Value="false" />
 					<Edge From="if1.True" To="disable" />
 				</questsurrenderprotection>
-				<SchedulerLinkActivation Name="schedule11" PositionY="-1030" PositionX="1440">
-					<Constant Name="LinkTag" Value="krystof_afterDuel" />
-					<Edge From="state8.Surrendering" To="IsActive" />
-				</SchedulerLinkActivation>
 				<seznameni_s_krystofem_1 Name="seznameni_s_krystofem_1" PositionY="100" PositionX="380">
 					<Asset Name="DialogueHolder" Alias="seznameniSKrystofemDH" />
 					<Edge From="createdialogparams1.DialogParams" To="DialogParams" />
@@ -132,6 +144,8 @@
 				</Timer>
 			</Nodes>
 			<EdgeVertices>
+				<EdgeVertex Name="7UTB5M3j" PositionY="545" PositionX="960" />
+				<EdgeVertex Name="h1wg5VFv" PositionY="537" PositionX="1466" />
 				<EdgeVertex Name="lFfyXK7R" PositionY="1040" PositionX="820" />
 				<EdgeVertex Name="vertex10" PositionY="-40" PositionX="880" />
 				<EdgeVertex Name="vertex11" PositionY="80" PositionX="-190" />
@@ -139,7 +153,7 @@
 				<EdgeVertex Name="vertex13" PositionY="-410" PositionX="760" />
 				<EdgeVertex Name="vertex14" PositionY="130" PositionX="1810" />
 				<EdgeVertex Name="vertex15" PositionY="130" PositionX="1250" />
-				<EdgeVertex Name="vertex16" PositionY="380" PositionX="1780" />
+				<EdgeVertex Name="vertex16" PositionY="520" PositionX="1760" />
 				<EdgeVertex Name="vertex17" PositionY="-640" PositionX="-520" />
 				<EdgeVertex Name="vertex18" PositionY="-640" PositionX="720" />
 				<EdgeVertex Name="vertex7" PositionY="190" PositionX="-40" />

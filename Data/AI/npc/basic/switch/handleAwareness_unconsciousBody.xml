@@ -3,6 +3,7 @@
 	<BehaviorTree name="switch_handleAwareness_unconsciousBody" is_function="1">
 		<Variables>
 			<Variable name="assaultData" type="crime:assaultData" values="" isPersistent="0" form="single" />
+			<Variable name="assaultKnown" type="_bool" values="" isPersistent="0" form="single" />
 			<Variable name="bodyData" type="switch:unconsciousBody" values="" isPersistent="0" form="single" />
 			<Variable name="bodyInTrespass" type="_bool" values="" isPersistent="0" form="single" />
 			<Variable name="bodyPos" type="vec3" values="" isPersistent="0" form="single" />
@@ -103,17 +104,25 @@
 												<CheckRelationshipInterval_SoulToSoul TargetSoul="$body" Soul="$this.id" Flag="friend" saveVersion="2">
 													<Then canSkip="1">
 														<Sequence>
-															<EntityContextCheck context="crime_escalationLevel_script_confrontingGeneral" target="" saveVersion="2">
-																<Else canSkip="1">
-																	<EntityContextCheck context="crime_escalationLevel_confrontingTrespass" target="" saveVersion="2">
-																		<Else canSkip="1">
-																			<DistanceCondition Origin="$this.id" ReferencePt="$body" Low="$data:script_param[&apos;crime_bodyRecognitionDistance&apos;].value" High="$data:script_param[&apos;crime_bodyRecognitionDistance&apos;].value" Negation="true" ValueOnMiddle="false" failOnCondition="false">
-																				<Expression expressions="$checkBody = true" />
-																			</DistanceCondition>
-																		</Else>
-																	</EntityContextCheck>
-																</Else>
-															</EntityContextCheck>
+															<SuppressFailure>
+																<Sequence>
+																	<RetrieveInformation PerceivedWuid="$body" label="&apos;assault&apos;" OutVariable="$information" />
+																	<Expression expressions="$assaultKnown = true" />
+																</Sequence>
+															</SuppressFailure>
+															<IfCondition failOnCondition="false" condition="~$assaultKnown">
+																<EntityContextCheck context="crime_escalationLevel_script_confrontingGeneral" target="" saveVersion="2">
+																	<Else canSkip="1">
+																		<EntityContextCheck context="crime_escalationLevel_confrontingTrespass" target="" saveVersion="2">
+																			<Else canSkip="1">
+																				<DistanceCondition Origin="$this.id" ReferencePt="$body" Low="$data:script_param[&apos;crime_bodyRecognitionDistance&apos;].value" High="$data:script_param[&apos;crime_bodyRecognitionDistance&apos;].value" Negation="true" ValueOnMiddle="false" failOnCondition="false">
+																					<Expression expressions="$checkBody = true" />
+																				</DistanceCondition>
+																			</Else>
+																		</EntityContextCheck>
+																	</Else>
+																</EntityContextCheck>
+															</IfCondition>
 															<Switch>
 																<IfCondition failOnCondition="false" condition="$checkBody">
 																	<EntityContextCheck context="crime_bff" target="" saveVersion="2">
@@ -158,13 +167,20 @@
 																					<IgnorePerception PerceptorObject="$this.id" PerceptibleObject="$body" IgnoreFor="&apos;1m&apos;" TimerType="GameTime" Uninterruptible="false" Persistent="true" />
 																					<Function_crime_updateUnconsciousBodyData body="$body" discover="true" reset="false" nodeLabel="85536430" />
 																					<GetTime TimeType="GameTime" OutVar="$now" Delta="" />
-																					<IfElseCondition failOnCondition="false" condition="( &#10; ( &#10;  $lastHitByPlayer.time &gt; 0 &amp; &#10;  $now &lt; $lastHitByPlayer.time + $data:script_param[&apos;crime_lastHit_expiration_time&apos;].value &#10; ) &#10;) &amp;  &#10;~$lastHitByPlayer.hitIsIndifferent &amp; &#10;$bodyData.state ~= $enum:switch_unconsciousBodyState.discovered" saveVersion="2">
+																					<IfElseCondition failOnCondition="false" condition="$assaultKnown | &#10;( &#10; ( &#10;  ( &#10;   $lastHitByPlayer.time &gt; 0 &amp; &#10;   $now &lt; $lastHitByPlayer.time + $data:script_param[&apos;crime_lastHit_expiration_time&apos;].value &#10;  ) &#10; ) &amp;  &#10; ~$lastHitByPlayer.hitIsIndifferent &amp; &#10; $bodyData.state ~= $enum:switch_unconsciousBodyState.discovered &#10;)" saveVersion="2">
 																						<Then canSkip="1">
 																							<HasSeenPlayer NPC="" FullyAwareOnly="false" saveVersion="2">
 																								<Then canSkip="1">
 																									<Sequence>
 																										<GetSpatialInfo In="$body" Out="$bodyPos" What="Position" />
-																										<Function_crime_isPlayerSuspicious crimePosition="$bodyPos" stimulusKind="$stimulusKind" playerSuspicious="$crimeAttributable" nodeLabel="54611776" />
+																										<IfElseCondition failOnCondition="false" condition="$assaultKnown" saveVersion="2">
+																											<Then canSkip="1">
+																												<Expression expressions="$crimeAttributable = true" />
+																											</Then>
+																											<Else canSkip="1">
+																												<Function_crime_isPlayerSuspicious crimePosition="$bodyPos" stimulusKind="$stimulusKind" playerSuspicious="$crimeAttributable" nodeLabel="54611776" />
+																											</Else>
+																										</IfElseCondition>
 																										<IfElseCondition failOnCondition="false" condition="$crimeAttributable" saveVersion="2">
 																											<Then canSkip="1">
 																												<EntityContextCheck context="crime_bff" target="" saveVersion="2">
@@ -214,7 +230,7 @@
 																									<EntityContextCheck context="crime_bff" target="" saveVersion="2">
 																										<Else canSkip="1">
 																											<Sequence>
-																												<IfCondition failOnCondition="false" condition="$trespassArea ~= $__null">
+																												<IfCondition failOnCondition="false" condition="$trespassArea ~= $__null &amp; &#10;~$assaultKnown">
 																													<Sequence>
 																														<GetHomeFromArea Area="$trespassArea" Home="$foundInHome" />
 																														<IfCondition failOnCondition="false" condition="$foundInHome ~= $__null">
@@ -222,7 +238,7 @@
 																														</IfCondition>
 																													</Sequence>
 																												</IfCondition>
-																												<IfElseCondition failOnCondition="false" condition="$bodyInTrespass &amp; $knowAboutPlayer" saveVersion="2">
+																												<IfElseCondition failOnCondition="false" condition="$assaultKnown | ($bodyInTrespass &amp; $knowAboutPlayer)" saveVersion="2">
 																													<Then canSkip="1">
 																														<AtomicDecorator>
 																															<Sequence>
@@ -274,7 +290,7 @@
 																																					<Expression expressions="$lookAroundFollowUpData.information = $information &#10;$lookAroundFollowUpData.source = $enum:crime_source.direct &#10;$lookAroundFollowUpData.stimulusKind = $stimulusKind" />
 																																					<AddLink From="$this.id" To="$this.id" Tag="&apos;crime_followUpBehavior_lookAround&apos;" Data="$lookAroundFollowUpData" LinkOpHandleMode="OverWrite" />
 																																					<IfCondition failOnCondition="false" condition="~$shouldWakeUp">
-																																						<Function_callInterrupt_lookAround alarmReactionType="$enum:crime_alarmReactionType.none" amIBuddy="false" corpseState="$enum:corpseState.undiscovered" directHit="false" forcePebbleReaction="false" ignorePriority="false" information_look="$information" initiator="$enum:switch_interruptInitiator.switch" missingNpc="$__null" position="" previousReaction="$enum:crime_reactionKind.unknown" reactingToSoundBecauseAlone="false" reportedBy="$__null" searchDirection="" searchPointsFromDirection="false" shooter="$__player" soundType="$enum:sound.invalid" source="$enum:crime_source.direct" stimulusAnimalAbuse="" stimulusKind="$stimulusKind" nodeLabel="50440014" />
+																																						<Function_callInterrupt_lookAround alarmReactionType="$enum:crime_alarmReactionType.none" amIBuddy="false" corpseState="$enum:corpseState.undiscovered" directHit="false" forceSubscribedSoundReaction="false" ignorePriority="false" information_look="$information" initiator="$enum:switch_interruptInitiator.switch" missingNpc="$__null" position="" previousReaction="$enum:crime_reactionKind.unknown" reactingToSoundBecauseAlone="false" reportedBy="$__null" searchDirection="" searchPointsFromDirection="false" shooter="$__player" soundType="$enum:sound.invalid" source="$enum:crime_source.direct" stimulusAnimalAbuse="" stimulusKind="$stimulusKind" nodeLabel="50440014" />
 																																					</IfCondition>
 																																				</Sequence>
 																																			</IfCondition>
@@ -371,6 +387,7 @@
 		<EditorData EventSet="">
 			<Variables>
 				<Variable name="assaultData" comment="" />
+				<Variable name="assaultKnown" comment="" />
 				<Variable name="bodyData" comment="" />
 				<Variable name="bodyInTrespass" comment="" />
 				<Variable name="bodyPos" comment="" />
@@ -506,22 +523,37 @@
 														<Then>
 															<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
 																<OutputBreakpoints />
-																<EntityContextCheck hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
+																<SuppressFailure hasInputBreakpoint="0" comment="" breakpointFlags="0">
 																	<OutputBreakpoints />
-																	<Else>
-																		<EntityContextCheck hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
+																	<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																		<OutputBreakpoints />
+																		<RetrieveInformation hasInputBreakpoint="0" comment="" breakpointFlags="0">
 																			<OutputBreakpoints />
-																			<Else>
-																				<DistanceCondition hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																					<OutputBreakpoints />
-																					<Expression hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																		</RetrieveInformation>
+																		<Expression hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																			<OutputBreakpoints />
+																		</Expression>
+																	</Sequence>
+																</SuppressFailure>
+																<IfCondition hasInputBreakpoint="0" comment="dont act surprised if assault is known already" breakpointFlags="0">
+																	<OutputBreakpoints />
+																	<EntityContextCheck hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
+																		<OutputBreakpoints />
+																		<Else>
+																			<EntityContextCheck hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
+																				<OutputBreakpoints />
+																				<Else>
+																					<DistanceCondition hasInputBreakpoint="0" comment="" breakpointFlags="0">
 																						<OutputBreakpoints />
-																					</Expression>
-																				</DistanceCondition>
-																			</Else>
-																		</EntityContextCheck>
-																	</Else>
-																</EntityContextCheck>
+																						<Expression hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																							<OutputBreakpoints />
+																						</Expression>
+																					</DistanceCondition>
+																				</Else>
+																			</EntityContextCheck>
+																		</Else>
+																	</EntityContextCheck>
+																</IfCondition>
 																<Switch hasInputBreakpoint="0" comment="" breakpointFlags="0">
 																	<OutputBreakpoints />
 																	<IfCondition hasInputBreakpoint="0" comment="" breakpointFlags="0">
@@ -620,9 +652,19 @@
 																											<GetSpatialInfo hasInputBreakpoint="0" comment="" breakpointFlags="0">
 																												<OutputBreakpoints />
 																											</GetSpatialInfo>
-																											<Function_crime_isPlayerSuspicious hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																											<IfElseCondition hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
 																												<OutputBreakpoints />
-																											</Function_crime_isPlayerSuspicious>
+																												<Then>
+																													<Expression hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																														<OutputBreakpoints />
+																													</Expression>
+																												</Then>
+																												<Else>
+																													<Function_crime_isPlayerSuspicious hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																														<OutputBreakpoints />
+																													</Function_crime_isPlayerSuspicious>
+																												</Else>
+																											</IfElseCondition>
 																											<IfElseCondition hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
 																												<OutputBreakpoints />
 																												<Then>

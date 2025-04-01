@@ -15,41 +15,54 @@
 				<Port Name="on_afterplay_prijezd_na_nebakov_cs" Direction="Out" Type="trigger">
 					<DesignName StringName="cin_m1020_on_afterplay_pr_tcbb" Text="On AfterPlay Příjezd na Nebákov CS" />
 				</Port>
+				<Port Name="streamuji_se_veci_pro_cutscenu" Direction="Out" Type="bool">
+					<DesignName StringName="cin_m1020_streamuji_se_ve_aV95" Text="Streamují se věci pro cutscénu" />
+				</Port>
 			</Ports>
 			<Nodes>
-				<adddirtandbloodallbodyparts Name="adddirtandbloodallbodyparts" PositionY="380" PositionX="930" Namespace="bohutovavlozka">
+				<adddirtandbloodallbodyparts Name="adddirtandbloodallbodyparts" PositionY="380" PositionX="820" Namespace="bohutovavlozka">
 					<Asset Name="souls" Alias="zizka" />
 					<Constant Name="dirtvalue" Value="0.1" />
 					<Constant Name="bloodvalue" Value="0" />
 					<Edge From="nebakovArrivalStreaming_progress.OnDone" To="exec" />
 				</adddirtandbloodallbodyparts>
+				<adddirtandbloodallbodyparts Name="adddirtandbloodallbodyparts_1" PositionY="-370" PositionX="1470" Namespace="bohutovavlozka">
+					<Asset Name="souls" Alias="zizka" />
+					<Constant Name="dirtvalue" Value="-1" />
+					<Constant Name="bloodvalue" Value="-1" />
+					<Edge From="triggersequence9.A" To="exec" />
+				</adddirtandbloodallbodyparts>
+				<adddirtandbloodallbodyparts Name="adddirtandbloodallbodyparts_1_1" PositionY="-70" PositionX="1470" Namespace="bohutovavlozka">
+					<Asset Name="souls" Alias="zizka" />
+					<Constant Name="dirtvalue" Value="0.2" />
+					<Constant Name="bloodvalue" Value="0.08" />
+					<Edge From="triggersequence9.B" To="exec" />
+				</adddirtandbloodallbodyparts>
 				<MakeArray Name="makearray5" PositionY="250" PositionX="250" TypeT="wh::entitymodule::LayerProfiles">
 					<Asset Name="A" Alias="profile_zizka" />
 					<Asset Name="B" Alias="nebakovNavmeshProfile_arrivingDialogAndCutscene" />
+					<Asset Name="C" Alias="profile_hertl" />
 				</MakeArray>
 				<CutsceneHandler Name="nebakovArrival_cutsceneHandler" PositionY="-110" PositionX="-60">
 					<Asset Name="CutsceneHolder" Alias="bohutaWithErikComeToNebakov" />
 					<Constant Name="AutoPlay" Value="false" />
 					<Edge From="start_prijezd_na_nebakov_cs" To="EnqueueCutscene" />
-					<Edge From="profilestatetrigger4.OnLoaded" To="PlayCutscene">
-						<Vertex>vertex3</Vertex>
-						<Vertex>vertex2</Vertex>
-						<Vertex>vertex7</Vertex>
-						<Vertex>vertex1</Vertex>
+					<Edge From="triggersequence9.C" To="PlayCutscene">
+						<Vertex>PSP5AejY</Vertex>
+						<Vertex>C0xbNC62</Vertex>
+						<Vertex>luEmSAkt</Vertex>
+						<Vertex>C86wGv0H</Vertex>
 					</Edge>
 				</CutsceneHandler>
 				<State Name="nebakovArrivalStreaming_progress" PositionY="-240" PositionX="470" TypeT="Progress">
 					<Edge From="nebakovArrival_cutsceneHandler.BeforePlay" To="SetActive" />
-					<Edge From="profilestatetrigger4.OnLoaded" To="SetDone">
-						<Vertex>vertex3</Vertex>
-						<Vertex>vertex2</Vertex>
-						<Vertex>vertex7</Vertex>
+					<Edge From="triggersequence9.C" To="SetDone">
+						<Vertex>PSP5AejY</Vertex>
+						<Vertex>C0xbNC62</Vertex>
+						<Vertex>luEmSAkt</Vertex>
 					</Edge>
 				</State>
 				<Output Name="Output">
-					<Edge From="profilestatetrigger4.OnLoaded" To="on_play_prijezd_na_nebakov_cs">
-						<Vertex>vertex3</Vertex>
-					</Edge>
 					<Edge From="nebakovArrivalStreaming_progress.OnActive" To="on_beforeplay_prijezd_na_nebakov_cs">
 						<Vertex>vertex4</Vertex>
 					</Edge>
@@ -57,23 +70,47 @@
 						<Vertex>kaVsNKe8</Vertex>
 						<Vertex>qvjgCjSS</Vertex>
 					</Edge>
+					<Edge From="nebakovArrivalStreaming_progress.Active" To="streamuji_se_veci_pro_cutscenu">
+						<Vertex>wvBIuwzh</Vertex>
+						<Vertex>xGISXCPb</Vertex>
+						<Vertex>T3s3g2mP</Vertex>
+					</Edge>
+					<Edge From="triggersequence9.C" To="on_play_prijezd_na_nebakov_cs">
+						<Vertex>PSP5AejY</Vertex>
+					</Edge>
 				</Output>
 				<ProfileStateTrigger Name="profilestatetrigger4" PositionY="-80" PositionX="740">
-					<Edge From="nebakovArrivalStreaming_progress.Active" To="IsActive" />
+					<Edge From="nebakovArrivalStreaming_progress.Active" To="IsActive">
+						<Vertex>wvBIuwzh</Vertex>
+					</Edge>
 					<Edge From="makearray5.Array" To="Profiles" />
 				</ProfileStateTrigger>
+				<stopcrime Name="stopcrime" PositionY="-400" PositionX="860" Namespace="utils.crime">
+					<Asset Name="npcs" Alias="forgetCrimeNPCsBeforeNebakov" />
+					<Constant Name="forgetcrimeinformations" Value="true" />
+					<Edge From="nebakovArrivalStreaming_progress.OnActive" To="stopcrime">
+						<Vertex>vertex4</Vertex>
+					</Edge>
+				</stopcrime>
+				<TriggerSequence Name="triggersequence9" PositionY="-100" PositionX="1070">
+					<Edge From="profilestatetrigger4.OnLoaded" To="Exec" />
+				</TriggerSequence>
 			</Nodes>
 			<EdgeVertices>
+				<EdgeVertex Name="C0xbNC62" PositionY="200" PositionX="1220" />
+				<EdgeVertex Name="C86wGv0H" PositionY="200" PositionX="-10" />
 				<EdgeVertex Name="kaVsNKe8" PositionY="157" PositionX="477" />
-				<EdgeVertex Name="qvjgCjSS" PositionY="154" PositionX="1153" />
-				<EdgeVertex Name="vertex1" PositionY="210" PositionX="-50" />
-				<EdgeVertex Name="vertex2" PositionY="210" PositionX="1150" />
-				<EdgeVertex Name="vertex3" PositionY="10" PositionX="1170" />
+				<EdgeVertex Name="luEmSAkt" PositionY="200" PositionX="480" />
+				<EdgeVertex Name="PSP5AejY" PositionY="50" PositionX="1360" />
+				<EdgeVertex Name="qvjgCjSS" PositionY="160" PositionX="1770" />
+				<EdgeVertex Name="T3s3g2mP" PositionY="240" PositionX="1780" />
 				<EdgeVertex Name="vertex4" PositionY="-130" PositionX="770" />
-				<EdgeVertex Name="vertex7" PositionY="211" PositionX="473" />
+				<EdgeVertex Name="wvBIuwzh" PositionY="13" PositionX="703" />
+				<EdgeVertex Name="xGISXCPb" PositionY="240" PositionX="830" />
 			</EdgeVertices>
 			<Assets>
 				<ProfileAsset Name="profile_zizka" AssetProfiles="tneb_zizka" />
+				<SoulAsset Name="forgetCrimeNPCsBeforeNebakov" SharedSoulGuids="40a2f911-aa94-862b-425e-d9af173cf586" />
 			</Assets>
 			<Text StringName="cin_m1020t_bohutovavlozka_OQyk" Text="Příjezd na Nebákov a setkání s Žižkou" />
 			<Elements>

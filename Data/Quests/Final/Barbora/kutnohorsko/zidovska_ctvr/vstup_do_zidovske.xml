@@ -17,11 +17,18 @@
 				</Port>
 			</Ports>
 			<Nodes>
+				<ModuleVersionState Name="moduleversionstate7" PositionY="-1000" PositionX="-450" />
 				<Function Name="or3" PositionY="-500" PositionX="-360" MethodName="math::boolean::Or" DeclaringType="math::boolean">
 					<Edge From="VstupDoZidovske.Default" To="A" />
 					<Edge From="VstupDoZidovske.Barricaded" To="B" />
 					<Edge From="VstupDoZidovske.Destroyed" To="D" />
 					<Edge From="VstupDoZidovske.BarricadedAndClosedBackyard" To="C" />
+				</Function>
+				<Function Name="or6" PositionY="-760" PositionX="-130" MethodName="math::boolean::Or" DeclaringType="math::boolean">
+					<Edge From="or3.bool" To="D" />
+					<Edge From="moduleversionstate7.ver_01_00" To="A" />
+					<Edge From="moduleversionstate7.ver_01_01" To="B" />
+					<Edge From="moduleversionstate7.ver_01_01_01" To="C" />
 				</Function>
 				<Layer Name="profile2" PositionY="160" PositionX="-110">
 					<Asset Name="Profiles" Alias="destoryedGate" />
@@ -47,6 +54,10 @@
 					<Asset Name="Profiles" Alias="barricadedGatesAndClosedBackyard" />
 					<Edge From="VstupDoZidovske.BarricadedAndClosedBackyard" To="IsActive" />
 				</Layer>
+				<Layer Name="profile8" PositionY="-820" PositionX="200">
+					<Asset Name="Profiles" Alias="kostkyNaZidovske" />
+					<Edge From="or6.bool" To="IsActive" />
+				</Layer>
 				<State Name="VstupDoZidovske" PositionY="-250" PositionX="-1030" TypeT="GatesInJewishQuarter">
 					<Edge From="blokovani_brany" To="SetBarricaded" />
 					<Edge From="rozrazeni_brany" To="SetDestroyed" />
@@ -61,6 +72,7 @@
 				<ProfileAsset Name="openGate" AssetProfiles="pogrom_gatesOpen" />
 				<ProfileAsset Name="otevreneDvereDoZidovske" AssetProfiles="pogrom_synagogueGates" />
 				<ProfileAsset Name="barricadedGatesAndClosedBackyard" AssetProfiles="pogrom_gatesBarricadedAndClosedBackyard" />
+				<ProfileAsset Name="kostkyNaZidovske" AssetProfiles="pogrom_diceZidovska3" />
 			</Assets>
 			<Text StringName="brany_3CLq" Text="Vstup do Zidovske" />
 		</Module>

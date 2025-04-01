@@ -121,21 +121,26 @@
 				</Function>
 				<Output Name="Output">
 					<Edge From="state1.State" To="do_turnaje_dni" />
-					<Edge From="IfQuestActive.False" To="turnajovy_cas">
-						<Vertex>vertex70</Vertex>
-						<Vertex>vertex7</Vertex>
-					</Edge>
 					<Edge From="waitUntilTurnaj.OnHint1days" To="turnajovy_den_predem">
 						<Vertex>vertex6</Vertex>
 					</Edge>
 					<Edge From="or37.bool" To="je_turnajovy_den" />
-					<Edge From="ifcompare29.True" To="turnajovy_cas">
-						<Vertex>wlyk2j8e</Vertex>
-					</Edge>
-					<Edge From="waitUntilTurnaj.OnDone" To="turnajovy_cas">
-						<Vertex>wlyk2j8e</Vertex>
-					</Edge>
+					<Edge From="polstarProPripravuCS.OnFinished" To="turnajovy_cas" />
 				</Output>
+				<Timer Name="polstarProPripravuCS" PositionY="-420" PositionX="1320">
+					<Constant Name="Duration" Value="1m" />
+					<Constant Name="TimeType" Value="WorldTime" />
+					<Edge From="IfQuestActive.False" To="SetRunning">
+						<Vertex>vertex70</Vertex>
+						<Vertex>vertex7</Vertex>
+					</Edge>
+					<Edge From="ifcompare29.True" To="SetRunning">
+						<Vertex>wlyk2j8e</Vertex>
+					</Edge>
+					<Edge From="waitUntilTurnaj.OnDone" To="SetRunning">
+						<Vertex>wlyk2j8e</Vertex>
+					</Edge>
+				</Timer>
 				<Select Name="select30" PositionY="-150" PositionX="490" InputPortGroups="3" ValueTypes="int">
 					<Constant Name="AValue1" Value="0" />
 					<Constant Name="CValue1" Value="7" />
@@ -144,17 +149,17 @@
 						<Vertex>F8lLs62K</Vertex>
 						<Vertex>a4gdM6m8</Vertex>
 					</Edge>
-					<Edge From="doskipovano" To="SelectA">
-						<Vertex>kvYNwfmP</Vertex>
-						<Vertex>aqqq8atX</Vertex>
-					</Edge>
-					<Edge From="haste_turnaj_den" To="SelectA">
-						<Vertex>kvYNwfmP</Vertex>
-						<Vertex>aqqq8atX</Vertex>
-					</Edge>
 					<Edge From="level_switched" To="SelectC">
 						<Vertex>mJ0kdHF4</Vertex>
 						<Vertex>uNyBMwYj</Vertex>
+					</Edge>
+					<Edge From="doskipovano" To="SelectA">
+						<Vertex>kvYNwfmP</Vertex>
+						<Vertex>6a1sqSGU</Vertex>
+					</Edge>
+					<Edge From="haste_turnaj_den" To="SelectA">
+						<Vertex>kvYNwfmP</Vertex>
+						<Vertex>6a1sqSGU</Vertex>
 					</Edge>
 				</Select>
 				<State Name="state1" PositionY="-150" PositionX="780" TypeT="int">
@@ -238,11 +243,11 @@
 				</TimeOfDayWatch>
 			</Nodes>
 			<EdgeVertices>
+				<EdgeVertex Name="6a1sqSGU" PositionY="-531" PositionX="319" />
 				<EdgeVertex Name="6yHSQb2l" PositionY="520" PositionX="330" />
 				<EdgeVertex Name="7JVQFnTo" PositionY="832" PositionX="-713" />
 				<EdgeVertex Name="8nS367Wr" PositionY="1934" PositionX="643" />
 				<EdgeVertex Name="a4gdM6m8" PositionY="-180" PositionX="340" />
-				<EdgeVertex Name="aqqq8atX" PositionY="-241" PositionX="389" />
 				<EdgeVertex Name="bKCgtdo6" PositionY="-251" PositionX="-692" />
 				<EdgeVertex Name="bvUYLsTl" PositionY="129" PositionX="644" />
 				<EdgeVertex Name="cABk6AKq" PositionY="150" PositionX="940" />
@@ -253,7 +258,7 @@
 				<EdgeVertex Name="GoIEl2zx" PositionY="903" PositionX="488" />
 				<EdgeVertex Name="IsxsvaYq" PositionY="1381" PositionX="421" />
 				<EdgeVertex Name="KRqkwf4a" PositionY="129" PositionX="929" />
-				<EdgeVertex Name="kvYNwfmP" PositionY="-230" PositionX="-754" />
+				<EdgeVertex Name="kvYNwfmP" PositionY="-530" PositionX="-750" />
 				<EdgeVertex Name="LK4a7GWK" PositionY="1900" PositionX="576" />
 				<EdgeVertex Name="mJ0kdHF4" PositionY="-320" PositionX="-700" />
 				<EdgeVertex Name="NgRy6jqg" PositionY="510" PositionX="-260" />

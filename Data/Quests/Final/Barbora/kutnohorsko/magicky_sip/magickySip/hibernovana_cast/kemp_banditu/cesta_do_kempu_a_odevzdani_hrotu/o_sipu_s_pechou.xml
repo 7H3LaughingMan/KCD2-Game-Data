@@ -12,6 +12,9 @@
 				<Port Name="banditi_napadnou_hrace" Direction="Out" Type="trigger">
 					<DesignName StringName="odevzdani_banditi_napadno_pbZN" Text="banditi napadnou hráče" />
 				</Port>
+				<Port Name="quest_splnen" Direction="Out" Type="trigger">
+					<DesignName StringName="o_sipu_s__quest_splnen_jQCr" Text="quest splněn" />
+				</Port>
 				<Port Name="pecha_zaplatil_a_nechce_strelit" Direction="Out" Type="trigger">
 					<DesignName StringName="o_sipu_s__pecha_zaplatil__NwWn" Text="Pecha zaplatil a nechce střelit" />
 				</Port>
@@ -20,6 +23,11 @@
 				<Definition File="o_sipu_s_pechou/o_sipu_s_pechou.xml" />
 			</Definitions>
 			<Nodes>
+				<Function Name="addbuff33" PositionY="219" PositionX="506" MethodName="wh::rpgmodule::AddBuff" DeclaringType="wh::rpgmodule">
+					<Asset Name="Souls" Alias="bandits" />
+					<Constant Name="Buff" Value="bd22f98a-e61f-4d83-b39c-79d1d85b6b91" />
+					<Edge From="o_sipu_s_pechou.hrac_zacal_dialog_s_pechou" To="Exec" />
+				</Function>
 				<CutsceneHandler Name="cutscenehandler4" PositionY="-340" PositionX="450">
 					<Asset Name="CutsceneHolder" Alias="fightPoDialoguSPechou" />
 					<Edge From="o_sipu_s_pechou.banditi_napadnou_hrace" To="EnqueueCutscene" />
@@ -37,8 +45,17 @@
 				<Output Name="Output">
 					<Edge From="o_sipu_s_pechou.hrac_se_souhlasil_strilet" To="hrac_se_souhlasil_strilet" />
 					<Edge From="o_sipu_s_pechou.pecha_zaplatil_a_nechce_strelit" To="pecha_zaplatil_a_nechce_strelit" />
-					<Edge From="cutscenehandler4.AfterPlay" To="banditi_napadnou_hrace" />
+					<Edge From="triggersequence34.A" To="banditi_napadnou_hrace" />
+					<Edge From="triggersequence34.B" To="quest_splnen" />
 				</Output>
+				<TriggerSequence Name="triggersequence34" PositionY="-220" PositionX="900">
+					<Edge From="cutscenehandler4.OnFinished" To="Exec" />
+				</TriggerSequence>
+				<turntoplayerinidlestance Name="turntoplayerinidlestance" PositionY="-430" PositionX="900" Namespace="utils.general">
+					<Asset Name="npc" Alias="pecha" />
+					<Constant Name="anydecoratorpreset" Value="changeEquipment" />
+					<Edge From="cutscenehandler4.BeforePlay" To="turntoplayerinidlestance" />
+				</turntoplayerinidlestance>
 			</Nodes>
 			<EdgeVertices>
 				<EdgeVertex Name="vertex1" PositionY="290" PositionX="180" />

@@ -84,6 +84,7 @@
 					<Constant Name="ItemClassGUID" Value="184bcee5-bacd-4c9e-a11c-afa6e3848680" />
 					<Asset Name="BackupLocation" Alias="thomlinsStash" />
 					<Asset Name="StartingLocation" Alias="player" />
+					<Constant Name="SuppressUINotificationOnLost" Value="true" />
 					<Edge From="or50.bool" To="IsActive" />
 				</AddQuestItem>
 				<AddSoulDefaultItem Name="addsouldefaultitem3" PositionY="-1770" PositionX="1360">
@@ -110,15 +111,7 @@
 					<Asset Name="Souls" Alias="thomlin" />
 					<Edge From="or51.bool" To="IsActive" />
 				</AddSoulDefaultItem>
-				<AddSoulDefaultItem Name="addsouldefaultitem3_2_1" PositionY="3010" PositionX="1620">
-					<Constant Name="ItemClass" Value="184bcee5-bacd-4c9e-a11c-afa6e3848680" />
-					<Constant Name="Purpose" Value="Inventory" />
-					<Constant Name="Mode" Value="EnsureThenDestroy" />
-					<Constant Name="DisableRestock" Value="true" />
-					<Asset Name="Souls" Alias="thomlin" />
-					<Edge From="or51_1.bool" To="IsActive" />
-				</AddSoulDefaultItem>
-				<AddSoulDefaultItem Name="addsouldefaultitem3_2_1_1" PositionY="2490" PositionX="1620">
+				<AddSoulDefaultItem Name="addsouldefaultitem3_2_1_1" PositionY="2510" PositionX="1620">
 					<Constant Name="ItemClass" Value="9c4f369b-ee4b-4abb-8b4f-11ab75038e1c" />
 					<Constant Name="Purpose" Value="Inventory" />
 					<Constant Name="Mode" Value="EnsureThenDestroy" />
@@ -126,7 +119,7 @@
 					<Asset Name="Souls" Alias="parler" />
 					<Edge From="fakeStone_afterReveal.ParlerU41" To="IsActive" />
 				</AddSoulDefaultItem>
-				<AddSoulDefaultItem Name="addsouldefaultitem3_2_1_1_2" PositionY="720" PositionX="1380">
+				<AddSoulDefaultItem Name="addsouldefaultitem3_2_1_1_2" PositionY="800" PositionX="1370">
 					<Constant Name="ItemClass" Value="184bcee5-bacd-4c9e-a11c-afa6e3848680" />
 					<Constant Name="Purpose" Value="Inventory" />
 					<Constant Name="Mode" Value="Create" />
@@ -142,6 +135,14 @@
 					<Asset Name="Souls" Alias="parler" />
 					<Edge From="or73.bool" To="IsActive" />
 				</AddSoulDefaultItem>
+				<AddSoulDefaultItem Name="addsouldefaultitem3_2_1_2" PositionY="3350" PositionX="1730">
+					<Constant Name="ItemClass" Value="184bcee5-bacd-4c9e-a11c-afa6e3848680" />
+					<Constant Name="Purpose" Value="Inventory" />
+					<Constant Name="Mode" Value="EnsureThenDestroy" />
+					<Constant Name="DisableRestock" Value="true" />
+					<Asset Name="Souls" Alias="thomlin" />
+					<Edge From="thomlinsState_1.Alive" To="IsActive" />
+				</AddSoulDefaultItem>
 				<AddSoulDefaultItem Name="addsouldefaultitem3_3" PositionY="-780" PositionX="1360">
 					<Constant Name="ItemClass" Value="6f6fc0a8-71f6-428d-9adf-a3f32312b998" />
 					<Constant Name="Purpose" Value="Inventory" />
@@ -155,15 +156,10 @@
 					<Asset Name="Stashes" Alias="mladasStash" />
 					<Edge From="mladasState.Dead" To="IsActive" />
 				</AddStashDefaultItem>
-				<AddStashDefaultItem Name="addstashdefaultitem37_1" PositionY="2110" PositionX="1960">
+				<AddStashDefaultItem Name="addstashdefaultitem37_1" PositionY="2130" PositionX="2180">
 					<Constant Name="ItemClass" Value="9c4f369b-ee4b-4abb-8b4f-11ab75038e1c" />
 					<Asset Name="Stashes" Alias="thomlinsStash" />
-					<Edge From="thomlinsState.Dead" To="IsActive" />
-				</AddStashDefaultItem>
-				<AddStashDefaultItem Name="addstashdefaultitem37_1_1" PositionY="3830" PositionX="1960">
-					<Constant Name="ItemClass" Value="184bcee5-bacd-4c9e-a11c-afa6e3848680" />
-					<Asset Name="Stashes" Alias="thomlinsStash" />
-					<Edge From="thomlinsState_1.Dead" To="IsActive" />
+					<Edge From="or74.bool" To="IsActive" />
 				</AddStashDefaultItem>
 				<EventFunction Name="createplayerreward35" PositionY="1740" PositionX="1620" MethodName="wh::entitymodule::CreatePlayerReward" DeclaringType="wh::entitymodule">
 					<Constant Name="ItemClass" Value="9c4f369b-ee4b-4abb-8b4f-11ab75038e1c" />
@@ -176,12 +172,12 @@
 					<Edge From="realStone_afterQuest.OnPlayerLegally" To="Exec" />
 					<Edge From="realStone_afterQuest.OnPlayerIlegally" To="Exec" />
 				</EventFunction>
-				<EventFunction Name="createplayerreward35_2" PositionY="3450" PositionX="1620" MethodName="wh::entitymodule::CreatePlayerReward" DeclaringType="wh::entitymodule">
+				<EventFunction Name="createplayerreward35_2" PositionY="3010" PositionX="1430" MethodName="wh::entitymodule::CreatePlayerReward" DeclaringType="wh::entitymodule">
 					<Constant Name="ItemClass" Value="184bcee5-bacd-4c9e-a11c-afa6e3848680" />
 					<Constant Name="ShowUINotification" Value="false" />
 					<Edge From="fakeStone_afterQuest.OnPlayer" To="Exec" />
 				</EventFunction>
-				<State Name="fakeStone_afterQuest" PositionY="3250" PositionX="720" TypeT="fakeThunderStoneHolder">
+				<State Name="fakeStone_afterQuest" PositionY="3140" PositionX="740" TypeT="fakeThunderStoneHolder">
 					<Edge From="fakeStone_beforeReveal.State" To="Value">
 						<Vertex>YfrkA5eX</Vertex>
 						<Vertex>omI9N8ec</Vertex>
@@ -217,11 +213,11 @@
 					<Asset Name="Souls" Alias="thomlin" />
 					<Edge From="fakeStone_afterReveal.OnConfiscated" To="Exec" />
 				</IfFunction>
-				<IfFunction Name="ifdeathcheck53_1_1" PositionY="3830" PositionX="1360" MethodName="wh::rpgmodule::DeathCheck" DeclaringType="wh::rpgmodule">
+				<IfFunction Name="ifdeathcheck53_1_1" PositionY="3390" PositionX="1170" MethodName="wh::rpgmodule::DeathCheck" DeclaringType="wh::rpgmodule">
 					<Asset Name="Souls" Alias="thomlin" />
 					<Edge From="fakeStone_afterQuest.OnConfiscated" To="Exec" />
 				</IfFunction>
-				<IfFunction Name="ifnot61" PositionY="3260" PositionX="420" MethodName="math::boolean::Not" DeclaringType="math::boolean">
+				<IfFunction Name="ifnot61" PositionY="3150" PositionX="440" MethodName="math::boolean::Not" DeclaringType="math::boolean">
 					<Edge From="quest_finished" To="Exec" />
 					<Edge From="padelek_je_odhaleny" To="Value" />
 				</IfFunction>
@@ -268,13 +264,7 @@
 						<Vertex>JHEkeMIr</Vertex>
 						<Vertex>g1NAPCxa</Vertex>
 					</Edge>
-				</Function>
-				<Function Name="or51_1" PositionY="3200" PositionX="1380" MethodName="math::boolean::Or" DeclaringType="math::boolean">
-					<Edge From="fakeStone_afterQuest.Thomlin" To="A" />
-					<Edge From="thomlinsState_1.Alive" To="B">
-						<Vertex>UaKbLFcy</Vertex>
-						<Vertex>SGFRR7dQ</Vertex>
-					</Edge>
+					<Edge From="fakeStone_afterQuest.Thomlin" To="C" />
 				</Function>
 				<Function Name="or72" PositionY="750" PositionX="1080" MethodName="math::boolean::Or" DeclaringType="math::boolean">
 					<Edge From="fakeStone_afterQuest.ParlerU41" To="B" />
@@ -283,6 +273,10 @@
 				<Function Name="or73" PositionY="-2120" PositionX="1100" MethodName="math::boolean::Or" DeclaringType="math::boolean">
 					<Edge From="realStone_duringQuest.ParlerU41" To="A" />
 					<Edge From="realStone_afterQuest.ParlerU41" To="B" />
+				</Function>
+				<Function Name="or74" PositionY="2350" PositionX="1930" MethodName="math::boolean::Or" DeclaringType="math::boolean">
+					<Edge From="thomlinsState.Dead" To="A" />
+					<Edge From="thomlinsState_1.Dead" To="B" />
 				</Function>
 				<Output Name="Output">
 					<Edge From="realStone_duringQuest.OnParlerU41" To="hromovy_kamen_dostal_parler" />
@@ -312,7 +306,7 @@
 					<Edge From="ifdeathcheck53_1.True" To="SetDead" />
 					<Edge From="ifdeathcheck53_1.False" To="SetAlive" />
 				</State>
-				<State Name="thomlinsState_1" PositionY="3840" PositionX="1630" TypeT="aliveState">
+				<State Name="thomlinsState_1" PositionY="3400" PositionX="1440" TypeT="aliveState">
 					<Edge From="ifdeathcheck53_1_1.True" To="SetDead" />
 					<Edge From="ifdeathcheck53_1_1.False" To="SetAlive" />
 				</State>
@@ -327,9 +321,7 @@
 				<EdgeVertex Name="MSohUGRm" PositionY="-1170" PositionX="1160" />
 				<EdgeVertex Name="nmP3LoCb" PositionY="800" PositionX="960" />
 				<EdgeVertex Name="omI9N8ec" PositionY="1460" PositionX="740" />
-				<EdgeVertex Name="SGFRR7dQ" PositionY="3790" PositionX="1440" />
 				<EdgeVertex Name="TGKvBAwT" PositionY="-1170" PositionX="1620" />
-				<EdgeVertex Name="UaKbLFcy" PositionY="3790" PositionX="1800" />
 				<EdgeVertex Name="YfrkA5eX" PositionY="1460" PositionX="960" />
 				<EdgeVertex Name="zAduqvXa" PositionY="-1780" PositionX="740" />
 			</EdgeVertices>

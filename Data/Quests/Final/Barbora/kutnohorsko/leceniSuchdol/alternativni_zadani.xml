@@ -21,21 +21,24 @@
 				<Port Name="quest_zacal" Direction="In" Type="trigger">
 					<DesignName StringName="alternati_quest_zacal_CDKH" Text="Quest začal" />
 				</Port>
+				<Port Name="leceni_none" Direction="In" Type="bool">
+					<DesignName StringName="alternati_leceni_none_ahpY" Text="Léčení none" />
+				</Port>
 			</Ports>
 			<Definitions>
 				<Definition File="alternativni_zadani/alternativni_zadani__hibernable.xml" />
 			</Definitions>
 			<Nodes>
-				<State Name="alternativeQuestGivingState" PositionY="-40" PositionX="-570" TypeT="alternativeQuestGiving">
+				<State Name="alternativeQuestGivingState" PositionY="-40" PositionX="-360" TypeT="alternativeQuestGiving">
 					<Edge From="isPetrAlive.OnDeath" To="SetNone" />
 					<Edge From="quest_zacal" To="SetNone">
 						<Vertex>3oV4cK6z</Vertex>
 						<Vertex>L3zKmYXX</Vertex>
 					</Edge>
-					<Edge From="petrDeathCheck1.False" To="SetAlternative1" />
-					<Edge From="hasMladaStone.True" To="SetAlternative2" />
+					<Edge From="leceniJesteNezacalo.True" To="SetAlternative1" />
+					<Edge From="leceniJesteNezacalo_1.True" To="SetAlternative2" />
 				</State>
-				<alternativni_zadani__hibernable Name="alternativni_zadani__hibernable" PositionY="20" PositionX="100">
+				<alternativni_zadani__hibernable Name="alternativni_zadani__hibernable" PositionY="20" PositionX="300">
 					<Edge From="stateActive.bool" To="Awake" />
 					<Edge From="alternativeQuestGivingState.Alternative1" To="alternativni_zadani_1_dostupne__ukradnuty_kamen" />
 					<Edge From="alternativeQuestGivingState.Alternative2" To="alternativni_zadani_2_dostupne__hk_fail" />
@@ -56,6 +59,21 @@
 						<Vertex>FtKWbX6A</Vertex>
 					</Edge>
 				</SoulDeathTrigger>
+				<If Name="leceniJesteNezacalo" PositionY="-20" PositionX="-880">
+					<Edge From="petrDeathCheck1.False" To="Exec" />
+					<Edge From="leceni_none" To="Condition">
+						<Vertex>aRBwD3UB</Vertex>
+						<Vertex>tVHpsIWb</Vertex>
+					</Edge>
+				</If>
+				<If Name="leceniJesteNezacalo_1" PositionY="260" PositionX="-620">
+					<Edge From="hasMladaStone.True" To="Exec" />
+					<Edge From="leceni_none" To="Condition">
+						<Vertex>aRBwD3UB</Vertex>
+						<Vertex>tVHpsIWb</Vertex>
+						<Vertex>ufcNodHU</Vertex>
+					</Edge>
+				</If>
 				<Output Name="Output">
 					<Edge From="alternativni_zadani__hibernable.start" To="start" />
 					<Edge From="alternativeQuestGivingState.OnAlternative1" To="alternativni_zadani_dostupne">
@@ -78,18 +96,21 @@
 					<Asset Name="Souls" Alias="petr" />
 					<Edge From="hk_failed" To="Exec" />
 				</IfFunction>
-				<Function Name="stateActive" PositionY="-30" PositionX="-200" MethodName="math::boolean::Not" DeclaringType="math::boolean">
+				<Function Name="stateActive" PositionY="-30" PositionX="0" MethodName="math::boolean::Not" DeclaringType="math::boolean">
 					<Edge From="alternativeQuestGivingState.None" To="Value" />
 				</Function>
 			</Nodes>
 			<EdgeVertices>
 				<EdgeVertex Name="3oV4cK6z" PositionY="-350" PositionX="-1200" />
 				<EdgeVertex Name="4HYkxGNr" PositionY="300" PositionX="360" />
-				<EdgeVertex Name="8r6JBRUH" PositionY="300" PositionX="-120" />
+				<EdgeVertex Name="8r6JBRUH" PositionY="300" PositionX="80" />
+				<EdgeVertex Name="aRBwD3UB" PositionY="-89" PositionX="-1213" />
 				<EdgeVertex Name="FtKWbX6A" PositionY="-330" PositionX="-930" />
-				<EdgeVertex Name="L3zKmYXX" PositionY="-350" PositionX="-630" />
-				<EdgeVertex Name="mV5g22zH" PositionY="-70" PositionX="-220" />
-				<EdgeVertex Name="PUlUATUG" PositionY="-330" PositionX="-50" />
+				<EdgeVertex Name="L3zKmYXX" PositionY="-350" PositionX="-500" />
+				<EdgeVertex Name="mV5g22zH" PositionY="-70" PositionX="-20" />
+				<EdgeVertex Name="PUlUATUG" PositionY="-330" PositionX="160" />
+				<EdgeVertex Name="tVHpsIWb" PositionY="-90" PositionX="-1000" />
+				<EdgeVertex Name="ufcNodHU" PositionY="375" PositionX="-893" />
 			</EdgeVertices>
 			<Types>
 				<Type TypeName="alternativeQuestGiving">

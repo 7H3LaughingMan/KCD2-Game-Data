@@ -9,9 +9,12 @@
 				<Port Name="skillteacher_kocour_zadan" Direction="Out" Type="trigger">
 					<DesignName StringName="bara__zad_skillteacher_ko_NDQG" Text="Skillteacher Kocour zadán" />
 				</Port>
+				<Port Name="reputace_kocour" Direction="Out" Type="trigger">
+					<DesignName StringName="bara__zad_reputace_kocour_ocD7" Text="reputace Kocour" />
+				</Port>
 			</Ports>
 			<Text StringName="bara__zadani_skillteacher_KGwo" Text="Bára - zadání Skillteacher Kocour" />
-			<Dialogue TechnicalStatus="Enabled" Initiator="NonPlayer" GesturesSetDate="2024-05-21T15:57:14.5219942+02:00" GesturesSetResponseCount="28">
+			<Dialogue TechnicalStatus="Enabled" Initiator="NonPlayer" GesturesSetDate="2024-10-18T11:18:12.684894+02:00" GesturesSetResponseCount="28">
 				<SelectedSouls>
 					<SelectedSoul Role="HENRY" Voice="tomMcKay" Type="Wave" Language="ENG" />
 					<SelectedSoul Role="BARA" Voice="abigailRice" Soul="ttkc_barbora" Type="Wave" Language="ENG" />
@@ -22,12 +25,13 @@
 							<DesignName StringName="bara__zad_seq2_bxKn" Text="seq2" />
 							<UiPrompt StringName="ui_bara__zad_seq2_Mdtm" Text="Pověz mi víc o Kocourovi." />
 							<Elements>
-								<Response Role="HENRY" ReferenceLength="5.26">
+								<Response Role="HENRY" ReferenceLength="1.91">
 									<Parenthetical>
 										<Text StringName="bara_henry_zajima_se_pb74" Text="zajímá se" />
 									</Parenthetical>
-									<Text StringName="bara_henry_vis_o_tom_koco_wCWT" Text="Víš o tom Kocourovi něco víc? Kromě toho, že žije s těma... kočovníkama." />
+									<Text StringName="bara_henry_vis_o_tom_koco_wCWT" Text="Víš o tom Kocourovi něco víc?" />
 									<Commands>
+										<FacialMoodCommand FacialMood="thinking1" />
 										<AnimationCommand Delay="0.02" FragmentId="ADLG_Gesture" Guid="2f5b9a79-4e1b-4360-ac65-ce0ab1844c72" Variant="4" />
 										<CameraCommand CameraType="CloseUp" />
 									</Commands>
@@ -37,13 +41,17 @@
 								<Sequences>
 									<Sequence EndType="Decision" Visibility="Internal" Name="first">
 										<DesignName StringName="bara__zad_seq5_Ud9M" Text="first" />
+										<Triggers>
+											<Port Name="reputace_kocour" />
+										</Triggers>
 										<Elements>
-											<Response Role="BARA" ReferenceLength="4.34">
+											<Response Role="BARA" ReferenceLength="5.75">
 												<Parenthetical>
 													<Text StringName="bara_bara_krci_rameny_xiRC" Text="krčí rameny, pak se uchechtne" />
 												</Parenthetical>
 												<Text StringName="bara_bara_je_to_proste_ko_dYS4" Text="Říkali, že je to mistr šermíř. Ale taky pěknej komediant. Hlavně, když se může předvádět před ženskýma." />
 												<Commands>
+													<FacialMoodCommand FacialMood="thinking2" />
 													<AnimationCommand Delay="0.02" FragmentId="ADLG_Confusion" Guid="d66ec093-3ef1-4d8c-b717-68254998806c" Variant="5" />
 													<AnimationCommand Delay="2.8" FragmentId="ADLG_Nod" Guid="e19b4783-39a0-4a4e-951d-018bc8ad1a03" Variant="0" />
 													<CameraCommand CameraType="CloseShot" />
@@ -62,6 +70,7 @@
 															</Parenthetical>
 															<Text StringName="bara_henry_myslis_ze_by_m_v4jv" Text="Myslíš, že by mě Kocour moh něco z těch svejch kousků naučit?" />
 															<Commands>
+																<FacialMoodCommand FacialMood="thinking2" />
 																<AnimationCommand Delay="0.23" FragmentId="ADLG_Gesture" Guid="649b3c66-46dc-4666-8a6c-7d8df90c80ea" Variant="10" />
 																<CameraCommand CameraType="CloseUp" />
 															</Commands>
@@ -69,7 +78,7 @@
 													</Elements>
 													<Decision Name="dec7">
 														<Sequences>
-															<Sequence SpeechCoef="0" EntryCondition="!ThisSequenceUsed()" EndType="GoTo" GoToDecision="dec3" Visibility="Internal" Name="seq16">
+															<Sequence EntryCondition="!ThisSequenceUsed()" EndType="GoTo" GoToDecision="dec3" SpeechCoef="0" Visibility="Internal" Name="seq16">
 																<DesignName StringName="bara__zad_seq16_zRsb" Text="seq16" />
 																<Triggers>
 																	<Port Name="skillteacher_kocour_zadan" />
@@ -81,6 +90,7 @@
 																		</Parenthetical>
 																		<Text StringName="bara_bara_bez_urazky_ale__mIJu" Text="Bez urážky, ale proti němu jsi docela pápěrka." />
 																		<Commands>
+																			<FacialMoodCommand FacialMood="arrogant1" />
 																			<AnimationCommand Delay="3.14" FragmentId="ADLG_Emphasis" Guid="68c4ec63-0567-4c43-b48e-86ee96ddf9ee" Variant="3" />
 																			<CameraCommand CameraType="CloseUp" />
 																		</Commands>
@@ -88,6 +98,7 @@
 																	<Response Role="HENRY" ReferenceLength="4.78">
 																		<Text StringName="bara_henry_no_dobre_tahat_yMGw" Text="Tahat vozy nechci, ale jestli to umí se zbraní, rád se trochu pocvičím." />
 																		<Commands>
+																			<FacialMoodCommand FacialMood="thinking1" />
 																			<AnimationCommand Delay="0.23" FragmentId="ADLG_Disagree_light" Guid="2fe9e83f-b40b-4748-b0ac-1e2f5d132e45" Variant="1" />
 																			<CameraCommand CameraType="CloseShot" />
 																		</Commands>
@@ -98,6 +109,7 @@
 																		</Parenthetical>
 																		<Text StringName="bara_bara_to_by_asi_slo_o_1jEV" Text="No, jeden strážnej to proti němu zkusil a přišel zbitej jak pes. Skuhral, jako by ho přerazil vejpůl." />
 																		<Commands>
+																			<FacialMoodCommand FacialMood="thinking2" />
 																			<AnimationCommand Delay="0.82" FragmentId="ADLG_Gesture" Guid="cd135e0f-e317-47c2-adaa-91149e6efdf3" Variant="18" />
 																			<CameraCommand CameraType="CloseShot" />
 																		</Commands>
@@ -118,6 +130,7 @@
 																		</Parenthetical>
 																		<Text StringName="bara_bara_ale_vracej_se_p_HMy7" Text="Spíš má nějakej fígl, kterej naše stráže neznaj. Nebo tak to aspoň ten chudák říkal. " />
 																		<Commands>
+																			<FacialMoodCommand FacialMood="thinking3" />
 																			<AnimationCommand Delay="4.72" FragmentId="ADLG_Gesture" Guid="b06c8e56-a71c-4874-8dfd-b9f32cc09253" Variant="13" />
 																			<CameraCommand CameraType="CloseShot" />
 																		</Commands>
@@ -134,6 +147,7 @@
 																		<Text StringName="bara_bara_tys_me_neposlou_UrWe" Text="Tys mě neposlouchal?" />
 																		<Commands>
 																			<FacialMoodCommand FacialMood="happy1" />
+																			<FacialMoodCommand Role="HENRY" FacialMood="happy1" />
 																			<AnimationCommand Delay="0.21" FragmentId="ADLG_Disagree_light" Guid="90562064-04ce-e372-a5df-a85d90c72608" Variant="2" />
 																			<CameraCommand CameraType="CloseShot" />
 																		</Commands>
@@ -179,6 +193,7 @@
 														<Response Role="HENRY" ReferenceLength="1.83">
 															<Text StringName="bara_henry_cim_se_pred_ho_siAU" Text="Čím se před holkama předvádí?" />
 															<Commands>
+																<FacialMoodCommand FacialMood="thinking1" />
 																<AnimationCommand Delay="0.04" FragmentId="ADLG_Confusion" Guid="5da7fd8b-7cec-40c8-a723-f3cc47022f36" Variant="4" />
 																<CameraCommand CameraType="CloseUp" />
 															</Commands>
@@ -186,7 +201,7 @@
 													</Elements>
 													<Decision Name="dec5">
 														<Sequences>
-															<Sequence SpeechCoef="0" EntryCondition="!ThisSequenceUsed()" EndType="GoTo" GoToDecision="dec3" Visibility="Internal" Name="seq12">
+															<Sequence EntryCondition="!ThisSequenceUsed()" EndType="GoTo" GoToDecision="dec3" SpeechCoef="0" Visibility="Internal" Name="seq12">
 																<DesignName StringName="bara__zad_seq12_OxDD" Text="seq12" />
 																<Elements>
 																	<Response Role="BARA" ReferenceLength="7.62">
@@ -196,6 +211,7 @@
 																		<Text StringName="bara_bara_svalama_lame_po_HZ3X" Text="Svalama. Láme polena rukama, nechal se dokonce přejet naloženým žebřiňákem, blázen..." />
 																		<Commands>
 																			<FacialMoodCommand FacialMood="happy1" />
+																			<FacialMoodCommand Role="HENRY" FacialMood="thinking2" />
 																			<AnimationCommand Delay="6.76" FragmentId="ADLG_Gesture" Guid="734732c8-d815-46a6-88d7-dc0c6134f4a4" Variant="7" DesiredDuration="2.17" />
 																			<AnimationCommand Delay="0.04" FragmentId="ADLG_posture_change" Guid="7c1d941a-1a6f-441c-a939-a6bf3b7342e3" Variant="8" DesiredDuration="2.2" />
 																			<CameraCommand CameraType="CloseShot" />
@@ -242,6 +258,7 @@
 																		</Parenthetical>
 																		<Text StringName="bara_bara_jak_jsem_rikala_jWem" Text="Jak jsem říkala, ukazuje svaly a všechno, co s nima umí. Na ženský to asi zabírá..." />
 																		<Commands>
+																			<FacialMoodCommand FacialMood="thinking1" />
 																			<AnimationCommand Delay="4.38" FragmentId="ADLG_Confusion" Guid="d66ec093-3ef1-4d8c-b717-68254998806c" Variant="5" />
 																			<AnimationCommand Delay="0.02" FragmentId="ADLG_Gesture" Guid="ad342ce5-4e0c-4198-8696-7fd0c9ed4b1f" Variant="12" />
 																			<CameraCommand CameraType="CloseShot" />
@@ -269,7 +286,7 @@
 													</Elements>
 													<Decision Name="dec6">
 														<Sequences>
-															<Sequence SpeechCoef="0" EntryCondition="!ThisSequenceUsed()" EndType="GoTo" GoToDecision="dec3" Visibility="Internal" Name="seq14">
+															<Sequence EntryCondition="!ThisSequenceUsed()" EndType="GoTo" GoToDecision="dec3" SpeechCoef="0" Visibility="Public" Name="seq14">
 																<DesignName StringName="bara__zad_seq14_i7Ij" Text="seq14" />
 																<Elements>
 																	<Response Role="BARA" ReferenceLength="6.57">
@@ -278,6 +295,8 @@
 																		</Parenthetical>
 																		<Text StringName="bara_bara_v_tabore_u_veza_K4ik" Text="V táboře u Věžáku. Teda, u Věžickýho rybníka. Kočovníkům tam hlídá tábor." />
 																		<Commands>
+																			<FacialMoodCommand FacialMood="thinking1" />
+																			<FacialMoodCommand Role="HENRY" FacialMood="nervous1" />
 																			<AnimationCommand Delay="2.44" FragmentId="ADLG_Point" Guid="ea439415-3395-4236-ab9d-9037098f8537" Variant="4" />
 																			<CameraCommand CameraType="CloseUp" />
 																		</Commands>
@@ -309,6 +328,7 @@
 																		</Parenthetical>
 																		<Text StringName="bara_bara_zkus_moc_nezira_Ywxo" Text="Zkus moc nezírat a odpusť si poznámky. Jinak ti Kocour předvede i svý jiný umění." />
 																		<Commands>
+																			<FacialMoodCommand FacialMood="thinking3" />
 																			<AnimationCommand Delay="4.31" FragmentId="ADLG_Gesture" Guid="c8e675d6-3b68-4fa7-95a3-af6eab91e6a4" Variant="17" />
 																		</Commands>
 																	</Response>
@@ -323,6 +343,7 @@
 																		</Parenthetical>
 																		<Text StringName="bara_bara_v_kocovnickym_t_OlKG" Text="Uf, tak znova. Ve skalách na břehu Věžickýho rybníka je kočovnickej tábor. A s nima tam žije i Kocour." />
 																		<Commands>
+																			<FacialMoodCommand FacialMood="arrogant2" />
 																			<AnimationCommand Delay="2.46" FragmentId="ADLG_Gesture" Guid="447b018f-9485-446f-a811-c0cde0b017f7" Variant="4" DesiredDuration="3.94" />
 																			<AnimationCommand FragmentId="ADLG_Gesture" Guid="734732c8-d815-46a6-88d7-dc0c6134f4a4" Variant="7" DesiredDuration="2.13" />
 																			<CameraCommand CameraType="CloseShot" />
@@ -365,6 +386,8 @@
 									</Parenthetical>
 									<Text StringName="bara_henry_muzu_se_jeste__WfRC" Text="Můžu se ještě zeptat na Kocoura?" />
 									<Commands>
+										<FacialMoodCommand FacialMood="thinking1" />
+										<FacialMoodCommand Role="BARA" FacialMood="happy1" />
 										<AnimationCommand Delay="0.02" FragmentId="ADLG_Gesture" Guid="f7b6478f-50ab-4615-975b-b70e831408c4" Variant="25" />
 										<CameraCommand CameraType="CloseUp" />
 									</Commands>

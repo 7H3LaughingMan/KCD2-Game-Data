@@ -57,11 +57,23 @@
 					<Edge From="druha_smena_horniku_1.mam_informaci_a_poctu_kosu_smeny_2" To="B" />
 					<Edge From="treti_smena_horniku_2.mam_informaci_a_poctu_kosu_smeny_3" To="C" />
 				</Function>
+				<AreaTrigger Name="areatrigger7" PositionY="-610" PositionX="-420">
+					<Asset Name="Souls" Alias="player" />
+					<Asset Name="Areas" Alias="minesEntrance" />
+					<Edge From="findTheEntrance.Active" To="IsActive" />
+				</AreaTrigger>
 				<druha_smena_horniku Name="druha_smena_horniku_1" PositionY="60" PositionX="-720" RequiredForOutput="kutnohorsko">
 					<Edge From="henrysminesstatus" To="henryminesstatus" />
 					<Edge From="promluv_si_s_predaky" To="promluv_si_s_druhou_smenou" />
 					<Edge From="quest_active" To="quest_active" />
 				</druha_smena_horniku>
+				<State Name="findTheEntrance" PositionY="-710" PositionX="-720" RequiredForOutput="kutnohorsko" TypeT="Progress">
+					<Edge From="promluv_si_s_predaky" To="SetActive" />
+					<Edge From="areatrigger7.OnEnter" To="SetDone">
+						<Vertex>JxDl2V36</Vertex>
+						<Vertex>VdNeCdK8</Vertex>
+					</Edge>
+				</State>
 				<IfFunction Name="ifand2" PositionY="20" PositionX="-60" MethodName="math::boolean::And" DeclaringType="math::boolean">
 					<Edge From="prvni_smena_horniku.informace_ziskana" To="Exec" />
 					<Edge From="druha_smena_horniku_1.informace_ziskana" To="Exec" />
@@ -73,6 +85,9 @@
 					<Edge From="shift2done.bool" To="B" />
 					<Edge From="shift3done.bool" To="C" />
 				</IfFunction>
+				<najdi_vstup_do_dolu Name="objectiveVisual8" PositionY="-770" PositionX="-420" RequiredForOutput="kutnohorsko">
+					<Edge From="findTheEntrance.State" To="Progress" />
+				</najdi_vstup_do_dolu>
 				<Output Name="Output">
 					<Edge From="prvni_smena_horniku.mam_informaci_a_poctu_kosu_smeny_1" To="prvni_smena_completed" />
 					<Edge From="druha_smena_horniku_1.mam_informaci_a_poctu_kosu_smeny_2" To="druha_smena_completed" />
@@ -107,6 +122,10 @@
 					<Edge From="promluv_si_s_predaky" To="promluv_si_se_treti_smenou" />
 				</treti_smena_horniku>
 			</Nodes>
+			<EdgeVertices>
+				<EdgeVertex Name="JxDl2V36" PositionY="-310" PositionX="-170" />
+				<EdgeVertex Name="VdNeCdK8" PositionY="-310" PositionX="-720" />
+			</EdgeVertices>
 			<Text StringName="hornici__smeny_p8dR" Text="Horníci - směny" />
 			<Elements>
 				<GameplayActionElement>

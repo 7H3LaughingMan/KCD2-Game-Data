@@ -33,6 +33,12 @@
 					<Edge From="areatrigger17.OnEnter" To="Exec" />
 					<Edge From="getdistance19.Distance" To="ValueA" />
 				</IfFunction>
+				<IfFunction Name="ifcompare20" PositionY="160" PositionX="1160" TypeT="int" MethodName="Control::Compare" DeclaringType="Control">
+					<Constant Name="Op" Value="Equals" />
+					<Constant Name="ValueB" Value="5" />
+					<Edge From="tourStateInt.OnIncrease" To="Exec" />
+					<Edge From="tourStateInt.State" To="ValueA" />
+				</IfFunction>
 				<Output Name="Output">
 					<Edge From="tour_simple.onsuccess" To="samuel_potkal_vykradaci" />
 					<Edge From="deathtrigger6.OnAllDeath" To="samuel_jde_do_sklepu">
@@ -40,6 +46,9 @@
 					</Edge>
 					<Edge From="ifcompare18.True" To="samuel_jde_do_sklepu">
 						<Vertex>PVAQzQDr</Vertex>
+					</Edge>
+					<Edge From="ifcompare20.True" To="samuel_potkal_vykradaci">
+						<Vertex>3aDpd7A9</Vertex>
 					</Edge>
 				</Output>
 				<Switch Name="switch2" PositionY="490" PositionX="1820" TypeT="int" ValueTypes="string tour_dialogType wh::entitymodule::TagPoint* tour_nextPhaseTrigger wh::xgenaimodule::LinkableObject* bool" SwitchValues="0 1 2 3 4">
@@ -86,6 +95,7 @@
 					<Asset Name="soul" Alias="Samuel" />
 					<Constant Name="movementspeed" Value="walk" />
 					<Asset Name="finaltagpoint" Alias="tour_5_looters" />
+					<Constant Name="disableorca" Value="true" />
 					<Constant Name="followtype" Value="none" />
 					<Constant Name="subtitlesdown" Value="false" />
 					<Constant Name="dialoganimationapproach" Value="dontPlayDialogAnimations" />
@@ -134,6 +144,7 @@
 				</State>
 			</Nodes>
 			<EdgeVertices>
+				<EdgeVertex Name="3aDpd7A9" PositionY="-50" PositionX="1460" />
 				<EdgeVertex Name="IdDP2owW" PositionY="1521" PositionX="2945" />
 				<EdgeVertex Name="jhMN2ySo" PositionY="1520" PositionX="760" />
 				<EdgeVertex Name="PVAQzQDr" PositionY="-30" PositionX="710" />

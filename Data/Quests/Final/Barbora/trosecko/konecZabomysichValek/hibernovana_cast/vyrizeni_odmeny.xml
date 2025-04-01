@@ -21,14 +21,14 @@
 				<Port Name="quest_zrusen" Direction="Out" Type="trigger">
 					<DesignName StringName="vyrizeni__quest_zrusen_NjE5" Text="quest zrušen" />
 				</Port>
-				<Port Name="odmenove_objectivy_nastartovany" Direction="Out" Type="bool">
-					<DesignName StringName="vyrizeni__odmenove_object_cDPv" Text="odměnové objectivy nastartovány" />
-				</Port>
 				<Port Name="dojdi_za_drozdem_pro_odmenu" Direction="In" Type="trigger">
 					<DesignName StringName="vyrizeni__dojdi_za_drozde_fYDr" Text="dojdi za Drozdem pro odměnu" />
 				</Port>
 				<Port Name="jindrich_presvedcil_rychtare_a_muze_se_kouknout_do_kroniky" Direction="In" Type="bool">
 					<DesignName StringName="vyrizeni__jindrich_presve_T47E" Text="Jindřich přesvědčil rychtáře a může se kouknout do kroniky" />
+				</Port>
+				<Port Name="odmenove_objectivy_nenastartovany" Direction="Out" Type="bool">
+					<DesignName StringName="vyrizeni__odmenove_object_jhlL" Text="odměnové objectivy nenastartovány" />
 				</Port>
 			</Ports>
 			<Definitions>
@@ -59,7 +59,18 @@
 					<Edge From="triggersequence9_1.A" To="Setdone2" />
 					<Edge From="triggersequence9_2.A" To="Setcancelled" />
 				</State>
-				<SoulDeathTrigger Name="deathtrigger3" PositionY="-1100" PositionX="320">
+				<Function Name="and11" PositionY="-140" PositionX="850" MethodName="math::boolean::And" DeclaringType="math::boolean">
+					<Edge From="aboutRewardWithOlbram.none" To="A">
+						<Vertex>vertex25</Vertex>
+					</Edge>
+					<Edge From="aboutRewardWithProcek.none" To="B">
+						<Vertex>vertex26</Vertex>
+					</Edge>
+					<Edge From="aboutRewardWithDrozd.None" To="C">
+						<Vertex>vertex37</Vertex>
+					</Edge>
+				</Function>
+				<SoulDeathTrigger Name="deathtrigger3" PositionY="-1130" PositionX="320">
 					<Asset Name="Souls" Alias="olbram" />
 					<Edge From="aboutRewardWithOlbram.started" To="IsActive" />
 				</SoulDeathTrigger>
@@ -80,7 +91,7 @@
 				<promluv_si_s_drozdem Name="objectiveVisual7" PositionY="1090" PositionX="110" RequiredForOutput="trosecko">
 					<Edge From="aboutRewardWithDrozd.State" To="Progress" />
 				</promluv_si_s_drozdem>
-				<odmena_od_drozda Name="odmena_od_drozda" PositionY="1230" PositionX="180" Namespace="konec_zabomysich_valek">
+				<odmena_od_drozda Name="odmena_od_drozda" PositionY="1390" PositionX="180" Namespace="konec_zabomysich_valek">
 					<Edge From="aboutRewardWithDrozd.Started" To="Awake" />
 					<Edge From="jindrich_presvedcil_rychtare_a_muze_se_kouknout_do_kroniky" To="jindrich_presvedcil_rychtare_a_muze_se_kouknout_do_kroniky">
 						<Vertex>vertex38</Vertex>
@@ -105,19 +116,7 @@
 						<Vertex>vertex19</Vertex>
 					</Edge>
 				</odmena_od_procka>
-				<Function Name="or4" PositionY="-240" PositionX="764" MethodName="math::boolean::Or" DeclaringType="math::boolean">
-					<Edge From="aboutRewardWithOlbram.started" To="A">
-						<Vertex>vertex25</Vertex>
-					</Edge>
-					<Edge From="aboutRewardWithProcek.started" To="B">
-						<Vertex>vertex26</Vertex>
-					</Edge>
-					<Edge From="aboutRewardWithDrozd.Started" To="C">
-						<Vertex>vertex37</Vertex>
-					</Edge>
-				</Function>
 				<Output Name="Output">
-					<Edge From="or4.bool" To="odmenove_objectivy_nastartovany" />
 					<Edge From="triggersequence8.B" To="quest_splnen">
 						<Vertex>vertex15</Vertex>
 						<Vertex>vertex10</Vertex>
@@ -146,6 +145,7 @@
 					<Edge From="triggersequence10.B" To="quest_splnen">
 						<Vertex>vertex36</Vertex>
 					</Edge>
+					<Edge From="and11.bool" To="odmenove_objectivy_nenastartovany" />
 				</Output>
 				<TriggerSequence Name="triggersequence10" PositionY="1500" PositionX="-640">
 					<Edge From="odmena_od_drozda.odmena_predana" To="Exec">
@@ -213,8 +213,8 @@
 				<EdgeVertex Name="vertex22" PositionY="-370" PositionX="-570" />
 				<EdgeVertex Name="vertex23" PositionY="840" PositionX="430" />
 				<EdgeVertex Name="vertex24" PositionY="840" PositionX="-610" />
-				<EdgeVertex Name="vertex25" PositionY="-880" PositionX="686" />
-				<EdgeVertex Name="vertex26" PositionY="520" PositionX="616" />
+				<EdgeVertex Name="vertex25" PositionY="-940" PositionX="680" />
+				<EdgeVertex Name="vertex26" PositionY="470" PositionX="640" />
 				<EdgeVertex Name="vertex27" PositionY="1670" PositionX="510" />
 				<EdgeVertex Name="vertex28" PositionY="1670" PositionX="-620" />
 				<EdgeVertex Name="vertex29" PositionY="1970" PositionX="370" />
@@ -222,7 +222,7 @@
 				<EdgeVertex Name="vertex31" PositionY="1930" PositionX="940" />
 				<EdgeVertex Name="vertex32" PositionY="1000" PositionX="960" />
 				<EdgeVertex Name="vertex36" PositionY="1620" PositionX="960" />
-				<EdgeVertex Name="vertex37" PositionY="1450" PositionX="680" />
+				<EdgeVertex Name="vertex37" PositionY="1380" PositionX="700" />
 				<EdgeVertex Name="vertex38" PositionY="1700" PositionX="-1250" />
 				<EdgeVertex Name="vertex39" PositionY="1706" PositionX="96" />
 				<EdgeVertex Name="vertex4" PositionY="860" PositionX="440" />

@@ -15,6 +15,9 @@
 				<Port Name="sabotaz_dokoncena" Direction="Out" Type="trigger">
 					<DesignName StringName="pruzkum_a_sabotaz_dokonce_nmXF" Text="sabotáž dokončena" />
 				</Port>
+				<Port Name="hrac_odsabotoval_vse" Direction="Out" Type="bool">
+					<DesignName StringName="pruzkum_a_hrac_odsabotova_KKgC" Text="hráč odsabotoval vše" />
+				</Port>
 				<Port Name="hrac_nic_neodsabotoval" Direction="Out" Type="bool">
 					<DesignName StringName="pruzkum_a_hrac_nic_neodsa_taGk" Text="hráč nic neodsabotoval" />
 				</Port>
@@ -50,9 +53,6 @@
 				</Port>
 				<Port Name="aplikovany_alespon_jedny_blechy" Direction="Out" Type="bool">
 					<DesignName StringName="pruzkum_a_aplikovany_ales_I7GJ" Text="aplikovány alespoň jedny blechy" />
-				</Port>
-				<Port Name="alespon_jedna_sabotaz_je_hotova" Direction="Out" Type="bool">
-					<DesignName StringName="pruzkum_a_alespon_jedna_s_vG9n" Text="alespoň jedna sabotáž je hotová" />
 				</Port>
 				<Port Name="promluveno_s_betou_po_sabotazi" Direction="In" Type="trigger">
 					<DesignName StringName="pruzkum_a_promluveno_s_be_YHkV" Text="promluveno s Bětou po sabotáži" />
@@ -114,6 +114,12 @@
 					<Edge From="atLeastOneTipIsKnown.bool" To="D" />
 					<Edge From="deathtrigger1335_1.OnDeath" To="Exec" />
 				</IfFunction>
+				<Function Name="allSabotagesDone" PositionY="590" PositionX="-260" MethodName="math::boolean::And" DeclaringType="math::boolean">
+					<Edge From="zkazit_vino.vino_is_completed" To="A" />
+					<Edge From="aplikace_blech.blechy_v_lazni_are_completed" To="B" />
+					<Edge From="aplikace_blech.blechy_v_pradle_are_completed" To="C" />
+					<Edge From="kradez_parfemu.parfem_is_completed" To="D" />
+				</Function>
 				<Function Name="and1340" PositionY="1130" PositionX="-1300" MethodName="math::boolean::And" DeclaringType="math::boolean">
 					<Edge From="or1339.bool" To="A" />
 					<Edge From="talktobetaafter_not_yet_started" To="B" />
@@ -134,12 +140,6 @@
 				<Function Name="atLeastOneInstanceOfFleasApplied" PositionY="420" PositionX="-260" MethodName="math::boolean::Or" DeclaringType="math::boolean">
 					<Edge From="aplikace_blech.blechy_v_pradle_are_completed" To="B" />
 					<Edge From="aplikace_blech.blechy_v_lazni_are_completed" To="A" />
-				</Function>
-				<Function Name="atLeastOneSabotageDone" PositionY="600" PositionX="-260" MethodName="math::boolean::Or" DeclaringType="math::boolean">
-					<Edge From="zkazit_vino.vino_is_completed" To="A" />
-					<Edge From="aplikace_blech.blechy_v_lazni_are_completed" To="B" />
-					<Edge From="aplikace_blech.blechy_v_pradle_are_completed" To="C" />
-					<Edge From="kradez_parfemu.parfem_is_completed" To="D" />
 				</Function>
 				<Function Name="atLeastOneTipIsKnown" PositionY="-280" PositionX="-540" MethodName="math::boolean::Or" DeclaringType="math::boolean">
 					<Edge From="dialog_o_vine.sabotaz_vina" To="A" />
@@ -203,7 +203,7 @@
 					<Edge From="ifand1338.True" To="SetDone" />
 					<Edge From="deathtrigger1335_1.OnAllDeath" To="SetCanceled" />
 					<Edge From="ifand1336_1.True" To="SetCanceled" />
-					<Edge From="allPossibleTipsKnown.True" To="SetCanceled">
+					<Edge From="allPossibleTipsKnown.True" To="SetDone">
 						<Vertex>PvWT2t4l</Vertex>
 						<Vertex>xstqrAJq</Vertex>
 					</Edge>
@@ -216,6 +216,8 @@
 					<Edge From="dialog_o_lazni.sabotaz_lazne" To="B" />
 					<Edge From="dialog_o_parfemu.parfem_uz_mam" To="Exec" />
 					<Edge From="dialog_o_parfemu.sabotaz_parfemu" To="C" />
+					<Edge From="dialog_o_parfemu.parfem_uz_znam_ale_nemam" To="Exec" />
+					<Edge From="patchtrigger1350.OnPatch" To="Exec" />
 				</IfFunction>
 				<IfFunction Name="ifand1324" PositionY="-380" PositionX="-800" MethodName="math::boolean::And" DeclaringType="math::boolean">
 					<Edge From="dialog_o_vine.vim_o_vine" To="Exec">
@@ -284,7 +286,7 @@
 						<Vertex>01rWC5xS</Vertex>
 					</Edge>
 				</IfFunction>
-				<kradez_parfemu Name="kradez_parfemu" PositionY="370" PositionX="-1120" RequiredForOutput="kutnohorsko">
+				<kradez_parfemu Name="kradez_parfemu" PositionY="350" PositionX="-1120" RequiredForOutput="kutnohorsko">
 					<Edge From="dialog_o_parfemu.vim_o_parfemu" To="parfem_activated" />
 					<Edge From="sabotovaci_okno.konec_okna" To="disable">
 						<Vertex>vertex194</Vertex>
@@ -388,11 +390,14 @@
 					<Edge From="dialog_o_lazni.vim_o_blechach" To="zadani_blech" />
 					<Edge From="aplikace_blech.hrac_ziskal_blechy" To="hrac_ziskal_blechy" />
 					<Edge From="atLeastOneInstanceOfFleasApplied.bool" To="aplikovany_alespon_jedny_blechy" />
-					<Edge From="atLeastOneSabotageDone.bool" To="alespon_jedna_sabotaz_je_hotova" />
 					<Edge From="dialog_o_parfemu.lazebnice_dostala_saty" To="lazebnice_dostala_saty" />
 					<Edge From="dialog_o_parfemu.saty_pro_lazebnici" To="saty_pro_lazebnici" />
 					<Edge From="dialog_o_parfemu.sabotaz_parfemu" To="perfume_talked_about" />
+					<Edge From="allSabotagesDone.bool" To="hrac_odsabotoval_vse" />
 				</Output>
+				<PatchTrigger Name="patchtrigger1350" PositionY="-1900" PositionX="-1970">
+					<Constant Name="TransitionToVersion" Value="ver_01_02" />
+				</PatchTrigger>
 				<Function Name="perfumeDoneOrBathmaidDead" PositionY="470" PositionX="-770" MethodName="math::boolean::Or" DeclaringType="math::boolean">
 					<Edge From="perfumebathmaidisdead" To="B" />
 					<Edge From="kradez_parfemu.parfem_is_failed" To="C" />
@@ -411,7 +416,7 @@
 					<Edge From="winebathmaidisdead" To="B" />
 					<Edge From="zkazit_vino.vino_is_failed" To="C" />
 				</Function>
-				<zkazit_vino Name="zkazit_vino" PositionY="-410" PositionX="-1160" RequiredForOutput="kutnohorsko">
+				<zkazit_vino Name="zkazit_vino" PositionY="-410" PositionX="-1120" RequiredForOutput="kutnohorsko">
 					<Edge From="dialog_o_vine.vim_o_vine" To="vino_activated" />
 					<Edge From="sabotovaci_okno.konec_okna" To="disable">
 						<Vertex>vertex194</Vertex>

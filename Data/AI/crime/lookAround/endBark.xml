@@ -42,7 +42,7 @@
 									<RemoveLink From="$this.id" To="$lookAroundData.missingNpc" Tag="&apos;crime_followUpBehavior_kickMissingNpc&apos;" LinkOpHandleMode="Success" />
 									<IsDeadCheck SoulWUID="$lookAroundData.missingNpc" FailSubtMissing="false" saveVersion="2">
 										<Then canSkip="1">
-											<Function_callInterrupt_lookAround alarmReactionType="$enum:crime_alarmReactionType.none" amIBuddy="$lookAroundData.amIBuddy" corpseState="$enum:corpseState.undiscovered" directHit="false" forcePebbleReaction="false" ignorePriority="true" information_look="$lookAroundData.information" initiator="$enum:switch_interruptInitiator.scheduler" missingNpc="$lookAroundData.missingNpc" position="$lookAroundData.position" previousReaction="$enum:crime_reactionKind.lookAround" reactingToSoundBecauseAlone="false" reportedBy="$__null" searchDirection="" shooter="$__player" soundType="$enum:sound.movement" source="$enum:crime_source.direct" stimulusAnimalAbuse="" stimulusKind="$enum:crime_stimulusKind.corpse" nodeLabel="53950884" />
+											<Function_callInterrupt_lookAround alarmReactionType="$enum:crime_alarmReactionType.none" amIBuddy="$lookAroundData.amIBuddy" corpseState="$enum:corpseState.undiscovered" directHit="false" forceSubscribedSoundReaction="false" ignorePriority="true" information_look="$lookAroundData.information" initiator="$enum:switch_interruptInitiator.scheduler" missingNpc="$lookAroundData.missingNpc" position="$lookAroundData.position" previousReaction="$enum:crime_reactionKind.lookAround" reactingToSoundBecauseAlone="false" reportedBy="$__null" searchDirection="" searchPointsFromDirection="false" shooter="$__player" soundType="$enum:sound.movement" source="$enum:crime_source.direct" stimulusAnimalAbuse="" stimulusKind="$enum:crime_stimulusKind.corpse" nodeLabel="53950884" />
 										</Then>
 										<Else canSkip="1">
 											<IsUnconsciousCheck SoulWUID="$lookAroundData.missingNpc" FailSubtMissing="false" saveVersion="2">
@@ -70,9 +70,7 @@
 									</CheckNervousnessInterval>
 									<CheckNervousnessInterval Soul="$this.id" Flag="midToInf" saveVersion="2">
 										<Then canSkip="1">
-											<AtomicDecorator>
-												<Function_callInterrupt_mindPlayer ignorePriority="true" initiator="$enum:switch_interruptInitiator.scheduler" previousReaction="$enum:crime_reactionKind.lookAround" soundType="$lookAroundData.soundType" stimulusKind="$lookAroundReason" nodeLabel="85725318" />
-											</AtomicDecorator>
+											<Function_callInterrupt_mindPlayer ignorePriority="true" initiator="$enum:switch_interruptInitiator.scheduler" previousReaction="$enum:crime_reactionKind.lookAround" soundType="$lookAroundData.soundType" stimulusKind="$lookAroundReason" nodeLabel="85725318" />
 										</Then>
 									</CheckNervousnessInterval>
 									<DefaultBranch>
@@ -210,7 +208,7 @@
 							</IfCondition>
 							<IfCondition failOnCondition="false" condition="$lookAroundReason == $enum:crime_stimulusKind.missingNpc">
 								<Sequence>
-									<AffectFeelings Npc="$this.id" Token="&apos;missingNpcNotFound&apos;" AffectNervousness="true" AffectReputation="false" />
+									<Function_crime_addAngriness angriness="&apos;missingNpcNotFound&apos;" target="$this.id" nodeLabel="73872030" />
 									<Function_crime_crimeBark animationApproach="$enum:animationApproach.dontPlayDialogAnimations" canBeDelayed="true" dialogContext="" dramaticBark="false" lookAt="$__null" metarole="&apos;NPC_VZDAVA_PATRANI_NA_MISTE_CINU_(ZMIZELE_NPC)&apos;" priority="$enum:crime_barkPriority.medium" nodeLabel="17105242" />
 								</Sequence>
 							</IfCondition>
@@ -383,12 +381,9 @@
 										<CheckNervousnessInterval hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
 											<OutputBreakpoints />
 											<Then>
-												<AtomicDecorator hasInputBreakpoint="0" comment="" breakpointFlags="0">
+												<Function_callInterrupt_mindPlayer hasInputBreakpoint="0" comment="" breakpointFlags="0">
 													<OutputBreakpoints />
-													<Function_callInterrupt_mindPlayer hasInputBreakpoint="0" comment="" breakpointFlags="0">
-														<OutputBreakpoints />
-													</Function_callInterrupt_mindPlayer>
-												</AtomicDecorator>
+												</Function_callInterrupt_mindPlayer>
 											</Then>
 										</CheckNervousnessInterval>
 										<DefaultBranch>
@@ -628,9 +623,9 @@
 									<OutputBreakpoints />
 									<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
 										<OutputBreakpoints />
-										<AffectFeelings hasInputBreakpoint="0" comment="" breakpointFlags="0">
+										<Function_crime_addAngriness hasInputBreakpoint="0" comment="" breakpointFlags="0">
 											<OutputBreakpoints />
-										</AffectFeelings>
+										</Function_crime_addAngriness>
 										<Function_crime_crimeBark hasInputBreakpoint="0" comment="" breakpointFlags="0">
 											<OutputBreakpoints />
 										</Function_crime_crimeBark>

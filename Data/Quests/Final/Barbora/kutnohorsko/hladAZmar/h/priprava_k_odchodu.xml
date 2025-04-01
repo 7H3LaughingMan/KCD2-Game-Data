@@ -52,18 +52,19 @@
 				<Definition File="priprava_k_odchodu/save_hry_u_ptacka.xml" />
 				<Definition File="priprava_k_odchodu/pridani_krve_vojakum_v_lazaretu.xml" />
 				<Definition File="priprava_k_odchodu/stream_svetel.xml" />
+				<Definition File="priprava_k_odchodu/musa_jde_ven.xml" />
 			</Definitions>
 			<Nodes>
 				<Function Name="and113458" PositionY="-100" PositionX="2870" MethodName="math::boolean::And" DeclaringType="math::boolean">
-					<Edge From="rozluc_se_s_katerinou.Completed" To="B">
-						<Vertex>vertex74</Vertex>
-						<Vertex>vertex21</Vertex>
-					</Edge>
 					<Edge From="s_zizkou_o_katerine.hrac_se_dozvedel_o_rodine_kateriny" To="A" />
 					<Edge From="hrac_ma_romanci_s_katerinou" To="C">
 						<Vertex>vertex65</Vertex>
 						<Vertex>vertex67</Vertex>
 						<Vertex>vertex66</Vertex>
+					</Edge>
+					<Edge From="s_katerinou_pred_odchodem.seq16" To="B">
+						<Vertex>KJczPbEh</Vertex>
+						<Vertex>8lYEYSth</Vertex>
 					</Edge>
 				</Function>
 				<Function Name="and113474" PositionY="10" PositionX="1640" MethodName="math::boolean::And" DeclaringType="math::boolean">
@@ -88,10 +89,7 @@
 				</chat_s_hracem>
 				<chovani_behem_polylogu Name="chovani_behem_polylogu" PositionY="-440" PositionX="-10">
 					<Edge From="polylog_planovani_cesty_pro_posily.hrac_je_vybran_na_misi" To="hrac_je_vybran_na_misi" />
-					<Edge From="afterplay_cutscene" To="afterplay_cutscene">
-						<Vertex>hxPvqxKR</Vertex>
-						<Vertex>QRTIalC0</Vertex>
-					</Edge>
+					<Edge From="polylog_planovani_cesty_pro_posily.beforeplay" To="afterplay_cutscene" />
 				</chovani_behem_polylogu>
 				<ClothingPresetOverride Name="clothingpresetoverride25" PositionY="300" PositionX="400">
 					<Asset Name="Souls" Alias="ptacek" />
@@ -166,6 +164,9 @@
 				<MakeArray Name="makearray32" PositionY="130" PositionX="1930" TypeT="Strings">
 					<Constant Name="A" Value="no_dog" />
 				</MakeArray>
+				<musa_jde_ven Name="musa_jde_ven" PositionY="-730" PositionX="-10">
+					<Edge From="polylog_planovani_cesty_pro_posily.hrac_je_vybran_na_misi" To="hrac_je_vybran_na_misi" />
+				</musa_jde_ven>
 				<SkaldBoxProbe Name="musicstate113469" PositionY="-440" PositionX="650">
 					<Constant Name="Toggle" Value="STORY_M48C_PLANNING" />
 					<Edge From="or113471.bool" To="IsActive" />
@@ -220,8 +221,12 @@
 						<Vertex>7NnISxgS</Vertex>
 					</Edge>
 				</Output>
-				<polylog_planovani_cesty_pro_posily Name="polylog_planovani_cesty_pro_posily" PositionY="-340" PositionX="-430">
+				<polylog_planovani_cesty_pro_posily Name="polylog_planovani_cesty_pro_posily" PositionY="-360" PositionX="-430">
 					<Edge From="polylog_zacina_z_cutsceny" To="polylog_zacina_z_cutsceny" />
+					<Edge From="chovani_behem_polylogu.spusteni_polylogu" To="zidle_nastreamovana">
+						<Vertex>RNRlalSA</Vertex>
+						<Vertex>qF11M6Yl</Vertex>
+					</Edge>
 				</polylog_planovani_cesty_pro_posily>
 				<pridani_krve_vojakum_v_lazaretu Name="pridani_krve_vojakum_v_lazaretu" PositionY="-600" PositionX="-10">
 					<Edge From="afterplay_cutscene" To="afterplay_cutscene">
@@ -310,7 +315,7 @@
 						<Vertex>d7b9PU5k</Vertex>
 					</Edge>
 				</SetGameContext>
-				<stream_svetel Name="stream_svetel" PositionY="-150" PositionX="-430">
+				<stream_svetel Name="stream_svetel" PositionY="70" PositionX="-430">
 					<Edge From="afterplay_cutscene" To="afterplay_cutscene" />
 					<Edge From="rozlouceni_s_ptackem.hrac_se_rozhodl_stravit_noc_s_ptackem" To="unstream">
 						<Vertex>vertex13</Vertex>
@@ -331,20 +336,23 @@
 				<EdgeVertex Name="3yJrUolu" PositionY="822" PositionX="1674" />
 				<EdgeVertex Name="6oSGLQSM" PositionY="366" PositionX="1640" />
 				<EdgeVertex Name="7NnISxgS" PositionY="1090" PositionX="3100" />
+				<EdgeVertex Name="8lYEYSth" PositionY="280" PositionX="2860" />
 				<EdgeVertex Name="8UXcqoT1" PositionY="1160" PositionX="-380" />
 				<EdgeVertex Name="AeDaENdz" PositionY="320" PositionX="840" />
 				<EdgeVertex Name="aQg8hTf0" PositionY="49" PositionX="-435" />
 				<EdgeVertex Name="d7b9PU5k" PositionY="99" PositionX="2140" />
-				<EdgeVertex Name="hxPvqxKR" PositionY="-402" PositionX="-422" />
+				<EdgeVertex Name="hxPvqxKR" PositionY="-400" PositionX="-420" />
+				<EdgeVertex Name="KJczPbEh" PositionY="280" PositionX="3180" />
 				<EdgeVertex Name="PXuMheMf" PositionY="-430" PositionX="2280" />
-				<EdgeVertex Name="QRTIalC0" PositionY="-404" PositionX="-97" />
+				<EdgeVertex Name="qF11M6Yl" PositionY="-100" PositionX="-420" />
+				<EdgeVertex Name="QRTIalC0" PositionY="-400" PositionX="-100" />
+				<EdgeVertex Name="RNRlalSA" PositionY="-100" PositionX="260" />
 				<EdgeVertex Name="vertex10" PositionY="-680" PositionX="2960" />
 				<EdgeVertex Name="vertex11" PositionY="-680" PositionX="1240" />
 				<EdgeVertex Name="vertex12" PositionY="1060" PositionX="3100" />
 				<EdgeVertex Name="vertex13" PositionY="1160" PositionX="1900" />
 				<EdgeVertex Name="vertex14" PositionY="1160" PositionX="1250" />
 				<EdgeVertex Name="vertex2" PositionY="-390" PositionX="2050" />
-				<EdgeVertex Name="vertex21" PositionY="420" PositionX="2780" />
 				<EdgeVertex Name="vertex47" PositionY="-180" PositionX="1150" />
 				<EdgeVertex Name="vertex48" PositionY="1130" PositionX="1900" />
 				<EdgeVertex Name="vertex49" PositionY="1130" PositionX="1250" />
@@ -377,6 +385,7 @@
 			<Assets>
 				<SmartObjectAsset Name="stolickaNaNadvoriKaterina" />
 				<AnimDoorAsset Name="doorCapon" />
+				<ProfileAsset Name="chair" AssetProfiles="hladAZmar_afterBattle_polylogChair" />
 			</Assets>
 			<Notes>
 				<Note Name="writing_notes_1" PositionY="-990" PositionX="-370">

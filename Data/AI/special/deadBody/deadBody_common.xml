@@ -39,6 +39,7 @@
 							</IfElseCondition>
 						</Sequence>
 					</SuppressFailure>
+					<SetExternalLock LockManagerType="Intellect" Locked="true" LockName="&apos;deadBody_haltBehavior&apos;" />
 				</Sequence>
 			</OnInit>
 			<Behavior canSkip="1">
@@ -51,7 +52,7 @@
 										<Sequence>
 											<IfCondition failOnCondition="false" condition="$pickedUpByPlayer_clearState">
 												<Sequence>
-													<UrgencyDecorator Urgency="Instant">
+													<UrgencyDecorator Urgency="Slow">
 														<WaitAction />
 													</UrgencyDecorator>
 													<Expression expressions="$pickedUpByPlayer_clearState = false" />
@@ -69,6 +70,9 @@
 													</Else>
 												</ActorStateCheck>
 											</Selector>
+											<IfCondition failOnCondition="false" condition="!$allowedMLOD">
+												<SetExternalLock LockManagerType="Intellect" Locked="false" LockName="&apos;deadBody_haltBehavior&apos;" />
+											</IfCondition>
 											<Wait duration="&apos;-1&apos;" timeType="GameTime" doFail="false" variation="" />
 										</Sequence>
 									</IfCondition>
@@ -85,13 +89,12 @@
 													<ExecuteLua code="entity.soul:DealDamage(999, 999, entity.this.id, true)" />
 												</Else>
 											</IsDeadCheck>
-											<ActorStateCheck Who="$this.id" State="ragdoll" FailWithSubtreeMissing="false" saveVersion="2">
-												<Else canSkip="1">
-													<SuppressFailure>
-														<AnimationAction fragment="&apos;DeadBody_Ragdoll&apos;" tags="" eventReferenceObject="" alignObject="" slaveObject="" resourceOverride="" allowTorchForPlayer="false" />
-													</SuppressFailure>
-												</Else>
-											</ActorStateCheck>
+											<SuppressFailure>
+												<AnimationAction fragment="&apos;DeadBody_Ragdoll&apos;" tags="" eventReferenceObject="" alignObject="" slaveObject="" resourceOverride="" allowTorchForPlayer="false" />
+											</SuppressFailure>
+											<IfCondition failOnCondition="false" condition="!$allowedMLOD">
+												<SetExternalLock LockManagerType="Intellect" Locked="false" LockName="&apos;deadBody_haltBehavior&apos;" />
+											</IfCondition>
 											<Wait duration="&apos;-1&apos;" timeType="GameTime" doFail="false" variation="" />
 										</Sequence>
 									</IfCondition>
@@ -140,6 +143,12 @@
 																	</Sequence>
 																</Else>
 															</IsDeadCheck>
+															<IfCondition failOnCondition="false" condition="!$allowedMLOD">
+																<Sequence>
+																	<SetExternalLock LockManagerType="Intellect" Locked="false" LockName="&apos;deadBody_haltBehavior&apos;" />
+																	<Wait duration="&apos;-1&apos;" timeType="GameTime" doFail="false" variation="" />
+																</Sequence>
+															</IfCondition>
 															<IfElseCondition failOnCondition="false" condition="$interactable" saveVersion="2">
 																<Then canSkip="1">
 																	<While doFail="false" propagateChildFail="false" condition="true">
@@ -198,6 +207,9 @@
 										</EntityContext>
 									</IfGate>
 								</While>
+								<ExternalLock atomic="false" OutsideQueuePosVariable="" InsidePosVariable="" TimerType="GameTime" OutsideTimerValue="&apos;-1&apos;" LockManagerType="Intellect" SemaphoreName="&apos;deadBody_haltBehavior&apos;" RunLogic="KeepRunning">
+									<Success />
+								</ExternalLock>
 							</Parallel>
 						</EntityContext>
 					</EntityContextPreset>
@@ -220,10 +232,12 @@
 				<Variable name="unstanceName" comment="" />
 				<Variable name="unstanceName_beingInteracted" comment="" />
 				<Variable name="useItem_left" comment="" />
+				<Variable name="allowedMLOD" comment="" />
 				<Variable name="lootableByPlayer" comment="" />
 				<Variable name="pickableByPlayer" comment="" />
 			</Variables>
 			<ForwardDeclarations>
+				<Variable name="allowedMLOD" type="_bool" values="" isPersistent="0" form="single" requirementType="ForwardDeclaration" />
 				<Variable name="lootableByPlayer" type="_bool" values="" isPersistent="0" form="single" requirementType="ForwardDeclaration" />
 				<Variable name="pickableByPlayer" type="_bool" values="" isPersistent="0" form="single" requirementType="ForwardDeclaration" />
 			</ForwardDeclarations>
@@ -269,6 +283,9 @@
 								</IfElseCondition>
 							</Sequence>
 						</SuppressFailure>
+						<SetExternalLock hasInputBreakpoint="0" comment="" breakpointFlags="0">
+							<OutputBreakpoints />
+						</SetExternalLock>
 					</Sequence>
 				</OnInit>
 				<Behavior>
@@ -290,7 +307,7 @@
 													<OutputBreakpoints />
 													<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
 														<OutputBreakpoints />
-														<UrgencyDecorator hasInputBreakpoint="0" comment="" breakpointFlags="0">
+														<UrgencyDecorator hasInputBreakpoint="0" comment="Only slow urgency because instant caused the body (if it was using ragdoll only) to instantenously switch animation when player starts picking it up" breakpointFlags="0">
 															<OutputBreakpoints />
 															<WaitAction hasInputBreakpoint="0" comment="" breakpointFlags="0">
 																<OutputBreakpoints />
@@ -321,6 +338,12 @@
 														</Else>
 													</ActorStateCheck>
 												</Selector>
+												<IfCondition hasInputBreakpoint="0" comment="" breakpointFlags="0">
+													<OutputBreakpoints />
+													<SetExternalLock hasInputBreakpoint="0" comment="" breakpointFlags="0">
+														<OutputBreakpoints />
+													</SetExternalLock>
+												</IfCondition>
 												<Wait hasInputBreakpoint="0" comment="" breakpointFlags="0">
 													<OutputBreakpoints />
 												</Wait>
@@ -350,17 +373,18 @@
 														</ExecuteLua>
 													</Else>
 												</IsDeadCheck>
-												<ActorStateCheck hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
+												<SuppressFailure hasInputBreakpoint="0" comment="" breakpointFlags="0">
 													<OutputBreakpoints />
-													<Else>
-														<SuppressFailure hasInputBreakpoint="0" comment="" breakpointFlags="0">
-															<OutputBreakpoints />
-															<AnimationAction hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																<OutputBreakpoints />
-															</AnimationAction>
-														</SuppressFailure>
-													</Else>
-												</ActorStateCheck>
+													<AnimationAction hasInputBreakpoint="0" comment="" breakpointFlags="0">
+														<OutputBreakpoints />
+													</AnimationAction>
+												</SuppressFailure>
+												<IfCondition hasInputBreakpoint="0" comment="" breakpointFlags="0">
+													<OutputBreakpoints />
+													<SetExternalLock hasInputBreakpoint="0" comment="" breakpointFlags="0">
+														<OutputBreakpoints />
+													</SetExternalLock>
+												</IfCondition>
 												<Wait hasInputBreakpoint="0" comment="" breakpointFlags="0">
 													<OutputBreakpoints />
 												</Wait>
@@ -439,6 +463,18 @@
 																		</Sequence>
 																	</Else>
 																</IsDeadCheck>
+																<IfCondition hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																	<OutputBreakpoints />
+																	<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																		<OutputBreakpoints />
+																		<SetExternalLock hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																			<OutputBreakpoints />
+																		</SetExternalLock>
+																		<Wait hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																			<OutputBreakpoints />
+																		</Wait>
+																	</Sequence>
+																</IfCondition>
 																<IfElseCondition hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
 																	<OutputBreakpoints />
 																	<Then>
@@ -534,6 +570,12 @@
 											</EntityContext>
 										</IfGate>
 									</While>
+									<ExternalLock hasInputBreakpoint="0" comment="" breakpointFlags="0">
+										<OutputBreakpoints />
+										<Success hasInputBreakpoint="0" comment="" breakpointFlags="0">
+											<OutputBreakpoints />
+										</Success>
+									</ExternalLock>
 								</Parallel>
 							</EntityContext>
 						</EntityContextPreset>

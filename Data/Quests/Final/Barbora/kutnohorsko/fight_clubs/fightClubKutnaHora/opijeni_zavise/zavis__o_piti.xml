@@ -139,7 +139,7 @@
 															<Commands>
 																<FacialMoodCommand FacialMood="happy1" />
 																<FacialMoodCommand Role="OPILEC_ZAVIS_KUTNA_HORA" FacialMood="happy1" />
-																<AnimationCommand Delay="0" FragmentId="ADLG_Give" Guid="00ebf610-b3ea-9950-e27a-18618ccae1a3" Variant="0" DesiredDuration="3.37" />
+																<AnimationCommand FragmentId="ADLG_Give" Guid="00ebf610-b3ea-9950-e27a-18618ccae1a3" Variant="0" DesiredDuration="3.37" />
 																<AnimationHeadCommand Role="OPILEC_ZAVIS_KUTNA_HORA" Delay="1.39" FragmentId="ADLG_FA_Smile" Guid="3213f1a5-7cef-42a5-a0ab-01b102460ffc" Variant="1" DesiredDuration="1.94" />
 																<CameraCommand CameraType="CloseUp" />
 																<CameraCommand Role="OPILEC_ZAVIS_KUTNA_HORA" Delay="1.18" CameraType="CloseUp" />
@@ -175,91 +175,121 @@
 																		<Text StringName="zavi_opilec_za__OQj2" Text="..." />
 																	</Response>
 																</Elements>
-																<Decision Name="dec6" Priority="General">
+																<Decision Name="dec12">
 																	<Sequences>
-																		<Sequence EntryCondition="Port('jindra_u_sebe_ma_alkohol')" EndType="Decision" Name="seq12">
-																			<DesignName StringName="zavis__o__seq12_HGoY" Text="seq12" />
-																			<UiPrompt StringName="ui_zavis__o__seq12_gIsE" Text="Dáš si ještě?" />
-																			<Triggers>
-																				<Port Name="jindra_predava_alkohol" />
-																			</Triggers>
+																		<Sequence EntryCondition="!Port('zavis_je_velmi_opily')" EndType="Decision" Name="seq26">
+																			<DesignName StringName="zavis__o__seq26_MeEV" Text="seq26" />
 																			<Elements>
-																				<Response Role="HENRY" ReferenceLength="1.62">
-																					<Parenthetical>
-																						<Text StringName="zavi_henry_hecuje_OcPm" Text="hecuje" />
-																					</Parenthetical>
-																					<Text StringName="zavi_henry_dame_jeste_do__YnxZ" Text="Dáme ještě do druhý nohy?" />
-																					<Commands>
-																						<AnimationCommand FragmentId="ADLG_Confusion" Guid="5da7fd8b-7cec-40c8-a723-f3cc47022f36" Variant="4" />
-																						<CameraCommand />
-																					</Commands>
-																				</Response>
+																				<Response Role="HENRY" />
 																			</Elements>
-																			<Decision Name="dec7" Priority="General">
+																			<Decision Name="dec6" Priority="General">
 																				<Sequences>
-																					<Sequence SpeechCoef="0" EntryCondition="Port('vysledek_odevzdani') == Enum('DeliveryResult','Success')" EndType="Decision" Name="seq9">
-																						<DesignName StringName="zavis__o__seq9_EPy8" Text="seq9" />
+																					<Sequence EntryCondition="Port('jindra_u_sebe_ma_alkohol')" EndType="Decision" Name="seq12">
+																						<DesignName StringName="zavis__o__seq12_HGoY" Text="seq12" />
+																						<UiPrompt StringName="ui_zavis__o__seq12_gIsE" Text="Dáš si ještě?" />
 																						<Triggers>
-																							<Port Name="zavis_pije" />
-																							<Port Name="itemy_prijmuty" />
+																							<Port Name="jindra_predava_alkohol" />
 																						</Triggers>
 																						<Elements>
-																							<Response Role="OPILEC_ZAVIS_KUTNA_HORA" ReferenceLength="6.14">
+																							<Response Role="HENRY" ReferenceLength="1.62">
 																								<Parenthetical>
-																									<Text StringName="zavi_opilec_za_vesele_tro_RnNq" Text="vesele, trochu se mu plete jazyk" />
+																									<Text StringName="zavi_henry_hecuje_OcPm" Text="hecuje" />
 																								</Parenthetical>
-																								<Text StringName="zavi_opilec_za_ty_jsi_chl_IcHw" Text="Ty jsi chlapík. To se už dneska nevidí... Glo-glo-glória!" />
+																								<Text StringName="zavi_henry_dame_jeste_do__YnxZ" Text="Dáme ještě do druhý nohy?" />
 																								<Commands>
-																									<FacialMoodCommand FacialMood="happy1" />
-																									<AnimationPropCommand FragmentId="ADLG_DrinkTankard_Spawn" Guid="309a45d6-55f3-4111-a90e-9ba59dc2027e" Variant="1" Attachment="ADLG_DrinkTankard_Spawn_1" Prop="tankard" />
+																									<AnimationCommand FragmentId="ADLG_Confusion" Guid="5da7fd8b-7cec-40c8-a723-f3cc47022f36" Variant="4" />
 																									<CameraCommand />
 																								</Commands>
 																							</Response>
-																							<Response Role="OPILEC_ZAVIS_KUTNA_HORA">
-																								<Parenthetical>
-																									<Text StringName="zavi_opilec_za_animace_pr_ZlML" Text="animace připíjení" />
-																								</Parenthetical>
-																								<Text StringName="zavi_opilec_za__lKBM" Text="&lt;...&gt;" />
-																							</Response>
 																						</Elements>
-																						<Decision Name="dec9" Priority="General">
+																						<Decision Name="dec7" Priority="General">
 																							<Sequences>
-																								<Sequence Name="seq19">
-																									<DesignName StringName="zavis__o__seq19_7Mof" Text="seq19" />
-																									<UiPrompt StringName="ui_zavis__o__seq19_ABd3" Text="Dáš si ještě?" />
+																								<Sequence SpeechCoef="0" EntryCondition="Port('vysledek_odevzdani') == Enum('DeliveryResult','Success')" EndType="Decision" Name="seq9">
+																									<DesignName StringName="zavis__o__seq9_EPy8" Text="seq9" />
+																									<Triggers>
+																										<Port Name="zavis_pije" />
+																										<Port Name="itemy_prijmuty" />
+																									</Triggers>
 																									<Elements>
-																										<Response Role="HENRY" ReferenceLength="1.17">
+																										<Response Role="OPILEC_ZAVIS_KUTNA_HORA" ReferenceLength="6.14">
 																											<Parenthetical>
-																												<Text StringName="zavi_henry_hecuje_SQdz" Text="hecuje" />
+																												<Text StringName="zavi_opilec_za_vesele_tro_RnNq" Text="vesele, trochu se mu plete jazyk" />
 																											</Parenthetical>
-																											<Text StringName="zavi_henry_mas_chut_na_da_JBTR" Text="Máš chuť na další?" />
+																											<Text StringName="zavi_opilec_za_ty_jsi_chl_IcHw" Text="Ty jsi chlapík. To se už dneska nevidí... Glo-glo-glória!" />
 																											<Commands>
-																												<FacialMoodCommand Role="OPILEC_ZAVIS_KUTNA_HORA" FacialMood="happy3" />
-																												<AnimationCommand Delay="0.15" FragmentId="ADLG_Confusion" Guid="4fcec99e-67a8-4f82-9734-675a1804203e" Variant="3" />
+																												<FacialMoodCommand FacialMood="happy1" />
+																												<AnimationPropCommand FragmentId="ADLG_DrinkTankard_Spawn" Guid="309a45d6-55f3-4111-a90e-9ba59dc2027e" Variant="1" Attachment="ADLG_DrinkTankard_Spawn_1" Prop="tankard" />
 																												<CameraCommand />
 																											</Commands>
 																										</Response>
-																										<Response Role="OPILEC_ZAVIS_KUTNA_HORA" ReferenceLength="4.72">
+																										<Response Role="OPILEC_ZAVIS_KUTNA_HORA">
 																											<Parenthetical>
-																												<Text StringName="zavi_opilec_za_opile_poch_DFtE" Text="opile, pochechtává se" />
+																												<Text StringName="zavi_opilec_za_animace_pr_ZlML" Text="animace připíjení" />
 																											</Parenthetical>
-																											<Text StringName="zavi_opilec_za_ani_nee_ra_Mt1f" Text="Ani néé. Radši bych někomu dal &lt;hyk!&gt; do držky!" />
-																											<Commands>
-																												<AnimationCommand Delay="0.39" FragmentId="ADLG_Discard" Guid="85e16227-8f7c-43da-ba99-d084e1dbd989" Variant="1" />
-																												<AnimationCommand Delay="3.34" FragmentId="ADLG_Disagree_light" Guid="4d0b5172-105b-411f-bf16-b6f08b544a51" Variant="2" />
-																												<CameraCommand />
-																											</Commands>
+																											<Text StringName="zavi_opilec_za__lKBM" Text="&lt;...&gt;" />
 																										</Response>
 																									</Elements>
+																									<Decision Name="dec9" Priority="General">
+																										<Sequences>
+																											<Sequence Name="seq19">
+																												<DesignName StringName="zavis__o__seq19_7Mof" Text="seq19" />
+																												<UiPrompt StringName="ui_zavis__o__seq19_ABd3" Text="Dáš si ještě?" />
+																												<Elements>
+																													<Response Role="HENRY" ReferenceLength="1.17">
+																														<Parenthetical>
+																															<Text StringName="zavi_henry_hecuje_SQdz" Text="hecuje" />
+																														</Parenthetical>
+																														<Text StringName="zavi_henry_mas_chut_na_da_JBTR" Text="Máš chuť na další?" />
+																														<Commands>
+																															<FacialMoodCommand Role="OPILEC_ZAVIS_KUTNA_HORA" FacialMood="happy3" />
+																															<AnimationCommand Delay="0.15" FragmentId="ADLG_Confusion" Guid="4fcec99e-67a8-4f82-9734-675a1804203e" Variant="3" />
+																															<CameraCommand />
+																														</Commands>
+																													</Response>
+																													<Response Role="OPILEC_ZAVIS_KUTNA_HORA" ReferenceLength="4.72">
+																														<Parenthetical>
+																															<Text StringName="zavi_opilec_za_opile_poch_DFtE" Text="opile, pochechtává se" />
+																														</Parenthetical>
+																														<Text StringName="zavi_opilec_za_ani_nee_ra_Mt1f" Text="Ani néé. Radši bych někomu dal &lt;hyk!&gt; do držky!" />
+																														<Commands>
+																															<AnimationCommand Delay="0.39" FragmentId="ADLG_Discard" Guid="85e16227-8f7c-43da-ba99-d084e1dbd989" Variant="1" />
+																															<AnimationCommand Delay="3.34" FragmentId="ADLG_Disagree_light" Guid="4d0b5172-105b-411f-bf16-b6f08b544a51" Variant="2" />
+																															<CameraCommand />
+																														</Commands>
+																													</Response>
+																												</Elements>
+																											</Sequence>
+																											<Sequence EndType="GoTo" GoToDecision="dec10" Name="seq20">
+																												<DesignName StringName="zavis__o__seq20_UQCh" Text="seq20" />
+																												<UiPrompt StringName="ui_zavis__o__seq20_Jhf6" Text="Tak co ten zápas?" />
+																												<Elements>
+																													<Response Role="HENRY" ReferenceLength="2.44">
+																														<Text StringName="zavi_henry_tak_co_dame_si_5bD3" Text="Tak co? Dáme si ten zápas?" />
+																														<Commands>
+																															<AnimationCommand Delay="0.02" FragmentId="ADLG_Threat" Guid="ad276849-0d6e-4e0b-9008-f83254c5803e" Variant="3" />
+																															<CameraCommand />
+																														</Commands>
+																													</Response>
+																												</Elements>
+																											</Sequence>
+																										</Sequences>
+																									</Decision>
 																								</Sequence>
-																								<Sequence EndType="GoTo" GoToDecision="dec10" Name="seq20">
-																									<DesignName StringName="zavis__o__seq20_UQCh" Text="seq20" />
-																									<UiPrompt StringName="ui_zavis__o__seq20_Jhf6" Text="Tak co ten zápas?" />
+																								<Sequence EntryCondition="Port('vysledek_odevzdani') == Enum('DeliveryResult','Canceled')" Name="seq15">
+																									<DesignName StringName="zavis__o__seq15_LKpz" Text="seq15" />
+																									<Triggers>
+																										<Port Name="itemy_odmitnuty" />
+																									</Triggers>
 																									<Elements>
-																										<Response Role="HENRY" ReferenceLength="2.44">
-																											<Text StringName="zavi_henry_tak_co_dame_si_5bD3" Text="Tak co? Dáme si ten zápas?" />
+																										<Response Role="OPILEC_ZAVIS_KUTNA_HORA" ReferenceLength="3.73">
+																											<Parenthetical>
+																												<Text StringName="zavi_opilec_za_zklamane_v_CagB" Text="zklamaně, vyčítavě" />
+																											</Parenthetical>
+																											<Text StringName="zavi_opilec_za_mas_a_nero_Dmqg" Text="Máš a nerozdělíš se? Nelido..." />
 																											<Commands>
-																												<AnimationCommand Delay="0.02" FragmentId="ADLG_Threat" Guid="ad276849-0d6e-4e0b-9008-f83254c5803e" Variant="3" />
+																												<MoodCommand Mood="happy" />
+																												<FacialMoodCommand FacialMood="sad2" />
+																												<AnimationCommand Delay="1.49" FragmentId="ADLG_Disagree" Guid="0d861a16-29f9-bc76-56bb-a3b9c49f6e6c" Variant="0" />
 																												<CameraCommand />
 																											</Commands>
 																										</Response>
@@ -268,21 +298,64 @@
 																							</Sequences>
 																						</Decision>
 																					</Sequence>
-																					<Sequence EntryCondition="Port('vysledek_odevzdani') == Enum('DeliveryResult','Canceled')" Name="seq15">
-																						<DesignName StringName="zavis__o__seq15_LKpz" Text="seq15" />
-																						<Triggers>
-																							<Port Name="itemy_odmitnuty" />
-																						</Triggers>
+																					<Sequence EndType="Decision" Name="seq14">
+																						<DesignName StringName="zavis__o__seq14_RvmE" Text="seq14" />
+																						<UiPrompt StringName="ui_zavis__o__seq14_3gql" Text="Už se cejtíš na zápas?" />
 																						<Elements>
-																							<Response Role="OPILEC_ZAVIS_KUTNA_HORA" ReferenceLength="3.73">
-																								<Parenthetical>
-																									<Text StringName="zavi_opilec_za_zklamane_v_CagB" Text="zklamaně, vyčítavě" />
-																								</Parenthetical>
-																								<Text StringName="zavi_opilec_za_mas_a_nero_Dmqg" Text="Máš a nerozdělíš se? Nelido..." />
+																							<Response Role="HENRY" ReferenceLength="1.48">
+																								<Text StringName="zavi_henry_uz_se_cejtis_n_N5Wu" Text="Už se cejtíš na zápasení?" />
 																								<Commands>
-																									<MoodCommand Mood="happy" />
-																									<FacialMoodCommand FacialMood="sad2" />
-																									<AnimationCommand Delay="1.49" FragmentId="ADLG_Disagree" Guid="0d861a16-29f9-bc76-56bb-a3b9c49f6e6c" Variant="0" />
+																									<AnimationCommand Delay="0.02" FragmentId="ADLG_You" Guid="e5cafc60-b65e-4d10-a528-3177e2dc88d2" Variant="4" />
+																									<CameraCommand />
+																								</Commands>
+																							</Response>
+																						</Elements>
+																						<Decision Name="dec10" Priority="General">
+																							<Sequences>
+																								<Sequence EntryCondition="Port('zavis_je_velmi_opily')" Name="seq22">
+																									<DesignName StringName="zavis__o__seq22_ojkz" Text="seq22" />
+																									<Elements>
+																										<Response Role="OPILEC_ZAVIS_KUTNA_HORA" ReferenceLength="3.08">
+																											<Parenthetical>
+																												<Text StringName="zavi_opilec_za_opile_poba_kW6N" Text="opile, pobaveně" />
+																											</Parenthetical>
+																											<Text StringName="zavi_opilec_za_hyk_ze_vah_UHCp" Text="&lt;Hyk!&gt; Že váháš..." />
+																											<Commands>
+																												<FacialMoodCommand FacialMood="happy2" />
+																												<AnimationCommand Delay="0.02" FragmentId="ADLG_Disagree_light" Guid="4d0b5172-105b-411f-bf16-b6f08b544a51" Variant="2" DesiredDuration="1.28" />
+																												<AnimationCommand Delay="1.71" FragmentId="ADLG_Nod" Guid="c05d1d1b-ecca-45b7-8434-c2d21c80187b" Variant="1" />
+																												<CameraCommand />
+																											</Commands>
+																										</Response>
+																									</Elements>
+																								</Sequence>
+																								<Sequence SpeechCoef="0" EntryCondition="!Port('zavis_je_strizlivy')&#xD;&#xA;AND &#xD;&#xA;!Port('zavis_je_velmi_opily')" EndType="GoTo" GoToDecision="dec6" Name="seq21">
+																									<DesignName StringName="zavis__o__seq21_4MyK" Text="seq14" />
+																									<Elements>
+																										<Response Role="OPILEC_ZAVIS_KUTNA_HORA" ReferenceLength="7.31">
+																											<Parenthetical>
+																												<Text StringName="zavi_opilec_za_vesele_tro_VYYp" Text="vesele, trochu se mu plete jazyk" />
+																											</Parenthetical>
+																											<Text StringName="zavi_opilec_za_jeste_neee_mIrK" Text="Ještě nééé... ale moc tomu nechybí. Nebyla by ještě kapka?" />
+																											<Commands>
+																												<FacialMoodCommand FacialMood="happy3" />
+																												<AnimationCommand Delay="0.19" FragmentId="ADLG_Deny" Guid="76406d71-0e04-7a94-1cd5-cf2c02a518bb" Variant="1" />
+																												<AnimationCommand Delay="5.52" FragmentId="ADLG_You" Guid="e5cafc60-b65e-4d10-a528-3177e2dc88d2" Variant="4" />
+																												<CameraCommand />
+																											</Commands>
+																										</Response>
+																									</Elements>
+																								</Sequence>
+																							</Sequences>
+																						</Decision>
+																					</Sequence>
+																					<Sequence EndType="EndDialogue" Name="seq16">
+																						<DesignName StringName="zavis__o__seq16_jBaJ" Text="seq16" />
+																						<UiPrompt StringName="ui_zavis__o__seq16_K1P6" Text="Ještě se vrátím." />
+																						<Elements>
+																							<Response Role="HENRY">
+																								<Text StringName="zavi_henry_za_chvili_jsem_gwmf" Text="Za chvíli jsem zpátky..." />
+																								<Commands>
 																									<CameraCommand />
 																								</Commands>
 																							</Response>
@@ -291,73 +364,16 @@
 																				</Sequences>
 																			</Decision>
 																		</Sequence>
-																		<Sequence EndType="Decision" Name="seq14">
-																			<DesignName StringName="zavis__o__seq14_RvmE" Text="seq14" />
-																			<UiPrompt StringName="ui_zavis__o__seq14_3gql" Text="Už se cejtíš na zápas?" />
+																		<Sequence EntryCondition="Port('zavis_je_velmi_opily')" EndType="GoTo" GoToDecision="dec9" Name="seq27">
+																			<DesignName StringName="zavis__o__seq27_uwRy" Text="seq27" />
 																			<Elements>
-																				<Response Role="HENRY" ReferenceLength="1.48">
-																					<Text StringName="zavi_henry_uz_se_cejtis_n_N5Wu" Text="Už se cejtíš na zápasení?" />
-																					<Commands>
-																						<AnimationCommand Delay="0.02" FragmentId="ADLG_You" Guid="e5cafc60-b65e-4d10-a528-3177e2dc88d2" Variant="4" />
-																						<CameraCommand />
-																					</Commands>
-																				</Response>
-																			</Elements>
-																			<Decision Name="dec10" Priority="General">
-																				<Sequences>
-																					<Sequence EntryCondition="Port('zavis_je_velmi_opily')" Name="seq22">
-																						<DesignName StringName="zavis__o__seq22_ojkz" Text="seq22" />
-																						<Elements>
-																							<Response Role="OPILEC_ZAVIS_KUTNA_HORA" ReferenceLength="3.08">
-																								<Parenthetical>
-																									<Text StringName="zavi_opilec_za_opile_poba_kW6N" Text="opile, pobaveně" />
-																								</Parenthetical>
-																								<Text StringName="zavi_opilec_za_hyk_ze_vah_UHCp" Text="&lt;Hyk!&gt; Že váháš..." />
-																								<Commands>
-																									<FacialMoodCommand FacialMood="happy2" />
-																									<AnimationCommand Delay="0.02" FragmentId="ADLG_Disagree_light" Guid="4d0b5172-105b-411f-bf16-b6f08b544a51" Variant="2" DesiredDuration="1.28" />
-																									<AnimationCommand Delay="1.71" FragmentId="ADLG_Nod" Guid="c05d1d1b-ecca-45b7-8434-c2d21c80187b" Variant="1" />
-																									<CameraCommand />
-																								</Commands>
-																							</Response>
-																						</Elements>
-																					</Sequence>
-																					<Sequence SpeechCoef="0" EntryCondition="!Port('zavis_je_strizlivy')&#xD;&#xA;AND &#xD;&#xA;!Port('zavis_je_velmi_opily')" EndType="GoTo" GoToDecision="dec6" Name="seq21">
-																						<DesignName StringName="zavis__o__seq21_4MyK" Text="seq14" />
-																						<Elements>
-																							<Response Role="OPILEC_ZAVIS_KUTNA_HORA" ReferenceLength="7.31">
-																								<Parenthetical>
-																									<Text StringName="zavi_opilec_za_vesele_tro_VYYp" Text="vesele, trochu se mu plete jazyk" />
-																								</Parenthetical>
-																								<Text StringName="zavi_opilec_za_jeste_neee_mIrK" Text="Ještě nééé... ale moc tomu nechybí. Nebyla by ještě kapka?" />
-																								<Commands>
-																									<FacialMoodCommand FacialMood="happy3" />
-																									<AnimationCommand Delay="0.19" FragmentId="ADLG_Deny" Guid="76406d71-0e04-7a94-1cd5-cf2c02a518bb" Variant="1" />
-																									<AnimationCommand Delay="5.52" FragmentId="ADLG_You" Guid="e5cafc60-b65e-4d10-a528-3177e2dc88d2" Variant="4" />
-																									<CameraCommand />
-																								</Commands>
-																							</Response>
-																						</Elements>
-																					</Sequence>
-																				</Sequences>
-																			</Decision>
-																		</Sequence>
-																		<Sequence EndType="EndDialogue" Name="seq16">
-																			<DesignName StringName="zavis__o__seq16_jBaJ" Text="seq16" />
-																			<UiPrompt StringName="ui_zavis__o__seq16_K1P6" Text="Ještě se vrátím." />
-																			<Elements>
-																				<Response Role="HENRY">
-																					<Text StringName="zavi_henry_za_chvili_jsem_gwmf" Text="Za chvíli jsem zpátky..." />
-																					<Commands>
-																						<CameraCommand />
-																					</Commands>
-																				</Response>
+																				<Response Role="HENRY" />
 																			</Elements>
 																		</Sequence>
 																	</Sequences>
 																</Decision>
 															</Sequence>
-															<Sequence EntryCondition="Port('vysledek_odevzdani') == Enum('DeliveryResult','Canceled')" Name="seq13">
+															<Sequence EntryCondition="Port('vysledek_odevzdani') == Enum('DeliveryResult','Canceled')" EndType="GoTo" GoToDecision="dec12" Name="seq13">
 																<DesignName StringName="zavis__o__seq13_ihgL" Text="seq13" />
 																<Triggers>
 																	<Port Name="itemy_odmitnuty" />
@@ -395,7 +411,7 @@
 																<AnimationCommand Role="OPILEC_ZAVIS_KUTNA_HORA" Delay="0.91" FragmentId="ADLG_Disagree_light" Guid="78d154f4-dacc-df4d-974c-19a62efad66d" Variant="0" />
 																<AnimationCommand Delay="0.02" FragmentId="ADLG_Confusion" Guid="3ee18b27-3ab6-44ff-973a-dac45dd39426" Variant="1" DesiredDuration="1.43" />
 																<CameraCommand />
-																<LookAtCommand Delay="0" LookAtRole="OPILEC_ZAVIS_KUTNA_HORA" Offset="MiddleLeft" TransitionDuration="1" />
+																<LookAtCommand LookAtRole="OPILEC_ZAVIS_KUTNA_HORA" Offset="MiddleLeft" TransitionDuration="1" />
 															</Commands>
 														</Response>
 														<Response Role="OPILEC_ZAVIS_KUTNA_HORA" ReferenceLength="3.1">

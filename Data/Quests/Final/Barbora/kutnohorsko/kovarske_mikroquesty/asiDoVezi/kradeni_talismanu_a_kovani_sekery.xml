@@ -30,6 +30,9 @@
 				<Port Name="stash_profile_je_aktivni" Direction="In" Type="bool">
 					<DesignName StringName="kradeni_t_stash_profile_j_qb5S" Text="stash profile je aktivni" />
 				</Port>
+				<Port Name="jindra_zachoval_sekeru" Direction="Out" Type="trigger">
+					<DesignName StringName="kradeni_t_jindra_zachoval_g1nz" Text="Jindra zachoval sekeru" />
+				</Port>
 			</Ports>
 			<Definitions>
 				<Definition File="kradeni_talismanu_a_kovani_sekery/kradeni_veci.xml" />
@@ -76,7 +79,7 @@
 				<vykovej_ochranou_sekeru Name="objectiveVisual34" PositionY="-220" PositionX="1130" RequiredForOutput="kutnohorsko">
 					<Edge From="VykovejSekeru.State" To="Progress" />
 				</vykovej_ochranou_sekeru>
-				<odnes_sekeru_janu_parleri Name="objectiveVisual35" PositionY="-220" PositionX="2180" RequiredForOutput="kutnohorsko">
+				<odnes_sekeru_janu_parleri Name="objectiveVisual35" PositionY="-220" PositionX="2200" RequiredForOutput="kutnohorsko">
 					<Edge From="OdnesSekeru.State" To="Progress" />
 				</odnes_sekeru_janu_parleri>
 				<State Name="OdnesSekeru" PositionY="-130" PositionX="1890" RequiredForOutput="kutnohorsko" TypeT="ProgressFailable">
@@ -87,6 +90,10 @@
 						<Vertex>vertex51</Vertex>
 					</Edge>
 				</State>
+				<Function Name="or41" PositionY="130" PositionX="2290" MethodName="math::boolean::Or" DeclaringType="math::boolean">
+					<Edge From="OdnesSekeru.None" To="A" />
+					<Edge From="OdnesSekeru.Active" To="B" />
+				</Function>
 				<Output Name="Output">
 					<Edge From="triggersequence28.B" To="quest_fail">
 						<Vertex>vertex31</Vertex>
@@ -114,9 +121,12 @@
 						<Vertex>mcpsRE1a</Vertex>
 					</Edge>
 					<Edge From="triggersequence39.B" To="quest_done" />
+					<Edge From="u_stavitele__odevzdani.jindra_zachoval_sekeru" To="jindra_zachoval_sekeru">
+						<Vertex>BNTXSVSo</Vertex>
+					</Edge>
 				</Output>
 				<parler__refusal_to_talk Name="parler__refusal_to_talk" PositionY="-550" PositionX="2190">
-					<Edge From="OdnesSekeru.None" To="jindra_nema_sekeru" />
+					<Constant Name="jindra_nema_sekeru" Value="false" />
 				</parler__refusal_to_talk>
 				<QuestFail Name="quest_fail" PositionY="190" PositionX="-230" Namespace="asidoveziknihovna">
 					<Edge From="Awake" To="quest_je_aktivni" />
@@ -128,11 +138,11 @@
 				<TriggerSequence Name="triggersequence28" PositionY="380" PositionX="30">
 					<Edge From="quest_fail.stavitel_zemrel" To="Exec" />
 				</TriggerSequence>
-				<TriggerSequence Name="triggersequence39" PositionY="110" PositionX="2660">
+				<TriggerSequence Name="triggersequence39" PositionY="100" PositionX="3010">
 					<Edge From="u_stavitele__odevzdani.konec_questu" To="Exec" />
 				</TriggerSequence>
-				<u_stavitele__odevzdani Name="u_stavitele__odevzdani" PositionY="90" PositionX="2260">
-					<Edge From="OdnesSekeru.Active" To="jindra_ma_sekeru" />
+				<u_stavitele__odevzdani Name="u_stavitele__odevzdani" PositionY="80" PositionX="2610">
+					<Edge From="or41.bool" To="jindra_ma_sekeru" />
 				</u_stavitele__odevzdani>
 				<State Name="VykovejSekeru" PositionY="-190" PositionX="780" RequiredForOutput="kutnohorsko" TypeT="ProgressFailableAbortable">
 					<Edge From="kovani_sekery.jindra_vykoval_sekeru" To="SetCompleted">
@@ -146,10 +156,11 @@
 				</State>
 			</Nodes>
 			<EdgeVertices>
-				<EdgeVertex Name="mcpsRE1a" PositionY="-60" PositionX="2640" />
+				<EdgeVertex Name="BNTXSVSo" PositionY="330" PositionX="3190" />
+				<EdgeVertex Name="mcpsRE1a" PositionY="-80" PositionX="2990" />
 				<EdgeVertex Name="vertex3" PositionY="330" PositionX="990" />
-				<EdgeVertex Name="vertex31" PositionY="500" PositionX="2820" />
-				<EdgeVertex Name="vertex37" PositionY="410" PositionX="2840" />
+				<EdgeVertex Name="vertex31" PositionY="480" PositionX="3170" />
+				<EdgeVertex Name="vertex37" PositionY="400" PositionX="3190" />
 				<EdgeVertex Name="vertex4" PositionY="330" PositionX="500" />
 				<EdgeVertex Name="vertex48" PositionY="420" PositionX="780" />
 				<EdgeVertex Name="vertex51" PositionY="410" PositionX="1900" />
@@ -157,16 +168,16 @@
 				<EdgeVertex Name="vertex54" PositionY="380" PositionX="2080" />
 				<EdgeVertex Name="vertex55" PositionY="380" PositionX="1630" />
 				<EdgeVertex Name="vertex61" PositionY="-250" PositionX="800" />
-				<EdgeVertex Name="vertex62" PositionY="-250" PositionX="2430" />
+				<EdgeVertex Name="vertex62" PositionY="-260" PositionX="2780" />
 				<EdgeVertex Name="vertex65" PositionY="420" PositionX="1420" />
 				<EdgeVertex Name="vertex67" PositionY="420" PositionX="310" />
 				<EdgeVertex Name="vertex68" PositionY="-10" PositionX="2210" />
 				<EdgeVertex Name="vertex69" PositionY="-270" PositionX="790" />
-				<EdgeVertex Name="vertex70" PositionY="-269" PositionX="2446" />
+				<EdgeVertex Name="vertex70" PositionY="-280" PositionX="2800" />
 				<EdgeVertex Name="vertex71" PositionY="-290" PositionX="780" />
-				<EdgeVertex Name="vertex72" PositionY="-290" PositionX="2460" />
+				<EdgeVertex Name="vertex72" PositionY="-300" PositionX="2810" />
 				<EdgeVertex Name="vertex73" PositionY="-310" PositionX="770" />
-				<EdgeVertex Name="vertex74" PositionY="-310" PositionX="2470" />
+				<EdgeVertex Name="vertex74" PositionY="-320" PositionX="2820" />
 				<EdgeVertex Name="vertex9" PositionY="470" PositionX="410" />
 			</EdgeVertices>
 			<Text StringName="kradeni_talismanu_a_kovan_gTft" Text="Kradeni talismanu, kovani sekery a odevzdani" />

@@ -68,12 +68,21 @@
 					</Edge>
 				</odevzavaci_dialog>
 				<Output Name="Output">
-					<Edge From="se_straznym_u_vchodu.jindra_slibil_ze_se_podiva_po_nejakem_jidl" To="jindra_slibil_ze_se_podiva_po_nejakem_jidl" />
 					<Edge From="se_straznym_u_vchodu.jiindra_vi_od_tumy_ze_kucharka_je_lakoma" To="jiindra_vi_od_tumy_ze_kucharka_je_lakoma" />
-					<Edge From="se_straznym_u_vchodu.jindra_odevzdal_jidlo_pro_chudinu_hned" To="jindra_odevzdal_jidlo_pro_chudinu_hned" />
 					<Edge From="se_straznym_u_vchodu.jindra_odevzdal_jidlo_hned" To="jindra_odevzdal_jidlo_hned" />
-					<Edge From="se_straznym_u_vchodu.jindra_odevzdal_svoje_jidlo" To="jindra_odevzdal_svoje_jidlo" />
+					<Edge From="scenefinishedwaiter9.OnFinished" To="jindra_odevzdal_svoje_jidlo" />
+					<Edge From="scenefinishedwaiter9_1.OnFinished" To="jindra_odevzdal_jidlo_pro_chudinu_hned" />
+					<Edge From="scenefinishedwaiter9_1_1.OnFinished" To="jindra_slibil_ze_se_podiva_po_nejakem_jidl" />
 				</Output>
+				<SceneFinishedWaiter Name="scenefinishedwaiter9" PositionY="270" PositionX="510">
+					<Edge From="se_straznym_u_vchodu.jindra_odevzdal_svoje_jidlo" To="Enqueue" />
+				</SceneFinishedWaiter>
+				<SceneFinishedWaiter Name="scenefinishedwaiter9_1" PositionY="110" PositionX="510">
+					<Edge From="se_straznym_u_vchodu.jindra_odevzdal_jidlo_pro_chudinu_hned" To="Enqueue" />
+				</SceneFinishedWaiter>
+				<SceneFinishedWaiter Name="scenefinishedwaiter9_1_1" PositionY="-210" PositionX="510">
+					<Edge From="se_straznym_u_vchodu.jindra_slibil_ze_se_podiva_po_nejakem_jidl" To="Enqueue" />
+				</SceneFinishedWaiter>
 				<se_straznym_u_vchodu Name="se_straznym_u_vchodu" PositionY="-190" PositionX="-20" RequiredForOutput="trosecko">
 					<Edge From="odevzavaci_dialog.vysledek_odevzdani" To="vysledek_odevzdani" />
 					<Edge From="HasItems_Soul.hasitems" To="hrac_ma_specialni_jidlo" />

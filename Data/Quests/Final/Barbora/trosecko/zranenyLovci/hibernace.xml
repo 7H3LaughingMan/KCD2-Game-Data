@@ -132,7 +132,6 @@
 				</Function>
 				<cesta_domu Name="cesta_domu" PositionY="150" PositionX="7070" RequiredForOutput="trosecko">
 					<Edge From="lovcuv_kun_umrel.lovec_jede_na_jindrove_koni" To="fasttravel__na_hracove_koni" />
-					<Edge From="lovcuv_kun_umrel.lovec_jde_pesky" To="lovec_jde_pesky" />
 					<Edge From="zachrana_kone.jindra_a_lovec_se_rozdeluji" To="lovec_jede_sam_na_koni_domu" />
 					<Edge From="alternativni_reseni.lovec_donesen_do_civilizace" To="lovec_donesen_do_civilizace" />
 					<Edge From="lovcova_skrys.jindra_lovci_pujcil_vlastniho_kone" To="fasttravel__na_hracove_koni">
@@ -153,6 +152,7 @@
 						<Vertex>vertex33</Vertex>
 						<Vertex>vertex35</Vertex>
 					</Edge>
+					<Edge From="zachrana_kone.seq12" To="seq12" />
 				</cesta_domu>
 				<SoulDeathTrigger Name="deathtrigger43818" PositionY="710" PositionX="1400">
 					<Asset Name="Souls" Alias="hunterVostatek" />
@@ -162,6 +162,10 @@
 					<Constant Name="Tag" Value="All" />
 					<Edge From="evenPlace_crossroads_disabled.OnTrue" To="Exec" />
 				</Function>
+				<disabledirectionschatsoul Name="disabledirectionschatsoul" PositionY="1040" PositionX="1550" Namespace="utils.hardcoremode">
+					<Asset Name="soul" Alias="hunterVostatek" />
+					<Edge From="or152212429.bool" To="enabled" />
+				</disabledirectionschatsoul>
 				<State Name="evenPlace_crossroads_disabled" PositionY="-508" PositionX="5853" TypeT="bool">
 					<Edge From="lovcova_skrys.jindra_jde_stopovat_kone" To="SetTrue">
 						<Vertex>vertex87</Vertex>
@@ -362,6 +366,10 @@
 					<Edge From="alternativni_reseni.lovec_byl_donesen_domu" To="A" />
 					<Edge From="alternativni_reseni.lovec_byl_donesen_do_civilizace" To="B" />
 				</Function>
+				<Function Name="or152212429" PositionY="1050" PositionX="1300" MethodName="math::boolean::Or" DeclaringType="math::boolean">
+					<Edge From="zranenyLovci.Active" To="A" />
+					<Edge From="zranenyLovci.None" To="B" />
+				</Function>
 				<Output Name="Output">
 					<Edge From="konec_u_lovce_doma.lovec_je_doma" To="lovec_je_doma" />
 					<Edge From="konec_u_lovce_doma.odemknuti_perma_rr" To="reward_roomrenting" />
@@ -448,10 +456,6 @@
 						<Vertex>vertex19</Vertex>
 					</Edge>
 					<Edge From="lovcova_skrys.jindra_jde_stopovat_kone" To="jindra_jde_hledat_kone" />
-					<Edge From="lovcuv_kun_umrel.lovec_jde_pesky" To="lovec_jde_pesky">
-						<Vertex>vertex16</Vertex>
-						<Vertex>vertex17</Vertex>
-					</Edge>
 					<Edge From="lovcuv_kun_umrel.lovec_jede_na_jindrove_koni" To="lovec_jede_na_jindrove_koni">
 						<Vertex>vertex15</Vertex>
 						<Vertex>vertex14</Vertex>
@@ -502,8 +506,6 @@
 				<EdgeVertex Name="vertex13" PositionY="1520" PositionX="4440" />
 				<EdgeVertex Name="vertex14" PositionY="600" PositionX="5740" />
 				<EdgeVertex Name="vertex15" PositionY="610" PositionX="6400" />
-				<EdgeVertex Name="vertex16" PositionY="570" PositionX="6400" />
-				<EdgeVertex Name="vertex17" PositionY="560" PositionX="5740" />
 				<EdgeVertex Name="vertex18" PositionY="530" PositionX="6400" />
 				<EdgeVertex Name="vertex19" PositionY="520" PositionX="5740" />
 				<EdgeVertex Name="vertex2" PositionY="120" PositionX="4720" />

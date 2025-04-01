@@ -27,6 +27,9 @@
 				<Port Name="clothing_preset__samuel__set_battlenohelmet" Direction="Out" Type="trigger">
 					<DesignName StringName="finale_clothing_preset__s_Mv4Z" Text="Clothing preset - Samuel - Set BattleNoHelmet" />
 				</Port>
+				<Port Name="clothing_preset__samuel__set_default" Direction="Out" Type="trigger">
+					<DesignName StringName="finale_clothing_preset__s_h9Sk" Text="Clothing preset - Samuel - Set Default" />
+				</Port>
 				<Port Name="init_and_start" Direction="Out" Type="trigger">
 					<DesignName StringName="finale_init_and_start_eeyo" Text="Stream Samuel" />
 				</Port>
@@ -189,6 +192,9 @@
 				<Port Name="semin_vypalen" Direction="In" Type="bool">
 					<DesignName StringName="finale_semin_vypalen_yV1I" Text="Semín vypálen" />
 				</Port>
+				<Port Name="bergov_nevyslal_jizdu_vypalit_semin" Direction="In" Type="bool">
+					<DesignName StringName="finale_bergov_nevyslal_ji_LIaT" Text="Bergov nevyslal jízdu vypálit Semín" />
+				</Port>
 			</Ports>
 			<Definitions>
 				<Definition File="finale/haste_init_and_start.xml" />
@@ -196,6 +202,7 @@
 				<Definition File="finale/finale.xml" />
 				<Definition File="finale/haste_world_reconstruction.xml" />
 				<Definition File="finale/dialogy.xml" />
+				<Definition File="finale/rewards.xml" />
 			</Definitions>
 			<Nodes>
 				<Function Name="and_dialogsAwake" PositionY="1010" PositionX="1070" MethodName="math::boolean::And" DeclaringType="math::boolean">
@@ -251,9 +258,11 @@
 					<Edge From="hibernation.mluvil_s_katerinou_u_mrtveho_sama" To="mluvil_s_katerinou" />
 					<Edge From="hibernation.urazil_katerinu_u_mrtveho_sama" To="urazil_katerinu" />
 				</dialogy>
-				<DisplayTutorial Name="displaytutorial27" PositionY="-700" PositionX="1180">
+				<DisplayTutorial Name="displaytutorial27" PositionY="-670" PositionX="1550">
 					<Constant Name="Tutorial" Value="MainQuestFinished" />
-					<Edge From="reward_achievement.OnAdded" To="Show" />
+					<Edge From="rewards.aktualizovat_aktivitu" To="Show">
+						<Vertex>3E4xADCI</Vertex>
+					</Edge>
 				</DisplayTutorial>
 				<EnableBehavior Name="enablebehavior23" PositionY="2300" PositionX="-40" Signature="" EventSet="">
 					<Constant Name="Behavior" Value="outsideRiders" />
@@ -330,6 +339,7 @@
 						<Vertex>mCYhoGHA</Vertex>
 					</Edge>
 					<Edge From="semin_vypalen" To="semin_vypalen" />
+					<Edge From="bergov_nevyslal_jizdu_vypalit_semin" To="bergov_nevyslal_jizdu_vypalit_semin" />
 				</hibernation>
 				<If Name="if_isQuestEndedDuringPatchingPhase" PositionY="640" PositionX="2520">
 					<Edge From="patchtrigger39.OnPatch" To="Exec" />
@@ -340,7 +350,7 @@
 						<Vertex>TT3TNhLo</Vertex>
 					</Edge>
 				</If>
-				<If Name="if30" PositionY="-750" PositionX="1620">
+				<If Name="if30" PositionY="-750" PositionX="1880">
 					<Edge From="kozlik_je_clenem_jednotky" To="Condition">
 						<Vertex>ll5JSsRB</Vertex>
 						<Vertex>3yoENNgw</Vertex>
@@ -350,7 +360,7 @@
 						<Vertex>5xaT2otA</Vertex>
 					</Edge>
 				</If>
-				<If Name="if31" PositionY="-920" PositionX="1620">
+				<If Name="if31" PositionY="-1040" PositionX="1880">
 					<Edge From="mikes_je_clenem_jednotky" To="Condition">
 						<Vertex>dUeWI7Le</Vertex>
 						<Vertex>Dnt7y3yn</Vertex>
@@ -501,48 +511,20 @@
 					</Edge>
 					<Edge From="finale_questProgress.OnActive" To="init_and_start">
 						<Vertex>vertex70</Vertex>
-						<Vertex>vertex71</Vertex>
 						<Vertex>vertex18</Vertex>
 						<Vertex>4jbQDJek</Vertex>
 					</Edge>
 					<Edge From="finale_questProgress.OnActive" To="stream_tvrze_na_bitvu">
 						<Vertex>vertex70</Vertex>
-						<Vertex>vertex71</Vertex>
 						<Vertex>vertex18</Vertex>
 					</Edge>
 					<Edge From="finale_questProgress.OnActive" To="stream_petr_z_pisku">
 						<Vertex>vertex70</Vertex>
-						<Vertex>vertex71</Vertex>
 						<Vertex>vertex18</Vertex>
 					</Edge>
 					<Edge From="hibernation.druha_cast_bitvy" To="stream_druha_cast_bitvy">
 						<Vertex>vertex73</Vertex>
 						<Vertex>vertex74</Vertex>
-					</Edge>
-					<Edge From="reward_achievement.OnAdded" To="unstream_hanus">
-						<Vertex>vertex67</Vertex>
-						<Vertex>vertex26</Vertex>
-						<Vertex>vertex25</Vertex>
-					</Edge>
-					<Edge From="reward_achievement.OnAdded" To="finale_uspesne_konci">
-						<Vertex>vertex67</Vertex>
-						<Vertex>vertex26</Vertex>
-						<Vertex>vertex25</Vertex>
-					</Edge>
-					<Edge From="reward_achievement.OnAdded" To="unstream_markvart">
-						<Vertex>vertex67</Vertex>
-						<Vertex>vertex26</Vertex>
-						<Vertex>vertex25</Vertex>
-					</Edge>
-					<Edge From="reward_achievement.OnAdded" To="unstream_petr_z_pisku">
-						<Vertex>vertex67</Vertex>
-						<Vertex>vertex26</Vertex>
-						<Vertex>vertex25</Vertex>
-					</Edge>
-					<Edge From="reward_achievement.OnAdded" To="unstream_gerta">
-						<Vertex>vertex67</Vertex>
-						<Vertex>vertex26</Vertex>
-						<Vertex>vertex25</Vertex>
 					</Edge>
 					<Edge From="hibernation.hrac_si_mec_nechal" To="hrac_si_mec_nechal">
 						<Vertex>vertex76</Vertex>
@@ -555,19 +537,9 @@
 						<Vertex>vertex26</Vertex>
 						<Vertex>vertex25</Vertex>
 					</Edge>
-					<Edge From="reward_achievement.OnAdded" To="unstream_jaroslav">
-						<Vertex>vertex67</Vertex>
-						<Vertex>vertex26</Vertex>
-						<Vertex>vertex25</Vertex>
-					</Edge>
 					<Edge From="haste_world_reconstruction.end_quest" To="unstream_janek">
 						<Vertex>vertex68</Vertex>
 						<Vertex>vertex69</Vertex>
-						<Vertex>vertex67</Vertex>
-						<Vertex>vertex26</Vertex>
-						<Vertex>vertex25</Vertex>
-					</Edge>
-					<Edge From="reward_achievement.OnAdded" To="unstream_janek">
 						<Vertex>vertex67</Vertex>
 						<Vertex>vertex26</Vertex>
 						<Vertex>vertex25</Vertex>
@@ -582,12 +554,10 @@
 					</Edge>
 					<Edge From="finale_questProgress.OnActive" To="stream_kubenka">
 						<Vertex>vertex70</Vertex>
-						<Vertex>vertex71</Vertex>
 						<Vertex>vertex18</Vertex>
 					</Edge>
 					<Edge From="finale_questProgress.OnActive" To="stream_bohuta">
 						<Vertex>vertex70</Vertex>
-						<Vertex>vertex71</Vertex>
 						<Vertex>vertex18</Vertex>
 					</Edge>
 					<Edge From="if31.True" To="stream_mikes" />
@@ -602,7 +572,6 @@
 					</Edge>
 					<Edge From="finale_questProgress.OnActive" To="stream_zizka">
 						<Vertex>vertex70</Vertex>
-						<Vertex>vertex71</Vertex>
 						<Vertex>vertex18</Vertex>
 					</Edge>
 					<Edge From="haste_world_reconstruction.end_quest" To="unstream_envira_po_questu">
@@ -620,18 +589,9 @@
 						<Vertex>vertex26</Vertex>
 						<Vertex>vertex25</Vertex>
 					</Edge>
-					<Edge From="reward_achievement.OnAdded" To="vetsina_npc_se_stehuje_do_certovky">
-						<Vertex>vertex67</Vertex>
-						<Vertex>vertex26</Vertex>
-						<Vertex>vertex25</Vertex>
-					</Edge>
 					<Edge From="haste_world_reconstruction.end_quest" To="aktualizovat_aktivitu">
 						<Vertex>vertex68</Vertex>
 						<Vertex>vertex69</Vertex>
-						<Vertex>vertex67</Vertex>
-						<Vertex>vertex26</Vertex>
-					</Edge>
-					<Edge From="reward_achievement.OnAdded" To="aktualizovat_aktivitu">
 						<Vertex>vertex67</Vertex>
 						<Vertex>vertex26</Vertex>
 					</Edge>
@@ -645,7 +605,6 @@
 					<Edge From="if_isQuestEndedDuringPatchingPhase.True" To="patch_ver_01_00_po_konci_hry" />
 					<Edge From="finale_questProgress.OnActive" To="clothing_preset__samuel__set_battle">
 						<Vertex>vertex70</Vertex>
-						<Vertex>vertex71</Vertex>
 						<Vertex>vertex18</Vertex>
 						<Vertex>4jbQDJek</Vertex>
 					</Edge>
@@ -655,18 +614,69 @@
 					</Edge>
 					<Edge From="finale_questProgress.OnActive" To="stream_jaroslav">
 						<Vertex>vertex70</Vertex>
-						<Vertex>vertex71</Vertex>
 						<Vertex>vertex18</Vertex>
 					</Edge>
 					<Edge From="finale_questProgress.OnActive" To="stream_janek">
 						<Vertex>vertex70</Vertex>
-						<Vertex>vertex71</Vertex>
 						<Vertex>vertex18</Vertex>
 					</Edge>
 					<Edge From="finale_questProgress.OnActive" To="stream_hans__debug">
 						<Vertex>vertex70</Vertex>
-						<Vertex>vertex71</Vertex>
 						<Vertex>vertex18</Vertex>
+					</Edge>
+					<Edge From="hibernation.clothing_preset__samuel__set_default" To="clothing_preset__samuel__set_default" />
+					<Edge From="rewards.aktualizovat_aktivitu" To="unstream_hanus">
+						<Vertex>3E4xADCI</Vertex>
+						<Vertex>vertex67</Vertex>
+						<Vertex>vertex26</Vertex>
+						<Vertex>vertex25</Vertex>
+					</Edge>
+					<Edge From="rewards.aktualizovat_aktivitu" To="finale_uspesne_konci">
+						<Vertex>3E4xADCI</Vertex>
+						<Vertex>vertex67</Vertex>
+						<Vertex>vertex26</Vertex>
+						<Vertex>vertex25</Vertex>
+					</Edge>
+					<Edge From="rewards.aktualizovat_aktivitu" To="unstream_markvart">
+						<Vertex>3E4xADCI</Vertex>
+						<Vertex>vertex67</Vertex>
+						<Vertex>vertex26</Vertex>
+						<Vertex>vertex25</Vertex>
+					</Edge>
+					<Edge From="rewards.aktualizovat_aktivitu" To="unstream_petr_z_pisku">
+						<Vertex>3E4xADCI</Vertex>
+						<Vertex>vertex67</Vertex>
+						<Vertex>vertex26</Vertex>
+						<Vertex>vertex25</Vertex>
+					</Edge>
+					<Edge From="rewards.aktualizovat_aktivitu" To="unstream_gerta">
+						<Vertex>3E4xADCI</Vertex>
+						<Vertex>vertex67</Vertex>
+						<Vertex>vertex26</Vertex>
+						<Vertex>vertex25</Vertex>
+					</Edge>
+					<Edge From="rewards.aktualizovat_aktivitu" To="unstream_jaroslav">
+						<Vertex>3E4xADCI</Vertex>
+						<Vertex>vertex67</Vertex>
+						<Vertex>vertex26</Vertex>
+						<Vertex>vertex25</Vertex>
+					</Edge>
+					<Edge From="rewards.aktualizovat_aktivitu" To="unstream_janek">
+						<Vertex>3E4xADCI</Vertex>
+						<Vertex>vertex67</Vertex>
+						<Vertex>vertex26</Vertex>
+						<Vertex>vertex25</Vertex>
+					</Edge>
+					<Edge From="rewards.aktualizovat_aktivitu" To="vetsina_npc_se_stehuje_do_certovky">
+						<Vertex>3E4xADCI</Vertex>
+						<Vertex>vertex67</Vertex>
+						<Vertex>vertex26</Vertex>
+						<Vertex>vertex25</Vertex>
+					</Edge>
+					<Edge From="rewards.aktualizovat_aktivitu" To="aktualizovat_aktivitu">
+						<Vertex>3E4xADCI</Vertex>
+						<Vertex>vertex67</Vertex>
+						<Vertex>vertex26</Vertex>
 					</Edge>
 				</Output>
 				<HasteTrigger Name="overrideSamSaved" PositionY="420" PositionX="-610">
@@ -682,13 +692,18 @@
 					<Asset Name="Profiles" Alias="recordingProfile" />
 					<Edge From="or22.bool" To="IsActive" />
 				</Layer>
-				<AddReward Name="reward_achievement" PositionY="-700" PositionX="850">
-					<Edge From="finale_questProgress.OnDone" To="AddReward" />
-					<Rewards>
-						<AchievementReward Achievement="TheStoryEnds" />
-						<StatReward Type="storyProgress" ExperienceChange="4-normal" />
-					</Rewards>
-				</AddReward>
+				<rewards Name="rewards" PositionY="-710" PositionX="890">
+					<Edge From="finale_questProgress.OnDone" To="reward">
+						<Vertex>aQJjMEd0</Vertex>
+					</Edge>
+					<Edge From="wasSamSaved_or.bool" To="sam_is_alive">
+						<Vertex>CJ6gCkvv</Vertex>
+						<Vertex>7czF5AFb</Vertex>
+						<Vertex>TpTewK4M</Vertex>
+						<Vertex>0a6P53dY</Vertex>
+						<Vertex>2jK0X3Sh</Vertex>
+					</Edge>
+				</rewards>
 				<HasteTrigger Name="riders_1_Stream" PositionY="1700" PositionX="-890" />
 				<HasteTrigger Name="riders_2_Start" PositionY="1920" PositionX="-890" />
 				<HasteTrigger Name="riders_3_End" PositionY="2140" PositionX="-890" />
@@ -697,9 +712,11 @@
 					<Edge From="riders_2_Start.OnTrigger" To="SetUpdated" />
 					<Edge From="riders_1_Stream.OnTrigger" To="SetActive" />
 				</State>
-				<SaveGame Name="savegame40" PositionY="-1200" PositionX="1180">
-					<Edge From="reward_achievement.OnAdded" To="EnqueueSave" />
+				<SaveGame Name="savegame40" PositionY="-1260" PositionX="1540">
 					<Edge From="objectivename.endquest" To="ObjectiveNameOverride" />
+					<Edge From="rewards.aktualizovat_aktivitu" To="EnqueueSave">
+						<Vertex>3E4xADCI</Vertex>
+					</Edge>
 				</SaveGame>
 				<State Name="talkToSuchdolSurvivors_objective" PositionY="1410" PositionX="1070" RequiredForOutput="kutnohorsko" TypeT="ProgressAbortable">
 					<Edge From="hibernation.zapina_se_objective_promluv_se_spolubojovniky" To="SetStarted" />
@@ -733,19 +750,23 @@
 				</Function>
 			</Nodes>
 			<EdgeVertices>
-				<EdgeVertex Name="3yoENNgw" PositionY="-860" PositionX="1380" />
+				<EdgeVertex Name="0a6P53dY" PositionY="-340" PositionX="1170" />
+				<EdgeVertex Name="2jK0X3Sh" PositionY="-360" PositionX="630" />
+				<EdgeVertex Name="3E4xADCI" PositionY="-540" PositionX="1380" />
+				<EdgeVertex Name="3yoENNgw" PositionY="-910" PositionX="1640" />
 				<EdgeVertex Name="4jbQDJek" PositionY="-321" PositionX="2774" />
 				<EdgeVertex Name="5TVPBjY1" PositionY="730" PositionX="1010" />
-				<EdgeVertex Name="5xaT2otA" PositionY="-900" PositionX="1380" />
+				<EdgeVertex Name="5xaT2otA" PositionY="-950" PositionX="1640" />
 				<EdgeVertex Name="6gBI0KVF" PositionY="1920" PositionX="1590" />
 				<EdgeVertex Name="7czF5AFb" PositionY="860" PositionX="660" />
 				<EdgeVertex Name="7DYnXx2M" PositionY="1200" PositionX="1330" />
 				<EdgeVertex Name="9Am5NUck" PositionY="1200" PositionX="540" />
 				<EdgeVertex Name="ajf8JLVe" PositionY="960" PositionX="-560" />
+				<EdgeVertex Name="aQJjMEd0" PositionY="-670" PositionX="580" />
 				<EdgeVertex Name="CJ6gCkvv" PositionY="480" PositionX="560" />
-				<EdgeVertex Name="Dnt7y3yn" PositionY="-880" PositionX="1380" />
+				<EdgeVertex Name="Dnt7y3yn" PositionY="-930" PositionX="1640" />
 				<EdgeVertex Name="DQ0QYjJ8" PositionY="710" PositionX="1720" />
-				<EdgeVertex Name="dUeWI7Le" PositionY="-880" PositionX="-410" />
+				<EdgeVertex Name="dUeWI7Le" PositionY="-930" PositionX="-410" />
 				<EdgeVertex Name="ENJN50lp" PositionY="1900" PositionX="1580" />
 				<EdgeVertex Name="f5UkUPE3" PositionY="1920" PositionX="720" />
 				<EdgeVertex Name="g43F9QfJ" PositionY="-150" PositionX="2010" />
@@ -753,12 +774,12 @@
 				<EdgeVertex Name="HTcPlYlU" PositionY="530" PositionX="1000" />
 				<EdgeVertex Name="JNURezkr" PositionY="1360" PositionX="1350" />
 				<EdgeVertex Name="L1jYnJsv" PositionY="-134" PositionX="534" />
-				<EdgeVertex Name="ll5JSsRB" PositionY="-860" PositionX="-390" />
+				<EdgeVertex Name="ll5JSsRB" PositionY="-910" PositionX="-390" />
 				<EdgeVertex Name="mbIfNTVo" PositionY="1500" PositionX="1380" />
 				<EdgeVertex Name="mCYhoGHA" PositionY="1360" PositionX="510" />
 				<EdgeVertex Name="MWAFqs6M" PositionY="48" PositionX="519" />
 				<EdgeVertex Name="nCVuQxY8" PositionY="1900" PositionX="600" />
-				<EdgeVertex Name="oGcTL3mW" PositionY="-900" PositionX="600" />
+				<EdgeVertex Name="oGcTL3mW" PositionY="-950" PositionX="600" />
 				<EdgeVertex Name="pGYEW4HG" PositionY="930" PositionX="630" />
 				<EdgeVertex Name="PnYKURNo" PositionY="730" PositionX="1720" />
 				<EdgeVertex Name="qGntIq7k" PositionY="230" PositionX="-783" />
@@ -798,12 +819,11 @@
 				<EdgeVertex Name="vertex64" PositionY="-60" PositionX="-20" />
 				<EdgeVertex Name="vertex65" PositionY="-130" PositionX="2010" />
 				<EdgeVertex Name="vertex66" PositionY="590" PositionX="1780" />
-				<EdgeVertex Name="vertex67" PositionY="-290" PositionX="1230" />
+				<EdgeVertex Name="vertex67" PositionY="-290" PositionX="1550" />
 				<EdgeVertex Name="vertex68" PositionY="-250" PositionX="80" />
 				<EdgeVertex Name="vertex69" PositionY="-250" PositionX="1120" />
-				<EdgeVertex Name="vertex7" PositionY="-420" PositionX="460" />
-				<EdgeVertex Name="vertex70" PositionY="-470" PositionX="1050" />
-				<EdgeVertex Name="vertex71" PositionY="-310" PositionX="1550" />
+				<EdgeVertex Name="vertex7" PositionY="-440" PositionX="500" />
+				<EdgeVertex Name="vertex70" PositionY="-310" PositionX="630" />
 				<EdgeVertex Name="vertex73" PositionY="390" PositionX="1580" />
 				<EdgeVertex Name="vertex74" PositionY="-210" PositionX="1840" />
 				<EdgeVertex Name="vertex76" PositionY="530" PositionX="1720" />
@@ -895,7 +915,7 @@
 				<ProfileAsset Name="swordByTreeProfile" AssetProfiles="finale_swordByTree" />
 			</Assets>
 			<Notes>
-				<Note Name="note29" PositionY="-580" PositionX="1620">
+				<Note Name="note29" PositionY="-580" PositionX="1880">
 					<Text StringName="finale_note29_pNQ6" Text="NOTE(Andy): Dobroš a Wolfram jsou náhradní pro Mikeše a Kozlíka, a už je to nějakým způsobem rekonstruovaný (overridovaný) v M48a Obléhání Suchdole." />
 				</Note>
 				<Note Name="note38" PositionY="1000" PositionX="1930">

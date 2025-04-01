@@ -55,14 +55,6 @@
 					<Constant Name="ValueB" Value="Done" />
 					<Edge From="bitevniCast.stav_objectivu_nasleduj_certa" To="ValueA" />
 				</Function>
-				<IfFunction Name="ifnot6" PositionY="-190" PositionX="-40" MethodName="math::boolean::Not" DeclaringType="math::boolean">
-					<Edge From="OnWake" To="Exec" />
-					<Edge From="streamovani_pro_bitvu.profily_jsou_nastreamovane" To="Value">
-						<Vertex>vertex39</Vertex>
-						<Vertex>70BgDtwQ</Vertex>
-						<Vertex>vertex40</Vertex>
-					</Edge>
-				</IfFunction>
 				<bran_predni_hradby Name="objectiveVisual20" PositionY="-100" PositionX="1270" RequiredForOutput="kutnohorsko">
 					<Edge From="bitevniCast.stav_objectivu_bran_hradbu" To="Progress">
 						<Vertex>vertex31</Vertex>
@@ -130,6 +122,10 @@
 					<Asset Name="souls" Alias="battleNPCs" />
 					<Edge From="restock.onend" To="exec" />
 				</revive>
+				<SetGameContextPreset Name="setgamecontextpreset34" PositionY="1040" PositionX="1050">
+					<Constant Name="Preset" Value="crime_global_battleInProgress" />
+					<Edge From="streamovani_pro_bitvu.profily_jsou_nastreamovane" To="IsActive" />
+				</SetGameContextPreset>
 				<streamovani_pro_bitevni_cast Name="streamovani_pro_bitvu" PositionY="280" PositionX="560" Namespace="zoufala_obrana_za_bohutu">
 					<Edge From="bitevniCast.afterplay__zaverecna_cutscena" To="odstreamovat">
 						<Vertex>vertex1</Vertex>
@@ -142,7 +138,12 @@
 						<Vertex>vertex5</Vertex>
 						<Vertex>vertex6</Vertex>
 					</Edge>
-					<Edge From="ifnot6.True" To="start_cutscene" />
+					<Edge From="OnWake" To="start_cutscene" />
+					<Edge From="streamovani_pro_bitvu.profily_jsou_nastreamovane" To="profily_jsou_nastreamovane">
+						<Vertex>vertex39</Vertex>
+						<Vertex>70BgDtwQ</Vertex>
+						<Vertex>Y1Ay5EWS</Vertex>
+					</Edge>
 				</uvodni_cutscena>
 			</Nodes>
 			<EdgeVertices>
@@ -169,11 +170,16 @@
 				<EdgeVertex Name="vertex36" PositionY="360" PositionX="1210" />
 				<EdgeVertex Name="vertex39" PositionY="590" PositionX="840" />
 				<EdgeVertex Name="vertex4" PositionY="580" PositionX="-20" />
-				<EdgeVertex Name="vertex40" PositionY="590" PositionX="-60" />
 				<EdgeVertex Name="vertex5" PositionY="330" PositionX="440" />
 				<EdgeVertex Name="vertex6" PositionY="330" PositionX="230" />
 				<EdgeVertex Name="vertex9" PositionY="-340" PositionX="20" />
+				<EdgeVertex Name="Y1Ay5EWS" PositionY="589" PositionX="282" />
 			</EdgeVertices>
+			<Notes>
+				<Note Name="note99" PositionY="1000" PositionX="1040">
+					<Text StringName="b_note99_yeaC" Text="KCD2-511398 - Na začátku hry se musí zapnout dřív." />
+				</Note>
+			</Notes>
 			<Text StringName="b_vcrq" Text="Bitevní část" />
 		</Module>
 	</Skald>

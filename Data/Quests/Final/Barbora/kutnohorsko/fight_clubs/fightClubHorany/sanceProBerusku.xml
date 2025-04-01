@@ -22,7 +22,7 @@
 					<DesignName StringName="sanceprob_quest_konci_tre_tt7O" Text="Quest končí tréninkem" />
 				</Port>
 				<Port Name="quest_progress_1" Direction="In" Type="wh::questmodule::QuestProgress">
-					<DesignName Text="Quest progress - Fight club Hořany" />
+					<DesignName StringName="sanceprob_quest_progress_1_BLjp" Text="Quest progress - Fight club Hořany" />
 				</Port>
 			</Ports>
 			<Definitions>
@@ -90,6 +90,16 @@
 				<MakeArray Name="makearray22" PositionY="-690" PositionX="-1590" TypeT="Strings">
 					<Constant Name="A" Value="goto fistfightsHorany_arenaFighterSpot" />
 				</MakeArray>
+				<marklivingsoul Name="marklivingsoul" PositionY="-500" PositionX="1160" Namespace="utils.tipsters">
+					<Asset Name="soul" Alias="beruska" />
+					<Constant Name="markertype" Value="QuestGiver" />
+					<Edge From="or_beforeQuestGiven.bool" To="tracktipsters">
+						<Vertex>7yGvK22e</Vertex>
+					</Edge>
+					<Edge From="or_beforeQuestGiven.bool" To="markercanbeshown">
+						<Vertex>7yGvK22e</Vertex>
+					</Edge>
+				</marklivingsoul>
 				<HasteTrigger Name="moveBeruskaAndPlayerToArena" PositionY="-860" PositionX="-1170">
 					<Constant Name="IsHidden" Value="true" />
 				</HasteTrigger>
@@ -135,6 +145,8 @@
 					<Edge From="hibernation.quest_konci" To="quest_konci" />
 					<Edge From="hibernation.bojovnik_je_obleceny_do_fighting_presetu" To="bojovnik_je_obleceny_do_fighting_presetu" />
 					<Edge From="hibernation.quest_je_aktivni" To="quest_je_aktivni" />
+					<Edge From="hibernation.trenink_cutscene_beforeplay" To="trenink_cutscene_beforeplay" />
+					<Edge From="hibernation.quest_konci_treninkem" To="quest_konci_treninkem" />
 				</Output>
 				<PlayerAction_TeleportWithItems Name="PlayerAction_TeleportWithItems" PositionY="-960" PositionX="-730" Namespace="utils.player">
 					<Asset Name="destination" Alias="tumaCheeringSpot" />
@@ -159,11 +171,6 @@
 						<Vertex>JatWCPk5</Vertex>
 					</Edge>
 				</Function>
-				<ShowMapMarker Name="showmapmarker15" PositionY="-530" PositionX="910">
-					<Asset Name="MarkerObject" Alias="beruska" />
-					<Constant Name="MarkerType" Value="QuestGiver" />
-					<Edge From="or_beforeQuestGiven.bool" To="IsActive" />
-				</ShowMapMarker>
 				<skillteacher_beruska Name="skillteacher_beruska" PositionY="410" PositionX="1660">
 					<Edge From="compare17.bool" To="enabled" />
 				</skillteacher_beruska>
@@ -211,6 +218,7 @@
 				<EdgeVertex Name="28j3oEm7" PositionY="-230" PositionX="-1190" />
 				<EdgeVertex Name="29AQyo6T" PositionY="-230" PositionX="-950" />
 				<EdgeVertex Name="3SlW0sbm" PositionY="140" PositionX="820" />
+				<EdgeVertex Name="7yGvK22e" PositionY="-440" PositionX="1000" />
 				<EdgeVertex Name="9hF5zQms" PositionY="-230" PositionX="-710" />
 				<EdgeVertex Name="aUUUc0kE" PositionY="-110" PositionX="-890" />
 				<EdgeVertex Name="Bg6470YF" PositionY="-440" PositionX="-620" />

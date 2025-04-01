@@ -18,6 +18,9 @@
 				<Port Name="fail_prohledavani" Direction="In" Type="trigger">
 					<DesignName StringName="pruzkum_m_fail_prohledava_VJZf" Text="fail prohledávání" />
 				</Port>
+				<Port Name="obj_neaktivni" Direction="Out" Type="bool">
+					<DesignName StringName="pruzkum_m_obj_neaktivni_MtP1" Text="obj neaktivní" />
+				</Port>
 			</Ports>
 			<Definitions>
 				<Definition File="pruzkum_mista_cinu/pruzkum_mista_cinu_dialog.xml" />
@@ -42,7 +45,7 @@
 				<FocusCamWithinArea Name="FocusCamWithinArea" PositionY="50" PositionX="60" Namespace="utils.general">
 					<Asset Name="target" Alias="inspectCrimeScene" />
 					<Asset Name="area" Alias="alenkaCrimeScene" />
-					<Constant Name="actionprompt" Value="pruzkum_m_prohlednout_kal_iBfR" />
+					<Constant Name="actionprompt" Value="pruzkum_m_kaluz_amIy" />
 					<Constant Name="focuscam_horizontallimits" Value="0.5,0.5" />
 					<Constant Name="focuscam_verticallimits" Value="0.5,0.5" />
 					<Constant Name="focuscam_dampingfactor" Value="12" />
@@ -74,11 +77,18 @@
 				<jdi_na_misto_cinu Name="objectiveVisual6" PositionY="-490" PositionX="-210" RequiredForOutput="kutnohorsko">
 					<Edge From="state9.State" To="Progress" />
 				</jdi_na_misto_cinu>
+				<Function Name="or13" PositionY="-230" PositionX="570" MethodName="math::boolean::Or" DeclaringType="math::boolean">
+					<Edge From="state9.Aborted" To="D" />
+					<Edge From="state9.Failed" To="C" />
+					<Edge From="state9.Completed" To="B" />
+					<Edge From="state9.None" To="A" />
+				</Function>
 				<Output Name="Output">
 					<Edge From="state9.Completed" To="hrac_prozkoumal_misto_cinu">
 						<Vertex>vertex6</Vertex>
 						<Vertex>vertex12</Vertex>
 					</Edge>
+					<Edge From="or13.bool" To="obj_neaktivni" />
 				</Output>
 				<pruzkum_mista_cinu_dialog Name="pruzkum_mista_cinu_dialog" PositionY="-790" PositionX="660">
 					<Asset Name="DialogueHolder" Alias="AlenkaSiteDH" />
@@ -133,6 +143,9 @@
 			<Elements>
 				<ActionPromptElement>
 					<Text StringName="pruzkum_m_prohlednout_kal_iBfR" Text="Prohlédnout kaluž krve" />
+				</ActionPromptElement>
+				<ActionPromptElement>
+					<Text StringName="pruzkum_m_kaluz_amIy" Text="Kaluž" />
 				</ActionPromptElement>
 			</Elements>
 		</Gameplay>

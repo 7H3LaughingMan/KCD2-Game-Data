@@ -12,8 +12,11 @@
 				<Port Name="predcasny_konec_sledovani_odchazeni" Direction="In" Type="trigger">
 					<DesignName StringName="odchazeni_predcasny_konec_Hd59" Text="Předčasný konec sledování odcházení" />
 				</Port>
-				<Port Name="jindra_odesel_behem_vecirku" Direction="Out" Type="trigger">
-					<DesignName StringName="odchazeni_jindra_odesel_b_02jT" Text="Jindra odešel během večírku" />
+				<Port Name="jindra_odchazi_behem_vecirku" Direction="Out" Type="trigger">
+					<DesignName StringName="odchazeni_jindra_odesel_b_02jT" Text="Jindra odchází během večírku" />
+				</Port>
+				<Port Name="jindra_odesel_behem_vecirku" Direction="Out" Type="bool">
+					<DesignName StringName="odchazeni_jindra_odesel_b_pBiW" Text="Jindra odešel během večírku" />
 				</Port>
 			</Ports>
 			<Definitions>
@@ -25,6 +28,7 @@
 				<henry_uplne_odesel_behem_kalby Name="henry_uplne_odesel_behem_kalby" PositionY="70" PositionX="-40" />
 				<IfFunction Name="ifNotLeft" PositionY="100" PositionX="-1430" MethodName="math::boolean::Not" DeclaringType="math::boolean">
 					<Edge From="warningAndLeaveAreaPhase.Left" To="Value">
+						<Vertex>10NIhv4r</Vertex>
 						<Vertex>vertex10</Vertex>
 						<Vertex>vertex9</Vertex>
 					</Edge>
@@ -41,8 +45,11 @@
 					<Edge From="leave_areatrigger.OnLeave" To="Exec" />
 				</Function>
 				<Output Name="Output">
-					<Edge From="warningAndLeaveAreaPhase.OnLeft" To="jindra_odesel_behem_vecirku">
+					<Edge From="warningAndLeaveAreaPhase.OnLeft" To="jindra_odchazi_behem_vecirku">
 						<Vertex>vertex7</Vertex>
+					</Edge>
+					<Edge From="warningAndLeaveAreaPhase.Left" To="jindra_odesel_behem_vecirku">
+						<Vertex>10NIhv4r</Vertex>
 					</Edge>
 				</Output>
 				<AreaTrigger Name="warning_areatrigger" PositionY="-280" PositionX="-590">
@@ -75,6 +82,7 @@
 				</State>
 			</Nodes>
 			<EdgeVertices>
+				<EdgeVertex Name="10NIhv4r" PositionY="190" PositionX="-680" />
 				<EdgeVertex Name="vertex10" PositionY="310" PositionX="-750" />
 				<EdgeVertex Name="vertex11" PositionY="50" PositionX="-1190" />
 				<EdgeVertex Name="vertex3" PositionY="-420" PositionX="-980" />

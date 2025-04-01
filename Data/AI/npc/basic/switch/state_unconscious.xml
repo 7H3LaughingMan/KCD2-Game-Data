@@ -56,7 +56,6 @@
 													<IfElseCondition failOnCondition="false" condition="$attackerKnown &amp; ~$preunconsciousnessLastHit.resolved" saveVersion="2">
 														<Then canSkip="1">
 															<Sequence>
-																<RemoveLink From="$__player" To="$this.id" Tag="&apos;crime_preUnconsciousnessLastHit&apos;" LinkOpHandleMode="Error" />
 																<CreateCombatInformation Victim="$this.id" AttackKind="$preunconsciousnessLastHit.attackKind" DirectHit="true" AddConfiscation="true" Information="$information" />
 																<LockDynamicInformationValues Information="$information">
 																	<SetDynamicInformationValue Information="$information" Tag="&apos;noninvestigable&apos;" Variable="" Type="&apos;_bool&apos;" Value="true" />
@@ -91,14 +90,15 @@
 											</AtomicDecorator>
 										</Else>
 									</EntityContextCheck>
+									<RemoveLink From="$__player" To="$this.id" Tag="&apos;crime_preUnconsciousnessLastHit&apos;" LinkOpHandleMode="Success" />
 								</Sequence>
-								<EntityContext context="speech_greyOutE" target="">
+								<EntityContextPreset preset="crime_greyOutEAndDisableChat" target="$this.id">
 									<Timeout duration="&apos;20s&apos;" timeType="GameTime" doFail="false" variation="">
 										<ActorStateBarrier Who="$this.id" ToState="idle" NegateTo="false" RunLogic="KeepRunning">
 											<Success />
 										</ActorStateBarrier>
 									</Timeout>
-								</EntityContext>
+								</EntityContextPreset>
 							</Parallel>
 						</DeadUnconsciousGate>
 					</Sequence>
@@ -203,9 +203,6 @@
 															<Then>
 																<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
 																	<OutputBreakpoints />
-																	<RemoveLink hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																		<OutputBreakpoints />
-																	</RemoveLink>
 																	<CreateCombatInformation hasInputBreakpoint="0" comment="" breakpointFlags="0">
 																		<OutputBreakpoints />
 																	</CreateCombatInformation>
@@ -268,8 +265,11 @@
 												</AtomicDecorator>
 											</Else>
 										</EntityContextCheck>
+										<RemoveLink hasInputBreakpoint="0" comment="" breakpointFlags="0">
+											<OutputBreakpoints />
+										</RemoveLink>
 									</Sequence>
-									<EntityContext hasInputBreakpoint="0" comment="" breakpointFlags="0">
+									<EntityContextPreset hasInputBreakpoint="0" comment="" breakpointFlags="0">
 										<OutputBreakpoints />
 										<Timeout hasInputBreakpoint="0" comment="" breakpointFlags="0">
 											<OutputBreakpoints />
@@ -280,7 +280,7 @@
 												</Success>
 											</ActorStateBarrier>
 										</Timeout>
-									</EntityContext>
+									</EntityContextPreset>
 								</Parallel>
 							</DeadUnconsciousGate>
 						</Sequence>

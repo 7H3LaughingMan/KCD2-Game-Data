@@ -4,8 +4,8 @@
 WaterTubeActionTrigger =
 {
     Properties = {
-        fMinDirtBloodBody = 0.2,
-        fMinDirtBloodClothing = 0.7,
+        fMinDirtBloodBody = 0.6,
+        fMinDirtBloodClothing = 0.6,
 		guidSoap = "",
 		Click = {
 			CannotWashReason = "",
@@ -31,14 +31,8 @@ end
 -- =============================================================================
 function WaterTubeActionTrigger:CanWash(user)
     local fragrance = player.soul:GetDerivedStat('frg');
-	local hasPerk = player.soul:HasPerk("9bf2f471-79e7-43d1-97a4-8bf238c5ddfd", false);
-	
-	local cleanBodyCondition = self.Properties.fMinDirtBloodBody;
-	if hasPerk then
-		cleanBodyCondition = 0.0;
-	end
 
-    if fragrance > 0.2 or user.actor:IsMoreDirty(self.Properties.fMinDirtBloodClothing) or user.actor:IsBodyMoreDirty(cleanBodyCondition) then
+    if fragrance > 0.2 or user.actor:IsMoreDirty(self.Properties.fMinDirtBloodClothing) or user.actor:IsBodyMoreDirty(self.Properties.fMinDirtBloodBody) then
         return true, nil;
     end
 

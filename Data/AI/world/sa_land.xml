@@ -953,9 +953,23 @@
 							</AnyDecorator>
 						</Then>
 					</EntityContextCheck>
+					<EntityContextCheck context="teleport_crime_keepState" target="" saveVersion="2">
+						<Then canSkip="1">
+							<AnyDecorator preset="crime_keepState" enabled="true">
+								<TeleportAction Position="$destination" EndInterruptOnActionStart="true" />
+							</AnyDecorator>
+						</Then>
+					</EntityContextCheck>
 					<EntityContextCheck context="teleport_keepClothes" target="" saveVersion="2">
 						<Then canSkip="1">
 							<AnyDecorator preset="teleport_keepClothes" enabled="true">
+								<TeleportAction Position="$destination" EndInterruptOnActionStart="true" />
+							</AnyDecorator>
+						</Then>
+					</EntityContextCheck>
+					<EntityContextCheck context="teleport_keepShop" target="" saveVersion="2">
+						<Then canSkip="1">
+							<AnyDecorator preset="teleport_keepShop" enabled="true">
 								<TeleportAction Position="$destination" EndInterruptOnActionStart="true" />
 							</AnyDecorator>
 						</Then>
@@ -1025,6 +1039,28 @@
 								</AnyDecorator>
 							</Then>
 						</EntityContextCheck>
+						<EntityContextCheck hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
+							<OutputBreakpoints />
+							<Then>
+								<AnyDecorator hasInputBreakpoint="0" comment="" breakpointFlags="0">
+									<OutputBreakpoints />
+									<TeleportAction hasInputBreakpoint="0" comment="" breakpointFlags="0">
+										<OutputBreakpoints />
+									</TeleportAction>
+								</AnyDecorator>
+							</Then>
+						</EntityContextCheck>
+						<EntityContextCheck hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
+							<OutputBreakpoints />
+							<Then>
+								<AnyDecorator hasInputBreakpoint="0" comment="" breakpointFlags="0">
+									<OutputBreakpoints />
+									<TeleportAction hasInputBreakpoint="0" comment="" breakpointFlags="0">
+										<OutputBreakpoints />
+									</TeleportAction>
+								</AnyDecorator>
+							</Then>
+						</EntityContextCheck>
 						<DefaultBranch>
 							<TeleportAction hasInputBreakpoint="0" comment="" breakpointFlags="0">
 								<OutputBreakpoints />
@@ -1064,7 +1100,16 @@
 													<DrawAction WeaponSet="Oversized" fullBody="false" tags="" useSelectedWeaponSet="false" />
 												</Then>
 												<Else canSkip="1">
-													<DrawAction WeaponSet="Primary" fullBody="false" tags="" useSelectedWeaponSet="false" />
+													<EntityContextCheck context="combat_guardModeForceEnable" target="" saveVersion="2">
+														<Then canSkip="1">
+															<MeleeGuardAutomationDecorator GuardMode="forceEnable" active="true">
+																<DrawAction WeaponSet="Primary" fullBody="false" tags="" useSelectedWeaponSet="false" />
+															</MeleeGuardAutomationDecorator>
+														</Then>
+														<Else canSkip="1">
+															<DrawAction WeaponSet="Primary" fullBody="false" tags="" useSelectedWeaponSet="false" />
+														</Else>
+													</EntityContextCheck>
 												</Else>
 											</EntityContextCheck>
 										</Else>
@@ -1077,7 +1122,7 @@
 						<Sequence>
 							<GetScheduledPriority Priority="$priority" />
 							<Expression expressions="$priority = $priority + 1" />
-							<Function_callInterrupt_attack alreadyCriminal="false" assaultData="" defenceMode="false" escalatedFromFailedSurrender="false" freshlyAttributedCrime="false" ignorePriority="true" information="" initiator="$enum:switch_interruptInitiator.concept" previousReaction="$enum:crime_reactionKind.unknown" priority="$priority" questBehavior="true" relationOverride="true" stimulusKind="$enum:crime_stimulusKind.enemy" target="$target" nodeLabel="33986506" />
+							<Function_callInterrupt_attack assaultData="" criminalFreshness="$enum:crime_criminalFreshness.unknown" defenceMode="false" escalatedFromFailedSurrender="false" freshlyAttributedCrime="false" ignorePriority="true" information="" initiator="$enum:switch_interruptInitiator.concept" previousReaction="$enum:crime_reactionKind.unknown" priority="$priority" questBehavior="true" relationOverride="true" stimulusKind="$enum:crime_stimulusKind.enemy" target="$target" nodeLabel="33986506" />
 						</Sequence>
 					</AtomicDecorator>
 				</Sequence>
@@ -1122,9 +1167,22 @@
 														</DrawAction>
 													</Then>
 													<Else>
-														<DrawAction hasInputBreakpoint="0" comment="" breakpointFlags="0">
+														<EntityContextCheck hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
 															<OutputBreakpoints />
-														</DrawAction>
+															<Then>
+																<MeleeGuardAutomationDecorator hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																	<OutputBreakpoints />
+																	<DrawAction hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																		<OutputBreakpoints />
+																	</DrawAction>
+																</MeleeGuardAutomationDecorator>
+															</Then>
+															<Else>
+																<DrawAction hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																	<OutputBreakpoints />
+																</DrawAction>
+															</Else>
+														</EntityContextCheck>
 													</Else>
 												</EntityContextCheck>
 											</Else>
@@ -1192,11 +1250,16 @@
 						<Then canSkip="1">
 							<DrawAction WeaponSet="Primary" fullBody="false" tags="" useSelectedWeaponSet="false" />
 						</Then>
-					</EntityContextCheck>
-					<EntityContextCheck context="combat_triggerSALSearchInDuelBehaviourUnarmed" target="" saveVersion="2">
-						<Then canSkip="1">
-							<WaitAction />
-						</Then>
+						<Else canSkip="1">
+							<EntityContextCheck context="combat_triggerSALSearchInDuelBehaviourUnarmed" target="" saveVersion="2">
+								<Then canSkip="1">
+									<WaitAction />
+								</Then>
+								<Else canSkip="1">
+									<EntityContextCheck context="combat_triggerSALSearchInDuelBehaviour" target="" saveVersion="2" />
+								</Else>
+							</EntityContextCheck>
+						</Else>
 					</EntityContextCheck>
 					<EntityContextCheck context="crime_isCombatableAnimal" target="" saveVersion="2">
 						<Then canSkip="1">
@@ -1318,14 +1381,21 @@
 									<OutputBreakpoints />
 								</DrawAction>
 							</Then>
-						</EntityContextCheck>
-						<EntityContextCheck hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
-							<OutputBreakpoints />
-							<Then>
-								<WaitAction hasInputBreakpoint="0" comment="" breakpointFlags="0">
+							<Else>
+								<EntityContextCheck hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
 									<OutputBreakpoints />
-								</WaitAction>
-							</Then>
+									<Then>
+										<WaitAction hasInputBreakpoint="0" comment="" breakpointFlags="0">
+											<OutputBreakpoints />
+										</WaitAction>
+									</Then>
+									<Else>
+										<EntityContextCheck hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
+											<OutputBreakpoints />
+										</EntityContextCheck>
+									</Else>
+								</EntityContextCheck>
+							</Else>
 						</EntityContextCheck>
 						<EntityContextCheck hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
 							<OutputBreakpoints />
@@ -1840,10 +1910,31 @@
 		</EditorData>
 	</BehaviorTree>
 	<BehaviorTree name="interupt_turnToPlayerInIdleStance" is_function="0">
-		<Variables />
+		<Variables>
+			<Variable name="anyDecoratorEnabled" type="_bool" values="true" isPersistent="0" form="single" />
+			<Variable name="anyDecoratorPreset_string" type="_string" values="" isPersistent="0" form="single" />
+		</Variables>
+		<Parameters>
+			<Variable name="anyDecoratorPreset" type="enum:turnToPlayerInIdleStance_anyDecoratorPreset" values="" isPersistent="0" form="single" requirementType="In" />
+		</Parameters>
 		<Root OneTimeOnly="false" FailState="Recoverable" saveVersion="2">
 			<Behavior canSkip="1">
-				<ExactMove directionType="FromVariable" directionSpecification="$__player" animationTriggerDist="0.150000" precise="false" changeNPCState="true" fastForwardIncludesMove="true" destinationSpecification="$this.id" destinationSpecification2="" destinationSpecification3="" speed="Walk" additionalParams="" pathFindingParams="" staminaPolicy="" pathInfo="" AnimationToPlay="" AnimationContext="" />
+				<Sequence>
+					<Switch>
+						<IfCondition failOnCondition="false" condition="$anyDecoratorPreset == $enum:turnToPlayerInIdleStance_anyDecoratorPreset.bothHands_changeEquipment">
+							<Expression expressions="$anyDecoratorPreset_string = &apos;bothHands_changeEquipment&apos;" />
+						</IfCondition>
+						<IfCondition failOnCondition="false" condition="$anyDecoratorPreset == $enum:turnToPlayerInIdleStance_anyDecoratorPreset.changeEquipment">
+							<Expression expressions="$anyDecoratorPreset_string = &apos;changeEquipment&apos;" />
+						</IfCondition>
+						<DefaultBranch>
+							<Expression expressions="$anyDecoratorEnabled = false" />
+						</DefaultBranch>
+					</Switch>
+					<AnyDecorator preset="$anyDecoratorPreset_string" enabled="$anyDecoratorEnabled">
+						<ExactMove directionType="FromVariable" directionSpecification="$__player" animationTriggerDist="0.150000" precise="false" changeNPCState="true" fastForwardIncludesMove="true" destinationSpecification="$this.id" destinationSpecification2="" destinationSpecification3="" speed="Walk" additionalParams="" pathFindingParams="" staminaPolicy="" pathInfo="" />
+					</AnyDecorator>
+				</Sequence>
 			</Behavior>
 		</Root>
 		<ForestContainer>
@@ -1852,19 +1943,49 @@
 				<Turn target="$__player" align="false" />
 			</Sequence>
 		</ForestContainer>
-		<EditorData EventSet="">
-			<Variables />
+		<EditorData Signature="turnToPlayerInIdleStance" EventSet="">
+			<Variables>
+				<Variable name="anyDecoratorEnabled" comment="" />
+				<Variable name="anyDecoratorPreset_string" comment="" />
+				<Variable name="anyDecoratorPreset" comment="" />
+			</Variables>
 			<ForwardDeclarations />
 			<Root hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
 				<OutputBreakpoints />
 				<Behavior>
-					<ExactMove hasInputBreakpoint="0" comment="" breakpointFlags="0">
+					<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
 						<OutputBreakpoints />
-					</ExactMove>
+						<Switch hasInputBreakpoint="0" comment="" breakpointFlags="0">
+							<OutputBreakpoints />
+							<IfCondition hasInputBreakpoint="0" comment="" breakpointFlags="0">
+								<OutputBreakpoints />
+								<Expression hasInputBreakpoint="0" comment="" breakpointFlags="0">
+									<OutputBreakpoints />
+								</Expression>
+							</IfCondition>
+							<IfCondition hasInputBreakpoint="0" comment="" breakpointFlags="0">
+								<OutputBreakpoints />
+								<Expression hasInputBreakpoint="0" comment="" breakpointFlags="0">
+									<OutputBreakpoints />
+								</Expression>
+							</IfCondition>
+							<DefaultBranch>
+								<Expression hasInputBreakpoint="0" comment="" breakpointFlags="0">
+									<OutputBreakpoints />
+								</Expression>
+							</DefaultBranch>
+						</Switch>
+						<AnyDecorator hasInputBreakpoint="0" comment="" breakpointFlags="0">
+							<OutputBreakpoints />
+							<ExactMove hasInputBreakpoint="0" comment="" breakpointFlags="0">
+								<OutputBreakpoints />
+							</ExactMove>
+						</AnyDecorator>
+					</Sequence>
 				</Behavior>
 			</Root>
 			<Forest>
-				<Sequence editorPosX="810" editorPosY="-100" hasInputBreakpoint="0" comment="" breakpointFlags="0">
+				<Sequence editorPosX="1380" editorPosY="-580" hasInputBreakpoint="0" comment="" breakpointFlags="0">
 					<OutputBreakpoints />
 					<WaitAction hasInputBreakpoint="0" comment="" breakpointFlags="0">
 						<OutputBreakpoints />

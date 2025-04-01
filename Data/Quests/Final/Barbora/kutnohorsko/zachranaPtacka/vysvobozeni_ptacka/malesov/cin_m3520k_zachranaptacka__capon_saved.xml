@@ -15,33 +15,41 @@
 				<Port Name="afterplay__cas_posunut" Direction="Out" Type="trigger">
 					<DesignName StringName="cin_m3520_afterplay__cas__mZd4" Text="AfterPlay - Čas posunut" />
 				</Port>
+				<Port Name="poplach_je_vyhlasen" Direction="In" Type="bool">
+					<DesignName StringName="cin_m3520_poplach_je_vyhl_aIro" Text="Poplach je vyhlášen" />
+				</Port>
 			</Ports>
 			<Definitions>
 				<Definition File="cin_m3520k_zachranaptacka__capon_saved/odebrani_zbrani.xml" />
 			</Definitions>
 			<Nodes>
-				<Function Name="advanceworldtime20" PositionY="-70" PositionX="850" MethodName="wh::rpgmodule::AdvanceWorldTime" DeclaringType="wh::rpgmodule">
+				<Function Name="addbuff19" PositionY="1096" PositionX="728" MethodName="wh::rpgmodule::AddBuff" DeclaringType="wh::rpgmodule">
+					<Asset Name="Souls" Alias="ptacek" />
+					<Constant Name="Buff" Value="97828156-42a0-40e2-b772-7c328d2ead98" />
+					<Edge From="cutscenehandler3.AfterPlay" To="Exec" />
+				</Function>
+				<Function Name="advanceworldtime20" PositionY="-70" PositionX="680" MethodName="wh::rpgmodule::AdvanceWorldTime" DeclaringType="wh::rpgmodule">
 					<Edge From="cutscenehandler3.BeforePlay" To="Exec" />
 					<Edge From="cas.pred_cutscenou_capon_saved" To="TimeOfDay" />
 				</Function>
-				<Function Name="advanceworldtime5" PositionY="110" PositionX="890" MethodName="wh::rpgmodule::AdvanceWorldTime" DeclaringType="wh::rpgmodule">
+				<Function Name="advanceworldtime5" PositionY="300" PositionX="720" MethodName="wh::rpgmodule::AdvanceWorldTime" DeclaringType="wh::rpgmodule">
 					<Edge From="cutscenehandler3.AfterPlay" To="Exec" />
 					<Edge From="cas.po_cutscene_capon_saved" To="TimeOfDay" />
 				</Function>
-				<cas Name="cas" PositionY="380" PositionX="510" Namespace="zachranaptacka_library" />
-				<Function Name="changeweather21" PositionY="100" PositionX="1450" MethodName="ChangeWeather" DeclaringType="">
+				<cas Name="cas" PositionY="480" PositionX="350" Namespace="zachranaptacka_library" />
+				<Function Name="changeweather21" PositionY="160" PositionX="1300" MethodName="ChangeWeather" DeclaringType="">
 					<Edge From="pocasi_behem_questu.po_cutscene_capon_saved" To="Profile">
 						<Vertex>0Hpet9y1</Vertex>
 					</Edge>
 					<Edge From="changeweather22.OnExec" To="Exec" />
 					<Edge From="doba_po_ktere_se_zastavi_cas.po_nalezeni_ptacka" To="BlendTime" />
 				</Function>
-				<Function Name="changeweather22" PositionY="100" PositionX="1170" MethodName="ChangeWeather" DeclaringType="">
+				<Function Name="changeweather22" PositionY="160" PositionX="1010" MethodName="ChangeWeather" DeclaringType="">
 					<Constant Name="BlendTime" Value="0" />
 					<Edge From="advanceworldtime5.OnExec" To="Exec" />
 					<Edge From="pocasi_behem_questu.po_cutscene_capon_saved" To="Profile" />
 				</Function>
-				<CutsceneHandler Name="cutscenehandler3" PositionY="-40" PositionX="430">
+				<CutsceneHandler Name="cutscenehandler3" PositionY="-40" PositionX="260">
 					<Asset Name="CutsceneHolder" Alias="caponSavedCutscene" />
 					<Constant Name="AutoPlay" Value="false" />
 					<Constant Name="AutoFinish" Value="false" />
@@ -49,57 +57,65 @@
 						<Vertex>vertex8</Vertex>
 						<Vertex>vertex11</Vertex>
 					</Edge>
-					<Edge From="odebrani_zbrani.odebrano" To="PlayCutscene" />
 					<Edge From="changeweather21.OnExec" To="FinishCutscene">
 						<Vertex>vertex6</Vertex>
 						<Vertex>vertex7</Vertex>
 					</Edge>
+					<Edge From="odebrani_zbrani.odebrano" To="PlayCutscene" />
 				</CutsceneHandler>
-				<doba_po_ktere_se_zastavi_cas Name="doba_po_ktere_se_zastavi_cas" PositionY="700" PositionX="1030" Namespace="zachranaptacka_library" />
-				<MakeArray Name="makearray7" PositionY="490" PositionX="-850" TypeT="wh::entitymodule::LayerProfiles">
+				<doba_po_ktere_se_zastavi_cas Name="doba_po_ktere_se_zastavi_cas" PositionY="800" PositionX="870" Namespace="zachranaptacka_library" />
+				<MakeArray Name="makearray7" PositionY="490" PositionX="-1030" TypeT="wh::entitymodule::LayerProfiles">
 					<Asset Name="A" Alias="ptacekProfile" />
 					<Asset Name="B" Alias="brabantProfile" />
 					<Asset Name="C" Alias="ptacekRoomDoorProfile" />
 				</MakeArray>
-				<odebrani_zbrani Name="odebrani_zbrani" PositionY="100" PositionX="70">
+				<odebrani_zbrani Name="odebrani_zbrani" PositionY="90" PositionX="-110">
 					<Edge From="triggersequence8.B" To="odebrat" />
 				</odebrani_zbrani>
 				<Output Name="Output">
 					<Edge From="triggersequence8.A" To="je_nastreamovano">
 						<Vertex>vertex9</Vertex>
 					</Edge>
-					<Edge From="advanceworldtime20.OnExec" To="beforeplay" />
 					<Edge From="cutscenehandler3.AfterPlay" To="afterplay">
 						<Vertex>fH66MDq5</Vertex>
 					</Edge>
 					<Edge From="advanceworldtime5.OnExec" To="afterplay__cas_posunut">
 						<Vertex>KpHIKvDL</Vertex>
 					</Edge>
+					<Edge From="advanceworldtime20.OnExec" To="beforeplay">
+						<Vertex>prL0aobK</Vertex>
+					</Edge>
 				</Output>
-				<pocasi_behem_questu Name="pocasi_behem_questu" PositionY="420" PositionX="880" Namespace="zachranaptacka_library" />
-				<ProfileStateTrigger Name="profilestatetrigger6" PositionY="280" PositionX="-550">
+				<pocasi_behem_questu Name="pocasi_behem_questu" PositionY="520" PositionX="720" Namespace="zachranaptacka_library" />
+				<ProfileStateTrigger Name="profilestatetrigger6" PositionY="270" PositionX="-730">
 					<Edge From="makearray7.Array" To="Profiles" />
 					<Edge From="Awake" To="IsActive" />
 				</ProfileStateTrigger>
-				<TriggerSequence Name="triggersequence8" PositionY="280" PositionX="-290">
+				<TriggerSequence Name="triggersequence8" PositionY="270" PositionX="-470">
 					<Edge From="profilestatetrigger6.OnLoaded" To="Exec" />
 				</TriggerSequence>
 			</Nodes>
 			<EdgeVertices>
-				<EdgeVertex Name="0Hpet9y1" PositionY="560" PositionX="1350" />
-				<EdgeVertex Name="fH66MDq5" PositionY="-210" PositionX="900" />
-				<EdgeVertex Name="KpHIKvDL" PositionY="-180" PositionX="1160" />
-				<EdgeVertex Name="vertex11" PositionY="-160" PositionX="290" />
-				<EdgeVertex Name="vertex6" PositionY="360" PositionX="1640" />
-				<EdgeVertex Name="vertex7" PositionY="360" PositionX="450" />
-				<EdgeVertex Name="vertex8" PositionY="-160" PositionX="-580" />
-				<EdgeVertex Name="vertex9" PositionY="-240" PositionX="120" />
+				<EdgeVertex Name="0Hpet9y1" PositionY="660" PositionX="1190" />
+				<EdgeVertex Name="fH66MDq5" PositionY="100" PositionX="1490" />
+				<EdgeVertex Name="KpHIKvDL" PositionY="390" PositionX="1510" />
+				<EdgeVertex Name="prL0aobK" PositionY="10" PositionX="1470" />
+				<EdgeVertex Name="vertex11" PositionY="-160" PositionX="90" />
+				<EdgeVertex Name="vertex6" PositionY="460" PositionX="1480" />
+				<EdgeVertex Name="vertex7" PositionY="460" PositionX="290" />
+				<EdgeVertex Name="vertex8" PositionY="-170" PositionX="-760" />
+				<EdgeVertex Name="vertex9" PositionY="-250" PositionX="-60" />
 			</EdgeVertices>
 			<Assets>
 				<CutsceneHolderAsset Name="caponSavedCutscene" />
 				<ProfileAsset Name="ptacekProfile" AssetProfiles="tkop_ptacek" />
 				<ProfileAsset Name="brabantProfile" AssetProfiles="krat_baronBrabant" />
 			</Assets>
+			<Notes>
+				<Note Name="note23" PositionY="1066" PositionX="778">
+					<Text StringName="cin_m3520_note23_XbYC" Text="KCD2-453768" />
+				</Note>
+			</Notes>
 			<Text StringName="cin_m3520k_zachranaptacka_obWX" Text="Setkání s Ptáčkem" />
 			<Elements>
 				<SceneActionElement>

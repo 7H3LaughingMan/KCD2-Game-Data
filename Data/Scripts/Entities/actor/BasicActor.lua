@@ -237,6 +237,27 @@ function BasicActor:OnSpawn(bIsReload)
 end
 
 -- =============================================================================
+function BasicActor:AddLootAction(output, user, firstFast)
+	if user.actor:CanLoot(self.id) then
+		local hType
+		local hint
+		if self.soul:IsLegalToLoot() then
+			hType = AHT_RELEASE
+			hint = "@ui_hud_loot"
+		else
+			hType = AHT_HOLD
+			hint = "@ui_hud_rob_body"
+		end
+
+		if AddInteractorAction( output, firstFast, Action():hint(hint):action("use"):hintType(hType):func(BasicAIActions.OnLoot):interaction(inr_loot)) then
+			return true
+		end
+	end
+
+	return false
+end
+
+-- =============================================================================
 -- Dog
 -- =============================================================================
 function BasicActor:GetDogActions(user)

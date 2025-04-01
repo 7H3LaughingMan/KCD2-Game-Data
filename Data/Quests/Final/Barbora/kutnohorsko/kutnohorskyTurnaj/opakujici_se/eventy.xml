@@ -102,6 +102,18 @@
 				<Port Name="after_level_switched" Direction="Out" Type="trigger">
 					<DesignName StringName="eventy_after_level_switch_G3ta" Text="After level switched" />
 				</Port>
+				<Port Name="vyhlaseni_konce_turnaje" Direction="Out" Type="trigger">
+					<DesignName StringName="eventy_vyhlaseni_konce_tu_ZjNq" Text="Vyhlášení konce turnaje" />
+				</Port>
+				<Port Name="v_turnaji_jimram" Direction="Out" Type="bool">
+					<DesignName StringName="eventy_v_turnaji_jimram_I9Ua" Text="V turnaji Jimram" />
+				</Port>
+				<Port Name="v_turnaji_linhart" Direction="Out" Type="bool">
+					<DesignName StringName="eventy_v_turnaji_linhart_aEjU" Text="V turnaji Linhart" />
+				</Port>
+				<Port Name="v_turnaji_arne" Direction="Out" Type="bool">
+					<DesignName StringName="eventy_v_turnaji_arne_ipRE" Text="V turnaji Arne" />
+				</Port>
 			</Ports>
 			<Definitions>
 				<Definition File="eventy/event_lvl_1.xml" />
@@ -188,7 +200,7 @@
 					</Edge>
 					<Edge From="beforeplay_trigger_by_level.level_1" To="zacatecni_cutscena_beforeplay" />
 				</event_lvl_1>
-				<event_lvl_2 Name="event_2" PositionY="470" PositionX="240">
+				<event_lvl_2 Name="event_2" PositionY="620" PositionX="240">
 					<Edge From="despawn" To="Despawn">
 						<Vertex>X5N1t95k</Vertex>
 						<Vertex>vertex10</Vertex>
@@ -243,7 +255,7 @@
 					<Edge From="ifCsAfterplayedLvl1_1.True" To="zacatecni_cutscena_afterplay" />
 					<Edge From="beforeplay_trigger_by_level.level_2" To="zacatecni_cutscena_beforeplay" />
 				</event_lvl_2>
-				<event_lvl_3 Name="event_3" PositionY="1330" PositionX="260">
+				<event_lvl_3 Name="event_3" PositionY="1600" PositionX="260">
 					<Edge From="despawn" To="Despawn">
 						<Vertex>X5N1t95k</Vertex>
 						<Vertex>vertex10</Vertex>
@@ -300,7 +312,7 @@
 					</Edge>
 					<Edge From="beforeplay_trigger_by_level.level_3" To="zacatecni_cutscena_beforeplay" />
 				</event_lvl_3>
-				<event_lvl_4 Name="event_4" PositionY="2170" PositionX="270">
+				<event_lvl_4 Name="event_4" PositionY="2540" PositionX="270">
 					<Edge From="despawn" To="Despawn">
 						<Vertex>X5N1t95k</Vertex>
 						<Vertex>vertex10</Vertex>
@@ -362,7 +374,7 @@
 					</Edge>
 					<Edge From="beforeplay_trigger_by_level.level_4" To="zacatecni_cutscena_beforeplay" />
 				</event_lvl_4>
-				<event_lvl_5 Name="event_5" PositionY="3040" PositionX="280">
+				<event_lvl_5 Name="event_5" PositionY="3520" PositionX="280">
 					<Edge From="despawn" To="Despawn">
 						<Vertex>X5N1t95k</Vertex>
 						<Vertex>vertex10</Vertex>
@@ -426,7 +438,7 @@
 					</Edge>
 					<Edge From="beforeplay_trigger_by_level.level_5" To="zacatecni_cutscena_beforeplay" />
 				</event_lvl_5>
-				<event_lvl_6 Name="event_6" PositionY="3910" PositionX="280">
+				<event_lvl_6 Name="event_6" PositionY="4510" PositionX="290">
 					<Edge From="despawn" To="Despawn">
 						<Vertex>X5N1t95k</Vertex>
 						<Vertex>vertex10</Vertex>
@@ -519,25 +531,25 @@
 						<Vertex>6ykvol85</Vertex>
 					</Edge>
 				</If>
-				<If Name="ifCsAfterplayedLvl3" PositionY="1420" PositionX="-140">
+				<If Name="ifCsAfterplayedLvl3" PositionY="1570" PositionX="-140">
 					<Edge From="ts_llv3.B" To="Exec" />
 					<Edge From="cutscena_prehrana" To="Condition">
 						<Vertex>6ykvol85</Vertex>
 					</Edge>
 				</If>
-				<If Name="ifCsAfterplayedLvl4" PositionY="2420" PositionX="-220">
+				<If Name="ifCsAfterplayedLvl4" PositionY="2570" PositionX="-220">
 					<Edge From="ts_lvl4.B" To="Exec" />
 					<Edge From="cutscena_prehrana" To="Condition">
 						<Vertex>6ykvol85</Vertex>
 					</Edge>
 				</If>
-				<If Name="ifCsAfterplayedLvl5" PositionY="3290" PositionX="-170">
+				<If Name="ifCsAfterplayedLvl5" PositionY="3650" PositionX="-170">
 					<Edge From="ts_lvl5.B" To="Exec" />
 					<Edge From="cutscena_prehrana" To="Condition">
 						<Vertex>6ykvol85</Vertex>
 					</Edge>
 				</If>
-				<If Name="ifCsAfterplayedLvl6" PositionY="4150" PositionX="-130">
+				<If Name="ifCsAfterplayedLvl6" PositionY="4630" PositionX="-120">
 					<Edge From="ts_lvl6.B" To="Exec" />
 					<Edge From="cutscena_prehrana" To="Condition">
 						<Vertex>6ykvol85</Vertex>
@@ -800,6 +812,9 @@
 					</Edge>
 					<Edge From="triggersequence120.A" To="hrac_nedorazil_" />
 					<Edge From="triggersequence120.B" To="after_level_switched" />
+					<Edge From="vTurnajiJimram.bool" To="v_turnaji_jimram" />
+					<Edge From="vTurnajiArne.bool" To="v_turnaji_arne" />
+					<Edge From="vTurnajiLinhart.bool" To="v_turnaji_linhart" />
 				</Output>
 				<State Name="progressCheckingPlayerPresence" PositionY="-650" PositionX="-1850" TypeT="Progress">
 					<Edge From="spawn" To="SetActive" />
@@ -857,7 +872,7 @@
 						<Vertex>VkYIfvrq</Vertex>
 					</Edge>
 				</TriggerSequence>
-				<TriggerSequence Name="ts_llv3" PositionY="1320" PositionX="-710">
+				<TriggerSequence Name="ts_llv3" PositionY="1470" PositionX="-710">
 					<Edge From="state1.OnLevel3" To="Exec" />
 				</TriggerSequence>
 				<TriggerSequence Name="ts_lvl1" PositionY="310" PositionX="-780">
@@ -866,23 +881,47 @@
 				<TriggerSequence Name="ts_lvl2" PositionY="470" PositionX="-770">
 					<Edge From="state1.OnLevel2" To="Exec" />
 				</TriggerSequence>
-				<TriggerSequence Name="ts_lvl4" PositionY="2120" PositionX="-690">
+				<TriggerSequence Name="ts_lvl4" PositionY="2270" PositionX="-690">
 					<Edge From="state1.OnLevel4" To="Exec" />
 				</TriggerSequence>
-				<TriggerSequence Name="ts_lvl5" PositionY="2980" PositionX="-680">
+				<TriggerSequence Name="ts_lvl5" PositionY="3230" PositionX="-680">
 					<Edge From="state1.OnLevel5" To="Exec" />
 				</TriggerSequence>
-				<TriggerSequence Name="ts_lvl6" PositionY="3860" PositionX="-640">
+				<TriggerSequence Name="ts_lvl6" PositionY="4220" PositionX="-640">
 					<Edge From="state1.OnLevel6" To="Exec" />
 				</TriggerSequence>
+				<Function Name="vTurnajiArne" PositionY="1420" PositionX="1040" MethodName="math::boolean::Or" DeclaringType="math::boolean">
+					<Edge From="event_6.v_turnaji_arne" To="F" />
+					<Edge From="event_5.v_turnaji_arne" To="E" />
+					<Edge From="event_4.v_turnaji_arne" To="D" />
+					<Edge From="event_3.v_turnaji_arne" To="C" />
+					<Edge From="event_2.v_turnaji_arne" To="B" />
+					<Edge From="event_1.v_turnaji_arne" To="A" />
+				</Function>
+				<Function Name="vTurnajiJimram" PositionY="810" PositionX="1040" MethodName="math::boolean::Or" DeclaringType="math::boolean">
+					<Edge From="event_1.v_turnaji_jimram" To="A" />
+					<Edge From="event_2.v_turnaji_jimram" To="B" />
+					<Edge From="event_3.v_turnaji_jimram" To="C" />
+					<Edge From="event_4.v_turnaji_jimram" To="D" />
+					<Edge From="event_5.v_turnaji_jimram" To="E" />
+					<Edge From="event_6.v_turnaji_jimram" To="F" />
+				</Function>
+				<Function Name="vTurnajiLinhart" PositionY="1120" PositionX="1040" MethodName="math::boolean::Or" DeclaringType="math::boolean">
+					<Edge From="event_1.v_turnaji_linhart" To="A" />
+					<Edge From="event_2.v_turnaji_linhart" To="B" />
+					<Edge From="event_3.v_turnaji_linhart" To="C" />
+					<Edge From="event_4.v_turnaji_linhart" To="D" />
+					<Edge From="event_5.v_turnaji_linhart" To="E" />
+					<Edge From="event_6.v_turnaji_linhart" To="F" />
+				</Function>
 			</Nodes>
 			<EdgeVertices>
 				<EdgeVertex Name="4cqo8eVu" PositionY="-240" PositionX="-1310" />
 				<EdgeVertex Name="5pDpsKmh" PositionY="-690" PositionX="-2280" />
 				<EdgeVertex Name="6ykvol85" PositionY="-130" PositionX="-520" />
 				<EdgeVertex Name="8A1gtnIQ" PositionY="270" PositionX="-1770" />
-				<EdgeVertex Name="9TKpQUle" PositionY="1710" PositionX="10" />
-				<EdgeVertex Name="BCreb636" PositionY="1540" PositionX="-390" />
+				<EdgeVertex Name="9TKpQUle" PositionY="1860" PositionX="10" />
+				<EdgeVertex Name="BCreb636" PositionY="1690" PositionX="-390" />
 				<EdgeVertex Name="DCsUwyfT" PositionY="410" PositionX="870" />
 				<EdgeVertex Name="E1SkEN6m" PositionY="-340" PositionX="40" />
 				<EdgeVertex Name="ej8rTo1p" PositionY="-680" PositionX="-1670" />
@@ -890,7 +929,7 @@
 				<EdgeVertex Name="H4qTpFnk" PositionY="-670" PositionX="-2280" />
 				<EdgeVertex Name="JPQSbNYJ" PositionY="256" PositionX="-603" />
 				<EdgeVertex Name="KPVkkdTc" PositionY="820" PositionX="-2250" />
-				<EdgeVertex Name="kYFSSbG5" PositionY="2035" PositionX="-303" />
+				<EdgeVertex Name="kYFSSbG5" PositionY="2180" PositionX="-300" />
 				<EdgeVertex Name="ld7YnKtN" PositionY="-250" PositionX="-1840" />
 				<EdgeVertex Name="m3wRLKDd" PositionY="-170" PositionX="-560" />
 				<EdgeVertex Name="p34vt6UU" PositionY="320" PositionX="770" />
@@ -899,8 +938,8 @@
 				<EdgeVertex Name="sGzHgPYJ" PositionY="736" PositionX="-513" />
 				<EdgeVertex Name="sRvDdyVh" PositionY="2022" PositionX="-1410" />
 				<EdgeVertex Name="TgrL7RHP" PositionY="1270" PositionX="-1470" />
-				<EdgeVertex Name="u7L0T7zW" PositionY="2610" PositionX="-250" />
-				<EdgeVertex Name="UVh4IJe1" PositionY="3230" PositionX="40" />
+				<EdgeVertex Name="u7L0T7zW" PositionY="2760" PositionX="-250" />
+				<EdgeVertex Name="UVh4IJe1" PositionY="3480" PositionX="40" />
 				<EdgeVertex Name="v5Flx9VQ" PositionY="171" PositionX="-1795" />
 				<EdgeVertex Name="vePQ5GM2" PositionY="0" PositionX="1060" />
 				<EdgeVertex Name="vertex1" PositionY="170" PositionX="-10" />
@@ -921,8 +960,8 @@
 				<EdgeVertex Name="vertex25" PositionY="-110" PositionX="1060" />
 				<EdgeVertex Name="vertex26" PositionY="-130" PositionX="1060" />
 				<EdgeVertex Name="vertex27" PositionY="-160" PositionX="1060" />
-				<EdgeVertex Name="vertex28" PositionY="2000" PositionX="-300" />
-				<EdgeVertex Name="vertex29" PositionY="3170" PositionX="70" />
+				<EdgeVertex Name="vertex28" PositionY="2150" PositionX="-300" />
+				<EdgeVertex Name="vertex29" PositionY="3420" PositionX="70" />
 				<EdgeVertex Name="vertex3" PositionY="0" PositionX="-10" />
 				<EdgeVertex Name="vertex30" PositionY="1990" PositionX="-1380" />
 				<EdgeVertex Name="vertex4" PositionY="-20" PositionX="-10" />
@@ -930,7 +969,7 @@
 				<EdgeVertex Name="vertex6" PositionY="-50" PositionX="-10" />
 				<EdgeVertex Name="vertex7" PositionY="70" PositionX="-10" />
 				<EdgeVertex Name="vertex8" PositionY="100" PositionX="-10" />
-				<EdgeVertex Name="VkYIfvrq" PositionY="1300" PositionX="560" />
+				<EdgeVertex Name="VkYIfvrq" PositionY="1600" PositionX="540" />
 				<EdgeVertex Name="W0yqbUKq" PositionY="230" PositionX="-590" />
 				<EdgeVertex Name="X5N1t95k" PositionY="85" PositionX="-1964" />
 				<EdgeVertex Name="xa51clK2" PositionY="380" PositionX="850" />

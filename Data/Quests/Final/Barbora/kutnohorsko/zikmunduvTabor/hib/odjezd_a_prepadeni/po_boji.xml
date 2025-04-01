@@ -78,7 +78,7 @@
 					</Edge>
 					<Edge From="compare39.bool" To="B" />
 				</Function>
-				<State Name="BandLocation" PositionY="-830" PositionX="140" TypeT="ZizkabandAfterAmbushStates">
+				<State Name="BandLocation" PositionY="-870" PositionX="130" TypeT="ZizkabandAfterAmbushStates">
 					<Edge From="obj_report_to_zizka.OnStarted" To="SetZevlingAtAmbushSite">
 						<Vertex>vertex13</Vertex>
 					</Edge>
@@ -98,11 +98,11 @@
 				</Function>
 				<CutsceneHandler Name="cutscenehandler1" PositionY="100" PositionX="1140">
 					<Asset Name="CutsceneHolder" Alias="fastTravel_certovka" />
-					<Edge From="zizka_po_boji__prioritni_dialog.odjezd_na_certovku" To="EnqueueCutscene">
-						<Vertex>vertex45</Vertex>
+					<Edge From="zizka__odjezd_na_certovku_vedlejsi.odjezd_na_certovku" To="EnqueueCutscene">
 						<Vertex>vertex28</Vertex>
 					</Edge>
-					<Edge From="zizka__odjezd_na_certovku_vedlejsi.odjezd_na_certovku" To="EnqueueCutscene">
+					<Edge From="triggersequence40.B" To="EnqueueCutscene">
+						<Vertex>vertex45</Vertex>
 						<Vertex>vertex28</Vertex>
 					</Edge>
 				</CutsceneHandler>
@@ -207,10 +207,6 @@
 				</Function>
 				<State Name="obj_report_to_zizka" PositionY="-980" PositionX="-700" RequiredForOutput="kutnohorsko" TypeT="ProgressUpdatable">
 					<Edge From="konec_boje" To="SetStarted" />
-					<Edge From="zizka_po_boji__prioritni_dialog.odjezd_na_certovku" To="Setcompleted">
-						<Vertex>vertex3</Vertex>
-						<Vertex>vertex4</Vertex>
-					</Edge>
 					<Edge From="zizka_po_boji__prioritni_dialog.jindra_odklozil_odjezd" To="Setupdated">
 						<Vertex>vertex11</Vertex>
 						<Vertex>vertex12</Vertex>
@@ -219,6 +215,14 @@
 						<Vertex>vertex26</Vertex>
 						<Vertex>vertex3</Vertex>
 						<Vertex>vertex4</Vertex>
+					</Edge>
+					<Edge From="triggersequence40.A" To="Setcompleted">
+						<Vertex>vertex3</Vertex>
+						<Vertex>vertex4</Vertex>
+					</Edge>
+					<Edge From="triggersequence41.A" To="Setcompleted">
+						<Vertex>pusB1eJz</Vertex>
+						<Vertex>8BVNG5tb</Vertex>
 					</Edge>
 				</State>
 				<report_to_zizka Name="objectiveVisual9" PositionY="-1010" PositionX="-330" RequiredForOutput="kutnohorsko">
@@ -241,7 +245,6 @@
 						<Vertex>vertex33</Vertex>
 						<Vertex>vertex43</Vertex>
 					</Edge>
-					<Edge From="hlasim_prichod_zizkovi_na_certovce.zacina_m44b_utok_na_malesov" To="zacina_m44b_utok_na_malesov" />
 					<Edge From="BandLocation.ZevlingAtAmbushSite" To="cert_zrovna_neni_na_certovce">
 						<Vertex>03kcvj0M</Vertex>
 						<Vertex>eNGFNoF1</Vertex>
@@ -256,6 +259,7 @@
 						<Vertex>vertex53</Vertex>
 						<Vertex>vertex54</Vertex>
 					</Edge>
+					<Edge From="triggersequence41.B" To="zacina_m44b_utok_na_malesov" />
 				</Output>
 				<refusal_po_boji Name="refusal_po_boji" PositionY="-1050" PositionX="670">
 					<Edge From="BandLocation.ZevlingAtAmbushSite" To="zevl_po_bji" />
@@ -269,8 +273,22 @@
 					<Constant Name="LinkTag" Value="zikmunduvTabor_afterAmbushBehavs" />
 					<Edge From="BandLocation.ZevlingAtAmbushSite" To="IsActive" />
 				</SchedulerLinkActivation>
+				<SetEntityContext Name="setentitycontext42" PositionY="-840" PositionX="1650">
+					<Constant Name="Context" Value="crime_legalToLoot" />
+					<Asset Name="Souls" Alias="AmbushEnemies" />
+					<Edge From="BandLocation.ZevlingAtAmbushSite" To="IsActive">
+						<Vertex>Qa9rj6mq</Vertex>
+						<Vertex>w0fBIFf5</Vertex>
+					</Edge>
+				</SetEntityContext>
 				<TriggerSequence Name="triggersequence35" PositionY="-390" PositionX="1440">
 					<Edge From="zizkuv_sprdung__nenareportil_se.sprdnuto" To="Exec" />
+				</TriggerSequence>
+				<TriggerSequence Name="triggersequence40" PositionY="-80" PositionX="560">
+					<Edge From="zizka_po_boji__prioritni_dialog.odjezd_na_certovku" To="Exec" />
+				</TriggerSequence>
+				<TriggerSequence Name="triggersequence41" PositionY="20" PositionX="2710">
+					<Edge From="hlasim_prichod_zizkovi_na_certovce.zacina_m44b_utok_na_malesov" To="Exec" />
 				</TriggerSequence>
 				<zizka__odjezd_na_certovku_vedlejsi Name="zizka__odjezd_na_certovku_vedlejsi" PositionY="60" PositionX="560">
 					<Edge From="zizka_po_boji__prioritni_dialog.jindra_se_rozhodl_neodjet" To="jindra_odklozil_odjezd" />
@@ -306,9 +324,12 @@
 				<EdgeVertex Name="3oujSMKB" PositionY="40" PositionX="-950" />
 				<EdgeVertex Name="3p3e3ywX" PositionY="420" PositionX="1607" />
 				<EdgeVertex Name="7QrTy8zJ" PositionY="420" PositionX="900" />
-				<EdgeVertex Name="eNGFNoF1" PositionY="-470" PositionX="2530" />
+				<EdgeVertex Name="8BVNG5tb" PositionY="-480" PositionX="-660" />
+				<EdgeVertex Name="eNGFNoF1" PositionY="-490" PositionX="2870" />
 				<EdgeVertex Name="KCM3hYBj" PositionY="-1039" PositionX="607" />
+				<EdgeVertex Name="pusB1eJz" PositionY="-510" PositionX="2870" />
 				<EdgeVertex Name="q90d5PnM" PositionY="400" PositionX="450" />
+				<EdgeVertex Name="Qa9rj6mq" PositionY="-754" PositionX="683" />
 				<EdgeVertex Name="QqL2pegh" PositionY="420" PositionX="450" />
 				<EdgeVertex Name="sl7lyXjX" PositionY="-10" PositionX="1840" />
 				<EdgeVertex Name="Tk1lLslG" PositionY="400" PositionX="1610" />
@@ -326,7 +347,7 @@
 				<EdgeVertex Name="vertex20" PositionY="-430" PositionX="-330" />
 				<EdgeVertex Name="vertex26" PositionY="-170" PositionX="1620" />
 				<EdgeVertex Name="vertex28" PositionY="360" PositionX="1020" />
-				<EdgeVertex Name="vertex3" PositionY="-170" PositionX="360" />
+				<EdgeVertex Name="vertex3" PositionY="-170" PositionX="710" />
 				<EdgeVertex Name="vertex33" PositionY="-70" PositionX="1670" />
 				<EdgeVertex Name="vertex34" PositionY="-50" PositionX="1670" />
 				<EdgeVertex Name="vertex35" PositionY="-150" PositionX="1450" />
@@ -340,7 +361,7 @@
 				<EdgeVertex Name="vertex42" PositionY="-90" PositionX="1090" />
 				<EdgeVertex Name="vertex43" PositionY="-70" PositionX="2520" />
 				<EdgeVertex Name="vertex44" PositionY="-50" PositionX="2520" />
-				<EdgeVertex Name="vertex45" PositionY="360" PositionX="450" />
+				<EdgeVertex Name="vertex45" PositionY="40" PositionX="940" />
 				<EdgeVertex Name="vertex46" PositionY="60" PositionX="-950" />
 				<EdgeVertex Name="vertex49" PositionY="-430" PositionX="660" />
 				<EdgeVertex Name="vertex5" PositionY="60" PositionX="-120" />
@@ -354,6 +375,7 @@
 				<EdgeVertex Name="vertex8" PositionY="380" PositionX="600" />
 				<EdgeVertex Name="vertex9" PositionY="380" PositionX="70" />
 				<EdgeVertex Name="VT2FrqIA" PositionY="-1047" PositionX="976" />
+				<EdgeVertex Name="w0fBIFf5" PositionY="-784" PositionX="1543" />
 				<EdgeVertex Name="XIEnUxyR" PositionY="420" PositionX="1390" />
 				<EdgeVertex Name="zbeJRJhc" PositionY="40" PositionX="-120" />
 			</EdgeVertices>

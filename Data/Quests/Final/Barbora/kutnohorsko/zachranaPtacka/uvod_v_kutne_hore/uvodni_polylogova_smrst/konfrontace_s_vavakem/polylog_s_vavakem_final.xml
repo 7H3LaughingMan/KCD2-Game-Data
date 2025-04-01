@@ -17,16 +17,45 @@
 				<Definition File="polylog_s_vavakem_final/polylog_s_vavakem_final.xml" />
 			</Definitions>
 			<Nodes>
+				<Function Name="checkentitycontext4" PositionY="490" PositionX="1110" MethodName="wh::xgenaimodule::CheckEntityContext" DeclaringType="wh::xgenaimodule">
+					<Constant Name="Context" Value="deterrenceImmunity" />
+					<Edge From="makearray5.Array" To="Souls" />
+				</Function>
+				<Function Name="closedoor8" PositionY="-10" PositionX="420" MethodName="wh::entitymodule::CloseDoor" DeclaringType="wh::entitymodule">
+					<Asset Name="Door" Alias="ruthardkaDoor_1" />
+					<Edge From="polylog_s_vavakem_final.BeforePlay" To="Exec" />
+				</Function>
 				<Function Name="createdialogparams1" PositionY="290" PositionX="-470" MethodName="wh::dialogmodule::CreateDialogParams" DeclaringType="wh::dialogmodule">
 					<Edge From="makearray2.Array" To="Participants" />
 				</Function>
+				<ForEach Name="foreach3" PositionY="388" PositionX="503" TypeT="wh::rpgmodule::Souls">
+					<Asset Name="Array" Alias="ruthardOpenworldGuards" />
+					<Edge From="polylog_s_vavakem_final.BeforePlay" To="Begin" />
+				</ForEach>
+				<IfFunction Name="ifnot6" PositionY="380" PositionX="1510" MethodName="math::boolean::Not" DeclaringType="math::boolean">
+					<Edge From="foreach3.OnValue" To="Exec" />
+					<Edge From="checkentitycontext4.HasContext" To="Value" />
+				</IfFunction>
 				<MakeArray Name="makearray2" PositionY="390" PositionX="-760" TypeT="wh::rpgmodule::Souls">
 					<Asset Name="A" Alias="martin" />
 					<Asset Name="B" Alias="kunclin" />
 					<Asset Name="C" Alias="oldrich" />
 				</MakeArray>
+				<MakeArray Name="makearray5" PositionY="567" PositionX="859" TypeT="wh::rpgmodule::Souls">
+					<Edge From="foreach3.Value" To="A" />
+				</MakeArray>
+				<NPCs_TeleportIngame Name="NPCs_TeleportIngame" PositionY="400" PositionX="1831" Namespace="utils.general">
+					<Asset Name="destinations" Alias="afterVavakRuthardGuardsLinkSource" />
+					<Edge From="ifnot6.True" To="teleport" />
+					<Edge From="makearray5.Array" To="npcs">
+						<Vertex>oUUIUStM</Vertex>
+						<Vertex>Ff4nMcWC</Vertex>
+					</Edge>
+				</NPCs_TeleportIngame>
 				<Output Name="Output">
-					<Edge From="polylog_s_vavakem_final.dalsi_polylog" To="dalsi_polylog" />
+					<Edge From="polylog_s_vavakem_final.dalsi_polylog" To="dalsi_polylog">
+						<Vertex>PsRPRUBH</Vertex>
+					</Edge>
 				</Output>
 				<polylog_s_vavakem_final Name="polylog_s_vavakem_final" PositionY="10" PositionX="0">
 					<Asset Name="DialogueHolder" Alias="afterVavakConfrontationScene" />
@@ -36,6 +65,11 @@
 					<Edge From="polylog_skoncil_combatem" To="polylog_skoncil_combatem" />
 				</polylog_s_vavakem_final>
 			</Nodes>
+			<EdgeVertices>
+				<EdgeVertex Name="Ff4nMcWC" PositionY="703" PositionX="1730" />
+				<EdgeVertex Name="oUUIUStM" PositionY="708" PositionX="1105" />
+				<EdgeVertex Name="PsRPRUBH" PositionY="280" PositionX="2130" />
+			</EdgeVertices>
 			<Assets>
 				<CameraAsset Name="M35_VavakFinal_customCamera_23" />
 				<CameraAsset Name="M35_VavakFinal_customCamera_22" />
@@ -62,6 +96,11 @@
 				<CameraAsset Name="M35_VavakFinal_customCamera_11" />
 				<CameraAsset Name="M35_VavakFinal_customCamera_24" />
 			</Assets>
+			<Notes>
+				<Note Name="note7" PositionY="350" PositionX="1830">
+					<Text StringName="polylog_s_note7_XN3e" Text="Aby zafungovala deterrent area na NPC, které už jsou uvnitř." />
+				</Note>
+			</Notes>
 		</DialogWrapper>
 	</Skald>
 </Database>

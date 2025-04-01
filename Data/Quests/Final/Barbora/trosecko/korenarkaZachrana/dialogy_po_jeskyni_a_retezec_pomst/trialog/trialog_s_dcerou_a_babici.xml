@@ -9,6 +9,9 @@
 				<Port Name="jindra_se_vratil_za_bozenou" Direction="Out" Type="trigger">
 					<DesignName StringName="trialog_s_jindra_se_vrati_XPwC" Text="Jindra se vratil za Bozenou" />
 				</Port>
+				<Port Name="ft_s_pavlenou__beforeplay" Direction="Out" Type="trigger">
+					<DesignName StringName="trialog_s_ft_s_pavlenou___f33k" Text="FT s Pavlenou - BeforePlay" />
+				</Port>
 				<Port Name="zabij_jakese" Direction="Out" Type="trigger">
 					<DesignName StringName="trialog_s_zabij_jakese_JbTH" Text="Zabij Jakeše!" />
 				</Port>
@@ -73,7 +76,7 @@
 				<Function Name="deathcheck16" PositionY="260" PositionX="-240" MethodName="wh::rpgmodule::DeathCheck" DeclaringType="wh::rpgmodule">
 					<Asset Name="Souls" Alias="jakes" />
 				</Function>
-				<State Name="fastTravelDialog" PositionY="-1130" PositionX="-280" TypeT="bool">
+				<State Name="fastTravelDialog" PositionY="-1260" PositionX="-280" TypeT="bool">
 					<Edge From="cutscenehandler10.BeforePlay" To="SetTrue" />
 				</State>
 				<MakeArray Name="makearray12" PositionY="10" PositionX="-700" TypeT="wh::rpgmodule::Souls">
@@ -92,6 +95,9 @@
 					<Edge From="trialog_s_dcerou_a_babici.jindra_zabil_jakese_pred_zadanim_vrazdy" To="jindra_zabil_jakese_pred_zadanim_vrazdy" />
 					<Edge From="cutscenehandler10.OnFinished" To="pavlena_prisla_domu_ft">
 						<Vertex>w32WTCxk</Vertex>
+					</Edge>
+					<Edge From="cutscenehandler10.AfterPlay" To="ft_s_pavlenou__beforeplay">
+						<Vertex>EgsUwMQJ</Vertex>
 					</Edge>
 				</Output>
 				<AddReward Name="reward14" PositionY="-500" PositionX="400">
@@ -114,6 +120,7 @@
 				</trialog_s_dcerou_a_babici>
 			</Nodes>
 			<EdgeVertices>
+				<EdgeVertex Name="EgsUwMQJ" PositionY="-976" PositionX="400" />
 				<EdgeVertex Name="w32WTCxk" PositionY="-923" PositionX="437" />
 			</EdgeVertices>
 			<Assets>

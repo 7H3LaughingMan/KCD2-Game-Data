@@ -28,6 +28,7 @@
 			</selectors>
 			<operations>
 				<addContext name="minigame_disabledBlacksmithing"/>
+				<addContext name="minigame_disabledAlchemy"/>
 			</operations>
 		</rule>
 
@@ -41,17 +42,6 @@
 			</selectors>
 			<operations>
 				<addContext name="switch_recognizingThreshold"/>
-			</operations>
-		</rule>
-	
-		<rule name="enemies_neverAcceptSurrender">
-			<selectors>
-				<or>
-					<hasFaction name="kutnohorsko_enemies_cumans_relikviarVrchlickoCamp" />
-				</or>
-			</selectors>
-			<operations>
-				<addContext name="combat_neverAcceptSurrender"/>
 			</operations>
 		</rule>
 	
@@ -225,6 +215,16 @@
 			</operations>
 		</rule>	
 
+		<rule name="contexts_friendlyCampers" >
+			<selectors>
+				<hasFactionLabel name="camp" />
+				<isPublicFriend />
+			</selectors>
+			<operations>
+				<addContext name="crime_alarmEmittingSameDistanceAsCrimes" />				
+			</operations>
+		</rule>	
+		
 		<rule name="contexts_publicFriends">
 			<selectors mode="and">
 				<isPublicFriend/>
@@ -259,8 +259,13 @@
 								<hasFaction name="trosecko_outskirts_charcoalburners_campVidlak"/>
 								<hasFaction name="trosecko_outskirts_woodcutters_campPodseminsko"/>
 								<hasFaction name="trosecko_outskirts_woodcutters_campPodseminsko2"/>
+								<hasFaction name="trosecko_outskirts_herdsmen"/>
 								<hasName name="pytlakPtacek_poacher_1"/>
 								<hasName name="tvez_man_23"/>
+								<hasName name="tneb_man_29"/>
+								<hasName name="tvez_man_18"/> <!-- KCD2-474763 -->
+								<hasName name="tzda_man_7"/> <!-- KCD2-474763 -->
+								<hasName name="tapo_kasparBandit_2"/> <!-- KCD2-474763 -->
 							</or>
 						</not>
 					</and>
@@ -363,6 +368,7 @@
 			</selectors>
 			<operations>
 				<addContext name="combat_neverSurrenderOrFlee"/>
+				<addContext name="combat_alwaysJoinSkirmish"/>
 			</operations>
 		</rule>
 
@@ -591,6 +597,16 @@
 				<addContext name="vo_german" />
 			</operations>
 		</rule>			
+		
+		<rule name="contexts_voiceAncient">
+			<selectors>
+				<hasVoice id="148" />
+			</selectors>
+			<operations>
+				<addContext name="vo_sandraOsgerby" />
+			</operations>
+		</rule>
+
 		<rule name="contexts_voiceAncient">
 			<selectors>
 				<isAncient />
@@ -649,7 +665,7 @@
 				<addContext name="switch_static_periodicallyAutoWash" />
 			</operations>
 		</rule>
-
+		
 		<rule name="contexts_bathhouse_nakedReaction">
 			<selectors>
 					<or>
@@ -661,14 +677,6 @@
 				<addContext name="speech_disableNakedPlayerReactionsForNPC" />
 			</operations>
 		</rule>
-		<rule name="not_surrendering_event_cumans">
-			<selectors>
-				<isEventNPC/>
-				<isCuman/>
-			</selectors>
-			<operations>
-				<addContext name="combat_neverMercyAlwaysFlee" />
-			</operations>
-		</rule>	
+
     </rules>
 </storm>

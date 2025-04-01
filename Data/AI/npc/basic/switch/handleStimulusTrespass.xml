@@ -19,9 +19,23 @@
 					<GetSpatialInfo In="$__player" Out="$pos" What="Position" />
 					<IsBandit Npc="$this.id" IsBandit="$isBandit" />
 					<GetHomeFromArea Area="$stimulus.area" Home="$home" />
-					<IfCondition failOnCondition="false" condition="$home ~= $__null">
-						<Function_crime_addLongTermMemoryTrespass home="$home" nodeLabel="35226128" />
-					</IfCondition>
+					<Switch>
+						<EntityContextCheck context="switch_recognitionLevel_I" target="" saveVersion="2">
+							<Then canSkip="1">
+								<Success />
+							</Then>
+						</EntityContextCheck>
+						<EntityContextCheck context="switch_recognitionLevel_II" target="" saveVersion="2">
+							<Then canSkip="1">
+								<Success />
+							</Then>
+						</EntityContextCheck>
+						<DefaultBranch>
+							<IfCondition failOnCondition="false" condition="$home ~= $__null">
+								<Function_crime_addLongTermMemoryTrespass home="$home" nodeLabel="35226128" />
+							</IfCondition>
+						</DefaultBranch>
+					</Switch>
 					<IfCondition failOnCondition="false" condition="~$isBandit &amp; $stimulus.severeness &lt;= $enum:trespassLevel.semipersonal">
 						<Expression expressions="$desiredReactionType = $enum:crime_reactionType.mildWatchTrespass" />
 					</IfCondition>
@@ -30,13 +44,13 @@
 						<Switch>
 							<EntityContextCheck context="switch_recognitionLevel_I" target="" saveVersion="2">
 								<Then canSkip="1">
-									<Function_stealth_recognitionState_I_reaction target="$__player" nodeLabel="19980526" />
+									<Function_stealth_recognitionState_I_reaction recognizingIconDisabled="false" target="$__player" nodeLabel="19980526" />
 								</Then>
 							</EntityContextCheck>
 							<EntityContextCheck context="switch_recognitionLevel_II" target="" saveVersion="2">
 								<Then canSkip="1">
 									<IfCondition failOnCondition="false" condition="$shouldReact">
-										<Function_stealth_recognitionState_II_reaction stimulusKind="$enum:crime_stimulusKind.trespass" target="$__player" nodeLabel="77371788" />
+										<Function_stealth_recognitionState_II_reaction checkingIconDisabled="false" stimulusKind="$enum:crime_stimulusKind.trespass" target="$__player" nodeLabel="77371788" />
 									</IfCondition>
 								</Then>
 							</EntityContextCheck>
@@ -89,12 +103,33 @@
 						<GetHomeFromArea hasInputBreakpoint="0" comment="" breakpointFlags="0">
 							<OutputBreakpoints />
 						</GetHomeFromArea>
-						<IfCondition hasInputBreakpoint="0" comment="" breakpointFlags="0">
+						<Switch hasInputBreakpoint="0" comment="" breakpointFlags="0">
 							<OutputBreakpoints />
-							<Function_crime_addLongTermMemoryTrespass hasInputBreakpoint="0" comment="" breakpointFlags="0">
+							<EntityContextCheck hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
 								<OutputBreakpoints />
-							</Function_crime_addLongTermMemoryTrespass>
-						</IfCondition>
+								<Then>
+									<Success hasInputBreakpoint="0" comment="" breakpointFlags="0">
+										<OutputBreakpoints />
+									</Success>
+								</Then>
+							</EntityContextCheck>
+							<EntityContextCheck hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
+								<OutputBreakpoints />
+								<Then>
+									<Success hasInputBreakpoint="0" comment="" breakpointFlags="0">
+										<OutputBreakpoints />
+									</Success>
+								</Then>
+							</EntityContextCheck>
+							<DefaultBranch>
+								<IfCondition hasInputBreakpoint="0" comment="" breakpointFlags="0">
+									<OutputBreakpoints />
+									<Function_crime_addLongTermMemoryTrespass hasInputBreakpoint="0" comment="" breakpointFlags="0">
+										<OutputBreakpoints />
+									</Function_crime_addLongTermMemoryTrespass>
+								</IfCondition>
+							</DefaultBranch>
+						</Switch>
 						<IfCondition hasInputBreakpoint="0" comment="" breakpointFlags="0">
 							<OutputBreakpoints />
 							<Expression hasInputBreakpoint="0" comment="" breakpointFlags="0">

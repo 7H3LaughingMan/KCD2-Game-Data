@@ -9,9 +9,6 @@
 				<Port Name="state" Direction="In" Type="skirmishCamp2State">
 					<DesignName StringName="skirmish_active_vx6Z" Text="state" />
 				</Port>
-				<Port Name="skirmish_active" Direction="In" Type="bool">
-					<DesignName StringName="skirmish_skirmish_active_XZMu" Text="Skirmish active" />
-				</Port>
 				<Port Name="cervenak_se_vzdava" Direction="In" Type="bool">
 					<DesignName StringName="skirmish_cervenak_se_vzda_iCeZ" Text="červenak se vzdává" />
 				</Port>
@@ -19,17 +16,16 @@
 			<Nodes>
 				<HasteTrigger Name="_fightInCamp_setOpponentsToLowHealth" PositionY="-470" PositionX="470" />
 				<Function Name="and84" PositionY="60" PositionX="1080" MethodName="math::boolean::And" DeclaringType="math::boolean">
-					<Edge From="skirmish_active" To="B">
-						<Vertex>tNqk2sd6</Vertex>
-						<Vertex>DAKmthpP</Vertex>
-						<Vertex>aLUmPmX9</Vertex>
-						<Vertex>N4fC4Xa0</Vertex>
-					</Edge>
 					<Edge From="cervenak_se_vzdava" To="C">
 						<Vertex>jKlVAv7d</Vertex>
 						<Vertex>7gv7AIHx</Vertex>
 					</Edge>
 					<Edge From="or87.bool" To="A" />
+					<Edge From="switch88.Value1" To="B">
+						<Vertex>DAKmthpP</Vertex>
+						<Vertex>aLUmPmX9</Vertex>
+						<Vertex>N4fC4Xa0</Vertex>
+					</Edge>
 				</Function>
 				<BuffEffect Name="buff67" PositionY="-290" PositionX="130">
 					<Asset Name="Souls" Alias="seminAndSuk" />
@@ -46,7 +42,7 @@
 					<Constant Name="ValueA" Value="SkirmishOnBezHrace" />
 					<Constant Name="Op" Value="Equals" />
 					<Edge From="state" To="ValueB">
-						<Vertex>QUytbGIA</Vertex>
+						<Vertex>re7ubuUy</Vertex>
 					</Edge>
 				</Function>
 				<Function Name="deathcheck85" PositionY="400" PositionX="710" MethodName="wh::rpgmodule::DeathCheck" DeclaringType="wh::rpgmodule">
@@ -61,35 +57,33 @@
 				</SoulDeathTrigger>
 				<fightconfiguration_indifference Name="fightconfiguration_indifference" PositionY="840" PositionX="190" Namespace="utils.combat">
 					<Constant Name="unarmedonly" Value="false" />
-					<Edge From="skirmish_active" To="isactive">
-						<Vertex>tNqk2sd6</Vertex>
-						<Vertex>DAKmthpP</Vertex>
-					</Edge>
 					<Edge From="joinarrays81.Array" To="souls">
 						<Vertex>q0WflCST</Vertex>
+					</Edge>
+					<Edge From="switch88.Value1" To="isactive">
+						<Vertex>DAKmthpP</Vertex>
 					</Edge>
 				</fightconfiguration_indifference>
 				<fightconfiguration_reputation Name="fightconfiguration_reputation" PositionY="350" PositionX="190" Namespace="utils.combat">
 					<Constant Name="suppressreputationpenalties" Value="true" />
-					<Edge From="skirmish_active" To="isactive">
-						<Vertex>tNqk2sd6</Vertex>
-						<Vertex>DAKmthpP</Vertex>
-					</Edge>
 					<Edge From="joinarrays81.Array" To="souls">
 						<Vertex>q0WflCST</Vertex>
+					</Edge>
+					<Edge From="switch88.Value1" To="isactive">
+						<Vertex>DAKmthpP</Vertex>
 					</Edge>
 				</fightconfiguration_reputation>
 				<fightconfiguration_surrendering Name="fightconfiguration_surrendering" PositionY="560" PositionX="190" Namespace="utils.combat">
 					<Constant Name="neversurrenderorflee" Value="true" />
 					<Constant Name="neveracceptsurrender" Value="true" />
+					<Constant Name="preventkillingunconscioushostileplayer" Value="false" />
 					<Constant Name="decentmercy" Value="false" />
 					<Constant Name="alwaysmercy" Value="false" />
-					<Edge From="skirmish_active" To="isactive">
-						<Vertex>tNqk2sd6</Vertex>
-						<Vertex>DAKmthpP</Vertex>
-					</Edge>
 					<Edge From="camp2souls.soulsforallskirmishcontexts" To="souls">
 						<Vertex>8lxIALdX</Vertex>
+					</Edge>
+					<Edge From="switch88.Value1" To="isactive">
+						<Vertex>DAKmthpP</Vertex>
 					</Edge>
 				</fightconfiguration_surrendering>
 				<ForEach Name="foreach79" PositionY="-470" PositionX="800" TypeT="wh::rpgmodule::Souls">
@@ -108,12 +102,11 @@
 				<LinkEffectNoData Name="linkeffectnodata43" PositionY="1050" PositionX="190">
 					<Asset Name="To" Alias="tpCamp2Center" />
 					<Constant Name="Tag" Value="combat_anchor" />
-					<Edge From="skirmish_active" To="IsActive">
-						<Vertex>tNqk2sd6</Vertex>
-						<Vertex>DAKmthpP</Vertex>
-					</Edge>
 					<Edge From="joinarrays81.Array" To="From">
 						<Vertex>q0WflCST</Vertex>
+					</Edge>
+					<Edge From="switch88.Value1" To="IsActive">
+						<Vertex>DAKmthpP</Vertex>
 					</Edge>
 				</LinkEffectNoData>
 				<MakeArray Name="makearray15" PositionY="-170" PositionX="-810" TypeT="wh::rpgmodule::Souls">
@@ -150,27 +143,24 @@
 				</Output>
 				<SetEntityContext Name="setentitycontext10" PositionY="1280" PositionX="190">
 					<Constant Name="Context" Value="combat_forceMelee" />
-					<Edge From="skirmish_active" To="IsActive">
-						<Vertex>tNqk2sd6</Vertex>
-						<Vertex>DAKmthpP</Vertex>
-					</Edge>
 					<Edge From="joinarrays81.Array" To="Souls">
 						<Vertex>q0WflCST</Vertex>
+					</Edge>
+					<Edge From="switch88.Value1" To="IsActive">
+						<Vertex>DAKmthpP</Vertex>
 					</Edge>
 				</SetEntityContext>
 				<SetEntityContext Name="setentitycontext62" PositionY="1730" PositionX="200">
 					<Constant Name="Context" Value="crime_ignoreCombatSounds" />
 					<Asset Name="Souls" Alias="bohus" />
-					<Edge From="skirmish_active" To="IsActive">
-						<Vertex>tNqk2sd6</Vertex>
+					<Edge From="switch88.Value1" To="IsActive">
 						<Vertex>DAKmthpP</Vertex>
 					</Edge>
 				</SetEntityContext>
 				<SetEntityContext Name="setentitycontext64" PositionY="1480" PositionX="190">
 					<Constant Name="Context" Value="combat_disabledAsTarget" />
 					<Asset Name="Souls" Alias="pacholekFrancek" />
-					<Edge From="skirmish_active" To="IsActive">
-						<Vertex>tNqk2sd6</Vertex>
+					<Edge From="switch88.Value1" To="IsActive">
 						<Vertex>DAKmthpP</Vertex>
 					</Edge>
 				</SetEntityContext>
@@ -193,16 +183,15 @@
 					<Edge From="switch_souls.Value2" To="souls2">
 						<Vertex>FLuvA4h6</Vertex>
 					</Edge>
-					<Edge From="skirmish_active" To="isactive">
-						<Vertex>tNqk2sd6</Vertex>
+					<Edge From="switch88.Value1" To="isactive">
 						<Vertex>DAKmthpP</Vertex>
 					</Edge>
 				</skirmish>
-				<Switch Name="switch_souls" PositionY="-20" PositionX="-320" TypeT="skirmishCamp2State" ValueTypes="wh::rpgmodule::Souls wh::rpgmodule::Souls" SwitchValues="SkirmishOn SkirmishOnBezHrace">
+				<Switch Name="switch_souls" PositionY="-60" PositionX="-310" TypeT="skirmishCamp2State" ValueTypes="wh::rpgmodule::Souls wh::rpgmodule::Souls" SwitchValues="SkirmishOn SkirmishOnBezHrace">
 					<Asset Name="SkirmishOnBezHraceValue1" Alias="seminAndSuk" />
 					<Asset Name="DefaultValue1" Alias="player" />
 					<Edge From="state" To="Switch">
-						<Vertex>QUytbGIA</Vertex>
+						<Vertex>re7ubuUy</Vertex>
 					</Edge>
 					<Edge From="makearray15.Array" To="SkirmishOnValue1" />
 					<Edge From="camp2souls.banditsoulsinsoloskirmish" To="DefaultValue2">
@@ -212,6 +201,15 @@
 						<Vertex>mJc1AD6T</Vertex>
 					</Edge>
 					<Edge From="switchIfCervenakSeVzdava.Value1" To="SkirmishOnValue2" />
+				</Switch>
+				<Switch Name="switch88" PositionY="390" PositionX="-310" TypeT="skirmishCamp2State" ValueTypes="bool" SwitchValues="SkirmishOn SkirmishOnBezSaS SkirmishOnBezHrace">
+					<Constant Name="SkirmishOnValue1" Value="true" />
+					<Constant Name="SkirmishOnBezSaSValue1" Value="true" />
+					<Constant Name="SkirmishOnBezHraceValue1" Value="true" />
+					<Constant Name="DefaultValue1" Value="false" />
+					<Edge From="state" To="Switch">
+						<Vertex>re7ubuUy</Vertex>
+					</Edge>
 				</Switch>
 				<Switch Name="switchIfCervenakSeVzdava" PositionY="70" PositionX="-700" TypeT="bool" ValueTypes="wh::rpgmodule::Souls" SwitchValues="true">
 					<Edge From="cervenak_se_vzdava" To="Switch" />
@@ -225,29 +223,27 @@
 					</Edge>
 				</Function>
 				<watchbool Name="watchbool" PositionY="270" PositionX="1330" Namespace="utils.general">
-					<Edge From="skirmish_active" To="isactive">
-						<Vertex>tNqk2sd6</Vertex>
+					<Edge From="and84.bool" To="watchedstate" />
+					<Edge From="switch88.Value1" To="isactive">
 						<Vertex>DAKmthpP</Vertex>
 						<Vertex>aLUmPmX9</Vertex>
 						<Vertex>N4fC4Xa0</Vertex>
 					</Edge>
-					<Edge From="and84.bool" To="watchedstate" />
 				</watchbool>
 			</Nodes>
 			<EdgeVertices>
 				<EdgeVertex Name="4r3bLAsw" PositionY="-40" PositionX="500" />
 				<EdgeVertex Name="7gv7AIHx" PositionY="350" PositionX="580" />
-				<EdgeVertex Name="8lxIALdX" PositionY="590" PositionX="-360" />
+				<EdgeVertex Name="8lxIALdX" PositionY="680" PositionX="-340" />
 				<EdgeVertex Name="aLUmPmX9" PositionY="300" PositionX="277" />
 				<EdgeVertex Name="CtjqJUgI" PositionY="330" PositionX="570" />
-				<EdgeVertex Name="DAKmthpP" PositionY="410" PositionX="40" />
+				<EdgeVertex Name="DAKmthpP" PositionY="480" PositionX="60" />
 				<EdgeVertex Name="FLuvA4h6" PositionY="119" PositionX="127" />
 				<EdgeVertex Name="jKlVAv7d" PositionY="360" PositionX="-795" />
 				<EdgeVertex Name="mJc1AD6T" PositionY="280" PositionX="-420" />
 				<EdgeVertex Name="N4fC4Xa0" PositionY="300" PositionX="570" />
 				<EdgeVertex Name="q0WflCST" PositionY="870" PositionX="-10" />
-				<EdgeVertex Name="QUytbGIA" PositionY="40" PositionX="-430" />
-				<EdgeVertex Name="tNqk2sd6" PositionY="390" PositionX="-1000" />
+				<EdgeVertex Name="re7ubuUy" PositionY="40" PositionX="-450" />
 				<EdgeVertex Name="uSfRak1H" PositionY="-50" PositionX="1480" />
 				<EdgeVertex Name="vertex6" PositionY="-60" PositionX="500" />
 				<EdgeVertex Name="YVppljPn" PositionY="318" PositionX="-373" />

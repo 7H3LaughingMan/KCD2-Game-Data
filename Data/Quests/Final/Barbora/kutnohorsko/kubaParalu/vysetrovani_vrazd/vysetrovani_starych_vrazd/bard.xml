@@ -24,9 +24,6 @@
 				<Port Name="zdena_chtela_okrast_grolla" Direction="Out" Type="bool">
 					<DesignName StringName="bard_zdena_chtela_okrast__XDOr" Text="Zdena chtěla okrást Grolla" />
 				</Port>
-				<Port Name="konec_questu__spolecnost" Direction="In" Type="trigger">
-					<DesignName StringName="bard_konec_questu__spolec_GD1E" Text="konec questu - společnost" />
-				</Port>
 				<Port Name="hrac_ma_za_ukol_vyresit_barda" Direction="In" Type="bool">
 					<DesignName StringName="bard_hrac_ma_za_ukol_vyre_lR8U" Text="hráč má za úkol vyřešit barda" />
 				</Port>
@@ -57,6 +54,9 @@
 				<Port Name="pripadny_abort_barda" Direction="In" Type="trigger">
 					<DesignName StringName="bard_pripadny_abort_barda_kJ7y" Text="případný abort barda" />
 				</Port>
+				<Port Name="obj_neaktivni" Direction="Out" Type="bool">
+					<DesignName StringName="bard_obj_neaktivni_uJaC" Text="obj neaktivní" />
+				</Port>
 			</Ports>
 			<Definitions>
 				<Definition File="bard/rozhovor_s_bardem_o_zenskych.xml" />
@@ -70,7 +70,6 @@
 					</Edge>
 				</SoulDeathTrigger>
 				<If Name="if12" PositionY="650" PositionX="-50">
-					<Edge From="konec_questu__spolecnost" To="Exec" />
 					<Edge From="RozhovorSBardem.Started" To="Condition">
 						<Vertex>vertex14</Vertex>
 						<Vertex>vertex13</Vertex>
@@ -98,6 +97,32 @@
 				<vyslechni_muzikanta_vilema Name="objectiveVisual15" PositionY="-60" PositionX="660" RequiredForOutput="kutnohorsko">
 					<Edge From="RozhovorSBardem.State" To="Progress" />
 				</vyslechni_muzikanta_vilema>
+				<Function Name="or15" PositionY="530" PositionX="1317" MethodName="math::boolean::Or" DeclaringType="math::boolean">
+					<Edge From="RozhovorSBardem.failedKilled" To="F">
+						<Vertex>DleS7DJL</Vertex>
+						<Vertex>cxLUjzgo</Vertex>
+					</Edge>
+					<Edge From="RozhovorSBardem.Abort" To="E">
+						<Vertex>WSauJqpQ</Vertex>
+						<Vertex>IgxWkMLY</Vertex>
+					</Edge>
+					<Edge From="RozhovorSBardem.Failed" To="D">
+						<Vertex>xWkIlXDL</Vertex>
+						<Vertex>V6b4jWVG</Vertex>
+					</Edge>
+					<Edge From="RozhovorSBardem.DontBelieve" To="C">
+						<Vertex>zFaxQltq</Vertex>
+						<Vertex>boIh14xs</Vertex>
+					</Edge>
+					<Edge From="RozhovorSBardem.Believe" To="B">
+						<Vertex>12xzbSVC</Vertex>
+						<Vertex>S2CBEgcV</Vertex>
+					</Edge>
+					<Edge From="RozhovorSBardem.None" To="A">
+						<Vertex>AD9pB0xI</Vertex>
+						<Vertex>Ggh0TEYt</Vertex>
+					</Edge>
+				</Function>
 				<Output Name="Output">
 					<Edge From="rozhovor_s_bardem_o_zenskych.zdena_chtela_okrast_grolla" To="zdena_chtela_okrast_grolla">
 						<Vertex>uQTgUuu8</Vertex>
@@ -114,8 +139,9 @@
 					<Edge From="rozhovor_s_bardem_o_zenskych.bard_neznal_alenku" To="bard_neznal_alenku">
 						<Vertex>T4nu6RDj</Vertex>
 					</Edge>
+					<Edge From="or15.bool" To="obj_neaktivni" />
 				</Output>
-				<rozhovor_s_bardem_o_zenskych Name="rozhovor_s_bardem_o_zenskych" PositionY="110" PositionX="650">
+				<rozhovor_s_bardem_o_zenskych Name="rozhovor_s_bardem_o_zenskych" PositionY="70" PositionX="640">
 					<Edge From="hrac_vyslechl_knezovo_podezreni_na_barda" To="hrac_vi_o_jarce_a_bardovi">
 						<Vertex>vertex10</Vertex>
 						<Vertex>vertex7</Vertex>
@@ -169,24 +195,33 @@
 				</State>
 			</Nodes>
 			<EdgeVertices>
+				<EdgeVertex Name="12xzbSVC" PositionY="640" PositionX="620" />
 				<EdgeVertex Name="1w7qYDmk" PositionY="0" PositionX="-50" />
+				<EdgeVertex Name="AD9pB0xI" PositionY="620" PositionX="620" />
 				<EdgeVertex Name="B0yYQXV8" PositionY="40" PositionX="-50" />
 				<EdgeVertex Name="b5yMWL7w" PositionY="100" PositionX="500" />
+				<EdgeVertex Name="boIh14xs" PositionY="660" PositionX="1190" />
 				<EdgeVertex Name="bShhvqA7" PositionY="40" PositionX="500" />
 				<EdgeVertex Name="BXmrB2em" PositionY="20" PositionX="-50" />
 				<EdgeVertex Name="c0bXm4KR" PositionY="-40" PositionX="500" />
 				<EdgeVertex Name="cATHmIGN" PositionY="-30" PositionX="1360" />
 				<EdgeVertex Name="CFU7wcL6" PositionY="-70" PositionX="1360" />
+				<EdgeVertex Name="cxLUjzgo" PositionY="720" PositionX="1190" />
 				<EdgeVertex Name="DhV87Stq" PositionY="20" PositionX="500" />
+				<EdgeVertex Name="DleS7DJL" PositionY="720" PositionX="620" />
 				<EdgeVertex Name="e9bSd33n" PositionY="0" PositionX="500" />
 				<EdgeVertex Name="FwgMLKSb" PositionY="120" PositionX="-50" />
+				<EdgeVertex Name="Ggh0TEYt" PositionY="620" PositionX="1190" />
+				<EdgeVertex Name="IgxWkMLY" PositionY="700" PositionX="1190" />
 				<EdgeVertex Name="Jq6JxHSn" PositionY="120" PositionX="500" />
 				<EdgeVertex Name="Ny3hBqyl" PositionY="-50" PositionX="1360" />
 				<EdgeVertex Name="Pk48FJmu" PositionY="-40" PositionX="-50" />
 				<EdgeVertex Name="RFffCeWw" PositionY="-20" PositionX="500" />
+				<EdgeVertex Name="S2CBEgcV" PositionY="640" PositionX="1190" />
 				<EdgeVertex Name="T4nu6RDj" PositionY="-10" PositionX="1360" />
 				<EdgeVertex Name="tpJSLETK" PositionY="100" PositionX="-50" />
 				<EdgeVertex Name="uQTgUuu8" PositionY="-90" PositionX="1360" />
+				<EdgeVertex Name="V6b4jWVG" PositionY="680" PositionX="1190" />
 				<EdgeVertex Name="vertex1" PositionY="740" PositionX="990" />
 				<EdgeVertex Name="vertex10" PositionY="-100" PositionX="-50" />
 				<EdgeVertex Name="vertex11" PositionY="-80" PositionX="-50" />
@@ -201,7 +236,10 @@
 				<EdgeVertex Name="vertex7" PositionY="-100" PositionX="500" />
 				<EdgeVertex Name="vertex8" PositionY="-80" PositionX="500" />
 				<EdgeVertex Name="vertex9" PositionY="-60" PositionX="500" />
+				<EdgeVertex Name="WSauJqpQ" PositionY="700" PositionX="620" />
 				<EdgeVertex Name="xcXVz3dX" PositionY="-20" PositionX="-50" />
+				<EdgeVertex Name="xWkIlXDL" PositionY="680" PositionX="620" />
+				<EdgeVertex Name="zFaxQltq" PositionY="660" PositionX="620" />
 			</EdgeVertices>
 			<Text StringName="bard_wg6W" Text="Bard" />
 			<MapVizLocation MapName="kutnohorsko" PositionX="3078" PositionY="716" />

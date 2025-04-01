@@ -18,9 +18,6 @@
 				<Port Name="popravili_jsme_barda" Direction="In" Type="trigger">
 					<DesignName StringName="n2_senkyr_quest_ondone_0tJF" Text="popravili jsme barda" />
 				</Port>
-				<Port Name="hrac_nekoho_zabil__quest_failed" Direction="Out" Type="trigger">
-					<DesignName StringName="n2_senkyr_hrac_nekoho_zab_JU3A" Text="hrac nekoho zabil - quest failed" />
-				</Port>
 				<Port Name="hrac_vi_o_sarce_a_bardovi" Direction="Out" Type="bool">
 					<DesignName StringName="n2_senkyr_info_bard_TQLs" Text="hrac vi o Sarce a bardovi" />
 				</Port>
@@ -56,6 +53,9 @@
 				</Port>
 				<Port Name="hrac_nekoho_zabil_1" Direction="Out" Type="trigger">
 					<DesignName StringName="n2_senkyr_hrac_nekoho_zab_bqJJ" Text="hrac nekoho zabil" />
+				</Port>
+				<Port Name="obj_neaktivni" Direction="Out" Type="bool">
+					<DesignName StringName="n2_senkyr_obj_neaktivni_rzlR" Text="obj neaktivní" />
 				</Port>
 			</Ports>
 			<Definitions>
@@ -97,16 +97,29 @@
 				<zkus_zjistit_co_se_stalo_se_senkyrkou_sarkou Name="objectiveVisual2" PositionY="-330" PositionX="-190" RequiredForOutput="kutnohorsko">
 					<Edge From="vystetrSarkaState.State" To="Progress" />
 				</zkus_zjistit_co_se_stalo_se_senkyrkou_sarkou>
-				<Function Name="or10" PositionY="210" PositionX="-180" MethodName="math::boolean::Or" DeclaringType="math::boolean">
-					<Edge From="vystetrSarkaState.PromluvSiVHospode" To="A" />
-					<Edge From="vystetrSarkaState.NajdiTaborUhliru" To="B" />
-					<Edge From="vystetrSarkaState.NajdiSarkuUUhliru" To="C" />
+				<Function Name="or14" PositionY="160" PositionX="1080" MethodName="math::boolean::Or" DeclaringType="math::boolean">
+					<Edge From="vystetrSarkaState.Abort" To="D">
+						<Vertex>UvG4jRF3</Vertex>
+						<Vertex>97Blog96</Vertex>
+					</Edge>
+					<Edge From="vystetrSarkaState.Canceled" To="C">
+						<Vertex>LFjplqco</Vertex>
+						<Vertex>0DRm7L2I</Vertex>
+					</Edge>
+					<Edge From="vystetrSarkaState.Vyreseno" To="B">
+						<Vertex>99g1CQCh</Vertex>
+						<Vertex>a8Axgut7</Vertex>
+					</Edge>
+					<Edge From="vystetrSarkaState.None" To="A">
+						<Vertex>yj0aapCG</Vertex>
+						<Vertex>cznEGEU7</Vertex>
+					</Edge>
 				</Function>
 				<Function Name="or5" PositionY="-170" PositionX="-190" MethodName="math::boolean::Or" DeclaringType="math::boolean">
 					<Edge From="vystetrSarkaState.Canceled" To="B" />
 					<Edge From="vystetrSarkaState.Abort" To="C" />
-					<Edge From="vystetrSarkaState.None" To="D" />
 					<Edge From="vystetrSarkaState.Vyreseno" To="A" />
+					<Edge From="vystetrSarkaState.None" To="D" />
 					<Edge From="vystetrSarkaState.PromluvSiVHospode" To="E" />
 				</Function>
 				<Function Name="or8" PositionY="70" PositionX="-190" MethodName="math::boolean::Or" DeclaringType="math::boolean">
@@ -166,13 +179,8 @@
 						<Vertex>t3zveYe5</Vertex>
 						<Vertex>mIfN8Lbr</Vertex>
 					</Edge>
-					<Edge From="vystetrSarkaState.OnCanceled" To="hrac_nekoho_zabil__quest_failed">
-						<Vertex>xPwAqEsI</Vertex>
-						<Vertex>vertex79</Vertex>
-						<Vertex>vertex110</Vertex>
-					</Edge>
-					<Edge From="trackovani_smrti_hospodskeho_a_sarky.hrac_nekoho_zabil" To="hrac_nekoho_zabil_1">
-						<Vertex>7lad4Hno</Vertex>
+					<Edge From="or14.bool" To="obj_neaktivni" />
+					<Edge From="triggersequence15.B" To="hrac_nekoho_zabil_1">
 						<Vertex>PqjAstlD</Vertex>
 					</Edge>
 				</Output>
@@ -186,7 +194,7 @@
 						<Vertex>vertex57</Vertex>
 					</Edge>
 				</rozhovor_s_hospodskym>
-				<SaveGame Name="savegame4" PositionY="620" PositionX="-100">
+				<SaveGame Name="savegame4" PositionY="890" PositionX="-100">
 					<Constant Name="Objective" Value="zkus_zjistit_co_se_stalo_se_senkyrkou_sarkou" />
 					<Edge From="vystetrSarkaState.OnVyreseno" To="EnqueueSave">
 						<Vertex>vertex15</Vertex>
@@ -218,6 +226,17 @@
 						<Vertex>Ub8BJLWJ</Vertex>
 					</Edge>
 				</trackovani_smrti_hospodskeho_a_sarky>
+				<TriggerSequence Name="triggersequence15" PositionY="-350" PositionX="960">
+					<Edge From="trackovani_smrti_hospodskeho_a_sarky.hrac_nekoho_zabil" To="Exec" />
+					<Edge From="rozhovor_s_hospodskym.sarka_mrtva__fail" To="Exec">
+						<Vertex>YGFPbVE9</Vertex>
+						<Vertex>mXdg1gr2</Vertex>
+					</Edge>
+					<Edge From="ifand3.True" To="Exec">
+						<Vertex>hUljgHTC</Vertex>
+						<Vertex>dDrSsUuy</Vertex>
+					</Edge>
+				</TriggerSequence>
 				<v_tabore_uhliru Name="v_tabore_uhliru" PositionY="-80" PositionX="600">
 					<Edge From="vystetrSarkaState.PromluvSiSSarkou" To="hrac_vi_o_sarce_od_breziny">
 						<Vertex>vertex70</Vertex>
@@ -246,14 +265,10 @@
 						<Vertex>MNY5g9tL</Vertex>
 					</Edge>
 				</v_tabore_uhliru>
-				<State Name="vystetrSarkaState" PositionY="-230" PositionX="-680" RequiredForOutput="kutnohorsko" TypeT="VysetrovaniVrazdySarky">
+				<State Name="vystetrSarkaState" PositionY="-220" PositionX="-680" RequiredForOutput="kutnohorsko" TypeT="VysetrovaniVrazdySarky">
 					<Edge From="hrac_ma_zjistit_vic_o_sarce" To="SetPromluvSiVHospode">
 						<Vertex>yRvhVTTT</Vertex>
 						<Vertex>vertex68</Vertex>
-					</Edge>
-					<Edge From="ifand3.True" To="SetCanceled">
-						<Vertex>vertex63</Vertex>
-						<Vertex>vertex62</Vertex>
 					</Edge>
 					<Edge From="kubaParalu_sarkaDone.OnTrigger" To="SetVyreseno" />
 					<Edge From="v_tabore_uhliru.hrac_promluvil_s_sarkou" To="SetVyreseno">
@@ -265,10 +280,6 @@
 						<Vertex>vertex51</Vertex>
 					</Edge>
 					<Edge From="kubaParalu_sarkaBegining.OnTrigger" To="SetPromluvSiVHospode" />
-					<Edge From="trackovani_smrti_hospodskeho_a_sarky.hrac_nekoho_zabil" To="SetCanceled">
-						<Vertex>vertex48</Vertex>
-						<Vertex>vertex47</Vertex>
-					</Edge>
 					<Edge From="rozhovor_s_hospodskym.brezina_mensi_marker" To="SetNajdiSarkuUUhliru">
 						<Vertex>vertex25</Vertex>
 						<Vertex>vertex26</Vertex>
@@ -277,35 +288,46 @@
 						<Vertex>vertex72</Vertex>
 						<Vertex>vertex73</Vertex>
 					</Edge>
-					<Edge From="rozhovor_s_hospodskym.sarka_mrtva__fail" To="SetCanceled">
-						<Vertex>AMkPdRle</Vertex>
-						<Vertex>4c1WT1sw</Vertex>
-					</Edge>
 					<Edge From="if13.True" To="SetAbort">
 						<Vertex>AVk6uMvG</Vertex>
 						<Vertex>jKs3hpCp</Vertex>
+					</Edge>
+					<Edge From="triggersequence15.A" To="SetCanceled">
+						<Vertex>0gJ9bjL5</Vertex>
+						<Vertex>DNJ6jTqK</Vertex>
+						<Vertex>vertex48</Vertex>
+						<Vertex>vertex47</Vertex>
 					</Edge>
 				</State>
 			</Nodes>
 			<EdgeVertices>
 				<EdgeVertex Name="0cewcKcg" PositionY="-60" PositionX="910" />
-				<EdgeVertex Name="4c1WT1sw" PositionY="630" PositionX="-660" />
+				<EdgeVertex Name="0DRm7L2I" PositionY="690" PositionX="850" />
+				<EdgeVertex Name="0gJ9bjL5" PositionY="-180" PositionX="1200" />
 				<EdgeVertex Name="4NvzqNSa" PositionY="550" PositionX="-2600" />
-				<EdgeVertex Name="7lad4Hno" PositionY="100" PositionX="910" />
-				<EdgeVertex Name="AMkPdRle" PositionY="630" PositionX="390" />
+				<EdgeVertex Name="97Blog96" PositionY="710" PositionX="850" />
+				<EdgeVertex Name="99g1CQCh" PositionY="670" PositionX="-210" />
+				<EdgeVertex Name="a8Axgut7" PositionY="670" PositionX="850" />
 				<EdgeVertex Name="AVk6uMvG" PositionY="546" PositionX="-1207" />
 				<EdgeVertex Name="bBJqRtbo" PositionY="530" PositionX="-2600" />
 				<EdgeVertex Name="bEANK854" PositionY="670" PositionX="-1910" />
+				<EdgeVertex Name="cznEGEU7" PositionY="650" PositionX="850" />
+				<EdgeVertex Name="dDrSsUuy" PositionY="630" PositionX="840" />
+				<EdgeVertex Name="DNJ6jTqK" PositionY="-170" PositionX="910" />
+				<EdgeVertex Name="hUljgHTC" PositionY="660" PositionX="-2020" />
 				<EdgeVertex Name="IGFRmLtR" PositionY="550" PositionX="-1590" />
 				<EdgeVertex Name="IwBg36AK" PositionY="-360" PositionX="-220" />
 				<EdgeVertex Name="jKs3hpCp" PositionY="549" PositionX="-840" />
 				<EdgeVertex Name="KmPDsmXY" PositionY="660" PositionX="-333" />
+				<EdgeVertex Name="LFjplqco" PositionY="690" PositionX="-210" />
 				<EdgeVertex Name="mIfN8Lbr" PositionY="80" PositionX="1200" />
 				<EdgeVertex Name="MNY5g9tL" PositionY="410" PositionX="540" />
+				<EdgeVertex Name="mXdg1gr2" PositionY="-440" PositionX="870" />
 				<EdgeVertex Name="njj6pnKG" PositionY="-60" PositionX="1200" />
 				<EdgeVertex Name="PqjAstlD" PositionY="100" PositionX="1200" />
 				<EdgeVertex Name="t3zveYe5" PositionY="80" PositionX="910" />
 				<EdgeVertex Name="Ub8BJLWJ" PositionY="-360" PositionX="340" />
+				<EdgeVertex Name="UvG4jRF3" PositionY="710" PositionX="-210" />
 				<EdgeVertex Name="vertex100" PositionY="-20" PositionX="1200" />
 				<EdgeVertex Name="vertex101" PositionY="-20" PositionX="910" />
 				<EdgeVertex Name="vertex102" PositionY="0" PositionX="1200" />
@@ -317,7 +339,6 @@
 				<EdgeVertex Name="vertex108" PositionY="-80" PositionX="1200" />
 				<EdgeVertex Name="vertex109" PositionY="-100" PositionX="1200" />
 				<EdgeVertex Name="vertex11" PositionY="570" PositionX="-320" />
-				<EdgeVertex Name="vertex110" PositionY="-120" PositionX="1200" />
 				<EdgeVertex Name="vertex111" PositionY="-140" PositionX="1200" />
 				<EdgeVertex Name="vertex112" PositionY="-160" PositionX="1200" />
 				<EdgeVertex Name="vertex113" PositionY="60" PositionX="1200" />
@@ -336,19 +357,17 @@
 				<EdgeVertex Name="vertex38" PositionY="530" PositionX="-2350" />
 				<EdgeVertex Name="vertex39" PositionY="550" PositionX="-2350" />
 				<EdgeVertex Name="vertex47" PositionY="470" PositionX="-660" />
-				<EdgeVertex Name="vertex48" PositionY="470" PositionX="790" />
+				<EdgeVertex Name="vertex48" PositionY="470" PositionX="840" />
 				<EdgeVertex Name="vertex50" PositionY="390" PositionX="120" />
 				<EdgeVertex Name="vertex51" PositionY="490" PositionX="-660" />
-				<EdgeVertex Name="vertex52" PositionY="490" PositionX="790" />
-				<EdgeVertex Name="vertex53" PositionY="510" PositionX="790" />
+				<EdgeVertex Name="vertex52" PositionY="490" PositionX="840" />
+				<EdgeVertex Name="vertex53" PositionY="510" PositionX="840" />
 				<EdgeVertex Name="vertex54" PositionY="510" PositionX="-660" />
 				<EdgeVertex Name="vertex56" PositionY="450" PositionX="390" />
 				<EdgeVertex Name="vertex57" PositionY="410" PositionX="30" />
 				<EdgeVertex Name="vertex58" PositionY="410" PositionX="-160" />
 				<EdgeVertex Name="vertex59" PositionY="370" PositionX="390" />
 				<EdgeVertex Name="vertex60" PositionY="370" PositionX="120" />
-				<EdgeVertex Name="vertex62" PositionY="530" PositionX="-840" />
-				<EdgeVertex Name="vertex63" PositionY="530" PositionX="-2040" />
 				<EdgeVertex Name="vertex68" PositionY="510" PositionX="-840" />
 				<EdgeVertex Name="vertex70" PositionY="430" PositionX="-160" />
 				<EdgeVertex Name="vertex71" PositionY="-100" PositionX="540" />
@@ -359,12 +378,12 @@
 				<EdgeVertex Name="vertex76" PositionY="450" PositionX="-160" />
 				<EdgeVertex Name="vertex77" PositionY="390" PositionX="540" />
 				<EdgeVertex Name="vertex78" PositionY="-80" PositionX="540" />
-				<EdgeVertex Name="vertex79" PositionY="-120" PositionX="910" />
 				<EdgeVertex Name="vertex92" PositionY="-160" PositionX="910" />
 				<EdgeVertex Name="vertex93" PositionY="-140" PositionX="910" />
 				<EdgeVertex Name="vertex98" PositionY="-40" PositionX="1200" />
 				<EdgeVertex Name="vertex99" PositionY="-40" PositionX="910" />
-				<EdgeVertex Name="xPwAqEsI" PositionY="-120" PositionX="540" />
+				<EdgeVertex Name="YGFPbVE9" PositionY="-434" PositionX="482" />
+				<EdgeVertex Name="yj0aapCG" PositionY="650" PositionX="-210" />
 				<EdgeVertex Name="yRvhVTTT" PositionY="510" PositionX="-2600" />
 			</EdgeVertices>
 			<Assets>

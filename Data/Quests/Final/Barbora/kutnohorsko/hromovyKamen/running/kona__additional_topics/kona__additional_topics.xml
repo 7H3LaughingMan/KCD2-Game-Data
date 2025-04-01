@@ -29,7 +29,7 @@
 				</SelectedSouls>
 				<Decision Name="dec1" Priority="SideQuestSubmission">
 					<Sequences>
-						<Sequence EntryCondition="!SequenceUsed('cojets')&#xD;&#xA;OR &#xD;&#xA;!SequenceUsed('vimcokamenumi')&#xD;&#xA;OR &#xD;&#xA;!SequenceUsed('henryznakamen')&#xD;&#xA;OR &#xD;&#xA;!SequenceUsed('procChcesKamen') AND &#xD;&#xA;Port('quest_active')" EndType="Decision" Visibility="Internal" Name="uvodbezincludu">
+						<Sequence EntryCondition="!SequenceUsed('cojets')&#xD;&#xA;OR &#xD;&#xA;!SequenceUsed('vimcokamenumi')&#xD;&#xA;OR &#xD;&#xA;!SequenceUsed('seq30')&#xD;&#xA;OR &#xD;&#xA;!SequenceUsed('procChcesKamen') AND &#xD;&#xA;(((!Port('henry_ma_padelek') OR &#xD;&#xA;!Port('henry_ma_kamen')) AND&#xD;&#xA;SequenceUsed('henryznakamen')) OR &#xD;&#xA;!SequenceUsed('henryznakamen')) AND&#xD;&#xA;Port('quest_active')" EndType="Decision" Visibility="Internal" Name="uvodbezincludu">
 							<DesignName StringName="kona__add_seq1_pqDT" Text="uvodBezIncludu" />
 							<UiPrompt StringName="ui_kona__add_seq1_oTdr" Text="Zajímá mě ten hromový kámen..." />
 							<Elements>
@@ -39,6 +39,8 @@
 									</Parenthetical>
 									<Text StringName="kona_henry_mam_nejaky_ota_OLsM" Text="Mám nějaký otázky ohledně toho hromovýho kamene..." />
 									<Commands>
+										<FacialMoodCommand FacialMood="thinking1" />
+										<FacialMoodCommand Role="KONA_GRUNTA" FacialMood="happy1" />
 										<AnimationCommand Delay="0.02" FragmentId="ADLG_Gesture" Guid="002ace53-8d31-4d61-b729-4bae5c80b2e5" Variant="0" />
 										<AnimationCommand Role="KONA_GRUNTA" Delay="2.46" FragmentId="ADLG_Nod" Guid="e19b4783-39a0-4a4e-951d-018bc8ad1a03" Variant="0" />
 										<CameraCommand CameraType="CloseUp" />
@@ -74,6 +76,8 @@
 															</Parenthetical>
 															<Text StringName="kona_henry_co_je_to_ten_h_bbli" Text="Co je to ten hromovej kámen?" />
 															<Commands>
+																<FacialMoodCommand FacialMood="thinking2" />
+																<FacialMoodCommand Role="KONA_GRUNTA" FacialMood="thinking1" />
 																<AnimationCommand FragmentId="ADLG_Confusion" Guid="19e1b926-8753-4893-af45-10d39fa3a985" Variant="0" />
 																<CameraCommand CameraType="CloseUp" />
 															</Commands>
@@ -97,6 +101,7 @@
 															</Parenthetical>
 															<Text StringName="kona_kona_grun_spadnou_z__mc2N" Text="Spadnou z nebe s velikym rachotem a zavrtaj se hluboko do země. Pak to trvá nějakej čas, než vystoupaj zas nahoru. " />
 															<Commands>
+																<FacialMoodCommand FacialMood="thinking2" />
 																<AnimationCommand Delay="3.37" FragmentId="ADLG_Emphasis" Guid="4abb7e77-72cf-42f1-9924-3d448055b4d4" Variant="2" />
 																<AnimationCommand Delay="0.17" FragmentId="ADLG_Gesture" Guid="962a4745-715f-478e-85ce-61c4bb981afa" Variant="9" />
 																<CameraCommand Delay="9.44" CameraType="CloseUp" />
@@ -150,6 +155,8 @@
 															</Parenthetical>
 															<Text StringName="kona_henry_co_takovejhle__YGTC" Text="Co takovejhle kámen umí?" />
 															<Commands>
+																<FacialMoodCommand FacialMood="nervous1" />
+																<FacialMoodCommand Role="KONA_GRUNTA" FacialMood="thinking2" />
 																<AnimationCommand Delay="0.02" FragmentId="ADLG_Gesture" Guid="82614ed5-8978-4c2d-8771-aeab0b05a4e7" Variant="14" />
 																<CameraCommand CameraType="CloseUp" />
 															</Commands>
@@ -196,7 +203,7 @@
 											</Sequences>
 										</Decision>
 									</Sequence>
-									<Sequence EntryCondition="SequenceUsed('cojets') AND &#xD;&#xA;!ThisSequenceUsed() AND &#xD;&#xA;!Port('henry_ma_padelek') AND &#xD;&#xA;!Port('henry_ma_kamen')" EndType="Decision" Name="seq26">
+									<Sequence EntryCondition="SequenceUsed('cojets') AND &#xD;&#xA;!SequenceUsed('henryznakamen') AND &#xD;&#xA;!Port('henry_ma_padelek') AND &#xD;&#xA;!Port('henry_ma_kamen')" EndType="Decision" Name="seq26">
 										<DesignName StringName="kona__add_seq26_Poud" Text="seq26" />
 										<UiPrompt StringName="ui_kona__add_seq26_Eicz" Text="Jak vypadá?" />
 										<Elements>
@@ -214,6 +221,8 @@
 															</Parenthetical>
 															<Text StringName="kona_henry_jak_takovej_hr_ALwz" Text="Jak takovej hromovej kámen vypadá?" />
 															<Commands>
+																<FacialMoodCommand FacialMood="thinking2" />
+																<FacialMoodCommand Role="KONA_GRUNTA" FacialMood="thinking3" />
 																<AnimationCommand FragmentId="ADLG_Gesture" Guid="7fcd8a44-bad1-4106-bc29-4498fa7b7196" Variant="13" />
 																<CameraCommand CameraType="CloseUp" />
 															</Commands>
@@ -274,6 +283,8 @@
 															</Parenthetical>
 															<Text StringName="kona_henry_proc_ten_kamen_c9DD" Text="Proč ten kámen tak chceš?" />
 															<Commands>
+																<FacialMoodCommand FacialMood="thinking1" />
+																<FacialMoodCommand Role="KONA_GRUNTA" FacialMood="sad1" />
 																<AnimationCommand Delay="0.02" FragmentId="ADLG_Gesture" Guid="f897a1b3-c338-416e-88ea-7345a13432a2" Variant="26" />
 																<CameraCommand CameraType="CloseUp" />
 																<LookAtCommand Role="KONA_GRUNTA" Delay="0.5" LookAtRole="HENRY" />
@@ -303,6 +314,7 @@
 																		</Parenthetical>
 																		<Text StringName="kona_henry_vomlouvm_se_al_CBOL" Text="Vomlouvám se, ale jestli ti mám pomoct, chci vědět, co s tím kamenem budeš dělat. " />
 																		<Commands>
+																			<FacialMoodCommand FacialMood="thinking2" />
 																			<AnimationCommand Delay="1.81" FragmentId="ADLG_Confusion" Guid="19e1b926-8753-4893-af45-10d39fa3a985" Variant="0" />
 																			<CameraCommand CameraType="CloseUp" />
 																		</Commands>
@@ -319,6 +331,7 @@
 																					</Parenthetical>
 																					<Text StringName="kona_kona_grun_nic_nepoct_5caZ" Text="Nic nepoctivýho, to přísaham při Panně Marii." />
 																					<Commands>
+																						<FacialMoodCommand FacialMood="nervous1" />
 																						<AnimationCommand Delay="0.86" FragmentId="ADLG_Emphasis" Guid="6dfd56e4-8269-48ee-b3d3-43752e3ba09e" Variant="4" />
 																						<CameraCommand CameraType="CloseShot" />
 																					</Commands>
@@ -329,6 +342,7 @@
 																					</Parenthetical>
 																					<Text StringName="kona_kona_grun_ale_je_to__3ayP" Text="Ale je to vážně osobní věc a to prostě nedokážu říkat jen tak někomu... Omluv mě." />
 																					<Commands>
+																						<FacialMoodCommand FacialMood="sad2" />
 																						<AnimationCommand Delay="3.76" FragmentId="ADLG_Disagree" Guid="39b4ce5d-b420-4941-b308-5e21b403eb51" Variant="2" />
 																						<AnimationCommand Delay="7.02" FragmentId="ADLG_Confusion" Guid="886b368e-34df-4f89-a8b4-266ae4e863e8" Variant="2" />
 																					</Commands>
@@ -342,6 +356,7 @@
 																					<Text StringName="kona_henry_nechci_se_zapl_j66e" Text="Nechci se zaplíst do žádnýho čarodějnictví." />
 																					<Commands>
 																						<FacialMoodCommand Role="KONA_GRUNTA" FacialMood="sad1" />
+																						<FacialMoodCommand FacialMood="angry1" />
 																						<AnimationCommand Delay="0.02" FragmentId="ADLG_Disagree_light" Guid="231a82ae-beac-4474-8538-e58365c056b8" Variant="0" />
 																						<CameraCommand CameraType="CloseUp" />
 																					</Commands>
@@ -358,11 +373,14 @@
 																						<CameraCommand CameraType="Medium" />
 																					</Commands>
 																				</Response>
-																				<Response Role="KONA_GRUNTA">
+																				<Response Role="KONA_GRUNTA" ReferenceLength="4.23">
 																					<Parenthetical>
 																						<Text StringName="kona_kona_grun_nestastne_WVKL" Text="nešťastně" />
 																					</Parenthetical>
 																					<Text StringName="kona_kona_grun_bojim_se_o_vSsx" Text="Bojím se o dítě. A o sebe." />
+																					<Commands>
+																						<FacialMoodCommand FacialMood="sad2" />
+																					</Commands>
 																				</Response>
 																				<Response Role="KONA_GRUNTA" ReferenceLength="8">
 																					<Text StringName="kona_kona_grun_vsechny_de_CaX3" Text="Všechny děcka mi brzo po porodu zemřely, milost jejich duši, a porody jsou pro mě těžký." />
@@ -375,6 +393,7 @@
 																				<Response Role="KONA_GRUNTA" StartDelay="0.38" ReferenceLength="1.95">
 																					<Text StringName="kona_kona_grun_ten_posled_sYyQ" Text="Ten poslední jsem skoro nepřežila..." />
 																					<Commands>
+																						<FacialMoodCommand FacialMood="sad3" />
 																						<CameraCommand Delay="-0.25" CameraType="CloseUp" />
 																					</Commands>
 																				</Response>
@@ -419,6 +438,8 @@
 																		</Parenthetical>
 																		<Text StringName="kona_henry_dobre_nech_si__gYps" Text="Dobře, nech si to pro sebe." />
 																		<Commands>
+																			<FacialMoodCommand FacialMood="happy1" />
+																			<FacialMoodCommand Role="KONA_GRUNTA" FacialMood="sad1" />
 																			<AnimationCommand Delay="0.02" FragmentId="ADLG_Easy_man" Guid="a88b0649-f2db-45b9-ac75-fbe939616780" Variant="0" />
 																			<CameraCommand CameraType="CloseUp" />
 																		</Commands>
@@ -444,8 +465,8 @@
 											</Sequences>
 										</Decision>
 									</Sequence>
-									<Sequence EntryCondition="!ThisSequenceUsed()" EndType="Decision" Name="seq30">
-										<DesignName StringName="kona__add_seq30_bI9u" Text="seq30" />
+									<Sequence EntryCondition="!ThisSequenceUsed()" EndType="Decision" Visibility="Internal" Name="seq30">
+										<DesignName StringName="kona__add_seq30_bI9u" Text="kamenPomuze" />
 										<UiPrompt StringName="ui_kona__add_seq30_Xlt9" Text="Vážně myslíš, že ti kámen pomůže?" />
 										<Elements>
 											<Response Role="HENRY" ReferenceLength="2.29">
@@ -454,6 +475,8 @@
 												</Parenthetical>
 												<Text StringName="kona_henry_vazne_myslis_z_J3gf" Text="Vážně myslíš, že ti ten hromovej kámen pomůže?" />
 												<Commands>
+													<FacialMoodCommand FacialMood="thinking2" />
+													<FacialMoodCommand Role="KONA_GRUNTA" FacialMood="nervous1" />
 													<CameraCommand CameraType="CloseUp" />
 												</Commands>
 											</Response>
@@ -480,6 +503,7 @@
 															</Parenthetical>
 															<Text StringName="kona_henry_jo_pravda_to_d_BEtG" Text="Jo, pravda... to dává smysl. Promiň, hloupá votázka." />
 															<Commands>
+																<FacialMoodCommand FacialMood="thinking1" />
 																<AnimationCommand Delay="0.02" FragmentId="ADLG_Nod" Guid="2ddda320-2a14-4160-b352-ad7c194f57b3" Variant="0" />
 																<CameraCommand CameraType="CloseUp" />
 															</Commands>
@@ -499,6 +523,7 @@
 															</Parenthetical>
 															<Text StringName="kona_henry_ja_jen_jestli__Kxnv" Text="Já jen jestli by nebylo lepší vyřešit to nějak víc... jako dobrej křesťan." />
 															<Commands>
+																<FacialMoodCommand FacialMood="thinking1" />
 																<AnimationCommand Delay="0.19" FragmentId="ADLG_Confusion" Guid="19e1b926-8753-4893-af45-10d39fa3a985" Variant="0" />
 																<AnimationCommand Delay="4.23" FragmentId="ADLG_Gesture" Guid="2f5b9a79-4e1b-4360-ac65-ce0ab1844c72" Variant="4" />
 																<CameraCommand CameraType="CloseUp" />
@@ -520,6 +545,7 @@
 															</Parenthetical>
 															<Text StringName="kona_kona_grun_podivej_se_UKA3" Text="Podivej se, co se v kraji děje! Teď bys mě hnal na poutní cestu?" />
 															<Commands>
+																<FacialMoodCommand FacialMood="angry1" />
 																<CameraCommand CameraType="CloseShot" />
 															</Commands>
 														</Response>
@@ -529,6 +555,7 @@
 															</Parenthetical>
 															<Text StringName="kona_kona_grun_ale_v_kost_WeeO" Text="Ale v kostele jsem samozřejmě byla a k Panence Marii, ochranitelce naší, jsem se modlila." />
 															<Commands>
+																<FacialMoodCommand FacialMood="sad1" />
 																<AnimationCommand Delay="0.86" FragmentId="ADLG_Agree" Guid="f0f76cf7-bf3c-416e-83df-3f9594209321" Variant="3" />
 															</Commands>
 														</Response>
@@ -538,6 +565,7 @@
 															</Parenthetical>
 															<Text StringName="kona_kona_grun_a_ona_mi_p_pbCj" Text="A ona mi poslala tebe." />
 															<Commands>
+																<FacialMoodCommand FacialMood="happy1" />
 																<AnimationCommand Role="HENRY" Delay="1.61" FragmentId="ADLG_Nod" Guid="2ddda320-2a14-4160-b352-ad7c194f57b3" Variant="0" />
 																<AnimationCommand Delay="0.77" FragmentId="ADLG_Gesture" Guid="0ab09611-db48-4378-9218-4a5539f328c3" Variant="1" />
 															</Commands>
@@ -563,6 +591,7 @@
 												</Parenthetical>
 												<Text StringName="kona_henry_diky_vic_asi_v_gBPN" Text="Díky. Víc asi vědět nepotřebuju." />
 												<Commands>
+													<FacialMoodCommand FacialMood="thinking1" />
 													<AnimationCommand Delay="0.17" FragmentId="ADLG_Nod" Guid="ca364fe9-66bd-48fa-8178-0e49459d7038" Variant="2" />
 													<CameraCommand CameraType="CloseUp" />
 												</Commands>

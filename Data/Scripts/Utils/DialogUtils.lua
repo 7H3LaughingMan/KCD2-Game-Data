@@ -164,6 +164,15 @@ end
 SetupHaggle = DialogUtils.SetupHaggle
 
 -- =============================================================================
+function DialogUtils.ShopMoneyTransaction(shopkeeperId, wholeGroschen, playFarewellBark)
+	local deciGroschen = wholeGroschen * 10
+
+	Shops.DoMoneyTransaction(shopkeeperId, deciGroschen, playFarewellBark)
+	Game.ShowItemsTransfer(ItemUtils.itemIDs.money, -deciGroschen)
+end
+ShopMoneyTransaction = DialogUtils.MoneyTransaction
+
+-- =============================================================================
 function DialogUtils.DialogState(quest, state, result, sync)
 	local a, b, soulid
 	if sync == 0 then

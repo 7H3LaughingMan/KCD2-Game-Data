@@ -81,10 +81,15 @@
 				<Definition File="oblehaniSuchdole/divadlo_na_pozadi.xml" />
 			</Definitions>
 			<Nodes>
-				<HasteTrigger Name="_streamSecondPhase" PositionY="-730" PositionX="3000" />
+				<HasteTrigger Name="_streamSecondPhase" PositionY="-720" PositionX="3620" />
 				<HasteTrigger Name="000_oblehaniStart" PositionY="-880" PositionX="200">
 					<Edge From="makearray9.Array" To="Prerequisites" />
 				</HasteTrigger>
+				<HasteTrigger Name="001_disableAdditionalSoldiers" PositionY="-1580" PositionX="1740" />
+				<HasteTrigger Name="002_disableAlliedTrackview" PositionY="-1350" PositionX="1740" />
+				<HasteTrigger Name="003_disableBackgroundTrackview" PositionY="-920" PositionX="2790" />
+				<HasteTrigger Name="004_disableBackgroundTrackview_loop" PositionY="-730" PositionX="2790" />
+				<HasteTrigger Name="005_setBattleContextLow" PositionY="-1120" PositionX="1740" />
 				<HasteTrigger Name="010_bitva" PositionY="180" PositionX="1230" />
 				<HasteTrigger Name="011_unstreamParticles" PositionY="-880" PositionX="1740" />
 				<HasteTrigger Name="020_prohlidka" PositionY="-310" PositionX="3620">
@@ -122,6 +127,9 @@
 					</Edge>
 					<Edge From="savegamewithnotification35.OnDone" To="SetActive" />
 				</State>
+				<State Name="battleContextLow" PositionY="-1120" PositionX="2090" TypeT="bool">
+					<Edge From="005_setBattleContextLow.OnTrigger" To="SetTrue" />
+				</State>
 				<State Name="battleRecording" PositionY="640" PositionX="1240" TypeT="bool">
 					<Edge From="040_nahravani.OnTrigger" To="SetTrue" />
 				</State>
@@ -151,11 +159,14 @@
 						<Vertex>vertex143</Vertex>
 					</Edge>
 				</State>
-				<CutsceneHandler Name="cutscenehandler34" PositionY="50" PositionX="1560">
+				<CutsceneHandler Name="cutscenehandler34" PositionY="10" PositionX="1560">
 					<Asset Name="CutsceneHolder" Alias="zizkaVezeZasobyAJeNapaden_cutscene" />
 					<Edge From="ifand28.True" To="EnqueueCutscene" />
 					<Edge From="010_bitva.OnTrigger" To="EnqueueCutscene" />
 				</CutsceneHandler>
+				<disabledirectionschatglobal Name="disabledirectionschatglobal" PositionY="-1350" PositionX="1220" Namespace="utils.hardcoremode">
+					<Edge From="Oblehani.Active" To="enabled" />
+				</disabledirectionschatglobal>
 				<divadlo_na_pozadi Name="divadlo_na_pozadi" PositionY="-40" PositionX="3250">
 					<Edge From="prazane_utoci_z_pochodu_na_predhradi.aktivace_trackview" To="aktivace_trackview" />
 					<Edge From="prazane_utoci_z_pochodu_na_predhradi.start_bitvy" To="start_bitvy" />
@@ -173,6 +184,8 @@
 						<Vertex>SosxM8AH</Vertex>
 					</Edge>
 					<Edge From="prazane_utoci_z_pochodu_na_predhradi.utok_prazanu_z_pochodu_byl_odrazen" To="dialog_s_zizkou_absolvovan" />
+					<Edge From="003_disableBackgroundTrackview.OnTrigger" To="disablebackgroundtrackview" />
+					<Edge From="004_disableBackgroundTrackview_loop.OnTrigger" To="disablebackgroundtrackview_loop" />
 				</divadlo_na_pozadi>
 				<MakeArray Name="dobrosWolfram" PositionY="400" PositionX="4700" TypeT="wh::rpgmodule::Souls">
 					<Asset Name="A" Alias="dobros" />
@@ -322,8 +335,20 @@
 				</music>
 				<nahravani_divadla Name="nahravani_divadla" PositionY="870" PositionX="1240" />
 				<nahravani_nocniho_utoku Name="nahravani_nocniho_utoku" PositionY="900" PositionX="2790" />
+				<State Name="noAdditionalSoldiers" PositionY="-1580" PositionX="2090" TypeT="bool">
+					<Edge From="001_disableAdditionalSoldiers.OnTrigger" To="SetTrue" />
+				</State>
+				<State Name="noAlliedTrackview" PositionY="-1350" PositionX="2090" TypeT="bool">
+					<Edge From="002_disableAlliedTrackview.OnTrigger" To="SetTrue" />
+				</State>
 				<Function Name="not32" PositionY="140" PositionX="800" MethodName="math::boolean::Not" DeclaringType="math::boolean">
 					<Edge From="initOnly.State" To="Value" />
+				</Function>
+				<Function Name="not52" PositionY="-1580" PositionX="2370" MethodName="math::boolean::Not" DeclaringType="math::boolean">
+					<Edge From="noAdditionalSoldiers.State" To="Value" />
+				</Function>
+				<Function Name="not52_1" PositionY="-1350" PositionX="2370" MethodName="math::boolean::Not" DeclaringType="math::boolean">
+					<Edge From="noAlliedTrackview.State" To="Value" />
 				</Function>
 				<State Name="Oblehani" PositionY="-300" PositionX="800" RequiredForOutput="kutnohorsko" TypeT="wh::questmodule::QuestProgress">
 					<Edge From="prazane_utoci_z_pochodu_na_predhradi.bitva_prohrana" To="SetFailed">
@@ -473,6 +498,12 @@
 						<Vertex>vertex133</Vertex>
 					</Edge>
 					<Edge From="battleActivation.Active" To="Awake" />
+					<Edge From="not52.bool" To="stream_additional_soldiers" />
+					<Edge From="not52_1.bool" To="stream_allied_trackview" />
+					<Edge From="battleContextLow.State" To="battle_context_low">
+						<Vertex>FmgzXebS</Vertex>
+						<Vertex>3aKt4tBv</Vertex>
+					</Edge>
 				</prazane_utoci_z_pochodu_na_predhradi>
 				<State Name="ptacekSchedule" PositionY="580" PositionX="3220" TypeT="Progress">
 					<Edge From="prazane_utoci_z_pochodu_na_predhradi.utok_prazanu_z_pochodu_byl_odrazen" To="SetActive" />
@@ -552,9 +583,11 @@
 				</TriggerSequence>
 			</Nodes>
 			<EdgeVertices>
+				<EdgeVertex Name="3aKt4tBv" PositionY="-550" PositionX="2600" />
 				<EdgeVertex Name="7h3yKQjz" PositionY="-530" PositionX="3130" />
 				<EdgeVertex Name="b2Lx3vcV" PositionY="-530" PositionX="2020" />
 				<EdgeVertex Name="d10dwTGw" PositionY="-150" PositionX="6010" />
+				<EdgeVertex Name="FmgzXebS" PositionY="-550" PositionX="2460" />
 				<EdgeVertex Name="chNhf23l" PositionY="-150" PositionX="5110" />
 				<EdgeVertex Name="I8ppwPWS" PositionY="-330" PositionX="6010" />
 				<EdgeVertex Name="kcttgHTx" PositionY="-390" PositionX="3160" />
@@ -594,7 +627,7 @@
 				<EdgeVertex Name="vertex141" PositionY="-390" PositionX="740" />
 				<EdgeVertex Name="vertex142" PositionY="-370" PositionX="-270" />
 				<EdgeVertex Name="vertex143" PositionY="-370" PositionX="740" />
-				<EdgeVertex Name="vertex153" PositionY="-530" PositionX="3330" />
+				<EdgeVertex Name="vertex153" PositionY="-530" PositionX="3960" />
 				<EdgeVertex Name="vertex154" PositionY="-530" PositionX="6010" />
 				<EdgeVertex Name="vertex155" PositionY="640" PositionX="1510" />
 				<EdgeVertex Name="vertex156" PositionY="640" PositionX="2430" />
@@ -741,15 +774,18 @@
 				<TriggerAreaAsset Name="guardArea_nightAttack_first" />
 				<BattlementAsset Name="prohlidka_disableBattelment" />
 				<SoulAsset Name="guard" SharedSoulGuids="7d23a6a0-651f-44f4-b6bd-bda9f14b54a9" />
+				<ProfileAsset Name="additionalSoldiers_profile" AssetProfiles="oblehaniSuchdole_additionalSoldiers" />
+				<SoulAsset Name="musaKaterina" SharedSoulGuids="74bab062-afb4-4a17-859a-79bcdf4be73a 4ee6712c-b00e-45a5-9ad6-d1083e2201b5" />
+				<ProfileAsset Name="alliesTrackview" AssetProfiles="oblehaniSuchdole_prvniBitva_trackviewAllies" />
 			</Assets>
 			<Notes>
 				<Note Name="note9" PositionY="610" PositionX="410">
 					<Text StringName="oblehanis_note9_0XWA" Text="TODO: gameplay před bitvou:&#xD;&#xA;&#xD;&#xA;V bitvě s tebou bojuje Žižka, Ptáček, Bohuta a Suchý Čert - to znamená, že musíme vyměnit Sama za Suchého Čerta&#xD;&#xA;&#xD;&#xA;Potřebujeme, aby hráč začínal gameplay na nádvoří mimo hradby, což znamená, že tam musíme přidat menší divadlo, co tomu předchází... Představuju si to takhle:&#xD;&#xA;&#xD;&#xA;Hráč začíná v předhradí.&#xD;&#xA;&#xD;&#xA;U schodů na palisádu stojí Žižka, gestikuluje a barkuje &quot;Na hradby! Dělejte!&quot;&#xD;&#xA;&#xD;&#xA;Zpoza počáteční kamery hráče se skupinka obránců ihned rozbíhá na hradby, kde se postaví pak do pozic. Měl by to být Bohuta, Ptáček a pár bezejmenných mužů. Běží už s tasenými zbraněmi.&#xD;&#xA;&#xD;&#xA;Poblíž hráče je pár stashí se střelivem a stojan s halapartnami. U něj stojí nové NPC, které na hráče chatuje - obsahem chatu je, že tady si může hráč vzít halapartnu na shazování žebříků nebo munici, pokud potřebuje. Jakmile chat skončí, NPC se jde připojit k obráncům na hradby.&#xD;&#xA;&#xD;&#xA;Jakmile jsou všichni kromě Žižky na hradbě, Žižka se přidává.&#xD;&#xA;&#xD;&#xA;Jakmile jsou tato NPC na hradbě, Pražané teprve spouštějí útok a začínají pochodovat na hrad. Případně můžou začít pochodovat rovnou, ale musí to vycházet tak, aby obránci už byli připraveni střílet, když se blíží na dostřel.&#xD;&#xA;&#xD;&#xA;Na hráče v tom nečekáme. Když zůstává lelkovat v předhradí, bitva prostě začne..." />
 				</Note>
-				<Note Name="note14" PositionY="-1020" PositionX="3340">
+				<Note Name="note14" PositionY="-1350" PositionX="3420">
 					<Text StringName="oblehanis_note14_e6f5" Text="Osazení hradu - stav 0&#xD;&#xA;&#xD;&#xA;Palisáda je obsazena 6 smrtelnými NPC po palisádě. Ti mají jak střelné, tak melee zbraně.&#xD;&#xA;Na palisádě je také Žižka, Ptáček, Bohuta a Hans, Čert&#xD;&#xA;Ze situace úplně zmizel: Petr z Písku&#xD;&#xA;Na hradbě tvrze jsou střílející animchaři na straně obránců.&#xD;&#xA;Jinak je předhradí vylidněno. V pozadí je vidět sešikovaná armáda útočníků, jako tam byla v CS. Skupiny animcharů pak táhnou podle popisu v útoku z pochodu.&#xD;&#xA;" />
 				</Note>
-				<Note Name="note14_1" PositionY="-750" PositionX="3340">
+				<Note Name="note14_1" PositionY="-1100" PositionX="3420">
 					<Text StringName="oblehanis_note14_1_WxoL" Text="Podoba hradu - stav 0&#xD;&#xA;&#xD;&#xA;Hrad by se měl vrátit do stejné podoby, jako byl v open worldu. Uklidí se tudíž párty stav, který tu byl v průběhu předchozího questu Erik. Jediné změny oproti OW jsou:&#xD;&#xA;- Zvednutý padací most&#xD;&#xA;- Zavřená brána předhradí&#xD;&#xA;- Na obzoru za kostelem je rozestoupená armáda Pražanů (stejně jako v cutscéně na konci M46 Erik)&#xD;&#xA;" />
 				</Note>
 				<Note Name="note21" PositionY="-70" PositionX="480">
@@ -852,7 +888,7 @@
 					<LocalizedName StringName="oblehanis_navstiv_musu_a__eB07" Text="Navštiv Musu a Kateřinu v lazaretu." />
 					<Logs>
 						<EnumLog Type="None" Name="None" />
-						<EnumLog Type="Started" Name="Started">
+						<EnumLog Type="Started" Name="Started" Marker="musaKaterina">
 							<Log StringName="navstiv_m_nas_novy_spojen_cONk" Text="Náš nový spojenecn Musa společně s Kateřinou na tvrzi zřídili lazaret, kde se starají o raněné. Může se za nimi zastavit a optat se, jestli nepotřebují s něčím pomoct." />
 						</EnumLog>
 						<EnumLog Type="Completed" Name="Completed">
@@ -1077,15 +1113,18 @@
 						<EnumLog Type="None" Name="Aborted" />
 					</Logs>
 				</Objective>
-				<Objective TypeT="ProgressAbortable" Name="probud_strazneho_na_brane" IsOptional="true">
+				<Objective TypeT="ProgressFailableAbortable" Name="probud_strazneho_na_brane" IsOptional="true">
 					<LocalizedName StringName="oblehanis_probud_strazneh_0wVi" Text="Probuď strážného na bráně." />
 					<Logs>
 						<EnumLog Type="None" Name="None" />
-						<EnumLog Type="Started" Name="Started">
+						<EnumLog Type="Started" Name="Started" Marker="guard">
 							<Log StringName="probud_st_strazny_na_bran_bT63" Text="Strážný na bráně usnul tak tvrdě, že ho snad může probudit jen pořádná rána." />
 						</EnumLog>
-						<EnumLog Type="Completed" Name="Completed" Marker="guard">
+						<EnumLog Type="Completed" Name="Completed">
 							<Log StringName="probud_st_strazny_na_bran_vWqD" Text="Strážný na bráně usnul, takže jsem ho musel probudit." />
+						</EnumLog>
+						<EnumLog Type="Canceled" Name="Failed">
+							<Log StringName="probud_st_strazny_na_bran_YPC4" Text="Strážný na bráně usnul na hlídce. Teď je je mrtvý, takže ho neprobudí už nic." />
 						</EnumLog>
 						<EnumLog Type="None" Name="Aborted" />
 					</Logs>

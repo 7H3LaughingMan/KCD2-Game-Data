@@ -39,6 +39,7 @@ ReflexLight =
 		Shadows =
 		{
 			nCastShadows = 4,
+			bScreenSpaceShadowsFallbackWH = true, --[0,1,1,"Fallback to screen space shadows if the shadow map is disabled (for performance reasons), KCD2-444074"]
 			fShadowBias = 1, --[0,1000,1,"Moves the shadow cascade toward or away from the shadow-casting object."]
 			fShadowSlopeBias = 1, --[0,1000,1,"Allows you to adjust the gradient (slope-based) bias used to compute the shadow bias."]
 			fShadowAutoBiasScale = 1, --[0.1,2,0.1,"Allows you to adjust output of the e_ShadowsAutoBias magic."]
@@ -112,9 +113,8 @@ end
 
 -- =============================================================================
 function ReflexLight:CacheResources(requesterName)
-	local textureFlags = 0
+	local textureFlags = 0x00440000 -- FT_DONT_STREAM | FT_SUPPRESS_DOWNSCALING
 	Game.CacheResource(requesterName, self.Properties.Projector.texture_Texture, eGameCacheResourceType_Texture, textureFlags)
-
 	Game.CacheResource(requesterName, self.Properties.Options.file_deferred_clip_geom, eGameCacheResourceType_StaticObject, 0)
 end
 
@@ -252,6 +252,7 @@ function ReflexLight:LoadLightToSlot( nSlot )
 	lt.area_wall_vertical_chamfer = Shape.fWallChamferVertical
 
 	lt.cast_shadow = Shadows.nCastShadows
+	lt.ss_shadows_fallback_wh = Shadows.bScreenSpaceShadowsFallbackWH
 	lt.shadow_bias = Shadows.fShadowBias
 	lt.shadow_slope_bias = Shadows.fShadowSlopeBias
 	lt.shadow_auto_bias_scale_wh = Shadows.fShadowAutoBiasScale

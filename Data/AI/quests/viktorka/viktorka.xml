@@ -82,27 +82,68 @@
 		</EditorData>
 	</BehaviorTree>
 	<BehaviorTree name="interrupt_waitAction" is_function="0">
-		<Variables />
+		<Variables>
+			<Variable name="addParams" type="additionalMoveParams" values="" isPersistent="0" form="single" />
+		</Variables>
 		<Root OneTimeOnly="false" FailState="Recoverable" saveVersion="2">
 			<Behavior canSkip="1">
-				<StanceElement smartObject="" stance="standing" allowAny="true" enabled="true">
-					<WaitAction />
-				</StanceElement>
+				<Sequence>
+					<StanceElement smartObject="" stance="standing" allowAny="true" enabled="true">
+						<WaitAction />
+					</StanceElement>
+					<UrgencyDecorator Urgency="Slow">
+						<Sequence>
+							<Expression expressions="$addParams.continueWhenHalting = true" />
+							<Parallel successMode="Any" failureMode="Any">
+								<Move stopWithinDistance="0.200000" stopDistanceVariation="0.100000" rayCasteFlee="false" successDistance="0.000000" changeNPCState="true" fastForwardIncludesMove="false" destinationSpecification="$__object.id" destinationSpecification2="" destinationSpecification3="" speed="Walk" additionalParams="$addParams" pathFindingParams="" staminaPolicy="" pathInfo="" />
+								<StanceBarrier soul="$this.id" stance="standing" smartObject="" negate="false" failOnCondition="false" RunLogic="KeepRunning">
+									<Success />
+								</StanceBarrier>
+							</Parallel>
+						</Sequence>
+					</UrgencyDecorator>
+				</Sequence>
 			</Behavior>
 		</Root>
 		<ForestContainer />
 		<EditorData EventSet="">
-			<Variables />
+			<Variables>
+				<Variable name="addParams" comment="" />
+			</Variables>
 			<ForwardDeclarations />
 			<Root hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
 				<OutputBreakpoints />
 				<Behavior>
-					<StanceElement hasInputBreakpoint="0" comment="" breakpointFlags="0">
+					<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
 						<OutputBreakpoints />
-						<WaitAction hasInputBreakpoint="0" comment="" breakpointFlags="0">
+						<StanceElement hasInputBreakpoint="0" comment="" breakpointFlags="0">
 							<OutputBreakpoints />
-						</WaitAction>
-					</StanceElement>
+							<WaitAction hasInputBreakpoint="0" comment="" breakpointFlags="0">
+								<OutputBreakpoints />
+							</WaitAction>
+						</StanceElement>
+						<UrgencyDecorator hasInputBreakpoint="0" comment="" comment_box="KCD2-376478" comment_box_color="222,222,222,222" breakpointFlags="0">
+							<OutputBreakpoints />
+							<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
+								<OutputBreakpoints />
+								<Expression hasInputBreakpoint="0" comment="" breakpointFlags="0">
+									<OutputBreakpoints />
+								</Expression>
+								<Parallel hasInputBreakpoint="0" comment="" breakpointFlags="0">
+									<OutputBreakpoints />
+									<Move hasInputBreakpoint="0" comment="" breakpointFlags="0">
+										<OutputBreakpoints />
+									</Move>
+									<StanceBarrier hasInputBreakpoint="0" comment="" breakpointFlags="0">
+										<OutputBreakpoints />
+										<Success hasInputBreakpoint="0" comment="" breakpointFlags="0">
+											<OutputBreakpoints />
+										</Success>
+									</StanceBarrier>
+								</Parallel>
+							</Sequence>
+						</UrgencyDecorator>
+					</Sequence>
 				</Behavior>
 			</Root>
 			<Forest />

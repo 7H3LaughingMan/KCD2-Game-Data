@@ -11,11 +11,24 @@
 				</Port>
 			</Ports>
 			<Nodes>
-				<leavelevelnpcs Name="leavelevelnpcs" PositionY="350" PositionX="620" Namespace="utils.streaming">
+				<disabledirectionschatsoul Name="disabledirectionschatsoul" PositionY="-170" PositionX="1000" Namespace="utils.hardcoremode">
+					<Asset Name="soul" Alias="corpseRobber" />
+					<Edge From="or4.bool" To="enabled" />
+				</disabledirectionschatsoul>
+				<If Name="if5" PositionY="340" PositionX="440">
+					<Edge From="isinactorstate6.InState" To="Condition" />
+					<Edge From="state1.OnLeavingLevel" To="Exec" />
+				</If>
+				<Function Name="isinactorstate6" PositionY="440" PositionX="160" MethodName="wh::entitymodule::IsInActorState" DeclaringType="wh::entitymodule">
+					<Asset Name="Souls" Alias="player" />
+					<Constant Name="State" Value="skipTime" />
+				</Function>
+				<leavelevelnpcs Name="leavelevelnpcs" PositionY="360" PositionX="720" Namespace="utils.streaming">
 					<Asset Name="questsmartobject" Alias="qSO" />
 					<Asset Name="souls" Alias="corpseRobber" />
 					<Constant Name="speed" Value="walk" />
-					<Edge From="state1.OnLeavingLevel" To="leavelevel" />
+					<Edge From="if5.False" To="leavelevel" />
+					<Edge From="if5.True" To="unstreamnpcs" />
 				</leavelevelnpcs>
 				<Function Name="or4" PositionY="-160" PositionX="600" MethodName="math::boolean::Or" DeclaringType="math::boolean">
 					<Edge From="state1.Streamed" To="A" />
@@ -38,7 +51,7 @@
 						<Vertex>CByXAp78</Vertex>
 					</Edge>
 				</State>
-				<streamprofileshandling Name="streamprofileshandling" PositionY="10" PositionX="600" Namespace="utils.streaming">
+				<streamprofileshandling Name="streamprofileshandling" PositionY="20" PositionX="700" Namespace="utils.streaming">
 					<Asset Name="profiles" Alias="corpseRobberProfile" />
 					<Constant Name="autodeactivatenotificationafterstream" Value="true" />
 					<Edge From="state1.OnUnstreamed" To="unstreamprofiles" />
@@ -48,8 +61,8 @@
 			<EdgeVertices>
 				<EdgeVertex Name="BDf2WhWW" PositionY="720" PositionX="150" />
 				<EdgeVertex Name="CByXAp78" PositionY="790" PositionX="120" />
-				<EdgeVertex Name="gnASg6we" PositionY="790" PositionX="850" />
-				<EdgeVertex Name="uP14IyoH" PositionY="720" PositionX="800" />
+				<EdgeVertex Name="gnASg6we" PositionY="790" PositionX="940" />
+				<EdgeVertex Name="uP14IyoH" PositionY="720" PositionX="890" />
 			</EdgeVertices>
 			<Types>
 				<Type TypeName="CorpseRobberState">

@@ -18,6 +18,9 @@
 				<Port Name="zabiti_ponocneho__beforeplay" Direction="Out" Type="trigger">
 					<DesignName StringName="hibernova_zabiti_ponocneh_BR7p" Text="Zabití ponocného - BeforePlay" />
 				</Port>
+				<Port Name="zabiti_ponocneho__afterplay" Direction="Out" Type="trigger">
+					<DesignName StringName="hibernova_zabiti_ponocneh_2eGq" Text="Zabití ponocného - AfterPlay" />
+				</Port>
 				<Port Name="utok_na_vesnici_zahajen__afterplay" Direction="Out" Type="trigger">
 					<DesignName StringName="hibernova_vesnicane_utika_y3H1" Text="Útok na vesnici zahájen - AfterPlay" />
 				</Port>
@@ -72,8 +75,8 @@
 				<Port Name="konec_questu" Direction="Out" Type="trigger">
 					<DesignName StringName="hibernova_konec_questu_6qoq" Text="Konec questu" />
 				</Port>
-				<Port Name="vrana_neni_naverbovan" Direction="In" Type="bool">
-					<DesignName StringName="hibernova_vrana_neni_nave_bCXU" Text="Vrána není naverbován" />
+				<Port Name="vrana_je_naverbovan" Direction="In" Type="bool">
+					<DesignName StringName="hibernova_vrana_neni_nave_bCXU" Text="Desátník Štěpán Vrána je naverbován" />
 				</Port>
 				<Port Name="zebrik_je_nastreamovany" Direction="In" Type="bool">
 					<DesignName StringName="hibernova_zebrik_je_nastr_NCty" Text="Žebřík je nastreamovaný" />
@@ -118,7 +121,7 @@
 						<Vertex>vertex135</Vertex>
 					</Edge>
 					<Edge From="not10.bool" To="Awake" />
-					<Edge From="vrana_neni_naverbovan" To="vrana_neni_naverbovan">
+					<Edge From="vrana_je_naverbovan" To="vrana_neni_naverbovan">
 						<Vertex>643AP8Vl</Vertex>
 						<Vertex>KDT7tYxF</Vertex>
 					</Edge>
@@ -273,6 +276,10 @@
 						<Vertex>vertex90</Vertex>
 					</Edge>
 					<Edge From="tvrz.beforeplay" To="bergov_byl_prave_zajat__beforeplay" />
+					<Edge From="ves_malesov.zabiti_ponocneho__afterplay" To="zabiti_ponocneho__afterplay">
+						<Vertex>UA935A8T</Vertex>
+						<Vertex>8RmBzKhj</Vertex>
+					</Edge>
 				</Output>
 				<TriggerSequence Name="triggersequence72" PositionY="-457" PositionX="1817">
 					<Edge From="v_prubehu_utoku.konec_questu" To="Exec" />
@@ -298,6 +305,10 @@
 					<Edge From="ves_malesov.hrac_porazil_certa_v_souboji" To="hrac_porazil_certa_v_souboji">
 						<Vertex>dAdlUGT1</Vertex>
 						<Vertex>BsCefjpu</Vertex>
+					</Edge>
+					<Edge From="vrana_je_naverbovan" To="desatnik_stepan_vrana_naverbovan">
+						<Vertex>JrsU99Fn</Vertex>
+						<Vertex>WQrSMTwP</Vertex>
 					</Edge>
 				</tvrz>
 				<v_prubehu_utoku Name="v_prubehu_utoku" PositionY="-640" PositionX="1330" RequiredForOutput="kutnohorsko">
@@ -353,21 +364,24 @@
 			<EdgeVertices>
 				<EdgeVertex Name="1C0srW6e" PositionY="-721" PositionX="2327" />
 				<EdgeVertex Name="2Yx0SbNt" PositionY="280" PositionX="980" />
-				<EdgeVertex Name="3HHyhCKz" PositionY="-639" PositionX="1596" />
+				<EdgeVertex Name="3HHyhCKz" PositionY="-630" PositionX="1600" />
 				<EdgeVertex Name="48fLdzHh" PositionY="448" PositionX="1654" />
 				<EdgeVertex Name="643AP8Vl" PositionY="220" PositionX="-970" />
+				<EdgeVertex Name="8RmBzKhj" PositionY="-640" PositionX="2310" />
 				<EdgeVertex Name="aJ3e0Iud" PositionY="450" PositionX="870" />
 				<EdgeVertex Name="BsCefjpu" PositionY="310" PositionX="1940" />
 				<EdgeVertex Name="dAdlUGT1" PositionY="310" PositionX="980" />
 				<EdgeVertex Name="e7IBwITT" PositionY="380" PositionX="1230" />
 				<EdgeVertex Name="ja84bazs" PositionY="448" PositionX="2350" />
+				<EdgeVertex Name="JrsU99Fn" PositionY="540" PositionX="-940" />
 				<EdgeVertex Name="KDT7tYxF" PositionY="220" PositionX="-720" />
 				<EdgeVertex Name="Ltp5GD4h" PositionY="400" PositionX="1810" />
 				<EdgeVertex Name="PLcuzN0D" PositionY="280" PositionX="1940" />
 				<EdgeVertex Name="QMIkPe8w" PositionY="560" PositionX="1604" />
-				<EdgeVertex Name="QxIqJvn0" PositionY="-640" PositionX="340" />
+				<EdgeVertex Name="QxIqJvn0" PositionY="-630" PositionX="350" />
 				<EdgeVertex Name="RGT5hvL9" PositionY="-720" PositionX="-215" />
 				<EdgeVertex Name="Sg0EMrMN" PositionY="550" PositionX="1600" />
+				<EdgeVertex Name="UA935A8T" PositionY="-638" PositionX="942" />
 				<EdgeVertex Name="UflSI0mL" PositionY="490" PositionX="2350" />
 				<EdgeVertex Name="ujps4bQv" PositionY="550" PositionX="1350" />
 				<EdgeVertex Name="UKpxAjUL" PositionY="381" PositionX="2309" />
@@ -401,7 +415,7 @@
 				<EdgeVertex Name="vertex140" PositionY="450" PositionX="1270" />
 				<EdgeVertex Name="vertex141" PositionY="849" PositionX="2318" />
 				<EdgeVertex Name="vertex142" PositionY="850" PositionX="1370" />
-				<EdgeVertex Name="vertex143" PositionY="-647" PositionX="2320" />
+				<EdgeVertex Name="vertex143" PositionY="-650" PositionX="2320" />
 				<EdgeVertex Name="vertex144" PositionY="440" PositionX="1320" />
 				<EdgeVertex Name="vertex19" PositionY="440" PositionX="2360" />
 				<EdgeVertex Name="vertex20" PositionY="440" PositionX="1830" />
@@ -423,6 +437,7 @@
 				<EdgeVertex Name="vertex93" PositionY="-710" PositionX="2330" />
 				<EdgeVertex Name="vertex94" PositionY="-710" PositionX="-200" />
 				<EdgeVertex Name="vM5GvAlL" PositionY="398" PositionX="2388" />
+				<EdgeVertex Name="WQrSMTwP" PositionY="540" PositionX="2020" />
 				<EdgeVertex Name="wz9wX1eN" PositionY="559" PositionX="1351" />
 			</EdgeVertices>
 			<Assets>

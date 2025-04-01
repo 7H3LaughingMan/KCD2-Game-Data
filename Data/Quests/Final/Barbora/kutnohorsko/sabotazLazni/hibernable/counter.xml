@@ -21,7 +21,7 @@
 				<Port Name="blechy_v_pradle_completed" Direction="In" Type="trigger">
 					<DesignName StringName="counter_blechy_v_pradle_c_Krj2" Text="blechy v prádle completed" />
 				</Port>
-				<Port Name="uplatek" Direction="In" Type="trigger">
+				<Port Name="uplatek" Direction="In" Type="bool">
 					<DesignName StringName="counter_uplatek_dSMA" Text="úplatek" />
 				</Port>
 				<Port Name="konsel_podpori" Direction="In" Type="bool">
@@ -63,9 +63,7 @@
 						<Vertex>vertex33</Vertex>
 						<Vertex>vertex34</Vertex>
 					</Edge>
-					<Edge From="uplatek" To="Exec">
-						<Vertex>vertex39</Vertex>
-					</Edge>
+					<Edge From="ifcompare19_1.True" To="Exec" />
 				</State>
 				<Function Name="add7" PositionY="-460" PositionX="900" MethodName="math::integer::Add" DeclaringType="math::integer">
 					<Constant Name="A" Value="1" />
@@ -95,7 +93,7 @@
 						<Vertex>vertex36</Vertex>
 					</Edge>
 				</Function>
-				<IfFunction Name="ifand15" PositionY="-810" PositionX="550" MethodName="math::boolean::And" DeclaringType="math::boolean">
+				<IfFunction Name="ifand15" PositionY="-810" PositionX="510" MethodName="math::boolean::And" DeclaringType="math::boolean">
 					<Edge From="triggersequence16.A" To="Exec" />
 					<Edge From="parfem_is_completed" To="A" />
 				</IfFunction>
@@ -106,6 +104,11 @@
 						<Vertex>FLs4Cnrp</Vertex>
 					</Edge>
 				</IfFunction>
+				<IfFunction Name="ifand23" PositionY="940" PositionX="600" MethodName="math::boolean::And" DeclaringType="math::boolean">
+					<Edge From="uplatek" To="A" />
+					<Edge From="noCrimeOnPolner.State" To="B" />
+					<Edge From="triggersequence16.A" To="Exec" />
+				</IfFunction>
 				<IfFunction Name="ifcompare19" PositionY="480" PositionX="600" TypeT="int" MethodName="Control::Compare" DeclaringType="Control">
 					<Constant Name="Op" Value="Equals" />
 					<Constant Name="ValueB" Value="0" />
@@ -115,6 +118,22 @@
 						<Vertex>vertex22</Vertex>
 						<Vertex>v4Dst5s2</Vertex>
 					</Edge>
+				</IfFunction>
+				<IfFunction Name="ifcompare19_1" PositionY="1120" PositionX="600" TypeT="int" MethodName="Control::Compare" DeclaringType="Control">
+					<Constant Name="Op" Value="Equals" />
+					<Constant Name="ValueB" Value="0" />
+					<Edge From="ifand23.True" To="Exec" />
+					<Edge From="add6p.State" To="ValueA">
+						<Vertex>vertex35</Vertex>
+						<Vertex>vertex36</Vertex>
+						<Vertex>Th1D1362</Vertex>
+					</Edge>
+				</IfFunction>
+				<IfFunction Name="ifcompare26" PositionY="900" PositionX="300" TypeT="wh::xgenaimodule::E_InformationMessageStatus" MethodName="Control::Compare" DeclaringType="Control">
+					<Constant Name="Op" Value="NotEquals" />
+					<Constant Name="ValueB" Value="Deleted" />
+					<Edge From="informationdifftrigger24.Status" To="ValueA" />
+					<Edge From="informationdifftrigger24.OnNotification" To="Exec" />
 				</IfFunction>
 				<IfFunction Name="ifcompare4" PositionY="100" PositionX="1730" TypeT="int" MethodName="Control::Compare" DeclaringType="Control">
 					<Constant Name="Op" Value="GreaterEquals" />
@@ -127,8 +146,18 @@
 				</IfFunction>
 				<IfFunction Name="ifdeathcheck18" PositionY="420" PositionX="320" MethodName="wh::rpgmodule::DeathCheck" DeclaringType="wh::rpgmodule">
 					<Asset Name="Souls" Alias="fifle" />
-					<Edge From="calculate" To="Exec" />
+					<Edge From="triggersequence16.A" To="Exec" />
 				</IfFunction>
+				<InformationDiffTrigger Name="informationdifftrigger24" PositionY="900" PositionX="-80">
+					<Asset Name="WhoFilter" Alias="polner" />
+					<Asset Name="PerceivedWuidFilter" Alias="polner" />
+					<Constant Name="IsCrimeFilter" Value="true" />
+					<Edge From="uplatek" To="IsActive" />
+				</InformationDiffTrigger>
+				<State Name="noCrimeOnPolner" PositionY="1120" PositionX="300" TypeT="bool">
+					<Constant Name="DefaultValue" Value="true" />
+					<Edge From="ifcompare26.True" To="SetFalse" />
+				</State>
 				<Output Name="Output">
 					<Edge From="sabotageSucceeded.State" To="success" />
 				</Output>
@@ -136,12 +165,13 @@
 					<Edge From="ifcompare4.True" To="SetTrue" />
 					<Edge From="ifcompare4.False" To="SetFalse" />
 				</State>
-				<TriggerSequence Name="triggersequence16" PositionY="-810" PositionX="270">
+				<TriggerSequence Name="triggersequence16" PositionY="-170" PositionX="-10">
 					<Edge From="calculate" To="Exec" />
 				</TriggerSequence>
 			</Nodes>
 			<EdgeVertices>
 				<EdgeVertex Name="FLs4Cnrp" PositionY="400" PositionX="510" />
+				<EdgeVertex Name="Th1D1362" PositionY="1360" PositionX="620" />
 				<EdgeVertex Name="v4Dst5s2" PositionY="720" PositionX="610" />
 				<EdgeVertex Name="vertex12" PositionY="100" PositionX="1080" />
 				<EdgeVertex Name="vertex13" PositionY="100" PositionX="890" />
@@ -152,21 +182,23 @@
 				<EdgeVertex Name="vertex22" PositionY="720" PositionX="900" />
 				<EdgeVertex Name="vertex23" PositionY="690" PositionX="1080" />
 				<EdgeVertex Name="vertex24" PositionY="690" PositionX="900" />
-				<EdgeVertex Name="vertex26" PositionY="-860" PositionX="560" />
+				<EdgeVertex Name="vertex26" PositionY="-860" PositionX="410" />
 				<EdgeVertex Name="vertex3" PositionY="-490" PositionX="880" />
 				<EdgeVertex Name="vertex33" PositionY="1330" PositionX="1090" />
 				<EdgeVertex Name="vertex34" PositionY="1330" PositionX="900" />
 				<EdgeVertex Name="vertex35" PositionY="1360" PositionX="1090" />
 				<EdgeVertex Name="vertex36" PositionY="1360" PositionX="900" />
-				<EdgeVertex Name="vertex39" PositionY="1150" PositionX="270" />
 				<EdgeVertex Name="vertex4" PositionY="-520" PositionX="1090" />
 				<EdgeVertex Name="vertex40" PositionY="-860" PositionX="1410" />
 				<EdgeVertex Name="vertex5" PositionY="-520" PositionX="880" />
 				<EdgeVertex Name="WVr8Ns9K" PositionY="400" PositionX="340" />
 			</EdgeVertices>
 			<Notes>
-				<Note Name="note20" PositionY="610" PositionX="280">
-					<Text StringName="counter_note20_WTIO" Text="compare so it wont be added for 2nd time after patching (originally was added right away, now added after timer)" />
+				<Note Name="note20" PositionY="750" PositionX="570">
+					<Text StringName="counter_note20_WTIO" Text="1st compare so it wont be added for 2nd time after patching (originally was added right away, now added after timer)" />
+				</Note>
+				<Note Name="note31" PositionY="1380" PositionX="590">
+					<Text StringName="counter_note31_7fSg" Text="2st compare so it wont be added for 2nd time after patching (originally was added right away, now added after timer)" />
 				</Note>
 			</Notes>
 			<Text StringName="counter_xvZo" Text="Counter" />

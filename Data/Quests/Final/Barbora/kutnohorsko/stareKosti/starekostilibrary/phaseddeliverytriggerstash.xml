@@ -24,7 +24,7 @@
 				<ConstantPort Name="amount_to_be_full" Direction="In" Type="int" Value="20">
 					<DesignName StringName="phaseddel_amount_to_be_fu_kqpO" Text="Amount to be full" />
 				</ConstantPort>
-				<Port Name="label" Direction="In" Type="wh::framework::LocalizedString">
+				<Port Name="label" Direction="In" Type="wh::framework::LocalizedStrings">
 					<DesignName StringName="phaseddel_label_ANjh" Text="Label" />
 				</Port>
 				<Port Name="abort_visual_objective" Direction="In" Type="trigger">
@@ -73,14 +73,14 @@
 						<Vertex>vertex67</Vertex>
 					</Edge>
 				</Function>
-				<Function Name="createitemdelivery2" PositionY="280" PositionX="1130" MethodName="wh::entitymodule::CreateItemDelivery" DeclaringType="wh::entitymodule">
+				<Function Name="createitemdelivery2" PositionY="280" PositionX="1120" MethodName="wh::entitymodule::CreateItemDelivery" DeclaringType="wh::entitymodule">
 					<Constant Name="DeliveryMode" Value="Any" />
 					<Edge From="stashproperties5.Inventory" To="DeliveryInventory">
 						<Vertex>vertex69</Vertex>
 					</Edge>
 					<Edge From="delivery_descriptors" To="DeliveryDescriptors" />
 					<Edge From="player_inventory_filters" To="PlayerInventoryFilters" />
-					<Edge From="makearray116.Array" To="Labels" />
+					<Edge From="label" To="Labels" />
 				</Function>
 				<CutsceneHandler Name="cutscenehandler128" PositionY="650" PositionX="1920">
 					<Asset Name="CutsceneHolder" Alias="cutscene_fader" />
@@ -105,14 +105,14 @@
 					<Edge From="itemsamount130.Amount" To="Value" />
 					<Edge From="triggersequence152.A" To="Exec" />
 				</State>
-				<IfFunction Name="ifand126" PositionY="-320" PositionX="530" MethodName="math::boolean::And" DeclaringType="math::boolean">
+				<IfFunction Name="ifand126" PositionY="-330" PositionX="770" MethodName="math::boolean::And" DeclaringType="math::boolean">
 					<Edge From="visual.Started" To="A">
 						<Vertex>vertex45</Vertex>
 						<Vertex>vertex46</Vertex>
 					</Edge>
-					<Edge From="Pyramid.OnDone" To="Exec" />
+					<Edge From="triggersequence156.A" To="Exec" />
 				</IfFunction>
-				<IfFunction Name="ifand126_1" PositionY="-530" PositionX="520" MethodName="math::boolean::And" DeclaringType="math::boolean">
+				<IfFunction Name="ifand126_1" PositionY="-540" PositionX="760" MethodName="math::boolean::And" DeclaringType="math::boolean">
 					<Edge From="abort_visual_objective" To="Exec">
 						<Vertex>vertex48</Vertex>
 					</Edge>
@@ -186,11 +186,6 @@
 				<Function Name="itemsamount130" PositionY="630" PositionX="2640" MethodName="wh::entitymodule::ItemsAmount" DeclaringType="wh::entitymodule">
 					<Edge From="items131.Items" To="Items" />
 				</Function>
-				<MakeArray Name="makearray116" PositionY="210" PositionX="760" TypeT="wh::framework::LocalizedStrings">
-					<Edge From="label" To="A">
-						<Vertex>Lp9C8oMy</Vertex>
-					</Edge>
-				</MakeArray>
 				<Function Name="maketracker127" PositionY="1250" PositionX="3430" RequiredForOutput="kutnohorsko" MethodName="wh::questmodule::nodes::MakeTracker" DeclaringType="wh::questmodule::nodes">
 					<Edge From="amount_to_be_full" To="Total">
 						<Vertex>vertex51</Vertex>
@@ -199,13 +194,13 @@
 				</Function>
 				<Output Name="Output">
 					<Edge From="Pyramid.Done" To="pyramids_finished" />
-					<Edge From="Pyramid.OnDone" To="pyramids_finished_trigger" />
 					<Edge From="maketracker127.Tracker" To="objectiv_visual_tracker">
 						<Vertex>vertex52</Vertex>
 					</Edge>
 					<Edge From="visual.State" To="objectiv_visual">
 						<Vertex>vertex53</Vertex>
 					</Edge>
+					<Edge From="triggersequence156.B" To="pyramids_finished_trigger" />
 				</Output>
 				<State Name="Pyramid" PositionY="-330" PositionX="170" TypeT="Progress">
 					<Edge From="activated" To="SetActive" />
@@ -264,7 +259,10 @@
 						<Vertex>8hx7tFPj</Vertex>
 					</Edge>
 				</TriggerSequence>
-				<State Name="visual" PositionY="-560" PositionX="780" RequiredForOutput="kutnohorsko" TypeT="ProgressAbortable">
+				<TriggerSequence Name="triggersequence156" PositionY="-250" PositionX="520">
+					<Edge From="Pyramid.OnDone" To="Exec" />
+				</TriggerSequence>
+				<State Name="visual" PositionY="-570" PositionX="1020" RequiredForOutput="kutnohorsko" TypeT="ProgressAbortable">
 					<Edge From="Pyramid.OnActive" To="SetStarted">
 						<Vertex>vertex47</Vertex>
 					</Edge>
@@ -279,7 +277,6 @@
 				<EdgeVertex Name="8hx7tFPj" PositionY="800" PositionX="2550" />
 				<EdgeVertex Name="beJeu8VJ" PositionY="30" PositionX="1520" />
 				<EdgeVertex Name="czShQDtm" PositionY="30" PositionX="2010" />
-				<EdgeVertex Name="Lp9C8oMy" PositionY="90" PositionX="690" />
 				<EdgeVertex Name="mUFbC9FN" PositionY="1050" PositionX="220" />
 				<EdgeVertex Name="opMGz0U5" PositionY="1209" PositionX="3997" />
 				<EdgeVertex Name="oy00zhIU" PositionY="1210" PositionX="5320" />
@@ -291,12 +288,12 @@
 				<EdgeVertex Name="vertex40" PositionY="710" PositionX="10" />
 				<EdgeVertex Name="vertex41" PositionY="740" PositionX="1300" />
 				<EdgeVertex Name="vertex42" PositionY="580" PositionX="1330" />
-				<EdgeVertex Name="vertex45" PositionY="-140" PositionX="940" />
-				<EdgeVertex Name="vertex46" PositionY="-140" PositionX="630" />
-				<EdgeVertex Name="vertex47" PositionY="-340" PositionX="440" />
+				<EdgeVertex Name="vertex45" PositionY="-150" PositionX="1180" />
+				<EdgeVertex Name="vertex46" PositionY="-150" PositionX="870" />
+				<EdgeVertex Name="vertex47" PositionY="-350" PositionX="470" />
 				<EdgeVertex Name="vertex48" PositionY="-360" PositionX="-60" />
-				<EdgeVertex Name="vertex49" PositionY="-580" PositionX="980" />
-				<EdgeVertex Name="vertex50" PositionY="-580" PositionX="560" />
+				<EdgeVertex Name="vertex49" PositionY="-590" PositionX="1220" />
+				<EdgeVertex Name="vertex50" PositionY="-590" PositionX="800" />
 				<EdgeVertex Name="vertex51" PositionY="1370" PositionX="90" />
 				<EdgeVertex Name="vertex52" PositionY="1340" PositionX="5330" />
 				<EdgeVertex Name="vertex53" PositionY="-380" PositionX="5320" />

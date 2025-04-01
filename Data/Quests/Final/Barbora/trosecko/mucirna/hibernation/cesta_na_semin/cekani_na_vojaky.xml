@@ -44,6 +44,10 @@
 				<Definition File="cekani_na_vojaky/chovani_vojaku.xml" />
 			</Definitions>
 			<Nodes>
+				<Function Name="advanceworldtime31" PositionY="-470" PositionX="1510" MethodName="wh::rpgmodule::AdvanceWorldTime" DeclaringType="wh::rpgmodule">
+					<Constant Name="TimeOfDay" Value="16h50m" />
+					<Edge From="cutscenehandler9.AfterPlay" To="Exec" />
+				</Function>
 				<Function Name="and25" PositionY="220" PositionX="-180" MethodName="math::boolean::And" DeclaringType="math::boolean">
 					<Edge From="not26.bool" To="B" />
 					<Edge From="waitForSoldiers_objective.Active" To="A">
@@ -56,10 +60,10 @@
 						<Vertex>3SAv0IN8</Vertex>
 					</Edge>
 				</Function>
-				<Function Name="changeweather27" PositionY="-770" PositionX="1580" MethodName="ChangeWeather" DeclaringType="">
+				<Function Name="changeweather27" PositionY="-840" PositionX="1800" MethodName="ChangeWeather" DeclaringType="">
 					<Constant Name="BlendTime" Value="0" />
-					<Edge From="cutscenehandler9.AfterPlay" To="Exec" />
 					<Edge From="konstanty_1.pocasi_behem_jizdy_na_semin_a_na_semine" To="Profile" />
+					<Edge From="advanceworldtime31.OnExec" To="Exec" />
 				</Function>
 				<chovani_vojaku Name="chovani_vojaku" PositionY="70" PositionX="-1730">
 					<Edge From="stav_touru" To="stav_touru" />
@@ -253,6 +257,11 @@
 				</Note>
 			</Notes>
 			<Text StringName="cekani_na_vojaky_vu71" Text="Čekání na vojáky" />
+			<Elements>
+				<NotificationElement>
+					<Text StringName="cekani_na_cekate_s_ptacke_RhFm" Text="Čekáte s Ptáčkem na Haška." />
+				</NotificationElement>
+			</Elements>
 		</Module>
 	</Skald>
 </Database>

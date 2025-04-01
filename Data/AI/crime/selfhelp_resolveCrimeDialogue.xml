@@ -167,15 +167,11 @@
 															<IfCondition failOnCondition="false" condition="~$skipDialogue">
 																<Sequence>
 																	<IfCondition failOnCondition="false" condition="$punishment.primary.label == &apos;murder&apos; | &#10;$punishment.primary.label == &apos;murderByDog&apos;">
-																		<EntityContextCheck context="crime_isCamper" target="$this.id" saveVersion="2">
+																		<IsPublicEnemy Soul="$this.id" FailOnSubtreeMissing="false" saveVersion="2">
 																			<Else canSkip="1">
-																				<IsPublicEnemy Soul="$this.id" FailOnSubtreeMissing="false" saveVersion="2">
-																					<Else canSkip="1">
-																						<Expression expressions="$dialogContext[&apos;reportMurder&apos;] = 1" />
-																					</Else>
-																				</IsPublicEnemy>
+																				<Expression expressions="$dialogContext[&apos;reportMurder&apos;] = 1" />
 																			</Else>
-																		</EntityContextCheck>
+																		</IsPublicEnemy>
 																	</IfCondition>
 																	<AtomicDecorator>
 																		<Selector>
@@ -325,7 +321,7 @@
 																						<InstantSendMessageToNPC target="$__player" variable="$playerHolsterWeaponRequest" />
 																						<Function_crime_getStolenItemsStorageChest inventory="" storage="$stolenItemsChest" nodeLabel="54044477" />
 																						<Sequence>
-																							<Expression expressions="$confiscateFine = $resolution.kind == $enum:crime_selfhelpResolutionKind.pay &#10;$confiscateItems = $punishment.confiscation == 1 &amp; $resolution.kind ~= $enum:crime_selfhelpResolutionKind.skillCheck &#10;? $enum:confiscateItems.relevantOwnAndMates : $enum:confiscateItems.none" />
+																							<Expression expressions="$confiscateFine = $resolution.kind == $enum:crime_selfhelpResolutionKind.pay &#10;$confiscateItems = $punishment.confiscation &gt; 0 &amp; $resolution.kind ~= $enum:crime_selfhelpResolutionKind.skillCheck &#10;? $enum:confiscateItems.relevantOwnAndMates : $enum:confiscateItems.none" />
 																							<Function_crime_destroyTheftVolumesForConfiscatedItems confiscationMethod="$confiscateItems" nodeLabel="93220359" />
 																							<Confiscate ConfiscateItems="$confiscateItems" ConfiscateFine="$confiscateFine" TargetStash="$stolenItemsChest" />
 																							<IfCondition failOnCondition="false" condition="$confiscateFine">
@@ -399,7 +395,7 @@
 																		<Function_player_dismountHorse dismountOnlyIfRelevantHorse="false" nodeLabel="19039829" />
 																		<InstantSendMessageToNPC target="$__player" variable="$playerHolsterWeaponRequest" />
 																		<Function_crime_getStolenItemsStorageChest inventory="" storage="$stolenItemsChest" nodeLabel="62150976" />
-																		<IfCondition failOnCondition="false" condition="$punishment.confiscation == 1 &amp; &#10;$resolution.kind ~= $enum:crime_selfhelpResolutionKind.skillCheck">
+																		<IfCondition failOnCondition="false" condition="$punishment.confiscation &gt; 0 &amp; &#10;$resolution.kind ~= $enum:crime_selfhelpResolutionKind.skillCheck">
 																			<Sequence>
 																				<Function_crime_destroyTheftVolumesForConfiscatedItems confiscationMethod="$enum:confiscateItems.relevantOwnAndMates" nodeLabel="17619893" />
 																				<Confiscate ConfiscateItems="RelevantOwnAndMates" ConfiscateFine="false" TargetStash="$stolenItemsChest" />
@@ -500,9 +496,11 @@
 													<Expression expressions="$attackState = $enum:crime_interruptAttackState.attacking" />
 												</Else>
 											</IfElseCondition>
-											<SuppressFailure>
-												<InstantMultiSendMessageToNPC targets="$postresolveSubscribers" successMode="Any" failureMode="All" variable="$attackState" />
-											</SuppressFailure>
+											<IfCondition failOnCondition="false" condition="#postresolveSubscribers &gt; 0">
+												<SuppressFailure>
+													<InstantMultiSendMessageToNPC targets="$postresolveSubscribers" successMode="Any" failureMode="All" variable="$attackState" />
+												</SuppressFailure>
+											</IfCondition>
 										</Sequence>
 									</AtomicDecorator>
 								</OnFail>
@@ -780,19 +778,14 @@
 																		<OutputBreakpoints />
 																		<IfCondition hasInputBreakpoint="0" comment="" breakpointFlags="0">
 																			<OutputBreakpoints />
-																			<EntityContextCheck hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
+																			<IsPublicEnemy hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
 																				<OutputBreakpoints />
 																				<Else>
-																					<IsPublicEnemy hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
+																					<Expression hasInputBreakpoint="0" comment="" breakpointFlags="0">
 																						<OutputBreakpoints />
-																						<Else>
-																							<Expression hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																								<OutputBreakpoints />
-																							</Expression>
-																						</Else>
-																					</IsPublicEnemy>
+																					</Expression>
 																				</Else>
-																			</EntityContextCheck>
+																			</IsPublicEnemy>
 																		</IfCondition>
 																		<AtomicDecorator hasInputBreakpoint="0" comment="" breakpointFlags="0">
 																			<OutputBreakpoints />
@@ -1382,12 +1375,15 @@
 														</Expression>
 													</Else>
 												</IfElseCondition>
-												<SuppressFailure hasInputBreakpoint="0" comment="" breakpointFlags="0">
+												<IfCondition hasInputBreakpoint="0" comment="" breakpointFlags="0">
 													<OutputBreakpoints />
-													<InstantMultiSendMessageToNPC hasInputBreakpoint="0" comment="" breakpointFlags="0">
+													<SuppressFailure hasInputBreakpoint="0" comment="" breakpointFlags="0">
 														<OutputBreakpoints />
-													</InstantMultiSendMessageToNPC>
-												</SuppressFailure>
+														<InstantMultiSendMessageToNPC hasInputBreakpoint="0" comment="" breakpointFlags="0">
+															<OutputBreakpoints />
+														</InstantMultiSendMessageToNPC>
+													</SuppressFailure>
+												</IfCondition>
 											</Sequence>
 										</AtomicDecorator>
 									</OnFail>

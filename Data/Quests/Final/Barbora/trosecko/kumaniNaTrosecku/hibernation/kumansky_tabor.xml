@@ -117,6 +117,12 @@
 				<Port Name="is_sleeping_cutscene_progress_none" Direction="In" Type="bool">
 					<DesignName StringName="kumansky__is_sleeping_cut_dlR7" Text="Is sleeping cutscene progress none" />
 				</Port>
+				<Port Name="objective_pij_s_kumany_je_aktivni" Direction="Out" Type="bool">
+					<DesignName StringName="kumansky__objective_pij_s_NaT4" Text="Objective Pij s Kumány je aktivní" />
+				</Port>
+				<Port Name="nechat_hraci_item_mimo_hibernaci" Direction="Out" Type="trigger">
+					<DesignName StringName="kumansky__nechat_hraci_it_ATBg" Text="Nechat hráči item chlastu mimo hibernaci" />
+				</Port>
 			</Ports>
 			<Definitions>
 				<Definition File="kumansky_tabor/hledani_kumanskeho_tabora.xml" />
@@ -261,6 +267,12 @@
 						<Vertex>vertex80</Vertex>
 					</Edge>
 				</IfFunction>
+				<Function Name="kill12" PositionY="-1190" PositionX="1430" MethodName="wh::rpgmodule::Kill" DeclaringType="wh::rpgmodule">
+					<Asset Name="Souls" Alias="cumans" />
+					<Constant Name="HideBody" Value="false" />
+					<Edge From="killAllCumans.OnTrigger" To="Exec" />
+				</Function>
+				<HasteTrigger Name="killAllCumans" PositionY="-1190" PositionX="1080" />
 				<kumani_po_bitce Name="kumani_po_bitce" PositionY="-520" PositionX="2150">
 					<Edge From="jindra_mluvil_s_vujtkem_o_vyhnani_kumanu_z_troskovic_nadobro" To="jindra_mluvil_s_vujtkem_o_vyhnani_kumanu_z_troskovic_nadobro">
 						<Vertex>vertex126</Vertex>
@@ -369,6 +381,8 @@
 						<Vertex>vertex117</Vertex>
 					</Edge>
 					<Edge From="party_s_kumany.vecirek_vesele_konci_finished" To="jindra_se_probouzi_po_party_finished" />
+					<Edge From="party_s_kumany.objective_pij_s_kumany_je_aktivni" To="objective_pij_s_kumany_je_aktivni" />
+					<Edge From="party_s_kumany.nechat_hraci_item_mimo_hibernaci" To="nechat_hraci_item_mimo_hibernaci" />
 				</Output>
 				<party_s_kumany Name="party_s_kumany" PositionY="-10" PositionX="1730" RequiredForOutput="trosecko">
 					<Edge From="hledani_kumanskeho_tabora.henry_jde_rovnou_s_vaskem_pro_chlast" To="henry_jde_rovnou_s_vaskem_pro_chlast" />

@@ -9,6 +9,9 @@
 				<Port Name="povolit_event_na_pranyri_v_kh" Direction="Out" Type="trigger">
 					<DesignName StringName="poquestov_povolit_event_n_H0x7" Text="Povolit event na pranýři v KH" />
 				</Port>
+				<Port Name="lute_theft_has_been_seen" Direction="In" Type="bool">
+					<DesignName StringName="poquestov_lute_theft_has__VNVW" Text="lute theft has been seen" />
+				</Port>
 				<Port Name="loutna_ziskana_legalne" Direction="In" Type="bool">
 					<DesignName StringName="poquestov_loutna_ziskana__gj3Z" Text="Loutna získaná legálne" />
 				</Port>
@@ -23,14 +26,15 @@
 				</Port>
 			</Ports>
 			<Nodes>
-				<Function Name="and1" PositionY="-110" PositionX="80" RequiredForOutput="trosecko" MethodName="math::boolean::And" DeclaringType="math::boolean">
+				<Function Name="and1" PositionY="-210" PositionX="220" RequiredForOutput="trosecko" MethodName="math::boolean::And" DeclaringType="math::boolean">
 					<Edge From="compare2.bool" To="C" />
-					<Edge From="loutna_ziskana_legalne" To="A" />
 					<Edge From="muzikanti_opustili_level" To="B" />
+					<Edge From="or7.bool" To="A" />
 				</Function>
 				<Function Name="and4" PositionY="360" PositionX="70" MethodName="math::boolean::And" DeclaringType="math::boolean">
 					<Edge From="not5.bool" To="B" />
 					<Edge From="compare2.bool" To="A" />
+					<Edge From="not6.bool" To="C" />
 				</Function>
 				<Function Name="compare2" PositionY="80" PositionX="-190" RequiredForOutput="trosecko" TypeT="wh::questmodule::QuestProgress" MethodName="Control::Compare" DeclaringType="Control">
 					<Constant Name="Op" Value="Equals" />
@@ -45,6 +49,13 @@
 				</If>
 				<Function Name="not5" PositionY="390" PositionX="-190" MethodName="math::boolean::Not" DeclaringType="math::boolean">
 					<Edge From="loutna_ziskana_legalne" To="Value" />
+				</Function>
+				<Function Name="not6" PositionY="520" PositionX="-190" MethodName="math::boolean::Not" DeclaringType="math::boolean">
+					<Edge From="lute_theft_has_been_seen" To="Value" />
+				</Function>
+				<Function Name="or7" PositionY="-280" PositionX="-170" RequiredForOutput="trosecko" MethodName="math::boolean::Or" DeclaringType="math::boolean">
+					<Edge From="lute_theft_has_been_seen" To="A" />
+					<Edge From="loutna_ziskana_legalne" To="B" />
 				</Function>
 				<Output Name="Output">
 					<Edge From="and1.bool" To="s19_kejkliri_ziji_v_kh" />

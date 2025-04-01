@@ -66,6 +66,9 @@
 						<Vertex>vertex31</Vertex>
 					</Edge>
 				</CutsceneHandler>
+				<disabledirectionschatglobal Name="disabledirectionschatglobal" PositionY="950" PositionX="220" Namespace="utils.hardcoremode">
+					<Edge From="promluvSiSZizkou.Active" To="enabled" />
+				</disabledirectionschatglobal>
 				<divadlo_pred_prepadenim Name="divadlo_pred_prepadenim" PositionY="530" PositionX="-430">
 					<Edge From="zizka_rozkazuje_a_debatuje.start_cs" To="start_cs">
 						<Vertex>vertex40</Vertex>
@@ -143,7 +146,12 @@
 					<Edge From="cesta_k_mistu_prepadeni.hrac_je_na_miste_prepadeni" To="SetActive" />
 					<Edge From="test_promluvSiSZizkouCertDone.OnTrigger" To="SetDone" />
 				</State>
-				<SaveGame Name="savegame2" PositionY="830" PositionX="220">
+				<Function Name="removebuff5_1_1" PositionY="680" PositionX="-1140" MethodName="wh::rpgmodule::RemoveBuff" DeclaringType="wh::rpgmodule">
+					<Asset Name="Souls" Alias="zizka" />
+					<Constant Name="Buff" Value="ffc20522-134d-4811-8bc5-e933b74b7081" />
+					<Edge From="cutscenehandler1.AfterPlay" To="Exec" />
+				</Function>
+				<SaveGame Name="savegame2" PositionY="750" PositionX="220">
 					<Constant Name="Objective" Value="predej_zizkovi_nalezene_rucnice" />
 					<Edge From="promluvSiSZizkou.OnActive" To="EnqueueSave" />
 				</SaveGame>

@@ -117,6 +117,10 @@
 						<Vertex>vertex102</Vertex>
 						<Vertex>vertex103</Vertex>
 					</Edge>
+					<Edge From="fist_fight_line.dialogparams_pro_forcovany_dialog" To="DialogParams" />
+					<Edge From="fist_fight_line.konci_fight" To="EnqueueDialogue">
+						<Vertex>WVnTzLcL</Vertex>
+					</Edge>
 				</hudebnik_johan__po_souboji>
 				<johan__barky_pred_vyzvou__jindrich_je_blizko Name="johan__barky_pred_vyzvou__jindrich_je_blizko" PositionY="-880" PositionX="1900" />
 				<johan__barky_pred_vyzvou__jindrich_odchazi Name="johan__barky_pred_vyzvou__jindrich_odchazi" PositionY="-740" PositionX="1900" />
@@ -149,7 +153,9 @@
 				<Output Name="Output">
 					<Edge From="fist_fight_line.abortuji_aktivni_objectivy" To="johan_umira" />
 					<Edge From="fist_fight_line.quest_failuje" To="quest_konci_smrti_johana" />
-					<Edge From="fist_fight_line.konci_fight" To="konci_fight" />
+					<Edge From="fist_fight_line.konci_fight" To="konci_fight">
+						<Vertex>WVnTzLcL</Vertex>
+					</Edge>
 					<Edge From="hudebnik_johan__po_souboji.johan_posila_jindru_za_bretislavem" To="johan_posila_jindru_za_bretislavem">
 						<Vertex>vertex121</Vertex>
 					</Edge>
@@ -181,6 +187,11 @@
 				<promluv_si_s_johanem Name="talkToJohanAfterFight_objectiveVisual" PositionY="-1100" PositionX="440" RequiredForOutput="trosecko">
 					<Edge From="fist_fight_line.stav_objectivu_po_boji" To="Progress" />
 				</promluv_si_s_johanem>
+				<turntoplayerinidlestance Name="turntoplayerinidlestance" PositionY="-430" PositionX="2110" Namespace="utils.general">
+					<Asset Name="npc" Alias="johan" />
+					<Constant Name="anydecoratorpreset" Value="changeEquipment" />
+					<Edge From="hudebnik_johan__po_souboji.AfterPlay" To="turntoplayerinidlestance" />
+				</turntoplayerinidlestance>
 				<AddReward Name="vyhra" PositionY="610" PositionX="570">
 					<Edge From="fist_fight_line.jindrich_vyhrava" To="AddReward" />
 					<Rewards>
@@ -214,6 +225,7 @@
 				<EdgeVertex Name="vertex156" PositionY="560" PositionX="-170" />
 				<EdgeVertex Name="vertex157" PositionY="-200" PositionX="1130" />
 				<EdgeVertex Name="vertex158" PositionY="-330" PositionX="1100" />
+				<EdgeVertex Name="WVnTzLcL" PositionY="-40" PositionX="1520" />
 			</EdgeVertices>
 			<Text StringName="hudebnik_johan_BS99" Text="Hudebník Johan" />
 		</Gameplay>

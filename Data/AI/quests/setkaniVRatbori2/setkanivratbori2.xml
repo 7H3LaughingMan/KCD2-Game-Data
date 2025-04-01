@@ -2532,26 +2532,20 @@
 			<Behavior canSkip="1">
 				<EntityContextPresetElement contextPreset="switch_unresponsive" enabled="true">
 					<Sequence>
-						<HandContentElement hand="Right" item="$rhand" allowAny="false" allowHomeSlotAutoReturn="false" decisionLabel="Label1" useDecision="true" enabled="true" saveVersion="2">
-							<Search canSkip="1">
-								<GetWeaponsFromWeaponSet WeaponSet="Primary" LeftHand="$lhand" RightHand="$rhand" UseTorchWhenAppropriate="true" />
-							</Search>
-							<Exec canSkip="1">
-								<MoveParamsDecorator speed="Run" pathFindingParams="" doorClosingPolicy="Automatic">
-									<MeleeOffenseAutomationDecorator active="true">
-										<MeleeDefenseAutomationDecorator active="true">
-											<MeleeGuardAutomationDecorator GuardMode="automate" active="true">
-												<WeaponAutomationDecorator WeaponChange="melee" active="true">
-													<CombatFollowerDecorator ProbablisticDrivenSweetSpot="true" RPGSweetSpotArcDriver="true" active="true">
-														<Move stopWithinDistance="5.000000" stopDistanceVariation="0.100000" rayCasteFlee="false" successDistance="5.000000" changeNPCState="true" fastForwardIncludesMove="false" destinationSpecification="$__player" destinationSpecification2="" destinationSpecification3="" speed="Run" additionalParams="$addParams" pathFindingParams="" staminaPolicy="" pathInfo="" />
-													</CombatFollowerDecorator>
-												</WeaponAutomationDecorator>
-											</MeleeGuardAutomationDecorator>
-										</MeleeDefenseAutomationDecorator>
-									</MeleeOffenseAutomationDecorator>
-								</MoveParamsDecorator>
-							</Exec>
-						</HandContentElement>
+						<DrawAction WeaponSet="Primary" fullBody="false" tags="" useSelectedWeaponSet="false" />
+						<AnyDecorator preset="bothHands_changeEquipment" enabled="true">
+							<MoveParamsDecorator speed="Run" pathFindingParams="" doorClosingPolicy="Automatic">
+								<MeleeOffenseAutomationDecorator active="true">
+									<MeleeDefenseAutomationDecorator active="true">
+										<MeleeGuardAutomationDecorator GuardMode="automate" active="true">
+											<CombatFollowerDecorator ProbablisticDrivenSweetSpot="true" RPGSweetSpotArcDriver="true" active="true">
+												<Move stopWithinDistance="5.000000" stopDistanceVariation="0.100000" rayCasteFlee="false" successDistance="5.000000" changeNPCState="true" fastForwardIncludesMove="false" destinationSpecification="$__player" destinationSpecification2="" destinationSpecification3="" speed="Run" additionalParams="$addParams" pathFindingParams="" staminaPolicy="" pathInfo="" />
+											</CombatFollowerDecorator>
+										</MeleeGuardAutomationDecorator>
+									</MeleeDefenseAutomationDecorator>
+								</MeleeOffenseAutomationDecorator>
+							</MoveParamsDecorator>
+						</AnyDecorator>
 						<Callback_empty EventName="&apos;OnFinished&apos;" />
 					</Sequence>
 				</EntityContextPresetElement>
@@ -2572,37 +2566,30 @@
 						<OutputBreakpoints />
 						<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
 							<OutputBreakpoints />
-							<HandContentElement hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
+							<DrawAction hasInputBreakpoint="0" comment="" breakpointFlags="0">
 								<OutputBreakpoints />
-								<Search>
-									<GetWeaponsFromWeaponSet hasInputBreakpoint="0" comment="" breakpointFlags="0">
+							</DrawAction>
+							<AnyDecorator hasInputBreakpoint="0" comment="" breakpointFlags="0">
+								<OutputBreakpoints />
+								<MoveParamsDecorator hasInputBreakpoint="0" comment="" breakpointFlags="0">
+									<OutputBreakpoints />
+									<MeleeOffenseAutomationDecorator hasInputBreakpoint="0" comment="" breakpointFlags="0">
 										<OutputBreakpoints />
-									</GetWeaponsFromWeaponSet>
-								</Search>
-								<Exec>
-									<MoveParamsDecorator hasInputBreakpoint="0" comment="" breakpointFlags="0">
-										<OutputBreakpoints />
-										<MeleeOffenseAutomationDecorator hasInputBreakpoint="0" comment="" breakpointFlags="0">
+										<MeleeDefenseAutomationDecorator hasInputBreakpoint="0" comment="" breakpointFlags="0">
 											<OutputBreakpoints />
-											<MeleeDefenseAutomationDecorator hasInputBreakpoint="0" comment="" breakpointFlags="0">
+											<MeleeGuardAutomationDecorator hasInputBreakpoint="0" comment="" breakpointFlags="0">
 												<OutputBreakpoints />
-												<MeleeGuardAutomationDecorator hasInputBreakpoint="0" comment="" breakpointFlags="0">
+												<CombatFollowerDecorator hasInputBreakpoint="0" comment="" breakpointFlags="0">
 													<OutputBreakpoints />
-													<WeaponAutomationDecorator hasInputBreakpoint="0" comment="" breakpointFlags="0">
+													<Move hasInputBreakpoint="0" comment="" breakpointFlags="0">
 														<OutputBreakpoints />
-														<CombatFollowerDecorator hasInputBreakpoint="0" comment="" breakpointFlags="0">
-															<OutputBreakpoints />
-															<Move hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																<OutputBreakpoints />
-															</Move>
-														</CombatFollowerDecorator>
-													</WeaponAutomationDecorator>
-												</MeleeGuardAutomationDecorator>
-											</MeleeDefenseAutomationDecorator>
-										</MeleeOffenseAutomationDecorator>
-									</MoveParamsDecorator>
-								</Exec>
-							</HandContentElement>
+													</Move>
+												</CombatFollowerDecorator>
+											</MeleeGuardAutomationDecorator>
+										</MeleeDefenseAutomationDecorator>
+									</MeleeOffenseAutomationDecorator>
+								</MoveParamsDecorator>
+							</AnyDecorator>
 							<Callback_empty hasInputBreakpoint="0" comment="" breakpointFlags="0">
 								<OutputBreakpoints />
 							</Callback_empty>

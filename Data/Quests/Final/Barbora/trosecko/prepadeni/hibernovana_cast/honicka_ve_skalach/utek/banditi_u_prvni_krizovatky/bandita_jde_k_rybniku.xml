@@ -6,6 +6,9 @@
 				<Port Name="bandita_odchazi_k_rybniku" Direction="In" Type="trigger">
 					<DesignName StringName="bandita_j_bandita_odchazi_fyTA" Text="bandita odchází k rybníku" />
 				</Port>
+				<Port Name="bandita_odchazi_k_rybniku_pri_preruseni_rozdavani_rozkazu" Direction="In" Type="trigger">
+					<DesignName StringName="bandita_j_bandita_odchazi_nVIM" Text="bandita odchází k rybníku při přerušení rozdávání rozkazů" />
+				</Port>
 			</Ports>
 			<Nodes>
 				<Move Name="Move" PositionY="-200" PositionX="340" Namespace="utils.move">
@@ -19,7 +22,13 @@
 				</Move>
 				<State Name="state22" PositionY="-180" PositionX="10" TypeT="Progress">
 					<Edge From="bandita_odchazi_k_rybniku" To="SetActive" />
+					<Edge From="timer23.OnFinished" To="SetActive" />
 				</State>
+				<Timer Name="timer23" PositionY="-380" PositionX="-420">
+					<Constant Name="Duration" Value="6s" />
+					<Constant Name="TimeType" Value="GameTime" />
+					<Edge From="bandita_odchazi_k_rybniku_pri_preruseni_rozdavani_rozkazu" To="SetRunning" />
+				</Timer>
 			</Nodes>
 			<Assets>
 				<PredefinedPathAsset Name="pathToPond" />

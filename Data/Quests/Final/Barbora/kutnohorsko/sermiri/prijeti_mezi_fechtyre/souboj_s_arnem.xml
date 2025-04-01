@@ -49,6 +49,11 @@
 					<Edge From="state135.State" To="IsActive" />
 				</AddSoulDefaultItem>
 				<arne__ses_pripravenej__chat Name="arne__ses_pripravenej__chat" PositionY="-440" PositionX="410" />
+				<BuffEffect Name="buff17" PositionY="-980" PositionX="2040">
+					<Asset Name="Souls" Alias="arne" />
+					<Constant Name="BuffGUID" Value="7d89d580-f6aa-45d2-aa66-6ce68d7d817d" />
+					<Edge From="fight_in_arena_1.inprogress" To="IsActive" />
+				</BuffEffect>
 				<Function Name="createitemcategorydescriptor45" PositionY="-1690" PositionX="60" MethodName="wh::entitymodule::CreateItemCategoryDescriptor" DeclaringType="wh::entitymodule">
 					<Constant Name="Category" Value="MeleeWeapon" />
 					<Constant Name="Type" Value="8" />
@@ -144,14 +149,13 @@
 				<ObjectProperties Name="isoulproperties47" PositionY="-2300" PositionX="100" DeclaringType="wh::rpgmodule::I_Soul">
 					<Asset Name="I_Soul" Alias="player" />
 				</ObjectProperties>
-				<MakeArray Name="makearray123" PositionY="-960" PositionX="1770" TypeT="wh::rpgmodule::Souls">
+				<MakeArray Name="makearray123" PositionY="-960" PositionX="1740" TypeT="wh::rpgmodule::Souls">
 					<Asset Name="A" Alias="player" />
 					<Asset Name="B" Alias="arne" />
 				</MakeArray>
 				<MakeArray Name="makearray45" PositionY="70" PositionX="1860" TypeT="Strings">
 					<Constant Name="A" Value="no_dog" />
-					<Constant Name="B" Value="no_horse" />
-					<Constant Name="C" Value="no_horse_mount" />
+					<Constant Name="B" Value="no_horse_mount" />
 				</MakeArray>
 				<menhart__bark_na_konci_fightu Name="menhart__bark_na_konci_fightu" PositionY="400" PositionX="2930">
 					<Edge From="fight_in_arena_1.playerwon" To="jidra_vyhral">
@@ -224,6 +228,10 @@
 				</SetEntityContext>
 				<SetGameContext Name="setgamecontext133" PositionY="-520" PositionX="2500">
 					<Constant Name="Context" Value="NoDog" />
+					<Edge From="or128.bool" To="IsActive" />
+				</SetGameContext>
+				<SetGameContext Name="setgamecontext133_1" PositionY="-670" PositionX="2500">
+					<Constant Name="Context" Value="DisableHorseCall" />
 					<Edge From="or128.bool" To="IsActive" />
 				</SetGameContext>
 				<SetGameContext Name="setgamecontext63" PositionY="130" PositionX="2510">

@@ -71,39 +71,11 @@
 						<Vertex>DYJcX5e4</Vertex>
 					</Edge>
 				</Function>
-				<State Name="closeCourtyardDoors" PositionY="1590" PositionX="-930" TypeT="Progress">
-					<Edge From="kapitan_strazi__u_stolu_duel_1.scene_finished" To="SetActive">
-						<Vertex>vertex66</Vertex>
-					</Edge>
-					<Edge From="samotny_boj.skoncil_duel" To="SetDone">
-						<Vertex>vertex23</Vertex>
-						<Vertex>vertex67</Vertex>
-						<Vertex>vertex68</Vertex>
-					</Edge>
-					<Edge From="samotny_boj.player_just_lost" To="SetDone">
-						<Vertex>vertex23</Vertex>
-						<Vertex>vertex67</Vertex>
-						<Vertex>vertex68</Vertex>
-					</Edge>
-					<Edge From="samotny_boj.player_lost_by_rules" To="SetDone">
-						<Vertex>vertex23</Vertex>
-						<Vertex>vertex67</Vertex>
-						<Vertex>vertex68</Vertex>
-					</Edge>
-				</State>
-				<Function Name="closedoor2" PositionY="1590" PositionX="-290" MethodName="wh::entitymodule::CloseDoor" DeclaringType="wh::entitymodule">
-					<Edge From="foreach3.OnValue" To="Exec" />
-					<Edge From="foreach3.Value" To="Door" />
-				</Function>
 				<ClothingPresetOverride Name="clothingpresetoverride57" PositionY="1270" PositionX="10">
 					<Asset Name="Souls" Alias="michalCaptain" />
 					<Constant Name="ClothingPreset" Value="43a03c5c-d73f-45e8-8716-8dcd180c678a" />
 					<Edge From="or56_1.bool" To="IsActive" />
 				</ClothingPresetOverride>
-				<DisableDoorInteractivity Name="disabledoorinteractivity1" PositionY="1780" PositionX="-290">
-					<Asset Name="Doors" Alias="courtyardDoor" />
-					<Edge From="closeCourtyardDoors.Active" To="IsActive" />
-				</DisableDoorInteractivity>
 				<HasteTrigger Name="duel" PositionY="-140" PositionX="-1130" />
 				<duelove_objectivy Name="duelove_objectivy" PositionY="-380" PositionX="180" RequiredForOutput="trosecko">
 					<Edge From="samotny_boj.player_just_lost" To="player_lost_by_rules">
@@ -138,10 +110,6 @@
 				<fandici_barky_v_souboji Name="fandici_barky_v_souboji" PositionY="-200" PositionX="-180">
 					<Edge From="samotny_boj.fight_in_progress" To="fight_in_progress" />
 				</fandici_barky_v_souboji>
-				<ForEach Name="foreach3" PositionY="1590" PositionX="-620" TypeT="wh::entitymodule::AnimDoors">
-					<Asset Name="Array" Alias="courtyardDoor" />
-					<Edge From="closeCourtyardDoors.OnActive" To="Begin" />
-				</ForEach>
 				<kapitan__pri_duelu_poruseni_pravidel Name="kapitan__pri_duelu_poruseni_pravidel" PositionY="710" PositionX="-760" />
 				<kapitan_strazi__u_stolu Name="kapitan_strazi__u_stolu" PositionY="260" PositionX="-2330" RequiredForOutput="trosecko">
 					<Edge From="probehla_prohlidka" To="probehla_prohlidka">
@@ -152,6 +120,7 @@
 					<Edge From="minihry_jsou_otevreny" To="minihry_jsou_otevreny">
 						<Vertex>TXTz143B</Vertex>
 					</Edge>
+					<Edge From="speaktrigger.seq1" To="seq1" />
 				</kapitan_strazi__u_stolu>
 				<kapitan_strazi__u_stolu_duel Name="kapitan_strazi__u_stolu_duel_1" PositionY="100" PositionX="-1880">
 					<Edge From="kapitan_strazi__u_stolu.duelprijat" To="duelprijat" />
@@ -267,12 +236,6 @@
 						<Vertex>hTxGtKar</Vertex>
 					</Edge>
 				</Output>
-				<PlayerAction_StanceObject Name="PlayerAction_StanceObject" PositionY="710" PositionX="-2440" Namespace="utils.player">
-					<Asset Name="targetobject" Alias="benchSo_player" />
-					<Constant Name="desiredstance" Value="sitting" />
-					<Constant Name="urgency" Value="Instant" />
-					<Edge From="speaktrigger.OnSpoke" To="useobject" />
-				</PlayerAction_StanceObject>
 				<samotny_boj Name="samotny_boj" PositionY="200" PositionX="-790">
 					<Constant Name="alias_lost_by_rules" Value="nebakovPruzkum_kapitanPriDueluPoruseniPravidel" />
 					<Constant Name="chat_alias" Value="nebakovPruzkum_michalChatPredSoubojem" />
@@ -313,9 +276,6 @@
 				<EdgeVertex Name="vertex43" PositionY="940" PositionX="-1920" />
 				<EdgeVertex Name="vertex44" PositionY="940" PositionX="500" />
 				<EdgeVertex Name="vertex62" PositionY="1100" PositionX="-300" />
-				<EdgeVertex Name="vertex66" PositionY="1840" PositionX="-1460" />
-				<EdgeVertex Name="vertex67" PositionY="970" PositionX="-260" />
-				<EdgeVertex Name="vertex68" PositionY="970" PositionX="-910" />
 				<EdgeVertex Name="vertex78" PositionY="-220" PositionX="-3650" />
 				<EdgeVertex Name="vertex79" PositionY="-250" PositionX="-270" />
 				<EdgeVertex Name="vertex80" PositionY="-250" PositionX="-290" />

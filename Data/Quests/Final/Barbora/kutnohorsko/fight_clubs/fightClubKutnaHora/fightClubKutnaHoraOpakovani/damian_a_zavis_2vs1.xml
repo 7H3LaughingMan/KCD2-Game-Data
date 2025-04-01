@@ -116,6 +116,20 @@
 						<Vertex>vertex91</Vertex>
 					</Edge>
 				</fist_fight_line>
+				<healiflowhealth Name="healiflowhealth" PositionY="430" PositionX="1700" Namespace="fight_club_kutna_hora_library">
+					<Asset Name="soul" Alias="zavis" />
+					<Constant Name="checkforverylowhealth" Value="true" />
+					<Edge From="zavis_a_damian_2v1__pred_arenkou.teleport_all_3_and_start_fight" To="tryheal">
+						<Vertex>F0WhAFaq</Vertex>
+					</Edge>
+				</healiflowhealth>
+				<healiflowhealth Name="healiflowhealth_1" PositionY="620" PositionX="1700" Namespace="fight_club_kutna_hora_library">
+					<Asset Name="soul" Alias="damian" />
+					<Constant Name="checkforverylowhealth" Value="true" />
+					<Edge From="zavis_a_damian_2v1__pred_arenkou.teleport_all_3_and_start_fight" To="tryheal">
+						<Vertex>F0WhAFaq</Vertex>
+					</Edge>
+				</healiflowhealth>
 				<If Name="if9" PositionY="-90" PositionX="-970">
 					<Edge From="OnWake" To="Exec" />
 					<Edge From="fist_fight_line.prvni_objective_none" To="Condition">
@@ -127,6 +141,8 @@
 					<Edge From="fist_fight_line.oponent_ma_dost_penez_na_vraceni" To="zavis_ma_dost_penez_na_vraceni" />
 					<Edge From="fist_fight_line.jindra_vyhral" To="jindra_vyhral" />
 					<Edge From="fist_fight_line.jindra_po_fightu_nemluvil_s_oponentem" To="jindra_po_fightu_nemluvil_se_zavisem" />
+					<Edge From="fist_fight_line.dialogparams_pro_forcovany_dialog" To="DialogParams" />
+					<Edge From="fist_fight_line.jindrich_vyhrava" To="EnqueueDialogue" />
 				</jeni__po_souboji_1_1_1>
 				<lowhealth_soul Name="lowhealth_soul" PositionY="1510" PositionX="-1060" Namespace="fist_fights_common_library">
 					<Asset Name="soul" Alias="damian" />
@@ -140,12 +156,6 @@
 						<Vertex>vertex81</Vertex>
 					</Edge>
 					<Edge From="fist_fight_line.oponent_je_lehce_zraneny" To="A" />
-				</Function>
-				<Function Name="or8_1" PositionY="1110" PositionX="110" MethodName="math::boolean::Or" DeclaringType="math::boolean">
-					<Edge From="fist_fight_line.oponent_je_tezce_zraneny" To="A" />
-					<Edge From="lowhealth_soul.hasverylowhealth" To="B">
-						<Vertex>vertex106</Vertex>
-					</Edge>
 				</Function>
 				<Output Name="Output">
 					<Edge From="fist_fight_line.vyzvany_oponent_ceka_na_odstartovani" To="vyzvany_oponent_ceka_na_odstartovani">
@@ -186,6 +196,11 @@
 				<vyzvedni_si_u_zavise_sazky Name="talkToZavisAfter2vs1Win_objectiveVisual" PositionY="180" PositionX="-50" RequiredForOutput="kutnohorsko">
 					<Edge From="fist_fight_line.stav_objectivu_po_boji" To="Progress" />
 				</vyzvedni_si_u_zavise_sazky>
+				<turntoplayerinidlestance Name="turntoplayerinidlestance" PositionY="2864" PositionX="572" Namespace="utils.general">
+					<Asset Name="npc" Alias="zavis" />
+					<Constant Name="anydecoratorpreset" Value="changeEquipment" />
+					<Edge From="jeni__po_souboji_1_1_1.AfterPlay" To="turntoplayerinidlestance" />
+				</turntoplayerinidlestance>
 				<WeaponPresetOverride Name="weaponpresetoverride11" PositionY="3170" PositionX="120">
 					<Asset Name="Souls" Alias="damian" />
 					<Constant Name="WeaponPreset" Value="10101010-c8cb-81dd-40f1-2f0554804f83" />
@@ -205,9 +220,9 @@
 					<Constant Name="zavis_je_dost_opily" Value="true" />
 					<Constant Name="jindra_ma_na_sobe_zbroj" Value="false" />
 					<Constant Name="jindra_ma_equiple_zbrane" Value="false" />
+					<Constant Name="zavis_nebo_damian_je_tezce_ranen" Value="false" />
 					<Edge From="fist_fight_line.vyzvany_oponent_ceka_na_odstartovani" To="zavis_jde_cekat_v_ohradce_nebo_uz_tam_ceka" />
 					<Edge From="or8.bool" To="zavis_nebo_damian_je_lehce_ranen" />
-					<Edge From="or8_1.bool" To="zavis_nebo_damian_je_tezce_ranen" />
 					<Edge From="fist_fight_line.vyse_sazky" To="Payment_seq7" />
 					<Edge From="fist_fight_line.jindra_ma_dost_penez" To="jindra_ma_dost_penez" />
 					<Edge From="shaneni_zavise_pred_damiana.jindra_se_snazi_mluvit_s_damianem_nebo_zavisem_pri_aktivnim_objectivu" To="EnqueueDialogue" />
@@ -228,7 +243,6 @@
 				<EdgeVertex Name="vertex102" PositionY="3060" PositionX="30" />
 				<EdgeVertex Name="vertex104" PositionY="3540" PositionX="760" />
 				<EdgeVertex Name="vertex105" PositionY="3540" PositionX="-780" />
-				<EdgeVertex Name="vertex106" PositionY="1680" PositionX="-280" />
 				<EdgeVertex Name="vertex35" PositionY="100" PositionX="410" />
 				<EdgeVertex Name="vertex57" PositionY="3420" PositionX="750" />
 				<EdgeVertex Name="vertex58" PositionY="3410" PositionX="-480" />

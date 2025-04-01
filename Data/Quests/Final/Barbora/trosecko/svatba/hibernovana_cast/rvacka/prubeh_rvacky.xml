@@ -38,6 +38,11 @@
 					<Constant Name="ValueB" Value="FinalBrawl" />
 					<Edge From="faze" To="ValueA" />
 				</Function>
+				<Function Name="compare14_1" PositionY="2350" PositionX="-840" TypeT="WaitForBergov" MethodName="Control::Compare" DeclaringType="Control">
+					<Constant Name="Op" Value="Equals" />
+					<Constant Name="ValueB" Value="RandomBrawl" />
+					<Edge From="faze" To="ValueA" />
+				</Function>
 				<fightconfiguration_indifference Name="fightconfiguration_indifference" PositionY="1370" PositionX="-20" Namespace="utils.combat">
 					<Asset Name="souls" Alias="weddingGuests" />
 					<Constant Name="unarmedonly" Value="true" />
@@ -106,6 +111,10 @@
 						<Vertex>vertex11</Vertex>
 					</Edge>
 				</LinkEffectNoData>
+				<Function Name="or23" PositionY="2620" PositionX="-400" MethodName="math::boolean::Or" DeclaringType="math::boolean">
+					<Edge From="compare14.bool" To="A" />
+					<Edge From="compare14_1.bool" To="B" />
+				</Function>
 				<Output Name="Output">
 					<Edge From="inSkirmish.OnWon" To="jindra_zmlatil_prilis_mnoho_lidi">
 						<Vertex>vertex1</Vertex>
@@ -122,6 +131,11 @@
 				<PatchTrigger Name="patchtrigger17" PositionY="800" PositionX="330">
 					<Constant Name="TransitionFromVersion" Value="ver_01_00" />
 				</PatchTrigger>
+				<SetEntityContext Name="setentitycontext20" PositionY="2620" PositionX="-30">
+					<Constant Name="Context" Value="crime_preventKillingUnconsciousHostilePlayer" />
+					<Asset Name="Souls" Alias="weddingGuests" />
+					<Edge From="or23.bool" To="IsActive" />
+				</SetEntityContext>
 				<SetEntityContext Name="setentitycontext6" PositionY="2110" PositionX="340">
 					<Constant Name="Context" Value="combat_forceUnarmed" />
 					<Asset Name="Souls" Alias="weddingGuests" />

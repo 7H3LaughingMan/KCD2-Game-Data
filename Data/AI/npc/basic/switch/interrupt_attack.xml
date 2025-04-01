@@ -44,6 +44,7 @@
 			<Variable name="lookAroundPos" type="vec3" values="" isPersistent="0" form="single" />
 			<Variable name="meleeWeaponDrawn" type="_bool" values="" isPersistent="0" form="single" />
 			<Variable name="myTarget" type="_wuid" values="" isPersistent="0" form="single" />
+			<Variable name="myTargetPlayerInSkirmishCheck" type="_wuid" values="" isPersistent="0" form="single" />
 			<Variable name="nextMostImportantInformation" type="information" values="" isPersistent="0" form="single" />
 			<Variable name="npcCooldowns" type="crime:npcCooldowns" values="" isPersistent="0" form="single" />
 			<Variable name="npcToSolvePlayerAfterUnsconscious" type="_wuid" values="" isPersistent="0" form="single" />
@@ -52,6 +53,7 @@
 			<Variable name="npcsAround_value" type="_wuid" values="" isPersistent="0" form="single" />
 			<Variable name="playPostSkirmish" type="_bool" values="" isPersistent="1" form="single" />
 			<Variable name="playerDirection" type="vec3" values="" isPersistent="0" form="single" />
+			<Variable name="playerHasWeaponInHand" type="_bool" values="" isPersistent="0" form="single" />
 			<Variable name="playerInSkirmishInitialValueSet" type="_bool" values="" isPersistent="0" form="single" />
 			<Variable name="playerInSkirmishNow" type="_bool" values="false" isPersistent="0" form="single" />
 			<Variable name="playerInSkirmishNow_local" type="_bool" values="" isPersistent="0" form="single" />
@@ -94,8 +96,8 @@
 								<AnyDecorator preset="$decoratorString" enabled="true">
 									<EntityContextElement context="crime_interrupt" enabled="true">
 										<EntityContext context="crime_interruptAttack" target="$this.id">
-											<EntityContext context="speech_greyOutE" target="$this.id">
-												<EntityContextElement context="speech_greyOutE" enabled="true">
+											<EntityContextPreset preset="crime_greyOutEAndDisableChat" target="$this.id">
+												<EntityContextPresetElement contextPreset="crime_greyOutEAndDisableChat" enabled="true">
 													<AddPerceivableState PerceivableLabel="&apos;crime_interrupt&apos;">
 														<EntityContext context="crime_nrbLevel_confronting" target="">
 															<LogToLabel Name="&apos;crime_interrupt&apos;" Wuid="" Message="&apos;interrupt:attack&apos;">
@@ -378,10 +380,14 @@
 																																<IfGate atomic="false" condition="$initialInterferenceSet &amp; $attackState ~= $enum:crime_interruptAttackState.fightIsDone" RunLogic="Halt">
 																																	<EntityContextBarrier context="combat_defenceMode" target="$this.id" Negation="true" RunLogic="Halt">
 																																		<EntityContext context="crime_playerUnderArrestByAuthority" target="$this.id">
-																																			<Sequence>
-																																				<ShowTutorial Name="crime_arrest" />
-																																				<Wait duration="&apos;-1&apos;" timeType="GameTime" doFail="false" variation="" />
-																																			</Sequence>
+																																			<Loop count="-1">
+																																				<EntityContextBarrier context="combat_neverAcceptSurrender" target="$this.id" Negation="true" RunLogic="Halt">
+																																					<Sequence>
+																																						<ShowTutorial Name="crime_arrest" />
+																																						<Wait duration="&apos;-1&apos;" timeType="GameTime" doFail="false" variation="" />
+																																					</Sequence>
+																																				</EntityContextBarrier>
+																																			</Loop>
 																																		</EntityContext>
 																																	</EntityContextBarrier>
 																																</IfGate>
@@ -391,10 +397,12 @@
 																															<Loop count="-1">
 																																<IfGate atomic="false" condition="$initialInterferenceSet &amp; $attackState ~= $enum:crime_interruptAttackState.fightIsDone" RunLogic="Halt">
 																																	<EntityContextBarrier context="combat_defenceMode" target="$this.id" Negation="true" RunLogic="Halt">
-																																		<Sequence>
-																																			<ShowTutorial Name="crime_arrest" />
-																																			<Wait duration="&apos;-1&apos;" timeType="GameTime" doFail="false" variation="" />
-																																		</Sequence>
+																																		<EntityContextBarrier context="combat_neverAcceptSurrender" target="$this.id" Negation="true" RunLogic="Halt">
+																																			<Sequence>
+																																				<ShowTutorial Name="crime_arrest" />
+																																				<Wait duration="&apos;-1&apos;" timeType="GameTime" doFail="false" variation="" />
+																																			</Sequence>
+																																		</EntityContextBarrier>
 																																	</EntityContextBarrier>
 																																</IfGate>
 																															</Loop>
@@ -816,6 +824,7 @@
 																																					<Escalate canSkip="1">
 																																						<CallbackEventCatch_empty>
 																																							<Sequence>
+																																								<ReinitVariable variable="$nextMostImportantInformation" />
 																																								<GetMostImportantCrimeInformation Npc="$this.id" OnlyRelated="false" MostImportantInformation="$nextMostImportantInformation" />
 																																								<IfCondition failOnCondition="false" condition="$nextMostImportantInformation.label ~= &apos;&apos;">
 																																									<Sequence>
@@ -889,7 +898,12 @@
 																																							</Else>
 																																						</EntityContextCheck>
 																																						<Sequence>
-																																							<Function_crime_waitForWeaponChange npc="$__player" succeedOnArmed="true" nodeLabel="64356763" />
+																																							<Sequence>
+																																								<Function_crime_hasWeaponDrawn checkingMethod="$enum:crime_weaponCheckingMethod.perceivableState" npc="$__player" result="$playerHasWeaponInHand" nodeLabel="99137735" />
+																																								<IfCondition failOnCondition="false" condition="~$playerHasWeaponInHand">
+																																									<Function_crime_waitForWeaponChange npc="$__player" succeedOnArmed="true" nodeLabel="64356763" />
+																																								</IfCondition>
+																																							</Sequence>
 																																							<Function_combat_fleeOnDrawnWeapon attackData="$attackData" nodeLabel="32592354" />
 																																							<Function_crime_crimeBark animationApproach="$enum:animationApproach.dontPlayDialogAnimations" canBeDelayed="false" dialogContext="" dramaticBark="false" lookAt="$__player" metarole="&apos;NPC_JE_V_COMBATU_UNARMED_A_ROZHODLO_SE_TASIT_(HRAC_TASI)&apos;" priority="$enum:crime_barkPriority.medium" nodeLabel="72811807" />
 																																							<Expression expressions="$forceArmedCombatAgainstPlayer = true" />
@@ -1590,7 +1604,24 @@
 																							<Expression expressions="$playerInSkirmishNow = $playerInSkirmishNow_local &#10;$playerInSkirmishInitialValueSet = true" />
 																						</Sequence>
 																					</AtomicDecorator>
-																					<Wait duration="&apos;2s&apos;" timeType="GameTime" doFail="false" variation="" />
+																					<Parallel successMode="Any" failureMode="Any">
+																						<Wait duration="&apos;2s&apos;" timeType="GameTime" doFail="false" variation="" />
+																						<Sequence>
+																							<IfCondition failOnCondition="false" condition="~$playerInSkirmishNow">
+																								<OnTargetChange TargetFrom="None" TargetTo="Defined" WaitForNext="false" Combatants="Me" Who="" RunLogic="KeepRunning">
+																									<AtomicDecorator>
+																										<Sequence>
+																											<GetTarget ReferenceNPC="$this.id" TargetVarOut="$myTargetPlayerInSkirmishCheck" />
+																											<IfCondition failOnCondition="false" condition="$myTargetPlayerInSkirmishCheck == $__player">
+																												<Expression expressions="$playerInSkirmishNow = true" />
+																											</IfCondition>
+																										</Sequence>
+																									</AtomicDecorator>
+																								</OnTargetChange>
+																							</IfCondition>
+																							<Wait duration="&apos;2s&apos;" timeType="GameTime" doFail="false" variation="" />
+																						</Sequence>
+																					</Parallel>
 																				</Sequence>
 																			</Loop>
 																		</Parallel>
@@ -1599,8 +1630,8 @@
 															</LogToLabel>
 														</EntityContext>
 													</AddPerceivableState>
-												</EntityContextElement>
-											</EntityContext>
+												</EntityContextPresetElement>
+											</EntityContextPreset>
 										</EntityContext>
 									</EntityContextElement>
 								</AnyDecorator>
@@ -1625,12 +1656,6 @@
 		</Root>
 		<ForestContainer>
 			<Sequence />
-			<ContinuousSwitch>
-				<IfCondition failOnCondition="false" condition="$playerInSkirmishNow |  &#10;$attackPlayer |  &#10;($attackData.target == $__player &amp; $myTarget == $__null) // for icon" />
-				<IfCondition failOnCondition="false" condition="true">
-					<Wait duration="&apos;-1&apos;" timeType="GameTime" doFail="false" variation="" />
-				</IfCondition>
-			</ContinuousSwitch>
 		</ForestContainer>
 		<EditorData Signature="attack" EventSet="">
 			<Variables>
@@ -1676,6 +1701,7 @@
 				<Variable name="lookAroundPos" comment="" />
 				<Variable name="meleeWeaponDrawn" comment="" />
 				<Variable name="myTarget" comment="" />
+				<Variable name="myTargetPlayerInSkirmishCheck" comment="" />
 				<Variable name="nextMostImportantInformation" comment="" />
 				<Variable name="npcCooldowns" comment="" />
 				<Variable name="npcToSolvePlayerAfterUnsconscious" comment="" />
@@ -1684,6 +1710,7 @@
 				<Variable name="npcsAround_value" comment="" />
 				<Variable name="playPostSkirmish" comment="" />
 				<Variable name="playerDirection" comment="" />
+				<Variable name="playerHasWeaponInHand" comment="" />
 				<Variable name="playerInSkirmishInitialValueSet" comment="" />
 				<Variable name="playerInSkirmishNow" comment="" />
 				<Variable name="playerInSkirmishNow_local" comment="" />
@@ -1734,9 +1761,9 @@
 											<OutputBreakpoints />
 											<EntityContext hasInputBreakpoint="0" comment="" breakpointFlags="0">
 												<OutputBreakpoints />
-												<EntityContext hasInputBreakpoint="0" comment="" breakpointFlags="0">
+												<EntityContextPreset hasInputBreakpoint="0" comment="" breakpointFlags="0">
 													<OutputBreakpoints />
-													<EntityContextElement hasInputBreakpoint="0" comment="" breakpointFlags="0">
+													<EntityContextPresetElement hasInputBreakpoint="0" comment="" breakpointFlags="0">
 														<OutputBreakpoints />
 														<AddPerceivableState hasInputBreakpoint="0" comment="" breakpointFlags="0">
 															<OutputBreakpoints />
@@ -2210,15 +2237,21 @@
 																																			<OutputBreakpoints />
 																																			<EntityContext hasInputBreakpoint="0" comment="" breakpointFlags="0">
 																																				<OutputBreakpoints />
-																																				<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																																				<Loop hasInputBreakpoint="0" comment="" breakpointFlags="0">
 																																					<OutputBreakpoints />
-																																					<ShowTutorial hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																																					<EntityContextBarrier hasInputBreakpoint="0" comment="" breakpointFlags="0">
 																																						<OutputBreakpoints />
-																																					</ShowTutorial>
-																																					<Wait hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																																						<OutputBreakpoints />
-																																					</Wait>
-																																				</Sequence>
+																																						<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																																							<OutputBreakpoints />
+																																							<ShowTutorial hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																																								<OutputBreakpoints />
+																																							</ShowTutorial>
+																																							<Wait hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																																								<OutputBreakpoints />
+																																							</Wait>
+																																						</Sequence>
+																																					</EntityContextBarrier>
+																																				</Loop>
 																																			</EntityContext>
 																																		</EntityContextBarrier>
 																																	</IfGate>
@@ -2231,15 +2264,18 @@
 																																		<OutputBreakpoints />
 																																		<EntityContextBarrier hasInputBreakpoint="0" comment="" breakpointFlags="0">
 																																			<OutputBreakpoints />
-																																			<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																																			<EntityContextBarrier hasInputBreakpoint="0" comment="" breakpointFlags="0">
 																																				<OutputBreakpoints />
-																																				<ShowTutorial hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																																				<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
 																																					<OutputBreakpoints />
-																																				</ShowTutorial>
-																																				<Wait hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																																					<OutputBreakpoints />
-																																				</Wait>
-																																			</Sequence>
+																																					<ShowTutorial hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																																						<OutputBreakpoints />
+																																					</ShowTutorial>
+																																					<Wait hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																																						<OutputBreakpoints />
+																																					</Wait>
+																																				</Sequence>
+																																			</EntityContextBarrier>
 																																		</EntityContextBarrier>
 																																	</IfGate>
 																																</Loop>
@@ -2940,6 +2976,9 @@
 																																								<OutputBreakpoints />
 																																								<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
 																																									<OutputBreakpoints />
+																																									<ReinitVariable hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																																										<OutputBreakpoints />
+																																									</ReinitVariable>
 																																									<GetMostImportantCrimeInformation hasInputBreakpoint="0" comment="" breakpointFlags="0">
 																																										<OutputBreakpoints />
 																																									</GetMostImportantCrimeInformation>
@@ -3067,9 +3106,18 @@
 																																							</EntityContextCheck>
 																																							<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
 																																								<OutputBreakpoints />
-																																								<Function_crime_waitForWeaponChange hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																																								<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
 																																									<OutputBreakpoints />
-																																								</Function_crime_waitForWeaponChange>
+																																									<Function_crime_hasWeaponDrawn hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																																										<OutputBreakpoints />
+																																									</Function_crime_hasWeaponDrawn>
+																																									<IfCondition hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																																										<OutputBreakpoints />
+																																										<Function_crime_waitForWeaponChange hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																																											<OutputBreakpoints />
+																																										</Function_crime_waitForWeaponChange>
+																																									</IfCondition>
+																																								</Sequence>
 																																								<Function_combat_fleeOnDrawnWeapon hasInputBreakpoint="0" comment="" breakpointFlags="0">
 																																									<OutputBreakpoints />
 																																								</Function_combat_fleeOnDrawnWeapon>
@@ -4264,9 +4312,39 @@
 																								</Expression>
 																							</Sequence>
 																						</AtomicDecorator>
-																						<Wait hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																						<Parallel hasInputBreakpoint="0" comment="" breakpointFlags="0">
 																							<OutputBreakpoints />
-																						</Wait>
+																							<Wait hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																								<OutputBreakpoints />
+																							</Wait>
+																							<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																								<OutputBreakpoints />
+																								<IfCondition hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																									<OutputBreakpoints />
+																									<OnTargetChange hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																										<OutputBreakpoints />
+																										<AtomicDecorator hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																											<OutputBreakpoints />
+																											<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																												<OutputBreakpoints />
+																												<GetTarget hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																													<OutputBreakpoints />
+																												</GetTarget>
+																												<IfCondition hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																													<OutputBreakpoints />
+																													<Expression hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																														<OutputBreakpoints />
+																													</Expression>
+																												</IfCondition>
+																											</Sequence>
+																										</AtomicDecorator>
+																									</OnTargetChange>
+																								</IfCondition>
+																								<Wait hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																									<OutputBreakpoints />
+																								</Wait>
+																							</Sequence>
+																						</Parallel>
 																					</Sequence>
 																				</Loop>
 																			</Parallel>
@@ -4275,8 +4353,8 @@
 																</LogToLabel>
 															</EntityContext>
 														</AddPerceivableState>
-													</EntityContextElement>
-												</EntityContext>
+													</EntityContextPresetElement>
+												</EntityContextPreset>
 											</EntityContext>
 										</EntityContextElement>
 									</AnyDecorator>
@@ -4310,21 +4388,9 @@
 				</Behavior>
 			</Root>
 			<Forest>
-				<Sequence editorPosX="6170" editorPosY="480" hasInputBreakpoint="0" comment="" breakpointFlags="0">
+				<Sequence editorPosX="6220" editorPosY="600" hasInputBreakpoint="0" comment="" breakpointFlags="0">
 					<OutputBreakpoints />
 				</Sequence>
-				<ContinuousSwitch editorPosX="4530" editorPosY="-2640" hasInputBreakpoint="0" comment="" breakpointFlags="0">
-					<OutputBreakpoints />
-					<IfCondition hasInputBreakpoint="0" comment="" breakpointFlags="0">
-						<OutputBreakpoints />
-					</IfCondition>
-					<IfCondition hasInputBreakpoint="0" comment="" breakpointFlags="0">
-						<OutputBreakpoints />
-						<Wait hasInputBreakpoint="0" comment="" breakpointFlags="0">
-							<OutputBreakpoints />
-						</Wait>
-					</IfCondition>
-				</ContinuousSwitch>
 			</Forest>
 			<Comments />
 		</EditorData>

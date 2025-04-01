@@ -18,6 +18,9 @@
 				<Port Name="odevzdani_mece" Direction="Out" Type="trigger">
 					<DesignName StringName="jindra_se_odevzdani_mece_GXnj" Text="Odevzdání meče" />
 				</Port>
+				<Port Name="rytir_ma_zub" Direction="In" Type="bool">
+					<DesignName StringName="jindra_se_rytir_ma_zub_BI7O" Text="Rytíř má zub" />
+				</Port>
 			</Ports>
 			<Text StringName="jindra_se_vratil_ze_hrbit_jJmQ" Text="Jindra se vrátil ze hřbitova s mečem" />
 			<Elements>
@@ -31,7 +34,7 @@
 					<Text StringName="jindra_se_pokud_jindra_me_oIuU" Text="Pokud Jindra meč má, švindlíř mu prozradí, že je zloděj a chce na něj zaútočit. Jindra se může vymluvit speechskillem. Pokud se mu podaří vymluvit, dostane meč a groše, pokud dojde k boji, vezme si odměnu ze švindlířovy mrtvoly." />
 				</GameplayActionElement>
 			</Elements>
-			<Dialogue TechnicalStatus="Enabled" AllowFarewell="false" AllowGreeting="false" GesturesSetDate="2024-05-16T18:13:09.0299069+02:00" GesturesSetResponseCount="26">
+			<Dialogue TechnicalStatus="Enabled" AllowFarewell="false" AllowGreeting="false" GesturesSetDate="2024-10-18T10:29:23.2152142+02:00" GesturesSetResponseCount="26">
 				<SelectedSouls>
 					<SelectedSoul Role="HENRY" Voice="tomMcKay" Soul="player_henry" Type="Wave" Language="ENG" />
 					<SelectedSoul Role="POKORNY_RYTIR" Voice="richardKiess" Type="Wave" Language="ENG" />
@@ -58,6 +61,8 @@
 												</Parenthetical>
 												<Text StringName="jind_henry_hej_tak_uz_jse_ddhh" Text="Něco pro tebe mám..." />
 												<Commands>
+													<FacialMoodCommand FacialMood="thinking2" />
+													<FacialMoodCommand Role="POKORNY_RYTIR" FacialMood="happy1" />
 													<AnimationCommand FragmentId="ADLG_Gesture" Guid="f7b6478f-50ab-4615-975b-b70e831408c4" Variant="25" />
 													<CameraCommand CameraType="CloseUp" />
 												</Commands>
@@ -84,6 +89,8 @@
 															</Parenthetical>
 															<Text StringName="jind_henry_diky_fhLO" Text="A víš jistě, že ten pravý meč vypadal takhle?" />
 															<Commands>
+																<FacialMoodCommand FacialMood="thinking3" />
+																<FacialMoodCommand Role="HENRY" FacialMood="happy1" />
 																<AnimationCommand Delay="1.96" FragmentId="ADLG_Gesture" Guid="772acf5a-6278-4ba5-b562-50981cf99cda" Variant="12" />
 																<CameraCommand Delay="0.08" CameraType="CloseShot" />
 															</Commands>
@@ -104,7 +111,7 @@
 															</Parenthetical>
 															<Text StringName="jind_pokorny_r_no_tak_dob_Ihr2" Text="No tak dobře, Jindro, díky! Myslim, že už můžeme týhle maškarády nechat, ne?" />
 															<Commands>
-																<FacialMoodCommand FacialMood="arrogant1" />
+																<FacialMoodCommand FacialMood="arrogant2" />
 																<AnimationCommand Delay="0.55" FragmentId="ADLG_Gesture" Guid="002ace53-8d31-4d61-b729-4bae5c80b2e5" Variant="0" />
 																<CameraCommand CameraType="CloseShot" />
 															</Commands>
@@ -112,6 +119,7 @@
 														<Response Role="POKORNY_RYTIR" StartDelay="0.19" ReferenceLength="8.39">
 															<Text StringName="jind_pokorny_r_jsi_fakt_d_wV5y" Text="Jsi fakt dobrej, dlouho sem se marně snažil k tomu hrobu dostat. Ale doufám, že je ti jasný, že tě teď musim zabít..." />
 															<Commands>
+																<FacialMoodCommand FacialMood="arrogant3" />
 																<AnimationCommand Delay="6.32" FragmentId="ADLG_Gesture" Guid="d85ed9b0-40b0-4887-a715-debff5158150" Variant="21" />
 																<AnimationCommand Delay="-0.16" FragmentId="ADLG_Nod" Guid="2ddda320-2a14-4160-b352-ad7c194f57b3" Variant="0" />
 															</Commands>
@@ -122,6 +130,7 @@
 															</Parenthetical>
 															<Text StringName="jind_pokorny_r_ale_doufam_vTup" Text="Nemůžu riskovat, že si někde otevřeš hubu a vykvákáš, že ten meč je falešnej!" />
 															<Commands>
+																<FacialMoodCommand FacialMood="angry1" />
 																<AnimationCommand Delay="0.18" FragmentId="ADLG_Disagree_light" Guid="2fe9e83f-b40b-4748-b0ac-1e2f5d132e45" Variant="1" />
 																<AnimationCommand Role="HENRY" Delay="5.18" FragmentId="ADLG_Surprised" Guid="37ccf959-1452-4346-bc56-6c477a30e707" Variant="1" />
 															</Commands>
@@ -132,6 +141,7 @@
 															</Parenthetical>
 															<Text StringName="jind_henry_o_cem_to_sakra_Kv5F" Text="O čem to sakra mluvíš? Co jsi zač?" />
 															<Commands>
+																<FacialMoodCommand FacialMood="nervous2" />
 																<AnimationCommand Role="POKORNY_RYTIR" Delay="3.72" FragmentId="ADLG_Gesture" Guid="c146b5f3-dae0-4959-9e7f-34c7415efe01" Variant="19" />
 																<CameraCommand CameraType="CloseUp" />
 															</Commands>
@@ -139,6 +149,7 @@
 														<Response Role="POKORNY_RYTIR" ReferenceLength="12.27">
 															<Text StringName="jind_pokorny_r_prodavam_r_cepO" Text="Prodávám relikvie, šperky a různý další cetky sběratelům. Některý pravý, některý jako tvůj meč falešný, ale skoro všechny kradený..." />
 															<Commands>
+																<FacialMoodCommand FacialMood="arrogant3" />
 																<AnimationCommand Delay="6.47" FragmentId="ADLG_Gesture" Guid="89606b07-8fa2-4d25-9b3d-da39e1476038" Variant="15" />
 																<CameraCommand CameraType="CloseShot" />
 															</Commands>
@@ -149,6 +160,7 @@
 															</Parenthetical>
 															<Text StringName="jind_henry_ja_vedel_ze_je_YQuw" Text="Já věděl, že je na tom všem něco divnýho!" />
 															<Commands>
+																<FacialMoodCommand FacialMood="angry1" />
 																<AnimationCommand Delay="-0.15" FragmentId="ADLG_You" Guid="68cf74cb-2347-4df7-bf6e-ec4a245e05af" Variant="2" />
 																<CameraCommand Delay="-0.19" CameraType="CloseShot" />
 															</Commands>
@@ -180,7 +192,7 @@
 																		<Commands>
 																			<FacialMoodCommand Role="POKORNY_RYTIR" FacialMood="angry1" />
 																			<MoodCommand Role="POKORNY_RYTIR" Mood="angry" />
-																			<FacialMoodCommand FacialMood="happy2" />
+																			<FacialMoodCommand FacialMood="happy3" />
 																			<AnimationCommand Delay="0.02" FragmentId="ADLG_Laugh" Guid="1fc40c2a-4700-e7bd-4bb1-fac5d86e7e77" Variant="0" />
 																			<CameraCommand CameraType="CloseUp" />
 																		</Commands>
@@ -220,6 +232,7 @@
 																					</Parenthetical>
 																					<Text StringName="jind_pokorny_r_smolicek_p_TOtF" Text="No jasně, celej se třesu strachy..." />
 																					<Commands>
+																						<FacialMoodCommand FacialMood="angry1" />
 																						<AnimationCommand Delay="0.15" FragmentId="ADLG_Disown" Guid="b4205044-4181-fb4c-30e4-0aee69bdae94" Variant="2" DesiredDuration="3" />
 																						<CameraCommand CameraType="CloseUp" />
 																					</Commands>
@@ -242,12 +255,9 @@
 																				</Sequences>
 																			</Decision>
 																		</Sequence>
-																		<Sequence EndType="EndDialogue" SkillcheckCondition="Success" Reputation="quest_decrease_4_normal" Name="seq8">
+																		<Sequence EndType="Decision" SkillcheckCondition="Success" Reputation="quest_decrease_4_normal" Name="seq8">
 																			<DesignName StringName="jindra_se_seq8_R4RD" Text="seq8" />
 																			<UiPrompt StringName="ui_jindra_se_seq8_rU87" Text="success" />
-																			<Triggers>
-																				<Port Name="jindra_odevzdal_mec_i_quest_a_zastrasil_svindlire" />
-																			</Triggers>
 																			<Elements>
 																				<Response Role="POKORNY_RYTIR" ReferenceLength="10.04">
 																					<Parenthetical>
@@ -255,43 +265,65 @@
 																					</Parenthetical>
 																					<Text StringName="jind_pokorny_r_hej_jsem_s_cuSz" Text="Hej, chlape, uklidni se! Vždyť se přece můžeme domluvit, ne? Já si vezmu meč, zaplatim ti za práci a každej si půjdeme po svým..." />
 																					<Commands>
+																						<FacialMoodCommand FacialMood="nervous2" />
 																						<AnimationCommand Delay="0.42" FragmentId="ADLG_Easy_man" Guid="a88b0649-f2db-45b9-ac75-fbe939616780" Variant="0" />
 																						<AnimationCommand Delay="6.56" FragmentId="ADLG_Emphasis" Guid="ef25df68-e606-4b6a-b97d-e75270c52e55" Variant="7" />
 																						<CameraCommand CameraType="CloseShot" />
 																						<CameraCommand Delay="9.78" CameraType="CloseUp" />
 																					</Commands>
 																				</Response>
-																				<Response Role="POKORNY_RYTIR" ReferenceLength="8.68">
-																					<Parenthetical>
-																						<Text StringName="jind_pokorny_r_uklidnuje__N4n6" Text="uklidňuje ho" />
-																					</Parenthetical>
-																					<Text StringName="jind_pokorny_r_vic_nez_do_sPqs" Text="Na, vezmi si tohle! Ostatek svatý Apoleny, dokonce pravej, věř mi! Víš kolik za něj dostaneš?" />
-																					<Commands>
-																						<AnimationCommand Delay="0.09" FragmentId="ADLG_Give" Guid="c82ba550-1031-4af2-ebc4-ccea2f571cb8" Variant="1" />
-																						<AnimationCommand Delay="6.39" FragmentId="ADLG_Nod" Guid="2ddda320-2a14-4160-b352-ad7c194f57b3" Variant="0" />
-																					</Commands>
-																				</Response>
-																				<Response Role="HENRY" ReferenceLength="3.39">
-																					<Parenthetical>
-																						<Text StringName="jind_henry_drsne_Omh2" Text="drsně" />
-																					</Parenthetical>
-																					<Text StringName="jind_henry_tak_dobre_bez__ixXN" Text="Tak dobře. Nech si ten meč a běž..." />
-																					<Commands>
-																						<AnimationCommand Delay="0.04" FragmentId="ADLG_Nod" Guid="f219ea89-720f-4384-b0f6-57044649e8dd" Variant="4" />
-																						<CameraCommand CameraType="CloseUp" />
-																					</Commands>
-																				</Response>
-																				<Response Role="POKORNY_RYTIR" ReferenceLength="4.45">
-																					<Parenthetical>
-																						<Text StringName="jind_pokorny_r_radostne_p_2bkA" Text="radostně, postrašeně" />
-																					</Parenthetical>
-																					<Text StringName="jind_pokorny_r_no_vidis_j_s5UU" Text="No vidíš, Jindro. Já hned věděl, že seš rozumnej chlap!" />
-																					<Commands>
-																						<AnimationCommand Delay="1.86" FragmentId="ADLG_Nod" Guid="f219ea89-720f-4384-b0f6-57044649e8dd" Variant="4" />
-																						<CameraCommand CameraType="CloseShot" />
-																					</Commands>
-																				</Response>
 																			</Elements>
+																			<Decision Name="dec8">
+																				<Sequences>
+																					<Sequence SpeechCoef="0" EntryCondition="Port('rytir_ma_zub')&#xD;&#xA;AND&#xD;&#xA;!ThisSequenceUsed()" EndType="GoTo" GoToDecision="dec8" Visibility="Internal" Name="zub">
+																						<DesignName StringName="jindra_se_zub_5j2Y" Text="zub" />
+																						<Elements>
+																							<Response Role="POKORNY_RYTIR" ReferenceLength="16">
+																								<Parenthetical>
+																									<Text StringName="jind_pokorny_r_uklidnuje__N4n6" Text="uklidňuje ho" />
+																								</Parenthetical>
+																								<Text StringName="jind_pokorny_r_vic_nez_do_sPqs" Text="Na, vezmi si tohle! Ostatek svatý Apoleny, dokonce pravej, věř mi! Víš kolik za něj dostaneš?" />
+																								<Commands>
+																									<FacialMoodCommand FacialMood="nervous3" />
+																									<AnimationCommand Delay="0.09" FragmentId="ADLG_Give" Guid="c82ba550-1031-4af2-ebc4-ccea2f571cb8" Variant="1" />
+																									<AnimationCommand Delay="6.39" FragmentId="ADLG_Nod" Guid="2ddda320-2a14-4160-b352-ad7c194f57b3" Variant="0" />
+																									<CameraCommand />
+																								</Commands>
+																							</Response>
+																						</Elements>
+																					</Sequence>
+																					<Sequence SpeechCoef="0" EntryCondition="!Port('rytir_ma_zub')&#xD;&#xA;OR &#xD;&#xA;SequenceUsed('zub')" EndType="EndDialogue" Name="seq17">
+																						<DesignName StringName="jindra_se_seq17_aonM" Text="seq17" />
+																						<Triggers>
+																							<Port Name="jindra_odevzdal_mec_i_quest_a_zastrasil_svindlire" />
+																						</Triggers>
+																						<Elements>
+																							<Response Role="HENRY" ReferenceLength="3.39">
+																								<Parenthetical>
+																									<Text StringName="jind_henry_drsne_Omh2" Text="drsně" />
+																								</Parenthetical>
+																								<Text StringName="jind_henry_tak_dobre_bez__ixXN" Text="Tak dobře. Nech si ten meč a běž..." />
+																								<Commands>
+																									<FacialMoodCommand FacialMood="angry1" />
+																									<AnimationCommand Delay="0.04" FragmentId="ADLG_Nod" Guid="f219ea89-720f-4384-b0f6-57044649e8dd" Variant="4" />
+																									<CameraCommand CameraType="CloseUp" />
+																								</Commands>
+																							</Response>
+																							<Response Role="POKORNY_RYTIR" ReferenceLength="4.45">
+																								<Parenthetical>
+																									<Text StringName="jind_pokorny_r_radostne_p_2bkA" Text="radostně, postrašeně" />
+																								</Parenthetical>
+																								<Text StringName="jind_pokorny_r_no_vidis_j_s5UU" Text="No vidíš, Jindro. Já hned věděl, že seš rozumnej chlap!" />
+																								<Commands>
+																									<FacialMoodCommand FacialMood="happy1" />
+																									<AnimationCommand Delay="1.86" FragmentId="ADLG_Nod" Guid="f219ea89-720f-4384-b0f6-57044649e8dd" Variant="4" />
+																									<CameraCommand CameraType="CloseShot" />
+																								</Commands>
+																							</Response>
+																						</Elements>
+																					</Sequence>
+																				</Sequences>
+																			</Decision>
 																		</Sequence>
 																	</Sequences>
 																</Decision>
@@ -303,6 +335,8 @@
 																	<Response Role="HENRY" ReferenceLength="1.61">
 																		<Text StringName="jind_henry_tak_bojuj_mrdko_HClj" Text="Nevzdám se bez boje!" />
 																		<Commands>
+																			<FacialMoodCommand FacialMood="angry1" />
+																			<FacialMoodCommand Role="POKORNY_RYTIR" FacialMood="arrogant3" />
 																			<AnimationCommand FragmentId="ADLG_Disagree_light" Guid="231a82ae-beac-4474-8538-e58365c056b8" Variant="0" />
 																			<CameraCommand CameraType="CloseUp" />
 																		</Commands>
@@ -328,12 +362,14 @@
 									<Sequence EntryCondition="!Port('jindruv_mezikrok')" EndType="GoTo" GoToDecision="dec6" Name="seq4">
 										<DesignName StringName="jindra_se_seq4_W040" Text="seq4" />
 										<Elements>
-											<Response Role="HENRY" ReferenceLength="6.58">
+											<Response Role="HENRY" ReferenceLength="6.45">
 												<Parenthetical>
 													<Text StringName="jind_henry_mluvi_rychle_pEBC" Text="mluví rychle" />
 												</Parenthetical>
 												<Text StringName="jind_henry_hej_tak_jsem_b_PqQ8" Text="Byl jsem na hřbitově a našel jsem Valentina, ale žádnej meč u sebe neměl. Ale našel jsem tam takovou rytinu..." />
 												<Commands>
+													<FacialMoodCommand FacialMood="thinking2" />
+													<FacialMoodCommand Role="POKORNY_RYTIR" FacialMood="confusion1" />
 													<AnimationCommand Delay="0.02" FragmentId="ADLG_Nod" Guid="2ddda320-2a14-4160-b352-ad7c194f57b3" Variant="0" />
 													<AnimationCommand Delay="5.05" FragmentId="ADLG_Gesture" Guid="82614ed5-8978-4c2d-8771-aeab0b05a4e7" Variant="14" />
 													<AnimationCommand Role="POKORNY_RYTIR" Delay="6.57" FragmentId="ADLG_Easy_man" Guid="c3c363cf-f483-4b85-af81-e9b44c02d8a8" Variant="1" />
@@ -363,6 +399,7 @@
 												</Parenthetical>
 												<Text StringName="jind_pokorny_r_to_je_dobry_6UjC" Text="Tys vykoval kopii Valentinova meče? Jenom podle obrázku?" />
 												<Commands>
+													<FacialMoodCommand FacialMood="nervous2" />
 													<AnimationCommand Delay="0.11" FragmentId="ADLG_Surprised" Guid="37ccf959-1452-4346-bc56-6c477a30e707" Variant="1" />
 													<CameraCommand CameraType="CloseShot" />
 												</Commands>
@@ -373,6 +410,7 @@
 												</Parenthetical>
 												<Text StringName="jind_henry_ale_pouzil_jse_vpv3" Text="Já vím, není to ono, ale nic lepšího mě nenapadlo." />
 												<Commands>
+													<FacialMoodCommand FacialMood="arrogant1" />
 													<AnimationCommand Delay="2.28" FragmentId="ADLG_Disagree_light" Guid="231a82ae-beac-4474-8538-e58365c056b8" Variant="0" />
 													<AnimationCommand Delay="0.02" FragmentId="ADLG_Gesture" Guid="002ace53-8d31-4d61-b729-4bae5c80b2e5" Variant="0" />
 													<CameraCommand CameraType="CloseShot" />

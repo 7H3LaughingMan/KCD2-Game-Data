@@ -90,6 +90,18 @@
 				<Port Name="arne_streamed" Direction="In" Type="bool">
 					<DesignName StringName="sermiri_arne_streamed_1r6N" Text="arne streamed" />
 				</Port>
+				<Port Name="turnaj_probiha" Direction="In" Type="bool">
+					<DesignName StringName="sermiri_turnaj_probiha_9bFQ" Text="Turnaj probíhá" />
+				</Port>
+				<Port Name="v_turnaji_jimram" Direction="In" Type="bool">
+					<DesignName StringName="sermiri_v_turnaji_jimram_DKqt" Text="V turnaji Jimram" />
+				</Port>
+				<Port Name="v_turnaji_linhart" Direction="In" Type="bool">
+					<DesignName StringName="sermiri_v_turnaji_linhart_o99F" Text="V turnaji Linhart" />
+				</Port>
+				<Port Name="v_turnaji_arne" Direction="In" Type="bool">
+					<DesignName StringName="sermiri_v_turnaji_arne_yuun" Text="V turnaji Arne" />
+				</Port>
 			</Ports>
 			<Definitions>
 				<Definition File="sermiri/setkani_s_menhartem.xml" />
@@ -201,6 +213,13 @@
 						<Vertex>vertex262</Vertex>
 					</Edge>
 				</AIConceptSignalTrigger>
+				<Function Name="and141" PositionY="2360" PositionX="4370" MethodName="math::boolean::And" DeclaringType="math::boolean">
+					<Edge From="state3.Active" To="A">
+						<Vertex>USDKhIBb</Vertex>
+						<Vertex>fs2I3Gca</Vertex>
+					</Edge>
+					<Edge From="not142.bool" To="B" />
+				</Function>
 				<areatrespassleveleffect Name="areatrespassleveleffect" PositionY="1100" PositionX="500" Namespace="utils.crime.trespass">
 					<Asset Name="area" Alias="uCisareKarlaAntitrespass1" />
 					<Constant Name="trespasslevel" Value="public" />
@@ -211,9 +230,9 @@
 					<Edge From="po_soubojich.arne_timer_finished" To="Awake" />
 				</arne__oko>
 				<BuffEffect Name="buff34" PositionY="2320" PositionX="-270">
-					<Asset Name="Souls" Alias="kumel" />
 					<Constant Name="BuffGUID" Value="e5ff5b8f-c764-44d8-b156-a884233150e1" />
 					<Edge From="QuestProgress.Active" To="IsActive" />
+					<Edge From="makearray133.Array" To="Souls" />
 				</BuffEffect>
 				<BuffEffect Name="buff94" PositionY="2140" PositionX="-270">
 					<Asset Name="Souls" Alias="arne" />
@@ -257,7 +276,16 @@
 				</If>
 				<If Name="if102" PositionY="2300" PositionX="3070">
 					<Edge From="souboje.turnaj_skoncil" To="Exec" />
-					<Edge From="souboje.nemci_zvitezili" To="Condition" />
+					<Edge From="souboje.nemci_zvitezili" To="Condition">
+						<Vertex>XqVuj4HT</Vertex>
+					</Edge>
+				</If>
+				<If Name="if135" PositionY="1480" PositionX="340">
+					<Edge From="QuestProgress.OnDone" To="Exec" />
+					<Edge From="souboje.nemci_zvitezili" To="Condition">
+						<Vertex>XqVuj4HT</Vertex>
+						<Vertex>cCUtt1So</Vertex>
+					</Edge>
 				</If>
 				<If Name="if40" PositionY="-460" PositionX="2740">
 					<Edge From="pomocKutnohorskym.ZradaDohodnuta" To="Condition" />
@@ -308,6 +336,7 @@
 				<If Name="if84" PositionY="-330" PositionX="1830">
 					<Edge From="QuestProgress.OnFailed" To="Exec">
 						<Vertex>xpWAIBYM</Vertex>
+						<Vertex>gY7rY0Q6</Vertex>
 					</Edge>
 					<Edge From="or85.bool" To="Condition">
 						<Vertex>hTxSoUmc</Vertex>
@@ -355,6 +384,18 @@
 						<Vertex>0kTg61QY</Vertex>
 					</Edge>
 				</kradeni_mece>
+				<LinkEffect Name="linkeffectmodule115" PositionY="-1140" PositionX="0" Tag="module">
+					<Asset Name="From" Alias="qSO" />
+					<Asset Name="To" Alias="zadaniOutSO" />
+					<Constant Name="module" Value="menhart_arne_trialog" />
+					<Edge From="state136.Done" To="IsActive" />
+				</LinkEffect>
+				<LinkEffect Name="linkeffectmodule118" PositionY="-1400" PositionX="0" Tag="module">
+					<Asset Name="From" Alias="qSO" />
+					<Asset Name="To" Alias="zadaniInSO" />
+					<Constant Name="module" Value="menhart_arne_trialog" />
+					<Edge From="or140.bool" To="IsActive" />
+				</LinkEffect>
 				<MakeArray Name="makearray101" PositionY="-1090" PositionX="2860" TypeT="wh::conceptmodule::ConceptPaths">
 					<Constant Name="A" Value="sermiri.zrusitMec" />
 				</MakeArray>
@@ -367,8 +408,31 @@
 					<Constant Name="B" Value="assaultByDog" />
 					<Constant Name="C" Value="pickpocket" />
 				</MakeArray>
+				<MakeArray Name="makearray132" PositionY="1070" PositionX="860" TypeT="wh::rpgmodule::Souls">
+					<Asset Name="A" Alias="menhart" />
+					<Asset Name="B" Alias="arne" />
+					<Asset Name="C" Alias="Linhart" />
+					<Asset Name="D" Alias="Mikulas" />
+					<Asset Name="E" Alias="Jimram" />
+				</MakeArray>
+				<MakeArray Name="makearray133" PositionY="2340" PositionX="-600" TypeT="wh::rpgmodule::Souls">
+					<Asset Name="A" Alias="arne" />
+					<Asset Name="B" Alias="menhart" />
+					<Asset Name="C" Alias="Jimram" />
+					<Asset Name="D" Alias="Mikulas" />
+					<Asset Name="E" Alias="Linhart" />
+					<Asset Name="F" Alias="kumel" />
+				</MakeArray>
 				<MakeArray Name="makearray14" PositionY="-160" PositionX="-4460" TypeT="Strings">
 					<Constant Name="A" Value="goto  3196 808 53  0 0 0 " />
+				</MakeArray>
+				<MakeArray Name="makearray145" PositionY="1260" PositionX="-2870" TypeT="wh::rpgmodule::Souls">
+					<Asset Name="A" Alias="menhart" />
+					<Asset Name="B" Alias="arne" />
+					<Asset Name="C" Alias="Jimram" />
+					<Asset Name="D" Alias="Linhart" />
+					<Asset Name="E" Alias="Mikulas" />
+					<Asset Name="F" Alias="kumel" />
 				</MakeArray>
 				<MakeArray Name="makearray30" PositionY="-490" PositionX="-4140" TypeT="Strings">
 					<Constant Name="A" Value="goto 2966 928 67 0 0 0" />
@@ -401,7 +465,7 @@
 				</HasteTrigger>
 				<menhart_vycvik_specialni_techniky_1 Name="menhart_vycvik_specialni_techniky_1" PositionY="2375" PositionX="4708">
 					<Asset Name="DialogueHolder" Alias="menhartovaTechnika" />
-					<Edge From="state3.Active" To="menhart_muze_naucit_techniku" />
+					<Edge From="and141.bool" To="menhart_muze_naucit_techniku" />
 				</menhart_vycvik_specialni_techniky_1>
 				<menhartova_technika Name="menhartova_technika" PositionY="3052" PositionX="4706" />
 				<HasteTrigger Name="Mikulas_mistrem" PositionY="-960" PositionX="3110">
@@ -411,6 +475,12 @@
 				<State Name="nemci_zustanou_ve_meste_hasteOnly" PositionY="-390" PositionX="-1950" TypeT="bool">
 					<Edge From="nemci_zustanou_ve_meste.OnTrigger" To="SetTrue" />
 				</State>
+				<Function Name="not142" PositionY="2740" PositionX="3990" MethodName="math::boolean::Not" DeclaringType="math::boolean">
+					<Edge From="turnaj_probiha" To="Value">
+						<Vertex>7sGmjVCR</Vertex>
+						<Vertex>y0ByuGhQ</Vertex>
+					</Edge>
+				</Function>
 				<DisplayTutorial Name="oben_ahnemen_tutorial" PositionY="2405" PositionX="5928">
 					<Constant Name="Tutorial" Value="combo_Oben_ahnemen" />
 					<Edge From="oben_anhnemen_reward.OnAdded" To="Show" />
@@ -440,6 +510,18 @@
 				<Function Name="or130" PositionY="-50" PositionX="-2870" MethodName="math::boolean::Or" DeclaringType="math::boolean">
 					<Edge From="sermiriProgress.Start" To="A" />
 					<Edge From="sermiriProgress.Konfrontace" To="B" />
+				</Function>
+				<Function Name="or138" PositionY="-950" PositionX="-240" MethodName="math::boolean::Or" DeclaringType="math::boolean">
+					<Edge From="zadani_questu.out_kkut" To="B" />
+					<Edge From="state136.Done" To="A" />
+				</Function>
+				<Function Name="or139" PositionY="-400" PositionX="-460" MethodName="math::boolean::Or" DeclaringType="math::boolean">
+					<Edge From="zadani_questu.in_kkut" To="B" />
+					<Edge From="state136.Active" To="A" />
+				</Function>
+				<Function Name="or140" PositionY="-1300" PositionX="-300" MethodName="math::boolean::Or" DeclaringType="math::boolean">
+					<Edge From="state136.None" To="A" />
+					<Edge From="state136.Active" To="B" />
 				</Function>
 				<Function Name="or45" PositionY="1590" PositionX="-50" MethodName="math::boolean::Or" DeclaringType="math::boolean">
 					<Edge From="QuestProgress.Active" To="A" />
@@ -474,20 +556,20 @@
 					<Edge From="pomocKutnohorskym.TurnajZahajen" To="B" />
 				</Function>
 				<osazeni_sermiru_v_hospode Name="osazeni_sermiru_v_hospode" PositionY="1660" PositionX="1770">
-					<Edge From="zadani_questu.out_kkut" To="out_kkut">
-						<Vertex>uCngJlec</Vertex>
-						<Vertex>hDqRt09A</Vertex>
-						<Vertex>1ogHRLSK</Vertex>
-					</Edge>
-					<Edge From="zadani_questu.in_kkut" To="in_kkut">
-						<Vertex>b5DHsesJ</Vertex>
-						<Vertex>9W74AK2U</Vertex>
-						<Vertex>I5EMQFES</Vertex>
-					</Edge>
 					<Edge From="zadani_questu.quest_zadan" To="quest_zadan">
 						<Vertex>9jLh48By</Vertex>
 						<Vertex>ykRK3fSf</Vertex>
 						<Vertex>TbqYvSyq</Vertex>
+					</Edge>
+					<Edge From="or138.bool" To="out_kkut">
+						<Vertex>uCngJlec</Vertex>
+						<Vertex>hDqRt09A</Vertex>
+						<Vertex>1ogHRLSK</Vertex>
+					</Edge>
+					<Edge From="or139.bool" To="in_kkut">
+						<Vertex>b5DHsesJ</Vertex>
+						<Vertex>9W74AK2U</Vertex>
+						<Vertex>I5EMQFES</Vertex>
 					</Edge>
 				</osazeni_sermiru_v_hospode>
 				<Output Name="Output">
@@ -527,7 +609,9 @@
 					<Edge From="po_soubojich.menhart_se_stane_skillteacherem" To="menhart_se_stane_skillteacherem" />
 					<Edge From="po_soubojich.arne_se_stane_skillteaherem" To="arne_se_stane_skillteaherem" />
 					<Edge From="souboje.turnaj_zacal" To="turnaj_zacal" />
-					<Edge From="or63.bool" To="menhart_mistrem" />
+					<Edge From="or63.bool" To="menhart_mistrem">
+						<Vertex>joHR6lSF</Vertex>
+					</Edge>
 					<Edge From="po_soubojich.turnaj_recen" To="turnaj_recen" />
 					<Edge From="po_soubojich.start_turnaj" To="kutnohorsky_turnaj_start" />
 					<Edge From="po_soubojich.afterplay" To="unstream_npc__debug" />
@@ -594,6 +678,11 @@
 					<Edge From="souboje.arne_a_menhart_clothing_presety" To="arne_a_menhart_clothing_presety" />
 					<Edge From="souboje.henry_byl_vyloucen_za_crime" To="henry_byl_vyloucen_za_crime" />
 					<Edge From="souboje.patch_01_00" To="patch_01_00" />
+					<Edge From="QuestProgress.OnFailed" To="quest_failed">
+						<Vertex>xpWAIBYM</Vertex>
+						<Vertex>gY7rY0Q6</Vertex>
+						<Vertex>mGtqfeeg</Vertex>
+					</Edge>
 				</po_soubojich>
 				<podraz_nemcu Name="podraz_nemcu" PositionY="-560" PositionX="-180" RequiredForOutput="kutnohorsko">
 					<Edge From="kradeni_mece.henry_byl_viden_pri_kradeni_mece" To="henry_byl_viden">
@@ -765,9 +854,13 @@
 						<SkillReward Type="scholarship" ExperienceChange="2-minor" />
 					</Rewards>
 				</AddReward>
-				<SaveGame Name="savegame117" PositionY="1550" PositionX="590">
-					<Constant Name="Objective" Value="vybojuj_souboje_proti_kutnohorskym" />
-					<Edge From="QuestProgress.OnDone" To="EnqueueSave" />
+				<SaveGame Name="savegame117" PositionY="1470" PositionX="670">
+					<Constant Name="Objective" Value="zastav_se_za_menhartem" />
+					<Edge From="if135.True" To="EnqueueSave" />
+				</SaveGame>
+				<SaveGame Name="savegame134" PositionY="1690" PositionX="660">
+					<Constant Name="Objective" Value="promluv_si_s_kutnohorskymi_sermiri" />
+					<Edge From="if135.False" To="EnqueueSave" />
 				</SaveGame>
 				<SaveGame Name="savegame57" PositionY="130" PositionX="-1000">
 					<Constant Name="Objective" Value="promluv_si_s_menhartem1" />
@@ -781,7 +874,13 @@
 					<Constant Name="LinkTag" Value="sermiri_active" />
 					<Edge From="QuestProgress.Active" To="IsActive" />
 				</SchedulerLinkActivation>
-				<sermir_pred_sermirnou__info_a_odmitnuti Name="sermir_pred_sermirnou__info_a_odmitnuti" PositionY="230" PositionX="-4350" />
+				<sermir_pred_sermirnou__info_a_odmitnuti Name="sermir_pred_sermirnou__info_a_odmitnuti" PositionY="230" PositionX="-4350">
+					<Edge From="or63.bool" To="menhart_mistrem">
+						<Vertex>joHR6lSF</Vertex>
+						<Vertex>DobRBqk3</Vertex>
+						<Vertex>X9zElNz0</Vertex>
+					</Edge>
+				</sermir_pred_sermirnou__info_a_odmitnuti>
 				<sermiri Name="sermiri" PositionY="-900" PositionX="-1210" />
 				<sermiri__start Name="sermiri__start" PositionY="260" PositionX="-4630">
 					<Edge From="haste_vypnuti_trespassu" To="haste_vypnuti_trespassu" />
@@ -904,6 +1003,25 @@
 						<Vertex>NCRpr1gE</Vertex>
 					</Edge>
 				</State>
+				<SetEntityContext Name="setentitycontext131" PositionY="940" PositionX="1130">
+					<Constant Name="Context" Value="combat_preventMasterstrikeWeaponDisarm" />
+					<Edge From="QuestProgress.Active" To="IsActive">
+						<Vertex>rqTgaScD</Vertex>
+					</Edge>
+					<Edge From="makearray132.Array" To="Souls" />
+				</SetEntityContext>
+				<SetEntityContext Name="setentitycontext144" PositionY="1060" PositionX="-2550">
+					<Constant Name="Context" Value="crime_suppressReactionAfterGainingConsciousness" />
+					<Edge From="makearray145.Array" To="Souls" />
+					<Edge From="sermiriProgress.Turnaj" To="IsActive">
+						<Vertex>9YthhmBQ</Vertex>
+						<Vertex>VaEm6r3G</Vertex>
+					</Edge>
+				</SetEntityContext>
+				<SetGameContext Name="setgamecontext143" PositionY="1060" PositionX="-2850">
+					<Constant Name="Context" Value="crime_skipInformationBroadcast" />
+					<Edge From="state146.State" To="IsActive" />
+				</SetGameContext>
 				<setkani_s_menhartem Name="setkani_s_menhartem" PositionY="-120" PositionX="-2580">
 					<Edge From="QuestProgress.None" To="quest_nezacal">
 						<Vertex>mC1xMMEs</Vertex>
@@ -921,6 +1039,23 @@
 					<Edge From="po_soubojich.linhart_se_stane_skillteacherem" To="enablelinhart" />
 					<Edge From="po_soubojich.menhart_se_stane_skillteacherem" To="menhart_se_stane_skillteacherem" />
 					<Edge From="po_soubojich.arne_se_stane_skillteaherem" To="arne_se_stane_skillteaherem" />
+					<Edge From="po_soubojich.start_turnaj" To="enablemikulas" />
+					<Edge From="turnaj_probiha" To="turnaj_probiha">
+						<Vertex>7sGmjVCR</Vertex>
+						<Vertex>y0ByuGhQ</Vertex>
+					</Edge>
+					<Edge From="v_turnaji_jimram" To="v_turnaji_jimram">
+						<Vertex>CqTAEg3n</Vertex>
+						<Vertex>jPkRedQ7</Vertex>
+					</Edge>
+					<Edge From="v_turnaji_linhart" To="v_turnaji_linhart">
+						<Vertex>RSd5CDYB</Vertex>
+						<Vertex>DlBorChF</Vertex>
+					</Edge>
+					<Edge From="v_turnaji_arne" To="v_turnaji_arne">
+						<Vertex>ltFFUBjA</Vertex>
+						<Vertex>bb7ynysJ</Vertex>
+					</Edge>
 				</skillteachers>
 				<souboje Name="souboje" PositionY="1080" PositionX="2620" RequiredForOutput="kutnohorsko">
 					<Edge From="kradeni_mece.henry_byl_viden_pri_kradeni_mece" To="henry_byl_viden_pro_kradeni_mece">
@@ -948,6 +1083,18 @@
 					<Edge From="actormountedtrigger22.OnMount" To="SetFalse" />
 					<Edge From="actorsprinttrigger21.OnEnterSprint" To="SetFalse" />
 					<Edge From="actorcrouchtrigger20.OnCrouch" To="SetFalse" />
+				</State>
+				<State Name="state136" PositionY="-1260" PositionX="-590" TypeT="Progress">
+					<Edge From="zadani_questu.s_menhartem_out" To="SetDone" />
+					<Edge From="zadani_questu.s_menhartem_in" To="SetActive" />
+				</State>
+				<State Name="state146" PositionY="1040" PositionX="-3080" TypeT="bool">
+					<Edge From="sermiriProgress.OnTurnaj" To="SetTrue" />
+					<Edge From="souboje.vylouceni_henryho_za_crime" To="SetFalse">
+						<Vertex>SVJ9HSeq</Vertex>
+						<Vertex>JcltFFu7</Vertex>
+						<Vertex>5cFHRL03</Vertex>
+					</Edge>
 				</State>
 				<State Name="state3" PositionY="1845" PositionX="5408" RequiredForOutput="kutnohorsko" TypeT="ProgressFailable">
 					<Edge From="oben_anhnemen_reward.OnAdded" To="SetDone" />
@@ -1068,50 +1215,65 @@
 				<EdgeVertex Name="2Mb9S30n" PositionY="2010" PositionX="3520" />
 				<EdgeVertex Name="2vNq8Sg3" PositionY="1250" PositionX="2550" />
 				<EdgeVertex Name="4DUFfJvv" PositionY="2048" PositionX="3176" />
+				<EdgeVertex Name="5cFHRL03" PositionY="2151" PositionX="-3226" />
 				<EdgeVertex Name="5SPwmQak" PositionY="990" PositionX="-4600" />
+				<EdgeVertex Name="7sGmjVCR" PositionY="2826" PositionX="-4818" />
 				<EdgeVertex Name="80zDTst3" PositionY="950" PositionX="350" />
 				<EdgeVertex Name="8yD3aNLe" PositionY="600" PositionX="3121" />
 				<EdgeVertex Name="9jLh48By" PositionY="937" PositionX="-430" />
 				<EdgeVertex Name="9sPGoD56" PositionY="1200" PositionX="-3190" />
 				<EdgeVertex Name="9W74AK2U" PositionY="884" PositionX="396" />
+				<EdgeVertex Name="9YthhmBQ" PositionY="1040" PositionX="-2990" />
 				<EdgeVertex Name="AFhWT31B" PositionY="-1180" PositionX="-820" />
 				<EdgeVertex Name="AjXmws3E" PositionY="1377" PositionX="-274" />
 				<EdgeVertex Name="b5DHsesJ" PositionY="236" PositionX="324" />
+				<EdgeVertex Name="bb7ynysJ" PositionY="2939" PositionX="3500" />
 				<EdgeVertex Name="BHckjWFf" PositionY="720" PositionX="3530" />
 				<EdgeVertex Name="BHzSBxXu" PositionY="2305" PositionX="5358" />
 				<EdgeVertex Name="bqwaUK0C" PositionY="999" PositionX="-2505" />
+				<EdgeVertex Name="cCUtt1So" PositionY="2442" PositionX="355" />
 				<EdgeVertex Name="cjQucIWV" PositionY="-777" PositionX="-3082" />
+				<EdgeVertex Name="CqTAEg3n" PositionY="2924" PositionX="-4834" />
 				<EdgeVertex Name="CR1UPI7k" PositionY="950" PositionX="-820" />
 				<EdgeVertex Name="cR5RF0PL" PositionY="1570" PositionX="-130" />
 				<EdgeVertex Name="czE8PV2W" PositionY="211" PositionX="2626" />
 				<EdgeVertex Name="dgM6oseH" PositionY="1010" PositionX="-4620" />
+				<EdgeVertex Name="DlBorChF" PositionY="2925" PositionX="3507" />
 				<EdgeVertex Name="dmuRhgG1" PositionY="884" PositionX="859" />
+				<EdgeVertex Name="DobRBqk3" PositionY="-666" PositionX="4005" />
 				<EdgeVertex Name="eev0KNm3" PositionY="-420" PositionX="-1770" />
 				<EdgeVertex Name="ePlmXNlI" PositionY="2491" PositionX="3315" />
 				<EdgeVertex Name="f3k22I3M" PositionY="-419" PositionX="-3409" />
 				<EdgeVertex Name="FrQVxJQd" PositionY="2483" PositionX="-4693" />
+				<EdgeVertex Name="fs2I3Gca" PositionY="2290" PositionX="4370" />
 				<EdgeVertex Name="FtExrIlm" PositionY="1167" PositionX="-241" />
 				<EdgeVertex Name="G3gFbVLU" PositionY="-595" PositionX="-4866" />
 				<EdgeVertex Name="GGahVVJ2" PositionY="770" PositionX="3002" />
 				<EdgeVertex Name="gqAd5EK1" PositionY="950" PositionX="-4290" />
 				<EdgeVertex Name="gS6u1h0t" PositionY="1360" PositionX="-1600" />
+				<EdgeVertex Name="gY7rY0Q6" PositionY="659" PositionX="1836" />
 				<EdgeVertex Name="hDqRt09A" PositionY="869" PositionX="399" />
 				<EdgeVertex Name="HFyLhz0c" PositionY="-730" PositionX="-4540" />
 				<EdgeVertex Name="HJajd8Fy" PositionY="30" PositionX="1830" />
 				<EdgeVertex Name="hTxSoUmc" PositionY="40" PositionX="2650" />
 				<EdgeVertex Name="I5EMQFES" PositionY="891" PositionX="1724" />
 				<EdgeVertex Name="IoISjxk3" PositionY="2045" PositionX="3547" />
+				<EdgeVertex Name="JcltFFu7" PositionY="2155" PositionX="2481" />
 				<EdgeVertex Name="jH7CRdME" PositionY="748" PositionX="-1536" />
 				<EdgeVertex Name="jhRpIQ8o" PositionY="904" PositionX="-3439" />
+				<EdgeVertex Name="joHR6lSF" PositionY="-363" PositionX="4014" />
 				<EdgeVertex Name="jpIPNJtm" PositionY="2049" PositionX="-2976" />
+				<EdgeVertex Name="jPkRedQ7" PositionY="2905" PositionX="3485" />
 				<EdgeVertex Name="K0q3FPN3" PositionY="2635" PositionX="5778" />
 				<EdgeVertex Name="k1y3kzlG" PositionY="1382" PositionX="212" />
 				<EdgeVertex Name="k43qSjlC" PositionY="970" PositionX="380" />
 				<EdgeVertex Name="kHpqanmD" PositionY="2000" PositionX="440" />
 				<EdgeVertex Name="kklQJPeX" PositionY="771" PositionX="4024" />
 				<EdgeVertex Name="LmtgFgMk" PositionY="-1187" PositionX="-3765" />
+				<EdgeVertex Name="ltFFUBjA" PositionY="2972" PositionX="-4826" />
 				<EdgeVertex Name="mC1xMMEs" PositionY="997" PositionX="-281" />
 				<EdgeVertex Name="mEPaE59s" PositionY="784" PositionX="3057" />
+				<EdgeVertex Name="mGtqfeeg" PositionY="687" PositionX="3127" />
 				<EdgeVertex Name="NCRpr1gE" PositionY="927" PositionX="-3442" />
 				<EdgeVertex Name="NeJL0CIX" PositionY="440" PositionX="-2060" />
 				<EdgeVertex Name="olnS1RCH" PositionY="2000" PositionX="-4510" />
@@ -1122,13 +1284,18 @@
 				<EdgeVertex Name="PJyLNWfQ" PositionY="844" PositionX="1934" />
 				<EdgeVertex Name="pqXqlpQt" PositionY="1005" PositionX="-809" />
 				<EdgeVertex Name="r8fj45Xh" PositionY="970" PositionX="-4310" />
+				<EdgeVertex Name="rqTgaScD" PositionY="1030" PositionX="-230" />
+				<EdgeVertex Name="RSd5CDYB" PositionY="2965" PositionX="-4832" />
 				<EdgeVertex Name="sUG657lL" PositionY="-287" PositionX="-432" />
+				<EdgeVertex Name="SVJ9HSeq" PositionY="2151" PositionX="2941" />
 				<EdgeVertex Name="sXs6oGcr" PositionY="713" PositionX="-93" />
 				<EdgeVertex Name="TbqYvSyq" PositionY="1667" PositionX="1093" />
 				<EdgeVertex Name="tzgnLtNI" PositionY="2635" PositionX="5248" />
 				<EdgeVertex Name="uCngJlec" PositionY="206" PositionX="335" />
 				<EdgeVertex Name="UG5BjT7B" PositionY="-730" PositionX="-2010" />
 				<EdgeVertex Name="uGfVU2n5" PositionY="2315" PositionX="6378" />
+				<EdgeVertex Name="USDKhIBb" PositionY="2300" PositionX="5600" />
+				<EdgeVertex Name="VaEm6r3G" PositionY="1040" PositionX="-2590" />
 				<EdgeVertex Name="vAPIoKC5" PositionY="843" PositionX="-1572" />
 				<EdgeVertex Name="vertex100" PositionY="1430" PositionX="100" />
 				<EdgeVertex Name="vertex101" PositionY="1430" PositionX="-110" />
@@ -1255,9 +1422,12 @@
 				<EdgeVertex Name="wCdFJesl" PositionY="1203" PositionX="-3717" />
 				<EdgeVertex Name="WE2G0dvd" PositionY="746" PositionX="854" />
 				<EdgeVertex Name="wY41zCPY" PositionY="1985" PositionX="-2134" />
+				<EdgeVertex Name="X9zElNz0" PositionY="-646" PositionX="-4467" />
 				<EdgeVertex Name="XgGRxy1R" PositionY="-589" PositionX="-2612" />
 				<EdgeVertex Name="xpWAIBYM" PositionY="1389" PositionX="1823" />
+				<EdgeVertex Name="XqVuj4HT" PositionY="2395" PositionX="3035" />
 				<EdgeVertex Name="XtNoIHaY" PositionY="1904" PositionX="-218" />
+				<EdgeVertex Name="y0ByuGhQ" PositionY="2831" PositionX="3528" />
 				<EdgeVertex Name="YffXryQv" PositionY="864" PositionX="-1536" />
 				<EdgeVertex Name="ykRK3fSf" PositionY="923" PositionX="1037" />
 				<EdgeVertex Name="Yq4npr5p" PositionY="1905" PositionX="2970" />
@@ -1497,8 +1667,10 @@
 				<ProfileAsset Name="playersBedProfile" AssetProfiles="sermiri_playerBed" />
 				<SmartObjectAsset Name="MenhartOutBeer" />
 				<SmartObjectAsset Name="MenhartKKutBeer" />
-				<SoulAsset Name="frid" />
 				<TriggerAreaAsset Name="uCisareKarlaAntitrespass1" />
+				<TagPointAsset Name="zadaniOutSO" />
+				<TagPointAsset Name="zadaniInSO" />
+				<TagPointAsset Name="zadaniiSO" />
 			</Assets>
 			<Notes>
 				<Note Name="note6" PositionY="-1100" PositionX="-1860">

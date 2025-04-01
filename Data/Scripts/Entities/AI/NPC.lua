@@ -40,7 +40,7 @@ NPC = {
 	ProceduralContextLook =
 	{
 		polarCoordinatesSmoothEnable = true,
-		polarCoordinatesSmoothTimeSeconds = 0.2,
+		polarCoordinatesSmoothTimeSeconds = 0.08,
 		polarCoordinatesMaxYawDegreesPerSecond = 360,
 		polarCoordinatesMaxPitchDegreesPerSecond = 360,
 		-- default values that are overriden from PC Looking

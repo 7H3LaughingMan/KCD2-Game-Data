@@ -15,6 +15,9 @@
 				<Port Name="jindra_se_postavil_za_ptacka" Direction="In" Type="bool">
 					<DesignName StringName="pokec_s_p_jindra_se_posta_yNFq" Text="jindra se postavil za ptáčka" />
 				</Port>
+				<Port Name="obj_kovarna_a_vino_hotovo" Direction="In" Type="bool">
+					<DesignName StringName="pokec_s_p_obj_kovarna_a_v_YW54" Text="obj kovarna a vino hotovo" />
+				</Port>
 			</Ports>
 			<Text StringName="pokec_s_ptackem_LhV6" Text="Pokec s Ptáčkem" />
 			<Elements>
@@ -274,53 +277,83 @@
 																									<CameraCommand CameraType="CloseShot" />
 																								</Commands>
 																							</Response>
-																							<Response Role="PTACEK" ReferenceLength="4.96">
-																								<Parenthetical>
-																									<Text StringName="poke_ptacek_durazne_Ne7j" Text="důrazně" />
-																								</Parenthetical>
-																								<Text StringName="poke_ptacek_nezapomen_se__mtGn" Text="Ty se ale nezapomeň stavit v kovárně pro můj meč a zbroj a zajít za tou Kateřinou pro víno." />
-																								<Commands>
-																									<AnimationCommand Delay="0.05" FragmentId="ADLG_You" Guid="68cf74cb-2347-4df7-bf6e-ec4a245e05af" Variant="2" />
-																								</Commands>
-																							</Response>
 																						</Elements>
-																						<Decision Name="dec8" Priority="MainQuestSubmission" DesignName="podle stavu opilosti">
+																						<Decision Name="dec12">
 																							<Sequences>
-																								<Sequence EntryCondition="!Port('jindra_je_opily')" EndType="Decision" Name="seq10">
-																									<DesignName StringName="pokec_s_p_seq10_U8qY" Text="seq10" />
+																								<Sequence EntryCondition="!Port('obj_kovarna_a_vino_hotovo')" EndType="Decision" Name="seq14">
+																									<DesignName StringName="pokec_s_p_seq14_Fujq" Text="seq14" />
 																									<Elements>
-																										<Response Role="PTACEK" ReferenceLength="4.78">
-																											<Text StringName="poke_ptacek_jo_a_mimochod_1HUu" Text="Pokud ti můžu radit, zkus se tady moc nevožrat, zítra nás čeká bitva." />
+																										<Response Role="PTACEK" ReferenceLength="4.96">
+																											<Parenthetical>
+																												<Text StringName="poke_ptacek_durazne_Ne7j" Text="důrazně" />
+																											</Parenthetical>
+																											<Text StringName="poke_ptacek_nezapomen_se__mtGn" Text="Ty se ale nezapomeň stavit v kovárně pro můj meč a zbroj a zajít za tou Kateřinou pro víno." />
 																											<Commands>
-																												<AnimationCommand Delay="0.06" FragmentId="ADLG_Emphasis" Guid="1e0ea666-6d79-ff89-f9d8-c4247d3b8ae2" Variant="1" />
-																												<AnimationCommand Delay="2.82" FragmentId="ADLG_You" Guid="467851a3-d1fa-4407-a32c-5a05b4e92685" Variant="0" />
+																												<FacialMoodCommand FacialMood="thinking2" />
+																												<AnimationCommand Delay="0.05" FragmentId="ADLG_You" Guid="68cf74cb-2347-4df7-bf6e-ec4a245e05af" Variant="2" />
 																												<CameraCommand CameraType="CloseUp" />
 																											</Commands>
 																										</Response>
 																									</Elements>
-																									<Decision Name="dec9" Priority="MainQuestSubmission">
+																									<Decision Name="dec8" Priority="MainQuestSubmission" DesignName="podle stavu opilosti">
 																										<Sequences>
-																											<Sequence Visibility="Public" Name="mluvil_hrac_s_ptackem">
-																												<DesignName StringName="pokec_s_p_seq3_Dof9" Text="mluvil hráč s Ptáčkem" />
-																												<UiPrompt StringName="ui_pokec_s_p_seq3_jKQU" Text="" />
-																												<Triggers>
-																													<Port Name="hrac_si_promluvil_s_ptackem" />
-																												</Triggers>
+																											<Sequence EntryCondition="!Port('jindra_je_opily')" EndType="Decision" Name="seq10">
+																												<DesignName StringName="pokec_s_p_seq10_U8qY" Text="seq10" />
 																												<Elements>
-																													<Response Role="HENRY" StartDelay="0.29" ReferenceLength="2.24">
-																														<Text StringName="poke_henry_zadnej_strach__Ng3s" Text="Žádnej strach. Postarám se o to." />
+																													<Response Role="PTACEK" ReferenceLength="4.78">
+																														<Text StringName="poke_ptacek_jo_a_mimochod_1HUu" Text="Pokud ti můžu radit, zkus se tady moc nevožrat, zítra nás čeká bitva." />
 																														<Commands>
-																															<AnimationCommand Delay="-0.29" FragmentId="ADLG_Discard" Guid="85e16227-8f7c-43da-ba99-d084e1dbd989" Variant="1" />
-																															<AnimationCommand Role="PTACEK" Delay="2.19" FragmentId="ADLG_Nod" Guid="f219ea89-720f-4384-b0f6-57044649e8dd" Variant="4" />
+																															<FacialMoodCommand FacialMood="thinking1" />
+																															<AnimationCommand Delay="0.06" FragmentId="ADLG_Emphasis" Guid="1e0ea666-6d79-ff89-f9d8-c4247d3b8ae2" Variant="1" />
+																															<AnimationCommand Delay="2.82" FragmentId="ADLG_You" Guid="467851a3-d1fa-4407-a32c-5a05b4e92685" Variant="0" />
 																															<CameraCommand CameraType="CloseUp" />
 																														</Commands>
 																													</Response>
-																													<Response Role="PTACEK">
+																												</Elements>
+																												<Decision Name="dec9" Priority="MainQuestSubmission">
+																													<Sequences>
+																														<Sequence Visibility="Public" Name="mluvil_hrac_s_ptackem">
+																															<DesignName StringName="pokec_s_p_seq3_Dof9" Text="mluvil hráč s Ptáčkem" />
+																															<UiPrompt StringName="ui_pokec_s_p_seq3_jKQU" Text="" />
+																															<Triggers>
+																																<Port Name="hrac_si_promluvil_s_ptackem" />
+																															</Triggers>
+																															<Elements>
+																																<Response Role="HENRY" StartDelay="0.29" ReferenceLength="2.24">
+																																	<Text StringName="poke_henry_zadnej_strach__Ng3s" Text="Žádnej strach. Postarám se o to." />
+																																	<Commands>
+																																		<FacialMoodCommand FacialMood="thinking1" />
+																																		<AnimationCommand Delay="-0.29" FragmentId="ADLG_Discard" Guid="85e16227-8f7c-43da-ba99-d084e1dbd989" Variant="1" />
+																																		<AnimationCommand Role="PTACEK" Delay="2.19" FragmentId="ADLG_Nod" Guid="f219ea89-720f-4384-b0f6-57044649e8dd" Variant="4" />
+																																		<CameraCommand CameraType="CloseShot" />
+																																	</Commands>
+																																</Response>
+																																<Response Role="PTACEK" ReferenceLength="2.38">
+																																	<Parenthetical>
+																																		<Text StringName="poke_ptacek_ledabyle_KdD8" Text="ledabyle" />
+																																	</Parenthetical>
+																																	<Text StringName="poke_ptacek__jo_a_taky_se_LuH7" Text="Dobře. Tak teda dobrou noc, Jindro." />
+																																	<Commands>
+																																		<FacialMoodCommand FacialMood="arrogant1" />
+																																		<CameraCommand CameraType="CloseUp" />
+																																	</Commands>
+																																</Response>
+																															</Elements>
+																														</Sequence>
+																													</Sequences>
+																												</Decision>
+																											</Sequence>
+																											<Sequence EntryCondition="Port('jindra_je_opily')" EndType="GoTo" GoToDecision="dec9" Name="seq11">
+																												<DesignName StringName="pokec_s_p_seq11_E3zW" Text="seq11" />
+																												<Elements>
+																													<Response Role="PTACEK" ReferenceLength="2.73">
 																														<Parenthetical>
-																															<Text StringName="poke_ptacek_ledabyle_KdD8" Text="ledabyle" />
+																															<Text StringName="poke_ptacek_jizlive_upozo_xnw0" Text="jízlivě upozorní na Jindrovu opilost a ukáže na něj" />
 																														</Parenthetical>
-																														<Text StringName="poke_ptacek__jo_a_taky_se_LuH7" Text="Dobře. Tak teda dobrou noc, Jindro." />
+																														<Text StringName="poke_ptacek_doufam_ze_to__BOv1" Text="Doufám, že to v tomhle stavu ještě zvládneš." />
 																														<Commands>
+																															<FacialMoodCommand FacialMood="arrogant3" />
+																															<AnimationCommand Delay="1.75" FragmentId="ADLG_Gesture" Guid="772acf5a-6278-4ba5-b562-50981cf99cda" Variant="12" />
 																															<CameraCommand CameraType="CloseShot" />
 																														</Commands>
 																													</Response>
@@ -329,19 +362,10 @@
 																										</Sequences>
 																									</Decision>
 																								</Sequence>
-																								<Sequence EntryCondition="Port('jindra_je_opily')" EndType="GoTo" GoToDecision="dec9" Name="seq11">
-																									<DesignName StringName="pokec_s_p_seq11_E3zW" Text="seq11" />
+																								<Sequence EntryCondition="Port('obj_kovarna_a_vino_hotovo')" EndType="GoTo" GoToDecision="dec8" Name="seq15">
+																									<DesignName StringName="pokec_s_p_seq15_YLLI" Text="seq15" />
 																									<Elements>
-																										<Response Role="PTACEK" ReferenceLength="2.73">
-																											<Parenthetical>
-																												<Text StringName="poke_ptacek_jizlive_upozo_xnw0" Text="jízlivě upozorní na Jindrovu opilost a ukáže na něj" />
-																											</Parenthetical>
-																											<Text StringName="poke_ptacek_doufam_ze_to__BOv1" Text="Doufám, že to v tomhle stavu ještě zvládneš." />
-																											<Commands>
-																												<AnimationCommand Delay="1.75" FragmentId="ADLG_Gesture" Guid="772acf5a-6278-4ba5-b562-50981cf99cda" Variant="12" />
-																												<CameraCommand />
-																											</Commands>
-																										</Response>
+																										<Response Role="PTACEK" />
 																									</Elements>
 																								</Sequence>
 																							</Sequences>

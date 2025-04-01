@@ -21,6 +21,9 @@
 				<Port Name="jarek_jde_za_tomasem" Direction="Out" Type="trigger">
 					<DesignName StringName="jarek__co_jarek_jde_za_to_2KC4" Text="Jarek jde za Tomášem" />
 				</Port>
+				<Port Name="jindra_ziskal_ruzenec_v_kostkach" Direction="In" Type="bool">
+					<DesignName StringName="jarek__co_jindra_ziskal_r_Ea5I" Text="Jindra získal růženec v kostkách" />
+				</Port>
 			</Ports>
 			<Text StringName="jarek__co_tady_delas_SnTV" Text="Jarek - Co tady děláš?" />
 			<Dialogue TechnicalStatus="Enabled" AllowFarewell="false" AllowGreeting="false" GesturesSetDate="2023-10-12T14:37:15.7179641+02:00" GesturesSetResponseCount="44">
@@ -328,12 +331,8 @@
 																</Elements>
 																<Decision Name="dec7" Priority="MainQuestSubmission">
 																	<Sequences>
-																		<Sequence SpeechCoef="0" EndType="EndDialogue" Visibility="Internal" Reputation="quest_reward_2_minor" Name="follow">
+																		<Sequence SpeechCoef="0" EntryCondition="Port('jindra_ziskal_ruzenec_v_kostkach')" EndType="GoTo" GoToDecision="dec11" Visibility="Internal" Reputation="quest_reward_2_minor" Name="follow">
 																			<DesignName StringName="jarek__co_seq12_2TnL" Text="follow" />
-																			<Triggers>
-																				<Port Name="jindra_prijde_o_ruzenec" />
-																				<Port Name="jarek_jde_za_tomasem" />
-																			</Triggers>
 																			<Elements>
 																				<Response Role="STRAZNY_JAREK" ReferenceLength="1.3">
 																					<Parenthetical>
@@ -373,32 +372,52 @@
 																						<CameraCommand />
 																					</Commands>
 																				</Response>
-																				<Response Role="STRAZNY_JAREK" StartDelay="0.14" ReferenceLength="3.2">
-																					<Text StringName="jare_strazny_j_odnesu_ho__HjQO" Text="Odnesu ho k Tomášovu lůžku. Snad mu to pomůže." />
-																					<Commands>
-																						<AnimationCommand Delay="0.04" FragmentId="ADLG_Gesture" Guid="5d70018a-2501-4f38-bd2e-e946f1527032" Variant="9" DesiredDuration="1.86" />
-																						<AnimationCommand Delay="2.2" FragmentId="ADLG_Gesture" Guid="34ac6648-6fd5-4005-84ec-632a56223892" Variant="5" DesiredDuration="1.68" />
-																						<CameraCommand CameraType="CloseShot" />
-																					</Commands>
-																				</Response>
-																				<Response Role="HENRY" ReferenceLength="4.12">
-																					<Text StringName="jare_henry_mohl_bych_jit__FxZq" Text="Mohl bych jít s tebou? Chtěl bych se u něj pomodlit." />
-																					<Commands>
-																						<AnimationCommand Delay="0.12" FragmentId="ADLG_Gesture" Guid="82614ed5-8978-4c2d-8771-aeab0b05a4e7" Variant="14" DesiredDuration="1.83" />
-																						<AnimationCommand Delay="2.02" FragmentId="ADLG_Me" Guid="5d30d8f1-3b80-4bec-a98d-dc8ca39379d8" Variant="2" DesiredDuration="2.37" />
-																						<AnimationCommand Role="STRAZNY_JAREK" Delay="4.09" FragmentId="ADLG_Confusion" Guid="19e1b926-8753-4893-af45-10d39fa3a985" Variant="0" DesiredDuration="2.28" />
-																						<CameraCommand CameraType="CloseUp" />
-																					</Commands>
-																				</Response>
-																				<Response Role="STRAZNY_JAREK" ReferenceLength="6.32">
-																					<Text StringName="jare_strazny_j_samozrejme_IN9Y" Text="Proč ne? Normálně nahoru vandráky nepouštíme, ale koneckonců, tys udělal dobrou věc. Tak pojď za mnou." />
-																					<Commands>
-																						<AnimationCommand Delay="2.71" FragmentId="ADLG_Gesture" Guid="8c8fca6c-9607-4c98-8f74-95922b507a56" Variant="16" DesiredDuration="2.42" />
-																						<AnimationCommand Delay="5.45" FragmentId="ADLG_Nod" Guid="ca364fe9-66bd-48fa-8178-0e49459d7038" Variant="2" />
-																						<CameraCommand CameraType="CloseUp" />
-																					</Commands>
-																				</Response>
 																			</Elements>
+																		</Sequence>
+																		<Sequence SpeechCoef="0" EntryCondition="!Port('jindra_ziskal_ruzenec_v_kostkach')" EndType="Decision" Name="seq23">
+																			<DesignName StringName="jarek__co_seq23_4sPO" Text="seq23" />
+																			<UiPrompt StringName="ui_jarek__co_seq23_nLRu" Text="" />
+																			<Elements>
+																				<Response Role="HENRY" />
+																			</Elements>
+																			<Decision Name="dec11">
+																				<Sequences>
+																					<Sequence SpeechCoef="0" EndType="EndDialogue" Name="seq21">
+																						<DesignName StringName="jarek__co_seq21_ageF" Text="seq21" />
+																						<Triggers>
+																							<Port Name="jindra_prijde_o_ruzenec" />
+																							<Port Name="jarek_jde_za_tomasem" />
+																						</Triggers>
+																						<Elements>
+																							<Response Role="STRAZNY_JAREK" StartDelay="0.14" ReferenceLength="3.2">
+																								<Text StringName="jare_strazny_j_odnesu_ho__HjQO" Text="Odnesu ho k Tomášovu lůžku. Snad mu to pomůže." />
+																								<Commands>
+																									<AnimationCommand Delay="0.04" FragmentId="ADLG_Gesture" Guid="5d70018a-2501-4f38-bd2e-e946f1527032" Variant="9" DesiredDuration="1.86" />
+																									<AnimationCommand Delay="2.2" FragmentId="ADLG_Gesture" Guid="34ac6648-6fd5-4005-84ec-632a56223892" Variant="5" DesiredDuration="1.68" />
+																									<CameraCommand CameraType="CloseShot" />
+																								</Commands>
+																							</Response>
+																							<Response Role="HENRY" ReferenceLength="4.12">
+																								<Text StringName="jare_henry_mohl_bych_jit__FxZq" Text="Mohl bych jít s tebou? Chtěl bych se u něj pomodlit." />
+																								<Commands>
+																									<AnimationCommand Delay="0.12" FragmentId="ADLG_Gesture" Guid="82614ed5-8978-4c2d-8771-aeab0b05a4e7" Variant="14" DesiredDuration="1.83" />
+																									<AnimationCommand Delay="2.02" FragmentId="ADLG_Me" Guid="5d30d8f1-3b80-4bec-a98d-dc8ca39379d8" Variant="2" DesiredDuration="2.37" />
+																									<AnimationCommand Role="STRAZNY_JAREK" Delay="4.09" FragmentId="ADLG_Confusion" Guid="19e1b926-8753-4893-af45-10d39fa3a985" Variant="0" DesiredDuration="2.28" />
+																									<CameraCommand CameraType="CloseUp" />
+																								</Commands>
+																							</Response>
+																							<Response Role="STRAZNY_JAREK" ReferenceLength="6.32">
+																								<Text StringName="jare_strazny_j_samozrejme_IN9Y" Text="Proč ne? Normálně nahoru vandráky nepouštíme, ale koneckonců, tys udělal dobrou věc. Tak pojď za mnou." />
+																								<Commands>
+																									<AnimationCommand Delay="2.71" FragmentId="ADLG_Gesture" Guid="8c8fca6c-9607-4c98-8f74-95922b507a56" Variant="16" DesiredDuration="2.42" />
+																									<AnimationCommand Delay="5.45" FragmentId="ADLG_Nod" Guid="ca364fe9-66bd-48fa-8178-0e49459d7038" Variant="2" />
+																									<CameraCommand CameraType="CloseUp" />
+																								</Commands>
+																							</Response>
+																						</Elements>
+																					</Sequence>
+																				</Sequences>
+																			</Decision>
 																		</Sequence>
 																	</Sequences>
 																</Decision>

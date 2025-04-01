@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="us-ascii"?>
+<?xml version="1.0" encoding="us-ascii"?>
 <database>
 	<NPCStateUnstanceDatabase version="1">
 
@@ -60,6 +60,12 @@
 			<In Fragment="Bartender_TalkIn" Tags="" />
 			<Loop Fragment="Bartender_TalkLoop" Tags="" />
 			<Out Fragment="Bartender_TalkOut" Tags="" />
+		</UnstanceData>
+
+		<UnstanceData Name="barber_razorSharpening" Stance="sitting" UseLocationObject="false" IsAligned="false">
+			<In Fragment="CampRazorSharpeningIn" />
+			<Loop Fragment="CampRazorSharpening" />
+			<Out Fragment="CampRazorSharpeningOut" />
 		</UnstanceData>
 
 		<UnstanceData Name="bath" UseForDialogueTwin="true">
@@ -145,6 +151,12 @@
 			<Loop Fragment="BattleLngsw" />
 			<Out Fragment="BattleLngswToIdle" />
 		</UnstanceData>
+		
+		<UnstanceData Name="BattleLngsw_NoVariants" IsAligned="false" UseLocationObject="false">
+			<In />
+			<Loop Fragment="Quest_BattleLngsw_NoVariants" />
+			<Out Fragment="BattleLngswToIdle" />
+		</UnstanceData>
 
 		<UnstanceData Name="BattleShswShld" IsAligned="false" UseLocationObject="false">
 			<In Fragment="BattleShswShldIn" />
@@ -198,6 +210,12 @@
 			<In Fragment="TiedUpIn_Slave" Tags="sit" />
 			<Loop Fragment="TiedUpIdle_Slave" Tags="sit" />
 			<Out Fragment="TiedUpOut_Slave" Tags="sit" />
+		</UnstanceData>
+
+		<UnstanceData Name="beTied_sittingWithoutPole">
+			<In Fragment="Quest_TiedUp_Wounded_In" />
+			<Loop Fragment="Quest_TiedUp_Wounded_Loop" />
+			<Out Fragment="Quest_TiedUp_SittingWithoutPole_Out" />
 		</UnstanceData>
 
 		<UnstanceData Name="beTied_standing">
@@ -1486,6 +1504,18 @@
 			<Loop Fragment="Quest_IdleWithWeapon" />
 			<Out />
 		</UnstanceData>
+		
+		<UnstanceData Name="Quest_HeroPose" IsAligned="false" UseLocationObject="false" >
+			<In />
+			<Loop Fragment="Quest_HeroPose" />
+			<Out />
+		</UnstanceData>
+		
+		<UnstanceData Name="Quest_Guard" IsAligned="false" UseLocationObject="true">
+			<In Fragment="GuardIn" />
+			<Loop Fragment="Quest_Guard" />
+			<Out Fragment="GuardOut"/>
+		</UnstanceData>
 
 		<UnstanceData Name="m38_vokrakIsHiding" IsAligned="false">
 			<In Fragment="Quest_BrabantHidingCartFrontIn" />
@@ -2307,10 +2337,16 @@
 			<Out Fragment="QuestSoldierHidingBarricadeFrontOut" />
 		</UnstanceData>
 		
-		<UnstanceData Name="Quest_SoldierHidingBarricadeFront_NoLocationObject" IsAligned="false" UseLocationObject="false">
+		<UnstanceData Name="Quest_SoldierHidingBarricadeFrontQuickOut" IsAligned="false" >
 			<In Fragment="QuestSoldierHidingBarricadeFrontIn" />
 			<Loop Fragment="QuestSoldierHidingBarricadeFront" />
-			<Out Fragment="QuestSoldierHidingBarricadeFrontOut" />
+			<Out Fragment="QuestSoldierHidingBarricadeLeftOut" />
+		</UnstanceData>
+		
+		<UnstanceData Name="Quest_SoldierHidingBarricadeFrontQuickOut_NoLocationObject" IsAligned="false" UseLocationObject="false">
+			<In Fragment="QuestSoldierHidingBarricadeFrontIn" />
+			<Loop Fragment="QuestSoldierHidingBarricadeFront" />
+			<Out Fragment="QuestSoldierHidingBarricadeLeftOut" />
 		</UnstanceData>
 
 		<UnstanceData Name="Quest_UnsuccessfulDoorBreak" >
@@ -2608,9 +2644,9 @@
 		</UnstanceData>
 
 		<UnstanceData Name="spaWash_customer">
-			<In Fragment="SpaWashIn" />
-			<Loop Fragment="SpaWash" />
-			<Out Fragment="SpaWashOut" />
+			<In Fragment="SpaWashIn" Tags="bath"/>
+			<Loop Fragment="SpaWash" Tags="bath"/>
+			<Out Fragment="SpaWashOut" Tags="bath"/>
 		</UnstanceData>
 
 		<UnstanceData Name="specialSittingActivity_female_noTable_crying" Stance="sitting" IsAligned="false" UseLocationObject="false">
@@ -2900,6 +2936,13 @@
 			<Loop Fragment="Weeding" />
 			<Out Fragment="WeedingOut" />
 		</UnstanceData>
+
+		<UnstanceData Name="weeding_aligned">
+			<In Fragment="WeedingIn" />
+			<Loop Fragment="Weeding" />
+			<Out Fragment="WeedingOut" />
+		</UnstanceData>
+
 
 		<UnstanceData Name="woman_cookingCampfire_loop" IsAligned="false" UseLocationObject="false">
 			<In />
@@ -3225,6 +3268,26 @@
 			<In Fragment="DeadBody_Interactant_In" Tags="male_looting_male_lyingOnBack_01" />
 			<Loop Fragment="DeadBody_Interactant_Loop" Tags="male_looting_male_lyingOnBack_01" />
 			<Out Fragment="DeadBody_Interactant_Out" Tags="male_looting_male_lyingOnBack_01" />
+		</UnstanceData>
+
+		<!-- Passed out drunk -->
+
+		<UnstanceData Name="passedOutDrunk_lyingLeaningBack_01">
+			<In />
+			<Loop Fragment="Quest_PassedOutDrunk" Tags="lyingLeaningBack_01" />
+			<Out />
+		</UnstanceData>
+
+		<UnstanceData Name="passedOutDrunk_sittingOnGroundLeaningBack_01">
+			<In />
+			<Loop Fragment="Quest_PassedOutDrunk" Tags="sittingOnGroundLeaningBack_01" />
+			<Out />
+		</UnstanceData>
+
+		<UnstanceData Name="passedOutDrunk_sittingOnGroundLeaningSide_01">
+			<In />
+			<Loop Fragment="Quest_PassedOutDrunk" Tags="sittingOnGroundLeaningSide_01" />
+			<Out />
 		</UnstanceData>
 
 		<!-- animals -->
@@ -3559,30 +3622,6 @@
 			<In />
 			<Loop Fragment="Test_SynchroWalk_Success_Player" Tags="" />
 			<Out />
-		</UnstanceData>
-
-		<UnstanceData Name="test_fastOuts_weeding_mannequinFast">
-			<In Fragment="WeedingIn" />
-			<Loop Fragment="Weeding" />
-			<Out Fragment="Test_FastOuts_Weeding_MannequinFast" />
-		</UnstanceData>
-
-		<UnstanceData Name="test_fastOuts_weeding_genericAnimation">
-			<In Fragment="WeedingIn" />
-			<Loop Fragment="Weeding" />
-			<Out Fragment="Test_FastOuts_Weeding_GenericAnimation" />
-		</UnstanceData>
-
-		<UnstanceData Name="test_fastOuts_weeding_longBlend">
-			<In Fragment="WeedingIn" />
-			<Loop Fragment="Weeding" />
-			<Out Fragment="Test_FastOuts_Weeding_LongBlend" />
-		</UnstanceData>
-
-		<UnstanceData Name="test_fastOuts_weeding_noOut">
-			<In Fragment="WeedingIn" />
-			<Loop Fragment="Weeding" />
-			<Out Fragment="Test_FastOuts_Weeding_NoOut" />
 		</UnstanceData>
 
 		<UnstanceData Name="slouchedBack" Stance="sitting" IsAligned="true" UseLocationObject="true">

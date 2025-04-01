@@ -9,6 +9,9 @@
 				<Port Name="trenink_probehl" Direction="Out" Type="trigger">
 					<DesignName StringName="trenink_quest_uspesne_dok_jRQw" Text="Trenink probehl" />
 				</Port>
+				<Port Name="trenink_cutscene_beforeplay" Direction="Out" Type="trigger">
+					<DesignName StringName="trenink_trenink_cutscene__0JlF" Text="Trénink cutscene BeforePlay" />
+				</Port>
 			</Ports>
 			<Definitions>
 				<Definition File="trenink/beruska__po_treninku.xml" />
@@ -27,6 +30,7 @@
 				</CutsceneHandler>
 				<Output Name="Output">
 					<Edge From="scenefinishedwaiter12.OnFinished" To="trenink_probehl" />
+					<Edge From="cutscenehandler2.AfterPlay" To="trenink_cutscene_beforeplay" />
 				</Output>
 				<SceneFinishedWaiter Name="scenefinishedwaiter12" PositionY="140" PositionX="960">
 					<Edge From="beruska__po_treninku.trenink_probehl" To="Enqueue" />

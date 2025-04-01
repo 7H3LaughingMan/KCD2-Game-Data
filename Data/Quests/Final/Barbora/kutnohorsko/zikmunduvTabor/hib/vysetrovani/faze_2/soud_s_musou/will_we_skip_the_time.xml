@@ -9,6 +9,12 @@
 				<Port Name="lets_go" Direction="Out" Type="trigger">
 					<DesignName StringName="will_we_s_lets_go_nUIi" Text="let's go" />
 				</Port>
+				<Port Name="timeskip_onqueued" Direction="Out" Type="trigger">
+					<DesignName StringName="will_we_s_timeskip_onqueu_RmtD" Text="timeskip onQueued" />
+				</Port>
+				<Port Name="timeskip_afterplay" Direction="Out" Type="trigger">
+					<DesignName StringName="will_we_s_timeskip_afterp_WGRO" Text="timeskip afterPlay" />
+				</Port>
 			</Ports>
 			<Nodes>
 				<Function Name="and1" PositionY="70" PositionX="550" MethodName="math::boolean::And" DeclaringType="math::boolean">
@@ -36,7 +42,8 @@
 				</If>
 				<Output Name="Output">
 					<Edge From="if4.True" To="lets_go" />
-					<Edge From="cutscenehandler6.OnQueued" To="lets_go" />
+					<Edge From="cutscenehandler6.AfterPlay" To="timeskip_afterplay" />
+					<Edge From="cutscenehandler6.OnQueued" To="timeskip_onqueued" />
 				</Output>
 			</Nodes>
 			<Assets>

@@ -26,6 +26,10 @@
 					<Edge From="quest_aktivni" To="C" />
 					<Edge From="parent_awake" To="B" />
 				</Function>
+				<disabledirectionschatsoul Name="disabledirectionschatsoul" PositionY="-60" PositionX="920" Namespace="utils.hardcoremode">
+					<Asset Name="soul" Alias="mikus" />
+					<Edge From="not14.bool" To="enabled" />
+				</disabledirectionschatsoul>
 				<MakeArray Name="makearray3" PositionY="280" PositionX="330" TypeT="wh::rpgmodule::Souls">
 					<Asset Name="A" Alias="vendula" />
 					<Asset Name="B" Alias="mikus" />
@@ -34,14 +38,18 @@
 					<Edge From="parent_awake" To="mikus_lezi_v_chatrci">
 						<Vertex>IdBc5Ejq</Vertex>
 					</Edge>
+					<Edge From="timer11.Finished" To="mikus_se_uz_vylecil" />
 				</mikus_po_navratu_ingame>
 				<State Name="mikusShouldPrepareForPolylogue" PositionY="160" PositionX="-460" TypeT="bool">
 					<Edge From="ma_se_mikus_pripravit_na_polylog_u_dveri" To="SetTrue" />
 				</State>
+				<Function Name="not14" PositionY="-20" PositionX="640" MethodName="math::boolean::Not" DeclaringType="math::boolean">
+					<Edge From="timer11.Finished" To="Value" />
+				</Function>
 				<Function Name="not5" PositionY="-510" PositionX="50" MethodName="math::boolean::Not" DeclaringType="math::boolean">
 					<Edge From="probehnul_polylog_s_mikusem_u_dveri" To="Value" />
 				</Function>
-				<SchedulerLinkActivation Name="schedule2" PositionY="-90" PositionX="620">
+				<SchedulerLinkActivation Name="schedule2" PositionY="-190" PositionX="640">
 					<Constant Name="LinkTag" Value="zakopanyZitrek_mikusRecovering" />
 					<Edge From="timer11.Running" To="IsActive" />
 				</SchedulerLinkActivation>

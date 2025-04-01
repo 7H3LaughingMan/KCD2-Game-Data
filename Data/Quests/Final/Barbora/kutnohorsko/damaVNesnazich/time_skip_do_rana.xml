@@ -15,14 +15,17 @@
 				<Port Name="nastaveni_monoklu__dama_v_nesnazich" Direction="Out" Type="trigger">
 					<DesignName StringName="time_skip_nastaveni_monok_xwIu" Text="nastavení monoklu - Dáma v nesnázích" />
 				</Port>
+				<Port Name="hrac_polozil_lacka" Direction="In" Type="trigger">
+					<DesignName StringName="time_skip_hrac_polozil_la_QMAt" Text="Hráč položil Lacka" />
+				</Port>
 			</Ports>
 			<Definitions>
 				<Definition File="time_skip_do_rana/lacek_clothing_backup.xml" />
 			</Definitions>
 			<Nodes>
 				<Function Name="audiooneshot97" PositionY="1140" PositionX="460" MethodName="wh::soundmodule::AudioOneShot" DeclaringType="wh::soundmodule">
-					<Constant Name="AtlTriggerName" Value="q_M48c_katerina_door_shut" />
-					<Asset Name="LinkableObject" Alias="shedDoor" />
+					<Constant Name="AtlTriggerName" Value="q_s58_scream" />
+					<Asset Name="LinkableObject" Alias="marketa" />
 					<Edge From="cutscenehandler19.AfterPlay" To="Exec" />
 				</Function>
 				<BuffEffect Name="buff4" PositionY="-70" PositionX="780">
@@ -85,6 +88,11 @@
 					<Asset Name="targetobject" Alias="bench" />
 					<Edge From="cutscenehandler19.AfterPlay" To="wakeuponbed" />
 				</PlayerAction_WakeUpOnBed>
+				<SetEntityContext Name="setentitycontext101" PositionY="-620" PositionX="770">
+					<Constant Name="Context" Value="crime_suppressReactionAfterGainingConsciousness" />
+					<Asset Name="Souls" Alias="lacek" />
+					<Edge From="state_suppressLacekConscReaction.State" To="IsActive" />
+				</SetEntityContext>
 				<SetGameContext Name="setgamecontext28" PositionY="-240" PositionX="780">
 					<Constant Name="Context" Value="crime_disabledFrisk" />
 					<Edge From="skiptimeProtection.State" To="IsActive" />
@@ -93,9 +101,16 @@
 					<Edge From="cutscenehandler19.OnQueued" To="SetTrue" />
 					<Edge From="cutscenehandler19.OnFinished" To="SetFalse" />
 				</State>
+				<State Name="state_suppressLacekConscReaction" PositionY="-650" PositionX="480" TypeT="bool">
+					<Edge From="hrac_polozil_lacka" To="SetTrue">
+						<Vertex>BMKlmX0J</Vertex>
+					</Edge>
+					<Edge From="cutscenehandler19.OnFinished" To="SetFalse" />
+				</State>
 			</Nodes>
 			<EdgeVertices>
 				<EdgeVertex Name="ARfaalKW" PositionY="1080" PositionX="470" />
+				<EdgeVertex Name="BMKlmX0J" PositionY="-500" PositionX="20" />
 				<EdgeVertex Name="dPMEJ1WL" PositionY="1080" PositionX="1020" />
 				<EdgeVertex Name="orKSv9vb" PositionY="230" PositionX="490" />
 				<EdgeVertex Name="ruNCuG9W" PositionY="230" PositionX="1020" />

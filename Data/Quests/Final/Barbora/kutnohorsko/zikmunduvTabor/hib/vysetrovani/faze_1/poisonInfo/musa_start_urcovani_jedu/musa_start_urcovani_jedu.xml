@@ -20,8 +20,6 @@
 				<SelectedSouls>
 					<SelectedSoul Role="MUSA_Z_MALI" Voice="hainsleyBennet" Type="Wave" Language="ENG" />
 					<SelectedSoul Role="HENRY" Voice="tomMcKay" Type="Wave" Language="ENG" />
-					<SelectedSoul Role="MUSA_Z_MALI" Type="Wave" />
-					<SelectedSoul Role="HENRY" Type="Wave" />
 				</SelectedSouls>
 				<Decision Name="dec1" Priority="MainQuestAdditionals" Alias="zikmunduvTabor_musaStartUrcovaniJedu" Autoselect="true">
 					<Sequences>
@@ -42,9 +40,9 @@
 												</Parenthetical>
 												<Text StringName="musa_musa_z_ma_jindro_co__JwlR" Text="Jindro? Co ty tady děláš? Grozav přece říkal..." />
 												<Commands>
-													<FacialMoodCommand FacialMood="nervous1" />
+													<FacialMoodCommand FacialMood="nervous2" />
+													<FacialMoodCommand Role="HENRY" FacialMood="angry1" />
 													<AnimationCommand Delay="0.04" FragmentId="ADLG_Surprised" Guid="1654ce2e-31d7-2c0c-a3a0-c9b8ae51a9d3" Variant="0" />
-													<AnimationHeadCommand Delay="3.47" FragmentId="ADLG_FA_Annoyed" Guid="58af5ebf-08bc-4e4b-8e0e-e0d88d2135ae" Variant="2" DesiredDuration="2.1" />
 													<AnimationCommand Role="HENRY" Delay="4.7" FragmentId="ADLG_Discard" Guid="85e16227-8f7c-43da-ba99-d084e1dbd989" Variant="1" />
 													<CameraCommand CameraType="Medium" />
 												</Commands>
@@ -65,18 +63,16 @@
 												</Parenthetical>
 												<Text StringName="musa_musa_z_ma_moc_si_toh_FTY2" Text="Toho si moc vážím. Jen nevím, jestli je to vůbec možné." />
 												<Commands>
+													<FacialMoodCommand FacialMood="sad1" />
 													<AnimationCommand Delay="3.52" FragmentId="ADLG_Surprised_light" Guid="078c2b11-e2e3-4f4c-baf5-92aa3590fa78" Variant="1" DesiredDuration="2.68" />
 													<CameraCommand CameraType="CloseUp" />
 												</Commands>
 											</Response>
-											<Response Role="MUSA_Z_MALI" StartDelay="0.11" ReferenceLength="2.24">
+											<Response Role="MUSA_Z_MALI" StartDelay="0.11">
 												<Parenthetical>
 													<Text StringName="musa_musa_z_ma_malijske_p_chog" Text="malijské přísloví" />
 												</Parenthetical>
 												<Text StringName="musa_musa_z_ma_tinyesira__5aHL" Text="Tinyesira ye munumunusira ye." />
-												<Commands>
-													<AnimationHeadCommand Delay="0.61" FragmentId="ADLG_FA_Annoyed" Guid="66faee18-aeb6-4002-83d2-f74fbda9ecdd" Variant="3" />
-												</Commands>
 											</Response>
 											<Response Role="HENRY" ReferenceLength="0.65">
 												<Parenthetical>
@@ -84,12 +80,14 @@
 												</Parenthetical>
 												<Text StringName="musa_henry_coze_i3eb" Text="Cože?" />
 												<Commands>
+													<FacialMoodCommand FacialMood="thinking1" />
 													<CameraCommand CameraType="CloseUp" />
 												</Commands>
 											</Response>
 											<Response Role="MUSA_Z_MALI" ReferenceLength="5.99">
 												<Text StringName="musa_musa_z_ma_to_je_pris_fwJb" Text="To je přísloví z mé země. Znamená to, že cesta k pravdě je spletitá." />
 												<Commands>
+													<FacialMoodCommand FacialMood="thinking3" />
 													<AnimationCommand Delay="4.02" FragmentId="ADLG_Gesture" Guid="d85ed9b0-40b0-4887-a715-debff5158150" Variant="21" DesiredDuration="2.16" />
 													<CameraCommand CameraType="CloseUp" />
 												</Commands>
@@ -114,6 +112,8 @@
 														<Response Role="HENRY" ReferenceLength="2.44">
 															<Text StringName="musa_henry_jak_to_teda_by_jNwK" Text="Jak to teda bylo, když jste přinesli Cherthana do špitálu?" />
 															<Commands>
+																<FacialMoodCommand FacialMood="thinking2" />
+																<FacialMoodCommand Role="MUSA_Z_MALI" FacialMood="sad1" />
 																<CameraCommand CameraType="CloseUp" />
 															</Commands>
 														</Response>
@@ -135,11 +135,13 @@
 															<Text StringName="musa_musa_z_ma_potom_jsem_QSBS" Text="Potom jsem mu dal napít vína a on se najednou začal třást, zvracet krev... " />
 															<Commands>
 																<AnimationCommand Delay="2.45" FragmentId="ADLG_Confusion" Guid="5da7fd8b-7cec-40c8-a723-f3cc47022f36" Variant="4" DesiredDuration="2.16" />
-																<AnimationHeadCommand Delay="4.75" FragmentId="ADLG_FA_Surprise" Guid="aa9827dc-8a8d-4799-a681-11bf3b0e8c73" Variant="7" />
 															</Commands>
 														</Response>
-														<Response Role="MUSA_Z_MALI">
+														<Response Role="MUSA_Z_MALI" ReferenceLength="2.54">
 															<Text StringName="musa_musa_z_ma_a_za_chvil_ZTd1" Text="A za chvíli byl mrtvý..." />
+															<Commands>
+																<FacialMoodCommand FacialMood="sad2" />
+															</Commands>
 														</Response>
 														<Response Role="HENRY" ReferenceLength="0.99">
 															<Text StringName="musa_henry_a_co_bylo_potom_9J2L" Text="A co bylo potom?" />
@@ -153,8 +155,8 @@
 															</Parenthetical>
 															<Text StringName="musa_musa_z_ma_pak_prisel_WuXy" Text="Pak přišel urozený pán z Borumlaca a začal šílet!" />
 															<Commands>
+																<FacialMoodCommand FacialMood="arrogant2" />
 																<AnimationCommand Delay="3.29" FragmentId="ADLG_Gesture" Guid="002ace53-8d31-4d61-b729-4bae5c80b2e5" Variant="0" DesiredDuration="1.63" />
-																<AnimationHeadCommand Delay="1.36" FragmentId="ADLG_FA_Annoyed" Guid="58af5ebf-08bc-4e4b-8e0e-e0d88d2135ae" Variant="2" DesiredDuration="1.96" />
 																<CameraCommand CameraType="CloseShot" />
 															</Commands>
 														</Response>
@@ -168,6 +170,7 @@
 															<Text StringName="musa_henry_nestacil_ti_ch_GWn4" Text="Nestačil ti Cherthan něco říct než umřel?" />
 															<Commands>
 																<FacialMoodCommand Role="MUSA_Z_MALI" FacialMood="sad1" />
+																<FacialMoodCommand FacialMood="thinking1" />
 																<AnimationCommand Delay="0.4" FragmentId="ADLG_Gesture" Guid="649b3c66-46dc-4666-8a6c-7d8df90c80ea" Variant="10" />
 																<AnimationCommand Role="MUSA_Z_MALI" Delay="1.81" FragmentId="ADLG_Think" Guid="f841c508-e063-17b4-c527-859bdea92651" Variant="9" DesiredDuration="4.19" />
 																<CameraCommand CameraType="CloseUp" />
@@ -192,6 +195,8 @@
 														<Response Role="HENRY" ReferenceLength="2.8">
 															<Text StringName="musa_henry_jak_to_teda_by_NWjm" Text="Jak to teda bylo s tím vínem? Mohl bych se na něj podívat?" />
 															<Commands>
+																<FacialMoodCommand FacialMood="thinking2" />
+																<FacialMoodCommand Role="MUSA_Z_MALI" FacialMood="nervous2" />
 																<CameraCommand CameraType="CloseUp" />
 															</Commands>
 														</Response>
@@ -212,6 +217,7 @@
 															</Parenthetical>
 															<Text StringName="musa_henry_vylil_co_kdyz__2CuO" Text="Vylil? Co když nám mohlo v něčem pomoct? Byl to důkaz!" />
 															<Commands>
+																<FacialMoodCommand FacialMood="nervous1" />
 																<AnimationCommand Delay="1.59" FragmentId="ADLG_Surprised_light" Guid="529bd72b-17c4-c704-fb54-bb1cf2d786b1" Variant="3" DesiredDuration="2.42" />
 																<CameraCommand CameraType="CloseShot" />
 															</Commands>
@@ -222,6 +228,7 @@
 															</Parenthetical>
 															<Text StringName="musa_musa_z_ma_dukaz_toho_eaH5" Text="Důkaz toho, že se tady v Čechách opijete i octem! " />
 															<Commands>
+																<FacialMoodCommand FacialMood="angry1" />
 																<CameraCommand CameraType="CloseShot" />
 																<LookAtCommand Delay="0.13" LookAtRole="HENRY" />
 																<LookAtCommand Delay="0.91" LookAtRole="HENRY" Offset="MiddleRight" TransitionDuration="0.4" />
@@ -231,11 +238,15 @@
 														<Response Role="MUSA_Z_MALI" StartDelay="0.48" ReferenceLength="5.28">
 															<Text StringName="musa_musa_z_ma_vonelo_a_v_ADeN" Text="Vonělo a vypadalo úplně stejně jako vždycky. Snad jedině... " />
 															<Commands>
+																<FacialMoodCommand FacialMood="thinking2" />
 																<AnimationCommand Delay="3.13" FragmentId="ADLG_Think" Guid="b1115e4d-b531-43a5-a3f0-a427c275042f" Variant="4" />
 															</Commands>
 														</Response>
-														<Response Role="MUSA_Z_MALI" StartDelay="0.25">
+														<Response Role="MUSA_Z_MALI" StartDelay="0.25" ReferenceLength="2.75">
 															<Text StringName="musa_musa_z_ma_mozna_ze_b_i0Ce" Text="Možná, že bylo trochu kalnější... " />
+															<Commands>
+																<FacialMoodCommand FacialMood="thinking3" />
+															</Commands>
 														</Response>
 													</Elements>
 												</Sequence>
@@ -246,6 +257,8 @@
 														<Response Role="HENRY" ReferenceLength="1.53">
 															<Text StringName="musa_henry_odkud_vlastne__enl7" Text="Odkud vlastně to víno bylo?" />
 															<Commands>
+																<FacialMoodCommand FacialMood="thinking1" />
+																<FacialMoodCommand Role="MUSA_Z_MALI" FacialMood="thinking1" />
 																<AnimationCommand Delay="0.21" FragmentId="ADLG_Gesture" Guid="f897a1b3-c338-416e-88ea-7345a13432a2" Variant="26" />
 																<CameraCommand CameraType="CloseUp" />
 															</Commands>
@@ -264,7 +277,7 @@
 															</Parenthetical>
 															<Text StringName="musa_musa_z_ma_katerina_s_GuXn" Text="Kateřina se myslím jmenuje?" />
 															<Commands>
-																<AnimationHeadCommand Role="HENRY" Delay="2.22" FragmentId="ADLG_FA_Surprise" Guid="742018d5-9b0f-49f0-9139-6b6c2f464ce4" Variant="3" DesiredDuration="2.12" />
+																<FacialMoodCommand FacialMood="thinking3" />
 															</Commands>
 														</Response>
 														<Response Role="HENRY" ReferenceLength="2.11">
@@ -273,6 +286,7 @@
 															</Parenthetical>
 															<Text StringName="musa_henry_katerina_vis_t_1CI3" Text="Kateřina? Víš to jistě?" />
 															<Commands>
+																<FacialMoodCommand FacialMood="nervous1" />
 																<AnimationCommand Delay="0.8" FragmentId="ADLG_Gesture" Guid="2f5b9a79-4e1b-4360-ac65-ce0ab1844c72" Variant="4" />
 																<CameraCommand CameraType="CloseUp" />
 															</Commands>
@@ -283,6 +297,7 @@
 															</Parenthetical>
 															<Text StringName="musa_musa_z_ma_naprosto_a_T8wb" Text="Naprosto. Ale pochybuji, že by do toho byla nějak zapletená. Cherthan nebyl první, komu jsem dnes to víno dával." />
 															<Commands>
+																<FacialMoodCommand FacialMood="thinking1" />
 																<AnimationCommand Delay="1.13" FragmentId="ADLG_Gesture" Guid="89606b07-8fa2-4d25-9b3d-da39e1476038" Variant="15" />
 																<CameraCommand CameraType="CloseShot" />
 															</Commands>
@@ -296,6 +311,7 @@
 															</Parenthetical>
 															<Text StringName="musa_musa_z_ma_otravit_ho_pD1Y" Text="Otrávit ho museli až u mě v nemocnici..." />
 															<Commands>
+																<FacialMoodCommand FacialMood="sad1" />
 																<AnimationCommand Delay="1.29" FragmentId="ADLG_Gesture" Guid="82614ed5-8978-4c2d-8771-aeab0b05a4e7" Variant="14" DesiredDuration="2.08" />
 															</Commands>
 														</Response>
@@ -311,6 +327,8 @@
 															</Parenthetical>
 															<Text StringName="dial_henry_katz_rikal_ze__NAxk" Text="Tak jo, ale co teď? Jak najdem pravýho vraha?" />
 															<Commands>
+																<FacialMoodCommand FacialMood="sad1" />
+																<FacialMoodCommand Role="MUSA_Z_MALI" FacialMood="thinking1" />
 																<AnimationHeadCommand Delay="0.8" FragmentId="ADLG_FA_EyebrowRaise_Right" Guid="af7eb8d8-db3a-404a-9b2e-312c0f795776" Variant="0" />
 																<CameraCommand CameraType="CloseUp" />
 															</Commands>
@@ -322,7 +340,6 @@
 															<Text StringName="musa_musa_z_ma_uz_jsem_na_DgLX" Text="Už jsem nad tím trochu přemýšlel. Taky co jiného mám tady dělat?" />
 															<Commands>
 																<AnimationCommand Delay="0.29" FragmentId="ADLG_Gesture" Guid="649b3c66-46dc-4666-8a6c-7d8df90c80ea" Variant="10" DesiredDuration="1.67" />
-																<AnimationHeadCommand Delay="3.47" FragmentId="ADLG_FA_EyebrowsRaise" Guid="6e30f870-e652-4054-abc7-46ae86863652" Variant="0" DesiredDuration="2.02" />
 																<CameraCommand CameraType="CloseShot" />
 															</Commands>
 														</Response>
@@ -332,6 +349,7 @@
 															</Parenthetical>
 															<Text StringName="musa_musa_z_ma_po_jednom__Zk7D" Text="Nejlepší bude jít po stopách jedu. Každý se totiž projevuje jinak. Po jednom ti slezou vlasy, další obrací střeva naruby. " />
 															<Commands>
+																<FacialMoodCommand FacialMood="thinking2" />
 																<AnimationCommand Delay="2.37" FragmentId="ADLG_Emphasis" Guid="01ecb483-41b3-4d95-ae8b-9702489a9246" Variant="0" />
 																<AnimationCommand Delay="7.52" FragmentId="ADLG_Nod" Guid="c05d1d1b-ecca-45b7-8434-c2d21c80187b" Variant="1" DesiredDuration="1.79" />
 															</Commands>
@@ -339,6 +357,7 @@
 														<Response Role="MUSA_Z_MALI" ReferenceLength="6.77">
 															<Text StringName="musa_musa_z_ma_kdyz_zjist_ukDU" Text="Když zjistíme, čím Cherthana otrávili, stačí u někoho ten jed najít a máme vyhráno." />
 															<Commands>
+																<FacialMoodCommand FacialMood="thinking3" />
 																<AnimationCommand Delay="5.06" FragmentId="ADLG_Gesture" Guid="8c8fca6c-9607-4c98-8f74-95922b507a56" Variant="16" />
 															</Commands>
 														</Response>
@@ -352,6 +371,8 @@
 																	<Response Role="HENRY" ReferenceLength="6.05">
 																		<Text StringName="musa_henry_a_nestacilo_by_14KP" Text="A nestačilo by prostě celej tábor prohledat? Moc lidí tady asi s jedem v kapse nepobíhá, ne?" />
 																		<Commands>
+																			<FacialMoodCommand FacialMood="thinking1" />
+																			<FacialMoodCommand Role="MUSA_Z_MALI" FacialMood="thinking2" />
 																			<AnimationCommand Delay="0.08" FragmentId="ADLG_Confusion" Guid="3ee18b27-3ab6-44ff-973a-dac45dd39426" Variant="1" />
 																			<CameraCommand CameraType="CloseUp" />
 																		</Commands>
@@ -370,7 +391,6 @@
 																		<Text StringName="musa_musa_z_ma_navic_nemu_ikKm" Text="Navíc nemůžeš jen tak pobíhat po táboře, obracet lidem kapsy naruby a pak hádat, kdo z těch stovek lidí je vrah." />
 																		<Commands>
 																			<AnimationCommand Delay="1.05" FragmentId="ADLG_Gesture" Guid="f15da38f-1fd7-45d6-9587-0b74338f13fc" Variant="24" />
-																			<AnimationHeadCommand Delay="5.17" FragmentId="ADLG_FA_Annoyed" Guid="bfd7c9ce-b1fd-49a8-b72b-3c75a6be3845" Variant="4" />
 																			<AnimationCommand Delay="5.5" FragmentId="ADLG_Gesture" Guid="5d70018a-2501-4f38-bd2e-e946f1527032" Variant="9" />
 																		</Commands>
 																	</Response>
@@ -383,6 +403,8 @@
 																	<Response Role="HENRY" ReferenceLength="1.93">
 																		<Text StringName="musa_henry_a_jak_teda_ten_5nHE" Text="Jak teda ten pravej jed poznáme?" />
 																		<Commands>
+																			<FacialMoodCommand FacialMood="thinking2" />
+																			<FacialMoodCommand Role="MUSA_Z_MALI" FacialMood="arrogant2" />
 																			<AnimationCommand Delay="0.06" FragmentId="ADLG_Gesture" Guid="89606b07-8fa2-4d25-9b3d-da39e1476038" Variant="15" />
 																			<CameraCommand CameraType="CloseUp" />
 																		</Commands>
@@ -404,6 +426,7 @@
 																		</Parenthetical>
 																		<Text StringName="musa_musa_z_ma_tedy_bylo__mkAd" Text="Tedy bylo by... Kdybych se odsud mohl dostat!" />
 																		<Commands>
+																			<FacialMoodCommand FacialMood="angry1" />
 																			<CameraCommand CameraType="CloseShot" />
 																			<LookAtCommand Delay="0.84" LookAtRole="HENRY" Offset="MiddleRight" TransitionDuration="0.4" />
 																			<LookAtCommand Delay="2.74" LookAtRole="HENRY" TransitionDuration="0.3" />
@@ -419,6 +442,7 @@
 																				<Response Role="HENRY" ReferenceLength="1.38">
 																					<Text StringName="musa_henry_a_nemohl_bych__QOo7" Text="A nemohl bych nějak pomoct já?" />
 																					<Commands>
+																						<FacialMoodCommand FacialMood="thinking1" />
 																						<CameraCommand CameraType="CloseUp" />
 																					</Commands>
 																				</Response>
@@ -434,8 +458,9 @@
 																								</Parenthetical>
 																								<Text StringName="musa_henry_mozna_nejsem_u_CDdi" Text="Možná nejsem učenej jako ty, ale vim, kolik dát do lektvaru vraního oka, abys po něm usnul a neumřel..." />
 																								<Commands>
+																									<FacialMoodCommand FacialMood="arrogant2" />
+																									<FacialMoodCommand Role="MUSA_Z_MALI" FacialMood="happy1" />
 																									<AnimationCommand Delay="1.96" FragmentId="ADLG_Nod" Guid="f219ea89-720f-4384-b0f6-57044649e8dd" Variant="4" DesiredDuration="1.31" />
-																									<AnimationHeadCommand Delay="3.77" FragmentId="ADLG_FA_EyebrowRaise_Left" Guid="58bccf36-fb2d-4a50-8616-916837cc774d" Variant="0" />
 																									<CameraCommand CameraType="CloseUp" />
 																								</Commands>
 																							</Response>
@@ -460,6 +485,8 @@
 																								</Parenthetical>
 																								<Text StringName="musa_henry_vsak_ono_to_za_blEk" Text="Však ono to zas tak těžký bejt nemůže, ne? " />
 																								<Commands>
+																									<FacialMoodCommand FacialMood="nervous1" />
+																									<FacialMoodCommand Role="MUSA_Z_MALI" FacialMood="arrogant3" />
 																									<CameraCommand CameraType="CloseUp" />
 																								</Commands>
 																							</Response>
@@ -479,6 +506,7 @@
 																								</Parenthetical>
 																								<Text StringName="musa_musa_z_ma_ne_promin__9nMH" Text="Ne, promiň, to ode mě nebylo moc zdvořilé... Určitě si nějak poradíš." />
 																								<Commands>
+																									<FacialMoodCommand FacialMood="thinking1" />
 																									<AnimationCommand Delay="1.4" FragmentId="ADLG_Surprised_light" Guid="529bd72b-17c4-c704-fb54-bb1cf2d786b1" Variant="3" DesiredDuration="2.4" />
 																								</Commands>
 																							</Response>
@@ -497,8 +525,10 @@
 																					</Parenthetical>
 																					<Text StringName="musa_henry_no_tak_to_jsme_VsCI" Text="No tak to jsme v prdeli..." />
 																					<Commands>
-																						<AnimationHeadCommand Delay="0.04" FragmentId="ADLG_FA_Sigh" Guid="9dce98e9-85d7-4344-af0a-bb468e0512dc" Variant="1" DesiredDuration="2.07" />
+																						<FacialMoodCommand FacialMood="sad1" />
+																						<FacialMoodCommand Role="MUSA_Z_MALI" FacialMood="happy1" />
 																						<AnimationCommand Role="MUSA_Z_MALI" Delay="2.21" FragmentId="ADLG_Easy_man" Guid="c3c363cf-f483-4b85-af81-e9b44c02d8a8" Variant="1" DesiredDuration="2.46" />
+																						<AnimationCommand FragmentId="ADLG_Gesture" Guid="14a3bb0d-3720-4f0b-afea-efe3ec4dde19" Variant="2" />
 																						<CameraCommand CameraType="CloseUp" />
 																					</Commands>
 																				</Response>
@@ -509,7 +539,6 @@
 																					<Text StringName="musa_musa_z_ma_zatim_ne_p_Bl1w" Text="Zatím ne, příteli. Když se odsud nemůžu hnout, budeme muset udělat jedoznalce z tebe!" />
 																					<Commands>
 																						<AnimationCommand Delay="4.62" FragmentId="ADLG_Gesture" Guid="7fcd8a44-bad1-4106-bc29-4498fa7b7196" Variant="13" DesiredDuration="1.83" />
-																						<AnimationHeadCommand Role="HENRY" Delay="7.21" FragmentId="ADLG_FA_Surprise" Guid="742018d5-9b0f-49f0-9139-6b6c2f464ce4" Variant="3" />
 																						<CameraCommand CameraType="Medium" />
 																					</Commands>
 																				</Response>
@@ -519,6 +548,7 @@
 																					</Parenthetical>
 																					<Text StringName="musa_henry_ze_me_GPj1" Text="Ze mě?" />
 																					<Commands>
+																						<FacialMoodCommand FacialMood="nervous2" />
 																						<CameraCommand CameraType="CloseUp" />
 																					</Commands>
 																				</Response>
@@ -534,13 +564,17 @@
 																								</Parenthetical>
 																								<Text StringName="musa_musa_z_ma_proste_co__ylpz" Text="Ze všeho nejdřív půjdeš k Cherthanově mrtvole a důkladně ji prozkoumáš. Ruce, nohy, obličej... " />
 																								<Commands>
+																									<FacialMoodCommand FacialMood="thinking1" />
 																									<AnimationCommand Delay="3.73" FragmentId="ADLG_Nod" Guid="ca364fe9-66bd-48fa-8178-0e49459d7038" Variant="2" />
 																									<AnimationCommand Delay="5.24" FragmentId="ADLG_Gesture" Guid="c6b727f7-9697-4d31-8885-9bbc2f47896a" Variant="20" />
 																									<CameraCommand CameraType="CloseUp" />
 																								</Commands>
 																							</Response>
-																							<Response Role="MUSA_Z_MALI" StartDelay="0.13">
+																							<Response Role="MUSA_Z_MALI" StartDelay="0.13" ReferenceLength="3.21">
 																								<Text StringName="musa_musa_z_ma_cokoliv_co_dgH3" Text="Cokoliv, co ti bude připadat divné, si musíš zapamatovat." />
+																								<Commands>
+																									<FacialMoodCommand FacialMood="thinking2" />
+																								</Commands>
 																								<ReviewNotesStylistic>
 																									<Item Date="2023-05-25 15:29:29" UserName="david.horak" Text="normální" AcceptState="Accepted" />
 																								</ReviewNotesStylistic>
@@ -550,14 +584,17 @@
 																								<Commands>
 																									<AnimationCommand Delay="0.03" FragmentId="ADLG_Gesture" Guid="c146b5f3-dae0-4959-9e7f-34c7415efe01" Variant="19" />
 																									<AnimationCommand Delay="7.04" FragmentId="ADLG_Gesture" Guid="649b3c66-46dc-4666-8a6c-7d8df90c80ea" Variant="10" DesiredDuration="1.92" />
-																									<AnimationHeadCommand Delay="2.96" FragmentId="ADLG_FA_EyebrowsRaise" Guid="6e30f870-e652-4054-abc7-46ae86863652" Variant="0" DesiredDuration="2.06" />
 																								</Commands>
 																							</Response>
-																							<Response Role="MUSA_Z_MALI">
+																							<Response Role="MUSA_Z_MALI" ReferenceLength="1.47">
 																								<Parenthetical>
 																									<Text StringName="musa_musa_z_ma_zkoumave_7JmE" Text="zkoumavě" />
 																								</Parenthetical>
 																								<Text StringName="musa_musa_z_ma_umis_doufa_Me3u" Text="Umíš doufám číst, že?" />
+																								<Commands>
+																									<FacialMoodCommand FacialMood="thinking3" />
+																									<FacialMoodCommand Role="HENRY" FacialMood="arrogant3" />
+																								</Commands>
 																							</Response>
 																							<Response Role="HENRY" ReferenceLength="1.4">
 																								<Parenthetical>
@@ -575,6 +612,7 @@
 																								</Parenthetical>
 																								<Text StringName="musa_musa_z_ma_vyborne__ICyZ" Text="Výborně! " />
 																								<Commands>
+																									<FacialMoodCommand FacialMood="happy1" />
 																									<AnimationCommand Delay="0.66" FragmentId="ADLG_Gesture" Guid="0229b273-f5e4-4cb2-a60f-332f72774af3" Variant="1" />
 																									<CameraCommand CameraType="CloseUp" />
 																								</Commands>
@@ -595,6 +633,8 @@
 																											</Parenthetical>
 																											<Text StringName="dial_henry_nemohl_bych_pr_a2id" Text="Ty máš celou knížku jenom o jedech? Kdes ji vzal?" />
 																											<Commands>
+																												<FacialMoodCommand FacialMood="thinking3" />
+																												<FacialMoodCommand Role="MUSA_Z_MALI" FacialMood="nervous1" />
 																												<AnimationCommand FragmentId="ADLG_posture_change" Guid="4fdc61ca-cace-4aa9-a37a-dee50fbcdc70" Variant="3" DesiredDuration="3.84" />
 																												<CameraCommand CameraType="CloseUp" />
 																											</Commands>
@@ -615,6 +655,7 @@
 																											</Parenthetical>
 																											<Text StringName="musa_musa_z_ma_ale_prosim_ZZgE" Text="Ale prosím tě, radši se o ní nikde moc nezmiňuj. Chápej, člověk v mé situaci by takovou věc mít neměl." />
 																											<Commands>
+																												<FacialMoodCommand FacialMood="thinking2" />
 																												<AnimationCommand Delay="0.96" FragmentId="ADLG_Wave" Guid="bb8f8813-dfdb-4192-bbe7-c72124f3c991" Variant="0" />
 																												<AnimationCommand Delay="5.86" FragmentId="ADLG_Gesture" Guid="f897a1b3-c338-416e-88ea-7345a13432a2" Variant="26" DesiredDuration="1.9" />
 																											</Commands>
@@ -641,6 +682,7 @@
 																														</Parenthetical>
 																														<Text StringName="dial_musa_z_ma_ale_pockej_Xj7M" Text="Takže prohlídnout Cherthana a přečíst knížku... To snad zvládnu." />
 																														<Commands>
+																															<FacialMoodCommand FacialMood="thinking2" />
 																															<AnimationCommand Delay="0.88" FragmentId="ADLG_Think" Guid="8427a67c-e4cd-4e18-948e-c8e2ae1ffac7" Variant="2" />
 																															<CameraCommand CameraType="Medium" />
 																														</Commands>
@@ -660,8 +702,9 @@
 																											</Parenthetical>
 																											<Text StringName="dial_henry_uz_me_docela_p_pj0Z" Text="Už mě docela přestává bavit, že mi půl tábora v jednom kuse něco přikazuje." />
 																											<Commands>
-																												<AnimationHeadCommand Delay="2.76" FragmentId="ADLG_FA_Annoyed" Guid="66faee18-aeb6-4002-83d2-f74fbda9ecdd" Variant="3" />
-																												<AnimationHeadCommand FragmentId="ADLG_FA_Annoyed" Guid="eafb385b-8038-4300-a50f-a341b73c54f7" Variant="6" DesiredDuration="2.2" />
+																												<FacialMoodCommand FacialMood="angry1" />
+																												<FacialMoodCommand Role="MUSA_Z_MALI" FacialMood="arrogant3" />
+																												<AnimationCommand Delay="1.54" FragmentId="ADLG_Surprised_light" Guid="078c2b11-e2e3-4f4c-baf5-92aa3590fa78" Variant="1" />
 																												<CameraCommand CameraType="CloseUp" />
 																												<LookAtCommand Delay="0.46" LookAtRole="MUSA_Z_MALI" />
 																												<LookAtCommand Delay="1.81" LookAtRole="MUSA_Z_MALI" Offset="MiddleLeft" TransitionDuration="0.5" />
@@ -720,6 +763,8 @@
 															</Parenthetical>
 															<Text StringName="musa_henry_kdo_podle_tebe_zVXz" Text="Kdo vlastně podle tebe Cherthana zabil?" />
 															<Commands>
+																<FacialMoodCommand FacialMood="thinking2" />
+																<FacialMoodCommand Role="MUSA_Z_MALI" FacialMood="thinking1" />
 																<AnimationCommand Delay="0.02" FragmentId="ADLG_Threat" Guid="ad276849-0d6e-4e0b-9008-f83254c5803e" Variant="3" DesiredDuration="1.58" />
 																<CameraCommand CameraType="CloseUp" />
 															</Commands>
@@ -732,18 +777,20 @@
 															<Commands>
 																<AnimationCommand Delay="0.62" FragmentId="ADLG_Disagree_light" Guid="79d31739-0b64-45f8-804e-b13957903d82" Variant="3" DesiredDuration="1.11" />
 																<AnimationCommand Delay="5.49" FragmentId="ADLG_Disagree" Guid="4ffec8d6-9671-4244-a6c6-aed77fe473ad" Variant="1" DesiredDuration="2.38" />
-																<AnimationHeadCommand Delay="2.54" FragmentId="ADLG_FA_EyebrowRaise_Left" Guid="58bccf36-fb2d-4a50-8616-916837cc774d" Variant="0" />
 																<CameraCommand CameraType="CloseShot" />
 															</Commands>
 															<ReviewNotesStylistic>
 																<Item Date="2023-05-25 15:31:29" UserName="david.horak" Text="Divný - ale zato vím, že když budeme podezírat každého v táboře, nikam se nedostaneme." AcceptState="Accepted" />
 															</ReviewNotesStylistic>
 														</Response>
-														<Response Role="MUSA_Z_MALI" StartDelay="0.15">
+														<Response Role="MUSA_Z_MALI" StartDelay="0.15" ReferenceLength="2.9">
 															<Parenthetical>
 																<Text StringName="dial_musa_z_ma_spiklenecky_b7Cy" Text="spiklenecky" />
 															</Parenthetical>
 															<Text StringName="dial_musa_z_ma_musime_to__Gb12" Text="Kdo je podle tebe v tuhle chvíli nejvíc podezřelý?" />
+															<Commands>
+																<FacialMoodCommand FacialMood="thinking3" />
+															</Commands>
 														</Response>
 													</Elements>
 													<Decision Name="dec8" Priority="MainQuestSubmission">
@@ -758,6 +805,8 @@
 																		</Parenthetical>
 																		<Text StringName="dial_henry_no_a_co_si_mys_Bobj" Text="No a co si myslíš ty?" />
 																		<Commands>
+																			<FacialMoodCommand FacialMood="nervous1" />
+																			<FacialMoodCommand Role="MUSA_Z_MALI" FacialMood="thinking3" />
 																			<AnimationCommand Delay="0.67" FragmentId="ADLG_Gesture" Guid="34ac6648-6fd5-4005-84ec-632a56223892" Variant="5" DesiredDuration="1.66" />
 																			<CameraCommand CameraType="CloseUp" />
 																		</Commands>
@@ -785,13 +834,14 @@
 																					</Parenthetical>
 																					<Text StringName="dial_musa_z_ma_vsadil_byc_JPQ3" Text="Vsadil bych se, že to udělal někdo z nás, kdo jsme byli přímo u toho. " />
 																					<Commands>
-																						<AnimationHeadCommand Delay="0.82" FragmentId="ADLG_FA_EyebrowsRaise" Guid="6e30f870-e652-4054-abc7-46ae86863652" Variant="0" DesiredDuration="2.08" />
+																						<FacialMoodCommand FacialMood="thinking1" />
 																						<CameraCommand CameraType="CloseShot" />
 																					</Commands>
 																				</Response>
 																				<Response Role="MUSA_Z_MALI" StartDelay="0.21" ReferenceLength="8.28">
 																					<Text StringName="musa_musa_z_ma_a_protoze__RhR2" Text="A protože ty, já ani Katz jsme to být nemohli, zbývají Grozav, Štěpán a ti dva strážní." />
 																					<Commands>
+																						<FacialMoodCommand FacialMood="thinking2" />
 																						<AnimationCommand Delay="1.43" FragmentId="ADLG_Me" Guid="5d30d8f1-3b80-4bec-a98d-dc8ca39379d8" Variant="2" />
 																						<AnimationCommand Delay="6.63" FragmentId="ADLG_Gesture" Guid="2f5b9a79-4e1b-4360-ac65-ce0ab1844c72" Variant="4" />
 																					</Commands>
@@ -802,6 +852,7 @@
 																					</Parenthetical>
 																					<Text StringName="dial_musa_z_ma_ted_je_pot_SCnd" Text="Někdo by je měl všechny vyslechnout. Třeba se nějak prořeknou." />
 																					<Commands>
+																						<FacialMoodCommand FacialMood="thinking3" />
 																						<AnimationCommand Delay="3.19" FragmentId="ADLG_Gesture" Guid="5d70018a-2501-4f38-bd2e-e946f1527032" Variant="9" DesiredDuration="1.81" />
 																					</Commands>
 																				</Response>
@@ -818,6 +869,8 @@
 																								</Parenthetical>
 																								<Text StringName="musa_henry_tak_dobre_ja_s_sBAP" Text="Nemám sice moc času, ale zkusím s nima promluvit." />
 																								<Commands>
+																									<FacialMoodCommand FacialMood="arrogant1" />
+																									<FacialMoodCommand Role="MUSA_Z_MALI" FacialMood="happy2" />
 																									<AnimationCommand Delay="1.98" FragmentId="ADLG_Nod" Guid="2ddda320-2a14-4160-b352-ad7c194f57b3" Variant="0" />
 																									<CameraCommand CameraType="CloseUp" />
 																								</Commands>
@@ -843,6 +896,8 @@
 																								</Parenthetical>
 																								<Text StringName="musa_henry_uz_mam_dost_to_gV03" Text="No, ale někdo jinej než já. Už mám dost svý vlastní práce." />
 																								<Commands>
+																									<FacialMoodCommand FacialMood="angry1" />
+																									<FacialMoodCommand Role="MUSA_Z_MALI" FacialMood="sad1" />
 																									<AnimationCommand Delay="0.02" FragmentId="ADLG_Emphasis" Guid="c26bf88b-76a2-4e0f-8e02-bf6a1a69112d" Variant="4" DesiredDuration="3.17" />
 																									<AnimationCommand Role="MUSA_Z_MALI" Delay="3.85" FragmentId="ADLG_Gesture" Guid="002ace53-8d31-4d61-b729-4bae5c80b2e5" Variant="0" DesiredDuration="1.94" />
 																									<CameraCommand CameraType="CloseUp" />
@@ -876,6 +931,8 @@
 																		</Parenthetical>
 																		<Text StringName="dial_henry_slysel_jsem_ze_SDR3" Text="Slyšel jsem, že pán z Borumlaca se s Cherthanem dost nesnášel..." />
 																		<Commands>
+																			<FacialMoodCommand FacialMood="thinking2" />
+																			<FacialMoodCommand Role="MUSA_Z_MALI" FacialMood="thinking3" />
 																			<AnimationCommand Delay="0.51" FragmentId="ADLG_Point" Guid="de38a264-7aaa-4ee9-b694-0e18a60419c4" Variant="5" DesiredDuration="1.46" />
 																			<CameraCommand CameraType="CloseUp" />
 																		</Commands>
@@ -898,18 +955,19 @@
 																</Elements>
 																<Decision Name="dec11" Priority="MainQuestSubmission" Autoselect="true">
 																	<Sequences>
-																		<Sequence EntryCondition="!SequenceUsed('stepan') OR &#xD;&#xA;!SequenceUsed('straze') OR &#xD;&#xA;!SequenceUsed('grozav')" EndType="GoTo" GoToDecision="dec8" Name="seq31">
+																		<Sequence EntryCondition="!" EndType="GoTo" GoToDecision="dec8" Name="seq31">
 																			<DesignName StringName="dialog_s__seq31_T4WT" Text="seq31" />
 																			<Elements>
 																				<Response Role="HENRY" />
 																			</Elements>
 																		</Sequence>
-																		<Sequence EntryCondition="SequenceUsed('stepan') AND SequenceUsed('straze') AND SequenceUsed('grozav')" EndType="GoTo" GoToDecision="dec10" Name="seq32">
+																		<Sequence EndType="GoTo" GoToDecision="dec10" Name="seq32">
 																			<DesignName StringName="dialog_s__seq32_7SEd" Text="seq32" />
 																			<Elements>
 																				<Response Role="HENRY" ReferenceLength="2.3">
 																					<Text StringName="musa_henry_no_a_co_si_ted_VFQQ" Text="No a co si teda myslíš ty?" />
 																					<Commands>
+																						<FacialMoodCommand FacialMood="thinking2" />
 																						<CameraCommand CameraType="CloseUp" />
 																					</Commands>
 																				</Response>
@@ -928,6 +986,8 @@
 																		</Parenthetical>
 																		<Text StringName="dial_henry_a_co_ti_dva_st_XvQM" Text="A co ti dva strážný, co Cherthana našli? Nemohli to nakonec udělat sami?" />
 																		<Commands>
+																			<FacialMoodCommand FacialMood="thinking2" />
+																			<FacialMoodCommand Role="MUSA_Z_MALI" FacialMood="thinking3" />
 																			<AnimationCommand Delay="2.46" FragmentId="ADLG_Gesture" Guid="75625108-8f92-4220-a10e-6e1b8251f83d" Variant="11" DesiredDuration="2.02" />
 																			<CameraCommand CameraType="CloseUp" />
 																		</Commands>
@@ -954,6 +1014,8 @@
 																		</Parenthetical>
 																		<Text StringName="dial_henry_no_je_pravda_z_4aVK" Text="No, je pravda, že s tím vínem je to podezřelý. Mohls to přece jen udělat ty..." />
 																		<Commands>
+																			<FacialMoodCommand FacialMood="nervous1" />
+																			<FacialMoodCommand Role="MUSA_Z_MALI" FacialMood="sad1" />
 																			<AnimationCommand Delay="0.25" FragmentId="ADLG_Scratch" Guid="52972c25-deac-4509-bf4a-4af8ed04918e" Variant="3" DesiredDuration="2.68" />
 																			<CameraCommand CameraType="CloseUp" />
 																		</Commands>
@@ -974,9 +1036,9 @@
 																		</Parenthetical>
 																		<Text StringName="dial_musa_z_ma_ale_ja_to__TaUn" Text="Ale já to doopravdy nebyl, přísahám při Alláhovi! A jestli mi nevěříš, nechápu, co tady děláš!" />
 																		<Commands>
+																			<FacialMoodCommand FacialMood="nervous2" />
 																			<AnimationCommand Delay="1.56" FragmentId="ADLG_Gesture" Guid="14a3bb0d-3720-4f0b-afea-efe3ec4dde19" Variant="2" />
 																			<AnimationCommand Delay="5.34" FragmentId="ADLG_Confusion" Guid="3ee18b27-3ab6-44ff-973a-dac45dd39426" Variant="1" />
-																			<AnimationHeadCommand Delay="3.97" FragmentId="ADLG_FA_Annoyed" Guid="58af5ebf-08bc-4e4b-8e0e-e0d88d2135ae" Variant="2" DesiredDuration="2.21" />
 																			<AnimationCommand Role="HENRY" Delay="7.55" FragmentId="ADLG_Easy_man" Guid="a88b0649-f2db-45b9-ac75-fbe939616780" Variant="0" DesiredDuration="1.92" />
 																		</Commands>
 																		<ReviewNotesStylistic>
@@ -1005,6 +1067,8 @@
 																		</Parenthetical>
 																		<Text StringName="dial_henry_a_co_stepan_to_zbnt" Text="No a co Štěpán? To on nás přece dovedl k tomu skladu." />
 																		<Commands>
+																			<FacialMoodCommand FacialMood="thinking2" />
+																			<FacialMoodCommand Role="MUSA_Z_MALI" FacialMood="thinking3" />
 																			<AnimationCommand Delay="1.98" FragmentId="ADLG_You" Guid="f44fe4ae-ec67-6b08-eb50-1ef109daf53e" Variant="5" DesiredDuration="2.14" />
 																			<CameraCommand CameraType="CloseUp" />
 																		</Commands>
@@ -1034,6 +1098,8 @@
 																		</Parenthetical>
 																		<Text StringName="dial_henry_a_co_kdyz_se_s_xZEg" Text="A co když se sem dostal nějakej špeh?" />
 																		<Commands>
+																			<FacialMoodCommand FacialMood="thinking2" />
+																			<FacialMoodCommand Role="MUSA_Z_MALI" FacialMood="thinking3" />
 																			<CameraCommand CameraType="CloseUp" />
 																		</Commands>
 																	</Response>
@@ -1070,6 +1136,8 @@
 																		<Text StringName="dial_henry_nemohl_to_udel_90Q8" Text="Nemohl to udělat Katz? Koneckonců, je to jeden ze zdejších hejtmanů. Třeba si chtěl posílit postavení." />
 																		<Commands>
 																			<MoodCommand Delay="0.1" Mood="pensive" />
+																			<FacialMoodCommand FacialMood="thinking3" />
+																			<FacialMoodCommand Role="MUSA_Z_MALI" FacialMood="nervous3" />
 																			<AnimationCommand Role="MUSA_Z_MALI" Delay="7.54" FragmentId="ADLG_Surprised" Guid="1654ce2e-31d7-2c0c-a3a0-c9b8ae51a9d3" Variant="0" />
 																			<CameraCommand CameraType="CloseUp" />
 																		</Commands>
@@ -1097,6 +1165,8 @@
 																					</Parenthetical>
 																					<Text StringName="musa_henry_samozrejme_ze__fm9o" Text="Jasně, že ho nemohl zabít vlastnoručně. Ale mohl si na to někoho zjednat." />
 																					<Commands>
+																						<FacialMoodCommand FacialMood="arrogant2" />
+																						<FacialMoodCommand Role="MUSA_Z_MALI" FacialMood="thinking3" />
 																						<AnimationCommand FragmentId="ADLG_Frustration" Guid="110f0af6-e083-4799-9638-14a38ae5eee7" Variant="0" />
 																						<AnimationCommand Delay="4.67" FragmentId="ADLG_You" Guid="e5cafc60-b65e-4d10-a528-3177e2dc88d2" Variant="4" />
 																						<CameraCommand CameraType="CloseShot" />
@@ -1114,7 +1184,6 @@
 																					</Parenthetical>
 																					<Text StringName="musa_musa_z_ma_hm_to_se_m_bQbc" Text="To se mi moc nezdá... " />
 																					<Commands>
-																						<AnimationHeadCommand Delay="0.06" FragmentId="ADLG_FA_IDontKnow" Guid="7c0fe7e8-8250-4f30-9020-f9bb5bf0a2af" Variant="0" />
 																						<CameraCommand CameraType="Medium" />
 																					</Commands>
 																				</Response>
@@ -1136,8 +1205,9 @@
 																					</Parenthetical>
 																					<Text StringName="musa_henry_je_to_starej_z_1tGR" Text="Je to starej zkušenej voják. Kdo jinej by se dokázal k Cherthanovi nepozorovaně dostat a zapíchnout ho? " />
 																					<Commands>
+																						<FacialMoodCommand FacialMood="arrogant2" />
+																						<FacialMoodCommand Role="MUSA_Z_MALI" FacialMood="angry1" />
 																						<AnimationCommand Delay="3.54" FragmentId="ADLG_Threat" Guid="4f516f54-df61-5b16-731b-bd75019ac8db" Variant="0" />
-																						<AnimationHeadCommand Delay="0.02" FragmentId="ADLG_FA_EyebrowsRaise" Guid="6e30f870-e652-4054-abc7-46ae86863652" Variant="0" DesiredDuration="1.98" />
 																						<CameraCommand CameraType="CloseShot" />
 																					</Commands>
 																					<ReviewNotesStylistic>
@@ -1167,7 +1237,6 @@
 																					</Parenthetical>
 																					<Text StringName="musa_musa_z_ma_zacinam_mi_cvER" Text="Začínám mít pocit, že vyšetřováním nepověřili zrovna toho nejlepšího..." />
 																					<Commands>
-																						<AnimationHeadCommand Delay="-0.11" FragmentId="ADLG_FA_Surprise" Guid="168156f3-c485-4eed-84b6-e1518f32a0e9" Variant="0" DesiredDuration="4.43" />
 																						<LookAtCommand Delay="1.24" LookAtRole="HENRY" Offset="MiddleLeft" TransitionDuration="0.5" />
 																						<LookAtCommand Delay="0.63" LookAtRole="HENRY" />
 																						<LookAtCommand Delay="3.89" LookAtRole="HENRY" TransitionDuration="0.5" />
@@ -1188,6 +1257,8 @@
 																		</Parenthetical>
 																		<Text StringName="dial_henry_nemohl_to_vlas_GiGV" Text="Nemohl to udělat doslova kdokoliv?" />
 																		<Commands>
+																			<FacialMoodCommand FacialMood="thinking2" />
+																			<FacialMoodCommand Role="MUSA_Z_MALI" FacialMood="thinking1" />
 																			<AnimationCommand Delay="0.04" FragmentId="ADLG_Think" Guid="4dde70bf-c5b4-4341-b109-098b5d8e9343" Variant="0" DesiredDuration="4.3" />
 																			<CameraCommand CameraType="CloseUp" />
 																		</Commands>
@@ -1230,6 +1301,8 @@
 																	<Response Role="HENRY" ReferenceLength="1.89">
 																		<Text StringName="musa_henry_vazne_nechces__2X4N" Text="Vážně nechceš, abych tě odsud nějak dostal?" />
 																		<Commands>
+																			<FacialMoodCommand FacialMood="thinking3" />
+																			<FacialMoodCommand Role="MUSA_Z_MALI" FacialMood="sad1" />
 																			<AnimationCommand Role="MUSA_Z_MALI" Delay="1.89" FragmentId="ADLG_Surprised" Guid="76eb3ade-b59a-8434-39bc-fb1ec77e55cf" Variant="2" DesiredDuration="2.7" />
 																			<CameraCommand CameraType="CloseUp" />
 																		</Commands>
@@ -1254,6 +1327,8 @@
 																		</Parenthetical>
 																		<Text StringName="musa_henry_a_co_kdybysme__fmhi" Text="A co kdybysme se na hledání nějakýho vraha vykašlali a já ti prostě pomohl utýct? " />
 																		<Commands>
+																			<FacialMoodCommand FacialMood="thinking3" />
+																			<FacialMoodCommand Role="MUSA_Z_MALI" FacialMood="happy1" />
 																			<AnimationCommand Delay="0.15" FragmentId="ADLG_Whisper" Guid="ab7e9df3-ca07-5c59-a645-70a47952b384" Variant="1" DesiredDuration="4.37" />
 																			<CameraCommand CameraType="CloseUp" />
 																		</Commands>
@@ -1282,6 +1357,7 @@
 																		</Parenthetical>
 																		<Text StringName="musa_musa_z_ma_a_i_kdybyc_v4wB" Text="A i kdybych se nějakým zázrakem dostal pryč, potrestali by místo mě tebe a Katze. To nemůžu dopustit..." />
 																		<Commands>
+																			<FacialMoodCommand FacialMood="thinking1" />
 																			<AnimationCommand Delay="6.14" FragmentId="ADLG_Deny" Guid="ccf976b0-9aba-4f13-a974-2db293124822" Variant="2" />
 																			<LookAtCommand Delay="1.32" LookAtRole="HENRY" Offset="MiddleRight" TransitionDuration="0.4" />
 																			<LookAtCommand Delay="3.29" LookAtRole="HENRY" TransitionDuration="0.3" />

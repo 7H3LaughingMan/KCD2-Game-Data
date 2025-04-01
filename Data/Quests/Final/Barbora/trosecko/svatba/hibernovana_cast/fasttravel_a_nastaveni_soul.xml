@@ -39,8 +39,8 @@
 				<Port Name="michal_a_david_jsou_na_svatbe" Direction="Out" Type="bool">
 					<DesignName StringName="fasttravel_michal_a_david_2tyU" Text="Michal a David jsou na svatbě" />
 				</Port>
-				<Port Name="stav_kejkliru" Direction="In" Type="wh::questmodule::QuestProgress">
-					<DesignName StringName="fasttravel_stav_kejkliru_RRMg" Text="stav Kejklířů" />
+				<Port Name="quest_kejkliri_dokoncen_s_cs_pisnickou" Direction="In" Type="bool">
+					<DesignName StringName="fasttrave_quest_kejkliri__L3uL" Text="quest Kejklíři dokončen s CS písničkou" />
 				</Port>
 				<Port Name="stav_zraneneho_lovciho" Direction="In" Type="wh::questmodule::QuestProgress">
 					<DesignName StringName="fasttrave_stav_zraneneho__ISXN" Text="stav Zraněného lovčího" />
@@ -57,6 +57,7 @@
 				<Definition File="fasttravel_a_nastaveni_soul/removealcohol.xml" />
 				<Definition File="fasttravel_a_nastaveni_soul/lovci_a_jeho_zena.xml" />
 				<Definition File="fasttravel_a_nastaveni_soul/unlockdoors.xml" />
+				<Definition File="fasttravel_a_nastaveni_soul/legalizace_equipnutych_predmetu.xml" />
 			</Definitions>
 			<Nodes>
 				<Function Name="advanceworldtime2" PositionY="-1020" PositionX="380" MethodName="wh::rpgmodule::AdvanceWorldTime" DeclaringType="wh::rpgmodule">
@@ -71,7 +72,7 @@
 					<Edge From="createFastForwardAndTeleportLink.State" To="A" />
 					<Edge From="or2_1.bool" To="B" />
 				</Function>
-				<Function Name="changeweather20" PositionY="-1020" PositionX="1970" MethodName="ChangeWeather" DeclaringType="">
+				<Function Name="changeweather20" PositionY="-1030" PositionX="2360" MethodName="ChangeWeather" DeclaringType="">
 					<Constant Name="Profile" Value="cloudless_sunny" />
 					<Constant Name="BlendTime" Value="0s" />
 					<Edge From="removealcohol.onend" To="Exec" />
@@ -134,6 +135,14 @@
 					</Edge>
 					<Edge From="ifand4.False" To="Exec" />
 				</IfFunction>
+				<Function Name="joinarrays28" PositionY="-820" PositionX="1080" TypeT="wh::rpgmodule::Souls" MethodName="utilities::array::JoinArrays" DeclaringType="utilities::array">
+					<Asset Name="A" Alias="weddingGuests" />
+					<Asset Name="B" Alias="guardsNotInWedding" />
+					<Asset Name="C" Alias="beggars" />
+				</Function>
+				<legalizace_equipnutych_predmetu Name="legalizace_equipnutych_predmetu" PositionY="-1060" PositionX="670">
+					<Edge From="advanceworldtime2.OnExec" To="spustit_chovani" />
+				</legalizace_equipnutych_predmetu>
 				<LinkEffectNoData Name="linkeffectnodata11" PositionY="760" PositionX="-530">
 					<Asset Name="To" Alias="michal" />
 					<Constant Name="Tag" Value="fastForward" />
@@ -183,8 +192,8 @@
 				</MakeArray>
 				<michal_a_david_na_svatbe Name="michal_a_david_na_svatbe_1" PositionY="210" PositionX="-1560" Namespace="svatba">
 					<Edge From="triggersequence15.A" To="zmena_faze" />
-					<Edge From="stav_kejkliru" To="stav_kejkliru">
-						<Vertex>vertex18</Vertex>
+					<Edge From="quest_kejkliri_dokoncen_s_cs_pisnickou" To="quest_kejkliri_dokoncen_s_cs_pisnickou">
+						<Vertex>Uc8sSbVS</Vertex>
 					</Edge>
 				</michal_a_david_na_svatbe>
 				<Function Name="or2" PositionY="220" PositionX="-1220" MethodName="math::boolean::Or" DeclaringType="math::boolean">
@@ -224,13 +233,16 @@
 					<Edge From="stream.EnqueueCutscene" To="IsActive" />
 					<Edge From="makearray21.Array" To="Profiles" />
 				</ProfileStateTrigger>
-				<removealcohol Name="removealcohol" PositionY="-1050" PositionX="1630">
+				<Function Name="reconcilewithpublicfriends27" PositionY="-1040" PositionX="1730" MethodName="wh::rpgmodule::ReconcileWithPublicFriends" DeclaringType="wh::rpgmodule">
+					<Edge From="stopcrime.crimestopped" To="Exec" />
+				</Function>
+				<removealcohol Name="removealcohol" PositionY="-1060" PositionX="2020">
 					<Asset Name="souls" Alias="weddingGuests" />
-					<Edge From="setreputation.onend" To="exec" />
+					<Edge From="reconcilewithpublicfriends27.OnExec" To="exec" />
 				</removealcohol>
-				<revive Name="revive" PositionY="-1050" PositionX="740" Namespace="utils.general">
+				<revive Name="revive" PositionY="-1050" PositionX="1110" Namespace="utils.general">
 					<Asset Name="souls" Alias="weddingGuests" />
-					<Edge From="advanceworldtime2.OnExec" To="exec" />
+					<Edge From="legalizace_equipnutych_predmetu.chovani_skoncilo" To="exec" />
 				</revive>
 				<SchedulerLinkActivation Name="schedule16" PositionY="510" PositionX="-540">
 					<Constant Name="LinkTag" Value="svatba_michalADavidAtWedding" />
@@ -242,15 +254,10 @@
 					<Edge From="if23.True" To="SelectA" />
 					<Edge From="if23.False" To="SelectB" />
 				</Select>
-				<setreputation Name="setreputation" PositionY="-1070" PositionX="1350" Namespace="svatba">
-					<Asset Name="souls" Alias="weddingGuests" />
-					<Constant Name="reputation" Value="svatba_increase" />
-					<Edge From="stopcrime.crimestopped" To="exec" />
-				</setreputation>
-				<stopcrime Name="stopcrime" PositionY="-1070" PositionX="1060" Namespace="utils.crime">
-					<Asset Name="npcs" Alias="weddingGuests" />
+				<stopcrime Name="stopcrime" PositionY="-1070" PositionX="1430" Namespace="utils.crime">
 					<Constant Name="forgetcrimeinformations" Value="true" />
 					<Edge From="revive.onexec" To="stopcrime" />
+					<Edge From="joinarrays28.Array" To="npcs" />
 				</stopcrime>
 				<State Name="stream" PositionY="-680" PositionX="-1120" TypeT="Svatba_CutsceneHandler">
 					<Edge From="profilestatetrigger8.OnLoaded" To="SetPlayCutscene">
@@ -276,16 +283,16 @@
 				<EdgeVertex Name="DFfrgFrd" PositionY="-910" PositionX="-2450" />
 				<EdgeVertex Name="ojDv6R8W" PositionY="-689" PositionX="622" />
 				<EdgeVertex Name="qtGKXNPH" PositionY="-689" PositionX="-312" />
+				<EdgeVertex Name="Uc8sSbVS" PositionY="270" PositionX="-2280" />
 				<EdgeVertex Name="vertex14" PositionY="-70" PositionX="-850" />
 				<EdgeVertex Name="vertex15" PositionY="-70" PositionX="-2440" />
 				<EdgeVertex Name="vertex16" PositionY="880" PositionX="-2240" />
-				<EdgeVertex Name="vertex17" PositionY="290" PositionX="1780" />
-				<EdgeVertex Name="vertex18" PositionY="270" PositionX="-2280" />
+				<EdgeVertex Name="vertex17" PositionY="310" PositionX="2200" />
 				<EdgeVertex Name="vertex19" PositionY="411" PositionX="-1276" />
 				<EdgeVertex Name="vertex20" PositionY="410" PositionX="-2310" />
 				<EdgeVertex Name="vertex21" PositionY="1460" PositionX="-2270" />
 				<EdgeVertex Name="vertex22" PositionY="1430" PositionX="-2176" />
-				<EdgeVertex Name="vertex23" PositionY="-470" PositionX="1810" />
+				<EdgeVertex Name="vertex23" PositionY="-450" PositionX="2230" />
 				<EdgeVertex Name="vertex24" PositionY="650" PositionX="-2220" />
 				<EdgeVertex Name="vertex25" PositionY="-30" PositionX="-350" />
 				<EdgeVertex Name="vertex26" PositionY="-30" PositionX="-1090" />
@@ -293,8 +300,8 @@
 				<EdgeVertex Name="vertex5" PositionY="10" PositionX="-1110" />
 				<EdgeVertex Name="vertex9" PositionY="-530" PositionX="80" />
 				<EdgeVertex Name="wqL1IUpy" PositionY="-917" PositionX="-352" />
-				<EdgeVertex Name="yRlsRnjj" PositionY="-310" PositionX="1830" />
-				<EdgeVertex Name="YUT7CboY" PositionY="-430" PositionX="1810" />
+				<EdgeVertex Name="yRlsRnjj" PositionY="-290" PositionX="2250" />
+				<EdgeVertex Name="YUT7CboY" PositionY="-410" PositionX="2230" />
 			</EdgeVertices>
 			<Types>
 				<Type TypeName="Svatba_CutsceneHandler">
@@ -311,6 +318,8 @@
 				<AnimDoorAsset Name="doorToLock" />
 				<ProfileAsset Name="moravci" AssetProfiles="trosecko_moravaci" />
 				<AnimDoorAsset Name="doorToUnlock" />
+				<SoulAsset Name="guardsNotInWedding" SharedSoulGuids="4c652696-c2ca-ff73-cfc7-f46d6d11639f" />
+				<SoulAsset Name="beggars" SharedSoulGuids="01649fe6-905a-4ede-9a30-c9f44115da4e 498745e3-da61-4ec8-929e-22ac381b7896 4515d3d8-0e5a-d0ef-0f39-04163485f8ac 47c5ddf5-97d7-c626-b6d7-ec99333e7191 47fc96bf-20d4-4df5-f5f9-c4b40ff45e86 488e80ea-f98d-d0e1-8dc7-4359d4701b8d 4b0fb568-a244-566b-b13d-a38bea2087b8" />
 			</Assets>
 			<Text StringName="fasttravel_8JnU" Text="Fasttravel a nastavení soul" />
 		</Gameplay>

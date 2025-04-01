@@ -149,18 +149,24 @@
 												<DetermineCrimeVictim Information="$attackData.information" Victim="$owner" />
 											</Then>
 											<Else canSkip="1">
-												<GetTarget ReferenceNPC="$attackData.target" TargetVarOut="$owner" />
+												<SuppressFailure>
+													<GetTarget ReferenceNPC="$attackData.target" TargetVarOut="$owner" />
+												</SuppressFailure>
 											</Else>
 										</IfElseCondition>
-										<HasGenderCheck Gender="Female" SoulWUID="$owner" FailSubtMissing="false" saveVersion="2">
-											<Then canSkip="1">
-												<Expression expressions="$dialogContext[&apos;isMan&apos;] = 0" />
-											</Then>
-											<Else canSkip="1">
-												<Expression expressions="$dialogContext[&apos;isMan&apos;] = 1" />
-											</Else>
-										</HasGenderCheck>
-										<Function_crime_crimeBark animationApproach="$enum:animationApproach.dontPlayDialogAnimations" canBeDelayed="false" dialogContext="$dialogContext" dramaticBark="false" lookAt="$__playerDog" metarole="&apos;NPC_VIDI_HRACOVA_PSA_UTOCIT&apos;" priority="$enum:crime_barkPriority.important" nodeLabel="92207716" />
+										<IfCondition failOnCondition="false" condition="$owner ~= $__null">
+											<Sequence>
+												<HasGenderCheck Gender="Female" SoulWUID="$owner" FailSubtMissing="false" saveVersion="2">
+													<Then canSkip="1">
+														<Expression expressions="$dialogContext[&apos;isMan&apos;] = 0" />
+													</Then>
+													<Else canSkip="1">
+														<Expression expressions="$dialogContext[&apos;isMan&apos;] = 1" />
+													</Else>
+												</HasGenderCheck>
+												<Function_crime_crimeBark animationApproach="$enum:animationApproach.dontPlayDialogAnimations" canBeDelayed="false" dialogContext="$dialogContext" dramaticBark="false" lookAt="$__playerDog" metarole="&apos;NPC_VIDI_HRACOVA_PSA_UTOCIT&apos;" priority="$enum:crime_barkPriority.important" nodeLabel="92207716" />
+											</Sequence>
+										</IfCondition>
 									</Sequence>
 								</Then>
 								<Else canSkip="1">
@@ -655,27 +661,36 @@
 													</DetermineCrimeVictim>
 												</Then>
 												<Else>
-													<GetTarget hasInputBreakpoint="0" comment="" breakpointFlags="0">
+													<SuppressFailure hasInputBreakpoint="0" comment="" breakpointFlags="0">
 														<OutputBreakpoints />
-													</GetTarget>
+														<GetTarget hasInputBreakpoint="0" comment="" breakpointFlags="0">
+															<OutputBreakpoints />
+														</GetTarget>
+													</SuppressFailure>
 												</Else>
 											</IfElseCondition>
-											<HasGenderCheck hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
+											<IfCondition hasInputBreakpoint="0" comment="" breakpointFlags="0">
 												<OutputBreakpoints />
-												<Then>
-													<Expression hasInputBreakpoint="0" comment="" breakpointFlags="0">
+												<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
+													<OutputBreakpoints />
+													<HasGenderCheck hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
 														<OutputBreakpoints />
-													</Expression>
-												</Then>
-												<Else>
-													<Expression hasInputBreakpoint="0" comment="" breakpointFlags="0">
+														<Then>
+															<Expression hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																<OutputBreakpoints />
+															</Expression>
+														</Then>
+														<Else>
+															<Expression hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																<OutputBreakpoints />
+															</Expression>
+														</Else>
+													</HasGenderCheck>
+													<Function_crime_crimeBark hasInputBreakpoint="0" comment="" breakpointFlags="0">
 														<OutputBreakpoints />
-													</Expression>
-												</Else>
-											</HasGenderCheck>
-											<Function_crime_crimeBark hasInputBreakpoint="0" comment="" breakpointFlags="0">
-												<OutputBreakpoints />
-											</Function_crime_crimeBark>
+													</Function_crime_crimeBark>
+												</Sequence>
+											</IfCondition>
 										</Sequence>
 									</Then>
 									<Else>

@@ -72,6 +72,9 @@
 				<Port Name="hledani_tajne_mincovny_akitvni" Direction="Out" Type="bool">
 					<DesignName StringName="tajna_min_hledani_tajne_m_PnV0" Text="hledání tajné mincovny akitvní" />
 				</Port>
+				<Port Name="hrac_mluvil_s_pregeri" Direction="Out" Type="bool">
+					<DesignName StringName="tajna_min_hrac_byl_u_preg_w8fm" Text="hráč mluvil s pregéři" />
+				</Port>
 			</Ports>
 			<Definitions>
 				<Definition File="tajna_mincovna/v_grunte_o_buresove_uteku.xml" />
@@ -110,42 +113,65 @@
 					<Asset Name="soul" Alias="bures" />
 					<Edge From="and61.bool" To="isactive" />
 				</addmoney_soul>
-				<Function Name="and101" PositionY="-1940" PositionX="-40" MethodName="math::boolean::And" DeclaringType="math::boolean">
+				<Function Name="and101" PositionY="-1910" PositionX="-40" MethodName="math::boolean::And" DeclaringType="math::boolean">
 					<Edge From="and92.bool" To="A">
 						<Vertex>vertex32</Vertex>
 						<Vertex>vertex33</Vertex>
 						<Vertex>vertex34</Vertex>
 						<Vertex>o8sqsarY</Vertex>
 					</Edge>
-					<Edge From="and26.bool" To="B" />
+					<Edge From="not33.bool" To="C">
+						<Vertex>vertex24</Vertex>
+					</Edge>
+					<Edge From="and26.bool" To="B">
+						<Vertex>c30uKUAD</Vertex>
+						<Vertex>b7WYCPpV</Vertex>
+					</Edge>
 				</Function>
-				<Function Name="and101_1" PositionY="-1750" PositionX="-40" MethodName="math::boolean::And" DeclaringType="math::boolean">
-					<Edge From="and68.bool" To="A" />
-					<Edge From="and26.bool" To="B" />
+				<Function Name="and101_1" PositionY="-1720" PositionX="-40" MethodName="math::boolean::And" DeclaringType="math::boolean">
+					<Edge From="or120.bool" To="C">
+						<Vertex>M2zSlyaM</Vertex>
+					</Edge>
+					<Edge From="and26.bool" To="B">
+						<Vertex>c30uKUAD</Vertex>
+						<Vertex>b7WYCPpV</Vertex>
+					</Edge>
+					<Edge From="buresInSecretMint.State" To="A" />
 				</Function>
-				<Function Name="and105" PositionY="-570" PositionX="-1690" MethodName="math::boolean::And" DeclaringType="math::boolean">
+				<Function Name="and105" PositionY="-560" PositionX="-1700" MethodName="math::boolean::And" DeclaringType="math::boolean">
 					<Edge From="and26.bool" To="A" />
 					<Edge From="fight_with_buress_guards.fight_not_done" To="B">
 						<Vertex>rxdDwWcs</Vertex>
 						<Vertex>8L8nlRTv</Vertex>
 					</Edge>
-				</Function>
-				<Function Name="and114" PositionY="-1170" PositionX="-2180" MethodName="math::boolean::And" DeclaringType="math::boolean">
-					<Edge From="not115.bool" To="B" />
-					<Edge From="buresInSecretMint.State" To="A" />
-				</Function>
-				<Function Name="and26" PositionY="-550" PositionX="-2040" MethodName="math::boolean::And" DeclaringType="math::boolean">
-					<Edge From="buresIsInArea.State" To="A" />
-					<Edge From="not33.bool" To="B">
-						<Vertex>vertex24</Vertex>
-						<Vertex>vertex25</Vertex>
-					</Edge>
-					<Edge From="buresIsAlive.bool" To="C" />
-					<Edge From="buresIsConscious.bool" To="D" />
-					<Edge From="not27.bool" To="E">
+					<Edge From="not27.bool" To="C">
 						<Vertex>vertex19</Vertex>
-						<Vertex>vertex20</Vertex>
 					</Edge>
+					<Edge From="not33.bool" To="D">
+						<Vertex>vertex24</Vertex>
+					</Edge>
+				</Function>
+				<Function Name="and115" PositionY="-1170" PositionX="-2180" MethodName="math::boolean::And" DeclaringType="math::boolean">
+					<Edge From="buresInSecretMint.State" To="A" />
+					<Edge From="not116.bool" To="B" />
+				</Function>
+				<Function Name="and117" PositionY="1190" PositionX="-1310" MethodName="math::boolean::And" DeclaringType="math::boolean">
+					<Edge From="findTheSecretMint.Done" To="A" />
+					<Edge From="not118.bool" To="B" />
+				</Function>
+				<Function Name="and123" PositionY="-1450" PositionX="-1380" MethodName="math::boolean::And" DeclaringType="math::boolean">
+					<Edge From="not69_1.bool" To="C" />
+					<Edge From="buresInSecretMint.State" To="A" />
+					<Edge From="not69.bool" To="B" />
+				</Function>
+				<Function Name="and124" PositionY="-1300" PositionX="-1120" MethodName="math::boolean::And" DeclaringType="math::boolean">
+					<Edge From="not121.bool" To="A" />
+					<Edge From="not125.bool" To="B" />
+				</Function>
+				<Function Name="and26" PositionY="-560" PositionX="-1980" MethodName="math::boolean::And" DeclaringType="math::boolean">
+					<Edge From="buresIsInArea.State" To="A" />
+					<Edge From="buresIsAlive.bool" To="B" />
+					<Edge From="buresIsConscious.bool" To="C" />
 				</Function>
 				<Function Name="and40" PositionY="480" PositionX="-1780" MethodName="math::boolean::And" DeclaringType="math::boolean">
 					<Edge From="updatedinsecretmint" To="A">
@@ -158,23 +184,22 @@
 					<Edge From="quest_active" To="B" />
 					<Edge From="or29.bool" To="A" />
 				</Function>
-				<Function Name="and68" PositionY="-1230" PositionX="-1110" MethodName="math::boolean::And" DeclaringType="math::boolean">
-					<Edge From="not69.bool" To="B" />
-					<Edge From="buresInSecretMint.State" To="A" />
-				</Function>
-				<Function Name="and71" PositionY="-2540" PositionX="-1880" MethodName="math::boolean::And" DeclaringType="math::boolean">
+				<Function Name="and71" PositionY="-2450" PositionX="-1900" MethodName="math::boolean::And" DeclaringType="math::boolean">
 					<Edge From="not73.bool" To="A" />
 					<Edge From="quest_active" To="B" />
 				</Function>
-				<Function Name="and84" PositionY="-550" PositionX="-2820" MethodName="math::boolean::And" DeclaringType="math::boolean">
+				<Function Name="and84" PositionY="-590" PositionX="-2830" MethodName="math::boolean::And" DeclaringType="math::boolean">
 					<Edge From="not27.bool" To="B">
 						<Vertex>vertex19</Vertex>
-						<Vertex>vertex20</Vertex>
 						<Vertex>gdeap0TG</Vertex>
 					</Edge>
 					<Edge From="updatedinsecretmint" To="A" />
+					<Edge From="not33.bool" To="C">
+						<Vertex>vertex24</Vertex>
+						<Vertex>vertex25</Vertex>
+					</Edge>
 				</Function>
-				<Function Name="and92" PositionY="-1940" PositionX="-1100" MethodName="math::boolean::And" DeclaringType="math::boolean">
+				<Function Name="and92" PositionY="-1880" PositionX="-1100" MethodName="math::boolean::And" DeclaringType="math::boolean">
 					<Edge From="secretMintGuardsLoaded.State" To="A" />
 					<Edge From="fight_with_buress_guards.fight_not_started_yet" To="B" />
 					<Edge From="not108.bool" To="C" />
@@ -183,7 +208,7 @@
 					<Edge From="findTheSecretMint.Active" To="A" />
 					<Edge From="buresIsAlive.bool" To="B" />
 				</Function>
-				<areatrespassleveleffect Name="areatrespassleveleffect" PositionY="-2560" PositionX="-1630" Namespace="utils.crime.trespass">
+				<areatrespassleveleffect Name="areatrespassleveleffect" PositionY="-2470" PositionX="-1650" Namespace="utils.crime.trespass">
 					<Asset Name="area" Alias="secretMintUpperGround" />
 					<Constant Name="trespasslevel" Value="personal" />
 					<Edge From="and71.bool" To="isactive" />
@@ -203,7 +228,7 @@
 					<Asset Name="Areas" Alias="secretMintBuresAreaEntrance" />
 					<Edge From="and105.bool" To="IsActive" />
 				</AreaTrigger>
-				<AreaTrigger Name="areatrigger10_1_1" PositionY="-550" PositionX="-2590">
+				<AreaTrigger Name="areatrigger10_1_1" PositionY="-590" PositionX="-2600">
 					<Asset Name="Souls" Alias="bures" />
 					<Asset Name="Areas" Alias="secretMintMainRoom" />
 					<Edge From="and84.bool" To="IsActive" />
@@ -231,13 +256,13 @@
 					<Constant Name="DefaultValue" Value="false" />
 					<Edge From="distancetrigger93.OnMatch" To="SetTrue" />
 				</State>
-				<Function Name="buresIsAlive" PositionY="-2040" PositionX="-1650" MethodName="math::boolean::Not" DeclaringType="math::boolean">
+				<Function Name="buresIsAlive" PositionY="-2000" PositionX="-1650" MethodName="math::boolean::Not" DeclaringType="math::boolean">
 					<Edge From="isBuresDead.State" To="Value" />
 				</Function>
-				<Function Name="buresIsConscious" PositionY="-1310" PositionX="-1600" MethodName="math::boolean::Not" DeclaringType="math::boolean">
+				<Function Name="buresIsConscious" PositionY="-1620" PositionX="-1660" MethodName="math::boolean::Not" DeclaringType="math::boolean">
 					<Edge From="isBuresUnconscious.State" To="Value" />
 				</Function>
-				<State Name="buresIsInArea" PositionY="-550" PositionX="-2270" TypeT="bool">
+				<State Name="buresIsInArea" PositionY="-580" PositionX="-2260" TypeT="bool">
 					<Edge From="areatrigger10_1_1.OnAllEnter" To="SetTrue" />
 					<Edge From="areatrigger10_1_1.OnAllLeave" To="SetFalse" />
 				</State>
@@ -245,7 +270,7 @@
 					<Edge From="deathtrigger23.OnAllDeath" To="SetDeadBeforeMint" />
 					<Edge From="deathtrigger23_1.OnAllDeath" To="SetDeadInMint" />
 				</State>
-				<AddReward Name="codexFalsovani" PositionY="-820" PositionX="340">
+				<AddReward Name="codexFalsovani" PositionY="-730" PositionX="390">
 					<Edge From="findTheSecretMint.OnDone" To="AddReward">
 						<Vertex>vertex18</Vertex>
 						<Vertex>vertex17</Vertex>
@@ -257,19 +282,23 @@
 				<Function Name="createdialogparams11" PositionY="20" PositionX="-1770" MethodName="wh::dialogmodule::CreateDialogParams" DeclaringType="wh::dialogmodule">
 					<Asset Name="Participants" Alias="bures" />
 				</Function>
-				<SoulDeathTrigger Name="deathtrigger23" PositionY="1000" PositionX="-1080">
+				<State Name="dealedWithBures" PositionY="-240" PositionX="410" TypeT="bool">
+					<Constant Name="DefaultValue" Value="false" />
+					<Edge From="ifand13.True" To="SetTrue" />
+				</State>
+				<SoulDeathTrigger Name="deathtrigger23" PositionY="970" PositionX="-1080">
 					<Asset Name="Souls" Alias="bures" />
 					<Edge From="not24.bool" To="IsActive" />
 				</SoulDeathTrigger>
 				<SoulDeathTrigger Name="deathtrigger23_1" PositionY="1190" PositionX="-1080">
 					<Asset Name="Souls" Alias="bures" />
-					<Edge From="findTheSecretMint.Done" To="IsActive" />
+					<Edge From="and117.bool" To="IsActive" />
 				</SoulDeathTrigger>
-				<SoulDeathTrigger Name="deathtrigger44" PositionY="-2150" PositionX="-1940">
+				<SoulDeathTrigger Name="deathtrigger44" PositionY="-2110" PositionX="-1940">
 					<Asset Name="Souls" Alias="bures" />
 					<Edge From="quest_active" To="IsActive" />
 				</SoulDeathTrigger>
-				<SoulDeathTrigger Name="deathtrigger46" PositionY="-1010" PositionX="-1040">
+				<SoulDeathTrigger Name="deathtrigger46" PositionY="-1050" PositionX="-1030">
 					<Asset Name="Souls" Alias="buresovaGorila" />
 					<Edge From="quest_active" To="IsActive" />
 				</SoulDeathTrigger>
@@ -304,9 +333,9 @@
 					<Asset Name="SmartEntity" Alias="qSO" />
 					<Asset Name="NPC" Alias="bures" />
 					<Asset Name="data" Alias="secretMintBuresWaitingPoint" />
-					<Edge From="and68.bool" To="IsActive" />
+					<Edge From="and123.bool" To="IsActive" />
 				</EnableBehavior>
-				<EnableBehavior Name="enablebehaviorwuiddata30_1" PositionY="-1940" PositionX="-860" Signature="wuidData" EventSet="">
+				<EnableBehavior Name="enablebehaviorwuiddata30_1" PositionY="-1880" PositionX="-860" Signature="wuidData" EventSet="">
 					<Constant Name="Behavior" Value="waitForPlayer" />
 					<Asset Name="SmartEntity" Alias="qSO" />
 					<Asset Name="NPC" Alias="secretMint_guard_1" />
@@ -315,7 +344,7 @@
 						<Vertex>vertex32</Vertex>
 					</Edge>
 				</EnableBehavior>
-				<EnableBehavior Name="enablebehaviorwuiddata30_1_1" PositionY="-1940" PositionX="-610" Signature="wuidData" EventSet="">
+				<EnableBehavior Name="enablebehaviorwuiddata30_1_1" PositionY="-1880" PositionX="-610" Signature="wuidData" EventSet="">
 					<Constant Name="Behavior" Value="waitForPlayer" />
 					<Asset Name="SmartEntity" Alias="qSO" />
 					<Asset Name="NPC" Alias="secretMint_guard_2" />
@@ -325,7 +354,7 @@
 						<Vertex>vertex33</Vertex>
 					</Edge>
 				</EnableBehavior>
-				<EnableBehavior Name="enablebehaviorwuiddata30_1_2" PositionY="-1940" PositionX="-360" Signature="wuidData" EventSet="">
+				<EnableBehavior Name="enablebehaviorwuiddata30_1_2" PositionY="-1880" PositionX="-360" Signature="wuidData" EventSet="">
 					<Constant Name="Behavior" Value="waitForPlayer" />
 					<Asset Name="SmartEntity" Alias="qSO" />
 					<Asset Name="NPC" Alias="secretMint_guard_3" />
@@ -346,7 +375,7 @@
 						<Vertex>td7cr36e</Vertex>
 					</Edge>
 				</EnableBehavior>
-				<ExactMove Name="ExactMove" PositionY="-1370" PositionX="-290" Namespace="utils.move">
+				<ExactMove Name="ExactMove" PositionY="-1360" PositionX="-310" Namespace="utils.move">
 					<Asset Name="smartentity" Alias="qSO" />
 					<Asset Name="npc" Alias="bures" />
 					<Asset Name="destination" Alias="secretMintBuresDuringFightPoint" />
@@ -354,7 +383,7 @@
 					<Constant Name="fastforwardincludes" Value="false" />
 					<Edge From="fight_with_buress_guards.fight_is_active" To="isactive" />
 				</ExactMove>
-				<fight_with_buress_guards Name="fight_with_buress_guards" PositionY="10" PositionX="-420">
+				<fight_with_buress_guards Name="fight_with_buress_guards" PositionY="20" PositionX="-420">
 					<Edge From="forced_konfrontace_burese.prosli_jsme_forced" To="prosli_jsme_forced" />
 					<Edge From="include_dohoda_s_buresem.fight_s_buresovci" To="fight_s_buresovci" />
 					<Edge From="areatrigger10_1.OnAllEnter" To="cancel_fight_s_buresovci" />
@@ -369,7 +398,7 @@
 					</Edge>
 					<Edge From="zacina_tajna_mincovna" To="SetActive" />
 				</State>
-				<forced_konfrontace_burese Name="forced_konfrontace_burese" PositionY="-590" PositionX="-1010">
+				<forced_konfrontace_burese Name="forced_konfrontace_burese" PositionY="-580" PositionX="-1010">
 					<Asset Name="DialogueHolder" Alias="encounterWithBures" />
 					<Edge From="createdialogparams11.DialogParams" To="DialogParams" />
 					<Edge From="hrac_nasral_burese" To="hrac_nasral_burese" />
@@ -386,13 +415,21 @@
 					<Constant Name="itemclass" Value="f3a2d58c-9a6d-44a7-a05a-a70c9fc471a4" />
 					<Constant Name="amount" Value="1" />
 				</HasItems_Soul>
-				<include_dohoda_s_buresem Name="include_dohoda_s_buresem" PositionY="-540" PositionX="-200">
+				<IfFunction Name="ifand13" PositionY="-240" PositionX="190" MethodName="math::boolean::And" DeclaringType="math::boolean">
+					<Edge From="forced_konfrontace_burese.AfterPlay" To="Exec">
+						<Vertex>3VnCl8zP</Vertex>
+						<Vertex>mEkaSNEM</Vertex>
+					</Edge>
+					<Edge From="include_dohoda_s_buresem.seq1" To="A" />
+					<Edge From="include_dohoda_s_buresem.included_afterplay" To="Exec" />
+				</IfFunction>
+				<include_dohoda_s_buresem Name="include_dohoda_s_buresem" PositionY="-620" PositionX="-200">
 					<Edge From="razirna_a_pregeri.hrac_mluvil_s_pregeri" To="hrac_mluvil_s_pregeri" />
 					<Edge From="HasItems_Soul_2.hasitems" To="hrac_ukradl_vavakuv_dopis" />
 					<Edge From="HasItems_Soul_3.hasitems" To="hrac_ma_tajne_zaznamy" />
 					<Edge From="fight_with_buress_guards.bures_se_vzdava" To="bures_se_vzdava" />
 				</include_dohoda_s_buresem>
-				<State Name="isBuresDead" PositionY="-2280" PositionX="-1650" TypeT="bool">
+				<State Name="isBuresDead" PositionY="-2240" PositionX="-1650" TypeT="bool">
 					<Constant Name="DefaultValue" Value="false" />
 					<Edge From="deathtrigger44.OnAllDeath" To="SetTrue" />
 				</State>
@@ -415,19 +452,37 @@
 					<Constant Name="amount" Value="1" />
 					<Edge From="or74.bool" To="isactive" />
 				</itemclasstrigger_playerinventory>
-				<Function Name="not108" PositionY="-1750" PositionX="-1100" MethodName="math::boolean::Not" DeclaringType="math::boolean">
-					<Edge From="include_dohoda_s_buresem.vyjednavani_po_forced" To="Value" />
+				<Function Name="not108" PositionY="-1690" PositionX="-1100" MethodName="math::boolean::Not" DeclaringType="math::boolean">
+					<Edge From="dealedWithBures.State" To="Value">
+						<Vertex>8qfc5axN</Vertex>
+						<Vertex>ujBbPIVF</Vertex>
+					</Edge>
+				</Function>
+				<Function Name="not110" PositionY="-900" PositionX="20" MethodName="math::boolean::Not" DeclaringType="math::boolean">
+					<Edge From="include_dohoda_s_buresem.vem_si_klic" To="Value" />
 				</Function>
 				<Function Name="not111" PositionY="330" PositionX="-1070" MethodName="math::boolean::Not" DeclaringType="math::boolean">
 					<Edge From="forced_konfrontace_burese.prosli_jsme_forced" To="Value" />
 				</Function>
-				<Function Name="not115" PositionY="-1170" PositionX="-2400" MethodName="math::boolean::Not" DeclaringType="math::boolean">
+				<Function Name="not116" PositionY="-1170" PositionX="-2390" MethodName="math::boolean::Not" DeclaringType="math::boolean">
 					<Edge From="forced_konfrontace_burese.prosli_jsme_forced" To="Value" />
+				</Function>
+				<Function Name="not118" PositionY="1290" PositionX="-1550" MethodName="math::boolean::Not" DeclaringType="math::boolean">
+					<Edge From="buresState.DeadBeforeMint" To="Value">
+						<Vertex>F6u9kXjx</Vertex>
+						<Vertex>vm12wrMH</Vertex>
+					</Edge>
+				</Function>
+				<Function Name="not121" PositionY="-1250" PositionX="-1380" MethodName="math::boolean::Not" DeclaringType="math::boolean">
+					<Edge From="include_dohoda_s_buresem.seq1" To="Value" />
+				</Function>
+				<Function Name="not125" PositionY="-1130" PositionX="-1380" MethodName="math::boolean::Not" DeclaringType="math::boolean">
+					<Edge From="fight_with_buress_guards.hrac_se_vzdalil_behem_buresova_vzdavani" To="Value" />
 				</Function>
 				<Function Name="not24" PositionY="820" PositionX="-1780" MethodName="math::boolean::Not" DeclaringType="math::boolean">
 					<Edge From="findTheSecretMint.Done" To="Value" />
 				</Function>
-				<Function Name="not27" PositionY="-250" PositionX="-2040" MethodName="math::boolean::Not" DeclaringType="math::boolean">
+				<Function Name="not27" PositionY="-180" PositionX="-2040" MethodName="math::boolean::Not" DeclaringType="math::boolean">
 					<Edge From="forced_konfrontace_burese.prosli_jsme_forced" To="Value">
 						<Vertex>vertex22</Vertex>
 						<Vertex>vertex21</Vertex>
@@ -449,10 +504,13 @@
 				<Function Name="not64" PositionY="690" PositionX="-1780" MethodName="math::boolean::Not" DeclaringType="math::boolean">
 					<Edge From="playerInBuresAreaEntrance.State" To="Value" />
 				</Function>
-				<Function Name="not69" PositionY="-1150" PositionX="-1370" MethodName="math::boolean::Not" DeclaringType="math::boolean">
-					<Edge From="or67.bool" To="Value" />
+				<Function Name="not69" PositionY="-1450" PositionX="-1630" MethodName="math::boolean::Not" DeclaringType="math::boolean">
+					<Edge From="isPlayerThreatened.State" To="Value" />
 				</Function>
-				<Function Name="not73" PositionY="-2540" PositionX="-2110" MethodName="math::boolean::Not" DeclaringType="math::boolean">
+				<Function Name="not69_1" PositionY="-1330" PositionX="-1630" MethodName="math::boolean::Not" DeclaringType="math::boolean">
+					<Edge From="include_dohoda_s_buresem.seq1" To="Value" />
+				</Function>
+				<Function Name="not73" PositionY="-2450" PositionX="-2130" MethodName="math::boolean::Not" DeclaringType="math::boolean">
 					<Edge From="findTheSecretMint.None" To="Value" />
 				</Function>
 				<Function Name="not87" PositionY="40" PositionX="-1360" MethodName="math::boolean::Not" DeclaringType="math::boolean">
@@ -464,7 +522,11 @@
 				<najdi_tajnou_mincovnu Name="objectiveVisual20" PositionY="-940" PositionX="-1610" RequiredForOutput="kutnohorsko">
 					<Edge From="findTheSecretMint.State" To="Progress" />
 				</najdi_tajnou_mincovnu>
-				<Function Name="or29" PositionY="-1020" PositionX="-1370" MethodName="math::boolean::Or" DeclaringType="math::boolean">
+				<Function Name="or120" PositionY="-1450" PositionX="-1120" MethodName="math::boolean::Or" DeclaringType="math::boolean">
+					<Edge From="fight_with_buress_guards.fight_is_active" To="B" />
+					<Edge From="and124.bool" To="A" />
+				</Function>
+				<Function Name="or29" PositionY="-790" PositionX="-1620" MethodName="math::boolean::Or" DeclaringType="math::boolean">
 					<Edge From="findTheSecretMint.Active" To="A" />
 					<Edge From="findTheSecretMint.Done" To="B" />
 				</Function>
@@ -474,10 +536,6 @@
 						<Vertex>4a8p8JyF</Vertex>
 						<Vertex>SKHw6NqC</Vertex>
 					</Edge>
-				</Function>
-				<Function Name="or67" PositionY="-1180" PositionX="-1600" MethodName="math::boolean::Or" DeclaringType="math::boolean">
-					<Edge From="forced_konfrontace_burese.prosli_jsme_forced" To="A" />
-					<Edge From="isPlayerThreatened.State" To="B" />
 				</Function>
 				<Function Name="or74" PositionY="330" PositionX="-1330" MethodName="math::boolean::Or" DeclaringType="math::boolean">
 					<Edge From="updatedinsecretmint" To="A">
@@ -515,8 +573,9 @@
 					<Edge From="not52.bool" To="pregeri_zustavaji_v_mincovne" />
 					<Edge From="include_dohoda_s_buresem.disable_protections" To="UpdatedSearchSecretMint" />
 					<Edge From="findTheSecretMint.Active" To="hledani_tajne_mincovny_akitvni" />
-					<Edge From="include_dohoda_s_buresem.vyjednavani_po_forced" To="hrac_mluvil_s_buresem_v_mincovne" />
 					<Edge From="fight_with_buress_guards.bures_zdrha" To="bures_odchazi" />
+					<Edge From="razirna_a_pregeri.hrac_mluvil_s_pregeri" To="hrac_mluvil_s_pregeri" />
+					<Edge From="dealedWithBures.State" To="hrac_mluvil_s_buresem_v_mincovne" />
 				</Output>
 				<State Name="playerInBuresAreaEntrance" PositionY="690" PositionX="-2050" TypeT="bool">
 					<Edge From="areatrigger10_1.OnAllEnter" To="SetTrue" />
@@ -542,21 +601,21 @@
 						<Vertex>YPz9Yjnb</Vertex>
 					</Edge>
 				</State>
-				<ProfileStateTrigger Name="profilestatetrigger47" PositionY="-2120" PositionX="-1320">
+				<ProfileStateTrigger Name="profilestatetrigger47" PositionY="-2080" PositionX="-1320">
 					<Asset Name="Profiles" Alias="streamSecretMintGuards" />
 					<Edge From="quest_active" To="IsActive" />
 				</ProfileStateTrigger>
 				<razirna_a_pregeri Name="razirna_a_pregeri" PositionY="930" PositionX="-160" RequiredForOutput="kutnohorsko">
 					<Edge From="findTheSecretMint.Done" To="tajna_mincovna_nalezena" />
 					<Edge From="include_dohoda_s_buresem.raznice_u_burese" To="raznice_u_burese" />
-					<Edge From="include_dohoda_s_buresem.vyjednavani_po_forced" To="dialog_s_buresem_probehl" />
 					<Edge From="include_dohoda_s_buresem.guardsAreLeaving" To="straze_odesly" />
 					<Edge From="include_dohoda_s_buresem.buresIsLeaving" To="hrac_propustil_burese" />
 					<Edge From="buresState.DeadBeforeMint" To="hrac_zabil_burese_driv" />
 					<Edge From="buresState.DeadInMint" To="hrac_zabil_burese_v_mincovne" />
 					<Edge From="HasItems_Soul_3.hasitems" To="hrac_ma_tajne_zaznamy" />
+					<Edge From="dealedWithBures.State" To="dialog_s_buresem_probehl" />
 				</razirna_a_pregeri>
-				<SaveGame Name="savegame102" PositionY="-1180" PositionX="-1880">
+				<SaveGame Name="savegame102" PositionY="-1200" PositionX="-1880">
 					<Constant Name="Objective" Value="najdi_tajnou_mincovnu" />
 					<Edge From="findTheSecretMint.OnActive" To="EnqueueSave" />
 				</SaveGame>
@@ -564,7 +623,11 @@
 					<Constant Name="Objective" Value="ziskej_dukazy_proti_vavakovi" />
 					<Edge From="findTheSecretMint.OnDone" To="EnqueueSave" />
 				</SaveGame>
-				<State Name="secretMintGuardsLoaded" PositionY="-1940" PositionX="-1350" TypeT="bool">
+				<SchedulerLinkActivation Name="schedule12" PositionY="-1340" PositionX="250">
+					<Constant Name="LinkTag" Value="buresAfterDeal" />
+					<Edge From="include_dohoda_s_buresem.hrac_ma_vypadnout" To="IsActive" />
+				</SchedulerLinkActivation>
+				<State Name="secretMintGuardsLoaded" PositionY="-1880" PositionX="-1350" TypeT="bool">
 					<Constant Name="DefaultValue" Value="false" />
 					<Edge From="profilestatetrigger47.OnUnloaded" To="SetFalse" />
 					<Edge From="profilestatetrigger47.OnLoaded" To="SetTrue" />
@@ -574,72 +637,100 @@
 					<Asset Name="Souls" Alias="player" />
 					<Edge From="playerKeepsTorchDuringDialogue.State" To="IsActive" />
 				</SetEntityContext>
-				<SetEntityContext Name="setentitycontext107_1" PositionY="-2720" PositionX="-1880">
+				<SetEntityContext Name="setentitycontext107_1" PositionY="-2640" PositionX="-1900">
 					<Constant Name="Context" Value="crime_disabledDenialDialog" />
 					<Asset Name="Souls" Alias="bures" />
 					<Edge From="not73.bool" To="IsActive" />
 				</SetEntityContext>
-				<SetEntityContextPreset Name="setentitycontextpreset100" PositionY="-1940" PositionX="190">
+				<SetEntityContext Name="setentitycontext109" PositionY="-2830" PositionX="-1900">
+					<Constant Name="Context" Value="crime_disableInterruptWatchBarks" />
+					<Asset Name="Souls" Alias="bures" />
+					<Edge From="not73.bool" To="IsActive" />
+				</SetEntityContext>
+				<SetEntityContext Name="setentitycontext8_1" PositionY="-2830" PositionX="-1600">
+					<Constant Name="Context" Value="combat_disableDefaultSurrenderChat" />
+					<Asset Name="Souls" Alias="bures" />
+					<Edge From="not73.bool" To="IsActive" />
+				</SetEntityContext>
+				<SetEntityContext Name="setentitycontext8_1_1" PositionY="-3020" PositionX="-1600">
+					<Constant Name="Context" Value="crime_useAttackForArrest" />
+					<Asset Name="Souls" Alias="bures" />
+					<Edge From="not73.bool" To="IsActive" />
+				</SetEntityContext>
+				<SetEntityContext Name="setentitycontext8_1_1_1" PositionY="-3020" PositionX="-1900">
+					<Constant Name="Context" Value="combat_neverAcceptSurrender" />
+					<Asset Name="Souls" Alias="bures" />
+					<Edge From="not73.bool" To="IsActive" />
+				</SetEntityContext>
+				<SetEntityContextPreset Name="setentitycontextpreset100" PositionY="-1910" PositionX="190">
 					<Constant Name="Preset" Value="switch_unresponsive" />
 					<Asset Name="Souls" Alias="secretMint_guards" />
 					<Edge From="and101.bool" To="IsActive" />
 				</SetEntityContextPreset>
-				<SetEntityContextPreset Name="setentitycontextpreset100_1" PositionY="-1750" PositionX="190">
+				<SetEntityContextPreset Name="setentitycontextpreset100_1" PositionY="-1720" PositionX="190">
 					<Constant Name="Preset" Value="switch_unresponsive" />
 					<Asset Name="Souls" Alias="bures" />
 					<Edge From="and101_1.bool" To="IsActive" />
 				</SetEntityContextPreset>
-				<SetOwner Name="setowner12" PositionY="-900" PositionX="20">
+				<SetOwner Name="setowner12" PositionY="-960" PositionX="260">
 					<Asset Name="What" Alias="minterJailKeySlot" />
-					<Asset Name="Who" Alias="player" />
-					<Edge From="fight_with_buress_guards.bures_se_vzdava" To="IsActive" />
+					<Asset Name="Who" Alias="bures" />
+					<Edge From="not110.bool" To="IsActive" />
 				</SetOwner>
 				<SoulThreatsTrigger Name="threatstrigger113" PositionY="-1450" PositionX="-2180">
 					<Asset Name="Souls" Alias="player" />
-					<Edge From="and114.bool" To="IsActive" />
+					<Edge From="and115.bool" To="IsActive" />
 				</SoulThreatsTrigger>
-				<SoulUnconsciousTrigger Name="unconscioustrigger75" PositionY="-1870" PositionX="-1970">
+				<SoulUnconsciousTrigger Name="unconscioustrigger75" PositionY="-1830" PositionX="-1970">
 					<Asset Name="Souls" Alias="bures" />
 					<Edge From="quest_active" To="IsActive" />
 				</SoulUnconsciousTrigger>
-				<v_grunte_o_buresove_uteku Name="v_grunte_o_buresove_uteku" PositionY="-2530" PositionX="-1290">
+				<v_grunte_o_buresove_uteku Name="v_grunte_o_buresove_uteku" PositionY="-2490" PositionX="-1290">
 					<Edge From="findTheSecretMint.Active" To="hledame_mincovnu" />
 					<Edge From="buresIsAlive.bool" To="bures_neni_mrtvy" />
 				</v_grunte_o_buresove_uteku>
 			</Nodes>
 			<EdgeVertices>
+				<EdgeVertex Name="3VnCl8zP" PositionY="16" PositionX="-418" />
 				<EdgeVertex Name="4a8p8JyF" PositionY="670" PositionX="-1600" />
 				<EdgeVertex Name="4aoVoNSY" PositionY="-91" PositionX="-2408" />
 				<EdgeVertex Name="4y4WQX8A" PositionY="-50" PositionX="-260" />
 				<EdgeVertex Name="8L8nlRTv" PositionY="-10" PositionX="-1690" />
+				<EdgeVertex Name="8qfc5axN" PositionY="-1520" PositionX="530" />
+				<EdgeVertex Name="b7WYCPpV" PositionY="-1390" PositionX="-210" />
 				<EdgeVertex Name="bV1ufrQE" PositionY="-50" PositionX="-1130" />
 				<EdgeVertex Name="C2zEkUvw" PositionY="-50" PositionX="-1520" />
+				<EdgeVertex Name="c30uKUAD" PositionY="-1390" PositionX="-810" />
+				<EdgeVertex Name="F6u9kXjx" PositionY="1450" PositionX="-520" />
 				<EdgeVertex Name="gdeap0TG" PositionY="-270" PositionX="-2780" />
 				<EdgeVertex Name="hftxFcdm" PositionY="-89" PositionX="-2682" />
 				<EdgeVertex Name="JY3DrKdD" PositionY="-30" PositionX="-260" />
 				<EdgeVertex Name="LRHnhlzB" PositionY="450" PositionX="-1960" />
-				<EdgeVertex Name="o8sqsarY" PositionY="-1970" PositionX="-130" />
-				<EdgeVertex Name="P6tqurre" PositionY="-1530" PositionX="-2000" />
+				<EdgeVertex Name="M2zSlyaM" PositionY="-1360" PositionX="-120" />
+				<EdgeVertex Name="mEkaSNEM" PositionY="13" PositionX="75" />
+				<EdgeVertex Name="o8sqsarY" PositionY="-1900" PositionX="-130" />
+				<EdgeVertex Name="P6tqurre" PositionY="-1490" PositionX="-2010" />
 				<EdgeVertex Name="rxdDwWcs" PositionY="-10" PositionX="-160" />
 				<EdgeVertex Name="SagRlP4y" PositionY="1420" PositionX="-1160" />
 				<EdgeVertex Name="SKHw6NqC" PositionY="670" PositionX="-2000" />
-				<EdgeVertex Name="td7cr36e" PositionY="-1500" PositionX="-700" />
+				<EdgeVertex Name="td7cr36e" PositionY="-1490" PositionX="-640" />
+				<EdgeVertex Name="ujBbPIVF" PositionY="-1520" PositionX="-1080" />
 				<EdgeVertex Name="vertex13" PositionY="-590" PositionX="-1120" />
 				<EdgeVertex Name="vertex14" PositionY="-590" PositionX="-2010" />
 				<EdgeVertex Name="vertex15" PositionY="420" PositionX="-1960" />
 				<EdgeVertex Name="vertex17" PositionY="-610" PositionX="280" />
 				<EdgeVertex Name="vertex18" PositionY="-610" PositionX="-1740" />
 				<EdgeVertex Name="vertex19" PositionY="-270" PositionX="-1850" />
-				<EdgeVertex Name="vertex20" PositionY="-270" PositionX="-2020" />
 				<EdgeVertex Name="vertex21" PositionY="10" PositionX="-2030" />
 				<EdgeVertex Name="vertex22" PositionY="10" PositionX="-710" />
-				<EdgeVertex Name="vertex24" PositionY="-120" PositionX="-1820" />
-				<EdgeVertex Name="vertex25" PositionY="-120" PositionX="-2040" />
+				<EdgeVertex Name="vertex24" PositionY="-290" PositionX="-1850" />
+				<EdgeVertex Name="vertex25" PositionY="-290" PositionX="-2780" />
 				<EdgeVertex Name="vertex30" PositionY="1420" PositionX="40" />
 				<EdgeVertex Name="vertex31" PositionY="1420" PositionX="-1940" />
-				<EdgeVertex Name="vertex32" PositionY="-1970" PositionX="-850" />
-				<EdgeVertex Name="vertex33" PositionY="-1970" PositionX="-630" />
-				<EdgeVertex Name="vertex34" PositionY="-1970" PositionX="-400" />
+				<EdgeVertex Name="vertex32" PositionY="-1900" PositionX="-850" />
+				<EdgeVertex Name="vertex33" PositionY="-1900" PositionX="-630" />
+				<EdgeVertex Name="vertex34" PositionY="-1900" PositionX="-400" />
+				<EdgeVertex Name="vm12wrMH" PositionY="1450" PositionX="-1530" />
 				<EdgeVertex Name="wjRPMjpW" PositionY="-30" PositionX="-710" />
 				<EdgeVertex Name="YPz9Yjnb" PositionY="-30" PositionX="-1530" />
 			</EdgeVertices>
@@ -691,9 +782,6 @@
 				<TagPointAsset Name="secretMintBuresWaitingPoint" />
 			</Assets>
 			<Notes>
-				<Note Name="note53" PositionY="-1200" PositionX="250">
-					<Text StringName="tajna_min_note53_fRIL" Text="SMAZAT VŠECHNY ZBYTEČNÝ ENTITY V LEVELU!" />
-				</Note>
 				<Note Name="note104" PositionY="720" PositionX="-1540">
 					<Text StringName="tajna_min_note104_FjNC" Text="hmm, není tohle už zbytečný, když se ve všech potřebných situacích přímo triggeruje skirmish?" />
 				</Note>

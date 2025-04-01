@@ -12,6 +12,9 @@
 				<Port Name="duel_darko_is_enabled" Direction="In" Type="bool">
 					<DesignName StringName="darko_duel_darko_is_enabl_b7r1" Text="Duel Darko is enabled" />
 				</Port>
+				<Port Name="isspawned" Direction="Out" Type="bool">
+					<DesignName StringName="darko_isspawned_pVvr" Text="IsSpawned" />
+				</Port>
 			</Ports>
 			<Definitions>
 				<Definition File="darko/darko__uhersti_zoldneri.xml" />
@@ -27,10 +30,10 @@
 					<Edge From="current_level" To="ValueA" />
 				</Function>
 				<darko__uhersti_zoldneri Name="darko__uhersti_zoldneri" PositionY="-240" PositionX="-30" />
-				<eventattackhuman Name="eventattackhuman" PositionY="80" PositionX="390" Namespace="events_common">
-					<Asset Name="attackers" Alias="spawnedNPCs" />
+				<eventattackhuman Name="eventattackhuman" PositionY="100" PositionX="430" Namespace="events_common">
 					<Asset Name="target" Alias="player_any" />
 					<Edge From="darko__uhersti_zoldneri.start_fight" To="attack_and_make_hostile" />
+					<Edge From="joinarrays3.Array" To="attackers" />
 				</eventattackhuman>
 				<eventreward_itemclass Name="eventreward_itemclass" PositionY="-990" PositionX="-280" Namespace="events_common">
 					<Asset Name="soul" Alias="spawnedNPCs" />
@@ -40,9 +43,25 @@
 						<Vertex>HL8bC6EY</Vertex>
 					</Edge>
 				</eventreward_itemclass>
+				<fightconfiguration_surrendering Name="fightconfiguration_surrendering" PositionY="350" PositionX="740" Namespace="utils.combat">
+					<Constant Name="neversurrenderorflee" Value="true" />
+					<Constant Name="neveracceptsurrender" Value="true" />
+					<Constant Name="decentmercy" Value="false" />
+					<Constant Name="alwaysmercy" Value="false" />
+					<Edge From="eventattackhuman.hostility_isactive" To="isactive" />
+					<Edge From="joinarrays3.Array" To="souls" />
+				</fightconfiguration_surrendering>
+				<Function Name="joinarrays3" PositionY="300" PositionX="120" TypeT="wh::rpgmodule::Souls" MethodName="utilities::array::JoinArrays" DeclaringType="utilities::array">
+					<Asset Name="A" Alias="spawnedNPCs" />
+					<Asset Name="B" Alias="spawnedNPCs_party" />
+				</Function>
 				<Output Name="Output">
 					<Edge From="darko__uhersti_zoldneri.dialog_started" To="dialog_started" />
 					<Edge From="and1.bool" To="IsEnabled" />
+					<Edge From="IsSpawned" To="isspawned">
+						<Vertex>cpDxjhGs</Vertex>
+						<Vertex>Vwmtc0l1</Vertex>
+					</Edge>
 				</Output>
 				<taboryucesty_npc_duel Name="taboryucesty_npc_duel" PositionY="-330" PositionX="390" Namespace="taboryucesty_lib">
 					<Edge From="darko__uhersti_zoldneri.enable_npc_duel" To="setcanduelarmed" />
@@ -53,7 +72,9 @@
 				</taboryucesty_npc_duel>
 			</Nodes>
 			<EdgeVertices>
+				<EdgeVertex Name="cpDxjhGs" PositionY="790" PositionX="-170" />
 				<EdgeVertex Name="HL8bC6EY" PositionY="-260" PositionX="-300" />
+				<EdgeVertex Name="Vwmtc0l1" PositionY="790" PositionX="1040" />
 			</EdgeVertices>
 			<Text StringName="darko_FVNB" Text="Darko" />
 			<NpcGroups>

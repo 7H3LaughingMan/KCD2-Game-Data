@@ -27,9 +27,6 @@
 				<Port Name="abort" Direction="In" Type="trigger">
 					<DesignName StringName="hlidani_t_abort_ZrnY" Text="&lt;abort&gt;" />
 				</Port>
-				<Port Name="core_storyline_is_active" Direction="In" Type="bool">
-					<DesignName StringName="hlidani_t_core_storyline__EsbU" Text="&lt;core storyline is active&gt;" />
-				</Port>
 			</Ports>
 			<Definitions>
 				<Definition File="hlidani_tibora/sedlar_o_zajatem_tiborovi.xml" />
@@ -144,22 +141,10 @@
 						<Vertex>vertex58</Vertex>
 					</Edge>
 				</State>
-				<LinkEffectNoData Name="linkeffectnodata46" PositionY="-330" PositionX="1370">
-					<Asset Name="To" Alias="saddlersPlaceInhabitants" />
-					<Constant Name="Tag" Value="crime_doNotReactToTrespass" />
-					<Edge From="makearray48.Array" To="From" />
-					<Edge From="core_storyline_is_active" To="IsActive">
-						<Vertex>6ynC7ubs</Vertex>
-						<Vertex>k35I5h8v</Vertex>
-					</Edge>
-				</LinkEffectNoData>
 				<Function Name="lockTiborsPrisonDoor" PositionY="-720" PositionX="840" MethodName="wh::entitymodule::LockUp" DeclaringType="wh::entitymodule">
 					<Asset Name="LockBase" Alias="tiborPrisonDoor" />
 					<Edge From="keepDoorAndKeyUntilTiborEscaped.OnTrue" To="Exec" />
 				</Function>
-				<MakeArray Name="makearray48" PositionY="-300" PositionX="1020" TypeT="wh::xgenaimodule::LinkableObjects">
-					<Asset Name="A" Alias="tiborBarnOwTrespassArea" />
-				</MakeArray>
 				<TriggerSequence Name="onAlarmRaised" PositionY="910" PositionX="1050">
 					<Edge From="veznitel_2_o_zajatem_tiborovi.raiseTheAlarm" To="Exec">
 						<Vertex>6I8GFsnb</Vertex>
@@ -226,10 +211,12 @@
 				</TimeOfDayBetweenCheck>
 				<turntoplayerinidlestance Name="turntoplayerinidlestance" PositionY="370" PositionX="1140" Namespace="utils.general">
 					<Asset Name="npc" Alias="villageGuard_1" />
+					<Constant Name="anydecoratorpreset" Value="changeEquipment" />
 					<Edge From="if50.True" To="turntoplayerinidlestance" />
 				</turntoplayerinidlestance>
 				<turntoplayerinidlestance Name="turntoplayerinidlestance_1" PositionY="1658" PositionX="1203" Namespace="utils.general">
 					<Asset Name="npc" Alias="villageGuard_2" />
+					<Constant Name="anydecoratorpreset" Value="changeEquipment" />
 					<Edge From="if51.True" To="turntoplayerinidlestance" />
 				</turntoplayerinidlestance>
 				<Function Name="unlockTiborsPrisonDoor" PositionY="-580" PositionX="840" MethodName="wh::entitymodule::Unlock" DeclaringType="wh::entitymodule">
@@ -280,12 +267,10 @@
 				<EdgeVertex Name="1SDwHzmr" PositionY="1430" PositionX="-720" />
 				<EdgeVertex Name="5qCe4tdN" PositionY="9" PositionX="484" />
 				<EdgeVertex Name="6I8GFsnb" PositionY="1000" PositionX="950" />
-				<EdgeVertex Name="6ynC7ubs" PositionY="-860" PositionX="-910" />
 				<EdgeVertex Name="7gU3JrMn" PositionY="1007" PositionX="676" />
 				<EdgeVertex Name="BUeIX719" PositionY="180" PositionX="450" />
 				<EdgeVertex Name="DQ8PGLSU" PositionY="610" PositionX="1400" />
 				<EdgeVertex Name="EhEJJVf5" PositionY="770" PositionX="810" />
-				<EdgeVertex Name="k35I5h8v" PositionY="-870" PositionX="1110" />
 				<EdgeVertex Name="mKsvvFN2" PositionY="610" PositionX="840" />
 				<EdgeVertex Name="PHXUgBBz" PositionY="-520" PositionX="1230" />
 				<EdgeVertex Name="pl57WKFm" PositionY="174" PositionX="2046" />
@@ -316,9 +301,6 @@
 				</Note>
 				<Note Name="note45" PositionY="960" PositionX="1510">
 					<Text StringName="hlidani_t_note45_i90l" Text="-Fixnout skirmish reakci když hráč po tresspassu nebo vyhrážce v dialogu vytáhne zbraň =&gt; TOHLE JE KOMPLETNĚ ZÁVISLÉ OD RPG&#xD;&#xA;&#xD;&#xA;" />
-				</Note>
-				<Note Name="note49" PositionY="-180" PositionX="1060">
-					<Text StringName="hlidani_t_note49_mfCr" Text="Aby během questu nereagovali na OW &#xD;&#xA;trespass areu. Pouze na ty questové" />
 				</Note>
 			</Notes>
 			<Text StringName="v_zajeti_afCP" Text="Hlídání Tibora" />

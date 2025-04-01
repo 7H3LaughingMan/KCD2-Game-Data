@@ -7,6 +7,7 @@
 			<Variable name="animalHome" type="_wuid" values="" isPersistent="0" form="single" />
 			<Variable name="animalMate" type="_wuid" values="" isPersistent="0" form="single" />
 			<Variable name="animalUIName" type="_string" values="" isPersistent="0" form="single" />
+			<Variable name="areMates" type="_bool" values="" isPersistent="0" form="single" />
 			<Variable name="assaultData" type="crime:assaultData" values="" isPersistent="0" form="single" />
 			<Variable name="followupData" type="crime:followUpBehavior:returnStartledAnimal" values="" isPersistent="0" form="single" />
 			<Variable name="homeOwner" type="_wuid" values="" isPersistent="0" form="single" />
@@ -56,11 +57,7 @@
 											<Then canSkip="1">
 												<Sequence>
 													<Function_crime_createOrUpdatePoachingInformation animalAbuseKind="$stimulus.animalAbuseKind" attributedCrime="$stimulus.attributedCrime" victim="$stimulus.victim" information="$poachingInformation" nodeLabel="43904846" />
-													<EntityContextCheck context="crime_suppressBehavioralReaction" target="" saveVersion="2">
-														<Else canSkip="1">
-															<Function_callInterrupt_arrest assaultData="$assaultData" crimeSeen="true" criminalFreshness="$enum:crime_criminalFreshness.unknown" freshlyAttributedCrime="false" ignorePriority="true" information="$poachingInformation" initiator="$initiator" previousReaction="$enum:crime_reactionKind.unknown" source="$enum:crime_source.direct" stimulusKind="$enum:crime_stimulusKind.animalAbuse" trespassingRepeatedly="false" nodeLabel="91328450" />
-														</Else>
-													</EntityContextCheck>
+													<Function_callInterrupt_attack assaultData="$assaultData" criminalFreshness="$enum:crime_criminalFreshness.veryFresh" defenceMode="false" escalatedFromFailedSurrender="false" freshlyAttributedCrime="$stimulus.attributedCrime" ignorePriority="false" information="$poachingInformation" initiator="$initiator" previousReaction="$enum:crime_reactionKind.unknown" priority="160" questBehavior="false" relationOverride="false" stimulusKind="$enum:crime_stimulusKind.animalAbuse" target="$stimulus.culprit" nodeLabel="17812128" />
 												</Sequence>
 											</Then>
 										</EntityContextCheck>
@@ -121,6 +118,14 @@
 															<LinkTagFilter tag="&apos;home&apos;" prune="true" negprune="unknown" Parent="" Child="$animalHome" Data="" />
 														</GraphSearch>
 														<GetOwner Object="$animalHome" Owner="$homeOwner" />
+														<IfCondition failOnCondition="false" condition="$homeOwner == $__null">
+															<Sequence>
+																<GetAreMates Npc1="$this.id" Npc2="$stimulus.victim" AreMates="$areMates" />
+																<IfCondition failOnCondition="false" condition="$areMates">
+																	<Expression expressions="$homeOwner = $this.id" />
+																</IfCondition>
+															</Sequence>
+														</IfCondition>
 													</Sequence>
 													<Expression expressions="$homeOwner = $animalHome" />
 												</Selector>
@@ -229,6 +234,7 @@
 				<Variable name="animalHome" comment="" />
 				<Variable name="animalMate" comment="" />
 				<Variable name="animalUIName" comment="" />
+				<Variable name="areMates" comment="" />
 				<Variable name="assaultData" comment="" />
 				<Variable name="followupData" comment="" />
 				<Variable name="homeOwner" comment="" />
@@ -299,14 +305,9 @@
 														<Function_crime_createOrUpdatePoachingInformation hasInputBreakpoint="0" comment="" breakpointFlags="0">
 															<OutputBreakpoints />
 														</Function_crime_createOrUpdatePoachingInformation>
-														<EntityContextCheck hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
+														<Function_callInterrupt_attack hasInputBreakpoint="0" comment="" breakpointFlags="0">
 															<OutputBreakpoints />
-															<Else>
-																<Function_callInterrupt_arrest hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																	<OutputBreakpoints />
-																</Function_callInterrupt_arrest>
-															</Else>
-														</EntityContextCheck>
+														</Function_callInterrupt_attack>
 													</Sequence>
 												</Then>
 											</EntityContextCheck>
@@ -413,6 +414,21 @@
 															<GetOwner hasInputBreakpoint="0" comment="" breakpointFlags="0">
 																<OutputBreakpoints />
 															</GetOwner>
+															<IfCondition hasInputBreakpoint="0" comment="Failsafe for dynamic homes (mainly events)" breakpointFlags="0">
+																<OutputBreakpoints />
+																<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																	<OutputBreakpoints />
+																	<GetAreMates hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																		<OutputBreakpoints />
+																	</GetAreMates>
+																	<IfCondition hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																		<OutputBreakpoints />
+																		<Expression hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																			<OutputBreakpoints />
+																		</Expression>
+																	</IfCondition>
+																</Sequence>
+															</IfCondition>
 														</Sequence>
 														<Expression hasInputBreakpoint="0" comment="Failsafe, shouldn&apos;t really happen" breakpointFlags="0">
 															<OutputBreakpoints />

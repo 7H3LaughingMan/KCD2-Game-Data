@@ -17,30 +17,32 @@
 					<DistanceCondition Origin="$this.id" ReferencePt="$point" Low="5.000000" High="5.000000" Negation="true" ValueOnMiddle="false" failOnCondition="false">
 						<Move stopWithinDistance="0.200000" stopDistanceVariation="0.100000" rayCasteFlee="false" successDistance="5.000000" changeNPCState="true" fastForwardIncludesMove="false" destinationSpecification="$point" destinationSpecification2="" destinationSpecification3="" speed="Walk" additionalParams="" pathFindingParams="" staminaPolicy="" pathInfo="" />
 					</DistanceCondition>
-					<EntityContextElement context="sermiri_menhartFirstConfrontation" enabled="true">
-						<Loop count="-1">
-							<Sequence>
-								<RandomGate opensWithChance="0.500000" saveVersion="2">
-									<Then canSkip="1">
-										<HandContentElement hand="Right" item="$rightHand" allowAny="false" allowHomeSlotAutoReturn="false" decisionLabel="battle_weapon" useDecision="true" enabled="true" saveVersion="2">
-											<Search canSkip="1">
-												<GetWeaponsFromWeaponSet WeaponSet="Primary" LeftHand="$leftHand" RightHand="$rightHand" UseTorchWhenAppropriate="true" />
-											</Search>
-											<Exec canSkip="1">
-												<UnstanceAction unstance="sermiri_showOff" locationObject="$point" slaveObject="" />
-											</Exec>
-										</HandContentElement>
-									</Then>
-									<Else canSkip="1">
-										<UnstanceAction unstance="sermiri_showOff_withoutWeapon" locationObject="$point" slaveObject="" />
-									</Else>
-								</RandomGate>
-								<SuppressFailure>
-									<Function_speech_schedulerMonolog alias="&apos;sermiri_menhartFirstChallenge&apos;" animationApproach="$enum:animationApproach.dontPlayDialogAnimations" context="" lookAtId="" metarole="" skipInLod="false" subtitlesDown="false" nodeLabel="67575529" />
-								</SuppressFailure>
-								<Wait duration="&apos;5s&apos;" timeType="GameTime" doFail="false" variation="" />
-							</Sequence>
-						</Loop>
+					<EntityContextElement context="crime_ignorePlayersDrawnWeapon" enabled="true">
+						<EntityContextElement context="sermiri_menhartFirstConfrontation" enabled="true">
+							<Loop count="-1">
+								<Sequence>
+									<RandomGate opensWithChance="0.500000" saveVersion="2">
+										<Then canSkip="1">
+											<HandContentElement hand="Right" item="$rightHand" allowAny="false" allowHomeSlotAutoReturn="false" decisionLabel="battle_weapon" useDecision="true" enabled="true" saveVersion="2">
+												<Search canSkip="1">
+													<GetWeaponsFromWeaponSet WeaponSet="Primary" LeftHand="$leftHand" RightHand="$rightHand" UseTorchWhenAppropriate="true" />
+												</Search>
+												<Exec canSkip="1">
+													<UnstanceAction unstance="sermiri_showOff" locationObject="$point" slaveObject="" />
+												</Exec>
+											</HandContentElement>
+										</Then>
+										<Else canSkip="1">
+											<UnstanceAction unstance="sermiri_showOff_withoutWeapon" locationObject="$point" slaveObject="" />
+										</Else>
+									</RandomGate>
+									<SuppressFailure>
+										<Function_speech_schedulerMonolog alias="&apos;sermiri_menhartFirstChallenge&apos;" animationApproach="$enum:animationApproach.dontPlayDialogAnimations" context="" lookAtId="" metarole="" skipInLod="false" subtitlesDown="false" nodeLabel="67575529" />
+									</SuppressFailure>
+									<Wait duration="&apos;5s&apos;" timeType="GameTime" doFail="false" variation="" />
+								</Sequence>
+							</Loop>
+						</EntityContextElement>
 					</EntityContextElement>
 				</Sequence>
 			</Behavior>
@@ -74,44 +76,47 @@
 						</DistanceCondition>
 						<EntityContextElement hasInputBreakpoint="0" comment="" breakpointFlags="0">
 							<OutputBreakpoints />
-							<Loop hasInputBreakpoint="0" comment="" breakpointFlags="0">
+							<EntityContextElement hasInputBreakpoint="0" comment="" breakpointFlags="0">
 								<OutputBreakpoints />
-								<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
+								<Loop hasInputBreakpoint="0" comment="" breakpointFlags="0">
 									<OutputBreakpoints />
-									<RandomGate hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
+									<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
 										<OutputBreakpoints />
-										<Then>
-											<HandContentElement hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
-												<OutputBreakpoints />
-												<Search>
-													<GetWeaponsFromWeaponSet hasInputBreakpoint="0" comment="" breakpointFlags="0">
-														<OutputBreakpoints />
-													</GetWeaponsFromWeaponSet>
-												</Search>
-												<Exec>
-													<UnstanceAction hasInputBreakpoint="0" comment="" breakpointFlags="0">
-														<OutputBreakpoints />
-													</UnstanceAction>
-												</Exec>
-											</HandContentElement>
-										</Then>
-										<Else>
-											<UnstanceAction hasInputBreakpoint="0" comment="" breakpointFlags="0">
-												<OutputBreakpoints />
-											</UnstanceAction>
-										</Else>
-									</RandomGate>
-									<SuppressFailure hasInputBreakpoint="0" comment="" breakpointFlags="0">
-										<OutputBreakpoints />
-										<Function_speech_schedulerMonolog hasInputBreakpoint="0" comment="" breakpointFlags="0">
+										<RandomGate hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
 											<OutputBreakpoints />
-										</Function_speech_schedulerMonolog>
-									</SuppressFailure>
-									<Wait hasInputBreakpoint="0" comment="" breakpointFlags="0">
-										<OutputBreakpoints />
-									</Wait>
-								</Sequence>
-							</Loop>
+											<Then>
+												<HandContentElement hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
+													<OutputBreakpoints />
+													<Search>
+														<GetWeaponsFromWeaponSet hasInputBreakpoint="0" comment="" breakpointFlags="0">
+															<OutputBreakpoints />
+														</GetWeaponsFromWeaponSet>
+													</Search>
+													<Exec>
+														<UnstanceAction hasInputBreakpoint="0" comment="" breakpointFlags="0">
+															<OutputBreakpoints />
+														</UnstanceAction>
+													</Exec>
+												</HandContentElement>
+											</Then>
+											<Else>
+												<UnstanceAction hasInputBreakpoint="0" comment="" breakpointFlags="0">
+													<OutputBreakpoints />
+												</UnstanceAction>
+											</Else>
+										</RandomGate>
+										<SuppressFailure hasInputBreakpoint="0" comment="" breakpointFlags="0">
+											<OutputBreakpoints />
+											<Function_speech_schedulerMonolog hasInputBreakpoint="0" comment="" breakpointFlags="0">
+												<OutputBreakpoints />
+											</Function_speech_schedulerMonolog>
+										</SuppressFailure>
+										<Wait hasInputBreakpoint="0" comment="" breakpointFlags="0">
+											<OutputBreakpoints />
+										</Wait>
+									</Sequence>
+								</Loop>
+							</EntityContextElement>
 						</EntityContextElement>
 					</Sequence>
 				</Behavior>

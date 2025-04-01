@@ -39,8 +39,14 @@
 				<Port Name="valkoun_a_neplach_domluvili_pred_kostkama" Direction="In" Type="bool">
 					<DesignName StringName="stealth_a_valkoun_a_nepla_jTm3" Text="Valkoun a Neplach domluvili před kostkama" />
 				</Port>
+				<Port Name="vyresetovat_crime" Direction="In" Type="trigger">
+					<DesignName StringName="stealth_a_vyresetovat_cri_ndZP" Text="Zastavit timer u poplachu" />
+				</Port>
 				<Port Name="prepnout_osazeni_po_nalezeni_ptacka" Direction="In" Type="trigger">
 					<DesignName StringName="stealth_a_prepnout_osazen_AGlF" Text="Přepnout osazení po nalezení Ptáčka" />
+				</Port>
+				<Port Name="hrac_zkusil_nedavno_priskrtit_ptacka" Direction="Out" Type="bool">
+					<DesignName StringName="stealth_a_hrac_zkusil_ned_Nkwi" Text="Hráč zkusil nedávno přiškrtit Ptáčka" />
 				</Port>
 			</Ports>
 			<Definitions>
@@ -134,12 +140,20 @@
 						<Vertex>vertex31</Vertex>
 						<Vertex>vertex26</Vertex>
 					</Edge>
+					<Edge From="reakce_drabanta_a_ptacka_na_nasili_na_nich.hrac_zkusil_nedavno_priskrtit_ptacka" To="hrac_zkusil_nedavno_priskrtit_ptacka">
+						<Vertex>E9TT5IL5</Vertex>
+						<Vertex>MpzBLzRm</Vertex>
+					</Edge>
 				</Output>
 				<poplach Name="poplach" PositionY="-170" PositionX="1370">
 					<Edge From="civilisti_a_vojaci_jsou_nastreamovani" To="civilisti_a_vojaci_jsou_nastreamovani">
 						<Vertex>vertex15</Vertex>
 						<Vertex>vertex14</Vertex>
 						<Vertex>vertex16</Vertex>
+					</Edge>
+					<Edge From="vyresetovat_crime" To="zastavit_timer_u_poplachu">
+						<Vertex>NTBjgEan</Vertex>
+						<Vertex>93P9wl2M</Vertex>
 					</Edge>
 				</poplach>
 				<reakce_drabanta_a_ptacka_na_nasili_na_nich Name="reakce_drabanta_a_ptacka_na_nasili_na_nich" PositionY="110" PositionX="1270">
@@ -186,12 +200,16 @@
 				</Switch>
 			</Nodes>
 			<EdgeVertices>
-				<EdgeVertex Name="AIMal8gB" PositionY="-90" PositionX="462" />
+				<EdgeVertex Name="93P9wl2M" PositionY="-80" PositionX="1277" />
+				<EdgeVertex Name="AIMal8gB" PositionY="-90" PositionX="460" />
+				<EdgeVertex Name="E9TT5IL5" PositionY="922" PositionX="1850" />
 				<EdgeVertex Name="IjdUsklD" PositionY="739" PositionX="1214" />
+				<EdgeVertex Name="MpzBLzRm" PositionY="921" PositionX="3059" />
+				<EdgeVertex Name="NTBjgEan" PositionY="-80" PositionX="460" />
 				<EdgeVertex Name="S2SUT7yH" PositionY="738" PositionX="482" />
 				<EdgeVertex Name="t0eAtP9b" PositionY="751" PositionX="849" />
 				<EdgeVertex Name="vertex14" PositionY="-100" PositionX="790" />
-				<EdgeVertex Name="vertex15" PositionY="-100" PositionX="470" />
+				<EdgeVertex Name="vertex15" PositionY="-100" PositionX="460" />
 				<EdgeVertex Name="vertex16" PositionY="-100" PositionX="1280" />
 				<EdgeVertex Name="vertex19" PositionY="-170" PositionX="480" />
 				<EdgeVertex Name="vertex20" PositionY="-170" PositionX="1560" />
@@ -204,8 +222,8 @@
 				<EdgeVertex Name="vertex27" PositionY="810" PositionX="950" />
 				<EdgeVertex Name="vertex28" PositionY="840" PositionX="950" />
 				<EdgeVertex Name="vertex29" PositionY="860" PositionX="950" />
-				<EdgeVertex Name="vertex30" PositionY="890" PositionX="950" />
-				<EdgeVertex Name="vertex31" PositionY="910" PositionX="950" />
+				<EdgeVertex Name="vertex30" PositionY="880" PositionX="950" />
+				<EdgeVertex Name="vertex31" PositionY="900" PositionX="950" />
 				<EdgeVertex Name="vertex34" PositionY="70" PositionX="2690" />
 				<EdgeVertex Name="vertex35" PositionY="70" PositionX="1890" />
 				<EdgeVertex Name="vertex36" PositionY="749" PositionX="488" />
@@ -221,7 +239,7 @@
 				<EdgeVertex Name="vertex46" PositionY="800" PositionX="947" />
 				<EdgeVertex Name="w9rVzAhF" PositionY="-160" PositionX="920" />
 				<EdgeVertex Name="wuEF6cJb" PositionY="-160" PositionX="1560" />
-				<EdgeVertex Name="zWY16aJz" PositionY="-88" PositionX="788" />
+				<EdgeVertex Name="zWY16aJz" PositionY="-90" PositionX="790" />
 			</EdgeVertices>
 			<Types>
 				<Type TypeName="MalesovScheduleState">

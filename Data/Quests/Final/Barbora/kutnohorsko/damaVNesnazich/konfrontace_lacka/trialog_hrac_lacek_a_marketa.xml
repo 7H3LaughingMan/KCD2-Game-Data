@@ -49,6 +49,9 @@
 				<Function Name="createdialogparams1" PositionY="310" PositionX="-480" MethodName="wh::dialogmodule::CreateDialogParams" DeclaringType="wh::dialogmodule">
 					<Edge From="makearray7.Array" To="Participants" />
 				</Function>
+				<getequippedweapondialogprop Name="getequippedweapondialogprop" PositionY="720" PositionX="-800" Namespace="utils.speech">
+					<Asset Name="soul" Alias="player" />
+				</getequippedweapondialogprop>
 				<MakeArray Name="makearray7" PositionY="310" PositionX="-810" TypeT="wh::rpgmodule::Souls">
 					<Asset Name="A" Alias="marketa" />
 					<Asset Name="B" Alias="lacek" />
@@ -80,6 +83,11 @@
 						<SoulReputationReward ReputationChange="quest_reward_4_normal" Target="lacek" />
 					</Rewards>
 				</AddReward>
+				<Switch Name="switch13" PositionY="780" PositionX="-400" TypeT="bool" ValueTypes="wh::entitymodule::ItemClassId" SwitchValues="true">
+					<Constant Name="DefaultValue1" Value="c76ac5ec-7600-47e0-b256-e982cfed06b4" />
+					<Edge From="getequippedweapondialogprop.equippedweaponissupported" To="Switch" />
+					<Edge From="getequippedweapondialogprop.equippedweaponitemclass" To="trueValue1" />
+				</Switch>
 				<trialog_hrac_lacek_a_marketa Name="trialog_hrac_lacek_a_marketa">
 					<Asset Name="DialogueHolder" Alias="trialogDH" />
 					<Edge From="createdialogparams1.DialogParams" To="DialogParams" />
@@ -92,6 +100,7 @@
 						<Vertex>vertex9</Vertex>
 					</Edge>
 					<Edge From="areatrigger1.OnEnter" To="EnqueueDialogue" />
+					<Edge From="switch13.Value1" To="playerWeapon" />
 				</trialog_hrac_lacek_a_marketa>
 				<TriggerSequence Name="triggersequence10" PositionY="760" PositionX="460">
 					<Edge From="trialog_hrac_lacek_a_marketa.lacek_zaplatit_markete" To="Exec" />

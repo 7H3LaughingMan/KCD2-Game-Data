@@ -39,6 +39,9 @@
 				<Port Name="fail_opatem" Direction="In" Type="bool">
 					<DesignName StringName="zadani_od_fail_opatem_4YyW" Text="Fail Opatem" />
 				</Port>
+				<Port Name="gerhart_leave_level" Direction="Out" Type="trigger">
+					<DesignName StringName="zadani_od_gerhart_leave_l_eq7t" Text="gerhart leave level" />
+				</Port>
 			</Ports>
 			<Definitions>
 				<Definition File="zadani_od_zikmundovce/gerhart_barkuje_na_hrace.xml" />
@@ -75,7 +78,6 @@
 				<State Name="GerhartChat" PositionY="-840" PositionX="150" TypeT="ProgressFailable">
 					<Edge From="gerhartDialogAboutBones.OnActive" To="SetActive" />
 					<Edge From="ifand62_1.True" To="SetCanceled" />
-					<Edge From="gerhart_chat.nezajima_me_to" To="SetCanceled" />
 					<Edge From="enablebehaviortargetareaendnotification70.OnFinished" To="SetDone">
 						<Vertex>vertex28</Vertex>
 						<Vertex>vertex29</Vertex>
@@ -83,6 +85,7 @@
 					<Edge From="prichod_alchymisty" To="SetCanceled" />
 					<Edge From="gerhartDialogAboutBones.OnCanceled" To="SetCanceled" />
 					<Edge From="gerhartDialogAboutBones.OnDone" To="SetDone" />
+					<Edge From="gerhart_chat.nezajima_me_to" To="SetCanceled" />
 				</State>
 				<State Name="gerhartDialogAboutBones" PositionY="-380" PositionX="-140" TypeT="ProgressFailable">
 					<Edge From="skoncil_trialog_s_opatem" To="SetActive" />
@@ -92,6 +95,14 @@
 						<Vertex>vertex3</Vertex>
 					</Edge>
 				</State>
+				<If Name="if71" PositionY="-580" PositionX="550">
+					<Edge From="GerhartChat.OnDone" To="Exec" />
+					<Edge From="gerhart_vyhrozuje.gerhart_mluvil" To="Condition">
+						<Vertex>T2phBB33</Vertex>
+						<Vertex>M9fyDTUV</Vertex>
+					</Edge>
+					<Edge From="GerhartChat.OnCanceled" To="Exec" />
+				</If>
 				<IfFunction Name="ifand62" PositionY="-20" PositionX="-450" MethodName="math::boolean::And" DeclaringType="math::boolean">
 					<Edge From="gerhartDialogAboutBones.Active" To="A">
 						<Vertex>vertex4</Vertex>
@@ -115,10 +126,13 @@
 					<Edge From="gerhart_vyhrozuje.odevzdani_kosti" To="odevzdani_kosti" />
 					<Edge From="gerhart_vyhrozuje.quest_end" To="quest_end" />
 					<Edge From="gerhart_vyhrozuje.gerhartova_nabidka_prijata_hrac_ma_kosti" To="gerhartova_nabidka_prijata_hrac_ma_kosti" />
+					<Edge From="if71.False" To="gerhart_leave_level" />
 				</Output>
 			</Nodes>
 			<EdgeVertices>
+				<EdgeVertex Name="M9fyDTUV" PositionY="-384" PositionX="499" />
 				<EdgeVertex Name="oIV7ceas" PositionY="172" PositionX="157" />
+				<EdgeVertex Name="T2phBB33" PositionY="-390" PositionX="630" />
 				<EdgeVertex Name="vertex2" PositionY="50" PositionX="600" />
 				<EdgeVertex Name="vertex25" PositionY="-687" PositionX="442" />
 				<EdgeVertex Name="vertex26" PositionY="-877" PositionX="392" />

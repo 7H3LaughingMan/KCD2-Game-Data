@@ -29,17 +29,6 @@
 				</Port>
 			</Ports>
 			<Nodes>
-				<Function Name="and140" PositionY="480" PositionX="550" MethodName="math::boolean::And" DeclaringType="math::boolean">
-					<Edge From="preStartBarkDelejMagore4minuty.Finished" To="A" />
-					<Edge From="not135.bool" To="B">
-						<Vertex>vxTTHdQJ</Vertex>
-						<Vertex>HMu6VckS</Vertex>
-					</Edge>
-				</Function>
-				<Function Name="areacheck134" PositionY="490" PositionX="-550" MethodName="wh::rpgmodule::AreaCheck" DeclaringType="wh::rpgmodule">
-					<Asset Name="Souls" Alias="player" />
-					<Edge From="roh_pro_fightera_a" To="Areas" />
-				</Function>
 				<State Name="earlierStopage" PositionY="520" PositionX="-170" TypeT="bool">
 					<Edge From="restart" To="SetFalse">
 						<Vertex>xV3rTpM9</Vertex>
@@ -53,22 +42,20 @@
 						<Vertex>zcbqnWEF</Vertex>
 						<Vertex>3V7rrk7V</Vertex>
 					</Edge>
-					<Edge From="ifand2.True" To="Exec" />
+					<Edge From="ifareacheck142.False" To="Exec" />
 				</If>
-				<IfFunction Name="ifand2" PositionY="-80" PositionX="-200" MethodName="math::boolean::And" DeclaringType="math::boolean">
+				<IfFunction Name="ifand2" PositionY="-170" PositionX="-450" MethodName="math::boolean::And" DeclaringType="math::boolean">
 					<Edge From="start" To="Exec" />
-					<Edge From="not135.bool" To="B" />
 					<Edge From="hrac_v_souboji" To="A" />
-					<Edge From="hrac_neudelal_crime" To="C" />
+					<Edge From="hrac_neudelal_crime" To="B" />
 				</IfFunction>
-				<Function Name="not135" PositionY="290" PositionX="-560" MethodName="math::boolean::Not" DeclaringType="math::boolean">
-					<Edge From="areacheck134.IsInside" To="Value">
-						<Vertex>0KHth3J4</Vertex>
-						<Vertex>9zSYkxou</Vertex>
-					</Edge>
-				</Function>
+				<IfFunction Name="ifareacheck142" PositionY="-70" PositionX="-110" MethodName="wh::rpgmodule::AreaCheck" DeclaringType="wh::rpgmodule">
+					<Asset Name="Souls" Alias="player" />
+					<Edge From="roh_pro_fightera_a" To="Areas" />
+					<Edge From="ifand2.True" To="Exec" />
+				</IfFunction>
 				<Output Name="Output">
-					<Edge From="and140.bool" To="ceka" />
+					<Edge From="preStartBarkDelejMagore4minuty.Finished" To="ceka" />
 				</Output>
 				<Timer Name="preStartBarkDelejMagore4minuty" PositionY="180" PositionX="170">
 					<Constant Name="Duration" Value="5s" />
@@ -81,13 +68,9 @@
 				</Timer>
 			</Nodes>
 			<EdgeVertices>
-				<EdgeVertex Name="0KHth3J4" PositionY="440" PositionX="-370" />
 				<EdgeVertex Name="3V7rrk7V" PositionY="501" PositionX="-141" />
-				<EdgeVertex Name="9zSYkxou" PositionY="442" PositionX="-525" />
 				<EdgeVertex Name="dDN6k1RT" PositionY="667" PositionX="-642" />
 				<EdgeVertex Name="GTJaQNVJ" PositionY="270" PositionX="-150" />
-				<EdgeVertex Name="HMu6VckS" PositionY="789" PositionX="248" />
-				<EdgeVertex Name="vxTTHdQJ" PositionY="799" PositionX="-162" />
 				<EdgeVertex Name="xV3rTpM9" PositionY="672" PositionX="-645" />
 				<EdgeVertex Name="zcbqnWEF" PositionY="498" PositionX="21" />
 			</EdgeVertices>

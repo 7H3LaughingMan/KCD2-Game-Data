@@ -104,10 +104,6 @@
 						<Vertex>vertex29</Vertex>
 						<Vertex>vertex30</Vertex>
 					</Edge>
-					<Edge From="leceniOtce.OnExaminedBadly" To="hrac_ukoncil_diagnozu">
-						<Vertex>vertex50</Vertex>
-						<Vertex>vertex51</Vertex>
-					</Edge>
 					<Edge From="leceniOtce.OnExaminedWell" To="hrac_ukoncil_diagnozu">
 						<Vertex>vertex50</Vertex>
 						<Vertex>vertex51</Vertex>
@@ -119,6 +115,10 @@
 					<Edge From="quest_failed" To="quest_failed">
 						<Vertex>vertex59</Vertex>
 						<Vertex>vertex52</Vertex>
+					</Edge>
+					<Edge From="leceniOtce.OnExaminedBadly" To="hrac_ukoncil_diagnozu">
+						<Vertex>vertex50</Vertex>
+						<Vertex>vertex51</Vertex>
 					</Edge>
 				</diagnoza>
 				<If Name="if26" PositionY="800" PositionX="270">
@@ -158,6 +158,12 @@
 						<Vertex>vertex46</Vertex>
 					</Edge>
 				</IfFunction>
+				<KillNpc Name="KillNpc" PositionY="1090" PositionX="640" Namespace="utils.general">
+					<Asset Name="victims" Alias="goclin" />
+					<Asset Name="attacker" Alias="player" />
+					<Constant Name="suppresshitreaction" Value="true" />
+					<Edge From="unconscioustrigger30.OnUnconscious" To="exec" />
+				</KillNpc>
 				<leceni_ Name="leceni_" PositionY="420" PositionX="260">
 					<Edge From="leceniOtce.ExaminedWell" To="dobra_diagnoza">
 						<Vertex>vertex3</Vertex>
@@ -194,7 +200,7 @@
 						<Vertex>vertex20</Vertex>
 					</Edge>
 					<Edge From="if26.True" To="SetFailed" />
-					<Edge From="if29.True" To="SetAborted" />
+					<Edge From="if29.True" To="SetTreatedBadly" />
 				</State>
 				<musim_to_rict_matce Name="musim_to_rict_matce" PositionY="910" PositionX="1900" />
 				<osetri_stareho_von_grolla Name="objectiveVisual14" PositionY="120" PositionX="1120" RequiredForOutput="kutnohorsko">
@@ -248,19 +254,12 @@
 						<Vertex>vertex49</Vertex>
 						<Vertex>RIwPnj54</Vertex>
 					</Edge>
-					<Edge From="leceniOtce.OnExaminedBadly" To="otcuv_stav_se_nezlepsil">
-						<Vertex>vertex36</Vertex>
-						<Vertex>KLcPBfwR</Vertex>
-					</Edge>
 				</Output>
 				<Function Name="requestmonologue20" PositionY="950" PositionX="1480" MethodName="wh::xgenaimodule::RequestMonologue" DeclaringType="wh::xgenaimodule">
 					<Asset Name="Souls" Alias="player" />
 					<Constant Name="DecisionAlias" Value="kubaParalu_musimToRictMatce" />
 					<Edge From="leceniOtce.OnTreatedBadly" To="Exec">
 						<Vertex>vertex18</Vertex>
-					</Edge>
-					<Edge From="leceniOtce.OnExaminedBadly" To="Exec">
-						<Vertex>vertex28</Vertex>
 					</Edge>
 				</Function>
 				<Function Name="requestmonologue21" PositionY="770" PositionX="1480" MethodName="wh::xgenaimodule::RequestMonologue" DeclaringType="wh::xgenaimodule">
@@ -306,6 +305,10 @@
 					<Constant Name="DefaultValue1" Value="false" />
 					<Edge From="leceniOtce.State" To="Switch" />
 				</Switch>
+				<SoulUnconsciousTrigger Name="unconscioustrigger30" PositionY="1070" PositionX="270">
+					<Asset Name="Souls" Alias="goclin" />
+					<Edge From="and17.bool" To="IsActive" />
+				</SoulUnconsciousTrigger>
 				<zena_bude_mit_radost Name="zena_bude_mit_radost" PositionY="750" PositionX="1900" />
 			</Nodes>
 			<EdgeVertices>
@@ -317,7 +320,7 @@
 				<EdgeVertex Name="gNpyLcwE" PositionY="-10" PositionX="2170" />
 				<EdgeVertex Name="KLcPBfwR" PositionY="30" PositionX="2170" />
 				<EdgeVertex Name="MBaTzswe" PositionY="1068" PositionX="276" />
-				<EdgeVertex Name="MQ1fMvqM" PositionY="1086" PositionX="1006" />
+				<EdgeVertex Name="MQ1fMvqM" PositionY="1080" PositionX="990" />
 				<EdgeVertex Name="NcLYw1UF" PositionY="-30" PositionX="2170" />
 				<EdgeVertex Name="RIwPnj54" PositionY="10" PositionX="2170" />
 				<EdgeVertex Name="vertex10" PositionY="1880" PositionX="1250" />
@@ -332,7 +335,6 @@
 				<EdgeVertex Name="vertex21" PositionY="70" PositionX="130" />
 				<EdgeVertex Name="vertex22" PositionY="20" PositionX="520" />
 				<EdgeVertex Name="vertex25" PositionY="0" PositionX="520" />
-				<EdgeVertex Name="vertex28" PositionY="760" PositionX="1290" />
 				<EdgeVertex Name="vertex29" PositionY="-90" PositionX="960" />
 				<EdgeVertex Name="vertex3" PositionY="-10" PositionX="960" />
 				<EdgeVertex Name="vertex30" PositionY="-90" PositionX="290" />

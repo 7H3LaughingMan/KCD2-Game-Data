@@ -217,7 +217,10 @@
 					<DesignName StringName="turnajove_uvodni_rec_inpr_zM48" Text="Uvodni řeč inprogress" />
 				</Port>
 				<Port Name="beforewelcome" Direction="In" Type="trigger">
-					<DesignName StringName="turnajove_beforewelcome_PkDp" Text="BeforeWelcome" />
+					<DesignName StringName="turnajove_beforewelcome_PkDp" Text="Winner2 applause" />
+				</Port>
+				<Port Name="crime_konec_turnaje" Direction="In" Type="trigger">
+					<DesignName StringName="turnajove_crime_konec_tur_UFlf" Text="Crime konec turnaje" />
 				</Port>
 			</Ports>
 			<Definitions>
@@ -384,7 +387,7 @@
 						<Vertex>LqL9oy0f</Vertex>
 					</Edge>
 				</Function>
-				<Function Name="compare26" PositionY="-1760" PositionX="-2090" TypeT="KutnohorskyTurnaj_rounds" MethodName="Control::Compare" DeclaringType="Control">
+				<Function Name="compare26" PositionY="-1800" PositionX="-2100" TypeT="KutnohorskyTurnaj_rounds" MethodName="Control::Compare" DeclaringType="Control">
 					<Constant Name="Op" Value="Equals" />
 					<Constant Name="ValueB" Value="Done" />
 					<Edge From="souboj_round" To="ValueA">
@@ -401,7 +404,7 @@
 					<Constant Name="ValueB" Value="20" />
 					<Edge From="getstate35_1.Value" To="ValueA" />
 				</Function>
-				<divacke_osazeni Name="divacke_osazeni" PositionY="-1600" PositionX="-1340">
+				<divacke_osazeni Name="divacke_osazeni" PositionY="-1600" PositionX="-1340">5
 					<Edge From="menhart_je_mistr_1" To="menhart_je_mistr">
 						<Vertex>D9JjjXVn</Vertex>
 					</Edge>
@@ -539,6 +542,10 @@
 						<Vertex>vertex128</Vertex>
 					</Edge>
 				</MakeArray>
+				<State Name="NastreamovanTurnajNaStartu" PositionY="-2150" PositionX="-2180" TypeT="bool">
+					<Edge From="naspawnovat_animchary" To="SetTrue" />
+					<Edge From="zacina_annoucement" To="SetFalse" />
+				</State>
 				<State Name="nenifightAudioIntensity" PositionY="-2900" PositionX="-1290" TypeT="float">
 					<Edge From="selectIntensityAudio.OnExec" To="Exec" />
 					<Edge From="selectIntensityAudio.Value1" To="Value" />
@@ -621,9 +628,6 @@
 					<Edge From="hrac_nema_spravny_gear__muz" To="SelectM" />
 					<Edge From="skirmish_triggers.mensi_reakce" To="SelectH" />
 					<Edge From="skirmish_triggers.vetsi_reakce" To="SelectI" />
-					<Edge From="machrujici_turnajnik_audio_fans" To="SelectN">
-						<Vertex>7mNFMKjv</Vertex>
-					</Edge>
 					<Edge From="reditel_dokoncuje_rec_o_konci_turnaje" To="SelectN">
 						<Vertex>7mNFMKjv</Vertex>
 					</Edge>
@@ -634,6 +638,7 @@
 					<Edge From="fight_start" To="SelectN">
 						<Vertex>7mNFMKjv</Vertex>
 					</Edge>
+					<Edge From="machrujici_turnajnik_audio_fans" To="SelectD" />
 				</Select>
 				<Select Name="selectFanZeny" PositionY="1620" PositionX="-1350" InputPortGroups="14" ValueTypes="wh::dialogmodule::DecisionAlias bool bool">
 					<Constant Name="AValue1" Value="kutnohorskyTurnaj_cheeringObecnePozitivniZena2_1" />
@@ -694,9 +699,6 @@
 					<Edge From="hrac_nema_spravny_gear__zena" To="SelectM" />
 					<Edge From="skirmish_triggers.mensi_reakce" To="SelectH" />
 					<Edge From="skirmish_triggers.vetsi_reakce" To="SelectI" />
-					<Edge From="machrujici_turnajnik_audio_fans" To="SelectN">
-						<Vertex>7mNFMKjv</Vertex>
-					</Edge>
 					<Edge From="reditel_dokoncuje_rec_o_konci_turnaje" To="SelectN">
 						<Vertex>7mNFMKjv</Vertex>
 					</Edge>
@@ -707,6 +709,7 @@
 					<Edge From="fight_start" To="SelectN">
 						<Vertex>7mNFMKjv</Vertex>
 					</Edge>
+					<Edge From="machrujici_turnajnik_audio_fans" To="SelectD" />
 				</Select>
 				<Select Name="selectIntensityAudio" PositionY="-2900" PositionX="-1550" InputPortGroups="3" ValueTypes="float">
 					<Constant Name="AValue1" Value="0.2" />
@@ -795,8 +798,9 @@
 						<Vertex>vertex121</Vertex>
 					</Edge>
 				</Switch>
-				<Switch Name="switch44" PositionY="-3280" PositionX="-1590" TypeT="bool" ValueTypes="float">
-					<Constant Name="DefaultValue1" Value="0.9" />
+				<Switch Name="switch44" PositionY="-3280" PositionX="-1590" TypeT="bool" ValueTypes="float" SwitchValues="true">
+					<Constant Name="trueValue1" Value="0.9" />
+					<Constant Name="DefaultValue1" Value="0.8" />
 					<Edge From="and45.bool" To="Switch" />
 				</Switch>
 				<Timer Name="timer_idleFanBarksTime" PositionY="3980" PositionX="-1300">
@@ -991,6 +995,7 @@
 					<Edge From="uvodni_rec_inprogress" To="B">
 						<Vertex>fJ0f0jh4</Vertex>
 					</Edge>
+					<Edge From="NastreamovanTurnajNaStartu.State" To="C" />
 				</Function>
 			</Nodes>
 			<EdgeVertices>

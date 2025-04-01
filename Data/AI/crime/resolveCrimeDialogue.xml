@@ -334,8 +334,18 @@
 																				<IfElseCondition failOnCondition="false" condition="$punishment.containsKzikTrespass" saveVersion="2">
 																					<Then canSkip="1">
 																						<Sequence>
-																							<Expression expressions="$arrest_metarole = &apos;STRAZ_ZATYKANI_ZIKMUND_TABOR&apos;" />
-																							<Function_kzik_prepareArrest reactors="$postresolveSubscribers" nodeLabel="49918663" />
+																							<GetSpatialInfo In="$__player" Out="$playerPosition" What="Position" />
+																							<IsInsideAreaWithLabel Position="$playerPosition" Label="&apos;kzik_camp&apos;" Area="$kzik_campArea" FailSubtMissing="false" saveVersion="2">
+																								<Then canSkip="1">
+																									<Sequence>
+																										<Expression expressions="$arrest_metarole = &apos;STRAZ_ZATYKANI_ZIKMUND_TABOR&apos;" />
+																										<Function_kzik_prepareArrest reactors="$postresolveSubscribers" nodeLabel="49918663" />
+																									</Sequence>
+																								</Then>
+																								<Else canSkip="1">
+																									<Expression expressions="$arrest_metarole = &apos;STRAZ_ZATYKANI&apos;" />
+																								</Else>
+																							</IsInsideAreaWithLabel>
 																						</Sequence>
 																					</Then>
 																					<Else canSkip="1">
@@ -387,7 +397,7 @@
 																				<Sequence>
 																					<Function_player_dismountHorse dismountOnlyIfRelevantHorse="true" nodeLabel="60999549" />
 																					<Sequence>
-																						<Expression expressions="$confiscateFine = $resolution.kind == $enum:crime_resolutionKind.fine &#10;$confiscateItems = $punishment.confiscation == 1 &amp; $resolution.kind ~= $enum:crime_resolutionKind.skillCheck  &#10;? $enum:confiscateItems.all : $enum:confiscateItems.relevant" />
+																						<Expression expressions="$confiscateFine = $resolution.kind == $enum:crime_resolutionKind.fine &#10;$confiscateItems = $punishment.confiscation &gt; 0 &amp; $resolution.kind ~= $enum:crime_resolutionKind.skillCheck  &#10;? $enum:confiscateItems.all : $enum:confiscateItems.relevant" />
 																						<Function_crime_destroyTheftVolumesForConfiscatedItems confiscationMethod="$confiscateItems" nodeLabel="32820584" />
 																						<Confiscate ConfiscateItems="$confiscateItems" ConfiscateFine="$confiscateFine" TargetStash="$stolenItemsChest" />
 																						<IfCondition failOnCondition="false" condition="$confiscateFine">
@@ -481,7 +491,7 @@
 																		<Sequence>
 																			<Function_player_dismountHorse dismountOnlyIfRelevantHorse="true" nodeLabel="50879546" />
 																			<Function_crime_getStolenItemsStorageChest inventory="" storage="$stolenItemsChest" nodeLabel="95568360" />
-																			<IfCondition failOnCondition="false" condition="$punishment.confiscation == 1">
+																			<IfCondition failOnCondition="false" condition="$punishment.confiscation &gt; 0">
 																				<Sequence>
 																					<Expression expressions="$confiscateItems = $resolution.kind ~= $enum:crime_resolutionKind.skillCheck  &#10;? $enum:confiscateItems.all : $enum:confiscateItems.relevant" />
 																					<Function_crime_destroyTheftVolumesForConfiscatedItems confiscationMethod="$confiscateItems" nodeLabel="62990713" />
@@ -587,7 +597,9 @@
 											<SuppressFailure>
 												<Sequence>
 													<Function_crime_updatePostResolveSubscribers postResolveSubscribers="$postresolveSubscribers" nodeLabel="13307623" />
-													<InstantMultiSendMessageToNPC targets="$postresolveSubscribers" successMode="Any" failureMode="All" variable="$attackState" />
+													<IfCondition failOnCondition="false" condition="#postresolveSubscribers &gt; 0">
+														<InstantMultiSendMessageToNPC targets="$postresolveSubscribers" successMode="Any" failureMode="All" variable="$attackState" />
+													</IfCondition>
 												</Sequence>
 											</SuppressFailure>
 										</Sequence>
@@ -1171,12 +1183,28 @@
 																						<Then>
 																							<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
 																								<OutputBreakpoints />
-																								<Expression hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																								<GetSpatialInfo hasInputBreakpoint="0" comment="" breakpointFlags="0">
 																									<OutputBreakpoints />
-																								</Expression>
-																								<Function_kzik_prepareArrest hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																								</GetSpatialInfo>
+																								<IsInsideAreaWithLabel hasInputBreakpoint="0" comment="KCD2-518122" breakpointFlags="0" saveVersion="2">
 																									<OutputBreakpoints />
-																								</Function_kzik_prepareArrest>
+																									<Then>
+																										<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																											<OutputBreakpoints />
+																											<Expression hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																												<OutputBreakpoints />
+																											</Expression>
+																											<Function_kzik_prepareArrest hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																												<OutputBreakpoints />
+																											</Function_kzik_prepareArrest>
+																										</Sequence>
+																									</Then>
+																									<Else>
+																										<Expression hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																											<OutputBreakpoints />
+																										</Expression>
+																									</Else>
+																								</IsInsideAreaWithLabel>
 																							</Sequence>
 																						</Then>
 																						<Else>
@@ -1628,9 +1656,12 @@
 														<Function_crime_updatePostResolveSubscribers hasInputBreakpoint="0" comment="" breakpointFlags="0">
 															<OutputBreakpoints />
 														</Function_crime_updatePostResolveSubscribers>
-														<InstantMultiSendMessageToNPC hasInputBreakpoint="0" comment="" breakpointFlags="0">
+														<IfCondition hasInputBreakpoint="0" comment="" breakpointFlags="0">
 															<OutputBreakpoints />
-														</InstantMultiSendMessageToNPC>
+															<InstantMultiSendMessageToNPC hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																<OutputBreakpoints />
+															</InstantMultiSendMessageToNPC>
+														</IfCondition>
 													</Sequence>
 												</SuppressFailure>
 											</Sequence>

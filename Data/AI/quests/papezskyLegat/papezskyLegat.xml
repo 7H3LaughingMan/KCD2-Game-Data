@@ -995,7 +995,7 @@
 			</OnInit>
 			<Behavior canSkip="1">
 				<Sequence>
-					<UnstanceAction unstance="Quest_UnsuccessfulDoorBreak" locationObject="$__object.id" slaveObject="$door" />
+					<UnstanceAction unstance="Quest_UnsuccessfulDoorBreak" locationObject="$__object.id" slaveObject="" />
 					<Loop count="-1">
 						<Sequence>
 							<Function_speech_schedulerMonolog alias="&apos;papezskyLegat_pobudaUDveriBarks&apos;" animationApproach="$enum:animationApproach.dontPlayDialogAnimations" context="" lookAtId="" metarole="" skipInLod="false" subtitlesDown="false" nodeLabel="10727615" />
@@ -1977,47 +1977,6 @@
 							</Sequence>
 						</UnstanceElement>
 					</EntityContextElement>
-				</Behavior>
-			</Root>
-			<Forest />
-			<Comments />
-		</EditorData>
-	</BehaviorTree>
-	<BehaviorTree name="papezskyLegat_rozaCarriedAcross" is_function="0">
-		<Variables />
-		<Parameters>
-			<Variable name="data" type="_wuid" values="" isPersistent="0" form="single" requirementType="In" />
-		</Parameters>
-		<Root OneTimeOnly="false" FailState="Recoverable" saveVersion="2">
-			<Behavior canSkip="1">
-				<Sequence>
-					<Function_speech_dialogInitiator alias="&apos;papezskyLegat_priNoseniRozy&apos;" animationApproach="$enum:animationApproach.dontPlayDialogAnimations" context="" customParameters="" metarole="" preset="$enum:dialogPreset.chat" recipient="$__player" recipientMetaroles="" nodeLabel="37821128" />
-					<Callback_empty EventName="&apos;OnFinished&apos;" />
-					<Wait duration="&apos;-1&apos;" timeType="GameTime" doFail="false" variation="" />
-				</Sequence>
-			</Behavior>
-		</Root>
-		<ForestContainer />
-		<EditorData EventSet="endNotification">
-			<Variables>
-				<Variable name="data" comment="" />
-			</Variables>
-			<ForwardDeclarations />
-			<Root hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
-				<OutputBreakpoints />
-				<Behavior>
-					<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
-						<OutputBreakpoints />
-						<Function_speech_dialogInitiator hasInputBreakpoint="0" comment="" breakpointFlags="0">
-							<OutputBreakpoints />
-						</Function_speech_dialogInitiator>
-						<Callback_empty hasInputBreakpoint="0" comment="" breakpointFlags="0">
-							<OutputBreakpoints />
-						</Callback_empty>
-						<Wait hasInputBreakpoint="0" comment="" breakpointFlags="0">
-							<OutputBreakpoints />
-						</Wait>
-					</Sequence>
 				</Behavior>
 			</Root>
 			<Forest />
@@ -3058,42 +3017,6 @@
 			<Comments />
 		</EditorData>
 	</BehaviorTree>
-	<BehaviorTree name="papezskyLegat_rozaCarriedWrongWay" is_function="0">
-		<Variables />
-		<Root OneTimeOnly="false" FailState="Recoverable" saveVersion="2">
-			<Behavior canSkip="1">
-				<Sequence>
-					<Function_speech_dialogInitiator alias="&apos;papezskyLegat_rozaJindraJiNeseSpatnymSmerem&apos;" animationApproach="$enum:animationApproach.dontPlayDialogAnimations" context="" customParameters="" metarole="" preset="$enum:dialogPreset.ingame" recipient="$__player" recipientMetaroles="" nodeLabel="98448343" />
-					<Callback_empty EventName="&apos;OnFinished&apos;" />
-					<Wait duration="&apos;5s&apos;" timeType="GameTime" doFail="false" variation="" />
-				</Sequence>
-			</Behavior>
-		</Root>
-		<ForestContainer />
-		<EditorData EventSet="endNotification">
-			<Variables />
-			<ForwardDeclarations />
-			<Root hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
-				<OutputBreakpoints />
-				<Behavior>
-					<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
-						<OutputBreakpoints />
-						<Function_speech_dialogInitiator hasInputBreakpoint="0" comment="" breakpointFlags="0">
-							<OutputBreakpoints />
-						</Function_speech_dialogInitiator>
-						<Callback_empty hasInputBreakpoint="0" comment="" breakpointFlags="0">
-							<OutputBreakpoints />
-						</Callback_empty>
-						<Wait hasInputBreakpoint="0" comment="" breakpointFlags="0">
-							<OutputBreakpoints />
-						</Wait>
-					</Sequence>
-				</Behavior>
-			</Root>
-			<Forest />
-			<Comments />
-		</EditorData>
-	</BehaviorTree>
 	<BehaviorTree name="papezskyLegat_samWaitsForMark" is_function="0">
 		<Variables>
 			<Variable name="torch" type="_wuid" values="" isPersistent="0" form="single" />
@@ -3461,31 +3384,22 @@
 							<GetLightSourceItem Item="$torch" />
 						</Search>
 						<Exec canSkip="1">
-							<Sequence>
-								<IfCondition failOnCondition="false" condition="$playedAnim == false">
-									<ForceLook LookTarget="$__player" DisableVariations="true">
-										<Sequence>
-											<Turn target="$__player" align="false" />
-											<AnimationAction fragment="&apos;CrimeScareMedium&apos;" tags="" eventReferenceObject="" alignObject="" slaveObject="" resourceOverride="" allowTorchForPlayer="false" />
-											<Expression expressions="$playedAnim = true" />
-										</Sequence>
-									</ForceLook>
-								</IfCondition>
-								<ForceLook LookTarget="$__player" DisableVariations="true">
-									<Loop count="-1">
-										<Sequence>
-											<Turn target="$__player" align="false" />
-											<Wait duration="&apos;1s&apos;" timeType="GameTime" doFail="false" variation="" />
-										</Sequence>
-									</Loop>
-								</ForceLook>
-							</Sequence>
+							<ForceLook LookTarget="$__player" DisableVariations="true">
+								<Loop count="-1">
+									<Sequence>
+										<Turn target="$__player" align="false" />
+										<Wait duration="&apos;1s&apos;" timeType="GameTime" doFail="false" variation="" />
+									</Sequence>
+								</Loop>
+							</ForceLook>
 						</Exec>
 					</HandContentElement>
 				</EntityContext>
 			</Behavior>
 		</Root>
-		<ForestContainer />
+		<ForestContainer>
+			<Expression expressions="$playedAnim = true" />
+		</ForestContainer>
 		<EditorData EventSet="">
 			<Variables>
 				<Variable name="playedAnim" comment="" />
@@ -3505,48 +3419,31 @@
 								</GetLightSourceItem>
 							</Search>
 							<Exec>
-								<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
+								<ForceLook hasInputBreakpoint="0" comment="" breakpointFlags="0">
 									<OutputBreakpoints />
-									<IfCondition hasInputBreakpoint="0" comment="" breakpointFlags="0">
+									<Loop hasInputBreakpoint="0" comment="" breakpointFlags="0">
 										<OutputBreakpoints />
-										<ForceLook hasInputBreakpoint="0" comment="" breakpointFlags="0">
+										<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
 											<OutputBreakpoints />
-											<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
+											<Turn hasInputBreakpoint="0" comment="" breakpointFlags="0">
 												<OutputBreakpoints />
-												<Turn hasInputBreakpoint="0" comment="" breakpointFlags="0">
-													<OutputBreakpoints />
-												</Turn>
-												<AnimationAction hasInputBreakpoint="0" comment="" breakpointFlags="0">
-													<OutputBreakpoints />
-												</AnimationAction>
-												<Expression hasInputBreakpoint="0" comment="" breakpointFlags="0">
-													<OutputBreakpoints />
-												</Expression>
-											</Sequence>
-										</ForceLook>
-									</IfCondition>
-									<ForceLook hasInputBreakpoint="0" comment="" breakpointFlags="0">
-										<OutputBreakpoints />
-										<Loop hasInputBreakpoint="0" comment="" breakpointFlags="0">
-											<OutputBreakpoints />
-											<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
+											</Turn>
+											<Wait hasInputBreakpoint="0" comment="" breakpointFlags="0">
 												<OutputBreakpoints />
-												<Turn hasInputBreakpoint="0" comment="" breakpointFlags="0">
-													<OutputBreakpoints />
-												</Turn>
-												<Wait hasInputBreakpoint="0" comment="" breakpointFlags="0">
-													<OutputBreakpoints />
-												</Wait>
-											</Sequence>
-										</Loop>
-									</ForceLook>
-								</Sequence>
+											</Wait>
+										</Sequence>
+									</Loop>
+								</ForceLook>
 							</Exec>
 						</HandContentElement>
 					</EntityContext>
 				</Behavior>
 			</Root>
-			<Forest />
+			<Forest>
+				<Expression editorPosX="1570" editorPosY="-90" hasInputBreakpoint="0" comment="" breakpointFlags="0">
+					<OutputBreakpoints />
+				</Expression>
+			</Forest>
 			<Comments />
 		</EditorData>
 	</BehaviorTree>
@@ -3663,6 +3560,376 @@
 							</Callback_empty>
 						</OnSuccess>
 					</FuseBox>
+				</Behavior>
+			</Root>
+			<Forest />
+			<Comments />
+		</EditorData>
+	</BehaviorTree>
+	<BehaviorTree name="papezskyLegat_rozaBeingCarried" is_function="0">
+		<Variables />
+		<Parameters>
+			<Variable name="barkAboutWrongWay" type="_bool" values="" isPersistent="0" form="single" requirementType="ConstReference" />
+			<Variable name="chatAfterFirstPickedUp" type="_bool" values="" isPersistent="0" form="single" requirementType="ConstReference" />
+			<Variable name="finishingBehavior" type="_bool" values="" isPersistent="0" form="single" requirementType="ConstReference" />
+		</Parameters>
+		<Root OneTimeOnly="false" FailState="Recoverable" saveVersion="2">
+			<Behavior canSkip="1">
+				<EntityContext context="ForceForbidAutoTorch" target="$this.id">
+					<Parallel successMode="Any" failureMode="Any">
+						<While doFail="false" propagateChildFail="false" condition="true">
+							<Sequence>
+								<SetExternalLock LockManagerType="Intellect" Locked="false" LockName="&apos;papezskyLegat_roza_onGround&apos;" />
+								<ActorStateBarrier Who="$this.id" ToState="carried" NegateTo="false" RunLogic="KeepRunning">
+									<SetExternalLock LockManagerType="Intellect" Locked="true" LockName="&apos;papezskyLegat_roza_onGround&apos;" />
+								</ActorStateBarrier>
+								<ActorStateBarrier Who="$this.id" ToState="carried" NegateTo="true" RunLogic="KeepRunning">
+									<UrgencyDecorator Urgency="Slow">
+										<AnimationAction fragment="&apos;Quest_PutdownFemale&apos;" tags="" eventReferenceObject="" alignObject="" slaveObject="" resourceOverride="" allowTorchForPlayer="false" />
+									</UrgencyDecorator>
+								</ActorStateBarrier>
+							</Sequence>
+						</While>
+						<IfGate atomic="false" condition="$finishingBehavior" RunLogic="KeepRunning">
+							<ExternalLock atomic="false" OutsideQueuePosVariable="" InsidePosVariable="" TimerType="GameTime" OutsideTimerValue="&apos;-1&apos;" LockManagerType="Intellect" SemaphoreName="&apos;papezskyLegat_roza_onGround&apos;" RunLogic="KeepRunning">
+								<Callback_empty EventName="&apos;behaviorFinished&apos;" />
+							</ExternalLock>
+						</IfGate>
+						<ContinuousSwitch>
+							<IfCondition failOnCondition="false" condition="$chatAfterFirstPickedUp">
+								<Sequence>
+									<SuppressFailure>
+										<Function_speech_dialogInitiator alias="&apos;papezskyLegat_priNoseniRozy&apos;" animationApproach="$enum:animationApproach.dontPlayDialogAnimations" context="" customParameters="" metarole="" preset="$enum:dialogPreset.chat" recipient="$__player" recipientMetaroles="" nodeLabel="41304724" />
+									</SuppressFailure>
+									<Callback_empty EventName="&apos;chatAfterFirstPickedUpFinished&apos;" />
+								</Sequence>
+							</IfCondition>
+							<IfCondition failOnCondition="false" condition="$barkAboutWrongWay">
+								<Sequence>
+									<Function_speech_dialogInitiator alias="&apos;papezskyLegat_rozaJindraJiNeseSpatnymSmerem&apos;" animationApproach="$enum:animationApproach.dontPlayDialogAnimations" context="" customParameters="" metarole="" preset="$enum:dialogPreset.ingame" recipient="$__player" recipientMetaroles="" nodeLabel="96890298" />
+									<Wait duration="&apos;5s&apos;" timeType="GameTime" doFail="false" variation="" />
+									<Callback_empty EventName="&apos;barkAboutWrongWayFinished&apos;" />
+								</Sequence>
+							</IfCondition>
+							<IfCondition failOnCondition="false" condition="true">
+								<Wait duration="&apos;-1&apos;" timeType="GameTime" doFail="false" variation="" />
+							</IfCondition>
+						</ContinuousSwitch>
+					</Parallel>
+				</EntityContext>
+			</Behavior>
+		</Root>
+		<ForestContainer />
+		<EditorData Signature="papezskyLegat_rozaBeingCarried" EventSet="papezskyLegat_rozaBeingCarried">
+			<Variables>
+				<Variable name="barkAboutWrongWay" comment="" />
+				<Variable name="chatAfterFirstPickedUp" comment="" />
+				<Variable name="finishingBehavior" comment="" />
+			</Variables>
+			<ForwardDeclarations />
+			<Root hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
+				<OutputBreakpoints />
+				<Behavior>
+					<EntityContext hasInputBreakpoint="0" comment="" breakpointFlags="0">
+						<OutputBreakpoints />
+						<Parallel hasInputBreakpoint="0" comment="" breakpointFlags="0">
+							<OutputBreakpoints />
+							<While hasInputBreakpoint="0" comment="" breakpointFlags="0">
+								<OutputBreakpoints />
+								<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
+									<OutputBreakpoints />
+									<SetExternalLock hasInputBreakpoint="0" comment="" breakpointFlags="0">
+										<OutputBreakpoints />
+									</SetExternalLock>
+									<ActorStateBarrier hasInputBreakpoint="0" comment="" breakpointFlags="0">
+										<OutputBreakpoints />
+										<SetExternalLock hasInputBreakpoint="0" comment="" breakpointFlags="0">
+											<OutputBreakpoints />
+										</SetExternalLock>
+									</ActorStateBarrier>
+									<ActorStateBarrier hasInputBreakpoint="0" comment="" breakpointFlags="0">
+										<OutputBreakpoints />
+										<UrgencyDecorator hasInputBreakpoint="0" comment="" breakpointFlags="0">
+											<OutputBreakpoints />
+											<AnimationAction hasInputBreakpoint="0" comment="" breakpointFlags="0">
+												<OutputBreakpoints />
+											</AnimationAction>
+										</UrgencyDecorator>
+									</ActorStateBarrier>
+								</Sequence>
+							</While>
+							<IfGate hasInputBreakpoint="0" comment="" breakpointFlags="0">
+								<OutputBreakpoints />
+								<ExternalLock hasInputBreakpoint="0" comment="" breakpointFlags="0">
+									<OutputBreakpoints />
+									<Callback_empty hasInputBreakpoint="0" comment="" breakpointFlags="0">
+										<OutputBreakpoints />
+									</Callback_empty>
+								</ExternalLock>
+							</IfGate>
+							<ContinuousSwitch hasInputBreakpoint="0" comment="" breakpointFlags="0">
+								<OutputBreakpoints />
+								<IfCondition hasInputBreakpoint="0" comment="" breakpointFlags="0">
+									<OutputBreakpoints />
+									<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
+										<OutputBreakpoints />
+										<SuppressFailure hasInputBreakpoint="0" comment="" breakpointFlags="0">
+											<OutputBreakpoints />
+											<Function_speech_dialogInitiator hasInputBreakpoint="0" comment="" breakpointFlags="0">
+												<OutputBreakpoints />
+											</Function_speech_dialogInitiator>
+										</SuppressFailure>
+										<Callback_empty hasInputBreakpoint="0" comment="" breakpointFlags="0">
+											<OutputBreakpoints />
+										</Callback_empty>
+									</Sequence>
+								</IfCondition>
+								<IfCondition hasInputBreakpoint="0" comment="" breakpointFlags="0">
+									<OutputBreakpoints />
+									<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
+										<OutputBreakpoints />
+										<Function_speech_dialogInitiator hasInputBreakpoint="0" comment="" breakpointFlags="0">
+											<OutputBreakpoints />
+										</Function_speech_dialogInitiator>
+										<Wait hasInputBreakpoint="0" comment="" breakpointFlags="0">
+											<OutputBreakpoints />
+										</Wait>
+										<Callback_empty hasInputBreakpoint="0" comment="" breakpointFlags="0">
+											<OutputBreakpoints />
+										</Callback_empty>
+									</Sequence>
+								</IfCondition>
+								<IfCondition hasInputBreakpoint="0" comment="" breakpointFlags="0">
+									<OutputBreakpoints />
+									<Wait hasInputBreakpoint="0" comment="" breakpointFlags="0">
+										<OutputBreakpoints />
+									</Wait>
+								</IfCondition>
+							</ContinuousSwitch>
+						</Parallel>
+					</EntityContext>
+				</Behavior>
+			</Root>
+			<Forest />
+			<Comments />
+		</EditorData>
+	</BehaviorTree>
+	<BehaviorTree name="papezskyLegat_samWithGravelooters" is_function="0">
+		<Variables>
+			<Variable name="torch" type="_wuid" values="" isPersistent="0" form="single" />
+		</Variables>
+		<Parameters>
+			<Variable name="monologueAlias" type="_string" values="" isPersistent="0" form="single" requirementType="In" />
+			<Variable name="tagpoint" type="_wuid" values="" isPersistent="0" form="single" requirementType="In" />
+		</Parameters>
+		<Root OneTimeOnly="false" FailState="Recoverable" saveVersion="2">
+			<Behavior canSkip="1">
+				<StanceElement smartObject="" stance="crouch" allowAny="false" enabled="true">
+					<Sequence>
+						<Move stopWithinDistance="0.200000" stopDistanceVariation="0.100000" rayCasteFlee="false" successDistance="0.000000" changeNPCState="true" fastForwardIncludesMove="false" destinationSpecification="$tagpoint" destinationSpecification2="" destinationSpecification3="" speed="Walk" additionalParams="" pathFindingParams="" staminaPolicy="" pathInfo="" />
+						<Parallel successMode="Any" failureMode="Any">
+							<ForceLook LookTarget="$__player" DisableVariations="true">
+								<Loop count="-1">
+									<Sequence>
+										<Turn target="$__player" align="false" />
+										<Wait duration="&apos;1s&apos;" timeType="GameTime" doFail="false" variation="" />
+									</Sequence>
+								</Loop>
+							</ForceLook>
+							<Loop count="-1">
+								<Sequence>
+									<Function_speech_schedulerMonolog alias="$monologueAlias" animationApproach="$enum:animationApproach.dontPlayDialogAnimations" context="" lookAtId="" metarole="" skipInLod="false" subtitlesDown="false" nodeLabel="86566778" />
+									<Wait duration="&apos;7s&apos;" timeType="GameTime" doFail="false" variation="" />
+								</Sequence>
+							</Loop>
+						</Parallel>
+					</Sequence>
+				</StanceElement>
+			</Behavior>
+		</Root>
+		<ForestContainer />
+		<EditorData Signature="gotoAndBark" EventSet="">
+			<Variables>
+				<Variable name="torch" comment="" />
+				<Variable name="monologueAlias" comment="" />
+				<Variable name="tagpoint" comment="" />
+			</Variables>
+			<ForwardDeclarations />
+			<Root hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
+				<OutputBreakpoints />
+				<Behavior>
+					<StanceElement hasInputBreakpoint="0" comment="" breakpointFlags="0">
+						<OutputBreakpoints />
+						<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
+							<OutputBreakpoints />
+							<Move hasInputBreakpoint="0" comment="" breakpointFlags="0">
+								<OutputBreakpoints />
+							</Move>
+							<Parallel hasInputBreakpoint="0" comment="" breakpointFlags="0">
+								<OutputBreakpoints />
+								<ForceLook hasInputBreakpoint="0" comment="" breakpointFlags="0">
+									<OutputBreakpoints />
+									<Loop hasInputBreakpoint="0" comment="" breakpointFlags="0">
+										<OutputBreakpoints />
+										<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
+											<OutputBreakpoints />
+											<Turn hasInputBreakpoint="0" comment="" breakpointFlags="0">
+												<OutputBreakpoints />
+											</Turn>
+											<Wait hasInputBreakpoint="0" comment="" breakpointFlags="0">
+												<OutputBreakpoints />
+											</Wait>
+										</Sequence>
+									</Loop>
+								</ForceLook>
+								<Loop hasInputBreakpoint="0" comment="" breakpointFlags="0">
+									<OutputBreakpoints />
+									<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
+										<OutputBreakpoints />
+										<Function_speech_schedulerMonolog hasInputBreakpoint="0" comment="" breakpointFlags="0">
+											<OutputBreakpoints />
+										</Function_speech_schedulerMonolog>
+										<Wait hasInputBreakpoint="0" comment="" breakpointFlags="0">
+											<OutputBreakpoints />
+										</Wait>
+									</Sequence>
+								</Loop>
+							</Parallel>
+						</Sequence>
+					</StanceElement>
+				</Behavior>
+			</Root>
+			<Forest />
+			<Comments />
+		</EditorData>
+	</BehaviorTree>
+	<BehaviorTree name="papezskyLegat_barkInCrouch" is_function="0">
+		<Variables />
+		<Parameters>
+			<Variable name="data" type="_string" values="" isPersistent="0" form="single" requirementType="In" />
+		</Parameters>
+		<Root OneTimeOnly="false" FailState="Recoverable" saveVersion="2">
+			<Behavior canSkip="1">
+				<StanceElement smartObject="" stance="crouch" allowAny="false" enabled="true">
+					<Sequence>
+						<Parallel successMode="Any" failureMode="Any">
+							<ForceLook LookTarget="$__player" DisableVariations="false">
+								<Loop count="-1">
+									<Sequence>
+										<Turn target="$__player" align="false" />
+										<Wait duration="&apos;1s&apos;" timeType="GameTime" doFail="false" variation="" />
+									</Sequence>
+								</Loop>
+							</ForceLook>
+							<FuseBox StatusPropagation="Child" OneCleanup="true" saveVersion="2">
+								<Child canSkip="1">
+									<Function_speech_schedulerMonolog alias="$data" animationApproach="$enum:animationApproach.dontPlayDialogAnimations" context="" lookAtId="" metarole="" skipInLod="false" subtitlesDown="false" nodeLabel="99738398" />
+								</Child>
+								<OnSuccess canSkip="1">
+									<Callback_empty EventName="&apos;OnFinished&apos;" />
+								</OnSuccess>
+							</FuseBox>
+						</Parallel>
+						<Wait duration="&apos;-1&apos;" timeType="GameTime" doFail="false" variation="" />
+					</Sequence>
+				</StanceElement>
+			</Behavior>
+		</Root>
+		<ForestContainer />
+		<EditorData Signature="stringData" EventSet="endNotification">
+			<Variables>
+				<Variable name="data" comment="" />
+			</Variables>
+			<ForwardDeclarations />
+			<Root hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
+				<OutputBreakpoints />
+				<Behavior>
+					<StanceElement hasInputBreakpoint="0" comment="" breakpointFlags="0">
+						<OutputBreakpoints />
+						<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
+							<OutputBreakpoints />
+							<Parallel hasInputBreakpoint="0" comment="" breakpointFlags="0">
+								<OutputBreakpoints />
+								<ForceLook hasInputBreakpoint="0" comment="" breakpointFlags="0">
+									<OutputBreakpoints />
+									<Loop hasInputBreakpoint="0" comment="" breakpointFlags="0">
+										<OutputBreakpoints />
+										<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
+											<OutputBreakpoints />
+											<Turn hasInputBreakpoint="0" comment="" breakpointFlags="0">
+												<OutputBreakpoints />
+											</Turn>
+											<Wait hasInputBreakpoint="0" comment="" breakpointFlags="0">
+												<OutputBreakpoints />
+											</Wait>
+										</Sequence>
+									</Loop>
+								</ForceLook>
+								<FuseBox hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
+									<OutputBreakpoints />
+									<Child>
+										<Function_speech_schedulerMonolog hasInputBreakpoint="0" comment="" breakpointFlags="0">
+											<OutputBreakpoints />
+										</Function_speech_schedulerMonolog>
+									</Child>
+									<OnSuccess>
+										<Callback_empty hasInputBreakpoint="0" comment="" breakpointFlags="0">
+											<OutputBreakpoints />
+										</Callback_empty>
+									</OnSuccess>
+								</FuseBox>
+							</Parallel>
+							<Wait hasInputBreakpoint="0" comment="" breakpointFlags="0">
+								<OutputBreakpoints />
+							</Wait>
+						</Sequence>
+					</StanceElement>
+				</Behavior>
+			</Root>
+			<Forest />
+			<Comments />
+		</EditorData>
+	</BehaviorTree>
+	<BehaviorTree name="papezskyLegat_moveInCrouch" is_function="0">
+		<Variables />
+		<Parameters>
+			<Variable name="tagpoint" type="_wuid" values="" isPersistent="0" form="single" requirementType="In" />
+		</Parameters>
+		<Root OneTimeOnly="false" FailState="Recoverable" saveVersion="2">
+			<Behavior canSkip="1">
+				<StanceElement smartObject="" stance="crouch" allowAny="false" enabled="true">
+					<Sequence>
+						<Move stopWithinDistance="0.200000" stopDistanceVariation="0.100000" rayCasteFlee="false" successDistance="2.000000" changeNPCState="true" fastForwardIncludesMove="false" destinationSpecification="$tagpoint" destinationSpecification2="" destinationSpecification3="" speed="Walk" additionalParams="" pathFindingParams="" staminaPolicy="" pathInfo="" />
+						<Callback_empty EventName="&apos;OnFinished&apos;" />
+						<Wait duration="&apos;-1&apos;" timeType="GameTime" doFail="false" variation="" />
+					</Sequence>
+				</StanceElement>
+			</Behavior>
+		</Root>
+		<ForestContainer />
+		<EditorData Signature="goto" EventSet="">
+			<Variables>
+				<Variable name="tagpoint" comment="" />
+			</Variables>
+			<ForwardDeclarations />
+			<Root hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
+				<OutputBreakpoints />
+				<Behavior>
+					<StanceElement hasInputBreakpoint="0" comment="" breakpointFlags="0">
+						<OutputBreakpoints />
+						<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
+							<OutputBreakpoints />
+							<Move hasInputBreakpoint="0" comment="" breakpointFlags="0">
+								<OutputBreakpoints />
+							</Move>
+							<Callback_empty hasInputBreakpoint="0" comment="" breakpointFlags="0">
+								<OutputBreakpoints />
+							</Callback_empty>
+							<Wait hasInputBreakpoint="0" comment="" breakpointFlags="0">
+								<OutputBreakpoints />
+							</Wait>
+						</Sequence>
+					</StanceElement>
 				</Behavior>
 			</Root>
 			<Forest />

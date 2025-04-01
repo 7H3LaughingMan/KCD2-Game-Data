@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Database xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" Name="brambora">
 	<Skald>
-		<FaderDialog Name="kun_je_mrtvy" Time="ANYTIME">
+		<ForcedDialog Name="kun_je_mrtvy" Time="ANYTIME">
 			<Ports>
 				<Port Name="kun_je_mrtvy" Direction="In" Type="bool">
 					<DesignName StringName="kun_je_mr_kun_je_mrtvy_EN6X" Text="kůň je mrtvý" />
@@ -23,14 +23,14 @@
 				</Port>
 			</Ports>
 			<Text StringName="kun_je_mrtvy_X04H" Text="Kůň je mrtvý" />
-			<Dialogue TechnicalStatus="Enabled" DefaultMaxDistance="10" AllowFarewell="false" AllowGreeting="false" Priority="1" GesturesSetDate="2024-03-13T12:40:47.4103412+01:00" GesturesSetResponseCount="23">
+			<Dialogue TechnicalStatus="Enabled" DefaultMaxDistance="10" AllowFarewell="false" AllowGreeting="false" Priority="1" Initiator="NonPlayer" GesturesSetDate="2024-03-13T12:40:47.4103412+01:00" GesturesSetResponseCount="23">
 				<SelectedSouls>
 					<SelectedSoul Role="HENRY" Voice="tomMcKay" Type="Wave" Language="ENG" />
 					<SelectedSoul Role="LOVCI_VOSTATEK" Voice="stewartMoore" Type="Wave" Language="ENG" />
 				</SelectedSouls>
 				<Decision Name="dec1" Priority="SideQuestAssignment">
 					<Sequences>
-						<Sequence EntryCondition="Port('kun_je_mrtvy') &amp; !SequenceUsed('root')" EndType="Decision" Visibility="Internal" Name="root">
+						<Sequence EntryCondition="Port('kun_je_mrtvy') &amp; !SequenceUsed('root')" EndType="Decision" Visibility="Public" Name="root">
 							<DesignName StringName="kun_je_mr_root_XqgM" Text="root" />
 							<UiPrompt StringName="ui_kun_je_mr_root_cqDZ" Text="Pepík umřel." />
 							<Elements>
@@ -274,6 +274,6 @@
 					</Sequences>
 				</Decision>
 			</Dialogue>
-		</FaderDialog>
+		</ForcedDialog>
 	</Skald>
 </Database>

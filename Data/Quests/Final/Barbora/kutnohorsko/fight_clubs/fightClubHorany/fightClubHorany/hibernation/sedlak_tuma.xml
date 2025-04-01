@@ -131,6 +131,8 @@
 					<Edge From="fist_fight_line.jindra_po_fightu_nemluvil_s_oponentem" To="jindra_po_fightu_nemluvil_s_tumou">
 						<Vertex>vertex132</Vertex>
 					</Edge>
+					<Edge From="fist_fight_line.dialogparams_pro_forcovany_dialog" To="DialogParams" />
+					<Edge From="fist_fight_line.konci_fight" To="EnqueueDialogue" />
 				</pacholek_tobi__po_souboji>
 				<AddReward Name="prohra" PositionY="1090" PositionX="-100">
 					<Edge From="fist_fight_line.jindrich_prohrava" To="AddReward" />
@@ -172,6 +174,11 @@
 					<Edge From="fist_fight_line.oponent_zemrel" To="TumaIsDead" />
 					<Edge From="fist_fight_line.stav_objectivu_oponentovy_smrti" To="Progress" />
 				</tuma_umrel>
+				<turntoplayerinidlestance Name="turntoplayerinidlestance" PositionY="939" PositionX="1223" Namespace="utils.general">
+					<Asset Name="npc" Alias="tuma" />
+					<Constant Name="anydecoratorpreset" Value="changeEquipment" />
+					<Edge From="pacholek_tobi__po_souboji.AfterPlay" To="turntoplayerinidlestance" />
+				</turntoplayerinidlestance>
 				<AddReward Name="vyhra" PositionY="940" PositionX="-180">
 					<Edge From="fist_fight_line.jindrich_vyhrava" To="AddReward" />
 					<Rewards>

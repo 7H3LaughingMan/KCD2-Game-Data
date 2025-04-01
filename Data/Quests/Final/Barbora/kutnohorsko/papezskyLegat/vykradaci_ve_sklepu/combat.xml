@@ -11,6 +11,10 @@
 				</Port>
 			</Ports>
 			<Nodes>
+				<SoulDeathTrigger Name="deathtrigger2" PositionY="-320" PositionX="-20">
+					<Edge From="makearray1_1.Array" To="Souls" />
+					<Edge From="je_aktivni" To="IsActive" />
+				</SoulDeathTrigger>
 				<MakeArray Name="makearray1" PositionY="70" PositionX="-350" TypeT="wh::rpgmodule::Souls">
 					<Asset Name="A" Alias="player" />
 					<Asset Name="B" Alias="Samuel" />
@@ -20,7 +24,7 @@
 					<Asset Name="B" Alias="gravelooter2" />
 				</MakeArray>
 				<Output Name="Output">
-					<Edge From="skirmish.souls1won" To="konec_combatu" />
+					<Edge From="deathtrigger2.OnAllDeath" To="konec_combatu" />
 				</Output>
 				<skirmish Name="skirmish" PositionY="-100" PositionX="-10" Namespace="utils.combat">
 					<Edge From="je_aktivni" To="isactive" />

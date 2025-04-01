@@ -26,7 +26,7 @@
 				</Port>
 			</Ports>
 			<Nodes>
-				<Function Name="GraveLocationUnknown_DiaryNotFound" PositionY="500" PositionX="720" MethodName="math::boolean::And" DeclaringType="math::boolean">
+				<Function Name="GraveLocationUnknown_DiaryNotFound" PositionY="500" PositionX="660" MethodName="math::boolean::And" DeclaringType="math::boolean">
 					<Edge From="obj_najdi_a_vykopej_hrob.None" To="A" />
 					<Edge From="henry_zatim_nenasel_denik_none_and_none" To="B" />
 				</Function>
@@ -44,10 +44,17 @@
 					</Edge>
 					<Edge From="konrad_prozradil_polohu_hrobu" To="Exec" />
 				</If>
+				<If Name="if41" PositionY="500" PositionX="10">
+					<Edge From="hrac_ma_mec" To="Exec" />
+					<Edge From="or40.bool" To="Condition">
+						<Vertex>35yU4fB3</Vertex>
+						<Vertex>rPII8hXb</Vertex>
+					</Edge>
+				</If>
 				<State Name="obj_najdi_a_vykopej_hrob" PositionY="80" PositionX="320" RequiredForOutput="trosecko" TypeT="FindAndDigGraveObjective">
 					<Edge From="if22.True" To="SetAltActive" />
 					<Edge From="if22_1.True" To="SetActive" />
-					<Edge From="hrac_ma_mec" To="SetDone" />
+					<Edge From="if41.True" To="SetDone" />
 				</State>
 				<get_the_broken_sword Name="objectiveVisual20" PositionY="0" PositionX="640" RequiredForOutput="trosecko">
 					<Edge From="obj_najdi_a_vykopej_hrob.State" To="Progress" />
@@ -63,7 +70,9 @@
 				</Output>
 			</Nodes>
 			<EdgeVertices>
+				<EdgeVertex Name="35yU4fB3" PositionY="710" PositionX="840" />
 				<EdgeVertex Name="EHRWHXQM" PositionY="680" PositionX="30" />
+				<EdgeVertex Name="rPII8hXb" PositionY="697" PositionX="42" />
 				<EdgeVertex Name="vfm8vjs2" PositionY="680" PositionX="510" />
 			</EdgeVertices>
 			<Text StringName="najdi_a_vykopej_hrob_P7l6" Text="Najdi a vykopej hrob" />

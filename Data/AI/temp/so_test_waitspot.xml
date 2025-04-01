@@ -4,12 +4,14 @@
 		<Variables />
 		<Root OneTimeOnly="false" FailState="Recoverable" saveVersion="2">
 			<Behavior canSkip="1">
-				<Sequence>
-					<DistanceCondition Origin="$this.id" ReferencePt="$__object.id" Low="0.000000" High="1.000000" Negation="true" ValueOnMiddle="false" failOnCondition="false">
-						<TeleportAction Position="$__object.id" EndInterruptOnActionStart="false" />
-					</DistanceCondition>
-					<Wait duration="&apos;10s&apos;" timeType="GameTime" doFail="false" variation="" skipInLOD="false" />
-				</Sequence>
+				<EntityContext context="ForceForbidAutoTorch" target="">
+					<Sequence>
+						<DistanceCondition Origin="$this.id" ReferencePt="$__object.id" Low="0.000000" High="1.000000" Negation="true" ValueOnMiddle="false" failOnCondition="false">
+							<TeleportAction Position="$__object.id" EndInterruptOnActionStart="false" />
+						</DistanceCondition>
+						<Wait duration="&apos;10s&apos;" timeType="GameTime" doFail="false" variation="" />
+					</Sequence>
+				</EntityContext>
 			</Behavior>
 		</Root>
 		<ForestContainer />
@@ -19,18 +21,21 @@
 			<Root hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
 				<OutputBreakpoints />
 				<Behavior>
-					<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
+					<EntityContext hasInputBreakpoint="0" comment="" breakpointFlags="0">
 						<OutputBreakpoints />
-						<DistanceCondition hasInputBreakpoint="0" comment="" breakpointFlags="0">
+						<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
 							<OutputBreakpoints />
-							<TeleportAction hasInputBreakpoint="0" comment="" breakpointFlags="0">
+							<DistanceCondition hasInputBreakpoint="0" comment="" breakpointFlags="0">
 								<OutputBreakpoints />
-							</TeleportAction>
-						</DistanceCondition>
-						<Wait hasInputBreakpoint="0" comment="" breakpointFlags="0">
-							<OutputBreakpoints />
-						</Wait>
-					</Sequence>
+								<TeleportAction hasInputBreakpoint="0" comment="" breakpointFlags="0">
+									<OutputBreakpoints />
+								</TeleportAction>
+							</DistanceCondition>
+							<Wait hasInputBreakpoint="0" comment="" breakpointFlags="0">
+								<OutputBreakpoints />
+							</Wait>
+						</Sequence>
+					</EntityContext>
 				</Behavior>
 			</Root>
 			<Forest />

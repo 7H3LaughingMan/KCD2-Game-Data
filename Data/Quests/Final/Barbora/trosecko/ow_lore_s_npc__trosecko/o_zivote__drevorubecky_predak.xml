@@ -24,6 +24,9 @@
 				<Port Name="codex_drevorubec" Direction="Out" Type="trigger">
 					<DesignName StringName="o_zivote__codex_drevorubec_ZiRH" Text="Codex dřevorubec" />
 				</Port>
+				<Port Name="jindra_vi_kockemp" Direction="In" Type="bool">
+					<DesignName StringName="o_zivote__jindra_vi_kocke_UT3i" Text="Jindra ví o kočkempu" />
+				</Port>
 			</Ports>
 			<Text StringName="o_zivote__drevorubecky_pr_HA4q" Text="O životě - dřevorubecký předák" />
 			<Elements>
@@ -107,7 +110,7 @@
 											</Response>
 										</Elements>
 									</Sequence>
-									<Sequence EntryCondition="!ThisSequenceUsed() AND &#xD;&#xA;!Port('vajda_hraci_rekl_o_ztracenych_synech')" EndType="GoTo" GoToDecision="dec2" Visibility="Public" Reputation="quest_reward_1_micro" Name="jak_kocovnici">
+									<Sequence EntryCondition="!ThisSequenceUsed() &#xD;&#xA;AND &#xD;&#xA;!Port('vajda_hraci_rekl_o_ztracenych_synech')&#xD;&#xA;AND &#xD;&#xA;Port('jindra_vi_kockemp')" EndType="GoTo" GoToDecision="dec2" Visibility="Public" Reputation="quest_reward_1_micro" Name="jak_kocovnici">
 										<DesignName StringName="o_zivote__jak_kocovnici_L0So" Text="jak kocovnici" />
 										<UiPrompt StringName="ui_o_zivote__jak_kocovnici_3yXD" Text="Jak vycházíte s kočovníky?" />
 										<Elements>
@@ -152,7 +155,7 @@
 											</Response>
 										</Elements>
 									</Sequence>
-									<Sequence EntryCondition="!ThisSequenceUsed() AND &#xD;&#xA;!Port('vajda_hraci_rekl_o_ztracenych_synech')" EndType="GoTo" GoToDecision="dec2" Visibility="Public" Name="tabor_kocovniku">
+									<Sequence EntryCondition="!ThisSequenceUsed() &#xD;&#xA;AND &#xD;&#xA;!Port('vajda_hraci_rekl_o_ztracenych_synech')&#xD;&#xA;AND &#xD;&#xA;Port('jindra_vi_kockemp')" EndType="GoTo" GoToDecision="dec2" Visibility="Public" Name="tabor_kocovniku">
 										<DesignName StringName="o_zivote__tabor_kocovniku_2iW9" Text="tabor kocovniku" />
 										<UiPrompt StringName="ui_o_zivote__tabor_kocovn_3X1X" Text="Jak se dostanu do tábora kočovníků?" />
 										<Elements>
@@ -194,7 +197,7 @@
 								</Sequences>
 							</Decision>
 						</Sequence>
-						<Sequence EntryCondition="SequenceUsed('poprve_drevorubec')&#xD;&#xA;AND &#xD;&#xA;Port('hrac_ma_ok_reputaci')&#xD;&#xA;AND &#xD;&#xA;!Port('je_hotovo')&#xD;&#xA;AND &#xD;&#xA;Port('jsou_oba_v_tabore_drevaru')&#xD;&#xA;AND &#xD;&#xA;Port('hrac_je_slusny')&#xD;&#xA;AND &#xD;&#xA;!Port('je_noc')" EndType="GoTo" GoToDecision="dec2" GrayOutIfSequencesUsed="Any" Name="podruhe">
+						<Sequence EntryCondition="SequenceUsed('poprve_drevorubec')&#xD;&#xA;AND &#xD;&#xA;Port('hrac_ma_ok_reputaci')&#xD;&#xA;AND &#xD;&#xA;!Port('je_hotovo')&#xD;&#xA;AND &#xD;&#xA;Port('jsou_oba_v_tabore_drevaru')&#xD;&#xA;AND &#xD;&#xA;Port('hrac_je_slusny')&#xD;&#xA;AND &#xD;&#xA;!Port('je_noc')&#xD;&#xA;AND &#xD;&#xA;!Port('vajda_hraci_rekl_o_ztracenych_synech')" EndType="GoTo" GoToDecision="dec2" GrayOutIfSequencesUsed="Any" Name="podruhe">
 							<DesignName StringName="o_zivote__podruhe_tx8G" Text="podruhe" />
 							<UiPrompt StringName="ui_o_zivote__podruhe_ZdAr" Text="O životě..." />
 							<Elements>

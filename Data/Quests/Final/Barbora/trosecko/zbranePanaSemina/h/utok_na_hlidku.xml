@@ -87,12 +87,12 @@
 					<Edge From="banditi_na_scene" To="A">
 						<Vertex>xmxcutme</Vertex>
 					</Edge>
-					<Edge From="skirmishHlidkaState.None" To="B">
-						<Vertex>vertex156</Vertex>
-						<Vertex>vertex157</Vertex>
-					</Edge>
 					<Edge From="quest_pokrocil_aspon_na_hledani_na_druhe_krizovatce" To="C">
 						<Vertex>FG9Yq4nA</Vertex>
+					</Edge>
+					<Edge From="noneOrHracZacina.bool" To="B">
+						<Vertex>EpnC1vy3</Vertex>
+						<Vertex>nuwRpsmk</Vertex>
 					</Edge>
 				</Function>
 				<Function Name="and85" PositionY="-1080" PositionX="-2000" MethodName="math::boolean::And" DeclaringType="math::boolean">
@@ -210,6 +210,20 @@
 						<Vertex>vertex88</Vertex>
 					</Edge>
 				</EnableBehavior>
+				<EnableBehavior Name="enablebehaviorgotoendnotification34_1_1" PositionY="780" PositionX="-2340" Signature="goto" EventSet="endNotification">
+					<Constant Name="Behavior" Value="seminSuk_runToTagpointEquipedW" />
+					<Asset Name="SmartEntity" Alias="zbraneSO" />
+					<Asset Name="NPC" Alias="suk" />
+					<Asset Name="tagpoint" Alias="tpSukBeforeFirstFight" />
+					<Edge From="skirmishHlidkaState.SaSCekajNaHraceStart" To="IsActive" />
+				</EnableBehavior>
+				<EnableBehavior Name="enablebehaviorgotoendnotification34_2" PositionY="480" PositionX="-2340" Signature="goto" EventSet="endNotification">
+					<Constant Name="Behavior" Value="seminSuk_runToTagpointEquipedW" />
+					<Asset Name="SmartEntity" Alias="zbraneSO" />
+					<Asset Name="NPC" Alias="semin" />
+					<Asset Name="tagpoint" Alias="tpSeminBeforeFirstFight" />
+					<Edge From="skirmishHlidkaState.SaSCekajNaHraceStart" To="IsActive" />
+				</EnableBehavior>
 				<EnableBehavior Name="enablebehaviorwuiddata51" PositionY="-2850" PositionX="-1380" Signature="wuidData" EventSet="">
 					<Constant Name="Behavior" Value="seminSuk_waitOnPoint" />
 					<Asset Name="SmartEntity" Alias="zbraneSO" />
@@ -258,6 +272,10 @@
 						<Vertex>Mfb6mfRP</Vertex>
 						<Vertex>tYf9WTyz</Vertex>
 					</Edge>
+					<Edge From="if96.True" To="Exec">
+						<Vertex>QW8uI8p8</Vertex>
+						<Vertex>9jtVLj7C</Vertex>
+					</Edge>
 				</If>
 				<If Name="if_camp1Unstarted" PositionY="-1120" PositionX="-3080">
 					<Edge From="skirmishHlidkaState.None" To="Condition">
@@ -279,7 +297,8 @@
 						<Vertex>mBoqjY3s</Vertex>
 						<Vertex>Dxeqf2em</Vertex>
 					</Edge>
-					<Edge From="timer_playerSnipingSukAndSeminWaitingTimeout.OnFinished" To="Exec">
+					<Edge From="ifCekaniNaHraceUtok.True" To="Exec">
+						<Vertex>ahevJh9F</Vertex>
 						<Vertex>c3hUDaMW</Vertex>
 					</Edge>
 				</If>
@@ -341,7 +360,7 @@
 						<Vertex>rCcoVNHg</Vertex>
 					</Edge>
 				</If>
-				<If Name="if_snipingTimerRunning" PositionY="70" PositionX="-3720">
+				<If Name="if_snipingTimerRunning" PositionY="70" PositionX="-3710">
 					<Edge From="skirmishHlidkaState.OnSaSBeziKTaboru" To="Exec">
 						<Vertex>04osSf7p</Vertex>
 						<Vertex>dyArjzWc</Vertex>
@@ -397,6 +416,17 @@
 						<Vertex>AqgGaIB4</Vertex>
 					</Edge>
 				</If>
+				<If Name="if96" PositionY="530" PositionX="-2690">
+					<Edge From="enablebehaviorgotoendnotification34_2.OnFinished" To="Exec">
+						<Vertex>7M2XSJwz</Vertex>
+						<Vertex>AkXRQJxM</Vertex>
+					</Edge>
+					<Edge From="timer_playerSnipingSukAndSeminWaitingTimeout.Finished" To="Condition" />
+					<Edge From="enablebehaviorgotoendnotification34_1_1.OnFinished" To="Exec">
+						<Vertex>7M2XSJwz</Vertex>
+						<Vertex>AkXRQJxM</Vertex>
+					</Edge>
+				</If>
 				<IfFunction Name="ifand88" PositionY="-93" PositionX="-1594" MethodName="math::boolean::And" DeclaringType="math::boolean">
 					<Edge From="DistanceTriggerAndCheck.onmatch" To="Exec">
 						<Vertex>CgTHjaGo</Vertex>
@@ -407,6 +437,13 @@
 					<Edge From="DistanceTriggerAndCheck.check" To="A" />
 					<Edge From="DistanceTriggerAndCheck_1.check" To="B" />
 				</IfFunction>
+				<If Name="ifCekaniNaHraceUtok" PositionY="-210" PositionX="-2590">
+					<Edge From="timer_playerSnipingSukAndSeminWaitingTimeout.OnFinished" To="Exec" />
+					<Edge From="skirmishHlidkaState.SaSCekajNaHraceStart" To="Condition">
+						<Vertex>tYQoTA7x</Vertex>
+						<Vertex>KwRHSRCG</Vertex>
+					</Edge>
+				</If>
 				<IfFunction Name="ifnot97" PositionY="-550" PositionX="-3080" MethodName="math::boolean::Not" DeclaringType="math::boolean">
 					<Edge From="kill58.OnExec" To="Exec">
 						<Vertex>KLSzRnlo</Vertex>
@@ -442,6 +479,12 @@
 					<Asset Name="B" Alias="noiseBandit2" />
 					<Asset Name="C" Alias="noiseBandit3" />
 				</MakeArray>
+				<Function Name="noneOrHracZacina" PositionY="-560" PositionX="-2190" MethodName="math::boolean::Or" DeclaringType="math::boolean">
+					<Edge From="skirmishHlidkaState.None" To="A">
+						<Vertex>ayBz9WPr</Vertex>
+					</Edge>
+					<Edge From="skirmishHlidkaState.SaSCekajNaHraceStart" To="B" />
+				</Function>
 				<Function Name="not86" PositionY="-550" PositionX="-2600" MethodName="math::boolean::Not" DeclaringType="math::boolean">
 					<Edge From="timer_playerSnipingSukAndSeminWaitingTimeout.Running" To="Value">
 						<Vertex>N78gYKke</Vertex>
@@ -484,13 +527,17 @@
 						<Vertex>a5TyWP9k</Vertex>
 					</Edge>
 				</Function>
-				<Function Name="or_watchCampBehaviorsActive" PositionY="-1490" PositionX="-820" MethodName="math::boolean::Or" DeclaringType="math::boolean">
+				<Function Name="or_watchCampBehaviorsActive" PositionY="-1550" PositionX="-820" MethodName="math::boolean::Or" DeclaringType="math::boolean">
 					<Edge From="or_anySkirmish.bool" To="B">
 						<Vertex>EoQpmK5K</Vertex>
 					</Edge>
 					<Edge From="skirmishHlidkaState.SaSBeziKTaboru" To="A">
 						<Vertex>amR88TcF</Vertex>
 						<Vertex>olWxB85U</Vertex>
+					</Edge>
+					<Edge From="skirmishHlidkaState.SaSCekajNaHraceStart" To="C">
+						<Vertex>hfh4Ifhm</Vertex>
+						<Vertex>u8vfBGsS</Vertex>
 					</Edge>
 				</Function>
 				<Function Name="or64" PositionY="-220" PositionX="-2270" MethodName="math::boolean::Or" DeclaringType="math::boolean">
@@ -548,13 +595,17 @@
 						<Vertex>Nk2gN2QI</Vertex>
 					</Edge>
 				</State>
-				<State Name="skirmishHlidkaState" PositionY="-1240" PositionX="-2790" TypeT="skirmishCamp1State">
+				<State Name="skirmishHlidkaState" PositionY="-1250" PositionX="-2780" TypeT="skirmishCamp1State">
 					<Edge From="if_continuingWithoutPlayer.False" To="SetSkirmishOn" />
 					<Edge From="if_skirmishEndsWithPlayer.True" To="SetDone">
 						<Vertex>vertex91</Vertex>
 						<Vertex>vertex92</Vertex>
 					</Edge>
 					<Edge From="if_continuingWithoutPlayer.True" To="SetSkirmishBezHrace" />
+					<Edge From="sas_nechaji_hrace_prvni_vystrelit" To="SetSaSCekajNaHraceStart">
+						<Vertex>7bXrYeHt</Vertex>
+						<Vertex>5E5tStub</Vertex>
+					</Edge>
 					<Edge From="ifnot97.True" To="SetDoneBezHrace" />
 					<Edge From="if_camp1Unstarted.True" To="SetSaSBeziKTaboru" />
 				</State>
@@ -600,9 +651,10 @@
 						<Vertex>vertex135</Vertex>
 						<Vertex>vertex136</Vertex>
 					</Edge>
+					<Edge From="timer_reportTimeout.OnStopped" To="SetStopped" />
 				</Timer>
 				<Timer Name="timer_playerSnipingSukAndSeminWaitingTimeout" PositionY="-210" PositionX="-2950">
-					<Constant Name="Duration" Value="15s" />
+					<Constant Name="Duration" Value="60s" />
 					<Constant Name="TimeType" Value="GameTime" />
 					<Edge From="sas_pokracuji_bez_hrace" To="SetStopped">
 						<Vertex>EjllLq1a</Vertex>
@@ -616,7 +668,10 @@
 						<Vertex>cnpHdf6P</Vertex>
 						<Vertex>4JuoNnFf</Vertex>
 					</Edge>
-					<Edge From="sas_nechaji_hrace_prvni_vystrelit" To="SetRunning" />
+					<Edge From="sas_nechaji_hrace_prvni_vystrelit" To="SetRunning">
+						<Vertex>7bXrYeHt</Vertex>
+						<Vertex>5E5tStub</Vertex>
+					</Edge>
 				</Timer>
 				<Timer Name="timer_reportTimeout" PositionY="-3180" PositionX="-1380">
 					<Constant Name="Duration" Value="1h15m" />
@@ -638,26 +693,32 @@
 			</Nodes>
 			<EdgeVertices>
 				<EdgeVertex Name="00TejhG2" PositionY="-2470" PositionX="-1980" />
-				<EdgeVertex Name="04osSf7p" PositionY="-1020" PositionX="-2400" />
+				<EdgeVertex Name="04osSf7p" PositionY="-1020" PositionX="-2290" />
 				<EdgeVertex Name="0LyMGFNE" PositionY="-2310" PositionX="-2130" />
 				<EdgeVertex Name="1rrJaLvJ" PositionY="-1730" PositionX="-2350" />
 				<EdgeVertex Name="34yEQ54P" PositionY="290" PositionX="-3740" />
 				<EdgeVertex Name="3JrpHpcq" PositionY="-860" PositionX="-2310" />
 				<EdgeVertex Name="4JuoNnFf" PositionY="-120" PositionX="-3460" />
 				<EdgeVertex Name="4nLks00X" PositionY="-1970" PositionX="-4220" />
+				<EdgeVertex Name="5E5tStub" PositionY="-80" PositionX="-3240" />
 				<EdgeVertex Name="5nNGUIfX" PositionY="-1390" PositionX="-4230" />
 				<EdgeVertex Name="5o43amCu" PositionY="-1390" PositionX="-3270" />
 				<EdgeVertex Name="5TLus9bV" PositionY="-1325" PositionX="504" />
+				<EdgeVertex Name="7bXrYeHt" PositionY="-80" PositionX="-3900" />
+				<EdgeVertex Name="7M2XSJwz" PositionY="1120" PositionX="-2000" />
 				<EdgeVertex Name="8dHlJVEh" PositionY="-1830" PositionX="-3830" />
 				<EdgeVertex Name="8wdyeHRE" PositionY="280" PositionX="-2400" />
+				<EdgeVertex Name="9jtVLj7C" PositionY="470" PositionX="-3240" />
 				<EdgeVertex Name="9mNkhTXS" PositionY="-1960" PositionX="-1130" />
 				<EdgeVertex Name="a5TyWP9k" PositionY="-1000" PositionX="-1070" />
+				<EdgeVertex Name="ahevJh9F" PositionY="-320" PositionX="-2400" />
+				<EdgeVertex Name="AkXRQJxM" PositionY="1120" PositionX="-2570" />
 				<EdgeVertex Name="amR88TcF" PositionY="-1400" PositionX="-2350" />
 				<EdgeVertex Name="apBuUazM" PositionY="-257" PositionX="-3959" />
 				<EdgeVertex Name="AqgGaIB4" PositionY="-2330" PositionX="-2810" />
 				<EdgeVertex Name="ayBz9WPr" PositionY="-1058" PositionX="-2399" />
 				<EdgeVertex Name="baXtILw0" PositionY="-830" PositionX="-2380" />
-				<EdgeVertex Name="c3hUDaMW" PositionY="-380" PositionX="-2720" />
+				<EdgeVertex Name="c3hUDaMW" PositionY="-320" PositionX="-2730" />
 				<EdgeVertex Name="C8QT49Pl" PositionY="-80" PositionX="-270" />
 				<EdgeVertex Name="CBvPcvKr" PositionY="-380" PositionX="-3200" />
 				<EdgeVertex Name="CFgUjPGt" PositionY="-1000" PositionX="-3840" />
@@ -673,11 +734,13 @@
 				<EdgeVertex Name="EdJhD3oe" PositionY="-1290" PositionX="-650" />
 				<EdgeVertex Name="EjllLq1a" PositionY="-120" PositionX="-4210" />
 				<EdgeVertex Name="EoQpmK5K" PositionY="-1240" PositionX="-850" />
+				<EdgeVertex Name="EpnC1vy3" PositionY="-347" PositionX="-2001" />
 				<EdgeVertex Name="f2zdxpxK" PositionY="260" PositionX="-3690" />
 				<EdgeVertex Name="f4vQv9nD" PositionY="-260" PositionX="-3340" />
 				<EdgeVertex Name="FG9Yq4nA" PositionY="-800" PositionX="-4260" />
 				<EdgeVertex Name="Flb3vkFY" PositionY="-1365" PositionX="-2165" />
 				<EdgeVertex Name="gp0v8qIn" PositionY="-1180" PositionX="-1660" />
+				<EdgeVertex Name="hfh4Ifhm" PositionY="-1449" PositionX="-2327" />
 				<EdgeVertex Name="HKHtGYw8" PositionY="400" PositionX="-960" />
 				<EdgeVertex Name="hQPDmswn" PositionY="-1250" PositionX="830" />
 				<EdgeVertex Name="htC5BuxA" PositionY="-600" PositionX="-4030" />
@@ -688,6 +751,7 @@
 				<EdgeVertex Name="JJY0ThVP" PositionY="-2540" PositionX="-1770" />
 				<EdgeVertex Name="jyVTqSMc" PositionY="-1740" PositionX="-920" />
 				<EdgeVertex Name="KLSzRnlo" PositionY="-10" PositionX="-1020" />
+				<EdgeVertex Name="KwRHSRCG" PositionY="-579" PositionX="-2627" />
 				<EdgeVertex Name="Lbnqw0oz" PositionY="-1180" PositionX="-850" />
 				<EdgeVertex Name="m2rXHxxU" PositionY="-2240" PositionX="-2960" />
 				<EdgeVertex Name="mBoqjY3s" PositionY="-960" PositionX="-3350" />
@@ -699,10 +763,12 @@
 				<EdgeVertex Name="Ndlrq7rD" PositionY="-2540" PositionX="-2100" />
 				<EdgeVertex Name="Nk2gN2QI" PositionY="-1960" PositionX="-2240" />
 				<EdgeVertex Name="nTg6If9l" PositionY="-560" PositionX="-1660" />
+				<EdgeVertex Name="nuwRpsmk" PositionY="-350" PositionX="-4162" />
 				<EdgeVertex Name="olWxB85U" PositionY="-1397" PositionX="-1428" />
 				<EdgeVertex Name="PTC0bjAw" PositionY="-1980" PositionX="-30" />
 				<EdgeVertex Name="q9aLJ90y" PositionY="-430" PositionX="-1650" />
 				<EdgeVertex Name="QUsG8a9V" PositionY="-1260" PositionX="-3870" />
+				<EdgeVertex Name="QW8uI8p8" PositionY="460" PositionX="-2520" />
 				<EdgeVertex Name="rCcoVNHg" PositionY="-640" PositionX="-340" />
 				<EdgeVertex Name="sbsPxrw8" PositionY="-700" PositionX="-3500" />
 				<EdgeVertex Name="sXvq1NQE" PositionY="-960" PositionX="-3390" />
@@ -710,6 +776,8 @@
 				<EdgeVertex Name="toXak9GH" PositionY="-130" PositionX="-2020" />
 				<EdgeVertex Name="tY4CQ9y2" PositionY="-610" PositionX="-740" />
 				<EdgeVertex Name="tYf9WTyz" PositionY="-280" PositionX="-3340" />
+				<EdgeVertex Name="tYQoTA7x" PositionY="-571" PositionX="-2441" />
+				<EdgeVertex Name="u8vfBGsS" PositionY="-1435" PositionX="-1366" />
 				<EdgeVertex Name="vertex105" PositionY="-780" PositionX="-1120" />
 				<EdgeVertex Name="vertex118" PositionY="-800" PositionX="-2300" />
 				<EdgeVertex Name="vertex122" PositionY="-1860" PositionX="-3190" />
@@ -717,8 +785,6 @@
 				<EdgeVertex Name="vertex135" PositionY="-2170" PositionX="350" />
 				<EdgeVertex Name="vertex136" PositionY="-2170" PositionX="-800" />
 				<EdgeVertex Name="vertex150" PositionY="-2320" PositionX="-4090" />
-				<EdgeVertex Name="vertex156" PositionY="-640" PositionX="-2470" />
-				<EdgeVertex Name="vertex157" PositionY="-630" PositionX="-4150" />
 				<EdgeVertex Name="vertex171" PositionY="-2470" PositionX="-1800" />
 				<EdgeVertex Name="vertex29" PositionY="-2530" PositionX="-2820" />
 				<EdgeVertex Name="vertex30" PositionY="-2230" PositionX="-3850" />
@@ -743,6 +809,7 @@
 					<StateTypeEnumeration Name="SkirmishBezHrace" ObjectiveValueType="None" />
 					<StateTypeEnumeration Name="Done" ObjectiveValueType="None" />
 					<StateTypeEnumeration Name="DoneBezHrace" ObjectiveValueType="None" />
+					<StateTypeEnumeration Name="SaSCekajNaHraceStart" ObjectiveValueType="None" />
 				</Type>
 			</Types>
 			<Assets>

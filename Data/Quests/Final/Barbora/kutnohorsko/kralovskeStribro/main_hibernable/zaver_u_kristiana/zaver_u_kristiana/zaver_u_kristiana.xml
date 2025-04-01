@@ -45,9 +45,6 @@
 				<Port Name="raznice_predana_kristianovi" Direction="Out" Type="trigger">
 					<DesignName StringName="zaver_u_k_raznice_predana_3Mg7" Text="raznice předána Kristiánovi" />
 				</Port>
-				<Port Name="dopis_od_vavaka_predan_kristianovi" Direction="Out" Type="trigger">
-					<DesignName StringName="zaver_u_k_predani_vavakov_MCUf" Text="dopis od Vaváka předán Kristiánovi" />
-				</Port>
 				<Port Name="hrac_byl_uplacen" Direction="In" Type="bool">
 					<DesignName StringName="zaver_u_k_hrac_byl_uplacen_y7h2" Text="hráč byl uplacen" />
 				</Port>
@@ -65,6 +62,9 @@
 				</Port>
 				<Port Name="herman_mrtvy_pred_hutemi" Direction="In" Type="bool">
 					<DesignName StringName="zaver_u_k_herman_mrtvy_pr_rPpi" Text="heřman mrtvý před hutěmi" />
+				</Port>
+				<Port Name="pregeri_nedostupni" Direction="In" Type="bool">
+					<DesignName StringName="zaver_u_k_pregeri_jsou_mr_hEYL" Text="pregéři nedostupní" />
 				</Port>
 			</Ports>
 			<Text StringName="zaver_u_kristiana_kmu2" Text="Závěr u Kristiána" />
@@ -270,7 +270,7 @@
 																			</Elements>
 																			<Decision Name="dec7" Priority="MainQuestSubmission" DesignName="potíže answer">
 																				<Sequences>
-																					<Sequence EntryCondition="!SequenceUsed('straze')" EndType="GoTo" GoToDecision="dec21" Name="seq11">
+																					<Sequence EntryCondition="!SequenceUsed('straze')" EndType="GoTo" GoToDecision="dec21" Visibility="Internal" Name="seq11">
 																						<DesignName StringName="zaver_u_k_seq11_pshx" Text="seq11" />
 																						<UiPrompt StringName="ui_zaver_u_k_seq11_fAHo" Text="Žádné potíže." />
 																						<Elements>
@@ -694,7 +694,7 @@
 																												</Elements>
 																												<Decision Name="dec21" Priority="MainQuestSubmission" DesignName="pregéři">
 																													<Sequences>
-																														<Sequence EntryCondition="!SequenceUsed('nerekl_o_mincovne')" EndType="Decision" Name="seq36">
+																														<Sequence EntryCondition="!SequenceUsed('nerekl_o_mincovne') AND   &#xD;&#xA;!Port('pregeri_nedostupni')" EndType="Decision" Name="seq36">
 																															<DesignName StringName="zaver_u_k_seq36_tI1i" Text="seq36" />
 																															<Elements>
 																																<Response Role="KRISTIAN_Z_PISKU" ReferenceLength="2.96">
@@ -808,7 +808,7 @@
 																																			</Sequences>
 																																		</Decision>
 																																	</Sequence>
-																																	<Sequence EntryCondition="!SequenceUsed('pregeri_returnal')" EndType="Decision" Visibility="Internal" Name="said_noone">
+																																	<Sequence EndType="Decision" Visibility="Internal" Name="said_noone">
 																																		<DesignName StringName="zaver_u_k_said_noone_6CU4" Text="said noone" />
 																																		<UiPrompt StringName="ui_zaver_u_k_said_noone_VstW" Text="Nikdo další tam nebyl." />
 																																		<Elements>
@@ -1066,9 +1066,6 @@
 																																																					<Sequences>
 																																																						<Sequence EntryCondition="Port('hrac_ma_dopis_od_vavaka')" EndType="Decision" Name="seq66">
 																																																							<DesignName StringName="zaver_u_k_seq66_dXnM" Text="seq66" />
-																																																							<Triggers>
-																																																								<Port Name="dopis_od_vavaka_predan_kristianovi" />
-																																																							</Triggers>
 																																																							<Elements>
 																																																								<Response Role="HENRY" ReferenceLength="4.76">
 																																																									<Parenthetical>
@@ -1144,7 +1141,7 @@
 																																																							</Elements>
 																																																							<Decision Name="dec47" Priority="MainQuestSubmission" DesignName="pregéři returnal begins">
 																																																								<Sequences>
-																																																									<Sequence EntryCondition="!Port('kristian_vi_o_mincovne') AND&#xD;&#xA;SequenceUsed('nerekl_o_mincovne')" EndType="Decision" Name="seq84">
+																																																									<Sequence EntryCondition="!Port('kristian_vi_o_mincovne') AND&#xD;&#xA;SequenceUsed('nerekl_o_mincovne') AND &#xD;&#xA;!Port('pregeri_nedostupni')" EndType="Decision" Name="seq84">
 																																																										<DesignName StringName="zaver_u_k_seq84_Dyk8" Text="seq84" />
 																																																										<Elements>
 																																																											<Response Role="KRISTIAN_Z_PISKU" ReferenceLength="4.88">
@@ -1289,7 +1286,7 @@
 																																																											</Sequences>
 																																																										</Decision>
 																																																									</Sequence>
-																																																									<Sequence EntryCondition="Port('kristian_vi_o_mincovne') OR &#xD;&#xA;!SequenceUsed('nerekl_o_mincovne')" EndType="GoTo" GoToDecision="dec50" Name="seq83">
+																																																									<Sequence EntryCondition="Port('kristian_vi_o_mincovne') OR &#xD;&#xA;!SequenceUsed('nerekl_o_mincovne') OR &#xD;&#xA;Port('pregeri_nedostupni')" EndType="GoTo" GoToDecision="dec50" Name="seq83">
 																																																										<DesignName StringName="zaver_u_k_seq83_4gVK" Text="seq83" />
 																																																										<Elements>
 																																																											<Response Role="KRISTIAN_Z_PISKU" ReferenceLength="1.88">
@@ -1652,9 +1649,6 @@
 																																																					<Sequences>
 																																																						<Sequence EntryCondition="Port('hrac_ma_dopis_od_vavaka')" EndType="Decision" Name="seq69">
 																																																							<DesignName StringName="zaver_u_k_seq69_T0qv" Text="seq69" />
-																																																							<Triggers>
-																																																								<Port Name="dopis_od_vavaka_predan_kristianovi" />
-																																																							</Triggers>
 																																																							<Elements>
 																																																								<Response Role="HENRY" StartDelay="0.17" ReferenceLength="4.3">
 																																																									<Parenthetical>
@@ -2785,7 +2779,7 @@
 																																</Sequences>
 																															</Decision>
 																														</Sequence>
-																														<Sequence EntryCondition="SequenceUsed('nerekl_o_mincovne')" EndType="GoTo" GoToDecision="dec29" Name="seq77">
+																														<Sequence EntryCondition="SequenceUsed('nerekl_o_mincovne') OR &#xD;&#xA;Port('pregeri_nedostupni')" EndType="GoTo" GoToDecision="dec29" Name="seq77">
 																															<DesignName StringName="zaver_u_k_seq77_evGt" Text="seq77" />
 																															<Elements>
 																																<Response Role="KRISTIAN_Z_PISKU" ReferenceLength="4.22">
@@ -2815,7 +2809,7 @@
 																							</Sequences>
 																						</Decision>
 																					</Sequence>
-																					<Sequence EntryCondition="Port('hrac_zabil_straze') AND&#xD;&#xA;!SequenceUsed('straze')" EndType="GoTo" GoToDecision="dec7" Visibility="Internal" Name="straze">
+																					<Sequence EntryCondition="Port('hrac_zabil_straze') AND&#xD;&#xA;!SequenceUsed('straze') AND &#xD;&#xA;!SequenceUsed('nerekl_o_mincovne')" EndType="GoTo" GoToDecision="dec7" Visibility="Internal" Name="straze">
 																						<DesignName StringName="zaver_u_k_straze_jlRy" Text="stráže" />
 																						<UiPrompt StringName="ui_zaver_u_k_straze_nGJe" Text="Zabil jsem stráže." />
 																						<Elements>

@@ -20,19 +20,19 @@
 				</Port>
 			</Ports>
 			<Nodes>
-				<AddFactionRelationBetweenArrays Name="addfactionrelationbetweenarrays69" PositionY="1110" PositionX="2590">
+				<AddFactionRelationBetweenArrays Name="addfactionrelationbetweenarrays69" PositionY="1110" PositionX="2870">
 					<Constant Name="RelationValue" Value="0" />
 					<Asset Name="SoulArray0" Alias="bandits" />
 					<Asset Name="SoulArray1" Alias="miller" />
 					<Edge From="or28.bool" To="IsActive" />
 				</AddFactionRelationBetweenArrays>
-				<AddFactionRelationBetweenArrays Name="addfactionrelationbetweenarrays69_1" PositionY="1110" PositionX="2980">
+				<AddFactionRelationBetweenArrays Name="addfactionrelationbetweenarrays69_1" PositionY="1110" PositionX="3260">
 					<Constant Name="RelationValue" Value="0" />
 					<Asset Name="SoulArray0" Alias="bandits" />
 					<Asset Name="SoulArray1" Alias="millersWife" />
 					<Edge From="or28_1.bool" To="IsActive" />
 				</AddFactionRelationBetweenArrays>
-				<AddFactionRelationBetweenArrays Name="addfactionrelationbetweenarrays69_2" PositionY="1330" PositionX="2980">
+				<AddFactionRelationBetweenArrays Name="addfactionrelationbetweenarrays69_2" PositionY="1330" PositionX="3260">
 					<Constant Name="RelationValue" Value="0" />
 					<Asset Name="SoulArray0" Alias="bandits" />
 					<Asset Name="SoulArray1" Alias="millersDaughter" />
@@ -59,19 +59,19 @@
 						<Vertex>vertex48</Vertex>
 					</Edge>
 				</AreaTrigger>
-				<AreaTrigger Name="areatrigger27" PositionY="1570" PositionX="1870">
+				<AreaTrigger Name="areatrigger27" PositionY="1570" PositionX="2150">
 					<Asset Name="Souls" Alias="miller" />
 					<Asset Name="Areas" Alias="danemarkArea" />
 					<Edge From="fleeingDanemark.StartedFleeing" To="IsActive" />
 				</AreaTrigger>
-				<AreaTrigger Name="areatrigger27_1" PositionY="1570" PositionX="2240">
+				<AreaTrigger Name="areatrigger27_1" PositionY="1570" PositionX="2520">
 					<Asset Name="Souls" Alias="millersWife" />
 					<Asset Name="Areas" Alias="danemarkArea" />
 					<Edge From="fleeingDanemark.MillerFled" To="IsActive">
 						<Vertex>PAB9m6j6</Vertex>
 					</Edge>
 				</AreaTrigger>
-				<AreaTrigger Name="areatrigger27_1_1" PositionY="1570" PositionX="2600">
+				<AreaTrigger Name="areatrigger27_1_1" PositionY="1570" PositionX="2880">
 					<Asset Name="Souls" Alias="millersDaughter" />
 					<Asset Name="Areas" Alias="danemarkArea" />
 					<Edge From="fleeingDanemark.MillerAndWifeFled" To="IsActive">
@@ -79,7 +79,7 @@
 						<Vertex>WT9qgk9D</Vertex>
 					</Edge>
 				</AreaTrigger>
-				<AreaTrigger Name="areatrigger27_1_1_1" PositionY="1570" PositionX="2980">
+				<AreaTrigger Name="areatrigger27_1_1_1" PositionY="1570" PositionX="3260">
 					<Asset Name="Souls" Alias="millerFamily" />
 					<Asset Name="Areas" Alias="danemarkArea" />
 					<Edge From="fleeingDanemark.EveryoneFled" To="IsActive">
@@ -119,11 +119,15 @@
 						<Vertex>C5X4fo6E</Vertex>
 					</Edge>
 				</Function>
-				<fightstop Name="fightstop" PositionY="2170" PositionX="1870" Namespace="utils.combat">
+				<disabledirectionschatsoul Name="disabledirectionschatsoul" PositionY="1120" PositionX="2480" Namespace="utils.hardcoremode">
+					<Asset Name="soul" Alias="millerFamily" />
+					<Edge From="switch73.Value1" To="enabled" />
+				</disabledirectionschatsoul>
+				<fightstop Name="fightstop" PositionY="2170" PositionX="2150" Namespace="utils.combat">
 					<Asset Name="participants" Alias="bandits" />
 					<Edge From="fleeingDanemark.OnEveryoneFled" To="stop" />
 				</fightstop>
-				<State Name="fleeingDanemark" PositionY="1560" PositionX="1330" TypeT="MillerFamilyFleeingDanemark">
+				<State Name="fleeingDanemark" PositionY="1560" PositionX="1610" TypeT="MillerFamilyFleeingDanemark">
 					<Edge From="areatrigger27.OnLeave" To="SetMillerFled">
 						<Vertex>vW1nMtrF</Vertex>
 						<Vertex>A0sQghAF</Vertex>
@@ -148,7 +152,7 @@
 						<Vertex>lAIwh5dQ</Vertex>
 					</Edge>
 				</State>
-				<IfFunction Name="ifor35" PositionY="1020" PositionX="1720" MethodName="math::boolean::Or" DeclaringType="math::boolean">
+				<IfFunction Name="ifor35" PositionY="1020" PositionX="1700" MethodName="math::boolean::Or" DeclaringType="math::boolean">
 					<Edge From="unconsciouscheck33.IsUnconscious" To="A" />
 					<Edge From="deathcheck31.IsDead" To="B" />
 					<Edge From="areatrigger23.OnEnter" To="Exec">
@@ -221,7 +225,7 @@
 						<Vertex>vertex42</Vertex>
 					</Edge>
 				</Function>
-				<Function Name="or28" PositionY="1370" PositionX="2240" MethodName="math::boolean::Or" DeclaringType="math::boolean">
+				<Function Name="or28" PositionY="1370" PositionX="2520" MethodName="math::boolean::Or" DeclaringType="math::boolean">
 					<Edge From="fleeingDanemark.MillerFled" To="A">
 						<Vertex>PAB9m6j6</Vertex>
 					</Edge>
@@ -232,7 +236,7 @@
 						<Vertex>BfEtPSW2</Vertex>
 					</Edge>
 				</Function>
-				<Function Name="or28_1" PositionY="1360" PositionX="2590" MethodName="math::boolean::Or" DeclaringType="math::boolean">
+				<Function Name="or28_1" PositionY="1360" PositionX="2870" MethodName="math::boolean::Or" DeclaringType="math::boolean">
 					<Edge From="fleeingDanemark.MillerAndWifeFled" To="A">
 						<Vertex>Rv3whlya</Vertex>
 						<Vertex>WT9qgk9D</Vertex>
@@ -376,6 +380,12 @@
 						<Vertex>SAogueCc</Vertex>
 					</Edge>
 				</Switch>
+				<Switch Name="switch73" PositionY="1060" PositionX="2070" TypeT="MillerFamilyFleeingDanemark" ValueTypes="bool" SwitchValues="None RestoredNormalState">
+					<Constant Name="NoneValue1" Value="false" />
+					<Constant Name="RestoredNormalStateValue1" Value="false" />
+					<Constant Name="DefaultValue1" Value="true" />
+					<Edge From="fleeingDanemark.State" To="Switch" />
+				</Switch>
 				<Function Name="unconsciouscheck33" PositionY="1140" PositionX="1330" MethodName="wh::rpgmodule::UnconsciousCheck" DeclaringType="wh::rpgmodule">
 					<Edge From="makearray32.Array" To="Souls">
 						<Vertex>C5X4fo6E</Vertex>
@@ -389,13 +399,13 @@
 				</vip_with_stealthkill_protection>
 			</Nodes>
 			<EdgeVertices>
-				<EdgeVertex Name="2Ypu4XNV" PositionY="2000" PositionX="2890" />
-				<EdgeVertex Name="3YUzSCP4" PositionY="1910" PositionX="2480" />
+				<EdgeVertex Name="2Ypu4XNV" PositionY="2000" PositionX="3170" />
+				<EdgeVertex Name="3YUzSCP4" PositionY="1910" PositionX="2760" />
 				<EdgeVertex Name="6x73xox5" PositionY="-610" PositionX="1230" />
 				<EdgeVertex Name="8DvDbULf" PositionY="40" PositionX="150" />
 				<EdgeVertex Name="8mppxQjN" PositionY="480" PositionX="1960" />
-				<EdgeVertex Name="A0sQghAF" PositionY="1540" PositionX="1340" />
-				<EdgeVertex Name="BfEtPSW2" PositionY="2000" PositionX="2150" />
+				<EdgeVertex Name="A0sQghAF" PositionY="1540" PositionX="1620" />
+				<EdgeVertex Name="BfEtPSW2" PositionY="2000" PositionX="2430" />
 				<EdgeVertex Name="BJnnx78l" PositionY="620" PositionX="1690" />
 				<EdgeVertex Name="bxhCbqRF" PositionY="1110" PositionX="1250" />
 				<EdgeVertex Name="C5X4fo6E" PositionY="1390" PositionX="1270" />
@@ -404,7 +414,7 @@
 				<EdgeVertex Name="EUMI5rNn" PositionY="387" PositionX="131" />
 				<EdgeVertex Name="fffdEMqx" PositionY="-758" PositionX="925" />
 				<EdgeVertex Name="fjBYt1NX" PositionY="764" PositionX="593" />
-				<EdgeVertex Name="FlQReNDD" PositionY="1500" PositionX="1680" />
+				<EdgeVertex Name="FlQReNDD" PositionY="1500" PositionX="1870" />
 				<EdgeVertex Name="hgqH3h7m" PositionY="650" PositionX="2380" />
 				<EdgeVertex Name="l7k9JXIX" PositionY="-110" PositionX="450" />
 				<EdgeVertex Name="L7l2araV" PositionY="470" PositionX="1290" />
@@ -412,12 +422,12 @@
 				<EdgeVertex Name="lu9wt29Y" PositionY="1490" PositionX="-190" />
 				<EdgeVertex Name="nJj7joCK" PositionY="-90" PositionX="1680" />
 				<EdgeVertex Name="ow67TWuq" PositionY="-100" PositionX="2420" />
-				<EdgeVertex Name="PAB9m6j6" PositionY="1870" PositionX="2150" />
+				<EdgeVertex Name="PAB9m6j6" PositionY="1870" PositionX="2430" />
 				<EdgeVertex Name="pWw678K8" PositionY="40" PositionX="540" />
-				<EdgeVertex Name="Rv3whlya" PositionY="1950" PositionX="2140" />
+				<EdgeVertex Name="Rv3whlya" PositionY="1950" PositionX="2420" />
 				<EdgeVertex Name="SAogueCc" PositionY="460" PositionX="660" />
 				<EdgeVertex Name="sC9JaSKE" PositionY="-100" PositionX="480" />
-				<EdgeVertex Name="SkHm1stD" PositionY="2170" PositionX="3200" />
+				<EdgeVertex Name="SkHm1stD" PositionY="2170" PositionX="3480" />
 				<EdgeVertex Name="tPwL042d" PositionY="-630" PositionX="-270" />
 				<EdgeVertex Name="U6NCJssF" PositionY="-90" PositionX="900" />
 				<EdgeVertex Name="unRJgKEq" PositionY="-100" PositionX="320" />
@@ -442,13 +452,13 @@
 				<EdgeVertex Name="vertex49" PositionY="990" PositionX="2630" />
 				<EdgeVertex Name="vertex8" PositionY="1010" PositionX="240" />
 				<EdgeVertex Name="vmjIc3B7" PositionY="-114" PositionX="1994" />
-				<EdgeVertex Name="vW1nMtrF" PositionY="1540" PositionX="2090" />
-				<EdgeVertex Name="WjvPlmDV" PositionY="2140" PositionX="2690" />
-				<EdgeVertex Name="WPK7R2dE" PositionY="2000" PositionX="2530" />
-				<EdgeVertex Name="WT9qgk9D" PositionY="1950" PositionX="2530" />
-				<EdgeVertex Name="xopr3sVA" PositionY="2170" PositionX="1360" />
+				<EdgeVertex Name="vW1nMtrF" PositionY="1540" PositionX="2370" />
+				<EdgeVertex Name="WjvPlmDV" PositionY="2140" PositionX="2970" />
+				<EdgeVertex Name="WPK7R2dE" PositionY="2000" PositionX="2810" />
+				<EdgeVertex Name="WT9qgk9D" PositionY="1950" PositionX="2810" />
+				<EdgeVertex Name="xopr3sVA" PositionY="2170" PositionX="1640" />
 				<EdgeVertex Name="zBtSX9D4" PositionY="-610" PositionX="1950" />
-				<EdgeVertex Name="zCNvc7xM" PositionY="2140" PositionX="1360" />
+				<EdgeVertex Name="zCNvc7xM" PositionY="2140" PositionX="1640" />
 			</EdgeVertices>
 			<Types>
 				<Type TypeName="EscapeFromDanemark">

@@ -69,6 +69,9 @@
 				<Port Name="kamen_ukraden_mlade" Direction="Out" Type="trigger">
 					<DesignName StringName="hromovyka_kamen_ukraden_m_migq" Text="kámen ukraden Mladě" />
 				</Port>
+				<Port Name="m45_papezsky_legat" Direction="In" Type="wh::questmodule::QuestProgress">
+					<DesignName StringName="hromovyka_m45_papezsky_le_zrIX" Text="M45 Papežský legát" />
+				</Port>
 			</Ports>
 			<Definitions>
 				<Definition File="hromovyKamen/hromovykamen.xml" />
@@ -194,12 +197,11 @@
 						<Vertex>vertex596</Vertex>
 					</Edge>
 				</State>
-				<IfFunction Name="ifand57" PositionY="-610" PositionX="-790" MethodName="math::boolean::And" DeclaringType="math::boolean">
-					<Edge From="point_of_no_return_warning" To="Exec" />
-					<Edge From="hromovyKamen_state.Active" To="A">
-						<Vertex>vertex624</Vertex>
-						<Vertex>vertex625</Vertex>
-					</Edge>
+				<IfFunction Name="ifcompare62" PositionY="-380" PositionX="-860" TypeT="wh::questmodule::QuestProgress" MethodName="Control::Compare" DeclaringType="Control">
+					<Constant Name="Op" Value="NotEquals" />
+					<Constant Name="ValueB" Value="None" />
+					<Edge From="m45_papezsky_legat" To="ValueA" />
+					<Edge From="patchtrigger58.OnPatch" To="Exec" />
 				</IfFunction>
 				<MakeArray Name="makearray10" PositionY="-1850" PositionX="190" TypeT="wh::conceptmodule::ConceptPaths">
 					<Constant Name="A" Value="prijezdNaSuchdol.endQuest" />
@@ -214,12 +216,10 @@
 				<MakeArray Name="makearray8" PositionY="450" PositionX="-1060" TypeT="wh::conceptmodule::ConceptPaths">
 					<Constant Name="A" Value="hromovyKamen.endPreviousQuest" />
 				</MakeArray>
-				<State Name="noLongerAvailable" PositionY="-390" PositionX="-790" TypeT="bool">
+				<State Name="noLongerAvailable" PositionY="-380" PositionX="-640" TypeT="bool">
 					<Constant Name="DefaultValue" Value="false" />
-					<Edge From="ifand57.True" To="SetTrue">
-						<Vertex>YYJrhcVD</Vertex>
-						<Vertex>MqYaSR08</Vertex>
-					</Edge>
+					<Edge From="point_of_no_return_warning" To="SetTrue" />
+					<Edge From="ifcompare62.True" To="SetTrue" />
 				</State>
 				<odevzdani_kamene Name="odevzdani_kamene" PositionY="110" PositionX="830" RequiredForOutput="kutnohorsko">
 					<Edge From="hibernable.mam_info_od_thomlina" To="mam_info_od_thomlina">
@@ -271,6 +271,9 @@
 						<Vertex>vertex576</Vertex>
 					</Edge>
 				</Output>
+				<PatchTrigger Name="patchtrigger58" PositionY="-380" PositionX="-1200">
+					<Constant Name="TransitionToVersion" Value="ver_01_02" />
+				</PatchTrigger>
 				<quest_tipsteri_pro_s34 Name="quest_tipsteri_pro_s34" PositionY="610" PositionX="-690">
 					<Edge From="start" To="quest_activated" />
 					<Edge From="hromovyKamen_state.OnActive" To="quest_started_or_cancelled">
@@ -440,7 +443,6 @@
 				<EdgeVertex Name="GkopeDcT" PositionY="-1360" PositionX="790" />
 				<EdgeVertex Name="GtJ0qAuH" PositionY="-232" PositionX="1196" />
 				<EdgeVertex Name="JdEUQgHG" PositionY="-530" PositionX="260" />
-				<EdgeVertex Name="MqYaSR08" PositionY="-430" PositionX="-800" />
 				<EdgeVertex Name="NFL3c8kP" PositionY="-420" PositionX="1200" />
 				<EdgeVertex Name="NVTgL9aC" PositionY="-450" PositionX="1430" />
 				<EdgeVertex Name="PR1eJ1x1" PositionY="-30" PositionX="-310" />
@@ -506,8 +508,6 @@
 				<EdgeVertex Name="vertex619" PositionY="1190" PositionX="680" />
 				<EdgeVertex Name="vertex620" PositionY="1190" PositionX="-280" />
 				<EdgeVertex Name="vertex621" PositionY="-1380" PositionX="-470" />
-				<EdgeVertex Name="vertex624" PositionY="-160" PositionX="590" />
-				<EdgeVertex Name="vertex625" PositionY="-160" PositionX="-790" />
 				<EdgeVertex Name="vertex630" PositionY="-280" PositionX="1197" />
 				<EdgeVertex Name="vertex631" PositionY="-280" PositionX="-310" />
 				<EdgeVertex Name="vertex632" PositionY="-254" PositionX="1196" />
@@ -522,7 +522,6 @@
 				<EdgeVertex Name="xRUG5tjQ" PositionY="-400" PositionX="-300" />
 				<EdgeVertex Name="yK5j6VSG" PositionY="1130" PositionX="680" />
 				<EdgeVertex Name="YUGwntPj" PositionY="-450" PositionX="-300" />
-				<EdgeVertex Name="YYJrhcVD" PositionY="-430" PositionX="-610" />
 				<EdgeVertex Name="zW51fXyE" PositionY="100" PositionX="840" />
 			</EdgeVertices>
 			<Types>
@@ -766,7 +765,7 @@
 							<Log StringName="poraz_tho_thomlin_se_mnou_sG6f" Text="Thomlin se mnou bojovat nechce a zatím se mi nepodařilo ho přesvědčit. Musím to zkusit znova. Nebo možná, pokud porazím všechny bijce v Hořanech, pak se Thomlin k zápasu uráčí. A nebo to budu muset vymyslet jinak, koneckonců, potřebuju získat ten kámen, což se dá udělat i bez zápasu..." />
 						</EnumLog>
 						<EnumLog Type="Updated" Name="FightArranged" Marker="thomlin">
-							<Log StringName="poraz_tho_thomlin_se_vzpo_abli" Text="Thomlin se vzpouzel, ale nakonec se mi podařilo jej přesvědčit k zápasu. Už zbývá jen ho porazit. Ha ha.&#xD;&#xA;Čekat na mě bude u ohrady za stodolou. Mám přijít beze zbroje a vlastně bude lepší si na ten souboj sundat veškerý svrchní oděv. A samosebou bude třeba mít pořádnej ranec grošů, který musím vsadit proti tomu jeho kameni." />
+							<Log StringName="poraz_tho_thomlin_se_vzpo_abli" Text="Thomlin se vzpouzel, ale nakonec se mi podařilo jej přesvědčit k zápasu. Už zbývá jen ho porazit. Ha ha. Čekat na mě bude u ohrady za stodolou. Mám přijít beze zbroje a vlastně bude lepší si na ten souboj sundat veškerý svrchní oděv. A samosebou bude třeba mít pořádnej ranec grošů, který musím vsadit proti tomu jeho kameni." />
 						</EnumLog>
 						<EnumLog Type="Updated" Name="DefeatThomlin" />
 						<EnumLog Type="Updated" Name="PlayerLost" Marker="thomlin">

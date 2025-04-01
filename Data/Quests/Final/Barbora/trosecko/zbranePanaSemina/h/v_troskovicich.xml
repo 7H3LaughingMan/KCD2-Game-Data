@@ -33,6 +33,9 @@
 				<Port Name="intermezzo_probiha" Direction="In" Type="bool">
 					<DesignName StringName="v_troskov_intermezzo_prob_y7an" Text="combat Intermezzo probíhá" />
 				</Port>
+				<Port Name="sas_pokracuji_bez_hrace__jedou_do_skal" Direction="Out" Type="trigger">
+					<DesignName StringName="v_troskov_sas_pokracuji_b_JadD" Text="SaS pokračují bez hráče - jedou do skal" />
+				</Port>
 			</Ports>
 			<Definitions>
 				<Definition File="v_troskovicich/dialog_s_rychtarem.xml" />
@@ -42,6 +45,12 @@
 				<Definition File="v_troskovicich/debata_suk__semin__rychtar_je_debil.xml" />
 			</Definitions>
 			<Nodes>
+				<If Name="ActiveObjAfterDrozdDialog" PositionY="-390" PositionX="3770">
+					<Edge From="talkToSemin.Active" To="Condition">
+						<Vertex>kE0CyExf</Vertex>
+					</Edge>
+					<Edge From="playerOutFromTourTSequence.A" To="Exec" />
+				</If>
 				<Function Name="and48" PositionY="220" PositionX="2960" MethodName="math::boolean::And" DeclaringType="math::boolean">
 					<Edge From="not47.bool" To="A">
 						<Vertex>vertex157</Vertex>
@@ -110,7 +119,7 @@
 						<Vertex>U44gukfL</Vertex>
 						<Vertex>vertex146</Vertex>
 					</Edge>
-					<Edge From="playeroutfromtour.timer_done" To="Exec">
+					<Edge From="playerOutFromTourTSequence.B" To="Exec">
 						<Vertex>50XKnvzm</Vertex>
 						<Vertex>uMfXooLk</Vertex>
 						<Vertex>U44gukfL</Vertex>
@@ -129,7 +138,7 @@
 						<Vertex>vertex147</Vertex>
 						<Vertex>vertex148</Vertex>
 					</Edge>
-					<Edge From="playeroutfromtour.timer_done" To="Exec">
+					<Edge From="playerOutFromTourTSequence.B" To="Exec">
 						<Vertex>50XKnvzm</Vertex>
 						<Vertex>uMfXooLk</Vertex>
 						<Vertex>U44gukfL</Vertex>
@@ -149,7 +158,7 @@
 						<Vertex>vertex146</Vertex>
 						<Vertex>vertex147</Vertex>
 					</Edge>
-					<Edge From="playeroutfromtour.timer_done" To="Exec">
+					<Edge From="playerOutFromTourTSequence.B" To="Exec">
 						<Vertex>50XKnvzm</Vertex>
 						<Vertex>uMfXooLk</Vertex>
 						<Vertex>U44gukfL</Vertex>
@@ -170,7 +179,7 @@
 						<Vertex>vertex148</Vertex>
 						<Vertex>vertex149</Vertex>
 					</Edge>
-					<Edge From="playeroutfromtour.timer_done" To="Exec">
+					<Edge From="playerOutFromTourTSequence.B" To="Exec">
 						<Vertex>50XKnvzm</Vertex>
 						<Vertex>uMfXooLk</Vertex>
 						<Vertex>U44gukfL</Vertex>
@@ -267,8 +276,11 @@
 						<Vertex>EgKPzyRu</Vertex>
 						<Vertex>cujTthvb</Vertex>
 					</Edge>
-					<Edge From="playeroutfromtour.timer_done" To="sas_pokracuji_bez_hrace__sas_unstream">
+					<Edge From="ActiveObjAfterDrozdDialog.False" To="sas_pokracuji_bez_hrace__sas_unstream">
 						<Vertex>vertex145</Vertex>
+					</Edge>
+					<Edge From="ActiveObjAfterDrozdDialog.True" To="sas_pokracuji_bez_hrace__jedou_do_skal">
+						<Vertex>UV28XDf3</Vertex>
 					</Edge>
 				</Output>
 				<playeroutfromtour Name="playeroutfromtour" PositionY="-880" PositionX="3280" Namespace="zbrane_pana_semina">
@@ -278,13 +290,38 @@
 					</Edge>
 					<Edge From="talkToSemin.OnDone" To="stop_timer">
 						<Vertex>vertex128</Vertex>
+						<Vertex>GzdaaLHL</Vertex>
 						<Vertex>Sr90M96l</Vertex>
 					</Edge>
 					<Edge From="triggersequence82.A" To="stop_timer">
 						<Vertex>Sr90M96l</Vertex>
 					</Edge>
 					<Edge From="triggersequence82.B" To="start_timer" />
+					<Edge From="talkWithSeminSukInTroskovice.OnCanceled" To="stop_timer">
+						<Vertex>ULR5TnYF</Vertex>
+						<Vertex>kudmTDfs</Vertex>
+						<Vertex>7Lb1pMG7</Vertex>
+						<Vertex>GzdaaLHL</Vertex>
+						<Vertex>Sr90M96l</Vertex>
+					</Edge>
+					<Edge From="talkToBailiff.OnCanceled" To="stop_timer">
+						<Vertex>kudmTDfs</Vertex>
+						<Vertex>7Lb1pMG7</Vertex>
+						<Vertex>GzdaaLHL</Vertex>
+						<Vertex>Sr90M96l</Vertex>
+					</Edge>
+					<Edge From="talkToSemin.OnCanceled" To="stop_timer">
+						<Vertex>7Lb1pMG7</Vertex>
+						<Vertex>GzdaaLHL</Vertex>
+						<Vertex>Sr90M96l</Vertex>
+					</Edge>
 				</playeroutfromtour>
+				<TriggerSequence Name="playerOutFromTourTSequence" PositionY="-379" PositionX="3372">
+					<Edge From="playeroutfromtour.timer_done" To="Exec">
+						<Vertex>7YVjYCw8</Vertex>
+						<Vertex>UcL2yE40</Vertex>
+					</Edge>
+				</TriggerSequence>
 				<rozsynchronizovane_parkovani Name="rozsynchronizovane_parkovani" PositionY="90" PositionX="3350">
 					<Edge From="talkWithSeminSukInTroskovice.OnActive" To="start">
 						<Vertex>vertex165</Vertex>
@@ -418,18 +455,26 @@
 				<EdgeVertex Name="4e5gg4DQ" PositionY="1324" PositionX="-527" />
 				<EdgeVertex Name="50XKnvzm" PositionY="-930" PositionX="3630" />
 				<EdgeVertex Name="6w6srEMD" PositionY="-820" PositionX="1370" />
+				<EdgeVertex Name="7Lb1pMG7" PositionY="-320" PositionX="2840" />
+				<EdgeVertex Name="7YVjYCw8" PositionY="-476" PositionX="3636" />
 				<EdgeVertex Name="7z5gE9je" PositionY="637" PositionX="3142" />
 				<EdgeVertex Name="aHBJ8QLD" PositionY="120" PositionX="2462" />
 				<EdgeVertex Name="cujTthvb" PositionY="1570" PositionX="4780" />
 				<EdgeVertex Name="e7hW0gNo" PositionY="1250" PositionX="1700" />
 				<EdgeVertex Name="EgKPzyRu" PositionY="1570" PositionX="660" />
 				<EdgeVertex Name="FFtDLVlX" PositionY="-820" PositionX="2820" />
+				<EdgeVertex Name="GzdaaLHL" PositionY="-590" PositionX="3160" />
+				<EdgeVertex Name="kE0CyExf" PositionY="-75" PositionX="3654" />
+				<EdgeVertex Name="kudmTDfs" PositionY="-590" PositionX="2030" />
 				<EdgeVertex Name="LuuUM5V0" PositionY="-700" PositionX="3170" />
 				<EdgeVertex Name="NFlfNk4R" PositionY="64" PositionX="56" />
-				<EdgeVertex Name="Sr90M96l" PositionY="-820" PositionX="3210" />
+				<EdgeVertex Name="Sr90M96l" PositionY="-820" PositionX="3230" />
 				<EdgeVertex Name="U44gukfL" PositionY="160" PositionX="-670" />
+				<EdgeVertex Name="UcL2yE40" PositionY="-475" PositionX="3365" />
 				<EdgeVertex Name="UknD0rlb" PositionY="-720" PositionX="1170" />
+				<EdgeVertex Name="ULR5TnYF" PositionY="-590" PositionX="1350" />
 				<EdgeVertex Name="uMfXooLk" PositionY="-930" PositionX="-680" />
+				<EdgeVertex Name="UV28XDf3" PositionY="-18" PositionX="4502" />
 				<EdgeVertex Name="UzCGfNSK" PositionY="696" PositionX="3575" />
 				<EdgeVertex Name="VD03uBpW" PositionY="940" PositionX="2370" />
 				<EdgeVertex Name="vdmp7YTl" PositionY="704" PositionX="3385" />

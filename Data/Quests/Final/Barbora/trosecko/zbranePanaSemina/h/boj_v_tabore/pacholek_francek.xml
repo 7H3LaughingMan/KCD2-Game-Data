@@ -18,6 +18,9 @@
 				<Port Name="pacholkuv_profile_je_aktivni" Direction="In" Type="bool">
 					<DesignName StringName="pacholek__pacholkuv_profi_12Yr" Text="Pacholkův profile je aktivní" />
 				</Port>
+				<Port Name="zacina_odchod_z_kempu" Direction="In" Type="trigger">
+					<DesignName StringName="pacholek__zacina_odchod_z_9hTY" Text="Začíná odchod z kempu" />
+				</Port>
 			</Ports>
 			<Definitions>
 				<Definition File="pacholek_francek/francek__refusal.xml" />
@@ -34,9 +37,16 @@
 					<Edge From="pacholkuv_profile_je_aktivni" To="A" />
 					<Edge From="tabor_neni_vyresen" To="B" />
 				</Function>
-				<francek__refusal Name="francek__refusal" PositionY="520" PositionX="460">
+				<francek__refusal Name="francek__refusal" PositionY="520" PositionX="540">
 					<Edge From="or63.bool" To="active" />
 				</francek__refusal>
+				<Migration_Advanced Name="Migration_Advanced" PositionY="970" PositionX="100" Namespace="utils.general">
+					<Constant Name="linktag" Value="none" />
+					<Asset Name="souls" Alias="pacholekFrancek" />
+					<Constant Name="faction" Value="trosecko_enemies_bandits_zbranePanaSemina_neutral" />
+					<Edge From="and64.bool" To="isactive" />
+					<Edge From="zacina_odchod_z_kempu" To="forgetcrime" />
+				</Migration_Advanced>
 				<Function Name="not_NeprobihaOdjezd" PositionY="130" PositionX="-20" MethodName="math::boolean::Not" DeclaringType="math::boolean">
 					<Edge From="odjezd_probiha" To="Value" />
 				</Function>
@@ -44,7 +54,7 @@
 					<Edge From="svazannaprvnimmiste" To="A" />
 					<Edge From="svazannadruhemmiste" To="B" />
 				</Function>
-				<Function Name="or63" PositionY="530" PositionX="10" MethodName="math::boolean::Or" DeclaringType="math::boolean">
+				<Function Name="or63" PositionY="530" PositionX="90" MethodName="math::boolean::Or" DeclaringType="math::boolean">
 					<Edge From="svazannaprvnimmiste" To="A" />
 					<Edge From="svazannadruhemmiste" To="B" />
 				</Function>
@@ -52,11 +62,6 @@
 					<Constant Name="LinkTag" Value="zbranePanaSemina_tiedFrancek1" />
 					<Edge From="and_svazanANeprobihaOdjezd.bool" To="IsActive" />
 				</SchedulerLinkActivation>
-				<TemporaryFactionEffect Name="temporaryfaction11_1" PositionY="990" PositionX="10">
-					<Asset Name="Souls" Alias="pacholekFrancek" />
-					<Constant Name="Faction" Value="trosecko_enemies_bandits_zbranePanaSemina_neutral" />
-					<Edge From="and64.bool" To="IsActive" />
-				</TemporaryFactionEffect>
 				<TiedSpot Name="TiedSpot" PositionY="-310" PositionX="470" Namespace="utils.special">
 					<Asset Name="tiedsoul" Alias="pacholekFrancek" />
 					<Asset Name="tiedspot_smartentity" Alias="francekTiedSpotSO" />
@@ -64,7 +69,7 @@
 					<Constant Name="deactivatetrigger" Value="true" />
 					<Edge From="and_svazanANeprobihaOdjezd.bool" To="isactive" />
 				</TiedSpot>
-				<vip_protections Name="vip_protections" PositionY="690" PositionX="10" Namespace="utils.combat">
+				<vip_protections Name="vip_protections" PositionY="690" PositionX="90" Namespace="utils.combat">
 					<Asset Name="souls" Alias="pacholekFrancek" />
 					<Constant Name="stealprotection" Value="true" />
 					<Constant Name="attackprotection" Value="true" />

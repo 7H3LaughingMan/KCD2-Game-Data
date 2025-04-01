@@ -3,6 +3,7 @@
 	<BehaviorTree name="switch_handleAwareness_playerCompanion" is_function="1">
 		<Variables>
 			<Variable name="banishSuppressed" type="_bool" values="" isPersistent="0" form="single" />
+			<Variable name="canBanish" type="_bool" values="" isPersistent="0" form="single" />
 			<Variable name="dialogContext" type="_float" values="" isPersistent="0" form="associative" />
 			<Variable name="isBandit" type="_bool" values="" isPersistent="0" form="single" />
 			<Variable name="isInTrespass" type="_bool" values="" isPersistent="0" form="single" />
@@ -41,25 +42,18 @@
 						<Sequence>
 							<Switch>
 								<IfCondition failOnCondition="false" condition="$companionType == $enum:crime_banishCompanionType.Dog">
-									<CheckRelationshipInterval_SoulToSoul TargetSoul="$__player" Soul="$this.id" Flag="enemy" saveVersion="2">
-										<Then canSkip="1">
-											<Success />
-										</Then>
-										<Else canSkip="1">
-											<Sequence>
-												<Expression expressions="$shouldCheckBanish = true" />
-												<IsBandit Npc="$this.id" IsBandit="$isBandit" />
-												<IfElseCondition failOnCondition="false" condition="$isBandit" saveVersion="2">
-													<Then canSkip="1">
-														<Expression expressions="$shouldForcePublicReaction = true" />
-													</Then>
-													<Else canSkip="1">
-														<GetDogObservableActivity Companion="$__playerDog" ObservableActivity="" Target="" IsBarking="$shouldForceSemipublicReaction" />
-													</Else>
-												</IfElseCondition>
-											</Sequence>
-										</Else>
-									</CheckRelationshipInterval_SoulToSoul>
+									<Sequence>
+										<Expression expressions="$shouldCheckBanish = true" />
+										<IsBandit Npc="$this.id" IsBandit="$isBandit" />
+										<IfElseCondition failOnCondition="false" condition="$isBandit" saveVersion="2">
+											<Then canSkip="1">
+												<Expression expressions="$shouldForcePublicReaction = true" />
+											</Then>
+											<Else canSkip="1">
+												<GetDogObservableActivity Companion="$__playerDog" ObservableActivity="" Target="" IsBarking="$shouldForceSemipublicReaction" />
+											</Else>
+										</IfElseCondition>
+									</Sequence>
 								</IfCondition>
 								<IfCondition failOnCondition="false" condition="$companionType == $enum:crime_banishCompanionType.Horse">
 									<Expression expressions="$shouldCheckBanish = true &#10;$shouldForceSemipublicReaction = false" />
@@ -81,9 +75,27 @@
 										</EntityContextCheck>
 										<Switch>
 											<IfCondition failOnCondition="false" condition="$companionType == $enum:crime_banishCompanionType.Dog">
-												<IfElseCondition failOnCondition="false" condition="~$banishSuppressed &amp; &#10;( &#10; $shouldForcePublicReaction | &#10; ($isInTrespass &amp;  &#10;  ($trespassSevereness &gt;= $enum:trespassLevel.semipersonal |  &#10;   $shouldForceSemipublicReaction &#10;  ) &#10; ) &#10;)" saveVersion="2">
+												<IfElseCondition failOnCondition="false" condition="$shouldForcePublicReaction | &#10;($isInTrespass &amp;  &#10; ($trespassSevereness &gt;= $enum:trespassLevel.semipersonal |  &#10;  $shouldForceSemipublicReaction &#10; ) &#10;)" saveVersion="2">
 													<Then canSkip="1">
-														<Function_switch_handleStimulusPlayerCompanion stimulus="$stimulus" nodeLabel="95079833" />
+														<Sequence>
+															<IfCondition failOnCondition="false" condition="~$banishSuppressed">
+																<GetDogObservableActivity Companion="$__playerDog" ObservableActivity="" Target="" IsBarking="$canBanish" />
+															</IfCondition>
+															<IfElseCondition failOnCondition="false" condition="$canBanish" saveVersion="2">
+																<Then canSkip="1">
+																	<Function_switch_handleStimulusPlayerCompanion stimulus="$stimulus" nodeLabel="95079833" />
+																</Then>
+																<Else canSkip="1">
+																	<EntityContextCheck context="crime_dontCommentPlayersDog" target="" saveVersion="2">
+																		<Else canSkip="1">
+																			<IfCondition failOnCondition="false" condition="$reactionIntermediateData.barkData.priority &lt; $data:script_param[&apos;crime_barkReactionPriority_companion&apos;].value">
+																				<Expression expressions="$reactionIntermediateData.barkData.priority = $data:script_param[&apos;crime_barkReactionPriority_companion&apos;].value &#10;$reactionIntermediateData.barkData.lookAt = $__playerDog &#10;$reactionIntermediateData.barkData.metarole = &apos;NPC_VYHANENI_HRACOVA_PSA_(DISTRACTION)&apos; &#10;$reactionIntermediateData.barkData.barkKind = $enum:crime_barkReactionKind.companionDog &#10;$reactionIntermediateData.barkData.barkType = $enum:crime_barkReactionType.ingameMonolog" />
+																			</IfCondition>
+																		</Else>
+																	</EntityContextCheck>
+																</Else>
+															</IfElseCondition>
+														</Sequence>
 													</Then>
 													<Else canSkip="1">
 														<Switch>
@@ -176,76 +188,11 @@
 				</Switch>
 			</Behavior>
 		</Root>
-		<ForestContainer>
-			<IfElseCondition failOnCondition="false" condition="$isInTrespass" saveVersion="2">
-				<Then canSkip="1">
-					<Sequence>
-						<IfElseCondition failOnCondition="false" condition="$dogIsBarking" saveVersion="2">
-							<Then canSkip="1">
-								<CheckNervousnessInterval Soul="$this.id" Flag="midToInf" saveVersion="2">
-									<Then canSkip="1">
-										<HasSeenPlayer NPC="$this.id" FullyAwareOnly="false" saveVersion="2">
-											<Then canSkip="1">
-												<Sequence>
-													<Expression expressions="$stimulusDisturbance.perceivedWuid = $__player" />
-													<Function_switch_handleStimulusDisturbance stimulus="$stimulusDisturbance" nodeLabel="21220861" />
-												</Sequence>
-											</Then>
-											<Else canSkip="1">
-												<Function_callInterrupt_banishCompanion companion="$companion" forceSemipublicReaction="false" ignorePriority="false" stimulusKind="$enum:crime_stimulusKind.playerCompanion" nodeLabel="83166166" />
-											</Else>
-										</HasSeenPlayer>
-									</Then>
-									<Else canSkip="1">
-										<Function_callInterrupt_banishCompanion companion="$companion" forceSemipublicReaction="false" ignorePriority="false" stimulusKind="$enum:crime_stimulusKind.playerCompanion" nodeLabel="76922652" />
-									</Else>
-								</CheckNervousnessInterval>
-							</Then>
-						</IfElseCondition>
-					</Sequence>
-				</Then>
-			</IfElseCondition>
-			<Sequence>
-				<Switch>
-					<IfCondition failOnCondition="false" condition="$shouldCheckBanish">
-						<Sequence>
-							<Function_crime_determineTrespassReaction forceSemipublicReaction="$shouldForceSemipublicReaction" observer="$this.id" shouldUseVec3Position="false" target="$companion" vec3Position="" trespassAreaSevereness="$trespassSevereness" reaction="$isInTrespass" reactionSuppressed="$reactionSuppressed" trespassArea="$trespassArea" nodeLabel="99546428" />
-							<Switch>
-								<IfCondition failOnCondition="false" condition="$companionType == $enum:crime_banishCompanionType.Dog">
-									<Sequence />
-								</IfCondition>
-								<IfCondition failOnCondition="false" condition="$companionType == $enum:crime_banishCompanionType.Horse" />
-								<DefaultBranch>
-									<ErrorNode Message="&apos;[$this.name;] Unknown banishCompanionType in handleAwareness_playerCompanion&apos;" />
-								</DefaultBranch>
-							</Switch>
-						</Sequence>
-					</IfCondition>
-					<IfCondition failOnCondition="false" condition="$shouldCheckAttack">
-						<Sequence>
-							<Function_crime_decideSkirmishReaction allowFemaleJoin="false" moraleBoost="0.000000" reason="$enum:skirmishDecisionReason.perception" referenceNpc="$this.id" relationOverride="$enum:skirmishRelationOverride.none" targetNpc="$companion" skirmishReaction="$skirmishReaction" nodeLabel="48423262" />
-							<Switch>
-								<IfCondition failOnCondition="false" condition="$skirmishReaction == $enum:combat_skirmishReaction.join">
-									<Function_callInterrupt_attack assaultData="" criminalFreshness="$enum:crime_criminalFreshness.unknown" defenceMode="false" escalatedFromFailedSurrender="false" freshlyAttributedCrime="false" ignorePriority="false" information="$emptyInformation" initiator="$enum:switch_interruptInitiator.switch" previousReaction="$enum:crime_reactionKind.unknown" priority="160" questBehavior="false" relationOverride="true" stimulusKind="$enum:crime_stimulusKind.enemy" target="$companion" nodeLabel="86750804" />
-								</IfCondition>
-								<IfCondition failOnCondition="false" condition="$skirmishReaction == $enum:combat_skirmishReaction.withdraw">
-									<Function_callInterrupt_flee assaultData="" corpseState="$enum:corpseState.undiscovered" criminalFreshness="$enum:crime_criminalFreshness.unknown" freshlyAttributedCrime="false" ignorePriority="false" information="$emptyInformation" initiator="$enum:switch_interruptInitiator.switch" isIndifferent="false" leaveLevel="false" mercyDialogueResult="$enum:crime_mercyDialogueResult.unknown" previousReaction="$enum:crime_reactionKind.unknown" priority="135" source="$enum:crime_source.direct" stimulusKind="$enum:crime_stimulusKind.enemy" target="$companion" nodeLabel="81701411" />
-								</IfCondition>
-								<IfCondition failOnCondition="false" condition="$skirmishReaction == $enum:combat_skirmishReaction.indifference">
-									<Function_callInterrupt_flee assaultData="" corpseState="$enum:corpseState.undiscovered" criminalFreshness="$enum:crime_criminalFreshness.unknown" freshlyAttributedCrime="false" ignorePriority="false" information="$emptyInformation" initiator="$enum:switch_interruptInitiator.switch" isIndifferent="false" leaveLevel="false" mercyDialogueResult="$enum:crime_mercyDialogueResult.unknown" previousReaction="$enum:crime_reactionKind.unknown" priority="135" source="$enum:crime_source.direct" stimulusKind="$enum:crime_stimulusKind.enemy" target="$companion" nodeLabel="37138479" />
-								</IfCondition>
-							</Switch>
-						</Sequence>
-					</IfCondition>
-					<DefaultBranch>
-						<Success />
-					</DefaultBranch>
-				</Switch>
-			</Sequence>
-		</ForestContainer>
+		<ForestContainer />
 		<EditorData EventSet="">
 			<Variables>
 				<Variable name="banishSuppressed" comment="" />
+				<Variable name="canBanish" comment="" />
 				<Variable name="dialogContext" comment="" />
 				<Variable name="isBandit" comment="" />
 				<Variable name="isInTrespass" comment="" />
@@ -296,38 +243,28 @@
 									<OutputBreakpoints />
 									<IfCondition hasInputBreakpoint="0" comment="" breakpointFlags="0">
 										<OutputBreakpoints />
-										<CheckRelationshipInterval_SoulToSoul hasInputBreakpoint="0" comment="Only attack dog" breakpointFlags="0" saveVersion="2">
+										<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
 											<OutputBreakpoints />
-											<Then>
-												<Success hasInputBreakpoint="0" comment="Awareness_enemy takes care of it" breakpointFlags="0">
-													<OutputBreakpoints />
-												</Success>
-											</Then>
-											<Else>
-												<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
-													<OutputBreakpoints />
-													<Expression hasInputBreakpoint="0" comment="" breakpointFlags="0">
+											<Expression hasInputBreakpoint="0" comment="" breakpointFlags="0">
+												<OutputBreakpoints />
+											</Expression>
+											<IsBandit hasInputBreakpoint="0" comment="" breakpointFlags="0">
+												<OutputBreakpoints />
+											</IsBandit>
+											<IfElseCondition hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
+												<OutputBreakpoints />
+												<Then>
+													<Expression hasInputBreakpoint="0" comment="Bandit&apos;s should banish even not barking dogs" breakpointFlags="0">
 														<OutputBreakpoints />
 													</Expression>
-													<IsBandit hasInputBreakpoint="0" comment="" breakpointFlags="0">
+												</Then>
+												<Else>
+													<GetDogObservableActivity hasInputBreakpoint="0" comment="" breakpointFlags="0">
 														<OutputBreakpoints />
-													</IsBandit>
-													<IfElseCondition hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
-														<OutputBreakpoints />
-														<Then>
-															<Expression hasInputBreakpoint="0" comment="Bandit&apos;s should banish even not barking dogs" breakpointFlags="0">
-																<OutputBreakpoints />
-															</Expression>
-														</Then>
-														<Else>
-															<GetDogObservableActivity hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																<OutputBreakpoints />
-															</GetDogObservableActivity>
-														</Else>
-													</IfElseCondition>
-												</Sequence>
-											</Else>
-										</CheckRelationshipInterval_SoulToSoul>
+													</GetDogObservableActivity>
+												</Else>
+											</IfElseCondition>
+										</Sequence>
 									</IfCondition>
 									<IfCondition hasInputBreakpoint="0" comment="" breakpointFlags="0">
 										<OutputBreakpoints />
@@ -368,9 +305,36 @@
 													<IfElseCondition hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
 														<OutputBreakpoints />
 														<Then>
-															<Function_switch_handleStimulusPlayerCompanion hasInputBreakpoint="0" comment="" breakpointFlags="0">
+															<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
 																<OutputBreakpoints />
-															</Function_switch_handleStimulusPlayerCompanion>
+																<IfCondition hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																	<OutputBreakpoints />
+																	<GetDogObservableActivity hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																		<OutputBreakpoints />
+																	</GetDogObservableActivity>
+																</IfCondition>
+																<IfElseCondition hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
+																	<OutputBreakpoints />
+																	<Then>
+																		<Function_switch_handleStimulusPlayerCompanion hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																			<OutputBreakpoints />
+																		</Function_switch_handleStimulusPlayerCompanion>
+																	</Then>
+																	<Else>
+																		<EntityContextCheck hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
+																			<OutputBreakpoints />
+																			<Else>
+																				<IfCondition hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																					<OutputBreakpoints />
+																					<Expression hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																						<OutputBreakpoints />
+																					</Expression>
+																				</IfCondition>
+																			</Else>
+																		</EntityContextCheck>
+																	</Else>
+																</IfElseCondition>
+															</Sequence>
 														</Then>
 														<Else>
 															<Switch hasInputBreakpoint="0" comment="" breakpointFlags="0">
@@ -507,117 +471,7 @@
 					</Switch>
 				</Behavior>
 			</Root>
-			<Forest>
-				<IfElseCondition editorPosX="1600" editorPosY="-500" hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
-					<OutputBreakpoints />
-					<Then>
-						<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
-							<OutputBreakpoints />
-							<IfElseCondition hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
-								<OutputBreakpoints />
-								<Then>
-									<CheckNervousnessInterval hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
-										<OutputBreakpoints />
-										<Then>
-											<HasSeenPlayer hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
-												<OutputBreakpoints />
-												<Then>
-													<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
-														<OutputBreakpoints />
-														<Expression hasInputBreakpoint="0" comment="" breakpointFlags="0">
-															<OutputBreakpoints />
-														</Expression>
-														<Function_switch_handleStimulusDisturbance hasInputBreakpoint="0" comment="" breakpointFlags="0">
-															<OutputBreakpoints />
-														</Function_switch_handleStimulusDisturbance>
-													</Sequence>
-												</Then>
-												<Else>
-													<Function_callInterrupt_banishCompanion hasInputBreakpoint="0" comment="" breakpointFlags="0">
-														<OutputBreakpoints />
-													</Function_callInterrupt_banishCompanion>
-												</Else>
-											</HasSeenPlayer>
-										</Then>
-										<Else>
-											<Function_callInterrupt_banishCompanion hasInputBreakpoint="0" comment="" breakpointFlags="0">
-												<OutputBreakpoints />
-											</Function_callInterrupt_banishCompanion>
-										</Else>
-									</CheckNervousnessInterval>
-								</Then>
-							</IfElseCondition>
-						</Sequence>
-					</Then>
-				</IfElseCondition>
-				<Sequence editorPosX="2310" editorPosY="2700" hasInputBreakpoint="0" comment="" breakpointFlags="0">
-					<OutputBreakpoints />
-					<Switch hasInputBreakpoint="0" comment="" breakpointFlags="0">
-						<OutputBreakpoints />
-						<IfCondition hasInputBreakpoint="0" comment="" breakpointFlags="0">
-							<OutputBreakpoints />
-							<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
-								<OutputBreakpoints />
-								<Function_crime_determineTrespassReaction hasInputBreakpoint="0" comment="" breakpointFlags="0">
-									<OutputBreakpoints />
-								</Function_crime_determineTrespassReaction>
-								<Switch hasInputBreakpoint="0" comment="" breakpointFlags="0">
-									<OutputBreakpoints />
-									<IfCondition hasInputBreakpoint="0" comment="" breakpointFlags="0">
-										<OutputBreakpoints />
-										<Sequence hasInputBreakpoint="0" comment="Is dog" breakpointFlags="0">
-											<OutputBreakpoints />
-										</Sequence>
-									</IfCondition>
-									<IfCondition hasInputBreakpoint="0" comment="" breakpointFlags="0">
-										<OutputBreakpoints />
-									</IfCondition>
-									<DefaultBranch>
-										<ErrorNode hasInputBreakpoint="0" comment="" breakpointFlags="0">
-											<OutputBreakpoints />
-										</ErrorNode>
-									</DefaultBranch>
-								</Switch>
-							</Sequence>
-						</IfCondition>
-						<IfCondition hasInputBreakpoint="0" comment="" breakpointFlags="0">
-							<OutputBreakpoints />
-							<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
-								<OutputBreakpoints />
-								<Function_crime_decideSkirmishReaction hasInputBreakpoint="0" comment="" breakpointFlags="0">
-									<OutputBreakpoints />
-								</Function_crime_decideSkirmishReaction>
-								<Switch hasInputBreakpoint="0" comment="" breakpointFlags="0">
-									<OutputBreakpoints />
-									<IfCondition hasInputBreakpoint="0" comment="" breakpointFlags="0">
-										<OutputBreakpoints />
-										<Function_callInterrupt_attack hasInputBreakpoint="0" comment="" breakpointFlags="0">
-											<OutputBreakpoints />
-										</Function_callInterrupt_attack>
-									</IfCondition>
-									<IfCondition hasInputBreakpoint="0" comment="" breakpointFlags="0">
-										<OutputBreakpoints />
-										<Function_callInterrupt_flee hasInputBreakpoint="0" comment="" breakpointFlags="0">
-											<OutputBreakpoints />
-										</Function_callInterrupt_flee>
-									</IfCondition>
-									<IfCondition hasInputBreakpoint="0" comment="" breakpointFlags="0">
-										<OutputBreakpoints />
-										<Function_callInterrupt_flee hasInputBreakpoint="0" comment="" breakpointFlags="0">
-											<OutputBreakpoints />
-										</Function_callInterrupt_flee>
-									</IfCondition>
-								</Switch>
-							</Sequence>
-						</IfCondition>
-						<DefaultBranch>
-							<Success hasInputBreakpoint="0" comment="" breakpointFlags="0">
-								<OutputBreakpoints />
-							</Success>
-						</DefaultBranch>
-					</Switch>
-				</Sequence>
-			</Forest>
+			<Forest />
 			<Comments />
 		</EditorData>
 	</BehaviorTree>

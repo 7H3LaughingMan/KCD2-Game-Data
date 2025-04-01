@@ -12,6 +12,9 @@
 				<Port Name="suk_urguje_na_hracovi_dialog" Direction="Out" Type="bool">
 					<DesignName StringName="suk_po_bo_suk_urguje_na_h_IBqh" Text="Suk urguje na hráčovi dialog" />
 				</Port>
+				<Port Name="stream_vaska" Direction="Out" Type="trigger">
+					<DesignName StringName="suk_po_bo_stream_vaska_ahY3" Text="Stream Vaška" />
+				</Port>
 			</Ports>
 			<Definitions>
 				<Definition File="suk_po_boji_na_hrace/suk_posila_hrace_do_skal.xml" />
@@ -25,14 +28,31 @@
 					<Asset Name="Origin" Alias="player" />
 					<Asset Name="Target" Alias="suk" />
 				</Function>
+				<NPCs_TeleportIngame Name="NPCs_TeleportIngame" PositionY="300" PositionX="2080" Namespace="utils.general">
+					<Asset Name="npcs" Alias="pacholek" />
+					<Asset Name="destinations" Alias="tpPacholekFleePointStart" />
+					<Edge From="triggersequencePoSukDialoguNaPacholka.A" To="teleport" />
+				</NPCs_TeleportIngame>
 				<Output Name="Output">
-					<Edge From="suk_posila_hrace_do_skal.AfterPlay" To="po_dialogu" />
 					<Edge From="stateSukUrgeDialog.Active" To="suk_urguje_na_hracovi_dialog">
 						<Vertex>HMnnCRNy</Vertex>
 						<Vertex>0QqEfTPy</Vertex>
 						<Vertex>uGCkr7h9</Vertex>
 					</Edge>
+					<Edge From="suk_posila_hrace_do_skal.AfterPlay" To="po_dialogu" />
+					<Edge From="suk_posila_hrace_do_skal.AfterPlay" To="stream_vaska" />
 				</Output>
+				<State Name="pacholekStreameadChecking" PositionY="220" PositionX="1050" TypeT="bool">
+					<Edge From="suk_posila_hrace_do_skal.AfterPlay" To="SetTrue" />
+					<Edge From="triggersequencePoSukDialoguNaPacholka.B" To="SetFalse">
+						<Vertex>tHoxE1Ye</Vertex>
+						<Vertex>ECscT6ek</Vertex>
+					</Edge>
+				</State>
+				<ProfileStateTrigger Name="profilestatetrigger4" PositionY="280" PositionX="1300">
+					<Asset Name="Profiles" Alias="profilePacholek" />
+					<Edge From="pacholekStreameadChecking.State" To="IsActive" />
+				</ProfileStateTrigger>
 				<State Name="stateSukUrgeDialog" PositionY="-660" PositionX="-470" TypeT="Progress">
 					<Edge From="init" To="SetActive" />
 					<Edge From="suk_posila_hrace_do_skal.BeforePlay" To="SetDone">
@@ -59,6 +79,9 @@
 						<Vertex>v4VxqS4T</Vertex>
 					</Edge>
 				</suk_posila_hrace_do_skal>
+				<TriggerSequence Name="triggersequencePoSukDialoguNaPacholka" PositionY="280" PositionX="1700">
+					<Edge From="profilestatetrigger4.OnLoaded" To="Exec" />
+				</TriggerSequence>
 				<UrgeADialog Name="UrgeADialog" PositionY="-680" PositionX="-180" Namespace="utils.speech">
 					<Constant Name="behaviorname" Value="urgeDialog" />
 					<Asset Name="smartentity" Alias="zbraneSO" />
@@ -78,9 +101,11 @@
 			</Nodes>
 			<EdgeVertices>
 				<EdgeVertex Name="0QqEfTPy" PositionY="-893" PositionX="-109" />
+				<EdgeVertex Name="ECscT6ek" PositionY="490" PositionX="1060" />
 				<EdgeVertex Name="gXxTytaF" PositionY="10" PositionX="-440" />
 				<EdgeVertex Name="HMnnCRNy" PositionY="-650" PositionX="-220" />
 				<EdgeVertex Name="ICFN5zvG" PositionY="10" PositionX="820" />
+				<EdgeVertex Name="tHoxE1Ye" PositionY="500" PositionX="1900" />
 				<EdgeVertex Name="uGCkr7h9" PositionY="-893" PositionX="699" />
 				<EdgeVertex Name="v4VxqS4T" PositionY="-240" PositionX="260" />
 			</EdgeVertices>

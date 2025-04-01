@@ -54,6 +54,10 @@
 				<Definition File="hovory_s_pb/svetla_behem_trialogu.xml" />
 			</Definitions>
 			<Nodes>
+				<Function Name="and17" PositionY="-30" PositionX="1850" MethodName="math::boolean::And" DeclaringType="math::boolean">
+					<Edge From="svetla_behem_trialogu.dialog_probiha" To="B" />
+					<Edge From="not18.bool" To="A" />
+				</Function>
 				<Function Name="compare9" PositionY="60" PositionX="80" TypeT="PtacekRomance" MethodName="Control::Compare" DeclaringType="Control">
 					<Constant Name="Op" Value="Equals" />
 					<Constant Name="ValueB" Value="RomanceStarted" />
@@ -160,10 +164,20 @@
 					</Edge>
 					<Edge From="ptacek_a_drabant__klaustrofobni_trialog.start_pruzkum" To="Exec" />
 				</IfFunction>
+				<Function Name="joinarrays21" PositionY="160" PositionX="1850" TypeT="wh::rpgmodule::Souls" MethodName="utilities::array::JoinArrays" DeclaringType="utilities::array">
+					<Asset Name="A" Alias="malesovSoldiers" />
+					<Asset Name="B" Alias="malesovCivilians" />
+				</Function>
 				<MakeArray Name="makearray2" PositionY="250" PositionX="-100" TypeT="wh::rpgmodule::Souls">
 					<Asset Name="A" Alias="ptacek" />
 					<Asset Name="B" Alias="brabant" />
 				</MakeArray>
+				<Function Name="not18" PositionY="-50" PositionX="1520" MethodName="math::boolean::Not" DeclaringType="math::boolean">
+					<Edge From="poplach_spusten" To="Value">
+						<Vertex>WzgrQxjP</Vertex>
+						<Vertex>PrED07q6</Vertex>
+					</Edge>
+				</Function>
 				<obstarej_zbran_pro_jana_ptacka Name="objectiveVisual19" PositionY="830" PositionX="2140" RequiredForOutput="kutnohorsko">
 					<Edge From="getPtacekAWeapon.State" To="Progress" />
 				</obstarej_zbran_pro_jana_ptacka>
@@ -226,6 +240,11 @@
 						<Vertex>vertex11</Vertex>
 					</Edge>
 				</ptacek_a_drabant__klaustrofobni_trialog>
+				<SetEntityContextPreset Name="setentitycontextpreset20" PositionY="-40" PositionX="2110">
+					<Constant Name="Preset" Value="switch_unresponsive" />
+					<Edge From="and17.bool" To="IsActive" />
+					<Edge From="joinarrays21.Array" To="Souls" />
+				</SetEntityContextPreset>
 				<svetla_behem_trialogu Name="svetla_behem_trialogu" PositionY="74" PositionX="1516">
 					<Edge From="ptacek_a_drabant__klaustrofobni_trialog.AfterPlay" To="odstreamovat" />
 					<Edge From="nastreamovat_svetla_na_trialog" To="nastreamovat">
@@ -255,6 +274,7 @@
 				<EdgeVertex Name="hjemCX8o" PositionY="500" PositionX="2300" />
 				<EdgeVertex Name="jfVToI9A" PositionY="480" PositionX="2310" />
 				<EdgeVertex Name="N4fW6dlH" PositionY="1489" PositionX="2311" />
+				<EdgeVertex Name="PrED07q6" PositionY="-88" PositionX="1406" />
 				<EdgeVertex Name="vertex1" PositionY="2480" PositionX="340" />
 				<EdgeVertex Name="vertex10" PositionY="1950" PositionX="-40" />
 				<EdgeVertex Name="vertex11" PositionY="840" PositionX="800" />
@@ -277,6 +297,7 @@
 				<EdgeVertex Name="vertex8" PositionY="2480" PositionX="1340" />
 				<EdgeVertex Name="vertex9" PositionY="970" PositionX="-130" />
 				<EdgeVertex Name="wwkGmA1S" PositionY="1949" PositionX="2349" />
+				<EdgeVertex Name="WzgrQxjP" PositionY="-89" PositionX="-196" />
 				<EdgeVertex Name="X8xWBsKM" PositionY="450" PositionX="2310" />
 			</EdgeVertices>
 			<Assets>
@@ -317,6 +338,11 @@
 				<CameraAsset Name="M35_Klautrofob_customCamera_17" />
 				<CameraAsset Name="M35_Klautrofob_customCamera_18" />
 			</Assets>
+			<Notes>
+				<Note Name="note64" PositionY="-110" PositionX="2090">
+					<Text StringName="hovory_s__note64_JJ6d" Text="KCD2-435122 - Aby se během trialogu nevyhlásil poplach." />
+				</Note>
+			</Notes>
 			<Text StringName="hovory_s_pb_iMsx" Text="Hovory s PB" />
 			<Elements>
 				<ActionPromptElement>

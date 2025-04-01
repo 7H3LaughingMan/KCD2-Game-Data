@@ -31,6 +31,11 @@
 			<Enumeration Name="PriceMismatch" />
 			<Enumeration Name="Invalid" />
 		</Type>
+		<Type TypeName="E_GameMode" TypeClass="Enumeration" IsEditable="true">
+			<Enumeration Name="none" />
+			<Enumeration Name="normal" />
+			<Enumeration Name="hardcore" />
+		</Type>
 		<Type TypeName="Guid" TypeClass="ValueType" IsEditable="true" />
 		<Type TypeName="HitReactionStrength" TypeClass="Enumeration" IsEditable="true">
 			<Enumeration Name="Zero" />
@@ -587,6 +592,13 @@
 			<Enumeration Name="Escalate" />
 			<Enumeration Name="MindPlayer" />
 		</Type>
+		<Type TypeName="legacyOfTheForge_blacksmithLogo" TypeClass="Enumeration" IsEditable="true">
+			<Enumeration Name="None" />
+			<Enumeration Name="PlaceholderDog" />
+			<Enumeration Name="PlaceholderCat" />
+			<Enumeration Name="PlaceholderAntEater" />
+			<Enumeration Name="PlaceholderDinosaur" />
+		</Type>
 		<Type TypeName="movementDoorClosingPolicy" TypeClass="Enumeration" IsEditable="true">
 			<Enumeration Name="automatic" />
 			<Enumeration Name="leaveClosed" />
@@ -879,6 +891,11 @@
 			<Enumeration Name="prohibited" />
 		</Type>
 		<Type TypeName="trigger" TypeClass="Trigger" IsEditable="false" />
+		<Type TypeName="turnToPlayerInIdleStance_anyDecoratorPreset" TypeClass="Enumeration" IsEditable="true">
+			<Enumeration Name="changeEquipment" />
+			<Enumeration Name="bothHands_changeEquipment" />
+			<Enumeration Name="disabled" />
+		</Type>
 		<Type TypeName="uint" TypeClass="ValueType" IsEditable="true" />
 		<Type TypeName="uint64" TypeClass="ValueType" IsEditable="true" />
 		<Type TypeName="weaponSelection_mainHand" TypeClass="Enumeration" IsEditable="true">
@@ -1303,6 +1320,7 @@
 			<Enumeration Name="ver_01_00" />
 			<Enumeration Name="ver_01_01" />
 			<Enumeration Name="ver_01_01_01" />
+			<Enumeration Name="ver_01_02" />
 		</Type>
 		<Type TypeName="wh::framework::LocalizedString" TypeClass="ValueType" IsEditable="true" />
 		<Type TypeName="wh::framework::LocalizedStrings" TypeClass="Sequential" IsEditable="false">
@@ -1341,6 +1359,7 @@
 			<Enumeration Name="FightArena" />
 			<Enumeration Name="FirstFightArena" />
 			<Enumeration Name="DLC0" />
+			<Enumeration Name="Barber" />
 		</Type>
 		<Type TypeName="wh::musicmodule::WorldStateToggleAsEventId" TypeClass="ValueType" IsEditable="true">
 			<TypeConstraint Type="Table" Target="WorldStateToggle" KeyProperty="//WorldStateToggle[@UseAsEvent=&apos;true&apos;]/@Name" ValueProperty="//WorldStateToggle[@UseAsEvent=&apos;true&apos;]/@Name" />
@@ -1467,6 +1486,7 @@
 			<Enumeration Name="WeaponDestroyed" />
 			<Enumeration Name="GettingArmedSkirmish" />
 			<Enumeration Name="PlayerDodge" />
+			<Enumeration Name="ChangingTorch" />
 		</Type>
 		<Type TypeName="wh::rpgmodule::Faction*" TypeClass="ReferenceType" IsEditable="false" />
 		<Type TypeName="wh::rpgmodule::FactionID" TypeClass="ValueType" IsEditable="true">
@@ -1738,6 +1758,7 @@
 			<Enumeration Name="rpp" />
 			<Enumeration Name="efd" />
 			<Enumeration Name="aml" />
+			<Enumeration Name="bmr" />
 			<Enumeration Name="lgp" />
 		</Type>
 		<Type TypeName="wh::rpgmodule::SoulQueryContext*" TypeClass="ReferenceType" IsEditable="false" />
@@ -2026,6 +2047,12 @@
 			<Enumeration Name="Finding" />
 			<Enumeration Name="Reporting" />
 			<Enumeration Name="Done" />
+		</Type>
+		<Type TypeName="zoufalaObranaZaBohutu_certCommandingPaviseMen" TypeClass="Enumeration" IsEditable="true">
+			<Enumeration Name="None" />
+			<Enumeration Name="BarkRepeatedly" />
+			<Enumeration Name="BarkOnce" />
+			<Enumeration Name="PlayAnimationOnce" />
 		</Type>
 		<Type TypeName="zoufalaObranaZaBohutu_prazanSituation" TypeClass="Enumeration" IsEditable="true">
 			<Enumeration Name="None" />
@@ -2338,6 +2365,19 @@
 				<RunTimePort Name="group_filter" Visibility="Interface" Direction="In" ConnectionType="Any" Type="wh::xgenaimodule::LinkableObject*" Template="None" IsOptional="true" />
 				<RunTimePort Name="success" Visibility="Interface" Direction="Out" ConnectionType="Any" Type="bool" Template="None" IsOptional="true" />
 				<RunTimePort Name="success_filter" Visibility="Interface" Direction="In" ConnectionType="Any" Type="bool" Template="None" IsOptional="true" />
+			</Ports>
+		</Definition>
+		<Definition TypeName="AIConceptSignalTrigger" Name="AIConceptSignalTrigger_battleTrackviewMessage" Category="wh::xgenaimodule" Style="AIGenerated">
+			<Properties>
+				<Property Name="NotificationName" Value="battleTrackviewMessage" />
+			</Properties>
+			<Ports>
+				<CompileTimePort Name="IsActive" Visibility="Interface" Direction="In" ConnectionType="Edge" Type="bool" Template="None" IsOptional="false" IsAutoTriggerable="true" />
+				<CompileTimePort Name="OnNotification" Visibility="Interface" Direction="Out" ConnectionType="Any" Type="trigger" Template="None" IsOptional="false" />
+				<RunTimePort Name="alias" Visibility="Interface" Direction="Out" ConnectionType="Any" Type="string" Template="None" IsOptional="true" />
+				<RunTimePort Name="alias_filter" Visibility="Interface" Direction="In" ConnectionType="Any" Type="string" Template="None" IsOptional="true" />
+				<RunTimePort Name="type" Visibility="Interface" Direction="Out" ConnectionType="Any" Type="string" Template="None" IsOptional="true" />
+				<RunTimePort Name="type_filter" Visibility="Interface" Direction="In" ConnectionType="Any" Type="string" Template="None" IsOptional="true" />
 			</Ports>
 		</Definition>
 		<Definition TypeName="AIConceptSignalTrigger" Name="AIConceptSignalTrigger_battleTrigger" Category="wh::xgenaimodule" Style="AIGenerated">
@@ -2654,6 +2694,17 @@
 				<RunTimePort Name="horse_value_filter" Visibility="Interface" Direction="In" ConnectionType="Any" Type="wh::rpgmodule::I_Soul*" Template="None" IsOptional="true" />
 			</Ports>
 		</Definition>
+		<Definition TypeName="AIConceptSignalTrigger" Name="AIConceptSignalTrigger_eliciting_crowdCheck" Category="wh::xgenaimodule" Style="AIGenerated">
+			<Properties>
+				<Property Name="NotificationName" Value="eliciting_crowdCheck" />
+			</Properties>
+			<Ports>
+				<CompileTimePort Name="IsActive" Visibility="Interface" Direction="In" ConnectionType="Edge" Type="bool" Template="None" IsOptional="false" IsAutoTriggerable="true" />
+				<CompileTimePort Name="OnNotification" Visibility="Interface" Direction="Out" ConnectionType="Any" Type="trigger" Template="None" IsOptional="false" />
+				<RunTimePort Name="crowdSize" Visibility="Interface" Direction="Out" ConnectionType="Any" Type="int" Template="None" IsOptional="true" />
+				<RunTimePort Name="crowdSize_filter" Visibility="Interface" Direction="In" ConnectionType="Any" Type="int" Template="None" IsOptional="true" />
+			</Ports>
+		</Definition>
 		<Definition TypeName="AIConceptSignalTrigger" Name="AIConceptSignalTrigger_extraGuards_notification" Category="wh::xgenaimodule" Style="AIGenerated">
 			<Properties>
 				<Property Name="NotificationName" Value="extraGuards_notification" />
@@ -2857,6 +2908,15 @@
 				<CompileTimePort Name="OnNotification" Visibility="Interface" Direction="Out" ConnectionType="Any" Type="trigger" Template="None" IsOptional="false" />
 			</Ports>
 		</Definition>
+		<Definition TypeName="AIConceptSignalTrigger" Name="AIConceptSignalTrigger_shootingContest_hidePopupTutorial" Category="wh::xgenaimodule" Style="AIGenerated">
+			<Properties>
+				<Property Name="NotificationName" Value="shootingContest_hidePopupTutorial" />
+			</Properties>
+			<Ports>
+				<CompileTimePort Name="IsActive" Visibility="Interface" Direction="In" ConnectionType="Edge" Type="bool" Template="None" IsOptional="false" IsAutoTriggerable="true" />
+				<CompileTimePort Name="OnNotification" Visibility="Interface" Direction="Out" ConnectionType="Any" Type="trigger" Template="None" IsOptional="false" />
+			</Ports>
+		</Definition>
 		<Definition TypeName="AIConceptSignalTrigger" Name="AIConceptSignalTrigger_shootingContest_npcParticipants" Category="wh::xgenaimodule" Style="AIGenerated">
 			<Properties>
 				<Property Name="NotificationName" Value="shootingContest_npcParticipants" />
@@ -2880,6 +2940,15 @@
 		<Definition TypeName="AIConceptSignalTrigger" Name="AIConceptSignalTrigger_shootingContest_playerWonOnExpertDifficulty" Category="wh::xgenaimodule" Style="AIGenerated">
 			<Properties>
 				<Property Name="NotificationName" Value="shootingContest_playerWonOnExpertDifficulty" />
+			</Properties>
+			<Ports>
+				<CompileTimePort Name="IsActive" Visibility="Interface" Direction="In" ConnectionType="Edge" Type="bool" Template="None" IsOptional="false" IsAutoTriggerable="true" />
+				<CompileTimePort Name="OnNotification" Visibility="Interface" Direction="Out" ConnectionType="Any" Type="trigger" Template="None" IsOptional="false" />
+			</Ports>
+		</Definition>
+		<Definition TypeName="AIConceptSignalTrigger" Name="AIConceptSignalTrigger_shootingContest_showPopupTutorial" Category="wh::xgenaimodule" Style="AIGenerated">
+			<Properties>
+				<Property Name="NotificationName" Value="shootingContest_showPopupTutorial" />
 			</Properties>
 			<Ports>
 				<CompileTimePort Name="IsActive" Visibility="Interface" Direction="In" ConnectionType="Edge" Type="bool" Template="None" IsOptional="false" IsAutoTriggerable="true" />
@@ -4682,6 +4751,22 @@
 				<RunTimePort Name="throwOutUnconsciousPlayerData_source__" Visibility="Interface" Direction="In" ConnectionType="Any" Type="int" Template="None" IsOptional="false" />
 			</Ports>
 		</Definition>
+		<Definition TypeName="AddInterruptConceptNode" Name="AddInterrupt_turnToPlayerInIdleStance" Category="wh::xgenaimodule" Style="AIGenerated">
+			<Properties>
+				<Property Name="Signature" Value="turnToPlayerInIdleStance" />
+			</Properties>
+			<Ports>
+				<CompileTimePort Name="Activate" Visibility="Interface" Direction="In" ConnectionType="Any" Type="trigger" Template="None" IsOptional="false" />
+				<CompileTimePort Name="NPC" Visibility="Interface" Direction="In" ConnectionType="Any" Type="wh::rpgmodule::I_Soul*" Template="None" IsOptional="false" />
+				<CompileTimePort Name="Behavior" Visibility="Interface" Direction="In" ConnectionType="Any" Type="string" Template="None" IsOptional="false" />
+				<CompileTimePort Name="SmartEntity" Visibility="Interface" Direction="In" ConnectionType="Any" Type="wh::xgenaimodule::SmartEntity*" Template="None" IsOptional="false" />
+				<CompileTimePort Name="Priority" Visibility="Interface" Direction="In" ConnectionType="Any" Type="byte" Template="None" IsOptional="false" />
+				<CompileTimePort Name="Urgency" Visibility="Interface" Direction="In" ConnectionType="Any" Type="wh::xgenaimodule::scheduler::E_Urgency" Template="None" IsOptional="false" />
+				<CompileTimePort Name="Aliveness" Visibility="Interface" Direction="In" ConnectionType="Any" Type="wh::xgenaimodule::scheduler::E_Aliveness" Template="None" IsOptional="true" DefaultValue="Alive" />
+				<CompileTimePort Name="Privileged" Visibility="Interface" Direction="In" ConnectionType="Any" Type="bool" Template="None" IsOptional="true" DefaultValue="false" />
+				<RunTimePort Name="anyDecoratorPreset" Visibility="Interface" Direction="In" ConnectionType="Any" Type="turnToPlayerInIdleStance_anyDecoratorPreset" Template="None" IsOptional="false" />
+			</Ports>
+		</Definition>
 		<Definition TypeName="AddInterruptConceptNode" Name="AddInterrupt_vezniNaTroskach_checkIntruder" Category="wh::xgenaimodule" Style="AIGenerated">
 			<Properties>
 				<Property Name="Signature" Value="vezniNaTroskach_checkIntruder" />
@@ -6036,6 +6121,21 @@
 				<RunTimePort Name="OnFinished" Visibility="Interface" Direction="Out" ConnectionType="Any" Type="trigger" Template="None" IsOptional="false" />
 			</Ports>
 		</Definition>
+		<Definition TypeName="EnableBehavior" Name="EnableBehavior__prepadeni_playerStoppedByBandit" Category="wh::xgenaimodule" Style="AIGenerated">
+			<Properties>
+				<Property Name="Signature" Value="" />
+				<Property Name="EventSet" Value="prepadeni_playerStoppedByBandit" />
+			</Properties>
+			<Ports>
+				<CompileTimePort Name="IsActive" Visibility="Interface" Direction="In" ConnectionType="Edge" Type="bool" Template="None" IsOptional="false" IsAutoTriggerable="true" />
+				<CompileTimePort Name="Behavior" Visibility="Interface" Direction="In" ConnectionType="Any" Type="string" Template="None" IsOptional="false" />
+				<CompileTimePort Name="SmartEntity" Visibility="Interface" Direction="In" ConnectionType="Any" Type="wh::xgenaimodule::SmartEntity*" Template="None" IsOptional="false" />
+				<CompileTimePort Name="NPC" Visibility="Interface" Direction="In" ConnectionType="Any" Type="wh::rpgmodule::Souls" Template="None" IsOptional="true" />
+				<CompileTimePort Name="ForceKick" Visibility="Interface" Direction="In" ConnectionType="Any" Type="bool" Template="None" IsOptional="true" />
+				<RunTimePort Name="OnLookRightDirection" Visibility="Interface" Direction="Out" ConnectionType="Any" Type="trigger" Template="None" IsOptional="false" />
+				<RunTimePort Name="OnFinished" Visibility="Interface" Direction="Out" ConnectionType="Any" Type="trigger" Template="None" IsOptional="false" />
+			</Ports>
+		</Definition>
 		<Definition TypeName="EnableBehavior" Name="EnableBehavior__pytlakPtacek_poacherStealthCrouch" Category="wh::xgenaimodule" Style="AIGenerated">
 			<Properties>
 				<Property Name="Signature" Value="" />
@@ -7092,6 +7192,21 @@
 				<RunTimePort Name="tagpoint" Visibility="Interface" Direction="In" ConnectionType="Any" Type="wh::xgenaimodule::LinkableObject*" Template="None" IsOptional="false" />
 				<RunTimePort Name="monologueAlias" Visibility="Interface" Direction="In" ConnectionType="Any" Type="string" Template="None" IsOptional="false" />
 				<RunTimePort Name="OnFinished" Visibility="Interface" Direction="Out" ConnectionType="Any" Type="trigger" Template="None" IsOptional="false" />
+			</Ports>
+		</Definition>
+		<Definition TypeName="EnableBehavior" Name="EnableBehavior_gotoAndWait" Category="wh::xgenaimodule" Style="AIGenerated">
+			<Properties>
+				<Property Name="Signature" Value="gotoAndWait" />
+				<Property Name="EventSet" Value="" />
+			</Properties>
+			<Ports>
+				<CompileTimePort Name="IsActive" Visibility="Interface" Direction="In" ConnectionType="Edge" Type="bool" Template="None" IsOptional="false" IsAutoTriggerable="true" />
+				<CompileTimePort Name="Behavior" Visibility="Interface" Direction="In" ConnectionType="Any" Type="string" Template="None" IsOptional="false" />
+				<CompileTimePort Name="SmartEntity" Visibility="Interface" Direction="In" ConnectionType="Any" Type="wh::xgenaimodule::SmartEntity*" Template="None" IsOptional="false" />
+				<CompileTimePort Name="NPC" Visibility="Interface" Direction="In" ConnectionType="Any" Type="wh::rpgmodule::Souls" Template="None" IsOptional="true" />
+				<CompileTimePort Name="ForceKick" Visibility="Interface" Direction="In" ConnectionType="Any" Type="bool" Template="None" IsOptional="true" />
+				<RunTimePort Name="delay" Visibility="Interface" Direction="In" ConnectionType="Any" Type="string" Template="None" IsOptional="false" />
+				<RunTimePort Name="tagpoint" Visibility="Interface" Direction="In" ConnectionType="Any" Type="wh::xgenaimodule::LinkableObject*" Template="None" IsOptional="false" />
 			</Ports>
 		</Definition>
 		<Definition TypeName="EnableBehavior" Name="EnableBehavior_gotoAndWait_endNotification" Category="wh::xgenaimodule" Style="AIGenerated">
@@ -8453,6 +8568,26 @@
 				<RunTimePort Name="behaviorFinished" Visibility="Interface" Direction="Out" ConnectionType="Any" Type="trigger" Template="None" IsOptional="false" />
 			</Ports>
 		</Definition>
+		<Definition TypeName="EnableBehavior" Name="EnableBehavior_papezskyLegat_rozaBeingCarried_papezskyLegat_rozaBeingCarried" Category="wh::xgenaimodule" Style="AIGenerated">
+			<Properties>
+				<Property Name="Signature" Value="papezskyLegat_rozaBeingCarried" />
+				<Property Name="EventSet" Value="papezskyLegat_rozaBeingCarried" />
+			</Properties>
+			<Ports>
+				<CompileTimePort Name="IsActive" Visibility="Interface" Direction="In" ConnectionType="Edge" Type="bool" Template="None" IsOptional="false" IsAutoTriggerable="true" />
+				<CompileTimePort Name="Behavior" Visibility="Interface" Direction="In" ConnectionType="Any" Type="string" Template="None" IsOptional="false" />
+				<CompileTimePort Name="SmartEntity" Visibility="Interface" Direction="In" ConnectionType="Any" Type="wh::xgenaimodule::SmartEntity*" Template="None" IsOptional="false" />
+				<CompileTimePort Name="NPC" Visibility="Interface" Direction="In" ConnectionType="Any" Type="wh::rpgmodule::Souls" Template="None" IsOptional="true" />
+				<CompileTimePort Name="ForceKick" Visibility="Interface" Direction="In" ConnectionType="Any" Type="bool" Template="None" IsOptional="true" />
+				<RunTimePort Name="UpdateReferences" Visibility="Interface" Direction="In" ConnectionType="Any" Type="trigger" Template="None" IsOptional="true" />
+				<RunTimePort Name="chatAfterFirstPickedUp" Visibility="Interface" Direction="In" ConnectionType="Any" Type="bool" Template="None" IsOptional="false" />
+				<RunTimePort Name="barkAboutWrongWay" Visibility="Interface" Direction="In" ConnectionType="Any" Type="bool" Template="None" IsOptional="false" />
+				<RunTimePort Name="finishingBehavior" Visibility="Interface" Direction="In" ConnectionType="Any" Type="bool" Template="None" IsOptional="false" />
+				<RunTimePort Name="chatAfterFirstPickedUpFinished" Visibility="Interface" Direction="Out" ConnectionType="Any" Type="trigger" Template="None" IsOptional="false" />
+				<RunTimePort Name="barkAboutWrongWayFinished" Visibility="Interface" Direction="Out" ConnectionType="Any" Type="trigger" Template="None" IsOptional="false" />
+				<RunTimePort Name="behaviorFinished" Visibility="Interface" Direction="Out" ConnectionType="Any" Type="trigger" Template="None" IsOptional="false" />
+			</Ports>
+		</Definition>
 		<Definition TypeName="EnableBehavior" Name="EnableBehavior_papezskyLegat_runners" Category="wh::xgenaimodule" Style="AIGenerated">
 			<Properties>
 				<Property Name="Signature" Value="papezskyLegat_runners" />
@@ -9307,6 +9442,22 @@
 				<RunTimePort Name="behaviorFinished" Visibility="Interface" Direction="Out" ConnectionType="Any" Type="trigger" Template="None" IsOptional="false" />
 			</Ports>
 		</Definition>
+		<Definition TypeName="EnableBehavior" Name="EnableBehavior_stringData_prepadeni_banditOrdersResult" Category="wh::xgenaimodule" Style="AIGenerated">
+			<Properties>
+				<Property Name="Signature" Value="stringData" />
+				<Property Name="EventSet" Value="prepadeni_banditOrdersResult" />
+			</Properties>
+			<Ports>
+				<CompileTimePort Name="IsActive" Visibility="Interface" Direction="In" ConnectionType="Edge" Type="bool" Template="None" IsOptional="false" IsAutoTriggerable="true" />
+				<CompileTimePort Name="Behavior" Visibility="Interface" Direction="In" ConnectionType="Any" Type="string" Template="None" IsOptional="false" />
+				<CompileTimePort Name="SmartEntity" Visibility="Interface" Direction="In" ConnectionType="Any" Type="wh::xgenaimodule::SmartEntity*" Template="None" IsOptional="false" />
+				<CompileTimePort Name="NPC" Visibility="Interface" Direction="In" ConnectionType="Any" Type="wh::rpgmodule::Souls" Template="None" IsOptional="true" />
+				<CompileTimePort Name="ForceKick" Visibility="Interface" Direction="In" ConnectionType="Any" Type="bool" Template="None" IsOptional="true" />
+				<RunTimePort Name="data" Visibility="Interface" Direction="In" ConnectionType="Any" Type="string" Template="None" IsOptional="false" />
+				<RunTimePort Name="OnFinished" Visibility="Interface" Direction="Out" ConnectionType="Any" Type="trigger" Template="None" IsOptional="false" />
+				<RunTimePort Name="OnInterrupt" Visibility="Interface" Direction="Out" ConnectionType="Any" Type="trigger" Template="None" IsOptional="false" />
+			</Ports>
+		</Definition>
 		<Definition TypeName="EnableBehavior" Name="EnableBehavior_stringRef_DialogNotifications" Category="wh::xgenaimodule" Style="AIGenerated">
 			<Properties>
 				<Property Name="Signature" Value="stringRef" />
@@ -9651,6 +9802,7 @@
 				<RunTimePort Name="turningCooldownVariation" Visibility="Interface" Direction="In" ConnectionType="Any" Type="string" Template="None" IsOptional="false" />
 				<RunTimePort Name="useLightMode" Visibility="Interface" Direction="In" ConnectionType="Any" Type="tour_handContentElementMode" Template="None" IsOptional="false" />
 				<RunTimePort Name="useWeaponMode" Visibility="Interface" Direction="In" ConnectionType="Any" Type="tour_handContentElementMode" Template="None" IsOptional="false" />
+				<RunTimePort Name="disableORCA" Visibility="Interface" Direction="In" ConnectionType="Any" Type="bool" Template="None" IsOptional="false" />
 				<RunTimePort Name="OnSuccess" Visibility="Interface" Direction="Out" ConnectionType="Any" Type="trigger" Template="None" IsOptional="false" />
 				<RunTimePort Name="OnFail" Visibility="Interface" Direction="Out" ConnectionType="Any" Type="trigger" Template="None" IsOptional="false" />
 				<RunTimePort Name="OnDialogFinished" Visibility="Interface" Direction="Out" ConnectionType="Any" Type="trigger" Template="None" IsOptional="false" />
@@ -9699,6 +9851,7 @@
 				<RunTimePort Name="turningCooldown" Visibility="Interface" Direction="In" ConnectionType="Any" Type="string" Template="None" IsOptional="false" />
 				<RunTimePort Name="turningCooldownVariation" Visibility="Interface" Direction="In" ConnectionType="Any" Type="string" Template="None" IsOptional="false" />
 				<RunTimePort Name="useLight" Visibility="Interface" Direction="In" ConnectionType="Any" Type="bool" Template="None" IsOptional="false" />
+				<RunTimePort Name="disableORCA" Visibility="Interface" Direction="In" ConnectionType="Any" Type="bool" Template="None" IsOptional="false" />
 				<RunTimePort Name="OnSuccess" Visibility="Interface" Direction="Out" ConnectionType="Any" Type="trigger" Template="None" IsOptional="false" />
 				<RunTimePort Name="OnFail" Visibility="Interface" Direction="Out" ConnectionType="Any" Type="trigger" Template="None" IsOptional="false" />
 				<RunTimePort Name="OnDialogFinished" Visibility="Interface" Direction="Out" ConnectionType="Any" Type="trigger" Template="None" IsOptional="false" />
@@ -11462,14 +11615,15 @@
 				<CompileTimePort Name="NPC" Visibility="Interface" Direction="In" ConnectionType="Any" Type="wh::rpgmodule::Souls" Template="None" IsOptional="true" />
 				<CompileTimePort Name="ForceKick" Visibility="Interface" Direction="In" ConnectionType="Any" Type="bool" Template="None" IsOptional="true" />
 				<RunTimePort Name="UpdateReferences" Visibility="Interface" Direction="In" ConnectionType="Any" Type="trigger" Template="None" IsOptional="true" />
+				<RunTimePort Name="animationFragment" Visibility="Interface" Direction="In" ConnectionType="Any" Type="string" Template="None" IsOptional="false" />
 				<RunTimePort Name="area" Visibility="Interface" Direction="In" ConnectionType="Any" Type="wh::xgenaimodule::LinkableObject*" Template="None" IsOptional="false" />
 				<RunTimePort Name="barkingAtPlayer" Visibility="Interface" Direction="In" ConnectionType="Any" Type="bool" Template="None" IsOptional="false" />
 				<RunTimePort Name="commandBarkAlias" Visibility="Interface" Direction="In" ConnectionType="Any" Type="string" Template="None" IsOptional="false" />
+				<RunTimePort Name="commandPhase" Visibility="Interface" Direction="In" ConnectionType="Any" Type="zoufalaObranaZaBohutu_certCommandingPaviseMen" Template="None" IsOptional="false" />
 				<RunTimePort Name="commandSpot" Visibility="Interface" Direction="In" ConnectionType="Any" Type="wh::xgenaimodule::LinkableObject*" Template="None" IsOptional="false" />
 				<RunTimePort Name="cooldown" Visibility="Interface" Direction="In" ConnectionType="Any" Type="string" Template="None" IsOptional="false" />
 				<RunTimePort Name="cooldownVariation" Visibility="Interface" Direction="In" ConnectionType="Any" Type="string" Template="None" IsOptional="false" />
 				<RunTimePort Name="gateLookSpot" Visibility="Interface" Direction="In" ConnectionType="Any" Type="wh::xgenaimodule::LinkableObject*" Template="None" IsOptional="false" />
-				<RunTimePort Name="isRepeatingBark" Visibility="Interface" Direction="In" ConnectionType="Any" Type="bool" Template="None" IsOptional="false" />
 				<RunTimePort Name="playAnimationWhenBarking" Visibility="Interface" Direction="In" ConnectionType="Any" Type="bool" Template="None" IsOptional="false" />
 				<RunTimePort Name="playerBarkAlias" Visibility="Interface" Direction="In" ConnectionType="Any" Type="string" Template="None" IsOptional="false" />
 				<RunTimePort Name="triggerBark" Visibility="Interface" Direction="In" ConnectionType="Any" Type="bool" Template="None" IsOptional="false" />
@@ -11555,6 +11709,24 @@
 				<RunTimePort Name="formationType" Visibility="Interface" Direction="In" ConnectionType="Any" Type="formationType" Template="None" IsOptional="false" />
 				<RunTimePort Name="OnRecordingReady" Visibility="Interface" Direction="Out" ConnectionType="Any" Type="trigger" Template="None" IsOptional="false" />
 				<RunTimePort Name="OnFinished" Visibility="Interface" Direction="Out" ConnectionType="Any" Type="trigger" Template="None" IsOptional="false" />
+			</Ports>
+		</Definition>
+		<Definition TypeName="EnableBehavior" Name="EnableBehavior_zranenyLovci_hunter_rideHome_zranenyLovci_hunter_rideHome" Category="wh::xgenaimodule" Style="AIGenerated">
+			<Properties>
+				<Property Name="Signature" Value="zranenyLovci_hunter_rideHome" />
+				<Property Name="EventSet" Value="zranenyLovci_hunter_rideHome" />
+			</Properties>
+			<Ports>
+				<CompileTimePort Name="IsActive" Visibility="Interface" Direction="In" ConnectionType="Edge" Type="bool" Template="None" IsOptional="false" IsAutoTriggerable="true" />
+				<CompileTimePort Name="Behavior" Visibility="Interface" Direction="In" ConnectionType="Any" Type="string" Template="None" IsOptional="false" />
+				<CompileTimePort Name="SmartEntity" Visibility="Interface" Direction="In" ConnectionType="Any" Type="wh::xgenaimodule::SmartEntity*" Template="None" IsOptional="false" />
+				<CompileTimePort Name="NPC" Visibility="Interface" Direction="In" ConnectionType="Any" Type="wh::rpgmodule::Souls" Template="None" IsOptional="true" />
+				<CompileTimePort Name="ForceKick" Visibility="Interface" Direction="In" ConnectionType="Any" Type="bool" Template="None" IsOptional="true" />
+				<RunTimePort Name="path" Visibility="Interface" Direction="In" ConnectionType="Any" Type="wh::xgenaimodule::LinkableObject*" Template="None" IsOptional="false" />
+				<RunTimePort Name="horse" Visibility="Interface" Direction="In" ConnectionType="Any" Type="wh::xgenaimodule::LinkableObject*" Template="None" IsOptional="false" />
+				<RunTimePort Name="destinationArea" Visibility="Interface" Direction="In" ConnectionType="Any" Type="wh::xgenaimodule::LinkableObject*" Template="None" IsOptional="false" />
+				<RunTimePort Name="HomeReached" Visibility="Interface" Direction="Out" ConnectionType="Any" Type="trigger" Template="None" IsOptional="false" />
+				<RunTimePort Name="HorseDied" Visibility="Interface" Direction="Out" ConnectionType="Any" Type="trigger" Template="None" IsOptional="false" />
 			</Ports>
 		</Definition>
 		<Definition TypeName="EnableBehavior" Name="EnableBehavior_ztracenaCest_herold_heroldTournamet" Category="wh::xgenaimodule" Style="AIGenerated">
@@ -11832,6 +12004,15 @@
 				<RunTimePort Name="Faction" Visibility="Interface" Direction="Out" ConnectionType="Any" Type="wh::rpgmodule::Faction*" Template="None" IsOptional="true" />
 			</Ports>
 		</Definition>
+		<Definition TypeName="Function" Name="GetGameMode" Description="Returns the current game mode" Category="wh::rpgmodule" Style="GeneralFunction">
+			<Properties>
+				<Property Name="MethodName" Value="wh::rpgmodule::GetGameMode" />
+				<Property Name="DeclaringType" Value="wh::rpgmodule" />
+			</Properties>
+			<Ports>
+				<RunTimePort Name="GameMode" Visibility="Interface" Direction="Out" ConnectionType="Any" Type="E_GameMode" Template="None" IsOptional="true" />
+			</Ports>
+		</Definition>
 		<Definition TypeName="MemberFunction" Name="GetItemClass" Description="Returns ItemClass of specified ItemSlot." Category="wh::entitymodule" Style="GeneralFunction">
 			<Properties>
 				<Property Name="MethodName" Value="GetItemClass" />
@@ -11864,11 +12045,6 @@
 				<RunTimePort Name="Items" Visibility="Interface" Direction="Out" ConnectionType="Any" Type="wh::entitymodule::Items" Template="None" IsOptional="true" />
 			</Ports>
 		</Definition>
-		<Definition TypeName="GetModuleVersion" Name="GetModuleVersion" Category="wh::conceptmodule" Style="Control">
-			<Ports>
-				<CompileTimePort Name="Version" Visibility="Interface" Direction="Out" ConnectionType="Any" Type="wh::framework::E_GameReleaseVersion" Template="None" IsOptional="false" />
-			</Ports>
-		</Definition>
 		<Definition TypeName="MemberFunction" Name="GetMoney" Description="Returns total amount of money in given inventory" Category="wh::entitymodule" Style="ItemFunction">
 			<Properties>
 				<Property Name="MethodName" Value="GetMoney" />
@@ -11898,6 +12074,18 @@
 			<Ports>
 				<RunTimePort Name="POIType" Visibility="Interface" Direction="In" ConnectionType="Any" Type="wh::rpgmodule::POITypeWrapper" Template="None" IsOptional="false" />
 				<RunTimePort Name="Status" Visibility="Interface" Direction="Out" ConnectionType="Any" Type="wh::rpgmodule::E_LocationMarkStates" Template="None" IsOptional="true" />
+			</Ports>
+		</Definition>
+		<Definition TypeName="Function" Name="GetPermutationAt" Description="Returns an element from randomly permutated array ([0...interval-1]) on given index.If provided index is higher than the interval, the seed offsets." Category="math::random" Style="Arithmetic" AutoTriggerSupport="true">
+			<Properties>
+				<Property Name="MethodName" Value="math::random::GetPermutationAt" />
+				<Property Name="DeclaringType" Value="math::random" />
+			</Properties>
+			<Ports>
+				<RunTimePort Name="Interval" Visibility="Interface" Direction="In" ConnectionType="Any" Type="uint" Template="None" IsOptional="false" />
+				<RunTimePort Name="Seed" Visibility="Interface" Direction="In" ConnectionType="Any" Type="uint" Template="None" IsOptional="false" />
+				<RunTimePort Name="Index" Visibility="Interface" Direction="In" ConnectionType="Any" Type="uint" Template="None" IsOptional="false" />
+				<RunTimePort Name="uint" Visibility="Interface" Direction="Out" ConnectionType="Any" Type="uint" Template="None" IsOptional="true" />
 			</Ports>
 		</Definition>
 		<Definition TypeName="MemberFunction" Name="GetPrimaryCompanion" Category="wh::rpgmodule" Style="SoulFunction">
@@ -13064,6 +13252,17 @@
 				<RunTimePort Name="Content_time" Visibility="Interface" Direction="In" ConnectionType="Any" Type="string" Template="None" IsOptional="true" />
 			</Ports>
 		</Definition>
+		<Definition TypeName="InstantSendMessage" Name="InstantSendMessage_eliciting_crowdCheck_impulse" Category="wh::xgenaimodule" Style="AIGenerated">
+			<Properties>
+				<Property Name="MessageType" Value="eliciting:crowdCheck_impulse" />
+			</Properties>
+			<Ports>
+				<CompileTimePort Name="Exec" Visibility="Interface" Direction="In" ConnectionType="Any" Type="trigger" Template="None" IsOptional="false" />
+				<CompileTimePort Name="Receiver" Visibility="Interface" Direction="In" ConnectionType="Any" Type="wh::xgenaimodule::LinkableObject*" Template="None" IsOptional="false" />
+				<CompileTimePort Name="OnExec" Visibility="Interface" Direction="Out" ConnectionType="Any" Type="trigger" Template="None" IsOptional="true" />
+				<RunTimePort Name="Content_impulse" Visibility="Interface" Direction="In" ConnectionType="Any" Type="string" Template="None" IsOptional="true" />
+			</Ports>
+		</Definition>
 		<Definition TypeName="InstantSendMessage" Name="InstantSendMessage_event_hlasatel_dialogTrigger" Category="wh::xgenaimodule" Style="AIGenerated">
 			<Properties>
 				<Property Name="MessageType" Value="event:hlasatel:dialogTrigger" />
@@ -13376,6 +13575,27 @@
 				<RunTimePort Name="Content_perceptibleObject" Visibility="Interface" Direction="In" ConnectionType="Any" Type="wh::xgenaimodule::LinkableObject*" Template="None" IsOptional="true" />
 			</Ports>
 		</Definition>
+		<Definition TypeName="InstantSendMessage" Name="InstantSendMessage_switch_interruptData_checkProperty" Category="wh::xgenaimodule" Style="AIGenerated">
+			<Properties>
+				<Property Name="MessageType" Value="switch:interruptData:checkProperty" />
+			</Properties>
+			<Ports>
+				<CompileTimePort Name="Exec" Visibility="Interface" Direction="In" ConnectionType="Any" Type="trigger" Template="None" IsOptional="false" />
+				<CompileTimePort Name="Receiver" Visibility="Interface" Direction="In" ConnectionType="Any" Type="wh::xgenaimodule::LinkableObject*" Template="None" IsOptional="false" />
+				<CompileTimePort Name="OnExec" Visibility="Interface" Direction="Out" ConnectionType="Any" Type="trigger" Template="None" IsOptional="true" />
+				<RunTimePort Name="Content_initiatedBy__" Visibility="Interface" Direction="In" ConnectionType="Any" Type="int" Template="None" IsOptional="true" />
+				<RunTimePort Name="Content_previousReaction__" Visibility="Interface" Direction="In" ConnectionType="Any" Type="int" Template="None" IsOptional="true" />
+				<RunTimePort Name="Content_stimulusKind" Visibility="Interface" Direction="In" ConnectionType="Any" Type="crime_stimulusKind" Template="None" IsOptional="true" />
+				<RunTimePort Name="Content_source__" Visibility="Interface" Direction="In" ConnectionType="Any" Type="int" Template="None" IsOptional="true" />
+				<RunTimePort Name="Content_information_perceivedWuid" Visibility="Interface" Direction="In" ConnectionType="Any" Type="wh::xgenaimodule::LinkableObject*" Template="None" IsOptional="true" />
+				<RunTimePort Name="Content_information_label" Visibility="Interface" Direction="In" ConnectionType="Any" Type="string" Template="None" IsOptional="true" />
+				<RunTimePort Name="Content_information_position" Visibility="Interface" Direction="In" ConnectionType="Any" Type="Vector" Template="None" IsOptional="true" />
+				<RunTimePort Name="Content_home" Visibility="Interface" Direction="In" ConnectionType="Any" Type="wh::xgenaimodule::LinkableObject*" Template="None" IsOptional="true" />
+				<RunTimePort Name="Content_missingNpc" Visibility="Interface" Direction="In" ConnectionType="Any" Type="wh::xgenaimodule::LinkableObject*" Template="None" IsOptional="true" />
+				<RunTimePort Name="Content_suspiciousDoor" Visibility="Interface" Direction="In" ConnectionType="Any" Type="wh::xgenaimodule::LinkableObject*" Template="None" IsOptional="true" />
+				<RunTimePort Name="Content_suspiciousDoorFreshlyOpened" Visibility="Interface" Direction="In" ConnectionType="Any" Type="bool" Template="None" IsOptional="true" />
+			</Ports>
+		</Definition>
 		<Definition TypeName="InstantSendMessage" Name="InstantSendMessage_switch_interruptData_flee" Category="wh::xgenaimodule" Style="AIGenerated">
 			<Properties>
 				<Property Name="MessageType" Value="switch:interruptData:flee" />
@@ -13671,6 +13891,7 @@
 				<CompileTimePort Name="Receiver" Visibility="Interface" Direction="In" ConnectionType="Any" Type="wh::xgenaimodule::LinkableObject*" Template="None" IsOptional="false" />
 				<CompileTimePort Name="OnExec" Visibility="Interface" Direction="Out" ConnectionType="Any" Type="trigger" Template="None" IsOptional="true" />
 				<RunTimePort Name="Content_missingNpc" Visibility="Interface" Direction="In" ConnectionType="Any" Type="wh::xgenaimodule::LinkableObject*" Template="None" IsOptional="true" />
+				<RunTimePort Name="Content_canBeFound" Visibility="Interface" Direction="In" ConnectionType="Any" Type="bool" Template="None" IsOptional="true" />
 				<RunTimePort Name="Content_missingNpcData_destination" Visibility="Interface" Direction="In" ConnectionType="Any" Type="Vector" Template="None" IsOptional="true" />
 				<RunTimePort Name="Content_missingNpcData_time" Visibility="Interface" Direction="In" ConnectionType="Any" Type="int64" Template="None" IsOptional="true" />
 				<RunTimePort Name="Content_missingNpcData_buddy" Visibility="Interface" Direction="In" ConnectionType="Any" Type="wh::xgenaimodule::LinkableObject*" Template="None" IsOptional="true" />
@@ -14977,10 +15198,11 @@
 			<Ports>
 				<CompileTimePort Name="Version" Visibility="Interface" Direction="Out" ConnectionType="Any" Type="wh::framework::E_GameReleaseVersion" Template="None" IsOptional="true" />
 				<RunTimePort Name="OnExec" Visibility="Interface" Direction="Out" ConnectionType="Any" Type="trigger" Template="None" IsOptional="true" />
-				<RunTimePort Name="Invalid" Visibility="Interface" Direction="Out" ConnectionType="Any" Type="bool" Template="None" IsOptional="true" />
-				<RunTimePort Name="ver_01_00" Visibility="Interface" Direction="Out" ConnectionType="Any" Type="bool" Template="None" IsOptional="true" />
-				<RunTimePort Name="ver_01_01" Visibility="Interface" Direction="Out" ConnectionType="Any" Type="bool" Template="None" IsOptional="true" />
-				<RunTimePort Name="ver_01_01_01" Visibility="Interface" Direction="Out" ConnectionType="Any" Type="bool" Template="None" IsOptional="true" />
+				<RunTimePort Name="Invalid" Visibility="Interface" Direction="Out" ConnectionType="Any" Type="bool" Template="None" IsDeprecated="true" IsOptional="true" />
+				<RunTimePort Name="ver_01_00" Visibility="Interface" Direction="Out" ConnectionType="Any" Type="bool" Template="None" IsDeprecated="true" IsOptional="true" />
+				<RunTimePort Name="ver_01_01" Visibility="Interface" Direction="Out" ConnectionType="Any" Type="bool" Template="None" IsDeprecated="true" IsOptional="true" />
+				<RunTimePort Name="ver_01_01_01" Visibility="Interface" Direction="Out" ConnectionType="Any" Type="bool" Template="None" IsDeprecated="true" IsOptional="true" />
+				<RunTimePort Name="ver_01_02" Visibility="Interface" Direction="Out" ConnectionType="Any" Type="bool" Template="None" IsDeprecated="true" IsOptional="true" />
 			</Ports>
 		</Definition>
 		<Definition TypeName="MoonEffect" Name="MoonEffect" Description="The parameters are in decimal degrees format and range should be from -360 to 0 for latitude and -180 to 180 for longitude." Category="wh::environmentmodule" Style="Effect">
@@ -15135,7 +15357,8 @@
 		<Definition TypeName="PatchTrigger" Name="PatchTrigger" Category="wh::conceptmodule" Style="Control">
 			<Ports>
 				<CompileTimePort Name="OnPatch" Visibility="Interface" Direction="Out" ConnectionType="Any" Type="trigger" Template="None" IsOptional="false" />
-				<CompileTimePort Name="TransitionFromVersion" Visibility="Interface" Direction="In" ConnectionType="Any" Type="wh::framework::E_GameReleaseVersion" Template="None" IsOptional="false" />
+				<CompileTimePort Name="TransitionFromVersion" Visibility="Interface" Direction="In" ConnectionType="Any" Type="wh::framework::E_GameReleaseVersion" Template="None" IsDeprecated="true" IsOptional="true" />
+				<CompileTimePort Name="TransitionToVersion" Visibility="Interface" Direction="In" ConnectionType="Any" Type="wh::framework::E_GameReleaseVersion" Template="None" IsOptional="true" />
 			</Ports>
 		</Definition>
 		<Definition TypeName="PauseWorldTime" Name="PauseWorldTime" Category="wh::rpgmodule" Style="Effect">
@@ -15897,6 +16120,7 @@
 				<RunTimePort Name="WeaponDestroyed" Visibility="Interface" Direction="Out" ConnectionType="Any" Type="trigger" Template="None" IsHidden="true" IsOptional="true" />
 				<RunTimePort Name="GettingArmedSkirmish" Visibility="Interface" Direction="Out" ConnectionType="Any" Type="trigger" Template="None" IsHidden="true" IsOptional="true" />
 				<RunTimePort Name="PlayerDodge" Visibility="Interface" Direction="Out" ConnectionType="Any" Type="trigger" Template="None" IsHidden="true" IsOptional="true" />
+				<RunTimePort Name="ChangingTorch" Visibility="Interface" Direction="Out" ConnectionType="Any" Type="trigger" Template="None" IsHidden="true" IsOptional="true" />
 			</Ports>
 		</Definition>
 		<Definition TypeName="SoulStateTrigger" Name="SoulStateTrigger" Category="wh::rpgmodule" Style="Trigger">
@@ -15964,7 +16188,7 @@
 		<Definition TypeName="State" Name="State" Category="wh::conceptmodule" Style="State" AutoTriggerSupport="true">
 			<Ports>
 				<CompileTimePort Name="State" Visibility="Interface" Direction="Out" ConnectionType="Any" Type="" Template="TypeT" IsOptional="true" />
-				<CompileTimePort Name="DefaultValue" Visibility="Interface" Direction="In" ConnectionType="Constant" Type="" Template="TypeT" IsHidden="true" IsOptional="true" />
+				<CompileTimePort Name="DefaultValue" Visibility="Interface" Direction="In" ConnectionType="Constant" Type="" Template="TypeT" IsHidden="true" IsOptional="true" ValueOriginConstraint="RandomEventPlace" />
 				<CompileTimePort Name="Exec" Visibility="Interface" Direction="In" ConnectionType="Any" Type="trigger" Template="None" IsHidden="true" IsOptional="true" />
 				<CompileTimePort Name="Value" Visibility="Interface" Direction="In" ConnectionType="Any" Type="" Template="TypeT" IsHidden="true" IsOptional="true" />
 				<RunTimePort Name="OnExec" Visibility="Interface" Direction="Out" ConnectionType="Any" Type="trigger" Template="None" IsOptional="true" />

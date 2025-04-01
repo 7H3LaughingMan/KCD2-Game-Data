@@ -69,6 +69,9 @@
 				<Port Name="thomlin_je_prevleceny_do_fighting_presetu" Direction="Out" Type="bool">
 					<DesignName StringName="thomlin___thomlin_je_prev_8OlA" Text="Thomlin je převlečený do fighting presetu" />
 				</Port>
+				<Port Name="henry_ziskal_padelek" Direction="In" Type="trigger">
+					<DesignName StringName="thomlin___henry_ziskal_pa_JJv1" Text="Henry získal padělek" />
+				</Port>
 			</Ports>
 			<Definitions>
 				<Definition File="thomlin__horany/bitka_s_thomlinem.xml" />
@@ -77,12 +80,11 @@
 				<Definition File="thomlin__horany/zeptej_se_thomlina_na_falesny_kamen.xml" />
 			</Definitions>
 			<Nodes>
-				<bitka_s_thomlinem Name="bitka_s_thomlinem" PositionY="-380" PositionX="-1040" RequiredForOutput="kutnohorsko">
+				<bitka_s_thomlinem Name="bitka_s_thomlinem" PositionY="-430" PositionX="-1040" RequiredForOutput="kutnohorsko">
 					<Edge From="poraz_thomlina" To="poraz_thomlina" />
 					<Edge From="mluveno_s_jenikem" To="mluveno_s_jenikem" />
 					<Edge From="henry_ziskal_kamen" To="kamen_ziskan" />
 					<Edge From="henry_zna_kamen" To="henry_zna_kamen" />
-					<Edge From="falesny_kamen_ukazan_kone" To="falesny_kamen_ukazan_kone" />
 					<Edge From="henry_vi_o_padelku_od_kony" To="henry_vi_o_padelku" />
 					<Edge From="thomlin__pravda_o_kameni__priority.infoojenikovi" To="info_o_jenikovi">
 						<Vertex>vertex60</Vertex>
@@ -116,6 +118,7 @@
 					<Edge From="cancel_objectives" To="cancel_objectives">
 						<Vertex>B314dRIA</Vertex>
 					</Edge>
+					<Edge From="henry_ziskal_padelek" To="henry_ziskal_padelek" />
 				</bitka_s_thomlinem>
 				<expectedeffect Name="expectedeffect" PositionY="-250" PositionX="50" Namespace="utils.crime.trespass">
 					<Asset Name="npcs" Alias="thomlin" />
@@ -182,13 +185,13 @@
 						<Vertex>vertex62</Vertex>
 					</Edge>
 				</thomlin_addtional_topics_o_kameni>
-				<Function Name="thomlinTalkedOrFakeRevealed" PositionY="230" PositionX="460" MethodName="math::boolean::Or" DeclaringType="math::boolean">
+				<Function Name="thomlinTalkedOrFakeRevealed" PositionY="210" PositionX="460" MethodName="math::boolean::Or" DeclaringType="math::boolean">
 					<Edge From="thomlin__pravda_o_kameni__priority.infoojenikovi" To="A" />
 					<Edge From="zeptej_se_thomlina_na_falesny_kamen.fake_odhalen" To="B">
 						<Vertex>vertex63</Vertex>
 					</Edge>
 				</Function>
-				<zeptej_se_thomlina_na_falesny_kamen Name="zeptej_se_thomlina_na_falesny_kamen" PositionY="-350" PositionX="-560" RequiredForOutput="kutnohorsko">
+				<zeptej_se_thomlina_na_falesny_kamen Name="zeptej_se_thomlina_na_falesny_kamen" PositionY="-380" PositionX="-560" RequiredForOutput="kutnohorsko">
 					<Edge From="quest_active" To="quest_active" />
 					<Edge From="mluveno_s_jenikem" To="mluveno_s_jenikem" />
 					<Edge From="falesny_kamen_ukazan_kone" To="falesny_kamen_ukazan_kone" />
@@ -209,14 +212,14 @@
 			</Nodes>
 			<EdgeVertices>
 				<EdgeVertex Name="4aM0RTSj" PositionY="500" PositionX="-1100" />
-				<EdgeVertex Name="9aGauf9K" PositionY="385" PositionX="719" />
-				<EdgeVertex Name="AFm7VqYb" PositionY="480" PositionX="720" />
+				<EdgeVertex Name="9aGauf9K" PositionY="370" PositionX="720" />
+				<EdgeVertex Name="AFm7VqYb" PositionY="470" PositionX="720" />
 				<EdgeVertex Name="AlggsahF" PositionY="-409" PositionX="-623" />
 				<EdgeVertex Name="B314dRIA" PositionY="-410" PositionX="-1070" />
 				<EdgeVertex Name="c6JjyM7t" PositionY="-430" PositionX="490" />
 				<EdgeVertex Name="FC8vQh86" PositionY="-430" PositionX="-40" />
 				<EdgeVertex Name="Pd1Fjs1S" PositionY="-430" PositionX="-540" />
-				<EdgeVertex Name="s3j1H2TR" PositionY="460" PositionX="-230" />
+				<EdgeVertex Name="s3j1H2TR" PositionY="440" PositionX="-230" />
 				<EdgeVertex Name="vertex50" PositionY="190" PositionX="650" />
 				<EdgeVertex Name="vertex51" PositionY="190" PositionX="120" />
 				<EdgeVertex Name="vertex52" PositionY="-410" PositionX="-540" />
@@ -225,8 +228,8 @@
 				<EdgeVertex Name="vertex55" PositionY="1090" PositionX="240" />
 				<EdgeVertex Name="vertex60" PositionY="610" PositionX="290" />
 				<EdgeVertex Name="vertex61" PositionY="620" PositionX="-1100" />
-				<EdgeVertex Name="vertex62" PositionY="230" PositionX="-100" />
-				<EdgeVertex Name="vertex63" PositionY="350" PositionX="200" />
+				<EdgeVertex Name="vertex62" PositionY="210" PositionX="-60" />
+				<EdgeVertex Name="vertex63" PositionY="330" PositionX="200" />
 				<EdgeVertex Name="vertex68" PositionY="650" PositionX="-1100" />
 				<EdgeVertex Name="vertex69" PositionY="650" PositionX="-230" />
 				<EdgeVertex Name="vertex70" PositionY="590" PositionX="-1100" />

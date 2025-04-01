@@ -6,6 +6,12 @@
 				<Port Name="aktivni" Direction="In" Type="bool">
 					<DesignName StringName="battle_se_aktivni_mxVd" Text="aktivní" />
 				</Port>
+				<Port Name="bitva_aktivni" Direction="In" Type="bool">
+					<DesignName StringName="battle_se_bitva_aktivni_60vI" Text="bitva aktivní" />
+				</Port>
+				<Port Name="bitva_zacala" Direction="In" Type="trigger">
+					<DesignName StringName="battle_se_bitva_zacala_ubv9" Text="bitva začala" />
+				</Port>
 			</Ports>
 			<Nodes>
 				<AddFactionRelation Name="addfactionrelation22" PositionY="1010" PositionX="610">
@@ -17,15 +23,15 @@
 						<Vertex>vertex2</Vertex>
 					</Edge>
 				</AddFactionRelation>
-				<BuffEffect Name="buff3_2" PositionY="1270" PositionX="20">
+				<BuffEffect Name="buff3_2" PositionY="1650" PositionX="610">
 					<Asset Name="Souls" Alias="obranci_unique" />
 					<Constant Name="BuffGUID" Value="ac6db9f1-254e-488a-9e45-759fd8cc7088" />
-					<Edge From="aktivni" To="IsActive" />
+					<Edge From="or32.bool" To="IsActive" />
 				</BuffEffect>
-				<BuffEffect Name="buff4_2" PositionY="1460" PositionX="20">
+				<BuffEffect Name="buff4_2" PositionY="1460" PositionX="610">
 					<Asset Name="Souls" Alias="obranci_unique" />
 					<Constant Name="BuffGUID" Value="8e9cb93a-eb5f-4846-be2c-2c7010872704" />
-					<Edge From="aktivni" To="IsActive" />
+					<Edge From="or32.bool" To="IsActive" />
 				</BuffEffect>
 				<BuffEffect Name="buff4_2_1" PositionY="1250" PositionX="610">
 					<Constant Name="BuffGUID" Value="8a9b72c9-5591-418c-83dd-3b87b785d4c4" />
@@ -51,9 +57,16 @@
 				<Function Name="getfaction21_1" PositionY="1140" PositionX="20" MethodName="wh::rpgmodule::GetFaction" DeclaringType="wh::rpgmodule">
 					<Constant Name="FactionID" Value="kutnohorsko_enemies_oblehaniSuchdoleEnemyArmy" />
 				</Function>
-				<Function Name="joinarrays24" PositionY="1270" PositionX="300" TypeT="wh::rpgmodule::Souls" MethodName="utilities::array::JoinArrays" DeclaringType="utilities::array">
+				<Function Name="joinarrays24" PositionY="1270" PositionX="330" TypeT="wh::rpgmodule::Souls" MethodName="utilities::array::JoinArrays" DeclaringType="utilities::array">
 					<Asset Name="A" Alias="obranci_unique" />
 					<Asset Name="B" Alias="obranci" />
+				</Function>
+				<Function Name="or32" PositionY="1460" PositionX="330" MethodName="math::boolean::Or" DeclaringType="math::boolean">
+					<Edge From="bitva_aktivni" To="A">
+						<Vertex>bBnHFwMR</Vertex>
+						<Vertex>12Y8mQWP</Vertex>
+					</Edge>
+					<Edge From="timer31.Running" To="B" />
 				</Function>
 				<SchedulerLinkActivation Name="schedule29" PositionY="-1520" PositionX="20">
 					<Constant Name="LinkTag" Value="oblehani_battleWait" />
@@ -111,6 +124,11 @@
 					<Asset Name="Souls" Alias="obranci_unique" />
 					<Edge From="aktivni" To="IsActive" />
 				</SetEntityContextPreset>
+				<Timer Name="timer31" PositionY="1460" PositionX="20">
+					<Constant Name="Duration" Value="30s" />
+					<Constant Name="TimeType" Value="GameTime" />
+					<Edge From="bitva_zacala" To="SetRunning" />
+				</Timer>
 				<WeaponPresetOverride Name="weaponpresetoverride28" PositionY="-40" PositionX="20">
 					<Asset Name="Souls" Alias="zizka" />
 					<Constant Name="WeaponPreset" Value="d39ac2a5-4135-4b04-915d-0f38ae83a73a" />
@@ -138,7 +156,9 @@
 				</WeaponPresetOverride>
 			</Nodes>
 			<EdgeVertices>
+				<EdgeVertex Name="12Y8mQWP" PositionY="1440" PositionX="270" />
 				<EdgeVertex Name="AeAXkMjl" PositionY="373" PositionX="341" />
+				<EdgeVertex Name="bBnHFwMR" PositionY="1440" PositionX="30" />
 				<EdgeVertex Name="REnnLWH2" PositionY="374" PositionX="9" />
 				<EdgeVertex Name="vertex1" PositionY="990" PositionX="20" />
 				<EdgeVertex Name="vertex2" PositionY="990" PositionX="520" />

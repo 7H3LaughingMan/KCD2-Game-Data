@@ -27,9 +27,6 @@
 						<Sequence EntryCondition="!Port('jakes_je_mrtvy') AND !Port('jindra_usmiruje')" EndType="Decision" Reputation="quest_decrease_2_minor" Name="seq3">
 							<DesignName StringName="s_babici__seq3_J01g" Text="seq3" />
 							<UiPrompt StringName="ui_s_babici__seq3_FtZc" Text="Rozmyslel jsem si to. Nebudu zabíjet." />
-							<Triggers>
-								<Port Name="quest_done" />
-							</Triggers>
 							<Elements>
 								<Response Role="HENRY" StartDelay="0.06" ReferenceLength="3.33">
 									<Text StringName="s_ba_henry_poslys_naposle_At0t" Text="Poslyš, naposledy jsem se unáhlil." />
@@ -68,6 +65,9 @@
 								<Sequences>
 									<Sequence EntryCondition="Port('pavlena_je_mrtva')" EndType="EndDialogue" Name="seq11">
 										<DesignName StringName="s_babici__seq11_HqpW" Text="seq11" />
+										<Triggers>
+											<Port Name="quest_done" />
+										</Triggers>
 										<Elements>
 											<Response Role="BOZENA_KORENARKA" ReferenceLength="3.78">
 												<Text StringName="s_ba_bozena_ko_chapu_kdo__zodD" Text="Chápu... Kdo by chtěl pomáhat starý babce." />
@@ -90,8 +90,11 @@
 											</Response>
 										</Elements>
 									</Sequence>
-									<Sequence EntryCondition="!Port('pavlena_je_mrtva')" EndType="EndDialogue" Name="seq12">
-										<DesignName StringName="s_babici__seq12_LYW6" Text="seq12" />
+									<Sequence EntryCondition="!Port('pavlena_je_mrtva')" EndType="EndDialogue" Visibility="Public" Name="seq12">
+										<DesignName StringName="s_babici__seq12_LYW6" Text="Hráč odmítl vraždit po zadání a Pavlena žije" />
+										<Triggers>
+											<Port Name="quest_done" />
+										</Triggers>
 										<Elements>
 											<Response Role="BOZENA_KORENARKA" ReferenceLength="3.45">
 												<Text StringName="s_ba_bozena_ko_v_tom_prip_b3qW" Text="V tom případě jsme na to s Pavlenou samy." />

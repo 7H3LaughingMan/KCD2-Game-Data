@@ -11,7 +11,6 @@
 			<Variable name="stolenItemIsRelevant" type="_bool" values="" isPersistent="0" form="single" />
 			<Variable name="stolenItems" type="_wuid" values="" isPersistent="0" form="array" />
 			<Variable name="stolenItems_value" type="_wuid" values="" isPersistent="0" form="single" />
-			<Variable name="useless" type="_string" values="" isPersistent="0" form="single" />
 		</Variables>
 		<Root OneTimeOnly="false" FailState="Recoverable" saveVersion="2">
 			<Behavior canSkip="1">
@@ -36,24 +35,29 @@
 							<GetVisibleStolenEquipment Equipment="$stolenItems" />
 							<ForEach startIndex="0" step="1" array="$stolenItems" iterator="" value="$stolenItems_value" break="">
 								<Sequence>
+									<GetItemType WUID="$stolenItems_value" OutCategory="$stolenItemCategory" OutType="" OutSubType="" />
+									<IfCondition failOnCondition="false" condition="$stolenItemCategory ~= &apos;ammo&apos;">
+										<Sequence>
 									<GetOwner Object="$stolenItems_value" Owner="$stimulus.owner" />
 									<IfCondition failOnCondition="false" condition="$stimulus.owner ~= $__null">
-										<IfElseCondition failOnCondition="false" condition="$stimulus.owner == $this.id" saveVersion="2">
-											<Then canSkip="1">
-												<Expression expressions="$stolenItemIsRelevant = true" />
-											</Then>
-											<Else canSkip="1">
-												<Sequence>
-													<GetAreMates Npc1="$this.id" Npc2="$stimulus.owner" AreMates="$stolenItemIsRelevant" />
-													<IfCondition failOnCondition="false" condition="~$someItemBelongsToAMate &amp; $stolenItemIsRelevant">
-														<Expression expressions="$someItemBelongsToAMate = true" />
-													</IfCondition>
-												</Sequence>
-											</Else>
-										</IfElseCondition>
+												<IfElseCondition failOnCondition="false" condition="$stimulus.owner == $this.id" saveVersion="2">
+													<Then canSkip="1">
+														<Expression expressions="$stolenItemIsRelevant = true" />
+													</Then>
+													<Else canSkip="1">
+														<Sequence>
+															<GetAreMates Npc1="$this.id" Npc2="$stimulus.owner" AreMates="$stolenItemIsRelevant" />
+															<IfCondition failOnCondition="false" condition="~$someItemBelongsToAMate &amp; $stolenItemIsRelevant">
+																<Expression expressions="$someItemBelongsToAMate = true" />
+															</IfCondition>
+														</Sequence>
+													</Else>
+												</IfElseCondition>
 									</IfCondition>
 									<IfCondition failOnCondition="false" condition="$stolenItemIsRelevant">
 										<PushToArray array="$relevantStolenItems" value="$stolenItems_value" direction="Back" />
+									</IfCondition>
+								</Sequence>
 									</IfCondition>
 								</Sequence>
 							</ForEach>
@@ -78,7 +82,7 @@
 												</Then>
 												<Else canSkip="1">
 													<Sequence>
-														<GetItemType WUID="$relevantStolenItems[0]" OutCategory="$stolenItemCategory" OutType="$useless" OutSubType="$useless" />
+														<GetItemType WUID="$relevantStolenItems[0]" OutCategory="$stolenItemCategory" OutType="" OutSubType="" />
 														<IfElseCondition failOnCondition="false" condition="$stolenItemCategory == &apos;armor&apos;" saveVersion="2">
 															<Then canSkip="1">
 																<Expression expressions="$seenEquippedType = $enum:crime_theft_seenEquippedType.owner_singleArmor" />
@@ -118,7 +122,6 @@
 				<Variable name="stolenItemIsRelevant" comment="" />
 				<Variable name="stolenItems" comment="" />
 				<Variable name="stolenItems_value" comment="" />
-				<Variable name="useless" comment="" />
 			</Variables>
 			<ForwardDeclarations />
 			<Root hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
@@ -160,39 +163,48 @@
 									<OutputBreakpoints />
 									<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
 										<OutputBreakpoints />
+										<GetItemType hasInputBreakpoint="0" comment="" breakpointFlags="0">
+											<OutputBreakpoints />
+										</GetItemType>
+										<IfCondition hasInputBreakpoint="0" comment="" breakpointFlags="0">
+											<OutputBreakpoints />
+											<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
+												<OutputBreakpoints />
 										<GetOwner hasInputBreakpoint="0" comment="" breakpointFlags="0">
 											<OutputBreakpoints />
 										</GetOwner>
 										<IfCondition hasInputBreakpoint="0" comment="" breakpointFlags="0">
 											<OutputBreakpoints />
-											<IfElseCondition hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
-												<OutputBreakpoints />
-												<Then>
-													<Expression hasInputBreakpoint="0" comment="" breakpointFlags="0">
+													<IfElseCondition hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
 														<OutputBreakpoints />
-													</Expression>
-												</Then>
-												<Else>
-													<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
-														<OutputBreakpoints />
-														<GetAreMates hasInputBreakpoint="0" comment="" breakpointFlags="0">
-															<OutputBreakpoints />
-														</GetAreMates>
-														<IfCondition hasInputBreakpoint="0" comment="" breakpointFlags="0">
-															<OutputBreakpoints />
+														<Then>
 															<Expression hasInputBreakpoint="0" comment="" breakpointFlags="0">
 																<OutputBreakpoints />
 															</Expression>
-														</IfCondition>
-													</Sequence>
-												</Else>
-											</IfElseCondition>
+														</Then>
+														<Else>
+															<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																<OutputBreakpoints />
+																<GetAreMates hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																	<OutputBreakpoints />
+																</GetAreMates>
+																<IfCondition hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																	<OutputBreakpoints />
+																	<Expression hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																		<OutputBreakpoints />
+																	</Expression>
+																</IfCondition>
+															</Sequence>
+														</Else>
+													</IfElseCondition>
 										</IfCondition>
 										<IfCondition hasInputBreakpoint="0" comment="" breakpointFlags="0">
 											<OutputBreakpoints />
 											<PushToArray hasInputBreakpoint="0" comment="" breakpointFlags="0">
 												<OutputBreakpoints />
 											</PushToArray>
+										</IfCondition>
+									</Sequence>
 										</IfCondition>
 									</Sequence>
 								</ForEach>

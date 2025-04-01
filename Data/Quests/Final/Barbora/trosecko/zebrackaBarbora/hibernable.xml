@@ -27,6 +27,9 @@
 				<Port Name="bara_zacala_barkovat_na_jindru" Direction="Out" Type="trigger">
 					<DesignName StringName="hibernable_bara_zacala_ba_FHYa" Text="Bára začala barkovat na Jindru" />
 				</Port>
+				<Port Name="seq14" Direction="Out" Type="bool">
+					<DesignName StringName="hibernable_seq14_Ockw" Text="Jindra ví o kočkempu" />
+				</Port>
 			</Ports>
 			<Definitions>
 				<Definition File="hibernable/barbora__barky_na_jindru.xml" />
@@ -194,12 +197,19 @@
 					<Edge From="beggarBarbora_currentBehavior_state.OnBarkAtPlayer" To="bara_zacala_barkovat_na_jindru">
 						<Vertex>GblpbF4Y</Vertex>
 					</Edge>
+					<Edge From="bara__zadani_skillteacher_kocour.seq14" To="seq14" />
 				</Output>
 				<AreaTrigger Name="playerAreaTrigger_leave" PositionY="170" PositionX="-1910">
 					<Asset Name="Souls" Alias="player" />
 					<Asset Name="Areas" Alias="situation_mainArea" />
 					<Edge From="Awake" To="IsActive" />
 				</AreaTrigger>
+				<AddReward Name="reward24" PositionY="860" PositionX="1500">
+					<Edge From="bara__zadani_skillteacher_kocour.reputace_kocour" To="AddReward" />
+					<Rewards>
+						<SoulReputationReward ReputationChange="quest_reward_4_normal" Target="kocour" />
+					</Rewards>
+				</AddReward>
 				<SchedulerLinkActivation Name="scheduleBaraBarking" PositionY="-1200" PositionX="-1060">
 					<Constant Name="LinkTag" Value="zebrackaBarbora_shouldBark" />
 					<Edge From="beggarBarbora_currentBehavior_state.BarkAtPlayer" To="IsActive" />

@@ -69,7 +69,7 @@
 						<Vertex>vertex209</Vertex>
 					</Edge>
 				</State>
-				<dialog_po_souboji Name="dialog_po_souboji" PositionY="260" PositionX="2800">
+				<dialog_po_souboji Name="dialog_po_souboji" PositionY="260" PositionX="2780">
 					<Edge From="fightOutcome.FightWon" To="hrac_vyhral" />
 					<Edge From="fightOutcome.FightLost" To="hrac_prohral" />
 					<Edge From="fightOutcome.Fight" To="hrac_bojuje" />
@@ -116,10 +116,12 @@
 					<Edge From="fightOutcome.Fight" To="IsActive" />
 				</EnableBehavior>
 				<HasteTrigger Name="endSurrender" PositionY="1490" PositionX="1230" />
-				<fightconfiguration_indifference Name="fightconfiguration_indifference" PositionY="810" PositionX="3250" Namespace="utils.combat">
+				<fightconfiguration_indifference Name="fightconfiguration_indifference" PositionY="250" PositionX="3270" Namespace="utils.combat">
 					<Asset Name="souls" Alias="alchemistBodyguards" />
 					<Constant Name="unarmedonly" Value="true" />
-					<Edge From="fightOutcome.Fight" To="isactive" />
+					<Edge From="fightOutcome.Fight" To="isactive">
+						<Vertex>2kKloUHb</Vertex>
+					</Edge>
 				</fightconfiguration_indifference>
 				<fightconfiguration_indifference Name="fightconfiguration_indifference_1" PositionY="670" PositionX="3810" Namespace="utils.combat">
 					<Asset Name="souls" Alias="alchemistGroup" />
@@ -145,6 +147,17 @@
 					<Constant Name="decentmercy" Value="false" />
 					<Constant Name="alwaysmercy" Value="false" />
 					<Edge From="fightOutcome.Fight" To="isactive" />
+				</fightconfiguration_surrendering>
+				<fightconfiguration_surrendering Name="fightconfiguration_surrendering_2" PositionY="800" PositionX="3460" Namespace="utils.combat">
+					<Asset Name="souls" Alias="alchemistBodyguards" />
+					<Constant Name="neversurrenderorflee" Value="true" />
+					<Constant Name="neveracceptsurrender" Value="true" />
+					<Constant Name="decentmercy" Value="false" />
+					<Constant Name="alwaysmercy" Value="false" />
+					<Edge From="fightOutcome.Fight" To="isactive">
+						<Vertex>2kKloUHb</Vertex>
+						<Vertex>kvGQnsdA</Vertex>
+					</Edge>
 				</fightconfiguration_surrendering>
 				<State Name="fightOutcome" PositionY="360" PositionX="2020" TypeT="FistFightConsequences">
 					<Edge From="trialog_s_fararem_a_alchymistou.jdeme_do_fist_fightu" To="SetFight" />
@@ -341,7 +354,7 @@
 				</SchedulerLinkActivation>
 				<SetEntityContext Name="setentitycontext672" PositionY="40" PositionX="3230">
 					<Constant Name="Context" Value="crime_isCourageous" />
-					<Asset Name="Souls" Alias="alchemist" />
+					<Asset Name="Souls" Alias="alchemistGroup" />
 					<Edge From="fightOutcome.Fight" To="IsActive">
 						<Vertex>vertex244</Vertex>
 					</Edge>
@@ -392,7 +405,9 @@
 				</WeaponDrawTrigger>
 			</Nodes>
 			<EdgeVertices>
+				<EdgeVertex Name="2kKloUHb" PositionY="340" PositionX="3133" />
 				<EdgeVertex Name="A34IxPGj" PositionY="-320" PositionX="4339" />
+				<EdgeVertex Name="kvGQnsdA" PositionY="857" PositionX="3185" />
 				<EdgeVertex Name="MEL1gAQL" PositionY="-335" PositionX="161" />
 				<EdgeVertex Name="Qx0GVGP8" PositionY="-380" PositionX="-290" />
 				<EdgeVertex Name="vertex119" PositionY="1380" PositionX="-240" />
@@ -444,7 +459,7 @@
 			<Assets>
 				<TagPointAsset Name="alchemistWatchFightSpot" />
 				<SoulAsset Name="alchemistBodyguards" SharedSoulGuids="405cab40-d6f9-16a6-0e8f-c547ac20338e 4f6c6687-497d-4ab6-076d-23cb8df3dfa5" />
-				<SoulAsset Name="alchemistGroup" SharedSoulGuids="4027fb18-e4a6-66b2-cf2d-bdd55430889f 405cab40-d6f9-16a6-0e8f-c547ac20338e 4dd1aff9-44db-aea0-9eb3-8dc178be3ebb" />
+				<SoulAsset Name="alchemistGroup" SharedSoulGuids="4027fb18-e4a6-66b2-cf2d-bdd55430889f 405cab40-d6f9-16a6-0e8f-c547ac20338e 4f6c6687-497d-4ab6-076d-23cb8df3dfa5" />
 				<CameraAsset Name="s30_oa_customCamera_01" />
 				<CameraAsset Name="s30_oa_customCamera_02" />
 				<CameraAsset Name="s30_oa_customCamera_03" />

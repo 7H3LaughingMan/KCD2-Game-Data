@@ -50,6 +50,14 @@
 				<Definition File="pruzkum_sklepeni/zastaveni_casu.xml" />
 			</Definitions>
 			<Nodes>
+				<Function Name="addbuff16" PositionY="-1190" PositionX="490" MethodName="wh::rpgmodule::AddBuff" DeclaringType="wh::rpgmodule">
+					<Asset Name="Souls" Alias="Samuel" />
+					<Constant Name="Buff" Value="e7e0eda4-a76c-49af-aa3e-43ccea14297c" />
+					<Edge From="searchTunnelsWithSamuel.OnSpeakWithSamuel" To="Exec">
+						<Vertex>p0roKALl</Vertex>
+					</Edge>
+					<Edge From="ifnot25.True" To="Exec" />
+				</Function>
 				<AreaTrigger Name="areatrigger11" PositionY="830" PositionX="-700">
 					<Asset Name="Souls" Alias="player" />
 					<Asset Name="Areas" Alias="zPodzemiDoRuthardky" />
@@ -83,11 +91,37 @@
 					<Constant Name="alwaysmercy" Value="false" />
 					<Edge From="Awake" To="isactive" />
 				</fightconfiguration_surrendering>
+				<IfFunction Name="ifareacheck27" PositionY="-720" PositionX="-710" MethodName="wh::rpgmodule::AreaCheck" DeclaringType="wh::rpgmodule">
+					<Asset Name="Souls" Alias="deadBody" />
+					<Asset Name="Areas" Alias="deadBodyCheckArea" />
+					<Edge From="ifor30.True" To="Exec" />
+				</IfFunction>
+				<IfFunction Name="ifnot25" PositionY="-1290" PositionX="230" MethodName="math::boolean::Not" DeclaringType="math::boolean">
+					<Edge From="searchTunnelsWithSamuel.None" To="Value" />
+					<Edge From="patchtrigger24.OnPatch" To="Exec" />
+				</IfFunction>
 				<IfFunction Name="ifor21" PositionY="-910" PositionX="260" MethodName="math::boolean::Or" DeclaringType="math::boolean">
 					<Edge From="patchtrigger23.OnPatch" To="Exec" />
 					<Edge From="searchTunnelsWithSamuel.EnterTunnels" To="A" />
 					<Edge From="searchTunnelsWithSamuel.FindThePlace" To="B" />
 					<Edge From="searchTunnelsWithSamuel.MarkedTheEnd" To="C" />
+				</IfFunction>
+				<IfFunction Name="ifor30" PositionY="-620" PositionX="-1010" MethodName="math::boolean::Or" DeclaringType="math::boolean">
+					<Edge From="OnWake" To="Exec" />
+					<Edge From="searchTunnelsWithSamuel.EnterTunnels" To="A">
+						<Vertex>vertex18</Vertex>
+						<Vertex>vertex19</Vertex>
+						<Vertex>Nq4D4sfx</Vertex>
+					</Edge>
+					<Edge From="searchTunnelsWithSamuel.FindThePlace" To="B">
+						<Vertex>0Fj1qf4A</Vertex>
+						<Vertex>nUEdChVz</Vertex>
+					</Edge>
+					<Edge From="searchTunnelsWithSamuel.MarkedTheEnd" To="C">
+						<Vertex>vertex22</Vertex>
+						<Vertex>vertex23</Vertex>
+						<Vertex>TfW4HuYB</Vertex>
+					</Edge>
 				</IfFunction>
 				<keepdoorunlocked Name="keepdoorunlocked" PositionY="-710" PositionX="540" Namespace="utils.general">
 					<Asset Name="door" Alias="dvereZRuthardky" />
@@ -129,6 +163,18 @@
 				<PatchTrigger Name="patchtrigger23" PositionY="-910" PositionX="-250">
 					<Constant Name="TransitionFromVersion" Value="ver_01_00" />
 				</PatchTrigger>
+				<PatchTrigger Name="patchtrigger24" PositionY="-1060" PositionX="-260">
+					<Constant Name="TransitionToVersion" Value="ver_01_02" />
+				</PatchTrigger>
+				<Function Name="removebuff29" PositionY="-720" PositionX="-400" MethodName="wh::rpgmodule::RemoveBuff" DeclaringType="wh::rpgmodule">
+					<Asset Name="Souls" Alias="deadBody" />
+					<Constant Name="Buff" Value="3702b27b-2591-4dd7-9353-4ae569151d98" />
+					<Edge From="ifareacheck27.False" To="Exec" />
+				</Function>
+				<revive Name="revive" PositionY="-750" PositionX="-50" Namespace="utils.general">
+					<Asset Name="souls" Alias="deadBody" />
+					<Edge From="removebuff29.OnExec" To="exec" />
+				</revive>
 				<samuel__odchod_do_sklepu Name="samuel__odchod_do_sklepu" PositionY="-60" PositionX="470">
 					<Edge From="searchTunnelsWithSamuel.SpeakWithSamuel" To="promluvit_si_se_samuelem" />
 				</samuel__odchod_do_sklepu>
@@ -184,14 +230,19 @@
 				</zastaveni_casu>
 			</Nodes>
 			<EdgeVertices>
+				<EdgeVertex Name="0Fj1qf4A" PositionY="720" PositionX="120" />
 				<EdgeVertex Name="8HWtbTXg" PositionY="480" PositionX="820" />
 				<EdgeVertex Name="CC644uTz" PositionY="780" PositionX="-740" />
 				<EdgeVertex Name="HgW1oC52" PositionY="305" PositionX="1448" />
 				<EdgeVertex Name="jLyXE2mC" PositionY="-460" PositionX="-140" />
 				<EdgeVertex Name="mezwkwLa" PositionY="780" PositionX="790" />
 				<EdgeVertex Name="mpEoXtoS" PositionY="590" PositionX="460" />
+				<EdgeVertex Name="Nq4D4sfx" PositionY="750" PositionX="-1040" />
+				<EdgeVertex Name="nUEdChVz" PositionY="720" PositionX="-1030" />
+				<EdgeVertex Name="p0roKALl" PositionY="-1100" PositionX="250" />
 				<EdgeVertex Name="q6QqLYax" PositionY="590" PositionX="-200" />
 				<EdgeVertex Name="QXDEXMct" PositionY="-460" PositionX="1360" />
+				<EdgeVertex Name="TfW4HuYB" PositionY="1180" PositionX="-1050" />
 				<EdgeVertex Name="vertex14" PositionY="870" PositionX="1040" />
 				<EdgeVertex Name="vertex15" PositionY="870" PositionX="-240" />
 				<EdgeVertex Name="vertex18" PositionY="750" PositionX="130" />
@@ -207,6 +258,11 @@
 				<EdgeVertex Name="vertex8" PositionY="900" PositionX="690" />
 				<EdgeVertex Name="vertex9" PositionY="900" PositionX="-280" />
 			</EdgeVertices>
+			<Assets>
+				<SoulAsset Name="deadBody" SharedSoulGuids="27d64dae-1bff-4270-97b3-b275e991f083" />
+				<ProfileAsset Name="closedRuthardkaProfile" AssetProfiles="papezskyLegat_closedPhase" />
+				<TriggerAreaAsset Name="deadBodyCheckArea" />
+			</Assets>
 			<Text StringName="pruzkum_sklepeni_QN4x" Text="Průzkum sklepení" />
 			<Elements>
 				<GameplayActionElement>

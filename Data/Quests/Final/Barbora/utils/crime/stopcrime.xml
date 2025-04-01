@@ -17,14 +17,14 @@
 				</ConstantPort>
 			</Ports>
 			<Nodes>
-				<AIConceptSignalTrigger Name="aiconceptsignaltriggercrimestopcrimeonreactorsstopped4" PositionY="-170" PositionX="-270" NotificationName="crime_stopCrime_onReactorsStopped">
+				<AIConceptSignalTrigger Name="aiconceptsignaltriggercrimestopcrimeonreactorsstopped4" PositionY="-300" PositionX="-290" NotificationName="crime_stopCrime_onReactorsStopped">
 					<Edge From="waitingForReactors.State" To="IsActive" />
 				</AIConceptSignalTrigger>
 				<doonce Name="doonce" PositionY="-480" PositionX="850" Namespace="general">
-					<Edge From="stopcrime" To="reset">
+					<Edge From="if5.True" To="in" />
+					<Edge From="triggersequence6_1.A" To="reset">
 						<Vertex>jDd8qInY</Vertex>
 					</Edge>
-					<Edge From="if5.True" To="in" />
 				</doonce>
 				<ForEach Name="foreach2" PositionY="-390" PositionX="1130" TypeT="wh::rpgmodule::Souls">
 					<Edge From="npcs" To="Array">
@@ -32,11 +32,11 @@
 					</Edge>
 					<Edge From="doonce.out" To="Begin" />
 				</ForEach>
-				<If Name="if5" PositionY="-170" PositionX="390">
+				<If Name="if5" PositionY="-170" PositionX="610">
 					<Edge From="forgetcrimeinformations" To="Condition">
 						<Vertex>ywdaGJc5</Vertex>
 					</Edge>
-					<Edge From="aiconceptsignaltriggercrimestopcrimeonreactorsstopped4.OnNotification" To="Exec" />
+					<Edge From="triggersequence6.B" To="Exec" />
 				</If>
 				<InstantSendMessage Name="instantsendmessagecrimeforgetcrimesdata3" PositionY="-390" PositionX="1460" MessageType="crime:forgetCrimesData">
 					<Edge From="foreach2.Value" To="Receiver" />
@@ -45,8 +45,8 @@
 				</InstantSendMessage>
 				<InstantSendMessage Name="instantsendmessagecrimestopcrime1" PositionY="-380" PositionX="-930" MessageType="crime:stopCrime">
 					<Asset Name="Receiver" Alias="so_mrkev" />
-					<Edge From="stopcrime" To="Exec" />
 					<Edge From="forgetcrimeinformations" To="Content_forgetCrimeInfo" />
+					<Edge From="triggersequence6_1.B" To="Exec" />
 				</InstantSendMessage>
 				<Output Name="Output">
 					<Edge From="foreach2.OnEnd" To="crimestopped">
@@ -56,9 +56,15 @@
 						<Vertex>vertex3</Vertex>
 					</Edge>
 				</Output>
+				<TriggerSequence Name="triggersequence6" PositionY="-300" PositionX="210">
+					<Edge From="aiconceptsignaltriggercrimestopcrimeonreactorsstopped4.OnNotification" To="Exec" />
+				</TriggerSequence>
+				<TriggerSequence Name="triggersequence6_1" PositionY="-410" PositionX="-1330">
+					<Edge From="stopcrime" To="Exec" />
+				</TriggerSequence>
 				<State Name="waitingForReactors" PositionY="-380" PositionX="-560" TypeT="bool">
 					<Edge From="instantsendmessagecrimestopcrime1.OnExec" To="SetTrue" />
-					<Edge From="aiconceptsignaltriggercrimestopcrimeonreactorsstopped4.OnNotification" To="SetFalse">
+					<Edge From="triggersequence6.A" To="SetFalse">
 						<Vertex>vertex6</Vertex>
 						<Vertex>vertex7</Vertex>
 					</Edge>
@@ -68,9 +74,9 @@
 				<EdgeVertex Name="jDd8qInY" PositionY="-430" PositionX="-970" />
 				<EdgeVertex Name="vertex2" PositionY="30" PositionX="980" />
 				<EdgeVertex Name="vertex3" PositionY="-50" PositionX="1470" />
-				<EdgeVertex Name="vertex6" PositionY="-10" PositionX="130" />
-				<EdgeVertex Name="vertex7" PositionY="-10" PositionX="-570" />
-				<EdgeVertex Name="ywdaGJc5" PositionY="60" PositionX="170" />
+				<EdgeVertex Name="vertex6" PositionY="-80" PositionX="380" />
+				<EdgeVertex Name="vertex7" PositionY="-80" PositionX="-540" />
+				<EdgeVertex Name="ywdaGJc5" PositionY="60" PositionX="490" />
 			</EdgeVertices>
 			<Text StringName="stopcrime_K3ia" Text="StopCrime" />
 		</Module>

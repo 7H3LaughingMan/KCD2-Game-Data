@@ -48,6 +48,10 @@
 					<Edge From="active" To="B" />
 					<Edge From="not98.bool" To="A" />
 				</Function>
+				<Function Name="areacheck117" PositionY="990" PositionX="-940" MethodName="wh::rpgmodule::AreaCheck" DeclaringType="wh::rpgmodule">
+					<Asset Name="Souls" Alias="player" />
+					<Asset Name="Areas" Alias="majka_trespass" />
+				</Function>
 				<AreaTrigger Name="areatrigger106" PositionY="-1010" PositionX="570">
 					<Asset Name="Souls" Alias="Tachovaci_men" />
 					<Asset Name="Areas" Alias="majka_alarmArea" />
@@ -79,40 +83,34 @@
 						<Vertex>Qvn3Y71b</Vertex>
 					</Edge>
 				</DistanceTrigger>
-				<henik_si_vsiml_henryho_jak_leze_na_majku Name="henik_si_vsiml_henryho_jak_leze_na_majku" PositionY="980" PositionX="1060" />
+				<henik_si_vsiml_henryho_jak_leze_na_majku Name="henik_si_vsiml_henryho_jak_leze_na_majku" PositionY="870" PositionX="-340">
+					<Edge From="areacheck117.IsInside" To="krade_se_majka" />
+				</henik_si_vsiml_henryho_jak_leze_na_majku>
 				<IfFunction Name="henikNotUnconscious" PositionY="650" PositionX="-1130" MethodName="wh::rpgmodule::UnconsciousCheck" DeclaringType="wh::rpgmodule">
 					<Asset Name="Souls" Alias="henik" />
 					<Edge From="magic_alarm_for_henik" To="Exec" />
 				</IfFunction>
 				<State Name="henrySeenStealingMaypole" PositionY="-240" PositionX="250" TypeT="bool">
-					<Edge From="tachovaciVidiHenryhoCoKradeMajku.OnSeenLongCone" To="SetTrue">
-						<Vertex>f3WsqpMa</Vertex>
-					</Edge>
+					<Edge From="tachovaciVidiHenryhoCoKradeMajku.OnSeenShortCone" To="SetTrue" />
 				</State>
 				<IfFunction Name="ifand85" PositionY="-60" PositionX="500" MethodName="math::boolean::And" DeclaringType="math::boolean">
 					<Edge From="containselement82.Result" To="A" />
-					<Edge From="tachovaciVidiHenryhoCoKradeMajku.OnSeenLongCone" To="Exec">
+					<Edge From="tachovaciVidiHenryhoCoKradeMajku.OnSeenShortCone" To="Exec">
 						<Vertex>mslQq7An</Vertex>
 					</Edge>
 				</IfFunction>
 				<IfFunction Name="ifand85_1" PositionY="390" PositionX="640" MethodName="math::boolean::And" DeclaringType="math::boolean">
 					<Edge From="containselement82_1.Result" To="A" />
-					<Edge From="tachovaciVidiHenryhoCoKradeMajku.OnSeenLongCone" To="Exec">
+					<Edge From="tachovaciVidiHenryhoCoKradeMajku.OnSeenShortCone" To="Exec">
 						<Vertex>mslQq7An</Vertex>
 						<Vertex>gBcxBVvl</Vertex>
 					</Edge>
 				</IfFunction>
-				<IfFunction Name="ifcompare79" PositionY="930" PositionX="260" TypeT="wh::rpgmodule::I_Soul*" MethodName="Control::Compare" DeclaringType="Control">
-					<Constant Name="Op" Value="Equals" />
-					<Asset Name="ValueB" Alias="henik" />
-					<Edge From="tachovaciVidiHenryhoCoKradeMajku.PerceivingSoul" To="ValueA">
-						<Vertex>nKXRPIWD</Vertex>
-						<Vertex>0w7xkCXR</Vertex>
-						<Vertex>DwnU3fug</Vertex>
-					</Edge>
-					<Edge From="tachovaciVidiHenryhoCoKradeMajku.OnSeenLongCone" To="Exec">
-						<Vertex>wttq5C4a</Vertex>
-					</Edge>
+				<IfFunction Name="ifcompare130" PositionY="-70" PositionX="940" TypeT="int" MethodName="Control::Compare" DeclaringType="Control">
+					<Constant Name="Op" Value="LessEquals" />
+					<Constant Name="ValueB" Value="1" />
+					<Edge From="randominteger129.int" To="ValueA" />
+					<Edge From="ifand85.True" To="Exec" />
 				</IfFunction>
 				<IfFunction Name="ifdeathcheck109" PositionY="650" PositionX="-850" MethodName="wh::rpgmodule::DeathCheck" DeclaringType="wh::rpgmodule">
 					<Asset Name="Souls" Alias="henik" />
@@ -141,7 +139,7 @@
 				<MakeArray Name="makearray3" PositionY="90" PositionX="-990" TypeT="Strings">
 					<Constant Name="A" Value="zaby_maypole" />
 				</MakeArray>
-				<MakeArray Name="makearray75_1_2" PositionY="160" PositionX="500" TypeT="wh::rpgmodule::Souls">
+				<MakeArray Name="makearray75_1_2" PositionY="180" PositionX="960" TypeT="wh::rpgmodule::Souls">
 					<Edge From="tachovaciVidiHenryhoCoKradeMajku.PerceivingSoul" To="A">
 						<Vertex>nKXRPIWD</Vertex>
 					</Edge>
@@ -181,29 +179,32 @@
 					<Edge From="areatrigger106.OnEnter" To="pushstimulus" />
 					<Edge From="areatrigger106.Soul" To="receiver" />
 				</pushstimulus_theft>
-				<Function Name="requestmonologue78" PositionY="900" PositionX="570" MethodName="wh::xgenaimodule::RequestMonologue" DeclaringType="wh::xgenaimodule">
-					<Asset Name="Souls" Alias="henik" />
-					<Constant Name="DecisionAlias" Value="zaby_henikSiVsimlHenryhoJakLezeNaMajku" />
-					<Asset Name="LookAtTarget" Alias="player" />
-					<Edge From="ifcompare79.True" To="Exec" />
+				<Function Name="randominteger129" PositionY="-290" PositionX="670" MethodName="math::random::RandomInteger" DeclaringType="math::random">
+					<Constant Name="Max" Value="2" />
 				</Function>
-				<Function Name="requestmonologue78_1" PositionY="0" PositionX="820" MethodName="wh::xgenaimodule::RequestMonologue" DeclaringType="wh::xgenaimodule">
+				<Function Name="requestmonologue78_1" PositionY="10" PositionX="1290" MethodName="wh::xgenaimodule::RequestMonologue" DeclaringType="wh::xgenaimodule">
 					<Constant Name="DecisionAlias" Value="zaby_tachovstiSiVsimajiHenryhoMuz" />
 					<Asset Name="LookAtTarget" Alias="player" />
-					<Edge From="ifand85.True" To="Exec" />
 					<Edge From="makearray75_1_2.Array" To="Souls" />
+					<Edge From="ifcompare130.True" To="Exec" />
 				</Function>
-				<Function Name="requestmonologue78_1_1" PositionY="480" PositionX="950" MethodName="wh::xgenaimodule::RequestMonologue" DeclaringType="wh::xgenaimodule">
+				<Function Name="requestmonologue78_1_1" PositionY="450" PositionX="1050" MethodName="wh::xgenaimodule::RequestMonologue" DeclaringType="wh::xgenaimodule">
 					<Constant Name="DecisionAlias" Value="zaby_tachovstiSiVsimajiHenryhoZena" />
 					<Asset Name="LookAtTarget" Alias="player" />
 					<Edge From="ifand85_1.True" To="Exec" />
 					<Edge From="makearray75_1_2_1.Array" To="Souls" />
 				</Function>
+				<Function Name="requestmonologue78_1_2" PositionY="-460" PositionX="1300" MethodName="wh::xgenaimodule::RequestMonologue" DeclaringType="wh::xgenaimodule">
+					<Constant Name="DecisionAlias" Value="dialogsToInclude_muzNaselPachatele" />
+					<Asset Name="LookAtTarget" Alias="player" />
+					<Edge From="makearray75_1_2.Array" To="Souls" />
+					<Edge From="ifcompare130.False" To="Exec" />
+				</Function>
 				<State Name="state115" PositionY="-1250" PositionX="-130" TypeT="bool">
 					<Edge From="debug_areaforce.OnTrigger" To="SetTrue" />
 				</State>
 				<AreaTrigger Name="tachovaciBlizkoMajky" PositionY="-550" PositionX="-580">
-					<Asset Name="Souls" Alias="Tachovaci_all" />
+					<Asset Name="Souls" Alias="Tachovaci_men" />
 					<Asset Name="Areas" Alias="majkaNearArea" />
 					<Edge From="and99.bool" To="IsActive" />
 				</AreaTrigger>
@@ -213,8 +214,8 @@
 					<Edge From="makearray3.Array" To="PerceptibleVolumeLabels" />
 					<Edge From="active" To="IsActive" />
 				</PerceptionTrigger>
-				<tachovsti_si_vsimaji_henryho__muz Name="tachovsti_si_vsimaji_henryho__muz" PositionY="40" PositionX="1270" />
-				<tachovsti_si_vsimaji_henryho__zena Name="tachovsti_si_vsimaji_henryho__zena" PositionY="510" PositionX="1390" />
+				<tachovsti_si_vsimaji_henryho__muz Name="tachovsti_si_vsimaji_henryho__muz" PositionY="40" PositionX="1740" />
+				<tachovsti_si_vsimaji_henryho__zena Name="tachovsti_si_vsimaji_henryho__zena" PositionY="480" PositionX="1490" />
 				<MemberFunction Name="takedamage34" PositionY="1210" PositionX="920" MethodName="TakeDamage" DeclaringType="wh::rpgmodule::I_CombatSoul">
 					<Constant Name="Stamina" Value="1" />
 					<Constant Name="Health" Value="0" />
@@ -226,8 +227,6 @@
 			</Nodes>
 			<EdgeVertices>
 				<EdgeVertex Name="0w7xkCXR" PositionY="640" PositionX="60" />
-				<EdgeVertex Name="DwnU3fug" PositionY="1050" PositionX="160" />
-				<EdgeVertex Name="f3WsqpMa" PositionY="-110" PositionX="70" />
 				<EdgeVertex Name="gBcxBVvl" PositionY="500" PositionX="170" />
 				<EdgeVertex Name="l4oeveY6" PositionY="770" PositionX="-280" />
 				<EdgeVertex Name="mslQq7An" PositionY="40" PositionX="-80" />
@@ -235,7 +234,6 @@
 				<EdgeVertex Name="Qvn3Y71b" PositionY="1300" PositionX="-980" />
 				<EdgeVertex Name="TrFmoxYM" PositionY="-910" PositionX="-1410" />
 				<EdgeVertex Name="vertex6" PositionY="1320" PositionX="2180" />
-				<EdgeVertex Name="wttq5C4a" PositionY="1020" PositionX="0" />
 				<EdgeVertex Name="wzk2DUIU" PositionY="-620" PositionX="-1410" />
 			</EdgeVertices>
 			<Text StringName="rvaci_Cv7B" Text="Tachováci - reakce na kradení májky" />

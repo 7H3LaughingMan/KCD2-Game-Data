@@ -34,7 +34,7 @@
 					<DesignName StringName="askingvil_onstarted_z6X1" Text="Complete OnExec" />
 				</Port>
 				<Port Name="started_or_player_knows_information" Direction="Out" Type="bool">
-					<DesignName StringName="askingvil_started_or_play_rq7u" Text="Started or player knows information" />
+					<DesignName StringName="askingvil_started_or_play_rq7u" Text="Player knows information" />
 				</Port>
 			</Ports>
 			<Nodes>
@@ -94,12 +94,11 @@
 					<Edge From="tointbool20.int" To="objective_was_activated_int" />
 				</Output>
 				<Function Name="playerTalkedToTheVillagerOrStarted" PositionY="200" PositionX="940" MethodName="math::boolean::Or" DeclaringType="math::boolean">
-					<Edge From="player_already_talked_to_the_villager" To="C">
+					<Edge From="player_already_talked_to_the_villager" To="B">
 						<Vertex>vertex9</Vertex>
 						<Vertex>vertex10</Vertex>
 					</Edge>
-					<Edge From="askState.Completed" To="B" />
-					<Edge From="askState.Started" To="A" />
+					<Edge From="askState.Completed" To="A" />
 				</Function>
 				<Function Name="tointbool20" PositionY="-160" PositionX="880" MethodName="math::conversion::ToInt(bool)" DeclaringType="math::conversion">
 					<Edge From="not19.bool" To="bool" />

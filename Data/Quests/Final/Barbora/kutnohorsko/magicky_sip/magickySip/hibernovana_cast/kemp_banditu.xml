@@ -36,22 +36,28 @@
 				<Port Name="hrac_prisel_do_kempu" Direction="Out" Type="trigger">
 					<DesignName StringName="kemp_band_hrac_prisel_do__h6UJ" Text="hráč přišel do kempu" />
 				</Port>
+				<Port Name="banditi_napadnou_hrace" Direction="Out" Type="trigger">
+					<DesignName StringName="kemp_band_banditi_napadno_p31f" Text="banditi napadnou hráče" />
+				</Port>
+				<Port Name="quest_failed" Direction="In" Type="trigger">
+					<DesignName StringName="kemp_band_quest_failed_8skf" Text="quest failed" />
+				</Port>
 			</Ports>
 			<Definitions>
 				<Definition File="kemp_banditu/cesta_do_kempu_a_odevzdani_hrotu.xml" />
 				<Definition File="kemp_banditu/strelba_na_pechu.xml" />
 			</Definitions>
 			<Nodes>
-				<cesta_do_kempu_a_odevzdani_hrotu Name="cesta_do_kempu_a_odevzdani_hrotu" PositionY="-130" PositionX="-1390" RequiredForOutput="kutnohorsko">
+				<cesta_do_kempu_a_odevzdani_hrotu Name="cesta_do_kempu_a_odevzdani_hrotu" PositionY="-140" PositionX="-1390" RequiredForOutput="kutnohorsko">
 					<Edge From="hrac_jde_sam_do_kempu" To="hrac_jde_sam_do_kempu" />
 					<Edge From="stav_questu_karel_nese_pytel" To="stav_questu_karel_nese_pytel" />
 					<Edge From="hrac_utekl_zajicovi" To="hrac_utekl_zajicovi" />
+					<Edge From="quest_failed" To="quest_failed" />
 				</cesta_do_kempu_a_odevzdani_hrotu>
 				<State Name="makePechaImmortal" PositionY="-540" PositionX="-440" RequiredForOutput="kutnohorsko" TypeT="HeadShotPecha">
 					<Edge From="cesta_do_kempu_a_odevzdani_hrotu.hrac_se_souhlasil_strilet" To="SetStarted">
 						<Vertex>Xsp2IAjT</Vertex>
 					</Edge>
-					<Edge From="triggersequence8.A" To="SetDoneRefuseKill" />
 					<Edge From="triggersequence6.A" To="SetDoneKillPecha">
 						<Vertex>vertex1</Vertex>
 						<Vertex>mEkmE0Ex</Vertex>
@@ -70,6 +76,7 @@
 					<Edge From="triggersequence4.A" To="SetDoneConvincedNotToShoot">
 						<Vertex>Q8YghKFy</Vertex>
 					</Edge>
+					<Edge From="cesta_do_kempu_a_odevzdani_hrotu.banditi_napadnou_hrace" To="SetDoneRefuseKill" />
 				</State>
 				<pozehnej_pechovi_magickym_sipem Name="objectiveVisual2" PositionY="-860" PositionX="110" RequiredForOutput="kutnohorsko">
 					<Edge From="makePechaImmortal.State" To="Progress" />
@@ -95,14 +102,6 @@
 						<Vertex>w9YNBFUK</Vertex>
 						<Vertex>fAsFAVaH</Vertex>
 					</Edge>
-					<Edge From="triggersequence8.B" To="quest_splnen">
-						<Vertex>ojR11KSI</Vertex>
-						<Vertex>vertex17</Vertex>
-					</Edge>
-					<Edge From="triggersequence8.A" To="odpocet_do_odchodu_banditu">
-						<Vertex>EzcoMW0P</Vertex>
-						<Vertex>vertex25</Vertex>
-					</Edge>
 					<Edge From="triggersequence6_1_1.A" To="odpocet_do_odchodu_banditu" />
 					<Edge From="triggersequence6_1.A" To="odpocet_do_odchodu_banditu" />
 					<Edge From="triggersequence4.A" To="pecha_zaplatil_a_nechce_strelit">
@@ -112,10 +111,6 @@
 					<Edge From="triggersequence4.B" To="quest_splnen">
 						<Vertex>ojR11KSI</Vertex>
 						<Vertex>vertex17</Vertex>
-					</Edge>
-					<Edge From="triggersequence8.A" To="pecha_zaplatil_a_nechce_strelit">
-						<Vertex>EzcoMW0P</Vertex>
-						<Vertex>vertex25</Vertex>
 					</Edge>
 					<Edge From="triggersequence6_1_1.B" To="quest_splnen">
 						<Vertex>GgyVxYRu</Vertex>
@@ -129,6 +124,20 @@
 					<Edge From="triggersequence4.A" To="odpocet_do_odchodu_banditu">
 						<Vertex>vertex26</Vertex>
 						<Vertex>vertex27</Vertex>
+					</Edge>
+					<Edge From="cesta_do_kempu_a_odevzdani_hrotu.quest_splnen" To="quest_splnen">
+						<Vertex>ojR11KSI</Vertex>
+						<Vertex>vertex17</Vertex>
+					</Edge>
+					<Edge From="cesta_do_kempu_a_odevzdani_hrotu.banditi_napadnou_hrace" To="odpocet_do_odchodu_banditu">
+						<Vertex>vertex25</Vertex>
+					</Edge>
+					<Edge From="cesta_do_kempu_a_odevzdani_hrotu.banditi_napadnou_hrace" To="pecha_zaplatil_a_nechce_strelit">
+						<Vertex>vertex25</Vertex>
+					</Edge>
+					<Edge From="cesta_do_kempu_a_odevzdani_hrotu.banditi_napadnou_hrace" To="banditi_napadnou_hrace">
+						<Vertex>5oqlxBs4</Vertex>
+						<Vertex>PM7GjKB8</Vertex>
 					</Edge>
 				</Output>
 				<SaveGame Name="savegame2" PositionY="-660" PositionX="400">
@@ -170,18 +179,16 @@
 				<TriggerSequence Name="triggersequence6_1_1" PositionY="-230" PositionX="770">
 					<Edge From="strelba_na_pechu.hrac_vubec_nevystrelil" To="Exec" />
 				</TriggerSequence>
-				<TriggerSequence Name="triggersequence8" PositionY="-160" PositionX="-830">
-					<Edge From="cesta_do_kempu_a_odevzdani_hrotu.banditi_napadnou_hrace" To="Exec" />
-				</TriggerSequence>
 			</Nodes>
 			<EdgeVertices>
+				<EdgeVertex Name="5oqlxBs4" PositionY="210" PositionX="-880" />
 				<EdgeVertex Name="DXctc21x" PositionY="300" PositionX="330" />
-				<EdgeVertex Name="EzcoMW0P" PositionY="120" PositionX="-530" />
 				<EdgeVertex Name="fAsFAVaH" PositionY="570" PositionX="1080" />
 				<EdgeVertex Name="GgyVxYRu" PositionY="-330" PositionX="1080" />
 				<EdgeVertex Name="mEkmE0Ex" PositionY="243" PositionX="324" />
 				<EdgeVertex Name="MulKdsre" PositionY="180" PositionX="320" />
 				<EdgeVertex Name="ojR11KSI" PositionY="150" PositionX="-540" />
+				<EdgeVertex Name="PM7GjKB8" PositionY="210" PositionX="870" />
 				<EdgeVertex Name="Q8YghKFy" PositionY="180" PositionX="-540" />
 				<EdgeVertex Name="QqHzrTVj" PositionY="269" PositionX="327" />
 				<EdgeVertex Name="vertex1" PositionY="240" PositionX="900" />

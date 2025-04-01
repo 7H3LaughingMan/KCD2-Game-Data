@@ -19,6 +19,20 @@
 					<Asset Name="Areas" Alias="u_dveri" />
 					<Edge From="jdiKeDverimProgress.Active" To="IsActive" />
 				</AreaTrigger>
+				<BuffEffect Name="buff_attackProt" PositionY="320" PositionX="880">
+					<Constant Name="BuffGUID" Value="360e7fef-1051-446a-b133-7f5970af00f7" />
+					<Edge From="jdiKeDverimProgress.Active" To="IsActive">
+						<Vertex>55wBebc5</Vertex>
+					</Edge>
+					<Edge From="makearray11.Array" To="Souls" />
+				</BuffEffect>
+				<BuffEffect Name="buff_stealProt" PositionY="140" PositionX="880">
+					<Constant Name="BuffGUID" Value="d5996d8b-611d-4cc8-bfbd-7ab2c8884cf6" />
+					<Edge From="jdiKeDverimProgress.Active" To="IsActive">
+						<Vertex>55wBebc5</Vertex>
+					</Edge>
+					<Edge From="makearray11.Array" To="Souls" />
+				</BuffEffect>
 				<SoulDeathTrigger Name="deathtrigger1" PositionY="210" PositionX="-370">
 					<Edge From="makearray2.Array" To="Souls" />
 					<Edge From="jdiKeDverimProgress.Active" To="IsActive">
@@ -61,7 +75,7 @@
 					<Edge From="deathtrigger1.OnDeath" To="SetCanceled" />
 					<Edge From="if8.True" To="SetCanceled" />
 				</State>
-				<MakeArray Name="makearray11" PositionY="310" PositionX="590" TypeT="wh::rpgmodule::Souls">
+				<MakeArray Name="makearray11" PositionY="350" PositionX="590" TypeT="wh::rpgmodule::Souls">
 					<Asset Name="A" Alias="svatava" />
 					<Asset Name="B" Alias="vendula" />
 				</MakeArray>
@@ -76,10 +90,12 @@
 					<Edge From="jdiKeDverimProgress.OnCanceled" To="quest_fail" />
 					<Edge From="triggersequence5.B" To="objective_done" />
 				</Output>
-				<SetEntityContextPreset Name="setentitycontextpreset10" PositionY="130" PositionX="860">
-					<Constant Name="Preset" Value="switch_unresponsive" />
+				<SetEntityContextPreset Name="setentitycontextpreset15" PositionY="500" PositionX="880">
+					<Constant Name="Preset" Value="crime_preoccupied" />
+					<Edge From="jdiKeDverimProgress.Active" To="IsActive">
+						<Vertex>55wBebc5</Vertex>
+					</Edge>
 					<Edge From="makearray11.Array" To="Souls" />
-					<Edge From="jdiKeDverimProgress.Active" To="IsActive" />
 				</SetEntityContextPreset>
 				<Function Name="subtractfloat4" PositionY="-330" PositionX="690" MethodName="wh::conceptmodule::math::SubtractFloat" DeclaringType="wh::conceptmodule::math">
 					<Constant Name="B" Value="10" />
@@ -105,6 +121,7 @@
 				</TriggerSequence>
 			</Nodes>
 			<EdgeVertices>
+				<EdgeVertex Name="55wBebc5" PositionY="230" PositionX="720" />
 				<EdgeVertex Name="vertex1" PositionY="640" PositionX="480" />
 				<EdgeVertex Name="vertex2" PositionY="640" PositionX="-70" />
 				<EdgeVertex Name="vertex3" PositionY="-70" PositionX="80" />

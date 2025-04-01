@@ -38,6 +38,20 @@
 				<Definition File="uvodni_rozhovor_s_marketou_tulackou2/uvodni_rozhovor_s_marketou_tulackou2.xml" />
 			</Definitions>
 			<Nodes>
+				<State Name="canMarketaStandUp" PositionY="1300" PositionX="1100" TypeT="CanMarketaStandUp">
+					<Edge From="enablebehavioremptyendnotification21.OnFinished" To="SetDone">
+						<Vertex>VpPm0n7x</Vertex>
+						<Vertex>exzd7C4Y</Vertex>
+					</Edge>
+					<Edge From="ifand39.True" To="SetWaitingForFF" />
+					<Edge From="ifand40.True" To="SetStandingUp" />
+				</State>
+				<EnableBehavior Name="enablebehavioremptyendnotification21" PositionY="1460" PositionX="1500" Signature="empty" EventSet="endNotification">
+					<Constant Name="Behavior" Value="MarketaStandUp" />
+					<Asset Name="SmartEntity" Alias="damaVNesnazich" />
+					<Asset Name="NPC" Alias="marketa" />
+					<Edge From="canMarketaStandUp.StandingUp" To="IsActive" />
+				</EnableBehavior>
 				<FirstElement Name="firstelement31" PositionY="610" PositionX="1420" TypeT="wh::entitymodule::Items">
 					<Edge From="itemdeliveryhandler11.DeliveryItems" To="Array" />
 				</FirstElement>
@@ -45,6 +59,23 @@
 					<Edge From="uspavaci_lektvar.jakykoliv_uspavaci_lektvar" To="ItemDescriptor" />
 					<Edge From="items22.Items" To="InputItems" />
 				</MemberFunction>
+				<IfFunction Name="ifand39" PositionY="1430" PositionX="880" MethodName="math::boolean::And" DeclaringType="math::boolean">
+					<Edge From="canMarketaStandUp.None" To="A">
+						<Vertex>82M3lYEg</Vertex>
+						<Vertex>1YDHle46</Vertex>
+					</Edge>
+					<Edge From="itemdeliveryhandler11.OnAccept" To="Exec">
+						<Vertex>8VBl4gQE</Vertex>
+						<Vertex>NCqgNRSU</Vertex>
+					</Edge>
+				</IfFunction>
+				<IfFunction Name="ifand40" PositionY="1580" PositionX="820" MethodName="math::boolean::And" DeclaringType="math::boolean">
+					<Edge From="canMarketaStandUp.WaitingForFF" To="A">
+						<Vertex>4oxB2I2H</Vertex>
+						<Vertex>eFbcvu4H</Vertex>
+					</Edge>
+					<Edge From="triggersequence32.D" To="Exec" />
+				</IfFunction>
 				<ObjectProperties Name="isoulproperties21" PositionY="210" PositionX="-1080" DeclaringType="wh::rpgmodule::I_Soul">
 					<Asset Name="I_Soul" Alias="player" />
 				</ObjectProperties>
@@ -69,6 +100,16 @@
 				<MemberFunction Name="items22" PositionY="330" PositionX="-730" MethodName="Items" DeclaringType="wh::entitymodule::Inventory">
 					<Edge From="isoulproperties21.Inventory" To="Inventory" />
 				</MemberFunction>
+				<LinkEffectNoData Name="linkeffectnodata27" PositionY="1810" PositionX="1780">
+					<Asset Name="From" Alias="introDialogMarketaDH" />
+					<Asset Name="To" Alias="marketa" />
+					<Constant Name="Tag" Value="fastForward" />
+					<Edge From="or28.bool" To="IsActive" />
+				</LinkEffectNoData>
+				<Function Name="or28" PositionY="1810" PositionX="1510" MethodName="math::boolean::Or" DeclaringType="math::boolean">
+					<Edge From="canMarketaStandUp.WaitingForFF" To="A" />
+					<Edge From="canMarketaStandUp.StandingUp" To="B" />
+				</Function>
 				<Output Name="Output">
 					<Edge From="uvodni_rozhovor_s_marketou_tulackou2.hrac_uz_ma_uspavaci_lektvar" To="hrac_uz_ma_uspavaci_lektvar" />
 					<Edge From="uvodni_rozhovor_s_marketou_tulackou2.hrac_odevzdal_saty" To="hrac_odevzdal_saty" />
@@ -121,9 +162,16 @@
 				<zenske_saty Name="zenske_saty" PositionY="790" PositionX="-380" Namespace="damavnesnazich" />
 			</Nodes>
 			<EdgeVertices>
+				<EdgeVertex Name="1YDHle46" PositionY="1260" PositionX="910" />
+				<EdgeVertex Name="4oxB2I2H" PositionY="1830" PositionX="1330" />
+				<EdgeVertex Name="82M3lYEg" PositionY="1260" PositionX="1320" />
+				<EdgeVertex Name="8VBl4gQE" PositionY="1160" PositionX="1330" />
 				<EdgeVertex Name="dCUbVn2M" PositionY="680" PositionX="720" />
+				<EdgeVertex Name="eFbcvu4H" PositionY="1830" PositionX="840" />
+				<EdgeVertex Name="exzd7C4Y" PositionY="1780" PositionX="1100" />
 				<EdgeVertex Name="ljq9IBUL" PositionY="710" PositionX="720" />
 				<EdgeVertex Name="nbr2of7x" PositionY="680" PositionX="550" />
+				<EdgeVertex Name="NCqgNRSU" PositionY="1160" PositionX="900" />
 				<EdgeVertex Name="vertex14" PositionY="740" PositionX="10" />
 				<EdgeVertex Name="vertex15" PositionY="740" PositionX="720" />
 				<EdgeVertex Name="vertex16" PositionY="1120" PositionX="670" />
@@ -136,6 +184,7 @@
 				<EdgeVertex Name="vertex7" PositionY="830" PositionX="10" />
 				<EdgeVertex Name="vertex8" PositionY="860" PositionX="980" />
 				<EdgeVertex Name="vertex9" PositionY="860" PositionX="10" />
+				<EdgeVertex Name="VpPm0n7x" PositionY="1780" PositionX="1760" />
 				<EdgeVertex Name="wx4EKnpT" PositionY="710" PositionX="550" />
 			</EdgeVertices>
 			<ReviewNotesConcept>

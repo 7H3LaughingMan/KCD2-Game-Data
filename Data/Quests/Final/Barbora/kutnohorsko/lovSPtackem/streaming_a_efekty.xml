@@ -24,6 +24,9 @@
 				<Port Name="odstreamovat_srnu" Direction="In" Type="trigger">
 					<DesignName StringName="streaming_odstreamovat_sr_Zu4r" Text="Odstreamovat srnu" />
 				</Port>
+				<Port Name="odstreamovat_vojaky__pohreb_pocas_ft" Direction="In" Type="trigger">
+					<DesignName StringName="streaming_odstreamovat_vo_r9Ds" Text="Odstreamovat vojáky - pohřeb počas FT" />
+				</Port>
 			</Ports>
 			<Nodes>
 				<AddFactionRelationBetweenArrays Name="addfactionrelationbetweenarrays37" PositionY="540" PositionX="1060">
@@ -74,7 +77,7 @@
 					<Constant Name="BuffGUID" Value="74cf0c29-d03e-4233-9352-b91ca5ea69ea" />
 					<Edge From="and50.bool" To="IsActive" />
 				</BuffEffect>
-				<constants Name="constants" PositionY="40" PositionX="-860" Namespace="lovsptackemlibrary" />
+				<constants Name="constants" PositionY="0" PositionX="-690" Namespace="lovsptackemlibrary" />
 				<State Name="deerStreaming" PositionY="2810" PositionX="-760" TypeT="DeerStreaming">
 					<Constant Name="DefaultValue" Value="FrameWithoutDeer_BeforeQuest" />
 					<Edge From="nastreamovat_vojaky_a_srnu" To="SetFrameWithDeer" />
@@ -107,10 +110,16 @@
 					</Edge>
 					<Edge From="IntermissionTriggerByDistance.onintermission" To="unstreamprofiles">
 						<Vertex>12YSNgYb</Vertex>
+						<Vertex>H5Xsa3wA</Vertex>
 						<Vertex>0aGaTsh5</Vertex>
 					</Edge>
 					<Edge From="streamPoachers.OnTrigger" To="unstreamprofiles">
 						<Vertex>12YSNgYb</Vertex>
+						<Vertex>H5Xsa3wA</Vertex>
+						<Vertex>0aGaTsh5</Vertex>
+					</Edge>
+					<Edge From="odstreamovat_vojaky__pohreb_pocas_ft" To="unstreamprofiles">
+						<Vertex>H5Xsa3wA</Vertex>
 						<Vertex>0aGaTsh5</Vertex>
 					</Edge>
 				</leavelevelhandling_v2>
@@ -127,10 +136,16 @@
 					</Edge>
 					<Edge From="IntermissionTriggerByDistance.onintermission" To="unstreamprofiles">
 						<Vertex>12YSNgYb</Vertex>
+						<Vertex>H5Xsa3wA</Vertex>
 						<Vertex>0aGaTsh5</Vertex>
 					</Edge>
 					<Edge From="streamPoachers.OnTrigger" To="unstreamprofiles">
 						<Vertex>12YSNgYb</Vertex>
+						<Vertex>H5Xsa3wA</Vertex>
+						<Vertex>0aGaTsh5</Vertex>
+					</Edge>
+					<Edge From="odstreamovat_vojaky__pohreb_pocas_ft" To="unstreamprofiles">
+						<Vertex>H5Xsa3wA</Vertex>
 						<Vertex>0aGaTsh5</Vertex>
 					</Edge>
 				</leavelevelhandling_v2>
@@ -147,10 +162,16 @@
 					</Edge>
 					<Edge From="IntermissionTriggerByDistance.onintermission" To="unstreamprofiles">
 						<Vertex>12YSNgYb</Vertex>
+						<Vertex>H5Xsa3wA</Vertex>
 						<Vertex>0aGaTsh5</Vertex>
 					</Edge>
 					<Edge From="streamPoachers.OnTrigger" To="unstreamprofiles">
 						<Vertex>12YSNgYb</Vertex>
+						<Vertex>H5Xsa3wA</Vertex>
+						<Vertex>0aGaTsh5</Vertex>
+					</Edge>
+					<Edge From="odstreamovat_vojaky__pohreb_pocas_ft" To="unstreamprofiles">
+						<Vertex>H5Xsa3wA</Vertex>
 						<Vertex>0aGaTsh5</Vertex>
 					</Edge>
 				</leavelevelhandling_v2>
@@ -167,10 +188,16 @@
 					</Edge>
 					<Edge From="IntermissionTriggerByDistance.onintermission" To="unstreamprofiles">
 						<Vertex>12YSNgYb</Vertex>
+						<Vertex>H5Xsa3wA</Vertex>
 						<Vertex>0aGaTsh5</Vertex>
 					</Edge>
 					<Edge From="streamPoachers.OnTrigger" To="unstreamprofiles">
 						<Vertex>12YSNgYb</Vertex>
+						<Vertex>H5Xsa3wA</Vertex>
+						<Vertex>0aGaTsh5</Vertex>
+					</Edge>
+					<Edge From="odstreamovat_vojaky__pohreb_pocas_ft" To="unstreamprofiles">
+						<Vertex>H5Xsa3wA</Vertex>
 						<Vertex>0aGaTsh5</Vertex>
 					</Edge>
 				</leavelevelhandling_v2>
@@ -187,10 +214,16 @@
 					</Edge>
 					<Edge From="IntermissionTriggerByDistance.onintermission" To="unstreamprofiles">
 						<Vertex>12YSNgYb</Vertex>
+						<Vertex>H5Xsa3wA</Vertex>
 						<Vertex>0aGaTsh5</Vertex>
 					</Edge>
 					<Edge From="streamPoachers.OnTrigger" To="unstreamprofiles">
 						<Vertex>12YSNgYb</Vertex>
+						<Vertex>H5Xsa3wA</Vertex>
+						<Vertex>0aGaTsh5</Vertex>
+					</Edge>
+					<Edge From="odstreamovat_vojaky__pohreb_pocas_ft" To="unstreamprofiles">
+						<Vertex>H5Xsa3wA</Vertex>
 						<Vertex>0aGaTsh5</Vertex>
 					</Edge>
 				</leavelevelhandling_v2>
@@ -271,15 +304,21 @@
 					<Edge From="IntermissionTriggerByDistance.onintermission" To="streamprofiles" />
 					<Edge From="streamPoachers.OnTrigger" To="streamprofiles" />
 				</streamprofileshandling>
+				<WeaponPresetOverride Name="weaponpresetoverride53" PositionY="-90" PositionX="1910">
+					<Asset Name="Souls" Alias="deadHuntsman" />
+					<Constant Name="WeaponPreset" Value="10101010-c8cb-81dd-40f1-2f0554804f83" />
+					<Edge From="and47.bool" To="IsActive" />
+				</WeaponPresetOverride>
 			</Nodes>
 			<EdgeVertices>
-				<EdgeVertex Name="0aGaTsh5" PositionY="510" PositionX="-670" />
+				<EdgeVertex Name="0aGaTsh5" PositionY="510" PositionX="-760" />
 				<EdgeVertex Name="0qWzIJGt" PositionY="1440" PositionX="-760" />
 				<EdgeVertex Name="12YSNgYb" PositionY="510" PositionX="930" />
 				<EdgeVertex Name="ddmm01sj" PositionY="2459" PositionX="-716" />
 				<EdgeVertex Name="eRc1sS6C" PositionY="270" PositionX="410" />
 				<EdgeVertex Name="fqUf3S8I" PositionY="2479" PositionX="-805" />
 				<EdgeVertex Name="g2UnSyxy" PositionY="2481" PositionX="383" />
+				<EdgeVertex Name="H5Xsa3wA" PositionY="510" PositionX="-659" />
 				<EdgeVertex Name="KldkGt6I" PositionY="270" PositionX="1560" />
 				<EdgeVertex Name="TRNHXHj8" PositionY="2461" PositionX="386" />
 				<EdgeVertex Name="vW2wjhGw" PositionY="1430" PositionX="-760" />
@@ -304,6 +343,7 @@
 				<ProfileAsset Name="profileFrameWithDeer" AssetProfiles="lovSPtackem_frameWithDeer" />
 				<ProfileAsset Name="profileFrameWithoutDeer" AssetProfiles="lovSPtackem_frameWithoutDeer" />
 				<TriggerAreaAsset Name="campProhibitedArea" />
+				<SoulAsset Name="deadHuntsman" SharedSoulGuids="9e157be4-a4ee-4255-8c28-29675c2f88ef" />
 			</Assets>
 			<Text StringName="streaming_S58b" Text="Streaming a efekty" />
 		</Module>

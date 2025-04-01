@@ -31,6 +31,7 @@
 			<Variable name="stimulusCorpse" type="switch:stimulus:corpse" values="" isPersistent="0" form="single" />
 			<Variable name="stimulus_disturbance" type="switch:stimulus:disturbance" values="" isPersistent="0" form="single" />
 			<Variable name="stimulus_unknownShooter" type="switch:stimulus:unknownShooter" values="" isPersistent="0" form="single" />
+			<Variable name="target" type="_wuid" values="" isPersistent="0" form="single" />
 			<Variable name="targetFound" type="_bool" values="" isPersistent="1" form="single" />
 			<Variable name="waitActionFinished" type="_bool" values="" isPersistent="0" form="single" />
 		</Variables>
@@ -53,8 +54,8 @@
 									</Else>
 								</IsWeaponDrawn>
 								<AnyDecorator preset="$anyDecoratorPreset" enabled="true">
-									<EntityContext context="speech_greyOutE" target="$this.id">
-										<EntityContextElement context="speech_greyOutE" enabled="true">
+									<EntityContextPreset preset="crime_greyOutEAndDisableChat" target="$this.id">
+										<EntityContextPresetElement contextPreset="crime_greyOutEAndDisableChat" enabled="true">
 											<EntityContextElement context="crime_interrupt" enabled="true">
 												<EntityContext context="crime_interruptScan" target="$this.id">
 													<EntityContext context="soliloquy_disable" target="">
@@ -118,10 +119,18 @@
 																							</Switch>
 																							<IfCondition failOnCondition="false" condition="~$bodyTurned">
 																								<EntityContextElement context="actorCondition_forcedCrimeScanning" enabled="$playScanAnim">
-																									<Sequence>
-																										<IfElseCondition failOnCondition="false" condition="$scanData.stimulusKind == $enum:crime_stimulusKind.shooter &amp; &#10;$scanData.stimulusShooter.projectileType == $enum:crime_projectileType.arrow" saveVersion="2">
-																											<Then canSkip="1">
-																												<Sequence>
+																									<IfElseCondition failOnCondition="false" condition="$scanData.stimulusKind == $enum:crime_stimulusKind.shooter &amp; &#10;$scanData.stimulusShooter.projectileType == $enum:crime_projectileType.arrow" saveVersion="2">
+																										<Then canSkip="1">
+																											<Sequence>
+																												<EntityContextCheck context="crime_isAuthority" target="" saveVersion="2">
+																													<Then canSkip="1">
+																														<Expression expressions="$skirmishReaction = $enum:combat_skirmishReaction.join" />
+																													</Then>
+																													<Else canSkip="1">
+																														<DecideSkirmishReactionCrime AllowFemaleJoin="true" MoraleBoost="0.000000" Reason="Perception" ReferenceNpc="$this.id" RelationOverride="Hostile" TargetNpc="$scanData.stimulusShooter.shooter" SkirmishReaction="$skirmishReaction" />
+																													</Else>
+																												</EntityContextCheck>
+																												<IfCondition failOnCondition="false" condition="$skirmishReaction == $enum:combat_skirmishReaction.join">
 																													<Switch>
 																														<IsWeaponDrawn who="" WeaponSet="Primary" saveVersion="2">
 																															<Then canSkip="1">
@@ -147,36 +156,57 @@
 																															</Sequence>
 																														</DefaultBranch>
 																													</Switch>
-																													<IfElseCondition failOnCondition="false" condition="$forceGuard" saveVersion="2">
-																														<Then canSkip="1">
-																															<UrgencyDecorator Urgency="Fast">
-																																<MeleeGuardAutomationDecorator GuardMode="forceEnable" active="true">
-																																	<SubsequentLocationDecorator Location="$scanData.stimulusShooter.shooter">
-																																		<IfGate atomic="false" condition="~$waitActionFinished" RunLogic="Halt">
-																																			<Function_crime_weaponDecorator suppressWaitAction="false" weaponSet="&apos;Primary&apos;" shouldHaveDrawnWeapon="$const_true" waitActionFinished="$waitActionFinished" nodeLabel="98762555" />
-																																		</IfGate>
-																																	</SubsequentLocationDecorator>
-																																</MeleeGuardAutomationDecorator>
-																															</UrgencyDecorator>
-																														</Then>
-																														<Else canSkip="1">
-																															<UrgencyDecorator Urgency="Fast">
+																												</IfCondition>
+																												<IfElseCondition failOnCondition="false" condition="$forceGuard" saveVersion="2">
+																													<Then canSkip="1">
+																														<UrgencyDecorator Urgency="Fast">
+																															<MeleeGuardAutomationDecorator GuardMode="forceEnable" active="true">
+																																<SubsequentLocationDecorator Location="$scanData.stimulusShooter.shooter">
+																																	<Sequence>
+																																		<Parallel successMode="Any" failureMode="Any">
+																																			<Sequence>
+																																				<Expression expressions="$target = $scanData.stimulusShooter.shooter" />
+																																				<Function_crime_drawWeaponDecorator subtreeFile="&apos;crime/scan/actionsubtree.xml&apos;" subtreeName="&apos;crime_scan_actionSubtree&apos;" weaponSet="&apos;Primary&apos;" drawWeapon="$const_true" subtreeData_canUrge="" subtreeData_crimesResolved="" subtreeData_followPlayer="" subtreeData_goIntoResolve="" subtreeData_playerHasFreeRoam="" subtreeData_playerLeft="" subtreeData_target="$target" subtreeData_teleport="" nodeLabel="11603563" />
+																																			</Sequence>
+																																			<Sequence>
+																																				<Wait duration="&apos;2s&apos;" timeType="GameTime" doFail="false" variation="" />
+																																				<Expression expressions="$bodyTurned = true" />
+																																			</Sequence>
+																																		</Parallel>
+																																		<Wait duration="&apos;-1&apos;" timeType="GameTime" doFail="false" variation="" />
+																																	</Sequence>
+																																</SubsequentLocationDecorator>
+																															</MeleeGuardAutomationDecorator>
+																														</UrgencyDecorator>
+																													</Then>
+																													<Else canSkip="1">
+																														<UrgencyDecorator Urgency="Fast">
+																															<Sequence>
 																																<WaitAction />
-																															</UrgencyDecorator>
-																														</Else>
-																													</IfElseCondition>
-																												</Sequence>
-																											</Then>
-																											<Else canSkip="1">
-																												<UrgencyDecorator Urgency="Fast">
+																																<StopMovement waitUntilStopped="false" />
+																																<SuppressFailure>
+																																	<Turn target="$scanData.scanDirection" align="false" />
+																																</SuppressFailure>
+																																<Expression expressions="$bodyTurned = true" />
+																															</Sequence>
+																														</UrgencyDecorator>
+																													</Else>
+																												</IfElseCondition>
+																											</Sequence>
+																										</Then>
+																										<Else canSkip="1">
+																											<UrgencyDecorator Urgency="Fast">
+																												<Sequence>
 																													<WaitAction />
-																												</UrgencyDecorator>
-																											</Else>
-																										</IfElseCondition>
-																										<StopMovement waitUntilStopped="false" />
-																										<Turn target="$scanData.scanDirection" align="false" />
-																										<Expression expressions="$bodyTurned = true" />
-																									</Sequence>
+																													<StopMovement waitUntilStopped="false" />
+																													<SuppressFailure>
+																														<Turn target="$scanData.scanDirection" align="false" />
+																													</SuppressFailure>
+																													<Expression expressions="$bodyTurned = true" />
+																												</Sequence>
+																											</UrgencyDecorator>
+																										</Else>
+																									</IfElseCondition>
 																								</EntityContextElement>
 																							</IfCondition>
 																						</Sequence>
@@ -184,13 +214,16 @@
 																							<IfElseCondition failOnCondition="false" condition="$scanData.stimulusKind ~= $enum:crime_stimulusKind.dramaticBark" saveVersion="2">
 																								<Then canSkip="1">
 																									<Sequence>
-																										<EntityContext context="crime_escalationLevel_looking" target="">
-																											<IfGate atomic="false" condition="$bodyTurned" RunLogic="KeepRunning">
-																												<EntityContextElement context="crime_escalationLevel_looking" enabled="true">
-																													<Wait duration="&apos;-1&apos;" timeType="GameTime" doFail="false" variation="" />
-																												</EntityContextElement>
-																											</IfGate>
-																										</EntityContext>
+																										<Sequence>
+																											<ShowTutorial Name="crimeIcon_general" />
+																											<EntityContext context="crime_escalationLevel_looking" target="">
+																												<IfGate atomic="false" condition="$bodyTurned" RunLogic="KeepRunning">
+																													<EntityContextElement context="crime_escalationLevel_looking" enabled="true">
+																														<Wait duration="&apos;-1&apos;" timeType="GameTime" doFail="false" variation="" />
+																													</EntityContextElement>
+																												</IfGate>
+																											</EntityContext>
+																										</Sequence>
 																										<Wait duration="&apos;-1&apos;" timeType="GameTime" doFail="false" variation="" />
 																									</Sequence>
 																								</Then>
@@ -289,6 +322,9 @@
 																															</IfCondition>
 																															<IfCondition failOnCondition="false" condition="$scanData.stimulusKind == $enum:crime_stimulusKind.theft">
 																																<Function_crime_crimeBark animationApproach="$enum:animationApproach.dontPlayDialogAnimations" canBeDelayed="false" dialogContext="" dramaticBark="false" lookAt="$__null" metarole="&apos;NPC_VIDI_UKRADENOU_VEC&apos;" priority="$enum:crime_barkPriority.important" nodeLabel="63647835" />
+																															</IfCondition>
+																															<IfCondition failOnCondition="false" condition="( &#10;  $scanData.stimulusKind == $enum:crime_stimulusKind.lyingBody | &#10;  $scanData.stimulusKind == $enum:crime_stimulusKind.takedown | &#10;  $scanData.stimulusKind == $enum:crime_stimulusKind.corpse | &#10;  $scanData.stimulusKind == $enum:crime_stimulusKind.unconsciousBody &#10;) &#10;&amp; &#10;$scanData.previousReaction ~= $enum:crime_reactionKind.checkLyingBody">
+																																<Function_crime_crimeBark animationApproach="$enum:animationApproach.dontPlayDialogAnimations" canBeDelayed="false" dialogContext="" dramaticBark="false" lookAt="$__null" metarole="&apos;NPC_VIDI_LEZICI_TELO_Z_DALKY&apos;" priority="$enum:crime_barkPriority.important" nodeLabel="67742012" />
 																															</IfCondition>
 																															<DefaultBranch>
 																																<Success />
@@ -404,7 +440,7 @@
 																																		<IfElseCondition failOnCondition="false" condition="$pickedLookAround" saveVersion="2">
 																																			<Then canSkip="1">
 																																				<Sequence>
-																																					<Function_crime_getSearchDirectionTowardsPlayer startPos="" direction="$searchDirection" nodeLabel="81374244" />
+																																					<Function_crime_getSearchDirectionTowardsPlayer startPos="$scanData.stimulusShooter.position" direction="$searchDirection" nodeLabel="81374244" />
 																																					<Function_callInterrupt_lookAround alarmReactionType="$enum:crime_alarmReactionType.none" amIBuddy="false" corpseState="$enum:corpseState.undiscovered" directHit="false" forceSubscribedSoundReaction="false" ignorePriority="true" information_look="$information" initiator="$enum:switch_interruptInitiator.scheduler" missingNpc="$__null" position="" previousReaction="$enum:crime_reactionKind.scan" reactingToSoundBecauseAlone="false" reportedBy="$__null" searchDirection="$searchDirection" searchPointsFromDirection="false" shooter="$scanData.stimulusShooter.shooter" soundType="$enum:sound.movement" source="$enum:crime_source.direct" stimulusAnimalAbuse="" stimulusKind="$enum:crime_stimulusKind.disturbance" nodeLabel="39487368" />
 																																				</Sequence>
 																																			</Then>
@@ -484,7 +520,7 @@
 																												</IfCondition>
 																												<IfCondition failOnCondition="false" condition="$scanData.stimulusKind == $enum:crime_stimulusKind.corpse &amp;  &#10;~$targetFound">
 																													<AtomicDecorator>
-																														<CheckWuidValid wuid="$scanData.information.perceivedWuid" FailSubtMissing="false" saveVersion="2">
+																														<CheckWuidValid wuid="$information.perceivedWuid" FailSubtMissing="false" saveVersion="2">
 																															<Then canSkip="1">
 																																<Sequence>
 																																	<Expression expressions="$information = $scanData.information &#10;$stimulusCorpse.corpse = $information.perceivedWuid &#10;$stimulusCorpse.corpseStateOverrideActive = true &#10;$stimulusCorpse.corpseStateOverride = $scanData.corpseState" />
@@ -559,9 +595,7 @@
 																							</IfCondition>
 																							<CheckNervousnessInterval Soul="$this.id" Flag="midToInf" saveVersion="2">
 																								<Then canSkip="1">
-																									<AtomicDecorator>
-																										<Function_callInterrupt_mindPlayer ignorePriority="true" initiator="$enum:switch_interruptInitiator.scheduler" previousReaction="$enum:crime_reactionKind.scan" soundType="$enum:sound.invalid" stimulusKind="$enum:crime_stimulusKind.disturbance" nodeLabel="64562473" />
-																									</AtomicDecorator>
+																									<Function_callInterrupt_mindPlayer ignorePriority="true" initiator="$enum:switch_interruptInitiator.scheduler" previousReaction="$enum:crime_reactionKind.scan" soundType="$enum:sound.invalid" stimulusKind="$enum:crime_stimulusKind.disturbance" nodeLabel="64562473" />
 																								</Then>
 																							</CheckNervousnessInterval>
 																							<DefaultBranch>
@@ -580,8 +614,8 @@
 													</EntityContext>
 												</EntityContext>
 											</EntityContextElement>
-										</EntityContextElement>
-									</EntityContext>
+										</EntityContextPresetElement>
+									</EntityContextPreset>
 								</AnyDecorator>
 							</Sequence>
 						</EntityContext>
@@ -590,9 +624,7 @@
 						<Sequence>
 							<ClearInbox inbox="&apos;perceptionInfo_scan&apos;" type="" condition="" />
 							<Function_crime_addLeavingInterruptCooldown nodeLabel="44435239" />
-							<AtomicDecorator>
-								<Function_crime_limits_removeReactionLink information="$scanData.information" reactionKind="$enum:crime_reactionKind.scan" nodeLabel="61373516" />
-							</AtomicDecorator>
+							<Function_crime_limits_removeReactionLink information="$scanData.information" reactionKind="$enum:crime_reactionKind.scan" nodeLabel="61373516" />
 						</Sequence>
 					</OnFail>
 				</FuseBox>
@@ -630,6 +662,7 @@
 				<Variable name="stimulusCorpse" comment="" />
 				<Variable name="stimulus_disturbance" comment="" />
 				<Variable name="stimulus_unknownShooter" comment="" />
+				<Variable name="target" comment="" />
 				<Variable name="targetFound" comment="" />
 				<Variable name="waitActionFinished" comment="" />
 				<Variable name="scanData" comment="" />
@@ -663,9 +696,9 @@
 									</IsWeaponDrawn>
 									<AnyDecorator hasInputBreakpoint="0" comment="" breakpointFlags="0">
 										<OutputBreakpoints />
-										<EntityContext hasInputBreakpoint="0" comment="" breakpointFlags="0">
+										<EntityContextPreset hasInputBreakpoint="0" comment="" breakpointFlags="0">
 											<OutputBreakpoints />
-											<EntityContextElement hasInputBreakpoint="0" comment="" breakpointFlags="0">
+											<EntityContextPresetElement hasInputBreakpoint="0" comment="" breakpointFlags="0">
 												<OutputBreakpoints />
 												<EntityContextElement hasInputBreakpoint="0" comment="" breakpointFlags="0">
 													<OutputBreakpoints />
@@ -778,12 +811,25 @@
 																									<OutputBreakpoints />
 																									<EntityContextElement hasInputBreakpoint="0" comment="" breakpointFlags="0">
 																										<OutputBreakpoints />
-																										<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																										<IfElseCondition hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
 																											<OutputBreakpoints />
-																											<IfElseCondition hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
-																												<OutputBreakpoints />
-																												<Then>
-																													<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																											<Then>
+																												<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																													<OutputBreakpoints />
+																													<EntityContextCheck hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
+																														<OutputBreakpoints />
+																														<Then>
+																															<Expression hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																																<OutputBreakpoints />
+																															</Expression>
+																														</Then>
+																														<Else>
+																															<DecideSkirmishReactionCrime hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																																<OutputBreakpoints />
+																															</DecideSkirmishReactionCrime>
+																														</Else>
+																													</EntityContextCheck>
+																													<IfCondition hasInputBreakpoint="0" comment="" breakpointFlags="0">
 																														<OutputBreakpoints />
 																														<Switch hasInputBreakpoint="0" comment="" breakpointFlags="0">
 																															<OutputBreakpoints />
@@ -826,55 +872,97 @@
 																																</Sequence>
 																															</DefaultBranch>
 																														</Switch>
-																														<IfElseCondition hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
-																															<OutputBreakpoints />
-																															<Then>
-																																<UrgencyDecorator hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																													</IfCondition>
+																													<IfElseCondition hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
+																														<OutputBreakpoints />
+																														<Then>
+																															<UrgencyDecorator hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																																<OutputBreakpoints />
+																																<MeleeGuardAutomationDecorator hasInputBreakpoint="0" comment="" breakpointFlags="0">
 																																	<OutputBreakpoints />
-																																	<MeleeGuardAutomationDecorator hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																																	<SubsequentLocationDecorator hasInputBreakpoint="0" comment="" breakpointFlags="0">
 																																		<OutputBreakpoints />
-																																		<SubsequentLocationDecorator hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																																		<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
 																																			<OutputBreakpoints />
-																																			<IfGate hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																																			<Parallel hasInputBreakpoint="0" comment="" breakpointFlags="0">
 																																				<OutputBreakpoints />
-																																				<Function_crime_weaponDecorator hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																																				<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
 																																					<OutputBreakpoints />
-																																				</Function_crime_weaponDecorator>
-																																			</IfGate>
-																																		</SubsequentLocationDecorator>
-																																	</MeleeGuardAutomationDecorator>
-																																</UrgencyDecorator>
-																															</Then>
-																															<Else>
-																																<UrgencyDecorator hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																																					<Expression hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																																						<OutputBreakpoints />
+																																					</Expression>
+																																					<Function_crime_drawWeaponDecorator hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																																						<OutputBreakpoints />
+																																					</Function_crime_drawWeaponDecorator>
+																																				</Sequence>
+																																				<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																																					<OutputBreakpoints />
+																																					<Wait hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																																						<OutputBreakpoints />
+																																					</Wait>
+																																					<Expression hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																																						<OutputBreakpoints />
+																																					</Expression>
+																																				</Sequence>
+																																			</Parallel>
+																																			<Wait hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																																				<OutputBreakpoints />
+																																			</Wait>
+																																		</Sequence>
+																																	</SubsequentLocationDecorator>
+																																</MeleeGuardAutomationDecorator>
+																															</UrgencyDecorator>
+																														</Then>
+																														<Else>
+																															<UrgencyDecorator hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																																<OutputBreakpoints />
+																																<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
 																																	<OutputBreakpoints />
 																																	<WaitAction hasInputBreakpoint="0" comment="" breakpointFlags="0">
 																																		<OutputBreakpoints />
 																																	</WaitAction>
-																																</UrgencyDecorator>
-																															</Else>
-																														</IfElseCondition>
-																													</Sequence>
-																												</Then>
-																												<Else>
-																													<UrgencyDecorator hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																																	<StopMovement hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																																		<OutputBreakpoints />
+																																	</StopMovement>
+																																	<SuppressFailure hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																																		<OutputBreakpoints />
+																																		<Turn hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																																			<OutputBreakpoints />
+																																		</Turn>
+																																	</SuppressFailure>
+																																	<Expression hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																																		<OutputBreakpoints />
+																																	</Expression>
+																																</Sequence>
+																															</UrgencyDecorator>
+																														</Else>
+																													</IfElseCondition>
+																												</Sequence>
+																											</Then>
+																											<Else>
+																												<UrgencyDecorator hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																													<OutputBreakpoints />
+																													<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
 																														<OutputBreakpoints />
 																														<WaitAction hasInputBreakpoint="0" comment="" breakpointFlags="0">
 																															<OutputBreakpoints />
 																														</WaitAction>
-																													</UrgencyDecorator>
-																												</Else>
-																											</IfElseCondition>
-																											<StopMovement hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																												<OutputBreakpoints />
-																											</StopMovement>
-																											<Turn hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																												<OutputBreakpoints />
-																											</Turn>
-																											<Expression hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																												<OutputBreakpoints />
-																											</Expression>
-																										</Sequence>
+																														<StopMovement hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																															<OutputBreakpoints />
+																														</StopMovement>
+																														<SuppressFailure hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																															<OutputBreakpoints />
+																															<Turn hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																																<OutputBreakpoints />
+																															</Turn>
+																														</SuppressFailure>
+																														<Expression hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																															<OutputBreakpoints />
+																														</Expression>
+																													</Sequence>
+																												</UrgencyDecorator>
+																											</Else>
+																										</IfElseCondition>
 																									</EntityContextElement>
 																								</IfCondition>
 																							</Sequence>
@@ -885,18 +973,24 @@
 																									<Then>
 																										<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
 																											<OutputBreakpoints />
-																											<EntityContext hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																											<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
 																												<OutputBreakpoints />
-																												<IfGate hasInputBreakpoint="0" comment="only add SAL element after finishing Turn, so  when targetFound the WaitAction clearing the element can be fired right away and icon disappers instantly" breakpointFlags="0">
+																												<ShowTutorial hasInputBreakpoint="0" comment="" breakpointFlags="0">
 																													<OutputBreakpoints />
-																													<EntityContextElement hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																												</ShowTutorial>
+																												<EntityContext hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																													<OutputBreakpoints />
+																													<IfGate hasInputBreakpoint="0" comment="only add SAL element after finishing Turn, so  when targetFound the WaitAction clearing the element can be fired right away and icon disappers instantly" breakpointFlags="0">
 																														<OutputBreakpoints />
-																														<Wait hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																														<EntityContextElement hasInputBreakpoint="0" comment="" breakpointFlags="0">
 																															<OutputBreakpoints />
-																														</Wait>
-																													</EntityContextElement>
-																												</IfGate>
-																											</EntityContext>
+																															<Wait hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																																<OutputBreakpoints />
+																															</Wait>
+																														</EntityContextElement>
+																													</IfGate>
+																												</EntityContext>
+																											</Sequence>
 																											<Wait hasInputBreakpoint="0" comment="" breakpointFlags="0">
 																												<OutputBreakpoints />
 																											</Wait>
@@ -1063,6 +1157,12 @@
 																																			</Function_crime_crimeBark>
 																																		</Else>
 																																	</IfElseCondition>
+																																</IfCondition>
+																																<IfCondition hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																																	<OutputBreakpoints />
+																																	<Function_crime_crimeBark hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																																		<OutputBreakpoints />
+																																	</Function_crime_crimeBark>
 																																</IfCondition>
 																																<IfCondition hasInputBreakpoint="0" comment="" breakpointFlags="0">
 																																	<OutputBreakpoints />
@@ -1526,12 +1626,9 @@
 																								<CheckNervousnessInterval hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
 																									<OutputBreakpoints />
 																									<Then>
-																										<AtomicDecorator hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																										<Function_callInterrupt_mindPlayer hasInputBreakpoint="0" comment="" breakpointFlags="0">
 																											<OutputBreakpoints />
-																											<Function_callInterrupt_mindPlayer hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																												<OutputBreakpoints />
-																											</Function_callInterrupt_mindPlayer>
-																										</AtomicDecorator>
+																										</Function_callInterrupt_mindPlayer>
 																									</Then>
 																								</CheckNervousnessInterval>
 																								<DefaultBranch>
@@ -1554,8 +1651,8 @@
 														</EntityContext>
 													</EntityContext>
 												</EntityContextElement>
-											</EntityContextElement>
-										</EntityContext>
+											</EntityContextPresetElement>
+										</EntityContextPreset>
 									</AnyDecorator>
 								</Sequence>
 							</EntityContext>
@@ -1569,12 +1666,9 @@
 								<Function_crime_addLeavingInterruptCooldown hasInputBreakpoint="0" comment="" breakpointFlags="0">
 									<OutputBreakpoints />
 								</Function_crime_addLeavingInterruptCooldown>
-								<AtomicDecorator hasInputBreakpoint="0" comment="" breakpointFlags="0">
+								<Function_crime_limits_removeReactionLink hasInputBreakpoint="0" comment="" breakpointFlags="0">
 									<OutputBreakpoints />
-									<Function_crime_limits_removeReactionLink hasInputBreakpoint="0" comment="" breakpointFlags="0">
-										<OutputBreakpoints />
-									</Function_crime_limits_removeReactionLink>
-								</AtomicDecorator>
+								</Function_crime_limits_removeReactionLink>
 							</Sequence>
 						</OnFail>
 					</FuseBox>

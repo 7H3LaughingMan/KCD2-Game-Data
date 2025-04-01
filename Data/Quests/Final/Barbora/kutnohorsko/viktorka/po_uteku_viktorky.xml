@@ -79,6 +79,13 @@
 				<Definition File="po_uteku_viktorky/s_martou_po_nahodnem_nalezu_viktorky.xml" />
 			</Definitions>
 			<Nodes>
+				<Function Name="and7" PositionY="1017" PositionX="189" MethodName="math::boolean::And" DeclaringType="math::boolean">
+					<Edge From="zbyvajici_cas_do_otravy_viktorky.cas_vyprsel" To="A" />
+					<Edge From="Awake" To="B">
+						<Vertex>vertex31</Vertex>
+						<Vertex>vertex93</Vertex>
+					</Edge>
+				</Function>
 				<cesta_za_viktorkou Name="cesta_za_viktorkou" PositionY="120" PositionX="-700" RequiredForOutput="kutnohorsko">
 					<Edge From="viktorka_u_stromu.hrac_mluvil_s_viktorkou_brzo" To="hrac_mluvil_s_viktorkou_brzo">
 						<Vertex>vertex1</Vertex>
@@ -108,13 +115,6 @@
 						<Vertex>vertex32</Vertex>
 					</Edge>
 				</domov_viktorky>
-				<Function Name="or6" PositionY="960" PositionX="540" MethodName="math::boolean::Or" DeclaringType="math::boolean">
-					<Edge From="patrani_po_viktorce.marta_vi_ze_viktorka_zmizela" To="A" />
-					<Edge From="s_martou_po_nahodnem_nalezu_viktorky.o_zmizeni" To="B">
-						<Vertex>hkGozqwg</Vertex>
-						<Vertex>wa9rQrHC</Vertex>
-					</Edge>
-				</Function>
 				<Output Name="Output">
 					<Edge From="viktorka_u_stromu.spatny_konec" To="spatny_konec" />
 					<Edge From="viktorka_u_stromu.dobry_konec" To="dobry_konec" />
@@ -142,10 +142,6 @@
 						<Vertex>vertex129</Vertex>
 						<Vertex>vertex130</Vertex>
 					</Edge>
-					<Edge From="zbyvajici_cas_do_otravy_viktorky.cas_vyprsel" To="viktorka_se_chce_zabit">
-						<Vertex>vertex116</Vertex>
-						<Vertex>vertex144</Vertex>
-					</Edge>
 					<Edge From="viktorka_u_stromu.hrac_poslal_viktorku_do_certovky" To="hrac_poslal_viktorku_do_certovky" />
 					<Edge From="viktorka_musi_domu.hrac_nasel_mrtvou_viktorku_u_stromu" To="hrac_nasel_mrtvou_viktorku_u_stromu">
 						<Vertex>yH0XmGLm</Vertex>
@@ -159,12 +155,13 @@
 					<Edge From="viktorka_musi_domu.hrac_prave_zautocil_na_viktorku" To="hrac_prave_zautocil_na_viktorku">
 						<Vertex>uYeEyeKT</Vertex>
 					</Edge>
-					<Edge From="viktorka_u_stromu.hrac_donesl_vojaka_k_viktorce" To="hrac_donesl_vojaka_k_viktorce">
-						<Vertex>D26ys1me</Vertex>
-						<Vertex>rg1Gjc0M</Vertex>
+					<Edge From="viktorka_u_stromu.hrac_donesl_vojaka_k_viktorce" To="hrac_donesl_vojaka_k_viktorce" />
+					<Edge From="and7.bool" To="viktorka_se_chce_zabit">
+						<Vertex>vertex116</Vertex>
+						<Vertex>vertex144</Vertex>
 					</Edge>
 				</Output>
-				<patrani_po_viktorce Name="patrani_po_viktorce" PositionY="-30" PositionX="160" RequiredForOutput="kutnohorsko">
+				<patrani_po_viktorce Name="patrani_po_viktorce" PositionY="-20" PositionX="170" RequiredForOutput="kutnohorsko">
 					<Edge From="viktorka_u_stromu.hrac_s_viki_mluvil_o_vojakovi" To="hrac_s_viki_mluvil_o_vojakovi">
 						<Vertex>vertex5</Vertex>
 						<Vertex>vertex6</Vertex>
@@ -201,9 +198,15 @@
 						<Vertex>D26ys1me</Vertex>
 						<Vertex>ftNh50YA</Vertex>
 					</Edge>
+					<Edge From="s_martou_po_nahodnem_nalezu_viktorky.o_zmizeni" To="o_zmizeni">
+						<Vertex>pa0l2QVG</Vertex>
+						<Vertex>3CjP6KmY</Vertex>
+					</Edge>
 				</patrani_po_viktorce>
 				<pozdravy_marty_v_prubehu_questu Name="pozdravy_marty_v_prubehu_questu" PositionY="940" PositionX="870">
-					<Edge From="or6.bool" To="marta_vi_ze_viktorka_zmizela" />
+					<Edge From="patrani_po_viktorce.marta_vi_ze_viktorka_zmizela" To="marta_vi_ze_viktorka_zmizela">
+						<Vertex>gTQC0Q0L</Vertex>
+					</Edge>
 				</pozdravy_marty_v_prubehu_questu>
 				<s_martou_po_nahodnem_nalezu_viktorky Name="s_martou_po_nahodnem_nalezu_viktorky" PositionY="1670" PositionX="860">
 					<Edge From="patrani_po_viktorce.marta_vi_ze_viktorka_zmizela" To="marta_vi_ze_viktorka_zmizela">
@@ -296,8 +299,9 @@
 						<Vertex>vertex110</Vertex>
 					</Edge>
 					<Edge From="patrani_po_viktorce.vojak_nerekl_hraci_o_viktorce" To="vojak_nerekl_hraci_o_viktorce" />
-					<Edge From="or6.bool" To="marta_vi_ze_viktorka_zmizela" />
 					<Edge From="patrani_po_viktorce.hraci_se_nepovedlo_vylecit_vojaka" To="hraci_se_nepovedlo_vylecit_vojaka" />
+					<Edge From="patrani_po_viktorce.hrac_vi_o_vojakovi" To="hrac_vi_o_vojakovi" />
+					<Edge From="patrani_po_viktorce.marta_vi_ze_viktorka_zmizela" To="marta_vi_ze_viktorka_zmizela" />
 				</viktorka_u_stromu>
 				<zbyvajici_cas_do_otravy_viktorky Name="zbyvajici_cas_do_otravy_viktorky" PositionY="540" PositionX="-290">
 					<Edge From="viktorka_u_stromu.viktorka_dosla_ke_stromu" To="start">
@@ -308,18 +312,18 @@
 			</Nodes>
 			<EdgeVertices>
 				<EdgeVertex Name="1NGw9gru" PositionY="-200" PositionX="-260" />
+				<EdgeVertex Name="3CjP6KmY" PositionY="1980" PositionX="140" />
 				<EdgeVertex Name="413bhl0I" PositionY="919" PositionX="829" />
 				<EdgeVertex Name="D26ys1me" PositionY="-48" PositionX="1114" />
 				<EdgeVertex Name="DI7Xhjvu" PositionY="-340" PositionX="1110" />
 				<EdgeVertex Name="dtkkIm5d" PositionY="1971" PositionX="1250" />
 				<EdgeVertex Name="eQen7pHF" PositionY="-270" PositionX="1120" />
 				<EdgeVertex Name="ftNh50YA" PositionY="-48" PositionX="145" />
-				<EdgeVertex Name="gTQC0Q0L" PositionY="580" PositionX="690" />
-				<EdgeVertex Name="hkGozqwg" PositionY="1979" PositionX="1258" />
+				<EdgeVertex Name="gTQC0Q0L" PositionY="640" PositionX="690" />
 				<EdgeVertex Name="KpQI8Fsm" PositionY="-200" PositionX="450" />
 				<EdgeVertex Name="lsW4vBL5" PositionY="1971" PositionX="872" />
+				<EdgeVertex Name="pa0l2QVG" PositionY="1982" PositionX="1248" />
 				<EdgeVertex Name="QLkecNtd" PositionY="-650" PositionX="-650" />
-				<EdgeVertex Name="rg1Gjc0M" PositionY="20" PositionX="1230" />
 				<EdgeVertex Name="UVEHfW8m" PositionY="920" PositionX="1158" />
 				<EdgeVertex Name="uYeEyeKT" PositionY="-360" PositionX="1100" />
 				<EdgeVertex Name="vertex1" PositionY="910" PositionX="1160" />
@@ -328,9 +332,9 @@
 				<EdgeVertex Name="vertex105" PositionY="370" PositionX="10" />
 				<EdgeVertex Name="vertex109" PositionY="-320" PositionX="1140" />
 				<EdgeVertex Name="vertex11" PositionY="910" PositionX="-670" />
-				<EdgeVertex Name="vertex110" PositionY="830" PositionX="630" />
-				<EdgeVertex Name="vertex116" PositionY="850" PositionX="110" />
-				<EdgeVertex Name="vertex117" PositionY="830" PositionX="120" />
+				<EdgeVertex Name="vertex110" PositionY="850" PositionX="640" />
+				<EdgeVertex Name="vertex116" PositionY="1300" PositionX="510" />
+				<EdgeVertex Name="vertex117" PositionY="850" PositionX="130" />
 				<EdgeVertex Name="vertex120" PositionY="-60" PositionX="1130" />
 				<EdgeVertex Name="vertex121" PositionY="-58" PositionX="148" />
 				<EdgeVertex Name="vertex122" PositionY="890" PositionX="670" />
@@ -345,7 +349,7 @@
 				<EdgeVertex Name="vertex133" PositionY="-970" PositionX="-270" />
 				<EdgeVertex Name="vertex142" PositionY="-949" PositionX="419" />
 				<EdgeVertex Name="vertex143" PositionY="-949" PositionX="-267" />
-				<EdgeVertex Name="vertex144" PositionY="850" PositionX="1220" />
+				<EdgeVertex Name="vertex144" PositionY="1300" PositionX="1220" />
 				<EdgeVertex Name="vertex2" PositionY="910" PositionX="190" />
 				<EdgeVertex Name="vertex31" PositionY="-40" PositionX="-730" />
 				<EdgeVertex Name="vertex32" PositionY="-40" PositionX="760" />
@@ -363,13 +367,12 @@
 				<EdgeVertex Name="vertex74" PositionY="-960" PositionX="-260" />
 				<EdgeVertex Name="vertex75" PositionY="-960" PositionX="1070" />
 				<EdgeVertex Name="vertex77" PositionY="60" PositionX="40" />
-				<EdgeVertex Name="vertex80" PositionY="-20" PositionX="-60" />
+				<EdgeVertex Name="vertex80" PositionY="-20" PositionX="-10" />
 				<EdgeVertex Name="vertex81" PositionY="-20" PositionX="-730" />
 				<EdgeVertex Name="vertex82" PositionY="-18" PositionX="763" />
 				<EdgeVertex Name="vertex92" PositionY="-440" PositionX="1130" />
-				<EdgeVertex Name="vertex93" PositionY="-40" PositionX="-60" />
+				<EdgeVertex Name="vertex93" PositionY="-40" PositionX="-10" />
 				<EdgeVertex Name="vertex99" PositionY="-490" PositionX="1140" />
-				<EdgeVertex Name="wa9rQrHC" PositionY="1981" PositionX="510" />
 				<EdgeVertex Name="yH0XmGLm" PositionY="-300" PositionX="1130" />
 			</EdgeVertices>
 			<Text StringName="po_uteku_viktorky_IwLk" Text="Po útěku Viktorky" />

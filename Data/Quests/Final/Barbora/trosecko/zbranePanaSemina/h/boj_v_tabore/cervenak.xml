@@ -90,11 +90,11 @@
 						<Vertex>dQpvm2Df</Vertex>
 					</Edge>
 				</EnableBehavior>
-				<EnableBehavior Name="enablebehaviorwuiddata51_1_1" PositionY="-1000" PositionX="410" Signature="wuidData" EventSet="">
+				<EnableBehavior Name="enablebehaviorwuiddata51_1_1" PositionY="-620" PositionX="120" Signature="wuidData" EventSet="">
 					<Constant Name="Behavior" Value="seminSuk_waitOnPoint" />
 					<Asset Name="SmartEntity" Alias="zbraneSO" />
 					<Asset Name="NPC" Alias="cervenak" />
-					<Asset Name="data" Alias="sitPointCamp2A" />
+					<Asset Name="data" Alias="tpCervenakWaitBefore" />
 					<Edge From="cervenakState.ZacatekVTabore" To="IsActive" />
 				</EnableBehavior>
 				<EntityContextTrigger Name="entitycontexttrigger92" PositionY="-190" PositionX="390">
@@ -117,6 +117,20 @@
 					<Asset Name="B" Alias="semin" />
 					<Asset Name="C" Alias="suk" />
 				</MakeArray>
+				<Migration_Advanced Name="Migration_Advanced" PositionY="-1320" PositionX="730" Namespace="utils.general">
+					<Constant Name="linktag" Value="none" />
+					<Asset Name="souls" Alias="cervenak" />
+					<Constant Name="faction" Value="trosecko_enemies_bandits_zbranePanaSemina" />
+					<Edge From="and99.bool" To="isactive" />
+					<Edge From="cervenakState.OnSvazany" To="forgetcrime">
+						<Vertex>Tr0xjQVP</Vertex>
+						<Vertex>R4Mff9lc</Vertex>
+					</Edge>
+					<Edge From="cervenakState.OnOdchazi" To="forgetcrime">
+						<Vertex>Tr0xjQVP</Vertex>
+						<Vertex>R4Mff9lc</Vertex>
+					</Edge>
+				</Migration_Advanced>
 				<Function Name="not100" PositionY="-1300" PositionX="-10" MethodName="math::boolean::Not" DeclaringType="math::boolean">
 					<Edge From="suk_a_semin_se_pristreamovali_po_vykaslani_nebo_zacla_svatba" To="Value" />
 				</Function>
@@ -144,6 +158,7 @@
 					<Edge From="or98.bool" To="C">
 						<Vertex>JmPd3Ny2</Vertex>
 					</Edge>
+					<Edge From="cervenakState.ZacatekVTabore" To="D" />
 				</Function>
 				<Function Name="or96" PositionY="-1150" PositionX="0" MethodName="math::boolean::Or" DeclaringType="math::boolean">
 					<Edge From="cervenakState.ZacatekVTabore" To="A" />
@@ -196,11 +211,6 @@
 					<Constant Name="Value" Value="1" />
 					<Edge From="and94.bool" To="IsActive" />
 				</SoulStateTrigger>
-				<TemporaryFactionEffect Name="temporaryfaction51" PositionY="-1300" PositionX="630">
-					<Asset Name="Souls" Alias="cervenak" />
-					<Constant Name="Faction" Value="trosecko_enemies_bandits_zbranePanaSemina" />
-					<Edge From="and99.bool" To="IsActive" />
-				</TemporaryFactionEffect>
 				<TiedSpot Name="TiedSpot_1" PositionY="1430" PositionX="990" Namespace="utils.special">
 					<Asset Name="tiedsoul" Alias="cervenak" />
 					<Asset Name="tiedspot_smartentity" Alias="cervenakTiedSpotSO" />
@@ -232,7 +242,9 @@
 				<EdgeVertex Name="MKWkSUzJ" PositionY="440" PositionX="-510" />
 				<EdgeVertex Name="Pbdvay7B" PositionY="390" PositionX="788" />
 				<EdgeVertex Name="ptQ2BAEv" PositionY="20" PositionX="-640" />
+				<EdgeVertex Name="R4Mff9lc" PositionY="-670" PositionX="30" />
 				<EdgeVertex Name="SBM4pJpA" PositionY="385" PositionX="201" />
+				<EdgeVertex Name="Tr0xjQVP" PositionY="250" PositionX="-50" />
 				<EdgeVertex Name="u9tYkaMH" PositionY="-250" PositionX="-510" />
 				<EdgeVertex Name="uLKXUh44" PositionY="370" PositionX="510" />
 				<EdgeVertex Name="uoplLJ8p" PositionY="170" PositionX="-500" />

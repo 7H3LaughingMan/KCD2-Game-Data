@@ -1131,7 +1131,7 @@
 													<Synchronize SemaphoreCount="2" InsideTimerValue="&apos;-1&apos;" InvalidateOnExpire="false" atomic="false" OutsideQueuePosVariable="" InsidePosVariable="" TimerType="GameTime" OutsideTimerValue="&apos;-1&apos;" LockManagerType="Local" SemaphoreName="&apos;quest_treating&apos;" RunLogic="Halt">
 														<Sequence>
 															<Expression expressions="$cantSkip = true" />
-															<JoinedAnimationAction requiresMovement="true" lockContext="$__object.id" lockName="&apos;quest_treating_synchro&apos;" lockCount="2" timeout="&apos;10s&apos;" ignoreOthersLeaving="false" fragment="&apos;Quest_Treating_AllInOne&apos;" tags="&apos;sittingGround&apos;" eventReferenceObject="" alignObject="$__object.id" slaveObject="" resourceOverride="" allowTorchForPlayer="false" />
+															<JoinedAnimationAction requiresMovement="true" lockContext="$__object.id" lockName="&apos;quest_treating_synchro&apos;" lockCount="2" timeout="&apos;120s&apos;" ignoreOthersLeaving="false" fragment="&apos;Quest_Treating_AllInOne&apos;" tags="&apos;sittingGround&apos;" eventReferenceObject="" alignObject="$__object.id" slaveObject="" resourceOverride="" allowTorchForPlayer="false" />
 														</Sequence>
 													</Synchronize>
 													<Sequence>
@@ -1150,100 +1150,102 @@
 								</Then>
 								<Else canSkip="1">
 									<EntityContextPresetElement contextPreset="switch_unresponsive_spawnHitVolume" enabled="true">
-										<IfElseCondition failOnCondition="false" condition="$unstanceName == &apos;injured&apos;" saveVersion="2">
-											<Then canSkip="1">
-												<StanceElement smartObject="$__object.id" stance="lying" allowAny="false" enabled="true">
-													<EntityContextElement context="speech_readyForSwitchDialog" enabled="true">
-														<Sequence>
-															<Selector>
-																<GraphSearch Origin="$__object.id" Borders="" depth="1" selection="true" SearchPattern="Depth" EdgePruning="&apos;parent,inventory&apos;" AllowedEdges="" SubGraph="" AllowSubtraph="false" includeOrigin="false" excludeOrigin="false" failOnEmpty="true" SetOperationChoice="Intersection|And" errorOnEmpty="false" shortCircuit="false" skipTraversed="true">
-																	<LinkTagFilter tag="&apos;healSync&apos;" prune="true" negprune="unknown" Parent="" Child="" Data="" />
-																</GraphSearch>
-																<UnstanceAction unstance="$unstanceName" locationObject="$__object.id" slaveObject="" />
-															</Selector>
-															<SuppressFailure>
-																<Synchronize SemaphoreCount="2" InsideTimerValue="&apos;5s&apos;" InvalidateOnExpire="false" atomic="false" OutsideQueuePosVariable="" InsidePosVariable="" TimerType="GameTime" OutsideTimerValue="&apos;-1&apos;" LockManagerType="Local" SemaphoreName="&apos;healSync_first&apos;" RunLogic="Halt">
-																	<UnstanceElement unstance="$unstanceName" locationObject="" slaveObject="" enabled="true">
-																		<Sequence>
-																			<JoinedUnstanceAction lockContext="$__object.id" lockName="&apos;healSync&apos;" lockCount="2" timeout="&apos;15s&apos;" ignoreOthersLeaving="false" unstance="heal_injured" locationObject="$__object.id" slaveObject="" />
-																			<SuppressFailure>
-																				<Function_speech_schedulerMonolog alias="" animationApproach="$enum:animationApproach.dontPlayDialogAnimations" context="" lookAtId="" metarole="&apos;RANENY_POVZDECHY&apos;" skipInLod="true" subtitlesDown="false" nodeLabel="90355022" />
-																			</SuppressFailure>
-																			<Wait duration="&apos;15s&apos;" timeType="GameTime" doFail="false" variation="" />
-																		</Sequence>
-																	</UnstanceElement>
-																</Synchronize>
-															</SuppressFailure>
-														</Sequence>
-													</EntityContextElement>
-												</StanceElement>
-											</Then>
-											<Else canSkip="1">
-												<IfElseCondition failOnCondition="false" condition="$unstanceName == &apos;lyingInjured_bedLow&apos;" saveVersion="2">
-													<Then canSkip="1">
-														<StanceElement smartObject="$__object.id" stance="lying" allowAny="false" enabled="true">
+										<EntityContextElement context="crime_suppressAllPlayerCollisionBarks" enabled="true">
+											<IfElseCondition failOnCondition="false" condition="$unstanceName == &apos;injured&apos;" saveVersion="2">
+												<Then canSkip="1">
+													<StanceElement smartObject="$__object.id" stance="lying" allowAny="false" enabled="true">
+														<EntityContextElement context="speech_readyForSwitchDialog" enabled="true">
 															<Sequence>
 																<Selector>
 																	<GraphSearch Origin="$__object.id" Borders="" depth="1" selection="true" SearchPattern="Depth" EdgePruning="&apos;parent,inventory&apos;" AllowedEdges="" SubGraph="" AllowSubtraph="false" includeOrigin="false" excludeOrigin="false" failOnEmpty="true" SetOperationChoice="Intersection|And" errorOnEmpty="false" shortCircuit="false" skipTraversed="true">
-																		<LinkTagFilter tag="&apos;healingSync&apos;" prune="true" negprune="unknown" Parent="" Child="" Data="" />
+																		<LinkTagFilter tag="&apos;healSync&apos;" prune="true" negprune="unknown" Parent="" Child="" Data="" />
 																	</GraphSearch>
-																	<UnstanceAction unstance="$unstanceName" locationObject="" slaveObject="" />
+																	<UnstanceAction unstance="$unstanceName" locationObject="$__object.id" slaveObject="" />
 																</Selector>
-																<Parallel successMode="Any" failureMode="Any">
-																	<SuppressFailure>
-																		<Synchronize SemaphoreCount="2" InsideTimerValue="&apos;15s&apos;" InvalidateOnExpire="false" atomic="false" OutsideQueuePosVariable="" InsidePosVariable="" TimerType="GameTime" OutsideTimerValue="&apos;-1&apos;" LockManagerType="Local" SemaphoreName="&apos;healingSync&apos;" RunLogic="Halt">
-																			<UnstanceElement unstance="$unstanceName" locationObject="" slaveObject="" enabled="true">
+																<SuppressFailure>
+																	<Synchronize SemaphoreCount="2" InsideTimerValue="&apos;5s&apos;" InvalidateOnExpire="false" atomic="false" OutsideQueuePosVariable="" InsidePosVariable="" TimerType="GameTime" OutsideTimerValue="&apos;-1&apos;" LockManagerType="Local" SemaphoreName="&apos;healSync_first&apos;" RunLogic="Halt">
+																		<UnstanceElement unstance="$unstanceName" locationObject="" slaveObject="" enabled="true">
+																			<Sequence>
+																				<JoinedUnstanceAction lockContext="$__object.id" lockName="&apos;healSync&apos;" lockCount="2" timeout="&apos;120s&apos;" ignoreOthersLeaving="false" unstance="heal_injured" locationObject="$__object.id" slaveObject="" />
 																				<SuppressFailure>
-																					<JoinedAnimationAction requiresMovement="false" lockContext="$__object.id" lockName="&apos;injuredPotion&apos;" lockCount="2" timeout="&apos;10s&apos;" ignoreOthersLeaving="false" fragment="&apos;HealingGroundPotion&apos;" tags="&apos;lyingGround&apos;" eventReferenceObject="" alignObject="" slaveObject="" resourceOverride="" allowTorchForPlayer="false" />
+																					<Function_speech_schedulerMonolog alias="" animationApproach="$enum:animationApproach.dontPlayDialogAnimations" context="" lookAtId="" metarole="&apos;RANENY_POVZDECHY&apos;" skipInLod="true" subtitlesDown="false" nodeLabel="90355022" />
 																				</SuppressFailure>
-																			</UnstanceElement>
-																		</Synchronize>
-																	</SuppressFailure>
-																	<Sequence>
-																		<SuppressFailure>
-																			<Function_speech_schedulerMonolog alias="" animationApproach="$enum:animationApproach.dontPlayDialogAnimations" context="" lookAtId="" metarole="&apos;RANENY_POVZDECHY&apos;" skipInLod="true" subtitlesDown="false" nodeLabel="84182530" />
-																		</SuppressFailure>
-																		<Wait duration="&apos;-1&apos;" timeType="GameTime" doFail="false" variation="" />
-																	</Sequence>
-																</Parallel>
+																				<Wait duration="&apos;15s&apos;" timeType="GameTime" doFail="false" variation="" />
+																			</Sequence>
+																		</UnstanceElement>
+																	</Synchronize>
+																</SuppressFailure>
 															</Sequence>
-														</StanceElement>
-													</Then>
-													<Else canSkip="1">
-														<StanceElement smartObject="$__resource.id" stance="lying" allowAny="false" enabled="true">
-															<Sequence>
-																<Selector>
-																	<GraphSearch Origin="$__object.id" Borders="" depth="1" selection="true" SearchPattern="Depth" EdgePruning="&apos;parent,inventory&apos;" AllowedEdges="" SubGraph="" AllowSubtraph="false" includeOrigin="false" excludeOrigin="false" failOnEmpty="true" SetOperationChoice="Intersection|And" errorOnEmpty="false" shortCircuit="false" skipTraversed="true">
-																		<LinkTagFilter tag="&apos;healingSync&apos;" prune="true" negprune="unknown" Parent="" Child="" Data="" />
-																	</GraphSearch>
-																	<UnstanceAction unstance="$unstanceName" locationObject="" slaveObject="" />
-																</Selector>
-																<Parallel successMode="Any" failureMode="Any">
-																	<SuppressFailure>
-																		<Synchronize SemaphoreCount="2" InsideTimerValue="&apos;15s&apos;" InvalidateOnExpire="false" atomic="false" OutsideQueuePosVariable="" InsidePosVariable="" TimerType="GameTime" OutsideTimerValue="&apos;-1&apos;" LockManagerType="Local" SemaphoreName="&apos;healingSync&apos;" RunLogic="Halt">
-																			<UnstanceElement unstance="$unstanceName" locationObject="" slaveObject="" enabled="true">
-																				<Sequence>
+														</EntityContextElement>
+													</StanceElement>
+												</Then>
+												<Else canSkip="1">
+													<IfElseCondition failOnCondition="false" condition="$unstanceName == &apos;lyingInjured_bedLow&apos;" saveVersion="2">
+														<Then canSkip="1">
+															<StanceElement smartObject="$__object.id" stance="lying" allowAny="false" enabled="true">
+																<Sequence>
+																	<Selector>
+																		<GraphSearch Origin="$__object.id" Borders="" depth="1" selection="true" SearchPattern="Depth" EdgePruning="&apos;parent,inventory&apos;" AllowedEdges="" SubGraph="" AllowSubtraph="false" includeOrigin="false" excludeOrigin="false" failOnEmpty="true" SetOperationChoice="Intersection|And" errorOnEmpty="false" shortCircuit="false" skipTraversed="true">
+																			<LinkTagFilter tag="&apos;healingSync&apos;" prune="true" negprune="unknown" Parent="" Child="" Data="" />
+																		</GraphSearch>
+																		<UnstanceAction unstance="$unstanceName" locationObject="" slaveObject="" />
+																	</Selector>
+																	<Parallel successMode="Any" failureMode="Any">
+																		<SuppressFailure>
+																			<Synchronize SemaphoreCount="2" InsideTimerValue="&apos;15s&apos;" InvalidateOnExpire="false" atomic="false" OutsideQueuePosVariable="" InsidePosVariable="" TimerType="GameTime" OutsideTimerValue="&apos;-1&apos;" LockManagerType="Local" SemaphoreName="&apos;healingSync&apos;" RunLogic="Halt">
+																				<UnstanceElement unstance="$unstanceName" locationObject="" slaveObject="" enabled="true">
 																					<SuppressFailure>
-																						<JoinedAnimationAction requiresMovement="false" lockContext="$__object.id" lockName="&apos;injuredPotion&apos;" lockCount="2" timeout="&apos;10s&apos;" ignoreOthersLeaving="false" fragment="&apos;HealingBedPotion&apos;" tags="&apos;lying&apos;" eventReferenceObject="" alignObject="" slaveObject="" resourceOverride="" allowTorchForPlayer="false" />
+																						<JoinedAnimationAction requiresMovement="false" lockContext="$__object.id" lockName="&apos;injuredPotion&apos;" lockCount="2" timeout="&apos;120s&apos;" ignoreOthersLeaving="false" fragment="&apos;HealingGroundPotion&apos;" tags="&apos;lyingGround&apos;" eventReferenceObject="" alignObject="" slaveObject="" resourceOverride="" allowTorchForPlayer="false" />
 																					</SuppressFailure>
-																					<Wait duration="&apos;10s&apos;" timeType="GameTime" doFail="false" variation="" />
-																				</Sequence>
-																			</UnstanceElement>
-																		</Synchronize>
-																	</SuppressFailure>
-																	<Sequence>
-																		<SuppressFailure>
-																			<Function_speech_schedulerMonolog alias="" animationApproach="$enum:animationApproach.dontPlayDialogAnimations" context="" lookAtId="" metarole="&apos;RANENY_POVZDECHY&apos;" skipInLod="true" subtitlesDown="false" nodeLabel="84435725" />
+																				</UnstanceElement>
+																			</Synchronize>
 																		</SuppressFailure>
-																		<Wait duration="&apos;-1&apos;" timeType="GameTime" doFail="false" variation="" />
-																	</Sequence>
-																</Parallel>
-															</Sequence>
-														</StanceElement>
-													</Else>
-												</IfElseCondition>
-											</Else>
-										</IfElseCondition>
+																		<Sequence>
+																			<SuppressFailure>
+																				<Function_speech_schedulerMonolog alias="" animationApproach="$enum:animationApproach.dontPlayDialogAnimations" context="" lookAtId="" metarole="&apos;RANENY_POVZDECHY&apos;" skipInLod="true" subtitlesDown="false" nodeLabel="84182530" />
+																			</SuppressFailure>
+																			<Wait duration="&apos;-1&apos;" timeType="GameTime" doFail="false" variation="" />
+																		</Sequence>
+																	</Parallel>
+																</Sequence>
+															</StanceElement>
+														</Then>
+														<Else canSkip="1">
+															<StanceElement smartObject="$__resource.id" stance="lying" allowAny="false" enabled="true">
+																<Sequence>
+																	<Selector>
+																		<GraphSearch Origin="$__object.id" Borders="" depth="1" selection="true" SearchPattern="Depth" EdgePruning="&apos;parent,inventory&apos;" AllowedEdges="" SubGraph="" AllowSubtraph="false" includeOrigin="false" excludeOrigin="false" failOnEmpty="true" SetOperationChoice="Intersection|And" errorOnEmpty="false" shortCircuit="false" skipTraversed="true">
+																			<LinkTagFilter tag="&apos;healingSync&apos;" prune="true" negprune="unknown" Parent="" Child="" Data="" />
+																		</GraphSearch>
+																		<UnstanceAction unstance="$unstanceName" locationObject="" slaveObject="" />
+																	</Selector>
+																	<Parallel successMode="Any" failureMode="Any">
+																		<SuppressFailure>
+																			<Synchronize SemaphoreCount="2" InsideTimerValue="&apos;15s&apos;" InvalidateOnExpire="false" atomic="false" OutsideQueuePosVariable="" InsidePosVariable="" TimerType="GameTime" OutsideTimerValue="&apos;-1&apos;" LockManagerType="Local" SemaphoreName="&apos;healingSync&apos;" RunLogic="Halt">
+																				<UnstanceElement unstance="$unstanceName" locationObject="" slaveObject="" enabled="true">
+																					<Sequence>
+																						<SuppressFailure>
+																							<JoinedAnimationAction requiresMovement="false" lockContext="$__object.id" lockName="&apos;injuredPotion&apos;" lockCount="2" timeout="&apos;120s&apos;" ignoreOthersLeaving="false" fragment="&apos;HealingBedPotion&apos;" tags="&apos;lying&apos;" eventReferenceObject="" alignObject="" slaveObject="" resourceOverride="" allowTorchForPlayer="false" />
+																						</SuppressFailure>
+																						<Wait duration="&apos;10s&apos;" timeType="GameTime" doFail="false" variation="" />
+																					</Sequence>
+																				</UnstanceElement>
+																			</Synchronize>
+																		</SuppressFailure>
+																		<Sequence>
+																			<SuppressFailure>
+																				<Function_speech_schedulerMonolog alias="" animationApproach="$enum:animationApproach.dontPlayDialogAnimations" context="" lookAtId="" metarole="&apos;RANENY_POVZDECHY&apos;" skipInLod="true" subtitlesDown="false" nodeLabel="84435725" />
+																			</SuppressFailure>
+																			<Wait duration="&apos;-1&apos;" timeType="GameTime" doFail="false" variation="" />
+																		</Sequence>
+																	</Parallel>
+																</Sequence>
+															</StanceElement>
+														</Else>
+													</IfElseCondition>
+												</Else>
+											</IfElseCondition>
+										</EntityContextElement>
 									</EntityContextPresetElement>
 								</Else>
 							</IfElseCondition>
@@ -1332,38 +1334,96 @@
 									<Else>
 										<EntityContextPresetElement hasInputBreakpoint="0" comment="" breakpointFlags="0">
 											<OutputBreakpoints />
-											<IfElseCondition hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
+											<EntityContextElement hasInputBreakpoint="0" comment="" breakpointFlags="0">
 												<OutputBreakpoints />
-												<Then>
-													<StanceElement hasInputBreakpoint="0" comment="" breakpointFlags="0">
-														<OutputBreakpoints />
-														<EntityContextElement hasInputBreakpoint="0" comment="" breakpointFlags="0">
+												<IfElseCondition hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
+													<OutputBreakpoints />
+													<Then>
+														<StanceElement hasInputBreakpoint="0" comment="" breakpointFlags="0">
 															<OutputBreakpoints />
-															<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
+															<EntityContextElement hasInputBreakpoint="0" comment="" breakpointFlags="0">
 																<OutputBreakpoints />
-																<Selector hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
 																	<OutputBreakpoints />
-																	<GraphSearch hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																	<Selector hasInputBreakpoint="0" comment="" breakpointFlags="0">
 																		<OutputBreakpoints />
-																		<LinkTagFilter hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																		<GraphSearch hasInputBreakpoint="0" comment="" breakpointFlags="0">
 																			<OutputBreakpoints />
-																		</LinkTagFilter>
-																	</GraphSearch>
-																	<UnstanceAction hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																			<LinkTagFilter hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																				<OutputBreakpoints />
+																			</LinkTagFilter>
+																		</GraphSearch>
+																		<UnstanceAction hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																			<OutputBreakpoints />
+																		</UnstanceAction>
+																	</Selector>
+																	<SuppressFailure hasInputBreakpoint="0" comment="" breakpointFlags="0">
 																		<OutputBreakpoints />
-																	</UnstanceAction>
-																</Selector>
-																<SuppressFailure hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																		<Synchronize hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																			<OutputBreakpoints />
+																			<UnstanceElement hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																				<OutputBreakpoints />
+																				<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																					<OutputBreakpoints />
+																					<JoinedUnstanceAction hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																						<OutputBreakpoints />
+																					</JoinedUnstanceAction>
+																					<SuppressFailure hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																						<OutputBreakpoints />
+																						<Function_speech_schedulerMonolog hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																							<OutputBreakpoints />
+																						</Function_speech_schedulerMonolog>
+																					</SuppressFailure>
+																					<Wait hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																						<OutputBreakpoints />
+																					</Wait>
+																				</Sequence>
+																			</UnstanceElement>
+																		</Synchronize>
+																	</SuppressFailure>
+																</Sequence>
+															</EntityContextElement>
+														</StanceElement>
+													</Then>
+													<Else>
+														<IfElseCondition hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
+															<OutputBreakpoints />
+															<Then>
+																<StanceElement hasInputBreakpoint="0" comment="" breakpointFlags="0">
 																	<OutputBreakpoints />
-																	<Synchronize hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																	<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
 																		<OutputBreakpoints />
-																		<UnstanceElement hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																		<Selector hasInputBreakpoint="0" comment="" breakpointFlags="0">
 																			<OutputBreakpoints />
+																			<GraphSearch hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																				<OutputBreakpoints />
+																				<LinkTagFilter hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																					<OutputBreakpoints />
+																				</LinkTagFilter>
+																			</GraphSearch>
+																			<UnstanceAction hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																				<OutputBreakpoints />
+																			</UnstanceAction>
+																		</Selector>
+																		<Parallel hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																			<OutputBreakpoints />
+																			<SuppressFailure hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																				<OutputBreakpoints />
+																				<Synchronize hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																					<OutputBreakpoints />
+																					<UnstanceElement hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																						<OutputBreakpoints />
+																						<SuppressFailure hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																							<OutputBreakpoints />
+																							<JoinedAnimationAction hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																								<OutputBreakpoints />
+																							</JoinedAnimationAction>
+																						</SuppressFailure>
+																					</UnstanceElement>
+																				</Synchronize>
+																			</SuppressFailure>
 																			<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
 																				<OutputBreakpoints />
-																				<JoinedUnstanceAction hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																					<OutputBreakpoints />
-																				</JoinedUnstanceAction>
 																				<SuppressFailure hasInputBreakpoint="0" comment="" breakpointFlags="0">
 																					<OutputBreakpoints />
 																					<Function_speech_schedulerMonolog hasInputBreakpoint="0" comment="" breakpointFlags="0">
@@ -1374,125 +1434,70 @@
 																					<OutputBreakpoints />
 																				</Wait>
 																			</Sequence>
-																		</UnstanceElement>
-																	</Synchronize>
-																</SuppressFailure>
-															</Sequence>
-														</EntityContextElement>
-													</StanceElement>
-												</Then>
-												<Else>
-													<IfElseCondition hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
-														<OutputBreakpoints />
-														<Then>
-															<StanceElement hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																<OutputBreakpoints />
-																<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																		</Parallel>
+																	</Sequence>
+																</StanceElement>
+															</Then>
+															<Else>
+																<StanceElement hasInputBreakpoint="0" comment="" breakpointFlags="0">
 																	<OutputBreakpoints />
-																	<Selector hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																	<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
 																		<OutputBreakpoints />
-																		<GraphSearch hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																		<Selector hasInputBreakpoint="0" comment="" breakpointFlags="0">
 																			<OutputBreakpoints />
-																			<LinkTagFilter hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																			<GraphSearch hasInputBreakpoint="0" comment="" breakpointFlags="0">
 																				<OutputBreakpoints />
-																			</LinkTagFilter>
-																		</GraphSearch>
-																		<UnstanceAction hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																			<OutputBreakpoints />
-																		</UnstanceAction>
-																	</Selector>
-																	<Parallel hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																		<OutputBreakpoints />
-																		<SuppressFailure hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																			<OutputBreakpoints />
-																			<Synchronize hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																				<OutputBreakpoints />
-																				<UnstanceElement hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																				<LinkTagFilter hasInputBreakpoint="0" comment="" breakpointFlags="0">
 																					<OutputBreakpoints />
-																					<SuppressFailure hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																						<OutputBreakpoints />
-																						<JoinedAnimationAction hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																							<OutputBreakpoints />
-																						</JoinedAnimationAction>
-																					</SuppressFailure>
-																				</UnstanceElement>
-																			</Synchronize>
-																		</SuppressFailure>
-																		<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																				</LinkTagFilter>
+																			</GraphSearch>
+																			<UnstanceAction hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																				<OutputBreakpoints />
+																			</UnstanceAction>
+																		</Selector>
+																		<Parallel hasInputBreakpoint="0" comment="" breakpointFlags="0">
 																			<OutputBreakpoints />
 																			<SuppressFailure hasInputBreakpoint="0" comment="" breakpointFlags="0">
 																				<OutputBreakpoints />
-																				<Function_speech_schedulerMonolog hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																				<Synchronize hasInputBreakpoint="0" comment="" breakpointFlags="0">
 																					<OutputBreakpoints />
-																				</Function_speech_schedulerMonolog>
-																			</SuppressFailure>
-																			<Wait hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																				<OutputBreakpoints />
-																			</Wait>
-																		</Sequence>
-																	</Parallel>
-																</Sequence>
-															</StanceElement>
-														</Then>
-														<Else>
-															<StanceElement hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																<OutputBreakpoints />
-																<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																	<OutputBreakpoints />
-																	<Selector hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																		<OutputBreakpoints />
-																		<GraphSearch hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																			<OutputBreakpoints />
-																			<LinkTagFilter hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																				<OutputBreakpoints />
-																			</LinkTagFilter>
-																		</GraphSearch>
-																		<UnstanceAction hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																			<OutputBreakpoints />
-																		</UnstanceAction>
-																	</Selector>
-																	<Parallel hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																		<OutputBreakpoints />
-																		<SuppressFailure hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																			<OutputBreakpoints />
-																			<Synchronize hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																				<OutputBreakpoints />
-																				<UnstanceElement hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																					<OutputBreakpoints />
-																					<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																					<UnstanceElement hasInputBreakpoint="0" comment="" breakpointFlags="0">
 																						<OutputBreakpoints />
-																						<SuppressFailure hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																						<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
 																							<OutputBreakpoints />
-																							<JoinedAnimationAction hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																							<SuppressFailure hasInputBreakpoint="0" comment="" breakpointFlags="0">
 																								<OutputBreakpoints />
-																							</JoinedAnimationAction>
-																						</SuppressFailure>
-																						<Wait hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																							<OutputBreakpoints />
-																						</Wait>
-																					</Sequence>
-																				</UnstanceElement>
-																			</Synchronize>
-																		</SuppressFailure>
-																		<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																			<OutputBreakpoints />
-																			<SuppressFailure hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																				<OutputBreakpoints />
-																				<Function_speech_schedulerMonolog hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																					<OutputBreakpoints />
-																				</Function_speech_schedulerMonolog>
+																								<JoinedAnimationAction hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																									<OutputBreakpoints />
+																								</JoinedAnimationAction>
+																							</SuppressFailure>
+																							<Wait hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																								<OutputBreakpoints />
+																							</Wait>
+																						</Sequence>
+																					</UnstanceElement>
+																				</Synchronize>
 																			</SuppressFailure>
-																			<Wait hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																			<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
 																				<OutputBreakpoints />
-																			</Wait>
-																		</Sequence>
-																	</Parallel>
-																</Sequence>
-															</StanceElement>
-														</Else>
-													</IfElseCondition>
-												</Else>
-											</IfElseCondition>
+																				<SuppressFailure hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																					<OutputBreakpoints />
+																					<Function_speech_schedulerMonolog hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																						<OutputBreakpoints />
+																					</Function_speech_schedulerMonolog>
+																				</SuppressFailure>
+																				<Wait hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																					<OutputBreakpoints />
+																				</Wait>
+																			</Sequence>
+																		</Parallel>
+																	</Sequence>
+																</StanceElement>
+															</Else>
+														</IfElseCondition>
+													</Else>
+												</IfElseCondition>
+											</EntityContextElement>
 										</EntityContextPresetElement>
 									</Else>
 								</IfElseCondition>
@@ -1520,19 +1525,24 @@
 									<Then canSkip="1">
 										<Synchronize SemaphoreCount="2" InsideTimerValue="&apos;-1&apos;" InvalidateOnExpire="false" atomic="false" OutsideQueuePosVariable="" InsidePosVariable="" TimerType="GameTime" OutsideTimerValue="&apos;5s&apos;" LockManagerType="Local" SemaphoreName="&apos;quest_treating&apos;" RunLogic="Halt">
 											<AddLinkElement from="$__object.id" to="$this.id" tag="&apos;questTreating&apos;" data="" enabled="true">
-												<Parallel successMode="Any" failureMode="Any">
-													<JoinedAnimationAction requiresMovement="true" lockContext="$__object.id" lockName="&apos;quest_treating_synchro&apos;" lockCount="2" timeout="&apos;10s&apos;" ignoreOthersLeaving="false" fragment="&apos;Quest_Treating_AllInOne&apos;" tags="" eventReferenceObject="" alignObject="$__object.id" slaveObject="" resourceOverride="" allowTorchForPlayer="false" />
-													<Loop count="-1">
-														<DistanceGate Origin="$this.id" ReferencePt="$__object.id" Low="1.000000" High="1.000000" Negation="false" OpenInMiddle="false" RunLogic="KeepRunning">
-															<Sequence>
-																<Wait duration="&apos;10s&apos;" timeType="GameTime" doFail="false" variation="" />
-																<SuppressFailure>
-																	<Function_speech_schedulerMonolog alias="" animationApproach="$enum:animationApproach.dontPlayDialogAnimations" context="" lookAtId="" metarole="&apos;OSETROVANI_RANENEHO&apos;" skipInLod="false" subtitlesDown="false" nodeLabel="13947992" />
-																</SuppressFailure>
-															</Sequence>
-														</DistanceGate>
-													</Loop>
-												</Parallel>
+												<Sequence>
+													<DistanceCondition Origin="$this.id" ReferencePt="$__object.id" Low="2.000000" High="2.000000" Negation="true" ValueOnMiddle="false" failOnCondition="false">
+														<Move stopWithinDistance="2.000000" stopDistanceVariation="0.100000" rayCasteFlee="false" successDistance="1.000000" changeNPCState="true" fastForwardIncludesMove="false" destinationSpecification="$__object.id" destinationSpecification2="" destinationSpecification3="" speed="Walk" additionalParams="" pathFindingParams="" staminaPolicy="" pathInfo="" />
+													</DistanceCondition>
+													<Parallel successMode="Any" failureMode="Any">
+														<JoinedAnimationAction requiresMovement="true" lockContext="$__object.id" lockName="&apos;quest_treating_synchro&apos;" lockCount="2" timeout="&apos;10s&apos;" ignoreOthersLeaving="false" fragment="&apos;Quest_Treating_AllInOne&apos;" tags="" eventReferenceObject="" alignObject="$__object.id" slaveObject="" resourceOverride="" allowTorchForPlayer="false" />
+														<Loop count="-1">
+															<DistanceGate Origin="$this.id" ReferencePt="$__object.id" Low="1.000000" High="1.000000" Negation="false" OpenInMiddle="false" RunLogic="KeepRunning">
+																<Sequence>
+																	<Wait duration="&apos;10s&apos;" timeType="GameTime" doFail="false" variation="" />
+																	<SuppressFailure>
+																		<Function_speech_schedulerMonolog alias="" animationApproach="$enum:animationApproach.dontPlayDialogAnimations" context="" lookAtId="" metarole="&apos;OSETROVANI_RANENEHO&apos;" skipInLod="false" subtitlesDown="false" nodeLabel="13947992" />
+																	</SuppressFailure>
+																</Sequence>
+															</DistanceGate>
+														</Loop>
+													</Parallel>
+												</Sequence>
 											</AddLinkElement>
 										</Synchronize>
 									</Then>
@@ -1544,7 +1554,7 @@
 														<AddLinkElement from="$__object.id" to="$this.id" tag="&apos;healSync&apos;" data="" enabled="true">
 															<Parallel successMode="Any" failureMode="Any">
 																<Sequence>
-																	<JoinedUnstanceAction lockContext="$__object.id" lockName="&apos;healSync&apos;" lockCount="2" timeout="&apos;15s&apos;" ignoreOthersLeaving="false" unstance="heal_healer" locationObject="$__object.id" slaveObject="" />
+																	<JoinedUnstanceAction lockContext="$__object.id" lockName="&apos;healSync&apos;" lockCount="2" timeout="&apos;20s&apos;" ignoreOthersLeaving="false" unstance="heal_healer" locationObject="$__object.id" slaveObject="" />
 																	<Wait duration="&apos;15s&apos;" timeType="GameTime" doFail="false" variation="" />
 																</Sequence>
 																<Sequence>
@@ -1576,7 +1586,7 @@
 																						<UnstanceElement unstance="healingLeft" locationObject="$__object.id" slaveObject="" enabled="true">
 																							<RandomGate opensWithChance="0.100000" saveVersion="2">
 																								<Then canSkip="1">
-																									<JoinedAnimationAction requiresMovement="false" lockContext="$__object.id" lockName="&apos;injuredPotion&apos;" lockCount="2" timeout="&apos;10s&apos;" ignoreOthersLeaving="false" fragment="&apos;HealingGroundPotion&apos;" tags="" eventReferenceObject="" alignObject="" slaveObject="" resourceOverride="" allowTorchForPlayer="false" />
+																									<JoinedAnimationAction requiresMovement="false" lockContext="$__object.id" lockName="&apos;injuredPotion&apos;" lockCount="2" timeout="&apos;20s&apos;" ignoreOthersLeaving="false" fragment="&apos;HealingGroundPotion&apos;" tags="" eventReferenceObject="" alignObject="" slaveObject="" resourceOverride="" allowTorchForPlayer="false" />
 																								</Then>
 																								<Else canSkip="1">
 																									<Wait duration="&apos;10s&apos;" timeType="GameTime" doFail="false" variation="" />
@@ -1617,7 +1627,7 @@
 																						<UnstanceElement unstance="healingBedLeft" locationObject="$__object.id" slaveObject="" enabled="true">
 																							<RandomGate opensWithChance="0.100000" saveVersion="2">
 																								<Then canSkip="1">
-																									<JoinedAnimationAction requiresMovement="false" lockContext="$__object.id" lockName="&apos;injuredPotion&apos;" lockCount="2" timeout="&apos;10s&apos;" ignoreOthersLeaving="false" fragment="&apos;HealingBedPotion&apos;" tags="" eventReferenceObject="" alignObject="" slaveObject="" resourceOverride="" allowTorchForPlayer="false" />
+																									<JoinedAnimationAction requiresMovement="false" lockContext="$__object.id" lockName="&apos;injuredPotion&apos;" lockCount="2" timeout="&apos;20s&apos;" ignoreOthersLeaving="false" fragment="&apos;HealingBedPotion&apos;" tags="" eventReferenceObject="" alignObject="" slaveObject="" resourceOverride="" allowTorchForPlayer="false" />
 																								</Then>
 																								<Else canSkip="1">
 																									<Wait duration="&apos;10s&apos;" timeType="GameTime" doFail="false" variation="" />
@@ -1682,30 +1692,39 @@
 												<OutputBreakpoints />
 												<AddLinkElement hasInputBreakpoint="0" comment="" breakpointFlags="0">
 													<OutputBreakpoints />
-													<Parallel hasInputBreakpoint="0" comment="" breakpointFlags="0">
+													<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
 														<OutputBreakpoints />
-														<JoinedAnimationAction hasInputBreakpoint="0" comment="" breakpointFlags="0">
+														<DistanceCondition hasInputBreakpoint="0" comment="" breakpointFlags="0">
 															<OutputBreakpoints />
-														</JoinedAnimationAction>
-														<Loop hasInputBreakpoint="0" comment="" breakpointFlags="0">
-															<OutputBreakpoints />
-															<DistanceGate hasInputBreakpoint="0" comment="" breakpointFlags="0">
+															<Move hasInputBreakpoint="0" comment="" breakpointFlags="0">
 																<OutputBreakpoints />
-																<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
+															</Move>
+														</DistanceCondition>
+														<Parallel hasInputBreakpoint="0" comment="" breakpointFlags="0">
+															<OutputBreakpoints />
+															<JoinedAnimationAction hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																<OutputBreakpoints />
+															</JoinedAnimationAction>
+															<Loop hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																<OutputBreakpoints />
+																<DistanceGate hasInputBreakpoint="0" comment="" breakpointFlags="0">
 																	<OutputBreakpoints />
-																	<Wait hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																	<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
 																		<OutputBreakpoints />
-																	</Wait>
-																	<SuppressFailure hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																		<OutputBreakpoints />
-																		<Function_speech_schedulerMonolog hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																		<Wait hasInputBreakpoint="0" comment="" breakpointFlags="0">
 																			<OutputBreakpoints />
-																		</Function_speech_schedulerMonolog>
-																	</SuppressFailure>
-																</Sequence>
-															</DistanceGate>
-														</Loop>
-													</Parallel>
+																		</Wait>
+																		<SuppressFailure hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																			<OutputBreakpoints />
+																			<Function_speech_schedulerMonolog hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																				<OutputBreakpoints />
+																			</Function_speech_schedulerMonolog>
+																		</SuppressFailure>
+																	</Sequence>
+																</DistanceGate>
+															</Loop>
+														</Parallel>
+													</Sequence>
 												</AddLinkElement>
 											</Synchronize>
 										</Then>
@@ -1947,23 +1966,25 @@
 												</Then>
 												<Else canSkip="1">
 													<EntityContextPresetElement contextPreset="switch_unresponsive_spawnHitVolume" enabled="true">
-														<IfElseCondition failOnCondition="false" condition="$unstanceName == &apos;lyingInjured_bedLow&apos;" saveVersion="2">
-															<Then canSkip="1">
-																<Sequence>
-																	<WaitAction />
-																	<Wait duration="&apos;5s&apos;" timeType="GameTime" doFail="false" variation="" />
-																</Sequence>
-															</Then>
-															<Else canSkip="1">
-																<Sequence>
-																	<UnstanceAction unstance="$unstanceName" locationObject="" slaveObject="" />
-																	<SuppressFailure>
-																		<Function_speech_schedulerMonolog alias="" animationApproach="$enum:animationApproach.dontPlayDialogAnimations" context="" lookAtId="" metarole="&apos;RANENY_POVZDECHY&apos;" skipInLod="true" subtitlesDown="false" nodeLabel="62880167" />
-																	</SuppressFailure>
-																	<Wait duration="&apos;10s&apos;" timeType="GameTime" doFail="false" variation="" />
-																</Sequence>
-															</Else>
-														</IfElseCondition>
+														<EntityContextElement context="crime_suppressAllPlayerCollisionBarks" enabled="true">
+															<IfElseCondition failOnCondition="false" condition="$unstanceName == &apos;lyingInjured_bedLow&apos;" saveVersion="2">
+																<Then canSkip="1">
+																	<Sequence>
+																		<WaitAction />
+																		<Wait duration="&apos;5s&apos;" timeType="GameTime" doFail="false" variation="" />
+																	</Sequence>
+																</Then>
+																<Else canSkip="1">
+																	<Sequence>
+																		<UnstanceAction unstance="$unstanceName" locationObject="" slaveObject="" />
+																		<SuppressFailure>
+																			<Function_speech_schedulerMonolog alias="" animationApproach="$enum:animationApproach.dontPlayDialogAnimations" context="" lookAtId="" metarole="&apos;RANENY_POVZDECHY&apos;" skipInLod="true" subtitlesDown="false" nodeLabel="62880167" />
+																		</SuppressFailure>
+																		<Wait duration="&apos;10s&apos;" timeType="GameTime" doFail="false" variation="" />
+																	</Sequence>
+																</Else>
+															</IfElseCondition>
+														</EntityContextElement>
 													</EntityContextPresetElement>
 												</Else>
 											</IfElseCondition>
@@ -2062,37 +2083,40 @@
 													<Else>
 														<EntityContextPresetElement hasInputBreakpoint="0" comment="" breakpointFlags="0">
 															<OutputBreakpoints />
-															<IfElseCondition hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
+															<EntityContextElement hasInputBreakpoint="0" comment="" breakpointFlags="0">
 																<OutputBreakpoints />
-																<Then>
-																	<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																		<OutputBreakpoints />
-																		<WaitAction hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																<IfElseCondition hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
+																	<OutputBreakpoints />
+																	<Then>
+																		<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
 																			<OutputBreakpoints />
-																		</WaitAction>
-																		<Wait hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																			<OutputBreakpoints />
-																		</Wait>
-																	</Sequence>
-																</Then>
-																<Else>
-																	<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																		<OutputBreakpoints />
-																		<UnstanceAction hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																			<OutputBreakpoints />
-																		</UnstanceAction>
-																		<SuppressFailure hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																			<OutputBreakpoints />
-																			<Function_speech_schedulerMonolog hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																			<WaitAction hasInputBreakpoint="0" comment="" breakpointFlags="0">
 																				<OutputBreakpoints />
-																			</Function_speech_schedulerMonolog>
-																		</SuppressFailure>
-																		<Wait hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																			</WaitAction>
+																			<Wait hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																				<OutputBreakpoints />
+																			</Wait>
+																		</Sequence>
+																	</Then>
+																	<Else>
+																		<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
 																			<OutputBreakpoints />
-																		</Wait>
-																	</Sequence>
-																</Else>
-															</IfElseCondition>
+																			<UnstanceAction hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																				<OutputBreakpoints />
+																			</UnstanceAction>
+																			<SuppressFailure hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																				<OutputBreakpoints />
+																				<Function_speech_schedulerMonolog hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																					<OutputBreakpoints />
+																				</Function_speech_schedulerMonolog>
+																			</SuppressFailure>
+																			<Wait hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																				<OutputBreakpoints />
+																			</Wait>
+																		</Sequence>
+																	</Else>
+																</IfElseCondition>
+															</EntityContextElement>
 														</EntityContextPresetElement>
 													</Else>
 												</IfElseCondition>

@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Database xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" Name="brambora">
 	<Skald>
-		<Quest Name="papezskyLegat" IsLocked="false" Difficulty="23" ProductionCode="M45">
+		<Quest Name="papezskyLegat" Difficulty="23" ProductionCode="M45">
 			<Ports>
 				<Port Name="m45_papezsky_legat" Direction="Out" Type="wh::questmodule::QuestProgress">
 					<DesignName StringName="papezskyl_m45_papezsky_le_uZze" Text="M45 Papežský legát" />
@@ -141,6 +141,9 @@
 				<Port Name="m46_prepadeni_vlasskeho_dvora__otevreni_pokladnice" Direction="In" Type="trigger">
 					<DesignName StringName="papezskyl_m46_prepadeni_v_2lr0" Text="M46 Prepadeni Vlasskeho dvora - Otevreni pokladnice" />
 				</Port>
+				<Port Name="honicka_probiha" Direction="Out" Type="bool">
+					<DesignName StringName="papezskyl_honicka_probiha_l9SL" Text="Honička probíhá" />
+				</Port>
 			</Ports>
 			<Definitions>
 				<Definition File="papezskyLegat/suchdol.xml" />
@@ -171,6 +174,7 @@
 				<Definition File="papezskyLegat/roza__o_spolecne_noci.xml" />
 				<Definition File="papezskyLegat/cin_m4532k_papezlegat__roza_romance_nosex.xml" />
 				<Definition File="papezskyLegat/truhly_na_hradecka_2.xml" />
+				<Definition File="papezskyLegat/bariera_kolem_lorce.xml" />
 			</Definitions>
 			<Nodes>
 				<AddReward Name="achievementUnlocked" PositionY="-740" PositionX="5080">
@@ -179,6 +183,20 @@
 						<AchievementReward Achievement="ThereIsNoShortcutToHeaven" />
 					</Rewards>
 				</AddReward>
+				<bariera_kolem_lorce Name="bariera_kolem_lorce" PositionY="-940" PositionX="3450">
+					<Edge From="priprava_na_prepad.fast_travel_k_loreci" To="disable_barriers" />
+					<Edge From="suchdol.zavirani_suchdole" To="activate_barriers">
+						<Vertex>8fTEvpoH</Vertex>
+						<Vertex>aR3FGbWu</Vertex>
+					</Edge>
+					<Edge From="suchdol.probehla_rada_s_bergovem" To="probehla_rada_s_bergovem">
+						<Vertex>SksmdydB</Vertex>
+						<Vertex>q6l2KMpV</Vertex>
+					</Edge>
+					<Edge From="papezskyLegatProgress.State" To="papezsky_legat_progress">
+						<Vertex>efcVEp9y</Vertex>
+					</Edge>
+				</bariera_kolem_lorce>
 				<bohuta_objective Name="bohuta_objective" PositionY="790" PositionX="3110" RequiredForOutput="kutnohorsko">
 					<Edge From="priprava_na_prepad.bohuta_se_dozvedel_o_giuseppem" To="complete" />
 					<Edge From="italstina_pro_zacatecniky.bohuta_se_dozvedel_o_giuseppem" To="complete">
@@ -581,6 +599,11 @@
 						<Vertex>4qQEAtWv</Vertex>
 						<Vertex>HkqNnFyK</Vertex>
 					</Edge>
+					<Edge From="papezskyLegatProgress.Honicka" To="honicka_probiha">
+						<Vertex>vertex15</Vertex>
+						<Vertex>vertex5</Vertex>
+						<Vertex>ehRXMQy5</Vertex>
+					</Edge>
 				</Output>
 				<papezsky_legat Name="papezsky_legat" PositionY="-200" PositionX="-2440" />
 				<State Name="papezskyLegatProgress" PositionY="-210" PositionX="-1990" RequiredForOutput="kutnohorsko" TypeT="PapezskyLegatProgress">
@@ -729,10 +752,6 @@
 						<Vertex>4uoRFmsU</Vertex>
 						<Vertex>vertex90</Vertex>
 					</Edge>
-					<Edge From="priprava_na_prepad.zizka_rozdal_pokyny_trigger" To="pristreamuj_barieru_kolem_vinic">
-						<Vertex>v3z2hbV1</Vertex>
-						<Vertex>1EFfTwwc</Vertex>
-					</Edge>
 					<Edge From="priprava_na_prepad.fast_travel_k_loreci" To="odstreamuj_barieru_kolem_vinic">
 						<Vertex>0CyRG8Kw</Vertex>
 						<Vertex>EzCzW5XB</Vertex>
@@ -759,6 +778,10 @@
 					<Edge From="odjezd_do_ruthardky.konec_fast_travelu_do_ruthardky" To="pristreamuj_barieru_kolem_ruthardky">
 						<Vertex>j3QAueyj</Vertex>
 						<Vertex>vertex65</Vertex>
+					</Edge>
+					<Edge From="bariera_kolem_lorce.pristreamuj_barieru_kolem_vinic" To="pristreamuj_barieru_kolem_vinic">
+						<Vertex>NTr0mfXs</Vertex>
+						<Vertex>1EFfTwwc</Vertex>
 					</Edge>
 				</streaming>
 				<suchdol Name="suchdol" PositionY="-610" PositionX="-1160" RequiredForOutput="kutnohorsko">
@@ -870,10 +893,12 @@
 				<EdgeVertex Name="5yudjjNN" PositionY="250" PositionX="890" />
 				<EdgeVertex Name="721FhFG0" PositionY="2040" PositionX="-1970" />
 				<EdgeVertex Name="87RM6bG9" PositionY="60" PositionX="6780" />
+				<EdgeVertex Name="8fTEvpoH" PositionY="-758" PositionX="-666" />
 				<EdgeVertex Name="Ab1JpRch" PositionY="120" PositionX="5550" />
 				<EdgeVertex Name="AbVhBGFW" PositionY="120" PositionX="370" />
 				<EdgeVertex Name="agjMtr6X" PositionY="740" PositionX="2650" />
 				<EdgeVertex Name="amVQof7C" PositionY="90" PositionX="-540" />
+				<EdgeVertex Name="aR3FGbWu" PositionY="-760" PositionX="2330" />
 				<EdgeVertex Name="aTBcyMn3" PositionY="2098" PositionX="6708" />
 				<EdgeVertex Name="AuWLwcub" PositionY="-1090" PositionX="1860" />
 				<EdgeVertex Name="AVkskyxW" PositionY="-85" PositionX="6773" />
@@ -889,6 +914,8 @@
 				<EdgeVertex Name="E085KeeQ" PositionY="1410" PositionX="-1290" />
 				<EdgeVertex Name="eC817EcQ" PositionY="-1640" PositionX="5620" />
 				<EdgeVertex Name="EcYy0Wkf" PositionY="1710" PositionX="390" />
+				<EdgeVertex Name="efcVEp9y" PositionY="-821" PositionX="-1432" />
+				<EdgeVertex Name="ehRXMQy5" PositionY="1536" PositionX="6756" />
 				<EdgeVertex Name="eL9zMFmc" PositionY="1350" PositionX="6720" />
 				<EdgeVertex Name="Ey3UMx9s" PositionY="1320" PositionX="6720" />
 				<EdgeVertex Name="EzCzW5XB" PositionY="-1610" PositionX="5620" />
@@ -918,6 +945,7 @@
 				<EdgeVertex Name="mlAgK19E" PositionY="1770" PositionX="6720" />
 				<EdgeVertex Name="mmYcqE0r" PositionY="-630" PositionX="6670" />
 				<EdgeVertex Name="NsgfIDIt" PositionY="-1000" PositionX="-1220" />
+				<EdgeVertex Name="NTr0mfXs" PositionY="-1760" PositionX="3952" />
 				<EdgeVertex Name="NYJNQQjo" PositionY="-798" PositionX="-943" />
 				<EdgeVertex Name="o25NXvsN" PositionY="-1150" PositionX="-240" />
 				<EdgeVertex Name="oDPghLF7" PositionY="390" PositionX="2640" />
@@ -925,18 +953,19 @@
 				<EdgeVertex Name="Pb3BcYWb" PositionY="2130" PositionX="-1970" />
 				<EdgeVertex Name="PPYrEhmq" PositionY="150" PositionX="5550" />
 				<EdgeVertex Name="PTxeTf16" PositionY="770" PositionX="2870" />
+				<EdgeVertex Name="q6l2KMpV" PositionY="-740" PositionX="2334" />
 				<EdgeVertex Name="QnRa99AK" PositionY="2070" PositionX="-1970" />
 				<EdgeVertex Name="qv69XoHd" PositionY="-1380" PositionX="-2340" />
 				<EdgeVertex Name="QY1A6qP9" PositionY="-60" PositionX="5880" />
 				<EdgeVertex Name="RpgyF9Fa" PositionY="1680" PositionX="6740" />
 				<EdgeVertex Name="S4N0zCEk" PositionY="-530" PositionX="6670" />
 				<EdgeVertex Name="S6XIqYWp" PositionY="90" PositionX="5550" />
+				<EdgeVertex Name="SksmdydB" PositionY="-739" PositionX="-649" />
 				<EdgeVertex Name="sos263Y3" PositionY="-490" PositionX="-1930" />
 				<EdgeVertex Name="t49oVdA8" PositionY="-490" PositionX="-1440" />
 				<EdgeVertex Name="t5qpTXYz" PositionY="770" PositionX="2650" />
 				<EdgeVertex Name="tR4xCwGp" PositionY="-60" PositionX="5550" />
 				<EdgeVertex Name="uV7Ue9lz" PositionY="1350" PositionX="-680" />
-				<EdgeVertex Name="v3z2hbV1" PositionY="-1760" PositionX="3210" />
 				<EdgeVertex Name="vertex101" PositionY="-1850" PositionX="5620" />
 				<EdgeVertex Name="vertex102" PositionY="-1850" PositionX="1830" />
 				<EdgeVertex Name="vertex105" PositionY="-1820" PositionX="2520" />

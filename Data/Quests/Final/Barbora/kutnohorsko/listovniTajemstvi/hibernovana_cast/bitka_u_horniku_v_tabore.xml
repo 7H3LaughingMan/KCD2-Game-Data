@@ -42,6 +42,9 @@
 				<Port Name="hrac_zabil_majitele_a_nepovedlo_se_mu_osvobodit_horniky" Direction="In" Type="trigger">
 					<DesignName StringName="bitka_u_h_hrac_zabil_maji_JNJe" Text="hráč zabil majitele a nepovedlo se mu osvobodit horníky" />
 				</Port>
+				<Port Name="hrac_uzavrel_quest_pres_rychtare" Direction="In" Type="trigger">
+					<DesignName StringName="bitka_u_h_hrac_uzavrel_qu_qa2Y" Text="hráč uzavřel quest přes rychtáře" />
+				</Port>
 				<Port Name="hrac_zabil_majitele_po_propusteni_horniku" Direction="In" Type="bool">
 					<DesignName StringName="bitka_u_h_hrac_zabil_maji_2yPj" Text="hráč zabil majitele po propuštění horníků" />
 				</Port>
@@ -103,10 +106,11 @@
 					<Edge From="deathcheck8.IsDead" To="Condition" />
 					<Edge From="fast_travel_k_hornikum.fast_travel_zafrontovan" To="Exec" />
 				</If>
-				<informovani_o_predani_dopisu Name="informovani_o_predani_dopisu" PositionY="-380" PositionX="-2500" RequiredForOutput="kutnohorsko">
+				<informovani_o_predani_dopisu Name="informovani_o_predani_dopisu" PositionY="-410" PositionX="-2500" RequiredForOutput="kutnohorsko">
 					<Edge From="hrac_osvobodil_horniky" To="hrac_osvobodil_horniky" />
 					<Edge From="hrac_zabil_majitele_a_nepovedlo_se_mu_osvobodit_horniky" To="hrac_zabil_majitele_a_nepovedlo_se_mu_osvobodit_horniky" />
 					<Edge From="hrac_zabil_majitele_po_propusteni_horniku" To="hrac_zabil_majitele_po_propusteni_horniku" />
+					<Edge From="hrac_uzavrel_quest_pres_rychtare" To="hrac_uzavrel_quest_pres_rychtare" />
 				</informovani_o_predani_dopisu>
 				<Function Name="or1" PositionY="-80" PositionX="80" MethodName="math::boolean::Or" DeclaringType="math::boolean">
 					<Edge From="bitka_na_strane_horniku.bitka_probehla" To="A" />

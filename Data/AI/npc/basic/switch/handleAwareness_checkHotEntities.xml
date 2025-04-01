@@ -216,7 +216,11 @@
 														</Sequence>
 													</SuppressFailure>
 												</IfCondition>
-												<Function_callInterrupt_watchCorpse corpse="$hotEntities[$hotEntityIterator]" ignorePriority="$forceWatchCorpse" initiator="$enum:switch_interruptInitiator.switch" noticableCorpseMissingVolume="$__null" previousReaction="$enum:crime_reactionKind.unknown" seenBefore="false" stimulusKind="$enum:crime_stimulusKind.corpseMissing" nodeLabel="19155080" />
+												<EntityContextCheck context="crime_deadBody" target="$hotEntities[$hotEntityIterator]" saveVersion="2">
+													<Else canSkip="1">
+														<Function_callInterrupt_watchCorpse corpse="$hotEntities[$hotEntityIterator]" ignorePriority="$forceWatchCorpse" initiator="$enum:switch_interruptInitiator.switch" noticableCorpseMissingVolume="$__null" previousReaction="$enum:crime_reactionKind.unknown" seenBefore="false" stimulusKind="$enum:crime_stimulusKind.corpseMissing" nodeLabel="19155080" />
+													</Else>
+												</EntityContextCheck>
 											</Sequence>
 										</IfCondition>
 										<IfCondition failOnCondition="false" condition="$hotEntityData.reason == $enum:switch_hotEntityReason.check">
@@ -795,9 +799,14 @@
 															</Sequence>
 														</SuppressFailure>
 													</IfCondition>
-													<Function_callInterrupt_watchCorpse hasInputBreakpoint="0" comment="" breakpointFlags="0">
+													<EntityContextCheck hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
 														<OutputBreakpoints />
-													</Function_callInterrupt_watchCorpse>
+														<Else>
+															<Function_callInterrupt_watchCorpse hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																<OutputBreakpoints />
+															</Function_callInterrupt_watchCorpse>
+														</Else>
+													</EntityContextCheck>
 												</Sequence>
 											</IfCondition>
 											<IfCondition hasInputBreakpoint="0" comment="" breakpointFlags="0">

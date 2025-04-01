@@ -81,6 +81,12 @@
 				<Port Name="nemluveno_s_betou" Direction="In" Type="bool">
 					<DesignName StringName="konseluv__rada_jeste_nepr_VUWK" Text="nemluveno s Bětou" />
 				</Port>
+				<Port Name="bez_mrtvol_v_arene" Direction="Out" Type="bool">
+					<DesignName StringName="konseluv__bez_mrtvol_v_ar_7ura" Text="bez mrtvol v aréně" />
+				</Port>
+				<Port Name="player_not_on_pillory" Direction="Out" Type="bool">
+					<DesignName StringName="konseluv__player_on_pillo_dT4e" Text="player not on pillory" />
+				</Port>
 			</Ports>
 			<Definitions>
 				<Definition File="konseluv_souboj/fifle_ma_problem.xml" />
@@ -91,6 +97,9 @@
 				<Definition File="konseluv_souboj/behaving_around_the_duel.xml" />
 			</Definitions>
 			<Nodes>
+				<AIConceptSignalTrigger Name="aiconceptsignaltriggercarriedbodyseennotification89" PositionY="2850" PositionX="440" NotificationName="carriedBodySeenNotification">
+					<Edge From="and90.bool" To="IsActive" />
+				</AIConceptSignalTrigger>
 				<Function Name="and113" PositionY="620" PositionX="2300" MethodName="math::boolean::And" DeclaringType="math::boolean">
 					<Edge From="or43.bool" To="A">
 						<Vertex>vertex99</Vertex>
@@ -108,7 +117,26 @@
 					<Edge From="konsel_o_souboji.henryVyhral" To="A" />
 					<Edge From="not126.bool" To="B" />
 				</Function>
-				<behaving_around_the_duel Name="behaving_around_the_duel" PositionY="-850" PositionX="1010">
+				<Function Name="and147" PositionY="-1620" PositionX="580" MethodName="math::boolean::And" DeclaringType="math::boolean">
+					<Edge From="or146.bool" To="A" />
+					<Edge From="state142.Active" To="B">
+						<Vertex>fTdVKppW</Vertex>
+						<Vertex>CgzQvvlD</Vertex>
+					</Edge>
+				</Function>
+				<Function Name="and90" PositionY="2850" PositionX="200" MethodName="math::boolean::And" DeclaringType="math::boolean">
+					<Edge From="state91.State" To="B">
+						<Vertex>y27DehjC</Vertex>
+						<Vertex>GQvf7j1f</Vertex>
+					</Edge>
+					<Edge From="state69.Accepted" To="A" />
+				</Function>
+				<AreaTrigger Name="areatrigger83_1" PositionY="2530" PositionX="440">
+					<Asset Name="Souls" Alias="player" />
+					<Asset Name="Areas" Alias="duelArea" />
+					<Edge From="state69.Accepted" To="IsActive" />
+				</AreaTrigger>
+				<behaving_around_the_duel Name="behaving_around_the_duel" PositionY="-870" PositionX="1190">
 					<Edge From="cutscenehandler2.AfterPlay" To="setbeforeduel">
 						<Vertex>vertex167</Vertex>
 						<Vertex>vertex168</Vertex>
@@ -134,53 +162,63 @@
 					<Edge From="souboj.npc_duel_ended" To="setafterduel" />
 					<Edge From="ifnot112.True" To="duel_canceled" />
 					<Edge From="souboj.zz" To="slechtic_zabit" />
+					<Edge From="souboj.npc_duel_is_ended" To="npc_duel_is_ended" />
+					<Edge From="souboj.player_not_on_pillory" To="player_not_on_pillory" />
 				</behaving_around_the_duel>
 				<Function Name="bufftagcheck118" PositionY="310" PositionX="-480" MethodName="wh::rpgmodule::BuffTagCheck" DeclaringType="wh::rpgmodule">
 					<Asset Name="Souls" Alias="fifle" />
 					<Constant Name="BuffTag" Value="1" />
 				</Function>
-				<CombatHistoryTrigger Name="combathistorytrigger85_1" PositionY="1670" PositionX="80">
+				<CombatHistoryTrigger Name="combathistorytrigger85_1" PositionY="1720" PositionX="80">
 					<Asset Name="Soul1" Alias="player" />
 					<Asset Name="Soul2" Alias="noblemansValet" />
 					<Constant Name="MaxTime" Value="0" />
 					<Edge From="state69.Accepted" To="IsActive" />
 				</CombatHistoryTrigger>
-				<CombatHistoryTrigger Name="combathistorytrigger85_1_1" PositionY="1670" PositionX="-250">
+				<CombatHistoryTrigger Name="combathistorytrigger85_1_1" PositionY="1720" PositionX="-250">
 					<Asset Name="Soul1" Alias="player" />
 					<Asset Name="Soul2" Alias="fifle" />
 					<Constant Name="MaxTime" Value="0" />
 					<Edge From="state69.Accepted" To="IsActive" />
 				</CombatHistoryTrigger>
-				<CombatHistoryTrigger Name="combathistorytrigger85_2" PositionY="1670" PositionX="460">
+				<CombatHistoryTrigger Name="combathistorytrigger85_2" PositionY="1720" PositionX="460">
 					<Asset Name="Soul1" Alias="player" />
 					<Asset Name="Soul2" Alias="duelReferee" />
 					<Constant Name="MaxTime" Value="0" />
 					<Edge From="state69.Accepted" To="IsActive" />
 				</CombatHistoryTrigger>
-				<CombatHistoryTrigger Name="combathistorytrigger85_3" PositionY="1890" PositionX="460">
+				<CombatHistoryTrigger Name="combathistorytrigger85_3" PositionY="1940" PositionX="460">
 					<Asset Name="Soul1" Alias="player" />
 					<Asset Name="Soul2" Alias="duelReferee" />
 					<Constant Name="MaxTime" Value="0" />
 					<Edge From="state69.Started" To="IsActive" />
 				</CombatHistoryTrigger>
-				<CombatHistoryTrigger Name="combathistorytrigger85_3_1" PositionY="2110" PositionX="460">
+				<CombatHistoryTrigger Name="combathistorytrigger85_3_1" PositionY="2160" PositionX="460">
 					<Asset Name="Soul1" Alias="player" />
 					<Asset Name="Soul2" Alias="nobleman" />
 					<Constant Name="MaxTime" Value="0" />
 					<Edge From="state69.Accepted" To="IsActive" />
 				</CombatHistoryTrigger>
-				<CombatHistoryTrigger Name="combathistorytrigger85_4" PositionY="1890" PositionX="80">
+				<CombatHistoryTrigger Name="combathistorytrigger85_4" PositionY="1940" PositionX="80">
 					<Asset Name="Soul1" Alias="player" />
 					<Asset Name="Soul2" Alias="noblemansValet" />
 					<Constant Name="MaxTime" Value="0" />
 					<Edge From="state69.Started" To="IsActive" />
 				</CombatHistoryTrigger>
-				<CombatHistoryTrigger Name="combathistorytrigger85_4_1" PositionY="1890" PositionX="-250">
+				<CombatHistoryTrigger Name="combathistorytrigger85_4_1" PositionY="1940" PositionX="-250">
 					<Asset Name="Soul1" Alias="player" />
 					<Asset Name="Soul2" Alias="fifle" />
 					<Constant Name="MaxTime" Value="0" />
 					<Edge From="state69.Started" To="IsActive" />
 				</CombatHistoryTrigger>
+				<ContainsElement Name="containselement93" PositionY="2980" PositionX="900" TypeT="wh::rpgmodule::Souls">
+					<Edge From="aiconceptsignaltriggercarriedbodyseennotification89.observer_value" To="Value" />
+					<Edge From="makearray138.Array" To="Array" />
+				</ContainsElement>
+				<State Name="corpsesInArena" PositionY="2850" PositionX="1420" TypeT="bool">
+					<Constant Name="DefaultValue" Value="false" />
+					<Edge From="ifand95.True" To="SetTrue" />
+				</State>
 				<State Name="councilman" PositionY="-860" PositionX="-240" RequiredForOutput="kutnohorsko" TypeT="Councilman">
 					<Edge From="enable" To="SetAccept" />
 					<Edge From="fifle_ma_problem_1.duel_nebude" To="SetFail" />
@@ -214,15 +252,15 @@
 						<Vertex>vertex92</Vertex>
 					</Edge>
 				</CutsceneHandler>
-				<SoulDeathTrigger Name="deathtrigger41" PositionY="600" PositionX="540">
+				<SoulDeathTrigger Name="deathtrigger41" PositionY="650" PositionX="540">
 					<Asset Name="Souls" Alias="nobleman" />
 					<Edge From="or70.bool" To="IsActive" />
 				</SoulDeathTrigger>
-				<SoulDeathTrigger Name="deathtrigger41_1" PositionY="1190" PositionX="540">
+				<SoulDeathTrigger Name="deathtrigger41_1" PositionY="1240" PositionX="540">
 					<Edge From="makearray49.Array" To="Souls" />
 					<Edge From="state69.Accepted" To="IsActive" />
 				</SoulDeathTrigger>
-				<SoulDeathTrigger Name="deathtrigger41_1_1" PositionY="1390" PositionX="540">
+				<SoulDeathTrigger Name="deathtrigger41_1_1" PositionY="1440" PositionX="540">
 					<Edge From="makearray49.Array" To="Souls" />
 					<Edge From="state69.Started" To="IsActive" />
 				</SoulDeathTrigger>
@@ -237,9 +275,17 @@
 						<Vertex>Uss35qX5</Vertex>
 					</Edge>
 				</SoulDeathTrigger>
+				<DistanceTrigger Name="distancetrigger145" PositionY="-1620" PositionX="810">
+					<Asset Name="Origin" Alias="duelPointPlayer" />
+					<Asset Name="Target" Alias="player" />
+					<Constant Name="Operator" Value="GreaterEquals" />
+					<Constant Name="Distance" Value="50m" />
+					<Edge From="and147.bool" To="IsActive" />
+				</DistanceTrigger>
 				<State Name="duel" PositionY="-770" PositionX="2090" RequiredForOutput="kutnohorsko" TypeT="Duel">
 					<Edge From="councilman.OnResolveCombat" To="SetAccept">
 						<Vertex>vertex35</Vertex>
+						<Vertex>n4AYHmSK</Vertex>
 						<Vertex>vertex36</Vertex>
 					</Edge>
 					<Edge From="ifand102.True" To="SetFail" />
@@ -264,7 +310,7 @@
 					<Constant Name="DefaultValue" Value="false" />
 					<Edge From="deathtrigger56_1.OnAllDeath" To="SetTrue" />
 				</State>
-				<State Name="hit" PositionY="1700" PositionX="870" TypeT="AttacksAroundDuel">
+				<State Name="hit" PositionY="1750" PositionX="870" TypeT="AttacksAroundDuel">
 					<Edge From="combathistorytrigger85_1.OnCombatHistoryBegins" To="SetBystanderTargetedOutsideDuel" />
 					<Edge From="combathistorytrigger85_2.OnCombatHistoryBegins" To="SetBystanderTargetedOutsideDuel" />
 					<Edge From="combathistorytrigger85_3.OnCombatHistoryBegins" To="SetBystanderTargetedInsideDuel" />
@@ -284,6 +330,7 @@
 						<Vertex>vertex125</Vertex>
 					</Edge>
 					<Edge From="councilman.OnCouncilmanDead" To="Exec">
+						<Vertex>73LzPE3b</Vertex>
 						<Vertex>vertex159</Vertex>
 					</Edge>
 					<Edge From="kill.OnBystanderTargetedOutsideDuel" To="Exec">
@@ -311,6 +358,10 @@
 						<Vertex>DUSECf8e</Vertex>
 					</Edge>
 					<Edge From="souboj.hrac_prohral" To="Exec" />
+					<Edge From="ifand95.True" To="Exec">
+						<Vertex>vertex143</Vertex>
+						<Vertex>vertex192</Vertex>
+					</Edge>
 				</IfFunction>
 				<IfFunction Name="ifand121" PositionY="310" PositionX="-170" MethodName="math::boolean::And" DeclaringType="math::boolean">
 					<Edge From="bufftagcheck118.HaveBuffTag" To="A" />
@@ -333,15 +384,34 @@
 					<Edge From="kill.OnBystanderTargetedOutsideDuel" To="Exec">
 						<Vertex>vertex143</Vertex>
 					</Edge>
+					<Edge From="ifand95.True" To="Exec">
+						<Vertex>vertex143</Vertex>
+					</Edge>
 				</IfFunction>
-				<IfFunction Name="ifdeathcheck96" PositionY="650" PositionX="-290" MethodName="wh::rpgmodule::DeathCheck" DeclaringType="wh::rpgmodule">
+				<IfFunction Name="ifand148" PositionY="-1370" PositionX="900" MethodName="math::boolean::And" DeclaringType="math::boolean">
+					<Edge From="councilman.OnResolveCombat" To="Exec">
+						<Vertex>vertex35</Vertex>
+						<Vertex>n4AYHmSK</Vertex>
+					</Edge>
+					<Edge From="souboj.duel_started" To="Exec" />
+					<Edge From="souboj.hrac_nechal_bojovat_fifleho" To="Exec" />
+					<Edge From="state142.None" To="A">
+						<Vertex>rHyo6YhT</Vertex>
+						<Vertex>02nVddCM</Vertex>
+					</Edge>
+				</IfFunction>
+				<IfFunction Name="ifand95" PositionY="2850" PositionX="1170" MethodName="math::boolean::And" DeclaringType="math::boolean">
+					<Edge From="aiconceptsignaltriggercarriedbodyseennotification89.OnNotification" To="Exec" />
+					<Edge From="containselement93.Result" To="A" />
+				</IfFunction>
+				<IfFunction Name="ifdeathcheck96" PositionY="700" PositionX="-290" MethodName="wh::rpgmodule::DeathCheck" DeclaringType="wh::rpgmodule">
 					<Asset Name="Souls" Alias="nobleman" />
 					<Edge From="souboj.souboj_s_hracem_skoncil" To="Exec">
 						<Vertex>plKsCSnY</Vertex>
 						<Vertex>g97c4VN7</Vertex>
 					</Edge>
 				</IfFunction>
-				<IfFunction Name="ifnot112" PositionY="-270" PositionX="620" MethodName="math::boolean::Not" DeclaringType="math::boolean">
+				<IfFunction Name="ifnot112" PositionY="-260" PositionX="620" MethodName="math::boolean::Not" DeclaringType="math::boolean">
 					<Edge From="souboj.fight_resolved" To="Value" />
 					<Edge From="councilman.OnResolveTalk" To="Exec" />
 				</IfFunction>
@@ -361,7 +431,7 @@
 						<Vertex>6Dq0TEtx</Vertex>
 					</Edge>
 				</IfFunction>
-				<State Name="kill" PositionY="1230" PositionX="870" TypeT="AttacksAroundDuel">
+				<State Name="kill" PositionY="1280" PositionX="870" TypeT="AttacksAroundDuel">
 					<Edge From="deathtrigger41_1.OnDeath" To="SetBystanderTargetedOutsideDuel" />
 					<Edge From="deathtrigger41.OnDeath" To="SetNoblemanTargetedOutsideDuel" />
 					<Edge From="deathtrigger41_1_1.OnDeath" To="SetBystanderTargetedInsideDuel" />
@@ -377,7 +447,19 @@
 					<Edge From="or52.bool" To="henry_utocil_kde_nemel" />
 					<Edge From="or106.bool" To="Awake" />
 				</konsel_o_souboji>
-				<MakeArray Name="makearray49" PositionY="1310" PositionX="110" TypeT="wh::rpgmodule::Souls">
+				<MakeArray Name="makearray138" PositionY="3070" PositionX="630" TypeT="wh::rpgmodule::Souls">
+					<Asset Name="A" Alias="fifle" />
+					<Asset Name="B" Alias="duelReferee" />
+					<Asset Name="C" Alias="nobleman" />
+					<Asset Name="D" Alias="noblemansValet" />
+				</MakeArray>
+				<MakeArray Name="makearray144" PositionY="-1440" PositionX="1430" TypeT="wh::rpgmodule::Souls">
+					<Asset Name="A" Alias="fifle" />
+					<Asset Name="B" Alias="nobleman" />
+					<Asset Name="C" Alias="noblemansValet" />
+					<Asset Name="D" Alias="duelReferee" />
+				</MakeArray>
+				<MakeArray Name="makearray49" PositionY="1360" PositionX="110" TypeT="wh::rpgmodule::Souls">
 					<Asset Name="A" Alias="noblemansValet" />
 					<Asset Name="B" Alias="duelReferee" />
 				</MakeArray>
@@ -386,10 +468,14 @@
 				</Function>
 				<Function Name="not126" PositionY="370" PositionX="2220" MethodName="math::boolean::Not" DeclaringType="math::boolean">
 					<Edge From="councilman.CouncilmanDead" To="Value">
+						<Vertex>0VH9Mlcf</Vertex>
 						<Vertex>vertex157</Vertex>
 						<Vertex>vertex158</Vertex>
 						<Vertex>vertex174</Vertex>
 					</Edge>
+				</Function>
+				<Function Name="not141" PositionY="2850" PositionX="1690" MethodName="math::boolean::Not" DeclaringType="math::boolean">
+					<Edge From="corpsesInArena.State" To="Value" />
 				</Function>
 				<duel Name="objectiveVisual2" PositionY="-510" PositionX="2420" RequiredForOutput="kutnohorsko">
 					<Edge From="duel.State" To="Progress" />
@@ -416,7 +502,7 @@
 					<Edge From="councilman.ResolveTalk" To="A">
 						<Vertex>DoPSyu9R</Vertex>
 					</Edge>
-					<Edge From="souboj.souboj_odovlan__duel_npc" To="B" />
+					<Edge From="councilman.Fail" To="B" />
 				</Function>
 				<Function Name="or137" PositionY="-860" PositionX="220" MethodName="math::boolean::Or" DeclaringType="math::boolean">
 					<Edge From="councilman.ResolveCombat" To="A" />
@@ -424,6 +510,16 @@
 					<Edge From="councilman.Complete" To="C" />
 					<Edge From="councilman.Fail" To="D" />
 					<Edge From="councilman.CouncilmanDead" To="E" />
+				</Function>
+				<Function Name="or146" PositionY="-1620" PositionX="350" MethodName="math::boolean::Or" DeclaringType="math::boolean">
+					<Edge From="councilman.CouncilmanDead" To="D" />
+					<Edge From="councilman.Fail" To="C" />
+					<Edge From="councilman.Complete" To="B" />
+					<Edge From="councilman.ResolveTalk" To="A" />
+				</Function>
+				<Function Name="or149" PositionY="760" PositionX="1960" MethodName="math::boolean::Or" DeclaringType="math::boolean">
+					<Edge From="konsel_o_souboji.henry_porusil_pravidla" To="A" />
+					<Edge From="souboj.attacked_bystanders" To="B" />
 				</Function>
 				<Function Name="or43" PositionY="530" PositionX="1150" MethodName="math::boolean::Or" DeclaringType="math::boolean">
 					<Edge From="souboj.utek_ze_souboje" To="A" />
@@ -446,8 +542,10 @@
 					<Edge From="hit.NoblemanTargetedOutsideDuel" To="E">
 						<Vertex>vertex179</Vertex>
 					</Edge>
+					<Edge From="corpsesInArena.State" To="F" />
+					<Edge From="souboj.attacked_bystanders" To="G" />
 				</Function>
-				<Function Name="or70" PositionY="600" PositionX="260" MethodName="math::boolean::Or" DeclaringType="math::boolean">
+				<Function Name="or70" PositionY="650" PositionX="260" MethodName="math::boolean::Or" DeclaringType="math::boolean">
 					<Edge From="state69.Accepted" To="A" />
 					<Edge From="state69.Done" To="B" />
 				</Function>
@@ -470,6 +568,7 @@
 						<Vertex>vertex145</Vertex>
 					</Edge>
 					<Edge From="councilman.CouncilmanDead" To="fifle_je_mrtvy">
+						<Vertex>0VH9Mlcf</Vertex>
 						<Vertex>vertex157</Vertex>
 						<Vertex>vertex158</Vertex>
 						<Vertex>vertex174</Vertex>
@@ -500,8 +599,6 @@
 						<Vertex>Q7HPVPAL</Vertex>
 					</Edge>
 					<Edge From="councilman.OnComplete" To="zapiname_timer" />
-					<Edge From="konsel_o_souboji.henry_porusil_pravidla" To="souboj_porusen" />
-					<Edge From="konsel_o_souboji.henryProhral" To="souboj_prohran" />
 					<Edge From="and113.bool" To="souboj_se_neuskutecnilhenry_utekl" />
 					<Edge From="councilman.Complete" To="konsel_podpori">
 						<Vertex>3cp3BdJl</Vertex>
@@ -526,6 +623,10 @@
 						<Vertex>hF6XnHlq</Vertex>
 						<Vertex>eUuwWUJA</Vertex>
 					</Edge>
+					<Edge From="not141.bool" To="bez_mrtvol_v_arene" />
+					<Edge From="souboj.player_not_on_pillory" To="player_not_on_pillory" />
+					<Edge From="souboj.souboj_prohran" To="souboj_prohran" />
+					<Edge From="or149.bool" To="souboj_porusen" />
 				</Output>
 				<ProfileStateTrigger Name="profilestatetrigger53" PositionY="50" PositionX="290">
 					<Asset Name="Profiles" Alias="duelNPCs" />
@@ -536,10 +637,15 @@
 					<Constant Name="Buff" Value="ffc20522-134d-4811-8bc5-e933b74b7081" />
 					<Edge From="ifand121.True" To="Exec" />
 				</Function>
-				<SaveGame Name="savegame75" PositionY="-1400" PositionX="240">
+				<SaveGame Name="savegame75" PositionY="-680" PositionX="580">
 					<Constant Name="Objective" Value="back_to_beta3" />
 					<Edge From="councilman.OnComplete" To="EnqueueSave" />
 				</SaveGame>
+				<SetEntityContext Name="setentitycontext143" PositionY="-1620" PositionX="1430">
+					<Constant Name="Context" Value="crime_ignoredCorpse" />
+					<Edge From="state142.Active" To="IsActive" />
+					<Edge From="makearray144.Array" To="Souls" />
+				</SetEntityContext>
 				<souboj Name="souboj" PositionY="-110" PositionX="620" RequiredForOutput="kutnohorsko">
 					<Edge From="kill.OnBystanderTargetedInsideDuel" To="valet_or_referee_targeted_inside_duel">
 						<Vertex>vertex150</Vertex>
@@ -559,7 +665,12 @@
 					<Edge From="councilman.ResolveCombat" To="resolvecombat">
 						<Vertex>vertex154</Vertex>
 					</Edge>
+					<Edge From="councilman.OnCouncilmanDead" To="valet_or_referee_targeted_inside_duel" />
 				</souboj>
+				<State Name="state142" PositionY="-1570" PositionX="1150" TypeT="Progress">
+					<Edge From="distancetrigger145.OnMatch" To="SetDone" />
+					<Edge From="ifand148.True" To="SetActive" />
+				</State>
 				<State Name="state55" PositionY="20" PositionX="50" TypeT="bool">
 					<Edge From="cutscenehandler2.OnQueued" To="SetTrue" />
 					<Edge From="profilestatetrigger53.OnLoaded" To="SetFalse">
@@ -567,7 +678,7 @@
 						<Vertex>vertex148</Vertex>
 					</Edge>
 				</State>
-				<State Name="state69" PositionY="600" PositionX="-30" TypeT="AroundDuel">
+				<State Name="state69" PositionY="650" PositionX="-30" TypeT="AroundDuel">
 					<Edge From="souboj.duel_started" To="SetStarted">
 						<Vertex>vertex129</Vertex>
 						<Vertex>vertex128</Vertex>
@@ -577,6 +688,11 @@
 					<Edge From="ifdeathcheck96.False" To="SetDone" />
 					<Edge From="souboj.hrac_nechal_bojovat_fifleho" To="SetDisabled" />
 				</State>
+				<State Name="state91" PositionY="2530" PositionX="770" TypeT="bool">
+					<Constant Name="DefaultValue" Value="false" />
+					<Edge From="areatrigger83_1.OnEnter" To="SetTrue" />
+					<Edge From="areatrigger83_1.OnLeave" To="SetFalse" />
+				</State>
 				<wake_if_needed Name="wake_if_needed" PositionY="-220" PositionX="1010">
 					<Edge From="behaving_around_the_duel.duel_done" To="leavelevel">
 						<Vertex>UF40TRkP</Vertex>
@@ -585,65 +701,73 @@
 				</wake_if_needed>
 			</Nodes>
 			<EdgeVertices>
+				<EdgeVertex Name="02nVddCM" PositionY="-1200" PositionX="903" />
+				<EdgeVertex Name="0VH9Mlcf" PositionY="-280" PositionX="220" />
 				<EdgeVertex Name="2eUSb61P" PositionY="80" PositionX="2350" />
 				<EdgeVertex Name="2VxPnbkK" PositionY="1050" PositionX="2540" />
-				<EdgeVertex Name="3cp3BdJl" PositionY="-380" PositionX="460" />
-				<EdgeVertex Name="4an4eEl8" PositionY="-324" PositionX="2530" />
+				<EdgeVertex Name="3cp3BdJl" PositionY="-330" PositionX="260" />
+				<EdgeVertex Name="4an4eEl8" PositionY="-350" PositionX="2540" />
 				<EdgeVertex Name="6Dq0TEtx" PositionY="-160" PositionX="-730" />
+				<EdgeVertex Name="73LzPE3b" PositionY="-260" PositionX="220" />
 				<EdgeVertex Name="avJ0D0NB" PositionY="-210" PositionX="1010" />
 				<EdgeVertex Name="Bh2wHgcz" PositionY="-1160" PositionX="1680" />
 				<EdgeVertex Name="BHxyYS8l" PositionY="60" PositionX="2350" />
+				<EdgeVertex Name="CgzQvvlD" PositionY="-1180" PositionX="620" />
 				<EdgeVertex Name="CXndAJQP" PositionY="-1140" PositionX="1960" />
 				<EdgeVertex Name="DoPSyu9R" PositionY="-160" PositionX="80" />
 				<EdgeVertex Name="DUSECf8e" PositionY="-180" PositionX="1890" />
 				<EdgeVertex Name="e9wP2vAy" PositionY="-180" PositionX="2250" />
-				<EdgeVertex Name="EInRAGKw" PositionY="1160" PositionX="-290" />
+				<EdgeVertex Name="EInRAGKw" PositionY="1210" PositionX="-290" />
 				<EdgeVertex Name="EtgHE9E2" PositionY="-1160" PositionX="-390" />
 				<EdgeVertex Name="eUuwWUJA" PositionY="-870" PositionX="2330" />
-				<EdgeVertex Name="g97c4VN7" PositionY="580" PositionX="-280" />
-				<EdgeVertex Name="GefhfmBT" PositionY="-270" PositionX="2000" />
+				<EdgeVertex Name="fTdVKppW" PositionY="-1180" PositionX="1320" />
+				<EdgeVertex Name="g97c4VN7" PositionY="620" PositionX="-280" />
+				<EdgeVertex Name="GefhfmBT" PositionY="-290" PositionX="2000" />
 				<EdgeVertex Name="GFnsk4G1" PositionY="740" PositionX="1070" />
+				<EdgeVertex Name="GQvf7j1f" PositionY="2820" PositionX="220" />
 				<EdgeVertex Name="hDmTKCaV" PositionY="120" PositionX="1090" />
 				<EdgeVertex Name="hF6XnHlq" PositionY="-870" PositionX="530" />
-				<EdgeVertex Name="I1xrB650" PositionY="-150" PositionX="1420" />
+				<EdgeVertex Name="I1xrB650" PositionY="-150" PositionX="1460" />
 				<EdgeVertex Name="JHFG56e9" PositionY="-1160" PositionX="330" />
 				<EdgeVertex Name="KREHw3Po" PositionY="-120" PositionX="80" />
 				<EdgeVertex Name="kuksPfC6" PositionY="1050" PositionX="1140" />
-				<EdgeVertex Name="mqx5HaHJ" PositionY="-280" PositionX="1004" />
+				<EdgeVertex Name="mqx5HaHJ" PositionY="-290" PositionX="1160" />
+				<EdgeVertex Name="n4AYHmSK" PositionY="-988" PositionX="809" />
 				<EdgeVertex Name="PkC26wmu" PositionY="-180" PositionX="80" />
-				<EdgeVertex Name="plKsCSnY" PositionY="580" PositionX="820" />
+				<EdgeVertex Name="plKsCSnY" PositionY="620" PositionX="800" />
 				<EdgeVertex Name="Q7HPVPAL" PositionY="-150" PositionX="2450" />
 				<EdgeVertex Name="qpUjBUzF" PositionY="-1110" PositionX="-110" />
 				<EdgeVertex Name="qUxGcpCe" PositionY="-390" PositionX="780" />
-				<EdgeVertex Name="R1a9gG7I" PositionY="-280" PositionX="880" />
-				<EdgeVertex Name="rn09tYSk" PositionY="1170" PositionX="2550" />
+				<EdgeVertex Name="R1a9gG7I" PositionY="-300" PositionX="270" />
+				<EdgeVertex Name="rHyo6YhT" PositionY="-1203" PositionX="1319" />
+				<EdgeVertex Name="rn09tYSk" PositionY="1220" PositionX="2550" />
 				<EdgeVertex Name="tLwt0zGS" PositionY="-1140" PositionX="-280" />
-				<EdgeVertex Name="UF40TRkP" PositionY="-210" PositionX="1250" />
+				<EdgeVertex Name="UF40TRkP" PositionY="-210" PositionX="1460" />
 				<EdgeVertex Name="Uss35qX5" PositionY="-120" PositionX="-730" />
 				<EdgeVertex Name="vertex102" PositionY="60" PositionX="950" />
 				<EdgeVertex Name="vertex118" PositionY="80" PositionX="950" />
 				<EdgeVertex Name="vertex125" PositionY="80" PositionX="1860" />
-				<EdgeVertex Name="vertex128" PositionY="1140" PositionX="-20" />
-				<EdgeVertex Name="vertex129" PositionY="1140" PositionX="800" />
-				<EdgeVertex Name="vertex143" PositionY="1740" PositionX="2340" />
+				<EdgeVertex Name="vertex128" PositionY="1190" PositionX="-20" />
+				<EdgeVertex Name="vertex129" PositionY="1190" PositionX="800" />
+				<EdgeVertex Name="vertex143" PositionY="1790" PositionX="2340" />
 				<EdgeVertex Name="vertex144" PositionY="-110" PositionX="40" />
 				<EdgeVertex Name="vertex145" PositionY="-110" PositionX="2450" />
 				<EdgeVertex Name="vertex146" PositionY="280" PositionX="510" />
 				<EdgeVertex Name="vertex147" PositionY="280" PositionX="-350" />
 				<EdgeVertex Name="vertex148" PositionY="280" PositionX="80" />
 				<EdgeVertex Name="vertex149" PositionY="-80" PositionX="60" />
-				<EdgeVertex Name="vertex150" PositionY="1190" PositionX="1460" />
-				<EdgeVertex Name="vertex151" PositionY="1190" PositionX="840" />
+				<EdgeVertex Name="vertex150" PositionY="1240" PositionX="1460" />
+				<EdgeVertex Name="vertex151" PositionY="1240" PositionX="800" />
 				<EdgeVertex Name="vertex152" PositionY="840" PositionX="1560" />
 				<EdgeVertex Name="vertex153" PositionY="860" PositionX="1570" />
 				<EdgeVertex Name="vertex154" PositionY="-140" PositionX="80" />
 				<EdgeVertex Name="vertex155" PositionY="-140" PositionX="-730" />
-				<EdgeVertex Name="vertex157" PositionY="-250" PositionX="1790" />
+				<EdgeVertex Name="vertex157" PositionY="-280" PositionX="1880" />
 				<EdgeVertex Name="vertex158" PositionY="-90" PositionX="2150" />
-				<EdgeVertex Name="vertex159" PositionY="-230" PositionX="1650" />
+				<EdgeVertex Name="vertex159" PositionY="-260" PositionX="1660" />
 				<EdgeVertex Name="vertex164" PositionY="-880" PositionX="70" />
-				<EdgeVertex Name="vertex167" PositionY="-290" PositionX="60" />
-				<EdgeVertex Name="vertex168" PositionY="-320" PositionX="780" />
+				<EdgeVertex Name="vertex167" PositionY="-290" PositionX="220" />
+				<EdgeVertex Name="vertex168" PositionY="-290" PositionX="840" />
 				<EdgeVertex Name="vertex171" PositionY="1080" PositionX="1140" />
 				<EdgeVertex Name="vertex172" PositionY="1080" PositionX="2060" />
 				<EdgeVertex Name="vertex173" PositionY="-60" PositionX="2450" />
@@ -660,16 +784,17 @@
 				<EdgeVertex Name="vertex35" PositionY="-990" PositionX="240" />
 				<EdgeVertex Name="vertex36" PositionY="-990" PositionX="1940" />
 				<EdgeVertex Name="vertex45" PositionY="50" PositionX="-840" />
-				<EdgeVertex Name="vertex60" PositionY="1110" PositionX="-290" />
+				<EdgeVertex Name="vertex60" PositionY="1160" PositionX="-290" />
 				<EdgeVertex Name="vertex68" PositionY="-880" PositionX="-80" />
 				<EdgeVertex Name="vertex7" PositionY="120" PositionX="2050" />
 				<EdgeVertex Name="vertex9" PositionY="100" PositionX="2050" />
 				<EdgeVertex Name="vertex91" PositionY="-50" PositionX="-730" />
 				<EdgeVertex Name="vertex92" PositionY="-50" PositionX="-470" />
-				<EdgeVertex Name="vertex95" PositionY="1110" PositionX="2060" />
+				<EdgeVertex Name="vertex95" PositionY="1160" PositionX="2060" />
 				<EdgeVertex Name="vertex99" PositionY="710" PositionX="1470" />
 				<EdgeVertex Name="xuzl0nG1" PositionY="-142" PositionX="-429" />
 				<EdgeVertex Name="y15SmCWz" PositionY="-180" PositionX="-730" />
+				<EdgeVertex Name="y27DehjC" PositionY="2820" PositionX="970" />
 				<EdgeVertex Name="y2z3ucrz" PositionY="-1110" PositionX="2330" />
 				<EdgeVertex Name="ylATn5mY" PositionY="740" PositionX="2140" />
 			</EdgeVertices>

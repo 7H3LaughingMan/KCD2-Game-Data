@@ -27,6 +27,9 @@
 				<Port Name="finaltagpoint" Direction="In" Type="wh::entitymodule::TagPoint*">
 					<DesignName StringName="tour_simp_finaltagpoint_jib4" Text="FinalTagpoint" />
 				</Port>
+				<ConstantPort Name="disableorca" Direction="In" Type="bool" Value="false">
+					<DesignName StringName="tour_simp_disableorca_EXJg" Text="DisableORCA" />
+				</ConstantPort>
 				<ConstantPort Name="followtype" Direction="In" Type="tour_followType" Value="none">
 					<DesignName StringName="tour_simp_followtype_Jt0Q" Text="FollowType" />
 				</ConstantPort>
@@ -136,7 +139,7 @@
 						<Vertex>vertex3</Vertex>
 					</Edge>
 				</DistanceTrigger>
-				<EnableBehavior Name="enablebehaviortoursimpletour21" PositionY="-270" PositionX="-60" Signature="tour_simple" EventSet="tour">
+				<EnableBehavior Name="enablebehaviortoursimpletour21" PositionY="-430" PositionX="-60" Signature="tour_simple" EventSet="tour">
 					<Constant Name="Behavior" Value="tour_simple" />
 					<Edge From="updatereferences" To="UpdateReferences" />
 					<Edge From="isactive" To="IsActive" />
@@ -169,6 +172,7 @@
 					<Edge From="forcelookenabled" To="forceLookEnabled" />
 					<Edge From="onplayerleft_wait" To="onPlayerLeft_wait" />
 					<Edge From="greyoute" To="greyOutE" />
+					<Edge From="disableorca" To="disableORCA" />
 				</EnableBehavior>
 				<IfFunction Name="ifcompare19" PositionY="790" PositionX="390" TypeT="float" MethodName="Control::Compare" DeclaringType="Control">
 					<Constant Name="Op" Value="Greater" />

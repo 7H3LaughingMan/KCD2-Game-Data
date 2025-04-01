@@ -39,7 +39,7 @@
 			</Definitions>
 			<Nodes>
 				<HasteTrigger Name="032_konecNocnihoUtoku" PositionY="-350" PositionX="960" />
-				<alldeathorunconsciousorleftareatrigger Name="alldeathorunconsciousorleftareatrigger" PositionY="-20" PositionX="-80" Namespace="utils.general">
+				<alldeathorunconsciousorleftareatrigger Name="alldeathorunconsciousorleftareatrigger" PositionY="-50" PositionX="-80" Namespace="utils.general">
 					<Constant Name="infinite_unconsciousness" Value="false" />
 					<Asset Name="areas" Alias="palisade_guardArea" />
 					<Edge From="aktivni" To="isactive">
@@ -49,14 +49,17 @@
 					</Edge>
 					<Edge From="joinarrays68.Array" To="souls" />
 				</alldeathorunconsciousorleftareatrigger>
-				<alldeathorunconsciousorleftareatrigger Name="alldeathorunconsciousorleftareatrigger_1" PositionY="530" PositionX="-80" Namespace="utils.general">
+				<alldeathorunconsciousorleftareatrigger Name="alldeathorunconsciousorleftareatrigger_1" PositionY="310" PositionX="350" Namespace="utils.general">
 					<Asset Name="souls" Alias="nocniUtok_nepratele_vsichni" />
 					<Constant Name="infinite_unconsciousness" Value="false" />
 					<Asset Name="areas" Alias="palisade_guardArea" />
-					<Edge From="zebriky_shozeny" To="isactive">
-						<Vertex>vertex15</Vertex>
-						<Vertex>f7BCVx4Y</Vertex>
+					<Edge From="aktivni" To="isactive">
+						<Vertex>vertex100</Vertex>
+						<Vertex>vertex81</Vertex>
+						<Vertex>vertex105</Vertex>
+						<Vertex>9N40blIT</Vertex>
 					</Edge>
+					<Edge From="ifand81.True" To="forcecheck" />
 				</alldeathorunconsciousorleftareatrigger>
 				<alldeathorunconscioustrigger Name="alldeathorunconscioustrigger" PositionY="-250" PositionX="-580" Namespace="utils.general">
 					<Constant Name="infinite_unconsciousness" Value="false" />
@@ -66,7 +69,7 @@
 						<Vertex>vertex81</Vertex>
 					</Edge>
 				</alldeathorunconscioustrigger>
-				<alldeathorunconscioustrigger Name="alldeathorunconscioustrigger_1" PositionY="320" PositionX="-80" Namespace="utils.general">
+				<alldeathorunconscioustrigger Name="alldeathorunconscioustrigger_1" PositionY="470" PositionX="-80" Namespace="utils.general">
 					<Asset Name="souls" Alias="nocniUtok_nepratele_vsichni" />
 					<Constant Name="infinite_unconsciousness" Value="false" />
 					<Edge From="aktivni" To="isactive">
@@ -146,6 +149,16 @@
 					<Asset Name="Souls" Alias="obranci_killable" />
 				</Function>
 				<hrac_opousti_predhradi Name="hrac_opousti_predhradi" PositionY="-450" PositionX="350" />
+				<IfFunction Name="ifand81" PositionY="700" PositionX="-80" MethodName="math::boolean::And" DeclaringType="math::boolean">
+					<Edge From="zebriky_shozeny" To="A">
+						<Vertex>vertex15</Vertex>
+						<Vertex>f7BCVx4Y</Vertex>
+					</Edge>
+					<Edge From="zebrik_shozen" To="Exec">
+						<Vertex>RQgfng6B</Vertex>
+						<Vertex>xR6NX2Gl</Vertex>
+					</Edge>
+				</IfFunction>
 				<Function Name="joinarrays68" PositionY="-30" PositionX="-580" TypeT="wh::rpgmodule::Souls" MethodName="utilities::array::JoinArrays" DeclaringType="utilities::array">
 					<Asset Name="A" Alias="obranci_nonkillable" />
 					<Asset Name="B" Alias="obranci_killable" />
@@ -167,6 +180,7 @@
 					</Edge>
 					<Edge From="zebrik_shozen" To="Exec">
 						<Vertex>RQgfng6B</Vertex>
+						<Vertex>xR6NX2Gl</Vertex>
 						<Vertex>2p7NXJAT</Vertex>
 						<Vertex>lFvKglhG</Vertex>
 					</Edge>
@@ -178,13 +192,13 @@
 				<MakeArray Name="makearray66" PositionY="10" PositionX="-990" TypeT="wh::rpgmodule::Souls">
 					<Asset Name="A" Alias="player" />
 				</MakeArray>
-				<State Name="noEnemiesInsideTheArea" PositionY="350" PositionX="370" TypeT="bool">
+				<State Name="noEnemiesInsideTheArea" PositionY="330" PositionX="810" TypeT="bool">
 					<Edge From="alldeathorunconsciousorleftareatrigger_1.onalldeadorunconsciousorleft" To="SetTrue" />
 				</State>
-				<Function Name="not80" PositionY="310" PositionX="-370" MethodName="math::boolean::Not" DeclaringType="math::boolean">
+				<Function Name="not80" PositionY="320" PositionX="-80" MethodName="math::boolean::Not" DeclaringType="math::boolean">
 					<Edge From="or79.bool" To="Value" />
 				</Function>
-				<Function Name="or79" PositionY="310" PositionX="-610" MethodName="math::boolean::Or" DeclaringType="math::boolean">
+				<Function Name="or79" PositionY="310" PositionX="-580" MethodName="math::boolean::Or" DeclaringType="math::boolean">
 					<Edge From="clen_hracovy_jednotky.je_clenem_jednotky_a_je_v_aree_a_neni_v_bezvedomi" To="A" />
 					<Edge From="clen_hracovy_jednotky_1.je_clenem_jednotky_a_je_v_aree_a_neni_v_bezvedomi" To="B" />
 					<Edge From="clen_hracovy_jednotky_3.je_clenem_jednotky_a_je_v_aree_a_neni_v_bezvedomi" To="C" />
@@ -218,15 +232,16 @@
 				</Function>
 			</Nodes>
 			<EdgeVertices>
-				<EdgeVertex Name="2p7NXJAT" PositionY="290" PositionX="640" />
+				<EdgeVertex Name="2p7NXJAT" PositionY="290" PositionX="1110" />
 				<EdgeVertex Name="4WsIeL9A" PositionY="310" PositionX="1630" />
+				<EdgeVertex Name="9N40blIT" PositionY="250" PositionX="180" />
 				<EdgeVertex Name="f7BCVx4Y" PositionY="270" PositionX="-170" />
 				<EdgeVertex Name="lFvKglhG" PositionY="290" PositionX="1360" />
-				<EdgeVertex Name="Mj1FeVkk" PositionY="250" PositionX="-80" />
+				<EdgeVertex Name="Mj1FeVkk" PositionY="250" PositionX="240" />
 				<EdgeVertex Name="oeoMPrwN" PositionY="330" PositionX="1360" />
 				<EdgeVertex Name="RQgfng6B" PositionY="290" PositionX="-990" />
-				<EdgeVertex Name="SL1yXtcQ" PositionY="310" PositionX="300" />
-				<EdgeVertex Name="UNVAkxxF" PositionY="330" PositionX="640" />
+				<EdgeVertex Name="SL1yXtcQ" PositionY="310" PositionX="320" />
+				<EdgeVertex Name="UNVAkxxF" PositionY="330" PositionX="1110" />
 				<EdgeVertex Name="vertex100" PositionY="250" PositionX="-990" />
 				<EdgeVertex Name="vertex103" PositionY="-160" PositionX="1330" />
 				<EdgeVertex Name="vertex104" PositionY="230" PositionX="390" />
@@ -242,10 +257,11 @@
 				<EdgeVertex Name="vertex77" PositionY="-160" PositionX="1680" />
 				<EdgeVertex Name="vertex81" PositionY="250" PositionX="-680" />
 				<EdgeVertex Name="VPkoPJ9l" PositionY="250" PositionX="1360" />
+				<EdgeVertex Name="xR6NX2Gl" PositionY="290" PositionX="-123" />
 				<EdgeVertex Name="YP05u2u9" PositionY="230" PositionX="-610" />
 			</EdgeVertices>
 			<Assets>
-				<SoulAsset Name="nocniUtok_nepratele_vsichni" SharedSoulGuids="826010fb-d770-49be-8c8e-82ca38114a40 db5839b2-34b9-460a-b709-0ac0cd8cf2bd 381f5edd-0710-438a-821e-8f90cf649dab 0b37ddb7-8c8a-4fd7-a4f7-4bf6113891c9 49d1ecf8-11a1-4e38-be17-19ae8c414b5f 05355f03-0852-4ea9-b7d1-094b71f538c3 bac28a62-a032-453b-9cae-60d5148c58c0 937ba1cc-581e-4f6d-b8d0-cd3c467e844c 4aec2383-94f2-475b-b8e6-fb5b217d4c3f 2f4f34a8-0054-4e62-8129-7a8537005b76 b3654c44-c500-467d-b6c7-94a128b163e9 cc40c501-bf6d-482d-a26b-3af8795a3839 720e1c73-147b-4623-ab8a-3247a141b946 2cd082f7-6e3e-4e83-9337-9841a7e8ea15 85d42d6b-69d3-441f-8db0-c119d8463b9a d9f3c2fd-c057-424f-b7be-da4ac66cf8c8 ee06d119-4e93-4c57-9292-09bf1487ace2 8ffe9e13-71cb-420f-a310-fb0fb86d57e6 7e93ebf1-b948-4539-b990-61686a293d51 0360e812-f325-4d23-b708-90f226950493 08b8e6f8-b417-42d8-aad4-8f7a08517762 60eb68c2-9ccc-4996-a174-811d316567bd" />
+				<SoulAsset Name="nocniUtok_nepratele_vsichni" SharedSoulGuids="826010fb-d770-49be-8c8e-82ca38114a40 db5839b2-34b9-460a-b709-0ac0cd8cf2bd 381f5edd-0710-438a-821e-8f90cf649dab 0b37ddb7-8c8a-4fd7-a4f7-4bf6113891c9 49d1ecf8-11a1-4e38-be17-19ae8c414b5f 05355f03-0852-4ea9-b7d1-094b71f538c3 bac28a62-a032-453b-9cae-60d5148c58c0 937ba1cc-581e-4f6d-b8d0-cd3c467e844c 4aec2383-94f2-475b-b8e6-fb5b217d4c3f 2f4f34a8-0054-4e62-8129-7a8537005b76 b3654c44-c500-467d-b6c7-94a128b163e9 cc40c501-bf6d-482d-a26b-3af8795a3839 720e1c73-147b-4623-ab8a-3247a141b946 85d42d6b-69d3-441f-8db0-c119d8463b9a d9f3c2fd-c057-424f-b7be-da4ac66cf8c8 ee06d119-4e93-4c57-9292-09bf1487ace2 8ffe9e13-71cb-420f-a310-fb0fb86d57e6 7e93ebf1-b948-4539-b990-61686a293d51 0360e812-f325-4d23-b708-90f226950493 08b8e6f8-b417-42d8-aad4-8f7a08517762 60eb68c2-9ccc-4996-a174-811d316567bd 2cd082f7-6e3e-4e83-9337-9841a7e8ea15" />
 			</Assets>
 			<Text StringName="podminky_vitezstviprohry_Y8dT" Text="Podmínky vítězství/prohry" />
 		</Module>

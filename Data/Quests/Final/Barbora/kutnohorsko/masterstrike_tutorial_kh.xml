@@ -61,13 +61,18 @@
 					<Edge From="not27.bool" To="A" />
 					<Edge From="cert_se_udzravil_a_je_skillteacher" To="B" />
 				</Function>
-				<DisplayTutorial Name="displaytutorial13712181" PositionY="240" PositionX="1170">
+				<DisplayTutorial Name="displaytutorial13712181" PositionY="270" PositionX="1460">
 					<Constant Name="Tutorial" Value="OB_O23_Masterstrike" />
-					<Edge From="doonce.out" To="Show" />
+					<Edge From="ifcompare13712182.False" To="Show" />
+				</DisplayTutorial>
+				<DisplayTutorial Name="displaytutorial13712181_1" PositionY="500" PositionX="1460">
+					<Constant Name="Tutorial" Value="OB_O23_MasterstrikeHC" />
+					<Edge From="ifcompare13712182.True" To="Show" />
 				</DisplayTutorial>
 				<doonce Name="doonce" PositionY="150" PositionX="860" Namespace="utils.general">
 					<Edge From="masterStrikeTutorialProgress.OnDone" To="in" />
 				</doonce>
+				<Function Name="getgamemode13712183" PositionY="410" PositionX="950" MethodName="wh::rpgmodule::GetGameMode" DeclaringType="wh::rpgmodule" />
 				<haste Name="haste" PositionY="-150" PositionX="-850">
 					<Edge From="masterStrikeTutorialProgress.Active" To="quest_jeste_neni_aktivni">
 						<Vertex>vertex152</Vertex>
@@ -85,6 +90,12 @@
 					</Edge>
 					<Edge From="and20.bool" To="Condition" />
 				</If>
+				<IfFunction Name="ifcompare13712182" PositionY="390" PositionX="1190" TypeT="E_GameMode" MethodName="Control::Compare" DeclaringType="Control">
+					<Constant Name="Op" Value="Equals" />
+					<Constant Name="ValueB" Value="hardcore" />
+					<Edge From="doonce.out" To="Exec" />
+					<Edge From="getgamemode13712183.GameMode" To="ValueA" />
+				</IfFunction>
 				<je_cert_na_certovce Name="je_cert_na_certovce" PositionY="510" PositionX="-2380">
 					<Edge From="posledni_mq_skoncil" To="posledni_mq_skoncil" />
 					<Edge From="cert_je_zrovna_pryc_kvuli_m44a_zikmunduv_tabor" To="bitva_v_m44a_zikmunduv_tabor_probiha" />

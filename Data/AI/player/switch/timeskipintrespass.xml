@@ -11,6 +11,7 @@
 			<Variable name="reactionSuppressed" type="_bool" values="" isPersistent="0" form="single" />
 			<Variable name="trespassArea" type="_wuid" values="" isPersistent="0" form="single" />
 			<Variable name="trespassSevereness" type="enum:trespassLevel" values="" isPersistent="0" form="single" />
+			<Variable name="zDifference" type="_float" values="" isPersistent="0" form="single" />
 		</Variables>
 		<Root OneTimeOnly="false" FailState="Recoverable" saveVersion="2">
 			<Behavior canSkip="1">
@@ -54,13 +55,25 @@
 																								<DetermineTrespassReaction Observer="$nearbyNpcs_value" Target="$__player" Position="" ForceSemipublicReaction="false" ShouldUseVec3Position="false" TrespassAreaSevereness="$trespassSevereness" TrespassArea="$trespassArea" Reaction="$reaction" ReactionSuppressed="$reactionSuppressed" />
 																								<IsPublicEnemy Soul="$nearbyNpcs_value" FailOnSubtreeMissing="false" saveVersion="2">
 																									<Else canSkip="1">
-																										<Expression expressions="$reaction = $reaction &amp; $trespassSevereness &gt;= $enum:trespassLevel.personal" />
+																										<StanceCheck soul="$__player" stance="lying" smartObject="" negate="false" failOnCondition="false" saveVersion="2">
+																											<Then canSkip="1">
+																												<Success />
+																											</Then>
+																											<Else canSkip="1">
+																												<Expression expressions="$reaction = $reaction &amp; $trespassSevereness &gt;= $enum:trespassLevel.personal" />
+																											</Else>
+																										</StanceCheck>
 																									</Else>
 																								</IsPublicEnemy>
 																								<IfCondition failOnCondition="false" condition="$reaction">
 																									<Sequence>
-																										<InstantSendMessageToNPC target="$nearbyNpcs_value" type="&apos;switch:interruptData:kickPlayerFromTimeskip&apos;" values="initiatedBy($enum:switch_interruptInitiator.switch),stimulusKind($enum:crime_stimulusKind.trespass)" />
-																										<Expression expressions="$break = true" />
+																										<Function_crime_getZDifferenceBetweenWuids wuid1="$__player" wuid2="$nearbyNpcs_value" difference="$zDifference" nodeLabel="21202995" />
+																										<IfCondition failOnCondition="false" condition="$zDifference &lt; $data:script_param[&apos;crime_timeSkipInTrespass_detectionRange_z&apos;].value">
+																											<Sequence>
+																												<InstantSendMessageToNPC target="$nearbyNpcs_value" type="&apos;switch:interruptData:kickPlayerFromTimeskip&apos;" values="initiatedBy($enum:switch_interruptInitiator.switch),stimulusKind($enum:crime_stimulusKind.trespass)" />
+																												<Expression expressions="$break = true" />
+																											</Sequence>
+																										</IfCondition>
 																									</Sequence>
 																								</IfCondition>
 																							</Sequence>
@@ -102,6 +115,7 @@
 				<Variable name="reactionSuppressed" comment="" />
 				<Variable name="trespassArea" comment="" />
 				<Variable name="trespassSevereness" comment="" />
+				<Variable name="zDifference" comment="" />
 			</Variables>
 			<ForwardDeclarations />
 			<Root hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
@@ -184,21 +198,40 @@
 																									<IsPublicEnemy hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
 																										<OutputBreakpoints />
 																										<Else>
-																											<Expression hasInputBreakpoint="0" comment="for publicFriends enable in personal+ only" breakpointFlags="0">
+																											<StanceCheck hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
 																												<OutputBreakpoints />
-																											</Expression>
+																												<Then>
+																													<Success hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																														<OutputBreakpoints />
+																													</Success>
+																												</Then>
+																												<Else>
+																													<Expression hasInputBreakpoint="0" comment="for publicFriends enable in personal+ only" breakpointFlags="0">
+																														<OutputBreakpoints />
+																													</Expression>
+																												</Else>
+																											</StanceCheck>
 																										</Else>
 																									</IsPublicEnemy>
 																									<IfCondition hasInputBreakpoint="0" comment="" breakpointFlags="0">
 																										<OutputBreakpoints />
 																										<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
 																											<OutputBreakpoints />
-																											<InstantSendMessageToNPC hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																											<Function_crime_getZDifferenceBetweenWuids hasInputBreakpoint="0" comment="" breakpointFlags="0">
 																												<OutputBreakpoints />
-																											</InstantSendMessageToNPC>
-																											<Expression hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																											</Function_crime_getZDifferenceBetweenWuids>
+																											<IfCondition hasInputBreakpoint="0" comment="" breakpointFlags="0">
 																												<OutputBreakpoints />
-																											</Expression>
+																												<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																													<OutputBreakpoints />
+																													<InstantSendMessageToNPC hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																														<OutputBreakpoints />
+																													</InstantSendMessageToNPC>
+																													<Expression hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																														<OutputBreakpoints />
+																													</Expression>
+																												</Sequence>
+																											</IfCondition>
 																										</Sequence>
 																									</IfCondition>
 																								</Sequence>

@@ -21,6 +21,9 @@
 				<Port Name="fail_quest" Direction="Out" Type="trigger">
 					<DesignName StringName="important_fail_quest_HKmH" Text="Fail quest" />
 				</Port>
+				<Port Name="reset" Direction="In" Type="trigger">
+					<DesignName StringName="important_reset_EEnc" Text="Reset" />
+				</Port>
 			</Ports>
 			<Nodes>
 				<SoulDeathTrigger Name="deathtrigger1" PositionY="-70" PositionX="-370">
@@ -29,6 +32,9 @@
 				</SoulDeathTrigger>
 				<State Name="npcIsDead" PositionY="-310" PositionX="240" RequiredForOutput="trosecko kutnohorsko" TypeT="ImportantNpcIsDead">
 					<Edge From="triggersequence5.A" To="SetNpcIsDead" />
+					<Edge From="reset" To="SetNone">
+						<Vertex>U64bmC9k</Vertex>
+					</Edge>
 				</State>
 				<Output Name="Output">
 					<Edge From="npcIsDead.State" To="state" />
@@ -40,6 +46,9 @@
 					<Edge From="deathtrigger1.OnDeath" To="Exec" />
 				</TriggerSequence>
 			</Nodes>
+			<EdgeVertices>
+				<EdgeVertex Name="U64bmC9k" PositionY="-150" PositionX="-400" />
+			</EdgeVertices>
 			<Text StringName="importantnpcsdeathobjecti_UFlO" Text="ImportantNPCsDeathObjective" />
 		</Module>
 	</Skald>

@@ -124,6 +124,10 @@
 					<Edge From="or72.bool" To="A" />
 					<Edge From="not112.bool" To="C" />
 				</Function>
+				<Function Name="and121" PositionY="440" PositionX="-1240" MethodName="math::boolean::And" DeclaringType="math::boolean">
+					<Edge From="state1.Failed" To="A" />
+					<Edge From="praskac.uvod_probehl" To="B" />
+				</Function>
 				<Function Name="compare118" PositionY="-1630" PositionX="-2970" TypeT="wh::questmodule::QuestProgress" MethodName="Control::Compare" DeclaringType="Control">
 					<Constant Name="Op" Value="Equals" />
 					<Constant Name="ValueB" Value="None" />
@@ -555,8 +559,8 @@
 						<Vertex>pluUJrBv</Vertex>
 					</Edge>
 				</praskac>
-				<refusal_po_failu_questu Name="refusal_po_failu_questu" PositionY="450" PositionX="-1300">
-					<Edge From="state1.Failed" To="failed" />
+				<refusal_po_failu_questu Name="refusal_po_failu_questu" PositionY="400" PositionX="-1010">
+					<Edge From="and121.bool" To="failed" />
 				</refusal_po_failu_questu>
 				<AddReward Name="reward104" PositionY="-1180" PositionX="-1150">
 					<Edge From="state1.OnDone" To="AddReward" />
@@ -917,7 +921,9 @@
 						<EnumLog Type="Started" Name="ReportToBailiff" Marker="bailiff">
 							<Log StringName="reporttot_chtel_jsem_nahl_77FZ" Text="Chtěl jsem nahlásit bandu zlodějíčů jménem Tovaryšstvo strážím, ale ty mě poslaly za rychtářem Andreasem Plümelem. Prý mám zajít na radnici a říct všechno přímo jemu. " />
 						</EnumLog>
-						<EnumLog Type="Completed" Name="Reported" />
+						<EnumLog Type="Completed" Name="Reported">
+							<Log StringName="reporttot_mluvil_jsem_s_k_X3qi" Text="Mluvil jsem s kutnohorským rychtářem o Tovaryšstvu. Nabídl mi, abych pro něj pracoval a dál mu hlásil všechny podezřelé aktivity." />
+						</EnumLog>
 						<EnumLog Type="Canceled" Name="Failed" />
 						<EnumLog Type="None" Name="Aborted" />
 					</Logs>
@@ -944,8 +950,12 @@
 						<EnumLog Type="Started" Name="GetReward" Marker="bailiff">
 							<Log StringName="getreward_tovarysstvo_byl_fRjH" Text="Tovaryšstvo bylo mou zásluhou rozprášeno a mně náleží odměna! Měl bych si ji vyzvednout u rychtáře a pak se jít podívat, kde Tovaryšstvo oběsili. " />
 						</EnumLog>
-						<EnumLog Type="Completed" Name="Done" />
-						<EnumLog Type="Canceled" Name="Canceled" />
+						<EnumLog Type="Completed" Name="Done">
+							<Log StringName="getreward_vyzvedl_jsem_si_a1v2" Text="Vyzvedl jsem si u rychtáře odměnu za svou službu. Tovaryšstvo skončilo." />
+						</EnumLog>
+						<EnumLog Type="Canceled" Name="Canceled">
+							<Log StringName="getreward_vyzvedavat_si_o_Foh7" Text="Vyzvedávat si odměnu za rozprášení Tovaryšstva už nemusím." />
+						</EnumLog>
 					</Logs>
 				</Objective>
 			</Objectives>

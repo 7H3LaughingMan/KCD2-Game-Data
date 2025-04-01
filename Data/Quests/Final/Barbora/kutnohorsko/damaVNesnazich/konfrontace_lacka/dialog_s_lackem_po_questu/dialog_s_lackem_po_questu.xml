@@ -31,14 +31,14 @@
 					<Text StringName="dialog_s__marketa_odesla__6qHe" Text="Markéta odešla a hráč ji nazabil" />
 				</GameplayActionElement>
 			</Elements>
-			<Dialogue TechnicalStatus="Enabled" Initiator="Player" GesturesSetDate="2024-08-30T11:16:16.7456032+02:00" GesturesSetResponseCount="19">
+			<Dialogue TechnicalStatus="Enabled" AllowFarewell="false" AllowGreeting="false" Initiator="Player" GesturesSetDate="2024-08-30T11:16:16.7456032+02:00" GesturesSetResponseCount="19">
 				<SelectedSouls>
 					<SelectedSoul Role="HENRY" Voice="tomMcKay" Type="Wave" Language="ENG" />
 					<SelectedSoul Role="LACEK" Voice="jonathanMilshaw" Type="Wave" Language="ENG" />
 				</SelectedSouls>
 				<Decision Name="dec1" Priority="SideQuestSubmission">
 					<Sequences>
-						<Sequence EntryCondition="!SequenceUsed('hrac_si_nepromluvil') AND (Port('marketa_podvedla_i_jindru') OR Port('hrac_vyhnal_marketu_a_ma_jeji_penize'))" EndType="Decision" Name="seq1">
+						<Sequence EntryCondition="!SequenceUsed('hrac_si_nepromluvil') AND &#xD;&#xA;!Port('hrac_vyhnal_marketu_a_jeji_penize_ma_lacek') AND &#xD;&#xA;Port('hrac_vyhnal_marketu_a_ma_jeji_penize')" EndType="Decision" Name="seq1">
 							<DesignName StringName="dialog_s__seq1_Fts4" Text="seq1" />
 							<UiPrompt StringName="ui_dialog_s__seq1_8Vpi" Text="Promluvme si o té nevěře." />
 							<Elements>
@@ -250,7 +250,7 @@
 														</Sequences>
 													</Decision>
 												</Sequence>
-												<Sequence EntryCondition="!Port('hrac_necha_marketu_jit__zabil_ji') AND !SequenceUsed('lacek_dostal_prachy')" EndType="GoTo" GoToDecision="dec7" Name="seq11">
+												<Sequence EntryCondition="!Port('hrac_necha_marketu_jit__zabil_ji') AND &#xD;&#xA;!SequenceUsed('lacek_dostal_prachy') AND &#xD;&#xA;!Port('hrac_vyhnal_marketu_a_jeji_penize_ma_lacek')" EndType="GoTo" GoToDecision="dec7" Name="seq11">
 													<DesignName StringName="dialog_s__seq11_B4iv" Text="seq11" />
 													<Elements>
 														<Response Role="HENRY" ReferenceLength="4.13">
@@ -284,7 +284,7 @@
 														</Response>
 													</Elements>
 												</Sequence>
-												<Sequence EntryCondition="SequenceUsed('lacek_dostal_prachy')" EndType="EndDialogue" Reputation="quest_reward_4_normal" Name="hrac_si_promluvil">
+												<Sequence EntryCondition="SequenceUsed('lacek_dostal_prachy') OR &#xD;&#xA;Port('hrac_vyhnal_marketu_a_jeji_penize_ma_lacek')" EndType="EndDialogue" Reputation="quest_reward_4_normal" Name="hrac_si_promluvil">
 													<DesignName StringName="dialog_s__hrac_si_promluv_1CsG" Text="Hráč si promluvil" />
 													<Triggers>
 														<Port Name="hrac_se_omluvil" />
@@ -430,7 +430,7 @@
 								</Response>
 							</Elements>
 						</Sequence>
-						<Sequence EntryCondition="!SequenceUsed('hrac_si_nepromluvil') AND (Port('marketa_podvedla_i_jindru') OR  Port('hrac_vyhnal_marketu_a_jeji_penize_ma_lacek'))" EndType="GoTo" GoToDecision="dec5" Name="seq14">
+						<Sequence EntryCondition="!SequenceUsed('hrac_si_nepromluvil') AND &#xD;&#xA;Port('hrac_vyhnal_marketu_a_jeji_penize_ma_lacek') AND &#xD;&#xA;!Port('hrac_vyhnal_marketu_a_ma_jeji_penize')" EndType="GoTo" GoToDecision="dec5" Name="seq14">
 							<DesignName StringName="dialog_s__seq14_TORl" Text="seq14" />
 							<UiPrompt StringName="ui_dialog_s__seq14_DqBE" Text="Promluvme si o té nevěře." />
 							<Elements>

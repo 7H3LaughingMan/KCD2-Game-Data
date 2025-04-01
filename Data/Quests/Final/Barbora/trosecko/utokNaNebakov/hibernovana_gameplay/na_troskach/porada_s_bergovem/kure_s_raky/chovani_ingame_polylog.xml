@@ -31,10 +31,17 @@
 						<Vertex>eLGdjSpx</Vertex>
 						<Vertex>BJa8UHXk</Vertex>
 					</Edge>
+					<Edge From="not20.bool" To="E" />
+					<Edge From="areallnpcssitting.areallsitting" To="F" />
 				</Function>
+				<areallnpcssitting Name="areallnpcssitting" PositionY="-290" PositionX="-110" Namespace="utoknanebakov">
+					<Edge From="makearray10.Array" To="souls" />
+					<Edge From="hostina_nastreamovana" To="active" />
+				</areallnpcssitting>
 				<EnableBehavior Name="enablebehaviorpolylogchatonspots1371222" PositionY="-70" PositionX="600" Signature="polylogChatOnSpots" EventSet="">
 					<Constant Name="Behavior" Value="sittingIngameDialogChat" />
 					<Asset Name="SmartEntity" Alias="feast" />
+					<Constant Name="ForceKick" Value="true" />
 					<Constant Name="aliasChat" Value="utokNaNebakov_feast_chickenChat" />
 					<Constant Name="aliasPolylog" Value="utokNaNebakov_feast_chickenIngameTrialog" />
 					<Constant Name="chatDistance" Value="4" />
@@ -50,8 +57,21 @@
 					</Edge>
 					<Edge From="makearray1371227.Array" To="dontCallWench" />
 					<Edge From="makearray1371228.Array" To="tables" />
+					<Edge From="isplayerindialog.onupdate" To="UpdateReferences">
+						<Vertex>vertex1</Vertex>
+					</Edge>
+					<Edge From="areallnpcssitting.allsitting" To="UpdateReferences" />
+					<Edge From="areallnpcssitting.someonestandup" To="UpdateReferences" />
 				</EnableBehavior>
-				<MakeArray Name="makearray1" PositionY="300" PositionX="240" TypeT="wh::rpgmodule::Souls">
+				<isplayerindialog Name="isplayerindialog" PositionY="430" PositionX="-360" Namespace="utoknanebakov">
+					<Edge From="hostina_nastreamovana" To="active" />
+				</isplayerindialog>
+				<MakeArray Name="makearray1" PositionY="330" PositionX="240" TypeT="wh::rpgmodule::Souls">
+					<Asset Name="A" Alias="pisar" />
+					<Asset Name="B" Alias="Johanka" />
+					<Asset Name="C" Alias="priest" />
+				</MakeArray>
+				<MakeArray Name="makearray10" PositionY="-270" PositionX="-360" TypeT="wh::rpgmodule::Souls">
 					<Asset Name="A" Alias="pisar" />
 					<Asset Name="B" Alias="Johanka" />
 					<Asset Name="C" Alias="priest" />
@@ -79,6 +99,9 @@
 				</Function>
 				<Function Name="not1371229" PositionY="320" PositionX="-80" MethodName="math::boolean::Not" DeclaringType="math::boolean">
 					<Edge From="hrac_hraje_kostky" To="Value" />
+				</Function>
+				<Function Name="not20" PositionY="500" PositionX="-80" MethodName="math::boolean::Not" DeclaringType="math::boolean">
+					<Edge From="isplayerindialog.indialog" To="Value" />
 				</Function>
 			</Nodes>
 			<EdgeVertices>

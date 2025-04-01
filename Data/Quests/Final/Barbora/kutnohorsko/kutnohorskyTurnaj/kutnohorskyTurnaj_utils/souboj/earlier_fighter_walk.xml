@@ -25,7 +25,7 @@
 					<DesignName StringName="earlier_f_kolo_ZesC" Text="kolo" />
 				</Port>
 				<Port Name="behem_skiptime" Direction="Out" Type="trigger">
-					<DesignName StringName="earlier_f_behem_skiptime_yKx8" Text="Během skiptime" />
+					<DesignName StringName="earlier_f_behem_skiptime_yKx8" Text="Během skiptime nebo longdistance" />
 				</Port>
 			</Ports>
 			<Nodes>
@@ -48,10 +48,18 @@
 						<Vertex>PtVfucCg</Vertex>
 					</Edge>
 				</IfFunction>
-				<IfFunction Name="ifisinactorstate89_1" PositionY="180" PositionX="390" MethodName="wh::entitymodule::IsInActorState" DeclaringType="wh::entitymodule">
+				<IfFunction Name="ifisinactorstate89_1" PositionY="-30" PositionX="450" MethodName="wh::entitymodule::IsInActorState" DeclaringType="wh::entitymodule">
 					<Asset Name="Souls" Alias="player" />
 					<Constant Name="State" Value="skipTime" />
 					<Edge From="timer1_1.OnFinished" To="Exec" />
+				</IfFunction>
+				<IfFunction Name="ifisinactorstate98" PositionY="260" PositionX="440" MethodName="wh::entitymodule::IsInActorState" DeclaringType="wh::entitymodule">
+					<Asset Name="Souls" Alias="player" />
+					<Constant Name="State" Value="fastTravel" />
+					<Edge From="ifisinactorstate89_1.False" To="Exec">
+						<Vertex>xtznnMNe</Vertex>
+						<Vertex>Tvdu0sLv</Vertex>
+					</Edge>
 				</IfFunction>
 				<Output Name="Output">
 					<Edge From="timer1.OnFinished" To="done" />
@@ -60,7 +68,10 @@
 					<Edge From="ifisinactorstate89_1.True" To="done" />
 					<Edge From="ifisinactorstate89.True" To="behem_skiptime">
 						<Vertex>aD3bNffz</Vertex>
+						<Vertex>8q1mSRtb</Vertex>
 					</Edge>
+					<Edge From="ifisinactorstate98.True" To="behem_skiptime" />
+					<Edge From="ifisinactorstate98.True" To="done" />
 				</Output>
 				<Switch Name="switch2" PositionY="160" PositionX="-350" TypeT="bool" ValueTypes="wh::framework::TimeSpan" SwitchValues="true">
 					<Constant Name="trueValue1" Value="360s" />
@@ -78,7 +89,7 @@
 					<Edge From="stop" To="SetStopped">
 						<Vertex>TPPyMxyG</Vertex>
 					</Edge>
-					<Edge From="ifisinactorstate89_1.False" To="SetRunning">
+					<Edge From="ifisinactorstate98.False" To="SetRunning">
 						<Vertex>GNTPmFaj</Vertex>
 						<Vertex>wYNuoBdI</Vertex>
 					</Edge>
@@ -95,12 +106,15 @@
 			</Nodes>
 			<EdgeVertices>
 				<EdgeVertex Name="7S3ESSSe" PositionY="-490" PositionX="-510" />
-				<EdgeVertex Name="aD3bNffz" PositionY="15" PositionX="-61" />
-				<EdgeVertex Name="GNTPmFaj" PositionY="460" PositionX="540" />
+				<EdgeVertex Name="8q1mSRtb" PositionY="-12" PositionX="707" />
+				<EdgeVertex Name="aD3bNffz" PositionY="0" PositionX="-380" />
+				<EdgeVertex Name="GNTPmFaj" PositionY="490" PositionX="600" />
 				<EdgeVertex Name="Lx1Rz7Yj" PositionY="-490" PositionX="-690" />
 				<EdgeVertex Name="PtVfucCg" PositionY="-10" PositionX="-690" />
 				<EdgeVertex Name="TPPyMxyG" PositionY="40" PositionX="-250" />
+				<EdgeVertex Name="Tvdu0sLv" PositionY="240" PositionX="440" />
 				<EdgeVertex Name="wYNuoBdI" PositionY="460" PositionX="0" />
+				<EdgeVertex Name="xtznnMNe" PositionY="220" PositionX="630" />
 			</EdgeVertices>
 			<Text StringName="earlier_fighter_walk_dwBO" Text="Earlier fighter walk" />
 		</Module>

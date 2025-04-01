@@ -41,11 +41,14 @@
 				<Definition File="post_fight/post_fight_dialog.xml" />
 			</Definitions>
 			<Nodes>
-				<Function Name="kill146" PositionY="-270" PositionX="350" MethodName="wh::rpgmodule::Kill" DeclaringType="wh::rpgmodule">
-					<Asset Name="Souls" Alias="brabant" />
-					<Constant Name="HideBody" Value="false" />
-					<Edge From="post_fight_dialog.jindra_zabiji_brabanta" To="Exec" />
-				</Function>
+				<DeadBody Name="DeadBody" PositionY="-420" PositionX="560" Namespace="utils.special">
+					<Asset Name="smartentity" Alias="brabant_deadBody" />
+					<Asset Name="soul" Alias="brabant" />
+					<Constant Name="ignoredcorpse" Value="false" />
+					<Constant Name="lootablebyplayer" Value="false" />
+					<Constant Name="pickablebyplayer" Value="false" />
+					<Edge From="state152.State" To="isactive" />
+				</DeadBody>
 				<Function Name="not5" PositionY="130" PositionX="600" MethodName="math::boolean::Not" DeclaringType="math::boolean">
 					<Edge From="talkingToBrabant.None" To="Value" />
 				</Function>
@@ -73,12 +76,19 @@
 					<Asset Name="speakers" Alias="brabant" />
 					<Edge From="brabant_se_vzdava" To="isactive" />
 				</SpeakTrigger>
+				<State Name="state152" PositionY="-380" PositionX="300" TypeT="bool">
+					<Constant Name="DefaultValue" Value="false" />
+					<Edge From="post_fight_dialog.jindra_zabiji_brabanta" To="SetTrue" />
+				</State>
 				<State Name="talkingToBrabant" PositionY="130" PositionX="350" TypeT="Progress">
 					<Edge From="post_fight_dialog.beforeplay" To="SetActive" />
 					<Edge From="post_fight_dialog.brabant_odchazi_a_spousti_poplach" To="SetDone" />
 					<Edge From="post_fight_dialog.jindra_zabiji_brabanta" To="SetDone" />
 				</State>
 			</Nodes>
+			<Assets>
+				<SmartObjectAsset Name="brabant_deadBody" />
+			</Assets>
 			<Text StringName="post_fight_Mqxc" Text="Post fight" />
 		</Gameplay>
 	</Skald>

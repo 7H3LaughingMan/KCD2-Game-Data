@@ -12,17 +12,24 @@
 						<Expression expressions="$unstanceVariant = &apos;beTied_sitting&apos;" />
 					</Then>
 					<Else canSkip="1">
-						<HasHelpers smartObject="$__object.id" name="&apos;tiedSpot_standing&apos;" saveVersion="2">
+						<HasHelpers smartObject="$__object.id" name="&apos;tiedSpot_sittingWithoutPole&apos;" saveVersion="2">
 							<Then canSkip="1">
-								<Expression expressions="$unstanceVariant = &apos;beTied_standing&apos;" />
+								<Expression expressions="$unstanceVariant = &apos;beTied_sittingWithoutPole&apos; &#10;$releasingFID = &apos;Quest_TiedUp_SittingWithoutPole_Out&apos;" />
 							</Then>
 							<Else canSkip="1">
-								<HasHelpers smartObject="$__object.id" name="&apos;tiedSpot_lying&apos;" saveVersion="2">
+								<HasHelpers smartObject="$__object.id" name="&apos;tiedSpot_standing&apos;" saveVersion="2">
 									<Then canSkip="1">
-										<Expression expressions="$unstanceVariant = &apos;beTied_lying&apos;" />
+										<Expression expressions="$unstanceVariant = &apos;beTied_standing&apos;" />
 									</Then>
 									<Else canSkip="1">
-										<Expression expressions="$unstanceVariant = &apos;beTied_wounded&apos; &#10;$releasingFID = &apos;Quest_TiedUp_Wounded_Released&apos;" />
+										<HasHelpers smartObject="$__object.id" name="&apos;tiedSpot_lying&apos;" saveVersion="2">
+											<Then canSkip="1">
+												<Expression expressions="$unstanceVariant = &apos;beTied_lying&apos;" />
+											</Then>
+											<Else canSkip="1">
+												<Expression expressions="$unstanceVariant = &apos;beTied_wounded&apos; &#10;$releasingFID = &apos;Quest_TiedUp_Wounded_Released&apos;" />
+											</Else>
+										</HasHelpers>
 									</Else>
 								</HasHelpers>
 							</Else>
@@ -94,9 +101,19 @@
 											</Expression>
 										</Then>
 										<Else>
-											<Expression hasInputBreakpoint="0" comment="" breakpointFlags="0">
+											<HasHelpers hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
 												<OutputBreakpoints />
-											</Expression>
+												<Then>
+													<Expression hasInputBreakpoint="0" comment="" breakpointFlags="0">
+														<OutputBreakpoints />
+													</Expression>
+												</Then>
+												<Else>
+													<Expression hasInputBreakpoint="0" comment="" breakpointFlags="0">
+														<OutputBreakpoints />
+													</Expression>
+												</Else>
+											</HasHelpers>
 										</Else>
 									</HasHelpers>
 								</Else>

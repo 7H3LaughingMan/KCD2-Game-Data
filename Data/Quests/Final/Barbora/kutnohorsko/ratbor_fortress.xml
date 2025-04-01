@@ -48,6 +48,9 @@
 				<Port Name="all_ratbor_staff_present" Direction="Out" Type="bool">
 					<DesignName StringName="ratbor_fo_all_ratbor_staf_Nek4" Text="all ratbor staff present" />
 				</Port>
+				<Port Name="fader_before_post_battle_dialog_onbeforeplay" Direction="In" Type="trigger">
+					<DesignName StringName="ratbor_fo_fader_before_po_DyzN" Text="deadbodies in corner streamed" />
+				</Port>
 			</Ports>
 			<Definitions>
 				<Definition File="ratbor_fortress/dead_people_chosen_one.xml" />
@@ -57,7 +60,7 @@
 					<Edge From="foreach3.OnValue" To="Exec" />
 					<Edge From="foreach3.Value" To="Door" />
 				</Function>
-				<dead_people_chosen_one Name="dead_people_chosen_one" PositionY="-1080" PositionX="900">
+				<dead_people_chosen_one Name="dead_people_chosen_one" PositionY="-1150" PositionX="910">
 					<Edge From="state28.StaffPresent" To="staff_present_active" />
 				</dead_people_chosen_one>
 				<DisableDoorInteractivity Name="disabledoorinteractivity1" PositionY="-100" PositionX="880">
@@ -87,11 +90,19 @@
 					</Edge>
 					<Edge From="makearray32_1.Array" To="Array" />
 				</ForEach>
-				<Function Name="joinarrays47" PositionY="-850" PositionX="880" TypeT="wh::entitymodule::LayerProfiles" MethodName="utilities::array::JoinArrays" DeclaringType="utilities::array">
+				<Function Name="joinarrays47" PositionY="-920" PositionX="890" TypeT="wh::entitymodule::LayerProfiles" MethodName="utilities::array::JoinArrays" DeclaringType="utilities::array">
 					<Asset Name="A" Alias="fortressServants" />
 					<Asset Name="B" Alias="fortressNobles" />
 					<Asset Name="C" Alias="fortressGuards" />
 				</Function>
+				<keepdooropen Name="keepdooropen" PositionY="1130" PositionX="910" Namespace="utils.general">
+					<Asset Name="door" Alias="fortressHallOchozDoor" />
+					<Edge From="or50.bool" To="isactive" />
+				</keepdooropen>
+				<keepdoorunlocked Name="keepdoorunlocked" PositionY="1280" PositionX="910" Namespace="utils.general">
+					<Asset Name="door" Alias="fortressHallOchozDoor" />
+					<Edge From="or50.bool" To="isactive" />
+				</keepdoorunlocked>
 				<MakeArray Name="makearray32_1" PositionY="-140" PositionX="450" TypeT="wh::entitymodule::AnimDoors">
 					<Asset Name="A" Alias="fortressHallEntranceDoor" />
 					<Asset Name="B" Alias="fortressHallOchozDoor" />
@@ -99,17 +110,29 @@
 				<Function Name="not49" PositionY="790" PositionX="1430" MethodName="math::boolean::Not" DeclaringType="math::boolean">
 					<Edge From="ratborBurned.bool" To="Value" />
 				</Function>
-				<Function Name="or46" PositionY="-1740" PositionX="710" MethodName="math::boolean::Or" DeclaringType="math::boolean">
+				<Function Name="or46" PositionY="-1810" PositionX="720" MethodName="math::boolean::Or" DeclaringType="math::boolean">
 					<Edge From="state28.StaffPresent" To="A" />
 					<Edge From="state28.Ratbor2StaffWithoutChosenOnes" To="B" />
 				</Function>
-				<Function Name="or46_1" PositionY="-1570" PositionX="720" MethodName="math::boolean::Or" DeclaringType="math::boolean">
+				<Function Name="or46_1" PositionY="-1640" PositionX="730" MethodName="math::boolean::Or" DeclaringType="math::boolean">
 					<Edge From="state28.StaffPresent" To="B" />
 					<Edge From="state28.Ratbor2StaffWithoutChosenOnes" To="A" />
 				</Function>
-				<Function Name="or46_1_1" PositionY="-1410" PositionX="720" MethodName="math::boolean::Or" DeclaringType="math::boolean">
+				<Function Name="or46_1_1" PositionY="-1480" PositionX="730" MethodName="math::boolean::Or" DeclaringType="math::boolean">
 					<Edge From="state28.StaffPresent" To="A" />
 					<Edge From="state28.Ratbor2StaffWithoutChosenOnes" To="B" />
+				</Function>
+				<Function Name="or50" PositionY="1220" PositionX="440" MethodName="math::boolean::Or" DeclaringType="math::boolean">
+					<Edge From="ratborFortressControl.AfterBattleHenry" To="B" />
+					<Edge From="ratborFortressControl.DuringPartyRatbor2" To="A" />
+				</Function>
+				<Function Name="or52" PositionY="-630" PositionX="880" MethodName="math::boolean::Or" DeclaringType="math::boolean">
+					<Edge From="ratborFortressControl.DuringPartyRatbor1" To="A">
+						<Vertex>XTndIUYH</Vertex>
+					</Edge>
+					<Edge From="ratborFortressControl.DuringPartyRatbor2" To="B">
+						<Vertex>quUt2Nmu</Vertex>
+					</Edge>
 				</Function>
 				<Output Name="Output">
 					<Edge From="ratborFortressControl.RightAfterQuest" To="ratborfortress_phase6__right_after_quest" />
@@ -120,29 +143,29 @@
 					</Edge>
 					<Edge From="state28.StaffPresent" To="all_ratbor_staff_present" />
 				</Output>
-				<Layer Name="profile29" PositionY="-1410" PositionX="1090">
+				<Layer Name="profile29" PositionY="-1480" PositionX="1100">
 					<Asset Name="Profiles" Alias="fortressGuards" />
 					<Edge From="or46_1_1.bool" To="IsActive" />
 				</Layer>
-				<Layer Name="profile30" PositionY="-1740" PositionX="1090">
+				<Layer Name="profile30" PositionY="-1810" PositionX="1100">
 					<Asset Name="Profiles" Alias="fortressNobles" />
 					<Edge From="or46.bool" To="IsActive" />
 				</Layer>
-				<Layer Name="profile31" PositionY="-1570" PositionX="1090">
+				<Layer Name="profile31" PositionY="-1640" PositionX="1100">
 					<Asset Name="Profiles" Alias="fortressServants" />
 					<Edge From="or46_1.bool" To="IsActive" />
 				</Layer>
-				<Layer Name="profile33" PositionY="-1050" PositionX="620">
+				<Layer Name="profile33" PositionY="-1120" PositionX="630">
 					<Asset Name="Profiles" Alias="courtStaff" />
 					<Edge From="state28.Ratbor2OutsideStaffPresent" To="IsActive" />
 				</Layer>
-				<Layer Name="profile35" PositionY="-870" PositionX="600">
+				<Layer Name="profile35" PositionY="-940" PositionX="610">
 					<Asset Name="Profiles" Alias="fortressPhase1" />
 					<Edge From="ratborFortressControl.DuringPartyRatbor1" To="IsActive">
 						<Vertex>vertex12</Vertex>
 					</Edge>
 				</Layer>
-				<Layer Name="profile35_1" PositionY="-700" PositionX="600">
+				<Layer Name="profile35_1" PositionY="-770" PositionX="610">
 					<Asset Name="Profiles" Alias="fortressPhase2" />
 					<Edge From="ratborFortressControl.DuringPartyRatbor2" To="IsActive">
 						<Vertex>vertex13</Vertex>
@@ -174,13 +197,13 @@
 					<Asset Name="Profiles" Alias="fortressPhase7" />
 					<Edge From="ratborFortressControl.LongTimeAfterQuest" To="IsActive" />
 				</Layer>
-				<Layer Name="profile42" PositionY="-860" PositionX="340">
+				<Layer Name="profile42" PositionY="-930" PositionX="350">
 					<Asset Name="Profiles" Alias="defaultPhase" />
 					<Edge From="ratborFortressControl.DefaultPhase" To="IsActive">
 						<Vertex>vertex16</Vertex>
 					</Edge>
 				</Layer>
-				<Layer Name="profile42_1" PositionY="-1010" PositionX="340">
+				<Layer Name="profile42_1" PositionY="-1080" PositionX="350">
 					<Asset Name="Profiles" Alias="closedCastle" />
 					<Edge From="ratborFortressControl.DefaultPhase" To="IsActive">
 						<Vertex>vertex16</Vertex>
@@ -190,7 +213,7 @@
 					<Asset Name="Profiles" Alias="horses" />
 					<Edge From="not49.bool" To="IsActive" />
 				</Layer>
-				<ProfileStateTrigger Name="profilestatetrigger3" PositionY="-1250" PositionX="1340">
+				<ProfileStateTrigger Name="profilestatetrigger3" PositionY="-1320" PositionX="1350">
 					<Edge From="joinarrays47.Array" To="Profiles" />
 					<Edge From="state28.ReadyToUnstream" To="IsActive" />
 				</ProfileStateTrigger>
@@ -218,11 +241,14 @@
 					<Edge From="ratborFortress_ruinedAndBurning.OnTrigger" To="SetDuringBattleHenry" />
 					<Edge From="ratborFortress_ruined.OnTrigger" To="SetLongTimeAfterQuest" />
 				</State>
-				<State Name="state28" PositionY="-1610" PositionX="-90" TypeT="FortressStaffControl">
+				<SchedulerLinkActivation Name="schedule51" PositionY="-620" PositionX="1190">
+					<Constant Name="LinkTag" Value="hangingAroundRatbor" />
+					<Edge From="or52.bool" To="IsActive" />
+				</SchedulerLinkActivation>
+				<State Name="state28" PositionY="-1680" PositionX="-80" TypeT="FortressStaffControl">
 					<Edge From="stream_fortress_staff" To="SetStaffPresent" />
 					<Edge From="unstream_hall_staff" To="SetRatbor2OutsideStaffPresent" />
 					<Edge From="unstream_staff" To="SetStaffGone" />
-					<Edge From="stream_staff_without_chosen_ones" To="SetRatbor2StaffWithoutChosenOnes" />
 					<Edge From="profilestatetrigger3.OnUnloaded" To="SetStaffGone">
 						<Vertex>PMyPxcaq</Vertex>
 						<Vertex>hsxFY3xH</Vertex>
@@ -231,23 +257,26 @@
 						<Vertex>oABBBvH8</Vertex>
 						<Vertex>e0zQ2fzK</Vertex>
 					</Edge>
+					<Edge From="fader_before_post_battle_dialog_onbeforeplay" To="SetRatbor2StaffWithoutChosenOnes" />
 				</State>
 			</Nodes>
 			<EdgeVertices>
 				<EdgeVertex Name="e0zQ2fzK" PositionY="420" PositionX="-60" />
-				<EdgeVertex Name="hsxFY3xH" PositionY="-1070" PositionX="-60" />
+				<EdgeVertex Name="hsxFY3xH" PositionY="-1140" PositionX="-50" />
 				<EdgeVertex Name="JqoUMgMY" PositionY="1050" PositionX="1890" />
 				<EdgeVertex Name="oABBBvH8" PositionY="422" PositionX="304" />
-				<EdgeVertex Name="PMyPxcaq" PositionY="-1060" PositionX="1510" />
+				<EdgeVertex Name="PMyPxcaq" PositionY="-1130" PositionX="1520" />
+				<EdgeVertex Name="quUt2Nmu" PositionY="-510" PositionX="680" />
 				<EdgeVertex Name="vertex10" PositionY="100" PositionX="710" />
 				<EdgeVertex Name="vertex11" PositionY="40" PositionX="730" />
 				<EdgeVertex Name="vertex12" PositionY="-540" PositionX="510" />
 				<EdgeVertex Name="vertex13" PositionY="-500" PositionX="520" />
 				<EdgeVertex Name="vertex14" PositionY="1030" PositionX="770" />
-				<EdgeVertex Name="vertex16" PositionY="-720" PositionX="300" />
+				<EdgeVertex Name="vertex16" PositionY="-790" PositionX="310" />
 				<EdgeVertex Name="vertex6" PositionY="-90" PositionX="820" />
 				<EdgeVertex Name="vertex8" PositionY="-370" PositionX="410" />
 				<EdgeVertex Name="vertex9" PositionY="260" PositionX="790" />
+				<EdgeVertex Name="XTndIUYH" PositionY="-540" PositionX="670" />
 			</EdgeVertices>
 			<Types>
 				<Type TypeName="GateControl">
@@ -315,7 +344,7 @@
 				<ProfileAsset Name="horses" AssetProfiles="setkanivratbori1_horses" />
 			</Assets>
 			<Notes>
-				<Note Name="note45" PositionY="-980" PositionX="1020">
+				<Note Name="note45" PositionY="-1050" PositionX="1030">
 					<Text StringName="ratbor_fo_note45_S9LZ" Text="These people are killed in M37b Setkani v Ratbori2.&#xD;&#xA;Their deadbodies are moved to the corner of the court. The deadbodies are vykuchar copies - the original npc is unstreamed. So these NPC are extracted from general profiles (fortress guards/servants/nobles) and has their own profile" />
 				</Note>
 			</Notes>

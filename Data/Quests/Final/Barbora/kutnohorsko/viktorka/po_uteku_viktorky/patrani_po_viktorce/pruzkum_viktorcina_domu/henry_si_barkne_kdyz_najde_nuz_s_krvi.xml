@@ -4,17 +4,20 @@
 		<Dialog Name="henry_si_barkne_kdyz_najde_nuz_s_krvi">
 			<Ports>
 				<Port Name="byliny_bark" Direction="In" Type="bool">
-					<DesignName StringName="henry_si__byliny_bark_Nmig" Text="byliny bark" />
+					<DesignName StringName="henry_si__byliny_bark_Nmig" Text="Byliny bark" />
 				</Port>
 				<Port Name="marta_je_mrtva" Direction="In" Type="bool">
-					<DesignName StringName="henry_si__marta_je_mrtva_RTev" Text="marta je mrtvá" />
+					<DesignName StringName="henry_si__marta_je_mrtva_RTev" Text="Marta je mrtvá" />
+				</Port>
+				<Port Name="hrac_rekl_marte_o_viktorce" Direction="In" Type="bool">
+					<DesignName StringName="henry_si__hrac_vi_kde_je__7z3b" Text="Hráč ví kde je Viktorka" />
 				</Port>
 			</Ports>
 			<Text StringName="henry_si_barkne_kdyz_najd_YCjX" Text="Henry si barkne, když najde nůž s krví" />
 			<Dialogue Type="ingame monolog" TechnicalStatus="Enabled" Initiator="NonPlayer" ClashPriority="Flavor" GesturesNotNeeded="true">
 				<Decision Name="dec1" Priority="SideQuestSubmission" Alias="viktorka_henrySiBarkneKdyzNajdeNuzSKrvi">
 					<Sequences>
-						<Sequence EndType="Decision" Visibility="Public" Name="krev_bark">
+						<Sequence EndType="Decision" Name="krev_bark">
 							<DesignName StringName="henry_si__seq1_cpsp" Text="krev bark" />
 							<Elements>
 								<Response Role="HENRY" />
@@ -33,7 +36,7 @@
 										</Elements>
 										<Decision Name="dec3" Priority="SideQuestSubmission">
 											<Sequences>
-												<Sequence EntryCondition="Port('byliny_bark') AND&#xD;&#xA;!Port('marta_je_mrtva')" EndType="EndDialogue" Name="seq3">
+												<Sequence EntryCondition="Port('byliny_bark') AND&#xD;&#xA;!Port('marta_je_mrtva') AND &#xD;&#xA;!Port('hrac_rekl_marte_o_viktorce')" EndType="EndDialogue" Name="seq3">
 													<DesignName StringName="henry_si__seq3_ctzf" Text="seq3" />
 													<Elements>
 														<Response Role="HENRY">
@@ -44,7 +47,7 @@
 														</Response>
 													</Elements>
 												</Sequence>
-												<Sequence EntryCondition="!Port('byliny_bark') AND&#xD;&#xA;!Port('marta_je_mrtva')" EndType="EndDialogue" Name="seq4">
+												<Sequence EntryCondition="!Port('byliny_bark') AND&#xD;&#xA;!Port('marta_je_mrtva') AND &#xD;&#xA;!Port('hrac_rekl_marte_o_viktorce')" EndType="EndDialogue" Name="seq4">
 													<DesignName StringName="henry_si__seq4_Mpo9" Text="seq4" />
 													<Elements>
 														<Response Role="HENRY">
@@ -55,7 +58,7 @@
 														</Response>
 													</Elements>
 												</Sequence>
-												<Sequence EntryCondition="Port('byliny_bark') AND&#xD;&#xA;Port('marta_je_mrtva')" EndType="EndDialogue" Name="seq5">
+												<Sequence EntryCondition="Port('byliny_bark') AND&#xD;&#xA;Port('marta_je_mrtva') AND &#xD;&#xA;!Port('hrac_rekl_marte_o_viktorce')" EndType="EndDialogue" Name="seq5">
 													<DesignName StringName="henry_si__seq5_byGj" Text="seq5" />
 													<Elements>
 														<Response Role="HENRY">
@@ -66,7 +69,7 @@
 														</Response>
 													</Elements>
 												</Sequence>
-												<Sequence EntryCondition="!Port('byliny_bark') AND&#xD;&#xA;Port('marta_je_mrtva')" EndType="EndDialogue" Name="seq6">
+												<Sequence EntryCondition="!Port('byliny_bark') AND&#xD;&#xA;Port('marta_je_mrtva') AND &#xD;&#xA;!Port('hrac_rekl_marte_o_viktorce')" EndType="EndDialogue" Name="seq6">
 													<DesignName StringName="henry_si__seq6_N5jI" Text="seq6" />
 													<Elements>
 														<Response Role="HENRY">

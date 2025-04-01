@@ -31,10 +31,17 @@
 					<Edge From="stream_afterambush_state" To="SetAfterAmbush" />
 					<Edge From="cs_ambush_afterplay" To="SetDuringAmbush" />
 				</State>
+				<If Name="if16" PositionY="50" PositionX="-90">
+					<Edge From="patchtrigger15.OnPatch" To="Exec" />
+					<Edge From="enviroControl.AfterAmbush" To="Condition" />
+				</If>
 				<Function Name="or8" PositionY="-520" PositionX="-90" MethodName="math::boolean::Or" DeclaringType="math::boolean">
 					<Edge From="enviroControl.PreAmbush" To="A" />
 					<Edge From="enviroControl.AfterAmbush" To="B" />
 				</Function>
+				<PatchTrigger Name="patchtrigger15" PositionY="160" PositionX="-520">
+					<Constant Name="TransitionToVersion" Value="ver_01_02" />
+				</PatchTrigger>
 				<Layer Name="profile1" PositionY="-110" PositionX="-90">
 					<Asset Name="Profiles" Alias="ambushNpcs" />
 					<Edge From="abmushNpcsStreaminControl.Active" To="IsActive" />
@@ -59,13 +66,13 @@
 					<Asset Name="Profiles" Alias="defaultNavPathsProfile" />
 					<Edge From="or8.bool" To="IsActive" />
 				</Layer>
-				<SchedulerLinkActivation Name="schedule10" PositionY="-350" PositionX="-90">
-					<Constant Name="LinkTag" Value="zikmunduvTabor_ambushDeadBody " />
-					<Edge From="enviroControl.DuringAmbush" To="IsActive" />
-				</SchedulerLinkActivation>
-				<State Name="state13" PositionY="150" PositionX="-560" TypeT="Progress">
+				<State Name="state13" PositionY="300" PositionX="-500" TypeT="Progress">
 					<Constant Name="DefaultValue" Value="Active" />
 					<Edge From="stream_afterambush_state" To="SetDone" />
+					<Edge From="if16.True" To="SetDone">
+						<Vertex>ThLhPLvw</Vertex>
+						<Vertex>myEEWkog</Vertex>
+					</Edge>
 				</State>
 				<WeaponPresetOverride Name="weaponpresetoverride12" PositionY="-800" PositionX="220">
 					<Asset Name="Souls" Alias="zizka" />
@@ -80,6 +87,8 @@
 			<EdgeVertices>
 				<EdgeVertex Name="anQW3vRH" PositionY="-1021" PositionX="-228" />
 				<EdgeVertex Name="mHSLNcyN" PositionY="-1020" PositionX="173" />
+				<EdgeVertex Name="myEEWkog" PositionY="746" PositionX="-525" />
+				<EdgeVertex Name="ThLhPLvw" PositionY="694" PositionX="103" />
 			</EdgeVertices>
 			<Types>
 				<Type TypeName="AmbushEnviroStates">

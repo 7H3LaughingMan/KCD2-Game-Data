@@ -21,6 +21,7 @@ Stash =
 			fLockDifficulty = 1,
 			bLockDifficultyOverride = false,
 			esLockFanciness = "Common",
+			bLockFancinessOverride = false,
 			bSendMessage = false,	-- send signals to AI
 			guidItemClassId = "", --["item used as a key"]
 		},
@@ -51,6 +52,8 @@ Stash =
 		},
 
 		fUseDistance 	= 2.5,
+		fUseLockpickDistance = 2.0,
+		fUseLockpickAngle = 0.8,
 		bSkipAngleCheck = false,
 		fUseAngle = 0.7,
 		fUseZOffset = 0,
@@ -235,8 +238,15 @@ function Stash:Reset()
 	self.fTargetTime = 0
 
 	-- lock
-	if self.Properties.Lock.bLockDifficultyOverride == false then
-		self.Properties.Lock.fLockDifficulty = self:GenerateLockDifficulty()
+	local shouldGenerateLockData = self.Properties.Lock.bLockDifficultyOverride == false or self.Properties.Lock.bLockFancinessOverride == false
+	if shouldGenerateLockData then
+		local lockData = self:GenerateLockData()
+		if self.Properties.Lock.bLockDifficultyOverride == false then
+			self.Properties.Lock.fLockDifficulty = lockData.difficulty
+		end	
+		if self.Properties.Lock.bLockFancinessOverride == false then
+			self.Properties.Lock.esLockFanciness = lockData.fanciness
+		end
 	end
 
 	if (self.Properties.Lock.bLocked == true) then
@@ -350,7 +360,7 @@ function Stash:GetActions(user, firstFast)
 			if self.lockBase:PlayerHoldsKey(self.Properties.Lock.guidItemClassId) then
 				AddInteractorAction( output, firstFast, Action():hint("@ui_hud_unlock_and_open"):enabled(actionEnabled):action("use"):func(Stash.OnUsed):interaction(inr_stashUnlock))
 			end 
-			if ((self.nUserId == 0) and (self.Properties.Lock.bCanLockPick == true) and user.soul:HaveSkill('thievery')) then
+			if ((self.nUserId == 0) and (self.Properties.Lock.bCanLockPick == true) and user.soul:HaveSkill('thievery') and (EntityCommon.IsUsableForLockpick(user, self) == 1)) then
 				local canLockpicking = Minigame.CanUseMinigame(user.id, E_MUF_CombatDanger)
 				AddInteractorAction(output, firstFast, Action():hint( '@' .. Crime.BuildLockpickPromptStrName(self.Properties.Lock.fLockDifficulty)):action("use_other"):hintType(AHT_HOLD):enabled(canLockpicking):func(Stash.OnUsedHold):interaction(inr_stashLockpick))
 			end
@@ -482,37 +492,39 @@ function Stash:OnUsedHold(user, slot)
 
 	local nNewDirection = -self.nDirection
 	if (nNewDirection == 1) then
-		if ((self.Properties.Lock.bCanLockPick == true) and (self.bLocked == true)) then
+		if ((self.Properties.Lock.bCanLockPick == true) and (self.bLocked == true) and (EntityCommon.IsUsableForLockpick(user, self) == 1)) then
 			Minigame.StartLockPicking(self.id)
+			self:Event_StartLockPicking()
 		end
 	end
 end
 
 -- =============================================================================
-function Stash:GenerateLockDifficulty()
+function Stash:GenerateLockData()
 
-	local model2lockDifficulty = {
-		["chest_fancy_a"] = 11.8,
-		["chest_fancy_b"] = 15.6,
-		["chest_fancy_c"] = 15.8,
-		["chest_fancy_d"] = 17.4,
-		["chest_royal_a"] = 17.2,
-		["chest_rustic_a"] = 11.2,
-		["chest_rustic_b"] = 7.2,
-		["chest_rustic_c"] = 15.2,
-		["chest_rustic_d"] = 15.2,
-		["chest_shabby_a"] = 6,
+	local model2lockData = {
+		["chest_fancy_a"]  = {difficulty = 11.8, fanciness = "Fancy"},
+		["chest_fancy_b"]  = {difficulty = 15.6, fanciness = "Fancy"},
+		["chest_fancy_c"]  = {difficulty = 15.8, fanciness = "Fancy"},
+		["chest_fancy_d"]  = {difficulty = 17.4, fanciness = "Fancy"},
+		["chest_royal_a"]  = {difficulty = 17.2, fanciness = "Fancy"},
+		["chest_rustic_a"] = {difficulty = 11.2, fanciness = "Common"},
+		["chest_rustic_b"] = {difficulty = 7.2,  fanciness = "Common"},
+		["chest_rustic_c"] = {difficulty = 15.2, fanciness = "Fancy"},
+		["chest_rustic_d"] = {difficulty = 15.2, fanciness = "Fancy"},
+		["chest_shabby_a"] = {difficulty = 6,    fanciness = "Common"},
 	}
 
-	for nameSnippet, difficulty in pairs(model2lockDifficulty) do
-
+	for nameSnippet, lockData in pairs(model2lockData) do
 		if string.match(self.Properties.object_Model, nameSnippet) ~= nil then
-			return difficulty / 20.0
+			return {
+				difficulty = lockData.difficulty / 20.0,
+				fanciness = lockData.fanciness
+			}
 		end
-
 	end
 
-	return 0
+	return {difficulty = 0, fanciness = "Common"}
 
 end
 
@@ -752,6 +764,10 @@ end
 function Stash:Event_UnHide()
 	self:Hide(0)
 	self:ActivateOutput( "UnHide", true )
+end
+
+-- =============================================================================
+function Stash:Event_StartLockPicking()
 end
 
 -- =============================================================================

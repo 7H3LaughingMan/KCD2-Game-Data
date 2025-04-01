@@ -45,12 +45,18 @@
 				<Port Name="poprve_u_lipolda" Direction="Out" Type="bool">
 					<DesignName StringName="navsteva__poprve_u_lipolda_1FUF" Text="poprve u lipolda" />
 				</Port>
+				<Port Name="obj_neaktivni" Direction="Out" Type="bool">
+					<DesignName StringName="navsteva__obj_neaktivni_H3p8" Text="obj neaktivní" />
+				</Port>
+				<Port Name="fail_dilcich_questu" Direction="Out" Type="trigger">
+					<DesignName StringName="navsteva__fail_dilcich_qu_9OjD" Text="fail dílčích questů" />
+				</Port>
 			</Ports>
 			<Definitions>
 				<Definition File="navsteva_fizla_leopolda/leopold_vzpomina_na_vrazdy.xml" />
 			</Definitions>
 			<Nodes>
-				<SoulDeathTrigger Name="deathtrigger5" PositionY="40" PositionX="-730">
+				<SoulDeathTrigger Name="deathtrigger5" PositionY="20" PositionX="-970">
 					<Asset Name="Souls" Alias="lipold" />
 					<Edge From="prvniSLeopoldem.Active" To="IsActive">
 						<Vertex>vertex1</Vertex>
@@ -96,6 +102,20 @@
 						<Vertex>vertex14</Vertex>
 					</Edge>
 				</Function>
+				<Function Name="or7" PositionY="-180" PositionX="660" MethodName="math::boolean::Or" DeclaringType="math::boolean">
+					<Edge From="prvniSLeopoldem.None" To="A">
+						<Vertex>RwXkEeaJ</Vertex>
+						<Vertex>es0234aD</Vertex>
+					</Edge>
+					<Edge From="prvniSLeopoldem.Done" To="B">
+						<Vertex>vertex7</Vertex>
+						<Vertex>vertex14</Vertex>
+					</Edge>
+					<Edge From="prvniSLeopoldem.Canceled" To="C">
+						<Vertex>vertex11</Vertex>
+						<Vertex>vertex22</Vertex>
+					</Edge>
+				</Function>
 				<Output Name="Output">
 					<Edge From="prvniSLeopoldem.OnDone" To="hrac_vysetruje_stare_vrazdy">
 						<Vertex>vertex5</Vertex>
@@ -110,16 +130,7 @@
 						<Vertex>vertex25</Vertex>
 						<Vertex>vertex29</Vertex>
 					</Edge>
-					<Edge From="prvniSLeopoldem.OnCanceled" To="hrac_zabil_leopolda">
-						<Vertex>vertex10</Vertex>
-						<Vertex>vertex13</Vertex>
-						<Vertex>vertex28</Vertex>
-					</Edge>
 					<Edge From="or6.bool" To="cancelled_or_done_leopold" />
-					<Edge From="leopold_vzpomina_na_vrazdy.fail_questu" To="fail_questu">
-						<Vertex>vertex38</Vertex>
-						<Vertex>vertex32</Vertex>
-					</Edge>
 					<Edge From="leopold_vzpomina_na_vrazdy.vylecena_lipold" To="vylecena_lipold">
 						<Vertex>vertex39</Vertex>
 						<Vertex>vertex34</Vertex>
@@ -128,46 +139,78 @@
 						<Vertex>vertex40</Vertex>
 						<Vertex>vertex36</Vertex>
 					</Edge>
-					<Edge From="leopold_vzpomina_na_vrazdy.poprve_u_lipolda" To="poprve_u_lipolda">
-						<Vertex>T1EFG9K4</Vertex>
-						<Vertex>Na0Bh5PH</Vertex>
+					<Edge From="prvniSLeopoldem.Done" To="poprve_u_lipolda">
+						<Vertex>R1vxQqqM</Vertex>
+						<Vertex>JuxW0Vb3</Vertex>
+					</Edge>
+					<Edge From="or7.bool" To="obj_neaktivni" />
+					<Edge From="triggersequence8.B" To="hrac_zabil_leopolda">
+						<Vertex>RhnDSjKz</Vertex>
+						<Vertex>VsdEzA0H</Vertex>
+						<Vertex>vertex10</Vertex>
+						<Vertex>vertex13</Vertex>
+						<Vertex>vertex28</Vertex>
+					</Edge>
+					<Edge From="triggersequence9.C" To="fail_questu">
+						<Vertex>vertex38</Vertex>
+						<Vertex>vertex32</Vertex>
+					</Edge>
+					<Edge From="triggersequence9.B" To="fail_dilcich_questu">
+						<Vertex>7eB1U2x2</Vertex>
+						<Vertex>yzTFQKdT</Vertex>
 					</Edge>
 				</Output>
-				<State Name="prvniSLeopoldem" PositionY="-180" PositionX="-410" RequiredForOutput="kutnohorsko" TypeT="ProgressFailable">
+				<State Name="prvniSLeopoldem" PositionY="-300" PositionX="-410" RequiredForOutput="kutnohorsko" TypeT="ProgressFailable">
 					<Edge From="hrac_jde_za_leopoldem" To="SetActive">
 						<Vertex>w8kqdk3S</Vertex>
 						<Vertex>5EPe23QC</Vertex>
 					</Edge>
-					<Edge From="deathtrigger5.OnDeath" To="SetCanceled" />
-					<Edge From="lipold_je_mrtyv__fail_quesut" To="SetCanceled">
-						<Vertex>vertex20</Vertex>
-						<Vertex>vertex21</Vertex>
-					</Edge>
 					<Edge From="leopold_vzpomina_na_vrazdy.hrac_dozvedel_o_3_vrazdach" To="SetDone">
 						<Vertex>vertex3</Vertex>
 						<Vertex>vertex4</Vertex>
+					</Edge>
+					<Edge From="triggersequence8.A" To="SetCanceled" />
+					<Edge From="triggersequence9.A" To="SetNone">
+						<Vertex>UzKuuTjg</Vertex>
+						<Vertex>RchFuwKl</Vertex>
 					</Edge>
 				</State>
 				<SaveGame Name="savegame2" PositionY="-480" PositionX="-60">
 					<Constant Name="Objective" Value="promluv_si_s_lipoldem" />
 					<Edge From="prvniSLeopoldem.OnDone" To="EnqueueSave" />
 				</SaveGame>
+				<TriggerSequence Name="triggersequence8" PositionY="80" PositionX="-710">
+					<Edge From="deathtrigger5.OnDeath" To="Exec" />
+					<Edge From="lipold_je_mrtyv__fail_quesut" To="Exec">
+						<Vertex>vertex20</Vertex>
+						<Vertex>vertex21</Vertex>
+					</Edge>
+				</TriggerSequence>
+				<TriggerSequence Name="triggersequence9" PositionY="480" PositionX="490">
+					<Edge From="leopold_vzpomina_na_vrazdy.fail_questu" To="Exec" />
+				</TriggerSequence>
 			</Nodes>
 			<EdgeVertices>
 				<EdgeVertex Name="5EPe23QC" PositionY="-20" PositionX="-530" />
-				<EdgeVertex Name="6mlCeRBe" PositionY="240" PositionX="-750" />
-				<EdgeVertex Name="Na0Bh5PH" PositionY="210" PositionX="910" />
+				<EdgeVertex Name="6mlCeRBe" PositionY="250" PositionX="-1000" />
+				<EdgeVertex Name="7eB1U2x2" PositionY="210" PositionX="755" />
+				<EdgeVertex Name="es0234aD" PositionY="-94" PositionX="603" />
+				<EdgeVertex Name="JuxW0Vb3" PositionY="130" PositionX="910" />
 				<EdgeVertex Name="qwxsdyaL" PositionY="240" PositionX="-100" />
-				<EdgeVertex Name="T1EFG9K4" PositionY="210" PositionX="560" />
+				<EdgeVertex Name="R1vxQqqM" PositionY="130" PositionX="-70" />
+				<EdgeVertex Name="RhnDSjKz" PositionY="370" PositionX="-420" />
+				<EdgeVertex Name="RchFuwKl" PositionY="166" PositionX="-396" />
+				<EdgeVertex Name="RwXkEeaJ" PositionY="-97" PositionX="-21" />
+				<EdgeVertex Name="UzKuuTjg" PositionY="175" PositionX="450" />
 				<EdgeVertex Name="vertex1" PositionY="280" PositionX="-100" />
 				<EdgeVertex Name="vertex10" PositionY="110" PositionX="-70" />
-				<EdgeVertex Name="vertex11" PositionY="130" PositionX="-70" />
+				<EdgeVertex Name="vertex11" PositionY="150" PositionX="-70" />
 				<EdgeVertex Name="vertex13" PositionY="110" PositionX="560" />
 				<EdgeVertex Name="vertex14" PositionY="90" PositionX="560" />
-				<EdgeVertex Name="vertex2" PositionY="280" PositionX="-750" />
-				<EdgeVertex Name="vertex20" PositionY="259" PositionX="-750" />
-				<EdgeVertex Name="vertex21" PositionY="260" PositionX="-470" />
-				<EdgeVertex Name="vertex22" PositionY="130" PositionX="560" />
+				<EdgeVertex Name="vertex2" PositionY="290" PositionX="-1000" />
+				<EdgeVertex Name="vertex20" PositionY="270" PositionX="-1000" />
+				<EdgeVertex Name="vertex21" PositionY="260" PositionX="-770" />
+				<EdgeVertex Name="vertex22" PositionY="150" PositionX="440" />
 				<EdgeVertex Name="vertex24" PositionY="50" PositionX="-70" />
 				<EdgeVertex Name="vertex25" PositionY="50" PositionX="220" />
 				<EdgeVertex Name="vertex26" PositionY="300" PositionX="-100" />
@@ -184,13 +227,15 @@
 				<EdgeVertex Name="vertex39" PositionY="170" PositionX="560" />
 				<EdgeVertex Name="vertex4" PositionY="260" PositionX="-400" />
 				<EdgeVertex Name="vertex40" PositionY="190" PositionX="560" />
-				<EdgeVertex Name="vertex41" PositionY="340" PositionX="-750" />
+				<EdgeVertex Name="vertex41" PositionY="350" PositionX="-1000" />
 				<EdgeVertex Name="vertex42" PositionY="340" PositionX="-100" />
 				<EdgeVertex Name="vertex5" PositionY="70" PositionX="-70" />
-				<EdgeVertex Name="vertex6" PositionY="300" PositionX="-750" />
+				<EdgeVertex Name="vertex6" PositionY="310" PositionX="-1000" />
 				<EdgeVertex Name="vertex7" PositionY="90" PositionX="-70" />
-				<EdgeVertex Name="vertex9" PositionY="320" PositionX="-750" />
-				<EdgeVertex Name="w8kqdk3S" PositionY="-20" PositionX="-780" />
+				<EdgeVertex Name="vertex9" PositionY="330" PositionX="-1000" />
+				<EdgeVertex Name="VsdEzA0H" PositionY="220" PositionX="-100" />
+				<EdgeVertex Name="w8kqdk3S" PositionY="-10" PositionX="-1020" />
+				<EdgeVertex Name="yzTFQKdT" PositionY="210" PositionX="915" />
 			</EdgeVertices>
 			<Text StringName="navsteva_fizla_leopolda_yalD" Text="Návštěva fízla leopolda" />
 			<Elements>

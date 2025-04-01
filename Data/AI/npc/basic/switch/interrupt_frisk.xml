@@ -46,8 +46,8 @@
 							<Sequence>
 								<Function_crime_getAnyDecoratorPreset tryToKeepItems="false" tryToKeepSecondaryWeapon="true" presetString="$anyDecoratorPreset" nodeLabel="26768709" />
 								<AnyDecorator preset="$anyDecoratorPreset" enabled="true">
-									<EntityContext context="speech_greyOutE" target="$this.id">
-										<EntityContextElement context="speech_greyOutE" enabled="true">
+									<EntityContextPreset preset="crime_greyOutEAndDisableChat" target="$this.id">
+										<EntityContextPresetElement contextPreset="crime_greyOutEAndDisableChat" enabled="true">
 											<EntityContextElement context="crime_interrupt" enabled="true">
 												<EntityContext context="crime_interruptFrisk" target="$this.id">
 													<AddPerceivableState PerceivableLabel="&apos;crime_interrupt&apos;">
@@ -483,8 +483,8 @@
 													</AddPerceivableState>
 												</EntityContext>
 											</EntityContextElement>
-										</EntityContextElement>
-									</EntityContext>
+										</EntityContextPresetElement>
+									</EntityContextPreset>
 								</AnyDecorator>
 							</Sequence>
 						</EntityContext>
@@ -492,9 +492,7 @@
 					<OnSuccess canSkip="1">
 						<Sequence>
 							<Function_crime_addLeavingInterruptCooldown nodeLabel="24455979" />
-							<AtomicDecorator>
-								<Function_crime_limits_removeReactionLink information="$friskData.information" reactionKind="$enum:crime_reactionKind.frisk" nodeLabel="78655258" />
-							</AtomicDecorator>
+							<Function_crime_limits_removeReactionLink information="$friskData.information" reactionKind="$enum:crime_reactionKind.frisk" nodeLabel="78655258" />
 						</Sequence>
 					</OnSuccess>
 				</FuseBox>
@@ -553,9 +551,9 @@
 									</Function_crime_getAnyDecoratorPreset>
 									<AnyDecorator hasInputBreakpoint="0" comment="" breakpointFlags="0">
 										<OutputBreakpoints />
-										<EntityContext hasInputBreakpoint="0" comment="" breakpointFlags="0">
+										<EntityContextPreset hasInputBreakpoint="0" comment="" breakpointFlags="0">
 											<OutputBreakpoints />
-											<EntityContextElement hasInputBreakpoint="0" comment="" breakpointFlags="0">
+											<EntityContextPresetElement hasInputBreakpoint="0" comment="" breakpointFlags="0">
 												<OutputBreakpoints />
 												<EntityContextElement hasInputBreakpoint="0" comment="" breakpointFlags="0">
 													<OutputBreakpoints />
@@ -1318,8 +1316,8 @@
 														</AddPerceivableState>
 													</EntityContext>
 												</EntityContextElement>
-											</EntityContextElement>
-										</EntityContext>
+											</EntityContextPresetElement>
+										</EntityContextPreset>
 									</AnyDecorator>
 								</Sequence>
 							</EntityContext>
@@ -1330,12 +1328,9 @@
 								<Function_crime_addLeavingInterruptCooldown hasInputBreakpoint="0" comment="" breakpointFlags="0">
 									<OutputBreakpoints />
 								</Function_crime_addLeavingInterruptCooldown>
-								<AtomicDecorator hasInputBreakpoint="0" comment="" breakpointFlags="0">
+								<Function_crime_limits_removeReactionLink hasInputBreakpoint="0" comment="" breakpointFlags="0">
 									<OutputBreakpoints />
-									<Function_crime_limits_removeReactionLink hasInputBreakpoint="0" comment="" breakpointFlags="0">
-										<OutputBreakpoints />
-									</Function_crime_limits_removeReactionLink>
-								</AtomicDecorator>
+								</Function_crime_limits_removeReactionLink>
 							</Sequence>
 						</OnSuccess>
 					</FuseBox>

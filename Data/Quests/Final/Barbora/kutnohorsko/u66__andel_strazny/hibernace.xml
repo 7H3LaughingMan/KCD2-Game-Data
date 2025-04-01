@@ -12,6 +12,9 @@
 				<Port Name="predat_itemy" Direction="Out" Type="trigger">
 					<DesignName StringName="hibernace_predat_itemy_RnY1" Text="Předat itemy" />
 				</Port>
+				<Port Name="quest_fail" Direction="Out" Type="trigger">
+					<DesignName StringName="hibernace_quest_fail_adz8" Text="Quest fail" />
+				</Port>
 			</Ports>
 			<Definitions>
 				<Definition File="hibernace/jan_sindel.xml" />
@@ -25,6 +28,13 @@
 					<Edge From="najdiVeci.Done" To="A" />
 					<Edge From="najdiVeci_astrolavb.Done" To="B" />
 				</Function>
+				<SoulDeathTrigger Name="deathtrigger16" PositionY="-320" PositionX="120">
+					<Edge From="makearray26.Array" To="Souls" />
+					<Edge From="Awake" To="IsActive">
+						<Vertex>yXjnUuKE</Vertex>
+						<Vertex>AHBsY4X1</Vertex>
+					</Edge>
+				</SoulDeathTrigger>
 				<hasitems Name="hasitems" PositionY="390" PositionX="920" Namespace="utils.item">
 					<Constant Name="item" Value="ff0e9782-252b-4cba-8931-62b0ff08bd21" />
 					<Constant Name="amount" Value="1" />
@@ -35,7 +45,7 @@
 					<Constant Name="itemclass" Value="bc3716ff-a5e0-41ea-a07f-e81baa026b82" />
 					<Constant Name="amount" Value="1" />
 				</HasItems_Soul>
-				<HasItems_Soul Name="HasItems_Soul_1" PositionY="30" PositionX="-190" Namespace="utils.item">
+				<HasItems_Soul Name="HasItems_Soul_1" PositionY="30" PositionX="-200" Namespace="utils.item">
 					<Asset Name="soul" Alias="player" />
 					<Constant Name="itemclass" Value="ff1994fb-a737-4e68-9dc4-7f1ca47a9168" />
 					<Constant Name="amount" Value="1" />
@@ -45,7 +55,7 @@
 					<Constant Name="itemclass" Value="ff0e9782-252b-4cba-8931-62b0ff08bd21" />
 					<Constant Name="amount" Value="1" />
 				</HasItems_Soul>
-				<If Name="if22" PositionY="-70" PositionX="180">
+				<If Name="if22" PositionY="-70" PositionX="130">
 					<Edge From="OnWake" To="Exec" />
 					<Edge From="HasItems_Soul_1.hasitems" To="Condition" />
 				</If>
@@ -75,13 +85,49 @@
 					<Edge From="hasitems.hasitem" To="Condition" />
 					<Edge From="seberMapuPodzemi.OnDone" To="Exec" />
 				</If>
+				<If Name="if39" PositionY="-210" PositionX="400">
+					<Edge From="seberMapuPodzemi.Active" To="Condition">
+						<Vertex>IjpDkb44</Vertex>
+						<Vertex>DUIyfevW</Vertex>
+					</Edge>
+					<Edge From="triggersequence38.A" To="Exec">
+						<Vertex>IpTQPuRK</Vertex>
+						<Vertex>flq37Jrd</Vertex>
+					</Edge>
+				</If>
+				<If Name="if40" PositionY="830" PositionX="490">
+					<Edge From="vratUkradeneVeci.Active" To="Condition">
+						<Vertex>cBjgPDe3</Vertex>
+						<Vertex>0UeHDmyD</Vertex>
+					</Edge>
+					<Edge From="triggersequence38.A" To="Exec">
+						<Vertex>IpTQPuRK</Vertex>
+						<Vertex>flq37Jrd</Vertex>
+					</Edge>
+				</If>
+				<If Name="if41" PositionY="-520" PositionX="1430">
+					<Edge From="najdiVeci.Active" To="Condition">
+						<Vertex>3DqIPH4w</Vertex>
+					</Edge>
+					<Edge From="triggersequence38.A" To="Exec" />
+				</If>
+				<If Name="if42" PositionY="200" PositionX="1510">
+					<Edge From="najdiVeci_astrolavb.Active" To="Condition">
+						<Vertex>3EABhlGa</Vertex>
+						<Vertex>zHLdEggm</Vertex>
+					</Edge>
+					<Edge From="triggersequence38.A" To="Exec">
+						<Vertex>1dwNW3Ge</Vertex>
+						<Vertex>ewMy6wAs</Vertex>
+					</Edge>
+				</If>
 				<IfFunction Name="ifcompare37" PositionY="-1220" PositionX="230" TypeT="wh::entitymodule::ItemClassId" MethodName="Control::Compare" DeclaringType="Control">
 					<Constant Name="ValueA" Value="ff1994fb-a737-4e68-9dc4-7f1ca47a9168" />
 					<Constant Name="Op" Value="Equals" />
 					<Edge From="itemproperties36.ItemClass" To="ValueB" />
 					<Edge From="useitemtrigger1.OnUsed" To="Exec" />
 				</IfFunction>
-				<ObjectProperties Name="isoulproperties28" PositionY="450" PositionX="150" DeclaringType="wh::rpgmodule::I_Soul">
+				<ObjectProperties Name="isoulproperties28" PositionY="450" PositionX="80" DeclaringType="wh::rpgmodule::I_Soul">
 					<Asset Name="I_Soul" Alias="player" />
 				</ObjectProperties>
 				<itemclasstrigger_playerinventory Name="itemclasstrigger_playerinventory_1" PositionY="-200" PositionX="1220" Namespace="utils.item">
@@ -92,7 +138,7 @@
 						<Vertex>8VuCgPuV</Vertex>
 					</Edge>
 				</itemclasstrigger_playerinventory>
-				<itemclasstrigger_playerinventory Name="itemclasstrigger_playerinventory_2" PositionY="240" PositionX="1220" Namespace="utils.item">
+				<itemclasstrigger_playerinventory Name="itemclasstrigger_playerinventory_2" PositionY="290" PositionX="1150" Namespace="utils.item">
 					<Constant Name="itemclass" Value="ff0e9782-252b-4cba-8931-62b0ff08bd21" />
 					<Constant Name="amount" Value="1" />
 					<Edge From="najdiVeci_astrolavb.Active" To="isactive">
@@ -110,6 +156,9 @@
 						<Vertex>4T3QohJV</Vertex>
 					</Edge>
 				</jan_sindel>
+				<MakeArray Name="makearray26" PositionY="-250" PositionX="-160" TypeT="wh::rpgmodule::Souls">
+					<Asset Name="A" Alias="sindel" />
+				</MakeArray>
 				<State Name="najdiVeci" PositionY="-220" PositionX="1720" RequiredForOutput="kutnohorsko" TypeT="Progress">
 					<Edge From="itemclasstrigger_playerinventory_1.ontargetamountacquire" To="SetDone" />
 					<Edge From="if29.False" To="SetActive">
@@ -119,8 +168,9 @@
 					<Edge From="if29.True" To="SetDone">
 						<Vertex>cjxLPC9X</Vertex>
 					</Edge>
+					<Edge From="if41.True" To="SetNone" />
 				</State>
-				<State Name="najdiVeci_astrolavb" PositionY="250" PositionX="1710" TypeT="Progress">
+				<State Name="najdiVeci_astrolavb" PositionY="280" PositionX="1740" TypeT="Progress">
 					<Edge From="itemclasstrigger_playerinventory_2.ontargetamountacquire" To="SetDone" />
 					<Edge From="if29.False" To="SetActive">
 						<Vertex>RkEhhFVH</Vertex>
@@ -129,8 +179,9 @@
 					<Edge From="if29.True" To="SetDone">
 						<Vertex>cjxLPC9X</Vertex>
 					</Edge>
+					<Edge From="if42.True" To="SetNone" />
 				</State>
-				<najdi_ukradene_veci_v_podzemi Name="objectiveVisual28" PositionY="-220" PositionX="2030" RequiredForOutput="kutnohorsko">
+				<najdi_ukradene_veci_v_podzemi Name="objectiveVisual28" PositionY="-240" PositionX="2030" RequiredForOutput="kutnohorsko">
 					<Edge From="najdiVeci.State" To="Progress" />
 				</najdi_ukradene_veci_v_podzemi>
 				<vrat_ukradene_veci_mistru_sindelovi Name="objectiveVisual6" PositionY="750" PositionX="1020" RequiredForOutput="kutnohorsko">
@@ -148,6 +199,10 @@
 					<Edge From="jan_sindel.predat_itemy" To="predat_itemy">
 						<Vertex>uF1MfAhL</Vertex>
 					</Edge>
+					<Edge From="triggersequence38.B" To="quest_fail">
+						<Vertex>L9fTNF8x</Vertex>
+						<Vertex>jn0zf69n</Vertex>
+					</Edge>
 				</Output>
 				<AddReward Name="reward20" PositionY="1700" PositionX="1340">
 					<Edge From="jan_sindel.ziskat_reward" To="AddReward" />
@@ -163,7 +218,11 @@
 					<Edge From="if27.True" To="SetDone" />
 					<Edge From="if27_1.True" To="SetActive" />
 					<Edge From="ifcompare37.True" To="SetDone" />
+					<Edge From="if39.True" To="SetNone" />
 				</State>
+				<TriggerSequence Name="triggersequence38" PositionY="-520" PositionX="350">
+					<Edge From="deathtrigger16.OnDeath" To="Exec" />
+				</TriggerSequence>
 				<UseItemTrigger Name="useitemtrigger1" PositionY="-1210" PositionX="-300">
 					<Asset Name="Soul" Alias="player" />
 					<Edge From="seberMapuPodzemi.Active" To="IsActive">
@@ -180,10 +239,13 @@
 						<Vertex>3KVh1teS</Vertex>
 						<Vertex>6pkh6022</Vertex>
 					</Edge>
+					<Edge From="if40.True" To="SetNone" />
 				</State>
 			</Nodes>
 			<EdgeVertices>
 				<EdgeVertex Name="0Gt0hn7b" PositionY="1070" PositionX="-290" />
+				<EdgeVertex Name="0UeHDmyD" PositionY="705" PositionX="519" />
+				<EdgeVertex Name="1dwNW3Ge" PositionY="-424" PositionX="1185" />
 				<EdgeVertex Name="3DqIPH4w" PositionY="-290" PositionX="1880" />
 				<EdgeVertex Name="3EABhlGa" PositionY="200" PositionX="1890" />
 				<EdgeVertex Name="3KVh1teS" PositionY="670" PositionX="2270" />
@@ -192,10 +254,19 @@
 				<EdgeVertex Name="6pkh6022" PositionY="670" PositionX="660" />
 				<EdgeVertex Name="88Pj6FJN" PositionY="1220" PositionX="2660" />
 				<EdgeVertex Name="8VuCgPuV" PositionY="-290" PositionX="1230" />
+				<EdgeVertex Name="AHBsY4X1" PositionY="-310" PositionX="60" />
+				<EdgeVertex Name="cBjgPDe3" PositionY="690" PositionX="950" />
 				<EdgeVertex Name="cjxLPC9X" PositionY="192" PositionX="1587" />
+				<EdgeVertex Name="DUIyfevW" PositionY="-270" PositionX="430" />
+				<EdgeVertex Name="ewMy6wAs" PositionY="280" PositionX="1220" />
+				<EdgeVertex Name="flq37Jrd" PositionY="-330" PositionX="400" />
 				<EdgeVertex Name="HUl3u9v0" PositionY="399" PositionX="358" />
+				<EdgeVertex Name="IjpDkb44" PositionY="-280" PositionX="810" />
+				<EdgeVertex Name="IpTQPuRK" PositionY="-330" PositionX="540" />
 				<EdgeVertex Name="jAPptkLm" PositionY="690" PositionX="2410" />
+				<EdgeVertex Name="jn0zf69n" PositionY="-537" PositionX="2709" />
 				<EdgeVertex Name="k0Qqgt2X" PositionY="-515" PositionX="-44" />
+				<EdgeVertex Name="L9fTNF8x" PositionY="-537" PositionX="749" />
 				<EdgeVertex Name="mbRvyA91" PositionY="690" PositionX="2150" />
 				<EdgeVertex Name="pICX6bG0" PositionY="1040" PositionX="670" />
 				<EdgeVertex Name="qnXeQPkl" PositionY="180" PositionX="1550" />
@@ -204,6 +275,7 @@
 				<EdgeVertex Name="uF1MfAhL" PositionY="1193" PositionX="2656" />
 				<EdgeVertex Name="w7se9Dpv" PositionY="-510" PositionX="830" />
 				<EdgeVertex Name="Yk8YLYhv" PositionY="1040" PositionX="1060" />
+				<EdgeVertex Name="yXjnUuKE" PositionY="-304" PositionX="-350" />
 				<EdgeVertex Name="zHLdEggm" PositionY="200" PositionX="1190" />
 			</EdgeVertices>
 			<Text StringName="hibernace_EpHA" Text="Hibernace" />

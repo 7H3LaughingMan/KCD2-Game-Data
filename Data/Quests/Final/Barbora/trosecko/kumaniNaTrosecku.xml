@@ -66,6 +66,9 @@
 				<Port Name="kumani_opustili_hospodu" Direction="Out" Type="bool">
 					<DesignName StringName="kumaninat_n03d192a59f3a42_uvtr" Text="Kumáni opustili hospodu" />
 				</Port>
+				<Port Name="objective_pij_s_kumany_je_aktivni" Direction="Out" Type="bool">
+					<DesignName StringName="kumaninat_objective_pij_s_Hx4C" Text="Objective Pij s Kumány je aktivní" />
+				</Port>
 			</Ports>
 			<Definitions>
 				<Definition File="kumaniNaTrosecku/tip_a_zadani_questu.xml" />
@@ -107,10 +110,6 @@
 					</Edge>
 				</Function>
 				<buffy_opilosti Name="buffy_opilosti" PositionY="450" PositionX="1560">
-					<Edge From="kumaniNaTrosecku_questProgress.OnFailed" To="quest_failuje">
-						<Vertex>vertex34</Vertex>
-						<Vertex>vertex74</Vertex>
-					</Edge>
 					<Edge From="hibernation.jindra_odesel_z_tabora_kumanu_behem_piti" To="jindra_odesel_z_tabora_kumanu_behem_piti">
 						<Vertex>vertex75</Vertex>
 						<Vertex>vertex76</Vertex>
@@ -126,6 +125,10 @@
 					<Edge From="hibernation.henry_zvladl_pit" To="henry_zvladl_pit">
 						<Vertex>vertex131</Vertex>
 						<Vertex>vertex130</Vertex>
+					</Edge>
+					<Edge From="triggersequence19_1.B" To="quest_failuje">
+						<Vertex>vertex34</Vertex>
+						<Vertex>vertex74</Vertex>
 					</Edge>
 				</buffy_opilosti>
 				<Function Name="compare16" PositionY="-50" PositionX="-3380" TypeT="wh::questmodule::QuestProgress" MethodName="Control::Compare" DeclaringType="Control">
@@ -167,6 +170,10 @@
 						<Vertex>APgtJBS8</Vertex>
 					</Edge>
 				</dialogy_po_questu>
+				<disabledirectionschatsoul Name="disabledirectionschatsoul" PositionY="1710" PositionX="-330" Namespace="utils.hardcoremode">
+					<Constant Name="enabled" Value="true" />
+					<Asset Name="soul" Alias="courtingCuman" />
+				</disabledirectionschatsoul>
 				<haste_drunk_buffs Name="haste_drunk_buffs" PositionY="-400" PositionX="-1250" />
 				<haste_init_and_start Name="haste_init_and_start" PositionY="-340" PositionX="-3420" />
 				<hibernation Name="hibernation" PositionY="120" PositionX="-350" RequiredForOutput="trosecko">
@@ -216,7 +223,9 @@
 						<Vertex>YxBgTTMp</Vertex>
 					</Edge>
 					<Edge From="tip_a_zadani_questu.stav_kumanu_v_hospode" To="stav_kumanu_v_hospode" />
-					<Edge From="tip_a_zadani_questu.jindra_dostal_zadany_quest_pres_prioritni_dialog" To="jindra_dostal_zadany_quest_pres_prioritni_dialog" />
+					<Edge From="tip_a_zadani_questu.jindra_dostal_zadany_quest_pres_prioritni_dialog" To="jindra_dostal_zadany_quest_pres_prioritni_dialog">
+						<Vertex>E0r2HoI9</Vertex>
+					</Edge>
 					<Edge From="rano_po_kalbe.is_sleeping_cutscene_progress_none" To="is_sleeping_cutscene_progress_none">
 						<Vertex>RfMfStCg</Vertex>
 						<Vertex>9Jdy3n2X</Vertex>
@@ -232,7 +241,7 @@
 						<Vertex>vertex86</Vertex>
 						<Vertex>vertex87</Vertex>
 					</Edge>
-					<Edge From="kumaniNaTrosecku_questProgress.OnDone" To="quest_uspesne_konci">
+					<Edge From="triggersequence19.B" To="quest_uspesne_konci">
 						<Vertex>vertex88</Vertex>
 						<Vertex>vertex90</Vertex>
 						<Vertex>vertex89</Vertex>
@@ -241,31 +250,11 @@
 				<konstanty Name="konstanty" PositionY="740" PositionX="-3690" Namespace="kumani_na_trosecku" />
 				<kumani_na_trosecku Name="kumani_na_trosecku" PositionY="-400" PositionX="-960" RequiredForOutput="trosecko" />
 				<State Name="kumaniNaTrosecku_questProgress" PositionY="-240" PositionX="-960" RequiredForOutput="trosecko" TypeT="wh::questmodule::QuestProgress">
-					<Edge From="hibernation.success_questu" To="SetDone">
-						<Vertex>vertex20</Vertex>
-						<Vertex>vertex19</Vertex>
-					</Edge>
-					<Edge From="hibernation.fail_questu" To="SetFailed">
-						<Vertex>vertex29</Vertex>
-						<Vertex>vertex28</Vertex>
-					</Edge>
 					<Edge From="revive.onexec" To="SetActive" />
+					<Edge From="triggersequence19.A" To="SetDone" />
+					<Edge From="triggersequence19_1.A" To="SetFailed" />
 				</State>
 				<nehibernovane_questove_itemy Name="nehibernovane_questove_itemy" PositionY="160" PositionX="1130">
-					<Edge From="kumaniNaTrosecku_questProgress.OnFailed" To="quest_konci">
-						<Vertex>vertex34</Vertex>
-						<Vertex>vertex35</Vertex>
-						<Vertex>vertex36</Vertex>
-						<Vertex>TPgJUuct</Vertex>
-						<Vertex>vertex37</Vertex>
-					</Edge>
-					<Edge From="kumaniNaTrosecku_questProgress.OnDone" To="quest_konci">
-						<Vertex>vertex88</Vertex>
-						<Vertex>vertex35</Vertex>
-						<Vertex>vertex36</Vertex>
-						<Vertex>TPgJUuct</Vertex>
-						<Vertex>vertex37</Vertex>
-					</Edge>
 					<Edge From="hibernation.boozeholdership" To="boozeholdership">
 						<Vertex>vertex41</Vertex>
 					</Edge>
@@ -275,6 +264,21 @@
 					<Edge From="hibernation.jindra_obslouzil_kumany" To="jindra_obslouzil_kumany">
 						<Vertex>vertex132</Vertex>
 					</Edge>
+					<Edge From="triggersequence19.B" To="quest_konci">
+						<Vertex>vertex88</Vertex>
+						<Vertex>vertex35</Vertex>
+						<Vertex>vertex36</Vertex>
+						<Vertex>TPgJUuct</Vertex>
+						<Vertex>vertex37</Vertex>
+					</Edge>
+					<Edge From="triggersequence19_1.B" To="quest_konci">
+						<Vertex>vertex34</Vertex>
+						<Vertex>vertex35</Vertex>
+						<Vertex>vertex36</Vertex>
+						<Vertex>TPgJUuct</Vertex>
+						<Vertex>vertex37</Vertex>
+					</Edge>
+					<Edge From="hibernation.nechat_hraci_item_mimo_hibernaci" To="nechat_hraci_item_mimo_hibernaci" />
 				</nehibernovane_questove_itemy>
 				<Function Name="not_partyStarted" PositionY="1320" PositionX="-2300" MethodName="math::boolean::Not" DeclaringType="math::boolean">
 					<Edge From="hibernation.party_nezacala" To="Value">
@@ -303,6 +307,7 @@
 						<Vertex>2gtPJuyQ</Vertex>
 					</Edge>
 				</Function>
+				<objectivename Name="objectivename" PositionY="-970" PositionX="380" Namespace="utils.commonstrings" />
 				<Function Name="or_eitherTimePassedOrQuestDone" PositionY="-140" PositionX="-2640" MethodName="math::boolean::Or" DeclaringType="math::boolean">
 					<Edge From="haste_init_and_start.override_socky_waiting_done" To="A" />
 					<Edge From="timer_initDelay.Finished" To="B">
@@ -366,6 +371,9 @@
 					<Edge From="hibernation.kumani_opustili_hospodu" To="kumani_opustili_hospodu">
 						<Vertex>26WWtQlz</Vertex>
 					</Edge>
+					<Edge From="hibernation.objective_pij_s_kumany_je_aktivni" To="objective_pij_s_kumany_je_aktivni">
+						<Vertex>3RmspgUM</Vertex>
+					</Edge>
 				</Output>
 				<PermaDeath Name="PermaDeath" PositionY="-330" PositionX="-150" Namespace="utils.general">
 					<Asset Name="souls" Alias="cumans" />
@@ -420,7 +428,7 @@
 					</Edge>
 				</revive>
 				<AddReward Name="reward_sideStoryProgress" PositionY="-240" PositionX="-410">
-					<Edge From="kumaniNaTrosecku_questProgress.OnDone" To="AddReward">
+					<Edge From="triggersequence19.B" To="AddReward">
 						<Vertex>vertex88</Vertex>
 						<Vertex>vertex90</Vertex>
 					</Edge>
@@ -449,23 +457,44 @@
 						<Vertex>gqs4MXkJ</Vertex>
 						<Vertex>MMIrRmt7</Vertex>
 					</Edge>
-					<Edge From="kumaniNaTrosecku_questProgress.OnDone" To="konci_quest">
+					<Edge From="triggersequence19.B" To="konci_quest">
 						<Vertex>vertex88</Vertex>
 						<Vertex>vertex35</Vertex>
 						<Vertex>vertex36</Vertex>
 						<Vertex>TPgJUuct</Vertex>
 					</Edge>
-					<Edge From="kumaniNaTrosecku_questProgress.OnFailed" To="konci_quest">
+					<Edge From="triggersequence19_1.B" To="konci_quest">
 						<Vertex>vertex34</Vertex>
 						<Vertex>vertex35</Vertex>
 						<Vertex>vertex36</Vertex>
 						<Vertex>TPgJUuct</Vertex>
 					</Edge>
 				</rvacka_v_hospode>
+				<SaveGame Name="savegame20" PositionY="-750" PositionX="740">
+					<Edge From="switch21.Value1" To="Objective" />
+					<Edge From="kumaniNaTrosecku_questProgress.OnActive" To="EnqueueSave">
+						<Vertex>vertex108</Vertex>
+					</Edge>
+				</SaveGame>
+				<SaveGame Name="savegame20_1" PositionY="-1010" PositionX="740">
+					<Edge From="kumaniNaTrosecku_questProgress.OnDone" To="EnqueueSave">
+						<Vertex>fySTRwEN</Vertex>
+					</Edge>
+					<Edge From="objectivename.endquest" To="ObjectiveNameOverride" />
+				</SaveGame>
 				<SchedulerLinkActivation Name="schedule9" PositionY="-740" PositionX="-140">
 					<Constant Name="LinkTag" Value="kumaniNaTrosecku_cumansAreEquipped" />
 					<Edge From="or10.bool" To="IsActive" />
 				</SchedulerLinkActivation>
+				<Switch Name="switch21" PositionY="-730" PositionX="220" TypeT="bool" ValueTypes="wh::questmodule::ObjectiveName" SwitchValues="true">
+					<Constant Name="trueValue1" Value="promluv_si_s_vujtkem_o_kumanech" />
+					<Constant Name="DefaultValue1" Value="obsluz_kumany" />
+					<Edge From="tip_a_zadani_questu.jindra_dostal_zadany_quest_pres_prioritni_dialog" To="Switch">
+						<Vertex>E0r2HoI9</Vertex>
+						<Vertex>ggeIxJNV</Vertex>
+						<Vertex>9sdfrY3x</Vertex>
+					</Edge>
+				</Switch>
 				<Switch Name="switch9" PositionY="-360" PositionX="1030" TypeT="wh::questmodule::QuestProgress" ValueTypes="bool" SwitchValues="Done Failed">
 					<Constant Name="DoneValue1" Value="true" />
 					<Constant Name="FailedValue1" Value="true" />
@@ -521,7 +550,24 @@
 						<Vertex>oITIm1gN</Vertex>
 						<Vertex>DTSqw4oM</Vertex>
 					</Edge>
+					<Edge From="rvacka_v_hospode.prvni_trackovani_odchodu_z_oblasti_je_aktivni" To="prvni_trackovani_odchodu_z_oblasti_je_aktivni">
+						<Vertex>Tcz5FkDj</Vertex>
+						<Vertex>Lsz2CxXw</Vertex>
+						<Vertex>HjRUmRHw</Vertex>
+					</Edge>
 				</tip_a_zadani_questu>
+				<TriggerSequence Name="triggersequence19" PositionY="10" PositionX="-1220">
+					<Edge From="hibernation.success_questu" To="Exec">
+						<Vertex>vertex20</Vertex>
+						<Vertex>vertex19</Vertex>
+					</Edge>
+				</TriggerSequence>
+				<TriggerSequence Name="triggersequence19_1" PositionY="160" PositionX="-1220">
+					<Edge From="hibernation.fail_questu" To="Exec">
+						<Vertex>vertex29</Vertex>
+						<Vertex>vertex28</Vertex>
+					</Edge>
+				</TriggerSequence>
 				<vztahy_s_kumany Name="vztahy_s_kumany" PositionY="110" PositionX="190">
 					<Edge From="hibernation.henry_rekl_vaskovi_ze_pomsti_rodice" To="henry_rekl_vaskovi_ze_pomsti_rodice" />
 					<Edge From="hibernation.vasko_je_skillteacher" To="vasko_je_skillteacher" />
@@ -529,11 +575,13 @@
 			</Nodes>
 			<EdgeVertices>
 				<EdgeVertex Name="1STht4Vh" PositionY="-270" PositionX="1420" />
-				<EdgeVertex Name="26WWtQlz" PositionY="1204" PositionX="2209" />
+				<EdgeVertex Name="26WWtQlz" PositionY="1260" PositionX="2110" />
 				<EdgeVertex Name="2gtPJuyQ" PositionY="-300" PositionX="-600" />
 				<EdgeVertex Name="2SR33P72" PositionY="1150" PositionX="-2260" />
+				<EdgeVertex Name="3RmspgUM" PositionY="1331" PositionX="2191" />
 				<EdgeVertex Name="7oyNBm54" PositionY="-460" PositionX="-2650" />
 				<EdgeVertex Name="9Jdy3n2X" PositionY="1420" PositionX="-350" />
+				<EdgeVertex Name="9sdfrY3x" PositionY="0" PositionX="-60" />
 				<EdgeVertex Name="anRT2Dl7" PositionY="1290" PositionX="890" />
 				<EdgeVertex Name="APgtJBS8" PositionY="-340" PositionX="319" />
 				<EdgeVertex Name="arYtcmcX" PositionY="1520" PositionX="-2270" />
@@ -544,13 +592,18 @@
 				<EdgeVertex Name="CyJTz8J3" PositionY="1070" PositionX="-3150" />
 				<EdgeVertex Name="D7Kw2D4m" PositionY="530" PositionX="-720" />
 				<EdgeVertex Name="DTSqw4oM" PositionY="570" PositionX="-1560" />
+				<EdgeVertex Name="E0r2HoI9" PositionY="420" PositionX="-720" />
 				<EdgeVertex Name="ECUln1mI" PositionY="-540" PositionX="-2610" />
 				<EdgeVertex Name="eIemThMy" PositionY="-460" PositionX="-1550" />
+				<EdgeVertex Name="fySTRwEN" PositionY="40" PositionX="410" />
+				<EdgeVertex Name="ggeIxJNV" PositionY="0" PositionX="-350" />
 				<EdgeVertex Name="gqs4MXkJ" PositionY="1250" PositionX="-2080" />
+				<EdgeVertex Name="HjRUmRHw" PositionY="220" PositionX="-2340" />
 				<EdgeVertex Name="IH3ceLS3" PositionY="-540" PositionX="-1850" />
 				<EdgeVertex Name="jy5SyLEN" PositionY="1520" PositionX="-60" />
 				<EdgeVertex Name="kfFp3tQE" PositionY="1090" PositionX="-620" />
 				<EdgeVertex Name="LhBUyBmI" PositionY="330" PositionX="-690" />
+				<EdgeVertex Name="Lsz2CxXw" PositionY="1550" PositionX="-2380" />
 				<EdgeVertex Name="m78Kr2Th" PositionY="780" PositionX="-3110" />
 				<EdgeVertex Name="M7IGEcNP" PositionY="1490" PositionX="-2000" />
 				<EdgeVertex Name="MMIrRmt7" PositionY="1250" PositionX="660" />
@@ -562,10 +615,11 @@
 				<EdgeVertex Name="oyFTC15f" PositionY="20" PositionX="-350" />
 				<EdgeVertex Name="pexUB2hr" PositionY="-490" PositionX="-1990" />
 				<EdgeVertex Name="puDNJvkC" PositionY="0" PositionX="-2190" />
-				<EdgeVertex Name="qabM24Qe" PositionY="-490" PositionX="-610" />
+				<EdgeVertex Name="qabM24Qe" PositionY="-490" PositionX="-700" />
 				<EdgeVertex Name="QGkVuKYA" PositionY="880" PositionX="-2440" />
 				<EdgeVertex Name="RfMfStCg" PositionY="1420" PositionX="620" />
-				<EdgeVertex Name="TPgJUuct" PositionY="-71" PositionX="565" />
+				<EdgeVertex Name="Tcz5FkDj" PositionY="1550" PositionX="870" />
+				<EdgeVertex Name="TPgJUuct" PositionY="-70" PositionX="580" />
 				<EdgeVertex Name="TSExtzoG" PositionY="1320" PositionX="890" />
 				<EdgeVertex Name="UPSuCHpU" PositionY="128" PositionX="-3505" />
 				<EdgeVertex Name="Uv26qJya" PositionY="1490" PositionX="-60" />
@@ -573,7 +627,7 @@
 				<EdgeVertex Name="vertex1" PositionY="-70" PositionX="-3060" />
 				<EdgeVertex Name="vertex102" PositionY="600" PositionX="-1580" />
 				<EdgeVertex Name="vertex104" PositionY="1220" PositionX="-420" />
-				<EdgeVertex Name="vertex108" PositionY="-20" PositionX="510" />
+				<EdgeVertex Name="vertex108" PositionY="-20" PositionX="650" />
 				<EdgeVertex Name="vertex109" PositionY="900" PositionX="600" />
 				<EdgeVertex Name="vertex110" PositionY="930" PositionX="610" />
 				<EdgeVertex Name="vertex111" PositionY="960" PositionX="610" />
@@ -811,6 +865,11 @@
 				<SoulAsset Name="vujteksBrother" SharedSoulGuids="4db4e9ff-af4e-777d-f641-83c298a1289c" />
 				<TagPointAsset Name="nearPubTableTagpoint" />
 			</Assets>
+			<Notes>
+				<Note Name="note22" PositionY="1670" PositionX="-320">
+					<Text StringName="kumaninat_note22_XCRn" Text="NOTE(Andy): Chceme pro tuto mapu, aby Jasak nedával směry, ale na druhý mapě ano." />
+				</Note>
+			</Notes>
 			<Text StringName="sq06__kumani_b1se" Text="Kumáni na Trosecku" />
 			<Elements>
 				<GameplayActionElement>

@@ -169,6 +169,14 @@
 					<Asset Name="Souls" Alias="marketa" />
 					<Edge From="initQuest.Active" To="IsActive" />
 				</SoulDeathTrigger>
+				<disabledirectionschatsoul Name="disabledirectionschatsoul_lacek" PositionY="2310" PositionX="90" Namespace="utils.hardcoremode">
+					<Asset Name="soul" Alias="lacek" />
+					<Edge From="damaVNesnazich_questProgress.Active" To="enabled" />
+				</disabledirectionschatsoul>
+				<disabledirectionschatsoul Name="disabledirectionschatsoul_marketa" PositionY="2470" PositionX="380" Namespace="utils.hardcoremode">
+					<Asset Name="soul" Alias="marketa" />
+					<Edge From="questNotNone.bool" To="enabled" />
+				</disabledirectionschatsoul>
 				<dobrovolny_dialog_s_mlynarem Name="dobrovolny_dialog_s_mlynarem" PositionY="160" PositionX="3880">
 					<Edge From="rozdelovani_penez_v_seniku.konec_questu" To="konec_questu" />
 					<Edge From="konfrontace_lacka.hrac_se_prorekl__marketa_leave_level" To="konec_questu">
@@ -214,13 +222,13 @@
 					</Edge>
 					<Edge From="onLevelSwitch_triggersequence.A" To="Exec" />
 				</IfFunction>
-				<If Name="ifQuestActive" PositionY="-1070" PositionX="-1250">
+				<If Name="ifQuestActive" PositionY="-1070" PositionX="-1350">
 					<Edge From="onlevelswitch" To="Exec">
 						<Vertex>loULtCvt</Vertex>
 					</Edge>
 					<Edge From="damaVNesnazich_questProgress.Active" To="Condition">
-						<Vertex>R2Tab1Bj</Vertex>
-						<Vertex>rzxbAIsc</Vertex>
+						<Vertex>uxW5TEro</Vertex>
+						<Vertex>k3LdluGy</Vertex>
 					</Edge>
 				</If>
 				<Function Name="initAndStream_Done" PositionY="380" PositionX="-930" MethodName="math::boolean::And" DeclaringType="math::boolean">
@@ -518,6 +526,9 @@
 						<Vertex>vertex165</Vertex>
 					</Edge>
 				</prachy>
+				<Function Name="questNotNone" PositionY="2490" PositionX="90" MethodName="math::boolean::Not" DeclaringType="math::boolean">
+					<Edge From="damaVNesnazich_questProgress.None" To="Value" />
+				</Function>
 				<MemberFunction Name="revive3" PositionY="1120" PositionX="-780" MethodName="Revive" DeclaringType="wh::rpgmodule::I_Soul">
 					<Asset Name="Soul" Alias="lacek" />
 					<Edge From="haste.s_marketou_v_kh" To="Exec">
@@ -707,6 +718,7 @@
 						<Vertex>vertex91</Vertex>
 						<Vertex>vertex93</Vertex>
 					</Edge>
+					<Edge From="senik_vecer.hrac_polozil_lacka" To="hrac_polozil_lacka" />
 				</time_skip_do_rana>
 				<tip_na_tulacku Name="tip_na_tulacku" PositionY="-280" PositionX="-400">
 					<Edge From="tipstate.tipavailable" To="tipster_alive_and_tip_available" />
@@ -749,9 +761,14 @@
 						<Vertex>q5ncN9Bs</Vertex>
 						<Vertex>dzj3WKuV</Vertex>
 					</Edge>
+					<Edge From="damaVNesnazich_questProgress.OnFailed" To="quest_fail">
+						<Vertex>0H7MUwBV</Vertex>
+						<Vertex>kdEJ9xms</Vertex>
+					</Edge>
 				</umrti_markety_a_lacka>
 			</Nodes>
 			<EdgeVertices>
+				<EdgeVertex Name="0H7MUwBV" PositionY="1550" PositionX="-200" />
 				<EdgeVertex Name="0hVwNNpl" PositionY="280" PositionX="390" />
 				<EdgeVertex Name="0k5UlUXR" PositionY="580" PositionX="60" />
 				<EdgeVertex Name="1eXDfQzA" PositionY="740" PositionX="2140" />
@@ -788,9 +805,11 @@
 				<EdgeVertex Name="hrXQua4U" PositionY="430" PositionX="4160" />
 				<EdgeVertex Name="JhLEPx7v" PositionY="768" PositionX="2656" />
 				<EdgeVertex Name="Jm2IBfWu" PositionY="190" PositionX="590" />
+				<EdgeVertex Name="k3LdluGy" PositionY="200" PositionX="-745" />
 				<EdgeVertex Name="K4EIJ3M5" PositionY="630" PositionX="280" />
 				<EdgeVertex Name="k5EdLyXk" PositionY="-20" PositionX="2980" />
 				<EdgeVertex Name="KdBa5zxT" PositionY="-960" PositionX="3200" />
+				<EdgeVertex Name="kdEJ9xms" PositionY="1550" PositionX="-790" />
 				<EdgeVertex Name="kMXf2EPN" PositionY="280" PositionX="590" />
 				<EdgeVertex Name="Kt16mr65" PositionY="-960" PositionX="1940" />
 				<EdgeVertex Name="ktG56l9w" PositionY="-951" PositionX="1043" />
@@ -807,11 +826,10 @@
 				<EdgeVertex Name="q5ncN9Bs" PositionY="996" PositionX="4" />
 				<EdgeVertex Name="QemQWmdA" PositionY="1000" PositionX="3290" />
 				<EdgeVertex Name="qUoygYRX" PositionY="160" PositionX="60" />
-				<EdgeVertex Name="R2Tab1Bj" PositionY="2000" PositionX="-270" />
-				<EdgeVertex Name="rzxbAIsc" PositionY="2000" PositionX="-1350" />
 				<EdgeVertex Name="T8KqFWAP" PositionY="600" PositionX="60" />
 				<EdgeVertex Name="TP8Bco5m" PositionY="-1000" PositionX="-510" />
 				<EdgeVertex Name="uTR9P4u0" PositionY="460" PositionX="4160" />
+				<EdgeVertex Name="uxW5TEro" PositionY="2000" PositionX="-260" />
 				<EdgeVertex Name="V5Tb0TtM" PositionY="-20" PositionX="3720" />
 				<EdgeVertex Name="VAaYc9u6" PositionY="660" PositionX="390" />
 				<EdgeVertex Name="vertex1" PositionY="1020" PositionX="4160" />
@@ -970,6 +988,7 @@
 				<TagPointAsset Name="inHayloft" />
 				<TagPointAsset Name="marketa_standUpPoint" />
 				<TagPointAsset Name="s58_lookAt_korbel" />
+				<InteractionTriggerAsset Name="waitInteractor" />
 			</Assets>
 			<Text StringName="damavnesnazich_Xk65" Text="Dáma v nesnázích" />
 			<Elements>
@@ -1217,7 +1236,7 @@
 					<LocalizedName StringName="damavnesn_placehoder_prom_lvrv" Text="Promluv si večer s Markétou v Kutné Hoře" />
 					<Logs>
 						<EnumLog Type="None" Name="None" />
-						<EnumLog Type="Started" Name="Active" Marker="area_hayloft">
+						<EnumLog Type="Started" Name="Active" Marker="waitInteractor">
 							<Log StringName="promluv_s_marketa_me_vece_NlUA" Text="Markéta mě večer bude čekat v chudinské čtvrti v Kutné Hoře, abychom pokračovali v našem plánu. Měl bych se za ní zastavit." />
 						</EnumLog>
 						<EnumLog Type="Completed" Name="Done">

@@ -92,10 +92,14 @@
 														<Else canSkip="1">
 															<EntityContextCheck context="switch_disabledPerceptionReaction" target="$this.id" saveVersion="2">
 																<Else canSkip="1">
-																	<Sequence>
-																		<Expression expressions="$awareness.perceptible = $hitReaction.attacker" />
-																		<Function_switch_handleAwareness awareness="$awareness" nodeLabel="50337321" />
-																	</Sequence>
+																	<HasPerceptionEnabled WUID="$hitReaction.attacker" Type="Perceptible" FailSubtMissing="false" saveVersion="2">
+																		<Then canSkip="1">
+																			<Sequence>
+																				<Expression expressions="$awareness.perceptible = $hitReaction.attacker" />
+																				<Function_switch_handleAwareness awareness="$awareness" nodeLabel="50337321" />
+																			</Sequence>
+																		</Then>
+																	</HasPerceptionEnabled>
 																</Else>
 															</EntityContextCheck>
 														</Else>
@@ -551,15 +555,20 @@
 																<EntityContextCheck hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
 																	<OutputBreakpoints />
 																	<Else>
-																		<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																		<HasPerceptionEnabled hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
 																			<OutputBreakpoints />
-																			<Expression hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																				<OutputBreakpoints />
-																			</Expression>
-																			<Function_switch_handleAwareness hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																				<OutputBreakpoints />
-																			</Function_switch_handleAwareness>
-																		</Sequence>
+																			<Then>
+																				<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																					<OutputBreakpoints />
+																					<Expression hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																						<OutputBreakpoints />
+																					</Expression>
+																					<Function_switch_handleAwareness hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																						<OutputBreakpoints />
+																					</Function_switch_handleAwareness>
+																				</Sequence>
+																			</Then>
+																		</HasPerceptionEnabled>
 																	</Else>
 																</EntityContextCheck>
 															</Else>

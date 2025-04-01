@@ -17,6 +17,11 @@
 				<Definition File="tutorial_palne_zbrane/bohuta_barkuje_na_strelnici.xml" />
 			</Definitions>
 			<Nodes>
+				<Function Name="addbuff27" PositionY="620" PositionX="-1100" MethodName="wh::rpgmodule::AddBuff" DeclaringType="wh::rpgmodule">
+					<Asset Name="Souls" Alias="hertlOrOtherNpc" />
+					<Constant Name="Buff" Value="bd22f98a-e61f-4d83-b39c-79d1d85b6b91" />
+					<Edge From="OnWake" To="Exec" />
+				</Function>
 				<AIConceptSignalTrigger Name="aiconceptsignaltriggerhitreactionnotification24" PositionY="720" PositionX="330" NotificationName="hitReactionNotification">
 					<Asset Name="attacker_value_filter" Alias="player" />
 					<Edge From="goToTutorial.Done" To="IsActive">
@@ -156,6 +161,7 @@
 				<Function Name="requestmonologue18" PositionY="1260" PositionX="980" MethodName="wh::xgenaimodule::RequestMonologue" DeclaringType="wh::xgenaimodule">
 					<Asset Name="Souls" Alias="bohuta" />
 					<Constant Name="DecisionAlias" Value="nebakovObrana_bohutaBarkujeNaStrelnici" />
+					<Asset Name="LookAtTarget" Alias="player" />
 					<Constant Name="ForceSubtitles" Value="true" />
 					<Edge From="if19.False" To="Exec" />
 					<Edge From="ifcompare21.True" To="Exec" />

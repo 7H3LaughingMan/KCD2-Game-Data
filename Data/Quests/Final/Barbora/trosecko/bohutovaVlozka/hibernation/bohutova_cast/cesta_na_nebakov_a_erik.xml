@@ -24,6 +24,9 @@
 				<Port Name="bohuta_mluvil_s_erikem_po_boji_s_lapky" Direction="Out" Type="bool">
 					<DesignName StringName="cesta_na__bohuta_mluvil_s_gAUL" Text="Bohuta mluvil s Erikem po boji s lapky" />
 				</Port>
+				<Port Name="bohuta_nejel_ke_stajim" Direction="Out" Type="bool">
+					<DesignName StringName="cesta_na__bohuta_nejel_ke_OFUn" Text="Bohuta nejel ke stájím" />
+				</Port>
 			</Ports>
 			<Definitions>
 				<Definition File="cesta_na_nebakov_a_erik/lapkove_v_rokli.xml" />
@@ -37,6 +40,10 @@
 				<Definition File="cesta_na_nebakov_a_erik/erik_horse.xml" />
 			</Definitions>
 			<Nodes>
+				<Function Name="and8" PositionY="770" PositionX="2140" MethodName="math::boolean::And" DeclaringType="math::boolean">
+					<Edge From="compare10.bool" To="B" />
+					<Edge From="compare11.bool" To="A" />
+				</Function>
 				<bohuta_horse Name="bohuta_horse" PositionY="280" PositionX="-90">
 					<Edge From="bohuta_jede_k_bojisti.stav_objectivu_bohuta_jede_k_prepadeni" To="stav_objectivu_cest">
 						<Vertex>vertex30</Vertex>
@@ -67,6 +74,21 @@
 						<Vertex>afIRtyt3</Vertex>
 					</Edge>
 				</bohuta_jede_k_bojisti>
+				<Function Name="compare10" PositionY="910" PositionX="1880" TypeT="BohutaTravelsWithErik" MethodName="Control::Compare" DeclaringType="Control">
+					<Constant Name="Op" Value="Equals" />
+					<Constant Name="ValueB" Value="None" />
+					<Edge From="erik_doprovazi_bohutu_na_nebakov.stav_objectivu_bohuta_jede_s_erikem_na_nebakov" To="ValueA">
+						<Vertex>vertex43</Vertex>
+					</Edge>
+				</Function>
+				<Function Name="compare11" PositionY="770" PositionX="740" TypeT="BohutaTravelsToErik" MethodName="Control::Compare" DeclaringType="Control">
+					<Constant Name="Op" Value="NotEquals" />
+					<Constant Name="ValueB" Value="None" />
+					<Edge From="bohuta_jede_k_bojisti.stav_objectivu_bohuta_jede_k_prepadeni" To="ValueA">
+						<Vertex>vertex30</Vertex>
+						<Vertex>y9CTfKa9</Vertex>
+					</Edge>
+				</Function>
 				<Function Name="createdialogparams1" PositionY="-1000" PositionX="2210" MethodName="wh::dialogmodule::CreateDialogParams" DeclaringType="wh::dialogmodule">
 					<Asset Name="Participants" Alias="erik" />
 				</Function>
@@ -157,6 +179,10 @@
 						<Vertex>aMXJnY2a</Vertex>
 					</Edge>
 				</LinkEffectNoData>
+				<SkaldBoxProbe Name="musicstate9" PositionY="770" PositionX="2430">
+					<Constant Name="Toggle" Value="STORY_M10_RAVINE_DEPRESSING" />
+					<Edge From="and8.bool" To="IsActive" />
+				</SkaldBoxProbe>
 				<Function Name="not2" PositionY="290" PositionX="2380" MethodName="math::boolean::Not" DeclaringType="math::boolean">
 					<Edge From="wasBohutaMountedDuringDialogueStart.State" To="Value" />
 				</Function>
@@ -287,11 +313,11 @@
 				<EdgeVertex Name="nun5KnkC" PositionY="21" PositionX="1956" />
 				<EdgeVertex Name="p1sHVM5Q" PositionY="560" PositionX="1670" />
 				<EdgeVertex Name="pq7qB97l" PositionY="-1130" PositionX="1360" />
-				<EdgeVertex Name="TalG1mg2" PositionY="182" PositionX="1175" />
+				<EdgeVertex Name="TalG1mg2" PositionY="190" PositionX="1170" />
 				<EdgeVertex Name="trmbF2hA" PositionY="0" PositionX="2910" />
 				<EdgeVertex Name="u56kQMf9" PositionY="-690" PositionX="3670" />
 				<EdgeVertex Name="UEkCXjIw" PositionY="-120" PositionX="3020" />
-				<EdgeVertex Name="vertex10" PositionY="120" PositionX="910" />
+				<EdgeVertex Name="vertex10" PositionY="200" PositionX="910" />
 				<EdgeVertex Name="vertex21" PositionY="220" PositionX="3320" />
 				<EdgeVertex Name="vertex23" PositionY="-150" PositionX="-110" />
 				<EdgeVertex Name="vertex24" PositionY="-200" PositionX="760" />
@@ -314,7 +340,7 @@
 				<EdgeVertex Name="vertex43" PositionY="280" PositionX="1930" />
 				<EdgeVertex Name="vertex47" PositionY="390" PositionX="2000" />
 				<EdgeVertex Name="vertex8" PositionY="-120" PositionX="3180" />
-				<EdgeVertex Name="vertex9" PositionY="130" PositionX="3130" />
+				<EdgeVertex Name="vertex9" PositionY="190" PositionX="3120" />
 				<EdgeVertex Name="WrRjQFQo" PositionY="-860" PositionX="2700" />
 				<EdgeVertex Name="y9CTfKa9" PositionY="240" PositionX="312" />
 				<EdgeVertex Name="YNf5bXUS" PositionY="190" PositionX="420" />

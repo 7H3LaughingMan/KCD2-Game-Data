@@ -6,6 +6,9 @@
 				<Port Name="hrac_si_koupil_prvniho_kone_u_handlire" Direction="In" Type="bool">
 					<DesignName StringName="horse_tra_hrac_si_koupil__OAsR" Text="hráč si koupil prvního koně u handlíře" />
 				</Port>
+				<Port Name="onhorsereplaced" Direction="In" Type="trigger">
+					<DesignName StringName="horse_tra_onhorsereplaced_z87F" Text="Šedivka přivlastněna" />
+				</Port>
 				<Port Name="odemceni_openworldu" Direction="In" Type="trigger">
 					<DesignName StringName="horse_tra_odemceni_openwo_Boyv" Text="Odemčení openworldu" />
 				</Port>
@@ -49,6 +52,10 @@
 				<Function Name="deathcheck132" PositionY="-1150" PositionX="-830" MethodName="wh::rpgmodule::DeathCheck" DeclaringType="wh::rpgmodule">
 					<Asset Name="Souls" Alias="horseForSale4_sedivka" />
 				</Function>
+				<MemberFunction Name="getprimarycompanion137" PositionY="-1580" PositionX="-900" MethodName="GetPrimaryCompanion" DeclaringType="wh::rpgmodule::CompanionManager">
+					<Constant Name="Type" Value="Horse" />
+					<Edge From="isoulproperties116.CompanionManager" To="Manager" />
+				</MemberFunction>
 				<getrelativecharismaininterval Name="getrelativecharismaininterval" PositionY="-960" PositionX="-870" Namespace="utils.rpg">
 					<Asset Name="soul" Alias="player" />
 					<Constant Name="rpgstati" Value="AtMostMedium" />
@@ -63,35 +70,11 @@
 					<Constant Name="Type" Value="Horse" />
 					<Edge From="isoulproperties116.CompanionManager" To="Manager" />
 				</MemberFunction>
-				<horsebuying_transactionscene Name="horsebuying_transactionscene" PositionY="-840" PositionX="1680" Namespace="utils.horsebuying_utils">
-					<Asset Name="cutsceneskiptime" Alias="transaction_skipTime" />
+				<horsebuying_transactionscene Name="horsebuying_transactionscene" PositionY="-890" PositionX="2010" Namespace="utils.horsebuying_utils">
 					<Asset Name="npc" Alias="podkoniSemin" />
 					<Asset Name="qso" Alias="QSO" />
-					<Edge From="podkoni_trosecko__obchod.paykun_fullprice_1" To="enqueueskiptime">
-						<Vertex>tQETg9m2</Vertex>
-					</Edge>
-					<Edge From="podkoni_trosecko__obchod.paykun_fullprice_2" To="enqueueskiptime">
-						<Vertex>tQETg9m2</Vertex>
-					</Edge>
-					<Edge From="podkoni_trosecko__obchod.paykun_fullprice_3" To="enqueueskiptime">
-						<Vertex>tQETg9m2</Vertex>
-					</Edge>
-					<Edge From="podkoni_trosecko__obchod.paykun_fullprice_4" To="enqueueskiptime">
-						<Vertex>tQETg9m2</Vertex>
-					</Edge>
-					<Edge From="podkoni_trosecko__obchod.paykun_haggle_1" To="enqueueskiptime">
-						<Vertex>tQETg9m2</Vertex>
-					</Edge>
-					<Edge From="podkoni_trosecko__obchod.paykun_haggle_2" To="enqueueskiptime">
-						<Vertex>tQETg9m2</Vertex>
-					</Edge>
-					<Edge From="podkoni_trosecko__obchod.paykun_haggle_3" To="enqueueskiptime">
-						<Vertex>tQETg9m2</Vertex>
-					</Edge>
-					<Edge From="podkoni_trosecko__obchod.paykun_haggle_4" To="enqueueskiptime">
-						<Vertex>tQETg9m2</Vertex>
-					</Edge>
-					<Edge From="replaceplayerhorse_disposeoldifexists.onexec" To="enqueueskiptime" />
+					<Edge From="select140.Value1" To="cutsceneskiptime" />
+					<Edge From="select140.OnExec" To="enqueueskiptime" />
 				</horsebuying_transactionscene>
 				<horsebuying_washinstance Name="horsebuying_washinstance" PositionY="-70" PositionX="1690" Namespace="utils.horsebuying_utils">
 					<Asset Name="timeskip" Alias="horseWash_CH" />
@@ -175,9 +158,19 @@
 						<Vertex>vertex139</Vertex>
 					</Edge>
 				</horseinstance>
+				<IfFunction Name="ifcompare139" PositionY="-1710" PositionX="-590" TypeT="wh::rpgmodule::I_Soul*" MethodName="Control::Compare" DeclaringType="Control">
+					<Constant Name="Op" Value="Equals" />
+					<Asset Name="ValueB" Alias="horseForSale4_sedivka" />
+					<Edge From="patchtrigger138.OnPatch" To="Exec" />
+					<Edge From="getprimarycompanion137.Companion" To="ValueA" />
+				</IfFunction>
+				<isitnight Name="isitnight" PositionY="110" PositionX="-790" Namespace="utils.time" />
 				<ObjectProperties Name="isoulproperties116" PositionY="-220" PositionX="-1140" DeclaringType="wh::rpgmodule::I_Soul">
 					<Asset Name="I_Soul" Alias="player" />
 				</ObjectProperties>
+				<MakeArray Name="makearray136" PositionY="1960" PositionX="-1000" TypeT="Strings">
+					<Constant Name="A" Value="goto tsem_man_15 " />
+				</MakeArray>
 				<Function Name="or131" PositionY="-1040" PositionX="420" MethodName="math::boolean::Or" DeclaringType="math::boolean">
 					<Edge From="sedivka_s_podkonnim.o_sedivce_mi_rekl_podkoni" To="B" />
 					<Edge From="sedivka_focus_cam.focus_cam_used" To="A" />
@@ -188,6 +181,9 @@
 						<Vertex>wob4CoQj</Vertex>
 					</Edge>
 				</Output>
+				<PatchTrigger Name="patchtrigger138" PositionY="-1770" PositionX="-1090">
+					<Constant Name="TransitionToVersion" Value="ver_01_02" />
+				</PatchTrigger>
 				<podkoni_trosecko__inspekce_koni Name="podkoni_trosecko__inspekce_koni" PositionY="-210" PositionX="-440">
 					<Edge From="hasprimarycompanion106.Result" To="hrac_ma_companiona" />
 					<Edge From="checkentitycontext115.HasContext" To="disabledbycontext">
@@ -214,6 +210,7 @@
 						<Vertex>vertex116</Vertex>
 						<Vertex>vertex117</Vertex>
 					</Edge>
+					<Edge From="isitnight.itisnight" To="je_noc" />
 				</podkoni_trosecko__inspekce_koni>
 				<podkoni_trosecko__obchod Name="podkoni_trosecko__obchod" PositionY="-380" PositionX="790">
 					<Edge From="podkoni_trosecko__inspekce_koni.podkonitrosecko_forcedtutorial" To="tutorial_o_inspekci_dokoncen" />
@@ -329,6 +326,10 @@
 						<Vertex>LLYJrnak</Vertex>
 						<Vertex>zJebzbvE</Vertex>
 					</Edge>
+					<Edge From="isitnight.itisnight" To="je_noc">
+						<Vertex>PBGEVG1R</Vertex>
+						<Vertex>cU7L8UBj</Vertex>
+					</Edge>
 				</podkoni_trosecko__obchod>
 				<replaceplayerhorse_disposeoldifexists Name="replaceplayerhorse_disposeoldifexists" PositionY="-760" PositionX="250" Namespace="utils.horsebuying_utils">
 					<Asset Name="horsesoul" Alias="horseForSale4_sedivka" />
@@ -350,9 +351,22 @@
 					<Edge From="kone_jsou_nastreamovane" To="kone_jsou_nastreamovane">
 						<Vertex>Lhxu8aAP</Vertex>
 					</Edge>
+					<Edge From="reward122.OnAdded" To="sedivka_privlastnena">
+						<Vertex>cBDEWtEM</Vertex>
+						<Vertex>LW5pPuLA</Vertex>
+					</Edge>
+					<Edge From="onhorsereplaced" To="sedivka_privlastnena">
+						<Vertex>5644a17s</Vertex>
+						<Vertex>35pJ6Krq</Vertex>
+						<Vertex>uTPVmvb1</Vertex>
+					</Edge>
+					<Edge From="ifcompare139.True" To="sedivka_privlastnena">
+						<Vertex>XwrrDNsD</Vertex>
+						<Vertex>LW5pPuLA</Vertex>
+					</Edge>
 				</sedivka_focus_cam>
 				<sedivka_obsolete Name="sedivka_obsolete" PositionY="-440" PositionX="-400" />
-				<sedivka_s_podkonnim Name="sedivka_s_podkonnim" PositionY="-810" PositionX="-430">
+				<sedivka_s_podkonnim Name="sedivka_s_podkonnim" PositionY="-860" PositionX="-430">
 					<Edge From="hasprimarycompanion106.Result" To="hrac_ma_companiona" />
 					<Edge From="getrelativecharismaininterval.isininterval" To="hrac_ma_low_charisma" />
 					<Edge From="getrelativecharismaininterval_1.isininterval" To="hrac_ma_vysoke_charisma" />
@@ -365,6 +379,11 @@
 						<Vertex>vertex202</Vertex>
 					</Edge>
 					<Edge From="deathcheck132.IsDead" To="sedivka_je_mrtva" />
+					<Edge From="SedivkaPrivlastnena.State" To="sedivka_privlastnena">
+						<Vertex>pN8TbU3Q</Vertex>
+						<Vertex>g8n6Fnd2</Vertex>
+					</Edge>
+					<Edge From="isitnight.itisnight" To="je_noc" />
 				</sedivka_s_podkonnim>
 				<State Name="SedivkaIsAvailable" PositionY="2100" PositionX="-580" TypeT="bool">
 					<Edge From="jindra_kolabuje_ve_skalach" To="SetTrue">
@@ -372,19 +391,77 @@
 					</Edge>
 					<Edge From="ActivateSedivka.OnTrigger" To="SetTrue" />
 				</State>
+				<State Name="SedivkaPrivlastnena" PositionY="-1160" PositionX="-410" TypeT="bool">
+					<Edge From="reward122.OnAdded" To="SetTrue">
+						<Vertex>cBDEWtEM</Vertex>
+						<Vertex>LW5pPuLA</Vertex>
+						<Vertex>lulECG74</Vertex>
+					</Edge>
+					<Edge From="onhorsereplaced" To="SetTrue">
+						<Vertex>5644a17s</Vertex>
+						<Vertex>35pJ6Krq</Vertex>
+					</Edge>
+					<Edge From="ifcompare139.True" To="SetTrue">
+						<Vertex>XwrrDNsD</Vertex>
+						<Vertex>LW5pPuLA</Vertex>
+						<Vertex>lulECG74</Vertex>
+					</Edge>
+				</State>
+				<Select Name="select140" PositionY="-870" PositionX="1630" InputPortGroups="2" ValueTypes="wh::entitymodule::CutsceneHolder*">
+					<Asset Name="AValue1" Alias="sedivka_skipTime" />
+					<Asset Name="BValue1" Alias="transaction_skipTime" />
+					<Edge From="replaceplayerhorse_disposeoldifexists.onexec" To="SelectA" />
+					<Edge From="podkoni_trosecko__obchod.paykun_fullprice_1" To="SelectB">
+						<Vertex>tQETg9m2</Vertex>
+					</Edge>
+					<Edge From="podkoni_trosecko__obchod.paykun_fullprice_2" To="SelectB">
+						<Vertex>tQETg9m2</Vertex>
+					</Edge>
+					<Edge From="podkoni_trosecko__obchod.paykun_fullprice_3" To="SelectB">
+						<Vertex>tQETg9m2</Vertex>
+					</Edge>
+					<Edge From="podkoni_trosecko__obchod.paykun_fullprice_4" To="SelectB">
+						<Vertex>tQETg9m2</Vertex>
+					</Edge>
+					<Edge From="podkoni_trosecko__obchod.paykun_haggle_1" To="SelectB">
+						<Vertex>tQETg9m2</Vertex>
+					</Edge>
+					<Edge From="podkoni_trosecko__obchod.paykun_haggle_2" To="SelectB">
+						<Vertex>tQETg9m2</Vertex>
+					</Edge>
+					<Edge From="podkoni_trosecko__obchod.paykun_haggle_3" To="SelectB">
+						<Vertex>tQETg9m2</Vertex>
+					</Edge>
+					<Edge From="podkoni_trosecko__obchod.paykun_haggle_4" To="SelectB">
+						<Vertex>tQETg9m2</Vertex>
+					</Edge>
+				</Select>
 				<starting_equip_for_free Name="starting_equip_for_free" PositionY="460" PositionX="1380">
 					<Edge From="podkoni_trosecko__obchod.playergetsstartingequip" To="playergetsstartingequip" />
 					<Edge From="sedivka_s_podkonnim.playergetsstartingequip" To="playergetsstartingequip">
 						<Vertex>XRAGoaz2</Vertex>
 					</Edge>
 				</starting_equip_for_free>
+				<HasteTrigger Name="teleportPodkoni" PositionY="1860" PositionX="-640">
+					<Edge From="makearray136.Array" To="ConsoleCommands" />
+				</HasteTrigger>
 			</Nodes>
 			<EdgeVertices>
+				<EdgeVertex Name="35pJ6Krq" PositionY="-1410" PositionX="-490" />
+				<EdgeVertex Name="5644a17s" PositionY="-1410" PositionX="-1160" />
+				<EdgeVertex Name="cBDEWtEM" PositionY="-1380" PositionX="1440" />
+				<EdgeVertex Name="cU7L8UBj" PositionY="450" PositionX="660" />
+				<EdgeVertex Name="g8n6Fnd2" PositionY="-880" PositionX="-420" />
 				<EdgeVertex Name="Lhxu8aAP" PositionY="-1240" PositionX="-1160" />
 				<EdgeVertex Name="LLYJrnak" PositionY="411" PositionX="-1189" />
+				<EdgeVertex Name="lulECG74" PositionY="-1380" PositionX="-410" />
+				<EdgeVertex Name="LW5pPuLA" PositionY="-1380" PositionX="-10" />
 				<EdgeVertex Name="MbTg7r52" PositionY="-1337" PositionX="-1158" />
+				<EdgeVertex Name="PBGEVG1R" PositionY="450" PositionX="-550" />
+				<EdgeVertex Name="pN8TbU3Q" PositionY="-880" PositionX="-230" />
 				<EdgeVertex Name="qRtXohgP" PositionY="611" PositionX="1382" />
 				<EdgeVertex Name="tQETg9m2" PositionY="500" PositionX="1230" />
+				<EdgeVertex Name="uTPVmvb1" PositionY="-1410" PositionX="-110" />
 				<EdgeVertex Name="vertex100" PositionY="1350" PositionX="2460" />
 				<EdgeVertex Name="vertex101" PositionY="1350" PositionX="180" />
 				<EdgeVertex Name="vertex102" PositionY="230" PositionX="270" />
@@ -466,8 +543,8 @@
 				<EdgeVertex Name="vertex190" PositionY="-278" PositionX="-1198" />
 				<EdgeVertex Name="vertex191" PositionY="-290" PositionX="-450" />
 				<EdgeVertex Name="vertex200" PositionY="-1290" PositionX="-1160" />
-				<EdgeVertex Name="vertex201" PositionY="-850" PositionX="160" />
-				<EdgeVertex Name="vertex202" PositionY="-850" PositionX="-420" />
+				<EdgeVertex Name="vertex201" PositionY="-910" PositionX="160" />
+				<EdgeVertex Name="vertex202" PositionY="-910" PositionX="-420" />
 				<EdgeVertex Name="vertex77" PositionY="-260" PositionX="620" />
 				<EdgeVertex Name="vertex79" PositionY="-260" PositionX="-450" />
 				<EdgeVertex Name="vertex86" PositionY="2280" PositionX="-1380" />
@@ -481,7 +558,8 @@
 				<EdgeVertex Name="We1oXtnC" PositionY="-1340" PositionX="759" />
 				<EdgeVertex Name="wob4CoQj" PositionY="613" PositionX="3469" />
 				<EdgeVertex Name="XRAGoaz2" PositionY="-480" PositionX="1160" />
-				<EdgeVertex Name="zJebzbvE" PositionY="380" PositionX="710" />
+				<EdgeVertex Name="XwrrDNsD" PositionY="-1620" PositionX="10" />
+				<EdgeVertex Name="zJebzbvE" PositionY="410" PositionX="660" />
 			</EdgeVertices>
 			<Types>
 				<Type TypeName="focusCamSedivka">
@@ -503,6 +581,7 @@
 				<TriggerAreaAsset Name="sedivkaFocusArea" />
 				<CutsceneHolderAsset Name="transaction_skipTime" />
 				<StashAsset Name="podkoniSemin_shopStash" />
+				<CutsceneHolderAsset Name="sedivka_skipTime" />
 			</Assets>
 			<Notes>
 				<Note Name="note108" PositionY="240" PositionX="1120">

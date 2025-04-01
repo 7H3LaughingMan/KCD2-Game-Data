@@ -19,45 +19,34 @@
 				<Port Name="henry_naprasil_stulce_cenkovi" Direction="In" Type="bool">
 					<DesignName StringName="cenek___henry_naprasil_st_QXD4" Text="henry naprášil štulce čeňkovi" />
 				</Port>
+				<Port Name="stulec_zemrel_behem_questu" Direction="In" Type="bool">
+					<DesignName StringName="cenek___stulec_zemrel_beh_4e9q" Text="Stulec zemrel behem questu" />
+				</Port>
 			</Ports>
 			<Definitions>
 				<Definition File="cenek__/cenek__.xml" />
 			</Definitions>
 			<Nodes>
-				<Function Name="and14" PositionY="180" PositionX="-340" MethodName="math::boolean::And" DeclaringType="math::boolean">
-					<Edge From="not13.bool" To="A" />
-					<Edge From="deathcheck12.IsDead" To="B" />
-				</Function>
-				<cenek__ Name="cenek__">
+				<cenek__ Name="cenek__" PositionY="-60" PositionX="10">
 					<Asset Name="DialogueHolder" Alias="pubSceneCenek" />
 					<Constant Name="tankard_cenek" Value="68b5653e-7a01-47a2-81ba-2f1e2143faae" />
 					<Edge From="EnqueueDialogue" To="EnqueueDialogue" />
 					<Edge From="createdialogparams10.DialogParams" To="DialogParams" />
-					<Edge From="stulec_zemrel_pred_questem" To="stulec_zemrel_pred_questem">
-						<Vertex>vertex1</Vertex>
-					</Edge>
+					<Edge From="stulec_zemrel_pred_questem" To="stulec_zemrel_pred_questem" />
 					<Edge From="straze_odesli_bez_boje" To="straze_odesli_bez_boje" />
 					<Edge From="henry_naprasil_stulce_cenkovi" To="henry_naprasil_stulce_cenkovi" />
-					<Edge From="and14.bool" To="stulec_zemrel_behem_questu" />
 					<Edge From="deathcheck16.IsDead" To="eldris_je_mrtvy" />
+					<Edge From="stulec_zemrel_behem_questu" To="stulec_zemrel_behem_questu" />
 				</cenek__>
 				<Function Name="createdialogparams10" PositionY="-420" PositionX="-510" MethodName="wh::dialogmodule::CreateDialogParams" DeclaringType="wh::dialogmodule">
 					<Edge From="makearray11.Array" To="Participants" />
 				</Function>
-				<Function Name="deathcheck12" PositionY="330" PositionX="-590" MethodName="wh::rpgmodule::DeathCheck" DeclaringType="wh::rpgmodule">
-					<Asset Name="Souls" Alias="Stulec" />
-				</Function>
-				<Function Name="deathcheck16" PositionY="520" PositionX="-370" MethodName="wh::rpgmodule::DeathCheck" DeclaringType="wh::rpgmodule">
+				<Function Name="deathcheck16" PositionY="210" PositionX="-370" MethodName="wh::rpgmodule::DeathCheck" DeclaringType="wh::rpgmodule">
 					<Asset Name="Souls" Alias="Eldris" />
 				</Function>
 				<MakeArray Name="makearray11" PositionY="-450" PositionX="-740" TypeT="wh::rpgmodule::Souls">
 					<Asset Name="A" Alias="Cenek" />
 				</MakeArray>
-				<Function Name="not13" PositionY="170" PositionX="-640" MethodName="math::boolean::Not" DeclaringType="math::boolean">
-					<Edge From="stulec_zemrel_pred_questem" To="Value">
-						<Vertex>vertex1</Vertex>
-					</Edge>
-				</Function>
 				<Output Name="Output">
 					<Edge From="cenek__.BeforePlay" To="BeforePlay" />
 					<Edge From="cenek__.cenekdone" To="cenekdone" />
@@ -69,9 +58,6 @@
 					</Rewards>
 				</AddReward>
 			</Nodes>
-			<EdgeVertices>
-				<EdgeVertex Name="vertex1" PositionY="70" PositionX="-672" />
-			</EdgeVertices>
 		</DialogWrapper>
 	</Skald>
 </Database>

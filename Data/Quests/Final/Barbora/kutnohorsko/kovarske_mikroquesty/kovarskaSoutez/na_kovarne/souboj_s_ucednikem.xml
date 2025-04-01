@@ -153,7 +153,7 @@
 					</Edge>
 				</IfFunction>
 				<jindra_v_souboji_podvadi__matej_barkuje Name="jindra_v_souboji_podvadi__matej_barkuje" PositionY="1470" PositionX="1000" />
-				<SkaldBoxProbe Name="musicstate68" PositionY="-1500" PositionX="590">
+				<SkaldBoxProbe Name="musicstate68" PositionY="-1690" PositionX="590">
 					<Constant Name="Toggle" Value="SKIRMISH_FRIENDLY" />
 					<Edge From="obj_poraz_mateje_aktivni" To="IsActive">
 						<Vertex>vertex162</Vertex>
@@ -188,6 +188,7 @@
 				</poslouchani_na_hracovu_zbran>
 				<questsurrenderprotection Name="questsurrenderprotection" PositionY="900" PositionX="1380" Namespace="utils.combat">
 					<Asset Name="soul" Alias="matejUcednik" />
+					<Constant Name="calm_down_after_surrender" Value="false" />
 					<Edge From="duelbehavioradvanced.onattackersurrender" To="enable" />
 					<Edge From="ifcheckentitycontext70.True" To="disable" />
 				</questsurrenderprotection>
@@ -204,6 +205,13 @@
 				</Function>
 				<SetEntityContext Name="setentitycontext67" PositionY="-1340" PositionX="590">
 					<Constant Name="Context" Value="combat_forceArmed" />
+					<Asset Name="Souls" Alias="matejUcednik" />
+					<Edge From="obj_poraz_mateje_aktivni" To="IsActive">
+						<Vertex>vertex162</Vertex>
+					</Edge>
+				</SetEntityContext>
+				<SetEntityContext Name="setentitycontext71" PositionY="-1530" PositionX="590">
+					<Constant Name="Context" Value="crime_suppressFightStartBark" />
 					<Asset Name="Souls" Alias="matejUcednik" />
 					<Edge From="obj_poraz_mateje_aktivni" To="IsActive">
 						<Vertex>vertex162</Vertex>

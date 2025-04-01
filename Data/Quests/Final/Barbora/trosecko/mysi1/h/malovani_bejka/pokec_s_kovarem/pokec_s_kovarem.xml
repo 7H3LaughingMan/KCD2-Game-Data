@@ -14,7 +14,7 @@
 				</Port>
 			</Ports>
 			<Text StringName="pokec_s_kovarem_ZGc2" Text="Pokec s kovářem" />
-			<Dialogue TechnicalStatus="Enabled" AllowGreeting="false" GesturesSetDate="2024-05-24T12:00:51.7168224+02:00" GesturesSetResponseCount="28">
+			<Dialogue TechnicalStatus="Enabled" GesturesSetDate="2024-05-24T12:00:51.7168224+02:00" GesturesSetResponseCount="28">
 				<SelectedSouls>
 					<SelectedSoul Role="HENRY" Voice="tomMcKay" Type="Wave" Language="ENG" />
 					<SelectedSoul Role="KOVAR_TACHOV" Voice="chrisClarke" Type="Wave" Language="ENG" />
@@ -409,7 +409,7 @@
 																					</Parenthetical>
 																					<Text StringName="poke_kovar_tac_tak_tos_me_tWSS" Text="Ale nejspíš jsi u toho nedával pozor, co? Jinak bys ten recept dávno musel znát a neptal by ses mě." />
 																					<Commands>
-																						<AnimationCommand Delay="0" FragmentId="ADLG_Surprised_light" Guid="5b035a8d-44ba-433c-a77a-293e98a0d744" Variant="4" />
+																						<AnimationCommand FragmentId="ADLG_Surprised_light" Guid="5b035a8d-44ba-433c-a77a-293e98a0d744" Variant="4" />
 																						<AnimationCommand Delay="4.91" FragmentId="ADLG_Confusion" Guid="19e1b926-8753-4893-af45-10d39fa3a985" Variant="0" />
 																						<CameraCommand CameraType="CloseShot" />
 																					</Commands>
@@ -444,7 +444,7 @@
 																		</Parenthetical>
 																		<Text StringName="poke_kovar_tac_ale_ty_ses_nFjw" Text="Ale ty seš od fochu, tobě to říct můžu." />
 																		<Commands>
-																			<AnimationCommand Delay="0" FragmentId="ADLG_Gesture" Guid="34ac6648-6fd5-4005-84ec-632a56223892" Variant="5" />
+																			<AnimationCommand FragmentId="ADLG_Gesture" Guid="34ac6648-6fd5-4005-84ec-632a56223892" Variant="5" />
 																			<CameraCommand CameraType="CloseShot" />
 																		</Commands>
 																	</Response>
@@ -470,7 +470,7 @@
 								</Sequences>
 							</Decision>
 						</Sequence>
-						<Sequence ExitScript="SetupBribe(100)" EntryCondition="!SequenceUsed('seq10') AND SequenceUsed('seq1') AND &#xD;&#xA;Enum('ProgressAbortable','Started') == Port('obj_uklidnovaci')" EndType="GoTo" GoToDecision="dec4" Name="seq19">
+						<Sequence EntryCondition="!SequenceUsed('seq10') AND SequenceUsed('seq1') AND &#xD;&#xA;Enum('ProgressAbortable','Started') == Port('obj_uklidnovaci')" EndType="Decision" Name="seq19">
 							<DesignName StringName="pokec_s_k_seq19_HGUj" Text="seq19" />
 							<UiPrompt StringName="ui_pokec_s_k_seq19_C2Wx" Text="Chci koupit recept na uspávadlo." />
 							<Elements>
@@ -482,9 +482,28 @@
 									</Commands>
 								</Response>
 							</Elements>
-							<IncludedDecisions>
-								<IncludedDecision Decision="bribe_man" />
-							</IncludedDecisions>
+							<Decision Name="dec13" Autoselect="true">
+								<Sequences>
+									<Sequence ExitScript="SetupBribe(100)" EntryCondition="!SequenceUsed('betterBribe')" EndType="GoTo" GoToDecision="dec4" Name="seq25">
+										<DesignName StringName="pokec_s_k_seq25_LOoB" Text="seq25" />
+										<Elements>
+											<Response Role="HENRY" />
+										</Elements>
+										<IncludedDecisions>
+											<IncludedDecision Decision="bribe_man" />
+										</IncludedDecisions>
+									</Sequence>
+									<Sequence ExitScript="SetupBribe(75)" EntryCondition="SequenceUsed('betterBribe')" EndType="GoTo" GoToDecision="dec4" Name="seq26">
+										<DesignName StringName="pokec_s_k_seq26_n8Rq" Text="seq26" />
+										<Elements>
+											<Response Role="HENRY" />
+										</Elements>
+										<IncludedDecisions>
+											<IncludedDecision Decision="bribe_man" />
+										</IncludedDecisions>
+									</Sequence>
+								</Sequences>
+							</Decision>
 						</Sequence>
 					</Sequences>
 				</Decision>

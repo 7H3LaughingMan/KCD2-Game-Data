@@ -6,8 +6,11 @@
 				<Port Name="hrac_ma_glejt" Direction="In" Type="bool">
 					<DesignName StringName="objective_hrac_ma_glejt_atBW" Text="Hráč má glejt" />
 				</Port>
+				<Port Name="hrac_uz_se_glejtem_prokazal" Direction="In" Type="bool">
+					<DesignName StringName="objective_hrac_uz_se_glej_m7zq" Text="Hráč už se glejtem prokázal" />
+				</Port>
 				<Port Name="hrac_ziskal_questitem" Direction="In" Type="bool">
-					<DesignName StringName="objective_hrac_ziskal_que_A0oL" Text="Hráč získal questItem" />
+					<DesignName StringName="objective_hrac_ziskal_que_A0oL" Text="Hráč má převlek" />
 				</Port>
 				<Port Name="hrac_ziskal_questitem_1" Direction="In" Type="trigger">
 					<DesignName StringName="objective_hrac_ziskal_que_JTxI" Text="Hráč získal questItem" />
@@ -26,6 +29,10 @@
 				</Port>
 			</Ports>
 			<Nodes>
+				<Function Name="documentNotNeededOrPresent" PositionY="-170" PositionX="20" MethodName="math::boolean::Or" DeclaringType="math::boolean">
+					<Edge From="hrac_uz_se_glejtem_prokazal" To="B" />
+					<Edge From="hrac_ma_glejt" To="A" />
+				</Function>
 				<If Name="if9" PositionY="250" PositionX="0">
 					<Edge From="reportForDutyObjective.Started" To="Condition">
 						<Vertex>vertex1</Vertex>
@@ -34,10 +41,10 @@
 					<Edge From="hrac_ztratil_questitem" To="Exec" />
 				</If>
 				<IfFunction Name="ifand8" PositionY="50" PositionX="310" MethodName="math::boolean::And" DeclaringType="math::boolean">
-					<Edge From="or7.bool" To="A" />
 					<Edge From="hrac_ziskal_questitem_1" To="Exec" />
-					<Edge From="hrac_ma_glejt" To="B" />
 					<Edge From="hrac_ziskal_questitem" To="C" />
+					<Edge From="or7.bool" To="B" />
+					<Edge From="documentNotNeededOrPresent.bool" To="A" />
 				</IfFunction>
 				<nahlas_se_do_sluzby Name="objectiveVisual6" PositionY="-110" PositionX="950" RequiredForOutput="kutnohorsko">
 					<Edge From="reportForDutyObjective.State" To="Progress" />

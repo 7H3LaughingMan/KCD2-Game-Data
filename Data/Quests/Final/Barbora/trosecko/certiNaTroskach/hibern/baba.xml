@@ -24,8 +24,8 @@
 				<Port Name="ohniste_na_panne_hotovo" Direction="Out" Type="bool">
 					<DesignName StringName="baba_ohniste_na_panne_hot_21B0" Text="ohniste na panne hotovo" />
 				</Port>
-				<Port Name="u01__ohniste_panna_hotovo" Direction="Out" Type="bool">
-					<DesignName StringName="baba_u01__ohniste_panna_h_qAgQ" Text="U01 - ohniště panna hotovo" />
+				<Port Name="u01__ohniste_na_palaci_done" Direction="Out" Type="bool">
+					<DesignName StringName="baba_u01__ohniste_na_pala_DBtA" Text="U01 - ohniště na paláci done" />
 				</Port>
 			</Ports>
 			<Definitions>
@@ -73,6 +73,9 @@
 					</Edge>
 					<Edge From="ifcompare120.True" To="in" />
 				</execmerger>
+				<State Name="fireplaceBabaDone" PositionY="-310" PositionX="1090" TypeT="bool">
+					<Edge From="interaktorOhenBaba3.OnInteraction" To="SetTrue" />
+				</State>
 				<If Name="if121" PositionY="940" PositionX="-1610">
 					<Edge From="certi_prijati" To="Exec" />
 					<Edge From="babaZadani.None" To="Condition">
@@ -198,8 +201,8 @@
 					<Edge From="babaProgress.OnBabaHotova" To="baba_konec">
 						<Vertex>zC1tb4bh</Vertex>
 					</Edge>
-					<Edge From="ohen3.State" To="u01__ohniste_panna_hotovo">
-						<Vertex>H3cQgTsa</Vertex>
+					<Edge From="fireplaceBabaDone.State" To="u01__ohniste_na_palaci_done">
+						<Vertex>aYYkrH8F</Vertex>
 					</Edge>
 				</Output>
 				<State Name="playerAnimation" PositionY="130" PositionX="1100" TypeT="bool">
@@ -236,10 +239,14 @@
 						<Vertex>vertex33</Vertex>
 					</Edge>
 				</SaveGame>
+				<SaveLock Name="savelock1724" PositionY="102" PositionX="1452">
+					<Constant Name="LockReason" Value="Script" />
+					<Edge From="playerAnimation.State" To="IsActive" />
+				</SaveLock>
 				<HasteTrigger Name="SplnOhnisteProBabu" PositionY="2200" PositionX="-680" />
 			</Nodes>
 			<EdgeVertices>
-				<EdgeVertex Name="H3cQgTsa" PositionY="-29" PositionX="468" />
+				<EdgeVertex Name="aYYkrH8F" PositionY="-20" PositionX="1390" />
 				<EdgeVertex Name="vertex1" PositionY="1040" PositionX="-60" />
 				<EdgeVertex Name="vertex10" PositionY="1060" PositionX="790" />
 				<EdgeVertex Name="vertex11" PositionY="1320" PositionX="790" />

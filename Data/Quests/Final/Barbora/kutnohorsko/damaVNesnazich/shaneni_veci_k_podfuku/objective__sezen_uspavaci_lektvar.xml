@@ -24,12 +24,15 @@
 				<Port Name="jindra_uz_nepotrebuje_uspavak" Direction="In" Type="bool">
 					<DesignName StringName="objective_jindra_uz_nepot_lYrU" Text="Jindra už nepotřebuje uspávák" />
 				</Port>
+				<Port Name="quest_active" Direction="In" Type="bool">
+					<DesignName StringName="objective_quest_active_PJ0n" Text="&lt;quest active&gt;" />
+				</Port>
 			</Ports>
 			<Definitions>
 				<Definition File="objective__sezen_uspavaci_lektvar/itemclasstrigger.xml" />
 			</Definitions>
 			<Nodes>
-				<State Name="getSleepingPotion" PositionY="-70" PositionX="-230" RequiredForOutput="kutnohorsko" TypeT="DamaVNesnazich_ProgressFailableAbortable">
+				<State Name="getSleepingPotion" PositionY="-110" PositionX="-230" RequiredForOutput="kutnohorsko" TypeT="DamaVNesnazich_ProgressFailableAbortable">
 					<Edge From="itemclasstrigger.onacquire" To="SetDone">
 						<Vertex>vertex1</Vertex>
 						<Vertex>vertex2</Vertex>
@@ -41,8 +44,9 @@
 						<Vertex>vertex21</Vertex>
 						<Vertex>vertex22</Vertex>
 					</Edge>
+					<Edge From="ifand11.True" To="SetAborted" />
 				</State>
-				<If Name="if8" PositionY="200" PositionX="-540">
+				<If Name="if8" PositionY="200" PositionX="-550">
 					<Edge From="getSleepingPotion.Active" To="Condition">
 						<Vertex>vertex3</Vertex>
 						<Vertex>vertex17</Vertex>
@@ -56,14 +60,25 @@
 					</Edge>
 					<Edge From="timer10.OnFinished" To="Exec" />
 				</If>
-				<If Name="ifNone" PositionY="-140" PositionX="-540">
+				<IfFunction Name="ifand11" PositionY="740" PositionX="-550" MethodName="math::boolean::And" DeclaringType="math::boolean">
+					<Edge From="getSleepingPotion.Active" To="A">
+						<Vertex>vertex3</Vertex>
+						<Vertex>vertex17</Vertex>
+					</Edge>
+					<Edge From="watch14.OnChanged" To="Exec" />
+					<Edge From="jindra_uz_nepotrebuje_uspavak" To="B">
+						<Vertex>TW45rofm</Vertex>
+						<Vertex>tG0RvxuR</Vertex>
+					</Edge>
+				</IfFunction>
+				<If Name="ifNone" PositionY="-140" PositionX="-550">
 					<Edge From="getSleepingPotion.None" To="Condition">
 						<Vertex>vertex24</Vertex>
 						<Vertex>vertex23</Vertex>
 					</Edge>
 					<Edge From="quest_zacal__hrac_nema_lektvar" To="Exec" />
 				</If>
-				<If Name="ifNone2" PositionY="40" PositionX="-540">
+				<If Name="ifNone2" PositionY="40" PositionX="-550">
 					<Edge From="quest_zacal__hrac_ma_lektvar" To="Exec" />
 					<Edge From="getSleepingPotion.None" To="Condition">
 						<Vertex>vertex24</Vertex>
@@ -75,13 +90,13 @@
 						<Vertex>vertex20</Vertex>
 					</Edge>
 				</itemclasstrigger>
-				<Function Name="not7" PositionY="500" PositionX="-840" MethodName="math::boolean::Not" DeclaringType="math::boolean">
+				<Function Name="not7" PositionY="500" PositionX="-850" MethodName="math::boolean::Not" DeclaringType="math::boolean">
 					<Edge From="jindra_uz_nepotrebuje_uspavak" To="Value" />
 				</Function>
-				<sezen_uspavaci_odvar Name="objectiveVisual6" PositionY="-50" PositionX="280" RequiredForOutput="kutnohorsko">
+				<sezen_uspavaci_odvar Name="objectiveVisual6" PositionY="-90" PositionX="280" RequiredForOutput="kutnohorsko">
 					<Edge From="getSleepingPotion.State" To="Progress" />
 				</sezen_uspavaci_odvar>
-				<Function Name="or5" PositionY="470" PositionX="-550" MethodName="math::boolean::Or" DeclaringType="math::boolean">
+				<Function Name="or5" PositionY="470" PositionX="-560" MethodName="math::boolean::Or" DeclaringType="math::boolean">
 					<Edge From="getSleepingPotion.Active" To="A">
 						<Vertex>vertex3</Vertex>
 						<Vertex>vertex17</Vertex>
@@ -103,20 +118,31 @@
 					<Constant Name="TimeType" Value="WorldTime" />
 					<Edge From="itemclasstrigger.ontargetamoutlose" To="SetRunning" />
 				</Timer>
+				<Watch Name="watch14" PositionY="740" PositionX="-850" TypeT="bool">
+					<Edge From="quest_active" To="IsActive">
+						<Vertex>aFWptvas</Vertex>
+					</Edge>
+					<Edge From="jindra_uz_nepotrebuje_uspavak" To="WatchedState">
+						<Vertex>TW45rofm</Vertex>
+					</Edge>
+				</Watch>
 			</Nodes>
 			<EdgeVertices>
-				<EdgeVertex Name="18l1Emkd" PositionY="660" PositionX="-530" />
+				<EdgeVertex Name="18l1Emkd" PositionY="660" PositionX="-540" />
+				<EdgeVertex Name="aFWptvas" PositionY="830" PositionX="-1010" />
 				<EdgeVertex Name="c9GAqbTk" PositionY="660" PositionX="510" />
 				<EdgeVertex Name="GRmPeoLV" PositionY="170" PositionX="280" />
+				<EdgeVertex Name="tG0RvxuR" PositionY="899" PositionX="-827" />
+				<EdgeVertex Name="TW45rofm" PositionY="860" PositionX="-910" />
 				<EdgeVertex Name="vertex1" PositionY="430" PositionX="460" />
 				<EdgeVertex Name="vertex13" PositionY="140" PositionX="280" />
 				<EdgeVertex Name="vertex14" PositionY="140" PositionX="540" />
-				<EdgeVertex Name="vertex17" PositionY="410" PositionX="-550" />
-				<EdgeVertex Name="vertex2" PositionY="430" PositionX="-210" />
+				<EdgeVertex Name="vertex17" PositionY="410" PositionX="-560" />
+				<EdgeVertex Name="vertex2" PositionY="430" PositionX="-220" />
 				<EdgeVertex Name="vertex20" PositionY="560" PositionX="120" />
 				<EdgeVertex Name="vertex21" PositionY="460" PositionX="810" />
-				<EdgeVertex Name="vertex22" PositionY="460" PositionX="-210" />
-				<EdgeVertex Name="vertex23" PositionY="-210" PositionX="-540" />
+				<EdgeVertex Name="vertex22" PositionY="460" PositionX="-220" />
+				<EdgeVertex Name="vertex23" PositionY="-210" PositionX="-550" />
 				<EdgeVertex Name="vertex24" PositionY="-210" PositionX="120" />
 				<EdgeVertex Name="vertex3" PositionY="410" PositionX="120" />
 				<EdgeVertex Name="Yh7TKUfB" PositionY="170" PositionX="540" />

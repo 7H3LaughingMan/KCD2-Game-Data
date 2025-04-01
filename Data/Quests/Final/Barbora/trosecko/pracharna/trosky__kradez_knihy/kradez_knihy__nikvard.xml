@@ -26,10 +26,14 @@
 				<Definition File="kradez_knihy__nikvard/nalezeni_nikvarda__bark.xml" />
 			</Definitions>
 			<Nodes>
-				<AreaTrigger Name="areatrigger13" PositionY="210" PositionX="-320">
+				<Function Name="and18" PositionY="290" PositionX="-280" MethodName="math::boolean::And" DeclaringType="math::boolean">
+					<Edge From="or14.bool" To="A" />
+					<Edge From="loadedprofilestate.isloaded" To="B" />
+				</Function>
+				<AreaTrigger Name="areatrigger13" PositionY="210" PositionX="10">
 					<Asset Name="Souls" Alias="player" />
 					<Asset Name="Areas" Alias="NikvardArea" />
-					<Edge From="or14.bool" To="IsActive" />
+					<Edge From="and18.bool" To="IsActive" />
 				</AreaTrigger>
 				<If Name="if10" PositionY="150" PositionX="-1310">
 					<Edge From="hrac_nasel_knihu_exec" To="Exec" />
@@ -38,6 +42,9 @@
 						<Vertex>ACqRb27J</Vertex>
 					</Edge>
 				</If>
+				<loadedprofilestate Name="loadedprofilestate" PositionY="360" PositionX="-610" Namespace="utils.streaming">
+					<Asset Name="profiles" Alias="NikvardProfile" />
+				</loadedprofilestate>
 				<nalezeni_nikvarda__bark Name="nalezeni_nikvarda__bark" PositionY="550" PositionX="-1090">
 					<Edge From="promluvil_jsem_s_pisarem_o_knize" To="mluvil_jsem_s_pisarem">
 						<Vertex>vertex28</Vertex>
@@ -58,6 +65,7 @@
 				<Function Name="or14" PositionY="210" PositionX="-570" MethodName="math::boolean::Or" DeclaringType="math::boolean">
 					<Edge From="nikvard.Started" To="A" />
 					<Edge From="nikvard.UpdatedOnAllClues" To="B" />
+					<Edge From="nikvard.None" To="C" />
 				</Function>
 				<Function Name="or17" PositionY="-20" PositionX="-550" MethodName="math::boolean::Or" DeclaringType="math::boolean">
 					<Edge From="nikvard.UpdatedOnAllClues" To="B" />
@@ -71,7 +79,7 @@
 						<Vertex>dB4233XI</Vertex>
 					</Edge>
 				</Output>
-				<Function Name="requestmonologue15" PositionY="630" PositionX="-90" MethodName="wh::xgenaimodule::RequestMonologue" DeclaringType="wh::xgenaimodule">
+				<Function Name="requestmonologue15" PositionY="580" PositionX="240" MethodName="wh::xgenaimodule::RequestMonologue" DeclaringType="wh::xgenaimodule">
 					<Asset Name="Souls" Alias="player" />
 					<Constant Name="DecisionAlias" Value="pracharna_nalezeniNikvarda" />
 					<Edge From="areatrigger13.OnEnter" To="Exec">
@@ -83,7 +91,7 @@
 				<EdgeVertex Name="7sHycaN2" PositionY="-360" PositionX="-360" />
 				<EdgeVertex Name="ACqRb27J" PositionY="-360" PositionX="-1300" />
 				<EdgeVertex Name="dB4233XI" PositionY="150" PositionX="-80" />
-				<EdgeVertex Name="vertex24" PositionY="520" PositionX="-80" />
+				<EdgeVertex Name="vertex24" PositionY="520" PositionX="240" />
 				<EdgeVertex Name="vertex25" PositionY="520" PositionX="-1040" />
 				<EdgeVertex Name="vertex27" PositionY="182" PositionX="-86" />
 				<EdgeVertex Name="vertex28" PositionY="590" PositionX="-1290" />

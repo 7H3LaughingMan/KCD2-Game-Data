@@ -10,7 +10,7 @@ BedTrigger =
 function BedTrigger:ReportUse(user,item,action)
     if self:IsLyingAction(action) then
         -- for click test if player can sleep
-        local canSleep, cannotSleepReason = self:CanSleep(user);
+        local canSleep, cannotSleepReason = self:CanSleep(user, true);
         if not canSleep then
             Game.SendInfoText(cannotSleepReason, false);
             return;
@@ -23,7 +23,7 @@ end
 -- =============================================================================
 function BedTrigger:IsEnabled(user)
     if self:IsLyingAction(self.Properties.Click) then
-        local canSleep, cannotSleepReason = self:CanSleep(user);
+        local canSleep, cannotSleepReason = self:CanSleep(user, false);
         if not canSleep then
             return false, cannotSleepReason;
         end
@@ -36,7 +36,7 @@ end
 -- =============================================================================
 function BedTrigger:IsEnabledHold(user)
     if self:IsLyingAction(self.Properties.Hold) then
-        local canSleep, cannotSleepReason = self:CanSleep(user);
+        local canSleep, cannotSleepReason = self:CanSleep(user, false);
         if not canSleep then
             return false, cannotSleepReason;
         end
@@ -52,9 +52,16 @@ function BedTrigger:IsLyingAction(action)
 end
 
 -- =============================================================================
-function BedTrigger:CanSleep(user)
+function BedTrigger:CanSleep(user, accurateResult)
     if user.player then
-        local result, messageType = user.player.CanSleep();
+        local result;
+        local messageType;
+        if accurateResult then
+            result, messageType = user.player.CanSleep();
+        else
+            result, messageType = user.player.CanSleepFast();
+        end
+
         if not result then
             local reason = SkipTime.GetSkipTimeMessageUIString(messageType);
             return false, reason;

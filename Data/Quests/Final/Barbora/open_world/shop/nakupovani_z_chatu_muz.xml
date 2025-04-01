@@ -12,6 +12,9 @@
 				<Port Name="seller_in_shop" Direction="In" Type="bool">
 					<DesignName StringName="nakupovan_seller_in_shop_CZ1L" Text="seller in shop" />
 				</Port>
+				<Port Name="chatdisabled" Direction="In" Type="bool">
+					<DesignName StringName="nakupovan_chatdisabled_gbCw" Text="chatDisabled" />
+				</Port>
 			</Ports>
 			<Text StringName="nakupovani_z_chatu_cc5B" Text="Nakupování z chatu MUŽ" />
 			<Elements>
@@ -26,7 +29,7 @@
 				</SelectedSouls>
 				<Decision Name="dec1" Priority="General">
 					<Sequences>
-						<Sequence EntryCondition="Port('seller_in_shop') AND &#xD;&#xA;!Port('bad_reputation')" EndType="Decision" ChatDistance="3" GrayOutIfSequencesUsed="Never" Name="seq1">
+						<Sequence EntryCondition="Port('seller_in_shop') AND &#xD;&#xA;!Port('bad_reputation') AND &#xD;&#xA;!Port('chatdisabled')" EndType="Decision" ChatDistance="3" GrayOutIfSequencesUsed="Never" Name="seq1">
 							<DesignName StringName="nakupovan_seq1_95Ih" Text="seq1" />
 							<UiPrompt StringName="ui_nakupovan_seq1_b5dL" Text="Obchodovat" />
 							<Elements>

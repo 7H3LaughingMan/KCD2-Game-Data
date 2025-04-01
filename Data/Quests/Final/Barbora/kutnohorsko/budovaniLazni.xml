@@ -42,17 +42,17 @@
 				<Port Name="hrac_ma_privest_holky_z_grunty_do_kh__karavany_na_ceste_deaktivovat" Direction="Out" Type="bool">
 					<DesignName StringName="budovanil_hrac_ma_privest_cW09" Text="Hráč má přivést holky z Grunty do KH - karavany na ceste deaktivovat" />
 				</Port>
+				<Port Name="hrac_prave_vyhlasuje__uklid_eventy_na_namestich" Direction="Out" Type="bool">
+					<DesignName StringName="budovanil_hrac_prave_vyhl_5yoa" Text="Hráč právě vyhlašuje - ukliď eventy na náměstích" />
+				</Port>
 				<Port Name="nastreamovat_nahradni_lazebnici" Direction="Out" Type="trigger">
 					<DesignName StringName="budovanil_nastreamovat_na_fDv8" Text="Nastreamovat nahradní lazebnici" />
 				</Port>
-				<Port Name="odstreamovat_blokadu_na_ceste__falesna_posadka" Direction="Out" Type="trigger">
-					<DesignName StringName="budovanil_odstreamovat_bl_CNNh" Text="Odstreamovat blokádu na cestě - Falešná posádka" />
-				</Port>
-				<Port Name="nastreamovat_blokadu_na_ceste__falesna_posadka" Direction="Out" Type="trigger">
-					<DesignName StringName="budovanil_nastreamovat_bl_GBmP" Text="Nastreamovat blokádu na cestě - Falešná posádka" />
-				</Port>
 				<Port Name="beta_docasna_ownerka_lazni__hrac_odmitl_marketing" Direction="Out" Type="trigger">
 					<DesignName StringName="budovanil_beta_docasna_ow_xfLn" Text="Běta dočasná ownerka lázní - hráč odmítl marketing" />
+				</Port>
+				<Port Name="s41__quest_competed" Direction="Out" Type="bool">
+					<DesignName StringName="budovanil_s41__quest_comp_I6no" Text="S41 - Quest competed" />
 				</Port>
 			</Ports>
 			<Definitions>
@@ -65,7 +65,6 @@
 				<Definition File="budovaniLazni/zaverecny_dialog_s_betou.xml" />
 				<Definition File="budovaniLazni/fail_dialog_s_bordelmama.xml" />
 				<Definition File="budovaniLazni/adam_odkoupil_lazne.xml" />
-				<Definition File="budovaniLazni/popisy_jednotlivych_scen.xml" />
 				<Definition File="budovaniLazni/death_triggery.xml" />
 				<Definition File="budovaniLazni/haste.xml" />
 				<Definition File="budovaniLazni/budovanilaznilibrary.xml" />
@@ -138,6 +137,10 @@
 					</Edge>
 					<Edge From="streaming_a_migrace.vsechny_holky_nastreamovane" To="holky_nastreamovany" />
 				</death_triggery>
+				<disabledirectionschatsoul Name="disabledirectionschatsoul" PositionY="350" PositionX="4010" Namespace="utils.hardcoremode">
+					<Edge From="narocne_rano.uklizeni_aktivni" To="enabled" />
+					<Edge From="makearray35.Array" To="soul" />
+				</disabledirectionschatsoul>
 				<doprovod_holek_do_kh Name="doprovod_holek_do_kh" PositionY="-420" PositionX="1510" RequiredForOutput="kutnohorsko">
 					<Edge From="budovaniLazniProgress.OnFailed" To="quest_failuje">
 						<Vertex>vertex189</Vertex>
@@ -159,7 +162,7 @@
 						<Vertex>6oM0BXAM</Vertex>
 					</Edge>
 				</doprovod_holek_do_kh>
-				<HasteTrigger Name="endQuest" PositionY="-1100" PositionX="4810">
+				<HasteTrigger Name="endQuest" PositionY="-1400" PositionX="5290">
 					<Edge From="makearray24.Array" To="Prerequisites" />
 				</HasteTrigger>
 				<expectedeffect Name="expectedeffect" PositionY="-1070" PositionX="-130" Namespace="utils.crime.trespass">
@@ -207,13 +210,21 @@
 						<Vertex>vertex294</Vertex>
 					</Edge>
 				</konsel_v_laznich>
-				<MakeArray Name="makearray24" PositionY="-1100" PositionX="4400" TypeT="wh::conceptmodule::ConceptPaths">
+				<MakeArray Name="makearray24" PositionY="-1400" PositionX="4880" TypeT="wh::conceptmodule::ConceptPaths">
 					<Constant Name="A" Value="budovaniLazni.streamReconstructedBathhouse" />
 					<Constant Name="B" Value="budovaniLazni.moveBetaToKH" />
 					<Constant Name="C" Value="budovaniLazni.streamBathmaids" />
 					<Constant Name="D" Value="budovaniLazni.moveBathmaidToKH" />
 					<Constant Name="E" Value="budovaniLazni.completeQuest" />
 					<Constant Name="F" Value="budovaniLazni.deactivateTipster" />
+				</MakeArray>
+				<MakeArray Name="makearray35" PositionY="510" PositionX="4020" TypeT="wh::rpgmodule::Souls">
+					<Asset Name="A" Alias="beta" />
+					<Asset Name="B" Alias="konsel" />
+					<Asset Name="C" Alias="holka1" />
+					<Asset Name="D" Alias="holka2" />
+					<Asset Name="E" Alias="holka3" />
+					<Asset Name="F" Alias="holka4" />
 				</MakeArray>
 				<marketing_na_namestich Name="marketing_na_namestich" PositionY="-370" PositionX="2010" RequiredForOutput="kutnohorsko">
 					<Edge From="doprovod_holek_do_kh.start_marketingu" To="start_marketingu" />
@@ -314,7 +325,6 @@
 				<Function Name="or26" PositionY="-1040" PositionX="-360" MethodName="math::boolean::Or" DeclaringType="math::boolean">
 					<Edge From="budovaniLazniProgress.None" To="A" />
 					<Edge From="budovaniLazniProgress.Active" To="B" />
-					<Edge From="budovaniLazniProgress.Done" To="C" />
 				</Function>
 				<Function Name="or31" PositionY="610" PositionX="5480" MethodName="math::boolean::Or" DeclaringType="math::boolean">
 					<Edge From="marketing_na_namestich.hrac_quest_dokoncil_pred_marketingem" To="A">
@@ -332,7 +342,7 @@
 						<Vertex>cJMN3THB</Vertex>
 					</Edge>
 				</Function>
-				<otevreni_dveri_v_laznich Name="otevreni_dveri_v_laznich" PositionY="750" PositionX="4020">
+				<otevreni_dveri_v_laznich Name="otevreni_dveri_v_laznich" PositionY="770" PositionX="4020">
 					<Edge From="narocne_rano.uklizeni_aktivni" To="faze_uklizeni_a_prohlidky_aktivni" />
 					<Edge From="velka_party.party_cs_afterplay" To="otevrit_dvere">
 						<Vertex>vertex299</Vertex>
@@ -378,23 +388,29 @@
 					<Edge From="streamovani_po_queste.nastreamuj_nahradni_lazebnici" To="nastreamovat_nahradni_lazebnici">
 						<Vertex>4xMvlMJQ</Vertex>
 					</Edge>
-					<Edge From="streaming_a_migrace.streaming_cs__afterplay" To="odstreamovat_blokadu_na_ceste__falesna_posadka">
-						<Vertex>CSyRLvGx</Vertex>
-						<Vertex>tj9wBIeA</Vertex>
-					</Edge>
-					<Edge From="streaming_a_migrace.voz_sa_ma_odstreamovat__nastreamuj_blokadu" To="nastreamovat_blokadu_na_ceste__falesna_posadka">
-						<Vertex>WU9JEr6N</Vertex>
-						<Vertex>czU4rg6G</Vertex>
-					</Edge>
 					<Edge From="marketing_na_namestich.hrac_odmitl_marketing" To="beta_docasna_ownerka_lazni__hrac_odmitl_marketing">
 						<Vertex>LBx0dYAd</Vertex>
 						<Vertex>KHhQxYr0</Vertex>
+					</Edge>
+					<Edge From="marketing_na_namestich.hrac_prave_vyhlasuje__uklid_eventy_na_namestich" To="hrac_prave_vyhlasuje__uklid_eventy_na_namestich">
+						<Vertex>Ya3s3Dg6</Vertex>
+						<Vertex>yaEj4Mpl</Vertex>
+					</Edge>
+					<Edge From="budovaniLazniProgress.Done" To="s41__quest_competed">
+						<Vertex>gDlG8VFU</Vertex>
+						<Vertex>yaYv791W</Vertex>
+						<Vertex>blvyVTFP</Vertex>
+						<Vertex>eKv43owV</Vertex>
 					</Edge>
 				</Output>
 				<perma_death Name="perma_death" PositionY="-820" PositionX="-350">
 					<Edge From="budovaniLazniProgress.None" To="quest_none" />
 				</perma_death>
-				<popisy_jednotlivych_scen Name="popisy_jednotlivych_scen_1" PositionY="2530" PositionX="840" />
+				<poi_handler Name="poi_handler" PositionY="770" PositionX="-310" Namespace="utils.poi">
+					<Constant Name="poitype" Value="8400b6a7-ba53-45b9-acba-60e8ea702e58" />
+					<Edge From="budovaniLazniProgress.OnDone" To="setpoidiscovered" />
+					<Edge From="budovaniLazniProgress.OnFailed" To="setpoidiscovered" />
+				</poi_handler>
 				<poslouchani_na_spusobeni_crimu Name="poslouchani_na_spusobeni_crimu" PositionY="210" PositionX="4010">
 					<Edge From="narocne_rano.uklizeni_aktivni" To="aktivni_poslouchani" />
 				</poslouchani_na_spusobeni_crimu>
@@ -505,14 +521,15 @@
 				<EdgeVertex Name="8asqyl0P" PositionY="1060" PositionX="2970" />
 				<EdgeVertex Name="8MJsDr5L" PositionY="28" PositionX="4308" />
 				<EdgeVertex Name="9WfMR1E8" PositionY="-580" PositionX="5070" />
+				<EdgeVertex Name="blvyVTFP" PositionY="-540" PositionX="2383" />
 				<EdgeVertex Name="bUj5shHN" PositionY="40" PositionX="3650" />
 				<EdgeVertex Name="cJMN3THB" PositionY="1700" PositionX="6410" />
 				<EdgeVertex Name="CJvJtYac" PositionY="1120" PositionX="680" />
-				<EdgeVertex Name="CSyRLvGx" PositionY="1540" PositionX="-750" />
-				<EdgeVertex Name="czU4rg6G" PositionY="1527" PositionX="6398" />
 				<EdgeVertex Name="dnYE4Ib7" PositionY="-580" PositionX="-370" />
 				<EdgeVertex Name="DWTCCqFY" PositionY="1050" PositionX="3660" />
+				<EdgeVertex Name="eKv43owV" PositionY="-545" PositionX="6439" />
 				<EdgeVertex Name="fxnBa1ku" PositionY="1593" PositionX="6404" />
+				<EdgeVertex Name="gDlG8VFU" PositionY="-558" PositionX="-294" />
 				<EdgeVertex Name="GNUeAGAt" PositionY="1595" PositionX="3305" />
 				<EdgeVertex Name="gsTv4qDV" PositionY="1655" PositionX="-1738" />
 				<EdgeVertex Name="ChPpefsI" PositionY="-580" PositionX="1530" />
@@ -531,7 +548,6 @@
 				<EdgeVertex Name="sgwrGu4B" PositionY="1100" PositionX="4600" />
 				<EdgeVertex Name="Sk7fuPP3" PositionY="1050" PositionX="2970" />
 				<EdgeVertex Name="TdrXKxuR" PositionY="-1270" PositionX="-1890" />
-				<EdgeVertex Name="tj9wBIeA" PositionY="1557" PositionX="6406" />
 				<EdgeVertex Name="TvhvsPo6" PositionY="1170" PositionX="6400" />
 				<EdgeVertex Name="vEmjKhb5" PositionY="1190" PositionX="2034" />
 				<EdgeVertex Name="vertex124" PositionY="-670" PositionX="1940" />
@@ -609,8 +625,10 @@
 				<EdgeVertex Name="vertex96" PositionY="200" PositionX="600" />
 				<EdgeVertex Name="vertex97" PositionY="200" PositionX="-710" />
 				<EdgeVertex Name="WQuJEnBj" PositionY="1080" PositionX="2040" />
-				<EdgeVertex Name="WU9JEr6N" PositionY="1516" PositionX="-756" />
 				<EdgeVertex Name="xcouE1xR" PositionY="-300" PositionX="6580" />
+				<EdgeVertex Name="Ya3s3Dg6" PositionY="1175" PositionX="2357" />
+				<EdgeVertex Name="yaEj4Mpl" PositionY="1151" PositionX="6405" />
+				<EdgeVertex Name="yaYv791W" PositionY="-557" PositionX="2323" />
 				<EdgeVertex Name="zmXMDzGe" PositionY="-607" PositionX="6438" />
 			</EdgeVertices>
 			<Types>
@@ -710,6 +728,11 @@
 				<SoulAsset Name="drunkard2" SharedSoulGuids="4de04022-b495-44b4-ae8c-0dd474802978" />
 				<SoulAsset Name="drunkard4" SharedSoulGuids="140faee4-1f02-43c7-98cd-21fa93ff70a3" />
 			</Assets>
+			<Notes>
+				<Note Name="note33" PositionY="2540" PositionX="1206">
+					<Text StringName="budovanil_note33_b0DH" Text="Původně jsem napsal hodně podrobný popis jednotlivých scén, s tím co přesně by s v nich mělo dít. Danovi přišlo, že toho je hodně a bude to celé dlouhé. Můj původní záměr ale byl aby to bylo kratší, ale na obrazovce se toho dělo víc v jednu a tu samou chvíli. (proto dlouhý popis) Takže tady nechám původní znění celé hodně podrobně vymyšlené a v druhé krabičce bude finální podobna cutscény tak, jak ji Dan schválil.&#xD;&#xA;Tenhle popis může sloužit jako inpirace cutscénářům, případně jako bližší popis toho, co se děje v jednotlivých scénách a jak jsem si to představoval. Opravdu tohle je jen pro inspiraci jak mohou scény vypadat.&#xD;&#xA;https://warhorsest.sharepoint.com/:w:/r/_layouts/15/Doc.aspx?sourcedoc=%7B085426FA-699F-401C-9C30-22C0494E2FB6%7D&amp;file=Cutscene%20PARTY.docx&amp;action=default&amp;mobileredirect=true&amp;cid=5b80c136-7699-4ee7-82f3-cb177d2a7b8c&amp;CID=7B949EA1-E16F-434A-B685-FC5D532E81F5&amp;wdLOR=c16A3C65B-3B79-4769-9C56-2791958EF1DC&#xD;&#xA;Scéna 1: u stolu sedí víc lidí, všichni koukaj na jednoho vypraveče, kterej je opřenej o stůl a něco zaníceně vypravuje. Všichni mu to hrozně žerou. Vypraveč tam hodí pointu a všichni se rozesmějou. Henry, během toho dolejvá posluchačům. Jakmile vypravěč, řekl pointu, tak &quot;číšník&quot; Henry něco zahlásí a přidá další vtip a všichni kolem dostanou ještě větší výtlem. Na to, vypraveč rozjařeně stáhne Henryho k sobě na lavici a nacpe mu do ruky korbel a ťukne si s ním.&#xD;&#xA;Scéna 2: Henry už neroznáší ale chlastá u stolu s ostatnímá. Jeden z hostů přijde zezadu k jedný z lezebnic, která sedí u stolu vedle Henryho. Zazade jí oplzle obejme a začne jí vošmatlávat. Lazebnice se ošije. Henryho si rychle stoupne, aby jako bránil lazebnici, před prasákem. Může ho i odstrčit. Oplzloň mávne rukou a dá si odchod. Henryho rychlý stoupnutí od stolu viděl i jeden z hostů, ale vyložil si to jako, že Henry si stoupá na přípitek. Takže si hnedka stoupne taky, popadne korbel a zvedne ho do vejšky a všichni ho následujou a Henry s lazebnicí nakonec taky. A pijou na ex.&#xD;&#xA;scéna 3: ve dveřích stojí podle oblečení ponocný a baví se s Bětou. Mává rukou směrem k lidem (&quot;A co je tohleto proboha, víte kolik je hodin?&quot;). Běta na něho mluví (&quot;ještě chvíli, přece nebude tak zle&quot;) a pak ho zve ho pokynutím ruky dovnitř. Kolem jde jedna z lazebnic, rovnou se zavěsí do ponocného, dá mu korbel, co nesla, a vede ho přímo doprostřed zábavy. Ponocný má zvednutou ruku, jako &quot;Ale jen na chvíli, pak to tu ukončíme&quot;. Lazebnice horlivě kýve hlavou (&quot;To víš že jo, ty můj čumáčku&quot;).&#xD;&#xA;scéna 4: Chlapíci s Henrym stojej někde spolu. Všichni maj korbel, ťuknou si, napijou se, jeden z nich pije tak hluboka, že se převáží dozadu. Plácne sebou na zem, ale nevylil korbel. Zbylý chlápci s Henrym se ně něj kouknout a pak ho oceněj zatnutýma pěstma a zařváním &quot;JOOOOOO!&quot; A pak se vrátěj ke svým korbelům a lejou dál.&#xD;&#xA;scéna 5: V prázdné kádi leží ponocný, ruce a nohy má ven, hlavu zakloněnou. Je namol. Henry sedí v druhý kádi vedle něj, má na hlavě ponocnýho helmu, má jeho halapartnu a zuřivě s ní pádluje, jako kdyby byl ve člunu a snažil se ujet s kádi ponocnýmu. Kolem na to čučej lidi a můžou se potrhat smíchy.&#xD;&#xA;scéna 6: Henry sedí na kádí otočený dnem vzhůru a něco špitá lazebnici, která sedí vedle něj a chichotá se. Přisedne se k nim ten oplzlo od minule a začne jí hruběji točit k sobě, od Henryho. Henry se nasere a strčí do něj. Lazebnice vyskočí. Oplzlo se nasere, stoupne si a Henryho málem schodí na zem z tý kádě, na který seděl. Henry to vyrovná a taky si stoupá a že mu dá rovnou ránu. A jak se zvedne rychle, tak máchne rukou korbelem, aby to vyrovnal. A tím korbelem zespoda do brady natáhne toho oplzla, kterej se skácí na zem. A Henry se podívá dovnitř korbelu, páč si tím pohybem asi vylil pivo.&#xD;&#xA;scéna 7: rychlej záběr jak chlapík (už trochu vesele) odsouvá stůl stranou, aby udělal místo pro tancování. Lidi stojej v kruhu a povzbuzujou, kolem &quot;parketu&quot;. Na ten vběhli dvě holky, který tancujou sladěnou sestavu. Nejsou dokonalý, ale hrozně je to baví (nějaký poskakování a házení sukní ve stylu country/kankán by bylo super).&#xD;&#xA;scéna 8: Ožralej chlápek spí čelem přitisklej na stůl. Henry s kámošem mu stavěj na hlavě věž z různějch věcí, který našli na stole. V pozadí tancujou ty holky. Mezitím, tam jeden chlapík u stolu prozkoumává korbely a dojíždí zbytky.&#xD;&#xA;scéna 9: Mezi tancující holky se vpletla třetí a rovnou vypálila facku jedný z nich. Přestalo se tancovat. Holky se rvou. Chlapi kolem na to koukaj dost pobaveně a začnou dost povzbuzovat, když maj holky na sobě míň a míň oblečení. A pak velký TRRRRRHHHHH a jedna holka čučí jak puk, celý prso (nebo klidně obě dvě v celé kráse) venku. A chlapi ryčej nadšením.&#xD;&#xA;scéna 10: Henry se zvedl od stolu a chce taky vidět, co se děje, že chlapi tak vyváděj. Vidí, že se perou holky, probudí se v něm záchranář, tak je jde od sebe odtrhnout. Jeho snažení, je ale dost naprd, protože holky jsou do boje dost zabraný. A pak mu přiletí odněkud do brady loket jedný z holek. Henry sebou pleskne na zem.&#xD;&#xA;Scéne 11: Holky co se prali klečej u Henryho na zemi. Henryho dostanou do polohy v sedě a straraj se o něj jestli je v pohodě. Holky jsou ke kameře zádama a vidíme Henrymu do obličeje, jak se rozzáří. Jedna z holek má přece pořád ty roztrhlý šaty. Henry se přiblble zašklebí. A ta holka s roztrženejma šatama ho ze sranda plácne (&quot;Ty seš blbec JIndřichu&quot;) Zatmívačka.&#xD;&#xA;RÁNO: Je stále černá obrazovka.&#xD;&#xA;SEQUENCE 1&#xD;&#xA;LAZEBNICE BĚTY 1&#xD;&#xA;jakoby z dálky&#xD;&#xA;Jindro? Jindro?&#xD;&#xA;LAZEBNICE BĚTY 1&#xD;&#xA;naléhavě&#xD;&#xA;Vstávejte vy dva!&#xD;&#xA;Rozetmívá se. Jindra sedí na lavici v koutě. Jednou rukou drží lazebnici, druhou rukou korbel. Lazebnice spí u něj. Ležela o něj opřená a teď se probouzí a docela rychle se zvedá, aby si toho jako nikdo nevšimnul. &#xD;&#xA;SEQUENCE 1&#xD;&#xA;JINDŘICH&#xD;&#xA;polohlasem, zničeně&#xD;&#xA;Já tu nejsem...&#xD;&#xA;LAZEBNICE BĚTY 1&#xD;&#xA;hlasitě, sebere mu korbel z ruky&#xD;&#xA;Vstávej ty dřevo. Máme průšvih! Tak dělej vstaň.&#xD;&#xA;JINDŘICH&#xD;&#xA;zoufale&#xD;&#xA;Neřvi tolik proboha!&#xD;&#xA;SEQUENCE 1&#xD;&#xA;LAZEBNICE BĚTY 1&#xD;&#xA;intenzivně&#xD;&#xA;Venku je konšel. Přišel na kontrolu!&#xD;&#xA;JINDŘICH&#xD;&#xA;instantní vystřízlivění&#xD;&#xA;Cože?!&#xD;&#xA;Jindřich se mátožně zvedne. Těžce opilecky si odfoukne. Pak se koukne kolem sebe. Hotová Sodoma Gomora. Lidi seděj jak v ragdollu na lavicích, na zemi. a celkově je tam bordel. Některý lazebnice už tam uklízej a posouvaj stoly. Zatím jedna lazebnice stojí u něj s rukou v bok.&#xD;&#xA;SEQUENCE 1&#xD;&#xA;JINDŘICH&#xD;&#xA;a pak to náš hrdina znalecky zhodnotí&#xD;&#xA;Sakra....&#xD;&#xA;Navazujeme dialogem s lazebnicí, která hráči vysvětluje, že Běta venku zdržuje konšela a hráč musí pomoct s úklidem, jinak je všechno v prdeli.Protože jestli tohle uvidí konšel, tak jsou namydlený.&#xD;&#xA;" />
+				</Note>
+			</Notes>
 			<Text StringName="budovani_lazni_ZCwx" Text="Budování lázní" />
 			<ReviewNotesConcept>
 				<Item Date="2020-07-07 18:26:40" UserName="jan.nemec" Text="Objective by měl končit . Jenže k objectivům nejde přidávat komenty, tak je to tady." AcceptState="Accepted" />

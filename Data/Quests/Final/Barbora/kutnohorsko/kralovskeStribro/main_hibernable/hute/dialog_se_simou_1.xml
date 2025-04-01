@@ -27,15 +27,19 @@
 				<Port Name="vokrak_enabled" Direction="Out" Type="bool">
 					<DesignName StringName="dialog_se_vokrak_enabled_vXHT" Text="Vokřák enabled" />
 				</Port>
-				<Port Name="sima_jde_na_spot" Direction="In" Type="bool">
-					<DesignName StringName="dialog_se_sima_jde_na_spot_zSRp" Text="šíma jde na spot" />
+				<Port Name="sima_ceka_na_dialog" Direction="In" Type="bool">
+					<DesignName StringName="dialog_se_sima_ceka_na_di_AHkf" Text="šíma čeká na dialog" />
 				</Port>
 			</Ports>
 			<Definitions>
 				<Definition File="dialog_se_simou_1/dialog_se_simou_1.xml" />
 			</Definitions>
 			<Nodes>
-				<dialog_se_simou_1 Name="dialog_se_simou_1" PositionY="-70" PositionX="10">
+				<Function Name="areacheck1" PositionY="130" PositionX="-330" MethodName="wh::rpgmodule::AreaCheck" DeclaringType="wh::rpgmodule">
+					<Asset Name="Souls" Alias="sima" />
+					<Asset Name="Areas" Alias="simasLeaningArea" />
+				</Function>
+				<dialog_se_simou_1 Name="dialog_se_simou_1" PositionY="-150" PositionX="10">
 					<Edge From="patrani_hute_aktivni" To="patrani_hute_aktivni" />
 					<Edge From="hrac_je_v_provozu_huti" To="hrac_je_v_provozu_huti" />
 					<Edge From="bures_je_mrtvy" To="bures_je_mrtvy" />
@@ -43,8 +47,10 @@
 					<Edge From="payment.playerhasmoney" To="hrac_ma_na_uplatek" />
 					<Edge From="payment_1.playerhasmoney" To="hrac_ma_na_vyssi_uplatek" />
 					<Edge From="payment.money" To="Payment_seq60" />
-					<Edge From="payment_1.money" To="Payment_chce_vyssi_uplatek" />
-					<Edge From="sima_jde_na_spot" To="sima_jde_na_spot" />
+					<Edge From="payment_1.money" To="Payment_seq92" />
+					<Edge From="payment_1.money" To="Payment_seq89" />
+					<Edge From="sima_ceka_na_dialog" To="sima_ceka_na_dialog" />
+					<Edge From="areacheck1.IsInside" To="sima_v_leaningarea" />
 				</dialog_se_simou_1>
 				<Output Name="Output">
 					<Edge From="dialog_se_simou_1.sima_jde_ven_z_trespassu" To="sima_jde_ven_z_trespassu" />
@@ -52,24 +58,24 @@
 					<Edge From="dialog_se_simou_1.najdi_vokraka" To="najdi_vokraka" />
 					<Edge From="dialog_se_simou_1.zadani_vokraka" To="vokrak_enabled" />
 				</Output>
-				<payment Name="payment" PositionY="210" PositionX="-290" Namespace="utils.speech">
+				<payment Name="payment" PositionY="270" PositionX="-280" Namespace="utils.speech">
 					<Constant Name="moneysettings" Value="200" />
-					<Edge From="dialog_se_simou_1.HENRY" To="recipient">
-						<Vertex>vertex3</Vertex>
-						<Vertex>vertex4</Vertex>
-					</Edge>
 					<Edge From="dialog_se_simou_1.hrac_plati_uplatek" To="pay">
 						<Vertex>vertex5</Vertex>
 						<Vertex>vertex6</Vertex>
 					</Edge>
+					<Edge From="dialog_se_simou_1.HUTNIK_SIMA" To="recipient">
+						<Vertex>vertex3</Vertex>
+						<Vertex>vertex4</Vertex>
+					</Edge>
 				</payment>
-				<payment Name="payment_1" PositionY="460" PositionX="-290" Namespace="utils.speech">
+				<payment Name="payment_1" PositionY="500" PositionX="-280" Namespace="utils.speech">
 					<Constant Name="moneysettings" Value="300" />
 					<Edge From="dialog_se_simou_1.hrac_plati_vyssi_uplatek" To="pay">
 						<Vertex>vertex7</Vertex>
 						<Vertex>vertex8</Vertex>
 					</Edge>
-					<Edge From="dialog_se_simou_1.HENRY" To="recipient">
+					<Edge From="dialog_se_simou_1.HUTNIK_SIMA" To="recipient">
 						<Vertex>vertex3</Vertex>
 						<Vertex>vertex4</Vertex>
 					</Edge>

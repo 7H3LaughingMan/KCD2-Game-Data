@@ -69,6 +69,10 @@
 				<Definition File="navrat_do_kempu/jasak_po_ceste_zpet_do_tabora.xml" />
 			</Definitions>
 			<Nodes>
+				<Function Name="advanceworldtime57" PositionY="420" PositionX="2430" MethodName="wh::rpgmodule::AdvanceWorldTime" DeclaringType="wh::rpgmodule">
+					<Constant Name="TimeOfDay" Value="22h" />
+					<Edge From="ifInCorrectTimeOmitTimeskip.False" To="Exec" />
+				</Function>
 				<Function Name="and35" PositionY="670" PositionX="1160" MethodName="math::boolean::And" DeclaringType="math::boolean">
 					<Edge From="hledani_chlastu_nezaclo" To="B">
 						<Vertex>vertex31</Vertex>
@@ -133,7 +137,14 @@
 				</Function>
 				<CutsceneHandler Name="cutscenehandler32" PositionY="30" PositionX="1640">
 					<Asset Name="CutsceneHolder" Alias="firstDrinkingCutscene" />
-					<Edge From="ifInCorrectTimeOmitTimeskip.False" To="EnqueueCutscene" />
+					<Edge From="jindra_preskakuje_tlumoceni" To="EnqueueCutscene">
+						<Vertex>vertex22</Vertex>
+						<Vertex>vertex21</Vertex>
+						<Vertex>vertex20</Vertex>
+					</Edge>
+					<Edge From="triggersequence33.B" To="EnqueueCutscene">
+						<Vertex>vertex20</Vertex>
+					</Edge>
 				</CutsceneHandler>
 				<EnableBehavior Name="enableBehaviorVomit" PositionY="970" PositionX="2730" Signature="wuidData" EventSet="">
 					<Constant Name="Behavior" Value="drunkVomit" />
@@ -180,16 +191,11 @@
 						<Vertex>kgTqNu7x</Vertex>
 					</Edge>
 				</healiflowhealth>
-				<If Name="ifInCorrectTimeOmitTimeskip" PositionY="-100" PositionX="1340">
-					<Edge From="TimeOfDayBetweenCheck.isbetween" To="Condition" />
-					<Edge From="jindra_preskakuje_tlumoceni" To="Exec">
-						<Vertex>vertex22</Vertex>
-						<Vertex>vertex21</Vertex>
-						<Vertex>vertex20</Vertex>
+				<If Name="ifInCorrectTimeOmitTimeskip" PositionY="420" PositionX="2180">
+					<Edge From="TimeOfDayBetweenCheck.isbetween" To="Condition">
+						<Vertex>0zVE5zMk</Vertex>
 					</Edge>
-					<Edge From="triggersequence33.B" To="Exec">
-						<Vertex>vertex20</Vertex>
-					</Edge>
+					<Edge From="cutscenehandler32.AfterPlay" To="Exec" />
 				</If>
 				<IfFunction Name="ifNotDone" PositionY="90" PositionX="-690" MethodName="math::boolean::Not" DeclaringType="math::boolean">
 					<Edge From="jindra_odesel_behem_vecirku" To="Exec">
@@ -305,9 +311,6 @@
 						<Vertex>vertex16</Vertex>
 					</Edge>
 					<Edge From="createdialogparams3.DialogParams" To="DialogParams" />
-					<Edge From="ifInCorrectTimeOmitTimeskip.True" To="EnqueueDialogue">
-						<Vertex>vertex16</Vertex>
-					</Edge>
 					<Edge From="henry_vyprovokoval_boj_s_kumanem" To="henry_se_popral_s_kumanem">
 						<Vertex>vertex27</Vertex>
 						<Vertex>vertex25</Vertex>
@@ -390,6 +393,7 @@
 					<Constant Name="movementspeed" Value="walk" />
 					<Asset Name="currenttagpoint" Alias="returnToCampTourPoint" />
 					<Asset Name="finaltagpoint" Alias="returnToCampTourPoint" />
+					<Constant Name="disableorca" Value="false" />
 					<Constant Name="alias" Value="kumaniNaTrosecku_jasakPoCesteZpetDoTabora" />
 					<Constant Name="dialogtype" Value="bark" />
 					<Constant Name="subtitlesdown" Value="false" />
@@ -425,6 +429,7 @@
 				</TriggerSequence>
 			</Nodes>
 			<EdgeVertices>
+				<EdgeVertex Name="0zVE5zMk" PositionY="-65" PositionX="1628" />
 				<EdgeVertex Name="1QDR1wWP" PositionY="-1900" PositionX="-670" />
 				<EdgeVertex Name="5hs0ndHR" PositionY="360" PositionX="150" />
 				<EdgeVertex Name="9DeH7eDy" PositionY="930" PositionX="950" />

@@ -88,6 +88,12 @@
 					<Edge From="makearray6_1_1_1_1.Array" To="spots" />
 					<Edge From="DialogNaSuchdoleBohutaKaterina.Active" To="active" />
 				</npcpolylogonspots_areatriggered>
+				<Function Name="or18" PositionY="-130" PositionX="-290" MethodName="math::boolean::Or" DeclaringType="math::boolean">
+					<Edge From="timer17.Running" To="A">
+						<Vertex>D7SYPnKT</Vertex>
+					</Edge>
+					<Edge From="DialogNaSuchdoleBergovPetr.Active" To="B" />
+				</Function>
 				<pisek_bergov__po_rade Name="pisek_bergov__po_rade" PositionY="50" PositionX="240" />
 				<roza_ptacek__po_rade Name="roza_ptacek__po_rade" PositionY="-610" PositionX="-350" />
 				<SchedulerLinkActivation Name="schedule16" PositionY="-630" PositionX="-750">
@@ -101,6 +107,10 @@
 				<SchedulerLinkActivation Name="schedule16_1_1" PositionY="-190" PositionX="-690">
 					<Constant Name="LinkTag" Value="papezskyLegat_BergovPetrWait" />
 					<Edge From="timer17.Running" To="IsActive" />
+				</SchedulerLinkActivation>
+				<SchedulerLinkActivation Name="schedule16_1_1_1" PositionY="-130" PositionX="20">
+					<Constant Name="LinkTag" Value="papezskyLegat_GuardForBergov" />
+					<Edge From="or18.bool" To="IsActive" />
 				</SchedulerLinkActivation>
 				<Timer Name="timer17" PositionY="-50" PositionX="-1110">
 					<Constant Name="Duration" Value="8s" />
@@ -119,6 +129,7 @@
 				</Timer>
 			</Nodes>
 			<EdgeVertices>
+				<EdgeVertex Name="D7SYPnKT" PositionY="-40" PositionX="-670" />
 				<EdgeVertex Name="vertex1" PositionY="700" PositionX="60" />
 				<EdgeVertex Name="vertex2" PositionY="700" PositionX="-630" />
 				<EdgeVertex Name="vertex3" PositionY="1430" PositionX="120" />

@@ -115,6 +115,8 @@
 					<Edge From="souboj.start_souboje" To="fightstart" />
 					<Edge From="ifcompare34.True" To="stop_fight_skip" />
 					<Edge From="souboj.diskvalifikace" To="diskvalifikace" />
+					<Edge From="souboj.fight_oznamen" To="start_fightconfinguration_earlier" />
+					<Edge From="souboj.konec_kola" To="start_fightconfinguration_earlier" />
 				</fight>
 				<fridus__oznameni_souboje Name="fridus__oznameni_souboje" PositionY="-60" PositionX="50">
 					<Edge From="vyhry.vyhra_proti_jimramovi" To="jindrich_ziskal_bod_proti_jimramovi">
@@ -576,6 +578,7 @@
 				<Function Name="or49" PositionY="1300" PositionX="-1780" MethodName="math::boolean::Or" DeclaringType="math::boolean">
 					<Edge From="state4.MenhartJimram" To="A" />
 					<Edge From="state4.ArneMikulas" To="B" />
+					<Edge From="state4.HenryJimram" To="C" />
 				</Function>
 				<Function Name="or8" PositionY="1070" PositionX="-1760" MethodName="math::boolean::Or" DeclaringType="math::boolean">
 					<Edge From="state4.HenryLinhart" To="A" />
@@ -839,16 +842,32 @@
 						<Vertex>xUHc1DEu</Vertex>
 						<Vertex>botyT3cM</Vertex>
 					</Edge>
+					<Edge From="heal_a_teleport_mezi_koly.afterplay" To="afterplay_fader_a30">
+						<Vertex>upLbpKv5</Vertex>
+						<Vertex>ATsAoTU1</Vertex>
+					</Edge>
 				</souboj>
 				<cin_s3970k_sermiri__fencers_fight Name="soubojova_cs" PositionY="1990" PositionX="1280">
 					<Edge From="ifcompare34.True" To="start_cutscene" />
+					<Edge From="tournamentCutscene.OnTrigger" To="start_cutscene" />
 				</cin_s3970k_sermiri__fencers_fight>
+				<SoulStateTrigger Name="soulstatetrigger155" PositionY="-600" PositionX="-2590">
+					<Asset Name="Soul" Alias="player" />
+					<Constant Name="State" Value="health" />
+					<Constant Name="Operator" Value="Greater" />
+					<Constant Name="Value" Value="85" />
+					<Edge From="state111.Active" To="IsActive">
+						<Vertex>NdYCV8dl</Vertex>
+						<Vertex>y6zrIQVo</Vertex>
+					</Edge>
+				</SoulStateTrigger>
 				<State Name="state111" PositionY="-560" PositionX="-2270" RequiredForOutput="kutnohorsko" TypeT="Progress">
 					<Edge From="lazebnice__healing_pro_jindru.heal_na_100" To="SetDone">
 						<Vertex>uVtxr6mh</Vertex>
 						<Vertex>BaVr2HkS</Vertex>
 					</Edge>
 					<Edge From="ifcompare114.True" To="SetActive" />
+					<Edge From="soulstatetrigger155.OnMatch" To="SetDone" />
 				</State>
 				<State Name="state123" PositionY="3740" PositionX="-1560" RequiredForOutput="kutnohorsko" TypeT="OpustOhradku">
 					<Edge From="ifor121.True" To="SetOpusOhradu" />
@@ -1060,7 +1079,7 @@
 						<Vertex>MP6h87MU</Vertex>
 					</Edge>
 				</Switch>
-				<Timer Name="timer150" PositionY="490" PositionX="1690">
+				<Timer Name="timer150" PositionY="500" PositionX="1670">
 					<Constant Name="Duration" Value="4600ms" />
 					<Constant Name="TimeType" Value="GameTime" />
 					<Edge From="ifcompare77.True" To="SetRunning" />
@@ -1080,6 +1099,7 @@
 					</Edge>
 					<Edge From="state123.OnOpusOhradu" To="SetRunning" />
 				</Timer>
+				<HasteTrigger Name="tournamentCutscene" PositionY="2050" PositionX="980" />
 				<TriggerSequence Name="triggersequence103" PositionY="-30" PositionX="3470">
 					<Edge From="fridus_force_pri_crimu.AfterPlay" To="Exec">
 						<Vertex>RKrXsM50</Vertex>
@@ -1143,6 +1163,7 @@
 					<Asset Name="boothfans" Alias="boothFans" />
 					<Asset Name="boothfansarea" Alias="boothFansArea" />
 					<Constant Name="hrac_udelal_crime_" Value="false" />
+					<Constant Name="hrac_udelal_crime_zabitim" Value="false" />
 					<Constant Name="sermiri_s39" Value="true" />
 					<Edge From="souboj.diskvalifikace_b" To="fighter_a_neprisel_muze_byt_hrac">
 						<Vertex>vertex12</Vertex>
@@ -1318,6 +1339,7 @@
 				<EdgeVertex Name="9qEHWMlr" PositionY="2601" PositionX="-1707" />
 				<EdgeVertex Name="aF2nDSFk" PositionY="-241" PositionX="19" />
 				<EdgeVertex Name="aQTIUfA4" PositionY="3040" PositionX="2270" />
+				<EdgeVertex Name="ATsAoTU1" PositionY="1628" PositionX="192" />
 				<EdgeVertex Name="AwYJlSrf" PositionY="2649" PositionX="-949" />
 				<EdgeVertex Name="ayabMsDo" PositionY="548" PositionX="-375" />
 				<EdgeVertex Name="b4IoCG41" PositionY="3390" PositionX="-820" />
@@ -1384,6 +1406,7 @@
 				<EdgeVertex Name="nA5qVKD1" PositionY="280" PositionX="-1700" />
 				<EdgeVertex Name="nbU6lCMA" PositionY="526" PositionX="-493" />
 				<EdgeVertex Name="nDhyxjtt" PositionY="4420" PositionX="-1580" />
+				<EdgeVertex Name="NdYCV8dl" PositionY="-621" PositionX="-2021" />
 				<EdgeVertex Name="NgKntLGo" PositionY="1606" PositionX="2302" />
 				<EdgeVertex Name="nhdfIhTy" PositionY="11" PositionX="-2574" />
 				<EdgeVertex Name="nn5t91wt" PositionY="3390" PositionX="360" />
@@ -1431,6 +1454,7 @@
 				<EdgeVertex Name="Ue6AXA7M" PositionY="3450" PositionX="-2030" />
 				<EdgeVertex Name="UhKed79L" PositionY="3630" PositionX="930" />
 				<EdgeVertex Name="uhwLY4tL" PositionY="779" PositionX="1445" />
+				<EdgeVertex Name="upLbpKv5" PositionY="1783" PositionX="2083" />
 				<EdgeVertex Name="uVtxr6mh" PositionY="-125" PositionX="-1653" />
 				<EdgeVertex Name="vertex100" PositionY="1978" PositionX="-119" />
 				<EdgeVertex Name="vertex12" PositionY="1230" PositionX="760" />
@@ -1482,6 +1506,7 @@
 				<EdgeVertex Name="xUHc1DEu" PositionY="1982" PositionX="1732" />
 				<EdgeVertex Name="xvmmTHS3" PositionY="3160" PositionX="-280" />
 				<EdgeVertex Name="Y5xVWSJr" PositionY="2006" PositionX="1342" />
+				<EdgeVertex Name="y6zrIQVo" PositionY="-613" PositionX="-2592" />
 				<EdgeVertex Name="YbfQq0M4" PositionY="350" PositionX="-460" />
 				<EdgeVertex Name="YCoBhS7g" PositionY="114" PositionX="2032" />
 				<EdgeVertex Name="yH0q7nhH" PositionY="1870" PositionX="3300" />

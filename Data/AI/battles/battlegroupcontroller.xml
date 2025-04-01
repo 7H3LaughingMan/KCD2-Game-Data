@@ -200,6 +200,7 @@
 	</BehaviorTree>
 	<BehaviorTree name="fight" is_function="0">
 		<Variables>
+			<Variable name="aliveEnemies" type="_wuid" values="" isPersistent="0" form="array" />
 			<Variable name="behaviorSuccess" type="_bool" values="false" isPersistent="0" form="single" />
 			<Variable name="enemySoldier" type="_wuid" values="" isPersistent="0" form="single" />
 			<Variable name="moveTarget" type="_wuid" values="" isPersistent="0" form="single" />
@@ -241,21 +242,39 @@
 										</GraphSearch>
 									</LinkGate>
 								</Selector>
+								<Expression expressions="$aliveEnemies[0] = $enemySoldier" />
 								<IfCondition failOnCondition="false" condition="$moveTarget ~= $__null">
 									<Move stopWithinDistance="0.200000" stopDistanceVariation="0.100000" rayCasteFlee="false" successDistance="0.000000" changeNPCState="true" fastForwardIncludesMove="false" destinationSpecification="$moveTarget" destinationSpecification2="" destinationSpecification3="" speed="Run" additionalParams="" pathFindingParams="$pathFindingParams" staminaPolicy="" pathInfo="" />
 								</IfCondition>
 								<Parallel successMode="Any" failureMode="Any">
-									<MeleeOffenseAutomationDecorator active="true">
-										<MeleeDefenseAutomationDecorator active="true">
-											<MeleeGuardAutomationDecorator GuardMode="automate" active="true">
-												<WeaponAutomationDecorator WeaponChange="none" active="true">
-													<CombatFollowerDecorator ProbablisticDrivenSweetSpot="true" RPGSweetSpotArcDriver="true" active="true">
-														<CombatAction TargetNPC="$enemySoldier" RelationOverride="None" />
-													</CombatFollowerDecorator>
-												</WeaponAutomationDecorator>
-											</MeleeGuardAutomationDecorator>
-										</MeleeDefenseAutomationDecorator>
-									</MeleeOffenseAutomationDecorator>
+									<While doFail="false" propagateChildFail="false" condition="#aliveEnemies &gt; 0">
+										<Sequence>
+											<MeleeOffenseAutomationDecorator active="true">
+												<MeleeDefenseAutomationDecorator active="true">
+													<MeleeGuardAutomationDecorator GuardMode="automate" active="true">
+														<WeaponAutomationDecorator WeaponChange="none" active="true">
+															<CombatFollowerDecorator ProbablisticDrivenSweetSpot="true" RPGSweetSpotArcDriver="true" active="true">
+																<CombatAction TargetNPC="$aliveEnemies[0]" RelationOverride="None" />
+															</CombatFollowerDecorator>
+														</WeaponAutomationDecorator>
+													</MeleeGuardAutomationDecorator>
+												</MeleeDefenseAutomationDecorator>
+											</MeleeOffenseAutomationDecorator>
+											<ReinitVariable variable="$aliveEnemies" />
+											<GraphSearch Origin="$wuid" Borders="" depth="1" selection="true" SearchPattern="Depth" EdgePruning="&apos;parent,inventory&apos;" AllowedEdges="" SubGraph="" AllowSubtraph="false" includeOrigin="false" excludeOrigin="false" failOnEmpty="true" SetOperationChoice="Intersection|And" errorOnEmpty="false" shortCircuit="false" skipTraversed="true">
+												<LinkTagFilter tag="$string" prune="true" negprune="unknown" Parent="" Child="" Data="" />
+												<SoulIsAliveFilter Source="Child" prune="true" negprune="unknown" Parent="" Child="" />
+												<Nodalyzer Quantifiers="ForAll" Parent="" Child="$aliveEnemies" saveVersion="2" />
+											</GraphSearch>
+											<IfCondition failOnCondition="false" condition="$enemySoldier == $__player">
+												<IsDeadCheck SoulWUID="$__player" FailSubtMissing="false" saveVersion="2">
+													<Else canSkip="1">
+														<PushToArray array="$aliveEnemies" value="$__player" direction="Front" />
+													</Else>
+												</IsDeadCheck>
+											</IfCondition>
+										</Sequence>
+									</While>
 									<Loop count="-1">
 										<SuppressFailure>
 											<ProcessMessage Atomic="false" timeout="&apos;-1&apos;" timeType="GameTime" variable="$surrenderChatResult" senderInfo="" inbox="&apos;crime_playerSurrenderChatFeedback&apos;" condition="" answerVar="">
@@ -289,6 +308,7 @@
 		<ForestContainer />
 		<EditorData Signature="wuidData_string" EventSet="">
 			<Variables>
+				<Variable name="aliveEnemies" comment="" />
 				<Variable name="behaviorSuccess" comment="" />
 				<Variable name="enemySoldier" comment="" />
 				<Variable name="moveTarget" comment="" />
@@ -355,6 +375,9 @@
 											</GraphSearch>
 										</LinkGate>
 									</Selector>
+									<Expression hasInputBreakpoint="0" comment="" breakpointFlags="0">
+										<OutputBreakpoints />
+									</Expression>
 									<IfCondition hasInputBreakpoint="0" comment="" breakpointFlags="0">
 										<OutputBreakpoints />
 										<Move hasInputBreakpoint="0" comment="" breakpointFlags="0">
@@ -363,24 +386,56 @@
 									</IfCondition>
 									<Parallel hasInputBreakpoint="0" comment="" breakpointFlags="0">
 										<OutputBreakpoints />
-										<MeleeOffenseAutomationDecorator hasInputBreakpoint="0" comment="" breakpointFlags="0">
+										<While hasInputBreakpoint="0" comment="" breakpointFlags="0">
 											<OutputBreakpoints />
-											<MeleeDefenseAutomationDecorator hasInputBreakpoint="0" comment="" breakpointFlags="0">
+											<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
 												<OutputBreakpoints />
-												<MeleeGuardAutomationDecorator hasInputBreakpoint="0" comment="" breakpointFlags="0">
+												<MeleeOffenseAutomationDecorator hasInputBreakpoint="0" comment="" breakpointFlags="0">
 													<OutputBreakpoints />
-													<WeaponAutomationDecorator hasInputBreakpoint="0" comment="" breakpointFlags="0">
+													<MeleeDefenseAutomationDecorator hasInputBreakpoint="0" comment="" breakpointFlags="0">
 														<OutputBreakpoints />
-														<CombatFollowerDecorator hasInputBreakpoint="0" comment="" breakpointFlags="0">
+														<MeleeGuardAutomationDecorator hasInputBreakpoint="0" comment="" breakpointFlags="0">
 															<OutputBreakpoints />
-															<CombatAction hasInputBreakpoint="0" comment="" breakpointFlags="0">
+															<WeaponAutomationDecorator hasInputBreakpoint="0" comment="" breakpointFlags="0">
 																<OutputBreakpoints />
-															</CombatAction>
-														</CombatFollowerDecorator>
-													</WeaponAutomationDecorator>
-												</MeleeGuardAutomationDecorator>
-											</MeleeDefenseAutomationDecorator>
-										</MeleeOffenseAutomationDecorator>
+																<CombatFollowerDecorator hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																	<OutputBreakpoints />
+																	<CombatAction hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																		<OutputBreakpoints />
+																	</CombatAction>
+																</CombatFollowerDecorator>
+															</WeaponAutomationDecorator>
+														</MeleeGuardAutomationDecorator>
+													</MeleeDefenseAutomationDecorator>
+												</MeleeOffenseAutomationDecorator>
+												<ReinitVariable hasInputBreakpoint="0" comment="" breakpointFlags="0">
+													<OutputBreakpoints />
+												</ReinitVariable>
+												<GraphSearch hasInputBreakpoint="0" comment="" breakpointFlags="0">
+													<OutputBreakpoints />
+													<LinkTagFilter hasInputBreakpoint="0" comment="" breakpointFlags="0">
+														<OutputBreakpoints />
+													</LinkTagFilter>
+													<SoulIsAliveFilter hasInputBreakpoint="0" comment="" breakpointFlags="0">
+														<OutputBreakpoints />
+													</SoulIsAliveFilter>
+													<Nodalyzer hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
+														<OutputBreakpoints />
+													</Nodalyzer>
+												</GraphSearch>
+												<IfCondition hasInputBreakpoint="0" comment="" breakpointFlags="0">
+													<OutputBreakpoints />
+													<IsDeadCheck hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
+														<OutputBreakpoints />
+														<Else>
+															<PushToArray hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																<OutputBreakpoints />
+															</PushToArray>
+														</Else>
+													</IsDeadCheck>
+												</IfCondition>
+											</Sequence>
+										</While>
 										<Loop hasInputBreakpoint="0" comment="" breakpointFlags="0">
 											<OutputBreakpoints />
 											<SuppressFailure hasInputBreakpoint="0" comment="" breakpointFlags="0">
@@ -1977,19 +2032,21 @@
 													<Sequence>
 														<GetAreaInhabitants area="$stoneThrowingArea" targetVar="$gateAttackers" />
 														<IfCondition failOnCondition="true" condition="#gateAttackers &gt; 0">
-															<MinigameElement minigameType="StoneThrowing" minigameObject="$stonePileMinigame" decisionLabel="battle_stones" useDecision="true" enabled="true" saveVersion="2">
-																<Search canSkip="1">
-																	<GraphSearch Origin="$guardArea" Borders="" depth="1" selection="true" SearchPattern="Depth" EdgePruning="&apos;parent,inventory&apos;" AllowedEdges="" SubGraph="" AllowSubtraph="false" includeOrigin="false" excludeOrigin="false" failOnEmpty="true" SetOperationChoice="Intersection|And" errorOnEmpty="false" shortCircuit="false" skipTraversed="true">
-																		<IsMinigameAvailableFilter minigameType="StoneThrowing" Source="Child" prune="true" negprune="unknown" Parent="" Child="$stonePileMinigame" />
-																	</GraphSearch>
-																</Search>
-																<Exec canSkip="1">
-																	<Sequence>
-																		<WaitAction />
-																		<Wait duration="&apos;4s&apos;" timeType="GameTime" doFail="false" variation="" />
-																	</Sequence>
-																</Exec>
-															</MinigameElement>
+															<EntityContextElement context="combat_disabledAsTarget" enabled="true">
+																<MinigameElement minigameType="StoneThrowing" minigameObject="$stonePileMinigame" decisionLabel="battle_stones" useDecision="true" enabled="true" saveVersion="2">
+																	<Search canSkip="1">
+																		<GraphSearch Origin="$guardArea" Borders="" depth="1" selection="true" SearchPattern="Depth" EdgePruning="&apos;parent,inventory&apos;" AllowedEdges="" SubGraph="" AllowSubtraph="false" includeOrigin="false" excludeOrigin="false" failOnEmpty="true" SetOperationChoice="Intersection|And" errorOnEmpty="false" shortCircuit="false" skipTraversed="true">
+																			<IsMinigameAvailableFilter minigameType="StoneThrowing" Source="Child" prune="true" negprune="unknown" Parent="" Child="$stonePileMinigame" />
+																		</GraphSearch>
+																	</Search>
+																	<Exec canSkip="1">
+																		<Sequence>
+																			<WaitAction />
+																			<Wait duration="&apos;4s&apos;" timeType="GameTime" doFail="false" variation="" />
+																		</Sequence>
+																	</Exec>
+																</MinigameElement>
+															</EntityContextElement>
 														</IfCondition>
 													</Sequence>
 													<Expression expressions="$allowStoneThrowing = false" />
@@ -2049,21 +2106,25 @@
 									</Loop>
 									<Loop count="-1">
 										<IfGate atomic="false" condition="$stoneThrowingAvailable" RunLogic="KeepRunning">
-											<LinkGate from="$gateNode" to="" tag="&apos;battleEntity&apos;" amount="AtLeastOne" presence="Present" RunLogic="KeepRunning">
-												<Selector>
-													<Sequence>
-														<GraphSearch Origin="$gateNode" Borders="" depth="1" selection="true" SearchPattern="Depth" EdgePruning="&apos;parent,inventory&apos;" AllowedEdges="" SubGraph="" AllowSubtraph="false" includeOrigin="false" excludeOrigin="false" failOnEmpty="true" SetOperationChoice="Intersection|And" errorOnEmpty="false" shortCircuit="false" skipTraversed="true">
-															<SoulIsAliveFilter Source="Child" prune="true" negprune="unknown" Parent="" Child="" />
-														</GraphSearch>
-														<GetAreaInhabitants area="$stoneThrowingArea" targetVar="$gateAttackers" />
-														<IfCondition failOnCondition="false" condition="#gateAttackers &gt; 0">
-															<Expression expressions="$allowStoneThrowing = true" />
-														</IfCondition>
-														<Fail />
-													</Sequence>
-													<Wait duration="&apos;5s&apos;" timeType="GameTime" doFail="false" variation="" />
-												</Selector>
-											</LinkGate>
+											<Semaphore SemaphoreCount="1" atomic="false" OutsideQueuePosVariable="" InsidePosVariable="" TimerType="GameTime" OutsideTimerValue="&apos;-1&apos;" LockManagerType="Local" SemaphoreName="&apos;guardArea_throwingStones&apos;">
+												<LinkGate from="$gateNode" to="" tag="&apos;battleEntity&apos;" amount="AtLeastOne" presence="Present" RunLogic="KeepRunning">
+													<Selector>
+														<Sequence>
+															<GraphSearch Origin="$gateNode" Borders="" depth="1" selection="true" SearchPattern="Depth" EdgePruning="&apos;parent,inventory&apos;" AllowedEdges="" SubGraph="" AllowSubtraph="false" includeOrigin="false" excludeOrigin="false" failOnEmpty="true" SetOperationChoice="Intersection|And" errorOnEmpty="false" shortCircuit="false" skipTraversed="true">
+																<SoulIsAliveFilter Source="Child" prune="true" negprune="unknown" Parent="" Child="" />
+															</GraphSearch>
+															<GetAreaInhabitants area="$stoneThrowingArea" targetVar="$gateAttackers" />
+															<IfCondition failOnCondition="true" condition="#gateAttackers &gt; 0">
+																<Expression expressions="$allowStoneThrowing = true" />
+															</IfCondition>
+															<IfGate atomic="false" condition="!$allowStoneThrowing" RunLogic="KeepRunning">
+																<Success />
+															</IfGate>
+														</Sequence>
+														<Expression expressions="$allowStoneThrowing = false" />
+													</Selector>
+												</LinkGate>
+											</Semaphore>
 										</IfGate>
 									</Loop>
 									<Loop count="-1">
@@ -2320,28 +2381,31 @@
 															</GetAreaInhabitants>
 															<IfCondition hasInputBreakpoint="0" comment="" breakpointFlags="0">
 																<OutputBreakpoints />
-																<MinigameElement hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
+																<EntityContextElement hasInputBreakpoint="0" comment="" breakpointFlags="0">
 																	<OutputBreakpoints />
-																	<Search>
-																		<GraphSearch hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																			<OutputBreakpoints />
-																			<IsMinigameAvailableFilter hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																	<MinigameElement hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
+																		<OutputBreakpoints />
+																		<Search>
+																			<GraphSearch hasInputBreakpoint="0" comment="" breakpointFlags="0">
 																				<OutputBreakpoints />
-																			</IsMinigameAvailableFilter>
-																		</GraphSearch>
-																	</Search>
-																	<Exec>
-																		<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																			<OutputBreakpoints />
-																			<WaitAction hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																				<IsMinigameAvailableFilter hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																					<OutputBreakpoints />
+																				</IsMinigameAvailableFilter>
+																			</GraphSearch>
+																		</Search>
+																		<Exec>
+																			<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
 																				<OutputBreakpoints />
-																			</WaitAction>
-																			<Wait hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																				<OutputBreakpoints />
-																			</Wait>
-																		</Sequence>
-																	</Exec>
-																</MinigameElement>
+																				<WaitAction hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																					<OutputBreakpoints />
+																				</WaitAction>
+																				<Wait hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																					<OutputBreakpoints />
+																				</Wait>
+																			</Sequence>
+																		</Exec>
+																	</MinigameElement>
+																</EntityContextElement>
 															</IfCondition>
 														</Sequence>
 														<Expression hasInputBreakpoint="0" comment="" breakpointFlags="0">
@@ -2442,36 +2506,42 @@
 											<OutputBreakpoints />
 											<IfGate hasInputBreakpoint="0" comment="" breakpointFlags="0">
 												<OutputBreakpoints />
-												<LinkGate hasInputBreakpoint="0" comment="" breakpointFlags="0">
+												<Semaphore hasInputBreakpoint="0" comment="" breakpointFlags="0">
 													<OutputBreakpoints />
-													<Selector hasInputBreakpoint="0" comment="" breakpointFlags="0">
+													<LinkGate hasInputBreakpoint="0" comment="" breakpointFlags="0">
 														<OutputBreakpoints />
-														<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
+														<Selector hasInputBreakpoint="0" comment="" breakpointFlags="0">
 															<OutputBreakpoints />
-															<GraphSearch hasInputBreakpoint="0" comment="" breakpointFlags="0">
+															<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
 																<OutputBreakpoints />
-																<SoulIsAliveFilter hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																<GraphSearch hasInputBreakpoint="0" comment="" breakpointFlags="0">
 																	<OutputBreakpoints />
-																</SoulIsAliveFilter>
-															</GraphSearch>
-															<GetAreaInhabitants hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																<OutputBreakpoints />
-															</GetAreaInhabitants>
-															<IfCondition hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																<OutputBreakpoints />
-																<Expression hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																	<SoulIsAliveFilter hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																		<OutputBreakpoints />
+																	</SoulIsAliveFilter>
+																</GraphSearch>
+																<GetAreaInhabitants hasInputBreakpoint="0" comment="" breakpointFlags="0">
 																	<OutputBreakpoints />
-																</Expression>
-															</IfCondition>
-															<Fail hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																</GetAreaInhabitants>
+																<IfCondition hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																	<OutputBreakpoints />
+																	<Expression hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																		<OutputBreakpoints />
+																	</Expression>
+																</IfCondition>
+																<IfGate hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																	<OutputBreakpoints />
+																	<Success hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																		<OutputBreakpoints />
+																	</Success>
+																</IfGate>
+															</Sequence>
+															<Expression hasInputBreakpoint="0" comment="" breakpointFlags="0">
 																<OutputBreakpoints />
-															</Fail>
-														</Sequence>
-														<Wait hasInputBreakpoint="0" comment="" breakpointFlags="0">
-															<OutputBreakpoints />
-														</Wait>
-													</Selector>
-												</LinkGate>
+															</Expression>
+														</Selector>
+													</LinkGate>
+												</Semaphore>
 											</IfGate>
 										</Loop>
 										<Loop hasInputBreakpoint="0" comment="" breakpointFlags="0">
@@ -7568,6 +7638,13 @@
 													</ProcessMessage>
 												</SuppressFailure>
 											</Loop>
+											<Loop count="-1">
+												<DistanceGate Origin="$this.id" ReferencePt="$__player" Low="$data:script_param[&apos;crime_surrenderingMaxDistance&apos;].value" High="$data:script_param[&apos;crime_surrenderingMaxDistance&apos;].value" Negation="false" OpenInMiddle="false" RunLogic="Halt">
+													<GameContext context="combat_playerSurrenderDistanceCondition">
+														<Wait duration="&apos;-1&apos;" timeType="GameTime" doFail="false" variation="" />
+													</GameContext>
+												</DistanceGate>
+											</Loop>
 										</Parallel>
 										<Expression expressions="$behaviorSuccess = true" />
 										<InstantSendMessageToNPC target="$__object.id" variable="$behaviorSuccess" />
@@ -7713,6 +7790,18 @@
 														</ProcessMessage>
 													</SuppressFailure>
 												</Loop>
+												<Loop hasInputBreakpoint="0" comment="" breakpointFlags="0">
+													<OutputBreakpoints />
+													<DistanceGate hasInputBreakpoint="0" comment="" breakpointFlags="0">
+														<OutputBreakpoints />
+														<GameContext hasInputBreakpoint="0" comment="" breakpointFlags="0">
+															<OutputBreakpoints />
+															<Wait hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																<OutputBreakpoints />
+															</Wait>
+														</GameContext>
+													</DistanceGate>
+												</Loop>
 											</Parallel>
 											<Expression hasInputBreakpoint="0" comment="" breakpointFlags="0">
 												<OutputBreakpoints />
@@ -7811,6 +7900,7 @@
 	</BehaviorTree>
 	<BehaviorTree name="fight_simple" is_function="0">
 		<Variables>
+			<Variable name="behaviorSuccess" type="_bool" values="" isPersistent="0" form="single" />
 			<Variable name="surrenderChatResult" type="crime:playerSurrenderChatFeedback" values="" isPersistent="0" form="single" />
 		</Variables>
 		<Root OneTimeOnly="false" FailState="Recoverable" saveVersion="2">
@@ -7858,6 +7948,7 @@
 		<ForestContainer />
 		<EditorData EventSet="">
 			<Variables>
+				<Variable name="behaviorSuccess" comment="" />
 				<Variable name="surrenderChatResult" comment="" />
 			</Variables>
 			<ForwardDeclarations />
@@ -9609,6 +9700,481 @@
 				</Behavior>
 			</Root>
 			<Forest />
+			<Comments />
+		</EditorData>
+	</BehaviorTree>
+	<BehaviorTree name="fight_inArea" is_function="0">
+		<Variables>
+			<Variable name="behaviorSuccess" type="_bool" values="false" isPersistent="0" form="single" />
+			<Variable name="breakForEach" type="_bool" values="false" isPersistent="0" form="single" />
+			<Variable name="hitReaction" type="hitReaction" values="" isPersistent="0" form="single" />
+			<Variable name="leftHand" type="_wuid" values="" isPersistent="0" form="single" />
+			<Variable name="moveTarget" type="_wuid" values="" isPersistent="0" form="single" />
+			<Variable name="pathFindingParams" type="pathFindingParams" values="useGeneratedNSO(true)" isPersistent="0" form="single" />
+			<Variable name="rallyPointTP" type="_wuid" values="" isPersistent="0" form="single" />
+			<Variable name="rallyPoints" type="_wuid" values="" isPersistent="0" form="array" />
+			<Variable name="rightHand" type="_wuid" values="" isPersistent="0" form="single" />
+			<Variable name="surrenderChatResult" type="crime:playerSurrenderChatFeedback" values="" isPersistent="0" form="single" />
+		</Variables>
+		<Parameters>
+			<Variable name="data" type="_wuid" values="" isPersistent="0" form="single" requirementType="In" />
+		</Parameters>
+		<Root OneTimeOnly="false" FailState="Recoverable" saveVersion="2">
+			<Behavior canSkip="1">
+				<EntityContext context="speech_readyForSwitchDialog" target="$this.id">
+					<FuseBox StatusPropagation="Child" OneCleanup="false" saveVersion="2">
+						<Child canSkip="1">
+							<Sequence>
+								<IsFastForwarded failOnCondition="false" saveVersion="2">
+									<Else canSkip="1">
+										<SyncWithTrackview NPC="$this.id" />
+									</Else>
+								</IsFastForwarded>
+								<IsInsideArea Origin="$this.id" Area="$data" FailSubtMissing="false" saveVersion="2">
+									<Then canSkip="1">
+										<Success />
+									</Then>
+									<Else canSkip="1">
+										<Sequence>
+											<GraphSearch Origin="$data" Borders="" depth="1" selection="true" SearchPattern="Depth" EdgePruning="&apos;parent,inventory&apos;" AllowedEdges="" SubGraph="" AllowSubtraph="false" includeOrigin="false" excludeOrigin="false" failOnEmpty="true" SetOperationChoice="Intersection|And" errorOnEmpty="false" shortCircuit="false" skipTraversed="true">
+												<LinkTagFilter tag="&apos;rallyPoints&apos;" prune="true" negprune="unknown" Parent="" Child="$rallyPointTP" Data="" />
+											</GraphSearch>
+											<GraphSearch Origin="$rallyPointTP" Borders="" depth="1" selection="true" SearchPattern="Depth" EdgePruning="&apos;parent,inventory&apos;" AllowedEdges="" SubGraph="" AllowSubtraph="false" includeOrigin="false" excludeOrigin="false" failOnEmpty="true" SetOperationChoice="Intersection|And" errorOnEmpty="false" shortCircuit="false" skipTraversed="true">
+												<LinkTagFilter tag="&apos;rallyPoint&apos;" prune="true" negprune="unknown" Parent="" Child="$rallyPoints" Data="" />
+												<Nodalyzer Quantifiers="ForAll" Parent="" Child="$rallyPoints" saveVersion="2">
+													<Child0 canSkip="1">
+														<RangeSorter point="$this.id" SortOrder="Ascending" Source="Child" />
+													</Child0>
+												</Nodalyzer>
+											</GraphSearch>
+											<GetWeaponsFromWeaponSet WeaponSet="Primary" LeftHand="$leftHand" RightHand="$rightHand" UseTorchWhenAppropriate="true" />
+											<IfElseCondition failOnCondition="false" condition="$leftHand == $__null" saveVersion="2">
+												<Then canSkip="1">
+													<HandContentElement hand="Right" item="$rightHand" allowAny="false" allowHomeSlotAutoReturn="false" decisionLabel="battle_weapon" useDecision="true" enabled="true" saveVersion="2">
+														<Search canSkip="1">
+															<Success />
+														</Search>
+														<Exec canSkip="1">
+															<WaitAction />
+														</Exec>
+													</HandContentElement>
+												</Then>
+												<Else canSkip="1">
+													<HandContentElement hand="Right" item="$rightHand" allowAny="false" allowHomeSlotAutoReturn="false" decisionLabel="battle_weapon" useDecision="true" enabled="true" saveVersion="2">
+														<Search canSkip="1">
+															<Success />
+														</Search>
+														<Exec canSkip="1">
+															<HandContentElement hand="Left" item="$leftHand" allowAny="false" allowHomeSlotAutoReturn="false" decisionLabel="battle_shield" useDecision="true" enabled="true" saveVersion="2">
+																<Search canSkip="1">
+																	<Success />
+																</Search>
+																<Exec canSkip="1">
+																	<WaitAction />
+																</Exec>
+															</HandContentElement>
+														</Exec>
+													</HandContentElement>
+												</Else>
+											</IfElseCondition>
+											<Parallel successMode="Any" failureMode="Any">
+												<ProcessMessage Atomic="true" timeout="&apos;-1&apos;" timeType="GameTime" variable="$hitReaction" senderInfo="" inbox="&apos;hitReaction&apos;" condition="" answerVar="">
+													<IfCondition failOnCondition="false" condition="$hitReaction.hitStrength &gt;= $enum:HitReactionStrength.MinorInjury">
+														<Success />
+													</IfCondition>
+												</ProcessMessage>
+												<AnyDecorator preset="crime_keepItems" enabled="true">
+													<ForEach startIndex="0" step="1" array="$rallyPoints" iterator="" value="$moveTarget" break="$breakForEach">
+														<Semaphore SemaphoreCount="1" atomic="false" OutsideQueuePosVariable="" InsidePosVariable="" TimerType="GameTime" OutsideTimerValue="&apos;0s&apos;" LockManagerType="Local" SemaphoreName="&apos;$moveTarget&apos;">
+															<Sequence>
+																<Expression expressions="$breakForEach = true" />
+																<Move stopWithinDistance="1.000000" stopDistanceVariation="2.000000" rayCasteFlee="false" successDistance="0.000000" changeNPCState="true" fastForwardIncludesMove="false" destinationSpecification="$moveTarget" destinationSpecification2="" destinationSpecification3="" speed="Run" additionalParams="" pathFindingParams="$pathFindingParams" staminaPolicy="" pathInfo="" />
+															</Sequence>
+														</Semaphore>
+													</ForEach>
+												</AnyDecorator>
+											</Parallel>
+										</Sequence>
+									</Else>
+								</IsInsideArea>
+								<Parallel successMode="Any" failureMode="Any">
+									<MeleeOffenseAutomationDecorator active="true">
+										<MeleeDefenseAutomationDecorator active="true">
+											<MeleeGuardAutomationDecorator GuardMode="automate" active="true">
+												<WeaponAutomationDecorator WeaponChange="none" active="true">
+													<CombatFollowerDecorator ProbablisticDrivenSweetSpot="true" RPGSweetSpotArcDriver="true" active="true">
+														<BattleAction />
+													</CombatFollowerDecorator>
+												</WeaponAutomationDecorator>
+											</MeleeGuardAutomationDecorator>
+										</MeleeDefenseAutomationDecorator>
+									</MeleeOffenseAutomationDecorator>
+									<Loop count="-1">
+										<SuppressFailure>
+											<ProcessMessage Atomic="false" timeout="&apos;-1&apos;" timeType="GameTime" variable="$surrenderChatResult" senderInfo="" inbox="&apos;crime_playerSurrenderChatFeedback&apos;" condition="" answerVar="">
+												<Function_speech_schedulerMonolog alias="" animationApproach="$enum:animationApproach.dontPlayDialogAnimations" context="" lookAtId="" metarole="&apos;NPC_NEAKCEPTUJE_HRACOVO_VZDAVANI_NEVZDAVACI_KONTEXT&apos;" skipInLod="false" subtitlesDown="false" nodeLabel="92860603" />
+											</ProcessMessage>
+										</SuppressFailure>
+									</Loop>
+									<Loop count="-1">
+										<DistanceGate Origin="$this.id" ReferencePt="$__player" Low="$data:script_param[&apos;crime_surrenderingMaxDistance&apos;].value" High="$data:script_param[&apos;crime_surrenderingMaxDistance&apos;].value" Negation="false" OpenInMiddle="false" RunLogic="Halt">
+											<GameContext context="combat_playerSurrenderDistanceCondition">
+												<Wait duration="&apos;-1&apos;" timeType="GameTime" doFail="false" variation="" />
+											</GameContext>
+										</DistanceGate>
+									</Loop>
+								</Parallel>
+								<Expression expressions="$behaviorSuccess = true" />
+								<InstantSendMessageToNPC target="$__object.id" variable="$behaviorSuccess" />
+								<Wait duration="&apos;-1&apos;" timeType="GameTime" doFail="false" variation="" />
+							</Sequence>
+						</Child>
+						<OnFail canSkip="1">
+							<Sequence>
+								<Expression expressions="$behaviorSuccess = false" />
+								<InstantSendMessageToNPC target="$__object.id" variable="$behaviorSuccess" />
+							</Sequence>
+						</OnFail>
+					</FuseBox>
+				</EntityContext>
+			</Behavior>
+		</Root>
+		<ForestContainer>
+			<Selector>
+				<Sequence>
+					<GraphSearch Origin="" Borders="" depth="1" selection="true" SearchPattern="Depth" EdgePruning="&apos;parent,inventory&apos;" AllowedEdges="" SubGraph="" AllowSubtraph="false" includeOrigin="false" excludeOrigin="false" failOnEmpty="true" SetOperationChoice="Intersection|And" errorOnEmpty="false" shortCircuit="false" skipTraversed="true">
+						<LinkTagFilter tag="&apos;fightPlayer&apos;" prune="true" negprune="unknown" Parent="" Child="" Data="" />
+					</GraphSearch>
+					<Expression expressions="$enemySoldier = $__player" />
+				</Sequence>
+				<LinkGate from="$wuid" to="" tag="$string" amount="AtLeastOne" presence="Present" RunLogic="KeepRunning">
+					<GraphSearch Origin="$wuid" Borders="" depth="1" selection="true" SearchPattern="Depth" EdgePruning="&apos;parent,inventory&apos;" AllowedEdges="" SubGraph="" AllowSubtraph="false" includeOrigin="false" excludeOrigin="false" failOnEmpty="true" SetOperationChoice="Intersection|And" errorOnEmpty="false" shortCircuit="false" skipTraversed="true">
+						<LinkTagFilter tag="$string" prune="true" negprune="unknown" Parent="" Child="$enemySoldier" Data="" />
+						<SoulIsAliveFilter Source="Child" prune="true" negprune="unknown" Parent="" Child="" />
+					</GraphSearch>
+				</LinkGate>
+			</Selector>
+			<While doFail="false" propagateChildFail="false" condition="#aliveEnemies &gt; 0">
+				<Sequence>
+					<MeleeOffenseAutomationDecorator active="true">
+						<MeleeDefenseAutomationDecorator active="true">
+							<MeleeGuardAutomationDecorator GuardMode="automate" active="true">
+								<WeaponAutomationDecorator WeaponChange="none" active="true">
+									<CombatFollowerDecorator ProbablisticDrivenSweetSpot="true" RPGSweetSpotArcDriver="true" active="true">
+										<CombatAction TargetNPC="$aliveEnemies[0]" RelationOverride="None" />
+									</CombatFollowerDecorator>
+								</WeaponAutomationDecorator>
+							</MeleeGuardAutomationDecorator>
+						</MeleeDefenseAutomationDecorator>
+					</MeleeOffenseAutomationDecorator>
+					<ReinitVariable variable="$aliveEnemies" />
+					<GraphSearch Origin="$wuid" Borders="" depth="1" selection="true" SearchPattern="Depth" EdgePruning="&apos;parent,inventory&apos;" AllowedEdges="" SubGraph="" AllowSubtraph="false" includeOrigin="false" excludeOrigin="false" failOnEmpty="true" SetOperationChoice="Intersection|And" errorOnEmpty="false" shortCircuit="false" skipTraversed="true">
+						<LinkTagFilter tag="$string" prune="true" negprune="unknown" Parent="" Child="" Data="" />
+						<SoulIsAliveFilter Source="Child" prune="true" negprune="unknown" Parent="" Child="" />
+						<Nodalyzer Quantifiers="ForAll" Parent="" Child="$aliveEnemies" saveVersion="2" />
+					</GraphSearch>
+					<IfCondition failOnCondition="false" condition="$enemySoldier == $__player">
+						<IsDeadCheck SoulWUID="$__player" FailSubtMissing="false" saveVersion="2">
+							<Else canSkip="1">
+								<PushToArray array="$aliveEnemies" value="$__player" direction="Front" />
+							</Else>
+						</IsDeadCheck>
+					</IfCondition>
+				</Sequence>
+			</While>
+		</ForestContainer>
+		<EditorData Signature="wuidData" EventSet="">
+			<Variables>
+				<Variable name="behaviorSuccess" comment="" />
+				<Variable name="breakForEach" comment="" />
+				<Variable name="hitReaction" comment="" />
+				<Variable name="leftHand" comment="" />
+				<Variable name="moveTarget" comment="" />
+				<Variable name="pathFindingParams" comment="" />
+				<Variable name="rallyPointTP" comment="" />
+				<Variable name="rallyPoints" comment="" />
+				<Variable name="rightHand" comment="" />
+				<Variable name="surrenderChatResult" comment="" />
+				<Variable name="data" comment="" />
+			</Variables>
+			<ForwardDeclarations />
+			<Root editorPosX="90" editorPosY="630" hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
+				<OutputBreakpoints />
+				<Behavior>
+					<EntityContext hasInputBreakpoint="0" comment="" breakpointFlags="0">
+						<OutputBreakpoints />
+						<FuseBox hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
+							<OutputBreakpoints />
+							<Child>
+								<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
+									<OutputBreakpoints />
+									<IsFastForwarded hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
+										<OutputBreakpoints />
+										<Else>
+											<SyncWithTrackview hasInputBreakpoint="0" comment="" breakpointFlags="0">
+												<OutputBreakpoints />
+											</SyncWithTrackview>
+										</Else>
+									</IsFastForwarded>
+									<IsInsideArea hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
+										<OutputBreakpoints />
+										<Then>
+											<Success hasInputBreakpoint="0" comment="" breakpointFlags="0">
+												<OutputBreakpoints />
+											</Success>
+										</Then>
+										<Else>
+											<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
+												<OutputBreakpoints />
+												<GraphSearch hasInputBreakpoint="0" comment="" breakpointFlags="0">
+													<OutputBreakpoints />
+													<LinkTagFilter hasInputBreakpoint="0" comment="" breakpointFlags="0">
+														<OutputBreakpoints />
+													</LinkTagFilter>
+												</GraphSearch>
+												<GraphSearch hasInputBreakpoint="0" comment="" breakpointFlags="0">
+													<OutputBreakpoints />
+													<LinkTagFilter hasInputBreakpoint="0" comment="" breakpointFlags="0">
+														<OutputBreakpoints />
+													</LinkTagFilter>
+													<Nodalyzer hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
+														<OutputBreakpoints />
+														<Child0>
+															<RangeSorter hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																<OutputBreakpoints />
+															</RangeSorter>
+														</Child0>
+													</Nodalyzer>
+												</GraphSearch>
+												<GetWeaponsFromWeaponSet hasInputBreakpoint="0" comment="" breakpointFlags="0">
+													<OutputBreakpoints />
+												</GetWeaponsFromWeaponSet>
+												<IfElseCondition hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
+													<OutputBreakpoints />
+													<Then>
+														<HandContentElement hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
+															<OutputBreakpoints />
+															<Search>
+																<Success hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																	<OutputBreakpoints />
+																</Success>
+															</Search>
+															<Exec>
+																<WaitAction hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																	<OutputBreakpoints />
+																</WaitAction>
+															</Exec>
+														</HandContentElement>
+													</Then>
+													<Else>
+														<HandContentElement hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
+															<OutputBreakpoints />
+															<Search>
+																<Success hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																	<OutputBreakpoints />
+																</Success>
+															</Search>
+															<Exec>
+																<HandContentElement hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
+																	<OutputBreakpoints />
+																	<Search>
+																		<Success hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																			<OutputBreakpoints />
+																		</Success>
+																	</Search>
+																	<Exec>
+																		<WaitAction hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																			<OutputBreakpoints />
+																		</WaitAction>
+																	</Exec>
+																</HandContentElement>
+															</Exec>
+														</HandContentElement>
+													</Else>
+												</IfElseCondition>
+												<Parallel hasInputBreakpoint="0" comment="" breakpointFlags="0">
+													<OutputBreakpoints />
+													<ProcessMessage hasInputBreakpoint="0" comment="" breakpointFlags="0">
+														<OutputBreakpoints />
+														<IfCondition hasInputBreakpoint="0" comment="" breakpointFlags="0">
+															<OutputBreakpoints />
+															<Success hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																<OutputBreakpoints />
+															</Success>
+														</IfCondition>
+													</ProcessMessage>
+													<AnyDecorator hasInputBreakpoint="0" comment="" breakpointFlags="0">
+														<OutputBreakpoints />
+														<ForEach hasInputBreakpoint="0" comment="" breakpointFlags="0">
+															<OutputBreakpoints />
+															<Semaphore hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																<OutputBreakpoints />
+																<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																	<OutputBreakpoints />
+																	<Expression hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																		<OutputBreakpoints />
+																	</Expression>
+																	<Move hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																		<OutputBreakpoints />
+																	</Move>
+																</Sequence>
+															</Semaphore>
+														</ForEach>
+													</AnyDecorator>
+												</Parallel>
+											</Sequence>
+										</Else>
+									</IsInsideArea>
+									<Parallel hasInputBreakpoint="0" comment="" breakpointFlags="0">
+										<OutputBreakpoints />
+										<MeleeOffenseAutomationDecorator hasInputBreakpoint="0" comment="" breakpointFlags="0">
+											<OutputBreakpoints />
+											<MeleeDefenseAutomationDecorator hasInputBreakpoint="0" comment="" breakpointFlags="0">
+												<OutputBreakpoints />
+												<MeleeGuardAutomationDecorator hasInputBreakpoint="0" comment="" breakpointFlags="0">
+													<OutputBreakpoints />
+													<WeaponAutomationDecorator hasInputBreakpoint="0" comment="" breakpointFlags="0">
+														<OutputBreakpoints />
+														<CombatFollowerDecorator hasInputBreakpoint="0" comment="" breakpointFlags="0">
+															<OutputBreakpoints />
+															<BattleAction hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																<OutputBreakpoints />
+															</BattleAction>
+														</CombatFollowerDecorator>
+													</WeaponAutomationDecorator>
+												</MeleeGuardAutomationDecorator>
+											</MeleeDefenseAutomationDecorator>
+										</MeleeOffenseAutomationDecorator>
+										<Loop hasInputBreakpoint="0" comment="" breakpointFlags="0">
+											<OutputBreakpoints />
+											<SuppressFailure hasInputBreakpoint="0" comment="" breakpointFlags="0">
+												<OutputBreakpoints />
+												<ProcessMessage hasInputBreakpoint="0" comment="" breakpointFlags="0">
+													<OutputBreakpoints />
+													<Function_speech_schedulerMonolog hasInputBreakpoint="0" comment="" breakpointFlags="0">
+														<OutputBreakpoints />
+													</Function_speech_schedulerMonolog>
+												</ProcessMessage>
+											</SuppressFailure>
+										</Loop>
+										<Loop hasInputBreakpoint="0" comment="" breakpointFlags="0">
+											<OutputBreakpoints />
+											<DistanceGate hasInputBreakpoint="0" comment="" breakpointFlags="0">
+												<OutputBreakpoints />
+												<GameContext hasInputBreakpoint="0" comment="" breakpointFlags="0">
+													<OutputBreakpoints />
+													<Wait hasInputBreakpoint="0" comment="" breakpointFlags="0">
+														<OutputBreakpoints />
+													</Wait>
+												</GameContext>
+											</DistanceGate>
+										</Loop>
+									</Parallel>
+									<Expression hasInputBreakpoint="0" comment="" breakpointFlags="0">
+										<OutputBreakpoints />
+									</Expression>
+									<InstantSendMessageToNPC hasInputBreakpoint="0" comment="" breakpointFlags="0">
+										<OutputBreakpoints />
+									</InstantSendMessageToNPC>
+									<Wait hasInputBreakpoint="0" comment="" breakpointFlags="0">
+										<OutputBreakpoints />
+									</Wait>
+								</Sequence>
+							</Child>
+							<OnFail>
+								<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
+									<OutputBreakpoints />
+									<Expression hasInputBreakpoint="0" comment="" breakpointFlags="0">
+										<OutputBreakpoints />
+									</Expression>
+									<InstantSendMessageToNPC hasInputBreakpoint="0" comment="" breakpointFlags="0">
+										<OutputBreakpoints />
+									</InstantSendMessageToNPC>
+								</Sequence>
+							</OnFail>
+						</FuseBox>
+					</EntityContext>
+				</Behavior>
+			</Root>
+			<Forest>
+				<Selector editorPosX="2023" editorPosY="-706" hasInputBreakpoint="0" comment="" breakpointFlags="0">
+					<OutputBreakpoints />
+					<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
+						<OutputBreakpoints />
+						<GraphSearch hasInputBreakpoint="0" comment="" breakpointFlags="0">
+							<OutputBreakpoints />
+							<LinkTagFilter hasInputBreakpoint="0" comment="" breakpointFlags="0">
+								<OutputBreakpoints />
+							</LinkTagFilter>
+						</GraphSearch>
+						<Expression hasInputBreakpoint="0" comment="" breakpointFlags="0">
+							<OutputBreakpoints />
+						</Expression>
+					</Sequence>
+					<LinkGate hasInputBreakpoint="0" comment="" breakpointFlags="0">
+						<OutputBreakpoints />
+						<GraphSearch hasInputBreakpoint="0" comment="" breakpointFlags="0">
+							<OutputBreakpoints />
+							<LinkTagFilter hasInputBreakpoint="0" comment="" breakpointFlags="0">
+								<OutputBreakpoints />
+							</LinkTagFilter>
+							<SoulIsAliveFilter hasInputBreakpoint="0" comment="" breakpointFlags="0">
+								<OutputBreakpoints />
+							</SoulIsAliveFilter>
+						</GraphSearch>
+					</LinkGate>
+				</Selector>
+				<While editorPosX="2670" editorPosY="-430" hasInputBreakpoint="0" comment="" breakpointFlags="0">
+					<OutputBreakpoints />
+					<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
+						<OutputBreakpoints />
+						<MeleeOffenseAutomationDecorator hasInputBreakpoint="0" comment="" breakpointFlags="0">
+							<OutputBreakpoints />
+							<MeleeDefenseAutomationDecorator hasInputBreakpoint="0" comment="" breakpointFlags="0">
+								<OutputBreakpoints />
+								<MeleeGuardAutomationDecorator hasInputBreakpoint="0" comment="" breakpointFlags="0">
+									<OutputBreakpoints />
+									<WeaponAutomationDecorator hasInputBreakpoint="0" comment="" breakpointFlags="0">
+										<OutputBreakpoints />
+										<CombatFollowerDecorator hasInputBreakpoint="0" comment="" breakpointFlags="0">
+											<OutputBreakpoints />
+											<CombatAction hasInputBreakpoint="0" comment="" breakpointFlags="0">
+												<OutputBreakpoints />
+											</CombatAction>
+										</CombatFollowerDecorator>
+									</WeaponAutomationDecorator>
+								</MeleeGuardAutomationDecorator>
+							</MeleeDefenseAutomationDecorator>
+						</MeleeOffenseAutomationDecorator>
+						<ReinitVariable hasInputBreakpoint="0" comment="" breakpointFlags="0">
+							<OutputBreakpoints />
+						</ReinitVariable>
+						<GraphSearch hasInputBreakpoint="0" comment="" breakpointFlags="0">
+							<OutputBreakpoints />
+							<LinkTagFilter hasInputBreakpoint="0" comment="" breakpointFlags="0">
+								<OutputBreakpoints />
+							</LinkTagFilter>
+							<SoulIsAliveFilter hasInputBreakpoint="0" comment="" breakpointFlags="0">
+								<OutputBreakpoints />
+							</SoulIsAliveFilter>
+							<Nodalyzer hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
+								<OutputBreakpoints />
+							</Nodalyzer>
+						</GraphSearch>
+						<IfCondition hasInputBreakpoint="0" comment="" breakpointFlags="0">
+							<OutputBreakpoints />
+							<IsDeadCheck hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
+								<OutputBreakpoints />
+								<Else>
+									<PushToArray hasInputBreakpoint="0" comment="" breakpointFlags="0">
+										<OutputBreakpoints />
+									</PushToArray>
+								</Else>
+							</IsDeadCheck>
+						</IfCondition>
+					</Sequence>
+				</While>
+			</Forest>
 			<Comments />
 		</EditorData>
 	</BehaviorTree>

@@ -78,7 +78,7 @@
 						<Vertex>GFLzBv04</Vertex>
 					</Edge>
 				</State>
-				<Function Name="or11" PositionY="270" PositionX="1670" RequiredForOutput="kutnohorsko" MethodName="math::boolean::Or" DeclaringType="math::boolean">
+				<Function Name="or11" PositionY="270" PositionX="1670" MethodName="math::boolean::Or" DeclaringType="math::boolean">
 					<Edge From="tournamentCrime.NonAttributed" To="B" />
 					<Edge From="tournamentCrime.Attributed" To="A">
 						<Vertex>40PwctNu</Vertex>
@@ -93,13 +93,13 @@
 						<Vertex>40PwctNu</Vertex>
 						<Vertex>H6un0sHc</Vertex>
 					</Edge>
-					<Edge From="or11.bool" To="crime_vetsi_probehl" />
 					<Edge From="state13.OnTrue" To="vetsi_crime" />
 					<Edge From="vetsiNeboMensiCrimeProbehl.bool" To="crime_vetsi_nebo_mensi_probehl" />
 					<Edge From="state15.murder" To="crime_zabitim_">
 						<Vertex>nx6AkHxf</Vertex>
 					</Edge>
 					<Edge From="doonce.out" To="reditel_flee" />
+					<Edge From="state13.State" To="crime_vetsi_probehl" />
 				</Output>
 				<ProjectileInAreaTrigger Name="projectileinareatrigger4" PositionY="-540" PositionX="-170">
 					<Asset Name="Area" Alias="wallFansArea" />
@@ -115,7 +115,7 @@
 						<Vertex>J7gsq3mT</Vertex>
 					</Edge>
 				</ProjectileInAreaTrigger>
-				<State Name="state13" PositionY="370" PositionX="2050" TypeT="bool">
+				<State Name="state13" PositionY="370" PositionX="2050" RequiredForOutput="kutnohorsko" TypeT="bool">
 					<Edge From="if_isSevereCrime.True" To="SetTrue">
 						<Vertex>9JqXa16q</Vertex>
 						<Vertex>ywb8VbAI</Vertex>
@@ -155,7 +155,7 @@
 					<Constant Name="DefaultValue1" Value="false" />
 					<Edge From="aiconceptsignaltriggernpclearnsinformationnotification6.label" To="Switch" />
 				</Switch>
-				<State Name="tournamentCrime" PositionY="70" PositionX="1220" RequiredForOutput="kutnohorsko" TypeT="TournamentCrime">
+				<State Name="tournamentCrime" PositionY="70" PositionX="1220" TypeT="TournamentCrime">
 					<Edge From="if_isSevereCrime.False" To="SetAttributed">
 						<Vertex>0Jb3VuDr</Vertex>
 						<Vertex>unT7BhQ1</Vertex>
@@ -191,7 +191,7 @@
 				</TriggerSequence>
 				<Function Name="vetsiNeboMensiCrimeProbehl" PositionY="-340" PositionX="2370" RequiredForOutput="kutnohorsko" MethodName="math::boolean::Or" DeclaringType="math::boolean">
 					<Edge From="mensiCrimeAssignedToPlayer.State" To="A" />
-					<Edge From="or11.bool" To="B" />
+					<Edge From="state13.State" To="B" />
 				</Function>
 			</Nodes>
 			<EdgeVertices>

@@ -24,7 +24,6 @@
 			<Variable name="staffSpot" type="_wuid" values="" isPersistent="0" form="single" />
 			<Variable name="stein" type="_wuid" values="" isPersistent="0" form="single" />
 			<Variable name="steinSO" type="_wuid" values="" isPersistent="0" form="single" />
-			<Variable name="steinSlot" type="_wuid" values="" isPersistent="0" form="single" />
 			<Variable name="table" type="_wuid" values="" isPersistent="0" form="single" />
 			<Variable name="tableCheck" type="_bool" values="" isPersistent="0" form="single" />
 			<Variable name="tables" type="_wuid" values="" isPersistent="0" form="array" />
@@ -64,13 +63,13 @@
 													<ReinitVariable variable="$customersParamsArray" />
 													<ReinitVariable variable="$customers" />
 													<GraphSearch Origin="$smartObject" Borders="" depth="1" selection="true" SearchPattern="Depth" EdgePruning="&apos;parent,inventory&apos;" AllowedEdges="" SubGraph="" AllowSubtraph="false" includeOrigin="false" excludeOrigin="false" failOnEmpty="true" SetOperationChoice="Intersection|And" errorOnEmpty="false" shortCircuit="false" skipTraversed="true">
-														<LinkTagFilter tag="&apos;staffSpot&apos;" prune="true" negprune="unknown" Parent="" Child="$spot" Data="" />
+														<LinkTagFilter tag="&apos;staffSpot&apos;" prune="true" negprune="unknown" Parent="" Child="$staffSpot" Data="" />
 													</GraphSearch>
 													<GraphSearch Origin="$smartObject" Borders="" depth="1" selection="true" SearchPattern="Depth" EdgePruning="&apos;parent,inventory&apos;" AllowedEdges="" SubGraph="" AllowSubtraph="false" includeOrigin="false" excludeOrigin="false" failOnEmpty="true" SetOperationChoice="Intersection|And" errorOnEmpty="false" shortCircuit="false" skipTraversed="true">
 														<LinkTagFilter tag="&apos;tavernGuest&apos;" prune="true" negprune="unknown" Parent="" Child="" Data="" />
 														<Nodalyzer Quantifiers="ForAll" Parent="" Child="$customers" saveVersion="2">
 															<Child0 canSkip="1">
-																<RangeSorter point="$spot" SortOrder="Ascending" Source="Child" />
+																<RangeSorter point="$staffSpot" SortOrder="Ascending" Source="Child" />
 															</Child0>
 														</Nodalyzer>
 													</GraphSearch>
@@ -90,130 +89,132 @@
 													</ForEach>
 													<ExecuteLua code="data.smartObjectName = XGenAIModule.GetEntityByWUID(data.smartObject):GetName()" />
 													<Expression expressions="$lockName = $smartObjectName+&apos;guestCall&apos; &#10;$wantToCheers = false" />
-													<HandContentElement hand="Right" item="$stein" allowAny="false" allowHomeSlotAutoReturn="false" decisionLabel="tavern_stein" useDecision="true" enabled="true" saveVersion="2">
-														<Search canSkip="1">
-															<ErrorNode Message="&apos;trying to use search in bartender_bringBeer HCE&apos;" />
-														</Search>
-														<Exec canSkip="1">
-															<Sequence>
-																<ForEach startIndex="0" step="1" array="$customersParamsArray" iterator="" value="$customerParams" break="">
-																	<Sequence>
-																		<GraphSearch Origin="$customerParams.seat" Borders="" depth="1" selection="true" SearchPattern="Depth" EdgePruning="&apos;parent,inventory&apos;" AllowedEdges="" SubGraph="" AllowSubtraph="false" includeOrigin="false" excludeOrigin="false" failOnEmpty="false" SetOperationChoice="Intersection|And" errorOnEmpty="false" shortCircuit="false" skipTraversed="true">
-																			<LinkTagFilter tag="&apos;tavernBeerCount&apos;" prune="true" negprune="unknown" Parent="" Child="$beer" Data="" />
-																		</GraphSearch>
-																		<IfCondition failOnCondition="false" condition="$beer ~= $__null">
-																			<RemoveLink From="$customerParams.seat" To="$beer" Tag="&apos;tavernBeerCount&apos;" LinkOpHandleMode="Success" />
-																		</IfCondition>
-																		<RemoveLink From="$customerParams.seat" To="$smartObject" Tag="&apos;orderFood&apos;" LinkOpHandleMode="Success" />
-																		<RemoveLink From="$customerParams.seat" To="$smartObject" Tag="&apos;tavernParams&apos;" LinkOpHandleMode="Success" />
-																	</Sequence>
-																</ForEach>
-																<SetExternalLock LockManagerType="Global" Locked="false" LockName="&apos;$lockName&apos;" />
-																<IfCondition failOnCondition="false" condition="#customersParamsArray &gt; 1">
-																	<RandomGate opensWithChance="0.500000" saveVersion="2">
-																		<Then canSkip="1">
-																			<Expression expressions="$wantToCheers = true" />
-																		</Then>
-																		<Else canSkip="1">
-																			<Success />
-																		</Else>
-																	</RandomGate>
-																</IfCondition>
-																<ForEach startIndex="0" step="1" array="$customersParamsArray" iterator="" value="$customerParams" break="">
-																	<Sequence>
-																		<Expression expressions="$guest = $customerParams.customer" />
-																		<ExecuteLua code="data.lockServeBeer = XGenAIModule.GetEntityByWUID(data.guest):GetName()" />
-																		<Expression expressions="$lockName = $lockServeBeer+&apos;guestServe&apos;" />
-																		<WaitAction />
-																		<Parallel successMode="Any" failureMode="Any">
-																			<Sequence>
-																				<GraphSearch Origin="$customerParams.beer" Borders="" depth="1" selection="true" SearchPattern="Depth" EdgePruning="&apos;parent,inventory&apos;" AllowedEdges="" SubGraph="" AllowSubtraph="false" includeOrigin="false" excludeOrigin="false" failOnEmpty="true" SetOperationChoice="Intersection|And" errorOnEmpty="false" shortCircuit="false" skipTraversed="true">
-																					<LinkTagFilter tag="&apos;spot&apos;" prune="true" negprune="unknown" Parent="" Child="$spot" Data="" />
-																				</GraphSearch>
-																				<GraphSearch Origin="$spot" Borders="" depth="1" selection="true" SearchPattern="Depth" EdgePruning="&apos;parent,inventory&apos;" AllowedEdges="" SubGraph="" AllowSubtraph="false" includeOrigin="false" excludeOrigin="false" failOnEmpty="true" SetOperationChoice="Intersection|And" errorOnEmpty="false" shortCircuit="false" skipTraversed="true">
-																					<LinkTagFilter tag="&apos;alignObject&apos;" prune="true" negprune="unknown" Parent="" Child="$alignObject" Data="" />
-																				</GraphSearch>
-																				<GraphSearch Origin="$spot" Borders="" depth="1" selection="true" SearchPattern="Depth" EdgePruning="&apos;parent,inventory&apos;" AllowedEdges="" SubGraph="" AllowSubtraph="false" includeOrigin="false" excludeOrigin="false" failOnEmpty="false" SetOperationChoice="Intersection|And" errorOnEmpty="false" shortCircuit="false" skipTraversed="true">
-																					<LinkTagFilter tag="&apos;beerSlotLeft&apos;" prune="true" negprune="unknown" Parent="" Child="$animationTagLeft" Data="" />
-																				</GraphSearch>
-																				<IfElseCondition failOnCondition="false" condition="$animationTagLeft == $customerParams.beer" saveVersion="2">
-																					<Then canSkip="1">
-																						<Expression expressions="$animationTag = &apos;fillDistClose,fillSideLeft&apos;" />
-																					</Then>
-																					<Else canSkip="1">
-																						<Expression expressions="$animationTag = &apos;fillDistClose,fillSideRight&apos;" />
-																					</Else>
-																				</IfElseCondition>
-																				<SetExternalLock LockManagerType="Global" Locked="false" LockName="&apos;$lockName&apos;" />
-																				<Move stopWithinDistance="0.200000" stopDistanceVariation="0.100000" rayCasteFlee="false" successDistance="2.000000" changeNPCState="false" fastForwardIncludesMove="true" destinationSpecification="$spot" destinationSpecification2="" destinationSpecification3="" speed="Walk" additionalParams="" pathFindingParams="" staminaPolicy="" pathInfo="" />
-																				<FuseBox StatusPropagation="Child" OneCleanup="false" saveVersion="2">
-																					<Child canSkip="1">
-																						<JoinedAnimationAction requiresMovement="true" lockContext="$smartObject" lockName="$lockServeBeer" lockCount="2" timeout="&apos;10s&apos;" ignoreOthersLeaving="false" fragment="&apos;Bartender_ServeBeer&apos;" tags="$animationTag" eventReferenceObject="$__object.id" alignObject="$alignObject" slaveObject="" resourceOverride="" allowTorchForPlayer="false" />
-																					</Child>
-																					<OnSuccess canSkip="1">
-																						<IfCondition failOnCondition="false" condition="!$wantToCheers">
-																							<Sequence>
-																								<GenerateRandomInteger lowerBoundary="3" upperBoundary="7" result="$beerCount" />
-																								<AddLink From="$customerParams.seat" To="$customerParams.beer" Tag="&apos;tavernBeerCount&apos;" Data="$beerCount" LinkOpHandleMode="OverWrite" />
-																								<AddLink From="$customerParams.seat" To="$smartObject" Tag="&apos;tavernParams&apos;" Data="&apos;beer&apos;" LinkOpHandleMode="OverWrite" />
-																							</Sequence>
-																						</IfCondition>
-																					</OnSuccess>
-																				</FuseBox>
-																			</Sequence>
-																			<LinkGate from="$smartObject" to="$customersParamsArray.customer" tag="&apos;tavernGuest&apos;" amount="AtLeastOne" presence="NotThere" RunLogic="KeepRunning">
-																				<Success />
-																			</LinkGate>
-																		</Parallel>
-																		<GraphSearch Origin="$smartObject" Borders="" depth="1" selection="true" SearchPattern="Depth" EdgePruning="&apos;parent,inventory&apos;" AllowedEdges="" SubGraph="" AllowSubtraph="false" includeOrigin="false" excludeOrigin="false" failOnEmpty="true" SetOperationChoice="Intersection|And" errorOnEmpty="false" shortCircuit="false" skipTraversed="true">
-																			<LinkTagFilter tag="&apos;tavernGuest&apos;" prune="true" negprune="unknown" Parent="" Child="" Data="" />
-																			<Nodalyzer Quantifiers="ForAll" Parent="" Child="$customers" saveVersion="2">
-																				<Child0 canSkip="1">
-																					<RangeSorter point="$spot" SortOrder="Ascending" Source="Child" />
-																				</Child0>
-																			</Nodalyzer>
-																		</GraphSearch>
-																		<IfCondition failOnCondition="false" condition="#customersParamsArray ~= #customers">
-																			<ForEach startIndex="0" step="1" array="$customers" iterator="" value="$customer" break="">
-																				<Sequence>
-																					<ForEach startIndex="0" step="1" array="$customersParamsArray" iterator="" value="$customerParams" break="$customersCheck">
-																						<IfCondition failOnCondition="false" condition="$customerParams.customer == $customer">
-																							<Expression expressions="$customersCheck = true" />
-																						</IfCondition>
-																					</ForEach>
-																					<IfCondition failOnCondition="false" condition="!$customersCheck">
-																						<Sequence>
-																							<GraphSearch Origin="$customer" Borders="" depth="1" selection="true" SearchPattern="Depth" EdgePruning="&apos;parent,inventory&apos;" AllowedEdges="" SubGraph="" AllowSubtraph="false" includeOrigin="false" excludeOrigin="false" failOnEmpty="false" SetOperationChoice="Intersection|And" errorOnEmpty="false" shortCircuit="false" skipTraversed="true">
-																								<LinkTagFilter tag="&apos;guestBeer&apos;" prune="true" negprune="unknown" Parent="" Child="$beer" Data="" />
-																							</GraphSearch>
-																							<GraphSearch Origin="$customer" Borders="" depth="1" selection="true" SearchPattern="Depth" EdgePruning="&apos;parent,inventory&apos;" AllowedEdges="" SubGraph="" AllowSubtraph="false" includeOrigin="false" excludeOrigin="false" failOnEmpty="true" SetOperationChoice="Intersection|And" errorOnEmpty="false" shortCircuit="false" skipTraversed="true">
-																								<LinkTagFilter tag="&apos;guestSeat&apos;" prune="true" negprune="unknown" Parent="" Child="$seat" Data="" />
-																							</GraphSearch>
-																							<Expression expressions="$customerParams.customer = $customer &#10;$customerParams.beer = $beer &#10;$customerParams.seat = $seat" />
-																							<IfCondition failOnCondition="false" condition="$beer ~= $__null">
-																								<PushToArray array="$customersParamsArray" value="$customerParams" direction="Back" />
-																							</IfCondition>
-																						</Sequence>
-																					</IfCondition>
-																					<Expression expressions="$customersCheck = false" />
-																				</Sequence>
-																			</ForEach>
-																		</IfCondition>
-																	</Sequence>
-																</ForEach>
-																<IfCondition failOnCondition="false" condition="$wantToCheers">
+													<AddLinkElement from="$staffSpot" to="$this.id" tag="&apos;tavernPointReserved&apos;" data="" enabled="true">
+														<HandContentElement hand="Right" item="$stein" allowAny="false" allowHomeSlotAutoReturn="false" decisionLabel="tavern_stein" useDecision="true" enabled="true" saveVersion="2">
+															<Search canSkip="1">
+																<ErrorNode Message="&apos;trying to use search in bartender_bringBeer HCE&apos;" />
+															</Search>
+															<Exec canSkip="1">
+																<Sequence>
 																	<ForEach startIndex="0" step="1" array="$customersParamsArray" iterator="" value="$customerParams" break="">
 																		<Sequence>
-																			<AddLink From="$customerParams.seat" To="$customerParams.beer" Tag="&apos;tavernCheering&apos;" Data="#customersParamsArray" LinkOpHandleMode="OverWrite" />
-																			<GenerateRandomInteger lowerBoundary="3" upperBoundary="7" result="$beerCount" />
-																			<AddLink From="$customerParams.seat" To="$customerParams.beer" Tag="&apos;tavernBeerCount&apos;" Data="$beerCount" LinkOpHandleMode="OverWrite" />
-																			<AddLink From="$customerParams.seat" To="$smartObject" Tag="&apos;tavernParams&apos;" Data="&apos;cheers&apos;" LinkOpHandleMode="OverWrite" />
+																			<GraphSearch Origin="$customerParams.seat" Borders="" depth="1" selection="true" SearchPattern="Depth" EdgePruning="&apos;parent,inventory&apos;" AllowedEdges="" SubGraph="" AllowSubtraph="false" includeOrigin="false" excludeOrigin="false" failOnEmpty="false" SetOperationChoice="Intersection|And" errorOnEmpty="false" shortCircuit="false" skipTraversed="true">
+																				<LinkTagFilter tag="&apos;tavernBeerCount&apos;" prune="true" negprune="unknown" Parent="" Child="$beer" Data="" />
+																			</GraphSearch>
+																			<IfCondition failOnCondition="false" condition="$beer ~= $__null">
+																				<RemoveLink From="$customerParams.seat" To="$beer" Tag="&apos;tavernBeerCount&apos;" LinkOpHandleMode="Success" />
+																			</IfCondition>
+																			<RemoveLink From="$customerParams.seat" To="$smartObject" Tag="&apos;orderFood&apos;" LinkOpHandleMode="Success" />
+																			<RemoveLink From="$customerParams.seat" To="$smartObject" Tag="&apos;tavernParams&apos;" LinkOpHandleMode="Success" />
 																		</Sequence>
 																	</ForEach>
-																</IfCondition>
-															</Sequence>
-														</Exec>
-													</HandContentElement>
+																	<SetExternalLock LockManagerType="Global" Locked="false" LockName="&apos;$lockName&apos;" />
+																	<IfCondition failOnCondition="false" condition="#customersParamsArray &gt; 1">
+																		<RandomGate opensWithChance="0.500000" saveVersion="2">
+																			<Then canSkip="1">
+																				<Expression expressions="$wantToCheers = true" />
+																			</Then>
+																			<Else canSkip="1">
+																				<Success />
+																			</Else>
+																		</RandomGate>
+																	</IfCondition>
+																	<ForEach startIndex="0" step="1" array="$customersParamsArray" iterator="" value="$customerParams" break="">
+																		<Sequence>
+																			<Expression expressions="$guest = $customerParams.customer" />
+																			<ExecuteLua code="data.lockServeBeer = XGenAIModule.GetEntityByWUID(data.guest):GetName()" />
+																			<Expression expressions="$lockName = $lockServeBeer+&apos;guestServe&apos;" />
+																			<WaitAction />
+																			<GraphSearch Origin="$customerParams.beer" Borders="" depth="1" selection="true" SearchPattern="Depth" EdgePruning="&apos;parent,inventory&apos;" AllowedEdges="" SubGraph="" AllowSubtraph="false" includeOrigin="false" excludeOrigin="false" failOnEmpty="true" SetOperationChoice="Intersection|And" errorOnEmpty="false" shortCircuit="false" skipTraversed="true">
+																				<LinkTagFilter tag="&apos;spot&apos;" prune="true" negprune="unknown" Parent="" Child="$spot" Data="" />
+																			</GraphSearch>
+																			<Parallel successMode="Any" failureMode="Any">
+																				<Sequence>
+																					<GraphSearch Origin="$spot" Borders="" depth="1" selection="true" SearchPattern="Depth" EdgePruning="&apos;parent,inventory&apos;" AllowedEdges="" SubGraph="" AllowSubtraph="false" includeOrigin="false" excludeOrigin="false" failOnEmpty="true" SetOperationChoice="Intersection|And" errorOnEmpty="false" shortCircuit="false" skipTraversed="true">
+																						<LinkTagFilter tag="&apos;alignObject&apos;" prune="true" negprune="unknown" Parent="" Child="$alignObject" Data="" />
+																					</GraphSearch>
+																					<GraphSearch Origin="$spot" Borders="" depth="1" selection="true" SearchPattern="Depth" EdgePruning="&apos;parent,inventory&apos;" AllowedEdges="" SubGraph="" AllowSubtraph="false" includeOrigin="false" excludeOrigin="false" failOnEmpty="false" SetOperationChoice="Intersection|And" errorOnEmpty="false" shortCircuit="false" skipTraversed="true">
+																						<LinkTagFilter tag="&apos;beerSlotLeft&apos;" prune="true" negprune="unknown" Parent="" Child="$animationTagLeft" Data="" />
+																					</GraphSearch>
+																					<IfElseCondition failOnCondition="false" condition="$animationTagLeft == $customerParams.beer" saveVersion="2">
+																						<Then canSkip="1">
+																							<Expression expressions="$animationTag = &apos;fillDistClose,fillSideLeft&apos;" />
+																						</Then>
+																						<Else canSkip="1">
+																							<Expression expressions="$animationTag = &apos;fillDistClose,fillSideRight&apos;" />
+																						</Else>
+																					</IfElseCondition>
+																					<SetExternalLock LockManagerType="Global" Locked="false" LockName="&apos;$lockName&apos;" />
+																					<Move stopWithinDistance="0.200000" stopDistanceVariation="0.100000" rayCasteFlee="false" successDistance="2.000000" changeNPCState="false" fastForwardIncludesMove="true" destinationSpecification="$spot" destinationSpecification2="" destinationSpecification3="" speed="Walk" additionalParams="" pathFindingParams="" staminaPolicy="" pathInfo="" />
+																					<FuseBox StatusPropagation="Child" OneCleanup="false" saveVersion="2">
+																						<Child canSkip="1">
+																							<JoinedAnimationAction requiresMovement="true" lockContext="$smartObject" lockName="$lockServeBeer" lockCount="2" timeout="&apos;10s&apos;" ignoreOthersLeaving="false" fragment="&apos;Bartender_ServeBeer&apos;" tags="$animationTag" eventReferenceObject="$__object.id" alignObject="$alignObject" slaveObject="" resourceOverride="" allowTorchForPlayer="false" />
+																						</Child>
+																						<OnSuccess canSkip="1">
+																							<IfCondition failOnCondition="false" condition="!$wantToCheers">
+																								<Sequence>
+																									<GenerateRandomInteger lowerBoundary="3" upperBoundary="7" result="$beerCount" />
+																									<AddLink From="$customerParams.seat" To="$customerParams.beer" Tag="&apos;tavernBeerCount&apos;" Data="$beerCount" LinkOpHandleMode="OverWrite" />
+																									<AddLink From="$customerParams.seat" To="$smartObject" Tag="&apos;tavernParams&apos;" Data="&apos;beer&apos;" LinkOpHandleMode="OverWrite" />
+																								</Sequence>
+																							</IfCondition>
+																						</OnSuccess>
+																					</FuseBox>
+																				</Sequence>
+																				<LinkGate from="$smartObject" to="$customersParamsArray.customer" tag="&apos;tavernGuest&apos;" amount="AtLeastOne" presence="NotThere" RunLogic="KeepRunning">
+																					<Success />
+																				</LinkGate>
+																			</Parallel>
+																			<GraphSearch Origin="$smartObject" Borders="" depth="1" selection="true" SearchPattern="Depth" EdgePruning="&apos;parent,inventory&apos;" AllowedEdges="" SubGraph="" AllowSubtraph="false" includeOrigin="false" excludeOrigin="false" failOnEmpty="true" SetOperationChoice="Intersection|And" errorOnEmpty="false" shortCircuit="false" skipTraversed="true">
+																				<LinkTagFilter tag="&apos;tavernGuest&apos;" prune="true" negprune="unknown" Parent="" Child="" Data="" />
+																				<Nodalyzer Quantifiers="ForAll" Parent="" Child="$customers" saveVersion="2">
+																					<Child0 canSkip="1">
+																						<RangeSorter point="$spot" SortOrder="Ascending" Source="Child" />
+																					</Child0>
+																				</Nodalyzer>
+																			</GraphSearch>
+																			<IfCondition failOnCondition="false" condition="#customersParamsArray ~= #customers">
+																				<ForEach startIndex="0" step="1" array="$customers" iterator="" value="$customer" break="">
+																					<Sequence>
+																						<ForEach startIndex="0" step="1" array="$customersParamsArray" iterator="" value="$customerParams" break="$customersCheck">
+																							<IfCondition failOnCondition="false" condition="$customerParams.customer == $customer">
+																								<Expression expressions="$customersCheck = true" />
+																							</IfCondition>
+																						</ForEach>
+																						<IfCondition failOnCondition="false" condition="!$customersCheck">
+																							<Sequence>
+																								<GraphSearch Origin="$customer" Borders="" depth="1" selection="true" SearchPattern="Depth" EdgePruning="&apos;parent,inventory&apos;" AllowedEdges="" SubGraph="" AllowSubtraph="false" includeOrigin="false" excludeOrigin="false" failOnEmpty="false" SetOperationChoice="Intersection|And" errorOnEmpty="false" shortCircuit="false" skipTraversed="true">
+																									<LinkTagFilter tag="&apos;guestBeer&apos;" prune="true" negprune="unknown" Parent="" Child="$beer" Data="" />
+																								</GraphSearch>
+																								<GraphSearch Origin="$customer" Borders="" depth="1" selection="true" SearchPattern="Depth" EdgePruning="&apos;parent,inventory&apos;" AllowedEdges="" SubGraph="" AllowSubtraph="false" includeOrigin="false" excludeOrigin="false" failOnEmpty="true" SetOperationChoice="Intersection|And" errorOnEmpty="false" shortCircuit="false" skipTraversed="true">
+																									<LinkTagFilter tag="&apos;guestSeat&apos;" prune="true" negprune="unknown" Parent="" Child="$seat" Data="" />
+																								</GraphSearch>
+																								<Expression expressions="$customerParams.customer = $customer &#10;$customerParams.beer = $beer &#10;$customerParams.seat = $seat" />
+																								<IfCondition failOnCondition="false" condition="$beer ~= $__null">
+																									<PushToArray array="$customersParamsArray" value="$customerParams" direction="Back" />
+																								</IfCondition>
+																							</Sequence>
+																						</IfCondition>
+																						<Expression expressions="$customersCheck = false" />
+																					</Sequence>
+																				</ForEach>
+																			</IfCondition>
+																		</Sequence>
+																	</ForEach>
+																	<IfCondition failOnCondition="false" condition="$wantToCheers">
+																		<ForEach startIndex="0" step="1" array="$customersParamsArray" iterator="" value="$customerParams" break="">
+																			<Sequence>
+																				<AddLink From="$customerParams.seat" To="$customerParams.beer" Tag="&apos;tavernCheering&apos;" Data="#customersParamsArray" LinkOpHandleMode="OverWrite" />
+																				<GenerateRandomInteger lowerBoundary="3" upperBoundary="7" result="$beerCount" />
+																				<AddLink From="$customerParams.seat" To="$customerParams.beer" Tag="&apos;tavernBeerCount&apos;" Data="$beerCount" LinkOpHandleMode="OverWrite" />
+																				<AddLink From="$customerParams.seat" To="$smartObject" Tag="&apos;tavernParams&apos;" Data="&apos;cheers&apos;" LinkOpHandleMode="OverWrite" />
+																			</Sequence>
+																		</ForEach>
+																	</IfCondition>
+																</Sequence>
+															</Exec>
+														</HandContentElement>
+													</AddLinkElement>
 													<GraphSearch Origin="$__object.id" Borders="" depth="1" selection="true" SearchPattern="Depth" EdgePruning="&apos;parent,inventory&apos;" AllowedEdges="" SubGraph="" AllowSubtraph="false" includeOrigin="false" excludeOrigin="false" failOnEmpty="true" SetOperationChoice="Intersection|And" errorOnEmpty="false" shortCircuit="false" skipTraversed="true">
 														<LinkTagFilter tag="&apos;tavernBarrel&apos;" prune="true" negprune="unknown" Parent="" Child="" Data="" />
 														<Nodalyzer Quantifiers="ForAll" Parent="" Child="$tablesArray" saveVersion="2">
@@ -275,7 +276,6 @@
 				<Variable name="staffSpot" comment="" />
 				<Variable name="stein" comment="" />
 				<Variable name="steinSO" comment="" />
-				<Variable name="steinSlot" comment="" />
 				<Variable name="table" comment="" />
 				<Variable name="tableCheck" comment="" />
 				<Variable name="tables" comment="" />
@@ -397,237 +397,240 @@
 														<Expression hasInputBreakpoint="0" comment="" breakpointFlags="0">
 															<OutputBreakpoints />
 														</Expression>
-														<HandContentElement hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
+														<AddLinkElement hasInputBreakpoint="0" comment="" breakpointFlags="0">
 															<OutputBreakpoints />
-															<Search>
-																<ErrorNode hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																	<OutputBreakpoints />
-																</ErrorNode>
-															</Search>
-															<Exec>
-																<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																	<OutputBreakpoints />
-																	<ForEach hasInputBreakpoint="0" comment="" breakpointFlags="0">
+															<HandContentElement hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
+																<OutputBreakpoints />
+																<Search>
+																	<ErrorNode hasInputBreakpoint="0" comment="" breakpointFlags="0">
 																		<OutputBreakpoints />
-																		<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																			<OutputBreakpoints />
-																			<GraphSearch hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																				<OutputBreakpoints />
-																				<LinkTagFilter hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																					<OutputBreakpoints />
-																				</LinkTagFilter>
-																			</GraphSearch>
-																			<IfCondition hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																				<OutputBreakpoints />
-																				<RemoveLink hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																					<OutputBreakpoints />
-																				</RemoveLink>
-																			</IfCondition>
-																			<RemoveLink hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																				<OutputBreakpoints />
-																			</RemoveLink>
-																			<RemoveLink hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																				<OutputBreakpoints />
-																			</RemoveLink>
-																		</Sequence>
-																	</ForEach>
-																	<SetExternalLock hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																		<OutputBreakpoints />
-																	</SetExternalLock>
-																	<IfCondition hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																		<OutputBreakpoints />
-																		<RandomGate hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
-																			<OutputBreakpoints />
-																			<Then>
-																				<Expression hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																					<OutputBreakpoints />
-																				</Expression>
-																			</Then>
-																			<Else>
-																				<Success hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																					<OutputBreakpoints />
-																				</Success>
-																			</Else>
-																		</RandomGate>
-																	</IfCondition>
-																	<ForEach hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																		<OutputBreakpoints />
-																		<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																			<OutputBreakpoints />
-																			<Expression hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																				<OutputBreakpoints />
-																			</Expression>
-																			<ExecuteLua hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																				<OutputBreakpoints />
-																			</ExecuteLua>
-																			<Expression hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																				<OutputBreakpoints />
-																			</Expression>
-																			<WaitAction hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																				<OutputBreakpoints />
-																			</WaitAction>
-																			<Parallel hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																				<OutputBreakpoints />
-																				<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																					<OutputBreakpoints />
-																					<GraphSearch hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																						<OutputBreakpoints />
-																						<LinkTagFilter hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																							<OutputBreakpoints />
-																						</LinkTagFilter>
-																					</GraphSearch>
-																					<GraphSearch hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																						<OutputBreakpoints />
-																						<LinkTagFilter hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																							<OutputBreakpoints />
-																						</LinkTagFilter>
-																					</GraphSearch>
-																					<GraphSearch hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																						<OutputBreakpoints />
-																						<LinkTagFilter hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																							<OutputBreakpoints />
-																						</LinkTagFilter>
-																					</GraphSearch>
-																					<IfElseCondition hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
-																						<OutputBreakpoints />
-																						<Then>
-																							<Expression hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																								<OutputBreakpoints />
-																							</Expression>
-																						</Then>
-																						<Else>
-																							<Expression hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																								<OutputBreakpoints />
-																							</Expression>
-																						</Else>
-																					</IfElseCondition>
-																					<SetExternalLock hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																						<OutputBreakpoints />
-																					</SetExternalLock>
-																					<Move hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																						<OutputBreakpoints />
-																					</Move>
-																					<FuseBox hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
-																						<OutputBreakpoints />
-																						<Child>
-																							<JoinedAnimationAction hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																								<OutputBreakpoints />
-																							</JoinedAnimationAction>
-																						</Child>
-																						<OnSuccess>
-																							<IfCondition hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																								<OutputBreakpoints />
-																								<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																									<OutputBreakpoints />
-																									<GenerateRandomInteger hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																										<OutputBreakpoints />
-																									</GenerateRandomInteger>
-																									<AddLink hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																										<OutputBreakpoints />
-																									</AddLink>
-																									<AddLink hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																										<OutputBreakpoints />
-																									</AddLink>
-																								</Sequence>
-																							</IfCondition>
-																						</OnSuccess>
-																					</FuseBox>
-																				</Sequence>
-																				<LinkGate hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																					<OutputBreakpoints />
-																					<Success hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																						<OutputBreakpoints />
-																					</Success>
-																				</LinkGate>
-																			</Parallel>
-																			<GraphSearch hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																				<OutputBreakpoints />
-																				<LinkTagFilter hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																					<OutputBreakpoints />
-																				</LinkTagFilter>
-																				<Nodalyzer hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
-																					<OutputBreakpoints />
-																					<Child0>
-																						<RangeSorter hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																							<OutputBreakpoints />
-																						</RangeSorter>
-																					</Child0>
-																				</Nodalyzer>
-																			</GraphSearch>
-																			<IfCondition hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																				<OutputBreakpoints />
-																				<ForEach hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																					<OutputBreakpoints />
-																					<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																						<OutputBreakpoints />
-																						<ForEach hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																							<OutputBreakpoints />
-																							<IfCondition hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																								<OutputBreakpoints />
-																								<Expression hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																									<OutputBreakpoints />
-																								</Expression>
-																							</IfCondition>
-																						</ForEach>
-																						<IfCondition hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																							<OutputBreakpoints />
-																							<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																								<OutputBreakpoints />
-																								<GraphSearch hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																									<OutputBreakpoints />
-																									<LinkTagFilter hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																										<OutputBreakpoints />
-																									</LinkTagFilter>
-																								</GraphSearch>
-																								<GraphSearch hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																									<OutputBreakpoints />
-																									<LinkTagFilter hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																										<OutputBreakpoints />
-																									</LinkTagFilter>
-																								</GraphSearch>
-																								<Expression hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																									<OutputBreakpoints />
-																								</Expression>
-																								<IfCondition hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																									<OutputBreakpoints />
-																									<PushToArray hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																										<OutputBreakpoints />
-																									</PushToArray>
-																								</IfCondition>
-																							</Sequence>
-																						</IfCondition>
-																						<Expression hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																							<OutputBreakpoints />
-																						</Expression>
-																					</Sequence>
-																				</ForEach>
-																			</IfCondition>
-																		</Sequence>
-																	</ForEach>
-																	<IfCondition hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																	</ErrorNode>
+																</Search>
+																<Exec>
+																	<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
 																		<OutputBreakpoints />
 																		<ForEach hasInputBreakpoint="0" comment="" breakpointFlags="0">
 																			<OutputBreakpoints />
 																			<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
 																				<OutputBreakpoints />
-																				<AddLink hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																				<GraphSearch hasInputBreakpoint="0" comment="" breakpointFlags="0">
 																					<OutputBreakpoints />
-																				</AddLink>
-																				<GenerateRandomInteger hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																					<LinkTagFilter hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																						<OutputBreakpoints />
+																					</LinkTagFilter>
+																				</GraphSearch>
+																				<IfCondition hasInputBreakpoint="0" comment="" breakpointFlags="0">
 																					<OutputBreakpoints />
-																				</GenerateRandomInteger>
-																				<AddLink hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																					<RemoveLink hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																						<OutputBreakpoints />
+																					</RemoveLink>
+																				</IfCondition>
+																				<RemoveLink hasInputBreakpoint="0" comment="" breakpointFlags="0">
 																					<OutputBreakpoints />
-																				</AddLink>
-																				<AddLink hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																				</RemoveLink>
+																				<RemoveLink hasInputBreakpoint="0" comment="" breakpointFlags="0">
 																					<OutputBreakpoints />
-																				</AddLink>
+																				</RemoveLink>
 																			</Sequence>
 																		</ForEach>
-																	</IfCondition>
-																</Sequence>
-															</Exec>
-														</HandContentElement>
+																		<SetExternalLock hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																			<OutputBreakpoints />
+																		</SetExternalLock>
+																		<IfCondition hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																			<OutputBreakpoints />
+																			<RandomGate hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
+																				<OutputBreakpoints />
+																				<Then>
+																					<Expression hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																						<OutputBreakpoints />
+																					</Expression>
+																				</Then>
+																				<Else>
+																					<Success hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																						<OutputBreakpoints />
+																					</Success>
+																				</Else>
+																			</RandomGate>
+																		</IfCondition>
+																		<ForEach hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																			<OutputBreakpoints />
+																			<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																				<OutputBreakpoints />
+																				<Expression hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																					<OutputBreakpoints />
+																				</Expression>
+																				<ExecuteLua hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																					<OutputBreakpoints />
+																				</ExecuteLua>
+																				<Expression hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																					<OutputBreakpoints />
+																				</Expression>
+																				<WaitAction hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																					<OutputBreakpoints />
+																				</WaitAction>
+																				<GraphSearch hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																					<OutputBreakpoints />
+																					<LinkTagFilter hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																						<OutputBreakpoints />
+																					</LinkTagFilter>
+																				</GraphSearch>
+																				<Parallel hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																					<OutputBreakpoints />
+																					<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																						<OutputBreakpoints />
+																						<GraphSearch hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																							<OutputBreakpoints />
+																							<LinkTagFilter hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																								<OutputBreakpoints />
+																							</LinkTagFilter>
+																						</GraphSearch>
+																						<GraphSearch hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																							<OutputBreakpoints />
+																							<LinkTagFilter hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																								<OutputBreakpoints />
+																							</LinkTagFilter>
+																						</GraphSearch>
+																						<IfElseCondition hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
+																							<OutputBreakpoints />
+																							<Then>
+																								<Expression hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																									<OutputBreakpoints />
+																								</Expression>
+																							</Then>
+																							<Else>
+																								<Expression hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																									<OutputBreakpoints />
+																								</Expression>
+																							</Else>
+																						</IfElseCondition>
+																						<SetExternalLock hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																							<OutputBreakpoints />
+																						</SetExternalLock>
+																						<Move hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																							<OutputBreakpoints />
+																						</Move>
+																						<FuseBox hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
+																							<OutputBreakpoints />
+																							<Child>
+																								<JoinedAnimationAction hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																									<OutputBreakpoints />
+																								</JoinedAnimationAction>
+																							</Child>
+																							<OnSuccess>
+																								<IfCondition hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																									<OutputBreakpoints />
+																									<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																										<OutputBreakpoints />
+																										<GenerateRandomInteger hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																											<OutputBreakpoints />
+																										</GenerateRandomInteger>
+																										<AddLink hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																											<OutputBreakpoints />
+																										</AddLink>
+																										<AddLink hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																											<OutputBreakpoints />
+																										</AddLink>
+																									</Sequence>
+																								</IfCondition>
+																							</OnSuccess>
+																						</FuseBox>
+																					</Sequence>
+																					<LinkGate hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																						<OutputBreakpoints />
+																						<Success hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																							<OutputBreakpoints />
+																						</Success>
+																					</LinkGate>
+																				</Parallel>
+																				<GraphSearch hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																					<OutputBreakpoints />
+																					<LinkTagFilter hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																						<OutputBreakpoints />
+																					</LinkTagFilter>
+																					<Nodalyzer hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
+																						<OutputBreakpoints />
+																						<Child0>
+																							<RangeSorter hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																								<OutputBreakpoints />
+																							</RangeSorter>
+																						</Child0>
+																					</Nodalyzer>
+																				</GraphSearch>
+																				<IfCondition hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																					<OutputBreakpoints />
+																					<ForEach hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																						<OutputBreakpoints />
+																						<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																							<OutputBreakpoints />
+																							<ForEach hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																								<OutputBreakpoints />
+																								<IfCondition hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																									<OutputBreakpoints />
+																									<Expression hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																										<OutputBreakpoints />
+																									</Expression>
+																								</IfCondition>
+																							</ForEach>
+																							<IfCondition hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																								<OutputBreakpoints />
+																								<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																									<OutputBreakpoints />
+																									<GraphSearch hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																										<OutputBreakpoints />
+																										<LinkTagFilter hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																											<OutputBreakpoints />
+																										</LinkTagFilter>
+																									</GraphSearch>
+																									<GraphSearch hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																										<OutputBreakpoints />
+																										<LinkTagFilter hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																											<OutputBreakpoints />
+																										</LinkTagFilter>
+																									</GraphSearch>
+																									<Expression hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																										<OutputBreakpoints />
+																									</Expression>
+																									<IfCondition hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																										<OutputBreakpoints />
+																										<PushToArray hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																											<OutputBreakpoints />
+																										</PushToArray>
+																									</IfCondition>
+																								</Sequence>
+																							</IfCondition>
+																							<Expression hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																								<OutputBreakpoints />
+																							</Expression>
+																						</Sequence>
+																					</ForEach>
+																				</IfCondition>
+																			</Sequence>
+																		</ForEach>
+																		<IfCondition hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																			<OutputBreakpoints />
+																			<ForEach hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																				<OutputBreakpoints />
+																				<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																					<OutputBreakpoints />
+																					<AddLink hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																						<OutputBreakpoints />
+																					</AddLink>
+																					<GenerateRandomInteger hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																						<OutputBreakpoints />
+																					</GenerateRandomInteger>
+																					<AddLink hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																						<OutputBreakpoints />
+																					</AddLink>
+																					<AddLink hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																						<OutputBreakpoints />
+																					</AddLink>
+																				</Sequence>
+																			</ForEach>
+																		</IfCondition>
+																	</Sequence>
+																</Exec>
+															</HandContentElement>
+														</AddLinkElement>
 														<GraphSearch hasInputBreakpoint="0" comment="" breakpointFlags="0">
 															<OutputBreakpoints />
 															<LinkTagFilter hasInputBreakpoint="0" comment="" breakpointFlags="0">

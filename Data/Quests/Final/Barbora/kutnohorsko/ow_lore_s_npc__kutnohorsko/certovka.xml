@@ -111,6 +111,17 @@
 					<Asset Name="Souls" Alias="ptacek" />
 					<Asset Name="Areas" Alias="CertovkaInnArea" />
 				</Function>
+				<Function Name="areacheck221" PositionY="3212" PositionX="4757" MethodName="wh::rpgmodule::AreaCheck" DeclaringType="wh::rpgmodule">
+					<Asset Name="Areas" Alias="CertovkaInnArea" />
+					<Edge From="makearray220.Array" To="Souls" />
+				</Function>
+				<Function Name="areacheck224" PositionY="3518" PositionX="3034" MethodName="wh::rpgmodule::AreaCheck" DeclaringType="wh::rpgmodule">
+					<Asset Name="Areas" Alias="CertovkaInnArea" />
+					<Edge From="makearray223.Array" To="Souls">
+						<Vertex>QWdGlqvK</Vertex>
+						<Vertex>JA5fsINq</Vertex>
+					</Edge>
+				</Function>
 				<Function Name="areacheck66" PositionY="-300" PositionX="800" MethodName="wh::rpgmodule::AreaCheck" DeclaringType="wh::rpgmodule">
 					<Asset Name="Areas" Alias="CertovkaInnArea" />
 					<Edge From="makearray6.Array" To="Souls">
@@ -166,8 +177,13 @@
 					<Constant Name="Label" Value="interior" />
 				</Function>
 				<bohuta_si_povida_s_hostinskym_na_certovce Name="bohuta_si_povida_s_hostinskym_na_certovce" PositionY="2770" PositionX="3880" />
-				<bohuta_si_povida_s_ptackem_na_certovce Name="bohuta_si_povida_s_ptackem_na_certovce" PositionY="2570" PositionX="3880" />
-				<bohuta_si_povida_s_zizkou_na_certovce Name="bohuta_si_povida_s_zizkou_na_certovce" PositionY="2960" PositionX="3880" />
+				<bohuta_si_povida_s_ptackem_na_certovce Name="bohuta_si_povida_s_ptackem_na_certovce" PositionY="2520" PositionX="3880" />
+				<bohuta_si_povida_s_zizkou_na_certovce Name="bohuta_si_povida_s_zizkou_na_certovce" PositionY="2960" PositionX="3880">
+					<Edge From="areacheck221.IsInside" To="jsou_na_certovce">
+						<Vertex>hTCX8KMS</Vertex>
+						<Vertex>6LtdfPQR</Vertex>
+					</Edge>
+				</bohuta_si_povida_s_zizkou_na_certovce>
 				<AddReward Name="codexItalie" PositionY="-2330" PositionX="1220">
 					<Edge From="o_zivote__berta.open_codex" To="AddReward">
 						<Vertex>QDnYDsUn</Vertex>
@@ -221,6 +237,14 @@
 				<MakeArray Name="makearray194" PositionY="160" PositionX="5590" TypeT="wh::rpgmodule::Souls">
 					<Edge From="o_zivote__mikes_mk.HENRY" To="A" />
 					<Edge From="o_zivote__mikes_mk.MIKES" To="B" />
+				</MakeArray>
+				<MakeArray Name="makearray220" PositionY="3200" PositionX="4400" TypeT="wh::rpgmodule::Souls">
+					<Edge From="bohuta_si_povida_s_zizkou_na_certovce.BOHUTA_GOSSIP" To="A" />
+					<Edge From="bohuta_si_povida_s_zizkou_na_certovce.ZIZKA_GOSSIP" To="B" />
+				</MakeArray>
+				<MakeArray Name="makearray223" PositionY="3276" PositionX="3042" TypeT="wh::rpgmodule::Souls">
+					<Edge From="zizka_si_povida_s_katerinou_na_certovce.ZIZKA_GOSSIP" To="A" />
+					<Edge From="zizka_si_povida_s_katerinou_na_certovce.KATERINA_GOSSIP" To="B" />
 				</MakeArray>
 				<MakeArray Name="makearray4" PositionY="-160" PositionX="1670" TypeT="wh::rpgmodule::Souls">
 					<Edge From="o_zivote__hospodsky_tichacek.HENRY" To="A" />
@@ -710,10 +734,16 @@
 					<Constant Name="TimeType" Value="WorldTime" />
 					<Edge From="jindra_ma_domluvit_nocleh_v_certovce" To="SetRunning" />
 				</Timer>
-				<zizka_si_povida_s_certem_na_certovce_1_4 Name="zizka_si_povida_s_certem_na_certovce_1_4" PositionY="3000" PositionX="1690" />
-				<zizka_si_povida_s_katerinou_na_certovce Name="zizka_si_povida_s_katerinou_na_certovce" PositionY="2880" PositionX="2780" />
+				<zizka_si_povida_s_certem_na_certovce_1_4 Name="zizka_si_povida_s_certem_na_certovce_1_4" PositionY="3570" PositionX="1740" />
+				<zizka_si_povida_s_katerinou_na_certovce Name="zizka_si_povida_s_katerinou_na_certovce" PositionY="2880" PositionX="2780">
+					<Edge From="areacheck224.IsInside" To="jsou_na_certovce">
+						<Vertex>C6DsMhHI</Vertex>
+						<Vertex>03Rklr2n</Vertex>
+					</Edge>
+				</zizka_si_povida_s_katerinou_na_certovce>
 			</Nodes>
 			<EdgeVertices>
+				<EdgeVertex Name="03Rklr2n" PositionY="3700" PositionX="2790" />
 				<EdgeVertex Name="0hjYL6SK" PositionY="-3180" PositionX="390" />
 				<EdgeVertex Name="1QDw53Rn" PositionY="-1190" PositionX="1200" />
 				<EdgeVertex Name="1QqeItKl" PositionY="-4380" PositionX="370" />
@@ -721,6 +751,7 @@
 				<EdgeVertex Name="3qBYa6o8" PositionY="-1050" PositionX="5070" />
 				<EdgeVertex Name="5PL8jFSz" PositionY="2140" PositionX="5640" />
 				<EdgeVertex Name="639z4HCb" PositionY="1700" PositionX="4170" />
+				<EdgeVertex Name="6LtdfPQR" PositionY="2950" PositionX="3900" />
 				<EdgeVertex Name="8mPbA9dE" PositionY="-500" PositionX="1040" />
 				<EdgeVertex Name="8TgF7YY0" PositionY="-1130" PositionX="5070" />
 				<EdgeVertex Name="8XgnxjXr" PositionY="-780" PositionX="3170" />
@@ -728,6 +759,7 @@
 				<EdgeVertex Name="9t7hwv1q" PositionY="2300" PositionX="6690" />
 				<EdgeVertex Name="B8QQ43eK" PositionY="1270" PositionX="5070" />
 				<EdgeVertex Name="bGytkVjy" PositionY="-3210" PositionX="390" />
+				<EdgeVertex Name="C6DsMhHI" PositionY="3700" PositionX="3270" />
 				<EdgeVertex Name="cenYWw0B" PositionY="-4190" PositionX="910" />
 				<EdgeVertex Name="CeRwyUIA" PositionY="-390" PositionX="-70" />
 				<EdgeVertex Name="cL7sNaeG" PositionY="1260" PositionX="6420" />
@@ -742,8 +774,10 @@
 				<EdgeVertex Name="GTEdpLXD" PositionY="-2100" PositionX="1330" />
 				<EdgeVertex Name="HCTcLgfe" PositionY="-3160" PositionX="1370" />
 				<EdgeVertex Name="hJCH0GvA" PositionY="-1090" PositionX="5070" />
+				<EdgeVertex Name="hTCX8KMS" PositionY="2990" PositionX="4930" />
 				<EdgeVertex Name="Hvpfu9tz" PositionY="-3240" PositionX="390" />
 				<EdgeVertex Name="ItHqgy1c" PositionY="-4380" PositionX="1600" />
+				<EdgeVertex Name="JA5fsINq" PositionY="3460" PositionX="3040" />
 				<EdgeVertex Name="JfbVA7NN" PositionY="-820" PositionX="4960" />
 				<EdgeVertex Name="KlTyA1Uc" PositionY="-2140" PositionX="350" />
 				<EdgeVertex Name="l92jHvXm" PositionY="40" PositionX="6400" />
@@ -757,6 +791,7 @@
 				<EdgeVertex Name="pN8Ufz4m" PositionY="2310" PositionX="5380" />
 				<EdgeVertex Name="QDnYDsUn" PositionY="-2165" PositionX="779" />
 				<EdgeVertex Name="qsVyzQdn" PositionY="-2160" PositionX="1140" />
+				<EdgeVertex Name="QWdGlqvK" PositionY="3460" PositionX="3230" />
 				<EdgeVertex Name="RnMkv4EE" PositionY="120" PositionX="5070" />
 				<EdgeVertex Name="RU8uGQSW" PositionY="-2120" PositionX="1650" />
 				<EdgeVertex Name="RW57GQGH" PositionY="1240" PositionX="6130" />
@@ -830,14 +865,8 @@
 				<Note Name="note184" PositionY="2601" PositionX="3394">
 					<Text StringName="certovka_note184_7U82" Text="Tohle je override do činnosti vaření " />
 				</Note>
-				<Note Name="note204" PositionY="3270" PositionX="1200">
-					<Text StringName="certovka_note204_pHxV" Text="Dialog ještě není zapojen 17.8.2023" />
-				</Note>
-				<Note Name="note204_1" PositionY="2590" PositionX="2450">
-					<Text StringName="certovka_note204_1_fHZd" Text="Tyto dva Musovy dialogy ještě nejsou zapojeny 17.8.2023" />
-				</Note>
-				<Note Name="note204_2" PositionY="3209" PositionX="3287">
-					<Text StringName="certovka_note204_2_CliW" Text="Dialog ještě není zapojen 17.8.2023" />
+				<Note Name="note222" PositionY="3510" PositionX="1700">
+					<Text StringName="certovka_note222_T0qk" Text="Tento dialog Brabanta s Ursem VO zapomněli nahrát a proto se do hry nedostane. Proto jsem ho dal jako disabled." />
 				</Note>
 			</Notes>
 			<Text StringName="certovka_pyJi" Text="Čertovka" />

@@ -31,17 +31,15 @@
         <param name="isInGameMenu" desc="true is in game; false in main menu" type="bool" />
       </function>
 
-      <function name="SetContainer" funcname="fc_setContainer" desc="Setup a new screen start">
-          <param name="containerIndex" desc="" type="int" />
+      <function name="PreparePage" funcname="fc_preparePage" desc="Setup a new screen start">
           <param name="ButtonXPos" desc="" type="int" />
           <param name="ButtonYPos" desc="" type="int" />
           <param name="MaxButtons" desc="" type="int" />
-      </function>
-
-      <function name="SetTitleBox" funcname="fc_setTitleBox" desc="">
           <param name="header" type="string" desc="" />
           <param name="buttonHalfWidth" type="int" />
       </function>
+
+      <function name="ShowPage" funcname="fc_showPage" desc="" />
 
       <function name="SetActiveUser" funcname="fc_setActiveUser" desc="">
           <param name="userName" type="string" desc="" />
@@ -181,6 +179,7 @@
         <param name="fromGame" desc="" type="bool" />
         <param name="holdClose" desc="" type="bool" />
         <param name="isSpecial" desc="" type="bool" />
+        <param name="isFirstTimeOverlay" desc="" type="bool" />
       </function>
 
       <function name="HideHelpOverlay" funcname="fc_hideHelpOverlay" desc="" />
@@ -201,6 +200,7 @@
       <function name="HideCredits" funcname="fc_hideCredits" desc="" />
 
       <function name="ShowHCMode" funcname="fc_showHCMode" desc=""/>
+      <function name="HideHCMode" funcname="fc_hideHCMode" desc=""/>
 
       <function name="SetCredits" funcname="fc_setCredits" desc="" />
 
@@ -290,6 +290,11 @@
         <param name="value" desc=""  type="float" />
       </event>
 
+      <event name="OnInteractiveChoice" fscommand="onInteractiveChoice" desc="">
+	      <param name="id" desc=""  type="string" />
+        <param name="choiceId" desc=""  type="int" />
+      </event>
+
       <event name="OnGamaButtonFocus" fscommand="onGamaButtonFocus" desc="">
 	     <param name="enable" desc=""  type="bool" />
       </event>
@@ -371,6 +376,7 @@
       <array name="CreditsRoles" varname="g_CreditsRolesA" />
       <array name="Rewards" varname="g_RewardsA" />
       <array name="ProsBanners" varname="g_ProsBannersA" />
+	  <array name="HardcorePerks" varname="g_HardcorePerksA" />
   </arrays>
 
  </UIElement>

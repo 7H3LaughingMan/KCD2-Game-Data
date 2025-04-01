@@ -6,6 +6,9 @@
 				<Port Name="current_level" Direction="In" Type="LevelLocation">
 					<DesignName StringName="unfriendly_current_level_40F3" Text="Current level" />
 				</Port>
+				<Port Name="unfriendly_variants_are_enabled" Direction="In" Type="bool">
+					<DesignName StringName="unfriendly_unfriendly_var_Wk7O" Text="Unfriendly variants are enabled" />
+				</Port>
 			</Ports>
 			<Definitions>
 				<Definition File="unfriendly/unfriendly_bandits.xml" />
@@ -34,6 +37,12 @@
 					<Constant Name="DefaultValue" Value="false" />
 					<Edge From="ifcompare19.True" To="SetTrue" />
 				</State>
+				<Output Name="Output">
+					<Edge From="unfriendly_variants_are_enabled" To="IsEnabled">
+						<Vertex>MobA75rS</Vertex>
+						<Vertex>VnuSVhsd</Vertex>
+					</Edge>
+				</Output>
 				<SetEntityContext Name="setentitycontext7" PositionY="10" PositionX="-160">
 					<Constant Name="Context" Value="crime_disableKeyGeneration" />
 					<Edge From="joinarrays2.Array" To="Souls" />
@@ -60,8 +69,10 @@
 				</unfriendly_cumans>
 			</Nodes>
 			<EdgeVertices>
+				<EdgeVertex Name="MobA75rS" PositionY="612" PositionX="-344" />
 				<EdgeVertex Name="q7fKF8LC" PositionY="500" PositionX="-180" />
 				<EdgeVertex Name="SuEj7dYH" PositionY="-380" PositionX="-460" />
+				<EdgeVertex Name="VnuSVhsd" PositionY="610" PositionX="1041" />
 			</EdgeVertices>
 			<Notes>
 				<Note Name="note11" PositionY="310" PositionX="780">

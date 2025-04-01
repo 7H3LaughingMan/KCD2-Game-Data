@@ -589,7 +589,6 @@
 		<Variables>
 			<Variable name="halberd" type="_wuid" values="" isPersistent="0" form="single" />
 			<Variable name="halberdPoint" type="_wuid" values="" isPersistent="0" form="single" />
-			<Variable name="left" type="_wuid" values="" isPersistent="0" form="single" />
 		</Variables>
 		<Parameters>
 			<Variable name="data" type="_wuid" values="" isPersistent="0" form="single" requirementType="In" />
@@ -601,29 +600,32 @@
 				</GraphSearch>
 			</OnInit>
 			<Behavior canSkip="1">
-				<Sequence>
-					<WaitAction />
-					<ExactMove directionType="AlignWithEntity" directionSpecification="$halberdPoint" animationTriggerDist="0.150000" precise="false" changeNPCState="true" fastForwardIncludesMove="false" destinationSpecification="$halberdPoint" destinationSpecification2="" destinationSpecification3="" speed="Run" additionalParams="" pathFindingParams="" staminaPolicy="" pathInfo="" AnimationToPlay="" AnimationContext="" />
-					<HandContentElement hand="Right" item="$halberd" allowAny="false" decisionLabel="battle_halbert" useDecision="true" enabled="true" saveVersion="2">
-						<Search canSkip="1">
-							<Function_findItemOnSlot linkName="&apos;halberd&apos;" npc="$this.id" searchOrigin="$this.id" item="$halberd" nodeLabel="36139595" />
-						</Search>
-						<Exec canSkip="1">
-							<Sequence>
-								<ExactMove directionType="AlignWithEntity" directionSpecification="$data" animationTriggerDist="0.150000" precise="false" changeNPCState="true" fastForwardIncludesMove="false" destinationSpecification="$data" destinationSpecification2="" destinationSpecification3="" speed="Run" additionalParams="" pathFindingParams="" staminaPolicy="" pathInfo="" AnimationToPlay="" AnimationContext="" />
-								<Parallel successMode="Any" failureMode="Any">
-									<AnimationAction fragment="&apos;Quest_HeadShot&apos;" tags="" eventReferenceObject="" alignObject="" slaveObject="" resourceOverride="" allowTorchForPlayer="false" />
-									<Sequence>
-										<Wait duration="&apos;2500&apos;" timeType="GameTime" doFail="false" variation="" skipInLOD="false" />
-										<ExecuteLua code="local ent = XGenAIModule.GetEntityByWUID(entity.this.id) &#10; &#10;ent.soul:DealDamage(110, 100, entity.this.id, false, &apos;Head&apos;)" />
-									</Sequence>
-								</Parallel>
-								<Callback_empty EventName="&apos;OnFinished&apos;" />
-								<Wait duration="&apos;-1&apos;" timeType="GameTime" doFail="false" variation="" skipInLOD="false" />
-							</Sequence>
-						</Exec>
-					</HandContentElement>
-				</Sequence>
+				<Selector>
+					<Sequence>
+						<WaitAction />
+						<ExactMove directionType="AlignWithEntity" directionSpecification="$halberdPoint" animationTriggerDist="0.150000" precise="false" changeNPCState="true" fastForwardIncludesMove="false" destinationSpecification="$halberdPoint" destinationSpecification2="" destinationSpecification3="" speed="Run" additionalParams="" pathFindingParams="" staminaPolicy="" pathInfo="" />
+						<HandContentElement hand="Right" item="$halberd" allowAny="false" allowHomeSlotAutoReturn="false" decisionLabel="battle_halbert" useDecision="true" enabled="true" saveVersion="2">
+							<Search canSkip="1">
+								<Function_findItemOnSlot linkName="&apos;halberd&apos;" npc="$this.id" searchOrigin="$this.id" item="$halberd" nodeLabel="36139595" />
+							</Search>
+							<Exec canSkip="1">
+								<Sequence>
+									<ExactMove directionType="AlignWithEntity" directionSpecification="$data" animationTriggerDist="0.150000" precise="false" changeNPCState="true" fastForwardIncludesMove="false" destinationSpecification="$data" destinationSpecification2="" destinationSpecification3="" speed="Run" additionalParams="" pathFindingParams="" staminaPolicy="" pathInfo="" />
+									<Parallel successMode="Any" failureMode="Any">
+										<AnimationAction fragment="&apos;Quest_HeadShot&apos;" tags="" eventReferenceObject="" alignObject="" slaveObject="" resourceOverride="" allowTorchForPlayer="false" />
+										<Sequence>
+											<Wait duration="&apos;2500&apos;" timeType="GameTime" doFail="false" variation="" />
+											<ExecuteLua code="local ent = XGenAIModule.GetEntityByWUID(entity.this.id) &#10; &#10;ent.soul:DealDamage(110, 100, entity.this.id, false, &apos;Head&apos;)" />
+										</Sequence>
+									</Parallel>
+									<InstantCallback_empty EventName="&apos;OnFinished&apos;" />
+									<Wait duration="&apos;-1&apos;" timeType="GameTime" doFail="false" variation="" />
+								</Sequence>
+							</Exec>
+						</HandContentElement>
+					</Sequence>
+					<InstantCallback_empty EventName="&apos;OnFinished&apos;" />
+				</Selector>
 			</Behavior>
 		</Root>
 		<ForestContainer />
@@ -631,7 +633,6 @@
 			<Variables>
 				<Variable name="halberd" comment="" />
 				<Variable name="halberdPoint" comment="" />
-				<Variable name="left" comment="" />
 				<Variable name="data" comment="" />
 			</Variables>
 			<ForwardDeclarations />
@@ -646,52 +647,58 @@
 					</GraphSearch>
 				</OnInit>
 				<Behavior>
-					<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
+					<Selector hasInputBreakpoint="0" comment="" breakpointFlags="0">
 						<OutputBreakpoints />
-						<WaitAction hasInputBreakpoint="0" comment="" breakpointFlags="0">
+						<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
 							<OutputBreakpoints />
-						</WaitAction>
-						<ExactMove hasInputBreakpoint="0" comment="" breakpointFlags="0">
-							<OutputBreakpoints />
-						</ExactMove>
-						<HandContentElement hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
-							<OutputBreakpoints />
-							<Search>
-								<Function_findItemOnSlot hasInputBreakpoint="0" comment="" breakpointFlags="0">
-									<OutputBreakpoints />
-								</Function_findItemOnSlot>
-							</Search>
-							<Exec>
-								<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
-									<OutputBreakpoints />
-									<ExactMove hasInputBreakpoint="0" comment="" breakpointFlags="0">
+							<WaitAction hasInputBreakpoint="0" comment="" breakpointFlags="0">
+								<OutputBreakpoints />
+							</WaitAction>
+							<ExactMove hasInputBreakpoint="0" comment="" breakpointFlags="0">
+								<OutputBreakpoints />
+							</ExactMove>
+							<HandContentElement hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
+								<OutputBreakpoints />
+								<Search>
+									<Function_findItemOnSlot hasInputBreakpoint="0" comment="" breakpointFlags="0">
 										<OutputBreakpoints />
-									</ExactMove>
-									<Parallel hasInputBreakpoint="0" comment="" breakpointFlags="0">
+									</Function_findItemOnSlot>
+								</Search>
+								<Exec>
+									<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
 										<OutputBreakpoints />
-										<AnimationAction hasInputBreakpoint="0" comment="" breakpointFlags="0">
+										<ExactMove hasInputBreakpoint="0" comment="" breakpointFlags="0">
 											<OutputBreakpoints />
-										</AnimationAction>
-										<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
+										</ExactMove>
+										<Parallel hasInputBreakpoint="0" comment="" breakpointFlags="0">
 											<OutputBreakpoints />
-											<Wait hasInputBreakpoint="0" comment="" breakpointFlags="0">
+											<AnimationAction hasInputBreakpoint="0" comment="" breakpointFlags="0">
 												<OutputBreakpoints />
-											</Wait>
-											<ExecuteLua hasInputBreakpoint="0" comment="" breakpointFlags="0">
+											</AnimationAction>
+											<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
 												<OutputBreakpoints />
-											</ExecuteLua>
-										</Sequence>
-									</Parallel>
-									<Callback_empty hasInputBreakpoint="0" comment="" breakpointFlags="0">
-										<OutputBreakpoints />
-									</Callback_empty>
-									<Wait hasInputBreakpoint="0" comment="" breakpointFlags="0">
-										<OutputBreakpoints />
-									</Wait>
-								</Sequence>
-							</Exec>
-						</HandContentElement>
-					</Sequence>
+												<Wait hasInputBreakpoint="0" comment="" breakpointFlags="0">
+													<OutputBreakpoints />
+												</Wait>
+												<ExecuteLua hasInputBreakpoint="0" comment="" breakpointFlags="0">
+													<OutputBreakpoints />
+												</ExecuteLua>
+											</Sequence>
+										</Parallel>
+										<InstantCallback_empty hasInputBreakpoint="0" comment="" breakpointFlags="0">
+											<OutputBreakpoints />
+										</InstantCallback_empty>
+										<Wait hasInputBreakpoint="0" comment="" breakpointFlags="0">
+											<OutputBreakpoints />
+										</Wait>
+									</Sequence>
+								</Exec>
+							</HandContentElement>
+						</Sequence>
+						<InstantCallback_empty hasInputBreakpoint="0" comment="" breakpointFlags="0">
+							<OutputBreakpoints />
+						</InstantCallback_empty>
+					</Selector>
 				</Behavior>
 			</Root>
 			<Forest />
@@ -2192,6 +2199,42 @@
 							</InstantCallback_empty>
 						</Sequence>
 					</AnyDecorator>
+				</Behavior>
+			</Root>
+			<Forest />
+			<Comments />
+		</EditorData>
+	</BehaviorTree>
+	<BehaviorTree name="waitAndTurn" is_function="0">
+		<Variables />
+		<Root OneTimeOnly="false" FailState="Recoverable" saveVersion="2">
+			<Behavior canSkip="1">
+				<Sequence>
+					<WaitAction />
+					<Turn target="$__player" align="false" />
+					<Wait duration="&apos;250&apos;" timeType="GameTime" doFail="false" variation="" />
+				</Sequence>
+			</Behavior>
+		</Root>
+		<ForestContainer />
+		<EditorData EventSet="">
+			<Variables />
+			<ForwardDeclarations />
+			<Root hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
+				<OutputBreakpoints />
+				<Behavior>
+					<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
+						<OutputBreakpoints />
+						<WaitAction hasInputBreakpoint="0" comment="" breakpointFlags="0">
+							<OutputBreakpoints />
+						</WaitAction>
+						<Turn hasInputBreakpoint="0" comment="" breakpointFlags="0">
+							<OutputBreakpoints />
+						</Turn>
+						<Wait hasInputBreakpoint="0" comment="" breakpointFlags="0">
+							<OutputBreakpoints />
+						</Wait>
+					</Sequence>
 				</Behavior>
 			</Root>
 			<Forest />

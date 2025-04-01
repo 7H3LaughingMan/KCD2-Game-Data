@@ -36,7 +36,7 @@
 				<bohuta_zasahl_spatne_terc Name="bohuta_zasahl_spatne_terc" PositionY="670" PositionX="2810" />
 				<BuffEffect Name="buff11" PositionY="1710" PositionX="1680">
 					<Asset Name="Souls" Alias="bohuta" />
-					<Constant Name="BuffGUID" Value="b2f86f72-b8f7-458f-9358-dd2ed7b01a9f" />
+					<Constant Name="BuffGUID" Value="4e87f141-5222-4d52-a14d-c9e10604a002" />
 					<Edge From="givePlayerAGun.Active" To="IsActive" />
 				</BuffEffect>
 				<FilterInput Name="filterinput12" PositionY="1890" PositionX="1680">
@@ -79,6 +79,7 @@
 				<MakeArray Name="makearray13" PositionY="1920" PositionX="1340" TypeT="Strings">
 					<Constant Name="A" Value="no_move" />
 					<Constant Name="B" Value="no_drop_item" />
+					<Constant Name="C" Value="no_horse_mount" />
 				</MakeArray>
 				<npc_chvali_zasah_pri_strileni_z_pusek Name="npc_chvali_zasah_pri_strileni_z_pusek" PositionY="940" PositionX="2240" />
 				<nauc_se_strilet_z_pusky Name="objectiveVisual8" PositionY="0" PositionX="1030" RequiredForOutput="trosecko">
@@ -98,6 +99,10 @@
 					<Asset Name="PlayerSouls" Alias="player" />
 					<Edge From="givePlayerAGun.Active" To="IsActive" />
 				</PlayerOutfitOverride>
+				<Layer Name="profile21" PositionY="460" PositionX="1620">
+					<Asset Name="Profiles" Alias="nebakovobrana_shootingSmoke_profile" />
+					<Edge From="tutorialStrelby.Done" To="IsActive" />
+				</Layer>
 				<SetEntityContext Name="setentitycontext17" PositionY="890" PositionX="1680">
 					<Constant Name="Context" Value="crime_horse_ignoreGunFiredSound" />
 					<Asset Name="Souls" Alias="horses" />
@@ -111,13 +116,13 @@
 					<Constant Name="pocet_soutezicich" Value="2" />
 					<Asset Name="zacatecnici" Alias="bohuta" />
 					<Constant Name="sazka_zacatecnici" Value="0" />
-					<Constant Name="pocet_sipu_zacatecnici" Value="3" />
+					<Constant Name="pocet_sipu_zacatecnici" Value="5" />
 					<Asset Name="pokrocily" Alias="bohuta" />
 					<Constant Name="sazka_poklocily" Value="0" />
-					<Constant Name="pocet_sipu_pokrocily" Value="3" />
+					<Constant Name="pocet_sipu_pokrocily" Value="5" />
 					<Asset Name="mistri" Alias="bohuta" />
 					<Constant Name="sazka_mistri" Value="0" />
-					<Constant Name="pocet_sipu_mistri" Value="3" />
+					<Constant Name="pocet_sipu_mistri" Value="5" />
 					<Edge From="triggersequence18.A" To="kontrola_dostupnosti_zacatecniku">
 						<Vertex>vertex14</Vertex>
 					</Edge>
@@ -187,7 +192,8 @@
 			</Types>
 			<Assets>
 				<ProfileAsset Name="shootingTarget_profile" AssetProfiles="nebakovobrana_podvecer_strelnice_targets" />
-				<SoulAsset Name="horses" SharedSoulGuids="15d2a91c-f952-47a1-9575-2b6afb5019cb b006d3c8-a9c4-432a-a685-6be917d878a5 12f1676f-f59f-41d8-b284-617b81796a1f 4dff075b-4097-45bd-8f07-e152e6cd0621 bb702580-5ea3-4438-8ce2-632fb7b7ef83" />
+				<SoulAsset Name="horses" SharedSoulGuids="15d2a91c-f952-47a1-9575-2b6afb5019cb b006d3c8-a9c4-432a-a685-6be917d878a5 12f1676f-f59f-41d8-b284-617b81796a1f 4dff075b-4097-45bd-8f07-e152e6cd0621 bb702580-5ea3-4438-8ce2-632fb7b7ef83 a5bc4a54-e900-4127-af1e-70b2f83ec5b6 b9a8e7c1-df3c-4760-8532-0d3cb30b908f e6abb20c-9844-4921-9654-d335b1fa3bfe 2df9fbe0-1251-4efa-a48b-3ea5f447c12a 7ed177c3-db75-45f6-8230-ba7f77be1559 78a01079-163b-4df4-9e4d-8d2b5dd2ba17 af2dd01a-6631-4ddf-b228-48f830fa0faa 95bcd2a8-70d9-41be-b488-cfe94ecdf313 8a530596-e335-4063-9073-eec60b75f9e9 35e5fceb-7f4b-4d2c-b4b8-9a8e45a1471b" />
+				<ProfileAsset Name="nebakovobrana_shootingSmoke_profile" AssetProfiles="nebakovobrana_podvecer_shootingSmoke" />
 			</Assets>
 			<Text StringName="strelba_z_pistaly_bCo0" Text="Střelba z píšťaly" />
 			<Elements>

@@ -18,6 +18,7 @@
 					<Edge From="battlesituationproperties21_1.AliveCount" To="B" />
 					<Edge From="battlesituationproperties21.AliveCount" To="A" />
 					<Edge From="battlesituationproperties21_1_2_1.AliveCount" To="C" />
+					<Edge From="battlesituationproperties23.AliveCount" To="D" />
 				</Function>
 				<ObjectProperties Name="battlesituationproperties21" PositionY="180" PositionX="570" DeclaringType="wh::combatmodule::BattleSituation">
 					<Edge From="battletrigger20.Situation" To="BattleSituation" />
@@ -27,6 +28,9 @@
 				</ObjectProperties>
 				<ObjectProperties Name="battlesituationproperties21_1_2_1" PositionY="930" PositionX="600" DeclaringType="wh::combatmodule::BattleSituation">
 					<Edge From="battletrigger20_3_1.Situation" To="BattleSituation" />
+				</ObjectProperties>
+				<ObjectProperties Name="battlesituationproperties23" PositionY="1270" PositionX="600" DeclaringType="wh::combatmodule::BattleSituation">
+					<Edge From="battletrigger22.Situation" To="BattleSituation" />
 				</ObjectProperties>
 				<BattleTrigger Name="battletrigger20" PositionY="0" PositionX="10">
 					<Asset Name="SmartObject" Alias="sideWallLadderAttackersGroupControllerA" />
@@ -43,6 +47,11 @@
 					<Constant Name="EventType" Value="DeadSoul" />
 					<Edge From="isactive" To="IsActive" />
 				</BattleTrigger>
+				<BattleTrigger Name="battletrigger22" PositionY="1170" PositionX="20">
+					<Asset Name="SmartObject" Alias="sideWallAnimationKillsGroupController" />
+					<Constant Name="EventType" Value="DeadSoul" />
+					<Edge From="isactive" To="IsActive" />
+				</BattleTrigger>
 				<Output Name="Output">
 					<Edge From="add2.int" To="pocet_zivych_nepratel" />
 					<Edge From="battletrigger20_1.OnEvent" To="jeden_z_nepratel_umrel">
@@ -54,6 +63,10 @@
 						<Vertex>vertex3</Vertex>
 					</Edge>
 					<Edge From="battletrigger20_3_1.OnEvent" To="jeden_z_nepratel_umrel">
+						<Vertex>vertex2</Vertex>
+						<Vertex>vertex3</Vertex>
+					</Edge>
+					<Edge From="battletrigger22.OnEvent" To="jeden_z_nepratel_umrel">
 						<Vertex>vertex2</Vertex>
 						<Vertex>vertex3</Vertex>
 					</Edge>

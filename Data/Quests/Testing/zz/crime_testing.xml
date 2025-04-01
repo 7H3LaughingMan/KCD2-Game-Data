@@ -13,6 +13,18 @@
 					<Edge From="getfaction12.Faction" To="Faction" />
 					<Edge From="getfaction12_1.Faction" To="RelationTarget" />
 				</AddFactionRelation>
+				<AddFactionRelationBetweenArrays Name="addfactionrelationbetweenarrays26" PositionY="2140" PositionX="30">
+					<Constant Name="RelationValue" Value="-1" />
+					<Asset Name="SoulArray1" Alias="bohutovaVlozka_bandit" />
+					<Edge From="state27.Two" To="IsActive" />
+					<Edge From="makearray28.Array" To="SoulArray0" />
+				</AddFactionRelationBetweenArrays>
+				<AddFactionRelationBetweenArrays Name="addfactionrelationbetweenarrays26_1" PositionY="2370" PositionX="30">
+					<Constant Name="RelationValue" Value="-1" />
+					<Asset Name="SoulArray0" Alias="bohutovaVlozka_bandit" />
+					<Asset Name="SoulArray1" Alias="erik" />
+					<Edge From="state27.Three" To="IsActive" />
+				</AddFactionRelationBetweenArrays>
 				<Function Name="addreputationchange16" PositionY="1170" PositionX="-120" MethodName="wh::rpgmodule::AddReputationChange" DeclaringType="wh::rpgmodule">
 					<Constant Name="ReputationChange" Value="auto_hit_melee_armed" />
 					<Edge From="isoulproperties15.FactionNode" To="Faction" />
@@ -34,6 +46,9 @@
 				<HasteTrigger Name="crimeTest_ownershipStreaming_unstreamOwner" PositionY="-397" PositionX="1385" />
 				<HasteTrigger Name="crimeTest_pillory_disableBehavior" PositionY="-2610" PositionX="-520" />
 				<HasteTrigger Name="crimeTest_pillory_enableBehavior" PositionY="-2790" PositionX="-520" />
+				<HasteTrigger Name="crimeTest_relation_disable" PositionY="1990" PositionX="-740" />
+				<HasteTrigger Name="crimeTest_relation_enable_first" PositionY="2185" PositionX="-741" />
+				<HasteTrigger Name="crimeTest_relation_enable_second" PositionY="2370" PositionX="-740" />
 				<HasteTrigger Name="crimeTest_reputation_override_add" PositionY="60" PositionX="-510" />
 				<HasteTrigger Name="crimeTest_reputation_override_remove" PositionY="240" PositionX="-510" />
 				<HasteTrigger Name="crimeTest_reputation_reconcileCivilians" PositionY="800" PositionX="-520" />
@@ -45,6 +60,8 @@
 				<HasteTrigger Name="crimeTest_schedule_enable" PositionY="-1530" PositionX="-540" />
 				<HasteTrigger Name="crimeTest_streamedExpected_stream" PositionY="-1110" PositionX="1380" />
 				<HasteTrigger Name="crimeTest_streamedExpected_unstream" PositionY="-930" PositionX="1380" />
+				<HasteTrigger Name="crimeTest_weaponTrigger_disable" PositionY="-3020" PositionX="-510" />
+				<HasteTrigger Name="crimeTest_weaponTrigger_enable" PositionY="-3200" PositionX="-510" />
 				<expectedwithsafeguard Name="expectedwithsafeguard" PositionY="-1070" PositionX="1050">
 					<Asset Name="npc" Alias="streamedExpectedNpc" />
 					<Asset Name="so" Alias="expectedSafeguard" />
@@ -66,6 +83,10 @@
 				<ObjectProperties Name="isoulproperties15" PositionY="1370" PositionX="-520" DeclaringType="wh::rpgmodule::I_Soul">
 					<Asset Name="I_Soul" Alias="kozlik" />
 				</ObjectProperties>
+				<MakeArray Name="makearray28" PositionY="2410" PositionX="-370" TypeT="wh::rpgmodule::Souls">
+					<Asset Name="A" Alias="erik" />
+					<Asset Name="B" Alias="player" />
+				</MakeArray>
 				<pillory Name="pillory" PositionY="-2790" PositionX="170">
 					<Asset Name="pilloryso" Alias="pillory" />
 					<Asset Name="pillorylockpickable" Alias="pilloryLock" />
@@ -164,12 +185,42 @@
 					<Edge From="crimeTest_pillory_enableBehavior.OnTrigger" To="SetTrue" />
 					<Edge From="crimeTest_pillory_disableBehavior.OnTrigger" To="SetFalse" />
 				</State>
+				<State Name="state1_1_1_3_1_2_1_1" PositionY="-3190" PositionX="-170" TypeT="bool">
+					<Edge From="crimeTest_weaponTrigger_enable.OnTrigger" To="SetTrue" />
+					<Edge From="crimeTest_weaponTrigger_disable.OnTrigger" To="SetFalse" />
+				</State>
+				<State Name="state27" PositionY="1980" PositionX="-370" TypeT="Three">
+					<Edge From="crimeTest_relation_disable.OnTrigger" To="SetOne" />
+					<Edge From="crimeTest_relation_enable_first.OnTrigger" To="SetTwo" />
+					<Edge From="crimeTest_relation_enable_second.OnTrigger" To="SetThree" />
+				</State>
 				<TemporaryFactionEffect Name="temporaryfaction10" PositionY="-310" PositionX="120">
 					<Asset Name="Souls" Alias="kozlik" />
 					<Constant Name="Faction" Value="tmp_public_enemies" />
 					<Edge From="state1_1_1_1.State" To="IsActive" />
 				</TemporaryFactionEffect>
+				<Trace Name="trace25" PositionY="-3240" PositionX="490" TypeT="string">
+					<Constant Name="Value" Value="weapon drawn" />
+					<Constant Name="Level" Value="Error" />
+					<Edge From="weapondrawtrigger24.OnDraw" To="Exec" />
+				</Trace>
+				<Trace Name="trace25_1" PositionY="-3030" PositionX="490" TypeT="string">
+					<Constant Name="Value" Value="weapon holstered" />
+					<Constant Name="Level" Value="Error" />
+					<Edge From="weapondrawtrigger24.OnHolster" To="Exec" />
+				</Trace>
+				<WeaponDrawTrigger Name="weapondrawtrigger24" PositionY="-3150" PositionX="160">
+					<Asset Name="Soul" Alias="player" />
+					<Edge From="state1_1_1_3_1_2_1_1.State" To="IsActive" />
+				</WeaponDrawTrigger>
 			</Nodes>
+			<Types>
+				<Type TypeName="Three">
+					<StateTypeEnumeration Name="One" ObjectiveValueType="None" />
+					<StateTypeEnumeration Name="Two" ObjectiveValueType="None" />
+					<StateTypeEnumeration Name="Three" ObjectiveValueType="None" />
+				</Type>
+			</Types>
 			<Assets>
 				<SoulAsset Name="expectedNpc" SharedSoulGuids="4828a208-b8b5-bfee-5bfe-2a2d38760cba" />
 				<SoulAsset Name="player" SharedSoulGuids="4c2dcffb-dea1-6263-72d7-b39f4db2d8b5" />
@@ -185,6 +236,8 @@
 				<SoulAsset Name="prisoner" SharedSoulGuids="94c3e852-853c-4c84-a0e5-8ea5f36d51aa" />
 				<ProfileAsset Name="ownershipStreaming_owner" AssetProfiles="ownershipStreaming_owner" />
 				<ProfileAsset Name="ownershipStreaming_items" AssetProfiles="ownershipStreaming_items" />
+				<SoulAsset Name="erik" SharedSoulGuids="4c4222fb-413e-e667-4958-38c4ee351daf" />
+				<SoulAsset Name="bohutovaVlozka_bandit" SharedSoulGuids="78aed5c4-1595-4f21-9638-a018a03f4448" />
 			</Assets>
 			<ObjectiveValueTypes>
 				<ObjectiveValueType Type="None" IsPast="false" Icon="Exclamation" />

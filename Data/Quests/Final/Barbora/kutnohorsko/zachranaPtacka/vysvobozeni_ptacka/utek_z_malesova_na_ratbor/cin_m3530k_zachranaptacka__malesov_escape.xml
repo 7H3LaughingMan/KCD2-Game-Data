@@ -66,6 +66,12 @@
 						<Vertex>4rQPWlgz</Vertex>
 					</Edge>
 				</CutsceneHandler>
+				<State Name="cutsceneMoon" PositionY="-250" PositionX="660" TypeT="Progress">
+					<Edge From="ifand18.True" To="SetActive" />
+					<Edge From="cutscenehandler17.AfterPlay" To="SetDone">
+						<Vertex>S6sVWGJv</Vertex>
+					</Edge>
+				</State>
 				<IfFunction Name="ifand18" PositionY="190" PositionX="370" MethodName="math::boolean::And" DeclaringType="math::boolean">
 					<Edge From="TimeOfDayBetweenCheck.isbetween" To="A" />
 					<Edge From="cutscenehandler17.BeforePlay" To="Exec" />
@@ -82,6 +88,12 @@
 					<Asset Name="A" Alias="ptacekSpotAfterMalesovEscape" />
 					<Asset Name="B" Alias="brabantSpotAfterMalesovEscape" />
 				</MakeArray>
+				<MoonEffect Name="mooneffect27" PositionY="-164" PositionX="1052">
+					<Constant Name="UseLongitude" Value="false" />
+					<Constant Name="UseLatitude" Value="true" />
+					<Constant Name="Latitude" Value="60" />
+					<Edge From="cutsceneMoon.Active" To="IsActive" />
+				</MoonEffect>
 				<NPCs_TeleportOnHorse Name="NPCs_TeleportOnHorse" PositionY="520" PositionX="2280" Namespace="utils.general">
 					<Constant Name="applyhorseusageelement" Value="false" />
 					<Edge From="makearray13.Array" To="npcs" />
@@ -110,6 +122,16 @@
 					<Edge From="cutscenehandler7.AfterPlay" To="teleportonhorse" />
 				</PlayerAction_TeleportOnHorse>
 				<pocasi_behem_questu Name="pocasi_behem_questu" PositionY="450" PositionX="850" Namespace="zachranaptacka_library" />
+				<Function Name="removebuff29" PositionY="1150" PositionX="2290" MethodName="wh::rpgmodule::RemoveBuff" DeclaringType="wh::rpgmodule">
+					<Asset Name="Souls" Alias="ptacek" />
+					<Constant Name="Buff" Value="97828156-42a0-40e2-b772-7c328d2ead98" />
+					<Edge From="cutscenehandler7.AfterPlay" To="Exec" />
+				</Function>
+				<Function Name="removebuffswithtag1" PositionY="770" PositionX="2290" MethodName="wh::rpgmodule::RemoveBuffsWithTag" DeclaringType="wh::rpgmodule">
+					<Asset Name="Souls" Alias="player" />
+					<Constant Name="BuffTag" Value="19" />
+					<Edge From="cutscenehandler7.AfterPlay" To="Exec" />
+				</Function>
 				<revive Name="revive" PositionY="-40" PositionX="2240" Namespace="utils.general">
 					<Asset Name="souls" Alias="deadMenWalking" />
 					<Edge From="cutscenehandler7.BeforePlay" To="exec" />
@@ -121,8 +143,14 @@
 					<Edge From="ifand18.False" To="SelectB" />
 				</Select>
 				<TimeOfDayBetweenCheck Name="TimeOfDayBetweenCheck" PositionY="530" PositionX="-30" Namespace="utils.time">
-					<Constant Name="fromtime" Value="0h" />
-					<Constant Name="totime" Value="3h0m" />
+					<Edge From="cas.po_cutscene_capon_saved" To="fromtime">
+						<Vertex>j15fz1Ey</Vertex>
+						<Vertex>F7wTYmKW</Vertex>
+					</Edge>
+					<Edge From="cas.pred_cutscenou_malesov_escape_noc__prvni_cast" To="totime">
+						<Vertex>JhYN7mEo</Vertex>
+						<Vertex>FvXDWqa0</Vertex>
+					</Edge>
 				</TimeOfDayBetweenCheck>
 			</Nodes>
 			<EdgeVertices>
@@ -130,16 +158,21 @@
 				<EdgeVertex Name="D4TjfLgc" PositionY="1128" PositionX="689" />
 				<EdgeVertex Name="DKRT4GQz" PositionY="1119" PositionX="1297" />
 				<EdgeVertex Name="E2YyUtaD" PositionY="1120" PositionX="2550" />
+				<EdgeVertex Name="F7wTYmKW" PositionY="1071" PositionX="-10" />
+				<EdgeVertex Name="FvXDWqa0" PositionY="1079" PositionX="-9" />
 				<EdgeVertex Name="HDgIT2Be" PositionY="199" PositionX="2881" />
 				<EdgeVertex Name="hjBfRAMk" PositionY="-290" PositionX="2850" />
 				<EdgeVertex Name="hqLMbBuC" PositionY="168" PositionX="2874" />
 				<EdgeVertex Name="hWwfLppc" PositionY="1130" PositionX="2159" />
+				<EdgeVertex Name="j15fz1Ey" PositionY="1071" PositionX="445" />
+				<EdgeVertex Name="JhYN7mEo" PositionY="1079" PositionX="444" />
 				<EdgeVertex Name="oITnHTJS" PositionY="400" PositionX="1470" />
 				<EdgeVertex Name="r1C16HoN" PositionY="-300" PositionX="380" />
-				<EdgeVertex Name="rluob5b1" PositionY="-60" PositionX="1360" />
+				<EdgeVertex Name="rluob5b1" PositionY="-290" PositionX="1350" />
+				<EdgeVertex Name="S6sVWGJv" PositionY="41" PositionX="375" />
 				<EdgeVertex Name="vertex31" PositionY="230" PositionX="2890" />
-				<EdgeVertex Name="whqDpdv6" PositionY="-65" PositionX="-169" />
-				<EdgeVertex Name="y99n1DJ6" PositionY="-310" PositionX="2860" />
+				<EdgeVertex Name="whqDpdv6" PositionY="-290" PositionX="-170" />
+				<EdgeVertex Name="y99n1DJ6" PositionY="-300" PositionX="2850" />
 			</EdgeVertices>
 			<Assets>
 				<CutsceneHolderAsset Name="malesovEscapeThroughGateCutscene" />
@@ -149,6 +182,17 @@
 				<TagPointAsset Name="brabantSpotAfterMalesovEscape" />
 				<SoulAsset Name="deadMenWalking" SharedSoulGuids="146c68ad-c2f2-4deb-a35e-8ab0a796c543 75d92c90-21c4-4d63-b612-ef014621f498 a15d6366-4c3e-4870-80aa-20b9a5ba5628" />
 			</Assets>
+			<Notes>
+				<Note Name="note25" PositionY="750" PositionX="2350">
+					<Text StringName="cin_m3530_note25_OIGy" Text="KCD2-490854" />
+				</Note>
+				<Note Name="note28" PositionY="-220" PositionX="1060">
+					<Text StringName="cin_m3530_note28_ciSU" Text="KCD2-37262" />
+				</Note>
+				<Note Name="note30" PositionY="1140" PositionX="2340">
+					<Text StringName="cin_m3530_note30_PmJa" Text="KCD2-453768" />
+				</Note>
+			</Notes>
 			<Text StringName="cin_m3530k_zachranaptacka_qZYB" Text="Útěk z Malešova" />
 			<Elements>
 				<SceneActionElement>

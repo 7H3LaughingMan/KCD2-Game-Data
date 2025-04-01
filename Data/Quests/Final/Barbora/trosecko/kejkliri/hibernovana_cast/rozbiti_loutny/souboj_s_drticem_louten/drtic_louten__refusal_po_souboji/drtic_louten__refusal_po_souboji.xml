@@ -2,6 +2,11 @@
 <Database xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" Name="brambora">
 	<Skald>
 		<Dialog Name="drtic_louten__refusal_po_souboji">
+			<Ports>
+				<Port Name="lute_crusher_health" Direction="In" Type="float">
+					<DesignName StringName="drtic_lou_lute_crusher_he_7DDy" Text="Lute crusher health" />
+				</Port>
+			</Ports>
 			<Text StringName="drtic_louten__refusal_po__ij5a" Text="drtič louten - refusal po souboji" />
 			<Elements>
 				<GameplayActionElement>
@@ -62,7 +67,7 @@
 											</Response>
 										</Elements>
 									</Sequence>
-									<Sequence EndType="EndDialogue" Name="seq6">
+									<Sequence EntryCondition="Port('lute_crusher_health') &lt; 70" EndType="EndDialogue" Name="seq6">
 										<DesignName StringName="drtic_lou_seq6_nUZ2" Text="seq6" />
 										<Elements>
 											<Response Role="DRTIC_LOUTEN">

@@ -18,6 +18,9 @@
 				<Port Name="isactive" Direction="In" Type="bool">
 					<DesignName StringName="prisaha_u_isactive_7XiT" Text="obj - Dostaň Antona ke kostelu - active" />
 				</Port>
+				<Port Name="obj__vrat_se_za_antonem" Direction="In" Type="bool">
+					<DesignName StringName="prisaha_u_obj__vrat_se_za_PnaQ" Text="obj - Vrať se za Antonem" />
+				</Port>
 			</Ports>
 			<Definitions>
 				<Definition File="prisaha_u_kostela/prisaha_u_kneze__ondruv_edit.xml" />
@@ -62,9 +65,13 @@
 					<Asset Name="tagpoint" Alias="atChurch_FrancekPoint" />
 					<Edge From="wait.Active" To="IsActive" />
 				</EnableBehavior>
+				<Function Name="or22" PositionY="60" PositionX="-1100" MethodName="math::boolean::Or" DeclaringType="math::boolean">
+					<Edge From="isactive" To="A" />
+					<Edge From="obj__vrat_se_za_antonem" To="B" />
+				</Function>
 				<Function Name="or7" PositionY="850" PositionX="170" MethodName="math::boolean::Or" DeclaringType="math::boolean">
 					<Edge From="wait.Active" To="A" />
-					<Edge From="isactive" To="B">
+					<Edge From="or22.bool" To="B">
 						<Vertex>pLPmzRFb</Vertex>
 						<Vertex>eoNYCBvp</Vertex>
 					</Edge>
@@ -113,7 +120,7 @@
 				<EdgeVertex Name="cg6IrHTj" PositionY="232" PositionX="-129" />
 				<EdgeVertex Name="eoNYCBvp" PositionY="970" PositionX="-120" />
 				<EdgeVertex Name="In08fLgT" PositionY="-260" PositionX="-680" />
-				<EdgeVertex Name="pLPmzRFb" PositionY="90" PositionX="-360" />
+				<EdgeVertex Name="pLPmzRFb" PositionY="150" PositionX="-370" />
 			</EdgeVertices>
 			<Assets>
 				<CutsceneHolderAsset Name="cutscene_church" />

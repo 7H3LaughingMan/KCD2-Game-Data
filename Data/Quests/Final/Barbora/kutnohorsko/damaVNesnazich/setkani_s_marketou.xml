@@ -36,20 +36,12 @@
 			</Ports>
 			<Definitions>
 				<Definition File="setkani_s_marketou/uvodni_rozhovor_s_marketou_tulackou2.xml" />
+				<Definition File="setkani_s_marketou/marketa_stand_up_for_dlg.xml" />
 			</Definitions>
 			<Nodes>
-				<Function Name="and35" PositionY="-800" PositionX="820" MethodName="math::boolean::And" DeclaringType="math::boolean">
-					<Edge From="state33.State" To="B" />
-					<Edge From="Awake" To="A">
-						<Vertex>WYq4Llx3</Vertex>
-					</Edge>
-				</Function>
-				<LinkEffectNoData Name="linkeffectnodata34" PositionY="-760" PositionX="1090">
-					<Asset Name="From" Alias="introDialogMarketaDH" />
-					<Asset Name="To" Alias="marketa_standUpPoint" />
-					<Constant Name="Tag" Value="teleportBefore" />
-					<Edge From="and35.bool" To="IsActive" />
-				</LinkEffectNoData>
+				<marketa_stand_up_for_dlg Name="marketa_stand_up_for_dlg" PositionY="-90" PositionX="30">
+					<Edge From="Awake" To="awake" />
+				</marketa_stand_up_for_dlg>
 				<Output Name="Output">
 					<Edge From="uvodni_rozhovor_s_marketou_tulackou2.hrac_uz_ma_uspavaci_lektvar" To="hrac_uz_ma_uspavaci_lektvar" />
 					<Edge From="uvodni_rozhovor_s_marketou_tulackou2.hrac_odevzdal_saty" To="hrac_odevzdal_saty" />
@@ -66,23 +58,11 @@
 				<SceneFinishedWaiter Name="scenefinishedwaiter3_1" PositionY="-420" PositionX="640">
 					<Edge From="uvodni_rozhovor_s_marketou_tulackou2.hrac_vyhnal_marketu" To="Enqueue" />
 				</SceneFinishedWaiter>
-				<StanceTrigger Name="stancetrigger32" PositionY="-510" PositionX="40">
-					<Asset Name="Souls" Alias="marketa" />
-					<Constant Name="Stance" Value="sitting" />
-					<Edge From="Awake" To="IsActive" />
-				</StanceTrigger>
-				<State Name="state33" PositionY="-680" PositionX="540" TypeT="bool">
-					<Edge From="stancetrigger32.OnStanceMatched" To="SetTrue" />
-					<Edge From="stancetrigger32.OnStanceUnmatched" To="SetFalse" />
-				</State>
 				<uvodni_rozhovor_s_marketou_tulackou2 Name="uvodni_rozhovor_s_marketou_tulackou2" PositionY="50" PositionX="20">
 					<Edge From="hrac_videl_marketu" To="hrac_videl_marketu" />
 					<Edge From="trest_hraci" To="trest_hraci" />
 				</uvodni_rozhovor_s_marketou_tulackou2>
 			</Nodes>
-			<EdgeVertices>
-				<EdgeVertex Name="WYq4Llx3" PositionY="-710" PositionX="30" />
-			</EdgeVertices>
 			<Text StringName="setkani_s_marketou_VH7a" Text="Setkání s Markétou" />
 			<Elements>
 				<GameplayActionElement>

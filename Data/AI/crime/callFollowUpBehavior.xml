@@ -37,8 +37,8 @@
 			<Variable name="reactionTargets_watchCorpse" type="_wuid,crime:followUpBehavior:watchCorpse" values="" isPersistent="0" form="custom_associative" />
 			<Variable name="reactionTargets_watchCorpse_value" type="crime:followUpBehavior:watchCorpse" values="" isPersistent="0" form="single" />
 			<Variable name="reactors" type="_wuid" values="" isPersistent="0" form="array" />
-			<Variable name="reportDestainationType" type="enum:crime_reportDestinationType" values="" isPersistent="0" form="single" />
 			<Variable name="reportDestination" type="_wuid" values="false" isPersistent="0" form="single" />
+			<Variable name="reportDestinationType" type="enum:crime_reportDestinationType" values="" isPersistent="0" form="single" />
 			<Variable name="shouldReact" type="_bool" values="false" isPersistent="0" form="single" />
 			<Variable name="stimulus_corpse" type="switch:stimulus:corpse" values="" isPersistent="0" form="single" />
 			<Variable name="stimulus_unconsciousBody" type="switch:stimulus:unconsciousBody" values="" isPersistent="0" form="single" />
@@ -121,7 +121,7 @@
 										<Selector>
 											<Sequence>
 												<RetrieveInformation PerceivedWuid="$reactionTargets_lookAround_value.information.perceivedWuid" label="$reactionTargets_lookAround_value.information.label" OutVariable="$information" />
-												<Function_callInterrupt_lookAround alarmReactionType="$enum:crime_alarmReactionType.none" amIBuddy="false" corpseState="$enum:corpseState.undiscovered" directHit="false" forcePebbleReaction="false" ignorePriority="true" information_look="$reactionTargets_lookAround_value.information" initiator="$enum:switch_interruptInitiator.scheduler" missingNpc="$__null" position="$reactionTargets_lookAround_value.information.position" previousReaction="$previousReaction" reportedBy="$__null" searchDirection="" shooter="$__player" soundType="$enum:sound.movement" source="$reactionTargets_lookAround_value.source" stimulusAnimalAbuse="" stimulusKind="$reactionTargets_lookAround_value.stimulusKind" nodeLabel="60868599" />
+												<Function_callInterrupt_lookAround alarmReactionType="$enum:crime_alarmReactionType.none" amIBuddy="false" corpseState="$enum:corpseState.undiscovered" directHit="false" forceSubscribedSoundReaction="false" ignorePriority="true" information_look="$reactionTargets_lookAround_value.information" initiator="$enum:switch_interruptInitiator.scheduler" missingNpc="$__null" position="$reactionTargets_lookAround_value.information.position" previousReaction="$previousReaction" reactingToSoundBecauseAlone="false" reportedBy="$__null" searchDirection="" searchPointsFromDirection="false" shooter="$__player" soundType="$enum:sound.movement" source="$reactionTargets_lookAround_value.source" stimulusAnimalAbuse="" stimulusKind="$reactionTargets_lookAround_value.stimulusKind" nodeLabel="60868599" />
 											</Sequence>
 											<RemoveLink From="$this.id" To="$reactionTargets_key" Tag="&apos;crime_followUpBehavior_lookAround&apos;" LinkOpHandleMode="Success" />
 										</Selector>
@@ -143,8 +143,8 @@
 											<Sequence>
 												<RetrieveInformation PerceivedWuid="$reactionTargets_report_value.information.perceivedWuid" label="$reactionTargets_report_value.information.label" OutVariable="$information" />
 												<ChooseReportDestination Information="$reactionTargets_report_value.information" IsImportant="true" Destination="$reportDestination" DestinationType="$reportDestinationType" />
-												<IfCondition failOnCondition="true" condition="$reportDestainationType &gt; $enum:crime_reportDestinationType.none">
-													<Function_callInterrupt_report alreadyCriminal="false" assaultData="$reactionTargets_report_value.assaultData" corpseState="$enum:corpseState.undiscovered" disableDetectedIcon="true" disableEmitting="false" freshlyAttributedCrime="false" ignorePriority="true" information="$reactionTargets_report_value.information" initiator="$enum:switch_interruptInitiator.scheduler" movementSpeed="$enum:movementSpeed.fastRun" previousReaction="$previousReaction" reportDestination="$reportDestination" reportDestinationType="$reportDestainationType" source="$reactionTargets_report_value.source" stimulusKind="$reactionTargets_report_value.stimulusKind" nodeLabel="56770756" />
+												<IfCondition failOnCondition="true" condition="$reportDestinationType &gt; $enum:crime_reportDestinationType.none">
+													<Function_callInterrupt_report assaultData="$reactionTargets_report_value.assaultData" corpseState="$enum:corpseState.undiscovered" criminalFreshness="$enum:crime_criminalFreshness.unknown" disableDetectedIcon="true" disableEmitting="false" freshlyAttributedCrime="false" ignorePriority="true" information="$reactionTargets_report_value.information" initiator="$enum:switch_interruptInitiator.scheduler" movementSpeed="$enum:movementSpeed.fastRun" previousReaction="$previousReaction" reportDestination="$reportDestination" reportDestinationType="$reportDestinationType" source="$reactionTargets_report_value.source" stimulusKind="$reactionTargets_report_value.stimulusKind" nodeLabel="56770756" />
 												</IfCondition>
 											</Sequence>
 											<RemoveLink From="$this.id" To="$reactionTargets_key" Tag="&apos;crime_followUpBehavior_report&apos;" LinkOpHandleMode="Success" />
@@ -455,8 +455,8 @@
 				<Variable name="reactionTargets_watchCorpse" comment="" />
 				<Variable name="reactionTargets_watchCorpse_value" comment="" />
 				<Variable name="reactors" comment="" />
-				<Variable name="reportDestainationType" comment="" />
 				<Variable name="reportDestination" comment="" />
+				<Variable name="reportDestinationType" comment="" />
 				<Variable name="shouldReact" comment="" />
 				<Variable name="stimulus_corpse" comment="" />
 				<Variable name="stimulus_unconsciousBody" comment="" />

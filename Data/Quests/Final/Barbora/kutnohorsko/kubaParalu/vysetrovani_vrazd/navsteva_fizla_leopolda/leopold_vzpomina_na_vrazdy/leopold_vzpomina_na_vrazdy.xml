@@ -60,7 +60,7 @@
 				</SelectedSouls>
 				<Decision Name="dec1" Priority="SideQuestSubmission">
 					<Sequences>
-						<Sequence EntryCondition="!Port('hrac_vysetril_stare_vrazdy')&#xD;&#xA;AND &#xD;&#xA;SequenceUsed('hrac_vi_o_starych_vrazdach')&#xD;&#xA;AND &#xD;&#xA;Port('quest_onactive') &#xD;&#xA;AND&#xD;&#xA;SequenceUsed('lipolt_se_probral')" EndType="GoTo" GoToDecision="dec2" Name="seq10">
+						<Sequence EntryCondition="!Port('hrac_vysetril_stare_vrazdy')&#xD;&#xA;AND &#xD;&#xA;SequenceUsed('hrac_vi_o_starych_vrazdach')&#xD;&#xA;AND &#xD;&#xA;Port('quest_onactive') &#xD;&#xA;AND&#xD;&#xA;SequenceUsed('lipolt_se_probral')" EndType="GoTo" GoToDecision="dec18" Name="seq10">
 							<DesignName StringName="leopold_v_seq10_hh4D" Text="seq10" />
 							<UiPrompt StringName="ui_leopold_v_seq10_lUD6" Text="Ještě k těm vraždám..." />
 							<Elements>
@@ -820,7 +820,7 @@
 																																																					</Response>
 																																																				</Elements>
 																																																			</Sequence>
-																																																			<Sequence EndType="Decision" Name="seq41">
+																																																			<Sequence EntryCondition="!ThisSequenceUsed()" EndType="Decision" Name="seq41">
 																																																				<DesignName StringName="leopold_v_seq41_jTgE" Text="seq41" />
 																																																				<UiPrompt StringName="ui_leopold_v_seq41_EuTO" Text="Co měly oběti společného?" />
 																																																				<Elements>
@@ -1474,7 +1474,7 @@
 																																																								</Response>
 																																																							</Elements>
 																																																						</Sequence>
-																																																						<Sequence EntryCondition="!SequenceUsed('prvni_vrazda')&#xD;&#xA;OR  &#xD;&#xA;!SequenceUsed('druha_vrazda')&#xD;&#xA;OR  &#xD;&#xA;!SequenceUsed('treti_vrazda')" EndType="EndDialogue" Name="seq9">
+																																																						<Sequence EntryCondition="SequenceUsed('seq53')&#xD;&#xA;OR &#xD;&#xA;SequenceUsed('seq5_1')" EndType="EndDialogue" Name="seq9">
 																																																							<DesignName StringName="leopold_v_seq9_UiS3" Text="seq9" />
 																																																							<UiPrompt StringName="ui_leopold_v_seq9_FJB0" Text="Já zatím půjdu... pryč." />
 																																																							<Elements>
@@ -1490,7 +1490,7 @@
 																																																								</Response>
 																																																							</Elements>
 																																																						</Sequence>
-																																																						<Sequence EntryCondition="SequenceUsed('prvni_vrazda') AND &#xD;&#xA;SequenceUsed('druha_vrazda') AND &#xD;&#xA;SequenceUsed('treti_vrazda') AND&#xD;&#xA;SequenceUsed('shrnuti_used')" EndType="Decision" Name="seq53">
+																																																						<Sequence EntryCondition="SequenceUsed('prvni_vrazda') AND &#xD;&#xA;SequenceUsed('druha_vrazda') AND &#xD;&#xA;SequenceUsed('treti_vrazda') AND&#xD;&#xA;SequenceUsed('shrnuti_used') AND&#xD;&#xA;!SequenceUsed('seq5_1') AND&#xD;&#xA;!ThisSequenceUsed() " EndType="Decision" Visibility="Internal" Name="seq53">
 																																																							<DesignName StringName="leopold_v_seq53_DmCN" Text="seq53" />
 																																																							<UiPrompt StringName="ui_leopold_v_seq53_dHyf" Text="Dobrá, vím všechno co potřebuju." />
 																																																							<Elements>
@@ -1534,7 +1534,7 @@
 																																																								</Sequences>
 																																																							</Decision>
 																																																						</Sequence>
-																																																						<Sequence EntryCondition="SequenceUsed('prvni_vrazda') AND &#xD;&#xA;SequenceUsed('druha_vrazda') AND &#xD;&#xA;SequenceUsed('treti_vrazda') AND&#xD;&#xA;!SequenceUsed('shrnuti_used')" EndType="GoTo" GoToDecision="dec22" Name="seq5_1">
+																																																						<Sequence EntryCondition="SequenceUsed('prvni_vrazda') AND &#xD;&#xA;SequenceUsed('druha_vrazda') AND &#xD;&#xA;SequenceUsed('treti_vrazda') AND&#xD;&#xA;!SequenceUsed('shrnuti_used') AND&#xD;&#xA;!SequenceUsed('seq53') AND&#xD;&#xA;!ThisSequenceUsed()" EndType="GoTo" GoToDecision="dec22" Visibility="Internal" Name="seq5_1">
 																																																							<DesignName StringName="leopold_v_seq5_1_HjRx" Text="seq5" />
 																																																							<UiPrompt StringName="ui_leopold_v_seq5_1_S8My" Text="Dobrá, vím vše co potřebuju." />
 																																																							<Elements>

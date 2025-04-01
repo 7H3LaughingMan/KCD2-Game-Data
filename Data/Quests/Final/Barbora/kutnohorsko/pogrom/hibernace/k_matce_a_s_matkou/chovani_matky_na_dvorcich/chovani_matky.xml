@@ -57,6 +57,14 @@
 					<Constant Name="fastforwardincludes" Value="false" />
 					<Edge From="MatkaNaDvorku.WaitIOutsideHouse" To="isactive" />
 				</ExactMove>
+				<ExactMove Name="ExactMove_1" PositionY="-440" PositionX="1150" Namespace="utils.move">
+					<Asset Name="smartentity" Alias="qSO" />
+					<Asset Name="npc" Alias="matka" />
+					<Asset Name="destination" Alias="saraDvorkySafePoint" />
+					<Constant Name="speed" Value="run" />
+					<Constant Name="fastforwardincludes" Value="false" />
+					<Edge From="MatkaNaDvorku.RunToBackyard" To="isactive" />
+				</ExactMove>
 				<If Name="if37" PositionY="430" PositionX="120">
 					<Edge From="jindra_je_v_dome" To="Condition">
 						<Vertex>vertex44</Vertex>
@@ -91,19 +99,19 @@
 					<Edge From="utek_zadem" To="SetRunToBackyard">
 						<Vertex>vertex42</Vertex>
 					</Edge>
+					<Edge From="ExactMove_1.onfinished" To="SetRunToSafeZone">
+						<Vertex>DS5mPRfF</Vertex>
+						<Vertex>cYuuf6rT</Vertex>
+					</Edge>
 				</State>
-				<Function Name="or40" PositionY="-150" PositionX="950" MethodName="math::boolean::Or" DeclaringType="math::boolean">
-					<Edge From="MatkaNaDvorku.RunToBackyard" To="A" />
-					<Edge From="MatkaNaDvorku.RunToSafeZone" To="B" />
-				</Function>
 				<Output Name="Output">
 					<Edge From="sara_bezi_do_safe_zony.sara_dobehla_do_safe_zony" To="sara_dobehla_do_safe_zony" />
 				</Output>
 				<sara_barkuje_kdyz_pobijes_strelce Name="sara_barkuje_kdyz_pobijes_strelce" PositionY="1460" PositionX="680" />
 				<sara_barkuje_na_konci_dvorku__pred_poslednim_domem Name="sara_barkuje_na_konci_dvorku__pred_poslednim_domem" PositionY="1270" PositionX="930" />
 				<sara_barkuje_o_strelcich Name="sara_barkuje_o_strelcich" PositionY="1240" PositionX="580" />
-				<sara_bezi_do_safe_zony Name="sara_bezi_do_safe_zony" PositionY="-180" PositionX="1200">
-					<Edge From="or40.bool" To="sara_jde_do_safe_zony" />
+				<sara_bezi_do_safe_zony Name="sara_bezi_do_safe_zony" PositionY="-150" PositionX="1080">
+					<Edge From="MatkaNaDvorku.RunToSafeZone" To="sara_jde_do_safe_zony" />
 				</sara_bezi_do_safe_zony>
 				<sara_do_baraku Name="sara_do_baraku" PositionY="490" PositionX="1050">
 					<Edge From="MatkaNaDvorku.RunToHouse" To="sara_bezi_do_baraku" />
@@ -111,7 +119,7 @@
 				<sara_do_strechy Name="sara_do_strechy" PositionY="130" PositionX="1090">
 					<Edge From="MatkaNaDvorku.RunToRoof" To="sara_bezi_do_strechy" />
 				</sara_do_strechy>
-				<sara_v_safe_zone Name="sara_v_safe_zone" PositionY="0" PositionX="1080">
+				<sara_v_safe_zone Name="sara_v_safe_zone" PositionY="-10" PositionX="1080">
 					<Edge From="MatkaNaDvorku.WaitInSafeZone" To="sara_ceka" />
 				</sara_v_safe_zone>
 				<sara_vedle_baraku Name="sara_vedle_baraku" PositionY="640" PositionX="1020">
@@ -120,6 +128,8 @@
 				</sara_vedle_baraku>
 			</Nodes>
 			<EdgeVertices>
+				<EdgeVertex Name="cYuuf6rT" PositionY="1221" PositionX="454" />
+				<EdgeVertex Name="DS5mPRfF" PositionY="1219" PositionX="1290" />
 				<EdgeVertex Name="vertex10" PositionY="1160" PositionX="1230" />
 				<EdgeVertex Name="vertex11" PositionY="1160" PositionX="130" />
 				<EdgeVertex Name="vertex30" PositionY="1200" PositionX="480" />

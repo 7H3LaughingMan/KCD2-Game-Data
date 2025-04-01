@@ -21,10 +21,18 @@
 					<Edge From="bedna_je_otevrena" To="bedna_je_otevrena" />
 				</navrat_od_bedny>
 				<Output Name="Output">
-					<Edge From="navrat_od_bedny.jindra_dostal_vino" To="jindra_dostal_vino" />
-					<Edge From="navrat_od_bedny.hrac_bednu_neotevrel" To="hrac_bednu_neotevrel" />
+					<Edge From="navrat_od_bedny.hrac_bednu_neotevrel" To="hrac_bednu_neotevrel">
+						<Vertex>nmv7RtwJ</Vertex>
+					</Edge>
+					<Edge From="scenefinishedwaiter1.OnFinished" To="jindra_dostal_vino" />
 				</Output>
+				<SceneFinishedWaiter Name="scenefinishedwaiter1" PositionY="-70" PositionX="390">
+					<Edge From="navrat_od_bedny.jindra_dostal_vino" To="Enqueue" />
+				</SceneFinishedWaiter>
 			</Nodes>
+			<EdgeVertices>
+				<EdgeVertex Name="nmv7RtwJ" PositionY="120" PositionX="580" />
+			</EdgeVertices>
 		</DialogWrapper>
 	</Skald>
 </Database>

@@ -56,6 +56,7 @@
 				<Definition File="trosky__kradez_knihy/barky_pri_nalezeni_knihy.xml" />
 				<Definition File="trosky__kradez_knihy/mlynar__odevzdani_knihy.xml" />
 				<Definition File="trosky__kradez_knihy/nalezeni_knihy.xml" />
+				<Definition File="trosky__kradez_knihy/kradez_knihy__malir.xml" />
 			</Definitions>
 			<Nodes>
 				<Function Name="and10" PositionY="-120" PositionX="100" MethodName="math::boolean::And" DeclaringType="math::boolean">
@@ -63,6 +64,10 @@
 						<Vertex>vertex11</Vertex>
 					</Edge>
 					<Edge From="or12.bool" To="B" />
+				</Function>
+				<Function Name="areacheck15" PositionY="-1900" PositionX="-670" MethodName="wh::rpgmodule::AreaCheck" DeclaringType="wh::rpgmodule">
+					<Asset Name="Souls" Alias="malir" />
+					<Asset Name="Areas" Alias="malirRoom" />
 				</Function>
 				<barky_pri_nalezeni_knihy Name="barky_pri_nalezeni_knihy" PositionY="200" PositionX="-1320">
 					<Edge From="nalezeni_knihy.hrac_nasel_knihu_exec" To="hrac_nasel_knihu_exec" />
@@ -91,6 +96,18 @@
 						<Vertex>vertex55</Vertex>
 					</Edge>
 				</kradez_knihy__kucharka>
+				<kradez_knihy__malir Name="kradez_knihy__malir" PositionY="-1780" PositionX="-310">
+					<Edge From="kradez_knihy__pisar.promluvil_jsem_s_pisarem_o_knize" To="promluvil_jsem_s_pisarem_o_knize">
+						<Vertex>vertex82</Vertex>
+						<Vertex>vertex83</Vertex>
+					</Edge>
+					<Edge From="kradez_knihy__nikvard.najdi_knihu_nikvard_done" To="najdi_knihu_nikvard_done">
+						<Vertex>vertex84</Vertex>
+						<Vertex>2f0QGwPn</Vertex>
+						<Vertex>l0Ldp06U</Vertex>
+					</Edge>
+					<Edge From="areacheck15.IsInside" To="malir_je_na_troskach" />
+				</kradez_knihy__malir>
 				<kradez_knihy__nikvard Name="kradez_knihy__nikvard" PositionY="-1470" PositionX="-320" RequiredForOutput="trosecko">
 					<Edge From="kradez_knihy__pisar.akteri_odhaleni" To="akteri_odhaleni">
 						<Vertex>vertex60</Vertex>
@@ -237,16 +254,18 @@
 					</Edge>
 				</Output>
 				<SaveGame Name="savegame13" PositionY="-1290" PositionX="180">
-					<Constant Name="Objective" Value="zjisti_od_kucharky_co_vi_o_nikvardovi" />
+					<Constant Name="Objective" Value="najdi_nikvarda" />
 					<Edge From="kradez_knihy__kucharka.vim_proc_nikvard_potreboval_lek" To="EnqueueSave" />
 				</SaveGame>
 				<SaveGame Name="savegame14" PositionY="-700" PositionX="230">
-					<Constant Name="Objective" Value="zjisti_od_sluzky_co_vi_o_nikvardovi" />
+					<Constant Name="Objective" Value="najdi_nikvarda" />
 					<Edge From="kradez_knihy__sluzka.znam_obsah_nikvardova_deniku" To="EnqueueSave" />
 				</SaveGame>
 			</Nodes>
 			<EdgeVertices>
+				<EdgeVertex Name="2f0QGwPn" PositionY="-1790" PositionX="-30" />
 				<EdgeVertex Name="8HRFFGy1" PositionY="-1530" PositionX="-90" />
+				<EdgeVertex Name="l0Ldp06U" PositionY="-1790" PositionX="-300" />
 				<EdgeVertex Name="uSGmXP54" PositionY="-1560" PositionX="-650" />
 				<EdgeVertex Name="vertex11" PositionY="-30" PositionX="-1950" />
 				<EdgeVertex Name="vertex28" PositionY="190" PositionX="650" />

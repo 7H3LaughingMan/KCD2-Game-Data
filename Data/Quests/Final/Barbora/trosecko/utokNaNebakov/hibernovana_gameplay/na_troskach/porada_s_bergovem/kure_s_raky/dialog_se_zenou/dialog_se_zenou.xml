@@ -52,8 +52,8 @@
 									</Parenthetical>
 									<Text StringName="poly_posluchac_ale_jiste__pHcp" Text="Ale jistě. Jsem skutečně zvědavá, povídej." />
 									<Commands>
-										<AnimationCommand Delay="0.06" FragmentId="ADLG_Agree" Guid="22231378-6421-c734-ff54-8cd4252b4f42" Variant="0" />
-										<CameraCommand Delay="1.09" CustomCamera="M09_miniFeast_04_customCamera_09" />
+										<AnimationCommand Delay="0.02" FragmentId="ADLG_Agree" Guid="22231378-6421-c734-ff54-8cd4252b4f42" Variant="0" />
+										<CameraCommand Delay="1.09" CustomCamera="M09_miniFeast_04_customCamera_08" />
 									</Commands>
 								</Response>
 							</Elements>
@@ -74,7 +74,7 @@
 								</Sequences>
 							</Decision>
 						</Sequence>
-						<Sequence EntryCondition="!ThisSequenceUsed()&#xD;&#xA;AND&#xD;&#xA;Port('start_z_chatu')" EndType="Decision" Name="z_chatu">
+						<Sequence EntryCondition="!ThisSequenceUsed()&#xD;&#xA;AND&#xD;&#xA;Port('start_z_chatu') AND &#xD;&#xA;!SequenceUsed('odlozil_vypraveni')" EndType="Decision" Name="z_chatu">
 							<DesignName StringName="dialog_se_z_chatu_UK35" Text="z chatu" />
 							<Elements>
 								<Response Role="HENRY" ReferenceLength="1.36">
@@ -84,13 +84,13 @@
 									<Text StringName="dial_henry_kdo_jste_ma_pa_iVgq" Text="Přejete si, má paní?" />
 									<Commands>
 										<AnimationCommand Delay="0.97" FragmentId="ADLG_Bow_light" Guid="a31ff8b3-cbfe-c89b-167f-038b7ec8bff4" Variant="1" />
-										<CameraCommand CustomCamera="M09_miniFeast_04_customCamera_02" />
+										<CameraCommand CustomCamera="M09_miniFeast_04_customCamera_03" />
 									</Commands>
 								</Response>
 							</Elements>
 							<Decision Name="dec15" Priority="MainQuestSubmission" CustomCamera="M09_miniFeast_04_customCamera_04">
 								<Sequences>
-									<Sequence EntryCondition="!ThisSequenceUsed()" EndType="Decision" Visibility="Internal" Reputation="greeting_increase" ReputationChangeTarget="POSLUCHACKA_TROSKY_4" Name="predstavil_se">
+									<Sequence EntryCondition="!ThisSequenceUsed()" EndType="Decision" Visibility="Public" Reputation="greeting_increase" ReputationChangeTarget="POSLUCHACKA_TROSKY_4" Name="predstavil_se">
 										<DesignName StringName="polylog_3_seq1_HYRV" Text="predstavil se" />
 										<UiPrompt StringName="ui_polylog_3_seq1_LbSV" Text="" />
 										<Triggers>
@@ -121,7 +121,7 @@
 												<Text StringName="dial_henry_rad_vas_poznav_JGo1" Text="Rád vás poznávám. Já jsem..." />
 												<Commands>
 													<AnimationCommand Delay="0.56" FragmentId="ADLG_Nod" Guid="f219ea89-720f-4384-b0f6-57044649e8dd" Variant="4" />
-													<AnimationCommand Role="POSLUCHACKA_TROSKY_4" Delay="2.52" FragmentId="ADLG_You" Guid="2fc9cce6-9db8-5aee-56f6-012e71c4cca3" Variant="1" DesiredDuration="2.06" />
+													<AnimationCommand Role="POSLUCHACKA_TROSKY_4" Delay="2.52" FragmentId="ADLG_You" Guid="2fc9cce6-9db8-5aee-56f6-012e71c4cca3" Variant="2" DesiredDuration="2.06" />
 													<CameraCommand Delay="0.07" CustomCamera="M09_miniFeast_04_customCamera_04" />
 												</Commands>
 											</Response>
@@ -142,7 +142,7 @@
 												</Parenthetical>
 												<Text StringName="dial_posluchac_a_byly_to__LaOs" Text="A byly to, s prominutím, samé ztřeštěné historky." />
 												<Commands>
-													<AnimationCommand Delay="2.68" FragmentId="ADLG_Gesture" Guid="593a5655-3744-40d1-b0f7-b259bf2cbd02" Variant="8" />
+													<AnimationCommand Delay="2.68" FragmentId="ADLG_Gesture" Guid="593a5655-3744-40d1-b0f7-b259bf2cbd02" Variant="10" />
 													<CameraCommand Role="HENRY" Delay="3.01" CustomCamera="M09_miniFeast_04_customCamera_03" />
 												</Commands>
 											</Response>
@@ -234,7 +234,7 @@
 															</Parenthetical>
 															<Text StringName="dial_posluchac_to_by_bylo_dxO3" Text="Myslím, že nejlepší to bude od začátku, ne?" />
 															<Commands>
-																<CameraCommand CustomCamera="M09_miniFeast_04_customCamera_07" />
+																<CameraCommand CustomCamera="M09_miniFeast_04_customCamera_08" />
 																<LookAtCommand Role="HENRY" Delay="0.29" LookAtRole="POSLUCHACKA_TROSKY_4" />
 															</Commands>
 														</Response>
@@ -365,7 +365,7 @@
 																									<FacialMoodCommand Role="POSLUCHACKA_TROSKY_4" FacialMood="nervous1" />
 																									<AnimationCommand Delay="3.31" FragmentId="ADLG_Confusion" Guid="5da7fd8b-7cec-40c8-a723-f3cc47022f36" Variant="4" />
 																									<AnimationHeadCommand Role="POSLUCHACKA_TROSKY_4" Delay="2.38" />
-																									<CameraCommand Delay="1.61" CustomCamera="M09_miniFeast_04_customCamera_01" />
+																									<CameraCommand Delay="1.61" CustomCamera="M09_miniFeast_04_customCamera_08" />
 																									<LookAtCommand Role="KNEZ_TROSKY" Delay="1.47" LookAtRole="POSLUCHACKA_TROSKY_4" />
 																								</Commands>
 																							</Response>
@@ -431,8 +431,8 @@
 																											<Commands>
 																												<FacialMoodCommand Role="HENRY" FacialMood="neutral" />
 																												<FacialMoodCommand FacialMood="happy1" />
-																												<AnimationCommand Delay="2.84" FragmentId="ADLG_Gesture" Guid="9e75e88b-fad7-4bb2-9edf-8c9880a8389f" Variant="18" />
-																												<CameraCommand Delay="1.86" CustomCamera="M09_miniFeast_04_customCamera_06" />
+																												<AnimationCommand Delay="2.84" FragmentId="ADLG_Gesture" Guid="9e75e88b-fad7-4bb2-9edf-8c9880a8389f" Variant="23" />
+																												<CameraCommand Delay="0.99" CustomCamera="M09_miniFeast_04_customCamera_08" />
 																											</Commands>
 																										</Response>
 																									</Elements>
@@ -492,6 +492,7 @@
 																															<AnimationCommand Delay="0.16" FragmentId="ADLG_Cross" Guid="5498b03a-0507-c655-b279-f5dea1b6137a" Variant="0" />
 																															<CameraCommand Delay="0.06" CustomCamera="M09_miniFeast_04_customCamera_07" />
 																															<LookAtCommand Role="POSLUCHACKA_TROSKY_4" Delay="4.61" LookAtRole="HENRY" />
+																															<LookAtCommand Delay="2.34" LookAtRole="HENRY" />
 																														</Commands>
 																													</Response>
 																													<Response Role="POSLUCHACKA_TROSKY_4" ReferenceLength="5.89">
@@ -501,8 +502,8 @@
 																														<Text StringName="poly_posluchac_a_dal_co_b_LqK9" Text="Skutečně neslýchané a děsivé. Povídej, co strašného se stalo potom?" />
 																														<Commands>
 																															<FacialMoodCommand FacialMood="happy2" />
-																															<AnimationCommand Delay="2.49" FragmentId="ADLG_Gesture" Guid="9ffc419a-2961-4b63-b466-3fc7e0668275" Variant="20" />
-																															<CameraCommand Delay="3.44" CustomCamera="M09_miniFeast_04_customCamera_08" />
+																															<AnimationCommand Delay="2.49" FragmentId="ADLG_Gesture" Guid="9ffc419a-2961-4b63-b466-3fc7e0668275" Variant="27" />
+																															<CameraCommand Role="HENRY" Delay="3.57" CustomCamera="M09_miniFeast_04_customCamera_08" />
 																														</Commands>
 																													</Response>
 																												</Elements>
@@ -571,7 +572,7 @@
 																																				<Commands>
 																																					<FacialMoodCommand Role="POSLUCHACKA_TROSKY_4" FacialMood="happy3" />
 																																					<AnimationCommand Delay="3.63" FragmentId="ADLG_Scratch" Guid="0d447657-86f3-40da-a34b-7eade02445a6" Variant="0" />
-																																					<AnimationCommand Role="POSLUCHACKA_TROSKY_4" Delay="5.81" FragmentId="ADLG_Laugh" Guid="78e126db-9169-1663-36cf-1f57d840890d" Variant="2" />
+																																					<AnimationCommand Role="POSLUCHACKA_TROSKY_4" Delay="5.81" FragmentId="ADLG_Laugh" Guid="78e126db-9169-1663-36cf-1f57d840890d" Variant="3" />
 																																					<CameraCommand Delay="0.07" CustomCamera="M09_miniFeast_02_customCamera_08" />
 																																					<LookAtCommand Delay="1.91" LookAtRole="POSLUCHACKA_TROSKY_4" Offset="MiddleLeft" TransitionDuration="1.9" />
 																																					<LookAtCommand Role="KNEZ_TROSKY" Delay="1.56" LookAtRole="HENRY" />
@@ -588,7 +589,7 @@
 																																				<Commands>
 																																					<AnimationCommand Role="HENRY" Delay="3.75" FragmentId="ADLG_Confusion" Guid="5da7fd8b-7cec-40c8-a723-f3cc47022f36" Variant="4" />
 																																					<LookAtCommand Role="HENRY" Delay="0.11" LookAtRole="POSLUCHACKA_TROSKY_4" />
-																																					<CameraCommand Role="HENRY" Delay="0.03" CustomCamera="M09_miniFeast_04_customCamera_09" />
+																																					<CameraCommand Role="HENRY" Delay="0.03" CustomCamera="M09_miniFeast_04_customCamera_06" />
 																																				</Commands>
 																																			</Response>
 																																			<Response Role="HENRY" ReferenceLength="5.91">
@@ -598,7 +599,7 @@
 																																				<Text StringName="dial_henry_je_to_tak_lwJo" Text="Ale je to tak! Každej si pak myslel, že sme jen smradlavý pobudové a proto došlo k tomu nedorozumění." />
 																																				<Commands>
 																																					<FacialMoodCommand FacialMood="happy2" />
-																																					<CameraCommand Delay="1.58" CustomCamera="M09_miniFeast_04_customCamera_11" />
+																																					<CameraCommand Delay="0.05" CustomCamera="M09_miniFeast_04_customCamera_11" />
 																																				</Commands>
 																																			</Response>
 																																			<Response Role="KNEZ_TROSKY" ReferenceLength="2.35">
@@ -628,7 +629,7 @@
 																																				</Parenthetical>
 																																				<Text StringName="dial_posluchac_ale_ted_s__beE8" Text="Dobře, ale teď s pravdou ven: proč vás potrestali?" />
 																																				<Commands>
-																																					<AnimationCommand Delay="2.9" FragmentId="ADLG_Gesture" Guid="9ffc419a-2961-4b63-b466-3fc7e0668275" Variant="20" />
+																																					<AnimationCommand Delay="2.9" FragmentId="ADLG_Gesture" Guid="9ffc419a-2961-4b63-b466-3fc7e0668275" Variant="27" />
 																																					<CameraCommand Delay="1.16" CustomCamera="M09_miniFeast_04_customCamera_12" />
 																																				</Commands>
 																																			</Response>
@@ -693,7 +694,7 @@
 																																													<Commands>
 																																														<FacialMoodCommand FacialMood="happy1" />
 																																														<FacialMoodCommand Role="KNEZ_TROSKY" FacialMood="happy1" />
-																																														<AnimationCommand Delay="3.26" FragmentId="ADLG_You" Guid="2fc9cce6-9db8-5aee-56f6-012e71c4cca3" Variant="1" />
+																																														<AnimationCommand Delay="3.26" FragmentId="ADLG_You" Guid="2fc9cce6-9db8-5aee-56f6-012e71c4cca3" Variant="2" />
 																																														<AnimationCommand Role="POSLUCHAC_TROSKY_3" Delay="6.38" FragmentId="ADLG_Nod" Guid="ea13b66e-57ee-d5b4-ed26-8770a18489b5" Variant="1" DesiredDuration="1.52" />
 																																														<CameraCommand CustomCamera="M09_miniFeast_04_customCamera_12" />
 																																														<CameraCommand Role="HENRY" Delay="3.14" CustomCamera="M09_miniFeast_04_customCamera_03" />
@@ -792,7 +793,7 @@
 																																																</Parenthetical>
 																																																<Text StringName="poly_posluchac_tak_pojdme_fNeY" Text="Výtečně! " />
 																																																<Commands>
-																																																	<CameraCommand Role="HENRY" Delay="0.05" CustomCamera="M09_miniFeast_04_customCamera_12" />
+																																																	<CameraCommand Role="HENRY" CustomCamera="M09_miniFeast_04_customCamera_06" />
 																																																</Commands>
 																																															</Response>
 																																															<Response Role="POSLUCHACKA_TROSKY_4" StartDelay="0.51" ReferenceLength="3.24">
@@ -804,6 +805,7 @@
 																																																	<AnimationCommand Role="KNEZ_TROSKY" Delay="2.35" FragmentId="ADLG_Nod" Guid="d7a021f2-d5dc-e433-0bfa-547967fd04e1" Variant="0" />
 																																																	<LookAtCommand Delay="3.03" LookAtRole="POSLUCHAC_TROSKY_3" TransitionDuration="0.5" />
 																																																	<LookAtCommand Delay="1.77" LookAtRole="KNEZ_TROSKY" TransitionDuration="0.5" />
+																																																	<CameraCommand Role="HENRY" Delay="0.06" CustomCamera="M09_miniFeast_04_customCamera_12" />
 																																																</Commands>
 																																															</Response>
 																																															<Response Role="POSLUCHACKA_TROSKY_4" StartDelay="1.47" ReferenceLength="5.72">
@@ -812,7 +814,7 @@
 																																																</Parenthetical>
 																																																<Text StringName="dial_posluchac_venku_je_p_ezaL" Text="Venku je krásná noc a tady je trochu dusno, sama ocením menší procházku. Pojďme!" />
 																																																<Commands>
-																																																	<AnimationCommand Delay="2.77" FragmentId="ADLG_Gesture" Guid="e7242929-54f1-4ac1-98a7-76bb2228807d" Variant="22" />
+																																																	<AnimationCommand Delay="2.77" FragmentId="ADLG_Gesture" Guid="e7242929-54f1-4ac1-98a7-76bb2228807d" Variant="29" />
 																																																	<AnimationCommand Role="POSLUCHAC_TROSKY_3" Delay="-0.99" FragmentId="ADLG_Nod" Guid="ea13b66e-57ee-d5b4-ed26-8770a18489b5" Variant="1" />
 																																																	<CameraCommand Role="HENRY" Delay="0.02" CustomCamera="M09_miniFeast_02_customCamera_08" />
 																																																	<LookAtCommand Delay="-0.25" LookAtRole="HENRY" TransitionDuration="1.1" />
@@ -832,7 +834,7 @@
 																																																<Commands>
 																																																	<FacialMoodCommand Role="POSLUCHACKA_TROSKY_4" FacialMood="sad1" />
 																																																	<AnimationCommand Delay="2.04" FragmentId="ADLG_Bow_light" Guid="02e353df-8415-4ce7-d48c-7def553bf780" Variant="0" />
-																																																	<AnimationCommand Role="POSLUCHACKA_TROSKY_4" Delay="2.74" FragmentId="ADLG_Gesture" Guid="3f2ad039-5fc0-46c9-ab90-768abb66b811" Variant="6" DesiredDuration="4.61" />
+																																																	<AnimationCommand Role="POSLUCHACKA_TROSKY_4" Delay="2.74" FragmentId="ADLG_Gesture" Guid="3f2ad039-5fc0-46c9-ab90-768abb66b811" Variant="7" DesiredDuration="4.61" />
 																																																	<CameraCommand CustomCamera="M09_miniFeast_04_customCamera_05" />
 																																																	<CameraCommand Delay="1.04" CustomCamera="M09_miniFeast_04_customCamera_02" />
 																																																</Commands>
@@ -843,7 +845,7 @@
 																																																</Parenthetical>
 																																																<Text StringName="poly_posluchac_skoda_dej__py4w" Text="Škoda, rytíři, je tady trochu dusno a menší procházku bych ocenila." />
 																																																<Commands>
-																																																	<CameraCommand Delay="1.69" CustomCamera="M09_miniFeast_04_customCamera_08" />
+																																																	<CameraCommand Delay="0.07" CustomCamera="M09_miniFeast_04_customCamera_12" />
 																																																</Commands>
 																																															</Response>
 																																														</Elements>
@@ -883,7 +885,7 @@
 																																													<Text StringName="poly_posluchac_dekuji_zaj_eBuS" Text="Zajímavý a... trochu krkolomný příběh. Hotový div, že seš pořád naživu a s hlavou na krku!" />
 																																													<Commands>
 																																														<FacialMoodCommand FacialMood="thinking2" />
-																																														<AnimationCommand Delay="3.3" FragmentId="ADLG_Gesture" Guid="327e9955-36c1-4ef0-be60-09b74a53e5c5" Variant="4" DesiredDuration="2.88" />
+																																														<AnimationCommand Delay="3.3" FragmentId="ADLG_Gesture" Guid="327e9955-36c1-4ef0-be60-09b74a53e5c5" Variant="5" DesiredDuration="2.88" />
 																																														<CameraCommand CustomCamera="M09_miniFeast_04_customCamera_12" />
 																																														<CameraCommand Role="HENRY" Delay="3.15" CustomCamera="M09_miniFeast_04_customCamera_04" />
 																																													</Commands>
@@ -906,7 +908,7 @@
 																																													<Commands>
 																																														<FacialMoodCommand FacialMood="happy1" />
 																																														<FacialMoodCommand Role="HENRY" FacialMood="happy1" />
-																																														<CameraCommand Delay="1.86" CustomCamera="M09_miniFeast_04_customCamera_08" />
+																																														<CameraCommand Delay="1.86" CustomCamera="M09_miniFeast_04_customCamera_12" />
 																																														<LookAtCommand Delay="4.81" LookAtRole="HENRY" TransitionDuration="0.4" />
 																																														<LookAtCommand Role="POSLUCHAC_TROSKY_3" Delay="3.23" LookAtRole="HENRY" />
 																																														<LookAtCommand Role="KNEZ_TROSKY" Delay="5.02" LookAtRole="HENRY" />
@@ -918,7 +920,7 @@
 																																													<Text StringName="dial_posluchac_jiste_ty_n_Z9sd" Text="Jistě ty ničemy, co vám způsobili tolik příkoří, porazíte, zajmete a dostanou zasloužený trest." />
 																																													<Commands>
 																																														<AnimationCommand Delay="0.37" FragmentId="ADLG_Disagree" Guid="9255ff55-b0f5-c940-bd75-a16e1ed12de7" Variant="0" />
-																																														<CameraCommand Role="HENRY" Delay="0.04" CustomCamera="M09_miniFeast_04_customCamera_12" />
+																																														<CameraCommand Role="HENRY" Delay="0.04" CustomCamera="M09_miniFeast_04_customCamera_08" />
 																																													</Commands>
 																																												</Response>
 																																												<Response Role="POSLUCHACKA_TROSKY_4" StartDelay="0.44" ReferenceLength="4.04">
@@ -927,7 +929,7 @@
 																																													</Parenthetical>
 																																													<Text StringName="dial_posluchac_promin_ze__fN6d" Text="Promiň, že jsem tě tolik zdržela, dobře se bav a pěkný večer, Jidnro." />
 																																													<Commands>
-																																														<AnimationCommand Delay="-0.16" FragmentId="ADLG_Gesture" Guid="7248db3d-064a-4810-ad61-15eebb4a1838" Variant="14" DesiredDuration="4.44" />
+																																														<AnimationCommand Delay="-0.16" FragmentId="ADLG_Gesture" Guid="7248db3d-064a-4810-ad61-15eebb4a1838" Variant="18" DesiredDuration="4.44" />
 																																														<CameraCommand Role="HENRY" Delay="0.03" CustomCamera="M09_miniFeast_02_customCamera_08" />
 																																														<LookAtCommand Role="POSLUCHAC_TROSKY_3" Delay="0.05" LookAtRole="POSLUCHACKA_TROSKY_4" />
 																																													</Commands>
@@ -1148,7 +1150,7 @@
 															</Parenthetical>
 															<Text StringName="dial_posluchac_skoda_jist_KE7i" Text="Ale jistě, vždyť hostina ještě nekončí. Pěknou zábavu, Jindřichu." />
 															<Commands>
-																<AnimationCommand Delay="3.14" FragmentId="ADLG_You" Guid="55644e58-7f23-c611-7e22-a1b98fad1181" Variant="2" />
+																<AnimationCommand Delay="3.14" FragmentId="ADLG_You" Guid="55644e58-7f23-c611-7e22-a1b98fad1181" Variant="3" />
 																<AnimationCommand Delay="0.11" FragmentId="ADLG_Agree" Guid="4eede149-a2a2-0e56-976b-b6a4e6eb44a5" Variant="2" />
 																<CameraCommand Role="HENRY" Delay="3.21" CustomCamera="M09_miniFeast_02_customCamera_08" />
 															</Commands>

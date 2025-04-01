@@ -2,6 +2,11 @@
 <Database xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" Name="brambora">
 	<Skald>
 		<Dialog Name="poustevnik_ambroz_barkuje">
+			<Ports>
+				<Port Name="henryKnowsAmbroz" Direction="In" Type="bool">
+					<DesignName StringName="poustevni_henryknowsambroz_AHZ2" Text="Henry navštvil poustevníka Ambrože" />
+				</Port>
+			</Ports>
 			<Text StringName="poustevnik_ambroz_barkuje_X3Mf" Text="Poustevník Ambrož bárkuje" />
 			<Elements>
 				<GameplayActionElement>
@@ -24,7 +29,7 @@
 							</Elements>
 							<Decision Name="dec2" Priority="SideQuestSubmission">
 								<Sequences>
-									<Sequence EndType="EndDialogue" Cooldown="2m" Name="seq2">
+									<Sequence EntryCondition="Port('henryKnowsAmbroz')" EndType="EndDialogue" Cooldown="2m" Name="seq2">
 										<DesignName StringName="poustevni_seq2_Qp7f" Text="seq2" />
 										<Elements>
 											<Response Role="POUSTEVNIK_AMBROZ">

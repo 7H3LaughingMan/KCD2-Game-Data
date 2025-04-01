@@ -57,6 +57,9 @@
 				<Port Name="semin_vypalen" Direction="In" Type="bool">
 					<DesignName StringName="finalni_p_semin_vypalen_y8dN" Text="Semín vypálen" />
 				</Port>
+				<Port Name="bergov_nevyslal_jizdu_vypalit_semin" Direction="In" Type="bool">
+					<DesignName StringName="finalni_p_bergov_nevyslal_a8xs" Text="Bergov nevyslal jízdu vypálit Semín" />
+				</Port>
 			</Ports>
 			<Definitions>
 				<Definition File="finalni_polylog_merged/finalni_polylog_merged.xml" />
@@ -84,11 +87,12 @@
 						<Vertex>vertex47</Vertex>
 					</Edge>
 				</Function>
-				<Function Name="and_regrettingSemin" PositionY="-350" PositionX="-1740" MethodName="math::boolean::And" DeclaringType="math::boolean">
+				<Function Name="and_regrettingSemin" PositionY="-350" PositionX="-1950" MethodName="math::boolean::And" DeclaringType="math::boolean">
 					<Edge From="semin_vypalen" To="A">
 						<Vertex>sFJp8wUM</Vertex>
 					</Edge>
 					<Edge From="not_sideWithSemins.bool" To="B" />
+					<Edge From="not_bergovForfeitedRideToSemin.bool" To="C" />
 				</Function>
 				<Function Name="and22" PositionY="410" PositionX="250" MethodName="math::boolean::And" DeclaringType="math::boolean">
 					<Edge From="compare19_1.bool" To="B" />
@@ -280,10 +284,13 @@
 						<Vertex>vertex74</Vertex>
 					</Edge>
 				</HasteTrigger>
+				<Function Name="not_bergovForfeitedRideToSemin" PositionY="50" PositionX="-2300" MethodName="math::boolean::Not" DeclaringType="math::boolean">
+					<Edge From="bergov_nevyslal_jizdu_vypalit_semin" To="Value" />
+				</Function>
 				<Function Name="not_noSettling" PositionY="250" PositionX="1420" MethodName="math::boolean::Not" DeclaringType="math::boolean">
 					<Edge From="or_anySettling.bool" To="Value" />
 				</Function>
-				<Function Name="not_sideWithSemins" PositionY="-220" PositionX="-2050" MethodName="math::boolean::Not" DeclaringType="math::boolean">
+				<Function Name="not_sideWithSemins" PositionY="-220" PositionX="-2260" MethodName="math::boolean::Not" DeclaringType="math::boolean">
 					<Edge From="jindra_byl_na_semine_na_strane_seminskych" To="Value">
 						<Vertex>vertex65</Vertex>
 					</Edge>
@@ -487,7 +494,7 @@
 				<EdgeVertex Name="vertex62" PositionY="40" PositionX="-1000" />
 				<EdgeVertex Name="vertex63" PositionY="10" PositionX="-990" />
 				<EdgeVertex Name="vertex64" PositionY="0" PositionX="-1500" />
-				<EdgeVertex Name="vertex65" PositionY="10" PositionX="-2130" />
+				<EdgeVertex Name="vertex65" PositionY="0" PositionX="-2400" />
 				<EdgeVertex Name="vertex66" PositionY="-50" PositionX="-970" />
 				<EdgeVertex Name="vertex67" PositionY="-40" PositionX="-1540" />
 				<EdgeVertex Name="vertex68" PositionY="-20" PositionX="-1520" />

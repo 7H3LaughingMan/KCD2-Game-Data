@@ -99,9 +99,6 @@
 			</Definitions>
 			<Nodes>
 				<State Name="difficulty" PositionY="-380" PositionX="-350" TypeT="shootingContest_difficulty">
-					<Edge From="kontrola_dostupnosti_zacatecniku" To="SetBeginner" />
-					<Edge From="kontrola_dostupnosti_pokrocilich" To="SetAdvanced" />
-					<Edge From="kontrola_dostupnosti_mistru" To="SetExpert" />
 					<Edge From="triggersequence39.B" To="SetNone" />
 					<Edge From="zapnuti__vypnuti_souteze.soutez_dokoncena_na_hrac_se_neucastnil" To="SetNone">
 						<Vertex>vertex134</Vertex>
@@ -119,8 +116,14 @@
 						<Vertex>vertex156</Vertex>
 						<Vertex>vertex135</Vertex>
 					</Edge>
+					<Edge From="triggersequence39_1.A" To="SetNone" />
+					<Edge From="triggersequence39_1.B" To="SetBeginner" />
+					<Edge From="triggersequence39_2.A" To="SetNone" />
+					<Edge From="triggersequence39_2.B" To="SetAdvanced" />
+					<Edge From="triggersequence39_3.A" To="SetNone" />
+					<Edge From="triggersequence39_3.B" To="SetExpert" />
 				</State>
-				<dostupnost_strelcu Name="dostupnost_lukonstrelcu" PositionY="-480" PositionX="380" Namespace="">
+				<dostupnost_strelcu Name="dostupnost_lukonstrelcu" PositionY="-570" PositionX="380" Namespace="">
 					<Edge From="pocet_soutezicich" To="pocet_soutezicich">
 						<Vertex>vertex73</Vertex>
 					</Edge>
@@ -142,9 +145,10 @@
 					<Edge From="difficulty.OnExec" To="kontrola_dostupnosti_strelcu_pro_zvolenou_obtiznost" />
 					<Edge From="difficulty.State" To="zvolena_obtiznost" />
 				</dostupnost_strelcu>
-				<kontrola_strelnych_zbrani Name="kontrola_strelnych_zbrani" PositionY="-500" PositionX="2420" Namespace="" />
+				<kontrola_strelnych_zbrani Name="kontrola_strelnych_zbrani" PositionY="-620" PositionX="2420" Namespace="" />
 				<nastaveni_pro_dialog_po_konci_souteze Name="nastaveni_pro_dialog_po_konci_souteze" PositionY="1510" PositionX="2460" Namespace="">
 					<Asset Name="misto_pro_rozhodciho" Alias="refereeSpot" />
+					<Asset Name="strelnice" Alias="shootingRange" />
 					<Asset Name="dialogueholder_1" Alias="winDialogAfterContest" />
 					<Edge From="rozhodci" To="referee">
 						<Vertex>vertex141</Vertex>
@@ -204,7 +208,7 @@
 						<Vertex>pXJ9wjxH</Vertex>
 					</Edge>
 				</Output>
-				<platba Name="platba" PositionY="-690" PositionX="1880" Namespace="">
+				<platba Name="platba" PositionY="-790" PositionX="1880" Namespace="">
 					<Edge From="sazka_zacatecnici" To="sazka_zacatecnici">
 						<Vertex>vertex55</Vertex>
 					</Edge>
@@ -287,8 +291,17 @@
 					<Asset Name="cutsceneholder" Alias="archeryContestStart" />
 					<Edge From="revive.onexec" To="start_teleportace" />
 				</teleport_na_strelnici>
-				<TriggerSequence Name="triggersequence39" PositionY="-290" PositionX="-750">
+				<TriggerSequence Name="triggersequence39" PositionY="-490" PositionX="-770">
 					<Edge From="dat_hraci_odmenu" To="Exec" />
+				</TriggerSequence>
+				<TriggerSequence Name="triggersequence39_1" PositionY="-340" PositionX="-770">
+					<Edge From="kontrola_dostupnosti_zacatecniku" To="Exec" />
+				</TriggerSequence>
+				<TriggerSequence Name="triggersequence39_2" PositionY="-190" PositionX="-770">
+					<Edge From="kontrola_dostupnosti_pokrocilich" To="Exec" />
+				</TriggerSequence>
+				<TriggerSequence Name="triggersequence39_3" PositionY="-40" PositionX="-770">
+					<Edge From="kontrola_dostupnosti_mistru" To="Exec" />
 				</TriggerSequence>
 				<TriggerSequence Name="triggersequence41" PositionY="280" PositionX="1480">
 					<Edge From="zapnuti__vypnuti_souteze.soutez_dokoncena_hrac_vyhral" To="Exec" />
@@ -308,18 +321,29 @@
 						<Vertex>vertex83</Vertex>
 						<Vertex>vertex133</Vertex>
 					</Edge>
+					<Edge From="zapnuti__vypnuti_souteze.soutez_dokoncena_hrac_vyhral" To="konec_souteze">
+						<Vertex>9KyFfuT8</Vertex>
+						<Vertex>eXWFuCkC</Vertex>
+					</Edge>
+					<Edge From="zapnuti__vypnuti_souteze.soutez_zrusena_nebo_dokoncena_a_hrac_prohral" To="konec_souteze">
+						<Vertex>9KyFfuT8</Vertex>
+						<Vertex>eXWFuCkC</Vertex>
+					</Edge>
 				</vybaveni_pro_hrace>
 				<vyber_ucastniku Name="vyber_ucastniku" PositionY="640" PositionX="20" Namespace="">
 					<Asset Name="strelnice" Alias="shootingRange" />
 					<Edge From="start_teleportace" To="vyber" />
 					<Edge From="zacatecnici" To="zacatecnici">
 						<Vertex>vertex72</Vertex>
+						<Vertex>kLeqKf3j</Vertex>
 					</Edge>
 					<Edge From="pokrocily" To="pokrocily">
 						<Vertex>vertex70</Vertex>
+						<Vertex>RDLXuzEk</Vertex>
 					</Edge>
 					<Edge From="mistri" To="mistri">
 						<Vertex>vertex68</Vertex>
+						<Vertex>eI7fe987</Vertex>
 					</Edge>
 					<Edge From="pocet_soutezicich" To="pocet_soutezicich">
 						<Vertex>vertex105</Vertex>
@@ -377,18 +401,23 @@
 				</zapnuti__vypnuti_souteze>
 			</Nodes>
 			<EdgeVertices>
+				<EdgeVertex Name="9KyFfuT8" PositionY="84" PositionX="1312" />
+				<EdgeVertex Name="eI7fe987" PositionY="870" PositionX="-650" />
+				<EdgeVertex Name="eXWFuCkC" PositionY="80" PositionX="371" />
 				<EdgeVertex Name="Gun370CA" PositionY="1587" PositionX="-472" />
 				<EdgeVertex Name="I17HmorH" PositionY="1555" PositionX="-472" />
 				<EdgeVertex Name="IkPHLfba" PositionY="50" PositionX="2290" />
 				<EdgeVertex Name="IPoPdBpc" PositionY="-17" PositionX="1429" />
+				<EdgeVertex Name="kLeqKf3j" PositionY="830" PositionX="-650" />
 				<EdgeVertex Name="pXJ9wjxH" PositionY="177" PositionX="2232" />
 				<EdgeVertex Name="qnvQR2a3" PositionY="20" PositionX="2290" />
+				<EdgeVertex Name="RDLXuzEk" PositionY="850" PositionX="-650" />
 				<EdgeVertex Name="T6JDgkI5" PositionY="250" PositionX="1460" />
-				<EdgeVertex Name="uqmIfYy8" PositionY="80" PositionX="1650" />
+				<EdgeVertex Name="uqmIfYy8" PositionY="60" PositionX="1640" />
 				<EdgeVertex Name="UYwPkIry" PositionY="1625" PositionX="1466" />
 				<EdgeVertex Name="vertex105" PositionY="720" PositionX="-520" />
 				<EdgeVertex Name="vertex106" PositionY="692" PositionX="-503" />
-				<EdgeVertex Name="vertex107" PositionY="-440" PositionX="-810" />
+				<EdgeVertex Name="vertex107" PositionY="-530" PositionX="-810" />
 				<EdgeVertex Name="vertex108" PositionY="1480" PositionX="-420" />
 				<EdgeVertex Name="vertex109" PositionY="1490" PositionX="1770" />
 				<EdgeVertex Name="vertex124" PositionY="1300" PositionX="170" />
@@ -396,31 +425,31 @@
 				<EdgeVertex Name="vertex127" PositionY="1350" PositionX="-479" />
 				<EdgeVertex Name="vertex128" PositionY="1374" PositionX="-477" />
 				<EdgeVertex Name="vertex133" PositionY="-20" PositionX="260" />
-				<EdgeVertex Name="vertex134" PositionY="80" PositionX="1330" />
-				<EdgeVertex Name="vertex135" PositionY="70" PositionX="-310" />
-				<EdgeVertex Name="vertex138" PositionY="-570" PositionX="-870" />
-				<EdgeVertex Name="vertex139" PositionY="-520" PositionX="-460" />
+				<EdgeVertex Name="vertex134" PositionY="60" PositionX="1320" />
+				<EdgeVertex Name="vertex135" PositionY="50" PositionX="-320" />
+				<EdgeVertex Name="vertex138" PositionY="-660" PositionX="-870" />
+				<EdgeVertex Name="vertex139" PositionY="-610" PositionX="-460" />
 				<EdgeVertex Name="vertex140" PositionY="1300" PositionX="960" />
 				<EdgeVertex Name="vertex141" PositionY="750" PositionX="-530" />
-				<EdgeVertex Name="vertex142" PositionY="-550" PositionX="-860" />
-				<EdgeVertex Name="vertex143" PositionY="-490" PositionX="-870" />
+				<EdgeVertex Name="vertex142" PositionY="-640" PositionX="-860" />
+				<EdgeVertex Name="vertex143" PositionY="-580" PositionX="-870" />
 				<EdgeVertex Name="vertex144" PositionY="-30" PositionX="1430" />
 				<EdgeVertex Name="vertex149" PositionY="20" PositionX="1830" />
 				<EdgeVertex Name="vertex151" PositionY="370" PositionX="-360" />
 				<EdgeVertex Name="vertex152" PositionY="50" PositionX="1830" />
 				<EdgeVertex Name="vertex153" PositionY="1396" PositionX="-474" />
-				<EdgeVertex Name="vertex156" PositionY="73" PositionX="116" />
-				<EdgeVertex Name="vertex55" PositionY="-680" PositionX="-840" />
-				<EdgeVertex Name="vertex57" PositionY="-650" PositionX="-860" />
-				<EdgeVertex Name="vertex61" PositionY="-620" PositionX="-860" />
+				<EdgeVertex Name="vertex156" PositionY="50" PositionX="110" />
+				<EdgeVertex Name="vertex55" PositionY="-770" PositionX="-840" />
+				<EdgeVertex Name="vertex57" PositionY="-740" PositionX="-860" />
+				<EdgeVertex Name="vertex61" PositionY="-710" PositionX="-860" />
 				<EdgeVertex Name="vertex67" PositionY="180" PositionX="230" />
-				<EdgeVertex Name="vertex68" PositionY="180" PositionX="-290" />
+				<EdgeVertex Name="vertex68" PositionY="160" PositionX="-990" />
 				<EdgeVertex Name="vertex69" PositionY="160" PositionX="220" />
-				<EdgeVertex Name="vertex70" PositionY="160" PositionX="-290" />
+				<EdgeVertex Name="vertex70" PositionY="140" PositionX="-990" />
 				<EdgeVertex Name="vertex71" PositionY="140" PositionX="210" />
-				<EdgeVertex Name="vertex72" PositionY="140" PositionX="-290" />
-				<EdgeVertex Name="vertex73" PositionY="-420" PositionX="-830" />
-				<EdgeVertex Name="vertex74" PositionY="-600" PositionX="50" />
+				<EdgeVertex Name="vertex72" PositionY="120" PositionX="-990" />
+				<EdgeVertex Name="vertex73" PositionY="-510" PositionX="-830" />
+				<EdgeVertex Name="vertex74" PositionY="-690" PositionX="50" />
 				<EdgeVertex Name="vertex83" PositionY="-20" PositionX="100" />
 				<EdgeVertex Name="vertex87" PositionY="-20" PositionX="560" />
 				<EdgeVertex Name="vertex92" PositionY="1500" PositionX="-440" />

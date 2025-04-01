@@ -74,24 +74,39 @@
 				<State Name="FindingBonesWithoutWoodcutter" PositionY="-660" PositionX="180" RequiredForOutput="kutnohorsko" TypeT="FindBonesWithoutWoodcutter">
 					<Edge From="ifdeathcheck195.True" To="SetCanBePicked" />
 					<Edge From="woodcutter_died" To="SetCanBePicked" />
-					<Edge From="pickBones.OnBonesWereGone" To="SetCanceled">
-						<Vertex>vertex163</Vertex>
-						<Vertex>vertex164</Vertex>
+					<Edge From="if199.True" To="SetDone">
+						<Vertex>xoxecXe7</Vertex>
+						<Vertex>IpBs6vqM</Vertex>
 					</Edge>
-					<Edge From="pickBones.OnBonesArePicked" To="SetDone">
-						<Vertex>vertex167</Vertex>
-						<Vertex>vertex168</Vertex>
+					<Edge From="if199_1.True" To="SetCanceled">
+						<Vertex>x2nElXXB</Vertex>
+						<Vertex>E9pr9nFJ</Vertex>
 					</Edge>
 				</State>
 				<hledani_kosti_v_areach Name="hledani_kosti_v_areach" PositionY="120" PositionX="1010" RequiredForOutput="kutnohorsko">
 					<Edge From="znam_cestu_ke_kostem" To="znam_cestu_ke_kostem" />
 					<Edge From="pickBones.CanBePicked" To="kosti_lze_sebrat" />
 					<Edge From="quest_skoncil" To="quest_skoncil" />
+					<Edge From="pickBones.OnBonesArePicked" To="bones_picked" />
 				</hledani_kosti_v_areach>
 				<HoleTrigger Name="holetrigger190" PositionY="380" PositionX="1410">
 					<Asset Name="Hole" Alias="boneHole" />
 					<Edge From="or173.bool" To="IsActive" />
 				</HoleTrigger>
+				<If Name="if199" PositionY="-350" PositionX="550">
+					<Edge From="FindingBonesWithoutWoodcutter.CanBePicked" To="Condition" />
+					<Edge From="pickBones.OnBonesArePicked" To="Exec">
+						<Vertex>vertex167</Vertex>
+						<Vertex>vertex168</Vertex>
+					</Edge>
+				</If>
+				<If Name="if199_1" PositionY="-510" PositionX="550">
+					<Edge From="FindingBonesWithoutWoodcutter.CanBePicked" To="Condition" />
+					<Edge From="pickBones.OnBonesWereGone" To="Exec">
+						<Vertex>vertex163</Vertex>
+						<Vertex>vertex164</Vertex>
+					</Edge>
+				</If>
 				<IfFunction Name="ifand15" PositionY="1210" PositionX="2980" MethodName="math::boolean::And" DeclaringType="math::boolean">
 					<Edge From="standoff_je_pripraven" To="A">
 						<Vertex>vertex36</Vertex>
@@ -210,6 +225,8 @@
 				</Watch>
 			</Nodes>
 			<EdgeVertices>
+				<EdgeVertex Name="E9pr9nFJ" PositionY="-57" PositionX="140" />
+				<EdgeVertex Name="IpBs6vqM" PositionY="-116" PositionX="143" />
 				<EdgeVertex Name="vertex106" PositionY="860" PositionX="-350" />
 				<EdgeVertex Name="vertex107" PositionY="950" PositionX="800" />
 				<EdgeVertex Name="vertex108" PositionY="940" PositionX="210" />
@@ -233,13 +250,15 @@
 				<EdgeVertex Name="vertex161" PositionY="1497" PositionX="1684" />
 				<EdgeVertex Name="vertex162" PositionY="1702" PositionX="-259" />
 				<EdgeVertex Name="vertex163" PositionY="-70" PositionX="840" />
-				<EdgeVertex Name="vertex164" PositionY="-72" PositionX="92" />
+				<EdgeVertex Name="vertex164" PositionY="-80" PositionX="540" />
 				<EdgeVertex Name="vertex167" PositionY="-100" PositionX="840" />
-				<EdgeVertex Name="vertex168" PositionY="-102" PositionX="91" />
+				<EdgeVertex Name="vertex168" PositionY="-100" PositionX="590" />
 				<EdgeVertex Name="vertex170" PositionY="-95" PositionX="1778" />
 				<EdgeVertex Name="vertex36" PositionY="1340" PositionX="-420" />
 				<EdgeVertex Name="vertex58" PositionY="610" PositionX="-220" />
 				<EdgeVertex Name="vertex62" PositionY="680" PositionX="-220" />
+				<EdgeVertex Name="x2nElXXB" PositionY="-60" PositionX="670" />
+				<EdgeVertex Name="xoxecXe7" PositionY="-129" PositionX="795" />
 			</EdgeVertices>
 			<Text StringName="hledani_kosti_7RFJ" Text="hledání kostí" />
 			<Elements>

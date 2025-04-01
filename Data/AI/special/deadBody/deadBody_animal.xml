@@ -22,7 +22,11 @@
 										<ExecuteLua code="entity.soul:DealDamage(999, 999, entity.this.id, true)" />
 									</Else>
 								</IsDeadCheck>
-								<Wait duration="&apos;-1&apos;" timeType="GameTime" doFail="false" variation="" />
+								<VariableExistsGate VarToTest="$allowedMLOD" VarIndexMode="All" FailSubtMissing="false" saveVersion="2">
+									<Then canSkip="1">
+										<Wait duration="&apos;-1&apos;" timeType="GameTime" doFail="false" variation="" />
+									</Then>
+								</VariableExistsGate>
 							</Sequence>
 						</EntityContext>
 					</EntityContext>
@@ -68,9 +72,14 @@
 											</ExecuteLua>
 										</Else>
 									</IsDeadCheck>
-									<Wait hasInputBreakpoint="0" comment="" breakpointFlags="0">
+									<VariableExistsGate hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
 										<OutputBreakpoints />
-									</Wait>
+										<Then>
+											<Wait hasInputBreakpoint="0" comment="" breakpointFlags="0">
+												<OutputBreakpoints />
+											</Wait>
+										</Then>
+									</VariableExistsGate>
 								</Sequence>
 							</EntityContext>
 						</EntityContext>

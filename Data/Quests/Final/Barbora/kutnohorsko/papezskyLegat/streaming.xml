@@ -60,12 +60,19 @@
 					<Asset Name="A" Alias="gorila_1" />
 					<Asset Name="B" Alias="gorila_2" />
 				</MakeArray>
+				<Function Name="not12" PositionY="-110" PositionX="-310" MethodName="math::boolean::Not" DeclaringType="math::boolean">
+					<Edge From="streamprofileshandling.profileactive" To="Value" />
+				</Function>
 				<State Name="passageEntranceState" PositionY="380" PositionX="-650" TypeT="PassageEntrance">
 					<Edge From="pristreamuj_barieru_kolem_ruthardky" To="SetDuring" />
 				</State>
 				<Layer Name="profile10" PositionY="570" PositionX="-330">
 					<Asset Name="Profiles" Alias="openPassage" />
 					<Edge From="passageEntranceState.During" To="IsActive" />
+				</Layer>
+				<Layer Name="profile13" PositionY="-200" PositionX="-40">
+					<Asset Name="Profiles" Alias="sukov_cestaDefault" />
+					<Edge From="not12.bool" To="IsActive" />
 				</Layer>
 				<Layer Name="profile5" PositionY="380" PositionX="-330">
 					<Asset Name="Profiles" Alias="closedPassage" />
@@ -158,6 +165,7 @@
 				<ProfileAsset Name="barieraUVinic" AssetProfiles="papezskyLegat_barrierVineyard" />
 				<SoulAsset Name="gravelooters" SharedSoulGuids="c1e5cdf5-9edb-4746-987d-88720afdcbde 308808ad-4ceb-441f-92c1-605a4ad7cea5" />
 				<SoulAsset Name="legatTeam" SharedSoulGuids="f139a8e9-fdf3-4442-bc39-2ed397af864a 58306813-d171-4909-83b8-e256c499ed3d" />
+				<ProfileAsset Name="sukov_cestaDefault" AssetProfiles="sukov_noRacePaths" />
 			</Assets>
 			<Text StringName="streaming_Qgxh" Text="Streaming" />
 		</Module>

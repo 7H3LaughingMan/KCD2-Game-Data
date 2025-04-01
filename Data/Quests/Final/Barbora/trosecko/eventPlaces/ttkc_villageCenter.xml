@@ -2,12 +2,21 @@
 <Database xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" Name="brambora">
 	<Skald>
 		<RandomEventPlace Name="ttkc_villageCenter" Cooldown="60m" Difficulty="0.35" DifficultyMixRatio="0.7" ViewRadius="2.5" GlobalCooldownType="City">
+			<Ports>
+				<Port Name="socky__pranyr_je_nastreamovan" Direction="In" Type="bool">
+					<DesignName StringName="ttkc_vill_socky__pranyr_j_3N9w" Text="Socky - Pranyr je nastreamovan" />
+				</Port>
+			</Ports>
 			<Nodes>
 				<hlasatel Name="hlasatel" PositionY="290" PositionX="-230" Namespace="random_events.hlasatel.event_hlasatel">
-					<Constant Name="isenabled" Value="true" />
 					<Constant Name="zikmundov_tabor" Value="false" />
 					<Constant Name="sigmunds_goodness_is_possible_here" Value="true" />
+					<Constant Name="make_announcer_leavelevel" Value="false" />
+					<Edge From="not1.bool" To="isenabled" />
 				</hlasatel>
+				<Function Name="not1" PositionY="-40" PositionX="-560" MethodName="math::boolean::Not" DeclaringType="math::boolean">
+					<Edge From="socky__pranyr_je_nastreamovan" To="Value" />
+				</Function>
 				<pocestny Name="pocestny" PositionY="510" PositionX="-230" Namespace="random_events.pocestny.event_pocestny">
 					<Constant Name="city_pocestny" Value="true" />
 					<Constant Name="pocestnyunluckyguy_is_possible_here" Value="false" />
@@ -15,9 +24,10 @@
 					<Constant Name="oldrichseminreward_is_possible_here" Value="false" />
 				</pocestny>
 				<pranyr Name="pranyr" PositionY="-90" PositionX="-220" Namespace="random_events.pranyr.event_pranyr">
-					<Constant Name="isenabled" Value="true" />
 					<Constant Name="kejkliri_is_possible_here" Value="false" />
 					<Constant Name="sedmstatecnych2_hans_je_na_pranyri" Value="false" />
+					<Constant Name="make_announcer_leavelevel" Value="false" />
+					<Edge From="not1.bool" To="isenabled" />
 				</pranyr>
 				<rvacka Name="rvacka" PositionY="110" PositionX="-220" Namespace="random_events.rvacka.event_rvacka">
 					<Constant Name="isenabled" Value="true" />

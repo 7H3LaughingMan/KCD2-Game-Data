@@ -58,12 +58,16 @@
 					<Edge From="dogAction_feed.OnTrigger" To="Exec" />
 				</Function>
 				<Function Name="hasscriptperk52" PositionY="880" PositionX="140" MethodName="wh::rpgmodule::HasScriptPerk" DeclaringType="wh::rpgmodule">
+					<Asset Name="Soul" Alias="player" />
 					<Constant Name="ScriptPerk" Value="d87495e8-b5f6-4099-8d91-89e52d383a05" />
-					<Edge From="ovladani_chatem.HENRY" To="Soul">
-						<Vertex>EQDAelll</Vertex>
-						<Vertex>9Lwbzu7J</Vertex>
-					</Edge>
 				</Function>
+				<InstantSendMessage Name="instantsendmessagedogobjectivechangerequestskald69" PositionY="1550" PositionX="1260" MessageType="dog:objectiveChangeRequestSkald">
+					<Asset Name="Receiver" Alias="companionDog" />
+					<Constant Name="Content_objective" Value="move" />
+					<Constant Name="Content_priority" Value="executingOrder" />
+					<Edge From="timer65.OnFinished" To="Exec" />
+					<Edge From="switch71.Value1" To="Content_position" />
+				</InstantSendMessage>
 				<Function Name="isinactorstate58" PositionY="690" PositionX="100" MethodName="wh::entitymodule::IsInActorState" DeclaringType="wh::entitymodule">
 					<Asset Name="Souls" Alias="player" />
 					<Constant Name="State" Value="carryCorpse" />
@@ -74,7 +78,21 @@
 					<Constant Name="Tag" Value="initMaster" />
 					<Edge From="vorechAbandoned.State" To="IsActive" />
 				</LinkEffectNoData>
-				<HasteTrigger Name="makeAppleSniffable" PositionY="1580" PositionX="650" />
+				<HasteTrigger Name="makeAppleSniffable" PositionY="1580" PositionX="0" />
+				<MakeArray Name="makearray62" PositionY="1100" PositionX="50" TypeT="wh::rpgmodule::Souls">
+					<Asset Name="A" Alias="player" />
+					<Asset Name="B" Alias="companionDog" />
+				</MakeArray>
+				<Function Name="makevector_kutnohorsko" PositionY="2210" PositionX="690" MethodName="math::vector::MakeVector" DeclaringType="math::vector">
+					<Constant Name="X" Value="2929" />
+					<Constant Name="Y" Value="2939" />
+					<Constant Name="Z" Value="106" />
+				</Function>
+				<Function Name="makevector_trosecko" PositionY="2030" PositionX="690" MethodName="math::vector::MakeVector" DeclaringType="math::vector">
+					<Constant Name="X" Value="1653.25" />
+					<Constant Name="Y" Value="2162.5" />
+					<Constant Name="Z" Value="35.34" />
+				</Function>
 				<ocuchani_itemu Name="ocuchani_itemu" PositionY="580" PositionX="660" />
 				<Function Name="or48" PositionY="80" PositionX="0" MethodName="math::boolean::Or" DeclaringType="math::boolean">
 					<Edge From="vorech_je_zase_hracuv" To="A" />
@@ -99,6 +117,7 @@
 					<Edge From="hrac_je_na_trosecku" To="hrac_je_na_trosecku" />
 					<Edge From="hasscriptperk52.bool" To="playerhasperksearch" />
 					<Edge From="isinactorstate58.InState" To="player_carrybody" />
+					<Edge From="threatscheck63.IsThreatened" To="hrac_nebo_pes_je_v_combatu" />
 				</ovladani_chatem>
 				<Function Name="petdog2" PositionY="610" PositionX="1640" MethodName="wh::xgenaimodule::activitysystem::PetDog" DeclaringType="wh::xgenaimodule::activitysystem">
 					<Edge From="dogAction_pet.OnTrigger" To="Exec" />
@@ -127,25 +146,42 @@
 					</Edge>
 					<Edge From="dogMode_wait.OnTrigger" To="Exec" />
 				</Function>
-				<SniffableItem Name="sniffableitem50" PositionY="1580" PositionX="1430">
+				<SniffableItem Name="sniffableitem50" PositionY="1580" PositionX="570">
 					<Asset Name="Areas" Alias="sniffableArea" />
 					<Asset Name="TargetPoints" Alias="sniffableTagpoint" />
 					<Constant Name="ItemClass" Value="2264f217-590e-4c0f-a4c6-f50c6532b9f6" />
 					<Edge From="state51.State" To="IsActive" />
 				</SniffableItem>
-				<State Name="state51" PositionY="1580" PositionX="1070" TypeT="bool">
+				<State Name="state51" PositionY="1580" PositionX="310" TypeT="bool">
 					<Edge From="makeAppleSniffable.OnTrigger" To="SetTrue" />
 				</State>
+				<Switch Name="switch71" PositionY="1910" PositionX="980" TypeT="bool" ValueTypes="Vector" SwitchValues="true">
+					<Edge From="hrac_je_na_trosecku" To="Switch">
+						<Vertex>L1LlCx9x</Vertex>
+					</Edge>
+					<Edge From="makevector_trosecko.Vector" To="trueValue1" />
+					<Edge From="makevector_kutnohorsko.Vector" To="DefaultValue1" />
+				</Switch>
+				<Function Name="threatscheck63" PositionY="1100" PositionX="300" MethodName="wh::rpgmodule::ThreatsCheck" DeclaringType="wh::rpgmodule">
+					<Edge From="makearray62.Array" To="Souls" />
+				</Function>
+				<Timer Name="timer65" PositionY="1550" PositionX="910">
+					<Constant Name="Duration" Value="1s" />
+					<Constant Name="TimeType" Value="GameTime" />
+					<Edge From="triggersequence66.B" To="SetRunning" />
+				</Timer>
+				<TriggerSequence Name="triggersequence66" PositionY="1203" PositionX="778">
+					<Edge From="ovladani_chatem.domu" To="Exec" />
+				</TriggerSequence>
 				<State Name="vorechAbandoned" PositionY="1230" PositionX="1080" TypeT="bool">
-					<Edge From="ovladani_chatem.domu" To="SetTrue" />
 					<Edge From="vraceni_psa_hraci" To="SetFalse">
 						<Vertex>vertex3</Vertex>
 					</Edge>
+					<Edge From="triggersequence66.A" To="SetTrue" />
 				</State>
 			</Nodes>
 			<EdgeVertices>
-				<EdgeVertex Name="9Lwbzu7J" PositionY="1080" PositionX="170" />
-				<EdgeVertex Name="EQDAelll" PositionY="1080" PositionX="890" />
+				<EdgeVertex Name="L1LlCx9x" PositionY="2000" PositionX="0" />
 				<EdgeVertex Name="vertex1" PositionY="1530" PositionX="1430" />
 				<EdgeVertex Name="vertex10" PositionY="280" PositionX="1190" />
 				<EdgeVertex Name="vertex11" PositionY="280" PositionX="1420" />
@@ -175,6 +211,7 @@
 				<TriggerAreaAsset Name="startArea" />
 				<TriggerAreaAsset Name="searchArea" />
 				<SoulAsset Name="hare" />
+				<TagPointAsset Name="dogRunPoint" />
 			</Assets>
 			<Text StringName="chat_uFjE" Text="Chat" />
 		</Module>

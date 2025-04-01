@@ -24,6 +24,7 @@
 				<Definition File="duel_s_krystofem_oderinem/barriercontrol.xml" />
 				<Definition File="duel_s_krystofem_oderinem/krystof__barkuje_na_lidi_pred_soubojem.xml" />
 				<Definition File="duel_s_krystofem_oderinem/ignoreduel.xml" />
+				<Definition File="duel_s_krystofem_oderinem/duel_barky_krystof_oderin.xml" />
 			</Definitions>
 			<Nodes>
 				<HasteTrigger Name="21_startOderinFight" PositionY="-170" PositionX="-2720" />
@@ -32,6 +33,11 @@
 					<Edge From="duelWithKrystofSequence.Fight" To="fighting" />
 				</barriercontrol>
 				<duel_barky_bohuta Name="duel_barky_bohuta" PositionY="-20" PositionX="-970" />
+				<duel_barky_krystof_oderin Name="duel_barky_krystof_oderin" PositionY="340" PositionX="-950">
+					<Edge From="duelWithKrystofSequence.Fight" To="active">
+						<Vertex>2oDXlncu</Vertex>
+					</Edge>
+				</duel_barky_krystof_oderin>
 				<duel_with_krystof Name="duel_with_krystof" PositionY="120" PositionX="-1270">
 					<Edge From="duelWithKrystofSequence.Fight" To="Awake" />
 				</duel_with_krystof>
@@ -53,6 +59,15 @@
 				<ignoreduel Name="ignoreduel" PositionY="-244" PositionX="-708">
 					<Edge From="or28.bool" To="active" />
 				</ignoreduel>
+				<InstantSendMessage Name="instantsendmessageplayerholsterweapon30" PositionY="560" PositionX="-1320" MessageType="player:holsterWeapon">
+					<Asset Name="Receiver" Alias="player_any" />
+					<Edge From="duelWithKrystofSequence.OnBohutaWon" To="Exec">
+						<Vertex>SG0KfM1p</Vertex>
+					</Edge>
+					<Edge From="duelWithKrystofSequence.OnKrystofWon" To="Exec">
+						<Vertex>SG0KfM1p</Vertex>
+					</Edge>
+				</InstantSendMessage>
 				<krystof__barkuje_na_lidi_pred_soubojem Name="krystof__barkuje_na_lidi_pred_soubojem" PositionY="110" PositionX="-980" />
 				<krystof_oderin_uz_dost Name="krystof_oderin_uz_dost" PositionY="570" PositionX="-410" />
 				<objective_for_krystofduel Name="objective_for_krystofduel" PositionY="-470" PositionX="-330" RequiredForOutput="kutnohorsko">
@@ -117,6 +132,8 @@
 				</Function>
 			</Nodes>
 			<EdgeVertices>
+				<EdgeVertex Name="2oDXlncu" PositionY="383" PositionX="-1236" />
+				<EdgeVertex Name="SG0KfM1p" PositionY="417" PositionX="-1401" />
 				<EdgeVertex Name="vertex44" PositionY="340" PositionX="-1250" />
 				<EdgeVertex Name="vertex50" PositionY="90" PositionX="-2420" />
 				<EdgeVertex Name="vertex55" PositionY="500" PositionX="-1100" />

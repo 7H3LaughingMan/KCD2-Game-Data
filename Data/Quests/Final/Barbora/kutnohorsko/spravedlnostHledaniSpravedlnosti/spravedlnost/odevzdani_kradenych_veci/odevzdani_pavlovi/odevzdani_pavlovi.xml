@@ -36,6 +36,9 @@
 				<Port Name="pavel_ceka_na_penize" Direction="In" Type="bool">
 					<DesignName StringName="odevzdani_pavel_ceka_na_p_sd4n" Text="pavel ceka na penize" />
 				</Port>
+				<Port Name="timer_na_report_crimu_bezi" Direction="In" Type="bool">
+					<DesignName StringName="odevzdani_timer_na_report_Is2B" Text="timer na report crimu bezi" />
+				</Port>
 				<Port Name="hrac_ma_penize" Direction="In" Type="bool">
 					<DesignName StringName="odevzdani_hrac_ma_penize_Qowt" Text="hrac ma penize" />
 				</Port>
@@ -51,7 +54,7 @@
 				</SelectedSouls>
 				<Decision Name="dec1" Priority="SideQuestSubmission">
 					<Sequences>
-						<Sequence EntryCondition="Port('objective_promluv_s_pavlem_aktivni') AND &#xD;&#xA;!ThisSequenceUsed()" EndType="Decision" Name="seq2">
+						<Sequence EntryCondition="Port('objective_promluv_s_pavlem_aktivni') AND &#xD;&#xA;!ThisSequenceUsed() AND &#xD;&#xA;!Port('timer_na_report_crimu_bezi')" EndType="Decision" Name="seq2">
 							<DesignName StringName="odevzdani_seq2_lcwo" Text="seq2" />
 							<UiPrompt StringName="ui_odevzdani_seq2_7lRQ" Text="Všechno mám." />
 							<Triggers>
@@ -131,7 +134,7 @@
 										</Elements>
 										<Decision Name="dec14" Priority="SideQuestSubmission">
 											<Sequences>
-												<Sequence SpeechCoef="0" EndType="EndDialogue" Reputation="quest_reward_5_notable" Name="seq35">
+												<Sequence EndType="EndDialogue" SpeechCoef="0" Reputation="quest_reward_5_notable" Name="seq35">
 													<DesignName StringName="odevzdani_seq35_KsH3" Text="seq35" />
 													<Triggers>
 														<Port Name="hrac_odevzdal_veci" />
@@ -317,7 +320,7 @@
 														</Response>
 													</Elements>
 												</Sequence>
-												<Sequence SpeechCoef="0" EndType="Decision" SkillCheckType="persuade" Type="Skillcheck" SkillCheck="VeryHard" Name="seq22">
+												<Sequence EndType="Decision" SpeechCoef="0" SkillCheckType="persuade" Type="Skillcheck" SkillCheck="VeryHard" Name="seq22">
 													<DesignName StringName="odevzdani_seq22_s95e" Text="seq22" />
 													<UiPrompt StringName="ui_odevzdani_seq22_xjmt" Text="Pivec si na tebe bude dávat pozor." />
 													<Elements>
@@ -741,7 +744,7 @@
 																			</Elements>
 																			<Decision Name="dec15" Priority="SideQuestSubmission">
 																				<Sequences>
-																					<Sequence SpeechCoef="0" EntryCondition="SequenceUsed('penizepoprve')" EndType="GoTo" GoToDecision="dec9" Name="seq38">
+																					<Sequence EntryCondition="SequenceUsed('penizepoprve')" EndType="GoTo" GoToDecision="dec9" SpeechCoef="0" Name="seq38">
 																						<DesignName StringName="odevzdani_seq38_EnDC" Text="seq38" />
 																						<Elements>
 																							<Response Role="HENRY" ReferenceLength="2.02">
@@ -764,7 +767,7 @@
 																							</Response>
 																						</Elements>
 																					</Sequence>
-																					<Sequence SpeechCoef="0" EntryCondition="!ThisSequenceUsed()" EndType="Decision" Visibility="Internal" Name="penizepoprve">
+																					<Sequence EntryCondition="!ThisSequenceUsed()" EndType="Decision" SpeechCoef="0" Visibility="Internal" Name="penizepoprve">
 																						<DesignName StringName="odevzdani_penizepoprve_HH4X" Text="penizepoprve" />
 																						<Elements>
 																							<Response Role="HENRY" ReferenceLength="2.92">
@@ -914,7 +917,7 @@
 																									</Elements>
 																									<Decision Name="dec17" Priority="SideQuestSubmission" DesignName="peníze">
 																										<Sequences>
-																											<Sequence SpeechCoef="0" EndType="EndDialogue" Reputation="quest_reward_6_extraordinary" Name="seq41">
+																											<Sequence EndType="EndDialogue" SpeechCoef="0" Reputation="quest_reward_6_extraordinary" Name="seq41">
 																												<DesignName StringName="odevzdani_seq41_dUt3" Text="seq41" />
 																												<Triggers>
 																													<Port Name="hrac_dal_pavlovi_penize" />
@@ -1052,7 +1055,7 @@
 																			</Elements>
 																			<Decision Name="dec19" Priority="SideQuestSubmission">
 																				<Sequences>
-																					<Sequence SpeechCoef="0" EndType="EndDialogue" Reputation="quest_reward_5_notable" Name="seq45">
+																					<Sequence EndType="EndDialogue" SpeechCoef="0" Reputation="quest_reward_5_notable" Name="seq45">
 																						<DesignName StringName="odevzdani_seq45_JbLy" Text="seq45" />
 																						<Triggers>
 																							<Port Name="hrac_odevzdal_veci" />
@@ -1138,7 +1141,7 @@
 																							</Response>
 																						</Elements>
 																					</Sequence>
-																					<Sequence SpeechCoef="0" EndType="EndDialogue" Reputation="quest_decrease_5_notable" Name="seq23">
+																					<Sequence EndType="EndDialogue" SpeechCoef="0" Reputation="quest_decrease_5_notable" Name="seq23">
 																						<DesignName StringName="odevzdani_seq23_gdqz" Text="seq23" />
 																						<UiPrompt StringName="ui_odevzdani_seq23_eO6s" Text="Nedám ti je." />
 																						<Triggers>
@@ -1328,7 +1331,7 @@
 								</Sequences>
 							</Decision>
 						</Sequence>
-						<Sequence EntryCondition="Port('pavel_ceka_na_penize')" EndType="Decision" Type="Payment" Name="seq42">
+						<Sequence EntryCondition="Port('pavel_ceka_na_penize') AND &#xD;&#xA;!Port('timer_na_report_crimu_bezi')" EndType="Decision" Type="Payment" Name="seq42">
 							<DesignName StringName="odevzdani_seq42_HgPT" Text="seq42" />
 							<UiPrompt StringName="ui_odevzdani_seq42_l7o7" Text="Mám pro tebe ty peníze." />
 							<Elements>

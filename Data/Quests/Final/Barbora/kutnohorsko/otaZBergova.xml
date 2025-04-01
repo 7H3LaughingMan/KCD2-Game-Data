@@ -47,6 +47,11 @@
 					<Edge From="streamBergov.OnTrigger" To="SetStreamedUtokNaMalesov" />
 					<Edge From="unstreamBergov.OnTrigger" To="SetUnstreamedErik" />
 				</State>
+				<ClothingPresetOverride Name="clothingpresetoverride36" PositionY="-130" PositionX="450">
+					<Asset Name="Souls" Alias="bergovHorse" />
+					<Constant Name="ClothingPreset" Value="9ba2b05d-4e34-470f-b757-8fd9da37036c" />
+					<Edge From="horse_streaming.StreamedUkradenyKunStart" To="IsActive" />
+				</ClothingPresetOverride>
 				<State Name="horse_mountActivation" PositionY="-740" PositionX="1430" TypeT="MountActivation_BergovHorse">
 					<Constant Name="DefaultValue" Value="NotMountableAfterLevelStart" />
 					<Edge From="stream_bergovova_kone_a_povoleni_nasedani__ukradeny_kun_start" To="SetMountableDuringUkradenyKun">
@@ -90,7 +95,10 @@
 					<Edge From="stream_bergovova_kone_a_povoleni_nasedani__ukradeny_kun_start" To="SetStreamingForUkradenyKunStart" />
 					<Edge From="stream_bergovHorse.OnTrigger" To="SetStreamingForUkradenyKunStart" />
 				</State>
-				<Function Name="kunNastreamovan" PositionY="-170" PositionX="440" MethodName="math::boolean::Or" DeclaringType="math::boolean">
+				<HasteTrigger Name="inSuchdol" PositionY="1190" PositionX="-520">
+					<Constant Name="IsHidden" Value="true" />
+				</HasteTrigger>
+				<Function Name="kunNastreamovan" PositionY="-290" PositionX="450" MethodName="math::boolean::Or" DeclaringType="math::boolean">
 					<Edge From="horse_streaming.StreamedUkradenyKunStart" To="B" />
 					<Edge From="horse_streaming.StreamedLevelStart" To="A" />
 				</Function>
@@ -108,6 +116,7 @@
 				</Migration_Simple_StreamingSafeguard>
 				<State Name="MigrationBergov" PositionY="990" PositionX="-190" TypeT="BergovMigration">
 					<Edge From="prestehovat_do_suchdole__m44b_utok_na_malesov" To="SetSuchdol" />
+					<Edge From="inSuchdol.OnTrigger" To="SetSuchdol" />
 				</State>
 				<Function Name="or29" PositionY="-670" PositionX="2190" MethodName="math::boolean::Or" DeclaringType="math::boolean">
 					<Edge From="horse_mountActivation.NotMountableAfterLevelStart" To="A" />
@@ -122,7 +131,9 @@
 					<Edge From="horse_settling.CampUkradenyKun" To="osazeni_kone">
 						<Vertex>vertex13</Vertex>
 					</Edge>
-					<Edge From="kunNastreamovan.bool" To="bergovuv_kun_nastreamovan" />
+					<Edge From="kunNastreamovan.bool" To="bergovuv_kun_nastreamovan">
+						<Vertex>Fg8Kxgr5</Vertex>
+					</Edge>
 				</Output>
 				<Layer Name="profile35" PositionY="460" PositionX="360">
 					<Asset Name="Profiles" Alias="bergov_profile" />
@@ -160,6 +171,7 @@
 				</HasteTrigger>
 			</Nodes>
 			<EdgeVertices>
+				<EdgeVertex Name="Fg8Kxgr5" PositionY="-190" PositionX="2770" />
 				<EdgeVertex Name="vertex13" PositionY="140" PositionX="2780" />
 				<EdgeVertex Name="vertex15" PositionY="-980" PositionX="-810" />
 				<EdgeVertex Name="vertex17" PositionY="-981" PositionX="1207" />
@@ -215,6 +227,9 @@
 			<Notes>
 				<Note Name="note14" PositionY="-840" PositionX="1630">
 					<Text StringName="ota_z_ber_note14_0Xz9" Text="Povolovanie nasadnutia na Bergovova koňa, popis KCD2-74985 U35 - Ukradený kůň - skript - potlačenie nasadnutia a privlastnenia koňa" />
+				</Note>
+				<Note Name="note37" PositionY="-120" PositionX="720">
+					<Text StringName="otazbergo_note37_hSnt" Text="Nastreamovaním koňa pre U35 Ukradený kun mu vezmeme postroj.&#xD;&#xA;Aby som sa vyhla patchovaniu a vytváraniu nového stavu, tak som clothing override pripojila ku streaming stavu.&#xD;&#xA;" />
 				</Note>
 			</Notes>
 			<Text StringName="bergov_LKrq" Text="Ota z Bergova" />

@@ -52,16 +52,35 @@
 						<Vertex>vertex12</Vertex>
 					</Edge>
 				</AddQuestItem>
-				<AddQuestItem Name="addquestitem260680_1_1" PositionY="160" PositionX="6460">
+				<AddQuestItem Name="addquestitem260680_1_1" PositionY="160" PositionX="7630">
 					<Constant Name="ItemClassGUID" Value="df301b6e-2f43-40ab-9fae-52c8560bd9da" />
 					<Asset Name="BackupLocation" Alias="waterBackupStash" />
 					<Asset Name="StartingLocation" Alias="player" />
 					<Edge From="uzda.State" To="IsActive" />
 				</AddQuestItem>
+				<Function Name="and152212410" PositionY="-780" PositionX="5660" MethodName="math::boolean::And" DeclaringType="math::boolean">
+					<Edge From="deliverWater.DeliverFlask" To="A">
+						<Vertex>vertex12</Vertex>
+						<Vertex>98NGf3vL</Vertex>
+					</Edge>
+					<Edge From="not152212412.bool" To="B" />
+				</Function>
+				<Function Name="and152212410_1" PositionY="-620" PositionX="5660" MethodName="math::boolean::And" DeclaringType="math::boolean">
+					<Edge From="talkToHunterCampRefusal.Active" To="A">
+						<Vertex>vertex181</Vertex>
+						<Vertex>vertex161</Vertex>
+						<Vertex>vertex162</Vertex>
+						<Vertex>uMhDFcbI</Vertex>
+					</Edge>
+					<Edge From="not152212413.bool" To="B" />
+				</Function>
 				<Function Name="audiooneshot152212356" PositionY="-1010" PositionX="4440" MethodName="wh::soundmodule::AudioOneShot" DeclaringType="wh::soundmodule">
 					<Constant Name="AtlTriggerName" Value="drink_pour_2s" />
 					<Asset Name="LinkableObject" Alias="waterBarrel" />
 					<Edge From="cutscenehandler152212354.AfterPlay" To="Exec" />
+				</Function>
+				<Function Name="createdialogparams152212409" PositionY="-570" PositionX="6150" MethodName="wh::dialogmodule::CreateDialogParams" DeclaringType="wh::dialogmodule">
+					<Asset Name="Participants" Alias="hunterVostatek" />
 				</Function>
 				<CutsceneHandler Name="cutscenehandler152212354" PositionY="-1070" PositionX="4050">
 					<Asset Name="CutsceneHolder" Alias="cutscene_hideout" />
@@ -92,11 +111,11 @@
 					<Asset Name="NPC" Alias="hunterVostatek" />
 					<Edge From="waitInHideout_patchActive.State" To="IsActive" />
 				</EnableBehavior>
-				<MemberFunction Name="hasprimarycompanion260677" PositionY="-90" PositionX="5160" MethodName="HasPrimaryCompanion" DeclaringType="wh::rpgmodule::CompanionManager">
+				<MemberFunction Name="hasprimarycompanion260677" PositionY="-90" PositionX="6330" MethodName="HasPrimaryCompanion" DeclaringType="wh::rpgmodule::CompanionManager">
 					<Constant Name="Type" Value="Horse" />
 					<Edge From="isoulproperties260678.CompanionManager" To="Manager" />
 				</MemberFunction>
-				<MemberFunction Name="hasprimarycompanion260677_1" PositionY="70" PositionX="5160" MethodName="HasPrimaryCompanion" DeclaringType="wh::rpgmodule::CompanionManager">
+				<MemberFunction Name="hasprimarycompanion260677_1" PositionY="70" PositionX="6330" MethodName="HasPrimaryCompanion" DeclaringType="wh::rpgmodule::CompanionManager">
 					<Constant Name="Type" Value="Dog" />
 					<Edge From="isoulproperties260678.CompanionManager" To="Manager" />
 				</MemberFunction>
@@ -107,14 +126,14 @@
 					<Asset Name="data" Alias="hideoutSpot" />
 					<Edge From="or152212364.bool" To="IsActive" />
 				</EnableBehavior>
-				<If Name="if152212355" PositionY="-580" PositionX="6100">
+				<If Name="if152212355" PositionY="-580" PositionX="7270">
 					<Edge From="jindra_odevzdava_vodu_a_dostava_zadani_na_kone.jdi_stopovat_meho_kone" To="Exec" />
 					<Edge From="talkToHunterCampRefusal.Active" To="Condition">
 						<Vertex>vertex181</Vertex>
 						<Vertex>vertex161</Vertex>
 					</Edge>
 				</If>
-				<If Name="if152212355_1" PositionY="-430" PositionX="6100">
+				<If Name="if152212355_1" PositionY="-430" PositionX="7270">
 					<Edge From="quest_fail" To="Exec">
 						<Vertex>vertex132</Vertex>
 						<Vertex>vertex126</Vertex>
@@ -147,13 +166,15 @@
 						<Vertex>vertex128</Vertex>
 					</Edge>
 				</If>
-				<ObjectProperties Name="isoulproperties260678" PositionY="-80" PositionX="4820" DeclaringType="wh::rpgmodule::I_Soul">
+				<ObjectProperties Name="isoulproperties260678" PositionY="-80" PositionX="5990" DeclaringType="wh::rpgmodule::I_Soul">
 					<Asset Name="I_Soul" Alias="player" />
 				</ObjectProperties>
-				<jindra_odevzdava_vodu_a_dostava_zadani_na_kone Name="jindra_odevzdava_vodu_a_dostava_zadani_na_kone" PositionY="-250" PositionX="5580">
+				<jindra_odevzdava_vodu_a_dostava_zadani_na_kone Name="jindra_odevzdava_vodu_a_dostava_zadani_na_kone" PositionY="-250" PositionX="6750">
 					<Asset Name="DialogueHolder" Alias="dh_hideout_waterHandIn" />
 					<Edge From="deliverWater.DeliverFlask" To="hrac_ma_u_sebe_mech_s_vodou">
 						<Vertex>vertex12</Vertex>
+						<Vertex>98NGf3vL</Vertex>
+						<Vertex>EMcJCXel</Vertex>
 					</Edge>
 					<Edge From="hasprimarycompanion260677.Result" To="hrac_vlastni_kone" />
 					<Edge From="hasprimarycompanion260677_1.Result" To="hrac_ma_psa" />
@@ -165,19 +186,41 @@
 						<Vertex>vertex161</Vertex>
 						<Vertex>vertex162</Vertex>
 					</Edge>
+					<Edge From="SpeakTrigger.onspoke" To="EnqueueDialogue" />
+					<Edge From="createdialogparams152212409.DialogParams" To="DialogParams" />
 				</jindra_odevzdava_vodu_a_dostava_zadani_na_kone>
 				<lovec_lezi_na_posteli_a_vola_na_jindru Name="lovec_lezi_na_posteli_a_vola_na_jindru" PositionY="-840" PositionX="1200" />
 				<lovec_popohani_jindru_ohledne_vody Name="lovec_popohani_jindru_ohledne_vody" PositionY="-1420" PositionX="4050" />
 				<lovec_zkousi_vstat Name="lovec_zkousi_vstat" PositionY="-680" PositionX="1260" />
+				<MakeArray Name="makearray152212408" PositionY="-1020" PositionX="5990" TypeT="wh::rpgmodule::Souls">
+					<Asset Name="A" Alias="hunterVostatek" />
+					<Asset Name="B" Alias="player" />
+				</MakeArray>
+				<Function Name="not152212412" PositionY="-750" PositionX="5320" MethodName="math::boolean::Not" DeclaringType="math::boolean">
+					<Edge From="jindra_odevzdava_vodu_a_dostava_zadani_na_kone.root" To="Value">
+						<Vertex>soDme1lM</Vertex>
+						<Vertex>pxhzSFXx</Vertex>
+					</Edge>
+				</Function>
+				<Function Name="not152212413" PositionY="-590" PositionX="5340" MethodName="math::boolean::Not" DeclaringType="math::boolean">
+					<Edge From="jindra_odevzdava_vodu_a_dostava_zadani_na_kone.seq37" To="Value">
+						<Vertex>ezUmpdN4</Vertex>
+						<Vertex>h0zbx7P6</Vertex>
+					</Edge>
+				</Function>
 				<deliverWater Name="objectiveVisual13" PositionY="-1400" PositionX="3650" RequiredForOutput="trosecko">
 					<Edge From="deliverWater.State" To="Progress" />
 				</deliverWater>
-				<talkToHunterCampRefusal Name="objectiveVisual152212356" PositionY="-740" PositionX="6760" RequiredForOutput="trosecko">
+				<talkToHunterCampRefusal Name="objectiveVisual152212356" PositionY="-740" PositionX="7930" RequiredForOutput="trosecko">
 					<Edge From="talkToHunterCampRefusal.State" To="Progress" />
 				</talkToHunterCampRefusal>
 				<Function Name="or152212364" PositionY="-530" PositionX="890" MethodName="math::boolean::Or" DeclaringType="math::boolean">
 					<Edge From="talkToHunterState.Active" To="A" />
 					<Edge From="talkToHunterState.Updated" To="B" />
+				</Function>
+				<Function Name="or152212411" PositionY="-710" PositionX="5930" MethodName="math::boolean::Or" DeclaringType="math::boolean">
+					<Edge From="and152212410.bool" To="A" />
+					<Edge From="and152212410_1.bool" To="B" />
 				</Function>
 				<Function Name="or24" PositionY="-1220" PositionX="3650" MethodName="math::boolean::Or" DeclaringType="math::boolean">
 					<Edge From="deliverWater.FillFlask" To="A" />
@@ -196,11 +239,11 @@
 						<Vertex>vertex179</Vertex>
 					</Edge>
 				</s_lovcem_o_vode>
-				<SaveGame Name="savegame152212406" PositionY="-90" PositionX="6780">
+				<SaveGame Name="savegame152212406" PositionY="-90" PositionX="7950">
 					<Constant Name="Objective" Value="trackHorse" />
 					<Edge From="jindra_odevzdava_vodu_a_dostava_zadani_na_kone.jdi_stopovat_meho_kone" To="EnqueueSave" />
 				</SaveGame>
-				<SaveGame Name="savegame152212406_1" PositionY="-580" PositionX="6760">
+				<SaveGame Name="savegame152212406_1" PositionY="-580" PositionX="7930">
 					<Constant Name="Objective" Value="talkToHunterCampRefusal" />
 					<Edge From="talkToHunterCampRefusal.OnActive" To="EnqueueSave" />
 				</SaveGame>
@@ -213,10 +256,14 @@
 					<Asset Name="Souls" Alias="hunterVostatek" />
 					<Edge From="or24.bool" To="IsActive" />
 				</SetEntityContext>
+				<SpeakTrigger Name="SpeakTrigger" PositionY="-780" PositionX="6340" Namespace="utils.speech">
+					<Edge From="makearray152212408.Array" To="speakers" />
+					<Edge From="or152212411.bool" To="isactive" />
+				</SpeakTrigger>
 				<talkToHunter Name="talkToHunter" PositionY="-1080" PositionX="830" RequiredForOutput="trosecko">
 					<Edge From="talkToHunterState.State" To="Progress" />
 				</talkToHunter>
-				<State Name="talkToHunterCampRefusal" PositionY="-770" PositionX="6410" RequiredForOutput="trosecko" TypeT="ProgressFailable">
+				<State Name="talkToHunterCampRefusal" PositionY="-770" PositionX="7580" RequiredForOutput="trosecko" TypeT="ProgressFailable">
 					<Edge From="jindra_odevzdava_vodu_a_dostava_zadani_na_kone.jindra_odklada_hledani_pepika" To="SetActive">
 						<Vertex>vertex180</Vertex>
 					</Edge>
@@ -240,7 +287,7 @@
 					<Constant Name="TimeType" Value="GameTime" />
 					<Edge From="audiooneshot152212356.OnExec" To="SetRunning" />
 				</Timer>
-				<State Name="uzda" PositionY="160" PositionX="6200" TypeT="bool">
+				<State Name="uzda" PositionY="160" PositionX="7370" TypeT="bool">
 					<Edge From="jindra_odevzdava_vodu_a_dostava_zadani_na_kone.hrac_dostava_quest_item_pepikovy_uzdy_aby_mohl_stopovat_psem" To="SetTrue" />
 					<Edge From="quest_done" To="SetFalse">
 						<Vertex>vertex144</Vertex>
@@ -268,6 +315,13 @@
 				</InteractionTriggerNode>
 			</Nodes>
 			<EdgeVertices>
+				<EdgeVertex Name="98NGf3vL" PositionY="-210" PositionX="5470" />
+				<EdgeVertex Name="EMcJCXel" PositionY="-140" PositionX="5630" />
+				<EdgeVertex Name="ezUmpdN4" PositionY="510" PositionX="7110" />
+				<EdgeVertex Name="h0zbx7P6" PositionY="530" PositionX="5370" />
+				<EdgeVertex Name="pxhzSFXx" PositionY="560" PositionX="5330" />
+				<EdgeVertex Name="soDme1lM" PositionY="535" PositionX="7141" />
+				<EdgeVertex Name="uMhDFcbI" PositionY="-820" PositionX="5660" />
 				<EdgeVertex Name="vertex12" PositionY="-200" PositionX="3530" />
 				<EdgeVertex Name="vertex124" PositionY="-790" PositionX="1050" />
 				<EdgeVertex Name="vertex125" PositionY="-780" PositionX="200" />
@@ -278,29 +332,29 @@
 				<EdgeVertex Name="vertex134" PositionY="-370" PositionX="2010" />
 				<EdgeVertex Name="vertex135" PositionY="-40" PositionX="4330" />
 				<EdgeVertex Name="vertex136" PositionY="-40" PositionX="3030" />
-				<EdgeVertex Name="vertex140" PositionY="470" PositionX="5880" />
+				<EdgeVertex Name="vertex140" PositionY="470" PositionX="7050" />
 				<EdgeVertex Name="vertex141" PositionY="490" PositionX="3180" />
-				<EdgeVertex Name="vertex143" PositionY="760" PositionX="6040" />
+				<EdgeVertex Name="vertex143" PositionY="760" PositionX="7210" />
 				<EdgeVertex Name="vertex144" PositionY="780" PositionX="-380" />
 				<EdgeVertex Name="vertex156" PositionY="-120" PositionX="-140" />
 				<EdgeVertex Name="vertex160" PositionY="-910" PositionX="1480" />
-				<EdgeVertex Name="vertex161" PositionY="-820" PositionX="6120" />
-				<EdgeVertex Name="vertex162" PositionY="-820" PositionX="5680" />
-				<EdgeVertex Name="vertex166" PositionY="-710" PositionX="5060" />
+				<EdgeVertex Name="vertex161" PositionY="-820" PositionX="7290" />
+				<EdgeVertex Name="vertex162" PositionY="-820" PositionX="6850" />
+				<EdgeVertex Name="vertex166" PositionY="-710" PositionX="5080" />
 				<EdgeVertex Name="vertex167" PositionY="-710" PositionX="4060" />
-				<EdgeVertex Name="vertex168" PositionY="-150" PositionX="5290" />
+				<EdgeVertex Name="vertex168" PositionY="-150" PositionX="6460" />
 				<EdgeVertex Name="vertex170" PositionY="-900" PositionX="-330" />
 				<EdgeVertex Name="vertex171" PositionY="-170" PositionX="130" />
-				<EdgeVertex Name="vertex172" PositionY="-340" PositionX="5630" />
+				<EdgeVertex Name="vertex172" PositionY="-340" PositionX="6800" />
 				<EdgeVertex Name="vertex177" PositionY="-70" PositionX="1530" />
 				<EdgeVertex Name="vertex178" PositionY="-70" PositionX="540" />
 				<EdgeVertex Name="vertex179" PositionY="-680" PositionX="990" />
-				<EdgeVertex Name="vertex180" PositionY="130" PositionX="6310" />
-				<EdgeVertex Name="vertex181" PositionY="-820" PositionX="6590" />
+				<EdgeVertex Name="vertex180" PositionY="130" PositionX="7480" />
+				<EdgeVertex Name="vertex181" PositionY="-820" PositionX="7760" />
 				<EdgeVertex Name="vertex6" PositionY="-220" PositionX="1870" />
 				<EdgeVertex Name="vertex7" PositionY="-210" PositionX="500" />
 				<EdgeVertex Name="vertex92" PositionY="650" PositionX="2180" />
-				<EdgeVertex Name="vertex95" PositionY="630" PositionX="6000" />
+				<EdgeVertex Name="vertex95" PositionY="630" PositionX="7170" />
 			</EdgeVertices>
 			<Text StringName="lovcova_skrys_y65V" Text="Lovcova skrýš" />
 			<Elements>

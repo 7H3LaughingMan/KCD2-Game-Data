@@ -45,6 +45,24 @@
 				<Port Name="start_turnaj_po_konci_hry" Direction="In" Type="trigger">
 					<DesignName StringName="kutnohors_start_turnaj_po_aDzg" Text="Start turnaj po konci hry" />
 				</Port>
+				<Port Name="turnaj_probiha" Direction="Out" Type="bool">
+					<DesignName StringName="kutnohors_turnaj_probiha_Ut7D" Text="Turnaj probíhá" />
+				</Port>
+				<Port Name="v_turnaji_jimram" Direction="Out" Type="bool">
+					<DesignName StringName="kutnohors_v_turnaji_jimram_e88P" Text="V turnaji Jimram" />
+				</Port>
+				<Port Name="v_turnaji_linhart" Direction="Out" Type="bool">
+					<DesignName StringName="kutnohors_v_turnaji_linha_QEii" Text="V turnaji Linhart" />
+				</Port>
+				<Port Name="v_turnaji_arne" Direction="Out" Type="bool">
+					<DesignName StringName="kutnohors_v_turnaji_arne_zPBT" Text="V turnaji Arne" />
+				</Port>
+				<Port Name="finale_dokonceno" Direction="In" Type="bool">
+					<DesignName StringName="kutnohors_finale_dokonceno_I1tL" Text="finale dokončeno" />
+				</Port>
+				<Port Name="hrac_je_uzavren_v_main_questu_az_do_konce_hry" Direction="In" Type="bool">
+					<DesignName StringName="kutnohors_hrac_je_uzavren_s2dG" Text="Hráč je uzavřen v main questu až do konce hry" />
+				</Port>
 			</Ports>
 			<Definitions>
 				<Definition File="kutnohorskyTurnaj/haste.xml" />
@@ -54,7 +72,7 @@
 				<Definition File="kutnohorskyTurnaj/haste_override_m37b_progress.xml" />
 			</Definitions>
 			<Nodes>
-				<Function Name="compare6" PositionY="1530" PositionX="630" TypeT="int" MethodName="Control::Compare" DeclaringType="Control">
+				<Function Name="compare6" PositionY="1550" PositionX="760" TypeT="int" MethodName="Control::Compare" DeclaringType="Control">
 					<Constant Name="Op" Value="Greater" />
 					<Constant Name="ValueB" Value="0" />
 					<Edge From="turnaj__static.vyhranych_disciplin_dohromady" To="ValueA">
@@ -67,6 +85,11 @@
 					<Constant Name="ValueB" Value="Done" />
 					<Edge From="haste_override_m37b_progress.result_progress" To="ValueA" />
 				</Function>
+				<SetEntityContext Name="guardNotGreetPlayer" PositionY="610" PositionX="830">
+					<Constant Name="Context" Value="crime_dontGreetPlayer" />
+					<Asset Name="Souls" Alias="rewardguard" />
+					<Edge From="TurnajProbiha.State" To="IsActive" />
+				</SetEntityContext>
 				<haste Name="haste" PositionY="120" PositionX="-930" />
 				<haste_override_m37b_progress Name="haste_override_m37b_progress" PositionY="1920" PositionX="-1250">
 					<Edge From="m37b__setkani_v_ratbori__quest_progress" To="m37b__setkani_v_ratbori__quest_progress" />
@@ -83,20 +106,47 @@
 					</Edge>
 					<Edge From="stop" To="Exec">
 						<Vertex>KAF4Wd2V</Vertex>
+						<Vertex>6cJnK9zr</Vertex>
 						<Vertex>zA6xPN0T</Vertex>
 						<Vertex>bmT13WHK</Vertex>
 					</Edge>
 					<Edge From="ifQActive.True" To="Exec">
-						<Vertex>qw39bFa7</Vertex>
-						<Vertex>s5rUDTaM</Vertex>
+						<Vertex>G3KgjjxW</Vertex>
+						<Vertex>9xeDB9Hn</Vertex>
+						<Vertex>F9XJSrvV</Vertex>
+						<Vertex>mpLDQqld</Vertex>
+						<Vertex>MFAthlEI</Vertex>
+					</Edge>
+					<Edge From="ifCompletedOrFailed.True" To="Exec">
+						<Vertex>9xeDB9Hn</Vertex>
+						<Vertex>F9XJSrvV</Vertex>
 						<Vertex>mpLDQqld</Vertex>
 						<Vertex>MFAthlEI</Vertex>
 					</Edge>
 				</If>
+				<IfFunction Name="ifCompletedOrFailed" PositionY="-520" PositionX="-1370" MethodName="math::boolean::Or" DeclaringType="math::boolean">
+					<Edge From="questState.Failed" To="A">
+						<Vertex>oRSYSmos</Vertex>
+						<Vertex>2eUXnMff</Vertex>
+					</Edge>
+					<Edge From="questState.Done" To="B">
+						<Vertex>D9wfRk9L</Vertex>
+						<Vertex>Y89H1jTb</Vertex>
+					</Edge>
+					<Edge From="ifNotTurnajRecen.True" To="Exec" />
+				</IfFunction>
 				<If Name="ifHracUzViOTurnaji" PositionY="-280" PositionX="-1710">
 					<Edge From="turnaj_recen" To="Condition" />
 					<Edge From="start_turnaj_po_konci_hry" To="Exec" />
+					<Edge From="level_switched" To="Exec" />
 				</If>
+				<IfFunction Name="ifNotTurnajRecen" PositionY="-530" PositionX="-1670" MethodName="math::boolean::Not" DeclaringType="math::boolean">
+					<Edge From="turnaj_recen" To="Value" />
+					<Edge From="triggersequence12.A" To="Exec">
+						<Vertex>mmjhjg2N</Vertex>
+						<Vertex>NltshgM3</Vertex>
+					</Edge>
+				</IfFunction>
 				<If Name="ifpatchovaciFaze" PositionY="-50" PositionX="40">
 					<Edge From="ispatchingphaseForFailOrNone.bool" To="Condition" />
 					<Edge From="if11.True" To="Exec">
@@ -104,10 +154,26 @@
 						<Vertex>VG6TLKyx</Vertex>
 					</Edge>
 				</If>
+				<IfFunction Name="IfPlayerNotLockedInMQorFinaleDone" PositionY="210" PositionX="-1710" MethodName="math::boolean::Or" DeclaringType="math::boolean">
+					<Edge From="ifTurnajBylRecen.True" To="Exec">
+						<Vertex>C3eLls2c</Vertex>
+						<Vertex>wNDWNkSk</Vertex>
+					</Edge>
+					<Edge From="notLockedInMQ.bool" To="A" />
+					<Edge From="finale_dokonceno" To="B" />
+				</IfFunction>
+				<IfFunction Name="IfPlayerNotLockedInMQorFinaleDone2" PositionY="-60" PositionX="-1720" MethodName="math::boolean::Or" DeclaringType="math::boolean">
+					<Edge From="notLockedInMQ.bool" To="B" />
+					<Edge From="finale_dokonceno" To="A" />
+					<Edge From="ifHracUzViOTurnaji.True" To="Exec">
+						<Vertex>95sQ2lMD</Vertex>
+						<Vertex>79USMYvY</Vertex>
+					</Edge>
+				</IfFunction>
 				<If Name="ifQActive" PositionY="-500" PositionX="-1060">
 					<Edge From="questState.Active" To="Condition">
-						<Vertex>jk9zyGYU</Vertex>
-						<Vertex>qHs3FK5q</Vertex>
+						<Vertex>H99olwzM</Vertex>
+						<Vertex>NTEwmPDK</Vertex>
 					</Edge>
 					<Edge From="patchtriggerZCertVerzeKonecTurnaje.OnPatch" To="Exec" />
 				</If>
@@ -130,12 +196,28 @@
 					</Edge>
 					<Edge From="not4.bool" To="Condition" />
 				</If>
+				<If Name="ifTurnajActiveKNabrani" PositionY="-780" PositionX="-960">
+					<Edge From="tournamentState.Active" To="Condition" />
+					<Edge From="triggersequence12.B" To="Exec" />
+				</If>
+				<If Name="ifTurnajBylRecen" PositionY="410" PositionX="-1700">
+					<Edge From="turnaj_recen" To="Condition" />
+					<Edge From="opakujici_se.turnaj_ukoncen" To="Exec">
+						<Vertex>vertex31</Vertex>
+						<Vertex>vertex32</Vertex>
+						<Vertex>gnBemoAs</Vertex>
+					</Edge>
+					<Edge From="opakujici_se.quest_failed" To="Exec">
+						<Vertex>vertex31</Vertex>
+						<Vertex>vertex32</Vertex>
+						<Vertex>gnBemoAs</Vertex>
+					</Edge>
+				</If>
 				<Function Name="ispatchingphaseForFailOrNone" PositionY="-740" PositionX="-280" MethodName="wh::conceptmodule::IsPatchingPhase" DeclaringType="wh::conceptmodule" />
 				<kutnohorskyTurnaj_utils Name="kutnohorskyTurnaj_utils" PositionY="20" PositionX="-950" RequiredForOutput="kutnohorsko" />
 				<Function Name="LegitOrHastedGossips" PositionY="1750" PositionX="-550" MethodName="math::boolean::Or" DeclaringType="math::boolean">
 					<Edge From="haste.po_sermirske_gossipy" To="A" />
 					<Edge From="turnaj_recen" To="B">
-						<Vertex>FtUbeq6h</Vertex>
 						<Vertex>fz93PpYD</Vertex>
 					</Edge>
 				</Function>
@@ -151,18 +233,17 @@
 						<Vertex>vertex94</Vertex>
 						<Vertex>vertex95</Vertex>
 					</Edge>
-					<Edge From="start" To="Exec" />
+					<Edge From="start" To="Exec">
+						<Vertex>HQmXwUro</Vertex>
+					</Edge>
 				</State>
 				<SkaldBoxProbe Name="musicstate5" PositionY="380" PositionX="-990">
 					<Constant Name="Toggle" Value="KH_TOURNAMENT_SITE_EXISTS" />
 					<Edge From="tournamentState.Active" To="IsActive" />
 				</SkaldBoxProbe>
-				<SkaldBoxProbe Name="musicstate5_1" PositionY="500" PositionX="420">
+				<SkaldBoxProbe Name="musicstate5_1" PositionY="180" PositionX="840">
 					<Constant Name="Toggle" Value="KH_TOURNAMENT_IN_PROGRESS" />
-					<Edge From="TurnajProbiha.State" To="IsActive">
-						<Vertex>vertex89</Vertex>
-						<Vertex>vertex90</Vertex>
-					</Edge>
+					<Edge From="TurnajProbiha.State" To="IsActive" />
 				</SkaldBoxProbe>
 				<Function Name="not4" PositionY="170" PositionX="-570" MethodName="math::boolean::Not" DeclaringType="math::boolean">
 					<Edge From="questState.Active" To="Value">
@@ -172,7 +253,9 @@
 						<Vertex>vertex88</Vertex>
 					</Edge>
 				</Function>
-				<objectivename Name="objectivename" PositionY="-520" PositionX="350" Namespace="utils.commonstrings" />
+				<Function Name="notLockedInMQ" PositionY="290" PositionX="-2030" MethodName="math::boolean::Not" DeclaringType="math::boolean">
+					<Edge From="hrac_je_uzavren_v_main_questu_az_do_konce_hry" To="Value" />
+				</Function>
 				<opakujici_se Name="opakujici_se" PositionY="520" PositionX="10" RequiredForOutput="kutnohorsko">
 					<Edge From="turnaj__static.turnajovy_den_predem" To="turnaj_den_predem_start">
 						<Vertex>vertex26</Vertex>
@@ -222,17 +305,31 @@
 						<Vertex>vertex98</Vertex>
 						<Vertex>vertex99</Vertex>
 					</Edge>
+					<Edge From="ifQActive.True" To="level_switched">
+						<Vertex>G3KgjjxW</Vertex>
+						<Vertex>9xeDB9Hn</Vertex>
+						<Vertex>F9XJSrvV</Vertex>
+						<Vertex>mpLDQqld</Vertex>
+						<Vertex>MFAthlEI</Vertex>
+					</Edge>
+					<Edge From="turnaj__static.skip_inprogress" To="skip_inprogress" />
 					<Edge From="ifQActive.True" To="turnaj_none_patchingphase">
-						<Vertex>FqE8xXra</Vertex>
+						<Vertex>Uj2EWeW1</Vertex>
 						<Vertex>LK0Nk2jq</Vertex>
 						<Vertex>5SIUQPev</Vertex>
 					</Edge>
-					<Edge From="turnaj__static.skip_inprogress" To="skip_inprogress" />
-					<Edge From="ifQActive.True" To="level_switched">
-						<Vertex>qw39bFa7</Vertex>
-						<Vertex>s5rUDTaM</Vertex>
+					<Edge From="ifCompletedOrFailed.True" To="level_switched">
+						<Vertex>9xeDB9Hn</Vertex>
+						<Vertex>F9XJSrvV</Vertex>
 						<Vertex>mpLDQqld</Vertex>
 						<Vertex>MFAthlEI</Vertex>
+					</Edge>
+					<Edge From="ifCompletedOrFailed.True" To="turnaj_none_patchingphase">
+						<Vertex>1II8u5SA</Vertex>
+						<Vertex>dMV1WdIL</Vertex>
+						<Vertex>Uj2EWeW1</Vertex>
+						<Vertex>LK0Nk2jq</Vertex>
+						<Vertex>5SIUQPev</Vertex>
 					</Edge>
 				</opakujici_se>
 				<Output Name="Output">
@@ -253,15 +350,27 @@
 					</Edge>
 					<Edge From="compare6.bool" To="hrac_min_jednou_vyhral" />
 					<Edge From="turnaj__static.je_turnajovy_den" To="je_turnajovy_den">
-						<Vertex>I95BufUx</Vertex>
+						<Vertex>qjN3ovUf</Vertex>
 						<Vertex>vertex104</Vertex>
 					</Edge>
 					<Edge From="tournamentState.Active" To="turnaj_uz_muze_probihat">
 						<Vertex>vertex105</Vertex>
 						<Vertex>vertex106</Vertex>
 					</Edge>
+					<Edge From="TurnajProbiha.State" To="turnaj_probiha">
+						<Vertex>x6mdeAoY</Vertex>
+					</Edge>
+					<Edge From="opakujici_se.v_turnaji_jimram" To="v_turnaji_jimram">
+						<Vertex>NpFk0SNJ</Vertex>
+					</Edge>
+					<Edge From="opakujici_se.v_turnaji_linhart" To="v_turnaji_linhart">
+						<Vertex>5B94GbPr</Vertex>
+					</Edge>
+					<Edge From="opakujici_se.v_turnaji_arne" To="v_turnaji_arne">
+						<Vertex>zQIlnbpN</Vertex>
+					</Edge>
 				</Output>
-				<PatchTrigger Name="patchtriggerZCertVerzeKonecTurnaje" PositionY="-740" PositionX="-1420">
+				<PatchTrigger Name="patchtriggerZCertVerzeKonecTurnaje" PositionY="-750" PositionX="-1680">
 					<Constant Name="TransitionFromVersion" Value="ver_01_00" />
 				</PatchTrigger>
 				<Function Name="pravyBoolOrHasted" PositionY="650" PositionX="-880" MethodName="math::boolean::Or" DeclaringType="math::boolean">
@@ -279,19 +388,26 @@
 						<Vertex>YY8zARNo</Vertex>
 					</Edge>
 					<Edge From="ifQActive.True" To="SetNone">
-						<Vertex>FqE8xXra</Vertex>
+						<Vertex>Uj2EWeW1</Vertex>
 						<Vertex>LK0Nk2jq</Vertex>
 						<Vertex>T5RbvNpk</Vertex>
 					</Edge>
 					<Edge From="ifpatchovaciFaze.True" To="SetNone" />
 					<Edge From="ifpatchovaciFaze.False" To="SetFailed" />
+					<Edge From="ifCompletedOrFailed.True" To="SetNone">
+						<Vertex>1II8u5SA</Vertex>
+						<Vertex>dMV1WdIL</Vertex>
+						<Vertex>Uj2EWeW1</Vertex>
+						<Vertex>LK0Nk2jq</Vertex>
+						<Vertex>T5RbvNpk</Vertex>
+					</Edge>
 				</State>
 				<SaveGame Name="savegame9_1" PositionY="-360" PositionX="710">
-					<Edge From="objectivename.endquest" To="ObjectiveNameOverride" />
+					<Constant Name="Objective" Value="vyckej_do_konce_turnaje" />
 					<Edge From="questState.OnDone" To="EnqueueSave" />
 				</SaveGame>
 				<SaveGame Name="savegame9_1_1" PositionY="-580" PositionX="710">
-					<Edge From="objectivename.startquest" To="ObjectiveNameOverride" />
+					<Constant Name="Objective" Value="vyckej_na_den_turnaje" />
 					<Edge From="questState.OnActive" To="EnqueueSave" />
 				</SaveGame>
 				<TimeOfDayInterval Name="timeofdayinterval8" PositionY="1090" PositionX="-1050">
@@ -300,23 +416,22 @@
 					<Edge From="tournamentState.Done" To="IsActive" />
 				</TimeOfDayInterval>
 				<State Name="tournamentState" PositionY="-60" PositionX="-1450" RequiredForOutput="kutnohorsko" TypeT="Progress">
-					<Edge From="start" To="SetActive" />
+					<Edge From="start" To="SetActive">
+						<Vertex>0a69oxCP</Vertex>
+					</Edge>
 					<Edge From="timeofdayinterval8.OnIntervalStarted" To="SetActive">
 						<Vertex>5XAcCbWo</Vertex>
 						<Vertex>Mm089Lc9</Vertex>
 					</Edge>
-					<Edge From="opakujici_se.turnaj_ukoncen" To="SetDone">
-						<Vertex>vertex31</Vertex>
-						<Vertex>vertex32</Vertex>
-						<Vertex>gnBemoAs</Vertex>
+					<Edge From="stop" To="SetNone">
+						<Vertex>5eAA8BaH</Vertex>
+						<Vertex>sNXT2crr</Vertex>
 					</Edge>
-					<Edge From="opakujici_se.quest_failed" To="SetDone">
-						<Vertex>vertex31</Vertex>
-						<Vertex>vertex32</Vertex>
-						<Vertex>gnBemoAs</Vertex>
-					</Edge>
-					<Edge From="stop" To="SetNone" />
-					<Edge From="ifHracUzViOTurnaji.True" To="SetActive" />
+					<Edge From="ifNotTurnajRecen.True" To="SetNone" />
+					<Edge From="IfPlayerNotLockedInMQorFinaleDone.True" To="SetDone" />
+					<Edge From="IfPlayerNotLockedInMQorFinaleDone2.True" To="SetActive" />
+					<Edge From="IfPlayerNotLockedInMQorFinaleDone2.False" To="SetNone" />
+					<Edge From="IfPlayerNotLockedInMQorFinaleDone.False" To="SetNone" />
 				</State>
 				<TriggerSequence Name="triggersequence10" PositionY="130" PositionX="-260">
 					<Edge From="opakujici_se.ban_za_mensi_crime" To="Exec">
@@ -327,6 +442,9 @@
 						<Vertex>vertex68</Vertex>
 						<Vertex>vertex69</Vertex>
 					</Edge>
+				</TriggerSequence>
+				<TriggerSequence Name="triggersequence12" PositionY="-920" PositionX="-1240">
+					<Edge From="patchtriggerZCertVerzeKonecTurnaje.OnPatch" To="Exec" />
 				</TriggerSequence>
 				<turnaj__static Name="turnaj__static" PositionY="530" PositionX="-550" RequiredForOutput="kutnohorsko">
 					<Edge From="opakujici_se.hrac_vyhral_mece" To="hrac_vyhral_mece">
@@ -411,69 +529,92 @@
 					</Edge>
 					<Edge From="pravyBoolOrHasted.bool" To="menhrat_je_mistr" />
 					<Edge From="ifQActive.True" To="level_switched">
-						<Vertex>FqE8xXra</Vertex>
+						<Vertex>Uj2EWeW1</Vertex>
+					</Edge>
+					<Edge From="ifTurnajActiveKNabrani.True" To="turnaj_je_aktivni" />
+					<Edge From="ifCompletedOrFailed.True" To="level_switched">
+						<Vertex>1II8u5SA</Vertex>
+						<Vertex>dMV1WdIL</Vertex>
+						<Vertex>Uj2EWeW1</Vertex>
 					</Edge>
 				</turnaj__static>
-				<State Name="TurnajProbiha" PositionY="690" PositionX="420" TypeT="bool">
+				<State Name="TurnajProbiha" PositionY="690" PositionX="420" RequiredForOutput="kutnohorsko" TypeT="bool">
 					<Edge From="opakujici_se.turnaj_ukoncen" To="SetFalse" />
 					<Edge From="turnaj__static.turnajovy_cas" To="SetTrue">
 						<Vertex>vertex82</Vertex>
 						<Vertex>vertex83</Vertex>
 					</Edge>
 				</State>
-				<WeaponPresetOverride Name="weaponpresetoverride9" PositionY="130" PositionX="690">
+				<WeaponPresetOverride Name="weaponpresetoverride9" PositionY="360" PositionX="820">
 					<Asset Name="Souls" Alias="reditel" />
 					<Constant Name="WeaponPreset" Value="2213e331-d425-4813-b196-e2761566b2ec" />
 					<Edge From="TurnajProbiha.State" To="IsActive" />
 				</WeaponPresetOverride>
 			</Nodes>
 			<EdgeVertices>
+				<EdgeVertex Name="0a69oxCP" PositionY="150" PositionX="-1860" />
 				<EdgeVertex Name="171Wtw8q" PositionY="1560" PositionX="-560" />
 				<EdgeVertex Name="17oFHGK1" PositionY="310" PositionX="-80" />
+				<EdgeVertex Name="1II8u5SA" PositionY="-283" PositionX="-1059" />
 				<EdgeVertex Name="1voxtngb" PositionY="1540" PositionX="200" />
-				<EdgeVertex Name="2f1T9gtz" PositionY="1410" PositionX="-1070" />
+				<EdgeVertex Name="2eUXnMff" PositionY="-580" PositionX="-1370" />
+				<EdgeVertex Name="2f1T9gtz" PositionY="1720" PositionX="-1030" />
 				<EdgeVertex Name="356aaCMF" PositionY="1680" PositionX="200" />
+				<EdgeVertex Name="5B94GbPr" PositionY="1500" PositionX="909" />
+				<EdgeVertex Name="5eAA8BaH" PositionY="170" PositionX="-1870" />
 				<EdgeVertex Name="5SIUQPev" PositionY="1010" PositionX="-160" />
 				<EdgeVertex Name="5XAcCbWo" PositionY="1310" PositionX="-790" />
 				<EdgeVertex Name="645IkyKN" PositionY="1680" PositionX="-550" />
+				<EdgeVertex Name="6cJnK9zr" PositionY="-80" PositionX="-1060" />
 				<EdgeVertex Name="73p5PRJD" PositionY="420" PositionX="540" />
+				<EdgeVertex Name="79USMYvY" PositionY="-90" PositionX="-1700" />
 				<EdgeVertex Name="87IHIKeh" PositionY="1560" PositionX="220" />
+				<EdgeVertex Name="95sQ2lMD" PositionY="-90" PositionX="-1530" />
+				<EdgeVertex Name="9xeDB9Hn" PositionY="-311" PositionX="-1185" />
 				<EdgeVertex Name="bmT13WHK" PositionY="-233" PositionX="7" />
+				<EdgeVertex Name="C3eLls2c" PositionY="390" PositionX="-1520" />
 				<EdgeVertex Name="cCefnQwa" PositionY="1520" PositionX="-540" />
 				<EdgeVertex Name="CCN6RhFV" PositionY="110" PositionX="200" />
 				<EdgeVertex Name="cQXBUmwl" PositionY="-100" PositionX="50" />
+				<EdgeVertex Name="D9wfRk9L" PositionY="-560" PositionX="560" />
 				<EdgeVertex Name="DjlUHvB3" PositionY="1540" PositionX="-550" />
+				<EdgeVertex Name="dMV1WdIL" PositionY="-291" PositionX="-829" />
 				<EdgeVertex Name="ESyAw22k" PositionY="1700" PositionX="190" />
-				<EdgeVertex Name="FqE8xXra" PositionY="-420" PositionX="-693" />
-				<EdgeVertex Name="FtUbeq6h" PositionY="1730" PositionX="-1550" />
-				<EdgeVertex Name="fz93PpYD" PositionY="1730" PositionX="-1030" />
+				<EdgeVertex Name="F9XJSrvV" PositionY="-310" PositionX="-1405" />
+				<EdgeVertex Name="fz93PpYD" PositionY="1880" PositionX="-1530" />
+				<EdgeVertex Name="G3KgjjxW" PositionY="-310" PositionX="-920" />
 				<EdgeVertex Name="gnBemoAs" PositionY="1640" PositionX="-1430" />
 				<EdgeVertex Name="h2FpFPDW" PositionY="1700" PositionX="-570" />
-				<EdgeVertex Name="I95BufUx" PositionY="1440" PositionX="-40" />
+				<EdgeVertex Name="H99olwzM" PositionY="-350" PositionX="560" />
+				<EdgeVertex Name="HQmXwUro" PositionY="840" PositionX="-1950" />
 				<EdgeVertex Name="IAQjEpfw" PositionY="420" PositionX="-540" />
-				<EdgeVertex Name="jk9zyGYU" PositionY="-320" PositionX="560" />
 				<EdgeVertex Name="K2cIAmGR" PositionY="312" PositionX="-554" />
-				<EdgeVertex Name="KAF4Wd2V" PositionY="-90" PositionX="-1440" />
+				<EdgeVertex Name="KAF4Wd2V" PositionY="-70" PositionX="-1830" />
 				<EdgeVertex Name="LK0Nk2jq" PositionY="-437" PositionX="-424" />
 				<EdgeVertex Name="Mc1rHWQJ" PositionY="390" PositionX="240" />
 				<EdgeVertex Name="MexfFUv9" PositionY="1500" PositionX="-520" />
 				<EdgeVertex Name="MFAthlEI" PositionY="1620" PositionX="-250" />
 				<EdgeVertex Name="Mm089Lc9" PositionY="1310" PositionX="-1380" />
+				<EdgeVertex Name="mmjhjg2N" PositionY="-540" PositionX="-1070" />
 				<EdgeVertex Name="mpLDQqld" PositionY="1610" PositionX="-1530" />
-				<EdgeVertex Name="qHs3FK5q" PositionY="-300" PositionX="-990" />
-				<EdgeVertex Name="QRQPPjQE" PositionY="1480" PositionX="-50" />
+				<EdgeVertex Name="NltshgM3" PositionY="-550" PositionX="-1670" />
+				<EdgeVertex Name="NpFk0SNJ" PositionY="1480" PositionX="890" />
+				<EdgeVertex Name="NTEwmPDK" PositionY="-340" PositionX="-1060" />
+				<EdgeVertex Name="oRSYSmos" PositionY="-580" PositionX="560" />
+				<EdgeVertex Name="qjN3ovUf" PositionY="1780" PositionX="-70" />
+				<EdgeVertex Name="QRQPPjQE" PositionY="1750" PositionX="-70" />
 				<EdgeVertex Name="qs9RSRwj" PositionY="1501" PositionX="213" />
-				<EdgeVertex Name="qw39bFa7" PositionY="-320" PositionX="-920" />
-				<EdgeVertex Name="qY0GtH76" PositionY="1410" PositionX="-250" />
+				<EdgeVertex Name="qY0GtH76" PositionY="1720" PositionX="-280" />
 				<EdgeVertex Name="rLNY7phY" PositionY="1520" PositionX="200" />
-				<EdgeVertex Name="s5rUDTaM" PositionY="-334" PositionX="-1451" />
+				<EdgeVertex Name="sNXT2crr" PositionY="180" PositionX="-1550" />
 				<EdgeVertex Name="t3h9nAMX" PositionY="-100" PositionX="180" />
 				<EdgeVertex Name="T5RbvNpk" PositionY="-440" PositionX="10" />
 				<EdgeVertex Name="THDLCovT" PositionY="1020" PositionX="-1590" />
-				<EdgeVertex Name="vertex100" PositionY="1480" PositionX="480" />
+				<EdgeVertex Name="Uj2EWeW1" PositionY="-430" PositionX="-726" />
+				<EdgeVertex Name="vertex100" PositionY="1740" PositionX="480" />
 				<EdgeVertex Name="vertex101" PositionY="556" PositionX="-948" />
 				<EdgeVertex Name="vertex102" PositionY="553" PositionX="-741" />
-				<EdgeVertex Name="vertex104" PositionY="1440" PositionX="920" />
+				<EdgeVertex Name="vertex104" PositionY="1770" PositionX="970" />
 				<EdgeVertex Name="vertex105" PositionY="1910" PositionX="-1120" />
 				<EdgeVertex Name="vertex106" PositionY="1900" PositionX="930" />
 				<EdgeVertex Name="vertex17" PositionY="490" PositionX="240" />
@@ -482,10 +623,10 @@
 				<EdgeVertex Name="vertex20" PositionY="490" PositionX="-530" />
 				<EdgeVertex Name="vertex21" PositionY="510" PositionX="-530" />
 				<EdgeVertex Name="vertex22" PositionY="530" PositionX="240" />
-				<EdgeVertex Name="vertex23" PositionY="580" PositionX="-230" />
-				<EdgeVertex Name="vertex26" PositionY="650" PositionX="-170" />
-				<EdgeVertex Name="vertex27" PositionY="670" PositionX="-150" />
-				<EdgeVertex Name="vertex28" PositionY="690" PositionX="-130" />
+				<EdgeVertex Name="vertex23" PositionY="570" PositionX="-230" />
+				<EdgeVertex Name="vertex26" PositionY="640" PositionX="-170" />
+				<EdgeVertex Name="vertex27" PositionY="660" PositionX="-150" />
+				<EdgeVertex Name="vertex28" PositionY="680" PositionX="-130" />
 				<EdgeVertex Name="vertex31" PositionY="1640" PositionX="210" />
 				<EdgeVertex Name="vertex32" PositionY="1640" PositionX="-560" />
 				<EdgeVertex Name="vertex38" PositionY="350" PositionX="570" />
@@ -499,36 +640,38 @@
 				<EdgeVertex Name="vertex67" PositionY="348" PositionX="41" />
 				<EdgeVertex Name="vertex68" PositionY="440" PositionX="240" />
 				<EdgeVertex Name="vertex69" PositionY="440" PositionX="-60" />
-				<EdgeVertex Name="vertex70" PositionY="600" PositionX="-210" />
-				<EdgeVertex Name="vertex71" PositionY="630" PositionX="-190" />
-				<EdgeVertex Name="vertex72" PositionY="720" PositionX="-100" />
-				<EdgeVertex Name="vertex73" PositionY="750" PositionX="-70" />
+				<EdgeVertex Name="vertex70" PositionY="590" PositionX="-210" />
+				<EdgeVertex Name="vertex71" PositionY="620" PositionX="-190" />
+				<EdgeVertex Name="vertex72" PositionY="710" PositionX="-100" />
+				<EdgeVertex Name="vertex73" PositionY="740" PositionX="-70" />
 				<EdgeVertex Name="vertex74" PositionY="1660" PositionX="-410" />
 				<EdgeVertex Name="vertex75" PositionY="1660" PositionX="-1120" />
 				<EdgeVertex Name="vertex76" PositionY="-120" PositionX="-1060" />
-				<EdgeVertex Name="vertex79" PositionY="1070" PositionX="780" />
-				<EdgeVertex Name="vertex80" PositionY="1090" PositionX="810" />
-				<EdgeVertex Name="vertex81" PositionY="1120" PositionX="840" />
-				<EdgeVertex Name="vertex82" PositionY="1460" PositionX="-50" />
-				<EdgeVertex Name="vertex83" PositionY="1460" PositionX="250" />
-				<EdgeVertex Name="vertex84" PositionY="1410" PositionX="570" />
-				<EdgeVertex Name="vertex85" PositionY="1410" PositionX="-60" />
+				<EdgeVertex Name="vertex79" PositionY="1130" PositionX="1000" />
+				<EdgeVertex Name="vertex80" PositionY="1150" PositionX="1030" />
+				<EdgeVertex Name="vertex81" PositionY="1180" PositionX="1060" />
+				<EdgeVertex Name="vertex82" PositionY="1660" PositionX="-40" />
+				<EdgeVertex Name="vertex83" PositionY="1660" PositionX="270" />
+				<EdgeVertex Name="vertex84" PositionY="1720" PositionX="570" />
+				<EdgeVertex Name="vertex85" PositionY="1720" PositionX="20" />
 				<EdgeVertex Name="vertex87" PositionY="740" PositionX="-1630" />
 				<EdgeVertex Name="vertex88" PositionY="350" PositionX="-556" />
-				<EdgeVertex Name="vertex89" PositionY="670" PositionX="610" />
-				<EdgeVertex Name="vertex90" PositionY="670" PositionX="450" />
 				<EdgeVertex Name="vertex92" PositionY="611" PositionX="-748" />
 				<EdgeVertex Name="vertex93" PositionY="610" PositionX="-1120" />
 				<EdgeVertex Name="vertex94" PositionY="588" PositionX="-748" />
 				<EdgeVertex Name="vertex95" PositionY="590" PositionX="-1110" />
-				<EdgeVertex Name="vertex97" PositionY="1480" PositionX="940" />
+				<EdgeVertex Name="vertex97" PositionY="1740" PositionX="1060" />
 				<EdgeVertex Name="vertex98" PositionY="460" PositionX="-540" />
 				<EdgeVertex Name="vertex99" PositionY="460" PositionX="-250" />
 				<EdgeVertex Name="VG6TLKyx" PositionY="110" PositionX="50" />
 				<EdgeVertex Name="vMKbLcG5" PositionY="1050" PositionX="-1600" />
+				<EdgeVertex Name="wNDWNkSk" PositionY="390" PositionX="-1700" />
+				<EdgeVertex Name="x6mdeAoY" PositionY="820" PositionX="1080" />
 				<EdgeVertex Name="xdMUCocS" PositionY="390" PositionX="-70" />
+				<EdgeVertex Name="Y89H1jTb" PositionY="-560" PositionX="-1370" />
 				<EdgeVertex Name="YY8zARNo" PositionY="-120" PositionX="190" />
-				<EdgeVertex Name="zA6xPN0T" PositionY="-226" PositionX="-1018" />
+				<EdgeVertex Name="zA6xPN0T" PositionY="-240" PositionX="-830" />
+				<EdgeVertex Name="zQIlnbpN" PositionY="1518" PositionX="933" />
 			</EdgeVertices>
 			<Types>
 				<Type TypeName="TurnajDays">
@@ -684,11 +827,11 @@
 				<SoulAsset Name="fighter4iglauer" SharedSoulGuids="32a8808b-d6a6-4868-b5b8-ed16944c538e" Comment="spawned fighter" />
 				<SoulAsset Name="fighters2" Comment="ze soulpoolu" />
 				<SoulAsset Name="fighters3" Comment="ze soulpoolu" />
-				<SoulAsset Name="fighters4" Comment="ze soulpoolu" />
+				<SoulAsset Name="fighters4" Comment="wze soulpoolu" />
 				<SoulAsset Name="fightersLevel1" Comment="asi nebude" />
 				<SoulAsset Name="fightersLevel2" SharedSoulGuids="4dbdbe7f-8099-9b33-d06a-5b908a792d9e d02cae90-e5ef-4da1-9e35-44cab52fb734 b30ad630-1d85-4b2d-b71e-de91f17f34b6 0b99c97f-297b-4c70-9467-ed9f5c615521 d33cdfbb-3201-4368-99ac-9bc6781546dd d41c1dc0-8bea-4981-98e0-a95e73c85834" />
-				<SoulAsset Name="fightersLevel3" SharedSoulGuids="4a55bfa3-0545-7ec3-aa37-a8fa019d6fb0" />
-				<SoulAsset Name="fightersLevel4" SharedSoulGuids="47390bd6-3c12-137b-00c0-ce077db65b8b 165f8204-8656-41a6-ba84-8c0b6ed25fc5 5fe2b02e-6260-4431-b97b-2121969409be 7c29a20e-112b-4d03-8b09-4fd407781c8d 7228d987-8d0b-428e-b5fd-0595944c9710" />
+				<SoulAsset Name="fightersLevel3" SharedSoulGuids="4a55bfa3-0545-7ec3-aa37-a8fa019d6fb0 165f8204-8656-41a6-ba84-8c0b6ed25fc5" />
+				<SoulAsset Name="fightersLevel4" SharedSoulGuids="47390bd6-3c12-137b-00c0-ce077db65b8b 5fe2b02e-6260-4431-b97b-2121969409be 7c29a20e-112b-4d03-8b09-4fd407781c8d 7228d987-8d0b-428e-b5fd-0595944c9710" />
 				<SmartObjectAsset Name="fighterDock" />
 				<SmartObjectAsset Name="nobleChair1" />
 				<SmartObjectAsset Name="nobleChair2" />
@@ -773,6 +916,12 @@
 				<CutsceneHolderAsset Name="csFansIdleLeaning1TrackView" />
 				<SoulAsset Name="rewardguard" SharedSoulGuids="ed037932-5dab-46be-8ca3-f3fd068b8b2a" />
 				<ProfileAsset Name="profileRewardChests" AssetProfiles="kutnohorskyTurnaj_rewardChest" />
+				<CutsceneHolderAsset Name="csFansIdleStandingBooth1TrackView" />
+				<CutsceneHolderAsset Name="csFansIdleStandingBooth2TrackView" />
+				<CutsceneHolderAsset Name="csFansIdleStandingBooth3TrackView" />
+				<CutsceneHolderAsset Name="csFansIdleStandingBooth4TrackView" />
+				<CutsceneHolderAsset Name="csFansIdleStandingBooth5TrackView" />
+				<SmartObjectAsset Name="sitBench3" />
 			</Assets>
 			<Text StringName="kutnohorskyturnaj_vmZo" Text="Kutnohorský turnaj" />
 			<MapVizLocation MapName="kutnohorsko" PositionX="2878" PositionY="805" />
@@ -1010,6 +1159,19 @@
 							<Log StringName="vyzvedni__ve_volnem_boji__t1BX" Text="Ve volném boji jsem všechny rozbil a ukázal jim, kdo je tu mistr! Ani výhru jsem si nevzal, ať všichni vidí, že nebojuju pro prachy, ale pro slávu a radost z bitvy!" />
 						</EnumLog>
 						<EnumLog Type="None" Name="Aborted" />
+					</Logs>
+				</Objective>
+				<Objective TypeT="ProgressFailable" Name="vrat_se_na_turnaj">
+					<LocalizedName StringName="kutnohors_vrat_se_na_turn_oUPQ" Text="Vrať se na turnaj." />
+					<Logs>
+						<EnumLog Type="None" Name="None" />
+						<EnumLog Type="Started" Name="Active" Marker="taTurnajStart">
+							<Log StringName="vrat_se_n_mel_bych_se_na__GNd4" Text="Přihlásil jsem se do kutnohorského turnaje, ale pak jsem to vysrabil. Měl bych se tam vrátit a dostát svému slovu. Jindra ze Skalice přece utíkat nebude!" />
+						</EnumLog>
+						<EnumLog Type="Completed" Name="Done" />
+						<EnumLog Type="Canceled" Name="Canceled">
+							<Log StringName="vrat_se_n_odesel_jsem_v_p_lwjc" Text="Nechal jsem turnaj turnajem a šel dělat něco užitečnejšího. Za týden bude zas, tak co už." />
+						</EnumLog>
 					</Logs>
 				</Objective>
 			</Objectives>

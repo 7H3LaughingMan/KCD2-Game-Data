@@ -47,6 +47,7 @@
 			<Variable name="stimulusDramaticBark" type="switch:stimulus:dramaticBark" values="" isPersistent="0" form="single" />
 			<Variable name="stimulus_disturbance" type="switch:stimulus:disturbance" values="" isPersistent="0" form="single" />
 			<Variable name="stimulus_lockpick" type="switch:stimulus:lockpick" values="" isPersistent="0" form="single" />
+			<Variable name="supressNearTrespass" type="_bool" values="" isPersistent="0" form="single" />
 			<Variable name="trespassArea" type="_wuid" values="" isPersistent="0" form="single" />
 			<Variable name="trespassSevereness" type="enum:trespassLevel" values="" isPersistent="0" form="single" />
 		</Variables>
@@ -63,7 +64,7 @@
 								<Expression expressions="$forcedReaction = true" />
 							</Then>
 							<Else canSkip="1">
-								<EntityContextCheck context="crime_interruptLookAround" target="" saveVersion="2">
+								<EntityContextCheck context="crime_interruptLookAround_lookingForPlayer" target="" saveVersion="2">
 									<Then canSkip="1">
 										<Expression expressions="$alreadySearching = true" />
 									</Then>
@@ -241,7 +242,7 @@
 																	<AffectFeelings Npc="$this.id" Token="&apos;heard_alarm&apos;" AffectNervousness="true" AffectReputation="false" />
 																</IfCondition>
 																<Switch>
-																	<IfCondition failOnCondition="false" condition="~$shouldReact &amp; &#10;~$forcedReaction &amp; &#10;~$playerIsEnemy &amp; &#10;~$imPublicEnemy &amp; &#10;~$isAwareOfPlayer">
+																	<IfCondition failOnCondition="false" condition="~$shouldReact &amp; &#10;~$forcedReaction &amp; &#10;~$playerIsEnemy &amp; &#10;~$imPublicEnemy &amp; &#10;~$isAwareOfPlayer &amp; &#10;~ $alreadySearching">
 																		<IsInsideAreaWithLabel Position="$this.id" Label="&apos;settlement&apos;" Area="$dummyWuid" FailSubtMissing="false" saveVersion="2">
 																			<Then canSkip="1">
 																				<Success />
@@ -289,31 +290,38 @@
 																			</Else>
 																		</IsInsideAreaWithLabel>
 																	</IfCondition>
-																	<IfCondition failOnCondition="false" condition="$imPublicEnemy &amp;  &#10;~$shouldReact &amp; &#10;~$forcedReaction &amp; &#10;~$playerIsEnemy &amp; &#10;~$reactionSuppressed">
+																	<IfCondition failOnCondition="false" condition="$imPublicEnemy &amp;  &#10;~$shouldReact &amp; &#10;~$forcedReaction &amp; &#10;~$playerIsEnemy &amp; &#10;~$reactionSuppressed &amp; &#10;~$alreadySearching">
 																		<SuppressFailure>
-																			<Sequence>
-																				<GraphSearch Origin="" Borders="" depth="1" selection="true" SearchPattern="Depth" EdgePruning="&apos;parent,inventory&apos;" AllowedEdges="" SubGraph="" AllowSubtraph="false" includeOrigin="false" excludeOrigin="false" failOnEmpty="true" SetOperationChoice="Intersection|And" errorOnEmpty="false" shortCircuit="false" skipTraversed="true">
-																					<LinkTagFilter tag="&apos;home&apos;" prune="true" negprune="unknown" Parent="" Child="$home" Data="" />
-																				</GraphSearch>
-																				<GraphSearch Origin="$home" Borders="" depth="1" selection="true" SearchPattern="Depth" EdgePruning="&apos;parent,inventory&apos;" AllowedEdges="" SubGraph="" AllowSubtraph="false" includeOrigin="false" excludeOrigin="false" failOnEmpty="true" SetOperationChoice="Intersection|And" errorOnEmpty="false" shortCircuit="false" skipTraversed="true">
-																					<LinkTagFilter tag="&apos;crime_trespassEscalation&apos;" prune="true" negprune="unknown" Parent="" Child="" Data="" />
-																					<LinkDataFilter tag="&apos;crime_trespassEscalation&apos;" condition="$__link_crime_trespassEscalation.counterUpdateTimestamp &gt; $currentTime - $data:script_param[&apos;crime_nearTrespassGracePeriodAfterLeavingTrespass&apos;].value &amp; &#10;$__link_crime_trespassEscalation.counterUpdateTimestamp ~= 0" prune="true" negprune="unknown" Parent="" Child="" Data="" />
-																					<NegationOp Results="true" Advance="true" EndOp="true" saveVersion="2">
-																						<Child0 canSkip="1">
-																							<SoulIsUnconsciousFilter Source="Child" prune="true" negprune="unknown" Parent="" Child="" />
-																						</Child0>
-																					</NegationOp>
-																					<SoulIsAliveFilter Source="Child" prune="true" negprune="unknown" Parent="" Child="" />
-																				</GraphSearch>
-																				<Expression expressions="$reactionSuppressed = true" />
-																			</Sequence>
+																			<Selector>
+																				<Sequence>
+																					<GraphSearch Origin="" Borders="" depth="1" selection="true" SearchPattern="Depth" EdgePruning="&apos;parent,inventory&apos;" AllowedEdges="" SubGraph="" AllowSubtraph="false" includeOrigin="false" excludeOrigin="false" failOnEmpty="true" SetOperationChoice="Intersection|And" errorOnEmpty="false" shortCircuit="false" skipTraversed="true">
+																						<LinkTagFilter tag="&apos;home&apos;" prune="true" negprune="unknown" Parent="" Child="$home" Data="" />
+																					</GraphSearch>
+																					<GraphSearch Origin="$home" Borders="" depth="1" selection="true" SearchPattern="Depth" EdgePruning="&apos;parent,inventory&apos;" AllowedEdges="" SubGraph="" AllowSubtraph="false" includeOrigin="false" excludeOrigin="false" failOnEmpty="true" SetOperationChoice="Intersection|And" errorOnEmpty="false" shortCircuit="false" skipTraversed="true">
+																						<LinkTagFilter tag="&apos;crime_trespassEscalation&apos;" prune="true" negprune="unknown" Parent="" Child="" Data="" />
+																						<LinkDataFilter tag="&apos;crime_trespassEscalation&apos;" condition="$__link_crime_trespassEscalation.counterUpdateTimestamp &gt; $currentTime - $data:script_param[&apos;crime_nearTrespassGracePeriodAfterLeavingTrespass&apos;].value &amp; &#10;$__link_crime_trespassEscalation.counterUpdateTimestamp ~= 0" prune="true" negprune="unknown" Parent="" Child="" Data="" />
+																						<NegationOp Results="true" Advance="true" EndOp="true" saveVersion="2">
+																							<Child0 canSkip="1">
+																								<SoulIsUnconsciousFilter Source="Child" prune="true" negprune="unknown" Parent="" Child="" />
+																							</Child0>
+																						</NegationOp>
+																						<SoulIsAliveFilter Source="Child" prune="true" negprune="unknown" Parent="" Child="" />
+																					</GraphSearch>
+																					<Expression expressions="$reactionSuppressed = true" />
+																				</Sequence>
+																				<EntityContextCheck context="crime_suppressNearTrespassStimulus" target="" saveVersion="2">
+																					<Then canSkip="1">
+																						<Expression expressions="$reactionSuppressed = true" />
+																					</Then>
+																				</EntityContextCheck>
+																			</Selector>
 																		</SuppressFailure>
 																	</IfCondition>
 																	<DefaultBranch>
 																		<Success />
 																	</DefaultBranch>
 																</Switch>
-																<IfCondition failOnCondition="false" condition="$shouldReact | $playerIsEnemy | ($imPublicEnemy &amp; ~$reactionSuppressed) | $forcedReaction | $reactBecauseAlone">
+																<IfCondition failOnCondition="false" condition="$shouldReact | $playerIsEnemy | ($imPublicEnemy &amp; ~$reactionSuppressed) | $forcedReaction | $reactBecauseAlone | $alreadySearching">
 																	<Sequence>
 																		<IfCondition failOnCondition="false" condition="$playerIsEnemy | &#10;$imPublicEnemy | &#10;$trespassSevereness &gt; $enum:trespassLevel.semipublic | &#10;$scheduledPriority &lt; 29">
 																			<AffectFeelings Npc="$this.id" Token="&apos;heard_movement_bio&apos;" AffectNervousness="true" AffectReputation="false" />
@@ -323,7 +331,7 @@
 																				<Success />
 																			</Then>
 																			<Else canSkip="1">
-																				<IfElseCondition failOnCondition="false" condition="$forcedReaction | ($playerIsEnemy &amp; $stimulus.kind == $enum:sound.door) | $stimulus.kind == $enum:sound.photo_mode" saveVersion="2">
+																				<IfElseCondition failOnCondition="false" condition="$alreadySearching | $forcedReaction | ($playerIsEnemy &amp; $stimulus.kind == $enum:sound.door) | $stimulus.kind == $enum:sound.photo_mode" saveVersion="2">
 																					<Then canSkip="1">
 																						<Expression expressions="$goToLookAround = true" />
 																					</Then>
@@ -349,7 +357,9 @@
 																									</EntityContextCheck>
 																								</Then>
 																								<Else canSkip="1">
-																									<Expression expressions="$goToLookAround = true" />
+																									<IfCondition failOnCondition="false" condition="$forcedReaction | &#10;$playerIsEnemy | &#10;$imPublicEnemy | &#10;$reactBecauseAlone | &#10;$trespassSevereness &gt;= $enum:trespassLevel.personal">
+																										<Expression expressions="$goToLookAround = true" />
+																									</IfCondition>
 																								</Else>
 																							</ActorStateCheck>
 																							<IfCondition failOnCondition="false" condition="~$goToLookAround &amp; $scheduledPriority &lt;= 25 &amp; &#10;($npcCooldowns.leavingCrimeInterrupt + $data:script_param[&apos;owcd_npc_postCrimeInterrupt&apos;].value &lt; $currentTime | &#10;$npcCooldowns.leavingCrimeInterrupt == 0)">
@@ -891,6 +901,7 @@
 				<Variable name="stimulusDramaticBark" comment="" />
 				<Variable name="stimulus_disturbance" comment="" />
 				<Variable name="stimulus_lockpick" comment="" />
+				<Variable name="supressNearTrespass" comment="" />
 				<Variable name="trespassArea" comment="" />
 				<Variable name="trespassSevereness" comment="" />
 				<Variable name="stimulus" comment="" />
@@ -1297,38 +1308,49 @@
 																			<OutputBreakpoints />
 																			<SuppressFailure hasInputBreakpoint="0" comment="" breakpointFlags="0">
 																				<OutputBreakpoints />
-																				<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																				<Selector hasInputBreakpoint="0" comment="" breakpointFlags="0">
 																					<OutputBreakpoints />
-																					<GraphSearch hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																					<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
 																						<OutputBreakpoints />
-																						<LinkTagFilter hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																						<GraphSearch hasInputBreakpoint="0" comment="" breakpointFlags="0">
 																							<OutputBreakpoints />
-																						</LinkTagFilter>
-																					</GraphSearch>
-																					<GraphSearch hasInputBreakpoint="0" comment="if someone recently added escalation (because he saw player in trespass) then dont react, player is most likely just still leaving" breakpointFlags="0">
+																							<LinkTagFilter hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																								<OutputBreakpoints />
+																							</LinkTagFilter>
+																						</GraphSearch>
+																						<GraphSearch hasInputBreakpoint="0" comment="if someone recently added escalation (because he saw player in trespass) then dont react, player is most likely just still leaving" breakpointFlags="0">
+																							<OutputBreakpoints />
+																							<LinkTagFilter hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																								<OutputBreakpoints />
+																							</LinkTagFilter>
+																							<LinkDataFilter hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																								<OutputBreakpoints />
+																							</LinkDataFilter>
+																							<NegationOp hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
+																								<OutputBreakpoints />
+																								<Child0>
+																									<SoulIsUnconsciousFilter hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																										<OutputBreakpoints />
+																									</SoulIsUnconsciousFilter>
+																								</Child0>
+																							</NegationOp>
+																							<SoulIsAliveFilter hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																								<OutputBreakpoints />
+																							</SoulIsAliveFilter>
+																						</GraphSearch>
+																						<Expression hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																							<OutputBreakpoints />
+																						</Expression>
+																					</Sequence>
+																					<EntityContextCheck hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
 																						<OutputBreakpoints />
-																						<LinkTagFilter hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																							<OutputBreakpoints />
-																						</LinkTagFilter>
-																						<LinkDataFilter hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																							<OutputBreakpoints />
-																						</LinkDataFilter>
-																						<NegationOp hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
-																							<OutputBreakpoints />
-																							<Child0>
-																								<SoulIsUnconsciousFilter hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																									<OutputBreakpoints />
-																								</SoulIsUnconsciousFilter>
-																							</Child0>
-																						</NegationOp>
-																						<SoulIsAliveFilter hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																							<OutputBreakpoints />
-																						</SoulIsAliveFilter>
-																					</GraphSearch>
-																					<Expression hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																						<OutputBreakpoints />
-																					</Expression>
-																				</Sequence>
+																						<Then>
+																							<Expression hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																								<OutputBreakpoints />
+																							</Expression>
+																						</Then>
+																					</EntityContextCheck>
+																				</Selector>
 																			</SuppressFailure>
 																		</IfCondition>
 																		<DefaultBranch>
@@ -1393,9 +1415,12 @@
 																										</EntityContextCheck>
 																									</Then>
 																									<Else>
-																										<Expression hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																										<IfCondition hasInputBreakpoint="0" comment="KCD2-464545" breakpointFlags="0">
 																											<OutputBreakpoints />
-																										</Expression>
+																											<Expression hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																												<OutputBreakpoints />
+																											</Expression>
+																										</IfCondition>
 																									</Else>
 																								</ActorStateCheck>
 																								<IfCondition hasInputBreakpoint="0" comment="" breakpointFlags="0">

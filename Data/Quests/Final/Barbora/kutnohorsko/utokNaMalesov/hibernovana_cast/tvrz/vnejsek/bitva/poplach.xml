@@ -18,6 +18,9 @@
 				<Port Name="spustit_poplach" Direction="In" Type="trigger">
 					<DesignName StringName="poplach_spustit_poplach_AjjQ" Text="Spustit poplach" />
 				</Port>
+				<Port Name="zastavit_timer_poplachu" Direction="In" Type="trigger">
+					<DesignName StringName="poplach_zastavit_timer_po_4zvc" Text="Zastavit timer poplachu" />
+				</Port>
 			</Ports>
 			<Definitions>
 				<Definition File="poplach/utok_na_malesov__poplasne_volani.xml" />
@@ -71,6 +74,15 @@
 					</Edge>
 					<Edge From="alarmRaised.OnTrue" To="Exec" />
 				</IfFunction>
+				<IfFunction Name="ifnot68" PositionY="-160" PositionX="-50" MethodName="math::boolean::Not" DeclaringType="math::boolean">
+					<Edge From="zastavit_timer_poplachu" To="Exec">
+						<Vertex>UHSF3olJ</Vertex>
+					</Edge>
+					<Edge From="alarmRaised.State" To="Value">
+						<Vertex>vertex1</Vertex>
+						<Vertex>WMKGAwJq</Vertex>
+					</Edge>
+				</IfFunction>
 				<Function Name="joinarrays66" PositionY="890" PositionX="-260" TypeT="wh::rpgmodule::Souls" MethodName="utilities::array::JoinArrays" DeclaringType="utilities::array">
 					<Asset Name="A" Alias="outerCourtyardWallShooters" />
 					<Asset Name="B" Alias="outerCourtyardDefenders" />
@@ -88,13 +100,15 @@
 					<Asset Name="souls" Alias="outerCourtyardDefendersAndShooters" />
 					<Edge From="and13.bool" To="isactive" />
 					<Edge From="cas_na_alarm_na_vnejsim_nadvori.cas" To="timerduration" />
+					<Edge From="ifnot68.True" To="manulstopalarmtimer" />
 				</malesovalarm>
 				<Function Name="not63" PositionY="450" PositionX="1280" MethodName="math::boolean::Not" DeclaringType="math::boolean">
 					<Edge From="alarmRaised.State" To="Value" />
 				</Function>
-				<Function Name="not7" PositionY="90" PositionX="-340" MethodName="math::boolean::Not" DeclaringType="math::boolean">
+				<Function Name="not7" PositionY="140" PositionX="-350" MethodName="math::boolean::Not" DeclaringType="math::boolean">
 					<Edge From="alarmRaised.State" To="Value">
 						<Vertex>vertex1</Vertex>
+						<Vertex>WMKGAwJq</Vertex>
 						<Vertex>vertex2</Vertex>
 					</Edge>
 				</Function>
@@ -134,14 +148,16 @@
 			</Nodes>
 			<EdgeVertices>
 				<EdgeVertex Name="305F15hN" PositionY="190" PositionX="370" />
-				<EdgeVertex Name="8sqKUxbL" PositionY="422" PositionX="-243" />
+				<EdgeVertex Name="8sqKUxbL" PositionY="610" PositionX="-300" />
 				<EdgeVertex Name="s481ceE7" PositionY="190" PositionX="620" />
+				<EdgeVertex Name="UHSF3olJ" PositionY="80" PositionX="-130" />
 				<EdgeVertex Name="vertex1" PositionY="390" PositionX="1140" />
 				<EdgeVertex Name="vertex2" PositionY="390" PositionX="-310" />
 				<EdgeVertex Name="vertex3" PositionY="40" PositionX="1550" />
 				<EdgeVertex Name="vertex4" PositionY="10" PositionX="1550" />
 				<EdgeVertex Name="vertex5" PositionY="-652" PositionX="-93" />
 				<EdgeVertex Name="vertex6" PositionY="-670" PositionX="1000" />
+				<EdgeVertex Name="WMKGAwJq" PositionY="390" PositionX="-70" />
 			</EdgeVertices>
 			<Assets>
 				<TagPointAsset Name="alarmSoundSource" />

@@ -36,6 +36,9 @@
 						<Vertex>nJ6DU310</Vertex>
 					</Edge>
 				</State>
+				<Function Name="deathcheck24" PositionY="-160" PositionX="-210" MethodName="wh::rpgmodule::DeathCheck" DeclaringType="wh::rpgmodule">
+					<Asset Name="Souls" Alias="jimram" />
+				</Function>
 				<duelbehavioradvanced Name="duelbehavioradvanced" PositionY="-460" PositionX="760" Namespace="utils.combat">
 					<Asset Name="attacker" Alias="player" />
 					<Asset Name="target" Alias="jimram" />
@@ -88,6 +91,14 @@
 					<Edge From="CombatSShopguardem.Active" To="isactive" />
 				</fightconfiguration_surrendering>
 				<henry_porazen Name="henry_porazen" PositionY="-700" PositionX="1060" />
+				<IfFunction Name="ifand23" PositionY="-280" PositionX="50" MethodName="math::boolean::And" DeclaringType="math::boolean">
+					<Edge From="deathcheck24.IsDead" To="B" />
+					<Edge From="patchtrigger25.OnPatch" To="Exec" />
+					<Edge From="zbijJimrama.Active" To="A">
+						<Vertex>JWyY4LyR</Vertex>
+						<Vertex>K0HES7Kf</Vertex>
+					</Edge>
+				</IfFunction>
 				<jimram_se_probral_z_bezvedomi__bark Name="jimram_se_probral_z_bezvedomi__bark" PositionY="-560" PositionX="1050" />
 				<MakeArray Name="makearray20" PositionY="410" PositionX="970" TypeT="wh::rpgmodule::Souls">
 					<Asset Name="A" Alias="shopguard" />
@@ -121,6 +132,9 @@
 						<Vertex>vertex8</Vertex>
 					</Edge>
 				</Output>
+				<PatchTrigger Name="patchtrigger25" PositionY="-370" PositionX="-470">
+					<Constant Name="TransitionToVersion" Value="ver_01_02" />
+				</PatchTrigger>
 				<SetEntityContext Name="setentitycontext22" PositionY="-1080" PositionX="650">
 					<Constant Name="Context" Value="combat_triggerSALSearchInDuelBehaviour" />
 					<Asset Name="Souls" Alias="jimram" />
@@ -153,10 +167,17 @@
 						<Vertex>vertex3</Vertex>
 						<Vertex>vertex4</Vertex>
 					</Edge>
+					<Edge From="duelbehavioradvanced.ontargetdeath" To="SetCanceled">
+						<Vertex>vertex3</Vertex>
+						<Vertex>vertex4</Vertex>
+					</Edge>
+					<Edge From="ifand23.True" To="SetCanceled" />
 				</State>
 			</Nodes>
 			<EdgeVertices>
 				<EdgeVertex Name="aDzUDqQX" PositionY="350" PositionX="620" />
+				<EdgeVertex Name="JWyY4LyR" PositionY="-360" PositionX="520" />
+				<EdgeVertex Name="K0HES7Kf" PositionY="-360" PositionX="50" />
 				<EdgeVertex Name="nJ6DU310" PositionY="1260" PositionX="360" />
 				<EdgeVertex Name="oSBPxMsJ" PositionY="1260" PositionX="880" />
 				<EdgeVertex Name="sbTtIm1c" PositionY="380" PositionX="610" />

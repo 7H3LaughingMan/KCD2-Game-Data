@@ -764,34 +764,49 @@
 													<CameraCommand CameraType="CloseUp" />
 												</Commands>
 											</Response>
-											<Response Role="RYTIR_JEZEK" ReferenceLength="4.68">
-												<Text StringName="odev_rytir_jez_tys_porazi_lbmy" Text="Tys porazil Záviše? No teda, kdo by to do tebe řekl!" />
-												<Commands>
-													<AnimationCommand Delay="0.11" FragmentId="ADLG_Surprised_light" Guid="078c2b11-e2e3-4f4c-baf5-92aa3590fa78" Variant="1" />
-													<AnimationHeadCommand Delay="0.07" FragmentId="ADLG_FA_EyebrowsRaise" />
-													<CameraCommand CameraType="CloseUp" />
-												</Commands>
-											</Response>
 										</Elements>
-										<Decision Name="dec25" Priority="SideQuestSubmission">
+										<Decision Name="dec26">
 											<Sequences>
-												<Sequence SpeechCoef="0" EndType="EndDialogue" Name="seq64">
-													<DesignName StringName="odevzdani_seq64_4FLs" Text="seq64" />
+												<Sequence EntryCondition="SequenceUsed('vybojoval')" EndType="GoTo" GoToDecision="dec25" Name="seq668">
+													<DesignName StringName="odevzdani_seq668_h1Ml" Text="seq668" />
 													<Elements>
-														<Response Role="RYTIR_JEZEK" ReferenceLength="4.09">
-															<Parenthetical>
-																<Text StringName="odev_rytir_jez_zamysli_se_KuMe" Text="zamyslí se" />
-															</Parenthetical>
-															<Text StringName="odev_rytir_jez_ted_bych_s_jMbD" Text="Teď bych se ti asi měl nějak odměnit, co?" />
+														<Response Role="HENRY" />
+													</Elements>
+												</Sequence>
+												<Sequence SpeechCoef="0" EntryCondition="!SequenceUsed('vybojoval')" EndType="Decision" Name="seq667">
+													<DesignName StringName="odevzdani_seq667_cw8P" Text="seq667" />
+													<Elements>
+														<Response Role="RYTIR_JEZEK" ReferenceLength="4.68">
+															<Text StringName="odev_rytir_jez_tys_porazi_lbmy" Text="Tys porazil Záviše? No teda, kdo by to do tebe řekl!" />
 															<Commands>
-																<AnimationCommand Delay="0.02" FragmentId="ADLG_Think" Guid="b1115e4d-b531-43a5-a3f0-a427c275042f" Variant="4" DesiredDuration="4.2" />
+																<AnimationCommand Delay="0.11" FragmentId="ADLG_Surprised_light" Guid="078c2b11-e2e3-4f4c-baf5-92aa3590fa78" Variant="1" />
+																<AnimationHeadCommand Delay="0.07" FragmentId="ADLG_FA_EyebrowsRaise" />
 																<CameraCommand CameraType="CloseUp" />
 															</Commands>
 														</Response>
 													</Elements>
-													<IncludedDecisions>
-														<IncludedDecision Decision="ztracenaCest_jezekPredavaJindroviOdmenu" />
-													</IncludedDecisions>
+													<Decision Name="dec25" Priority="SideQuestSubmission">
+														<Sequences>
+															<Sequence SpeechCoef="0" EndType="EndDialogue" Name="seq64">
+																<DesignName StringName="odevzdani_seq64_4FLs" Text="seq64" />
+																<Elements>
+																	<Response Role="RYTIR_JEZEK" ReferenceLength="4.09">
+																		<Parenthetical>
+																			<Text StringName="odev_rytir_jez_zamysli_se_KuMe" Text="zamyslí se" />
+																		</Parenthetical>
+																		<Text StringName="odev_rytir_jez_ted_bych_s_jMbD" Text="Teď bych se ti asi měl nějak odměnit, co?" />
+																		<Commands>
+																			<AnimationCommand Delay="0.02" FragmentId="ADLG_Think" Guid="b1115e4d-b531-43a5-a3f0-a427c275042f" Variant="4" DesiredDuration="4.2" />
+																			<CameraCommand CameraType="CloseUp" />
+																		</Commands>
+																	</Response>
+																</Elements>
+																<IncludedDecisions>
+																	<IncludedDecision Decision="ztracenaCest_jezekPredavaJindroviOdmenu" />
+																</IncludedDecisions>
+															</Sequence>
+														</Sequences>
+													</Decision>
 												</Sequence>
 											</Sequences>
 										</Decision>

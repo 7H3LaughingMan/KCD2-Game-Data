@@ -982,21 +982,17 @@
 	</BehaviorTree>
 	<BehaviorTree name="debug" is_function="0">
 		<Variables>
+			<Variable name="bool" type="_bool" values="" isPersistent="0" form="single" />
+			<Variable name="diff" type="_float" values="" isPersistent="0" form="single" />
+			<Variable name="information" type="information" values="" isPersistent="0" form="single" />
+			<Variable name="information2" type="information" values="" isPersistent="0" form="single" />
 			<Variable name="linkedEntity" type="_wuid" values="" isPersistent="0" form="single" />
 			<Variable name="xname" type="_string" values="" isPersistent="0" form="single" />
 			<Variable name="xwuid" type="_wuid" values="" isPersistent="0" form="single" />
 		</Variables>
 		<Root OneTimeOnly="false" FailState="Recoverable" saveVersion="2">
 			<Behavior canSkip="1">
-				<Parallel successMode="Any" failureMode="Any">
-					<Loop count="-1">
-						<Sequence>
-							<Wait duration="&apos;3s&apos;" timeType="GameTime" doFail="false" variation="" />
-							<PlayAdditiveAnimation Fragment="&apos;StealthRecognitionSmell&apos;" Tags="" />
-						</Sequence>
-					</Loop>
-					<Move stopWithinDistance="0.200000" stopDistanceVariation="0.100000" rayCasteFlee="false" successDistance="0.000000" changeNPCState="true" fastForwardIncludesMove="false" destinationSpecification="$__player" destinationSpecification2="" destinationSpecification3="" speed="Walk" additionalParams="" pathFindingParams="" staminaPolicy="" pathInfo="" />
-				</Parallel>
+				<Wait duration="&apos;-1&apos;" timeType="GameTime" doFail="false" variation="" />
 			</Behavior>
 		</Root>
 		<ForestContainer>
@@ -1064,9 +1060,69 @@
 					</Sequence>
 				</While>
 			</Parallel>
+			<Parallel successMode="Any" failureMode="Any">
+				<Loop count="-1">
+					<Sequence>
+						<Wait duration="&apos;3s&apos;" timeType="GameTime" doFail="false" variation="" />
+						<PlayAdditiveAnimation Fragment="&apos;StealthRecognitionSmell&apos;" Tags="" />
+					</Sequence>
+				</Loop>
+				<Move stopWithinDistance="0.200000" stopDistanceVariation="0.100000" rayCasteFlee="false" successDistance="0.000000" changeNPCState="true" fastForwardIncludesMove="false" destinationSpecification="$__player" destinationSpecification2="" destinationSpecification3="" speed="Walk" additionalParams="" pathFindingParams="" staminaPolicy="" pathInfo="" />
+			</Parallel>
+			<Sequence>
+				<CreateInformationWrapper Label="&apos;assault&apos;" PerceivedWuid="$this.id" PositionType="perceivedWuid" PositionVec3="" PositionWuid="" Information="$information" />
+				<LockDynamicInformationValues Information="$information">
+					<SetDynamicInformationValue Information="$information" Tag="&apos;victim&apos;" Variable="$this.id" Type="" Value="" />
+				</LockDynamicInformationValues>
+				<Timeout duration="&apos;5s&apos;" timeType="GameTime" doFail="false" variation="">
+					<Function_crime_emitInformation crimeInformation="$information" emitCrimeInformation="true" longDistanceModeEnabled="$bool" reactionKind="$enum:crime_reactionKind.unknown" emitAlarmInformation="$bool" nodeLabel="85687321" />
+				</Timeout>
+				<Wait duration="&apos;2s&apos;" timeType="GameTime" doFail="false" variation="" />
+				<CreateInformationWrapper Label="&apos;murder&apos;" PerceivedWuid="$this.id" PositionType="perceivedWuid" PositionVec3="" PositionWuid="" Information="$information2" />
+				<LockDynamicInformationValues Information="$information2">
+					<SetDynamicInformationValue Information="$information2" Tag="&apos;victim&apos;" Variable="$__player" Type="" Value="" />
+				</LockDynamicInformationValues>
+				<Wait duration="&apos;2s&apos;" timeType="GameTime" doFail="false" variation="" />
+				<TransformInformation OriginalInformation="$information" NewInformation="$information2" />
+				<Wait duration="&apos;2s&apos;" timeType="GameTime" doFail="false" variation="" />
+				<DestroyInformationCompletely Information="$information" />
+				<Wait duration="&apos;-1&apos;" timeType="GameTime" doFail="false" variation="" />
+			</Sequence>
+			<Sequence>
+				<Wait duration="&apos;5s&apos;" timeType="GameTime" doFail="false" variation="" />
+				<GraphSearch Origin="" Borders="" depth="1" selection="true" SearchPattern="Depth" EdgePruning="&apos;parent,inventory&apos;" AllowedEdges="" SubGraph="" AllowSubtraph="false" includeOrigin="false" excludeOrigin="false" failOnEmpty="false" SetOperationChoice="Intersection|And" errorOnEmpty="false" shortCircuit="false" skipTraversed="true">
+					<LinkTagFilter tag="&apos;streamedNPC&apos;" prune="true" negprune="unknown" Parent="" Child="$xwuid" Data="" />
+				</GraphSearch>
+				<CreateInformation PerceivedWuid="$xwuid" label="&apos;trespass&apos;" position="" ToWhom="" OutVariable="$information" />
+				<Loop count="-1">
+					<Sequence>
+						<IfElseCondition failOnCondition="false" condition="$information.perceivedWuid == $__null" saveVersion="2">
+							<Then canSkip="1">
+								<LogToConsole LogLevel="Error" Message="&apos;--- NULL&apos;" />
+							</Then>
+							<Else canSkip="1">
+								<LogToConsole LogLevel="Error" Message="&apos;+++ NOT NULL&apos;" />
+							</Else>
+						</IfElseCondition>
+						<CheckWuidValid wuid="$information.perceivedWuid" FailSubtMissing="false" saveVersion="2">
+							<Then canSkip="1">
+								<LogToConsole LogLevel="Error" Message="&apos;+++ VALID&apos;" />
+							</Then>
+							<Else canSkip="1">
+								<LogToConsole LogLevel="Error" Message="&apos;--- NOT VALID&apos;" />
+							</Else>
+						</CheckWuidValid>
+						<Wait duration="&apos;1s&apos;" timeType="GameTime" doFail="false" variation="" />
+					</Sequence>
+				</Loop>
+			</Sequence>
 		</ForestContainer>
 		<EditorData EventSet="">
 			<Variables>
+				<Variable name="bool" comment="" />
+				<Variable name="diff" comment="" />
+				<Variable name="information" comment="" />
+				<Variable name="information2" comment="" />
 				<Variable name="linkedEntity" comment="" />
 				<Variable name="xname" comment="" />
 				<Variable name="xwuid" comment="" />
@@ -1075,28 +1131,13 @@
 			<Root hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
 				<OutputBreakpoints />
 				<Behavior>
-					<Parallel hasInputBreakpoint="0" comment="" breakpointFlags="0">
+					<Wait hasInputBreakpoint="0" comment="" breakpointFlags="0">
 						<OutputBreakpoints />
-						<Loop hasInputBreakpoint="0" comment="" breakpointFlags="0">
-							<OutputBreakpoints />
-							<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
-								<OutputBreakpoints />
-								<Wait hasInputBreakpoint="0" comment="" breakpointFlags="0">
-									<OutputBreakpoints />
-								</Wait>
-								<PlayAdditiveAnimation hasInputBreakpoint="0" comment="" breakpointFlags="0">
-									<OutputBreakpoints />
-								</PlayAdditiveAnimation>
-							</Sequence>
-						</Loop>
-						<Move hasInputBreakpoint="0" comment="" breakpointFlags="0">
-							<OutputBreakpoints />
-						</Move>
-					</Parallel>
+					</Wait>
 				</Behavior>
 			</Root>
 			<Forest>
-				<Sequence editorPosX="710" editorPosY="-670" hasInputBreakpoint="0" comment="" breakpointFlags="0">
+				<Sequence editorPosX="1970" editorPosY="-640" hasInputBreakpoint="0" comment="" breakpointFlags="0">
 					<OutputBreakpoints />
 					<Selector hasInputBreakpoint="0" comment="" breakpointFlags="0">
 						<OutputBreakpoints />
@@ -1184,7 +1225,7 @@
 						</ErrorNode>
 					</SuppressFailure>
 				</Sequence>
-				<Parallel editorPosX="990" editorPosY="120" hasInputBreakpoint="0" comment="" breakpointFlags="0">
+				<Parallel editorPosX="2250" editorPosY="150" hasInputBreakpoint="0" comment="" breakpointFlags="0">
 					<OutputBreakpoints />
 					<While hasInputBreakpoint="0" comment="" breakpointFlags="0">
 						<OutputBreakpoints />
@@ -1218,6 +1259,119 @@
 						</Sequence>
 					</While>
 				</Parallel>
+				<Parallel editorPosX="2370" editorPosY="610" hasInputBreakpoint="0" comment="" breakpointFlags="0">
+					<OutputBreakpoints />
+					<Loop hasInputBreakpoint="0" comment="" breakpointFlags="0">
+						<OutputBreakpoints />
+						<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
+							<OutputBreakpoints />
+							<Wait hasInputBreakpoint="0" comment="" breakpointFlags="0">
+								<OutputBreakpoints />
+							</Wait>
+							<PlayAdditiveAnimation hasInputBreakpoint="0" comment="" breakpointFlags="0">
+								<OutputBreakpoints />
+							</PlayAdditiveAnimation>
+						</Sequence>
+					</Loop>
+					<Move hasInputBreakpoint="0" comment="" breakpointFlags="0">
+						<OutputBreakpoints />
+					</Move>
+				</Parallel>
+				<Sequence editorPosX="1070" editorPosY="-350" hasInputBreakpoint="0" comment="" breakpointFlags="0">
+					<OutputBreakpoints />
+					<CreateInformationWrapper hasInputBreakpoint="0" comment="" breakpointFlags="0">
+						<OutputBreakpoints />
+					</CreateInformationWrapper>
+					<LockDynamicInformationValues hasInputBreakpoint="0" comment="" breakpointFlags="0">
+						<OutputBreakpoints />
+						<SetDynamicInformationValue hasInputBreakpoint="0" comment="" breakpointFlags="0">
+							<OutputBreakpoints />
+						</SetDynamicInformationValue>
+					</LockDynamicInformationValues>
+					<Timeout hasInputBreakpoint="0" comment="" breakpointFlags="0">
+						<OutputBreakpoints />
+						<Function_crime_emitInformation hasInputBreakpoint="0" comment="" breakpointFlags="0">
+							<OutputBreakpoints />
+						</Function_crime_emitInformation>
+					</Timeout>
+					<Wait hasInputBreakpoint="0" comment="" breakpointFlags="0">
+						<OutputBreakpoints />
+					</Wait>
+					<CreateInformationWrapper hasInputBreakpoint="0" comment="" breakpointFlags="0">
+						<OutputBreakpoints />
+					</CreateInformationWrapper>
+					<LockDynamicInformationValues hasInputBreakpoint="0" comment="" breakpointFlags="0">
+						<OutputBreakpoints />
+						<SetDynamicInformationValue hasInputBreakpoint="0" comment="" breakpointFlags="0">
+							<OutputBreakpoints />
+						</SetDynamicInformationValue>
+					</LockDynamicInformationValues>
+					<Wait hasInputBreakpoint="0" comment="" breakpointFlags="0">
+						<OutputBreakpoints />
+					</Wait>
+					<TransformInformation hasInputBreakpoint="0" comment="" breakpointFlags="0">
+						<OutputBreakpoints />
+					</TransformInformation>
+					<Wait hasInputBreakpoint="0" comment="" breakpointFlags="0">
+						<OutputBreakpoints />
+					</Wait>
+					<DestroyInformationCompletely hasInputBreakpoint="0" comment="" breakpointFlags="0">
+						<OutputBreakpoints />
+					</DestroyInformationCompletely>
+					<Wait hasInputBreakpoint="0" comment="" breakpointFlags="0">
+						<OutputBreakpoints />
+					</Wait>
+				</Sequence>
+				<Sequence editorPosX="330" editorPosY="620" hasInputBreakpoint="0" comment="" breakpointFlags="0">
+					<OutputBreakpoints />
+					<Wait hasInputBreakpoint="0" comment="" breakpointFlags="0">
+						<OutputBreakpoints />
+					</Wait>
+					<GraphSearch hasInputBreakpoint="0" comment="" breakpointFlags="0">
+						<OutputBreakpoints />
+						<LinkTagFilter hasInputBreakpoint="0" comment="" breakpointFlags="0">
+							<OutputBreakpoints />
+						</LinkTagFilter>
+					</GraphSearch>
+					<CreateInformation hasInputBreakpoint="0" comment="" breakpointFlags="0">
+						<OutputBreakpoints />
+					</CreateInformation>
+					<Loop hasInputBreakpoint="0" comment="" breakpointFlags="0">
+						<OutputBreakpoints />
+						<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
+							<OutputBreakpoints />
+							<IfElseCondition hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
+								<OutputBreakpoints />
+								<Then>
+									<LogToConsole hasInputBreakpoint="0" comment="" breakpointFlags="0">
+										<OutputBreakpoints />
+									</LogToConsole>
+								</Then>
+								<Else>
+									<LogToConsole hasInputBreakpoint="0" comment="" breakpointFlags="0">
+										<OutputBreakpoints />
+									</LogToConsole>
+								</Else>
+							</IfElseCondition>
+							<CheckWuidValid hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
+								<OutputBreakpoints />
+								<Then>
+									<LogToConsole hasInputBreakpoint="0" comment="" breakpointFlags="0">
+										<OutputBreakpoints />
+									</LogToConsole>
+								</Then>
+								<Else>
+									<LogToConsole hasInputBreakpoint="0" comment="" breakpointFlags="0">
+										<OutputBreakpoints />
+									</LogToConsole>
+								</Else>
+							</CheckWuidValid>
+							<Wait hasInputBreakpoint="0" comment="" breakpointFlags="0">
+								<OutputBreakpoints />
+							</Wait>
+						</Sequence>
+					</Loop>
+				</Sequence>
 			</Forest>
 			<Comments />
 		</EditorData>
@@ -1739,6 +1893,135 @@
 						<Move hasInputBreakpoint="0" comment="" breakpointFlags="0">
 							<OutputBreakpoints />
 						</Move>
+					</Sequence>
+				</Behavior>
+			</Root>
+			<Forest />
+			<Comments />
+		</EditorData>
+	</BehaviorTree>
+	<BehaviorTree name="relationOverrideDebug" is_function="0">
+		<Variables>
+			<Variable name="npc" type="_wuid" values="" isPersistent="0" form="single" />
+		</Variables>
+		<Root OneTimeOnly="false" FailState="Recoverable" saveVersion="2">
+			<Behavior canSkip="1">
+				<Loop count="-1">
+					<Sequence>
+						<SuppressFailure>
+							<Sequence>
+								<GraphSearch Origin="" Borders="" depth="1" selection="true" SearchPattern="Depth" EdgePruning="&apos;parent,inventory&apos;" AllowedEdges="" SubGraph="" AllowSubtraph="false" includeOrigin="false" excludeOrigin="false" failOnEmpty="true" SetOperationChoice="Intersection|And" errorOnEmpty="false" shortCircuit="false" skipTraversed="true">
+									<LinkTagFilter tag="&apos;npc&apos;" prune="true" negprune="unknown" Parent="" Child="$npc" Data="" />
+								</GraphSearch>
+								<CheckRelationshipInterval_SoulToSoul TargetSoul="$npc" Soul="$this.id" Flag="friend" saveVersion="2">
+									<Then canSkip="1">
+										<LogToConsole LogLevel="Error" Message="&apos;+++  FRIENDLY  +++&apos;" />
+									</Then>
+									<Else canSkip="1">
+										<LogToConsole LogLevel="Error" Message="&apos;--- UNFRIENDLY ---&apos;" />
+									</Else>
+								</CheckRelationshipInterval_SoulToSoul>
+							</Sequence>
+						</SuppressFailure>
+						<Wait duration="&apos;250ms&apos;" timeType="GameTime" doFail="false" variation="" />
+					</Sequence>
+				</Loop>
+			</Behavior>
+		</Root>
+		<ForestContainer />
+		<EditorData EventSet="">
+			<Variables>
+				<Variable name="npc" comment="" />
+			</Variables>
+			<ForwardDeclarations />
+			<Root hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
+				<OutputBreakpoints />
+				<Behavior>
+					<Loop hasInputBreakpoint="0" comment="" breakpointFlags="0">
+						<OutputBreakpoints />
+						<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
+							<OutputBreakpoints />
+							<SuppressFailure hasInputBreakpoint="0" comment="" breakpointFlags="0">
+								<OutputBreakpoints />
+								<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
+									<OutputBreakpoints />
+									<GraphSearch hasInputBreakpoint="0" comment="" breakpointFlags="0">
+										<OutputBreakpoints />
+										<LinkTagFilter hasInputBreakpoint="0" comment="" breakpointFlags="0">
+											<OutputBreakpoints />
+										</LinkTagFilter>
+									</GraphSearch>
+									<CheckRelationshipInterval_SoulToSoul hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
+										<OutputBreakpoints />
+										<Then>
+											<LogToConsole hasInputBreakpoint="0" comment="" breakpointFlags="0">
+												<OutputBreakpoints />
+											</LogToConsole>
+										</Then>
+										<Else>
+											<LogToConsole hasInputBreakpoint="0" comment="" breakpointFlags="0">
+												<OutputBreakpoints />
+											</LogToConsole>
+										</Else>
+									</CheckRelationshipInterval_SoulToSoul>
+								</Sequence>
+							</SuppressFailure>
+							<Wait hasInputBreakpoint="0" comment="" breakpointFlags="0">
+								<OutputBreakpoints />
+							</Wait>
+						</Sequence>
+					</Loop>
+				</Behavior>
+			</Root>
+			<Forest />
+			<Comments />
+		</EditorData>
+	</BehaviorTree>
+	<BehaviorTree name="checkChests" is_function="0">
+		<Variables>
+			<Variable name="chest" type="_wuid" values="" isPersistent="0" form="single" />
+			<Variable name="chests" type="_wuid" values="" isPersistent="0" form="array" />
+		</Variables>
+		<Root OneTimeOnly="false" FailState="Recoverable" saveVersion="2">
+			<Behavior canSkip="1">
+				<Sequence>
+					<GraphSearch Origin="" Borders="" depth="1" selection="true" SearchPattern="Depth" EdgePruning="&apos;parent,inventory&apos;" AllowedEdges="" SubGraph="" AllowSubtraph="false" includeOrigin="false" excludeOrigin="false" failOnEmpty="true" SetOperationChoice="Intersection|And" errorOnEmpty="false" shortCircuit="false" skipTraversed="true">
+						<LinkTagFilter tag="&apos;chest&apos;" prune="true" negprune="unknown" Parent="" Child="" Data="" />
+						<Nodalyzer Quantifiers="ForAll" Parent="" Child="$chests" saveVersion="2" />
+					</GraphSearch>
+					<ForEach startIndex="0" step="1" array="$chests" iterator="" value="$chest" break="">
+						<Function_checkChest chest="$chest" nodeLabel="82656757" />
+					</ForEach>
+				</Sequence>
+			</Behavior>
+		</Root>
+		<ForestContainer />
+		<EditorData EventSet="">
+			<Variables>
+				<Variable name="chest" comment="" />
+				<Variable name="chests" comment="" />
+			</Variables>
+			<ForwardDeclarations />
+			<Root hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
+				<OutputBreakpoints />
+				<Behavior>
+					<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
+						<OutputBreakpoints />
+						<GraphSearch hasInputBreakpoint="0" comment="" breakpointFlags="0">
+							<OutputBreakpoints />
+							<LinkTagFilter hasInputBreakpoint="0" comment="" breakpointFlags="0">
+								<OutputBreakpoints />
+							</LinkTagFilter>
+							<Nodalyzer hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
+								<OutputBreakpoints />
+							</Nodalyzer>
+						</GraphSearch>
+						<ForEach hasInputBreakpoint="0" comment="" breakpointFlags="0">
+							<OutputBreakpoints />
+							<Function_checkChest hasInputBreakpoint="0" comment="" breakpointFlags="0">
+								<OutputBreakpoints />
+							</Function_checkChest>
+						</ForEach>
 					</Sequence>
 				</Behavior>
 			</Root>

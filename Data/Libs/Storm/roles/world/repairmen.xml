@@ -16,9 +16,15 @@
         <rule name="repairman">
             <selectors>
             	<isValidOpenworldNpc />
-            	<isMan /> <!-- Women never ever repair stuff, because no actress recorded the lines for refusing repair wh -->
-            	<hasMerchantVoiceOrNoCharacter />
-				<hasRepairmanSocialClass />
+            	<isMan /> <!-- Women never ever repair stuff, because no actress recorded the lines for refusing repair when player is branded -->
+                <or>
+            	    <hasMerchantVoiceOrNoCharacter />
+                    <hasVoice name="steenAgro" />
+                </or>
+                <or>
+                    <isBowRepairman />
+                    <hasRepairmanSocialClass />
+                </or>
             </selectors>
             <operations>
                 <addRole name="OPRAVAR" />
@@ -94,7 +100,10 @@
             	<isValidOpenworldNpc />
             	<isMan />
             	<hasMerchantVoiceOrNoCharacter />
-				<hasSocialClass name="shootmaster" />
+                <or>
+                    <isBowRepairman />
+                    <hasSocialClass name="shootmaster" />
+                </or>
             </selectors>
             <operations>
                 <addRole name="OPRAVAR_STRELMISTR" />

@@ -121,7 +121,7 @@
 								</Response>
 							</Elements>
 						</Sequence>
-						<Sequence SpeechCoef="0" EntryCondition="Port('je_den') AND&#xD;&#xA;Port('jindra_ma_vyzvat_damiana')&#xD;&#xA;AND &#xD;&#xA;!Port('jindra_uz_damiana_jednou_vyzval')" EndType="Decision" Visibility="Public" Name="jindra_rekl_damianovi_ze_se_chce_porvat_ver_01_01">
+						<Sequence EntryCondition="Port('je_den') AND&#xD;&#xA;Port('jindra_ma_vyzvat_damiana')&#xD;&#xA;AND &#xD;&#xA;!Port('jindra_uz_damiana_jednou_vyzval')" EndType="Decision" SpeechCoef="0" Visibility="Public" Name="jindra_rekl_damianovi_ze_se_chce_porvat_ver_01_01">
 							<DesignName StringName="te__pred__seq26_PYV6" Text="Jindra řekl Damiánovi, že se chce porvat" />
 							<UiPrompt StringName="ui_te__pred__seq26_4sDl" Text="Pojď se bít!" />
 							<Elements>
@@ -363,7 +363,7 @@
 											</Response>
 										</Elements>
 									</Sequence>
-									<Sequence EntryCondition="Port('jindra_ma_nizky_health_bar')" EndType="Decision" Name="seq23">
+									<Sequence EntryCondition="Port('jindra_ma_nizky_health_bar')&#xD;&#xA;AND &#xD;&#xA;!Port('damian_je_tezce_zranen')" EndType="Decision" Name="seq23">
 										<DesignName StringName="te__pred__seq23_Ym30" Text="seq23" />
 										<Elements>
 											<Response Role="ZEBRAK_DAMIAN_KUTNA_HORA" ReferenceLength="3.83">
@@ -422,7 +422,7 @@
 											</Sequences>
 										</Decision>
 									</Sequence>
-									<Sequence EntryCondition="Port('damian_je_lehce_zranen')" EndType="GoTo" GoToDecision="dec6" Name="seq27">
+									<Sequence EntryCondition="Port('damian_je_lehce_zranen')&#xD;&#xA;AND &#xD;&#xA;!Port('damian_je_tezce_zranen')&#xD;&#xA;AND &#xD;&#xA;!Port('jindra_ma_nizky_health_bar')" EndType="GoTo" GoToDecision="dec6" Name="seq27">
 										<DesignName StringName="te__pred__seq27_a79d" Text="seq27" />
 										<Triggers>
 											<Port Name="damian_se_obvazuje" />

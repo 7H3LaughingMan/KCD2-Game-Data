@@ -57,9 +57,6 @@
 				<Port Name="hrac_dojel_na_rozcesti" Direction="Out" Type="trigger">
 					<DesignName StringName="vysvoboze_start_cs_prijez_Xrjq" Text="Hráč dojel na rozcestí" />
 				</Port>
-				<Port Name="splnit_quest" Direction="Out" Type="trigger">
-					<DesignName StringName="vysvoboze_splnit_quest_PbGp" Text="Splnit quest" />
-				</Port>
 				<Port Name="hibernace" Direction="Out" Type="bool">
 					<DesignName StringName="vysvoboze_hibernace_D70o" Text="Hibernace" />
 				</Port>
@@ -145,8 +142,6 @@
 					<Edge From="malesov.romance_m35_probehla" To="romance_m35_probehla">
 						<Vertex>vertex13</Vertex>
 					</Edge>
-					<Edge From="triggersequence5.A" To="hrac_dojel_na_rozcesti" />
-					<Edge From="triggersequence5.B" To="splnit_quest" />
 					<Edge From="malesov.hrac_je_mimo_malesov" To="hrac_je_mimo_malesov">
 						<Vertex>atFXkjwk</Vertex>
 					</Edge>
@@ -166,10 +161,8 @@
 						<Vertex>jtklWmaS</Vertex>
 					</Edge>
 					<Edge From="utek_z_malesova_na_ratbor.cutscena_utek_z_malesova__beforeplay" To="cutscena_utek_z_malesova__beforeplay" />
+					<Edge From="utek_z_malesova_na_ratbor.start_cs_prijezd_pana_radziga" To="hrac_dojel_na_rozcesti" />
 				</Output>
-				<TriggerSequence Name="triggersequence5" PositionY="650" PositionX="920">
-					<Edge From="utek_z_malesova_na_ratbor.start_cs_prijezd_pana_radziga" To="Exec" />
-				</TriggerSequence>
 				<utek_z_malesova_na_ratbor Name="utek_z_malesova_na_ratbor" PositionY="200" PositionX="490" RequiredForOutput="kutnohorsko">
 					<Edge From="malesov.start_utekove_cs" To="start_utekove_cs" />
 					<Edge From="malesov.start_casti_utekove_cs" To="start_casti_utekove_cs" />

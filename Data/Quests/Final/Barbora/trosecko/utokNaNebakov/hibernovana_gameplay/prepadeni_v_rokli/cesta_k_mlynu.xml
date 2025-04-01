@@ -27,9 +27,6 @@
 				<Port Name="strelci_guard_mode" Direction="Out" Type="bool">
 					<DesignName StringName="cesta_k_m_strelci_guard_m_9iuO" Text="střelci guard mode" />
 				</Port>
-				<Port Name="cutscena__beforeplay" Direction="In" Type="trigger">
-					<DesignName StringName="cesta_k_m_cutscena__befor_LWPd" Text="cutscéna - beforePlay" />
-				</Port>
 				<Port Name="boj_se_presunul_do_rokle" Direction="In" Type="bool">
 					<DesignName StringName="cesta_k_m_boj_se_presunul_OAMu" Text="boj se přesunul do rokle" />
 				</Port>
@@ -49,26 +46,26 @@
 				<Definition File="cesta_k_mlynu/haste__kill_vsech_nepratel.xml" />
 			</Definitions>
 			<Nodes>
-				<area_triggeronce Name="area_triggeronce" PositionY="470" PositionX="530" Namespace="utoknanebakov">
+				<area_triggeronce Name="area_triggeronce" PositionY="250" PositionX="530" Namespace="utoknanebakov">
 					<Asset Name="souls" Alias="player" />
 					<Asset Name="areas" Alias="friendlySoldiers_killArea_1" />
 					<Edge From="animchari_prepnuti" To="isactive">
 						<Vertex>vertex3</Vertex>
 					</Edge>
 				</area_triggeronce>
-				<AreaTrigger Name="areatrigger1" PositionY="-70" PositionX="530">
-					<Asset Name="Souls" Alias="player" />
-					<Asset Name="Areas" Alias="area_zizkaCutscene" />
-					<Edge From="hrac_s_ptackem_jsou_za_zatarasem" To="IsActive">
+				<area_triggeronce Name="area_triggeronce_1" PositionY="-260" PositionX="530" Namespace="utoknanebakov">
+					<Asset Name="souls" Alias="player" />
+					<Asset Name="areas" Alias="area_zizkaCutscene" />
+					<Edge From="hrac_s_ptackem_jsou_za_zatarasem" To="isactive">
 						<Vertex>vertex2</Vertex>
 					</Edge>
-				</AreaTrigger>
-				<haste__kill_vsech_nepratel Name="haste__kill_vsech_nepratel" PositionY="360" PositionX="530" />
-				<Function Name="musicevent8" PositionY="490" PositionX="800" MethodName="wh::musicmodule::MusicEvent" DeclaringType="wh::musicmodule">
+				</area_triggeronce>
+				<haste__kill_vsech_nepratel Name="haste__kill_vsech_nepratel" PositionY="140" PositionX="530" />
+				<Function Name="musicevent8" PositionY="270" PositionX="800" MethodName="wh::musicmodule::MusicEvent" DeclaringType="wh::musicmodule">
 					<Constant Name="Toggle" Value="EVENT_CUTSCENE_AHEAD" />
 					<Edge From="area_triggeronce.onenter" To="Exec" />
 				</Function>
-				<nepratele_za_mlynem_cekaji_na_miste Name="nepratele_za_mlynem_cekaji_na_miste" PositionY="-250" PositionX="530">
+				<nepratele_za_mlynem_cekaji_na_miste Name="nepratele_za_mlynem_cekaji_na_miste" PositionY="-420" PositionX="530">
 					<Edge From="boj_se_presunul_do_rokle" To="boj_se_presunul_do_rokle">
 						<Vertex>CrX8KlnQ</Vertex>
 						<Vertex>vertex1</Vertex>
@@ -82,11 +79,11 @@
 					<Edge From="state3.State" To="Value" />
 				</Function>
 				<Output Name="Output">
-					<Edge From="areatrigger1.OnEnter" To="spusteni_cutsceny_se_zizkou" />
 					<Edge From="strelci_za_vozem.strelci_guard_mode" To="strelci_guard_mode">
 						<Vertex>vertex4</Vertex>
 					</Edge>
 					<Edge From="run_duel.OnTrigger" To="spusteni_cutsceny_se_zizkou" />
+					<Edge From="area_triggeronce_1.onenter" To="spusteni_cutsceny_se_zizkou" />
 				</Output>
 				<ProfileStateTrigger Name="profilestatetrigger5" PositionY="510" PositionX="-870">
 					<Asset Name="Profiles" Alias="archersProfile" />
@@ -109,7 +106,7 @@
 					<Edge From="obj_zachran_se_s_ptackem__aktivni" To="obj_zachran_se_s_ptackem__aktivni" />
 					<Edge From="hrac_se_nekde_mrcasi__ptacek_na_neho_sere" To="hrac_se_nekde_mrcasi__ptacek_na_neho_sere" />
 				</ptacek_bezi_za_mlyn>
-				<HasteTrigger Name="run_duel" PositionY="-450" PositionX="530" />
+				<HasteTrigger Name="run_duel" PositionY="-620" PositionX="530" />
 				<State Name="state3" PositionY="550" PositionX="-1480" TypeT="bool">
 					<Edge From="profilestatetrigger5.OnLoaded" To="SetTrue">
 						<Vertex>5xrKxMR1</Vertex>
@@ -119,21 +116,21 @@
 				<strelci_za_vozem Name="strelci_za_vozem" PositionY="650" PositionX="-480">
 					<Edge From="state3.State" To="Awake" />
 				</strelci_za_vozem>
-				<zabit_spratelene_vojaky_bezici_ke_mlynu Name="zabit_spratelene_vojaky_bezici_ke_mlynu" PositionY="230" PositionX="530">
+				<zabit_spratelene_vojaky_bezici_ke_mlynu Name="zabit_spratelene_vojaky_bezici_ke_mlynu" PositionY="10" PositionX="530">
 					<Edge From="animchari_prepnuti" To="spojenci_beri_za_mlyn">
 						<Vertex>vertex3</Vertex>
 					</Edge>
 				</zabit_spratelene_vojaky_bezici_ke_mlynu>
 			</Nodes>
 			<EdgeVertices>
-				<EdgeVertex Name="5xrKxMR1" PositionY="874" PositionX="-627" />
-				<EdgeVertex Name="CrX8KlnQ" PositionY="-50" PositionX="-480" />
-				<EdgeVertex Name="kRV9qcka" PositionY="80" PositionX="340" />
+				<EdgeVertex Name="5xrKxMR1" PositionY="800" PositionX="-620" />
+				<EdgeVertex Name="CrX8KlnQ" PositionY="-60" PositionX="-480" />
+				<EdgeVertex Name="kRV9qcka" PositionY="20" PositionX="330" />
 				<EdgeVertex Name="nvW8yupN" PositionY="800" PositionX="-1470" />
 				<EdgeVertex Name="ukj3APhV" PositionY="40" PositionX="-480" />
-				<EdgeVertex Name="vertex1" PositionY="-10" PositionX="340" />
-				<EdgeVertex Name="vertex2" PositionY="20" PositionX="340" />
-				<EdgeVertex Name="vertex3" PositionY="50" PositionX="340" />
+				<EdgeVertex Name="vertex1" PositionY="-70" PositionX="330" />
+				<EdgeVertex Name="vertex2" PositionY="-40" PositionX="330" />
+				<EdgeVertex Name="vertex3" PositionY="-10" PositionX="330" />
 				<EdgeVertex Name="vertex4" PositionY="810" PositionX="1110" />
 			</EdgeVertices>
 			<Assets>

@@ -21,6 +21,9 @@
 				<Port Name="hrac_jeste_nemluvil_se_skvirou" Direction="In" Type="bool">
 					<DesignName StringName="rozhovor__hrac_jeste_neml_KTFR" Text="hráč ještě nemluvil se škvírou" />
 				</Port>
+				<Port Name="jindra_mluvil_s_sarkou" Direction="In" Type="bool">
+					<DesignName StringName="rozhovor__jindra_mluvil_s_jrjm" Text="Jindra mluvil s šárkou." />
+				</Port>
 			</Ports>
 			<Text StringName="rozhovor_s_sarkou_fSfc" Text="Rozhovor s šárkou" />
 			<Dialogue TechnicalStatus="Enabled" AllowGreeting="false" Priority="1" GesturesSetDate="2024-09-25T15:56:54.352024+02:00" GesturesSetResponseCount="130">
@@ -1411,7 +1414,7 @@
 								</Sequences>
 							</Decision>
 						</Sequence>
-						<Sequence EntryCondition="SequenceUsed('hrac_mluvil_se_sarkou')" EndType="GoTo" GoToDecision="dec4" Name="seq10">
+						<Sequence EntryCondition="SequenceUsed('hrac_mluvil_se_sarkou')&#xD;&#xA;AND &#xD;&#xA;!Port('jindra_mluvil_s_sarkou')&#xD;&#xA;AND &#xD;&#xA;(!SequenceUsed('info_o_napadeni')&#xD;&#xA;OR &#xD;&#xA;!SequenceUsed('o_dire')&#xD;&#xA;OR &#xD;&#xA;!SequenceUsed('sarka_v_grolle')&#xD;&#xA;OR &#xD;&#xA;!SequenceUsed('lazne_a_dzban')&#xD;&#xA;OR &#xD;&#xA;!SequenceUsed('skvira')&#xD;&#xA;OR &#xD;&#xA;!SequenceUsed('knez_sarka_info')&#xD;&#xA;OR &#xD;&#xA;!SequenceUsed('dira')&#xD;&#xA;OR &#xD;&#xA;!SequenceUsed('vilem_played_spy')&#xD;&#xA;OR &#xD;&#xA;!SequenceUsed('remember_one')&#xD;&#xA;OR &#xD;&#xA;!SequenceUsed('vilem_not_spy')&#xD;&#xA;OR &#xD;&#xA;!SequenceUsed('remember_two')&#xD;&#xA;OR &#xD;&#xA;!SequenceUsed('ptsd')&#xD;&#xA;OR &#xD;&#xA;!SequenceUsed('utocnik_advanced')&#xD;&#xA;OR &#xD;&#xA;!SequenceUsed('poprve'))" EndType="GoTo" GoToDecision="dec4" Name="seq10">
 							<DesignName StringName="rozhovor__seq10_6voH" Text="seq10" />
 							<UiPrompt StringName="ui_rozhovor__seq10_3XQ8" Text="Ještě se zeptám..." />
 							<Elements>

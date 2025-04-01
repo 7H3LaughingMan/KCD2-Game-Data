@@ -60,6 +60,12 @@
 				<Port Name="kradez__prohledavani" Direction="Out" Type="trigger">
 					<DesignName StringName="straze__z_kradez__prohled_gI6L" Text="Krádež - prohledávání" />
 				</Port>
+				<Port Name="uctenka_tutorial" Direction="Out" Type="trigger">
+					<DesignName StringName="straze__z_uctenka_tutorial_SCFI" Text="účtenka tutorial" />
+				</Port>
+				<Port Name="known_criminal_poprava" Direction="In" Type="bool">
+					<DesignName StringName="straze__z_known_criminal__XZSn" Text="known criminal poprava" />
+				</Port>
 			</Ports>
 			<Text StringName="straze__zatykaci_dialog_tGHe" Text="Stráže - zatýkací dialog" />
 			<Dialogue TechnicalStatus="Enabled" DefaultMaxDistance="10" AllowFarewell="false" AllowGreeting="false" GesturesSetDate="2024-06-14T10:23:20.9434009+02:00" GesturesSetResponseCount="334">
@@ -730,7 +736,7 @@
 																												</Elements>
 																												<Decision Name="dec1082" Priority="General" DesignName="confiscation check pred rozhodovanim">
 																													<Sequences>
-																														<Sequence EntryCondition="var('confiscation')==1" EndType="Decision" Name="seq2663">
+																														<Sequence EntryCondition="var('confiscation') &gt; 0" EndType="Decision" Name="seq2663">
 																															<DesignName StringName="straze__z_seq2663_2zLX" Text="seq2663" />
 																															<Elements>
 																																<Response Role="STRAZNY_ZATYKANI" StartDelay="0.32" ReferenceLength="4.11">
@@ -749,7 +755,7 @@
 																																		</Elements>
 																																		<Decision Name="dec1055" Priority="General" DesignName="execution check">
 																																			<Sequences>
-																																				<Sequence EntryCondition="var('playerBranded')!=1 OR&#xD;&#xA;var('punishment_branding')!=1" EndType="Decision" Name="seq32">
+																																				<Sequence EntryCondition="var('playerBranded')!=1 OR&#xD;&#xA;var('punishment_branding')!=1 AND !Port('known_criminal_poprava')" EndType="Decision" Name="seq32">
 																																					<DesignName StringName="straze__z_seq32_4sR9" Text="seq32" />
 																																					<UiPrompt StringName="ui_straze__z_seq32_ZCjL" Text="" />
 																																					<Triggers>
@@ -884,14 +890,14 @@
 																																											</Elements>
 																																											<Decision Name="dec1059" Priority="General" DesignName="prohledat?">
 																																												<Sequences>
-																																													<Sequence EntryCondition="var('confiscation') == 1" EndType="Decision" Name="seq42">
+																																													<Sequence EntryCondition="var('confiscation') &gt; 0 AND !((var('punishment_branding')==1 AND &#xD;&#xA;var('playerBranded')==1) OR (var('punishment_branding')==1 AND Port('known_criminal_poprava')))" EndType="Decision" Name="seq42">
 																																														<DesignName StringName="straze__z_seq42_a8VO" Text="seq42" />
 																																														<Elements>
 																																															<Response Role="STRAZNY_ZATYKANI" />
 																																														</Elements>
 																																														<Decision Name="dec1060" Priority="General" DesignName="confiscation varianty hlasky">
 																																															<Sequences>
-																																																<Sequence EntryCondition="var('theft')==0 AND var('pickpocket')==0" EndType="Decision" Name="confiscation_no_theft">
+																																																<Sequence EntryCondition="var('confiscation') == 1" EndType="Decision" Name="confiscation_no_theft">
 																																																	<DesignName StringName="straze__z_confiscation_no_H7GY" Text="confiscation no theft" />
 																																																	<Elements>
 																																																		<Response Role="STRAZNY_ZATYKANI" ReferenceLength="4.24">
@@ -920,7 +926,7 @@
 																																																				</Elements>
 																																																				<Decision Name="dec1061" Priority="General" DesignName="unknown stolen items found" Autoselect="true">
 																																																					<Sequences>
-																																																						<Sequence EntryCondition="(var('theft')==1 OR var('pickpocket')==1) AND var('knownStolenItemsFound')==1" EndType="GoTo" GoToDecision="dec16" Name="seq2580">
+																																																						<Sequence EntryCondition="var('confiscation')==2 AND var('knownStolenItemsFound')==1" EndType="GoTo" GoToDecision="dec16" Name="seq2580">
 																																																							<DesignName StringName="straze__z_seq2580_Lrsi" Text="seq2580" />
 																																																							<Elements>
 																																																								<Response Role="STRAZNY_ZATYKANI" ReferenceLength="4.17">
@@ -933,7 +939,7 @@
 																																																								</Response>
 																																																							</Elements>
 																																																						</Sequence>
-																																																						<Sequence EntryCondition="(var('theft')==1 OR var('pickpocket')==1) AND var('knownStolenItemsFound')==0" EndType="GoTo" GoToDecision="dec16" Name="seq2581">
+																																																						<Sequence EntryCondition="var('confiscation')==2 AND var('knownStolenItemsFound')==0" EndType="GoTo" GoToDecision="dec16" Name="seq2581">
 																																																							<DesignName StringName="straze__z_seq2581_I3Xn" Text="seq2581" />
 																																																							<Elements>
 																																																								<Response Role="STRAZNY_ZATYKANI" ReferenceLength="6.2">
@@ -950,7 +956,7 @@
 																																																								</Response>
 																																																							</Elements>
 																																																						</Sequence>
-																																																						<Sequence EntryCondition="var('theft')==0 AND var('pickpocket')==0" EndType="GoTo" GoToDecision="dec16" Name="seq2582">
+																																																						<Sequence EntryCondition="var('confiscation') == 1" EndType="GoTo" GoToDecision="dec16" Name="seq2582">
 																																																							<DesignName StringName="straze__z_seq2582_Z61u" Text="seq2582" />
 																																																							<Elements>
 																																																								<Response Role="STRAZNY_ZATYKANI" ReferenceLength="2.63">
@@ -979,7 +985,7 @@
 																																																				</Elements>
 																																																				<Decision Name="dec1088" Priority="General" DesignName="unknown stolen items not found" Autoselect="true">
 																																																					<Sequences>
-																																																						<Sequence EntryCondition="(var('theft')==1 OR var('pickpocket')==1) AND var('knownStolenItemsFound')==1" EndType="GoTo" GoToDecision="dec16" Name="seq2676">
+																																																						<Sequence EntryCondition="var('confiscation') == 2 AND var('knownStolenItemsFound')==1" EndType="GoTo" GoToDecision="dec16" Name="seq2676">
 																																																							<DesignName StringName="straze__z_seq2676_XJEs" Text="seq2676" />
 																																																							<Elements>
 																																																								<Response Role="STRAZNY_ZATYKANI" ReferenceLength="6.13">
@@ -994,7 +1000,7 @@
 																																																								</Response>
 																																																							</Elements>
 																																																						</Sequence>
-																																																						<Sequence EntryCondition="(var('theft')==1 OR var('pickpocket')==1) AND var('knownStolenItemsFound')==0" EndType="GoTo" GoToDecision="dec16" Name="seq2677">
+																																																						<Sequence EntryCondition="var('confiscation') == 2 AND var('knownStolenItemsFound')==0" EndType="GoTo" GoToDecision="dec16" Name="seq2677">
 																																																							<DesignName StringName="straze__z_seq2677_QTEM" Text="seq2677" />
 																																																							<Elements>
 																																																								<Response Role="STRAZNY_ZATYKANI" ReferenceLength="3.53">
@@ -1006,7 +1012,7 @@
 																																																								</Response>
 																																																							</Elements>
 																																																						</Sequence>
-																																																						<Sequence EntryCondition="var('theft')==0 AND var('pickpocket')==0" EndType="GoTo" GoToDecision="dec16" Name="seq2678">
+																																																						<Sequence EntryCondition="var('confiscation') == 1" EndType="GoTo" GoToDecision="dec16" Name="seq2678">
 																																																							<DesignName StringName="straze__z_seq2678_3zGj" Text="seq2678" />
 																																																							<Elements>
 																																																								<Response Role="STRAZNY_ZATYKANI" ReferenceLength="4.31">
@@ -1027,7 +1033,7 @@
 																																																		</Sequences>
 																																																	</Decision>
 																																																</Sequence>
-																																																<Sequence EntryCondition="(var('theft')==1 OR var('pickpocket')==1) AND var('knownStolenItemsFound')==0" EndType="GoTo" GoToDecision="dec1085" Name="seq2671">
+																																																<Sequence EntryCondition="var('confiscation') == 2 AND var('knownStolenItemsFound')==0" EndType="GoTo" GoToDecision="dec1085" Name="seq2671">
 																																																	<DesignName StringName="straze__z_seq2671_zDQZ" Text="seq2671" />
 																																																	<Elements>
 																																																		<Response Role="STRAZNY_ZATYKANI" ReferenceLength="9.43">
@@ -1050,7 +1056,7 @@
 																																																		</Response>
 																																																	</Elements>
 																																																</Sequence>
-																																																<Sequence EntryCondition="(var('theft')==1 OR var('pickpocket')==1) AND var('knownStolenItemsFound')==1" EndType="GoTo" GoToDecision="dec1085" Name="seq2673">
+																																																<Sequence EntryCondition="var('confiscation') == 2 AND var('knownStolenItemsFound')==1" EndType="GoTo" GoToDecision="dec1085" Name="seq2673">
 																																																	<DesignName StringName="straze__z_seq2673_drAQ" Text="seq2673" />
 																																																	<Elements>
 																																																		<Response Role="STRAZNY_ZATYKANI" ReferenceLength="4.55">
@@ -1071,7 +1077,7 @@
 																																															</Sequences>
 																																														</Decision>
 																																													</Sequence>
-																																													<Sequence EntryCondition="var('confiscation') == 0" EndType="Decision" Name="seq43">
+																																													<Sequence EntryCondition="var('confiscation') == 0 OR ((var('punishment_branding')==1 AND &#xD;&#xA;var('playerBranded')==1) OR (var('punishment_branding')==1 AND Port('known_criminal_poprava')))" EndType="Decision" Name="seq43">
 																																														<DesignName StringName="straze__z_seq43_K9Uk" Text="seq43" />
 																																														<Elements>
 																																															<Response Role="STRAZNY_ZATYKANI" />
@@ -1096,7 +1102,7 @@
 																																																		</Response>
 																																																	</Elements>
 																																																</Sequence>
-																																																<Sequence EntryCondition="var('jailChosen') != 1 AND var('confiscation') == 1" EndType="Decision" Name="seq2584">
+																																																<Sequence EntryCondition="var('jailChosen') != 1 AND var('confiscation') &gt; 0" EndType="Decision" Name="seq2584">
 																																																	<DesignName StringName="straze__z_seq2584_bmry" Text="seq2584" />
 																																																	<Elements>
 																																																		<Response Role="STRAZNY_ZATYKANI" />
@@ -1147,7 +1153,7 @@
 																																																		</Sequences>
 																																																	</Decision>
 																																																</Sequence>
-																																																<Sequence EntryCondition="var('jailChosen') == 1 AND var('confiscation') == 1" EndType="Decision" Name="seq2587">
+																																																<Sequence EntryCondition="var('jailChosen') == 1 AND var('confiscation') &gt; 0" EndType="Decision" Name="seq2587">
 																																																	<DesignName StringName="straze__z_seq2587_ogdK" Text="seq2587" />
 																																																	<Elements>
 																																																		<Response Role="STRAZNY_ZATYKANI" />
@@ -1183,7 +1189,7 @@
 																																																		</Sequences>
 																																																	</Decision>
 																																																</Sequence>
-																																																<Sequence EntryCondition="var('jailChosen') == 1 AND var('confiscation') != 1" EndType="Decision" Name="seq45">
+																																																<Sequence EntryCondition="var('jailChosen') == 1 AND var('confiscation') == 0" EndType="Decision" Name="seq45">
 																																																	<DesignName StringName="straze__z_seq45_DceO" Text="seq45" />
 																																																	<UiPrompt StringName="ui_straze__z_seq45_Yrzd" Text="" />
 																																																	<Elements>
@@ -1207,7 +1213,7 @@
 																																																				</Elements>
 																																																				<Decision Name="dec1054" Priority="General" DesignName="punishment selection">
 																																																					<Sequences>
-																																																						<Sequence ExitScript="Crime.SendResolveDialogResult(dc, enum_crime_resolutionKind.punishment)&#xD;&#xA;DialogUtils.HidePaymentAmount()" EntryCondition="var('punishment_branding')==1 AND &#xD;&#xA;var('playerBranded')==1" EndType="EndDialogue" Name="seq249">
+																																																						<Sequence ExitScript="Crime.SendResolveDialogResult(dc, enum_crime_resolutionKind.punishment)&#xD;&#xA;DialogUtils.HidePaymentAmount()" EntryCondition="(var('punishment_branding')==1 AND &#xD;&#xA;var('playerBranded')==1) OR (var('punishment_branding')==1 AND Port('known_criminal_poprava'))" EndType="EndDialogue" Name="seq249">
 																																																							<DesignName StringName="straze__z_seq249_jbrO" Text="seq249" />
 																																																							<Triggers>
 																																																								<Port Name="punishmentexecution" />
@@ -1225,7 +1231,7 @@
 																																																								</Response>
 																																																							</Elements>
 																																																						</Sequence>
-																																																						<Sequence ExitScript="Crime.SendResolveDialogResult(dc, enum_crime_resolutionKind.punishment)&#xD;&#xA;DialogUtils.HidePaymentAmount()" EntryCondition="var('punishment_branding')==1 AND &#xD;&#xA;var('playerBranded')==0" EndType="EndDialogue" Name="seq247">
+																																																						<Sequence ExitScript="Crime.SendResolveDialogResult(dc, enum_crime_resolutionKind.punishment)&#xD;&#xA;DialogUtils.HidePaymentAmount()" EntryCondition="var('punishment_branding')==1 AND &#xD;&#xA;var('playerBranded')==0 AND !Port('known_criminal_poprava')" EndType="EndDialogue" Name="seq247">
 																																																							<DesignName StringName="straze__z_seq247_sDOY" Text="seq247" />
 																																																							<Triggers>
 																																																								<Port Name="punishmentbranding" />
@@ -1363,7 +1369,7 @@
 																																									</Response>
 																																								</Elements>
 																																							</Sequence>
-																																							<Sequence EntryCondition="var('punishment_branding')==1 AND &#xD;&#xA;var('playerBranded')==0" EndType="GoTo" GoToDecision="dec1049" GrayOutIfSequencesUsed="Never" Type="Punishment" PunishmentType="Branding" Name="seq2551">
+																																							<Sequence EntryCondition="var('punishment_branding')==1 AND &#xD;&#xA;var('playerBranded')==0 AND !Port('known_criminal_poprava')" EndType="GoTo" GoToDecision="dec1049" GrayOutIfSequencesUsed="Never" Type="Punishment" PunishmentType="Branding" Name="seq2551">
 																																								<DesignName StringName="straze__z_seq2551_RQtb" Text="seq2551" />
 																																								<UiPrompt StringName="ui_straze__z_seq2551_XHB5" Text="Přijímám trest." />
 																																								<Elements>
@@ -1382,7 +1388,7 @@
 																																									</Response>
 																																								</Elements>
 																																							</Sequence>
-																																							<Sequence EntryCondition="var('punishment_branding')==1 AND &#xD;&#xA;var('playerBranded')==1" EndType="GoTo" GoToDecision="dec1026" GrayOutIfSequencesUsed="Never" Type="Punishment" PunishmentType="Execution" Name="seq2552">
+																																							<Sequence EntryCondition="var('punishment_branding')==1 AND (var('playerBranded')==1 OR Port('known_criminal_poprava'))" EndType="GoTo" GoToDecision="dec1026" GrayOutIfSequencesUsed="Never" Type="Punishment" PunishmentType="Execution" Name="seq2552">
 																																								<DesignName StringName="straze__z_seq2552_eeeC" Text="seq2552" />
 																																								<UiPrompt StringName="ui_straze__z_seq2552_5PzY" Text="Přijímám trest." />
 																																								<Elements>
@@ -8185,7 +8191,7 @@
 																																						</Sequences>
 																																					</Decision>
 																																				</Sequence>
-																																				<Sequence EntryCondition="var('punishment_branding')==1 AND &#xD;&#xA;var('playerBranded')==1" EndType="GoTo" GoToDecision="dec6" Name="seq2545">
+																																				<Sequence EntryCondition="(var('punishment_branding')==1 AND &#xD;&#xA;var('playerBranded')==1) OR Port('known_criminal_poprava')" EndType="GoTo" GoToDecision="dec6" Name="seq2545">
 																																					<DesignName StringName="straze__z_seq2545_VHcO" Text="seq2545" />
 																																					<Elements>
 																																						<Response Role="STRAZNY_ZATYKANI" ReferenceLength="7.93">
@@ -10558,7 +10564,7 @@
 																			</Elements>
 																			<Decision Name="dec10230_1" Priority="General" DesignName="pickpocket varianty">
 																				<Sequences>
-																					<Sequence EntryCondition="var('resistingArrest_violent')==1 OR var('resistingArrest_beaten')==1" EndType="GoTo" GoToDecision="dec7" Name="seq2310_1">
+																					<Sequence EntryCondition="var('resistingArrest_violent')==1 OR var('resistingArrest_beaten')==1 AND var('victimIsGuard')==0" EndType="GoTo" GoToDecision="dec7" Name="seq2310_1">
 																						<DesignName StringName="straze__z_seq2310_1_xMWc" Text="seq2310" />
 																						<Elements>
 																							<Response Role="STRAZNY_ZATYKANI" ReferenceLength="6.2">
@@ -11483,6 +11489,9 @@
 																							<Sequences>
 																								<Sequence EntryCondition="var('notResistingArrest_foundAccidentally')==1" EndType="GoTo" GoToDecision="dec7" Name="seq2633">
 																									<DesignName StringName="straze__z_seq2633_lsVm" Text="seq2633" />
+																									<Triggers>
+																										<Port Name="uctenka_tutorial" />
+																									</Triggers>
 																									<Elements>
 																										<Response Role="STRAZNY_ZATYKANI" ReferenceLength="5.45">
 																											<Text StringName="stra_strazny_z_prisel_cas_UUam" Text="Přišel čas, aby ses zpovídal ze všech svejch provinění. A že nebylo jenom jedno!" />
@@ -11498,6 +11507,9 @@
 																								</Sequence>
 																								<Sequence EntryCondition="var('resistingArrest_running')==1" EndType="GoTo" GoToDecision="dec7" Name="seq2634">
 																									<DesignName StringName="straze__z_seq2634_bBKz" Text="seq2634" />
+																									<Triggers>
+																										<Port Name="uctenka_tutorial" />
+																									</Triggers>
 																									<Elements>
 																										<Response Role="STRAZNY_ZATYKANI" ReferenceLength="8.3">
 																											<Text StringName="stra_strazny_z_na_cloveka_CzfF" Text="Na člověka si netroufneš, ale na zvíře jo? Zaplatíš za všechny svoje provinění. A moc dobře vím, že to nebylo jen jedno." />
@@ -11532,6 +11544,9 @@
 																								</Sequence>
 																								<Sequence EntryCondition="var('resistingArrest_violent')==1" EndType="GoTo" GoToDecision="dec7" Name="seq2742">
 																									<DesignName StringName="straze__z_seq2742_MHcc" Text="seq2742" />
+																									<Triggers>
+																										<Port Name="uctenka_tutorial" />
+																									</Triggers>
 																									<Elements>
 																										<Response Role="STRAZNY_ZATYKANI" ReferenceLength="8.22">
 																											<Text StringName="stra_strazny_z_tvyho_rade_tZZ7" Text="Tvýho  řádění je konec. Všechno ti spočítám a že ses ještě odmítal vzdát, to ti nepřilepší!" />
@@ -11559,6 +11574,9 @@
 																							<Sequences>
 																								<Sequence EntryCondition="var('notResistingArrest_foundAccidentally')==1 OR &#xD;&#xA;var('unconscious')==1" EndType="GoTo" GoToDecision="dec7" Name="seq2659">
 																									<DesignName StringName="straze__z_seq2659_T18v" Text="seq2659" />
+																									<Triggers>
+																										<Port Name="uctenka_tutorial" />
+																									</Triggers>
 																									<Elements>
 																										<Response Role="STRAZNY_ZATYKANI" ReferenceLength="8.48">
 																											<Text StringName="stra_strazny_z_je_na_case_RGge" Text="Je na čase, aby sis odpykal ty svoje provinění. A jo, vím toho na tebe víc, tak ani nezkoušej dělat blbýho!" />
@@ -11577,6 +11595,9 @@
 																								</Sequence>
 																								<Sequence EntryCondition="var('resistingArrest_running')==1 OR &#xD;&#xA;var('resistingArrest_beaten')==1 OR &#xD;&#xA;var('resistingArrest_violent')==1" EndType="GoTo" GoToDecision="dec7" Name="seq2660">
 																									<DesignName StringName="straze__z_seq2660_yiJd" Text="seq2660" />
+																									<Triggers>
+																										<Port Name="uctenka_tutorial" />
+																									</Triggers>
 																									<Elements>
 																										<Response Role="STRAZNY_ZATYKANI" ReferenceLength="4.32">
 																											<Text StringName="stra_strazny_z_co_to_melo_oELn" Text="Co to mělo znamenat? Za takovýhle chování si to pořádně odneseš!" />
@@ -11592,6 +11613,9 @@
 																								</Sequence>
 																								<Sequence EntryCondition="var('notResistingArrest_lookedFor')==1 OR&#xD;&#xA;var('notResistingArrest_crimeSeenByGuard')==1" EndType="GoTo" GoToDecision="dec7" Name="seq2661">
 																									<DesignName StringName="straze__z_seq2661_MBTS" Text="seq2661" />
+																									<Triggers>
+																										<Port Name="uctenka_tutorial" />
+																									</Triggers>
 																									<Elements>
 																										<Response Role="STRAZNY_ZATYKANI" ReferenceLength="7.19">
 																											<Text StringName="stra_strazny_z_takovy_vec_M7NM" Text="Takový věci tady trpět teda nebudu. Buď zaplatíš za všechny svoje provinění, nebo si tě odvedu na pranýř!" />
@@ -11619,6 +11643,9 @@
 																								<Sequence EntryCondition="var('resistingArrest_violent')==1 OR&#xD;&#xA;var('resistingArrest_beaten')==1 OR&#xD;&#xA;var('resistingArrest_running')==1 AND&#xD;&#xA;var('murder') == 1 OR&#xD;&#xA;var('murderByDog')==1" EndType="GoTo" GoToDecision="dec7" Name="seq59">
 																									<DesignName StringName="straze__z_seq59_GYfG" Text="seq59" />
 																									<UiPrompt StringName="ui_straze__z_seq59_rq1T" Text="" />
+																									<Triggers>
+																										<Port Name="uctenka_tutorial" />
+																									</Triggers>
 																									<Elements>
 																										<Response Role="STRAZNY_ZATYKANI" ReferenceLength="7.29">
 																											<Text StringName="stra_strazny_z_ty_zasrane_nJBe" Text="Ty zasranej vrahu, to tvoje řádění je u konce. Z tohohle se nevykroutíš." />
@@ -11636,6 +11663,9 @@
 																								</Sequence>
 																								<Sequence EntryCondition="var('resistingArrest_violent')==1 OR&#xD;&#xA;var('resistingArrest_beaten')==1 OR&#xD;&#xA;var('resistingArrest_running')==1 AND&#xD;&#xA;var('murder')==0 AND&#xD;&#xA;var('murderByDog')==0" EndType="GoTo" GoToDecision="dec7" Name="seq226">
 																									<DesignName StringName="straze__z_seq226_fthB" Text="seq226" />
+																									<Triggers>
+																										<Port Name="uctenka_tutorial" />
+																									</Triggers>
 																									<Elements>
 																										<Response Role="STRAZNY_ZATYKANI" ReferenceLength="7.04">
 																											<Text StringName="stra_strazny_z_dal_vzdoro_KwzU" Text="Je úplně marný dál vzdorovat! Za všechno, co jsi udělal, budeš teď spravedlivě potrestanej před zraky lidí." />
@@ -11654,6 +11684,9 @@
 																								<Sequence EntryCondition="var('notResistingArrest_lookedFor')==1 OR&#xD;&#xA;var('notResistingArrest_crimeSeenByGuard')==1 OR&#xD;&#xA;var('notResistingArrest_foundAccidentally')==1 OR&#xD;&#xA;var('unconscious')==1 AND&#xD;&#xA;var('murder') == 0 AND&#xD;&#xA;var('murderByDog')==0" EndType="GoTo" GoToDecision="dec7" Name="seq62">
 																									<DesignName StringName="straze__z_seq62_sTtd" Text="seq62" />
 																									<UiPrompt StringName="ui_straze__z_seq62_MRWz" Text="mnohonásobný zločin násilný 5" />
+																									<Triggers>
+																										<Port Name="uctenka_tutorial" />
+																									</Triggers>
 																									<Elements>
 																										<Response Role="STRAZNY_ZATYKANI" ReferenceLength="5.32">
 																											<Text StringName="stra_strazny_z_ted_si_vse_Ho5Z" Text="Teď si všechno odpykáš. Všechny ty rvačky a všechno ostatní ti hezky spočítám." />
@@ -11669,6 +11702,9 @@
 																								</Sequence>
 																								<Sequence EntryCondition="var('notResistingArrest_lookedFor')==1 OR&#xD;&#xA;var('notResistingArrest_crimeSeenByGuard')==1 OR&#xD;&#xA;var('notResistingArrest_foundAccidentally')==1 OR&#xD;&#xA;var('unconscious')==1 AND &#xD;&#xA;var('murder') == 1 OR&#xD;&#xA;var('murderByDog')==1" EndType="GoTo" GoToDecision="dec7" Name="seq211">
 																									<DesignName StringName="straze__z_seq211_THn1" Text="seq211" />
+																									<Triggers>
+																										<Port Name="uctenka_tutorial" />
+																									</Triggers>
 																									<Elements>
 																										<Response Role="STRAZNY_ZATYKANI" ReferenceLength="8.38">
 																											<Text StringName="stra_strazny_z_kat_uz_se__taWD" Text="Kat už se na tebe těší! Teď si odpykáš úplně všechno. Jako každej jinej zločinec a vrah!" />
@@ -11702,6 +11738,9 @@
 																					<Sequence EntryCondition="(var('notResistingArrest_lookedFor')==1 OR var('notResistingArrest_crimeSeenByGuard')==1 OR var('unconscious')==1 OR var('resistingArrest_beaten')==1) AND (var('theft')==1 OR var('pickpocket')==1 OR var('horseTheft')==1 OR var('graveRobbing')==1)" EndType="GoTo" GoToDecision="dec7" Name="seq53">
 																						<DesignName StringName="straze__z_seq53_VlzN" Text="seq53" />
 																						<UiPrompt StringName="ui_straze__z_seq53_9XbN" Text="mnohonásobný zločin bez násilí a s krádežemi 1" />
+																						<Triggers>
+																							<Port Name="uctenka_tutorial" />
+																						</Triggers>
 																						<Elements>
 																							<Response Role="STRAZNY_ZATYKANI" ReferenceLength="9.19">
 																								<Text StringName="stra_strazny_z_tvyho_rade_IjGX" Text="Tvýho řádění je konec. Teď ti všechnu tu zlodějnu po právu spočítám. Všechno odškodníš do posledního groše!" />
@@ -11719,6 +11758,9 @@
 																					<Sequence EntryCondition="var('resistingArrest_running')==1 AND (var('theft')==1 OR var('pickpocket')==1 OR var('horseTheft')==1 OR var('graveRobbing')==1)" EndType="GoTo" GoToDecision="dec7" Name="seq54">
 																						<DesignName StringName="straze__z_seq54_gLF3" Text="seq54" />
 																						<UiPrompt StringName="ui_straze__z_seq54_dIDX" Text="mnohonásobný zločin bez násilí a s krádežemi 2" />
+																						<Triggers>
+																							<Port Name="uctenka_tutorial" />
+																						</Triggers>
 																						<Elements>
 																							<Response Role="STRAZNY_ZATYKANI" ReferenceLength="7.04">
 																								<Text StringName="stra_strazny_z_pred_prave_pNjU" Text="Na každýho jednou dojde, šmejde. Za všechny ty tvoje zlodějny teď zaplatíš. A že to nebylo jen jedno provinění!" />
@@ -11737,6 +11779,9 @@
 																					<Sequence EntryCondition="var('notResistingArrest_foundAccidentally')==1 AND (var('theft')==1 OR var('pickpocket')==1 OR var('horseTheft')==1 OR var('graveRobbing')==1)" EndType="GoTo" GoToDecision="dec7" Name="seq57">
 																						<DesignName StringName="straze__z_seq57_U29B" Text="seq57" />
 																						<UiPrompt StringName="ui_straze__z_seq57_qhf6" Text="mnohonásobný zločin bez násilí 5" />
+																						<Triggers>
+																							<Port Name="uctenka_tutorial" />
+																						</Triggers>
 																						<Elements>
 																							<Response Role="STRAZNY_ZATYKANI" ReferenceLength="4.67">
 																								<Text StringName="stra_strazny_z_prisel_cas_Awzl" Text="Přišel čas zaplatit za tvoje provinění. Za každý jedno z nich!" />
@@ -11758,6 +11803,9 @@
 																					</Sequence>
 																					<Sequence EntryCondition="var('resistingArrest_violent')==1 AND (var('theft')==1 OR var('pickpocket')==1 OR var('horseTheft')==1 OR var('graveRobbing')==1)" EndType="GoTo" GoToDecision="dec7" Name="seq2743">
 																						<DesignName StringName="straze__z_seq2743_EHDf" Text="seq2743" />
+																						<Triggers>
+																							<Port Name="uctenka_tutorial" />
+																						</Triggers>
 																						<Elements>
 																							<Response Role="STRAZNY_ZATYKANI" ReferenceLength="6.18">
 																								<Text StringName="stra_strazny_z_ted_ti_vse_0k2k" Text="Teď ti všechnu tu zlodějnu po právu spočítám, zmetku. Tvojí zlodějnu a i to, že ses se mnou porval!" />
@@ -11773,6 +11821,9 @@
 																					</Sequence>
 																					<Sequence EntryCondition="var('resistingArrest_violent')==1 AND var('theft')==0 AND var('pickpocket')==0 AND var('horseTheft')==0 AND var('graveRobbing')==0" EndType="GoTo" GoToDecision="dec7" Name="seq2744">
 																						<DesignName StringName="straze__z_seq2744_oEgL" Text="seq2744" />
+																						<Triggers>
+																							<Port Name="uctenka_tutorial" />
+																						</Triggers>
 																						<Elements>
 																							<Response Role="STRAZNY_ZATYKANI" ReferenceLength="5.64">
 																								<Text StringName="stra_strazny_z_ted_za_vse_BkJx" Text="Teď za všechno hezky zaplatíš. A ještě ti osolím, že ses nevzdal rovnou." />
@@ -11788,6 +11839,9 @@
 																					</Sequence>
 																					<Sequence EntryCondition="var('notResistingArrest_foundAccidentally')==1 AND var('theft')==0 AND var('pickpocket')==0 AND var('horseTheft')==0 AND var('graveRobbing')==0" EndType="GoTo" GoToDecision="dec7" Name="seq2745">
 																						<DesignName StringName="straze__z_seq2745_rZaS" Text="seq2745" />
+																						<Triggers>
+																							<Port Name="uctenka_tutorial" />
+																						</Triggers>
 																						<Elements>
 																							<Response Role="STRAZNY_ZATYKANI" ReferenceLength="4.97">
 																								<Text StringName="stra_strazny_z_ted_si_to__ctOu" Text="Teď si to spolu vyříkáme za úplně všechno, co o tobě vím!" />
@@ -11803,6 +11857,9 @@
 																					</Sequence>
 																					<Sequence EntryCondition="var('resistingArrest_running')==1 AND var('theft')==0 AND var('pickpocket')==0 AND var('horseTheft')==0 AND var('graveRobbing')==0" EndType="GoTo" GoToDecision="dec7" Name="seq2746">
 																						<DesignName StringName="straze__z_seq2746_CP6B" Text="seq2746" />
+																						<Triggers>
+																							<Port Name="uctenka_tutorial" />
+																						</Triggers>
 																						<Elements>
 																							<Response Role="STRAZNY_ZATYKANI" ReferenceLength="6.7">
 																								<Text StringName="stra_strazny_z_moc_dobre__um9h" Text="Moc dobře vím, co všechno jsi udělal. A teď za to všechno taky zaplatíš!" />
@@ -11816,6 +11873,9 @@
 																					</Sequence>
 																					<Sequence EntryCondition="(var('notResistingArrest_lookedFor')==1 OR var('notResistingArrest_crimeSeenByGuard')==1 OR var('unconscious')==1 OR var('resistingArrest_beaten')==1) AND var('theft')==0 AND var('pickpocket')==0 AND var('horseTheft')==0 AND var('graveRobbing')==0" EndType="GoTo" GoToDecision="dec7" Name="seq2747">
 																						<DesignName StringName="straze__z_seq2747_hZx5" Text="seq2747" />
+																						<Triggers>
+																							<Port Name="uctenka_tutorial" />
+																						</Triggers>
 																						<Elements>
 																							<Response Role="STRAZNY_ZATYKANI" ReferenceLength="5.09">
 																								<Text StringName="stra_strazny_z_jedno_prov_14xR" Text="Jedno provinění ti nestačí, co? Hezky zaplatíš. Za všechno!" />

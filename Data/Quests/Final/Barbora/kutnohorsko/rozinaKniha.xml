@@ -64,9 +64,9 @@
 				<Definition File="rozinaKniha/haste.xml" />
 			</Definitions>
 			<Nodes>
-				<Function Name="and13" PositionY="780" PositionX="1070" MethodName="math::boolean::And" DeclaringType="math::boolean">
-					<Edge From="hibernovana_cast.kniha_je_napsana" To="A" />
+				<Function Name="and14" PositionY="805" PositionX="1007" MethodName="math::boolean::And" DeclaringType="math::boolean">
 					<Edge From="ruthardkaNevyrabovana.bool" To="B" />
+					<Edge From="or15.bool" To="A" />
 				</Function>
 				<AddReward Name="codexKnihy" PositionY="-510" PositionX="360">
 					<Edge From="rozaBook.OnActive" To="AddReward" />
@@ -142,21 +142,37 @@
 					<Edge From="hibernovana_cast.rozina_kniha" To="rozina_kniha">
 						<Vertex>yDPpTgG5</Vertex>
 					</Edge>
-					<Edge From="and13.bool" To="Awake" />
 					<Edge From="rozaBook.Done" To="quest_je_dokonceny">
 						<Vertex>vertex82</Vertex>
+						<Vertex>S3v2vvAS</Vertex>
 						<Vertex>vertex83</Vertex>
 						<Vertex>nAQB0Ew8</Vertex>
 					</Edge>
+					<Edge From="hibernovana_cast.kniha_je_napsana" To="kniha_je_napsana">
+						<Vertex>vV6CtGCy</Vertex>
+						<Vertex>npHrl3PU</Vertex>
+					</Edge>
+					<Edge From="and14.bool" To="Awake" />
 				</napsana_kniha>
 				<Function Name="or10" PositionY="440" PositionX="1070" MethodName="math::boolean::Or" DeclaringType="math::boolean">
 					<Edge From="rozaBook.Done" To="A">
 						<Vertex>vertex82</Vertex>
+						<Vertex>S3v2vvAS</Vertex>
 						<Vertex>vertex83</Vertex>
 					</Edge>
 					<Edge From="rozaBook.Failed" To="B">
 						<Vertex>vertex80</Vertex>
 						<Vertex>vertex81</Vertex>
+					</Edge>
+				</Function>
+				<Function Name="or15" PositionY="730" PositionX="730" MethodName="math::boolean::Or" DeclaringType="math::boolean">
+					<Edge From="rozaBook.Done" To="B">
+						<Vertex>vertex82</Vertex>
+						<Vertex>S3v2vvAS</Vertex>
+					</Edge>
+					<Edge From="rozaBook.Active" To="A">
+						<Vertex>XwRugMSC</Vertex>
+						<Vertex>hHGJfhrz</Vertex>
 					</Edge>
 				</Function>
 				<Output Name="Output">
@@ -194,7 +210,7 @@
 					<Edge From="haste.failed" To="SetFailed" />
 				</State>
 				<rozinakniha_library Name="rozinakniha_library" PositionY="-850" PositionX="-220" />
-				<Function Name="ruthardkaNevyrabovana" PositionY="870" PositionX="600" MethodName="math::boolean::Not" DeclaringType="math::boolean">
+				<Function Name="ruthardkaNevyrabovana" PositionY="920" PositionX="720" MethodName="math::boolean::Not" DeclaringType="math::boolean">
 					<Edge From="roza_je_zajata" To="Value">
 						<Vertex>vertex98</Vertex>
 						<Vertex>vertex90</Vertex>
@@ -210,14 +226,17 @@
 				<zadani_questu Name="zadani_questu" PositionY="10" PositionX="-410" />
 			</Nodes>
 			<EdgeVertices>
+				<EdgeVertex Name="hHGJfhrz" PositionY="628" PositionX="680" />
 				<EdgeVertex Name="nAQB0Ew8" PositionY="661" PositionX="1248" />
+				<EdgeVertex Name="npHrl3PU" PositionY="630" PositionX="1244" />
+				<EdgeVertex Name="S3v2vvAS" PositionY="661" PositionX="685" />
 				<EdgeVertex Name="vertex100" PositionY="470" PositionX="-430" />
 				<EdgeVertex Name="vertex101" PositionY="480" PositionX="-430" />
 				<EdgeVertex Name="vertex102" PositionY="490" PositionX="-430" />
 				<EdgeVertex Name="vertex103" PositionY="500" PositionX="-430" />
 				<EdgeVertex Name="vertex104" PositionY="510" PositionX="-430" />
 				<EdgeVertex Name="vertex105" PositionY="520" PositionX="-430" />
-				<EdgeVertex Name="vertex106" PositionY="130" PositionX="570" />
+				<EdgeVertex Name="vertex106" PositionY="120" PositionX="570" />
 				<EdgeVertex Name="vertex107" PositionY="530" PositionX="490" />
 				<EdgeVertex Name="vertex108" PositionY="530" PositionX="-430" />
 				<EdgeVertex Name="vertex111" PositionY="550" PositionX="490" />
@@ -250,6 +269,8 @@
 				<EdgeVertex Name="vertex96" PositionY="510" PositionX="500" />
 				<EdgeVertex Name="vertex97" PositionY="520" PositionX="500" />
 				<EdgeVertex Name="vertex98" PositionY="450" PositionX="-430" />
+				<EdgeVertex Name="vV6CtGCy" PositionY="630" PositionX="1005" />
+				<EdgeVertex Name="XwRugMSC" PositionY="630" PositionX="358" />
 				<EdgeVertex Name="yDPpTgG5" PositionY="410" PositionX="1260" />
 			</EdgeVertices>
 			<Types>

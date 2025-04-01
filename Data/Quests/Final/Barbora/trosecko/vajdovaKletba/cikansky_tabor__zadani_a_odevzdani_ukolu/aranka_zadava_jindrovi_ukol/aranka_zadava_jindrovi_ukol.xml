@@ -47,7 +47,7 @@
 				</SelectedSouls>
 				<Decision Name="dec1" Priority="SideQuestAssignment">
 					<Sequences>
-						<Sequence EntryCondition="Port('jindra_dostal_tip') AND &#xD;&#xA;Port('bothalive') AND&#xD;&#xA;Port('ubehlo_48h_od_dokonceni_kococti') AND &#xD;&#xA;!ThisSequenceUsed()" EndType="Decision" Name="seq1">
+						<Sequence EntryCondition="Port('jindra_dostal_tip') AND &#xD;&#xA;Port('bothalive') AND&#xD;&#xA;Port('ubehlo_48h_od_dokonceni_kococti') AND &#xD;&#xA;!ThisSequenceUsed() AND &#xD;&#xA;!(&#xD;&#xA; SequenceUsed('jindra_prijal_quest') OR &#xD;&#xA; SequenceUsed('jindra_si_to_rozmysli__navratovka')&#xD;&#xA;)" EndType="Decision" Name="seq1">
 							<DesignName StringName="jolanda_z_seq1_dFOy" Text="seq1" />
 							<UiPrompt StringName="ui_jolanda_z_seq1_gEpQ" Text="Prý máš pro mě práci." />
 							<Elements>
@@ -327,7 +327,7 @@
 																									<FacialMoodCommand Role="ARANKA" FacialMood="sad1" />
 																									<AnimationCommand Delay="2.76" FragmentId="ADLG_Confusion" Guid="19e1b926-8753-4893-af45-10d39fa3a985" Variant="0" />
 																									<CameraCommand CameraType="CloseShot" />
-																									<LookAtCommand Role="ARANKA" Delay="0.04" LookAtRole="HENRY" />
+																									<LookAtCommand Role="ARANKA" Delay="0" LookAtRole="HENRY" />
 																								</Commands>
 																							</Response>
 																							<Response Role="ARANKA" ReferenceLength="2.5">
@@ -855,7 +855,7 @@
 								</Response>
 							</Elements>
 						</Sequence>
-						<Sequence EntryCondition="!Port('jindra_dostal_tip') AND &#xD;&#xA;Port('bothalive') AND&#xD;&#xA;Port('ubehlo_48h_od_dokonceni_kococti') AND&#xD;&#xA;!ThisSequenceUsed()" EndType="GoTo" GoToDecision="dec2" Name="seq16">
+						<Sequence EntryCondition="!Port('jindra_dostal_tip') AND &#xD;&#xA;Port('bothalive') AND&#xD;&#xA;Port('ubehlo_48h_od_dokonceni_kococti') AND&#xD;&#xA;!ThisSequenceUsed() AND &#xD;&#xA;!(&#xD;&#xA; SequenceUsed('jindra_prijal_quest') OR &#xD;&#xA; SequenceUsed('jindra_si_to_rozmysli__navratovka')&#xD;&#xA;)" EndType="GoTo" GoToDecision="dec2" Name="seq16">
 							<DesignName StringName="jolanda_z_seq16_QYnj" Text="seq16" />
 							<UiPrompt StringName="ui_jolanda_z_seq16_zfpf" Text="Nemáš pro mě nějakou práci?" />
 							<Elements>

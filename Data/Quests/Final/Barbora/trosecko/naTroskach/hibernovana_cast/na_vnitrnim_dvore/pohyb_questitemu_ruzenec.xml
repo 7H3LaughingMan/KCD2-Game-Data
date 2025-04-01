@@ -21,6 +21,12 @@
 				<Port Name="ruzenec_u_tomase_sestry_nebo_jarka" Direction="Out" Type="bool">
 					<DesignName StringName="pohyb_que_ruzenec_u_tomas_ibkc" Text="Růženec u Tomáše sestry nebo Jarka" />
 				</Port>
+				<Port Name="hrac_ma_u_sebe_ruzenec" Direction="Out" Type="bool">
+					<DesignName StringName="pohyb_que_hrac_ma_u_sebe__gM4T" Text="Hráč má u sebe růženec" />
+				</Port>
+				<Port Name="hrac_dostal_ruzenec_od_nikodema" Direction="Out" Type="bool">
+					<DesignName StringName="pohyb_que_hrac_dostal_ruz_0Krr" Text="Hráč dostal růženec od Nikodema" />
+				</Port>
 			</Ports>
 			<Nodes>
 				<HasteTrigger Name="04_presun_ruzenec_k_hraci" PositionY="290" PositionX="-420" />
@@ -60,6 +66,9 @@
 					<Asset Name="StartingLocation" Alias="nikodemaStash" />
 					<Edge From="state2.Start" To="IsActive" />
 				</AddQuestItem>
+				<State Name="hracDostalRuzenecOdNikodema" PositionY="-770" PositionX="-70" TypeT="bool">
+					<Edge From="presun_k_hraci" To="SetTrue" />
+				</State>
 				<itemclasstrigger_playerinventory Name="itemclasstrigger_playerinventory" PositionY="460" PositionX="-500" Namespace="utils.item">
 					<Constant Name="itemclass" Value="7a8ae393-45e3-4a7f-b1dc-7b8f5b6bd589" />
 					<Constant Name="amount" Value="1" />
@@ -73,6 +82,13 @@
 				</Function>
 				<Output Name="Output">
 					<Edge From="TomasOrAdela.bool" To="ruzenec_u_tomase_sestry_nebo_jarka" />
+					<Edge From="state2.Hrac" To="hrac_ma_u_sebe_ruzenec">
+						<Vertex>IV63APlU</Vertex>
+						<Vertex>cWhcqT5T</Vertex>
+					</Edge>
+					<Edge From="hracDostalRuzenecOdNikodema.State" To="hrac_dostal_ruzenec_od_nikodema">
+						<Vertex>tqTc2w74</Vertex>
+					</Edge>
 				</Output>
 				<State Name="state2" PositionY="-220" PositionX="-80" TypeT="RuzenecVlastnik">
 					<Edge From="presun_k_hraci" To="SetHrac" />
@@ -89,6 +105,9 @@
 				</Function>
 			</Nodes>
 			<EdgeVertices>
+				<EdgeVertex Name="cWhcqT5T" PositionY="1178" PositionX="1061" />
+				<EdgeVertex Name="IV63APlU" PositionY="1165" PositionX="322" />
+				<EdgeVertex Name="tqTc2w74" PositionY="-644" PositionX="856" />
 				<EdgeVertex Name="vertex1" PositionY="460" PositionX="-770" />
 				<EdgeVertex Name="vertex2" PositionY="460" PositionX="170" />
 			</EdgeVertices>

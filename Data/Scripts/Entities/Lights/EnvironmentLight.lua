@@ -73,7 +73,8 @@ function EnvironmentLight:CacheResources(requesterName)
 	end
 
 	if (Game ~= nil) then
-		Game.CacheResource(requesterName, self.Properties.OptionsAdvanced.texture_deferred_cubemap, eGameCacheResourceType_TextureDeferredCubemap, 0)
+		local textureFlags = 0x00040000 -- FT_DONT_STREAM
+		Game.CacheResource(requesterName, self.Properties.OptionsAdvanced.texture_deferred_cubemap, eGameCacheResourceType_TextureDeferredCubemap, textureFlags)
 	end
 end
 

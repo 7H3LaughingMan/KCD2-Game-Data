@@ -87,6 +87,8 @@
 					<Edge From="fist_fight_line.oponent_ma_dost_penez_na_vraceni" To="vazoun_ma_dost_penez_na_vraceni" />
 					<Edge From="fist_fight_line.jindra_vyhral" To="jindra_vyhral" />
 					<Edge From="fist_fight_line.jindra_po_fightu_nemluvil_s_oponentem" To="jindra_po_fightu_nemluvil_s_vazounem" />
+					<Edge From="fist_fight_line.dialogparams_pro_forcovany_dialog" To="DialogParams" />
+					<Edge From="fist_fight_line.jindrich_vyhrava" To="EnqueueDialogue" />
 				</jeni__po_souboji_1_1>
 				<Output Name="Output">
 					<Edge From="fist_fight_line.quest_failuje" To="quest_failuje">
@@ -115,6 +117,11 @@
 				<vyzvedni_si_od_vazouna_sazku Name="talkToVazounAfterWin_objectiveVisual" PositionY="-500" PositionX="110" RequiredForOutput="kutnohorsko">
 					<Edge From="fist_fight_line.stav_objectivu_po_boji" To="Progress" />
 				</vyzvedni_si_od_vazouna_sazku>
+				<turntoplayerinidlestance Name="turntoplayerinidlestance" PositionY="1201" PositionX="843" Namespace="utils.general">
+					<Asset Name="npc" Alias="vazoun" />
+					<Constant Name="anydecoratorpreset" Value="changeEquipment" />
+					<Edge From="jeni__po_souboji_1_1.AfterPlay" To="turntoplayerinidlestance" />
+				</turntoplayerinidlestance>
 				<vazoun__barky_pri_zapasu_ Name="vazoun__barky_pri_zapasu_dialog" PositionY="600" PositionX="340" Namespace="fight_club_kutna_hora_library">
 					<Edge From="fist_fight_line.souboj_probiha" To="isactive">
 						<Vertex>vertex154</Vertex>

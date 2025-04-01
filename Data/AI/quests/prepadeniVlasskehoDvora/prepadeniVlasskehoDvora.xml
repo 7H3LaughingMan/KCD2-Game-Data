@@ -3122,25 +3122,24 @@
 		</Parameters>
 		<Root OneTimeOnly="false" FailState="Recoverable" saveVersion="2">
 			<Behavior canSkip="1">
-				<Sequence>
-					<DrawAction WeaponSet="Primary" fullBody="false" tags="" useSelectedWeaponSet="false" />
-					<Parallel successMode="Any" failureMode="Any">
+				<Parallel successMode="Any" failureMode="Any">
+					<ForceLook LookTarget="$__player" DisableVariations="true">
 						<Loop count="-1">
 							<Sequence>
 								<Turn target="$__player" align="false" />
 								<Wait duration="&apos;1s&apos;" timeType="GameTime" doFail="false" variation="" />
 							</Sequence>
 						</Loop>
-						<FuseBox StatusPropagation="Child" OneCleanup="true" saveVersion="2">
-							<Child canSkip="1">
-								<Function_speech_dialogInitiator alias="$aliasChat" animationApproach="$enum:animationApproach.dontPlayDialogAnimations" context="" customParameters="" metarole="" preset="$enum:dialogPreset.chat" recipient="$__player" recipientMetaroles="" nodeLabel="81699275" />
-							</Child>
-							<OnSuccess canSkip="1">
-								<Callback_empty EventName="&apos;OnFinished&apos;" />
-							</OnSuccess>
-						</FuseBox>
-					</Parallel>
-				</Sequence>
+					</ForceLook>
+					<FuseBox StatusPropagation="Child" OneCleanup="true" saveVersion="2">
+						<Child canSkip="1">
+							<Function_speech_dialogInitiator alias="$aliasChat" animationApproach="$enum:animationApproach.dontPlayDialogAnimations" context="" customParameters="" metarole="" preset="$enum:dialogPreset.chat" recipient="$__player" recipientMetaroles="" nodeLabel="81699275" />
+						</Child>
+						<OnSuccess canSkip="1">
+							<Callback_empty EventName="&apos;OnFinished&apos;" />
+						</OnSuccess>
+					</FuseBox>
+				</Parallel>
 			</Behavior>
 		</Root>
 		<ForestContainer />
@@ -3154,12 +3153,9 @@
 			<Root hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
 				<OutputBreakpoints />
 				<Behavior>
-					<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
+					<Parallel hasInputBreakpoint="0" comment="" breakpointFlags="0">
 						<OutputBreakpoints />
-						<DrawAction hasInputBreakpoint="0" comment="" breakpointFlags="0">
-							<OutputBreakpoints />
-						</DrawAction>
-						<Parallel hasInputBreakpoint="0" comment="" breakpointFlags="0">
+						<ForceLook hasInputBreakpoint="0" comment="" breakpointFlags="0">
 							<OutputBreakpoints />
 							<Loop hasInputBreakpoint="0" comment="" breakpointFlags="0">
 								<OutputBreakpoints />
@@ -3173,21 +3169,21 @@
 									</Wait>
 								</Sequence>
 							</Loop>
-							<FuseBox hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
-								<OutputBreakpoints />
-								<Child>
-									<Function_speech_dialogInitiator hasInputBreakpoint="0" comment="" breakpointFlags="0">
-										<OutputBreakpoints />
-									</Function_speech_dialogInitiator>
-								</Child>
-								<OnSuccess>
-									<Callback_empty hasInputBreakpoint="0" comment="" breakpointFlags="0">
-										<OutputBreakpoints />
-									</Callback_empty>
-								</OnSuccess>
-							</FuseBox>
-						</Parallel>
-					</Sequence>
+						</ForceLook>
+						<FuseBox hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
+							<OutputBreakpoints />
+							<Child>
+								<Function_speech_dialogInitiator hasInputBreakpoint="0" comment="" breakpointFlags="0">
+									<OutputBreakpoints />
+								</Function_speech_dialogInitiator>
+							</Child>
+							<OnSuccess>
+								<Callback_empty hasInputBreakpoint="0" comment="" breakpointFlags="0">
+									<OutputBreakpoints />
+								</Callback_empty>
+							</OnSuccess>
+						</FuseBox>
+					</Parallel>
 				</Behavior>
 			</Root>
 			<Forest />
@@ -4008,24 +4004,14 @@
 						<FuseBox StatusPropagation="Child" OneCleanup="true" saveVersion="2">
 							<Child canSkip="1">
 								<Parallel successMode="Any" failureMode="Any">
-									<Sequence>
-										<WaitAction />
-										<ForceLook LookTarget="$__player" DisableVariations="false">
-											<StanceCheck soul="$this.id" stance="standing" smartObject="" negate="false" failOnCondition="false" saveVersion="2">
-												<Then canSkip="1">
-													<Loop count="-1">
-														<Sequence>
-															<Turn target="$__player" align="false" />
-															<Wait duration="&apos;2s&apos;" timeType="GameTime" doFail="false" variation="" />
-														</Sequence>
-													</Loop>
-												</Then>
-												<Else canSkip="1">
-													<Wait duration="&apos;-1&apos;" timeType="GameTime" doFail="false" variation="" />
-												</Else>
-											</StanceCheck>
-										</ForceLook>
-									</Sequence>
+									<ForceLook LookTarget="$__player" DisableVariations="true">
+										<Loop count="-1">
+											<Sequence>
+												<Turn target="$__player" align="false" />
+												<Wait duration="&apos;1s&apos;" timeType="GameTime" doFail="false" variation="" />
+											</Sequence>
+										</Loop>
+									</ForceLook>
 									<LoopUntil until="Success" attemptCount="5">
 										<Function_speech_dialogInitiator alias="$aliasChat" animationApproach="$enum:animationApproach.tryDialogAnimations" context="" customParameters="" metarole="" preset="$enum:dialogPreset.chat" recipient="$__player" recipientMetaroles="" nodeLabel="13428717" />
 									</LoopUntil>
@@ -4057,37 +4043,21 @@
 								<Child>
 									<Parallel hasInputBreakpoint="0" comment="" breakpointFlags="0">
 										<OutputBreakpoints />
-										<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
+										<ForceLook hasInputBreakpoint="0" comment="" breakpointFlags="0">
 											<OutputBreakpoints />
-											<WaitAction hasInputBreakpoint="0" comment="" breakpointFlags="0">
+											<Loop hasInputBreakpoint="0" comment="" breakpointFlags="0">
 												<OutputBreakpoints />
-											</WaitAction>
-											<ForceLook hasInputBreakpoint="0" comment="" breakpointFlags="0">
-												<OutputBreakpoints />
-												<StanceCheck hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
+												<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
 													<OutputBreakpoints />
-													<Then>
-														<Loop hasInputBreakpoint="0" comment="" breakpointFlags="0">
-															<OutputBreakpoints />
-															<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																<OutputBreakpoints />
-																<Turn hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																	<OutputBreakpoints />
-																</Turn>
-																<Wait hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																	<OutputBreakpoints />
-																</Wait>
-															</Sequence>
-														</Loop>
-													</Then>
-													<Else>
-														<Wait hasInputBreakpoint="0" comment="" breakpointFlags="0">
-															<OutputBreakpoints />
-														</Wait>
-													</Else>
-												</StanceCheck>
-											</ForceLook>
-										</Sequence>
+													<Turn hasInputBreakpoint="0" comment="" breakpointFlags="0">
+														<OutputBreakpoints />
+													</Turn>
+													<Wait hasInputBreakpoint="0" comment="" breakpointFlags="0">
+														<OutputBreakpoints />
+													</Wait>
+												</Sequence>
+											</Loop>
+										</ForceLook>
 										<LoopUntil hasInputBreakpoint="0" comment="" breakpointFlags="0">
 											<OutputBreakpoints />
 											<Function_speech_dialogInitiator hasInputBreakpoint="0" comment="" breakpointFlags="0">
@@ -4104,6 +4074,51 @@
 							</FuseBox>
 						</AnyDecorator>
 					</AnyDecorator>
+				</Behavior>
+			</Root>
+			<Forest />
+			<Comments />
+		</EditorData>
+	</BehaviorTree>
+	<BehaviorTree name="openVisor" is_function="0">
+		<Variables />
+		<Root OneTimeOnly="false" FailState="Recoverable" saveVersion="2">
+			<Behavior canSkip="1">
+				<FuseBox StatusPropagation="Child" OneCleanup="true" saveVersion="2">
+					<Child canSkip="1">
+						<AnyDecorator preset="bothHands_changeEquipment" enabled="true">
+							<AnimationAction fragment="&apos;OpenVisorInstant&apos;" tags="" eventReferenceObject="" alignObject="" slaveObject="" resourceOverride="" allowTorchForPlayer="false" />
+						</AnyDecorator>
+					</Child>
+					<OnSuccess canSkip="1">
+						<Callback_empty EventName="&apos;OnFinished&apos;" />
+					</OnSuccess>
+				</FuseBox>
+			</Behavior>
+		</Root>
+		<ForestContainer />
+		<EditorData EventSet="endNotification">
+			<Variables />
+			<ForwardDeclarations />
+			<Root hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
+				<OutputBreakpoints />
+				<Behavior>
+					<FuseBox hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
+						<OutputBreakpoints />
+						<Child>
+							<AnyDecorator hasInputBreakpoint="0" comment="" breakpointFlags="0">
+								<OutputBreakpoints />
+								<AnimationAction hasInputBreakpoint="0" comment="" breakpointFlags="0">
+									<OutputBreakpoints />
+								</AnimationAction>
+							</AnyDecorator>
+						</Child>
+						<OnSuccess>
+							<Callback_empty hasInputBreakpoint="0" comment="" breakpointFlags="0">
+								<OutputBreakpoints />
+							</Callback_empty>
+						</OnSuccess>
+					</FuseBox>
 				</Behavior>
 			</Root>
 			<Forest />

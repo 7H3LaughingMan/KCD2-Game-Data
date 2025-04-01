@@ -15,6 +15,9 @@
 				<Port Name="kosti_lze_sebrat" Direction="In" Type="bool">
 					<DesignName StringName="hledani_k_kosti_lze_sebrat_ZoXY" Text="kosti lze sebrat" />
 				</Port>
+				<Port Name="bones_picked" Direction="In" Type="trigger">
+					<DesignName StringName="hledani_k_bones_picked_OSHp" Text="bones picked" />
+				</Port>
 			</Ports>
 			<Definitions>
 				<Definition File="hledani_kosti_v_areach/bark_stopa_woodcutter.xml" />
@@ -74,6 +77,13 @@
 					<Edge From="findBoneArea.OnFifthClue" To="nasel_posed" />
 					<Edge From="findBoneArea.OnDone" To="nasel_kosti" />
 				</hledani_clues>
+				<If Name="if187" PositionY="743" PositionX="1555">
+					<Edge From="state185.Active" To="Condition" />
+					<Edge From="quest_skoncil" To="Exec">
+						<Vertex>bDS2ukc4</Vertex>
+						<Vertex>W6azEA3V</Vertex>
+					</Edge>
+				</If>
 				<IfFunction Name="ifand172" PositionY="-70" PositionX="800" MethodName="math::boolean::Or" DeclaringType="math::boolean">
 					<Edge From="findBoneArea.firstClue" To="A" />
 					<Edge From="findBoneArea.secondClue" To="B" />
@@ -98,6 +108,9 @@
 					<Edge From="hledani_clues.log_parez" To="thirdClueDone" />
 					<Edge From="hledani_clues.log_posed" To="fourthClueDone" />
 				</findBoneArea_visual>
+				<vykopej_kosti Name="objectiveVisual186" PositionY="520" PositionX="1510" RequiredForOutput="kutnohorsko">
+					<Edge From="state185.State" To="Progress" />
+				</vykopej_kosti>
 				<Output Name="Output">
 					<Edge From="findBoneArea.OnFifthClue" To="hrac_uz_zna_cestu_ke_kostem">
 						<Vertex>vertex9</Vertex>
@@ -123,6 +136,18 @@
 					<Constant Name="Objective" Value="findBoneArea_visual" />
 					<Edge From="findBoneArea.OnDone" To="EnqueueSave" />
 				</SaveGame>
+				<State Name="state185" PositionY="540" PositionX="1170" RequiredForOutput="kutnohorsko" TypeT="ProgressFailable">
+					<Edge From="findBoneArea.OnDone" To="SetActive" />
+					<Edge From="if187.True" To="SetCanceled">
+						<Vertex>KH4bo9Mb</Vertex>
+						<Vertex>a6JqchIq</Vertex>
+					</Edge>
+					<Edge From="bones_picked" To="SetDone">
+						<Vertex>yVteRT8B</Vertex>
+						<Vertex>PxcMnyKI</Vertex>
+						<Vertex>A5IcIW8v</Vertex>
+					</Edge>
+				</State>
 				<Function Name="xor182" PositionY="1140" PositionX="-600" MethodName="math::boolean::Xor" DeclaringType="math::boolean">
 					<Edge From="not179.bool" To="A" />
 					<Edge From="findBoneArea.Cancel" To="B">
@@ -133,6 +158,11 @@
 				</Function>
 			</Nodes>
 			<EdgeVertices>
+				<EdgeVertex Name="A5IcIW8v" PositionY="535" PositionX="1010" />
+				<EdgeVertex Name="a6JqchIq" PositionY="998" PositionX="1159" />
+				<EdgeVertex Name="bDS2ukc4" PositionY="1545" PositionX="-1009" />
+				<EdgeVertex Name="KH4bo9Mb" PositionY="997" PositionX="1785" />
+				<EdgeVertex Name="PxcMnyKI" PositionY="556" PositionX="629" />
 				<EdgeVertex Name="vertex1" PositionY="-100" PositionX="980" />
 				<EdgeVertex Name="vertex10" PositionY="-80" PositionX="1540" />
 				<EdgeVertex Name="vertex17" PositionY="12" PositionX="571" />
@@ -154,6 +184,8 @@
 				<EdgeVertex Name="vertex7" PositionY="-430" PositionX="50" />
 				<EdgeVertex Name="vertex8" PositionY="30" PositionX="660" />
 				<EdgeVertex Name="vertex9" PositionY="-80" PositionX="720" />
+				<EdgeVertex Name="W6azEA3V" PositionY="1550" PositionX="1460" />
+				<EdgeVertex Name="yVteRT8B" PositionY="56" PositionX="584" />
 			</EdgeVertices>
 			<Text StringName="hledani_kosti_v_areach_WTbk" Text="hledani kosti v areach" />
 		</Module>

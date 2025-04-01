@@ -45,8 +45,8 @@
 				</Function>
 				<Output Name="Output">
 					<Edge From="or1.bool" To="moravaci_uz_jindra_znaji" />
-					<Edge From="s_moravaky.jindra_moravakum_slibil_ze_jim_sezene_chlast" To="jindra_moravakum_slibil_ze_jim_sezene_chlast" />
-					<Edge From="s_moravaky.jindra_si_s_moravaky_pripil_hned_u_zadani" To="jindra_si_s_moravaky_pripil_hned_u_zadani" />
+					<Edge From="scenefinishedwaiter2.OnFinished" To="jindra_moravakum_slibil_ze_jim_sezene_chlast" />
+					<Edge From="scenefinishedwaiter2_1.OnFinished" To="jindra_si_s_moravaky_pripil_hned_u_zadani" />
 				</Output>
 				<s_moravaky Name="s_moravaky" PositionY="-80" PositionX="0">
 					<Constant Name="tankard" Value="68b5653e-7a01-47a2-81ba-2f1e2143faae" />
@@ -54,6 +54,12 @@
 					<Edge From="jindra_zmlatil_jurka" To="jindra_zmlatil_jurka" />
 					<Edge From="HasItems_Soul.hasitems" To="jindra_ma_uz_koralu_u_sebe" />
 				</s_moravaky>
+				<SceneFinishedWaiter Name="scenefinishedwaiter2" PositionY="140" PositionX="500">
+					<Edge From="s_moravaky.jindra_moravakum_slibil_ze_jim_sezene_chlast" To="Enqueue" />
+				</SceneFinishedWaiter>
+				<SceneFinishedWaiter Name="scenefinishedwaiter2_1" PositionY="-10" PositionX="500">
+					<Edge From="s_moravaky.jindra_si_s_moravaky_pripil_hned_u_zadani" To="Enqueue" />
+				</SceneFinishedWaiter>
 			</Nodes>
 			<EdgeVertices>
 				<EdgeVertex Name="vertex4" PositionY="270" PositionX="250" />

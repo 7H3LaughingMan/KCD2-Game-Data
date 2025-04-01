@@ -31,13 +31,6 @@
 						<Vertex>bsaXz6J4</Vertex>
 					</Edge>
 				</State>
-				<leavelevelnpcs Name="leavelevelnpcs" PositionY="200" PositionX="-700" Namespace="utils.streaming">
-					<Asset Name="questsmartobject" Alias="qSo" />
-					<Asset Name="souls" Alias="Stulec" />
-					<Constant Name="speed" Value="sprint" />
-					<Edge From="stulec_leave_level" To="leavelevel" />
-					<Edge From="unstreamStulec.OnTrigger" To="unstreamnpcs" />
-				</leavelevelnpcs>
 				<Function Name="or4" PositionY="200" PositionX="480" MethodName="math::boolean::Or" DeclaringType="math::boolean">
 					<Edge From="state1.CenekAStulec" To="A" />
 					<Edge From="state1.OdstreamovanyCenek" To="B" />
@@ -58,19 +51,23 @@
 					<Asset Name="Profiles" Alias="StulecProfile" />
 					<Edge From="or4.bool" To="IsActive" />
 				</Layer>
+				<SchedulerLinkActivation Name="schedule20" PositionY="730" PositionX="560">
+					<Constant Name="LinkTag" Value="traskavePoselstvi_stulecUReky" />
+					<Edge From="StulecUReky.State" To="IsActive" />
+				</SchedulerLinkActivation>
 				<State Name="state1" PositionY="0" PositionX="10" TypeT="CenekAStulec">
 					<Edge From="if6.False" To="SetOdstreamovanyStulec" />
 					<Edge From="if7.False" To="SetOdstreamovanyCenek" />
 					<Edge From="if7.True" To="SetCenekAniStulec" />
-					<Edge From="leavelevelnpcs.onunstreamed" To="SetOdstreamovanyStulec">
-						<Vertex>vertex5</Vertex>
-					</Edge>
 				</State>
-				<HasteTrigger Name="unstreamStulec" PositionY="240" PositionX="-1110" />
+				<State Name="StulecUReky" PositionY="570" PositionX="150" TypeT="bool">
+					<Edge From="ZabijStulceUReky.OnTrigger" To="SetTrue" />
+					<Edge From="stulec_leave_level" To="SetTrue" />
+				</State>
+				<HasteTrigger Name="ZabijStulceUReky" PositionY="630" PositionX="-440" />
 			</Nodes>
 			<EdgeVertices>
 				<EdgeVertex Name="bsaXz6J4" PositionY="-125" PositionX="-1186" />
-				<EdgeVertex Name="vertex5" PositionY="420" PositionX="-80" />
 				<EdgeVertex Name="vertex6" PositionY="540" PositionX="340" />
 				<EdgeVertex Name="vertex7" PositionY="535" PositionX="-406" />
 			</EdgeVertices>

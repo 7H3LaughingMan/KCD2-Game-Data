@@ -36,7 +36,9 @@
 				<AreaTrigger Name="areatrigger5" PositionY="-670" PositionX="410">
 					<Asset Name="Souls" Alias="player" />
 					<Asset Name="Areas" Alias="fistfightArena" />
-					<Edge From="fistfightWithVazoun.Fighting" To="IsActive" />
+					<Edge From="fistfightWithVazoun.Fighting" To="IsActive">
+						<Vertex>qorJx0dh</Vertex>
+					</Edge>
 				</AreaTrigger>
 				<contexty_a_protekce Name="contexty_a_protekce" PositionY="-420" PositionX="510">
 					<Edge From="fistfightWithVazoun.Fighting" To="vazoun_fistfight_">
@@ -62,7 +64,6 @@
 					<Edge From="fistfightWithVazoun.OnLost" To="in" />
 				</execmerger>
 				<State Name="fistfightWithVazoun" PositionY="-190" PositionX="120" TypeT="fistfigthWithVazoun">
-					<Edge From="hrac_jde_s_vazounem_na_pesti" To="SetFighting" />
 					<Edge From="duelbehaviorsimple.ontargetwon" To="SetWon">
 						<Vertex>vertex18</Vertex>
 						<Vertex>vertex19</Vertex>
@@ -76,6 +77,7 @@
 						<Vertex>vertex22</Vertex>
 						<Vertex>vertex23</Vertex>
 					</Edge>
+					<Edge From="if9.True" To="SetFighting" />
 				</State>
 				<If Name="if7" PositionY="-110" PositionX="480">
 					<Edge From="fistfightWithVazoun.OnFighting" To="Exec" />
@@ -83,6 +85,13 @@
 						<Vertex>vertex29</Vertex>
 						<Vertex>vertex30</Vertex>
 					</Edge>
+				</If>
+				<If Name="if9" PositionY="-190" PositionX="-200">
+					<Edge From="fistfightWithVazoun.None" To="Condition">
+						<Vertex>tRfosxg2</Vertex>
+						<Vertex>oNtnQpAk</Vertex>
+					</Edge>
+					<Edge From="hrac_jde_s_vazounem_na_pesti" To="Exec" />
 				</If>
 				<Function Name="or6" PositionY="610" PositionX="530" MethodName="math::boolean::Or" DeclaringType="math::boolean">
 					<Edge From="fistfightWithVazoun.Lost" To="A" />
@@ -113,6 +122,9 @@
 				<vazoun_po_ceste_do_ohradky Name="vazoun_po_ceste_do_ohradky" PositionY="-550" PositionX="30" />
 			</Nodes>
 			<EdgeVertices>
+				<EdgeVertex Name="oNtnQpAk" PositionY="-229" PositionX="-159" />
+				<EdgeVertex Name="qorJx0dh" PositionY="-253" PositionX="372" />
+				<EdgeVertex Name="tRfosxg2" PositionY="-237" PositionX="410" />
 				<EdgeVertex Name="vertex15" PositionY="300" PositionX="1070" />
 				<EdgeVertex Name="vertex16" PositionY="450" PositionX="1020" />
 				<EdgeVertex Name="vertex17" PositionY="450" PositionX="90" />

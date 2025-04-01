@@ -18,6 +18,9 @@
 				<Port Name="abort" Direction="In" Type="trigger">
 					<DesignName StringName="reakce_na_abort_8SNC" Text="abort" />
 				</Port>
+				<Port Name="timer_na_report_crimu_bezi" Direction="Out" Type="bool">
+					<DesignName StringName="reakce_na_timer_na_report_dwX9" Text="timer na report crimu bezi" />
+				</Port>
 			</Ports>
 			<Definitions>
 				<Definition File="reakce_na_crime_a_zabiti/videli_hrace_krast__pavel.xml" />
@@ -119,6 +122,11 @@
 						<Vertex>NxnmT8zJ</Vertex>
 					</Edge>
 				</faily>
+				<Function Name="or34" PositionY="370" PositionX="970" MethodName="math::boolean::Or" DeclaringType="math::boolean">
+					<Edge From="npcfromarraylearnsnotification_1_2.timer_na_report_bezi" To="A" />
+					<Edge From="npcfromarraylearnsnotification.timer_na_report_bezi" To="B" />
+					<Edge From="npcfromarraylearnsnotification_1.timer_na_report_bezi" To="C" />
+				</Function>
 				<Function Name="or4" PositionY="-260" PositionX="1230" RequiredForOutput="kutnohorsko" MethodName="math::boolean::Or" DeclaringType="math::boolean">
 					<Edge From="npcfromarraylearnsnotification.hrac_udelal_zlocin_a_videli_ho_po_delay" To="B">
 						<Vertex>vertex8</Vertex>
@@ -155,6 +163,9 @@
 					</Edge>
 					<Edge From="triggersequence33.B" To="hrac_byl_viden">
 						<Vertex>2wHEPzyD</Vertex>
+					</Edge>
+					<Edge From="or34.bool" To="timer_na_report_crimu_bezi">
+						<Vertex>RoBJohg7</Vertex>
 					</Edge>
 				</Output>
 				<pushstimulus_murder Name="pushstimulus_murder" PositionY="90" PositionX="2220" Namespace="utils.crime.murder">
@@ -206,6 +217,7 @@
 				<EdgeVertex Name="elA02tox" PositionY="1569" PositionX="47" />
 				<EdgeVertex Name="I8yokXv3" PositionY="-427" PositionX="2557" />
 				<EdgeVertex Name="NxnmT8zJ" PositionY="612" PositionX="1192" />
+				<EdgeVertex Name="RoBJohg7" PositionY="448" PositionX="2591" />
 				<EdgeVertex Name="sANuvcoN" PositionY="612" PositionX="1353" />
 				<EdgeVertex Name="vertex1" PositionY="-30" PositionX="1330" />
 				<EdgeVertex Name="vertex2" PositionY="-30" PositionX="1070" />

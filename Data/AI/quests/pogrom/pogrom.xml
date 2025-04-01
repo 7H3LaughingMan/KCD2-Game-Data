@@ -449,9 +449,8 @@
 		<Root OneTimeOnly="false" FailState="Recoverable" saveVersion="2">
 			<Behavior canSkip="1">
 				<Sequence>
-					<ExactMove directionType="AlignWithEntity" directionSpecification="$tagpoint" animationTriggerDist="0.150000" precise="false" changeNPCState="true" fastForwardIncludesMove="false" destinationSpecification="$tagpoint" destinationSpecification2="" destinationSpecification3="" speed="Run" additionalParams="" pathFindingParams="$pathParams" staminaPolicy="" pathInfo="" />
 					<Parallel successMode="All" failureMode="Any">
-						<UnstanceAction unstance="ScaredIdle" locationObject="$tagpoint" slaveObject="" />
+						<UnstanceAction unstance="ScaredIdle" locationObject="" slaveObject="" />
 						<DistanceGate Origin="$this.id" ReferencePt="$__player" Low="4.000000" High="4.000000" Negation="false" OpenInMiddle="false" RunLogic="KeepRunning">
 							<FuseBox StatusPropagation="Child" OneCleanup="true" saveVersion="2">
 								<Child canSkip="1">
@@ -463,18 +462,12 @@
 							</FuseBox>
 						</DistanceGate>
 					</Parallel>
+					<Callback_empty EventName="&apos;OnFinished&apos;" />
 					<Wait duration="&apos;-1&apos;" timeType="GameTime" doFail="false" variation="" />
 				</Sequence>
 			</Behavior>
 		</Root>
-		<ForestContainer>
-			<Loop count="-1">
-				<Sequence>
-					<Turn target="$__player" align="false" />
-					<Wait duration="&apos;1s&apos;" timeType="GameTime" doFail="false" variation="" />
-				</Sequence>
-			</Loop>
-		</ForestContainer>
+		<ForestContainer />
 		<EditorData Signature="gotoAndBark" EventSet="endNotification">
 			<Variables>
 				<Variable name="pathParams" comment="" />
@@ -487,9 +480,6 @@
 				<Behavior>
 					<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
 						<OutputBreakpoints />
-						<ExactMove hasInputBreakpoint="0" comment="" breakpointFlags="0">
-							<OutputBreakpoints />
-						</ExactMove>
 						<Parallel hasInputBreakpoint="0" comment="" breakpointFlags="0">
 							<OutputBreakpoints />
 							<UnstanceAction hasInputBreakpoint="0" comment="" breakpointFlags="0">
@@ -512,26 +502,16 @@
 								</FuseBox>
 							</DistanceGate>
 						</Parallel>
+						<Callback_empty hasInputBreakpoint="0" comment="" breakpointFlags="0">
+							<OutputBreakpoints />
+						</Callback_empty>
 						<Wait hasInputBreakpoint="0" comment="" breakpointFlags="0">
 							<OutputBreakpoints />
 						</Wait>
 					</Sequence>
 				</Behavior>
 			</Root>
-			<Forest>
-				<Loop editorPosX="710" editorPosY="-340" hasInputBreakpoint="0" comment="" breakpointFlags="0">
-					<OutputBreakpoints />
-					<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
-						<OutputBreakpoints />
-						<Turn hasInputBreakpoint="0" comment="" breakpointFlags="0">
-							<OutputBreakpoints />
-						</Turn>
-						<Wait hasInputBreakpoint="0" comment="" breakpointFlags="0">
-							<OutputBreakpoints />
-						</Wait>
-					</Sequence>
-				</Loop>
-			</Forest>
+			<Forest />
 			<Comments />
 		</EditorData>
 	</BehaviorTree>
@@ -2494,10 +2474,12 @@
 		</Parameters>
 		<Root OneTimeOnly="false" FailState="Recoverable" saveVersion="2">
 			<Behavior canSkip="1">
-				<Sequence>
-					<UnstanceAction unstance="m42_ChestCheck" locationObject="$data" slaveObject="$data" />
-					<Wait duration="&apos;-1&apos;" timeType="GameTime" doFail="false" variation="" />
-				</Sequence>
+				<MoveParamsDecorator speed="AlertedWalk" pathFindingParams="" doorClosingPolicy="LeaveClosed">
+					<Sequence>
+						<UnstanceAction unstance="m42_ChestCheck" locationObject="$data" slaveObject="$data" />
+						<Wait duration="&apos;-1&apos;" timeType="GameTime" doFail="false" variation="" />
+					</Sequence>
+				</MoveParamsDecorator>
 			</Behavior>
 		</Root>
 		<ForestContainer />
@@ -2509,15 +2491,18 @@
 			<Root hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
 				<OutputBreakpoints />
 				<Behavior>
-					<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
+					<MoveParamsDecorator hasInputBreakpoint="0" comment="" breakpointFlags="0">
 						<OutputBreakpoints />
-						<UnstanceAction hasInputBreakpoint="0" comment="" breakpointFlags="0">
+						<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
 							<OutputBreakpoints />
-						</UnstanceAction>
-						<Wait hasInputBreakpoint="0" comment="" breakpointFlags="0">
-							<OutputBreakpoints />
-						</Wait>
-					</Sequence>
+							<UnstanceAction hasInputBreakpoint="0" comment="" breakpointFlags="0">
+								<OutputBreakpoints />
+							</UnstanceAction>
+							<Wait hasInputBreakpoint="0" comment="" breakpointFlags="0">
+								<OutputBreakpoints />
+							</Wait>
+						</Sequence>
+					</MoveParamsDecorator>
 				</Behavior>
 			</Root>
 			<Forest />
@@ -5150,21 +5135,35 @@
 		</EditorData>
 	</BehaviorTree>
 	<BehaviorTree name="sara_waitInSafeZone" is_function="0">
-		<Variables />
+		<Variables>
+			<Variable name="hitReaction" type="hitReaction" values="" isPersistent="0" form="single" />
+		</Variables>
 		<Parameters>
 			<Variable name="data" type="_wuid" values="" isPersistent="0" form="single" requirementType="In" />
 		</Parameters>
 		<Root OneTimeOnly="false" FailState="Recoverable" saveVersion="2">
 			<Behavior canSkip="1">
 				<Sequence>
-					<UnstanceAction unstance="ScaredIdle" locationObject="$data" slaveObject="" />
-					<Wait duration="&apos;-1&apos;" timeType="GameTime" doFail="false" variation="" />
+					<UnstanceAction unstance="ScaredIdle" locationObject="" slaveObject="" />
+					<Loop count="-1">
+						<SuppressFailure>
+							<ProcessMessage Atomic="false" timeout="&apos;-1&apos;" timeType="GameTime" variable="$hitReaction" senderInfo="" inbox="&apos;hitReaction&apos;" condition="" answerVar="">
+								<IfCondition failOnCondition="false" condition="$hitReaction.attacker ~= $__player">
+									<Sequence>
+										<Wait duration="&apos;1s&apos;" timeType="GameTime" doFail="false" variation="" />
+										<ExactMove directionType="AlignWithEntity" directionSpecification="$data" animationTriggerDist="0.150000" precise="false" changeNPCState="true" fastForwardIncludesMove="false" destinationSpecification="$data" destinationSpecification2="" destinationSpecification3="" speed="Walk" additionalParams="" pathFindingParams="" staminaPolicy="" pathInfo="" />
+									</Sequence>
+								</IfCondition>
+							</ProcessMessage>
+						</SuppressFailure>
+					</Loop>
 				</Sequence>
 			</Behavior>
 		</Root>
 		<ForestContainer />
 		<EditorData Signature="wuidData" EventSet="">
 			<Variables>
+				<Variable name="hitReaction" comment="" />
 				<Variable name="data" comment="" />
 			</Variables>
 			<ForwardDeclarations />
@@ -5176,9 +5175,27 @@
 						<UnstanceAction hasInputBreakpoint="0" comment="" breakpointFlags="0">
 							<OutputBreakpoints />
 						</UnstanceAction>
-						<Wait hasInputBreakpoint="0" comment="" breakpointFlags="0">
+						<Loop hasInputBreakpoint="0" comment="" breakpointFlags="0">
 							<OutputBreakpoints />
-						</Wait>
+							<SuppressFailure hasInputBreakpoint="0" comment="" breakpointFlags="0">
+								<OutputBreakpoints />
+								<ProcessMessage hasInputBreakpoint="0" comment="" breakpointFlags="0">
+									<OutputBreakpoints />
+									<IfCondition hasInputBreakpoint="0" comment="" breakpointFlags="0">
+										<OutputBreakpoints />
+										<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
+											<OutputBreakpoints />
+											<Wait hasInputBreakpoint="0" comment="" breakpointFlags="0">
+												<OutputBreakpoints />
+											</Wait>
+											<ExactMove hasInputBreakpoint="0" comment="" breakpointFlags="0">
+												<OutputBreakpoints />
+											</ExactMove>
+										</Sequence>
+									</IfCondition>
+								</ProcessMessage>
+							</SuppressFailure>
+						</Loop>
 					</Sequence>
 				</Behavior>
 			</Root>

@@ -15,6 +15,9 @@
 				<Port Name="kun4available" Direction="In" Type="bool">
 					<DesignName StringName="podkoni_k_kun4available_xxnv" Text="kun4Available" />
 				</Port>
+				<Port Name="je_noc" Direction="In" Type="bool">
+					<DesignName StringName="podkoni_k_je_noc_fh0C" Text="je noc" />
+				</Port>
 			</Ports>
 			<Text StringName="podkoni_kutna_hora__inspe_peLj" Text="Podkoní Kutná Hora - Inspekce koní" />
 			<Dialogue TechnicalStatus="Enabled" GesturesSetDate="2024-02-25T13:51:12.3815557+01:00" GesturesSetResponseCount="35">
@@ -22,11 +25,11 @@
 					<SelectedSoul Role="HENRY" Voice="tomMcKay" Type="Wave" Language="ENG" />
 					<SelectedSoul Role="PODKONI_KUTNA_HORA" Voice="fejk" Type="Wave" Language="PDG" />
 				</SelectedSouls>
-				<Decision Name="dec1" Priority="General">
+				<Decision Name="dec1" Priority="Shop">
 					<Sequences>
-						<Sequence EntryCondition="!ThisSequenceUsed() AND &#xD;&#xA;(&#xD;&#xA;Port('kun1available') OR&#xD;&#xA;Port('kun2available') OR&#xD;&#xA;Port('kun3available') OR&#xD;&#xA;Port('kun4available')&#xD;&#xA;)" EndType="Decision" Visibility="Public" GrayOutIfSequencesUsed="Never" Name="podkonikutnahora_forcedtutorial">
+						<Sequence EntryCondition="!Port('je_noc') AND !ThisSequenceUsed() AND &#xD;&#xA;(&#xD;&#xA;Port('kun1available') OR&#xD;&#xA;Port('kun2available') OR&#xD;&#xA;Port('kun3available') OR&#xD;&#xA;Port('kun4available')&#xD;&#xA;)" EndType="Decision" Visibility="Public" GrayOutIfSequencesUsed="Never" Name="podkonikutnahora_forcedtutorial">
 							<DesignName StringName="podkoni_k_podkonikutnahor_QzeI" Text="podkoniKutnaHora_forcedTutorial" />
-							<UiPrompt StringName="ui_podkoni_k_podkonikutna_nKB4" Text="(Koupit koně.)" />
+							<UiPrompt StringName="ui_podkoni_k_podkonikutna_nKB4" Text="(Koupit koně)" />
 							<Elements>
 								<Response Role="HENRY" ReferenceLength="3.77">
 									<Parenthetical>
@@ -305,7 +308,7 @@
 								</Sequences>
 							</Decision>
 						</Sequence>
-						<Sequence EntryCondition="SequenceUsed('podkonikutnahora_forcedtutorial')" GrayOutIfSequencesUsed="Never" Name="seq8">
+						<Sequence EntryCondition="!Port('je_noc') AND SequenceUsed('podkonikutnahora_forcedtutorial')" GrayOutIfSequencesUsed="Never" Name="seq8">
 							<DesignName StringName="podkoni_k_seq8_X9PR" Text="seq8" />
 							<UiPrompt StringName="ui_podkoni_k_seq8_Gq1r" Text="Jak funguje koňský trh?" />
 							<Elements>

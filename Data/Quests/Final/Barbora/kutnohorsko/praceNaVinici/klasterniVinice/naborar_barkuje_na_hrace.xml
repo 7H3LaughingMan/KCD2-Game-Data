@@ -20,7 +20,6 @@
 					<Constant Name="secondsafterurgebeforereaction" Value="0" />
 					<Constant Name="playerfleedistancebeforereaction" Value="10" />
 					<Constant Name="supressurgewhennpchasdenialreputation" Value="false" />
-					<Edge From="OnWake" To="enable" />
 					<Edge From="AfterSeeingPlayer_UrgeADialog_Advanced.onplayerflee" To="disable">
 						<Vertex>vertex7</Vertex>
 						<Vertex>vertex8</Vertex>
@@ -28,6 +27,15 @@
 						<Vertex>vertex10</Vertex>
 					</Edge>
 					<Edge From="timer1.OnFinished" To="enable" />
+					<Edge From="timeofdaywatch4.OnTimeOfDay" To="enable">
+						<Vertex>pUVFTeE5</Vertex>
+					</Edge>
+					<Edge From="timeofdaywatch4_1.OnTimeOfDay" To="disable">
+						<Vertex>yaAETCA4</Vertex>
+					</Edge>
+					<Edge From="ifand5.True" To="enable">
+						<Vertex>pUVFTeE5</Vertex>
+					</Edge>
 				</AfterSeeingPlayer_UrgeADialog_Advanced>
 				<AfterSeeingPlayer_UrgeADialog_Advanced Name="AfterSeeingPlayer_UrgeADialog_Advanced_1" PositionY="-50" PositionX="580" Namespace="utils.speech">
 					<Constant Name="behaviorname" Value="urgeDialog" />
@@ -49,11 +57,19 @@
 						<Vertex>vertex14</Vertex>
 						<Vertex>vertex11</Vertex>
 					</Edge>
-					<Edge From="OnWake" To="enable">
-						<Vertex>vertex15</Vertex>
-						<Vertex>vertex16</Vertex>
-					</Edge>
 					<Edge From="timer1_1.OnFinished" To="enable" />
+					<Edge From="timeofdaywatch4.OnTimeOfDay" To="enable">
+						<Vertex>pUVFTeE5</Vertex>
+						<Vertex>2f8TemCu</Vertex>
+					</Edge>
+					<Edge From="timeofdaywatch4_1.OnTimeOfDay" To="disable">
+						<Vertex>yaAETCA4</Vertex>
+						<Vertex>SYmnoA07</Vertex>
+					</Edge>
+					<Edge From="ifand5.True" To="enable">
+						<Vertex>pUVFTeE5</Vertex>
+						<Vertex>2f8TemCu</Vertex>
+					</Edge>
 				</AfterSeeingPlayer_UrgeADialog_Advanced>
 				<AfterSeeingPlayer_UrgeADialog_Advanced Name="AfterSeeingPlayer_UrgeADialog_Advanced_2" PositionY="-960" PositionX="920" Namespace="utils.speech">
 					<Constant Name="behaviorname" Value="urgeDialog" />
@@ -76,12 +92,25 @@
 						<Vertex>vertex17</Vertex>
 					</Edge>
 					<Edge From="timer1_2.OnFinished" To="enable" />
-					<Edge From="OnWake" To="enable">
-						<Vertex>vertex15</Vertex>
-						<Vertex>vertex16</Vertex>
-						<Vertex>vertex21</Vertex>
+					<Edge From="timeofdaywatch4.OnTimeOfDay" To="enable">
+						<Vertex>pUVFTeE5</Vertex>
+						<Vertex>2f8TemCu</Vertex>
+					</Edge>
+					<Edge From="timeofdaywatch4_1.OnTimeOfDay" To="disable">
+						<Vertex>yaAETCA4</Vertex>
+						<Vertex>SYmnoA07</Vertex>
+					</Edge>
+					<Edge From="ifand5.True" To="enable">
+						<Vertex>pUVFTeE5</Vertex>
+						<Vertex>2f8TemCu</Vertex>
 					</Edge>
 				</AfterSeeingPlayer_UrgeADialog_Advanced>
+				<IfFunction Name="ifand5" PositionY="-1170" PositionX="-910" MethodName="math::boolean::And" DeclaringType="math::boolean">
+					<Edge From="OnWake" To="Exec">
+						<Vertex>cLI1yYEV</Vertex>
+					</Edge>
+					<Edge From="TimeOfDayBetweenCheck.isbetween" To="A" />
+				</IfFunction>
 				<MakeArray Name="makearray3" PositionY="-370" PositionX="-1230" TypeT="wh::rpgmodule::Souls">
 					<Asset Name="A" Alias="naborar" />
 					<Asset Name="B" Alias="naborar2" />
@@ -93,6 +122,22 @@
 					<Edge From="Awake" To="IsActive" />
 					<Edge From="makearray3.Array" To="Souls" />
 				</SetEntityContext>
+				<TimeOfDayBetweenCheck Name="TimeOfDayBetweenCheck" PositionY="-1330" PositionX="-1240" Namespace="utils.time">
+					<Constant Name="fromtime" Value="6h15m" />
+					<Constant Name="totime" Value="18h" />
+				</TimeOfDayBetweenCheck>
+				<TimeOfDayWatch Name="timeofdaywatch4" PositionY="-1010" PositionX="-1230">
+					<Constant Name="TimeOfDayStart" Value="6h15m" />
+					<Constant Name="TimeOfDayEnd" Value="18h" />
+					<Constant Name="DaysToStart" Value="0" />
+					<Edge From="OnWake" To="SetRunning" />
+				</TimeOfDayWatch>
+				<TimeOfDayWatch Name="timeofdaywatch4_1" PositionY="-730" PositionX="-1230">
+					<Constant Name="TimeOfDayStart" Value="18h" />
+					<Constant Name="TimeOfDayEnd" Value="6h15m" />
+					<Constant Name="DaysToStart" Value="0" />
+					<Edge From="OnWake" To="SetRunning" />
+				</TimeOfDayWatch>
 				<Timer Name="timer1" PositionY="190" PositionX="-800">
 					<Constant Name="Duration" Value="30m" />
 					<Constant Name="TimeType" Value="WorldTime" />
@@ -109,7 +154,7 @@
 						<Vertex>vertex13</Vertex>
 					</Edge>
 				</Timer>
-				<Timer Name="timer1_2" PositionY="-640" PositionX="510">
+				<Timer Name="timer1_2" PositionY="-670" PositionX="550">
 					<Constant Name="Duration" Value="30m" />
 					<Constant Name="TimeType" Value="WorldTime" />
 					<Edge From="AfterSeeingPlayer_UrgeADialog_Advanced_2.onplayerflee" To="SetRunning">
@@ -119,21 +164,23 @@
 				</Timer>
 			</Nodes>
 			<EdgeVertices>
+				<EdgeVertex Name="2f8TemCu" PositionY="-924" PositionX="446" />
+				<EdgeVertex Name="cLI1yYEV" PositionY="-1080" PositionX="-1270" />
+				<EdgeVertex Name="pUVFTeE5" PositionY="-920" PositionX="-455" />
+				<EdgeVertex Name="SYmnoA07" PositionY="-900" PositionX="410" />
 				<EdgeVertex Name="vertex10" PositionY="140" PositionX="-460" />
 				<EdgeVertex Name="vertex11" PositionY="180" PositionX="500" />
 				<EdgeVertex Name="vertex12" PositionY="640" PositionX="940" />
 				<EdgeVertex Name="vertex13" PositionY="660" PositionX="110" />
 				<EdgeVertex Name="vertex14" PositionY="170" PositionX="110" />
-				<EdgeVertex Name="vertex15" PositionY="-192" PositionX="-539" />
-				<EdgeVertex Name="vertex16" PositionY="-189" PositionX="401" />
 				<EdgeVertex Name="vertex17" PositionY="-300" PositionX="870" />
 				<EdgeVertex Name="vertex18" PositionY="-200" PositionX="1230" />
-				<EdgeVertex Name="vertex19" PositionY="-190" PositionX="520" />
-				<EdgeVertex Name="vertex20" PositionY="-290" PositionX="590" />
-				<EdgeVertex Name="vertex21" PositionY="-873" PositionX="419" />
+				<EdgeVertex Name="vertex19" PositionY="-200" PositionX="580" />
+				<EdgeVertex Name="vertex20" PositionY="-300" PositionX="580" />
 				<EdgeVertex Name="vertex7" PositionY="560" PositionX="-30" />
 				<EdgeVertex Name="vertex8" PositionY="564" PositionX="-825" />
 				<EdgeVertex Name="vertex9" PositionY="149" PositionX="-807" />
+				<EdgeVertex Name="yaAETCA4" PositionY="-890" PositionX="-490" />
 			</EdgeVertices>
 			<Assets>
 				<SoulAsset Name="naborar2" SharedSoulGuids="48357d12-360d-2029-d85f-e1d1500e728c" />

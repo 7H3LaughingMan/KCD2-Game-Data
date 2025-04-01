@@ -33,15 +33,12 @@
 					</Edge>
 					<Edge From="odevzdani_bylin_a_alchymie.jsem_ready_na_alchymii" To="EnqueueCutscene" />
 				</CutsceneHandler>
-				<DisplayTutorial Name="displaytutorial152024549" PositionY="0" PositionX="490">
-					<Constant Name="Tutorial" Value="M02_T13_Alchemy" />
-					<Edge From="odevzdani_bylin_a_alchymie.jsem_ready_na_alchymii" To="Show" />
-				</DisplayTutorial>
-				<IfFunction Name="ifcheckentitycontext39" PositionY="760" PositionX="850" MethodName="wh::xgenaimodule::CheckEntityContext" DeclaringType="wh::xgenaimodule">
-					<Asset Name="Souls" Alias="bozena" />
-					<Constant Name="Context" Value="healer_healing" />
-					<Edge From="cutscenehandler152024548.AfterPlay" To="Exec" />
-				</IfFunction>
+				<InstantSendMessage Name="instantsendmessagekettlesignalonfireplacephasechange22" PositionY="1003" PositionX="850" MessageType="kettle:signal:onFireplacePhaseChange">
+					<Asset Name="Receiver" Alias="fireplace" />
+					<Constant Name="Content_state__" Value="0" />
+					<Constant Name="Content_onInit" Value="false" />
+					<Edge From="cutscenehandler152024548.OnFinished" To="Exec" />
+				</InstantSendMessage>
 				<odevzdani_bylin_a_alchymie Name="odevzdani_bylin_a_alchymie">
 					<Edge From="mam_byliny" To="mam_byliny" />
 					<Edge From="typci_jsou_poreseni" To="typci_jsou_poreseni" />
@@ -52,9 +49,10 @@
 						<Vertex>vertex3</Vertex>
 					</Edge>
 				</Output>
-				<turntoplayerinidlestance Name="turntoplayerinidlestance" PositionY="810" PositionX="1130" Namespace="utils.general">
+				<turntoplayerinidlestance Name="turntoplayerinidlestance" PositionY="770" PositionX="880" Namespace="utils.general">
 					<Asset Name="npc" Alias="bozena" />
-					<Edge From="ifcheckentitycontext39.True" To="turntoplayerinidlestance" />
+					<Constant Name="anydecoratorpreset" Value="changeEquipment" />
+					<Edge From="cutscenehandler152024548.AfterPlay" To="turntoplayerinidlestance" />
 				</turntoplayerinidlestance>
 			</Nodes>
 			<EdgeVertices>

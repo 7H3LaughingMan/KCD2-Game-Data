@@ -12,12 +12,6 @@
 				<Port Name="najdi_tajnou_mincovnu" Direction="Out" Type="trigger">
 					<DesignName StringName="s_vokrake_najdi_tajnou_mi_fUKr" Text="najdi tajnou mincovnu" />
 				</Port>
-				<Port Name="vokrak_mizi_do_kh" Direction="Out" Type="trigger">
-					<DesignName StringName="s_vokrake_vokrak_mizi_do__UcQ1" Text="Vokřák mizí do KH" />
-				</Port>
-				<Port Name="zabij_vokraka" Direction="Out" Type="trigger">
-					<DesignName StringName="s_vokrake_zabij_vokraka_FuLt" Text="zabij Vokřáka" />
-				</Port>
 				<Port Name="addreward" Direction="Out" Type="trigger">
 					<DesignName StringName="s_vokrake_addreward_EM54" Text="AddReward" />
 				</Port>
@@ -45,7 +39,7 @@
 									</Parenthetical>
 									<Text StringName="s_vo_henry_a_ted_s_pravdo_k5EW" Text="A teď s pravdou ven! Ty máš na svědomí krádež královskýho stříbra?" />
 									<Commands>
-										<FacialMoodCommand Role="VOKRAK" FacialMood="nervous1" />
+										<FacialMoodCommand Role="VOKRAK" FacialMood="nervous2" />
 										<MoodCommand Role="VOKRAK" Mood="nervous" />
 										<FacialMoodCommand FacialMood="angry1" />
 										<AnimationCommand Delay="2.69" FragmentId="ADLG_You" Guid="68cf74cb-2347-4df7-bf6e-ec4a245e05af" Variant="2" />
@@ -62,11 +56,14 @@
 										<CameraCommand CameraType="CloseShot" />
 									</Commands>
 								</Response>
-								<Response Role="VOKRAK">
+								<Response Role="VOKRAK" ReferenceLength="4.14">
 									<Parenthetical>
 										<Text StringName="s_vo_vokrak_zoufale_9NVy" Text="zoufale" />
 									</Parenthetical>
 									<Text StringName="s_vo_vokrak_donutil_me_k__6ZOG" Text="Kdybych s nim nespolupracoval, tak přijdu vo práci! Nebo dokonce vo život!" />
+									<Commands>
+										<FacialMoodCommand FacialMood="nervous3" />
+									</Commands>
 								</Response>
 								<Response Role="VOKRAK" StartDelay="0.17" ReferenceLength="5.33">
 									<Parenthetical>
@@ -91,6 +88,7 @@
 												<Text StringName="s_vo_henry_klid_zacni_pek_fE3w" Text="Tak to vem pěkně vod začátku." />
 												<Commands>
 													<FacialMoodCommand FacialMood="angry1" />
+													<FacialMoodCommand Role="VOKRAK" FacialMood="thinking1" />
 													<AnimationCommand Delay="1.49" FragmentId="ADLG_Emphasis" Guid="ef25df68-e606-4b6a-b97d-e75270c52e55" Variant="7" />
 													<CameraCommand CameraType="CloseUp" />
 													<LookAtCommand Role="VOKRAK" Delay="0.04" LookAtRole="HENRY" />
@@ -137,6 +135,7 @@
 												</Parenthetical>
 												<Text StringName="s_vo_vokrak_nakonec_jsem__R5G5" Text="Nakonec jsem ho ke spolupráci donutil stejně jako Bureš mě. Výhrůžkama..." />
 												<Commands>
+													<FacialMoodCommand FacialMood="angry1" />
 													<LookAtCommand Delay="4.99" LookAtRole="HENRY" Offset="BottomRight" TransitionDuration="5" />
 												</Commands>
 											</Response>
@@ -149,6 +148,8 @@
 											<Response Role="HENRY" ReferenceLength="4.14">
 												<Text StringName="s_vo_henry_pockej_pockej__vr9T" Text="Proč si Bureš nebral to stříbro sám? Proč potřeboval tebe?" />
 												<Commands>
+													<FacialMoodCommand FacialMood="thinking2" />
+													<FacialMoodCommand Role="VOKRAK" FacialMood="thinking1" />
 													<AnimationCommand Delay="0.02" FragmentId="ADLG_Confusion" Guid="19e1b926-8753-4893-af45-10d39fa3a985" Variant="0" />
 													<CameraCommand CameraType="CloseUp" />
 													<LookAtCommand Role="VOKRAK" LookAtRole="HENRY" />
@@ -183,6 +184,7 @@
 												<Text StringName="s_vo_henry_nestydis_se_ok_QAqf" Text="Nestydíš se okrádat krále?" />
 												<Commands>
 													<FacialMoodCommand FacialMood="angry1" />
+													<FacialMoodCommand Role="VOKRAK" FacialMood="angry1" />
 													<AnimationCommand Delay="0.04" FragmentId="ADLG_Disagree_light" Guid="e640819e-2655-4e4c-94c2-1e04c5dd7090" Variant="4" />
 													<AnimationCommand Role="VOKRAK" Delay="1.87" FragmentId="ADLG_Frustration" Guid="6dacc546-0c02-457c-9af1-c1ba7b83372d" Variant="4" />
 													<CameraCommand CameraType="CloseUp" />
@@ -217,6 +219,8 @@
 											<Response Role="HENRY" ReferenceLength="3.24">
 												<Text StringName="s_vo_henry_kam_mizi_to_ne_mc7e" Text="Tak dál. Kam mizí to nepřiznaný stříbro?" />
 												<Commands>
+													<FacialMoodCommand FacialMood="thinking2" />
+													<FacialMoodCommand Role="VOKRAK" FacialMood="thinking1" />
 													<AnimationCommand Delay="0.93" FragmentId="ADLG_Gesture" Guid="649b3c66-46dc-4666-8a6c-7d8df90c80ea" Variant="10" />
 													<CameraCommand CameraType="CloseUp" />
 													<LookAtCommand Role="VOKRAK" LookAtRole="HENRY" />
@@ -240,6 +244,8 @@
 														<Response Role="HENRY" ReferenceLength="1.66">
 															<Text StringName="s_vo_henry_razi_tam_fales_5Flc" Text="Razí tam falešný mince?" />
 															<Commands>
+																<FacialMoodCommand FacialMood="nervous1" />
+																<FacialMoodCommand Role="VOKRAK" FacialMood="thinking1" />
 																<AnimationCommand FragmentId="ADLG_Surprised" Guid="37ccf959-1452-4346-bc56-6c477a30e707" Variant="1" />
 																<CameraCommand CameraType="CloseUp" />
 																<LookAtCommand Role="VOKRAK" Delay="0.02" LookAtRole="HENRY" />
@@ -271,6 +277,8 @@
 														<Response Role="HENRY" ReferenceLength="3.6">
 															<Text StringName="s_vo_henry_nezminil_se_bu_KRWu" Text="Nezmínil se Bureš někdy, že by v celé věci byl namočený i mincmistr Vavák?" />
 															<Commands>
+																<FacialMoodCommand FacialMood="thinking2" />
+																<FacialMoodCommand Role="VOKRAK" FacialMood="thinking1" />
 																<AnimationCommand Delay="1.58" FragmentId="ADLG_Gesture" Guid="f15da38f-1fd7-45d6-9587-0b74338f13fc" Variant="24" />
 																<CameraCommand CameraType="CloseUp" />
 																<LookAtCommand Role="VOKRAK" Delay="0.02" LookAtRole="HENRY" />
@@ -308,6 +316,7 @@
 														<Response Role="HENRY" ReferenceLength="0.81">
 															<Text StringName="s_vo_henry_dej_mi_tu_mapu_i5qT" Text="Dej mi tu mapu." />
 															<Commands>
+																<FacialMoodCommand FacialMood="angry1" />
 																<CameraCommand CameraType="CloseUp" />
 																<LookAtCommand Role="VOKRAK" Delay="0.02" LookAtRole="HENRY" />
 															</Commands>
@@ -318,6 +327,7 @@
 															</Parenthetical>
 															<Text StringName="s_vo_vokrak_tady_pujdes_p_uscm" Text="Půjdeš po cestě na Starou Kutnu, až dojdeš na místo, kde jsou vopuštěný starý štoly. " />
 															<Commands>
+																<FacialMoodCommand FacialMood="thinking1" />
 																<AnimationCommand Delay="0.05" FragmentId="ADLG_Give" Guid="c82ba550-1031-4af2-ebc4-ccea2f571cb8" Variant="1" />
 																<CameraCommand CameraType="CloseUp" />
 															</Commands>
@@ -340,6 +350,7 @@
 																		</Parenthetical>
 																		<Text StringName="s_vo_vokrak_a_prosimte_mu_aoXc" Text="A prosimtě... Můžu se tě na něco zeptat?" />
 																		<Commands>
+																			<FacialMoodCommand FacialMood="thinking2" />
 																			<AnimationCommand FragmentId="ADLG_posture_change" Guid="e84e5845-5ffc-4ffc-9022-6dd73e386521" Variant="14" DesiredDuration="4.08" />
 																			<CameraCommand CameraType="CloseShot" />
 																		</Commands>
@@ -367,6 +378,8 @@
 																					<Text StringName="s_vo_henry_pro_krale_vacl_1aMK" Text="Pro krále Václava! Je sice v zajetí, ale nebude tam věčně. Nezaslouží si, aby ho někdo sprostě okrádal!" />
 																					<Commands>
 																						<MoodCommand Mood="arogant" />
+																						<FacialMoodCommand FacialMood="arrogant1" />
+																						<FacialMoodCommand Role="VOKRAK" FacialMood="thinking2" />
 																						<AnimationCommand Delay="0.02" FragmentId="ADLG_Emphasis" Guid="8311fd16-c435-d643-7959-335d354712bc" Variant="0" />
 																						<AnimationCommand Delay="5.62" FragmentId="ADLG_Disagree_light" Guid="ece5dff3-b5e8-bea9-3a93-c779e8a72eb5" Variant="0" />
 																						<CameraCommand CameraType="CloseUp" />
@@ -394,6 +407,8 @@
 																					</Parenthetical>
 																					<Text StringName="s_vo_henry_jsem_presvedce_UXAW" Text="Jsem přesvědčenej, že je do celý věci nějak zapletenej mincmistr Vavák. Hledám pro to důkazy." />
 																					<Commands>
+																						<FacialMoodCommand FacialMood="thinking1" />
+																						<FacialMoodCommand Role="VOKRAK" FacialMood="thinking1" />
 																						<AnimationCommand FragmentId="ADLG_Nod" Guid="2ddda320-2a14-4160-b352-ad7c194f57b3" Variant="0" />
 																						<CameraCommand CameraType="CloseUp" />
 																					</Commands>
@@ -421,6 +436,7 @@
 																					<Text StringName="s_vo_henry_do_toho_ti_nic_FeSe" Text="Do toho ti nic není." />
 																					<Commands>
 																						<FacialMoodCommand FacialMood="angry1" />
+																						<FacialMoodCommand Role="VOKRAK" FacialMood="nervous1" />
 																						<AnimationCommand Delay="0.04" FragmentId="ADLG_Disagree" Guid="9befa935-0e58-4e32-ae2a-a033cc94f2e2" Variant="3" />
 																						<AnimationCommand Role="VOKRAK" Delay="1.2" FragmentId="ADLG_Disown" Guid="9adb986f-97eb-99e9-5306-5a0f4d38b88e" Variant="1" />
 																						<CameraCommand CameraType="CloseUp" />
@@ -458,6 +474,7 @@
 																								</Parenthetical>
 																								<Text StringName="s_vo_vokrak_prosim_ja_vim_3UV7" Text="Já vim, že jsem tě chtěl... tentononc... ale jenom... jsem... Měl jsem prostě vobyčejnej strach!" />
 																								<Commands>
+																									<FacialMoodCommand FacialMood="nervous2" />
 																									<AnimationCommand Delay="0.07" FragmentId="ADLG_Confusion" Guid="4fcec99e-67a8-4f82-9734-675a1804203e" Variant="3" />
 																									<LookAtCommand Delay="1.76" LookAtRole="HENRY" Offset="BottomCenter" TransitionDuration="5" />
 																								</Commands>
@@ -468,6 +485,7 @@
 																								</Parenthetical>
 																								<Text StringName="s_vo_vokrak_prosim_nech_m_ueU5" Text="Prosim, nech mě jít. Prosim! Nechám stáje stájema, hlavně mě pusť!" />
 																								<Commands>
+																									<FacialMoodCommand FacialMood="nervous3" />
 																									<AnimationCommand Delay="0.02" FragmentId="ADLG_Despair" Guid="bd349c23-f824-f1cd-7161-b7be9647b7cc" Variant="2" DesiredDuration="4.86" />
 																									<LookAtCommand Delay="-0.12" LookAtRole="HENRY" />
 																								</Commands>
@@ -485,6 +503,8 @@
 																											</Parenthetical>
 																											<Text StringName="s_vo_henry_dobre_tak_bez_I3eE" Text="Dobře, tak běž." />
 																											<Commands>
+																												<FacialMoodCommand FacialMood="thinking1" />
+																												<FacialMoodCommand Role="VOKRAK" FacialMood="happy1" />
 																												<AnimationCommand Delay="0.02" FragmentId="ADLG_Nod" Guid="f219ea89-720f-4384-b0f6-57044649e8dd" Variant="4" />
 																												<CameraCommand CameraType="CloseUp" />
 																											</Commands>
@@ -522,6 +542,8 @@
 																														</Parenthetical>
 																														<Text StringName="s_vo_henry_penize_mas_tak_1epO" Text="Peníze určitě máš. Tak zaplať - a budeš volnej." />
 																														<Commands>
+																															<FacialMoodCommand FacialMood="thinking3" />
+																															<FacialMoodCommand Role="VOKRAK" FacialMood="nervous3" />
 																															<AnimationCommand Delay="2.4" FragmentId="ADLG_Gesture" Guid="f15da38f-1fd7-45d6-9587-0b74338f13fc" Variant="24" />
 																															<CameraCommand CameraType="CloseUp" />
 																														</Commands>
@@ -551,9 +573,9 @@
 																											</Parenthetical>
 																											<Text StringName="s_vo_henry_zaslouzis_si_s_9wJM" Text="Zasloužíš si smrt." />
 																											<Commands>
-																												<FacialMoodCommand FacialMood="angry1" />
+																												<FacialMoodCommand FacialMood="angry2" />
 																												<MoodCommand Role="VOKRAK" Mood="nervous" />
-																												<FacialMoodCommand Role="VOKRAK" FacialMood="nervous1" />
+																												<FacialMoodCommand Role="VOKRAK" FacialMood="nervous2" />
 																												<AnimationCommand Delay="0.06" FragmentId="ADLG_Nod" Guid="2ddda320-2a14-4160-b352-ad7c194f57b3" Variant="0" />
 																												<CameraCommand CameraType="CloseUp" />
 																											</Commands>
@@ -574,6 +596,7 @@
 																											</Parenthetical>
 																											<Text StringName="s_vo_vokrak_ja_se_polepsi_SXh5" Text="Já se polepšim! Přísahám! Dám peníze na svatou Barborku, cokoliv!" />
 																											<Commands>
+																												<FacialMoodCommand FacialMood="nervous3" />
 																												<AnimationCommand Delay="3.08" FragmentId="ADLG_Emphasis" Guid="c8e93eb9-0bf6-7bf5-bddb-a5595619a568" Variant="0" />
 																											</Commands>
 																										</Response>
@@ -590,6 +613,8 @@
 																														</Parenthetical>
 																														<Text StringName="s_vo_henry_tak_dobre_bez_y8dA" Text="Tak dobře. Běž." />
 																														<Commands>
+																															<FacialMoodCommand FacialMood="angry1" />
+																															<FacialMoodCommand Role="VOKRAK" FacialMood="nervous3" />
 																															<AnimationCommand Delay="0.02" FragmentId="ADLG_Nod" Guid="e42b3bf3-fd0e-478c-b9f7-cacc887c47b9" Variant="3" />
 																															<CameraCommand CameraType="CloseUp" />
 																														</Commands>
@@ -610,9 +635,6 @@
 																													<Sequences>
 																														<Sequence EndType="EndDialogue" Visibility="Public" Reputation="quest_reward_3_small" Name="vokrakLeaves">
 																															<DesignName StringName="s_vokrake_seq20_xaCS" Text="vokrakLeaves" />
-																															<Triggers>
-																																<Port Name="vokrak_mizi_do_kh" />
-																															</Triggers>
 																															<Elements>
 																																<Response Role="VOKRAK" ReferenceLength="3.31">
 																																	<Parenthetical>
@@ -620,6 +642,7 @@
 																																	</Parenthetical>
 																																	<Text StringName="s_vo_vokrak_pujdu_do_kutn_9RbU" Text="Půjdu do Kutný Hory a tam už se nějak protluču..." />
 																																	<Commands>
+																																		<FacialMoodCommand FacialMood="nervous1" />
 																																		<AnimationCommand Delay="1.39" FragmentId="ADLG_Gesture" Guid="649b3c66-46dc-4666-8a6c-7d8df90c80ea" Variant="10" />
 																																		<CameraCommand CameraType="CloseShot" />
 																																	</Commands>
@@ -630,6 +653,7 @@
 																																	</Parenthetical>
 																																	<Text StringName="s_vo_vokrak_a_jestli_se_j_BI1V" Text="A jestli se ještě potkáme... tak... se ti ještě nějak odvděčim... přísahám. " />
 																																	<Commands>
+																																		<FacialMoodCommand FacialMood="happy1" />
 																																		<AnimationCommand Delay="2.16" FragmentId="ADLG_Nod" Guid="2ddda320-2a14-4160-b352-ad7c194f57b3" Variant="0" />
 																																	</Commands>
 																																</Response>
@@ -654,12 +678,9 @@
 																													<Response Role="HENRY" />
 																												</Elements>
 																											</Sequence>
-																											<Sequence EndType="EndDialogue" Name="seq19">
+																											<Sequence EndType="EndDialogue" Visibility="Public" Name="seq19">
 																												<DesignName StringName="s_vokrake_seq19_63oN" Text="seq19" />
 																												<UiPrompt StringName="ui_s_vokrake_seq19_f5ub" Text="(Zabít)" />
-																												<Triggers>
-																													<Port Name="zabij_vokraka" />
-																												</Triggers>
 																												<Elements>
 																													<Response Role="HENRY" ReferenceLength="0.82">
 																														<Parenthetical>
@@ -667,11 +688,14 @@
 																														</Parenthetical>
 																														<Text StringName="s_vo_henry_bud_s_bohem_Yw0x" Text="Buď s Bohem." />
 																														<Commands>
-																															<FacialMoodCommand FacialMood="angry1" />
+																															<FacialMoodCommand FacialMood="angry2" />
 																															<CameraCommand CameraType="CloseUp" />
 																														</Commands>
 																													</Response>
 																												</Elements>
+																												<FastForwards>
+																													<FastForward Role="VOKRAK" />
+																												</FastForwards>
 																											</Sequence>
 																										</Sequences>
 																									</Decision>

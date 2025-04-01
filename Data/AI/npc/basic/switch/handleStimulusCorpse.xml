@@ -82,7 +82,11 @@
 											<DefaultBranch>
 												<Sequence>
 													<Function_crime_addCorpseLink corpse="$stimulus.corpse" corpseState="$enum:corpseState.watched" mateReacting="false" resolve="false" storeTime="false" nodeLabel="40682038" />
-													<Function_callInterrupt_watchCorpse corpse="$stimulus.corpse" ignorePriority="$ignorePriority" initiator="$initiator" noticableCorpseMissingVolume="$__null" previousReaction="$enum:crime_reactionKind.unknown" seenBefore="$corpseSeenBefore" stimulusKind="$stimulusKind" nodeLabel="35615626" />
+													<EntityContextCheck context="crime_deadBody" target="$stimulus.corpse" saveVersion="2">
+														<Else canSkip="1">
+															<Function_callInterrupt_watchCorpse corpse="$stimulus.corpse" ignorePriority="$ignorePriority" initiator="$initiator" noticableCorpseMissingVolume="$__null" previousReaction="$enum:crime_reactionKind.unknown" seenBefore="$corpseSeenBefore" stimulusKind="$stimulusKind" nodeLabel="35615626" />
+														</Else>
+													</EntityContextCheck>
 												</Sequence>
 											</DefaultBranch>
 										</Switch>
@@ -122,7 +126,7 @@
 															<Sequence>
 																<Function_crime_addCorpseLink corpse="$stimulus.corpse" corpseState="$enum:corpseState.investigated" mateReacting="false" resolve="true" storeTime="false" nodeLabel="19113253" />
 																<AddLink From="$this.id" To="$stimulus.corpse" Tag="&apos;crime_followUpBehavior_watchCorpse&apos;" Data="active(true)" LinkOpHandleMode="Success" />
-																<Function_callInterrupt_lookAround alarmReactionType="$enum:crime_alarmReactionType.none" amIBuddy="false" corpseState="$corpseData.state" directHit="false" forcePebbleReaction="false" ignorePriority="$ignorePriority" information_look="$information" initiator="$initiator" missingNpc="$__null" position="$information.position" previousReaction="$enum:crime_reactionKind.unknown" reportedBy="$__null" searchDirection="" shooter="$__player" soundType="$enum:sound.movement" source="$source" stimulusAnimalAbuse="" stimulusKind="$stimulusKind" nodeLabel="36597128" />
+																<Function_callInterrupt_lookAround alarmReactionType="$enum:crime_alarmReactionType.none" amIBuddy="false" corpseState="$corpseData.state" directHit="false" forceSubscribedSoundReaction="false" ignorePriority="$ignorePriority" information_look="$information" initiator="$initiator" missingNpc="$__null" position="$information.position" previousReaction="$enum:crime_reactionKind.unknown" reactingToSoundBecauseAlone="false" reportedBy="$__null" searchDirection="" searchPointsFromDirection="false" shooter="$__player" soundType="$enum:sound.movement" source="$source" stimulusAnimalAbuse="" stimulusKind="$stimulusKind" nodeLabel="36597128" />
 															</Sequence>
 														</Then>
 														<Else canSkip="1">
@@ -135,11 +139,11 @@
 																			<IsReportNecessary Information="$information" ReportDestination="$reportDestination" ReportNecessary="$isReportNecessary" />
 																			<IfElseCondition failOnCondition="false" condition="$corpseData.state &lt; $enum:corpseState.investigated &amp; $isReportNecessary" saveVersion="2">
 																				<Then canSkip="1">
-																					<Function_callInterrupt_report alreadyCriminal="false" assaultData="" corpseState="$corpseData.state" disableDetectedIcon="false" disableEmitting="false" freshlyAttributedCrime="false" ignorePriority="$ignorePriority" information="$information" initiator="$initiator" movementSpeed="$enum:movementSpeed.sprint" previousReaction="$enum:crime_reactionKind.unknown" reportDestination="$reportDestination" reportDestinationType="$reportDestinationType" source="$source" stimulusKind="$stimulusKind" nodeLabel="15444610" />
+																					<Function_callInterrupt_report assaultData="" corpseState="$corpseData.state" criminalFreshness="$enum:crime_criminalFreshness.unknown" disableDetectedIcon="false" disableEmitting="false" freshlyAttributedCrime="false" ignorePriority="$ignorePriority" information="$information" initiator="$initiator" movementSpeed="$enum:movementSpeed.sprint" previousReaction="$enum:crime_reactionKind.unknown" reportDestination="$reportDestination" reportDestinationType="$reportDestinationType" source="$source" stimulusKind="$stimulusKind" nodeLabel="15444610" />
 																				</Then>
 																				<Else canSkip="1">
 																					<IfCondition failOnCondition="false" condition="$shouldWatch">
-																						<Function_callInterrupt_watch alreadyCriminal="false" assaultData="" corpseState="$corpseData.state" defenceMode="false" freshlyAttributedCrime="false" ignorePriority="$ignorePriority" information="$information" initiator="$initiator" previousReaction="$enum:crime_reactionKind.unknown" source="$source" stimulusKind="$stimulusKind" target="$stimulus.corpse" nodeLabel="87584616" />
+																						<Function_callInterrupt_watch assaultData="" corpseState="$corpseData.state" criminalFreshness="$enum:crime_criminalFreshness.unknown" defenceMode="false" freshlyAttributedCrime="false" ignorePriority="$ignorePriority" information="$information" initiator="$initiator" previousReaction="$enum:crime_reactionKind.unknown" source="$source" stimulusKind="$stimulusKind" target="$stimulus.corpse" nodeLabel="87584616" />
 																					</IfCondition>
 																				</Else>
 																			</IfElseCondition>
@@ -153,13 +157,13 @@
 																						<Sequence>
 																							<Function_crime_addCorpseLink corpse="$stimulus.corpse" corpseState="$enum:corpseState.investigated" mateReacting="false" resolve="false" storeTime="false" nodeLabel="36982855" />
 																							<AddLink From="$this.id" To="$stimulus.corpse" Tag="&apos;crime_followUpBehavior_watchCorpse&apos;" Data="active(true)" LinkOpHandleMode="Success" />
-																							<Function_callInterrupt_lookAround alarmReactionType="$enum:crime_alarmReactionType.none" amIBuddy="false" corpseState="$corpseData.state" directHit="false" forcePebbleReaction="false" ignorePriority="$ignorePriority" information_look="$information" initiator="$initiator" missingNpc="$__null" position="$information.position" previousReaction="$enum:crime_reactionKind.unknown" reportedBy="$__null" searchDirection="" shooter="$__player" soundType="$enum:sound.movement" source="$source" stimulusAnimalAbuse="" stimulusKind="$stimulusKind" nodeLabel="45525953" />
+																							<Function_callInterrupt_lookAround alarmReactionType="$enum:crime_alarmReactionType.none" amIBuddy="false" corpseState="$corpseData.state" directHit="false" forceSubscribedSoundReaction="false" ignorePriority="$ignorePriority" information_look="$information" initiator="$initiator" missingNpc="$__null" position="$information.position" previousReaction="$enum:crime_reactionKind.unknown" reactingToSoundBecauseAlone="false" reportedBy="$__null" searchDirection="" searchPointsFromDirection="false" shooter="$__player" soundType="$enum:sound.movement" source="$source" stimulusAnimalAbuse="" stimulusKind="$stimulusKind" nodeLabel="45525953" />
 																						</Sequence>
 																					</Then>
 																					<Else canSkip="1">
 																						<Sequence>
 																							<Function_crime_addCorpseLink corpse="$stimulus.corpse" corpseState="$enum:corpseState.discovered" mateReacting="false" resolve="false" storeTime="false" nodeLabel="21505712" />
-																							<Function_callInterrupt_report alreadyCriminal="false" assaultData="" corpseState="$corpseData.state" disableDetectedIcon="false" disableEmitting="false" freshlyAttributedCrime="false" ignorePriority="$ignorePriority" information="$information" initiator="$initiator" movementSpeed="$enum:movementSpeed.sprint" previousReaction="$enum:crime_reactionKind.unknown" reportDestination="$reportDestination" reportDestinationType="$reportDestinationType" source="$source" stimulusKind="$stimulusKind" nodeLabel="79554953" />
+																							<Function_callInterrupt_report assaultData="" corpseState="$corpseData.state" criminalFreshness="$enum:crime_criminalFreshness.unknown" disableDetectedIcon="false" disableEmitting="false" freshlyAttributedCrime="false" ignorePriority="$ignorePriority" information="$information" initiator="$initiator" movementSpeed="$enum:movementSpeed.sprint" previousReaction="$enum:crime_reactionKind.unknown" reportDestination="$reportDestination" reportDestinationType="$reportDestinationType" source="$source" stimulusKind="$stimulusKind" nodeLabel="79554953" />
 																						</Sequence>
 																					</Else>
 																				</EntityContextCheck>
@@ -168,7 +172,7 @@
 																				<Sequence>
 																					<Function_crime_addCorpseLink corpse="$stimulus.corpse" corpseState="$enum:corpseState.investigated" mateReacting="false" resolve="false" storeTime="false" nodeLabel="40527254" />
 																					<AddLink From="$this.id" To="$stimulus.corpse" Tag="&apos;crime_followUpBehavior_watchCorpse&apos;" Data="active(true)" LinkOpHandleMode="Success" />
-																					<Function_callInterrupt_lookAround alarmReactionType="$enum:crime_alarmReactionType.none" amIBuddy="false" corpseState="$corpseData.state" directHit="false" forcePebbleReaction="false" ignorePriority="$ignorePriority" information_look="$information" initiator="$initiator" missingNpc="$__null" position="$information.position" previousReaction="$enum:crime_reactionKind.unknown" reportedBy="$__null" searchDirection="" shooter="$__player" soundType="$enum:sound.movement" source="$source" stimulusAnimalAbuse="" stimulusKind="$stimulusKind" nodeLabel="14362392" />
+																					<Function_callInterrupt_lookAround alarmReactionType="$enum:crime_alarmReactionType.none" amIBuddy="false" corpseState="$corpseData.state" directHit="false" forceSubscribedSoundReaction="false" ignorePriority="$ignorePriority" information_look="$information" initiator="$initiator" missingNpc="$__null" position="$information.position" previousReaction="$enum:crime_reactionKind.unknown" reactingToSoundBecauseAlone="false" reportedBy="$__null" searchDirection="" searchPointsFromDirection="false" shooter="$__player" soundType="$enum:sound.movement" source="$source" stimulusAnimalAbuse="" stimulusKind="$stimulusKind" nodeLabel="14362392" />
 																				</Sequence>
 																			</Else>
 																		</IfElseCondition>
@@ -179,13 +183,13 @@
 																				<Sequence>
 																					<Function_crime_addCorpseLink corpse="$stimulus.corpse" corpseState="$enum:corpseState.investigated" mateReacting="false" resolve="false" storeTime="false" nodeLabel="64677770" />
 																					<AddLink From="$this.id" To="$stimulus.corpse" Tag="&apos;crime_followUpBehavior_watchCorpse&apos;" Data="active(true)" LinkOpHandleMode="Success" />
-																					<Function_callInterrupt_lookAround alarmReactionType="$enum:crime_alarmReactionType.none" amIBuddy="false" corpseState="$corpseData.state" directHit="false" forcePebbleReaction="false" ignorePriority="$ignorePriority" information_look="$information" initiator="$initiator" missingNpc="$__null" position="$information.position" previousReaction="$enum:crime_reactionKind.unknown" reportedBy="$__null" searchDirection="" shooter="$__player" soundType="$enum:sound.movement" source="$source" stimulusAnimalAbuse="" stimulusKind="$stimulusKind" nodeLabel="90712610" />
+																					<Function_callInterrupt_lookAround alarmReactionType="$enum:crime_alarmReactionType.none" amIBuddy="false" corpseState="$corpseData.state" directHit="false" forceSubscribedSoundReaction="false" ignorePriority="$ignorePriority" information_look="$information" initiator="$initiator" missingNpc="$__null" position="$information.position" previousReaction="$enum:crime_reactionKind.unknown" reactingToSoundBecauseAlone="false" reportedBy="$__null" searchDirection="" searchPointsFromDirection="false" shooter="$__player" soundType="$enum:sound.movement" source="$source" stimulusAnimalAbuse="" stimulusKind="$stimulusKind" nodeLabel="90712610" />
 																				</Sequence>
 																			</Then>
 																			<Else canSkip="1">
 																				<Sequence>
 																					<Function_crime_addCorpseLink corpse="$stimulus.corpse" corpseState="$enum:corpseState.discovered" mateReacting="false" resolve="false" storeTime="false" nodeLabel="66728936" />
-																					<Function_callInterrupt_flee alreadyCriminal="false" assaultData="" corpseState="$corpseData.state" freshlyAttributedCrime="false" ignorePriority="false" information="$information" initiator="$initiator" isIndifferent="false" leaveLevel="false" mercyDialogueResult="$enum:crime_mercyDialogueResult.unknown" previousReaction="$enum:crime_reactionKind.unknown" priority="135" source="$source" stimulusKind="$stimulusKind" target="$stimulus.corpse" nodeLabel="33211761" />
+																					<Function_callInterrupt_flee assaultData="" corpseState="$corpseData.state" criminalFreshness="$enum:crime_criminalFreshness.unknown" freshlyAttributedCrime="false" ignorePriority="false" information="$information" initiator="$initiator" isIndifferent="false" leaveLevel="false" mercyDialogueResult="$enum:crime_mercyDialogueResult.unknown" previousReaction="$enum:crime_reactionKind.unknown" priority="135" source="$source" stimulusKind="$stimulusKind" target="$stimulus.corpse" nodeLabel="33211761" />
 																				</Sequence>
 																			</Else>
 																		</EntityContextCheck>
@@ -223,7 +227,7 @@
 																	</Then>
 																</EntityContextCheck>
 																<IfCondition failOnCondition="false" condition="$shouldWatch">
-																	<Function_callInterrupt_watch alreadyCriminal="false" assaultData="" corpseState="$corpseData.state" defenceMode="false" freshlyAttributedCrime="false" ignorePriority="$ignorePriority" information="$information" initiator="$initiator" previousReaction="$enum:crime_reactionKind.unknown" source="$source" stimulusKind="$stimulusKind" target="$stimulus.corpse" nodeLabel="52762892" />
+																	<Function_callInterrupt_watch assaultData="" corpseState="$corpseData.state" criminalFreshness="$enum:crime_criminalFreshness.unknown" defenceMode="false" freshlyAttributedCrime="false" ignorePriority="$ignorePriority" information="$information" initiator="$initiator" previousReaction="$enum:crime_reactionKind.unknown" source="$source" stimulusKind="$stimulusKind" target="$stimulus.corpse" nodeLabel="52762892" />
 																</IfCondition>
 															</Sequence>
 														</DefaultBranch>
@@ -366,9 +370,14 @@
 														<Function_crime_addCorpseLink hasInputBreakpoint="0" comment="" breakpointFlags="0">
 															<OutputBreakpoints />
 														</Function_crime_addCorpseLink>
-														<Function_callInterrupt_watchCorpse hasInputBreakpoint="0" comment="" breakpointFlags="0">
+														<EntityContextCheck hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
 															<OutputBreakpoints />
-														</Function_callInterrupt_watchCorpse>
+															<Else>
+																<Function_callInterrupt_watchCorpse hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																	<OutputBreakpoints />
+																</Function_callInterrupt_watchCorpse>
+															</Else>
+														</EntityContextCheck>
 													</Sequence>
 												</DefaultBranch>
 											</Switch>

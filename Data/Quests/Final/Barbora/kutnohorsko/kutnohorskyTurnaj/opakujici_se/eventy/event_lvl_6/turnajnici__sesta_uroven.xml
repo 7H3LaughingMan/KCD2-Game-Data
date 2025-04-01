@@ -87,6 +87,18 @@
 				<Port Name="zacatecni_cutscena_beforeplay" Direction="In" Type="trigger">
 					<DesignName StringName="turnajnic_zacatecni_cutsc_o0N1" Text="Začáteční cutscéna BeforePlay" />
 				</Port>
+				<Port Name="vyhlaseni_konce_turnaje" Direction="Out" Type="trigger">
+					<DesignName StringName="turnajnic_vyhlaseni_konce_xnnZ" Text="Vyhlášení konce turnaje" />
+				</Port>
+				<Port Name="v_turnaji_jimram" Direction="Out" Type="bool">
+					<DesignName StringName="turnajnic_v_turnaji_jimram_PcJZ" Text="V turnaji Jimram" />
+				</Port>
+				<Port Name="v_turnaji_linhart" Direction="Out" Type="bool">
+					<DesignName StringName="turnajnic_v_turnaji_linha_R1Aw" Text="V turnaji Linhart" />
+				</Port>
+				<Port Name="v_turnaji_arne" Direction="Out" Type="bool">
+					<DesignName StringName="turnajnic_v_turnaji_arne_TheC" Text="V turnaji Arne" />
+				</Port>
 			</Ports>
 			<Definitions>
 				<Definition File="turnajnici__sesta_uroven/vymena_souly0_za_hrace.xml" />
@@ -104,21 +116,12 @@
 				<Function Name="compare124" PositionY="1550" PositionX="-690" TypeT="wh::rpgmodule::I_Soul*" MethodName="Control::Compare" DeclaringType="Control">
 					<Constant Name="Op" Value="Equals" />
 					<Asset Name="ValueB" Alias="fighter4simek" />
-					<Edge From="elementat113_3.Value" To="ValueA">
-						<Vertex>vertex95</Vertex>
-					</Edge>
+					<Edge From="get_two_random_souls_from_array_1.soul_1" To="ValueA" />
 				</Function>
 				<deadsoulreplacement Name="deadsoulreplacement" PositionY="1480" PositionX="50" Namespace="kutnohorskyTurnaj_utils">
 					<Asset Name="preferredsoulteleporttarget" Alias="tplevelFighterPort2" />
 					<Asset Name="replacementsoulnoparticipationdata" Alias="sitBench2" />
-					<Edge From="elementat113_3.Value" To="preferredsoul">
-						<Vertex>vertex95</Vertex>
-					</Edge>
 					<Edge From="elementat113_1_1_1.Value" To="replacementsoul" />
-					<Edge From="OnSpawn" To="finalizeselection">
-						<Vertex>vertex75</Vertex>
-						<Vertex>vertex77</Vertex>
-					</Edge>
 					<Edge From="and125.bool" To="forcereplace" />
 					<Edge From="turnajove_souboje.turnaj_konci_completed" To="turnaj_konci">
 						<Vertex>VH86Ugg3</Vertex>
@@ -135,16 +138,14 @@
 						<Vertex>pz7ldmB9</Vertex>
 						<Vertex>kF8KyteI</Vertex>
 					</Edge>
+					<Edge From="get_two_random_souls_from_array_1.done" To="finalizeselection" />
+					<Edge From="get_two_random_souls_from_array_1.soul_1" To="preferredsoul" />
 				</deadsoulreplacement>
-				<deadsoulreplacement Name="deadsoulreplacement_1" PositionY="670" PositionX="-260" Namespace="kutnohorskyTurnaj_utils">
+				<deadsoulreplacement Name="deadsoulreplacement_1" PositionY="650" PositionX="-250" Namespace="kutnohorskyTurnaj_utils">
 					<Asset Name="preferredsoulteleporttarget" Alias="tplevelFighterPort" />
 					<Asset Name="replacementsoulnoparticipationdata" Alias="sitBench1" />
 					<Constant Name="forcereplace" Value="false" />
-					<Edge From="OnSpawn" To="finalizeselection">
-						<Vertex>vertex75</Vertex>
-					</Edge>
 					<Edge From="elementat113_1.Value" To="replacementsoul" />
-					<Edge From="elementat113.Value" To="preferredsoul" />
 					<Edge From="turnajove_souboje.turnaj_konci_completed" To="turnaj_konci">
 						<Vertex>VH86Ugg3</Vertex>
 						<Vertex>pz7ldmB9</Vertex>
@@ -157,11 +158,9 @@
 						<Vertex>VH86Ugg3</Vertex>
 						<Vertex>pz7ldmB9</Vertex>
 					</Edge>
+					<Edge From="get_two_random_souls_from_array_1.done" To="finalizeselection" />
+					<Edge From="get_two_random_souls_from_array_1_1.soul_1" To="preferredsoul" />
 				</deadsoulreplacement>
-				<ElementAt Name="elementat113" PositionY="750" PositionX="-670" TypeT="wh::rpgmodule::Souls">
-					<Asset Name="Array" Alias="fightersLevel3" />
-					<Constant Name="Index" Value="0" />
-				</ElementAt>
 				<ElementAt Name="elementat113_1" PositionY="920" PositionX="-620" TypeT="wh::rpgmodule::Souls">
 					<Asset Name="Array" Alias="fighters3" />
 					<Constant Name="Index" Value="0" />
@@ -186,10 +185,26 @@
 					<Asset Name="Array" Alias="fighters4" />
 					<Constant Name="Index" Value="1" />
 				</ElementAt>
-				<ElementAt Name="elementat113_3" PositionY="1440" PositionX="-1040" TypeT="wh::rpgmodule::Souls">
-					<Asset Name="Array" Alias="fightersLevel4" />
-					<Constant Name="Index" Value="0" />
-				</ElementAt>
+				<firstsoul_walktodespawn Name="firstsoul_walktodespawn" PositionY="1540" PositionX="1060" Namespace="kutnohorskyTurnaj_utils">
+					<Asset Name="smartobject" Alias="sitBench3" />
+					<Edge From="elementat113_1_2.Value" To="soul">
+						<Vertex>bH1p357A</Vertex>
+					</Edge>
+					<Edge From="OrHracPrihlasenNekam.bool" To="player_in_tournament">
+						<Vertex>GE8z0bkQ</Vertex>
+					</Edge>
+				</firstsoul_walktodespawn>
+				<get_two_random_souls_from_array Name="get_two_random_souls_from_array_1" PositionY="1020" PositionX="-980" Namespace="kutnohorskyTurnaj_utils">
+					<Asset Name="souls" Alias="fightersLevel4" />
+					<Edge From="get_two_random_souls_from_array_1_1.done" To="start">
+						<Vertex>wEUzlxEf</Vertex>
+						<Vertex>QMgr4nG5</Vertex>
+					</Edge>
+				</get_two_random_souls_from_array>
+				<get_two_random_souls_from_array Name="get_two_random_souls_from_array_1_1" PositionY="620" PositionX="-1000" Namespace="kutnohorskyTurnaj_utils">
+					<Asset Name="souls" Alias="fightersLevel3" />
+					<Edge From="OnSpawn" To="start" />
+				</get_two_random_souls_from_array>
 				<MakeArray Name="makearray126" PositionY="469" PositionX="621" TypeT="wh::rpgmodule::Souls">
 					<Edge From="elementat113_1_1_1.Value" To="B">
 						<Vertex>p1ymb1Qo</Vertex>
@@ -203,7 +218,7 @@
 					<Edge From="turnajove_souboje.hrac_vyhral__stity" To="hrac_vyhral_v_discipline_mec_a_stit" />
 					<Edge From="turnajove_souboje.hrac_vyhral__dlouhe_mece" To="hrac_vyhral_v_discipline_dlouhy_nec" />
 				</odmena__zkusenosti_a_reputace>
-				<Function Name="OrHracPrihlasenNekam" PositionY="1810" PositionX="-1010" MethodName="math::boolean::Or" DeclaringType="math::boolean">
+				<Function Name="OrHracPrihlasenNekam" PositionY="1840" PositionX="-1010" MethodName="math::boolean::Or" DeclaringType="math::boolean">
 					<Edge From="hrac_prihlasen__zapas" To="A" />
 					<Edge From="hrac_prihlasen__stity" To="B" />
 					<Edge From="hrac_prihlasen__dlouhe_mece" To="C" />
@@ -220,26 +235,47 @@
 					</Edge>
 					<Edge From="turnajove_souboje.hrac_nevratil_vybavu_s_mecem_a_stitem" To="hrac_nevratil_vybavu_s_mecem_a_stitem" />
 					<Edge From="turnajove_souboje.hrac_nevratil_vybavu_s_dlouhym_mecem" To="hrac_nevratil_vybavu_s_dlouhym_mecem" />
-					<Edge From="turnajove_souboje.turnaj_konci_pro_hrace__hrac_udelal_mensi_crime" To="turnaj_konci_pro_hrace__hrac_udelal_mensi_crime" />
+					<Edge From="turnajove_souboje.turnaj_konci_pro_hrace__hrac_udelal_mensi_crime" To="turnaj_konci_pro_hrace__hrac_udelal_mensi_crime" />2
 					<Edge From="turnajove_souboje.hrac_nedorazil__diskvalifikace" To="hrac_nedorazil_diskvalifikace" />
 					<Edge From="turnajove_souboje.turnaj_konci_failed_hrac_neprisel" To="hrac_nedorazil_diskvalifikace" />
+					<Edge From="turnajove_souboje.start_vyhlaseni_konce_turnaje" To="vyhlaseni_konce_turnaje" />
+					<Edge From="skillteachers_in_tourney.jimram_in_tourney" To="v_turnaji_jimram">
+						<Vertex>FgBttV1z</Vertex>
+					</Edge>
+					<Edge From="skillteachers_in_tourney.linhart_in_tourney" To="v_turnaji_linhart">
+						<Vertex>fJghHnXI</Vertex>
+					</Edge>
+					<Edge From="skillteachers_in_tourney.arne_in_tourney" To="v_turnaji_arne">
+						<Vertex>KrzaBKNa</Vertex>
+					</Edge>
 				</Output>
 				<predmety_do_truhel Name="predmety_do_truhel" PositionY="440" PositionX="1275">
 					<Edge From="cislo_turnaje" To="cislo_turnaje" />
 				</predmety_do_truhel>
+				<skillteachers_in_tourney Name="skillteachers_in_tourney" PositionY="1000" PositionX="2370" Namespace="kutnohorskyTurnaj_utils">
+					<Edge From="switch123.Value1" To="all_fighters" />
+					<Edge From="IsSpawned" To="event_active">
+						<Vertex>jMAXjfTY</Vertex>
+					</Edge>
+				</skillteachers_in_tourney>
 				<MakeArray Name="soulsBezHrace" PositionY="930" PositionX="1070" TypeT="wh::rpgmodule::Souls">
-					<Edge From="elementat113_1_2.Value" To="B" />
 					<Edge From="elementat113_1_2_1.Value" To="C" />
 					<Edge From="elementat113_1_1.Value" To="D" />
 					<Edge From="elementat113_1_1_1_1.Value" To="F" />
 					<Edge From="deadsoulreplacement.finalsoul" To="E" />
-					<Edge From="deadsoulreplacement_1.finalsoul" To="A" />
+					<Edge From="elementat113_1_2.Value" To="A">
+						<Vertex>bH1p357A</Vertex>
+					</Edge>
+					<Edge From="deadsoulreplacement_1.finalsoul" To="B">
+						<Vertex>mM9ayNzk</Vertex>
+					</Edge>
 				</MakeArray>
 				<Switch Name="switch123" PositionY="1270" PositionX="1510" TypeT="bool" ValueTypes="wh::rpgmodule::Souls" SwitchValues="true false">
 					<Edge From="soulsBezHrace.Array" To="DefaultValue1" />
 					<Edge From="soulsBezHrace.Array" To="falseValue1" />
 					<Edge From="vymena_souly0_za_hrace.souls_s_hracem" To="trueValue1" />
 					<Edge From="OrHracPrihlasenNekam.bool" To="Switch">
+						<Vertex>GE8z0bkQ</Vertex>
 						<Vertex>vertex74</Vertex>
 					</Edge>
 				</Switch>
@@ -251,7 +287,9 @@
 					<Edge From="hrac_prihlasen__dlouhe_mece" To="hrac_prihlasen__dlouhe_mece" />
 					<Edge From="menhart_je_mistr" To="menhart_je_mistr" />
 					<Edge From="switch123.Value1" To="fighters" />
-					<Edge From="IsSpawned" To="turnaj_spawned" />
+					<Edge From="IsSpawned" To="turnaj_spawned">
+						<Vertex>jMAXjfTY</Vertex>
+					</Edge>
 					<Edge From="turnaj_zacina" To="turnaj_zacina" />
 					<Edge From="deadsoulreplacement.onselectionfinalized" To="turnaj_nastreamovan">
 						<Vertex>vertex88</Vertex>
@@ -278,18 +316,24 @@
 			</Nodes>
 			<EdgeVertices>
 				<EdgeVertex Name="Aua797Sa" PositionY="120" PositionX="1226" />
+				<EdgeVertex Name="bH1p357A" PositionY="1035" PositionX="798" />
+				<EdgeVertex Name="FgBttV1z" PositionY="1160" PositionX="2960" />
+				<EdgeVertex Name="fJghHnXI" PositionY="1190" PositionX="3000" />
+				<EdgeVertex Name="GE8z0bkQ" PositionY="1929" PositionX="944" />
+				<EdgeVertex Name="jMAXjfTY" PositionY="-77" PositionX="2055" />
 				<EdgeVertex Name="kF8KyteI" PositionY="1500" PositionX="-230" />
+				<EdgeVertex Name="KrzaBKNa" PositionY="1210" PositionX="3030" />
+				<EdgeVertex Name="mM9ayNzk" PositionY="940" PositionX="690" />
 				<EdgeVertex Name="p1ymb1Qo" PositionY="600" PositionX="220" />
 				<EdgeVertex Name="pz7ldmB9" PositionY="630" PositionX="-268" />
+				<EdgeVertex Name="QMgr4nG5" PositionY="891" PositionX="-986" />
 				<EdgeVertex Name="vertex70" PositionY="1240" PositionX="1080" />
 				<EdgeVertex Name="vertex71" PositionY="1240" PositionX="1260" />
 				<EdgeVertex Name="vertex74" PositionY="1930" PositionX="1220" />
-				<EdgeVertex Name="vertex75" PositionY="700" PositionX="-1050" />
-				<EdgeVertex Name="vertex77" PositionY="1400" PositionX="-920" />
 				<EdgeVertex Name="vertex88" PositionY="1770" PositionX="2190" />
-				<EdgeVertex Name="vertex95" PositionY="1530" PositionX="-740" />
 				<EdgeVertex Name="vertex97" PositionY="1760" PositionX="-1010" />
 				<EdgeVertex Name="VH86Ugg3" PositionY="792" PositionX="2589" />
+				<EdgeVertex Name="wEUzlxEf" PositionY="894" PositionX="-683" />
 				<EdgeVertex Name="wg5WWk3u" PositionY="1770" PositionX="2750" />
 				<EdgeVertex Name="xf0rGErW" PositionY="560" PositionX="-340" />
 				<EdgeVertex Name="XGpx5Xzy" PositionY="1770" PositionX="-470" />

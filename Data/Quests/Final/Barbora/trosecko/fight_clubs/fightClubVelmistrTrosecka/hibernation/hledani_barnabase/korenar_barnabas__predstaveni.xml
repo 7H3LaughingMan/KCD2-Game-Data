@@ -12,9 +12,6 @@
 				<Port Name="jindra_si_overil_ze_barnabas_je_velmistr" Direction="Out" Type="trigger">
 					<DesignName StringName="te__pred__jindra_si_overi_y7P1" Text="Jindra si ověřil, že Barnabáš je velmistr" />
 				</Port>
-				<Port Name="je_den" Direction="In" Type="bool">
-					<DesignName StringName="korenar_b_je_den_j5gU" Text="Je den" />
-				</Port>
 			</Ports>
 			<Text StringName="te__pred_arenkou_M5Bz" Text="Kořenář Barnabáš - představení" />
 			<Dialogue TechnicalStatus="Enabled" GesturesSetDate="2024-03-01T17:52:33.4529692+01:00" GesturesSetResponseCount="8">
@@ -24,7 +21,7 @@
 				</SelectedSouls>
 				<Decision Name="dec1" Priority="SideQuestAssignment">
 					<Sequences>
-						<Sequence SpeechCoef="0" EntryCondition="Port('jindra_hleda_barnabase') AND &#xD;&#xA;Port('je_den')" EndType="Decision" Name="predstaveni">
+						<Sequence EntryCondition="Port('jindra_hleda_barnabase')" EndType="Decision" SpeechCoef="0" Name="predstaveni">
 							<DesignName StringName="te__pred__predstaveni_46Mg" Text="predstaveni" />
 							<UiPrompt StringName="ui_te__pred__predstaveni_BKAq" Text="Ty jsi zápasnický velmistr?" />
 							<Triggers>
@@ -78,7 +75,7 @@
 							</Elements>
 							<Decision Name="dec2">
 								<Sequences>
-									<Sequence SpeechCoef="0" EntryCondition="!Port('jindra_zna_barnabase')" EndType="GoTo" GoToDecision="dec5" Name="seq1">
+									<Sequence EntryCondition="!Port('jindra_zna_barnabase')" EndType="GoTo" GoToDecision="dec5" SpeechCoef="0" Name="seq1">
 										<DesignName StringName="korenar_b_seq1_avQe" Text="seq1" />
 										<Elements>
 											<Response Role="HENRY" ReferenceLength="3.59">
@@ -96,7 +93,7 @@
 											</Response>
 										</Elements>
 									</Sequence>
-									<Sequence SpeechCoef="0" EntryCondition="Port('jindra_zna_barnabase')" EndType="Decision" Name="seq7">
+									<Sequence EntryCondition="Port('jindra_zna_barnabase')" EndType="Decision" SpeechCoef="0" Name="seq7">
 										<DesignName StringName="korenar_b_seq7_q2sU" Text="seq7" />
 										<Elements>
 											<Response Role="HENRY" />

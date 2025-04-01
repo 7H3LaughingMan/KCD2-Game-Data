@@ -23,7 +23,7 @@
 		</Parameters>
 		<Root OneTimeOnly="false" FailState="Recoverable" saveVersion="2">
 			<Behavior canSkip="1">
-				<IfCondition failOnCondition="false" condition="$source &gt;= $enum:crime_source.direct &amp; &#10;$initiator == $enum:switch_interruptInitiator.switch &amp; &#10;~$freshlyAttributedCrime &amp; &#10; &#10;//react to arrow even when going from an interrupt &#10;($previousReaction == $enum:crime_reactionKind.unknown &amp; &#10;(($stimulusKind ~= $enum:crime_stimulusKind.hit &amp; $stimulusKind ~= $enum:crime_stimulusKind.shooter) | $assaultData.victim ~= $this.id) | &#10;($assaultData.kind == $enum:crime_attackKind.missile &amp; $assaultData.directHit == false))">
+				<IfCondition failOnCondition="false" condition="$source &gt;= $enum:crime_source.direct &amp; &#10;$initiator == $enum:switch_interruptInitiator.switch &amp; &#10;~$freshlyAttributedCrime &amp; &#10; &#10;//react to arrow even when going from an interrupt, but not in attack &#10;( &#10;  ( &#10;  $previousReaction == $enum:crime_reactionKind.unknown &amp; &#10;    ( &#10;      ( &#10;         $stimulusKind ~= $enum:crime_stimulusKind.hit &amp;  &#10;         $stimulusKind ~= $enum:crime_stimulusKind.shooter &#10;      ) |  &#10;      $assaultData.victim ~= $this.id &#10;    ) &#10;  ) | &#10;  ( &#10;    $assaultData.kind == $enum:crime_attackKind.missile &amp;  &#10;    $assaultData.directHit == false &amp;  &#10;    $reactionKind ~= $enum:crime_reactionKind.attack &#10;  ) &#10;)">
 					<Sequence>
 						<IfElseCondition failOnCondition="false" condition="$information.label == &apos;pickpocket&apos; &amp; &#10;$information.perceivedWuid == $this.id" saveVersion="2">
 							<Then canSkip="1">

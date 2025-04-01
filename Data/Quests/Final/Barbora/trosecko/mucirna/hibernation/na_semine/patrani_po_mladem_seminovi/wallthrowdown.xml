@@ -36,11 +36,6 @@
 					<Constant Name="StartActionPrompt" Value="wallthrow_pohlednout_do_o_KHRJ" />
 					<Edge From="and62.bool" To="IsActive" />
 				</InfiniteHoldInteractionTrigger>
-				<Function Name="kill54" PositionY="100" PositionX="-940" MethodName="wh::rpgmodule::Kill" DeclaringType="wh::rpgmodule">
-					<Asset Name="Souls" Alias="throwDownVictim" />
-					<Constant Name="HideBody" Value="false" />
-					<Edge From="najdiseminajr_onaborted" To="Exec" />
-				</Function>
 				<Function Name="or56" PositionY="400" PositionX="-260" MethodName="math::boolean::Or" DeclaringType="math::boolean">
 					<Edge From="wallThrowDown.Active" To="A" />
 					<Edge From="wallThrowDown.Updated" To="B" />
@@ -61,7 +56,6 @@
 				</Timer>
 				<State Name="wallThrowDown" PositionY="-80" PositionX="-570" TypeT="ProgressUpdated">
 					<Edge From="revive53.OnExec" To="SetActive" />
-					<Edge From="kill54.OnExec" To="SetDone" />
 					<Edge From="if63.True" To="SetDone">
 						<Vertex>yRt2H12x</Vertex>
 						<Vertex>hok065xD</Vertex>
@@ -70,6 +64,7 @@
 						<Vertex>pc2n4zNu</Vertex>
 						<Vertex>DxHw4XBw</Vertex>
 					</Edge>
+					<Edge From="najdiseminajr_onaborted" To="SetDone" />
 				</State>
 			</Nodes>
 			<EdgeVertices>

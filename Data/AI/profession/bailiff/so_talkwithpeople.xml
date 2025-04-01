@@ -126,15 +126,17 @@
 				</GraphSearch>
 			</OnInit>
 			<Behavior canSkip="1">
-				<AddLinkElement from="$__object.id" to="$this.id" tag="&apos;bailiff&apos;" data="" enabled="true">
-					<Sequence>
-						<ExactMove directionType="AlignWithEntity" directionSpecification="$spot" animationTriggerDist="0.150000" precise="false" changeNPCState="false" fastForwardIncludesMove="false" destinationSpecification="$spot" destinationSpecification2="" destinationSpecification3="" speed="Walk" additionalParams="" pathFindingParams="" staminaPolicy="" pathInfo="" />
-						<WaitAction />
-						<Synchronize SemaphoreCount="2" InsideTimerValue="&apos;-1&apos;" InvalidateOnExpire="false" atomic="false" OutsideQueuePosVariable="" InsidePosVariable="" TimerType="GameTime" OutsideTimerValue="&apos;-1&apos;" LockManagerType="Local" SemaphoreName="&apos;bailiff_talkingWithPeople&apos;" RunLogic="Halt">
-							<Wait duration="&apos;-1&apos;" timeType="GameTime" doFail="false" variation="" />
-						</Synchronize>
-					</Sequence>
-				</AddLinkElement>
+				<Sequence>
+					<ExactMove directionType="AlignWithEntity" directionSpecification="$spot" animationTriggerDist="0.150000" precise="false" changeNPCState="true" fastForwardIncludesMove="false" destinationSpecification="$spot" destinationSpecification2="" destinationSpecification3="" speed="Walk" additionalParams="" pathFindingParams="" staminaPolicy="" pathInfo="" />
+					<AddLinkElement from="$__object.id" to="$this.id" tag="&apos;bailiff&apos;" data="" enabled="true">
+						<Sequence>
+							<WaitAction />
+							<Synchronize SemaphoreCount="2" InsideTimerValue="&apos;-1&apos;" InvalidateOnExpire="false" atomic="false" OutsideQueuePosVariable="" InsidePosVariable="" TimerType="GameTime" OutsideTimerValue="&apos;-1&apos;" LockManagerType="Local" SemaphoreName="&apos;bailiff_talkingWithPeople&apos;" RunLogic="Halt">
+								<Wait duration="&apos;-1&apos;" timeType="GameTime" doFail="false" variation="" />
+							</Synchronize>
+						</Sequence>
+					</AddLinkElement>
+				</Sequence>
 			</Behavior>
 		</Root>
 		<ForestContainer />
@@ -155,24 +157,27 @@
 					</GraphSearch>
 				</OnInit>
 				<Behavior>
-					<AddLinkElement hasInputBreakpoint="0" comment="" breakpointFlags="0">
+					<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
 						<OutputBreakpoints />
-						<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
+						<ExactMove hasInputBreakpoint="0" comment="" breakpointFlags="0">
 							<OutputBreakpoints />
-							<ExactMove hasInputBreakpoint="0" comment="" breakpointFlags="0">
+						</ExactMove>
+						<AddLinkElement hasInputBreakpoint="0" comment="" breakpointFlags="0">
+							<OutputBreakpoints />
+							<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
 								<OutputBreakpoints />
-							</ExactMove>
-							<WaitAction hasInputBreakpoint="0" comment="" breakpointFlags="0">
-								<OutputBreakpoints />
-							</WaitAction>
-							<Synchronize hasInputBreakpoint="0" comment="" breakpointFlags="0">
-								<OutputBreakpoints />
-								<Wait hasInputBreakpoint="0" comment="" breakpointFlags="0">
+								<WaitAction hasInputBreakpoint="0" comment="" breakpointFlags="0">
 									<OutputBreakpoints />
-								</Wait>
-							</Synchronize>
-						</Sequence>
-					</AddLinkElement>
+								</WaitAction>
+								<Synchronize hasInputBreakpoint="0" comment="" breakpointFlags="0">
+									<OutputBreakpoints />
+									<Wait hasInputBreakpoint="0" comment="" breakpointFlags="0">
+										<OutputBreakpoints />
+									</Wait>
+								</Synchronize>
+							</Sequence>
+						</AddLinkElement>
+					</Sequence>
 				</Behavior>
 			</Root>
 			<Forest />

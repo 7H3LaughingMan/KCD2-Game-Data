@@ -11,20 +11,20 @@
 				</Port>
 			</Ports>
 			<Nodes>
-				<AddInterruptConceptNode Name="addinterruptempty21" PositionY="270" PositionX="-2300" Signature="empty">
+				<AddInterruptConceptNode Name="addinterruptempty21" PositionY="-500" PositionX="-1710" Signature="empty">
 					<Asset Name="NPC" Alias="duelBandit" />
 					<Constant Name="Behavior" Value="bandit_stopsPlayer" />
 					<Asset Name="SmartEntity" Alias="prepadeni" />
 					<Constant Name="Priority" Value="200" />
 					<Constant Name="Urgency" Value="Slow" />
-					<Edge From="bandita_odtahne_jindricha_od_spadeneho_stromu_a_zacne_souboj" To="Activate" />
+					<Edge From="enablebehaviorprepadeniplayerstoppedbybandit28.OnLookRightDirection" To="Activate" />
 				</AddInterruptConceptNode>
-				<State Name="animationOnPlayer" PositionY="-210" PositionX="-2300" TypeT="Progress">
-					<Edge From="enablebehaviorendnotification22.OnFinished" To="SetDone">
+				<State Name="animationOnPlayer" PositionY="-210" PositionX="-2520" TypeT="Progress">
+					<Edge From="bandita_odtahne_jindricha_od_spadeneho_stromu_a_zacne_souboj" To="SetActive" />
+					<Edge From="enablebehaviorprepadeniplayerstoppedbybandit28.OnFinished" To="SetDone">
 						<Vertex>vertex30</Vertex>
 						<Vertex>vertex31</Vertex>
 					</Edge>
-					<Edge From="bandita_odtahne_jindricha_od_spadeneho_stromu_a_zacne_souboj" To="SetActive" />
 				</State>
 				<AreaTrigger Name="areatrigger1" PositionY="-40" PositionX="-890">
 					<Asset Name="Areas" Alias="edgeOfFightArea" />
@@ -54,7 +54,7 @@
 						<Vertex>vertex24</Vertex>
 					</Edge>
 				</duelbehaviorsimple>
-				<EnableBehavior Name="enablebehaviorendnotification22" PositionY="-220" PositionX="-1990" Signature="" EventSet="endNotification">
+				<EnableBehavior Name="enablebehaviorprepadeniplayerstoppedbybandit28" PositionY="-220" PositionX="-2200" Signature="" EventSet="prepadeni_playerStoppedByBandit">
 					<Constant Name="Behavior" Value="player_stoppedByBandit" />
 					<Asset Name="SmartEntity" Alias="prepadeni" />
 					<Asset Name="NPC" Alias="player" />
@@ -102,7 +102,7 @@
 					<Asset Name="Profiles" Alias="lastFightBarrier" />
 					<Edge From="fight.Active" To="IsActive" />
 				</Layer>
-				<SaveLock Name="savelock26" PositionY="-420" PositionX="-1990">
+				<SaveLock Name="savelock26" PositionY="-390" PositionX="-2200">
 					<Constant Name="LockReason" Value="Script" />
 					<Edge From="animationOnPlayer.Active" To="IsActive" />
 				</SaveLock>
@@ -126,12 +126,11 @@
 				<EdgeVertex Name="vertex24" PositionY="-190" PositionX="-740" />
 				<EdgeVertex Name="vertex25" PositionY="770" PositionX="-220" />
 				<EdgeVertex Name="vertex26" PositionY="770" PositionX="-1770" />
-				<EdgeVertex Name="vertex30" PositionY="190" PositionX="-1770" />
-				<EdgeVertex Name="vertex31" PositionY="190" PositionX="-2270" />
+				<EdgeVertex Name="vertex30" PositionY="190" PositionX="-1840" />
+				<EdgeVertex Name="vertex31" PositionY="190" PositionX="-2490" />
 				<EdgeVertex Name="vertex7" PositionY="-80" PositionX="-1080" />
 			</EdgeVertices>
 			<Assets>
-				<TriggerAreaAsset Name="edgeOfFightArea" />
 				<LedgeObjectAsset Name="ledgeOnEndOfRockPath" />
 				<ProfileAsset Name="lastFightBarrier" AssetProfiles="prepadeni_lastFightBarrier" />
 			</Assets>

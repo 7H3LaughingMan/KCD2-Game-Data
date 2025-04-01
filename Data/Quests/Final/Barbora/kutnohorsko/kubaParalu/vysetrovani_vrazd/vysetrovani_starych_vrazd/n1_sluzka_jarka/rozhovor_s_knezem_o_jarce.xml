@@ -53,7 +53,7 @@
 							</Elements>
 							<Decision Name="dec5" Priority="SideQuestSubmission">
 								<Sequences>
-									<Sequence SpeechCoef="0" EndType="Decision" Name="cacaca">
+									<Sequence EndType="Decision" SpeechCoef="0" Name="cacaca">
 										<DesignName StringName="rozhovor__seq15_NmBE" Text="seq15" />
 										<Elements>
 											<Response Role="HENRY" ReferenceLength="8.49">
@@ -131,7 +131,7 @@
 														</Response>
 													</Elements>
 												</Sequence>
-												<Sequence SpeechCoef="0" EndType="Decision" Name="seq21">
+												<Sequence EndType="Decision" SpeechCoef="0" Name="seq21">
 													<DesignName StringName="rozhovor__seq21_fOJV" Text="seq21" />
 													<UiPrompt StringName="ui_rozhovor__seq21_QZF0" Text="Bojím se o mou sestru, taky je služka." />
 													<Elements>
@@ -191,8 +191,8 @@
 																				</Response>
 																			</Elements>
 																		</Sequence>
-																		<Sequence EntryCondition="!SequenceUsed('odkud_jsi_ji_znal') AND !ThisSequenceUsed()" EndType="Decision" Visibility="Internal" Name="odkud_jsi_ji_znal">
-																			<DesignName StringName="rozhovor__seq37_7qNn" Text="o" />
+																		<Sequence EntryCondition="!ThisSequenceUsed()" EndType="Decision" Visibility="Internal" Name="odkud_jsi_ji_znal">
+																			<DesignName StringName="rozhovor__seq37_7qNn" Text="odkud" />
 																			<UiPrompt StringName="ui_rozhovor__seq37_4uls" Text="Odkud jsi ji znal?" />
 																			<Elements>
 																				<Response Role="HENRY" ReferenceLength="1.57">
@@ -356,7 +356,7 @@
 																				</Sequences>
 																			</Decision>
 																		</Sequence>
-																		<Sequence EntryCondition="SequenceUsed('prokop_je_stryc_jarky') AND&#xD;&#xA;!SequenceUsed('tys_ji_vychovaval') AND !ThisSequenceUsed()" EndType="Decision" Visibility="Internal" Name="tys_ji_vychovaval">
+																		<Sequence EntryCondition="SequenceUsed('prokop_je_stryc_jarky') &#xD;&#xA;AND&#xD;&#xA;!ThisSequenceUsed()" EndType="Decision" Visibility="Internal" Name="tys_ji_vychovaval">
 																			<DesignName StringName="rozhovor__tys_ji_vychovav_dOn8" Text="Tys ji vychovával?" />
 																			<UiPrompt StringName="ui_rozhovor__tys_ji_vycho_1XxA" Text="Tys ji vychovával?" />
 																			<Elements>
@@ -387,7 +387,7 @@
 																			</Elements>
 																			<Decision Name="dec20" Priority="SideQuestSubmission" DesignName="Výchova">
 																				<Sequences>
-																					<Sequence SpeechCoef="0" EntryCondition="!ThisSequenceUsed()" EndType="GoTo" GoToDecision="dec20" Visibility="Internal" Name="nafare">
+																					<Sequence EntryCondition="!ThisSequenceUsed()" EndType="GoTo" GoToDecision="dec20" SpeechCoef="0" Visibility="Internal" Name="nafare">
 																						<DesignName StringName="rozhovor__seq49_4wzs" Text="nafare" />
 																						<UiPrompt StringName="ui_rozhovor__seq49_kjjO" Text="Měls ji na faře?" />
 																						<Elements>
@@ -451,7 +451,7 @@
 																										</Response>
 																									</Elements>
 																								</Sequence>
-																								<Sequence EndType="GoTo" GoToDecision="dec20" SkillcheckCondition="Fail" Name="seq52">
+																								<Sequence EndType="GoTo" GoToDecision="dec2" SkillcheckCondition="Fail" Name="seq52">
 																									<DesignName StringName="rozhovor__seq52_7BSs" Text="seq52" />
 																									<UiPrompt StringName="ui_rozhovor__seq52_yMF9" Text="" />
 																									<Elements>
@@ -643,7 +643,7 @@
 																										</Response>
 																									</Elements>
 																								</Sequence>
-																								<Sequence EndType="GoTo" GoToDecision="dec20" SkillcheckCondition="Fail" Name="seq61">
+																								<Sequence EndType="GoTo" GoToDecision="dec2" SkillcheckCondition="Fail" Name="seq61">
 																									<DesignName StringName="rozhovor__seq61_JrWW" Text="seq61" />
 																									<UiPrompt StringName="ui_rozhovor__seq61_2HjG" Text="Fail" />
 																									<Elements>
@@ -859,7 +859,7 @@
 																													</Sequences>
 																												</Decision>
 																											</Sequence>
-																											<Sequence EndType="GoTo" GoToDecision="dec11" SkillcheckCondition="Fail" Name="seq32">
+																											<Sequence EndType="GoTo" GoToDecision="dec2" SkillcheckCondition="Fail" Name="seq32">
 																												<DesignName StringName="rozhovor__seq32_h9Ng" Text="seq32" />
 																												<UiPrompt StringName="ui_rozhovor__seq32_REzO" Text="" />
 																												<Elements>
@@ -922,7 +922,7 @@
 																													</Response>
 																												</Elements>
 																											</Sequence>
-																											<Sequence EndType="GoTo" GoToDecision="dec11" SkillcheckCondition="Fail" Name="seq34">
+																											<Sequence EndType="GoTo" GoToDecision="dec2" SkillcheckCondition="Fail" Name="seq34">
 																												<DesignName StringName="rozhovor__seq34_bOok" Text="seq34" />
 																												<UiPrompt StringName="ui_rozhovor__seq34_uY5s" Text="" />
 																												<Elements>
@@ -972,7 +972,7 @@
 																				</Sequences>
 																			</Decision>
 																		</Sequence>
-																		<Sequence EntryCondition="SequenceUsed('info_jarka')" EndType="EndDialogue" Visibility="Internal" Name="konec_vyptavani">
+																		<Sequence EntryCondition="SequenceUsed('info_jarka')&#xD;&#xA;AND &#xD;&#xA;SequenceUsed('knez_podezira_barda')&#xD;&#xA;AND &#xD;&#xA;SequenceUsed('prokop_je_stryc_jarky')" EndType="EndDialogue" Visibility="Internal" Name="konec_vyptavani">
 																			<DesignName StringName="rozhovor__seq7_2lwr" Text="konec vyptávání" />
 																			<UiPrompt StringName="ui_rozhovor__seq7_s3JQ" Text="To stačí. Díky." />
 																			<Triggers>

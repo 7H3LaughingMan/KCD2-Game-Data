@@ -165,7 +165,7 @@
 					<Edge From="triggersequence362.B" To="hrac_vypovedel_o_mrtvych_hornicich">
 						<Vertex>SCM5zCSL</Vertex>
 					</Edge>
-					<Edge From="triggersequence363.A" To="hrac_vydiral_majitele_uspene" />
+					<Edge From="triggersequence363.B" To="hrac_vydiral_majitele_uspene" />
 				</Output>
 				<AddReward Name="reward360" PositionY="1110" PositionX="550">
 					<Edge From="rozhovor_s_majitelem_sachty.hrac_dostal_gros" To="AddReward" />
@@ -173,13 +173,13 @@
 						<MoneyReward Amount="01 Few beers" />
 					</Rewards>
 				</AddReward>
-				<AddReward Name="reward361" PositionY="840" PositionX="970">
-					<Edge From="triggersequence363.B" To="AddReward" />
+				<AddReward Name="reward361" PositionY="810" PositionX="1100">
+					<Edge From="triggersequence363.A" To="AddReward" />
 					<Rewards>
 						<MoneyReward Amount="07 Sword" />
 					</Rewards>
 				</AddReward>
-				<AddReward Name="reward361_1" PositionY="960" PositionX="970">
+				<AddReward Name="reward361_1" PositionY="960" PositionX="780">
 					<Edge From="triggersequence362.A" To="AddReward" />
 					<Rewards>
 						<MoneyReward Amount="05 Shitty sword" />
@@ -201,11 +201,14 @@
 						<Vertex>hNjLeFpn</Vertex>
 					</Edge>
 				</rozhovor_s_majitelem_sachty>
+				<SceneFinishedWaiter Name="scenefinishedwaiter364" PositionY="810" PositionX="550">
+					<Edge From="rozhovor_s_majitelem_sachty.hrac_vydiral_majitele_uspene" To="Enqueue" />
+				</SceneFinishedWaiter>
 				<TriggerSequence Name="triggersequence362" PositionY="960" PositionX="550">
 					<Edge From="rozhovor_s_majitelem_sachty.hrac_vypovedel_o_mrtvych_hornicich" To="Exec" />
 				</TriggerSequence>
-				<TriggerSequence Name="triggersequence363" PositionY="810" PositionX="550">
-					<Edge From="rozhovor_s_majitelem_sachty.hrac_vydiral_majitele_uspene" To="Exec" />
+				<TriggerSequence Name="triggersequence363" PositionY="810" PositionX="780">
+					<Edge From="scenefinishedwaiter364.OnFinished" To="Exec" />
 				</TriggerSequence>
 			</Nodes>
 			<EdgeVertices>

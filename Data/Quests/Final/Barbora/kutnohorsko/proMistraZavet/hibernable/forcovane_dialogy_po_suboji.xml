@@ -46,6 +46,10 @@
 				<Definition File="forcovane_dialogy_po_suboji/spusteni_varianty__dialogy_osamote.xml" />
 			</Definitions>
 			<Nodes>
+				<Function Name="and6" PositionY="760" PositionX="170" MethodName="math::boolean::And" DeclaringType="math::boolean">
+					<Edge From="promluvSRadmilem.Started" To="A" />
+					<Edge From="not7.bool" To="B" />
+				</Function>
 				<Timer Name="countdownRefereeBarks" PositionY="-810" PositionX="-960">
 					<Constant Name="Duration" Value="10s" />
 					<Constant Name="TimeType" Value="GameTime" />
@@ -63,7 +67,7 @@
 						<Vertex>dDr2vK6W</Vertex>
 					</Edge>
 				</dialog_s_radmilem_pred_polylogem>
-				<expectedeffect Name="expectedeffect" PositionY="-1040" PositionX="190" Namespace="utils.crime.trespass">
+				<expectedeffect Name="expectedeffect" PositionY="-1300" PositionX="280" Namespace="utils.crime.trespass">
 					<Constant Name="extenduntilplayerleavestrespass" Value="false" />
 					<Edge From="promluvSRadmilem.Started" To="isactive" />
 					<Edge From="makearray5.Array" To="npcs" />
@@ -89,11 +93,14 @@
 						<Vertex>vertex10</Vertex>
 					</Edge>
 				</If>
-				<MakeArray Name="makearray5" PositionY="-1030" PositionX="-80" TypeT="wh::rpgmodule::Souls">
+				<MakeArray Name="makearray5" PositionY="-1290" PositionX="-40" TypeT="wh::rpgmodule::Souls">
 					<Asset Name="A" Alias="protistrana" />
 					<Asset Name="B" Alias="vdoba" />
 				</MakeArray>
-				<npcMonolog_watchAndTurnToTarget Name="npcMonolog_watchAndTurnToTarget" PositionY="-200" PositionX="190" Namespace="utils.speech">
+				<Function Name="not7" PositionY="1380" PositionX="-110" MethodName="math::boolean::Not" DeclaringType="math::boolean">
+					<Edge From="dialog_s_radmilem_pred_polylogem.dialog_zacal" To="Value" />
+				</Function>
+				<npcMonolog_watchAndTurnToTarget Name="npcMonolog_watchAndTurnToTarget" PositionY="-460" PositionX="280" Namespace="utils.speech">
 					<Constant Name="behavior" Value="npcMonolog_watchAndTurnToTarget" />
 					<Asset Name="smartentity" Alias="qSo" />
 					<Asset Name="npc" Alias="vdoba" />
@@ -104,7 +111,7 @@
 					<Asset Name="watchtarget" Alias="player" />
 					<Edge From="promluvSRadmilem.Started" To="isactive" />
 				</npcMonolog_watchAndTurnToTarget>
-				<npcMonolog_watchAndTurnToTarget Name="npcMonolog_watchAndTurnToTarget_1" PositionY="180" PositionX="190" Namespace="utils.speech">
+				<npcMonolog_watchAndTurnToTarget Name="npcMonolog_watchAndTurnToTarget_1" PositionY="-80" PositionX="280" Namespace="utils.speech">
 					<Constant Name="behavior" Value="npcMonolog_watchAndTurnToTarget" />
 					<Asset Name="smartentity" Alias="qSo" />
 					<Asset Name="npc" Alias="rozhodci" />
@@ -115,7 +122,7 @@
 					<Asset Name="watchtarget" Alias="player" />
 					<Edge From="promluvSRadmilem.Started" To="isactive" />
 				</npcMonolog_watchAndTurnToTarget>
-				<promluv_s_radmilem Name="objectiveVisual7" PositionY="-810" PositionX="190" RequiredForOutput="kutnohorsko">
+				<promluv_s_radmilem Name="objectiveVisual7" PositionY="-1070" PositionX="280" RequiredForOutput="kutnohorsko">
 					<Edge From="promluvSRadmilem.State" To="Progress" />
 				</promluv_s_radmilem>
 				<Output Name="Output">
@@ -140,12 +147,13 @@
 				<rozhodci_nabada_k_polylogu Name="rozhodci_nabada_k_polylogu" PositionY="-200" PositionX="-640">
 					<Edge From="countdownRefereeBarks.Finished" To="active" />
 				</rozhodci_nabada_k_polylogu>
-				<spusteni_varianty__dialogy_osamote Name="spusteni_varianty__dialogy_osamote" PositionY="800" PositionX="210">
-					<Edge From="promluvSRadmilem.Started" To="poslouchame" />
+				<spusteni_varianty__dialogy_osamote Name="spusteni_varianty__dialogy_osamote" PositionY="790" PositionX="450">
 					<Edge From="promluvSRadmilem.OnStarted" To="spusteni_timeru__protistrana_ceka_na_dialog" />
 					<Edge From="dialog_s_radmilem_pred_polylogem.force_do_polylogu" To="zastav_timer" />
+					<Edge From="and6.bool" To="poslouchame" />
+					<Edge From="dialog_s_radmilem_pred_polylogem.dialog_naforcovan" To="zastav_timer" />
 				</spusteni_varianty__dialogy_osamote>
-				<UrgeADialog Name="UrgeADialog" PositionY="-670" PositionX="190" Namespace="utils.speech">
+				<UrgeADialog Name="UrgeADialog" PositionY="-930" PositionX="280" Namespace="utils.speech">
 					<Constant Name="behaviorname" Value="urgeDialog" />
 					<Asset Name="smartentity" Alias="qSo" />
 					<Asset Name="souls" Alias="protistrana" />
@@ -197,7 +205,7 @@
 				<EdgeVertex Name="vertex6" PositionY="1590" PositionX="-670" />
 				<EdgeVertex Name="vertex7" PositionY="1810" PositionX="840" />
 				<EdgeVertex Name="vertex8" PositionY="1790" PositionX="840" />
-				<EdgeVertex Name="vertex9" PositionY="1080" PositionX="430" />
+				<EdgeVertex Name="vertex9" PositionY="1080" PositionX="790" />
 			</EdgeVertices>
 			<Assets>
 				<DialogueHolderAsset Name="afterDuelPolylog" />

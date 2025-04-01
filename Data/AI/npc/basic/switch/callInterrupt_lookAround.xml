@@ -214,7 +214,7 @@
 														<CreateInformationWrapper Label="&apos;motivation&apos;" PerceivedWuid="$this.id" PositionType="positionVec3" PositionVec3="$position" PositionWuid="" Information="$information_look" />
 														<LockDynamicInformationValues Information="$information_look">
 															<Sequence>
-																<IfElseCondition failOnCondition="false" condition="$previousReaction == $enum:crime_reactionKind.watchTrespass &amp;  &#10;$initiator == $enum:switch_interruptInitiator.scheduler" saveVersion="2">
+																<IfElseCondition failOnCondition="false" condition="$previousReaction == $enum:crime_reactionKind.watchTrespass &amp; &#10;$initiator == $enum:switch_interruptInitiator.scheduler" saveVersion="2">
 																	<Then canSkip="1">
 																		<SetDynamicInformationValue Information="$information_look" Tag="&apos;stimulusKind&apos;" Variable="" Type="&apos;enum:crime_stimulusKind&apos;" Value="$enum:crime_stimulusKind.sound" />
 																	</Then>
@@ -606,7 +606,7 @@
 																<OutputBreakpoints />
 																<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
 																	<OutputBreakpoints />
-																	<IfElseCondition hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
+																	<IfElseCondition hasInputBreakpoint="0" comment="fugly hack for KCD2-435834" breakpointFlags="0" saveVersion="2">
 																		<OutputBreakpoints />
 																		<Then>
 																			<SetDynamicInformationValue hasInputBreakpoint="0" comment="" breakpointFlags="0">
@@ -678,7 +678,7 @@
 				</Behavior>
 			</Root>
 			<Forest>
-				<IfCondition editorPosX="1180" editorPosY="1200" hasInputBreakpoint="0" comment="DO NOT DELETE" breakpointFlags="0">
+				<IfCondition editorPosX="1460" editorPosY="1200" hasInputBreakpoint="0" comment="DO NOT DELETE" breakpointFlags="0">
 					<OutputBreakpoints />
 				</IfCondition>
 			</Forest>
@@ -695,56 +695,57 @@
 		</Parameters>
 		<Root OneTimeOnly="false" FailState="Recoverable" saveVersion="2">
 			<Behavior canSkip="1">
-				<AtomicDecorator>
-					<Sequence>
-						<Function_crime_getMrkev mrkev="$mrkev" nodeLabel="31011269" />
-						<EntityContextCheck context="crime_spawnMissingNpcVolume_behavior" target="$this.id" saveVersion="2">
-							<Then canSkip="1">
-								<IfElseCondition failOnCondition="false" condition="$callInterruptData.interruptData.stimulusKind == $enum:crime_stimulusKind.shooter |  &#10;$callInterruptData.interruptData.stimulusKind == $enum:crime_stimulusKind.missingNpc | &#10;$callInterruptData.interruptData.stimulusKind == $enum:crime_stimulusKind.sound" saveVersion="2">
-									<Then canSkip="1">
-										<Function_crime_spawnMissingNpcVolumeAtPosition destination="$callInterruptData.interruptData.position" nodeLabel="23221151" />
-									</Then>
-									<Else canSkip="1">
-										<Function_crime_spawnMissingNpcVolumeAtPosition destination="$callInterruptData.interruptData.information.position" nodeLabel="22557721" />
-									</Else>
-								</IfElseCondition>
-							</Then>
-						</EntityContextCheck>
-						<IfCondition failOnCondition="false" condition="$callInterruptData.interruptData.initiatedBy == $enum:switch_interruptInitiator.switch | &#10;$callInterruptData.interruptData.previousReaction == $enum:crime_reactionKind.unknown">
-							<GetReactionKindByContext Target="$this.id" ReactionKind="$callInterruptData.interruptData.previousReaction" />
-						</IfCondition>
-						<IfCondition failOnCondition="false" condition="$callInterruptData.interruptData.information.label == &apos;&apos;">
-							<Sequence>
-								<CreateInformationWrapper Label="&apos;motivation&apos;" PerceivedWuid="$this.id" PositionType="positionVec3" PositionVec3="$callInterruptData.interruptData.position" PositionWuid="" Information="$callInterruptData.interruptData.information" />
-								<LockDynamicInformationValues Information="$callInterruptData.interruptData.information">
-									<Sequence>
-										<SetDynamicInformationValue Information="$callInterruptData.interruptData.information" Tag="&apos;stimulusKind&apos;" Variable="$callInterruptData.interruptData.stimulusKind" Type="" Value="" />
-										<IfCondition failOnCondition="false" condition="$callInterruptData.interruptData.stimulusKind == $enum:crime_stimulusKind.animalAbuse">
-											<SetDynamicInformationValue Information="$callInterruptData.interruptData.information" Tag="&apos;stimulusAnimalAbuse&apos;" Variable="$callInterruptData.interruptData.stimulusAnimalAbuse" Type="" Value="" />
-										</IfCondition>
-									</Sequence>
-								</LockDynamicInformationValues>
-							</Sequence>
-						</IfCondition>
-						<Function_crime_limits_reserveReactionLink information="$callInterruptData.interruptData.information" priority="$callInterruptData.priority" reactionKind="$enum:crime_reactionKind.lookAround" nodeLabel="50832016" />
-						<IfCondition failOnCondition="false" condition="$callInterruptData.interruptData.stimulusKind == $enum:crime_stimulusKind.corpse | &#10;$callInterruptData.interruptData.stimulusKind == $enum:crime_stimulusKind.murder">
-							<Sequence>
-								<GraphSearch Origin="$callInterruptData.interruptData.information.perceivedWuid" Borders="" depth="1" selection="true" SearchPattern="Depth" EdgePruning="&apos;parent,inventory&apos;" AllowedEdges="" SubGraph="" AllowSubtraph="false" includeOrigin="false" excludeOrigin="false" failOnEmpty="false" SetOperationChoice="Intersection|And" errorOnEmpty="false" shortCircuit="false" skipTraversed="true">
-									<LinkTagFilter tag="&apos;crime_corpseReactor&apos;" prune="true" negprune="unknown" Parent="" Child="" Data="" />
-									<WUIDFilter WUID="$this.id" Source="Child" prune="true" negprune="unknown" Parent="" Child="" />
-									<Datalyzer Tag="&apos;crime_corpseReactor&apos;" Quantifiers="Exists" Parent="" Child="" Data="$callInterruptData.interruptData.corpseReactionData" saveVersion="2" />
-								</GraphSearch>
-								<Expression expressions="$callInterruptData.interruptData.corpseReactionData.reactionKind = $enum:crime_reactionKind.lookAround &#10;$callInterruptData.interruptData.corpseReactionData.reservation = true" />
-								<AddLink From="$callInterruptData.interruptData.information.perceivedWuid" To="$this.id" Tag="&apos;crime_corpseReactor&apos;" Data="$callInterruptData.interruptData.corpseReactionData" LinkOpHandleMode="OverWrite" />
-							</Sequence>
-						</IfCondition>
-						<AddInterrupt_lookAround lookAroundData="$callInterruptData.interruptData" Target="$this.id" Host="$mrkev" Behavior="&apos;interrupt_lookAround&apos;" Priority="$callInterruptData.priority" IgnorePriorityOnPreviousInterrupt="$callInterruptData.ignorePriority" urgency="Fast" Aliveness="Alive" Privileged="false" FastForward="false" />
-					</Sequence>
-				</AtomicDecorator>
+				<ErrorNode Message="&apos;DELETE&apos;" />
 			</Behavior>
 		</Root>
 		<ForestContainer>
 			<IfCondition failOnCondition="false" condition="($stimulusKind == $enum:crime_stimulusKind.missingNpc &amp; $reportedBy == $__null) | &#10;$stimulusKind == $enum:crime_stimulusKind.corpseMissing | &#10;$stimulusKind == $enum:crime_stimulusKind.sound | &#10;($stimulusKind == $enum:crime_stimulusKind.shooter &amp; &#10;$shooter == $__player)" />
+			<AtomicDecorator>
+				<Sequence>
+					<Function_crime_getMrkev mrkev="$mrkev" nodeLabel="31011269" />
+					<EntityContextCheck context="crime_spawnMissingNpcVolume_behavior" target="$this.id" saveVersion="2">
+						<Then canSkip="1">
+							<IfElseCondition failOnCondition="false" condition="$callInterruptData.interruptData.stimulusKind == $enum:crime_stimulusKind.shooter |  &#10;$callInterruptData.interruptData.stimulusKind == $enum:crime_stimulusKind.missingNpc | &#10;$callInterruptData.interruptData.stimulusKind == $enum:crime_stimulusKind.sound" saveVersion="2">
+								<Then canSkip="1">
+									<Function_crime_spawnMissingNpcVolumeAtPosition destination="$callInterruptData.interruptData.position" nodeLabel="23221151" />
+								</Then>
+								<Else canSkip="1">
+									<Function_crime_spawnMissingNpcVolumeAtPosition destination="$callInterruptData.interruptData.information.position" nodeLabel="22557721" />
+								</Else>
+							</IfElseCondition>
+						</Then>
+					</EntityContextCheck>
+					<IfCondition failOnCondition="false" condition="$callInterruptData.interruptData.initiatedBy == $enum:switch_interruptInitiator.switch | &#10;$callInterruptData.interruptData.previousReaction == $enum:crime_reactionKind.unknown">
+						<GetReactionKindByContext Target="$this.id" ReactionKind="$callInterruptData.interruptData.previousReaction" />
+					</IfCondition>
+					<IfCondition failOnCondition="false" condition="$callInterruptData.interruptData.information.label == &apos;&apos;">
+						<Sequence>
+							<CreateInformationWrapper Label="&apos;motivation&apos;" PerceivedWuid="$this.id" PositionType="positionVec3" PositionVec3="$callInterruptData.interruptData.position" PositionWuid="" Information="$callInterruptData.interruptData.information" />
+							<LockDynamicInformationValues Information="$callInterruptData.interruptData.information">
+								<Sequence>
+									<SetDynamicInformationValue Information="$callInterruptData.interruptData.information" Tag="&apos;stimulusKind&apos;" Variable="$callInterruptData.interruptData.stimulusKind" Type="" Value="" />
+									<IfCondition failOnCondition="false" condition="$callInterruptData.interruptData.stimulusKind == $enum:crime_stimulusKind.animalAbuse">
+										<SetDynamicInformationValue Information="$callInterruptData.interruptData.information" Tag="&apos;stimulusAnimalAbuse&apos;" Variable="$callInterruptData.interruptData.stimulusAnimalAbuse" Type="" Value="" />
+									</IfCondition>
+								</Sequence>
+							</LockDynamicInformationValues>
+						</Sequence>
+					</IfCondition>
+					<Function_crime_limits_reserveReactionLink ffCrimeIcon="false" information="$callInterruptData.interruptData.information" priority="$callInterruptData.priority" reactionKind="$enum:crime_reactionKind.lookAround" nodeLabel="50832016" />
+					<IfCondition failOnCondition="false" condition="$callInterruptData.interruptData.stimulusKind == $enum:crime_stimulusKind.corpse | &#10;$callInterruptData.interruptData.stimulusKind == $enum:crime_stimulusKind.murder">
+						<Sequence>
+							<GraphSearch Origin="$callInterruptData.interruptData.information.perceivedWuid" Borders="" depth="1" selection="true" SearchPattern="Depth" EdgePruning="&apos;parent,inventory&apos;" AllowedEdges="" SubGraph="" AllowSubtraph="false" includeOrigin="false" excludeOrigin="false" failOnEmpty="false" SetOperationChoice="Intersection|And" errorOnEmpty="false" shortCircuit="false" skipTraversed="true">
+								<LinkTagFilter tag="&apos;crime_corpseReactor&apos;" prune="true" negprune="unknown" Parent="" Child="" Data="" />
+								<WUIDFilter WUID="$this.id" Source="Child" prune="true" negprune="unknown" Parent="" Child="" />
+								<Datalyzer Tag="&apos;crime_corpseReactor&apos;" Quantifiers="Exists" Parent="" Child="" Data="$callInterruptData.interruptData.corpseReactionData" saveVersion="2" />
+							</GraphSearch>
+							<Expression expressions="$callInterruptData.interruptData.corpseReactionData.reactionKind = $enum:crime_reactionKind.lookAround &#10;$callInterruptData.interruptData.corpseReactionData.reservation = true" />
+							<AddLink From="$callInterruptData.interruptData.information.perceivedWuid" To="$this.id" Tag="&apos;crime_corpseReactor&apos;" Data="$callInterruptData.interruptData.corpseReactionData" LinkOpHandleMode="OverWrite" />
+						</Sequence>
+					</IfCondition>
+					<AddInterrupt_lookAround lookAroundData="$callInterruptData.interruptData" Target="$this.id" Host="$mrkev" Behavior="&apos;interrupt_lookAround&apos;" Priority="$callInterruptData.priority" IgnorePriorityOnPreviousInterrupt="$callInterruptData.ignorePriority" urgency="Fast" Aliveness="Alive" Privileged="false" FastForward="false" />
+				</Sequence>
+			</AtomicDecorator>
 		</ForestContainer>
 		<EditorData EventSet="">
 			<Variables>
@@ -756,99 +757,102 @@
 			<Root hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
 				<OutputBreakpoints />
 				<Behavior>
-					<AtomicDecorator hasInputBreakpoint="0" comment="" breakpointFlags="0">
+					<ErrorNode hasInputBreakpoint="0" comment="" breakpointFlags="0">
 						<OutputBreakpoints />
-						<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
-							<OutputBreakpoints />
-							<Function_crime_getMrkev hasInputBreakpoint="0" comment="" breakpointFlags="0">
-								<OutputBreakpoints />
-							</Function_crime_getMrkev>
-							<EntityContextCheck hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
-								<OutputBreakpoints />
-								<Then>
-									<IfElseCondition hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
-										<OutputBreakpoints />
-										<Then>
-											<Function_crime_spawnMissingNpcVolumeAtPosition hasInputBreakpoint="0" comment="" breakpointFlags="0">
-												<OutputBreakpoints />
-											</Function_crime_spawnMissingNpcVolumeAtPosition>
-										</Then>
-										<Else>
-											<Function_crime_spawnMissingNpcVolumeAtPosition hasInputBreakpoint="0" comment="" breakpointFlags="0">
-												<OutputBreakpoints />
-											</Function_crime_spawnMissingNpcVolumeAtPosition>
-										</Else>
-									</IfElseCondition>
-								</Then>
-							</EntityContextCheck>
-							<IfCondition hasInputBreakpoint="0" comment="" breakpointFlags="0">
-								<OutputBreakpoints />
-								<GetReactionKindByContext hasInputBreakpoint="0" comment="" breakpointFlags="0">
-									<OutputBreakpoints />
-								</GetReactionKindByContext>
-							</IfCondition>
-							<IfCondition hasInputBreakpoint="0" comment="" breakpointFlags="0">
-								<OutputBreakpoints />
-								<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
-									<OutputBreakpoints />
-									<CreateInformationWrapper hasInputBreakpoint="0" comment="" breakpointFlags="0">
-										<OutputBreakpoints />
-									</CreateInformationWrapper>
-									<LockDynamicInformationValues hasInputBreakpoint="0" comment="" breakpointFlags="0">
-										<OutputBreakpoints />
-										<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
-											<OutputBreakpoints />
-											<SetDynamicInformationValue hasInputBreakpoint="0" comment="" breakpointFlags="0">
-												<OutputBreakpoints />
-											</SetDynamicInformationValue>
-											<IfCondition hasInputBreakpoint="0" comment="" breakpointFlags="0">
-												<OutputBreakpoints />
-												<SetDynamicInformationValue hasInputBreakpoint="0" comment="" breakpointFlags="0">
-													<OutputBreakpoints />
-												</SetDynamicInformationValue>
-											</IfCondition>
-										</Sequence>
-									</LockDynamicInformationValues>
-								</Sequence>
-							</IfCondition>
-							<Function_crime_limits_reserveReactionLink hasInputBreakpoint="0" comment="TODO: check that the removing the  if condidition that was here was justified " breakpointFlags="0">
-								<OutputBreakpoints />
-							</Function_crime_limits_reserveReactionLink>
-							<IfCondition hasInputBreakpoint="0" comment="" breakpointFlags="0">
-								<OutputBreakpoints />
-								<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
-									<OutputBreakpoints />
-									<GraphSearch hasInputBreakpoint="0" comment="" breakpointFlags="0">
-										<OutputBreakpoints />
-										<LinkTagFilter hasInputBreakpoint="0" comment="" breakpointFlags="0">
-											<OutputBreakpoints />
-										</LinkTagFilter>
-										<WUIDFilter hasInputBreakpoint="0" comment="" breakpointFlags="0">
-											<OutputBreakpoints />
-										</WUIDFilter>
-										<Datalyzer hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
-											<OutputBreakpoints />
-										</Datalyzer>
-									</GraphSearch>
-									<Expression hasInputBreakpoint="0" comment="" breakpointFlags="0">
-										<OutputBreakpoints />
-									</Expression>
-									<AddLink hasInputBreakpoint="0" comment="" breakpointFlags="0">
-										<OutputBreakpoints />
-									</AddLink>
-								</Sequence>
-							</IfCondition>
-							<AddInterrupt_lookAround hasInputBreakpoint="0" comment="" breakpointFlags="0">
-								<OutputBreakpoints />
-							</AddInterrupt_lookAround>
-						</Sequence>
-					</AtomicDecorator>
+					</ErrorNode>
 				</Behavior>
 			</Root>
 			<Forest>
 				<IfCondition editorPosX="1820" editorPosY="-360" hasInputBreakpoint="0" comment="DO NOT DELETE" breakpointFlags="0">
 					<OutputBreakpoints />
 				</IfCondition>
+				<AtomicDecorator editorPosX="450" editorPosY="20" hasInputBreakpoint="0" comment="" breakpointFlags="0">
+					<OutputBreakpoints />
+					<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
+						<OutputBreakpoints />
+						<Function_crime_getMrkev hasInputBreakpoint="0" comment="" breakpointFlags="0">
+							<OutputBreakpoints />
+						</Function_crime_getMrkev>
+						<EntityContextCheck hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
+							<OutputBreakpoints />
+							<Then>
+								<IfElseCondition hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
+									<OutputBreakpoints />
+									<Then>
+										<Function_crime_spawnMissingNpcVolumeAtPosition hasInputBreakpoint="0" comment="" breakpointFlags="0">
+											<OutputBreakpoints />
+										</Function_crime_spawnMissingNpcVolumeAtPosition>
+									</Then>
+									<Else>
+										<Function_crime_spawnMissingNpcVolumeAtPosition hasInputBreakpoint="0" comment="" breakpointFlags="0">
+											<OutputBreakpoints />
+										</Function_crime_spawnMissingNpcVolumeAtPosition>
+									</Else>
+								</IfElseCondition>
+							</Then>
+						</EntityContextCheck>
+						<IfCondition hasInputBreakpoint="0" comment="" breakpointFlags="0">
+							<OutputBreakpoints />
+							<GetReactionKindByContext hasInputBreakpoint="0" comment="" breakpointFlags="0">
+								<OutputBreakpoints />
+							</GetReactionKindByContext>
+						</IfCondition>
+						<IfCondition hasInputBreakpoint="0" comment="" breakpointFlags="0">
+							<OutputBreakpoints />
+							<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
+								<OutputBreakpoints />
+								<CreateInformationWrapper hasInputBreakpoint="0" comment="" breakpointFlags="0">
+									<OutputBreakpoints />
+								</CreateInformationWrapper>
+								<LockDynamicInformationValues hasInputBreakpoint="0" comment="" breakpointFlags="0">
+									<OutputBreakpoints />
+									<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
+										<OutputBreakpoints />
+										<SetDynamicInformationValue hasInputBreakpoint="0" comment="" breakpointFlags="0">
+											<OutputBreakpoints />
+										</SetDynamicInformationValue>
+										<IfCondition hasInputBreakpoint="0" comment="" breakpointFlags="0">
+											<OutputBreakpoints />
+											<SetDynamicInformationValue hasInputBreakpoint="0" comment="" breakpointFlags="0">
+												<OutputBreakpoints />
+											</SetDynamicInformationValue>
+										</IfCondition>
+									</Sequence>
+								</LockDynamicInformationValues>
+							</Sequence>
+						</IfCondition>
+						<Function_crime_limits_reserveReactionLink hasInputBreakpoint="0" comment="TODO: check that the removing the  if condidition that was here was justified " breakpointFlags="0">
+							<OutputBreakpoints />
+						</Function_crime_limits_reserveReactionLink>
+						<IfCondition hasInputBreakpoint="0" comment="" breakpointFlags="0">
+							<OutputBreakpoints />
+							<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
+								<OutputBreakpoints />
+								<GraphSearch hasInputBreakpoint="0" comment="" breakpointFlags="0">
+									<OutputBreakpoints />
+									<LinkTagFilter hasInputBreakpoint="0" comment="" breakpointFlags="0">
+										<OutputBreakpoints />
+									</LinkTagFilter>
+									<WUIDFilter hasInputBreakpoint="0" comment="" breakpointFlags="0">
+										<OutputBreakpoints />
+									</WUIDFilter>
+									<Datalyzer hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
+										<OutputBreakpoints />
+									</Datalyzer>
+								</GraphSearch>
+								<Expression hasInputBreakpoint="0" comment="" breakpointFlags="0">
+									<OutputBreakpoints />
+								</Expression>
+								<AddLink hasInputBreakpoint="0" comment="" breakpointFlags="0">
+									<OutputBreakpoints />
+								</AddLink>
+							</Sequence>
+						</IfCondition>
+						<AddInterrupt_lookAround hasInputBreakpoint="0" comment="" breakpointFlags="0">
+							<OutputBreakpoints />
+						</AddInterrupt_lookAround>
+					</Sequence>
+				</AtomicDecorator>
 			</Forest>
 			<Comments />
 		</EditorData>

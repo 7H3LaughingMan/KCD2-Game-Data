@@ -1000,12 +1000,17 @@
 				</GraphSearch>
 			</OnInit>
 			<Behavior canSkip="1">
-				<StanceElement smartObject="$animTarget" stance="crouch" allowAny="false">
-					<Sequence>
-						<WaitAction />
-						<Wait duration="&apos;5s&apos;" timeType="GameTime" doFail="false" variation="" skipInLOD="false" />
-					</Sequence>
-				</StanceElement>
+				<Sequence>
+					<DistanceCondition Origin="$this.id" ReferencePt="$animTarget" Low="0.500000" High="0.500000" Negation="true" ValueOnMiddle="false" failOnCondition="false">
+						<ExactMove directionType="AlignWithEntity" directionSpecification="$animTarget" animationTriggerDist="0.150000" precise="false" changeNPCState="true" fastForwardIncludesMove="false" destinationSpecification="$animTarget" destinationSpecification2="" destinationSpecification3="" speed="Walk" additionalParams="" pathFindingParams="" staminaPolicy="" pathInfo="" />
+					</DistanceCondition>
+					<StanceElement smartObject="" stance="crouch" allowAny="false" enabled="true">
+						<Sequence>
+							<WaitAction />
+							<Wait duration="&apos;5s&apos;" timeType="GameTime" doFail="false" variation="" />
+						</Sequence>
+					</StanceElement>
+				</Sequence>
 			</Behavior>
 		</Root>
 		<ForestContainer />
@@ -1025,18 +1030,27 @@
 					</GraphSearch>
 				</OnInit>
 				<Behavior>
-					<StanceElement hasInputBreakpoint="0" comment="" breakpointFlags="0">
+					<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
 						<OutputBreakpoints />
-						<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
+						<DistanceCondition hasInputBreakpoint="0" comment="" breakpointFlags="0">
 							<OutputBreakpoints />
-							<WaitAction hasInputBreakpoint="0" comment="" breakpointFlags="0">
+							<ExactMove hasInputBreakpoint="0" comment="" breakpointFlags="0">
 								<OutputBreakpoints />
-							</WaitAction>
-							<Wait hasInputBreakpoint="0" comment="" breakpointFlags="0">
+							</ExactMove>
+						</DistanceCondition>
+						<StanceElement hasInputBreakpoint="0" comment="" breakpointFlags="0">
+							<OutputBreakpoints />
+							<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
 								<OutputBreakpoints />
-							</Wait>
-						</Sequence>
-					</StanceElement>
+								<WaitAction hasInputBreakpoint="0" comment="" breakpointFlags="0">
+									<OutputBreakpoints />
+								</WaitAction>
+								<Wait hasInputBreakpoint="0" comment="" breakpointFlags="0">
+									<OutputBreakpoints />
+								</Wait>
+							</Sequence>
+						</StanceElement>
+					</Sequence>
 				</Behavior>
 			</Root>
 			<Forest />
@@ -1078,8 +1092,11 @@
 			</OnInit>
 			<Behavior canSkip="1">
 				<Sequence>
+					<DistanceCondition Origin="$this.id" ReferencePt="$animTarget" Low="0.500000" High="0.500000" Negation="true" ValueOnMiddle="false" failOnCondition="false">
+						<ExactMove directionType="AlignWithEntity" directionSpecification="$animTarget" animationTriggerDist="0.150000" precise="false" changeNPCState="true" fastForwardIncludesMove="false" destinationSpecification="$animTarget" destinationSpecification2="" destinationSpecification3="" speed="Walk" additionalParams="" pathFindingParams="" staminaPolicy="" pathInfo="" />
+					</DistanceCondition>
 					<UnstanceAction unstance="Quest_BrabantHidingStairs" locationObject="$animTarget" slaveObject="" />
-					<Wait duration="&apos;5s&apos;" timeType="GameTime" doFail="false" variation="" skipInLOD="false" />
+					<Wait duration="&apos;5s&apos;" timeType="GameTime" doFail="false" variation="" />
 				</Sequence>
 			</Behavior>
 		</Root>
@@ -1102,6 +1119,12 @@
 				<Behavior>
 					<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
 						<OutputBreakpoints />
+						<DistanceCondition hasInputBreakpoint="0" comment="" breakpointFlags="0">
+							<OutputBreakpoints />
+							<ExactMove hasInputBreakpoint="0" comment="" breakpointFlags="0">
+								<OutputBreakpoints />
+							</ExactMove>
+						</DistanceCondition>
 						<UnstanceAction hasInputBreakpoint="0" comment="" breakpointFlags="0">
 							<OutputBreakpoints />
 						</UnstanceAction>
@@ -1313,7 +1336,7 @@
 					<GetWeaponsFromWeaponSet WeaponSet="Primary" LeftHand="$leftHand" RightHand="$rightHand" UseTorchWhenAppropriate="true" />
 					<IfElseCondition failOnCondition="false" condition="$leftHand == $__null" saveVersion="2">
 						<Then canSkip="1">
-							<HandContentElement hand="Right" item="$rightHand" allowAny="false" decisionLabel="battle_weapon" useDecision="true" saveVersion="2">
+							<HandContentElement hand="Right" item="$rightHand" allowAny="false" allowHomeSlotAutoReturn="false" decisionLabel="battle_weapon" useDecision="true" enabled="true" saveVersion="2">
 								<Search canSkip="1">
 									<Success />
 								</Search>
@@ -1323,12 +1346,12 @@
 							</HandContentElement>
 						</Then>
 						<Else canSkip="1">
-							<HandContentElement hand="Right" item="$rightHand" allowAny="false" decisionLabel="battle_weapon" useDecision="true" saveVersion="2">
+							<HandContentElement hand="Right" item="$rightHand" allowAny="false" allowHomeSlotAutoReturn="false" decisionLabel="battle_weapon" useDecision="true" enabled="true" saveVersion="2">
 								<Search canSkip="1">
 									<Success />
 								</Search>
 								<Exec canSkip="1">
-									<HandContentElement hand="Left" item="$leftHand" allowAny="false" decisionLabel="battle_shield" useDecision="true" saveVersion="2">
+									<HandContentElement hand="Left" item="$leftHand" allowAny="false" allowHomeSlotAutoReturn="false" decisionLabel="battle_shield" useDecision="true" enabled="true" saveVersion="2">
 										<Search canSkip="1">
 											<Success />
 										</Search>
@@ -1340,10 +1363,10 @@
 							</HandContentElement>
 						</Else>
 					</IfElseCondition>
-					<AnyDecorator preset="crime_keepItems">
-						<ExactMove directionType="AlignWithEntity" directionSpecification="$animTarget" animationTriggerDist="0.150000" precise="false" changeNPCState="true" fastForwardIncludesMove="false" destinationSpecification="$animTarget" destinationSpecification2="" destinationSpecification3="" speed="Walk" additionalParams="" pathFindingParams="" staminaPolicy="" pathInfo="" AnimationToPlay="" AnimationContext="" />
+					<AnyDecorator preset="crime_keepItems" enabled="true">
+						<ExactMove directionType="AlignWithEntity" directionSpecification="$animTarget" animationTriggerDist="0.150000" precise="false" changeNPCState="true" fastForwardIncludesMove="false" destinationSpecification="$animTarget" destinationSpecification2="" destinationSpecification3="" speed="Walk" additionalParams="" pathFindingParams="" staminaPolicy="" pathInfo="" />
 					</AnyDecorator>
-					<Wait duration="&apos;-1&apos;" timeType="GameTime" doFail="false" variation="" skipInLOD="false" />
+					<Wait duration="&apos;-1&apos;" timeType="GameTime" doFail="false" variation="" />
 				</Sequence>
 			</Behavior>
 		</Root>

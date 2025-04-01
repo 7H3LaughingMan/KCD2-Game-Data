@@ -192,6 +192,9 @@
 				<Port Name="probiha_zavod_na_nebakove" Direction="Out" Type="bool">
 					<DesignName StringName="nebakovpr_probiha_zavod_n_d99X" Text="probiha zavod na nebakove" />
 				</Port>
+				<Port Name="vypnout_komentar_na_stany" Direction="In" Type="trigger">
+					<DesignName StringName="nebakovpr_vypnout_komenta_R6ra" Text="vypnout komentar na bergovovi stany" />
+				</Port>
 			</Ports>
 			<Definitions>
 				<Definition File="nebakovPruzkum/trosky_a_cesta_na_nebakov.xml" />
@@ -259,6 +262,10 @@
 					</Edge>
 					<Edge From="na_nebakove.ptacek_je_na_troskach" To="ptacek_je_na_troskach" />
 				</dialogy_po_questu>
+				<disabledirectionschatsoul Name="disabledirectionschatsoul" PositionY="-1400" PositionX="-570" Namespace="utils.hardcoremode">
+					<Edge From="makearray41.Array" To="soul" />
+					<Edge From="questProgress.Active" To="enabled" />
+				</disabledirectionschatsoul>
 				<HasteTrigger Name="endPreviousQuest" PositionY="-920" PositionX="-1560">
 					<Edge From="makearray1.Array" To="Prerequisites" />
 				</HasteTrigger>
@@ -281,7 +288,7 @@
 					<Edge From="hrac_sebral_veci_z_master_stashe_zabavene_na_svatbe" To="Exec" />
 					<Edge From="questProgress.Active" To="A" />
 				</IfFunction>
-				<Function Name="joinarrays39" PositionY="-1280" PositionX="-850" TypeT="wh::rpgmodule::Souls" MethodName="utilities::array::JoinArrays" DeclaringType="utilities::array">
+				<Function Name="joinarrays39" PositionY="-1200" PositionX="-850" TypeT="wh::rpgmodule::Souls" MethodName="utilities::array::JoinArrays" DeclaringType="utilities::array">
 					<Asset Name="A" Alias="horses_nebakov" />
 					<Asset Name="B" Alias="stajmistr" />
 					<Asset Name="C" Alias="others_frontyard" />
@@ -327,6 +334,10 @@
 					<Constant Name="G" Value="herman_palice.stream_armyCamp" />
 					<Constant Name="H" Value="nebakovPruzkum.vypnoutVyhazovani" />
 					<Constant Name="I" Value="ota_z_bergova.setCivilClothes" />
+				</MakeArray>
+				<MakeArray Name="makearray41" PositionY="-1390" PositionX="-860" TypeT="wh::rpgmodule::Souls">
+					<Asset Name="A" Alias="ptacek" />
+					<Asset Name="B" Alias="komori" />
 				</MakeArray>
 				<na_nebakove Name="na_nebakove" PositionY="230" PositionX="1020" RequiredForOutput="trosecko">
 					<Edge From="jindra_zna_prach_z_mlynarske_linie" To="jindra_zna_prach_z_mlynarske_linie">
@@ -566,9 +577,12 @@
 						<Vertex>vertex17</Vertex>
 					</Edge>
 				</State>
-				<reakce_na_bergovovi_stany Name="reakce_na_bergovovi_stany" PositionY="1530" PositionX="670">
+				<reakce_na_bergovovi_stany Name="reakce_na_bergovovi_stany" PositionY="1590" PositionX="670">
 					<Edge From="prijezd_na_nebakov.nastreamuj_nebakov" To="stany_lze_komentovat">
 						<Vertex>vertex151</Vertex>
+					</Edge>
+					<Edge From="vypnout_komentar_na_stany" To="vypnout_komentar_na_stany">
+						<Vertex>oqFyREcA</Vertex>
 					</Edge>
 				</reakce_na_bergovovi_stany>
 				<revive Name="revive" PositionY="-1260" PositionX="-570" Namespace="utils.general">
@@ -770,6 +784,7 @@
 				<EdgeVertex Name="gtsIz4za" PositionY="-1436" PositionX="-2074" />
 				<EdgeVertex Name="gWL6jS8l" PositionY="-510" PositionX="3590" />
 				<EdgeVertex Name="hCdd3BT0" PositionY="1990" PositionX="3500" />
+				<EdgeVertex Name="oqFyREcA" PositionY="1680" PositionX="-1735" />
 				<EdgeVertex Name="rKKhrhgT" PositionY="-105" PositionX="3918" />
 				<EdgeVertex Name="TEeNmIve" PositionY="50" PositionX="-230" />
 				<EdgeVertex Name="trffFybl" PositionY="-231" PositionX="3835" />

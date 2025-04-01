@@ -274,6 +274,7 @@
 					</Edge>
 					<Edge From="hibernovana_cast.hrac_prodal_zajicovi_sip_" To="hrac_prodal_zajicovi_sip_" />
 					<Edge From="hibernovana_cast.zajic_sebral_sip" To="zajic_sebral_sip" />
+					<Edge From="hibernovana_cast.pecha_zacne_souboj" To="pecha_zacne_souboj" />
 				</po_skonceni_questu>
 				<questovost_sipu Name="questovost_sipu" PositionY="80" PositionX="60">
 					<Edge From="hibernovana_cast.hraci_se_povedlo_ziskat_hrot" To="hraci_se_povedlo_ziskat_hrot" />
@@ -361,6 +362,7 @@
 					<StateTypeEnumeration Name="GoToPechasCamp" ObjectiveValueType="Started" />
 					<StateTypeEnumeration Name="TalkToPecha" ObjectiveValueType="Updated" />
 					<StateTypeEnumeration Name="Completed" ObjectiveValueType="Completed" />
+					<StateTypeEnumeration Name="Aborted" ObjectiveValueType="None" />
 				</Type>
 				<Type TypeName="GetTipOfArrow">
 					<StateTypeEnumeration Name="None" ObjectiveValueType="None" />
@@ -375,8 +377,8 @@
 					<StateTypeEnumeration Name="None" ObjectiveValueType="None" />
 					<StateTypeEnumeration Name="Started" ObjectiveValueType="Started" />
 					<StateTypeEnumeration Name="Combat" ObjectiveValueType="None" />
-					<StateTypeEnumeration Name="PlayerLeft" ObjectiveValueType="None" />
-					<StateTypeEnumeration Name="ZajicLeft" ObjectiveValueType="None" />
+					<StateTypeEnumeration Name="PlayerLeft" ObjectiveValueType="Completed" />
+					<StateTypeEnumeration Name="ZajicLeft" ObjectiveValueType="Completed" />
 					<StateTypeEnumeration Name="TipOfArrowSold" ObjectiveValueType="Completed" />
 					<StateTypeEnumeration Name="Aborted" ObjectiveValueType="None" />
 				</Type>
@@ -497,13 +499,13 @@
 							<Log StringName="jdi_za_za_tak_pecha_se_mu_QExe" Text="Tak Pecha se musel vrátit do tábora v lese a Zajíc mě má k němu přivést. Vypadá to, že na odměnu budu ještě muset počkat." />
 						</EnumLog>
 						<EnumLog Type="Completed" Name="Done">
-							<Log StringName="jdi_za_za_vyrazili_jsme_d_grKX" Text="Vyrazili jsme do tábora v lese, ale Zajíc se najednou zastavil a chce si promruvit." />
+							<Log StringName="jdi_za_za_vyrazili_jsme_d_grKX" Text="Vyrazili jsme do tábora v lese, ale Zajíc se najednou zastavil a chce si promluvit." />
 						</EnumLog>
 						<EnumLog Type="Canceled" Name="Failed">
-							<Log StringName="jdi_za_za_kaslu_na_zajice_SynE" Text="Kašlu na Zajíce. Pro šíp si měl přijít Pecha a když tady není, tak si ho nechám." />
+							<Log StringName="jdi_za_za_kaslu_na_zajice_SynE" Text="Na zajíce Kašlu. Pro šíp si měl přijít Pecha." />
 						</EnumLog>
 						<EnumLog Type="Canceled" Name="PlayerLeft">
-							<Log StringName="jdi_za_za_kaslu_na_zajice_kLJd" Text="Kašlu na Zajíce. Pro šíp si měl přijít Pecha a když tady není, tak si ho nechám." />
+							<Log StringName="jdi_za_za_kaslu_na_zajice_kLJd" Text="Na zajíce Kašlu. Pro šíp si měl přijít Pecha." />
 						</EnumLog>
 					</Logs>
 				</Objective>
@@ -515,8 +517,12 @@
 							<Log StringName="promluv_s_no_tak_si_proml_Zhll" Text="No tak si promluvíme. Jsem zvědavý, co má na srdci." />
 						</EnumLog>
 						<EnumLog Type="None" Name="Combat" />
-						<EnumLog Type="None" Name="PlayerLeft" />
-						<EnumLog Type="None" Name="ZajicLeft" />
+						<EnumLog Type="Completed" Name="PlayerLeft">
+							<Log StringName="promluv_s_zajic_si_chtel__KYi4" Text="Zajíc si chtěl promluvit ale kašlu na něho!" />
+						</EnumLog>
+						<EnumLog Type="Completed" Name="ZajicLeft">
+							<Log StringName="promluv_s_tak_uz_je_to_ja_yqIy" Text="Tak už je to jasné. Zajíc chtěl ten šíp pro sebe, ale když jsem mu nic nedal, tak vzal roha." />
+						</EnumLog>
 						<EnumLog Type="Completed" Name="TipOfArrowSold">
 							<Log StringName="promluv_s_zajic_nechtel_a_lVjz" Text="Zajíc nechtěl, abych odnesl magický šíp do tábora. Bojí se, že Pecha začne díky moci šípu bláznit a pouštět se do sebevražedných loupežných akcí. A já myslím, že má pravdu. Proto jsem dal šíp Zajícovi. Sice mi za něj nezaplatil, ale zachránil jsem pár dobrých chlapů před jistou smrtí. " />
 						</EnumLog>
@@ -553,6 +559,7 @@
 							<Log StringName="jdi_dopec_hura_kemp_jsem__tkWD" Text="Hurá! Kemp jsem našel i bez Zajíce. Odevzdám šíp Pechovi, seberu odměnu a mizím." />
 						</EnumLog>
 						<EnumLog Type="Completed" Name="Completed" />
+						<EnumLog Type="None" Name="Aborted" />
 					</Logs>
 				</Objective>
 				<Objective TypeT="HeadShotPecha" Name="pozehnej_pechovi_magickym_sipem">

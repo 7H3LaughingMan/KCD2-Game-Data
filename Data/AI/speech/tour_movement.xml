@@ -18,6 +18,7 @@
 			<Variable name="alias" type="_string" values="" isPersistent="0" form="single" requirementType="ConstReference" />
 			<Variable name="destination" type="_wuid" values="" isPersistent="0" form="single" requirementType="ConstReference" />
 			<Variable name="dialogFinishedAndTagpointReachedLock" type="_string" values="" isPersistent="0" form="single" requirementType="In" />
+			<Variable name="disableORCA" type="_bool" values="" isPersistent="0" form="single" requirementType="ConstReference" />
 			<Variable name="finalTagpoint" type="_wuid" values="" isPersistent="0" form="single" requirementType="In" optional="1" />
 			<Variable name="movementSpeed" type="enum:movementSpeed" values="" isPersistent="0" form="single" requirementType="ConstReference" />
 			<Variable name="nextPhaseTrigger" type="enum:tour_nextPhaseTrigger" values="" isPersistent="0" form="single" requirementType="ConstReference" />
@@ -54,16 +55,16 @@
 						<IfCondition failOnCondition="false" condition="$progressRide == $enum:tour_tourProgress.progress">
 							<Sequence>
 								<Expression expressions="$currentAlias_movement = $alias &#10;$currentDestination = $destination &#10;$pathFindingParams.pathOffset = $pathOffset" />
-								<MoveParamsDecorator speed="$movementSpeed" pathFindingParams="$pathFindingParams" doorClosingPolicy="LeaveOpened">
-									<IfElseCondition failOnCondition="false" condition="$successDistanceMove" saveVersion="2">
-										<Then canSkip="1">
-											<Move stopWithinDistance="0.200000" stopDistanceVariation="0.100000" rayCasteFlee="false" successDistance="$successDistance" changeNPCState="true" fastForwardIncludesMove="false" destinationSpecification="$destination" destinationSpecification2="" destinationSpecification3="" speed="$movementSpeed" additionalParams="$addParams" pathFindingParams="$pathFindingParams" staminaPolicy="" pathInfo="" />
-										</Then>
-										<Else canSkip="1">
-											<ExactMove directionType="AlignWithEntity" directionSpecification="$destination" animationTriggerDist="0.150000" precise="true" changeNPCState="true" fastForwardIncludesMove="false" destinationSpecification="$destination" destinationSpecification2="" destinationSpecification3="" speed="$movementSpeed" additionalParams="$addParams" pathFindingParams="$pathFindingParams" staminaPolicy="" pathInfo="" />
-										</Else>
-									</IfElseCondition>
-								</MoveParamsDecorator>
+								<IfElseCondition failOnCondition="false" condition="$disableORCA" saveVersion="2">
+									<Then canSkip="1">
+										<DisableCollisionAvoidance>
+											<Function_speech_tour_movementDecision addParams="$addParams" destination="$destination" movementSpeed="$movementSpeed" pathFindingParams="$pathFindingParams" successDistance="$successDistance" successDistanceMove="$successDistanceMove" nodeLabel="35908827" />
+										</DisableCollisionAvoidance>
+									</Then>
+									<Else canSkip="1">
+										<Function_speech_tour_movementDecision addParams="$addParams" destination="$destination" movementSpeed="$movementSpeed" pathFindingParams="$pathFindingParams" successDistance="$successDistance" successDistanceMove="$successDistanceMove" nodeLabel="49173702" />
+									</Else>
+								</IfElseCondition>
 								<Parallel successMode="Any" failureMode="Any">
 									<Selector>
 										<IfCondition failOnCondition="true" condition="$destination == $finalTagpoint &amp; &#10;$nextPhaseTrigger == $enum:tour_nextPhaseTrigger.tagpointReached">
@@ -91,7 +92,7 @@
 									</Selector>
 									<Sequence>
 										<IfCondition failOnCondition="false" condition="$onTagpointReached_turnOnPlayer &amp; &#10;$nextPhaseTrigger ~= $enum:tour_nextPhaseTrigger.tagpointReached">
-											<Function_speech_tour_onTagpointReachedTurning destination="$destination" movementSpeed="$movementSpeed" onTagpointReached_turnOnPlayer="$onTagpointReached_turnOnPlayer" playerLeft_maxReactionDistance="$playerLeft_maxReactionDistance" successDistanceMove="$successDistanceMove" turningCooldown="$turningCooldown" turningCooldownVariation="$turningCooldownVariation" nodeLabel="35139801" />
+											<Function_speech_tour_onTagpointReachedTurning destination="$destination" disableORCA="$disableORCA" movementSpeed="$movementSpeed" onTagpointReached_turnOnPlayer="$onTagpointReached_turnOnPlayer" playerLeft_maxReactionDistance="$playerLeft_maxReactionDistance" successDistanceMove="$successDistanceMove" turningCooldown="$turningCooldown" turningCooldownVariation="$turningCooldownVariation" nodeLabel="35139801" />
 										</IfCondition>
 										<EntityContext context="tour_reachedTagpoint" target="">
 											<Wait duration="&apos;-1&apos;" timeType="GameTime" doFail="false" variation="" />
@@ -194,7 +195,6 @@
 				</Else>
 			</IfElseCondition>
 			<While doFail="false" propagateChildFail="false" condition="!$reachedDestination" />
-			<IfElseCondition failOnCondition="false" condition="$onTagpointReached_turnOnPlayer | &#10;!$successDistanceMove" saveVersion="2" />
 		</ForestContainer>
 		<EditorData EventSet="">
 			<Variables>
@@ -212,6 +212,7 @@
 				<Variable name="alias" comment="" />
 				<Variable name="destination" comment="" />
 				<Variable name="dialogFinishedAndTagpointReachedLock" comment="" />
+				<Variable name="disableORCA" comment="" />
 				<Variable name="finalTagpoint" comment="" />
 				<Variable name="movementSpeed" comment="" />
 				<Variable name="nextPhaseTrigger" comment="" />
@@ -268,22 +269,22 @@
 									<Expression hasInputBreakpoint="0" comment="" breakpointFlags="0">
 										<OutputBreakpoints />
 									</Expression>
-									<MoveParamsDecorator hasInputBreakpoint="0" comment="" breakpointFlags="0">
+									<IfElseCondition hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
 										<OutputBreakpoints />
-										<IfElseCondition hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
-											<OutputBreakpoints />
-											<Then>
-												<Move hasInputBreakpoint="0" comment="" breakpointFlags="0">
+										<Then>
+											<DisableCollisionAvoidance hasInputBreakpoint="0" comment="" breakpointFlags="0">
+												<OutputBreakpoints />
+												<Function_speech_tour_movementDecision hasInputBreakpoint="0" comment="" breakpointFlags="0">
 													<OutputBreakpoints />
-												</Move>
-											</Then>
-											<Else>
-												<ExactMove hasInputBreakpoint="0" comment="" breakpointFlags="0">
-													<OutputBreakpoints />
-												</ExactMove>
-											</Else>
-										</IfElseCondition>
-									</MoveParamsDecorator>
+												</Function_speech_tour_movementDecision>
+											</DisableCollisionAvoidance>
+										</Then>
+										<Else>
+											<Function_speech_tour_movementDecision hasInputBreakpoint="0" comment="" breakpointFlags="0">
+												<OutputBreakpoints />
+											</Function_speech_tour_movementDecision>
+										</Else>
+									</IfElseCondition>
 									<Parallel hasInputBreakpoint="0" comment="" breakpointFlags="0">
 										<OutputBreakpoints />
 										<Selector hasInputBreakpoint="0" comment="" breakpointFlags="0">
@@ -512,9 +513,6 @@
 				<While editorPosX="2570" editorPosY="-720" hasInputBreakpoint="0" comment="" breakpointFlags="0">
 					<OutputBreakpoints />
 				</While>
-				<IfElseCondition editorPosX="2120" editorPosY="550" hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
-					<OutputBreakpoints />
-				</IfElseCondition>
 			</Forest>
 			<Comments />
 		</EditorData>

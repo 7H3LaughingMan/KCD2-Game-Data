@@ -143,6 +143,8 @@
 					<Edge From="fist_fight_line.jindra_po_fightu_nemluvil_s_oponentem" To="jindra_po_fightu_nemluvil_s_markem">
 						<Vertex>vertex132</Vertex>
 					</Edge>
+					<Edge From="fist_fight_line.dialogparams_pro_forcovany_dialog" To="DialogParams" />
+					<Edge From="fist_fight_line.konci_fight" To="EnqueueDialogue" />
 				</marek__po_souboji>
 				<marek__zruseni_zapasu Name="marek__zruseni_zapasu" PositionY="-1250" PositionX="-880">
 					<Edge From="jindra_muze_ukoncit_zapasy" To="jindra_ma_ukoncit_zapasy" />
@@ -209,6 +211,11 @@
 					<Edge From="fist_fight_line.vyse_sazky" To="Payment_seq8" />
 					<Edge From="fist_fight_line.jindra_ma_dost_penez" To="jindra_ma_dost_penez" />
 				</te__pred_arenkou_2>
+				<turntoplayerinidlestance Name="turntoplayerinidlestance" PositionY="814" PositionX="1302" Namespace="utils.general">
+					<Asset Name="npc" Alias="marek" />
+					<Constant Name="anydecoratorpreset" Value="changeEquipment" />
+					<Edge From="marek__po_souboji.AfterPlay" To="turntoplayerinidlestance" />
+				</turntoplayerinidlestance>
 				<AddReward Name="vyhra" PositionY="980" PositionX="190">
 					<Edge From="fist_fight_line.jindrich_vyhrava" To="AddReward" />
 					<Rewards>

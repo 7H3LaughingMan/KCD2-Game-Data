@@ -45,6 +45,9 @@
 				<Port Name="hrac_udelal_crime" Direction="In" Type="trigger">
 					<DesignName StringName="zamknuta__hrac_udelal_cri_MPRS" Text="hrac udelal crime" />
 				</Port>
+				<Port Name="vsechny_souboje_a_kole_probehly" Direction="In" Type="bool">
+					<DesignName StringName="zamknuta__vsechny_souboje_hCLr" Text="všechny souboje a kole proběhly" />
+				</Port>
 			</Ports>
 			<Nodes>
 				<Function Name="and106" PositionY="-20" PositionX="510" MethodName="math::boolean::And" DeclaringType="math::boolean">
@@ -58,6 +61,10 @@
 					<Edge From="posledni_kolo_done" To="A" />
 					<Edge From="hrac_v_souboji" To="B" />
 				</Function>
+				<Function Name="and121" PositionY="850" PositionX="440" MethodName="math::boolean::And" DeclaringType="math::boolean">
+					<Edge From="notLargeCrimed.bool" To="A" />
+					<Edge From="poCrimuSeCekaNaHraceOdchodZAreny.Done" To="B" />
+				</Function>
 				<Function Name="areacheck111" PositionY="700" PositionX="-450" MethodName="wh::rpgmodule::AreaCheck" DeclaringType="wh::rpgmodule">
 					<Asset Name="Souls" Alias="player" />
 					<Asset Name="Areas" Alias="taTurnajOhrada" />
@@ -68,8 +75,16 @@
 					<Edge From="poCrimuSeCekaNaHraceOdchodZAreny.Active" To="IsActive" />
 				</AreaTrigger>
 				<Function Name="everythingAndNotCrimedInArea" PositionY="430" PositionX="1150" MethodName="math::boolean::And" DeclaringType="math::boolean">
-					<Edge From="or105.bool" To="A" />
 					<Edge From="not118.bool" To="B" />
+					<Edge From="or119.bool" To="A" />
+					<Edge From="notLargeCrimed.bool" To="C">
+						<Vertex>xvvRafq2</Vertex>
+						<Vertex>6Xhsr9pt</Vertex>
+					</Edge>
+					<Edge From="NOTVsechnoProbehloJeKonec.bool" To="D">
+						<Vertex>dfyAqRFR</Vertex>
+						<Vertex>c9fynMhP</Vertex>
+					</Edge>
 				</Function>
 				<IfFunction Name="ifHraceNeudelalCrimeANeniVohrade" PositionY="-610" PositionX="-480" MethodName="math::boolean::And" DeclaringType="math::boolean">
 					<Edge From="nastartovan_objectiv_vyckej_na_svuj_zasat" To="Exec" />
@@ -112,7 +127,7 @@
 				<Function Name="not79" PositionY="180" PositionX="470" MethodName="math::boolean::Not" DeclaringType="math::boolean">
 					<Edge From="or91.bool" To="Value" />
 				</Function>
-				<Function Name="not79_1" PositionY="540" PositionX="200" MethodName="math::boolean::Not" DeclaringType="math::boolean">
+				<Function Name="not79_1" PositionY="410" PositionX="240" MethodName="math::boolean::Not" DeclaringType="math::boolean">
 					<Edge From="hrac_se_neceho_zucastni" To="Value" />
 				</Function>
 				<State Name="notification" PositionY="-420" PositionX="30" TypeT="ClosedFightingGroundReason">
@@ -127,10 +142,19 @@
 						<Vertex>CRGbgsX8</Vertex>
 					</Edge>
 				</Function>
+				<Function Name="NOTVsechnoProbehloJeKonec" PositionY="1060" PositionX="-190" MethodName="math::boolean::Not" DeclaringType="math::boolean">
+					<Edge From="vsechny_souboje_a_kole_probehly" To="Value">
+						<Vertex>bV3mlSkg</Vertex>
+					</Edge>
+				</Function>
 				<Function Name="or105" PositionY="110" PositionX="800" MethodName="math::boolean::Or" DeclaringType="math::boolean">
 					<Edge From="and106.bool" To="A" />
 					<Edge From="not79.bool" To="B" />
 					<Edge From="not79_1.bool" To="C" />
+				</Function>
+				<Function Name="or119" PositionY="410" PositionX="810" MethodName="math::boolean::Or" DeclaringType="math::boolean">
+					<Edge From="or105.bool" To="A" />
+					<Edge From="and121.bool" To="B" />
 				</Function>
 				<Function Name="or91" PositionY="190" PositionX="200" MethodName="math::boolean::Or" DeclaringType="math::boolean">
 					<Edge From="bezi_objectiv_pockej_na_vyhaseni" To="C" />
@@ -169,8 +193,12 @@
 			</Nodes>
 			<EdgeVertices>
 				<EdgeVertex Name="2DLd4wp3" PositionY="1650" PositionX="770" />
+				<EdgeVertex Name="6Xhsr9pt" PositionY="813" PositionX="1078" />
+				<EdgeVertex Name="bV3mlSkg" PositionY="1166" PositionX="-502" />
+				<EdgeVertex Name="c9fynMhP" PositionY="768" PositionX="1071" />
 				<EdgeVertex Name="cdn3p3Be" PositionY="160" PositionX="90" />
 				<EdgeVertex Name="CRGbgsX8" PositionY="930" PositionX="-500" />
+				<EdgeVertex Name="dfyAqRFR" PositionY="761" PositionX="272" />
 				<EdgeVertex Name="DXj33HPJ" PositionY="1650" PositionX="170" />
 				<EdgeVertex Name="j2XNTWEp" PositionY="160" PositionX="390" />
 				<EdgeVertex Name="K80UxMfS" PositionY="648" PositionX="-520" />
@@ -179,6 +207,7 @@
 				<EdgeVertex Name="oQLGH7KQ" PositionY="1267" PositionX="-526" />
 				<EdgeVertex Name="RlDxEHd6" PositionY="590" PositionX="-250" />
 				<EdgeVertex Name="tzBmEpCy" PositionY="650" PositionX="0" />
+				<EdgeVertex Name="xvvRafq2" PositionY="800" PositionX="360" />
 			</EdgeVertices>
 			<Text StringName="zamknuta_ohrada_a_notifik_AP18" Text="zamknutá ohrada a notifikace" />
 		</Module>

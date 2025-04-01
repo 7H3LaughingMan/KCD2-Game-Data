@@ -33,6 +33,10 @@
 					<Edge From="od_1_faze_do_3_faze.v_intervalu" To="A" />
 					<Edge From="se_straznym_u_sklepa.strazny_pustil_jindru_do_sklipku" To="B" />
 				</Function>
+				<Function Name="and4" PositionY="-830" PositionX="60" MethodName="math::boolean::And" DeclaringType="math::boolean">
+					<Edge From="compare3.bool" To="B" />
+					<Edge From="od_1_faze_do_3_faze_1.v_intervalu" To="A" />
+				</Function>
 				<Function Name="compare3" PositionY="-660" PositionX="-230" TypeT="GetTheBooze" MethodName="Control::Compare" DeclaringType="Control">
 					<Constant Name="Op" Value="Equals" />
 					<Constant Name="ValueB" Value="None" />
@@ -42,6 +46,9 @@
 					<Edge From="faze" To="stav">
 						<Vertex>vertex1</Vertex>
 					</Edge>
+				</od_1_faze_do_3_faze>
+				<od_1_faze_do_3_faze Name="od_1_faze_do_3_faze_1" PositionY="-970" PositionX="-230" Namespace="svatba">
+					<Edge From="faze" To="stav" />
 				</od_1_faze_do_3_faze>
 				<Output Name="Output">
 					<Edge From="se_straznym_u_sklepa.strazny_prestal_hlidat" To="strazny_prestal_hlidat" />
@@ -54,8 +61,8 @@
 					<Edge From="jindra_pomohl_straznemu_u_vrat" To="jindra_pomohl_straznemu_u_vrat" />
 					<Edge From="jindra_shani_piti_pro_moravaky" To="Awake" />
 				</se_straznym_u_sklepa>
-				<se_straznym_u_sklepa_poprve Name="se_straznym_u_sklepa_poprve" PositionY="-700" PositionX="30">
-					<Edge From="compare3.bool" To="strazny_hlida_u_sklepa" />
+				<se_straznym_u_sklepa_poprve Name="se_straznym_u_sklepa_poprve" PositionY="-700" PositionX="330">
+					<Edge From="and4.bool" To="strazny_hlida_u_sklepa" />
 				</se_straznym_u_sklepa_poprve>
 				<strazny_jde_pryc Name="strazny_jde_pryc" PositionY="160" PositionX="420">
 					<Edge From="se_straznym_u_sklepa.strazny_jde_na_zachod" To="strazny_jde_na_zachod" />

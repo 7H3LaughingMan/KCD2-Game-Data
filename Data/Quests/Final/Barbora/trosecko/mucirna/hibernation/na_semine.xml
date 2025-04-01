@@ -80,7 +80,7 @@
 				<Definition File="na_semine/efekty_na_semine.xml" />
 			</Definitions>
 			<Nodes>
-				<HasteTrigger Name="_playFinishRaidCutscene" PositionY="-900" PositionX="2210" />
+				<HasteTrigger Name="_playFinishRaidCutscene" PositionY="-830" PositionX="2380" />
 				<Function Name="advanceworldtime23" PositionY="-570" PositionX="-750" MethodName="wh::rpgmodule::AdvanceWorldTime" DeclaringType="wh::rpgmodule">
 					<Constant Name="TimeOfDay" Value="18h30m" />
 					<Edge From="henryAtSemin.OnActive" To="Exec">
@@ -175,6 +175,9 @@
 						<Vertex>vertex94</Vertex>
 					</Edge>
 				</death_trigger_of_brutality_participants>
+				<disabledirectionschatglobal Name="disabledirectionschatglobal" PositionY="120" PositionX="-710" Namespace="utils.hardcoremode">
+					<Edge From="henryAtSemin.Active" To="enabled" />
+				</disabledirectionschatglobal>
 				<efekty_na_semine Name="efekty_na_semine" PositionY="-1180" PositionX="-520">
 					<Edge From="henryAtSemin.Active" To="isactive">
 						<Vertex>vertex87</Vertex>
@@ -321,7 +324,6 @@
 					</Edge>
 				</polylog_s_haskem_a_starym_seminem>
 				<stopcrime Name="stopcrime" PositionY="-810" PositionX="-160" Namespace="utils.crime">
-					<Asset Name="npcs" Alias="tsemNPCs" />
 					<Constant Name="forgetcrimeinformations" Value="true" />
 					<Edge From="cin_m0810t_vypalenisemina__bergow_arrives.arrival_onfinished" To="stopcrime">
 						<Vertex>oGC6dtRp</Vertex>
@@ -329,7 +331,16 @@
 					<Edge From="henryAtSemin.OnDone" To="stopcrime">
 						<Vertex>vertex27</Vertex>
 					</Edge>
+					<Edge From="switch27.Value1" To="npcs" />
 				</stopcrime>
+				<Switch Name="switch27" PositionY="-750" PositionX="-570" TypeT="bool" ValueTypes="wh::rpgmodule::Souls" SwitchValues="true">
+					<Asset Name="trueValue1" Alias="tsemStreamedNPCs" />
+					<Asset Name="DefaultValue1" Alias="tsemNPCs" />
+					<Edge From="vojaci_pobiti.henry_vi_o_nebakove_a_pomohl_seminum_uprchnout" To="Switch">
+						<Vertex>rWdP9LPC</Vertex>
+						<Vertex>vCu0LQo6</Vertex>
+					</Edge>
+				</Switch>
 				<TriggerSequence Name="triggersequence24" PositionY="580" PositionX="3190">
 					<Edge From="cin_m0820t_vypalenisemina__semin_torched.cs_onqueued" To="Exec" />
 				</TriggerSequence>
@@ -391,6 +402,8 @@
 				<EdgeVertex Name="oGC6dtRp" PositionY="-770" PositionX="-920" />
 				<EdgeVertex Name="qRslod5o" PositionY="200" PositionX="3280" />
 				<EdgeVertex Name="RBbqXeS8" PositionY="-1120" PositionX="-720" />
+				<EdgeVertex Name="rWdP9LPC" PositionY="-840" PositionX="2280" />
+				<EdgeVertex Name="vCu0LQo6" PositionY="-850" PositionX="-535" />
 				<EdgeVertex Name="vertex1" PositionY="320" PositionX="-80" />
 				<EdgeVertex Name="vertex104" PositionY="0" PositionX="2930" />
 				<EdgeVertex Name="vertex105" PositionY="0" PositionX="3280" />
@@ -462,8 +475,6 @@
 				<SoulAsset Name="torchCarriersInDialogue" SharedSoulGuids="4361beac-9622-8880-2415-63a87e8d2d8f 494cb310-941d-0caf-ce7f-f575cf1df2b3 2b22e767-19e6-4dd2-a441-4b49b3a929a7" />
 				<SoulAsset Name="seminJrWife" SharedSoulGuids="41fb629d-f380-91e3-a40d-96b5614ee589" />
 				<AnimDoorAsset Name="doorsToPond" />
-				<LedgeObjectAsset Name="seminLedge6" />
-				<LedgeObjectAsset Name="seminLedge7" />
 				<TriggerAreaAsset Name="donjonSquare" />
 				<SoulAsset Name="drowningFemaleVictim" SharedSoulGuids="4c029b69-2ebb-b1ec-a664-d934571d8a8d" />
 				<SoulAsset Name="kickMaleVictim" SharedSoulGuids="4157daab-49d0-ff32-c41b-4463572b9c9e" />
@@ -472,6 +483,7 @@
 				<AnimDoorAsset Name="donjonDoor" />
 				<SoulAsset Name="tsemNPCs" SharedSoulGuids="44e617a7-9c54-61fd-e270-0641a1cfa882 433710d3-f465-1c84-2e3b-0fd69f8b0b87 4157daab-49d0-ff32-c41b-4463572b9c9e 42d22fc2-c0d1-23d6-49da-eb2d179d7dbd 4def5c2e-7e9c-4278-a779-016f807b398e 4781f304-0c47-602c-4631-14b0a1c72b98 448027f6-9370-9960-2003-a9edc2d579b5 41c4737a-a931-93d5-abc1-78e8b002b588 45b3ddd4-659b-7ce2-7215-5d5ee5389994 45a3e2ab-4ec5-320b-4907-2e088fabde98 4c652696-c2ca-ff73-cfc7-f46d6d11639f 4e4ed54e-aa51-0f94-7669-8c0df1840baa 46bddf6a-b5e6-75ea-c278-97d5b9dcd1ae 4072c96a-3bb5-f744-078c-8ef89203a49c 46356c7b-ab60-1377-e8e4-514c8a8dcfbb 787b814d-e0a6-465d-97af-4ad5cc96b277 4f41897a-b45c-b94c-de44-a35f9a872790 4dcf97c0-6d02-6ad0-cb07-4b5e100016bd 494cb310-941d-0caf-ce7f-f575cf1df2b3 49286996-fe9e-997d-3ad8-4ba0dd6362b8 4aec043b-9e3a-c7e4-1561-25181a159a94 400d50c1-0329-a758-252d-8c1187f5f987 4b651637-7d70-fd1f-1e54-bdb405c9da92 4ad0b77e-a7bb-7e18-c2fb-8ac9eebdb283 41d4149c-61c2-55b4-f11a-813ab05404a9 4cbf7572-6737-6992-ec40-b2cd8724bdb6 43757901-7c09-b7d6-c3d5-8137cb6bd39b 43b060d3-2d1f-c206-cb4c-c773ee340b84 42584e8b-35f8-904e-8f2f-8c19be8bcb9f 46ec6bf1-3bac-85d6-8ee7-f90b1b25a4a8 4a8a1648-144a-bd93-e08a-61f8e809f99b 4e507ad5-e1d3-0691-6b0f-c437cda173b6 47ed9796-6568-b86c-f3ec-e0d25464209d 47371d36-0fa1-f032-a649-519a6cd2fbae 4c029b69-2ebb-b1ec-a664-d934571d8a8d 4d96c832-8ee4-9153-bb55-a72b4663ea98 4f96ebf4-fa43-02d7-94ae-19c021560b8b 40d4c900-b8f3-307d-a1c4-7902263f6b81 456dc2bd-1ede-2372-7ee7-fed064e80ea8 4187a4bf-c27a-dd4b-c348-7bec934968ad 48bacaff-016f-266f-451e-23aae4789492" />
 				<SoulAsset Name="seminstiBezSeminaSrBezUndercut" SharedSoulGuids="494cb310-941d-0caf-ce7f-f575cf1df2b3 49286996-fe9e-997d-3ad8-4ba0dd6362b8 400d50c1-0329-a758-252d-8c1187f5f987 4b651637-7d70-fd1f-1e54-bdb405c9da92 42d22fc2-c0d1-23d6-49da-eb2d179d7dbd 4781f304-0c47-602c-4631-14b0a1c72b98 4cbf7572-6737-6992-ec40-b2cd8724bdb6" />
+				<SoulAsset Name="tsemStreamedNPCs" SharedSoulGuids="48bacaff-016f-266f-451e-23aae4789492 44e617a7-9c54-61fd-e270-0641a1cfa882 433710d3-f465-1c84-2e3b-0fd69f8b0b87 41c4737a-a931-93d5-abc1-78e8b002b588 45b3ddd4-659b-7ce2-7215-5d5ee5389994 45a3e2ab-4ec5-320b-4907-2e088fabde98 4c652696-c2ca-ff73-cfc7-f46d6d11639f 4e4ed54e-aa51-0f94-7669-8c0df1840baa 46bddf6a-b5e6-75ea-c278-97d5b9dcd1ae 4072c96a-3bb5-f744-078c-8ef89203a49c 46356c7b-ab60-1377-e8e4-514c8a8dcfbb 787b814d-e0a6-465d-97af-4ad5cc96b277 4f41897a-b45c-b94c-de44-a35f9a872790 4ad0b77e-a7bb-7e18-c2fb-8ac9eebdb283 43b060d3-2d1f-c206-cb4c-c773ee340b84 42584e8b-35f8-904e-8f2f-8c19be8bcb9f 46ec6bf1-3bac-85d6-8ee7-f90b1b25a4a8 4a8a1648-144a-bd93-e08a-61f8e809f99b 4e507ad5-e1d3-0691-6b0f-c437cda173b6 4d96c832-8ee4-9153-bb55-a72b4663ea98 4f96ebf4-fa43-02d7-94ae-19c021560b8b 40d4c900-b8f3-307d-a1c4-7902263f6b81 456dc2bd-1ede-2372-7ee7-fed064e80ea8 4187a4bf-c27a-dd4b-c348-7bec934968ad" />
 			</Assets>
 			<Text StringName="na_semine_lCo2" Text="Na Semíně" />
 			<Elements>

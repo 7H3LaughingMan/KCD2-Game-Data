@@ -152,16 +152,18 @@
 					<Constant Name="ClothingPreset" Value="fef221cb-0f99-4b01-b79d-4d11d28087fd" />
 					<Edge From="switch11.Value1" To="IsActive" />
 				</ClothingPresetOverride>
+				<disabledirectionschatsoul Name="disabledirectionschatsoul" PositionY="2770" PositionX="122" Namespace="utils.hardcoremode">
+					<Edge From="joinarrays60.Array" To="soul" />
+					<Edge From="switch11.Value1" To="enabled" />
+				</disabledirectionschatsoul>
 				<DisableDoorInteractivity Name="disabledoorinteractivity43_1" PositionY="620" PositionX="100">
 					<Edge From="makearray45_1.Array" To="Doors" />
 					<Edge From="switch11.Value1" To="IsActive" />
 				</DisableDoorInteractivity>
-				<LinkEffectNoData Name="linkeffectnodata42" PositionY="370" PositionX="220">
-					<Asset Name="From" Alias="courtyardDoor" />
-					<Asset Name="To" Alias="courtyardDoor" />
-					<Constant Name="Tag" Value="keepDoorOpen" />
-					<Edge From="switch11.Value1" To="IsActive" />
-				</LinkEffectNoData>
+				<Function Name="joinarrays60" PositionY="2730" PositionX="-150" TypeT="wh::rpgmodule::Souls" MethodName="utilities::array::JoinArrays" DeclaringType="utilities::array">
+					<Asset Name="A" Alias="allNebakovSoldiers" />
+					<Edge From="makearray61.Array" To="B" />
+				</Function>
 				<Function Name="lockdoor7" PositionY="-170" PositionX="-1140" MethodName="wh::entitymodule::LockDoor" DeclaringType="wh::entitymodule">
 					<Asset Name="Door" Alias="door_kitchenBack" />
 					<Edge From="jindra_prisel_na_nebakov" To="Exec" />
@@ -183,6 +185,10 @@
 				<MakeArray Name="makearray57_1" PositionY="1670" PositionX="610" TypeT="wh::conceptmodule::Floats">
 					<Constant Name="A" Value="0.2" />
 					<Constant Name="B" Value="0.25" />
+				</MakeArray>
+				<MakeArray Name="makearray61" PositionY="2880" PositionX="-160" TypeT="wh::rpgmodule::Souls">
+					<Asset Name="A" Alias="klara" />
+					<Asset Name="B" Alias="braveCivilian" />
 				</MakeArray>
 				<Function Name="not49" PositionY="-140" PositionX="110" MethodName="math::boolean::Not" DeclaringType="math::boolean">
 					<Edge From="immortal_active" To="Value">

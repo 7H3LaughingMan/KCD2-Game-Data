@@ -11,7 +11,7 @@
 				</Port>
 			</Ports>
 			<Nodes>
-				<Function Name="createitemcategorydescriptor10" PositionY="-1160" PositionX="280" MethodName="wh::entitymodule::CreateItemCategoryDescriptor" DeclaringType="wh::entitymodule">
+				<Function Name="createitemcategorydescriptor10" PositionY="-630" PositionX="600" MethodName="wh::entitymodule::CreateItemCategoryDescriptor" DeclaringType="wh::entitymodule">
 					<Constant Name="Category" Value="Weapon" />
 					<Constant Name="Type" Value="11" />
 					<Constant Name="NegateType" Value="true" />
@@ -19,28 +19,15 @@
 						<Vertex>YRoDTe6e</Vertex>
 					</Edge>
 				</Function>
-				<Function Name="createitemcategorydescriptor10_1" PositionY="-200" PositionX="300" MethodName="wh::entitymodule::CreateItemCategoryDescriptor" DeclaringType="wh::entitymodule">
-					<Constant Name="Category" Value="Armor" />
-					<Constant Name="ArmorSurfaceName" Value="mat_chainmail" />
-					<Edge From="equippedfilter" To="EquippedFilter">
+				<getarmor Name="getarmor" PositionY="160" PositionX="600" Namespace="">
+					<Constant Name="minpriceindecigrosen" Value="0" />
+					<Edge From="equippedfilter" To="equippedfilter">
 						<Vertex>YRoDTe6e</Vertex>
 					</Edge>
-				</Function>
-				<Function Name="createitemcategorydescriptor10_1_1" PositionY="520" PositionX="300" MethodName="wh::entitymodule::CreateItemCategoryDescriptor" DeclaringType="wh::entitymodule">
-					<Constant Name="Category" Value="Armor" />
-					<Constant Name="ArmorSurfaceName" Value="mat_plate" />
-					<Edge From="equippedfilter" To="EquippedFilter">
-						<Vertex>YRoDTe6e</Vertex>
-					</Edge>
-				</Function>
-				<Function Name="createunionitemdescriptor1" PositionY="-220" PositionX="840" MethodName="wh::entitymodule::CreateUnionItemDescriptor" DeclaringType="wh::entitymodule">
-					<Edge From="createitemcategorydescriptor10_1.ItemDescriptor" To="B" />
-					<Edge From="createitemcategorydescriptor10.ItemDescriptor" To="A" />
-					<Edge From="createitemcategorydescriptor10_1_1.ItemDescriptor" To="C" />
-				</Function>
+				</getarmor>
 				<MemberFunction Name="getmatchingitems9_1_1_1" PositionY="-220" PositionX="1160" MethodName="GetMatchingItems" DeclaringType="wh::entitymodule::ItemDescriptor">
 					<Edge From="items4_1.Items" To="InputItems" />
-					<Edge From="createunionitemdescriptor1.ItemDescriptor" To="ItemDescriptor" />
+					<Edge From="createitemcategorydescriptor10.ItemDescriptor" To="ItemDescriptor" />
 				</MemberFunction>
 				<ObjectProperties Name="isoulproperties1_1_1_2" PositionY="-860" PositionX="1060" DeclaringType="wh::rpgmodule::I_Soul">
 					<Asset Name="I_Soul" Alias="player" />
@@ -48,12 +35,16 @@
 				<MemberFunction Name="items4_1" PositionY="-340" PositionX="1120" MethodName="Items" DeclaringType="wh::entitymodule::Inventory">
 					<Edge From="isoulproperties1_1_1_2.Inventory" To="Inventory" />
 				</MemberFunction>
+				<Function Name="joinarrays13" PositionY="-80" PositionX="1450" TypeT="wh::entitymodule::Items" MethodName="utilities::array::JoinArrays" DeclaringType="utilities::array">
+					<Edge From="getarmor.items" To="B" />
+					<Edge From="getmatchingitems9_1_1_1.Items" To="A" />
+				</Function>
 				<Output Name="Output">
-					<Edge From="getmatchingitems9_1_1_1.Items" To="items" />
+					<Edge From="joinarrays13.Array" To="items" />
 				</Output>
 			</Nodes>
 			<EdgeVertices>
-				<EdgeVertex Name="YRoDTe6e" PositionY="40" PositionX="160" />
+				<EdgeVertex Name="YRoDTe6e" PositionY="-20" PositionX="470" />
 			</EdgeVertices>
 			<Text StringName="getweaponandarmor_cFGB" Text="GetWeaponAndArmor" />
 		</Module>

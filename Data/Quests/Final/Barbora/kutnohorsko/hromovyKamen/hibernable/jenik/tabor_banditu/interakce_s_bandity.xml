@@ -55,7 +55,7 @@
 					<Constant Name="behaviorname" Value="urgeDialog" />
 					<Asset Name="smartentity" Alias="qSO" />
 					<Asset Name="soul" Alias="ondrejBanditLeader" />
-					<Constant Name="urgemovementtype" Value="TurnBody" />
+					<Constant Name="urgemovementtype" Value="FollowPlayer" />
 					<Constant Name="urgeischatorbark" Value="Chat" />
 					<Constant Name="urgealiasormetarole" Value="hromovyKamen_sefBandituChat" />
 					<Constant Name="usemetarole" Value="false" />
@@ -76,6 +76,27 @@
 					<Edge From="sef_banditu__vyjednavani.henry_slibil_ze_odejde" To="disable" />
 					<Edge From="ifnot99.True" To="enable" />
 				</AfterSeeingPlayer_UrgeADialog_Advanced>
+				<AfterSeeingPlayer_UrgeADialog_Advanced Name="AfterSeeingPlayer_UrgeADialog_Advanced_1_1" PositionY="2700" PositionX="3280" Namespace="utils.speech">
+					<Constant Name="behaviorname" Value="urgeDialog" />
+					<Asset Name="smartentity" Alias="qSO" />
+					<Asset Name="soul" Alias="ondrejBanditLeader" />
+					<Constant Name="urgemovementtype" Value="TurnBody" />
+					<Constant Name="urgeischatorbark" Value="Bark" />
+					<Constant Name="usemetarole" Value="false" />
+					<Constant Name="drawweaponifplayerdoes" Value="true" />
+					<Constant Name="waveatplayer" Value="false" />
+					<Constant Name="boostperceptionandsound" Value="false" />
+					<Constant Name="secondsafterurgebeforereaction" Value="30" />
+					<Constant Name="playerfleedistancebeforereaction" Value="0" />
+					<Constant Name="supressurgewhennpchasdenialreputation" Value="false" />
+					<Edge From="switch106.Value1" To="urgealiasormetarole" />
+					<Edge From="state111.OnTrue" To="enable" />
+					<Edge From="AfterSeeingPlayer_UrgeADialog_Advanced_1_1.onplayerweapondraw" To="disable" />
+					<Edge From="sef_banditu__vyjednavani.jenik_vykoupen" To="disable" />
+					<Edge From="henry_jenika_osvobodil_trigger" To="disable">
+						<Vertex>vertex47</Vertex>
+					</Edge>
+				</AfterSeeingPlayer_UrgeADialog_Advanced>
 				<Function Name="and107" PositionY="2770" PositionX="640" MethodName="math::boolean::And" DeclaringType="math::boolean">
 					<Edge From="or112.bool" To="A" />
 					<Edge From="timer113.Running" To="B">
@@ -87,12 +108,13 @@
 					<Edge From="sef_banditu__vyjednavani.henrySlibilPenize" To="A" />
 					<Edge From="not128.bool" To="B" />
 				</Function>
-				<Function Name="and129" PositionY="2810" PositionX="2790" MethodName="math::boolean::And" DeclaringType="math::boolean">
-					<Edge From="timer105.Finished" To="A" />
-					<Edge From="playerIsInCampArea.State" To="B">
-						<Vertex>C2VaY1l8</Vertex>
-						<Vertex>uU5ftU7b</Vertex>
+				<Function Name="and132" PositionY="2780" PositionX="2380" MethodName="math::boolean::And" DeclaringType="math::boolean">
+					<Edge From="and127.bool" To="A" />
+					<Edge From="timer105.Finished" To="B">
+						<Vertex>H7GMgcrC</Vertex>
+						<Vertex>LNfd1Bv3</Vertex>
 					</Edge>
+					<Edge From="not142.bool" To="C" />
 				</Function>
 				<Function Name="and96" PositionY="1620" PositionX="3060" MethodName="math::boolean::And" DeclaringType="math::boolean">
 					<Edge From="notInteractedWithBandits.bool" To="B" />
@@ -115,11 +137,6 @@
 					<Asset Name="Souls" Alias="player" />
 					<Asset Name="Areas" Alias="banditCampWiderArea" />
 					<Edge From="banditsConversating.None" To="IsActive" />
-				</AreaTrigger>
-				<AreaTrigger Name="areatrigger131" PositionY="3040" PositionX="2790">
-					<Asset Name="Souls" Alias="player" />
-					<Asset Name="Areas" Alias="campArea" />
-					<Edge From="state111.State" To="IsActive" />
 				</AreaTrigger>
 				<bandita1_barky Name="bandita1_barky" PositionY="710" PositionX="1140">
 					<Edge From="banditsConversating.Active" To="enable" />
@@ -157,12 +174,12 @@
 					<Constant Name="ValueB" Value="2" />
 					<Edge From="getdistance24.Distance" To="ValueA" />
 				</Function>
-				<DistanceTrigger Name="distancetrigger110" PositionY="3070" PositionX="2460">
+				<DistanceTrigger Name="distancetrigger110" PositionY="2780" PositionX="2620">
 					<Asset Name="Origin" Alias="ondrejBanditLeader" />
 					<Asset Name="Target" Alias="player" />
 					<Constant Name="Operator" Value="GreaterEquals" />
 					<Constant Name="Distance" Value="20m" />
-					<Edge From="and127.bool" To="IsActive" />
+					<Edge From="and132.bool" To="IsActive" />
 				</DistanceTrigger>
 				<InstantSendMessage Name="fight" PositionY="1920" PositionX="1350" MessageType="crime:campTrespassChatFeedback">
 					<Constant Name="Content_action" Value="fight" />
@@ -180,7 +197,7 @@
 						<Vertex>vertex38</Vertex>
 						<Vertex>vertex39</Vertex>
 					</Edge>
-					<Edge From="UrgeADialog.onplayerweapondraw" To="SetActive" />
+					<Edge From="AfterSeeingPlayer_UrgeADialog_Advanced_1_1.onplayerweapondraw" To="SetActive" />
 				</State>
 				<InstantSendMessage Name="freeRoam" PositionY="2350" PositionX="1350" MessageType="crime:campTrespassChatFeedback">
 					<Constant Name="Content_action" Value="freeRoam" />
@@ -244,6 +261,12 @@
 				<Function Name="not128" PositionY="1860" PositionX="2340" MethodName="math::boolean::Not" DeclaringType="math::boolean">
 					<Edge From="sef_banditu__vyjednavani.jenik_je_vykoupen" To="Value" />
 				</Function>
+				<Function Name="not142" PositionY="1893" PositionX="3056" MethodName="math::boolean::Not" DeclaringType="math::boolean">
+					<Edge From="jenik_je_osvobozen_hracem" To="Value">
+						<Vertex>DH4qa6ts</Vertex>
+						<Vertex>V1kkdupp</Vertex>
+					</Edge>
+				</Function>
 				<Function Name="notInteractedWithBandits" PositionY="1230" PositionX="2820" MethodName="math::boolean::Not" DeclaringType="math::boolean">
 					<Edge From="JenikBoughtOutOrNegotiated.bool" To="Value">
 						<Vertex>vertex1</Vertex>
@@ -262,7 +285,10 @@
 					<Edge From="banditsConversating.Active" To="active" />
 				</npcdialog_movetonpc>
 				<ondrej__jindra_slibil_prachy Name="ondrej__jindra_slibil_prachy" PositionY="2540" PositionX="2460">
-					<Edge From="state111.State" To="enable" />
+					<Edge From="state111.State" To="enable">
+						<Vertex>z60CAc1P</Vertex>
+						<Vertex>QdckHb7N</Vertex>
+					</Edge>
 				</ondrej__jindra_slibil_prachy>
 				<ondrej__jindra_slibil_zmizet Name="ondrej__jindra_slibil_zmizet" PositionY="2540" PositionX="2970">
 					<Edge From="sef_banditu__vyjednavani.henrySlibilOdchod" To="enable" />
@@ -364,10 +390,6 @@
 						<Vertex>vertex37</Vertex>
 					</Edge>
 				</pause_soldiers_reaction>
-				<State Name="playerIsInCampArea" PositionY="3070" PositionX="3070" TypeT="bool">
-					<Edge From="areatrigger131.OnEnter" To="SetTrue" />
-					<Edge From="areatrigger131.OnLeave" To="SetFalse" />
-				</State>
 				<Function Name="requestmonologue57" PositionY="420" PositionX="3110" MethodName="wh::xgenaimodule::RequestMonologue" DeclaringType="wh::xgenaimodule">
 					<Asset Name="Souls" Alias="ondrejBanditLeader" />
 					<Constant Name="DecisionAlias" Value="hromovyKamen_banditLeaderAttacksHenry" />
@@ -414,7 +436,8 @@
 						<Vertex>4bVM8mvT</Vertex>
 					</Edge>
 				</skirmish_with_bandits_started>
-				<State Name="state111" PositionY="2810" PositionX="2460" TypeT="bool">
+				<State Name="state111" PositionY="2780" PositionX="2970" TypeT="bool">
+					<Constant Name="DefaultValue" Value="false" />
 					<Edge From="distancetrigger110.OnMatch" To="SetTrue" />
 				</State>
 				<Switch Name="switch106" PositionY="2350" PositionX="2460" TypeT="bool" ValueTypes="string" SwitchValues="true">
@@ -440,7 +463,7 @@
 					</Edge>
 					<Edge From="makearray93.Array" To="souls" />
 				</switchdialog>
-				<Timer Name="timer105" PositionY="1960" PositionX="2600">
+				<Timer Name="timer105" PositionY="1940" PositionX="2660">
 					<Constant Name="Duration" Value="10m" />
 					<Constant Name="TimeType" Value="WorldTime" />
 					<Edge From="sef_banditu__vyjednavani.henry_slibil_ze_donese_penize" To="SetRunning" />
@@ -454,20 +477,6 @@
 					<Edge From="sef_banditu__vyjednavani.jenik_vykoupen" To="SetRunning" />
 					<Edge From="sef_banditu__vyjednavani.jenik_vykecan" To="SetRunning" />
 				</Timer>
-				<UrgeADialog Name="UrgeADialog" PositionY="1980" PositionX="2970" Namespace="utils.speech">
-					<Constant Name="behaviorname" Value="urgeDialog" />
-					<Asset Name="smartentity" Alias="qSO" />
-					<Asset Name="souls" Alias="ondrejBanditLeader" />
-					<Constant Name="urgemovementtype" Value="FollowPlayer" />
-					<Constant Name="urgeischatorbark" Value="Bark" />
-					<Constant Name="usemetarole" Value="false" />
-					<Constant Name="drawweaponifplayerdoes" Value="false" />
-					<Constant Name="waveatplayer" Value="false" />
-					<Constant Name="secondsafterurgebeforereaction" Value="30" />
-					<Constant Name="playerfleedistancebeforereaction" Value="0" />
-					<Edge From="switch106.Value1" To="urgealiasormetarole" />
-					<Edge From="and129.bool" To="isactive" />
-				</UrgeADialog>
 			</Nodes>
 			<EdgeVertices>
 				<EdgeVertex Name="0t8BLXCb" PositionY="1560" PositionX="910" />
@@ -476,21 +485,22 @@
 				<EdgeVertex Name="5Qpf8aUo" PositionY="1140" PositionX="2220" />
 				<EdgeVertex Name="bsDPmzBe" PositionY="2640" PositionX="400" />
 				<EdgeVertex Name="BXKDyMvr" PositionY="2200" PositionX="1940" />
-				<EdgeVertex Name="C2VaY1l8" PositionY="2980" PositionX="3250" />
 				<EdgeVertex Name="DGJ037lY" PositionY="2640" PositionX="2220" />
 				<EdgeVertex Name="DH4qa6ts" PositionY="1540" PositionX="440" />
+				<EdgeVertex Name="H7GMgcrC" PositionY="2750" PositionX="2880" />
 				<EdgeVertex Name="JMppNIdr" PositionY="2320" PositionX="2860" />
 				<EdgeVertex Name="l1fDrXU7" PositionY="2610" PositionX="2220" />
+				<EdgeVertex Name="LNfd1Bv3" PositionY="2750" PositionX="2410" />
 				<EdgeVertex Name="LtE0eooM" PositionY="2200" PositionX="2240" />
 				<EdgeVertex Name="MeXmYNUn" PositionY="1560" PositionX="560" />
 				<EdgeVertex Name="pjVXucjM" PositionY="2190" PositionX="2240" />
 				<EdgeVertex Name="PKB5RxWa" PositionY="2380" PositionX="2120" />
+				<EdgeVertex Name="QdckHb7N" PositionY="2720" PositionX="2460" />
 				<EdgeVertex Name="sMTnqRB7" PositionY="2700" PositionX="2220" />
 				<EdgeVertex Name="t8dU91bI" PositionY="2320" PositionX="2380" />
 				<EdgeVertex Name="TmpnfVvW" PositionY="1030" PositionX="730" />
 				<EdgeVertex Name="tn8jPMhH" PositionY="2190" PositionX="1930" />
 				<EdgeVertex Name="tXPyJNFo" PositionY="2730" PositionX="2220" />
-				<EdgeVertex Name="uU5ftU7b" PositionY="2980" PositionX="2800" />
 				<EdgeVertex Name="V1kkdupp" PositionY="1540" PositionX="2620" />
 				<EdgeVertex Name="vertex1" PositionY="1380" PositionX="3000" />
 				<EdgeVertex Name="vertex2" PositionY="1380" PositionX="2860" />
@@ -520,6 +530,7 @@
 				<EdgeVertex Name="ymbuWNUd" PositionY="2610" PositionX="1360" />
 				<EdgeVertex Name="yNQNwyY1" PositionY="1140" PositionX="2030" />
 				<EdgeVertex Name="yuE0Sclu" PositionY="1470" PositionX="1720" />
+				<EdgeVertex Name="z60CAc1P" PositionY="2720" PositionX="3150" />
 				<EdgeVertex Name="zQo12Qsu" PositionY="2730" PositionX="990" />
 			</EdgeVertices>
 			<Assets>

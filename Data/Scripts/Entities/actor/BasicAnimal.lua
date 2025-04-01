@@ -41,15 +41,22 @@ function BasicAnimal:AddAnimalLootAction(user, firstFast)
 		return {}
 	end
 
+	-- show loot action only if butcher is not available or if there is something in the inventory event without butchering
 	if (self.actor:CanBeButchered()) then
-		if (not self.actor:IsPlayerInButcheringDistance()) then
-			return {}
+		if (self.actor:HasItemsInInventory()) then
+			self:AddLootAction(output, user, firstFast)
+			if (firstFast) then
+				return output
+			end
 		end
-		local enabled = user.soul:IsInTenseCircumstance() == false
-		AddInteractorAction(output, firstFast, 
-			Action():hint("@ui_hud_butcher"):action("use"):hintType(AHT_HOLD):func(BasicAnimal.OnUsed):interaction(inr_loot):enabled(enabled):reason("@ui_butcher_tensecircumstance"))
+
+		if (self.actor:IsPlayerInButcheringDistance()) then
+			local enabled = user.soul:IsInTenseCircumstance() == false
+			AddInteractorAction(output, firstFast, 
+				Action():hint("@ui_hud_butcher"):action("butcher"):hintType(AHT_HOLD):func(BasicAnimal.OnButcher):enabled(enabled):reason("@ui_butcher_tensecircumstance"))
+		end
 	else
-		AddInteractorAction(output, firstFast, Action():hint("@ui_hud_loot"):action("use"):hintType(AHT_RELEASE):func(BasicAnimal.OnUsed):interaction(inr_loot))
+		self:AddLootAction(output, user, firstFast)
 	end
 
 	return output
@@ -69,16 +76,30 @@ function BasicAnimal:OnUsed(user)
 end
 
 -- =============================================================================
+function BasicAnimal:ForceUsable(user)
+	if (not user) then
+		return false; -- canot be used by AI
+	end
+
+	if not user.actor:CanInteractWith(self.id) then
+		return false
+	end
+
+	return true
+end
+
+-- =============================================================================
+function BasicAnimal:OnButcher(user)
+	self.actor:Butcher(user.id)
+end
+
+-- =============================================================================
 function BasicAnimal:IsUsable(user)
 	if (not user) then
 		return 0; -- canot be used by AI
 	end
 
-	if (self.actor:GetHealth() <= 0) then
-		return 1
-	end
-
-	return 0
+	return 1
 end
 
 table.Merge(BasicAnimal, BasicActor)

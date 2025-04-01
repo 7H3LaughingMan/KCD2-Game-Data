@@ -35,6 +35,14 @@
 					<Edge From="not7.bool" To="B" />
 				</Function>
 				<beruska__nabidka_skillteachingu_for_include Name="beruska__nabidka_skillteachingu_for_include" PositionY="-680" PositionX="1670" />
+				<EnableAllowedWeaponsInQAM Name="enableallowedweaponsinqam14" PositionY="-740" PositionX="800">
+					<Constant Name="RequireMainHandEmpty" Value="true" />
+					<Constant Name="RequireOffHandEmpty" Value="true" />
+					<Asset Name="PlayerSouls" Alias="player" />
+					<Edge From="zadani.jindra_domluvil_beruskovi_trenink" To="IsActive">
+						<Vertex>Id4zWVbA</Vertex>
+					</Edge>
+				</EnableAllowedWeaponsInQAM>
 				<haste Name="haste" PositionY="-280" PositionX="40" />
 				<If Name="if_started" PositionY="80" PositionX="1260">
 					<Edge From="letBeruskaWinFight.Started" To="Condition">
@@ -113,6 +121,9 @@
 						<Vertex>Id4zWVbA</Vertex>
 					</Edge>
 				</Function>
+				<Function Name="or_trainingStartedOrPresetOverrideStateActive" PositionY="890" PositionX="1190" MethodName="math::boolean::Or" DeclaringType="math::boolean">
+					<Edge From="zapas_s_beruskou_navic.bojovnik_je_obleceny_do_fighting_presetu" To="A" />
+				</Function>
 				<Output Name="Output">
 					<Edge From="questProgress.State" To="quest_progress" />
 					<Edge From="questProgress.OnDone" To="quest_konci">
@@ -121,21 +132,21 @@
 					<Edge From="questProgress.OnFailed" To="quest_konci">
 						<Vertex>Q4psI7Nj</Vertex>
 					</Edge>
-					<Edge From="zapas_s_beruskou_navic.bojovnik_je_obleceny_do_fighting_presetu" To="bojovnik_je_obleceny_do_fighting_presetu" />
 					<Edge From="questProgress.Active" To="quest_je_aktivni">
 						<Vertex>SaR09x7x</Vertex>
 					</Edge>
+					<Edge From="or_trainingStartedOrPresetOverrideStateActive.bool" To="bojovnik_je_obleceny_do_fighting_presetu">
+						<Vertex>3756H8h6</Vertex>
+					</Edge>
+					<Edge From="triggersequence10_1_1.B" To="quest_konci_treninkem" />
+					<Edge From="trenink.trenink_cutscene_beforeplay" To="trenink_cutscene_beforeplay" />
 				</Output>
 				<State Name="questProgress" PositionY="-380" PositionX="2530" RequiredForOutput="kutnohorsko" TypeT="wh::questmodule::QuestProgress">
 					<Edge From="zadani.start_questu" To="SetActive">
 						<Vertex>vertex6</Vertex>
 					</Edge>
-					<Edge From="if6.True" To="SetFailed">
-						<Vertex>Qe7vNegX</Vertex>
-					</Edge>
-					<Edge From="triggersequence10.B" To="SetDone">
-						<Vertex>YEyKG9F9</Vertex>
-					</Edge>
+					<Edge From="if6.True" To="SetFailed" />
+					<Edge From="triggersequence10.B" To="SetDone" />
 				</State>
 				<AddReward Name="reward_microStoryProgress" PositionY="-640" PositionX="2540">
 					<Edge From="triggersequence10.A" To="AddReward" />
@@ -160,7 +171,7 @@
 						<Vertex>yGBqrRWF</Vertex>
 						<Vertex>JkEwo59w</Vertex>
 					</Edge>
-					<Edge From="triggersequence10_1_1.B" To="Exec">
+					<Edge From="triggersequence10_1_1.C" To="Exec">
 						<Vertex>SR3C5IQV</Vertex>
 						<Vertex>j85R5qzs</Vertex>
 						<Vertex>G5hhW363</Vertex>
@@ -204,6 +215,7 @@
 				</zapas_s_beruskou_navic>
 			</Nodes>
 			<EdgeVertices>
+				<EdgeVertex Name="3756H8h6" PositionY="970" PositionX="2760" />
 				<EdgeVertex Name="8qhlvzT5" PositionY="-140" PositionX="1290" />
 				<EdgeVertex Name="dWeB2lTz" PositionY="720" PositionX="2020" />
 				<EdgeVertex Name="G5hhW363" PositionY="550" PositionX="1140" />
@@ -214,7 +226,6 @@
 				<EdgeVertex Name="mAhycw0G" PositionY="440" PositionX="1480" />
 				<EdgeVertex Name="py361g0b" PositionY="610" PositionX="970" />
 				<EdgeVertex Name="Q4psI7Nj" PositionY="-26" PositionX="2979" />
-				<EdgeVertex Name="Qe7vNegX" PositionY="-32" PositionX="2463" />
 				<EdgeVertex Name="r2zk33BU" PositionY="610" PositionX="460" />
 				<EdgeVertex Name="SaR09x7x" PositionY="-130" PositionX="2900" />
 				<EdgeVertex Name="SR3C5IQV" PositionY="820" PositionX="1400" />
@@ -234,7 +245,6 @@
 				<EdgeVertex Name="vypY530x" PositionY="720" PositionX="1550" />
 				<EdgeVertex Name="xEaI9aeC" PositionY="-180" PositionX="1250" />
 				<EdgeVertex Name="Y9dmjwam" PositionY="-180" PositionX="1890" />
-				<EdgeVertex Name="YEyKG9F9" PositionY="-100" PositionX="2490" />
 				<EdgeVertex Name="yGBqrRWF" PositionY="-140" PositionX="1970" />
 				<EdgeVertex Name="zsz0AtRJ" PositionY="40" PositionX="1980" />
 			</EdgeVertices>

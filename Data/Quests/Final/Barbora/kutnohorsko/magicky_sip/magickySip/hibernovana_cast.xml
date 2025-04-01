@@ -27,6 +27,9 @@
 				<Port Name="quest_splnen" Direction="Out" Type="trigger">
 					<DesignName StringName="hibernova_quest_splnen_aJeC" Text="quest splněn" />
 				</Port>
+				<Port Name="pecha_zacne_souboj" Direction="Out" Type="trigger">
+					<DesignName StringName="hibernova_pecha_zacne_sou_sMB9" Text="Pecha začne souboj" />
+				</Port>
 				<Port Name="odstreamovat_karla" Direction="Out" Type="trigger">
 					<DesignName StringName="hibernova_hrac_je_daleko__h8Eu" Text="Odstreamovat Karla" />
 				</Port>
@@ -198,7 +201,7 @@
 						<Vertex>WxCrzXp2</Vertex>
 					</Edge>
 				</IfFunction>
-				<kemp_banditu Name="kemp_banditu" PositionY="-130" PositionX="4980" RequiredForOutput="kutnohorsko">
+				<kemp_banditu Name="kemp_banditu" PositionY="-190" PositionX="4970" RequiredForOutput="kutnohorsko">
 					<Edge From="stav_questu_karel_nese_pytel" To="stav_questu_karel_nese_pytel">
 						<Vertex>vertex33</Vertex>
 						<Vertex>GlL2D5SW</Vertex>
@@ -218,6 +221,10 @@
 						<Vertex>9HsVnU4o</Vertex>
 						<Vertex>vertex87</Vertex>
 						<Vertex>vertex27</Vertex>
+					</Edge>
+					<Edge From="getTipOfArrow.OnFailed" To="quest_failed">
+						<Vertex>FTlqrXdt</Vertex>
+						<Vertex>32yzdP7Q</Vertex>
 					</Edge>
 				</kemp_banditu>
 				<State Name="magickySip" PositionY="-540" PositionX="1290" RequiredForOutput="kutnohorsko" TypeT="wh::questmodule::QuestProgress">
@@ -384,6 +391,9 @@
 					<Edge From="kemp_banditu.hrac_prisel_do_kempu" To="hrac_prisel_do_kempu">
 						<Vertex>bjAGKL5S</Vertex>
 					</Edge>
+					<Edge From="kemp_banditu.banditi_napadnou_hrace" To="pecha_zacne_souboj">
+						<Vertex>0w2j1L6Q</Vertex>
+					</Edge>
 				</Output>
 				<revive Name="revive" PositionY="-380" PositionX="3350" Namespace="utils.general">
 					<Asset Name="souls" Alias="gravedigger" />
@@ -413,12 +423,15 @@
 				</zpatky_do_certovky>
 			</Nodes>
 			<EdgeVertices>
+				<EdgeVertex Name="0w2j1L6Q" PositionY="498" PositionX="5660" />
+				<EdgeVertex Name="32yzdP7Q" PositionY="420" PositionX="4880" />
 				<EdgeVertex Name="35zMzuXV" PositionY="600" PositionX="1880" />
 				<EdgeVertex Name="6uf0Ujhk" PositionY="600" PositionX="4160" />
 				<EdgeVertex Name="9HsVnU4o" PositionY="450" PositionX="2930" />
 				<EdgeVertex Name="ABIbH5ls" PositionY="570" PositionX="2880" />
 				<EdgeVertex Name="bjAGKL5S" PositionY="440" PositionX="5650" />
 				<EdgeVertex Name="cCQoGKG2" PositionY="780" PositionX="2990" />
+				<EdgeVertex Name="FTlqrXdt" PositionY="420" PositionX="3350" />
 				<EdgeVertex Name="fUYbuep1" PositionY="-480" PositionX="3690" />
 				<EdgeVertex Name="fvQmvRdq" PositionY="691" PositionX="4944" />
 				<EdgeVertex Name="GlL2D5SW" PositionY="-659" PositionX="3882" />
@@ -490,7 +503,7 @@
 				<EdgeVertex Name="vertex80" PositionY="580" PositionX="5680" />
 				<EdgeVertex Name="vertex81" PositionY="670" PositionX="3450" />
 				<EdgeVertex Name="vertex82" PositionY="670" PositionX="-40" />
-				<EdgeVertex Name="vertex83" PositionY="410" PositionX="4880" />
+				<EdgeVertex Name="vertex83" PositionY="380" PositionX="4880" />
 				<EdgeVertex Name="vertex87" PositionY="450" PositionX="4360" />
 				<EdgeVertex Name="vertex88" PositionY="720" PositionX="4910" />
 				<EdgeVertex Name="vertex89" PositionY="720" PositionX="5660" />

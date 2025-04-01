@@ -41,7 +41,11 @@
 																							<Function_crime_crimeBark animationApproach="$enum:animationApproach.dontPlayDialogAnimations" canBeDelayed="false" dialogContext="" dramaticBark="false" lookAt="$__null" metarole="&apos;NPC_VIDI_CLOVEKA_V_BEZVEDOMI_(BEZVEDOMI__PRITEL)&apos;" priority="$enum:crime_barkPriority.medium" nodeLabel="59833523" />
 																						</Else>
 																					</RecentlySkirmished>
-																					<Turn target="$wakeUpData.target" align="false" />
+																					<Sequence>
+																						<WaitAction />
+																						<StopMovement waitUntilStopped="true" />
+																						<Turn target="$wakeUpData.target" align="false" />
+																					</Sequence>
 																				</Parallel>
 																			</IfCondition>
 																		</Else>
@@ -79,7 +83,7 @@
 																					</IsWeaponDrawn>
 																				</Parallel>
 																				<AddBuff SoulWUID="$wakeUpData.target" BuffGUID="&apos;bd22f98a-e61f-4d83-b39c-79d1d85b6b91&apos;" />
-																				<Function_callInterrupt_watch alreadyCriminal="false" assaultData="" corpseState="$enum:corpseState.undiscovered" defenceMode="false" freshlyAttributedCrime="false" ignorePriority="true" information="" initiator="$enum:switch_interruptInitiator.scheduler" previousReaction="$enum:crime_reactionKind.wakeUp" source="$enum:crime_source.direct" stimulusKind="$enum:crime_stimulusKind.unconsciousBody" target="$wakeUpData.target" nodeLabel="53184043" />
+																				<Function_callInterrupt_watch assaultData="" corpseState="$enum:corpseState.undiscovered" criminalFreshness="$enum:crime_criminalFreshness.unknown" defenceMode="false" freshlyAttributedCrime="false" ignorePriority="true" information="" initiator="$enum:switch_interruptInitiator.scheduler" previousReaction="$enum:crime_reactionKind.wakeUp" source="$enum:crime_source.direct" stimulusKind="$enum:crime_stimulusKind.unconsciousBody" target="$wakeUpData.target" nodeLabel="53184043" />
 																			</Sequence>
 																		</EntityContext>
 																	</IfCondition>
@@ -96,11 +100,9 @@
 							</Sequence>
 						</EntityContext>
 					</Child>
-					<OnSuccess canSkip="1">
-						<AtomicDecorator>
-							<Function_crime_limits_removeReactionLink information="$wakeUpData.information" reactionKind="$enum:crime_reactionKind.wakeUp" nodeLabel="15945495" />
-						</AtomicDecorator>
-					</OnSuccess>
+					<OnFail canSkip="1">
+						<Function_crime_limits_removeReactionLink information="$wakeUpData.information" reactionKind="$enum:crime_reactionKind.wakeUp" nodeLabel="15945495" />
+					</OnFail>
 				</FuseBox>
 			</Behavior>
 		</Root>
@@ -176,9 +178,18 @@
 																								</Function_crime_crimeBark>
 																							</Else>
 																						</RecentlySkirmished>
-																						<Turn hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																						<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
 																							<OutputBreakpoints />
-																						</Turn>
+																							<WaitAction hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																								<OutputBreakpoints />
+																							</WaitAction>
+																							<StopMovement hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																								<OutputBreakpoints />
+																							</StopMovement>
+																							<Turn hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																								<OutputBreakpoints />
+																							</Turn>
+																						</Sequence>
 																					</Parallel>
 																				</IfCondition>
 																			</Else>
@@ -268,14 +279,11 @@
 								</Sequence>
 							</EntityContext>
 						</Child>
-						<OnSuccess>
-							<AtomicDecorator hasInputBreakpoint="0" comment="" breakpointFlags="0">
+						<OnFail>
+							<Function_crime_limits_removeReactionLink hasInputBreakpoint="0" comment="" breakpointFlags="0">
 								<OutputBreakpoints />
-								<Function_crime_limits_removeReactionLink hasInputBreakpoint="0" comment="" breakpointFlags="0">
-									<OutputBreakpoints />
-								</Function_crime_limits_removeReactionLink>
-							</AtomicDecorator>
-						</OnSuccess>
+							</Function_crime_limits_removeReactionLink>
+						</OnFail>
 					</FuseBox>
 				</Behavior>
 			</Root>

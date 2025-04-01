@@ -537,26 +537,7 @@
 				</AtomicDecorator>
 			</Behavior>
 		</Root>
-		<ForestContainer>
-			<LuaWrapper onEnter="player.player:OnEnterInteractive()" onExit="player.player:OnEndInteractive()">
-				<Sequence>
-					<AnyDecorator preset="AnyStance">
-						<Switch>
-							<IfCondition failOnCondition="false" condition="$prefabType == &apos;wine&apos;">
-								<AnimationAction fragment="&apos;BehaviorPoisoningBarrelSmallSpigot&apos;" tags="" eventReferenceObject="$__object.id" alignObject="$__object.id" slaveObject="" resourceOverride="" />
-							</IfCondition>
-							<IfCondition failOnCondition="false" condition="$prefabType == &apos;pigRoast&apos;">
-								<Sequence>
-									<AnimationAction fragment="&apos;CampWineDrinkDraft&apos;" tags="" eventReferenceObject="$__object.id" alignObject="$__object.id" slaveObject="" resourceOverride="" />
-									<AnimationAction fragment="&apos;CampWineDrinkOut&apos;" tags="" eventReferenceObject="$__object.id" alignObject="$__object.id" slaveObject="" resourceOverride="" />
-								</Sequence>
-							</IfCondition>
-						</Switch>
-					</AnyDecorator>
-				</Sequence>
-			</LuaWrapper>
-			<ExecuteLua code="local soEntity = XGenAIModule.GetEntityByWUID(data.__object.id); &#10;data.prefabType = EntityUtils.GetScriptProperty(soEntity,&apos;type&apos;);" />
-		</ForestContainer>
+		<ForestContainer />
 		<EditorData EventSet="">
 			<Variables>
 				<Variable name="buff" comment="" />
@@ -584,44 +565,7 @@
 					</AtomicDecorator>
 				</Behavior>
 			</Root>
-			<Forest>
-				<LuaWrapper editorPosX="560" editorPosY="-190" hasInputBreakpoint="0" comment="" breakpointFlags="0">
-					<OutputBreakpoints />
-					<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
-						<OutputBreakpoints />
-						<AnyDecorator hasInputBreakpoint="0" comment="" breakpointFlags="0">
-							<OutputBreakpoints />
-							<Switch hasInputBreakpoint="0" comment="" breakpointFlags="0">
-								<OutputBreakpoints />
-								<IfCondition hasInputBreakpoint="0" comment="" breakpointFlags="0">
-									<OutputBreakpoints />
-									<AnimationAction hasInputBreakpoint="0" comment="" breakpointFlags="0">
-										<OutputBreakpoints />
-										<OutputBreakpoints />
-									</AnimationAction>
-								</IfCondition>
-								<IfCondition hasInputBreakpoint="0" comment="" breakpointFlags="0">
-									<OutputBreakpoints />
-									<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
-										<OutputBreakpoints />
-										<AnimationAction hasInputBreakpoint="0" comment="" breakpointFlags="0">
-											<OutputBreakpoints />
-											<OutputBreakpoints />
-										</AnimationAction>
-										<AnimationAction hasInputBreakpoint="0" comment="" breakpointFlags="0">
-											<OutputBreakpoints />
-											<OutputBreakpoints />
-										</AnimationAction>
-									</Sequence>
-								</IfCondition>
-							</Switch>
-						</AnyDecorator>
-					</Sequence>
-				</LuaWrapper>
-				<ExecuteLua editorPosX="570" editorPosY="-290" hasInputBreakpoint="0" comment="" breakpointFlags="0">
-					<OutputBreakpoints />
-				</ExecuteLua>
-			</Forest>
+			<Forest />
 			<Comments />
 		</EditorData>
 	</BehaviorTree>
@@ -632,48 +576,14 @@
 			<Variable name="prefabType" type="_string" values="" isPersistent="0" form="single" />
 		</Variables>
 		<Root OneTimeOnly="false" FailState="Recoverable" saveVersion="2">
-			<OnInit canSkip="1">
-				<ExecuteLua code="local soEntity = XGenAIModule.GetEntityByWUID(data.__object.id); &#10;data.prefabType = EntityUtils.GetScriptProperty(soEntity,&apos;type&apos;); &#10;data.eatItemOverride = EntityUtils.GetScriptProperty(soEntity,&apos;eatItemOverride&apos;);" />
-			</OnInit>
 			<Behavior canSkip="1">
 				<Sequence>
 					<InstantSendMessageToNPC target="$__object.id" type="&apos;kettle:signal:onNPCEating&apos;" values="user($this.id),bowl($__null)" />
 					<InstantSendMessageToNPC target="$__object.id" type="&apos;kettle:signal:onPlayerEating&apos;" values="" />
-					<Switch>
-						<IfCondition failOnCondition="false" condition="$eatItemOverride ~= &apos;&apos;">
-							<CreateItem ItemGUID="$eatItemOverride" Amount="1" CreatedItem="$playerUseCreatedItem" Target="$__player" NotifyUI="false" />
-						</IfCondition>
-						<IfCondition failOnCondition="false" condition="$prefabType == &apos;wine&apos;">
-							<CreateItem ItemGUID="&apos;da94ed8b-5b3b-4e2f-8c85-34ea3d0090ea&apos;" Amount="1" CreatedItem="$playerUseCreatedItem" Target="$__player" NotifyUI="false" />
-						</IfCondition>
-						<IfCondition failOnCondition="false" condition="$prefabType == &apos;pigRoast&apos;">
-							<CreateItem ItemGUID="&apos;154a8471-b753-4f84-ac5f-d989c8532d02&apos;" Amount="1" CreatedItem="$playerUseCreatedItem" Target="$__player" NotifyUI="false" />
-						</IfCondition>
-					</Switch>
-					<UseItem item="$playerUseCreatedItem" count="1" bodyPartId="-1" combineWithItem="" />
 				</Sequence>
 			</Behavior>
 		</Root>
-		<ForestContainer>
-			<LuaWrapper onEnter="player.player:OnEnterInteractive()" onExit="player.player:OnEndInteractive()">
-				<Sequence>
-					<AnyDecorator preset="AnyStance" enabled="true">
-						<Switch>
-							<IfCondition failOnCondition="false" condition="$prefabType == &apos;wine&apos;">
-								<AnimationAction fragment="&apos;BehaviorDrinkBarrelSmallSpigot&apos;" tags="" eventReferenceObject="" alignObject="$__object.id" slaveObject="" resourceOverride="" allowTorchForPlayer="false" />
-							</IfCondition>
-							<IfCondition failOnCondition="false" condition="$prefabType == &apos;pigRoast&apos;">
-								<Sequence>
-									<AnimationAction fragment="&apos;CampWineDrinkDraft&apos;" tags="" eventReferenceObject="" alignObject="$__object.id" slaveObject="" resourceOverride="" allowTorchForPlayer="false" />
-									<AnimationAction fragment="&apos;CampWineDrinkOut&apos;" tags="" eventReferenceObject="" alignObject="$__object.id" slaveObject="" resourceOverride="" allowTorchForPlayer="false" />
-								</Sequence>
-							</IfCondition>
-						</Switch>
-					</AnyDecorator>
-					<AtomicDecorator />
-				</Sequence>
-			</LuaWrapper>
-		</ForestContainer>
+		<ForestContainer />
 		<EditorData EventSet="">
 			<Variables>
 				<Variable name="eatItemOverride" comment="" />
@@ -683,11 +593,6 @@
 			<ForwardDeclarations />
 			<Root editorPosX="-20" editorPosY="10" hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
 				<OutputBreakpoints />
-				<OnInit>
-					<ExecuteLua hasInputBreakpoint="0" comment="" breakpointFlags="0">
-						<OutputBreakpoints />
-					</ExecuteLua>
-				</OnInit>
 				<Behavior>
 					<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
 						<OutputBreakpoints />
@@ -697,68 +602,10 @@
 						<InstantSendMessageToNPC hasInputBreakpoint="0" comment="" breakpointFlags="0">
 							<OutputBreakpoints />
 						</InstantSendMessageToNPC>
-						<Switch hasInputBreakpoint="0" comment="" breakpointFlags="0">
-							<OutputBreakpoints />
-							<IfCondition hasInputBreakpoint="0" comment="" breakpointFlags="0">
-								<OutputBreakpoints />
-								<CreateItem hasInputBreakpoint="0" comment="" breakpointFlags="0">
-									<OutputBreakpoints />
-								</CreateItem>
-							</IfCondition>
-							<IfCondition hasInputBreakpoint="0" comment="" breakpointFlags="0">
-								<OutputBreakpoints />
-								<CreateItem hasInputBreakpoint="0" comment="" breakpointFlags="0">
-									<OutputBreakpoints />
-								</CreateItem>
-							</IfCondition>
-							<IfCondition hasInputBreakpoint="0" comment="" breakpointFlags="0">
-								<OutputBreakpoints />
-								<CreateItem hasInputBreakpoint="0" comment="" breakpointFlags="0">
-									<OutputBreakpoints />
-								</CreateItem>
-							</IfCondition>
-						</Switch>
-						<UseItem hasInputBreakpoint="0" comment="" breakpointFlags="0">
-							<OutputBreakpoints />
-						</UseItem>
 					</Sequence>
 				</Behavior>
 			</Root>
-			<Forest>
-				<LuaWrapper editorPosX="320" editorPosY="-410" hasInputBreakpoint="0" comment="" breakpointFlags="0">
-					<OutputBreakpoints />
-					<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
-						<OutputBreakpoints />
-						<AnyDecorator hasInputBreakpoint="0" comment="" breakpointFlags="0">
-							<OutputBreakpoints />
-							<Switch hasInputBreakpoint="0" comment="" breakpointFlags="0">
-								<OutputBreakpoints />
-								<IfCondition hasInputBreakpoint="0" comment="" breakpointFlags="0">
-									<OutputBreakpoints />
-									<AnimationAction hasInputBreakpoint="0" comment="" breakpointFlags="0">
-										<OutputBreakpoints />
-									</AnimationAction>
-								</IfCondition>
-								<IfCondition hasInputBreakpoint="0" comment="" breakpointFlags="0">
-									<OutputBreakpoints />
-									<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
-										<OutputBreakpoints />
-										<AnimationAction hasInputBreakpoint="0" comment="" breakpointFlags="0">
-											<OutputBreakpoints />
-										</AnimationAction>
-										<AnimationAction hasInputBreakpoint="0" comment="" breakpointFlags="0">
-											<OutputBreakpoints />
-										</AnimationAction>
-									</Sequence>
-								</IfCondition>
-							</Switch>
-						</AnyDecorator>
-						<AtomicDecorator hasInputBreakpoint="0" comment="" breakpointFlags="0">
-							<OutputBreakpoints />
-						</AtomicDecorator>
-					</Sequence>
-				</LuaWrapper>
-			</Forest>
+			<Forest />
 			<Comments />
 		</EditorData>
 	</BehaviorTree>

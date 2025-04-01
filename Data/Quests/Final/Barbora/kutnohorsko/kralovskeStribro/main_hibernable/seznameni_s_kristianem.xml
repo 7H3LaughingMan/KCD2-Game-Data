@@ -18,6 +18,9 @@
 				<Port Name="fastforward_kristian_and_maslo" Direction="In" Type="trigger">
 					<DesignName StringName="seznameni_fastforward_kri_J13v" Text="fastForward Kristian and Maslo" />
 				</Port>
+				<Port Name="poprve_promluveno_s_kristianem" Direction="Out" Type="trigger">
+					<DesignName StringName="seznameni_poprve_promluve_ZmNZ" Text="poprvé promluveno s Kristiánem" />
+				</Port>
 			</Ports>
 			<Definitions>
 				<Definition File="seznameni_s_kristianem/kristian_se_hada_s_predakem_maslem.xml" />
@@ -28,10 +31,7 @@
 				<Function Name="and13" PositionY="600" PositionX="690" MethodName="math::boolean::And" DeclaringType="math::boolean">
 					<Edge From="kristianArguesWithMaslo.Done" To="A" />
 					<Edge From="goSeeKristian.Active" To="B" />
-					<Edge From="and16.bool" To="C" />
-				</Function>
-				<Function Name="and16" PositionY="780" PositionX="690" MethodName="math::boolean::And" DeclaringType="math::boolean">
-					<Edge From="state14.State" To="A" />
+					<Edge From="state14.State" To="C" />
 				</Function>
 				<AreaTrigger Name="areatrigger15" PositionY="600" PositionX="110">
 					<Asset Name="Areas" Alias="kristiansCourtyard" />
@@ -75,7 +75,7 @@
 						<Vertex>vertex18</Vertex>
 					</Edge>
 				</EnableBehavior>
-				<State Name="goSeeKristian" PositionY="-80" PositionX="130" RequiredForOutput="kutnohorsko" TypeT="Progress">
+				<State Name="goSeeKristian" PositionY="-120" PositionX="130" RequiredForOutput="kutnohorsko" TypeT="Progress">
 					<Edge From="bez_za_kristianem" To="SetActive" />
 					<Edge From="seznameni_s_kristianem_1.kristian_jde_do_ustrani" To="SetDone">
 						<Vertex>vertex17</Vertex>
@@ -91,7 +91,7 @@
 					<Constant Name="IsHidden" Value="true" />
 				</HasteTrigger>
 				<kristian_barkuje_na_hrace Name="kristian_barkuje_na_hrace" PositionY="580" PositionX="1330" />
-				<kristian_se_hada_s_predakem_maslem Name="kristian_se_hada_s_predakem_maslem" PositionY="-1090" PositionX="820" />
+				<kristian_se_hada_s_predakem_maslem Name="kristian_se_hada_s_predakem_maslem" PositionY="-1200" PositionX="820" />
 				<State Name="kristianArguesWithMaslo" PositionY="-830" PositionX="110" TypeT="ProgressUpdated">
 					<Edge From="areatrigger3.OnAllEnter" To="SetUpdated">
 						<Vertex>vertex11</Vertex>
@@ -126,7 +126,7 @@
 						<Vertex>2PfoSXVf</Vertex>
 					</Edge>
 				</Function>
-				<npcdialogonspots Name="npcdialogonspots" PositionY="-860" PositionX="820" Namespace="utils.speech">
+				<npcdialogonspots Name="npcdialogonspots" PositionY="-910" PositionX="820" Namespace="utils.speech">
 					<Asset Name="npc_initiator" Alias="kristian" />
 					<Asset Name="npc_receiver" Alias="maslo" />
 					<Asset Name="smart_entity" Alias="qSO" />
@@ -146,7 +146,7 @@
 				<promluv_si_s_kristianem_z_pisku Name="objectiveVisual3" PositionY="-140" PositionX="460" RequiredForOutput="kutnohorsko">
 					<Edge From="goSeeKristian.State" To="Progress" />
 				</promluv_si_s_kristianem_z_pisku>
-				<Function Name="or7" PositionY="-160" PositionX="1050" MethodName="math::boolean::Or" DeclaringType="math::boolean">
+				<Function Name="or7" PositionY="-170" PositionX="1070" MethodName="math::boolean::Or" DeclaringType="math::boolean">
 					<Edge From="kristianArguesWithMaslo.None" To="A" />
 					<Edge From="goSeeKristian.None" To="B" />
 				</Function>
@@ -154,6 +154,9 @@
 					<Edge From="goSeeKristian.OnDone" To="presun_do_dolu" />
 					<Edge From="goSeeKristian.Active" To="krisitan_active" />
 					<Edge From="or7.bool" To="kristian_not_yet_started" />
+					<Edge From="seznameni_s_kristianem_1.poprve_promluveno_s_kristianem" To="poprve_promluveno_s_kristianem">
+						<Vertex>ypBGd5cB</Vertex>
+					</Edge>
 				</Output>
 				<SetEntityContext Name="setentitycontext4" PositionY="-1070" PositionX="550">
 					<Constant Name="Context" Value="speech_greyOutE" />
@@ -196,6 +199,7 @@
 				<EdgeVertex Name="vertex16" PositionY="300" PositionX="140" />
 				<EdgeVertex Name="vertex17" PositionY="300" PositionX="720" />
 				<EdgeVertex Name="vertex18" PositionY="-1050" PositionX="410" />
+				<EdgeVertex Name="ypBGd5cB" PositionY="150" PositionX="910" />
 			</EdgeVertices>
 			<Assets>
 				<TagPointAsset Name="masloVsKristianPoint" />

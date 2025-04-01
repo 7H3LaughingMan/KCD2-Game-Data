@@ -24,6 +24,9 @@
 				<Port Name="lipold_mrtvy_failujem" Direction="Out" Type="trigger">
 					<DesignName StringName="s_katerin_lipold_mrtvy_fa_e0Em" Text="lipold mrtvý- failujem" />
 				</Port>
+				<Port Name="prvni_trialog_probehl" Direction="In" Type="bool">
+					<DesignName StringName="s_katerin_prvni_trialog_p_WNpQ" Text="první trialog proběhl" />
+				</Port>
 			</Ports>
 			<Text StringName="s_katerinou_a_alence_a_li_fnl2" Text="S kateřinou a Alence a Lipoldovi" />
 			<Dialogue TechnicalStatus="Enabled" GesturesSetDate="2024-05-02T11:55:53.8406666+02:00" GesturesSetResponseCount="59">
@@ -33,7 +36,7 @@
 				</SelectedSouls>
 				<Decision Name="dec1" Priority="SideQuestAdditionals">
 					<Sequences>
-						<Sequence EntryCondition="Port('hrac_prozkoumal_telo')&#xD;&#xA;AND&#xD;&#xA;!ThisSequenceUsed()" EndType="Decision" Visibility="Internal" Name="prvni_intro">
+						<Sequence EntryCondition="Port('hrac_prozkoumal_telo')&#xD;&#xA;AND&#xD;&#xA;!ThisSequenceUsed()&#xD;&#xA;AND &#xD;&#xA;!Port('prvni_trialog_probehl')" EndType="Decision" Visibility="Internal" Name="prvni_intro">
 							<DesignName StringName="s_katerin_seq1_aHie" Text="první intro" />
 							<UiPrompt StringName="ui_s_katerin_seq1_msts" Text="Jdu od Alenky..." />
 							<Elements>
@@ -427,6 +430,9 @@
 																					</Sequence>
 																					<Sequence EntryCondition="Port('lipold_je_mrtvy')" EndType="EndDialogue" Name="seq14">
 																						<DesignName StringName="s_katerin_seq14_DgdO" Text="seq14" />
+																						<Triggers>
+																							<Port Name="lipold_mrtvy_failujem" />
+																						</Triggers>
 																						<Elements>
 																							<Response Role="HENRY" ReferenceLength="7">
 																								<Parenthetical>
@@ -698,7 +704,7 @@
 								</Sequences>
 							</Decision>
 						</Sequence>
-						<Sequence EntryCondition="SequenceUsed('prvni_intro')" EndType="GoTo" GoToDecision="dec3" Visibility="Internal" Name="seq3">
+						<Sequence EntryCondition="SequenceUsed('prvni_intro')&#xD;&#xA;AND &#xD;&#xA;!Port('prvni_trialog_probehl')" EndType="GoTo" GoToDecision="dec3" Visibility="Internal" Name="seq3">
 							<DesignName StringName="s_katerin_seq3_0V5o" Text="seq3" />
 							<UiPrompt StringName="ui_s_katerin_seq3_O0a9" Text="Ještě o Alence..." />
 							<Elements>

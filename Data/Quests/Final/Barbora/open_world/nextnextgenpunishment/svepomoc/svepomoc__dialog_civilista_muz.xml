@@ -36,6 +36,12 @@
 				<Port Name="punishmentDisabled" Direction="In" Type="bool">
 					<DesignName StringName="svepomoc__punishmentdisab_S433" Text="punishment disabled" />
 				</Port>
+				<Port Name="uctenka_tutorial" Direction="Out" Type="trigger">
+					<DesignName StringName="svepomoc__uctenka_tutorial_LX9r" Text="účtenka tutorial" />
+				</Port>
+				<Port Name="known_criminal_poprava" Direction="In" Type="bool">
+					<DesignName StringName="svepomoc__known_criminal__rn2q" Text="known criminal poprava" />
+				</Port>
 			</Ports>
 			<Text StringName="svepomoc__dialog_civilist_WWMH" Text="Svépomoc - dialog (civilista, muž)" />
 			<Elements>
@@ -153,7 +159,7 @@
 													</Elements>
 													<Decision Name="dec53" Priority="General" EnableCrimeHud="true">
 														<Sequences>
-															<Sequence EntryCondition="var('punishment_branding')==1 AND &#xD;&#xA;var('playerBranded')==0 AND !Port('punishmentDisabled')" EndType="Decision" Type="Punishment" PunishmentType="Branding" Name="brand">
+															<Sequence EntryCondition="var('punishment_branding')==1 AND &#xD;&#xA;var('playerBranded')==0 AND !Port('known_criminal_poprava') AND !Port('punishmentDisabled')" EndType="Decision" Type="Punishment" PunishmentType="Branding" Name="brand">
 																<DesignName StringName="svepomoc__brand_gNkG" Text="brand" />
 																<UiPrompt StringName="ui_svepomoc__brand_DYmF" Text="Nechám se potrestat u rychtáře." />
 																<Elements>
@@ -200,7 +206,7 @@
 																	</Sequences>
 																</Decision>
 															</Sequence>
-															<Sequence EntryCondition="var('punishment_branding')==1 AND &#xD;&#xA;var('playerBranded')==1 AND !Port('punishmentDisabled')" EndType="GoTo" GoToDecision="dec75" Type="Punishment" PunishmentType="Execution" Name="execution">
+															<Sequence EntryCondition="(var('punishment_branding')==1 AND &#xD;&#xA;var('playerBranded')==1) OR (var('punishment_branding')==1 AND Port('known_criminal_poprava')) AND !Port('punishmentDisabled')" EndType="GoTo" GoToDecision="dec75" Type="Punishment" PunishmentType="Execution" Name="execution">
 																<DesignName StringName="svepomoc__execution_eDvT" Text="execution" />
 																<UiPrompt StringName="ui_svepomoc__execution_CZdk" Text="Nechám se potrestat u rychtáře." />
 																<Elements>
@@ -721,14 +727,14 @@
 																																<Response Role="HRAC" />
 																															</Elements>
 																														</Sequence>
-																														<Sequence SpeechCoef="0" EntryCondition="var('punishment_branding')==1 AND &#xD;&#xA;var('playerBranded')==0 AND !Port('punishmentDisabled')" EndType="GoTo" GoToDecision="dec62" GrayOutIfSequencesUsed="Never" Type="Punishment" PunishmentType="Branding" Name="seq188">
+																														<Sequence SpeechCoef="0" EntryCondition="var('punishment_branding')==1 AND &#xD;&#xA;var('playerBranded')==0 AND !Port('punishmentDisabled') AND !Port('known_criminal_poprava')" EndType="GoTo" GoToDecision="dec62" GrayOutIfSequencesUsed="Never" Type="Punishment" PunishmentType="Branding" Name="seq188">
 																															<DesignName StringName="svepomoc__seq188_CP6z" Text="seq188" />
 																															<UiPrompt StringName="ui_svepomoc__seq188_fA7x" Text="Nechám se potrestat u rychtáře." />
 																															<Elements>
 																																<Response Role="HRAC" />
 																															</Elements>
 																														</Sequence>
-																														<Sequence SpeechCoef="0" EntryCondition="var('punishment_branding')==1 AND &#xD;&#xA;var('playerBranded')==1 AND !Port('punishmentDisabled')" EndType="Decision" GrayOutIfSequencesUsed="Never" Type="Punishment" PunishmentType="Execution" Name="seq189">
+																														<Sequence SpeechCoef="0" EntryCondition="(var('punishment_branding')==1 AND &#xD;&#xA;var('playerBranded')==1) OR (var('punishment_branding')==1 AND Port('known_criminal_poprava')) AND !Port('punishmentDisabled')" EndType="Decision" GrayOutIfSequencesUsed="Never" Type="Punishment" PunishmentType="Execution" Name="seq189">
 																															<DesignName StringName="svepomoc__seq189_oMgR" Text="seq189" />
 																															<UiPrompt StringName="ui_svepomoc__seq189_L8oW" Text="Nechám se potrestat u rychtáře." />
 																															<Elements>
@@ -814,7 +820,7 @@
 																																												</Response>
 																																											</Elements>
 																																										</Sequence>
-																																										<Sequence ExitScript="Crime.SendSelfhelpResolveDialogResult(dc, enum_crime_selfhelpResolutionKind.punishment)&#xD;&#xA;DialogUtils.HidePaymentAmount()" EntryCondition="var('punishment_branding')==1 AND &#xD;&#xA;var('playerBranded')==0" EndType="EndDialogue" Name="seq169">
+																																										<Sequence ExitScript="Crime.SendSelfhelpResolveDialogResult(dc, enum_crime_selfhelpResolutionKind.punishment)&#xD;&#xA;DialogUtils.HidePaymentAmount()" EntryCondition="var('punishment_branding')==1 AND &#xD;&#xA;var('playerBranded')==0 AND !Port('known_criminal_poprava')" EndType="EndDialogue" Name="seq169">
 																																											<DesignName StringName="svepomoc__seq169_xvMQ" Text="seq169" />
 																																											<Triggers>
 																																												<Port Name="punishmentbranding" />
@@ -833,7 +839,7 @@
 																																												</Response>
 																																											</Elements>
 																																										</Sequence>
-																																										<Sequence ExitScript="Crime.SendSelfhelpResolveDialogResult(dc, enum_crime_selfhelpResolutionKind.punishment)&#xD;&#xA;DialogUtils.HidePaymentAmount()" EntryCondition="var('punishment_branding')==1 AND &#xD;&#xA;var('playerBranded')==1" EndType="EndDialogue" Name="seq170">
+																																										<Sequence ExitScript="Crime.SendSelfhelpResolveDialogResult(dc, enum_crime_selfhelpResolutionKind.punishment)&#xD;&#xA;DialogUtils.HidePaymentAmount()" EntryCondition="var('punishment_branding')==1 AND &#xD;&#xA;var('playerBranded')==1 OR Port('known_criminal_poprava')" EndType="EndDialogue" Name="seq170">
 																																											<DesignName StringName="svepomoc__seq170_O17E" Text="seq170" />
 																																											<Triggers>
 																																												<Port Name="punishmentexecution" />
@@ -3389,6 +3395,9 @@
 																							<Sequences>
 																								<Sequence EndType="GoTo" GoToDecision="vyberReseni" Name="seq100">
 																									<DesignName StringName="svepomoc__seq100_ZIXg" Text="seq100" />
+																									<Triggers>
+																										<Port Name="uctenka_tutorial" />
+																									</Triggers>
 																									<Elements>
 																										<Response Role="SVEPOMOC_CIVILISTA_MUZ" ReferenceLength="4.32">
 																											<Parenthetical>
@@ -3415,6 +3424,9 @@
 																								</Sequence>
 																								<Sequence EndType="GoTo" GoToDecision="vyberReseni" Name="seq101">
 																									<DesignName StringName="svepomoc__seq101_x37H" Text="seq101" />
+																									<Triggers>
+																										<Port Name="uctenka_tutorial" />
+																									</Triggers>
 																									<Elements>
 																										<Response Role="SVEPOMOC_CIVILISTA_MUZ" ReferenceLength="5.36">
 																											<Parenthetical>
@@ -3440,6 +3452,9 @@
 																								</Sequence>
 																								<Sequence EndType="GoTo" GoToDecision="vyberReseni" Name="seq102">
 																									<DesignName StringName="svepomoc__seq102_Ue8x" Text="seq102" />
+																									<Triggers>
+																										<Port Name="uctenka_tutorial" />
+																									</Triggers>
 																									<Elements>
 																										<Response Role="SVEPOMOC_CIVILISTA_MUZ" ReferenceLength="2.93">
 																											<Parenthetical>
@@ -3475,6 +3490,9 @@
 																							<Sequences>
 																								<Sequence EndType="GoTo" GoToDecision="vyberReseni" Name="seq83">
 																									<DesignName StringName="svepomoc__seq83_uxqw" Text="seq83" />
+																									<Triggers>
+																										<Port Name="uctenka_tutorial" />
+																									</Triggers>
 																									<Elements>
 																										<Response Role="SVEPOMOC_CIVILISTA_MUZ" ReferenceLength="3.04">
 																											<Parenthetical>
@@ -3498,6 +3516,9 @@
 																								</Sequence>
 																								<Sequence EndType="GoTo" GoToDecision="vyberReseni" Name="seq84">
 																									<DesignName StringName="svepomoc__seq84_iRre" Text="seq84" />
+																									<Triggers>
+																										<Port Name="uctenka_tutorial" />
+																									</Triggers>
 																									<Elements>
 																										<Response Role="SVEPOMOC_CIVILISTA_MUZ" ReferenceLength="2.64">
 																											<Parenthetical>
@@ -3544,6 +3565,9 @@
 																				<Sequences>
 																					<Sequence EndType="GoTo" GoToDecision="vyberReseni" Name="seq39">
 																						<DesignName StringName="svepomoc__seq39_F9wQ" Text="seq39" />
+																						<Triggers>
+																							<Port Name="uctenka_tutorial" />
+																						</Triggers>
 																						<Elements>
 																							<Response Role="SVEPOMOC_CIVILISTA_MUZ" ReferenceLength="3.37">
 																								<Parenthetical>
@@ -3566,6 +3590,9 @@
 																					</Sequence>
 																					<Sequence EndType="GoTo" GoToDecision="vyberReseni" Name="seq41">
 																						<DesignName StringName="svepomoc__seq41_E6Ex" Text="seq41" />
+																						<Triggers>
+																							<Port Name="uctenka_tutorial" />
+																						</Triggers>
 																						<Elements>
 																							<Response Role="SVEPOMOC_CIVILISTA_MUZ" ReferenceLength="3.38">
 																								<Parenthetical>
@@ -3591,6 +3618,9 @@
 																					</Sequence>
 																					<Sequence EndType="GoTo" GoToDecision="vyberReseni" Name="seq42">
 																						<DesignName StringName="svepomoc__seq42_GtqC" Text="seq42" />
+																						<Triggers>
+																							<Port Name="uctenka_tutorial" />
+																						</Triggers>
 																						<Elements>
 																							<Response Role="SVEPOMOC_CIVILISTA_MUZ" ReferenceLength="3.61">
 																								<Parenthetical>
@@ -3617,6 +3647,9 @@
 																				<Sequences>
 																					<Sequence EntryCondition="var('theft')==1 AND var('kettleEating')!=1" EndType="GoTo" GoToDecision="vyberReseni" Name="seq45">
 																						<DesignName StringName="svepomoc__seq45_XO1k" Text="seq45" />
+																						<Triggers>
+																							<Port Name="uctenka_tutorial" />
+																						</Triggers>
 																						<Elements>
 																							<Response Role="SVEPOMOC_CIVILISTA_MUZ" ReferenceLength="4.08">
 																								<Parenthetical>
@@ -3643,6 +3676,9 @@
 																					</Sequence>
 																					<Sequence EntryCondition="var('theft')!=1 AND &#xD;&#xA;var('pickpocket')!=1 AND&#xD;&#xA;var('lockpick')!=1" EndType="GoTo" GoToDecision="vyberReseni" Name="seq46">
 																						<DesignName StringName="svepomoc__seq46_gCV3" Text="seq46" />
+																						<Triggers>
+																							<Port Name="uctenka_tutorial" />
+																						</Triggers>
 																						<Elements>
 																							<Response Role="SVEPOMOC_CIVILISTA_MUZ" ReferenceLength="2.91">
 																								<Parenthetical>
@@ -3659,6 +3695,9 @@
 																					</Sequence>
 																					<Sequence EntryCondition="(var('pickpocket')==1 OR &#xD;&#xA;var('lockpick')==1 AND&#xD;&#xA;var('theft')!=1)" EndType="GoTo" GoToDecision="vyberReseni" Name="seq47">
 																						<DesignName StringName="svepomoc__seq47_UZfd" Text="seq47" />
+																						<Triggers>
+																							<Port Name="uctenka_tutorial" />
+																						</Triggers>
 																						<Elements>
 																							<Response Role="SVEPOMOC_CIVILISTA_MUZ" ReferenceLength="2.62">
 																								<Parenthetical>
@@ -3722,6 +3761,9 @@
 																				<Sequences>
 																					<Sequence EndType="GoTo" GoToDecision="vyberReseni" Name="seq40">
 																						<DesignName StringName="svepomoc__seq40_PmHm" Text="seq40" />
+																						<Triggers>
+																							<Port Name="uctenka_tutorial" />
+																						</Triggers>
 																						<Elements>
 																							<Response Role="SVEPOMOC_CIVILISTA_MUZ" ReferenceLength="6.44">
 																								<Parenthetical>
@@ -3748,6 +3790,9 @@
 																					</Sequence>
 																					<Sequence EndType="GoTo" GoToDecision="vyberReseni" Name="seq43">
 																						<DesignName StringName="svepomoc__seq43_Ofi2" Text="seq43" />
+																						<Triggers>
+																							<Port Name="uctenka_tutorial" />
+																						</Triggers>
 																						<Elements>
 																							<Response Role="SVEPOMOC_CIVILISTA_MUZ" ReferenceLength="3.42">
 																								<Parenthetical>
@@ -3783,6 +3828,9 @@
 																				<Sequences>
 																					<Sequence EntryCondition="var('theft')==1" EndType="GoTo" GoToDecision="vyberReseni" Name="seq48">
 																						<DesignName StringName="svepomoc__seq48_Xgg0" Text="seq48" />
+																						<Triggers>
+																							<Port Name="uctenka_tutorial" />
+																						</Triggers>
 																						<Elements>
 																							<Response Role="SVEPOMOC_CIVILISTA_MUZ" ReferenceLength="5.38">
 																								<Parenthetical>
@@ -3809,6 +3857,9 @@
 																					</Sequence>
 																					<Sequence EntryCondition="var('theft')!=1" EndType="GoTo" GoToDecision="vyberReseni" Name="seq49">
 																						<DesignName StringName="svepomoc__seq49_MNxA" Text="seq49" />
+																						<Triggers>
+																							<Port Name="uctenka_tutorial" />
+																						</Triggers>
 																						<Elements>
 																							<Response Role="SVEPOMOC_CIVILISTA_MUZ" ReferenceLength="2.13">
 																								<Parenthetical>

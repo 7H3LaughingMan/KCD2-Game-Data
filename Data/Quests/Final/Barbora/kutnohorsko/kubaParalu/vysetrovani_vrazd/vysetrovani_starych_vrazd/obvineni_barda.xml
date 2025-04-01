@@ -39,6 +39,12 @@
 				<Port Name="henry_pomuze_z_vetsi_odmenou" Direction="In" Type="bool">
 					<DesignName StringName="obvineni__henry_pomuze_z__3COv" Text="henry pomůže z větší odměnou" />
 				</Port>
+				<Port Name="obj_neaktivni" Direction="Out" Type="bool">
+					<DesignName StringName="obvineni__obj_neaktivni_pLU2" Text="obj neaktivní" />
+				</Port>
+				<Port Name="nechame_barda_jit" Direction="In" Type="trigger">
+					<DesignName StringName="obvineni__nechame_barda_j_JS7M" Text="necháme barda jít" />
+				</Port>
 			</Ports>
 			<Definitions>
 				<Definition File="obvineni_barda/pokus_udani_barda_u_leopolda_obsolete.xml" />
@@ -158,6 +164,7 @@
 						<Vertex>3HY006D5</Vertex>
 					</Edge>
 					<Edge From="if31_1.True" To="SetFailed" />
+					<Edge From="nechame_barda_jit" To="SetColdFeet" />
 				</State>
 				<Function Name="or16" PositionY="60" PositionX="-480" MethodName="math::boolean::Or" DeclaringType="math::boolean">
 					<Edge From="hrac_vyslechl_knezovo_podezreni_na_barda" To="A">
@@ -176,6 +183,20 @@
 						<Vertex>vertex4</Vertex>
 					</Edge>
 					<Edge From="SKaterinouOBardovi.BardKilled" To="A" />
+				</Function>
+				<Function Name="or34" PositionY="-480" PositionX="2010" MethodName="math::boolean::Or" DeclaringType="math::boolean">
+					<Edge From="odstranVilema.Failed" To="C">
+						<Vertex>Cbuj4cRg</Vertex>
+						<Vertex>GC9ezQCh</Vertex>
+					</Edge>
+					<Edge From="odstranVilema.Eliminated" To="B">
+						<Vertex>zWhsJ7SB</Vertex>
+						<Vertex>XLzDQjnc</Vertex>
+					</Edge>
+					<Edge From="odstranVilema.None" To="A">
+						<Vertex>KoBd10yQ</Vertex>
+						<Vertex>zI7DHdhf</Vertex>
+					</Edge>
 				</Function>
 				<Output Name="Output">
 					<Edge From="dialog_s_katerinou_o_bardovi.konec_questu__bard_je_mrtvy" To="bard_je_popraven__quest_completed">
@@ -207,6 +228,7 @@
 						<Vertex>V0kzTfXX</Vertex>
 						<Vertex>tX9m2ud8</Vertex>
 					</Edge>
+					<Edge From="or34.bool" To="obj_neaktivni" />
 				</Output>
 				<pokus_udani_barda_u_leopolda_obsolete Name="pokus_udani_barda_u_leopolda_obsolete" PositionY="-1500" PositionX="220">
 					<Constant Name="hrac_muze_udat_barda" Value="false" />
@@ -260,7 +282,10 @@
 				<EdgeVertex Name="3HY006D5" PositionY="100" PositionX="-590" />
 				<EdgeVertex Name="7YqR7zaF" PositionY="700" PositionX="-730" />
 				<EdgeVertex Name="bfQ0tHs9" PositionY="700" PositionX="530" />
+				<EdgeVertex Name="Cbuj4cRg" PositionY="-250" PositionX="-60" />
 				<EdgeVertex Name="G8kFGr4z" PositionY="-290" PositionX="890" />
+				<EdgeVertex Name="GC9ezQCh" PositionY="-250" PositionX="1810" />
+				<EdgeVertex Name="KoBd10yQ" PositionY="-330" PositionX="-60" />
 				<EdgeVertex Name="NyGV4Fue" PositionY="-290" PositionX="-60" />
 				<EdgeVertex Name="tX9m2ud8" PositionY="-310" PositionX="2260" />
 				<EdgeVertex Name="V0kzTfXX" PositionY="-310" PositionX="-60" />
@@ -304,6 +329,7 @@
 				<EdgeVertex Name="vertex9" PositionY="300" PositionX="-630" />
 				<EdgeVertex Name="weABDBH0" PositionY="742" PositionX="2166" />
 				<EdgeVertex Name="XLzDQjnc" PositionY="-270" PositionX="1810" />
+				<EdgeVertex Name="zI7DHdhf" PositionY="-328" PositionX="1810" />
 				<EdgeVertex Name="zWhsJ7SB" PositionY="-270" PositionX="-60" />
 			</EdgeVertices>
 			<Assets>

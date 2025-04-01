@@ -2,6 +2,11 @@
 <Database xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" Name="brambora">
 	<Skald>
 		<Dialog Name="barky_pri_souboji" Time="ANYTIME">
+			<Ports>
+				<Port Name="isfriendlyfight" Direction="In" Type="bool">
+					<DesignName StringName="barky_pri_isfriendlyfight_uN9v" Text="IsFriendlyFight" />
+				</Port>
+			</Ports>
 			<Text StringName="barky_pri_souboji_akha" Text="Barky při souboji">
 				<Note StringName="barky_pri_souboji_akha_note" Text="Barky obou NPC při souboji" />
 			</Text>
@@ -13,7 +18,7 @@
 			<Dialogue Type="ingame" TechnicalStatus="Enabled" Initiator="NonPlayer" ForceMood="noScope" ClashPriority="OpenWorld" GesturesNotNeeded="true">
 				<Decision Name="dec1" Priority="General">
 					<Sequences>
-						<Sequence EndType="Decision" Name="seq1">
+						<Sequence EntryCondition="Port('isfriendlyfight')" EndType="Decision" Name="seq1">
 							<DesignName StringName="barky_pri_seq1_Z4rp" Text="seq1" />
 							<Elements>
 								<Response Role="PROTISTRANA" />

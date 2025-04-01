@@ -33,6 +33,21 @@
 				<Port Name="hrac_neuspel_v_reseni_smiru" Direction="Out" Type="bool">
 					<DesignName StringName="hadkakona_hrac_neuspel_v__s5Fv" Text="Hráč neuspěl v řešení smíru" />
 				</Port>
+				<Port Name="s25__quest_fail" Direction="In" Type="bool">
+					<DesignName StringName="hadkakona_s25__quest_fail_kr5i" Text="S25 - quest fail" />
+				</Port>
+				<Port Name="s25__quest_splnen_marika_se_vratila_do_tabora" Direction="In" Type="bool">
+					<DesignName StringName="hadkakona_s25__quest_spln_i3BV" Text="S25 - quest splněn, Marika se vrátila do tábora" />
+				</Port>
+				<Port Name="s25__quest_splnen_marika_se_nevratila" Direction="In" Type="bool">
+					<DesignName StringName="hadkakona_s25__quest_spln_Adbu" Text="S25 - quest splněn, Marika se nevrátila" />
+				</Port>
+				<Port Name="s26__quest_splnen" Direction="In" Type="bool">
+					<DesignName StringName="hadkakona_s26__quest_spln_gkGv" Text="S26 - quest splněn" />
+				</Port>
+				<Port Name="s26__quest_fail" Direction="In" Type="bool">
+					<DesignName StringName="hadkakona_s26__quest_fail_6w9g" Text="S26 - quest fail" />
+				</Port>
 			</Ports>
 			<Definitions>
 				<Definition File="hadkaKonaru/konskeZavody_utils.xml" />
@@ -40,6 +55,7 @@
 				<Definition File="hadkaKonaru/prubeh_a_odevzdavani.xml" />
 				<Definition File="hadkaKonaru/bibrek_mikolaj__situace_po_skonceni.xml" />
 				<Definition File="hadkaKonaru/hrac_barkuje_po_trialogu.xml" />
+				<Definition File="hadkaKonaru/bibrek_a_mikolaj_po_dialogu.xml" />
 			</Definitions>
 			<Nodes>
 				<State Name="AfterQuestDialogIsActive" PositionY="130" PositionX="2050" TypeT="bool">
@@ -57,6 +73,17 @@
 					</Edge>
 					<Edge From="prubeh_a_odevzdavani.end_quest" To="SetTrue" />
 				</State>
+				<bibrek_a_mikolaj_po_dialogu Name="bibrek_a_mikolaj_po_dialogu" PositionY="-1400" PositionX="560">
+					<Edge From="start_questu.start_questu_a_zpristupnit_aktivity" To="uvodni_polylog_done">
+						<Vertex>vertex196</Vertex>
+						<Vertex>vertex200</Vertex>
+					</Edge>
+					<Edge From="triggersequence67.B" To="uvodni_polylog_done">
+						<Vertex>Wq2jnxdT</Vertex>
+						<Vertex>vertex196</Vertex>
+						<Vertex>vertex200</Vertex>
+					</Edge>
+				</bibrek_a_mikolaj_po_dialogu>
 				<bibrek_mikolaj__situace_po_skonceni Name="bibrek_mikolaj__situace_po_skonceni" PositionY="720" PositionX="2080">
 					<Edge From="state61.CompleteWithArcher" To="hrac_vybral_lukostrelbu">
 						<Vertex>vertex165</Vertex>
@@ -122,9 +149,15 @@
 						<Vertex>vertex191</Vertex>
 					</Edge>
 				</deathalivecheckstate>
-				<debug_equiptestbow Name="debug_equiptestbow" PositionY="-1360" PositionX="-460" Namespace="utils.KonskeZavody_utils">
+				<debug_equiptestbow Name="debug_equiptestbow" PositionY="-1730" PositionX="-100" Namespace="utils.KonskeZavody_utils">
 					<Edge From="triggersequence67.A" To="go_brrr" />
 				</debug_equiptestbow>
+				<HasteTrigger Name="endPreviousQuest" PositionY="-2920" PositionX="-1460">
+					<Edge From="makearray1_1.Array" To="Prerequisites" />
+				</HasteTrigger>
+				<HasteTrigger Name="endQuest" PositionY="-2690" PositionX="-1460">
+					<Edge From="makearray2.Array" To="Prerequisites" />
+				</HasteTrigger>
 				<expectedeffect Name="expectedeffect" PositionY="-1580" PositionX="-80" Namespace="utils.crime.trespass">
 					<Asset Name="npcs" Alias="npc_mikolaj" />
 					<Constant Name="extenduntilplayerleavestrespass" Value="true" />
@@ -141,10 +174,10 @@
 						<Vertex>vertex182</Vertex>
 					</Edge>
 				</expectedeffect>
-				<HasteTrigger Name="finish_bothDisciplines" PositionY="-1060" PositionX="-1750" />
-				<HasteTrigger Name="finish_crosscountry" PositionY="-1470" PositionX="-1670" />
-				<HasteTrigger Name="finish_shooting" PositionY="-1270" PositionX="-1680" />
-				<hrac_barkuje_po_trialogu Name="hrac_barkuje_po_trialogu" PositionY="-1180" PositionX="560" />
+				<HasteTrigger Name="finish_bothDisciplines" PositionY="-1110" PositionX="-1720" />
+				<HasteTrigger Name="finish_crosscountry" PositionY="-1540" PositionX="-1720" />
+				<HasteTrigger Name="finish_shooting" PositionY="-1320" PositionX="-1720" />
+				<hrac_barkuje_po_trialogu Name="hrac_barkuje_po_trialogu" PositionY="-1240" PositionX="590" />
 				<IfFunction Name="ifand60" PositionY="70" PositionX="820" MethodName="math::boolean::And" DeclaringType="math::boolean">
 					<Edge From="crossCountryProgress.Completed" To="A">
 						<Vertex>vertex151</Vertex>
@@ -169,23 +202,22 @@
 					<Edge From="deathalivecheckstate.isalive" To="A" />
 					<Edge From="deathalivecheckstate_1.isalive" To="B" />
 				</IfFunction>
-				<HasteTrigger Name="init" PositionY="-2630" PositionX="-1280">
+				<HasteTrigger Name="init" PositionY="-2450" PositionX="-1460">
 					<Edge From="makearray35.Array" To="ConsoleCommands" />
+					<Edge From="makearray2.Array" To="Prerequisites" />
 				</HasteTrigger>
-				<HasteTrigger Name="init_bibrek" PositionY="-2410" PositionX="-1280">
+				<HasteTrigger Name="init_bibrek" PositionY="-2220" PositionX="-1460">
 					<Edge From="makearray35_1.Array" To="ConsoleCommands" />
+					<Edge From="makearray2.Array" To="Prerequisites" />
 				</HasteTrigger>
-				<HasteTrigger Name="init_bibrek_withHorse" PositionY="-1960" PositionX="-1320">
+				<HasteTrigger Name="init_bibrek_withHorse" PositionY="-1780" PositionX="-1460">
 					<Edge From="makearray35_1_1.Array" To="ConsoleCommands" />
+					<Edge From="makearray2.Array" To="Prerequisites" />
 				</HasteTrigger>
-				<HasteTrigger Name="init_withHorse" PositionY="-2180" PositionX="-1320">
+				<HasteTrigger Name="init_withHorse" PositionY="-2000" PositionX="-1460">
 					<Edge From="makearray35_2.Array" To="ConsoleCommands" />
+					<Edge From="makearray2.Array" To="Prerequisites" />
 				</HasteTrigger>
-				<State Name="IntroLogged" PositionY="60" PositionX="-240" RequiredForOutput="trosecko" TypeT="Tribool">
-					<Edge From="state49.OnActive" To="SetTrue">
-						<Vertex>vertex145</Vertex>
-					</Edge>
-				</State>
 				<State Name="IsAvailable" PositionY="-730" PositionX="-720" TypeT="Tribool">
 					<Constant Name="DefaultValue" Value="None" />
 					<Edge From="tip_aktivity_byl_zapojen_na_start_ow" To="SetTrue">
@@ -226,6 +258,7 @@
 						<Vertex>vertex135</Vertex>
 					</Edge>
 					<Edge From="triggersequence67.B" To="SetNone">
+						<Vertex>Wq2jnxdT</Vertex>
 						<Vertex>vertex196</Vertex>
 						<Vertex>vertex107</Vertex>
 						<Vertex>vertex108</Vertex>
@@ -263,18 +296,24 @@
 						<Vertex>vertex203</Vertex>
 					</Edge>
 				</State>
-				<konskeZavody_utils Name="konskeZavody_utils" PositionY="-700" PositionX="-1540" />
-				<MakeArray Name="makearray35" PositionY="-2600" PositionX="-1780" TypeT="Strings">
+				<konskeZavody_utils Name="konskeZavody_utils" PositionY="-1480" PositionX="-1310" />
+				<MakeArray Name="makearray1_1" PositionY="-2940" PositionX="-1790" TypeT="wh::conceptmodule::ConceptPaths">
+					<Constant Name="A" Value="socky.endQuest" />
+				</MakeArray>
+				<MakeArray Name="makearray2" PositionY="-2670" PositionX="-1840" TypeT="wh::conceptmodule::ConceptPaths">
+					<Constant Name="A" Value="hadkaKonaru.endPreviousQuest" />
+				</MakeArray>
+				<MakeArray Name="makearray35" PositionY="-2430" PositionX="-1910" TypeT="Strings">
 					<Constant Name="A" Value="goto tvez_mikolaj" />
 				</MakeArray>
-				<MakeArray Name="makearray35_1" PositionY="-2380" PositionX="-1790" TypeT="Strings">
+				<MakeArray Name="makearray35_1" PositionY="-2200" PositionX="-1930" TypeT="Strings">
 					<Constant Name="A" Value="goto tvez_bibrek" />
 				</MakeArray>
-				<MakeArray Name="makearray35_1_1" PositionY="-1930" PositionX="-1830" TypeT="Strings">
+				<MakeArray Name="makearray35_1_1" PositionY="-1750" PositionX="-1970" TypeT="Strings">
 					<Constant Name="A" Value="goto tvez_bibrek" />
 					<Constant Name="B" Value="wh_concept_hasteTrigger horse.horse_streamOnly" />
 				</MakeArray>
-				<MakeArray Name="makearray35_2" PositionY="-2150" PositionX="-1820" TypeT="Strings">
+				<MakeArray Name="makearray35_2" PositionY="-1970" PositionX="-1960" TypeT="Strings">
 					<Constant Name="A" Value="goto tvez_mikolaj" />
 					<Constant Name="B" Value="wh_concept_hasteTrigger horse.horse_streamOnly" />
 				</MakeArray>
@@ -286,9 +325,10 @@
 					<Asset Name="A" Alias="mikolaj_trialogSpot" />
 					<Asset Name="B" Alias="bibrek_trialogSpot" />
 				</MakeArray>
-				<MakeArray Name="makearray66" PositionY="-1690" PositionX="-780" TypeT="wh::conceptmodule::ConceptPaths">
+				<MakeArray Name="makearray66" PositionY="-1450" PositionX="-790" TypeT="wh::conceptmodule::ConceptPaths">
 					<Constant Name="A" Value="horse.horse_streamOnly" />
 					<Constant Name="B" Value="02_items.04_money_50gr" />
+					<Constant Name="C" Value="hadkaKonaru.endPreviousQuest" />
 				</MakeArray>
 				<npcpolylogonspots Name="npcpolylogonspots" PositionY="230" PositionX="2350" Namespace="utils.speech">
 					<Asset Name="smart_entity" Alias="qSO" />
@@ -301,10 +341,7 @@
 					<Edge From="makearray47.Array" To="npcs" />
 					<Edge From="makearray48.Array" To="spots" />
 				</npcpolylogonspots>
-				<promluv_s_konaky Name="objectiveVisual58" PositionY="400" PositionX="-240" RequiredForOutput="trosecko">
-					<Edge From="IntroLogged.State" To="Progress" />
-					<Edge From="IntroLogged.True" To="intro" />
-				</promluv_s_konaky>
+				<objectivename Name="objectivename" PositionY="220" PositionX="-640" Namespace="utils.commonstrings" />
 				<osvedc_se_u_bibreka Name="objectiveVisual62" PositionY="290" PositionX="740" RequiredForOutput="trosecko">
 					<Edge From="jizdniLukostrelbaProgress.State" To="Progress" />
 				</osvedc_se_u_bibreka>
@@ -384,13 +421,14 @@
 						<Vertex>vertex200</Vertex>
 					</Edge>
 					<Edge From="triggersequence67.B" To="Exec">
+						<Vertex>Wq2jnxdT</Vertex>
 						<Vertex>vertex196</Vertex>
 						<Vertex>vertex200</Vertex>
 					</Edge>
 				</Function>
-				<SaveGame Name="savegame41" PositionY="220" PositionX="-570">
-					<Constant Name="Objective" Value="ziskej_uctu" />
+				<SaveGame Name="savegame41" PositionY="150" PositionX="-290">
 					<Edge From="state49.OnDone" To="EnqueueSave" />
+					<Edge From="objectivename.endquest" To="ObjectiveNameOverride" />
 				</SaveGame>
 				<ShowMapMarker Name="showmapmarker51" PositionY="-1360" PositionX="-80">
 					<Asset Name="MarkerObject" Alias="npc_mikolaj" />
@@ -408,8 +446,11 @@
 						<Vertex>vertex182</Vertex>
 					</Edge>
 				</ShowMapMarker>
-				<HasteTrigger Name="skipTrialogStartQuest" PositionY="-1480" PositionX="-780">
-					<Edge From="makearray66.Array" To="Prerequisites" />
+				<HasteTrigger Name="skipTrialogStartQuest" PositionY="-1220" PositionX="-740">
+					<Edge From="makearray66.Array" To="Prerequisites">
+						<Vertex>K902qQsg</Vertex>
+						<Vertex>F2Rba7YS</Vertex>
+					</Edge>
 				</HasteTrigger>
 				<start_questu Name="start_questu" PositionY="-600" PositionX="-260">
 					<Edge From="IsAvailable.True" To="Awake">
@@ -434,6 +475,7 @@
 						<Vertex>vertex142</Vertex>
 					</Edge>
 					<Edge From="triggersequence67.B" To="SetActive">
+						<Vertex>Wq2jnxdT</Vertex>
 						<Vertex>vertex196</Vertex>
 						<Vertex>vertex107</Vertex>
 						<Vertex>vertex108</Vertex>
@@ -463,11 +505,18 @@
 						<Vertex>vertex174</Vertex>
 					</Edge>
 				</State>
-				<TriggerSequence Name="triggersequence67" PositionY="-1300" PositionX="-750">
-					<Edge From="skipTrialogStartQuest.OnTrigger" To="Exec" />
+				<TriggerSequence Name="triggersequence67" PositionY="-960" PositionX="-710">
+					<Edge From="skipTrialogStartQuest.OnTrigger" To="Exec">
+						<Vertex>I4dN0H5c</Vertex>
+						<Vertex>7mIVe1X2</Vertex>
+					</Edge>
 				</TriggerSequence>
 			</Nodes>
 			<EdgeVertices>
+				<EdgeVertex Name="7mIVe1X2" PositionY="-990" PositionX="-700" />
+				<EdgeVertex Name="F2Rba7YS" PositionY="-1250" PositionX="-720" />
+				<EdgeVertex Name="I4dN0H5c" PositionY="-990" PositionX="-520" />
+				<EdgeVertex Name="K902qQsg" PositionY="-1250" PositionX="-530" />
 				<EdgeVertex Name="vertex107" PositionY="880" PositionX="-60" />
 				<EdgeVertex Name="vertex108" PositionY="890" PositionX="-830" />
 				<EdgeVertex Name="vertex111" PositionY="-430" PositionX="1350" />
@@ -478,7 +527,7 @@
 				<EdgeVertex Name="vertex132" PositionY="670" PositionX="2130" />
 				<EdgeVertex Name="vertex133" PositionY="670" PositionX="2650" />
 				<EdgeVertex Name="vertex135" PositionY="-480" PositionX="-850" />
-				<EdgeVertex Name="vertex136" PositionY="-2180" PositionX="-870" />
+				<EdgeVertex Name="vertex136" PositionY="-1930" PositionX="-960" />
 				<EdgeVertex Name="vertex137" PositionY="-470" PositionX="-1900" />
 				<EdgeVertex Name="vertex138" PositionY="-560" PositionX="-390" />
 				<EdgeVertex Name="vertex142" PositionY="20" PositionX="-800" />
@@ -502,12 +551,12 @@
 				<EdgeVertex Name="vertex172" PositionY="660" PositionX="1690" />
 				<EdgeVertex Name="vertex173" PositionY="670" PositionX="1070" />
 				<EdgeVertex Name="vertex174" PositionY="810" PositionX="1060" />
-				<EdgeVertex Name="vertex176" PositionY="-780" PositionX="-1330" />
-				<EdgeVertex Name="vertex177" PositionY="-750" PositionX="-1340" />
+				<EdgeVertex Name="vertex176" PositionY="-780" PositionX="-1300" />
+				<EdgeVertex Name="vertex177" PositionY="-750" PositionX="-1310" />
 				<EdgeVertex Name="vertex178" PositionY="-787" PositionX="-490" />
 				<EdgeVertex Name="vertex179" PositionY="-759" PositionX="-518" />
-				<EdgeVertex Name="vertex180" PositionY="-780" PositionX="-1440" />
-				<EdgeVertex Name="vertex181" PositionY="-750" PositionX="-1460" />
+				<EdgeVertex Name="vertex180" PositionY="-780" PositionX="-1350" />
+				<EdgeVertex Name="vertex181" PositionY="-750" PositionX="-1370" />
 				<EdgeVertex Name="vertex182" PositionY="-1150" PositionX="-230" />
 				<EdgeVertex Name="vertex184" PositionY="10" PositionX="-1200" />
 				<EdgeVertex Name="vertex186" PositionY="-30" PositionX="-1220" />
@@ -517,11 +566,11 @@
 				<EdgeVertex Name="vertex192" PositionY="-310" PositionX="-1760" />
 				<EdgeVertex Name="vertex193" PositionY="-290" PositionX="-1760" />
 				<EdgeVertex Name="vertex194" PositionY="-410" PositionX="-1120" />
-				<EdgeVertex Name="vertex196" PositionY="-430" PositionX="80" />
+				<EdgeVertex Name="vertex196" PositionY="-740" PositionX="0" />
 				<EdgeVertex Name="vertex197" PositionY="1079" PositionX="2728" />
 				<EdgeVertex Name="vertex198" PositionY="988" PositionX="2725" />
 				<EdgeVertex Name="vertex199" PositionY="1014" PositionX="2725" />
-				<EdgeVertex Name="vertex200" PositionY="-440" PositionX="440" />
+				<EdgeVertex Name="vertex200" PositionY="-740" PositionX="480" />
 				<EdgeVertex Name="vertex202" PositionY="815" PositionX="280" />
 				<EdgeVertex Name="vertex203" PositionY="390" PositionX="290" />
 				<EdgeVertex Name="vertex72" PositionY="800" PositionX="1760" />
@@ -535,6 +584,7 @@
 				<EdgeVertex Name="vertex89" PositionY="-620" PositionX="-250" />
 				<EdgeVertex Name="vertex90" PositionY="-620" PositionX="1880" />
 				<EdgeVertex Name="vertex91" PositionY="-620" PositionX="1380" />
+				<EdgeVertex Name="Wq2jnxdT" PositionY="-740" PositionX="-400" />
 			</EdgeVertices>
 			<Types>
 				<Type TypeName="gainingRespect">
@@ -598,6 +648,8 @@
 				<CameraAsset Name="hadkaKonaru_trialog_bibrekDetail" />
 				<CameraAsset Name="hadkaKonaru_trialog_mikolajDetail" />
 				<CameraAsset Name="hadkaKonaru_trialog_bibrekOverShoulder" />
+				<TagPointAsset Name="mikolajWaitingTagpoint" />
+				<TagPointAsset Name="bibrekWaitingTagpoint" />
 			</Assets>
 			<Text StringName="hadka_konaru_lLUV" Text="Hádka koňařů" />
 			<Elements>
@@ -635,30 +687,6 @@
 						<EnumLog Type="None" Name="Aborted" />
 					</Logs>
 				</Objective>
-				<Objective TypeT="gainRespect" Name="ziskej_uctu">
-					<LocalizedName StringName="hadkakona_ziskej_uctu_E3hc" Text="Získej úctu. (Obsolete)" />
-					<Logs>
-						<EnumLog Type="None" Name="None" />
-						<EnumLog Type="Started" Name="Started" />
-						<EnumLog Type="Updated" Name="Update_ArcheryWon" />
-						<EnumLog Type="Updated" Name="Update_CrossCountryWon" />
-						<EnumLog Type="Updated" Name="ReportResult" Marker="bibrek_mikolaj">
-							<Log StringName="ziskej_uc_v_kocovnickem_t_98lh" Text="Když mám teď oba závody odježděné, měl bych s koňáky promluvit a konečně je rozsoudit. Přeci jenom o nich vím první poslední. Nebo ne? Jak se vůbec jmenují jejich koně?" />
-						</EnumLog>
-						<EnumLog Type="Completed" Name="CompletedAsArcher">
-							<Log StringName="ziskej_uc_v_kocovnickem_t_MuMI" Text="S oběma jezdci jsem si pohovořil. Jako vždy to bylo vyhrocené, ale nakonec jsem musel uznat, že lukostřelba byla nejlepší. " />
-						</EnumLog>
-						<EnumLog Type="Completed" Name="CompletedAsRacer">
-							<Log StringName="ziskej_uc_v_kocovnickem_t_mxHW" Text="S oběma jezdci jsem si pohovořil. Jako vždy to bylo vyhrocené, ale nakonec jsem musel uznat, že dostihy byly nejlepší. " />
-						</EnumLog>
-						<EnumLog Type="Completed" Name="CompletedAsNeutral">
-							<Log StringName="ziskej_uc_v_kocovnickem_t_FFoa" Text="S oběma jezdci jsem si pohovořil. Jako vždy to bylo vyhrocené, ale nakonec se mi je podařilo usmířit, aniž bych se musel přiklonit na něčí stranu." />
-						</EnumLog>
-						<EnumLog Type="Canceled" Name="Cancelled">
-							<Log StringName="ziskej_uc_v_kocovnickem_t_hAth" Text="V kočovnickém táboře jsem potkal dva jezdce, kteří se nemohli shodnout, který z koňských závodů je nejlepší. Abych je mohl rozsoudit, musel jsem vyhrát v obou. Nakonec jsem to ale celý zpackal." />
-						</EnumLog>
-					</Logs>
-				</Objective>
 				<Objective TypeT="arbitrateConflict" Name="rozsoudi_oba_jezdce">
 					<LocalizedName StringName="hadkakona_rozsoudi_oba_je_bpEj" Text="Rozsoudi oba jezdce" />
 					<Logs>
@@ -681,17 +709,6 @@
 						<EnumLog Type="Canceled" Name="Cancelled">
 							<Log StringName="rozsoudi__nez_jsem_stihl__CbAj" Text="Než jsem stihl jezdce rozsoudit, všechno se to zpackalo." />
 						</EnumLog>
-					</Logs>
-				</Objective>
-				<Objective TypeT="Tribool" Name="promluv_s_konaky">
-					<LocalizedName StringName="hadkakona_promluv_s_konaky_aqtx" Text="Promluv s koňáky." />
-					<Logs>
-						<EnumLog Type="None" Name="None" />
-						<EnumLog Type="None" Name="True" />
-						<EnumLog Type="None" Name="False" />
-						<Log Name="intro">
-							<Log StringName="promluv_s_v_kocovnickem_t_z9JF" Text="V kočovnickém táboře jsem potkal dva jezdce, jejichž neshoda ohledně toho jaký koňský závod je nejlepší, vypadala neřešitelně. To bych ale nebyl já, abych se do toho nezapletl a nepokusil se je rozsoudit. Nejdřív ale bylo potřeba se u nich osvědčit, aby mě vůbec brali jako rovného koňáka." />
-						</Log>
 					</Logs>
 				</Objective>
 			</Objectives>

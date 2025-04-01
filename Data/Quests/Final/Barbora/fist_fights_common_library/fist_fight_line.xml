@@ -183,6 +183,9 @@
 				<ConstantPort Name="afterfight_objectivy_se_zapinaji_jenom_po_vyhre" Direction="In" Type="bool" Value="false">
 					<DesignName StringName="fist_figh_afterfight_obje_NzBn" Text="AfterFight objectivy se zapinaji jenom po vyhre" />
 				</ConstantPort>
+				<Port Name="dialogparams_pro_forcovany_dialog" Direction="Out" Type="wh::dialogmodule::DialogParams*">
+					<DesignName StringName="fist_figh_dialogparams_pr_cMmQ" Text="DialogParams pro forcovaný dialog" />
+				</Port>
 			</Ports>
 			<Definitions>
 				<Definition File="fist_fight_line/souls_in_arena_check.xml" />
@@ -431,6 +434,17 @@
 					<Edge From="not15.bool" To="A" />
 					<Edge From="sledovat_smrt_npc_i_kdyz_jeho_linie_je_hotova" To="B" />
 				</Function>
+				<Function Name="or23" PositionY="1520" PositionX="2810" MethodName="math::boolean::Or" DeclaringType="math::boolean">
+					<Edge From="fistfights__after_fight.jindra_po_fightu_nemluvil_s_oponentem" To="A">
+						<Vertex>LMAShuHN</Vertex>
+						<Vertex>QkJhVgTT</Vertex>
+					</Edge>
+					<Edge From="arena_fight_with_cheering.oponent_bojuje_s_jindrou" To="B">
+						<Vertex>vertex226</Vertex>
+						<Vertex>h9HA5qyR</Vertex>
+						<Vertex>Lntp5l75</Vertex>
+					</Edge>
+				</Function>
 				<Output Name="Output">
 					<Edge From="arena_fight_with_cheering.stav_objectivu" To="stav_objectivu_boje">
 						<Vertex>vertex27</Vertex>
@@ -567,6 +581,7 @@
 						<Vertex>vertex225</Vertex>
 					</Edge>
 					<Edge From="TimeOfDayBetweenCheck.isbetween" To="je_den" />
+					<Edge From="fistfights__after_fight.dialogparams_pro_forcovany_dialog" To="dialogparams_pro_forcovany_dialog" />
 				</Output>
 				<If Name="PlayerHasWon" PositionY="300" PositionX="2050">
 					<Edge From="arena_fight_with_cheering.jindrich_vyhral" To="Condition">
@@ -592,6 +607,10 @@
 						<Vertex>vertex142</Vertex>
 					</Edge>
 				</If>
+				<SetGameContextPreset Name="setgamecontextpreset24" PositionY="1520" PositionX="3070">
+					<Constant Name="Preset" Value="crime_suppressUnconsciousPlayerShenanigans" />
+					<Edge From="or23.bool" To="IsActive" />
+				</SetGameContextPreset>
 				<souls_in_arena_check Name="souls_in_arena_check" PositionY="460" PositionX="10">
 					<Edge From="arena_area" To="arena_area">
 						<Vertex>vertex147</Vertex>
@@ -648,6 +667,7 @@
 				<EdgeVertex Name="jzJB1QQR" PositionY="-260" PositionX="620" />
 				<EdgeVertex Name="KV0kwW3z" PositionY="910" PositionX="1050" />
 				<EdgeVertex Name="LMAShuHN" PositionY="680" PositionX="2790" />
+				<EdgeVertex Name="Lntp5l75" PositionY="1640" PositionX="1880" />
 				<EdgeVertex Name="q4XBTeek" PositionY="80" PositionX="630" />
 				<EdgeVertex Name="QkJhVgTT" PositionY="970" PositionX="2750" />
 				<EdgeVertex Name="qv9kSDFo" PositionY="950" PositionX="-630" />

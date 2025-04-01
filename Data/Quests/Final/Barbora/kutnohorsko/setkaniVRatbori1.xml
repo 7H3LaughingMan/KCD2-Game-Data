@@ -4,7 +4,7 @@
 		<Quest Name="setkaniVRatbori1" IsLocked="false" Difficulty="20" ProductionCode="M37a" Players="0 1">
 			<Ports>
 				<Port Name="aktualizovat_aktivitu" Direction="Out" Type="trigger">
-					<DesignName StringName="setkanivr_aktualizovat_ak_PWa8" Text="aktualizovat aktivitu" />
+					<DesignName StringName="setkanivr_aktualizovat_ak_PWa8" Text="aktualizovat ps5 aktivitu" />
 				</Port>
 				<Port Name="rozina_kniha_je_aktivni" Direction="In" Type="bool">
 					<DesignName StringName="setkanivr_hrac_ma_rozinu__ag3t" Text="Rózina kniha je aktivní" />
@@ -108,6 +108,9 @@
 				<Port Name="odstreamuj_rutharda" Direction="Out" Type="trigger">
 					<DesignName StringName="setkanivr_odstreamuj_ruth_NElq" Text="Odstreamuj Rutharda" />
 				</Port>
+				<Port Name="odstreamuj_kone" Direction="Out" Type="trigger">
+					<DesignName StringName="setkanivr_odstreamuj_kone_IiW4" Text="Odstreamuj koně" />
+				</Port>
 			</Ports>
 			<Definitions>
 				<Definition File="setkaniVRatbori1/quest_init.xml" />
@@ -139,7 +142,7 @@
 					<Edge From="h.quest_skoncil" To="give_to_player" />
 					<Edge From="rekonstrukce.reconstruction_giveplayercupbearerqitems" To="give_to_player" />
 				</cupbearer_suit>
-				<h Name="h" PositionY="110" PositionX="-1330" RequiredForOutput="kutnohorsko">
+				<h Name="h" PositionY="130" PositionX="-1330" RequiredForOutput="kutnohorsko">
 					<Edge From="quest_init.queststarted" To="Awake" />
 					<Edge From="rozina_kniha_placeholder_interface.rozina_kniha_aktivni" To="rozina_kniha_active">
 						<Vertex>vertex15</Vertex>
@@ -154,7 +157,6 @@
 					<Edge From="haste.lazne_jeste_neprobehly_1" To="beta_vyhrala" />
 					<Edge From="haste.probehla_sabotaz_1" To="probehla_sabotaz" />
 					<Edge From="haste.havel_zna_jindru_1" To="havel_zna_jindru" />
-					<Edge From="haste.jindra_se_zna_s_polnerem_z_turnaje_1" To="hrac_zacal_bonzovat_na_tovaryse" />
 					<Edge From="haste.sermiri_jeste_nezacali_1" To="jindra_na_duel_nedorazil_nebo_utekl" />
 					<Edge From="rozina_kniha_je_dokoncena" To="rozina_kniha_je_dokoncena">
 						<Vertex>vertex22</Vertex>
@@ -172,7 +174,6 @@
 					<Edge From="s41__beta_vyhrala" To="beta_vyhrala" />
 					<Edge From="s42__probehla_sabotaz_lazni" To="probehla_sabotaz" />
 					<Edge From="s32__havel_zna_jindru" To="havel_zna_jindru" />
-					<Edge From="hrac_zacal_bonzovat_na_tovaryse" To="hrac_zacal_bonzovat_na_tovaryse" />
 					<Edge From="s42__jindra_na_duel_nedorazil_nebo_utekl" To="jindra_na_duel_nedorazil_nebo_utekl" />
 				</haste>
 				<Function Name="joinarrays3" PositionY="360" PositionX="-430" TypeT="wh::entitymodule::AnimDoors" MethodName="utilities::array::JoinArrays" DeclaringType="utilities::array">
@@ -225,8 +226,9 @@
 						<Vertex>BezJwFKK</Vertex>
 					</Edge>
 					<Edge From="h.quest_skoncil" To="aktualizovat_aktivitu" />
+					<Edge From="quest_init.unstream_horse" To="odstreamuj_kone" />
 				</Output>
-				<quest_init Name="quest_init" PositionY="-210" PositionX="-1810">
+				<quest_init Name="quest_init" PositionY="-230" PositionX="-1810">
 					<Edge From="zachrana_ptacka_byla_prave_dokoncena" To="zachrana_ptacka_byla_prave_dokoncena" />
 					<Edge From="h.quest_skoncil" To="quest_skoncil">
 						<Vertex>vertex1</Vertex>
@@ -387,7 +389,7 @@
 				<SoulAsset Name="rabinABrabant" SharedSoulGuids="b77185e0-0ec9-4a72-8ae2-048a286cced4 08df910a-a0a0-4ca6-a4fd-dd52cc3eb89a" />
 				<CutsceneHolderAsset Name="ratborRozporCH" />
 				<SoulAsset Name="lichtenstejn" SharedSoulGuids="7fdd99e9-9dab-4741-9640-77b5fcaace07" />
-				<SoulAsset Name="anna" SharedSoulGuids="1e833d11-c54e-4565-a024-1e79eb0dc6cf" />
+				<SoulAsset Name="anna" />
 				<SoulAsset Name="krystof" SharedSoulGuids="f29aeef9-7fcd-4931-976a-c82374cfb1e8" />
 				<SoulAsset Name="kunstat" SharedSoulGuids="b04cf399-64c0-4f14-a935-cd28e2bb04b2" />
 				<SoulAsset Name="stolbaRatbor" SharedSoulGuids="a70def02-6ff0-490d-9c1e-66ee3452de33" />
@@ -422,7 +424,13 @@
 				<AnimDoorAsset Name="rat1Door4" />
 				<AnimDoorAsset Name="rat1Door5" />
 				<AnimDoorAsset Name="rat1Door2" />
+				<AnimDoorAsset Name="chancellorDoor" />
 			</Assets>
+			<Notes>
+				<Note Name="note4" PositionY="310" PositionX="-2500">
+					<Text StringName="setkanivr_note4_KyLT" Text="In Port Hráč začal bonzovat na Tovaryše&#xD;&#xA;is obsolete. It was used for an unplugged chat, which we deleted in August 24" />
+				</Note>
+			</Notes>
 			<Text StringName="mq17__rada_a_ratbor_DfaN" Text="Setkání v Ratboři (Křehká spojenectví)" />
 			<Elements>
 				<GameplayActionElement>
@@ -497,7 +505,7 @@
 					<Logs>
 						<EnumLog Type="None" Name="None" />
 						<EnumLog Type="Started" Name="InvestigateTailor" Marker="tailorArea">
-							<Log StringName="getdisgui_musim_ziskat_od_Ctxk" Text="Vystupovat na královské hostině jako číšník není jen tak. Budu potřebovat parádní oděv Franty Kuldánů, který si ho nechával pro tu příležitost ušít u krejčího Hadraby. Prý si ho má vyzvednout ráno na tržišti." />
+							<Log StringName="getdisgui_musim_ziskat_od_Ctxk" Text="Vystupovat na královské hostině jako číšník není jen tak. Budu potřebovat parádní oděv Franty Kuldánů, který si ho nechával pro tu příležitost ušít u krejčího Hadraby. Krejčí bude přes den určitě k nalezení na tržišti, v noci ho nemá cenu hledat." />
 						</EnumLog>
 						<EnumLog Type="Updated" Name="GetTheDisguise" Marker="disguise">
 							<Log StringName="getdisgui_odev_ma_franta__UR8T" Text="Honosný oděv královského číšníka má teď u sebe Franta Kuldánů. Musím ho od něj nějak dostat. Prý často pobývá v hospodě u Železného orla." />

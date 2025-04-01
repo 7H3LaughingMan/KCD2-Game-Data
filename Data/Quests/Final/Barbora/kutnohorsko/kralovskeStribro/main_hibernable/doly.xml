@@ -30,6 +30,9 @@
 				<Port Name="predani_glejtu" Direction="Out" Type="trigger">
 					<DesignName StringName="doly_predani_glejtu_y7Di" Text="předání Krisitánova glejtu" />
 				</Port>
+				<Port Name="poprve_promluveno_s_kristianem" Direction="In" Type="trigger">
+					<DesignName StringName="doly_poprve_promluveno_s__xGJw" Text="poprvé promluveno s Kristiánem" />
+				</Port>
 			</Ports>
 			<Definitions>
 				<Definition File="doly/kristian_jeste_nedosel.xml" />
@@ -58,10 +61,6 @@
 					<Edge From="makearray82_1.Array" To="ConsoleCommands" />
 					<Edge From="makearray83_1.Array" To="Prerequisites" />
 				</HasteTrigger>
-				<Function Name="and20" PositionY="-270" PositionX="-260" MethodName="math::boolean::And" DeclaringType="math::boolean">
-					<Edge From="checkentitycontext19.HasContext" To="B" />
-					<Edge From="quest_active" To="A" />
-				</Function>
 				<Function Name="and41" PositionY="900" PositionX="570" MethodName="math::boolean::And" DeclaringType="math::boolean">
 					<Edge From="talkToKristianElsewhere.Done" To="A" />
 					<Edge From="not42.bool" To="B" />
@@ -90,14 +89,18 @@
 					<Edge From="or85.bool" To="A" />
 					<Edge From="or85_1.bool" To="B" />
 				</Function>
+				<Function Name="and94" PositionY="-1110" PositionX="-1240" MethodName="math::boolean::And" DeclaringType="math::boolean">
+					<Edge From="talkToKristianElsewhere.GoingToSpot" To="A" />
+					<Edge From="kristianIsInAreaDuringInitialDialog.State" To="B" />
+				</Function>
 				<AreaTrigger Name="areatrigger91" PositionY="-960" PositionX="-970">
 					<Asset Name="Souls" Alias="kristian" />
 					<Asset Name="Areas" Alias="kristiansSecretArea" />
 					<Edge From="talkToKristianElsewhere.GoingToSpot" To="IsActive" />
 				</AreaTrigger>
-				<Function Name="checkentitycontext19" PositionY="-360" PositionX="-680" MethodName="wh::xgenaimodule::CheckEntityContext" DeclaringType="wh::xgenaimodule">
+				<Function Name="checkentitycontext19" PositionY="-280" PositionX="-530" MethodName="wh::xgenaimodule::CheckEntityContext" DeclaringType="wh::xgenaimodule">
 					<Asset Name="Souls" Alias="kristian" />
-					<Constant Name="Context" Value="speech_sleepRefusalToTalk" />
+					<Constant Name="Context" Value="speech_sleeping" />
 				</Function>
 				<Function Name="checkentitycontext19_1" PositionY="1580" PositionX="840" MethodName="wh::xgenaimodule::CheckEntityContext" DeclaringType="wh::xgenaimodule">
 					<Asset Name="Souls" Alias="oreseller" />
@@ -132,7 +135,7 @@
 				<HasteTrigger Name="enable_kristianAdditionalTopics" PositionY="-20" PositionX="-1380">
 					<Constant Name="IsHidden" Value="true" />
 				</HasteTrigger>
-				<EnableBehavior Name="enablebehavior34" PositionY="-1170" PositionX="-520" Signature="" EventSet="">
+				<EnableBehavior Name="enablebehavior34" PositionY="-1220" PositionX="-520" Signature="" EventSet="">
 					<Constant Name="Behavior" Value="leaning" />
 					<Asset Name="SmartEntity" Alias="qSO" />
 					<Asset Name="NPC" Alias="kristian" />
@@ -184,6 +187,11 @@
 					<Edge From="or62.bool" To="A" />
 					<Edge From="or63.bool" To="B" />
 				</IfFunction>
+				<IfFunction Name="ifareacheck96" PositionY="-1560" PositionX="-1340" MethodName="wh::rpgmodule::AreaCheck" DeclaringType="wh::rpgmodule">
+					<Asset Name="Souls" Alias="kristian" />
+					<Asset Name="Areas" Alias="nearKristiansArgumentArea" />
+					<Edge From="poprve_promluveno_s_kristianem" To="Exec" />
+				</IfFunction>
 				<IfFunction Name="ifnot44" PositionY="350" PositionX="-320" MethodName="math::boolean::Not" DeclaringType="math::boolean">
 					<Edge From="goBackToKristianAfterShifts.Done" To="Value" />
 					<Edge From="vysledky_patrani_v_dole.skip_masla_a_hermana" To="Exec" />
@@ -222,15 +230,19 @@
 					<Edge From="or84.bool" To="pruzkum_smen_ukoncen" />
 					<Edge From="and86.bool" To="pruzkum_masla_a_hermana_ukoncen" />
 				</kristian_behem_patrani_v_dole>
-				<kristian_jeste_nedosel Name="kristian_jeste_nedosel" PositionY="-1460" PositionX="-970">
+				<kristian_jeste_nedosel Name="kristian_jeste_nedosel" PositionY="-1540" PositionX="-970">
 					<Edge From="talkToKristianElsewhere.GoingToSpot" To="enable" />
 				</kristian_jeste_nedosel>
 				<kristian_o_dolech Name="kristian_o_dolech" PositionY="-390" PositionX="-940">
 					<Edge From="or73.bool" To="promluveno_s_kristianem" />
 				</kristian_o_dolech>
-				<kristian_spi Name="kristian_spi" PositionY="-310" PositionX="0">
-					<Edge From="and20.bool" To="kristian_spi" />
+				<kristian_spi Name="kristian_spi" PositionY="-310" PositionX="-200">
+					<Edge From="checkentitycontext19.HasContext" To="kristian_spi" />
 				</kristian_spi>
+				<State Name="kristianIsInAreaDuringInitialDialog" PositionY="-1370" PositionX="-1260" TypeT="bool">
+					<Constant Name="DefaultValue" Value="false" />
+					<Edge From="ifareacheck96.True" To="SetTrue" />
+				</State>
 				<MakeArray Name="makearray82" PositionY="1850" PositionX="-1260" TypeT="Strings">
 					<Constant Name="A" Value="goto 2943.04 2259.88 115.10 -7.55 -0.00 76.00" />
 				</MakeArray>
@@ -263,6 +275,15 @@
 					<Edge From="maslo.DeadDuringShifts" To="A" />
 					<Edge From="maslo.DeadDuringConfrontation" To="B" />
 				</Function>
+				<Move Name="Move" PositionY="-1290" PositionX="-970" Namespace="utils.move">
+					<Asset Name="soul" Alias="kristian" />
+					<Asset Name="smartentity" Alias="qSO" />
+					<Asset Name="destination" Alias="kristiansPathToSafety" />
+					<Constant Name="speed" Value="Walk" />
+					<Constant Name="stealth" Value="false" />
+					<Constant Name="successdistance" Value="4" />
+					<Edge From="and94.bool" To="isactive" />
+				</Move>
 				<Function Name="not42" PositionY="750" PositionX="320" MethodName="math::boolean::Not" DeclaringType="math::boolean">
 					<Edge From="goBackToKristianAfterShifts.Done" To="Value" />
 				</Function>
@@ -278,7 +299,7 @@
 				<rekni_kristianovi_co_jsi_zjistil_od_haviru Name="objectiveVisual19" PositionY="130" PositionX="230" RequiredForOutput="kutnohorsko">
 					<Edge From="goBackToKristianAfterShifts.State" To="Progress" />
 				</rekni_kristianovi_co_jsi_zjistil_od_haviru>
-				<promluv_si_s_kristianem_v_ustrani Name="objectiveVisual23" PositionY="-850" PositionX="-1270" RequiredForOutput="kutnohorsko">
+				<promluv_si_s_kristianem_v_ustrani Name="objectiveVisual23" PositionY="-870" PositionX="-1260" RequiredForOutput="kutnohorsko">
 					<Edge From="talkToKristianElsewhere.State" To="Progress" />
 				</promluv_si_s_kristianem_v_ustrani>
 				<donut_masla_spolupracovat Name="objectiveVisual5" PositionY="2180" PositionX="650" RequiredForOutput="kutnohorsko">
@@ -335,7 +356,7 @@
 					<Edge From="kristian_behem_patrani_v_dole.herman" To="A" />
 					<Edge From="kristian_behem_patrani_v_dole.maslo" To="B" />
 				</Function>
-				<Function Name="or90" PositionY="-1170" PositionX="-760" MethodName="math::boolean::Or" DeclaringType="math::boolean">
+				<Function Name="or90" PositionY="-1130" PositionX="-740" MethodName="math::boolean::Or" DeclaringType="math::boolean">
 					<Edge From="talkToKristianElsewhere.WaitingAtSpot" To="B" />
 					<Edge From="talkToKristianElsewhere.GoingToSpot" To="A" />
 				</Function>
@@ -381,11 +402,6 @@
 					<Constant Name="Objective" Value="donut_hermana_spolupracovat" />
 					<Edge From="vysledky_patrani_v_dole.konfrontuj_hermana" To="EnqueueSave" />
 				</SaveGame>
-				<SetEntityContext Name="setentitycontext1" PositionY="-110" PositionX="-280">
-					<Constant Name="Context" Value="speech_wakeUpWithDialog" />
-					<Asset Name="Souls" Alias="kristian" />
-					<Edge From="quest_active" To="IsActive" />
-				</SetEntityContext>
 				<SetEntityContext Name="setentitycontext1_1" PositionY="1780" PositionX="840">
 					<Constant Name="Context" Value="speech_wakeUpWithDialog" />
 					<Asset Name="Souls" Alias="oreseller" />
@@ -396,8 +412,7 @@
 					<Asset Name="Souls" Alias="maslo" />
 					<Edge From="talkToMaslo.Active" To="IsActive" />
 				</SetEntityContext>
-				<State Name="talkToKristianElsewhere" PositionY="-690" PositionX="-1360" RequiredForOutput="kutnohorsko" TypeT="talkToNPCelsewhere">
-					<Edge From="presun_do_dolu" To="SetGoingToSpot" />
+				<State Name="talkToKristianElsewhere" PositionY="-710" PositionX="-1350" RequiredForOutput="kutnohorsko" TypeT="talkToNPCelsewhere">
 					<Edge From="timer25.OnFinished" To="SetLeftTheSpot">
 						<Vertex>vertex116</Vertex>
 						<Vertex>vertex117</Vertex>
@@ -415,6 +430,7 @@
 						<Vertex>vertex110</Vertex>
 						<Vertex>vertex111</Vertex>
 					</Edge>
+					<Edge From="presun_do_dolu" To="SetGoingToSpot" />
 				</State>
 				<State Name="talkToMaslo" PositionY="2200" PositionX="380" RequiredForOutput="kutnohorsko" TypeT="ProgressFailable">
 					<Edge From="vysledky_patrani_v_dole.konfrontuj_masla" To="SetActive" />
@@ -460,6 +476,8 @@
 			</EdgeVertices>
 			<Assets>
 				<TriggerAreaAsset Name="kristiansSecretArea" />
+				<PredefinedPathAsset Name="kristiansPathToSafety" />
+				<TriggerAreaAsset Name="nearKristiansArgumentArea" />
 			</Assets>
 			<Text StringName="doly_hCiG" Text="DOLY" />
 			<Elements>

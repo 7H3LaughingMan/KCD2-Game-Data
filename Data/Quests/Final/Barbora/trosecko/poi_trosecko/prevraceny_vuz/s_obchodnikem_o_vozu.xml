@@ -6,6 +6,15 @@
 				<Port Name="jindra_uz_videl_prevraceny_vuz_u_rybika" Direction="In" Type="bool">
 					<DesignName StringName="s_obchodn_jindra_uz_videl_Ifsd" Text="Jindra už viděl převrácený vůz u rybíka" />
 				</Port>
+				<Port Name="nizka_charisma" Direction="In" Type="bool">
+					<DesignName StringName="s_obchodn_nizka_charisma_pXno" Text="nízká charisma" />
+				</Port>
+				<Port Name="shop_denied" Direction="In" Type="bool">
+					<DesignName StringName="s_obchodn_shop_denied_fIoR" Text="shop denied" />
+				</Port>
+				<Port Name="nizka_reputace" Direction="In" Type="bool">
+					<DesignName StringName="s_obchodn_nizka_reputace_YVSf" Text="nizká reputace" />
+				</Port>
 				<Port Name="jindra_slysel_o_vozu_u_rybnika" Direction="Out" Type="trigger">
 					<DesignName StringName="s_obchodn_jindra_slysel_o_rnsI" Text="Jindra slyšel o vozu u rybníka." />
 				</Port>
@@ -21,7 +30,7 @@
 				</SelectedSouls>
 				<Decision Name="dec1" Priority="General">
 					<Sequences>
-						<Sequence EntryCondition="!ThisSequenceUsed() AND !Port('hrac_ma_cejch_a_nemuze_obchodovat')" EndType="Decision" Visibility="Public" Name="jindra_slysel_o_vozu">
+						<Sequence EntryCondition="!ThisSequenceUsed() AND&#xD;&#xA;!Port('hrac_ma_cejch_a_nemuze_obchodovat') AND &#xD;&#xA;!Port('nizka_charisma') AND&#xD;&#xA;!Port('nizka_reputace') AND&#xD;&#xA;!Port('shop_denied')" EndType="Decision" Visibility="Public" Name="jindra_slysel_o_vozu">
 							<DesignName StringName="s_obchodn_seq1_VNUe" Text="Jindra slyšel o vozu" />
 							<Elements>
 								<Response Role="KUPEC_TROSKOVICE" ReferenceLength="5.77">
@@ -117,7 +126,7 @@
 										</Elements>
 										<Decision Name="dec3" Priority="General">
 											<Sequences>
-												<Sequence SpeechCoef="0" EndType="GoTo" GoToDecision="dec2" Visibility="Internal" Name="it_pisses_me_off">
+												<Sequence EndType="GoTo" GoToDecision="dec2" SpeechCoef="0" Visibility="Internal" Name="it_pisses_me_off">
 													<DesignName StringName="s_obchodn_seq6_bXDs" Text="it_pisses_me_off" />
 													<Elements>
 														<Response Role="KUPEC_TROSKOVICE" ReferenceLength="4.44">

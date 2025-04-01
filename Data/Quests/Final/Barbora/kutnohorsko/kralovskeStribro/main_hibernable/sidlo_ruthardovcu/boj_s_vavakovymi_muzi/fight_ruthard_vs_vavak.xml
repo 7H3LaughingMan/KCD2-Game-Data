@@ -24,6 +24,9 @@
 				<Port Name="quest_active" Direction="In" Type="bool">
 					<DesignName StringName="fight_rut_quest_active_n862" Text="Ruthardka section active" />
 				</Port>
+				<Port Name="battle_started" Direction="In" Type="bool">
+					<DesignName StringName="fight_rut_battle_started_3tpg" Text="battle started" />
+				</Port>
 			</Ports>
 			<Definitions>
 				<Definition File="fight_ruthard_vs_vavak/bark_vavakova_muze_k_hraci.xml" />
@@ -114,7 +117,7 @@
 					</Edge>
 					<Edge From="start_fight" To="SetActive" />
 				</State>
-				<Function Name="joinarrays22" PositionY="940" PositionX="710" TypeT="wh::rpgmodule::Souls" MethodName="utilities::array::JoinArrays" DeclaringType="utilities::array">
+				<Function Name="joinarrays22" PositionY="910" PositionX="700" TypeT="wh::rpgmodule::Souls" MethodName="utilities::array::JoinArrays" DeclaringType="utilities::array">
 					<Asset Name="A" Alias="oldrichsSoldiers" />
 					<Asset Name="B" Alias="ruthardsSoldiers" />
 				</Function>
@@ -123,7 +126,7 @@
 					<Asset Name="B" Alias="ruthardsSoldiers" />
 					<Asset Name="C" Alias="companionDog" />
 				</Function>
-				<LinkEffectNoData Name="linkeffectnodata82" PositionY="1190" PositionX="470">
+				<LinkEffectNoData Name="linkeffectnodata82" PositionY="1120" PositionX="460">
 					<Asset Name="From" Alias="ruthard" />
 					<Asset Name="To" Alias="ruthardsFightStartPoint" />
 					<Constant Name="Tag" Value="combat_anchor" />
@@ -145,6 +148,10 @@
 				<oldrichssoldiers_contexts Name="oldrichssoldiers_contexts" PositionY="1830" PositionX="270">
 					<Edge From="state100.State" To="player_outside_area" />
 				</oldrichssoldiers_contexts>
+				<Function Name="or106" PositionY="-20" PositionX="-20" MethodName="math::boolean::Or" DeclaringType="math::boolean">
+					<Edge From="fightRuthardVsVavak.Active" To="B" />
+					<Edge From="battle_started" To="A" />
+				</Function>
 				<Function Name="or73" PositionY="300" PositionX="1180" MethodName="math::boolean::Or" DeclaringType="math::boolean">
 					<Edge From="fightRuthardVsVavak.Done" To="A">
 						<Vertex>vertex14</Vertex>
@@ -154,9 +161,6 @@
 					</Edge>
 				</Function>
 				<Output Name="Output">
-					<Edge From="fightRuthardVsVavak.Active" To="fight_active">
-						<Vertex>vertex11</Vertex>
-					</Edge>
 					<Edge From="or73.bool" To="bitka_je_skoncena" />
 					<Edge From="fightRuthardVsVavak.OnDone" To="fight_done">
 						<Vertex>vertex18</Vertex>
@@ -165,6 +169,9 @@
 						<Vertex>vertex19</Vertex>
 					</Edge>
 					<Edge From="ruthardIsInjured.State" To="ruthard_byl_zranen" />
+					<Edge From="or106.bool" To="fight_active">
+						<Vertex>vertex11</Vertex>
+					</Edge>
 				</Output>
 				<participant_scanner Name="participant_scanner" PositionY="980" PositionX="-10">
 					<Edge From="fightRuthardVsVavak.Active" To="fight_active" />
@@ -184,7 +191,7 @@
 					<Edge From="joinarrays22.Array" To="Souls" />
 					<Edge From="or73.bool" To="IsActive" />
 				</SetEntityContext>
-				<SetEntityContext Name="setentitycontext76" PositionY="940" PositionX="470">
+				<SetEntityContext Name="setentitycontext76" PositionY="910" PositionX="460">
 					<Constant Name="Context" Value="combat_forceArmed" />
 					<Edge From="fightRuthardVsVavak.Active" To="IsActive" />
 					<Edge From="joinarrays22.Array" To="Souls">
@@ -192,12 +199,17 @@
 						<Vertex>vertex26</Vertex>
 					</Edge>
 				</SetEntityContext>
-				<SetEntityContext Name="setentitycontext76_1" PositionY="1190" PositionX="710">
+				<SetEntityContext Name="setentitycontext76_1" PositionY="1120" PositionX="700">
 					<Constant Name="Context" Value="combat_alwaysJoinSkirmish" />
 					<Edge From="fightRuthardVsVavak.Active" To="IsActive" />
 					<Edge From="joinarrays22.Array" To="Souls">
 						<Vertex>vertex25</Vertex>
 					</Edge>
+				</SetEntityContext>
+				<SetEntityContext Name="setentitycontext76_1_1" PositionY="1310" PositionX="700">
+					<Constant Name="Context" Value="combat_disableDefaultSurrenderChat" />
+					<Asset Name="Souls" Alias="oldrichsSoldiers" />
+					<Edge From="fightRuthardVsVavak.Active" To="IsActive" />
 				</SetEntityContext>
 				<SetEntityContext Name="setentitycontext86" PositionY="190" PositionX="320">
 					<Constant Name="Context" Value="combat_disabledAsTarget" />
@@ -254,8 +266,8 @@
 				<EdgeVertex Name="vertex18" PositionY="-80" PositionX="350" />
 				<EdgeVertex Name="vertex19" PositionY="-50" PositionX="360" />
 				<EdgeVertex Name="vertex2" PositionY="950" PositionX="-310" />
-				<EdgeVertex Name="vertex25" PositionY="1170" PositionX="900" />
-				<EdgeVertex Name="vertex26" PositionY="1170" PositionX="490" />
+				<EdgeVertex Name="vertex25" PositionY="1100" PositionX="890" />
+				<EdgeVertex Name="vertex26" PositionY="1100" PositionX="480" />
 				<EdgeVertex Name="vertex28" PositionY="930" PositionX="280" />
 				<EdgeVertex Name="vertex29" PositionY="930" PositionX="-310" />
 				<EdgeVertex Name="vertex3" PositionY="950" PositionX="290" />

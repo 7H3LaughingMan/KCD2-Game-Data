@@ -25,17 +25,11 @@
 					<Asset Name="Soul" Alias="player" />
 					<Constant Name="Stat" Value="strength" />
 				</MemberFunction>
-				<IfFunction Name="ifcompare28" PositionY="40" PositionX="570" TypeT="int" MethodName="Control::Compare" DeclaringType="Control">
+				<IfFunction Name="ifcompare28" PositionY="80" PositionX="410" TypeT="int" MethodName="Control::Compare" DeclaringType="Control">
 					<Constant Name="Op" Value="GreaterEquals" />
 					<Constant Name="ValueB" Value="6" />
 					<Edge From="pickupedBags.OnIncrease" To="Exec" />
 					<Edge From="pickupedBags.State" To="ValueA" />
-				</IfFunction>
-				<IfFunction Name="ifcompare30" PositionY="-150" PositionX="290" TypeT="int" MethodName="Control::Compare" DeclaringType="Control">
-					<Constant Name="Op" Value="Less" />
-					<Constant Name="ValueB" Value="6" />
-					<Edge From="pickupedBags.State" To="ValueA" />
-					<Edge From="pickupedBags.OnIncrease" To="Exec" />
 				</IfFunction>
 				<noseni_pytlu__nabrani__barky Name="noseni_pytlu__nabrani__barky" PositionY="-820" PositionX="610">
 					<Edge From="compare15.bool" To="hrac_ma_malou_silu" />
@@ -49,11 +43,11 @@
 				<State Name="pickupedBags" PositionY="50" PositionX="10" TypeT="int">
 					<Edge From="sackcarryingeffect.player_picked_sack_from_the_source" To="Increment" />
 				</State>
-				<Function Name="requestmonologue9" PositionY="-240" PositionX="560" MethodName="wh::xgenaimodule::RequestMonologue" DeclaringType="wh::xgenaimodule">
+				<Function Name="requestmonologue9" PositionY="210" PositionX="800" MethodName="wh::xgenaimodule::RequestMonologue" DeclaringType="wh::xgenaimodule">
 					<Asset Name="Souls" Alias="player" />
 					<Constant Name="DecisionAlias" Value="mlynaruvUcen_carrryBags_barn" />
 					<Asset Name="LookAtTarget" Alias="player" />
-					<Edge From="ifcompare30.True" To="Exec" />
+					<Edge From="ifcompare28.False" To="Exec" />
 				</Function>
 				<Function Name="requestmonologue9_1" PositionY="-450" PositionX="300" MethodName="wh::xgenaimodule::RequestMonologue" DeclaringType="wh::xgenaimodule">
 					<Asset Name="Souls" Alias="player" />

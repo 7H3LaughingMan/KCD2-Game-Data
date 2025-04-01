@@ -114,6 +114,9 @@
 				<Port Name="quest_konci_bez_jizdy_na_semin" Direction="Out" Type="trigger">
 					<DesignName StringName="mucirna_quest_konci_bez_j_gI4n" Text="Quest končí bez jízdy na Semín" />
 				</Port>
+				<Port Name="bergov_nevyslal_jizdu_vypalit_semin" Direction="Out" Type="bool">
+					<DesignName StringName="mucirna_bergov_nevyslal_j_vqxc" Text="Bergov nevyslal jízdu vypálit Semín" />
+				</Port>
 			</Ports>
 			<Definitions>
 				<Definition File="mucirna/hibernation.xml" />
@@ -132,7 +135,9 @@
 					<Edge From="m31__prijezd_na_suchdol" To="ValueA" />
 				</Function>
 				<dialogy_se_seminy_kdyz_se_vubec_nevypalovalo Name="dialogy_se_seminy_kdyz_se_vubec_nevypalovalo" PositionY="1780" PositionX="1560">
-					<Edge From="hibernation.na_semin_se_nejede" To="Awake" />
+					<Edge From="hibernation.na_semin_se_nejede" To="Awake">
+						<Vertex>2YWg6Rlh</Vertex>
+					</Edge>
 					<Edge From="compare5.bool" To="isactive" />
 				</dialogy_se_seminy_kdyz_se_vubec_nevypalovalo>
 				<haste_init Name="haste_init" PositionY="-150" PositionX="-830" />
@@ -308,6 +313,9 @@
 						<Vertex>55MwJXvG</Vertex>
 					</Edge>
 					<Edge From="hibernation.quest_konci_bez_jizdy_na_semin" To="quest_konci_bez_jizdy_na_semin" />
+					<Edge From="hibernation.na_semin_se_nejede" To="bergov_nevyslal_jizdu_vypalit_semin">
+						<Vertex>2YWg6Rlh</Vertex>
+					</Edge>
 				</Output>
 				<permadeath_config Name="permadeath_config" PositionY="-680" PositionX="530">
 					<Edge From="mainQuestProgress.None" To="quest_none" />
@@ -358,6 +366,7 @@
 			</Nodes>
 			<EdgeVertices>
 				<EdgeVertex Name="0I9NlHYb" PositionY="1670" PositionX="850" />
+				<EdgeVertex Name="2YWg6Rlh" PositionY="640" PositionX="1170" />
 				<EdgeVertex Name="55MwJXvG" PositionY="-252" PositionX="1915" />
 				<EdgeVertex Name="61sjY8Rx" PositionY="280" PositionX="330" />
 				<EdgeVertex Name="9JsJTbTE" PositionY="1730" PositionX="530" />

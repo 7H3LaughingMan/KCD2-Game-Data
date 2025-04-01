@@ -15,6 +15,9 @@
 				<Port Name="predat_radovou_kroniku" Direction="Out" Type="trigger">
 					<DesignName StringName="rytir_po__predat_radovou__KQtl" Text="Předat řádovou kroniku" />
 				</Port>
+				<Port Name="dohoda_s_rytiri_uzavrena" Direction="In" Type="bool">
+					<DesignName StringName="rytir_po__dohoda_s_rytiri_dfYg" Text="Dohoda s rytíři uzavřena" />
+				</Port>
 			</Ports>
 			<Text StringName="rytir_po_bitce_tDSa" Text="Rytíř po bitce" />
 			<Elements>
@@ -35,7 +38,7 @@
 				</SelectedSouls>
 				<Decision Name="dec1" Priority="SideQuestAssignment">
 					<Sequences>
-						<Sequence EntryCondition="Port('isValid') &#xD;&#xA;AND&#xD;&#xA;!ThisSequenceUsed()" EndType="Decision" Name="reward_dialog_probehl">
+						<Sequence EntryCondition="Port('isValid') &#xD;&#xA;AND&#xD;&#xA;!ThisSequenceUsed()&#xD;&#xA;AND Port('dohoda_s_rytiri_uzavrena')" EndType="Decision" Name="reward_dialog_probehl">
 							<DesignName StringName="rytir_po__reward_dialog_p_QTYO" Text="reward dialog proběhl" />
 							<UiPrompt StringName="ui_rytir_po__reward_dialo_EXg4" Text="Co naše dohoda rytíři?" />
 							<Triggers>

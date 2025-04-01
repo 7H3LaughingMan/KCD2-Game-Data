@@ -24,12 +24,16 @@
 				<Port Name="hrac_neni_zatykan" Direction="In" Type="bool">
 					<DesignName StringName="chovani_i_hrac_neni_zatyk_N1jB" Text="hráč není zatýkán" />
 				</Port>
+				<Port Name="jsou_na_svych_mistech" Direction="In" Type="bool">
+					<DesignName StringName="chovani_i_jsou_na_svych_m_SG0z" Text="jsou na svých místech" />
+				</Port>
 			</Ports>
 			<Nodes>
 				<EnableBehavior Name="enablebehaviorpolylogchatonspots6" PositionY="-130" PositionX="760" Signature="polylogChatOnSpots" EventSet="">
 					<Constant Name="Behavior" Value="polylogChatOnSpots" />
 					<Asset Name="SmartEntity" Alias="feast" />
 					<Asset Name="NPC" Alias="olbram" />
+					<Constant Name="ForceKick" Value="true" />
 					<Constant Name="aliasChat" Value="utokNaNebakov_feast_knights" />
 					<Constant Name="aliasPolylog" Value="utokNaNebakov_feast_olbramJesek" />
 					<Constant Name="chatDistance" Value="4" />
@@ -47,11 +51,16 @@
 					<Edge From="makearray10.Array" To="places" />
 					<Edge From="makearray11.Array" To="dontCallWench" />
 					<Edge From="makearray12.Array" To="tables" />
+					<Edge From="isplayerindialog.onupdate" To="UpdateReferences">
+						<Vertex>vertex2</Vertex>
+						<Vertex>vertex3</Vertex>
+					</Edge>
 				</EnableBehavior>
 				<EnableBehavior Name="enablebehaviorpolylogchatonspots6_1" PositionY="470" PositionX="760" Signature="polylogChatOnSpots" EventSet="">
 					<Constant Name="Behavior" Value="polylogChatOnSpots" />
 					<Asset Name="SmartEntity" Alias="feast" />
 					<Asset Name="NPC" Alias="jesek" />
+					<Constant Name="ForceKick" Value="true" />
 					<Constant Name="aliasChat" Value="utokNaNebakov_feast_knights" />
 					<Constant Name="aliasPolylog" Value="utokNaNebakov_feast_olbramJesek" />
 					<Constant Name="chatDistance" Value="4" />
@@ -69,7 +78,14 @@
 					<Edge From="makearray10.Array" To="places" />
 					<Edge From="makearray11.Array" To="dontCallWench" />
 					<Edge From="makearray12.Array" To="tables" />
+					<Edge From="isplayerindialog.onupdate" To="UpdateReferences">
+						<Vertex>vertex2</Vertex>
+						<Vertex>vertex3</Vertex>
+					</Edge>
 				</EnableBehavior>
+				<isplayerindialog Name="isplayerindialog" PositionY="350" PositionX="-290" Namespace="utoknanebakov">
+					<Edge From="aktivni" To="active" />
+				</isplayerindialog>
 				<MakeArray Name="makearray1" PositionY="330" PositionX="330" TypeT="wh::rpgmodule::Souls">
 					<Asset Name="A" Alias="olbram" />
 					<Asset Name="B" Alias="jesek" />
@@ -89,6 +105,9 @@
 				<Function Name="not13" PositionY="230" PositionX="-290" MethodName="math::boolean::Not" DeclaringType="math::boolean">
 					<Edge From="hrac_neni_zatykan" To="Value" />
 				</Function>
+				<Function Name="not14" PositionY="560" PositionX="-280" MethodName="math::boolean::Not" DeclaringType="math::boolean">
+					<Edge From="jsou_na_svych_mistech" To="Value" />
+				</Function>
 				<Function Name="not7" PositionY="0" PositionX="330" MethodName="math::boolean::Not" DeclaringType="math::boolean">
 					<Edge From="or9.bool" To="Value" />
 				</Function>
@@ -98,6 +117,8 @@
 					<Edge From="chat__odmitnuti" To="C" />
 					<Edge From="hrac_hraje_kostky" To="D" />
 					<Edge From="not13.bool" To="E" />
+					<Edge From="isplayerindialog.indialog" To="F" />
+					<Edge From="not14.bool" To="G" />
 				</Function>
 			</Nodes>
 			<EdgeVertices>
@@ -106,8 +127,6 @@
 				<EdgeVertex Name="vertex4" PositionY="-10" PositionX="690" />
 			</EdgeVertices>
 			<Assets>
-				<TagPointAsset Name="ingameDialog_olbram" />
-				<TagPointAsset Name="ingameDialog_jesek" />
 				<SmartObjectAsset Name="JesekOlbramSO" />
 			</Assets>
 			<Text StringName="chovani_ingame_dialog_yQBq" Text="Chování ingame dialog" />

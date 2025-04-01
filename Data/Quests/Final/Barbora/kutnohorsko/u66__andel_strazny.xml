@@ -26,11 +26,11 @@
 				</HasteTrigger>
 				<HasteTrigger Name="complete_talkToKozina" PositionY="660" PositionX="-2120" />
 				<SoulDeathTrigger Name="deathtrigger16" PositionY="180" PositionX="-2300">
-					<Asset Name="Souls" Alias="sindel" />
-					<Edge From="state1.Active" To="IsActive">
-						<Vertex>3qDe5muJ</Vertex>
-						<Vertex>gVHtE14E</Vertex>
-						<Vertex>tG8I0IAt</Vertex>
+					<Edge From="makearray26.Array" To="Souls" />
+					<Edge From="najdiUkradeneVeci.Started" To="IsActive">
+						<Vertex>7Jof45Hk</Vertex>
+						<Vertex>cEkax61V</Vertex>
+						<Vertex>Q1sVfUoS</Vertex>
 					</Edge>
 				</SoulDeathTrigger>
 				<HasteTrigger Name="endPreviousQuest" PositionY="-730" PositionX="-2150">
@@ -40,11 +40,22 @@
 				<hibernace Name="hibernace" PositionY="330" PositionX="-910" RequiredForOutput="kutnohorsko">
 					<Edge From="xor19.bool" To="Awake" />
 				</hibernace>
+				<If Name="if25" PositionY="310" PositionX="-1970">
+					<Edge From="najdiUkradeneVeci.Started" To="Condition">
+						<Vertex>7Jof45Hk</Vertex>
+						<Vertex>cEkax61V</Vertex>
+					</Edge>
+					<Edge From="state1.OnFailed" To="Exec" />
+				</If>
 				<MakeArray Name="makearray23" PositionY="-680" PositionX="-2500" TypeT="wh::conceptmodule::ConceptPaths">
 					<Constant Name="A" Value="hledaniLichtenstejna.endQuest" />
 				</MakeArray>
 				<MakeArray Name="makearray24" PositionY="-240" PositionX="-2690" TypeT="wh::conceptmodule::ConceptPaths">
 					<Constant Name="A" Value="andel_strazny.endPreviousQuest" />
+				</MakeArray>
+				<MakeArray Name="makearray26" PositionY="230" PositionX="-2610" TypeT="wh::rpgmodule::Souls">
+					<Asset Name="A" Alias="sindel" />
+					<Asset Name="B" Alias="kozina" />
 				</MakeArray>
 				<State Name="najdiUkradeneVeci" PositionY="180" PositionX="-1650" RequiredForOutput="kutnohorsko" TypeT="ProgressAbortable">
 					<Edge From="state1.OnActive" To="SetStarted" />
@@ -52,6 +63,7 @@
 						<Vertex>TsNhs2UT</Vertex>
 					</Edge>
 					<Edge From="complete_talkToKozina.OnTrigger" To="SetCompleted" />
+					<Edge From="if25.True" To="SetAborted" />
 				</State>
 				<promluv_si_s_kozinou Name="objectiveVisual5" PositionY="260" PositionX="-1370" RequiredForOutput="kutnohorsko">
 					<Edge From="najdiUkradeneVeci.State" To="Progress" />
@@ -59,6 +71,10 @@
 				<Function Name="or17" PositionY="-10" PositionX="-1530" MethodName="math::boolean::Or" DeclaringType="math::boolean">
 					<Edge From="state1.Done" To="A" />
 					<Edge From="state1.Failed" To="B" />
+				</Function>
+				<Function Name="or27" PositionY="510" PositionX="-1230" MethodName="math::boolean::Or" DeclaringType="math::boolean">
+					<Edge From="najdiUkradeneVeci.Completed" To="A" />
+					<Edge From="najdiUkradeneVeci.Aborted" To="B" />
 				</Function>
 				<Output Name="Output">
 					<Edge From="state1.State" To="Progress" />
@@ -99,17 +115,21 @@
 						<Vertex>n7NGdIQW</Vertex>
 					</Edge>
 					<Edge From="endQuest.OnTrigger" To="SetDone" />
+					<Edge From="hibernace.quest_fail" To="SetFailed">
+						<Vertex>wfY0vPhS</Vertex>
+						<Vertex>UHbDol5q</Vertex>
+					</Edge>
 				</State>
 				<Function Name="xor19" PositionY="170" PositionX="-1120" MethodName="math::boolean::Xor" DeclaringType="math::boolean">
 					<Edge From="or17.bool" To="A" />
-					<Edge From="najdiUkradeneVeci.Completed" To="B">
-						<Vertex>NhtQ9eBS</Vertex>
-					</Edge>
+					<Edge From="or27.bool" To="B" />
 				</Function>
 			</Nodes>
 			<EdgeVertices>
 				<EdgeVertex Name="3qDe5muJ" PositionY="40" PositionX="-1240" />
 				<EdgeVertex Name="47yq49FN" PositionY="150" PositionX="-1020" />
+				<EdgeVertex Name="7Jof45Hk" PositionY="619" PositionX="-1332" />
+				<EdgeVertex Name="cEkax61V" PositionY="623" PositionX="-1847" />
 				<EdgeVertex Name="fnJJPfNT" PositionY="-31" PositionX="-715" />
 				<EdgeVertex Name="gVHtE14E" PositionY="-240" PositionX="-1140" />
 				<EdgeVertex Name="hWmWUJ1G" PositionY="580" PositionX="-730" />
@@ -117,13 +137,16 @@
 				<EdgeVertex Name="n7NGdIQW" PositionY="590" PositionX="-1970" />
 				<EdgeVertex Name="N9hHvqnC" PositionY="60" PositionX="-540" />
 				<EdgeVertex Name="NhtQ9eBS" PositionY="490" PositionX="-1190" />
+				<EdgeVertex Name="Q1sVfUoS" PositionY="631" PositionX="-2302" />
 				<EdgeVertex Name="R6GdhA7f" PositionY="-190" PositionX="-1091" />
-				<EdgeVertex Name="tG8I0IAt" PositionY="-240" PositionX="-2280" />
 				<EdgeVertex Name="TsNhs2UT" PositionY="910" PositionX="-2360" />
+				<EdgeVertex Name="UHbDol5q" PositionY="1019" PositionX="-2246" />
+				<EdgeVertex Name="wfY0vPhS" PositionY="1023" PositionX="-666" />
 			</EdgeVertices>
 			<Assets>
 				<SoulAsset Name="sindel" SharedSoulGuids="cef7b00d-1549-4b0a-9c20-5be85a4a3b3c" />
 				<InteractionTriggerAsset Name="kozinaStash" />
+				<SoulAsset Name="kozina" SharedSoulGuids="2270ce34-f4e9-4271-9c12-c1b64f5d0cb0" />
 			</Assets>
 			<Text StringName="u33__andel_strazny_3KDM" Text="Anděl strážný" />
 			<Elements>

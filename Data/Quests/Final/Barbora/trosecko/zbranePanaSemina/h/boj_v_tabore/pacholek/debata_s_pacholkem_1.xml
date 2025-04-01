@@ -100,7 +100,7 @@
 											</Response>
 										</Elements>
 									</Sequence>
-									<Sequence EntryCondition="!SequenceUsed('seqPersuade')" EndType="Decision" SkillCheckType="persuade" Visibility="Internal" Type="Skillcheck" SkillCheck="VeryHard" Name="seqPersuade">
+									<Sequence EntryCondition="!SequenceUsed('seqPersuade') OR  !SequenceUsed('seqThreaten')" EndType="Decision" SkillCheckType="persuade" Visibility="Internal" Type="Skillcheck" SkillCheck="VeryHard" Name="seqPersuade">
 										<DesignName StringName="debata_s__seqpersuade_Htch" Text="seqPersuade" />
 										<UiPrompt StringName="ui_debata_s__seqpersuade_aLVN" Text="Nikdy nevíš, co se může stát." />
 										<Elements>
@@ -220,7 +220,7 @@
 														<Response Role="ZBRANE_PANA_SEMINA_PACHOLEK_2" ReferenceLength="5.87">
 															<Text StringName="deba_zbrane_pa_urcite_mi__9Dp9" Text="Určitě mi to jde líp, než boj s cizákama a nebo... střemhlavej let ze skály." />
 															<Commands>
-																<AnimationCommand Delay="4.9" FragmentId="ADLG_Agree" Guid="a438c569-9289-47e4-b567-fa08cf7032aa" Variant="0" />
+																<AnimationCommand Delay="4.9" FragmentId="ADLG_Agree" Guid="a438c569-9289-47e4-b567-fa08cf7032aa" Variant="2" />
 															</Commands>
 														</Response>
 														<Response Role="ZBRANE_PANA_SEMINA_PACHOLEK_2">
@@ -236,14 +236,14 @@
 														<Response Role="HENRY" ReferenceLength="4.88">
 															<Text StringName="deba_henry_mas_to_mit__a__sGb8" Text="Máš to mít... Ale asi zkusim vymyslet něco uvěřitelnějšího, než panenku Marii." />
 															<Commands>
-																<AnimationCommand Role="ZBRANE_PANA_SEMINA_PACHOLEK_2" Delay="0.11" FragmentId="ADLG_Agree" Guid="a438c569-9289-47e4-b567-fa08cf7032aa" Variant="0" />
+																<AnimationCommand Role="ZBRANE_PANA_SEMINA_PACHOLEK_2" Delay="0.11" FragmentId="ADLG_Agree" Guid="a438c569-9289-47e4-b567-fa08cf7032aa" Variant="2" />
 																<CameraCommand />
 															</Commands>
 														</Response>
 														<Response Role="ZBRANE_PANA_SEMINA_PACHOLEK_2" ReferenceLength="2.09">
 															<Text StringName="deba_zbrane_pa_tak_pojdme_v8b8" Text="Tak jo, poďme." />
 															<Commands>
-																<AnimationCommand Delay="0.13" FragmentId="ADLG_Agree" Guid="dcef45d0-488f-436c-bc16-58d4f7dcb7e9" Variant="2" />
+																<AnimationCommand Delay="0.13" FragmentId="ADLG_Agree" Guid="dcef45d0-488f-436c-bc16-58d4f7dcb7e9" Variant="3" />
 																<CameraCommand />
 															</Commands>
 														</Response>
@@ -305,7 +305,7 @@
 											</Sequences>
 										</Decision>
 									</Sequence>
-									<Sequence EntryCondition="!SequenceUsed('seqThreaten')" EndType="Decision" SkillCheckType="dread" Visibility="Internal" Type="Skillcheck" SkillCheck="Medium" Name="seqThreaten">
+									<Sequence EntryCondition="!SequenceUsed('seqPersuade') OR  !SequenceUsed('seqThreaten')" EndType="Decision" SkillCheckType="dread" Visibility="Internal" Type="Skillcheck" SkillCheck="Medium" Name="seqThreaten">
 										<DesignName StringName="debata_s__seqthreaten_mTXQ" Text="seqThreaten" />
 										<UiPrompt StringName="ui_debata_s__seqthreaten_bye6" Text="Na mě nestačíš!" />
 										<Elements>
@@ -453,7 +453,7 @@
 														</Response>
 													</Elements>
 												</Sequence>
-												<Sequence SpeechCoef="0" EntryCondition="Port('pacholek_ma_mapu')" EndType="Decision" Name="seq19">
+												<Sequence EntryCondition="Port('pacholek_ma_mapu')" EndType="Decision" SpeechCoef="0" Name="seq19">
 													<DesignName StringName="debata_s__seq19_uRcR" Text="seq19" />
 													<Elements>
 														<Response Role="ZBRANE_PANA_SEMINA_PACHOLEK_2" ReferenceLength="2.24">
@@ -506,7 +506,7 @@
 																		<Text StringName="deba_henry_jenze_to_nevys_pA0Z" Text="Jenže to nevyšlo." />
 																		<Commands>
 																			<AnimationCommand Delay="0.14" FragmentId="ADLG_Gesture" Guid="7fcd8a44-bad1-4106-bc29-4498fa7b7196" Variant="13" />
-																			<AnimationCommand Role="ZBRANE_PANA_SEMINA_PACHOLEK_2" Delay="1.3" FragmentId="ADLG_Agree" Guid="a438c569-9289-47e4-b567-fa08cf7032aa" Variant="0" DesiredDuration="5.17" />
+																			<AnimationCommand Role="ZBRANE_PANA_SEMINA_PACHOLEK_2" Delay="1.3" FragmentId="ADLG_Agree" Guid="a438c569-9289-47e4-b567-fa08cf7032aa" Variant="2" DesiredDuration="5.17" />
 																			<CameraCommand />
 																		</Commands>
 																	</Response>
@@ -538,7 +538,7 @@
 																</Elements>
 																<Decision Name="dec5" Priority="SideQuestSubmission">
 																	<Sequences>
-																		<Sequence EndType="GoTo" GoToDecision="dec5" Name="seq9">
+																		<Sequence EntryCondition="!ThisSequenceUsed()" EndType="GoTo" GoToDecision="dec5" Name="seq9">
 																			<DesignName StringName="debata_s__seq9_ezG6" Text="seq9" />
 																			<UiPrompt StringName="ui_debata_s__seq9_nzvY" Text="Co to je?" />
 																			<Elements>

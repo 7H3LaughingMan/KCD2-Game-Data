@@ -18,6 +18,12 @@
 				<Port Name="tezkoodenci_vyrazili_k_brane" Direction="Out" Type="bool">
 					<DesignName StringName="tezkooden_tezkoodenci_vyr_Jrd4" Text="Těžkooděnci vyrazili k bráně" />
 				</Port>
+				<Port Name="tezkoodenci_bezi_k_brane" Direction="Out" Type="bool">
+					<DesignName StringName="tezkooden_tezkoodenci_bez_8BWy" Text="Těžkooděnci běží k bráně" />
+				</Port>
+				<Port Name="tezkoodenci_dorazili_k_brane" Direction="Out" Type="bool">
+					<DesignName StringName="tezkooden_tezkoodenci_dor_fphD" Text="Těžkooděnci dorazili k bráně" />
+				</Port>
 			</Ports>
 			<Nodes>
 				<Function Name="audiooneshot32" PositionY="430" PositionX="440" MethodName="wh::soundmodule::AudioOneShot" DeclaringType="wh::soundmodule">
@@ -58,6 +64,13 @@
 						<Vertex>RhWQFhA7</Vertex>
 					</Edge>
 					<Edge From="playtrackview4.OnFinished" To="tezkoodenci_jsou_v_brane" />
+					<Edge From="axeAttackersMoveToGate.Done" To="tezkoodenci_dorazili_k_brane">
+						<Vertex>UHGxts5x</Vertex>
+					</Edge>
+					<Edge From="axeAttackersMoveToGate.Active" To="tezkoodenci_bezi_k_brane">
+						<Vertex>VKMReGq0</Vertex>
+						<Vertex>7VsRW7Md</Vertex>
+					</Edge>
 				</Output>
 				<PlayTrackView Name="playtrackview36" PositionY="840" PositionX="450">
 					<Asset Name="CutsceneHolder" Alias="frontWallCommanderMoveToGate" />
@@ -69,12 +82,15 @@
 				</PlayTrackView>
 			</Nodes>
 			<EdgeVertices>
+				<EdgeVertex Name="7VsRW7Md" PositionY="260" PositionX="1170" />
 				<EdgeVertex Name="P10UhIwY" PositionY="1088" PositionX="161" />
 				<EdgeVertex Name="RhWQFhA7" PositionY="40" PositionX="1192" />
 				<EdgeVertex Name="tj8wWxLC" PositionY="1088" PositionX="867" />
+				<EdgeVertex Name="UHGxts5x" PositionY="280" PositionX="1170" />
 				<EdgeVertex Name="vertex16" PositionY="380" PositionX="500" />
 				<EdgeVertex Name="vertex17" PositionY="380" PositionX="1160" />
 				<EdgeVertex Name="vertex30" PositionY="-70" PositionX="490" />
+				<EdgeVertex Name="VKMReGq0" PositionY="260" PositionX="721" />
 			</EdgeVertices>
 			<Assets>
 				<TagPointAsset Name="frontWallAxeAttackersGateMoveTarget" />

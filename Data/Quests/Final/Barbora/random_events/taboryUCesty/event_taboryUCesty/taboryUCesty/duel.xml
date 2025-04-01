@@ -126,6 +126,9 @@
 				<MakeArray Name="makearray7" PositionY="-1500" PositionX="-320" TypeT="wh::rpgmodule::Souls">
 					<Edge From="chat_s_duelanti.EVENT_TABORY_DUELANTI_CHAT" To="A" />
 				</MakeArray>
+				<Function Name="not11" PositionY="-900" PositionX="-320" MethodName="math::boolean::Not" DeclaringType="math::boolean">
+					<Edge From="darko.isspawned" To="Value" />
+				</Function>
 				<Output Name="Output">
 					<Edge From="bohus.dialog_happened" To="disable_duel_bohus" />
 					<Edge From="jira.dialog_started" To="disable_duel_jira" />
@@ -149,10 +152,6 @@
 						<Vertex>vertex13</Vertex>
 					</Edge>
 					<Edge From="barnabas.dialog_started" To="ActivateCooldown">
-						<Vertex>vertex12</Vertex>
-						<Vertex>vertex13</Vertex>
-					</Edge>
-					<Edge From="darko.dialog_started" To="ActivateCooldown">
 						<Vertex>vertex12</Vertex>
 						<Vertex>vertex13</Vertex>
 					</Edge>
@@ -186,44 +185,41 @@
 						<Vertex>SrMveDHx</Vertex>
 					</Edge>
 				</ulrich>
-				<urgeadialog_taboryucesty Name="urgeadialog_taboryucesty" PositionY="-970" PositionX="-160" Namespace="taboryucesty_lib">
-					<Edge From="kunes.dialog_started" To="disable">
+				<urgeadialog_taboryucesty Name="urgeadialog_taboryucesty" PositionY="-960" PositionX="-30" Namespace="taboryucesty_lib">
+					<Edge From="kunes.dialog_started" To="disable_urgeadialog">
 						<Vertex>vertex12</Vertex>
 						<Vertex>vertex13</Vertex>
 					</Edge>
-					<Edge From="bohus.dialog_happened" To="disable">
+					<Edge From="bohus.dialog_happened" To="disable_urgeadialog">
 						<Vertex>vertex12</Vertex>
 						<Vertex>vertex13</Vertex>
 					</Edge>
-					<Edge From="jira.dialog_started" To="disable">
+					<Edge From="jira.dialog_started" To="disable_urgeadialog">
 						<Vertex>vertex12</Vertex>
 						<Vertex>vertex13</Vertex>
 					</Edge>
-					<Edge From="tesar.dialog_started" To="disable">
+					<Edge From="tesar.dialog_started" To="disable_urgeadialog">
 						<Vertex>vertex12</Vertex>
 						<Vertex>vertex13</Vertex>
 					</Edge>
-					<Edge From="barnabas.dialog_started" To="disable">
+					<Edge From="barnabas.dialog_started" To="disable_urgeadialog">
 						<Vertex>vertex12</Vertex>
 						<Vertex>vertex13</Vertex>
 					</Edge>
-					<Edge From="darko.dialog_started" To="disable">
+					<Edge From="zich.dialog_started" To="disable_urgeadialog">
 						<Vertex>vertex12</Vertex>
 						<Vertex>vertex13</Vertex>
 					</Edge>
-					<Edge From="zich.dialog_started" To="disable">
+					<Edge From="ulrich.dialog_started" To="disable_urgeadialog">
 						<Vertex>vertex12</Vertex>
 						<Vertex>vertex13</Vertex>
 					</Edge>
-					<Edge From="ulrich.dialog_started" To="disable">
+					<Edge From="hynek.dialog_started" To="disable_urgeadialog">
 						<Vertex>vertex12</Vertex>
 						<Vertex>vertex13</Vertex>
 					</Edge>
-					<Edge From="hynek.dialog_started" To="disable">
-						<Vertex>vertex12</Vertex>
-						<Vertex>vertex13</Vertex>
-					</Edge>
-					<Edge From="OnSpawn" To="enable">
+					<Edge From="not11.bool" To="urgeadialog_is_enabled" />
+					<Edge From="OnSpawn" To="onspawn">
 						<Vertex>vertex14</Vertex>
 					</Edge>
 				</urgeadialog_taboryucesty>
@@ -241,7 +237,7 @@
 				<EdgeVertex Name="Q9awu1RU" PositionY="-1320" PositionX="-150" />
 				<EdgeVertex Name="SrMveDHx" PositionY="-13" PositionX="-773" />
 				<EdgeVertex Name="vertex12" PositionY="-690" PositionX="-290" />
-				<EdgeVertex Name="vertex13" PositionY="-690" PositionX="-200" />
+				<EdgeVertex Name="vertex13" PositionY="-690" PositionX="-80" />
 				<EdgeVertex Name="vertex14" PositionY="-930" PositionX="-1010" />
 			</EdgeVertices>
 			<Assets>
@@ -249,6 +245,11 @@
 				<SmartObjectAsset Name="firstFighterPosition" />
 				<SmartObjectAsset Name="secondFighterPosition" />
 			</Assets>
+			<Notes>
+				<Note Name="note10" PositionY="-780" PositionX="-270">
+					<Text StringName="duel_note10_oMyf" Text="Darko has no UrgeADialog" />
+				</Note>
+			</Notes>
 			<Text StringName="duelanti_wul3" Text="Duel" />
 			<Comments>
 				<Item Date="2021-03-05 13:43:37" UserName="martina.sourkova" Text="mají (budou mit) duelanti i svoje vlastní barky?" />

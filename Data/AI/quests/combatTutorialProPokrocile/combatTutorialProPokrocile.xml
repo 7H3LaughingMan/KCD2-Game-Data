@@ -9,19 +9,21 @@
 		</Parameters>
 		<Root OneTimeOnly="false" FailState="Recoverable" saveVersion="2">
 			<Behavior canSkip="1">
-				<Sequence>
-					<Expression expressions="$pathFindingParams.useGeneratedNSO = true &#10;$pathFindingParams.useSmartObjects = true &#10;$pathFindingParams.enableSecondTryWithGenNSO = true" />
+				<EntityContext context="hardcoreMode_disableDirectionsChat" target="">
 					<Sequence>
-						<DistanceCondition Origin="$this.id" ReferencePt="$tagpoint" Low="3.000000" High="3.000000" Negation="true" ValueOnMiddle="false" failOnCondition="false">
-							<EntityContext context="speech_greyOutE" target="">
-								<ExactMove directionType="AlignWithEntity" directionSpecification="$tagpoint" animationTriggerDist="0.150000" precise="false" changeNPCState="true" fastForwardIncludesMove="false" destinationSpecification="$tagpoint" destinationSpecification2="" destinationSpecification3="" speed="Walk" additionalParams="" pathFindingParams="$pathFindingParams" staminaPolicy="" pathInfo="" />
-							</EntityContext>
-						</DistanceCondition>
-						<InstantCallback_empty EventName="&apos;OnFinished&apos;" />
-						<UnstanceAction unstance="Quest_SoldierBored" locationObject="$tagpoint" slaveObject="" />
-						<Wait duration="&apos;10s&apos;" timeType="GameTime" doFail="false" variation="" />
+						<Expression expressions="$pathFindingParams.useGeneratedNSO = true &#10;$pathFindingParams.useSmartObjects = true &#10;$pathFindingParams.enableSecondTryWithGenNSO = true" />
+						<Sequence>
+							<DistanceCondition Origin="$this.id" ReferencePt="$tagpoint" Low="3.000000" High="3.000000" Negation="true" ValueOnMiddle="false" failOnCondition="false">
+								<EntityContext context="speech_greyOutE" target="">
+									<ExactMove directionType="AlignWithEntity" directionSpecification="$tagpoint" animationTriggerDist="0.150000" precise="false" changeNPCState="true" fastForwardIncludesMove="false" destinationSpecification="$tagpoint" destinationSpecification2="" destinationSpecification3="" speed="Walk" additionalParams="" pathFindingParams="$pathFindingParams" staminaPolicy="" pathInfo="" />
+								</EntityContext>
+							</DistanceCondition>
+							<InstantCallback_empty EventName="&apos;OnFinished&apos;" />
+							<UnstanceAction unstance="Quest_SoldierBored" locationObject="$tagpoint" slaveObject="" />
+							<Wait duration="&apos;10s&apos;" timeType="GameTime" doFail="false" variation="" />
+						</Sequence>
 					</Sequence>
-				</Sequence>
+				</EntityContext>
 			</Behavior>
 		</Root>
 		<ForestContainer />
@@ -34,33 +36,36 @@
 			<Root hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
 				<OutputBreakpoints />
 				<Behavior>
-					<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
+					<EntityContext hasInputBreakpoint="0" comment="" breakpointFlags="0">
 						<OutputBreakpoints />
-						<Expression hasInputBreakpoint="0" comment="" breakpointFlags="0">
-							<OutputBreakpoints />
-						</Expression>
 						<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
 							<OutputBreakpoints />
-							<DistanceCondition hasInputBreakpoint="0" comment="" breakpointFlags="0">
+							<Expression hasInputBreakpoint="0" comment="" breakpointFlags="0">
 								<OutputBreakpoints />
-								<EntityContext hasInputBreakpoint="0" comment="" breakpointFlags="0">
+							</Expression>
+							<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
+								<OutputBreakpoints />
+								<DistanceCondition hasInputBreakpoint="0" comment="" breakpointFlags="0">
 									<OutputBreakpoints />
-									<ExactMove hasInputBreakpoint="0" comment="" breakpointFlags="0">
+									<EntityContext hasInputBreakpoint="0" comment="" breakpointFlags="0">
 										<OutputBreakpoints />
-									</ExactMove>
-								</EntityContext>
-							</DistanceCondition>
-							<InstantCallback_empty hasInputBreakpoint="0" comment="" breakpointFlags="0">
-								<OutputBreakpoints />
-							</InstantCallback_empty>
-							<UnstanceAction hasInputBreakpoint="0" comment="" breakpointFlags="0">
-								<OutputBreakpoints />
-							</UnstanceAction>
-							<Wait hasInputBreakpoint="0" comment="" breakpointFlags="0">
-								<OutputBreakpoints />
-							</Wait>
+										<ExactMove hasInputBreakpoint="0" comment="" breakpointFlags="0">
+											<OutputBreakpoints />
+										</ExactMove>
+									</EntityContext>
+								</DistanceCondition>
+								<InstantCallback_empty hasInputBreakpoint="0" comment="" breakpointFlags="0">
+									<OutputBreakpoints />
+								</InstantCallback_empty>
+								<UnstanceAction hasInputBreakpoint="0" comment="" breakpointFlags="0">
+									<OutputBreakpoints />
+								</UnstanceAction>
+								<Wait hasInputBreakpoint="0" comment="" breakpointFlags="0">
+									<OutputBreakpoints />
+								</Wait>
+							</Sequence>
 						</Sequence>
-					</Sequence>
+					</EntityContext>
 				</Behavior>
 			</Root>
 			<Forest />
@@ -72,12 +77,14 @@
 		<Root OneTimeOnly="false" FailState="Recoverable" saveVersion="2">
 			<Behavior canSkip="1">
 				<EntityContext context="speech_greyOutE" target="">
-					<Sequence>
-						<DrawAction WeaponSet="Primary" fullBody="false" tags="" useSelectedWeaponSet="false" />
-						<EntityContext context="tutorial_npcReadyForCombat" target="">
-							<Wait duration="&apos;-1&apos;" timeType="GameTime" doFail="false" variation="" />
-						</EntityContext>
-					</Sequence>
+					<EntityContext context="hardcoreMode_disableDirectionsChat" target="">
+						<Sequence>
+							<DrawAction WeaponSet="Primary" fullBody="false" tags="" useSelectedWeaponSet="false" />
+							<EntityContext context="tutorial_npcReadyForCombat" target="">
+								<Wait duration="&apos;-1&apos;" timeType="GameTime" doFail="false" variation="" />
+							</EntityContext>
+						</Sequence>
+					</EntityContext>
 				</EntityContext>
 			</Behavior>
 		</Root>
@@ -90,18 +97,21 @@
 				<Behavior>
 					<EntityContext hasInputBreakpoint="0" comment="KCD2-438716" breakpointFlags="0">
 						<OutputBreakpoints />
-						<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
+						<EntityContext hasInputBreakpoint="0" comment="" breakpointFlags="0">
 							<OutputBreakpoints />
-							<DrawAction hasInputBreakpoint="0" comment="" breakpointFlags="0">
+							<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
 								<OutputBreakpoints />
-							</DrawAction>
-							<EntityContext hasInputBreakpoint="0" comment="" breakpointFlags="0">
-								<OutputBreakpoints />
-								<Wait hasInputBreakpoint="0" comment="" breakpointFlags="0">
+								<DrawAction hasInputBreakpoint="0" comment="" breakpointFlags="0">
 									<OutputBreakpoints />
-								</Wait>
-							</EntityContext>
-						</Sequence>
+								</DrawAction>
+								<EntityContext hasInputBreakpoint="0" comment="" breakpointFlags="0">
+									<OutputBreakpoints />
+									<Wait hasInputBreakpoint="0" comment="" breakpointFlags="0">
+										<OutputBreakpoints />
+									</Wait>
+								</EntityContext>
+							</Sequence>
+						</EntityContext>
 					</EntityContext>
 				</Behavior>
 			</Root>
@@ -114,14 +124,16 @@
 		<Root OneTimeOnly="false" FailState="Recoverable" saveVersion="2">
 			<Behavior canSkip="1">
 				<Sequence>
-					<EntityContextCheck context="combat_playerDrawOversized" target="" saveVersion="2">
-						<Then canSkip="1">
-							<DrawAction WeaponSet="Oversized" fullBody="false" tags="" />
-						</Then>
-						<Else canSkip="1">
-							<DrawAction WeaponSet="Primary" fullBody="false" tags="" />
-						</Else>
-					</EntityContextCheck>
+					<LoopUntil until="Success" attemptCount="2">
+						<EntityContextCheck context="combat_playerDrawOversized" target="" saveVersion="2">
+							<Then canSkip="1">
+								<DrawAction WeaponSet="Oversized" fullBody="false" tags="" useSelectedWeaponSet="false" />
+							</Then>
+							<Else canSkip="1">
+								<DrawAction WeaponSet="Primary" fullBody="false" tags="" useSelectedWeaponSet="false" />
+							</Else>
+						</EntityContextCheck>
+					</LoopUntil>
 					<InstantCallback_empty EventName="&apos;OnFinished&apos;" />
 				</Sequence>
 			</Behavior>
@@ -135,19 +147,22 @@
 				<Behavior>
 					<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
 						<OutputBreakpoints />
-						<EntityContextCheck hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
+						<LoopUntil hasInputBreakpoint="0" comment="" breakpointFlags="0">
 							<OutputBreakpoints />
-							<Then>
-								<DrawAction hasInputBreakpoint="0" comment="" breakpointFlags="0">
-									<OutputBreakpoints />
-								</DrawAction>
-							</Then>
-							<Else>
-								<DrawAction hasInputBreakpoint="0" comment="" breakpointFlags="0">
-									<OutputBreakpoints />
-								</DrawAction>
-							</Else>
-						</EntityContextCheck>
+							<EntityContextCheck hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
+								<OutputBreakpoints />
+								<Then>
+									<DrawAction hasInputBreakpoint="0" comment="" breakpointFlags="0">
+										<OutputBreakpoints />
+									</DrawAction>
+								</Then>
+								<Else>
+									<DrawAction hasInputBreakpoint="0" comment="" breakpointFlags="0">
+										<OutputBreakpoints />
+									</DrawAction>
+								</Else>
+							</EntityContextCheck>
+						</LoopUntil>
 						<InstantCallback_empty hasInputBreakpoint="0" comment="" breakpointFlags="0">
 							<OutputBreakpoints />
 						</InstantCallback_empty>

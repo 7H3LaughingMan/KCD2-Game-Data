@@ -90,7 +90,9 @@
 				</Function>
 				<Function Name="and36" PositionY="-290" PositionX="1100" MethodName="math::boolean::And" DeclaringType="math::boolean">
 					<Edge From="not35.bool" To="A" />
-					<Edge From="incident_nevyresen" To="B" />
+					<Edge From="incident_nevyresen" To="B">
+						<Vertex>u9C0CoBt</Vertex>
+					</Edge>
 				</Function>
 				<Function Name="areacheck13" PositionY="-470" PositionX="-280" MethodName="wh::rpgmodule::AreaCheck" DeclaringType="wh::rpgmodule">
 					<Asset Name="Souls" Alias="player" />
@@ -129,6 +131,11 @@
 					<Constant Name="itemclass" Value="ef6eb320-91c3-4f8e-a5c5-3640fe19a0da" />
 					<Constant Name="amount" Value="1" />
 				</HasItems_Soul>
+				<HasItems_Soul Name="HasItems_Soul_3" PositionY="1780" PositionX="-750" Namespace="utils.item">
+					<Asset Name="soul" Alias="player" />
+					<Constant Name="itemclass" Value="88c08905-fb68-46e2-813e-4176d12cc493" />
+					<Constant Name="amount" Value="1" />
+				</HasItems_Soul>
 				<If Name="if14" PositionY="-300" PositionX="430">
 					<Edge From="perceptiontrigger2.OnSeenShortCone" To="Exec">
 						<Vertex>vertex38</Vertex>
@@ -156,6 +163,7 @@
 					<Edge From="incident_probehl" To="incident_probehl">
 						<Vertex>vertex44</Vertex>
 					</Edge>
+					<Edge From="HasItems_Soul_3.hasitems" To="hrac_uz_ma_ambrozuv_mec" />
 				</include_dotazy_na_konrada>
 				<State Name="kondrad_wait" PositionY="370" PositionX="1230" TypeT="Progress">
 					<Edge From="konrad_vola_na_jindru.ziskal_jeho_duveru" To="SetActive">
@@ -285,6 +293,13 @@
 					</Edge>
 					<Edge From="and33.bool" To="isValid" />
 				</rozhovor_s_konradem>
+				<SetEntityContext Name="setentitycontext41" PositionY="-670" PositionX="760">
+					<Constant Name="Context" Value="combat_killOnUnconsciousness" />
+					<Asset Name="Souls" Alias="konrad" />
+					<Edge From="incident_nevyresen" To="IsActive">
+						<Vertex>u9C0CoBt</Vertex>
+					</Edge>
+				</SetEntityContext>
 			</Nodes>
 			<EdgeVertices>
 				<EdgeVertex Name="7p9uXXnc" PositionY="313" PositionX="-783" />
@@ -292,6 +307,7 @@
 				<EdgeVertex Name="fSCgagtY" PositionY="292" PositionX="982" />
 				<EdgeVertex Name="L6bS0RtK" PositionY="357" PositionX="1101" />
 				<EdgeVertex Name="mBCAspY9" PositionY="380" PositionX="-751" />
+				<EdgeVertex Name="u9C0CoBt" PositionY="-160" PositionX="665" />
 				<EdgeVertex Name="vertex12" PositionY="-70" PositionX="1760" />
 				<EdgeVertex Name="vertex13" PositionY="270" PositionX="160" />
 				<EdgeVertex Name="vertex14" PositionY="240" PositionX="160" />

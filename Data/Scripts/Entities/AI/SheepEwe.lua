@@ -25,8 +25,8 @@ SheepEwe = {
 
 		CharacterSounds =
 		{
-			footstepEffect = "footsteps_Sheep",			-- Footstep mfx library to use
-			foleyEffect = "foley_Sheep",					-- Foley signal effect name
+			footstepEffect = "footsteps_sheep",			-- Footstep mfx library to use
+			foleyEffect = "foley_sheep",					-- Foley signal effect name
 		},
 	},
 

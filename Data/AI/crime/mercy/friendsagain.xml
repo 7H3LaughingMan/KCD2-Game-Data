@@ -3,15 +3,13 @@
 	<BehaviorTree name="crime_mercy_friendsAgain" is_function="1">
 		<Variables>
 			<Variable name="globalCooldowns" type="crime:globalCooldowns" values="" isPersistent="0" form="single" />
-			<Variable name="isBandit" type="_bool" values="" isPersistent="0" form="single" />
 			<Variable name="knownInformations" type="information" values="" isPersistent="0" form="array" />
 			<Variable name="knownInformations_value" type="information" values="" isPersistent="0" form="single" />
-			<Variable name="playerInTrespass" type="_bool" values="" isPersistent="0" form="single" />
-			<Variable name="reactionSuppressed" type="_bool" values="" isPersistent="0" form="single" />
 			<Variable name="resolveInformation" type="_bool" values="" isPersistent="0" form="single" />
-			<Variable name="trespassArea" type="_wuid" values="" isPersistent="0" form="single" />
-			<Variable name="trespassAreaSevereness" type="enum:trespassLevel" values="" isPersistent="0" form="single" />
 		</Variables>
+		<Parameters>
+			<Variable name="calmDown" type="_bool" values="" isPersistent="0" form="single" requirementType="In" />
+		</Parameters>
 		<Root OneTimeOnly="false" FailState="Recoverable" saveVersion="2">
 			<Behavior canSkip="1">
 				<Sequence>
@@ -62,35 +60,35 @@
 							</Sequence>
 						</Then>
 					</EntityContextCheck>
-					<DetermineTrespassReaction Observer="$this.id" Target="$__player" Position="" ForceSemipublicReaction="false" ShouldUseVec3Position="false" TrespassAreaSevereness="$trespassAreaSevereness" TrespassArea="$trespassArea" Reaction="$playerInTrespass" ReactionSuppressed="$reactionSuppressed" />
-					<IfCondition failOnCondition="false" condition="$playerInTrespass">
-						<Sequence>
-							<IsBandit Npc="$this.id" IsBandit="$isBandit" />
-							<IfElseCondition failOnCondition="false" condition="$isBandit" saveVersion="2">
-								<Then canSkip="1">
-									<Function_callInterrupt_watchCampTrespass ignorePriority="true" initiator="$enum:switch_interruptInitiator.scheduler" postSurrender="true" previousReaction="$enum:crime_reactionKind.mercy" nodeLabel="33546200" />
-								</Then>
-								<Else canSkip="1">
-									<Function_callInterrupt_watchTrespass ignorePriority="true" initiator="$enum:switch_interruptInitiator.scheduler" onlyWaitingForDeparture="true" previousReaction="$enum:crime_reactionKind.mercy" nodeLabel="84447532" />
-								</Else>
-							</IfElseCondition>
-						</Sequence>
+					<IfCondition failOnCondition="false" condition="!$calmDown">
+						<Function_callInterrupt_flee assaultData="" corpseState="$enum:corpseState.undiscovered" criminalFreshness="$enum:crime_criminalFreshness.unknown" freshlyAttributedCrime="false" ignorePriority="true" information="" initiator="$enum:switch_interruptInitiator.scheduler" isIndifferent="true" leaveLevel="false" mercyDialogueResult="$enum:crime_mercyDialogueResult.friendsAgain" previousReaction="$enum:crime_reactionKind.mercy" priority="135" source="$enum:crime_source.direct" stimulusKind="$enum:crime_stimulusKind.enemy" target="$__player" nodeLabel="44113202" />
 					</IfCondition>
 				</Sequence>
 			</Behavior>
 		</Root>
-		<ForestContainer />
+		<ForestContainer>
+			<DetermineTrespassReaction Observer="$this.id" Target="$__player" Position="" ForceSemipublicReaction="false" ShouldUseVec3Position="false" TrespassAreaSevereness="$trespassAreaSevereness" TrespassArea="$trespassArea" Reaction="$playerInTrespass" ReactionSuppressed="$reactionSuppressed" />
+			<IfCondition failOnCondition="false" condition="$playerInTrespass">
+				<Sequence>
+					<IsBandit Npc="$this.id" IsBandit="$isBandit" />
+					<IfElseCondition failOnCondition="false" condition="$isBandit" saveVersion="2">
+						<Then canSkip="1">
+							<Function_callInterrupt_watchCampTrespass ignorePriority="true" initiator="$enum:switch_interruptInitiator.scheduler" postSurrender="true" previousReaction="$enum:crime_reactionKind.mercy" nodeLabel="33546200" />
+						</Then>
+						<Else canSkip="1">
+							<Function_callInterrupt_watchTrespass ignorePriority="true" initiator="$enum:switch_interruptInitiator.scheduler" onlyWaitingForDeparture="true" previousReaction="$enum:crime_reactionKind.mercy" nodeLabel="84447532" />
+						</Else>
+					</IfElseCondition>
+				</Sequence>
+			</IfCondition>
+		</ForestContainer>
 		<EditorData EventSet="">
 			<Variables>
 				<Variable name="globalCooldowns" comment="" />
-				<Variable name="isBandit" comment="" />
 				<Variable name="knownInformations" comment="" />
 				<Variable name="knownInformations_value" comment="" />
-				<Variable name="playerInTrespass" comment="" />
-				<Variable name="reactionSuppressed" comment="" />
 				<Variable name="resolveInformation" comment="" />
-				<Variable name="trespassArea" comment="" />
-				<Variable name="trespassAreaSevereness" comment="" />
+				<Variable name="calmDown" comment="" />
 			</Variables>
 			<ForwardDeclarations />
 			<Root hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
@@ -180,35 +178,42 @@
 								</Sequence>
 							</Then>
 						</EntityContextCheck>
-						<DetermineTrespassReaction hasInputBreakpoint="0" comment="" breakpointFlags="0">
-							<OutputBreakpoints />
-						</DetermineTrespassReaction>
 						<IfCondition hasInputBreakpoint="0" comment="" breakpointFlags="0">
 							<OutputBreakpoints />
-							<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
+							<Function_callInterrupt_flee hasInputBreakpoint="0" comment="KCD2-461869" breakpointFlags="0">
 								<OutputBreakpoints />
-								<IsBandit hasInputBreakpoint="0" comment="" breakpointFlags="0">
-									<OutputBreakpoints />
-								</IsBandit>
-								<IfElseCondition hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
-									<OutputBreakpoints />
-									<Then>
-										<Function_callInterrupt_watchCampTrespass hasInputBreakpoint="0" comment="" breakpointFlags="0">
-											<OutputBreakpoints />
-										</Function_callInterrupt_watchCampTrespass>
-									</Then>
-									<Else>
-										<Function_callInterrupt_watchTrespass hasInputBreakpoint="0" comment="" breakpointFlags="0">
-											<OutputBreakpoints />
-										</Function_callInterrupt_watchTrespass>
-									</Else>
-								</IfElseCondition>
-							</Sequence>
+							</Function_callInterrupt_flee>
 						</IfCondition>
 					</Sequence>
 				</Behavior>
 			</Root>
-			<Forest />
+			<Forest>
+				<DetermineTrespassReaction editorPosX="990" editorPosY="750" hasInputBreakpoint="0" comment="" breakpointFlags="0">
+					<OutputBreakpoints />
+				</DetermineTrespassReaction>
+				<IfCondition editorPosX="980" editorPosY="960" hasInputBreakpoint="0" comment="" breakpointFlags="0">
+					<OutputBreakpoints />
+					<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
+						<OutputBreakpoints />
+						<IsBandit hasInputBreakpoint="0" comment="" breakpointFlags="0">
+							<OutputBreakpoints />
+						</IsBandit>
+						<IfElseCondition hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
+							<OutputBreakpoints />
+							<Then>
+								<Function_callInterrupt_watchCampTrespass hasInputBreakpoint="0" comment="" breakpointFlags="0">
+									<OutputBreakpoints />
+								</Function_callInterrupt_watchCampTrespass>
+							</Then>
+							<Else>
+								<Function_callInterrupt_watchTrespass hasInputBreakpoint="0" comment="" breakpointFlags="0">
+									<OutputBreakpoints />
+								</Function_callInterrupt_watchTrespass>
+							</Else>
+						</IfElseCondition>
+					</Sequence>
+				</IfCondition>
+			</Forest>
 			<Comments />
 		</EditorData>
 	</BehaviorTree>

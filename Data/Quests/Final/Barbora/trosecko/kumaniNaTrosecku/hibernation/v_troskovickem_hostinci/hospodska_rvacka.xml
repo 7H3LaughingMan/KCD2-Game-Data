@@ -67,7 +67,7 @@
 				<Definition File="hospodska_rvacka/haste_set_low_health_to_fighters.xml" />
 			</Definitions>
 			<Nodes>
-				<Function Name="and35" PositionY="-330" PositionX="-4060" MethodName="math::boolean::And" DeclaringType="math::boolean">
+				<Function Name="and35" PositionY="-330" PositionX="-4210" MethodName="math::boolean::And" DeclaringType="math::boolean">
 					<Edge From="interveneInFight_objective.None" To="A">
 						<Vertex>vertex154</Vertex>
 						<Vertex>vertex149</Vertex>
@@ -157,7 +157,7 @@
 						<Vertex>vertex88</Vertex>
 					</Edge>
 				</IfFunction>
-				<IfFunction Name="ifEscalationDone" PositionY="-330" PositionX="-3470" TypeT="kumaniNaTrosecku_pubFightEscalation" MethodName="Control::Compare" DeclaringType="Control">
+				<IfFunction Name="ifEscalationDone" PositionY="-330" PositionX="-3620" TypeT="kumaniNaTrosecku_pubFightEscalation" MethodName="Control::Compare" DeclaringType="Control">
 					<Constant Name="ValueA" Value="Done" />
 					<Constant Name="Op" Value="Equals" />
 					<Edge From="watch_escalation.OnChanged" To="Exec" />
@@ -165,13 +165,13 @@
 						<Vertex>vertex160</Vertex>
 					</Edge>
 				</IfFunction>
-				<If Name="ifFightStartsNotByItself" PositionY="-240" PositionX="-3190">
+				<If Name="ifFightStartsNotByItself" PositionY="-240" PositionX="-3340">
 					<Edge From="jindra_obslouzil_kumany" To="Condition">
 						<Vertex>vertex157</Vertex>
 					</Edge>
 					<Edge From="ifEscalationDone.True" To="Exec" />
 				</If>
-				<IfFunction Name="ifisinactorstate34" PositionY="-350" PositionX="-2510" MethodName="wh::entitymodule::IsInActorState" DeclaringType="wh::entitymodule">
+				<IfFunction Name="ifisinactorstate_playerInPubDuringEscalationInSkiptime" PositionY="-350" PositionX="-2610" MethodName="wh::entitymodule::IsInActorState" DeclaringType="wh::entitymodule">
 					<Asset Name="Souls" Alias="player" />
 					<Constant Name="State" Value="skipTime" />
 					<Edge From="ifPlayerIsNearPub.True" To="Exec" />
@@ -186,7 +186,7 @@
 						<Vertex>vertex104</Vertex>
 					</Edge>
 				</IfFunction>
-				<IfFunction Name="ifPlayerIsNearPub" PositionY="-350" PositionX="-2820" MethodName="wh::rpgmodule::AreaCheck" DeclaringType="wh::rpgmodule">
+				<IfFunction Name="ifPlayerIsNearPub" PositionY="-350" PositionX="-2970" MethodName="wh::rpgmodule::AreaCheck" DeclaringType="wh::rpgmodule">
 					<Asset Name="Souls" Alias="player" />
 					<Asset Name="Areas" Alias="tavernTeleportationArea" />
 					<Edge From="ifFightStartsNotByItself.False" To="Exec">
@@ -218,7 +218,7 @@
 					</Edge>
 					<Edge From="ifNotCompletedAbort.True" To="SetAborted" />
 					<Edge From="ifStarted.True" To="SetFailed" />
-					<Edge From="ifisinactorstate34.False" To="SetStarted" />
+					<Edge From="ifisinactorstate_playerInPubDuringEscalationInSkiptime.False" To="SetStarted" />
 				</State>
 				<zasahni_do_vytrznosti Name="interveneInFight_objectiveVisual" PositionY="-490" PositionX="-1420" RequiredForOutput="trosecko">
 					<Edge From="interveneInFight_objective.State" To="Progress">
@@ -291,7 +291,7 @@
 						<Vertex>vertex156</Vertex>
 						<Vertex>vertex155</Vertex>
 					</Edge>
-					<Edge From="ifisinactorstate34.True" To="boj_dobiha_bez_jindry_vyhravaji_kumani_jindra_je_daleko">
+					<Edge From="ifisinactorstate_playerInPubDuringEscalationInSkiptime.True" To="boj_dobiha_bez_jindry_vyhravaji_kumani_jindra_je_daleko">
 						<Vertex>JVmALmC8</Vertex>
 						<Vertex>QPL2sKpk</Vertex>
 						<Vertex>vertex92</Vertex>
@@ -306,7 +306,7 @@
 						<Vertex>vertex158</Vertex>
 					</Edge>
 				</reakce_na_fight>
-				<Watch Name="watch_escalation" PositionY="-330" PositionX="-3750" TypeT="kumaniNaTrosecku_pubFightEscalation">
+				<Watch Name="watch_escalation" PositionY="-330" PositionX="-3900" TypeT="kumaniNaTrosecku_pubFightEscalation">
 					<Edge From="faze_eskalace" To="WatchedState">
 						<Vertex>vertex160</Vertex>
 					</Edge>
@@ -326,8 +326,8 @@
 			</Nodes>
 			<EdgeVertices>
 				<EdgeVertex Name="72wN9zPr" PositionY="-310" PositionX="990" />
-				<EdgeVertex Name="8MATzjwF" PositionY="-120" PositionX="-2920" />
-				<EdgeVertex Name="FxfRMU4W" PositionY="50" PositionX="-3000" />
+				<EdgeVertex Name="8MATzjwF" PositionY="-120" PositionX="-3070" />
+				<EdgeVertex Name="FxfRMU4W" PositionY="50" PositionX="-3150" />
 				<EdgeVertex Name="JVmALmC8" PositionY="-260" PositionX="-2230" />
 				<EdgeVertex Name="NtHjqdVJ" PositionY="360" PositionX="450" />
 				<EdgeVertex Name="QPL2sKpk" PositionY="640" PositionX="-2180" />
@@ -337,24 +337,24 @@
 				<EdgeVertex Name="vertex101" PositionY="90" PositionX="-1680" />
 				<EdgeVertex Name="vertex102" PositionY="150" PositionX="-580" />
 				<EdgeVertex Name="vertex103" PositionY="-190" PositionX="-440" />
-				<EdgeVertex Name="vertex104" PositionY="130" PositionX="-2730" />
+				<EdgeVertex Name="vertex104" PositionY="130" PositionX="-2880" />
 				<EdgeVertex Name="vertex106" PositionY="130" PositionX="-330" />
 				<EdgeVertex Name="vertex114" PositionY="-188" PositionX="-1530" />
 				<EdgeVertex Name="vertex115" PositionY="60" PositionX="-2060" />
 				<EdgeVertex Name="vertex116" PositionY="60" PositionX="-1570" />
 				<EdgeVertex Name="vertex131" PositionY="-440" PositionX="-2230" />
-				<EdgeVertex Name="vertex132" PositionY="-440" PositionX="-4040" />
+				<EdgeVertex Name="vertex132" PositionY="-440" PositionX="-4190" />
 				<EdgeVertex Name="vertex133" PositionY="10" PositionX="-1380" />
-				<EdgeVertex Name="vertex135" PositionY="130" PositionX="-3770" />
-				<EdgeVertex Name="vertex149" PositionY="-490" PositionX="-4030" />
-				<EdgeVertex Name="vertex151" PositionY="-260" PositionX="-2880" />
+				<EdgeVertex Name="vertex135" PositionY="130" PositionX="-3920" />
+				<EdgeVertex Name="vertex149" PositionY="-490" PositionX="-4180" />
+				<EdgeVertex Name="vertex151" PositionY="-260" PositionX="-3030" />
 				<EdgeVertex Name="vertex154" PositionY="-490" PositionX="-1630" />
 				<EdgeVertex Name="vertex155" PositionY="-540" PositionX="1020" />
-				<EdgeVertex Name="vertex156" PositionY="-540" PositionX="-2790" />
-				<EdgeVertex Name="vertex157" PositionY="-120" PositionX="-3780" />
+				<EdgeVertex Name="vertex156" PositionY="-540" PositionX="-2940" />
+				<EdgeVertex Name="vertex157" PositionY="-120" PositionX="-3930" />
 				<EdgeVertex Name="vertex158" PositionY="560" PositionX="550" />
 				<EdgeVertex Name="vertex159" PositionY="560" PositionX="-2100" />
-				<EdgeVertex Name="vertex160" PositionY="-150" PositionX="-3820" />
+				<EdgeVertex Name="vertex160" PositionY="-150" PositionX="-3970" />
 				<EdgeVertex Name="vertex18" PositionY="-80" PositionX="410" />
 				<EdgeVertex Name="vertex4" PositionY="420" PositionX="-860" />
 				<EdgeVertex Name="vertex51" PositionY="210" PositionX="-290" />
@@ -364,12 +364,12 @@
 				<EdgeVertex Name="vertex64" PositionY="260" PositionX="-1500" />
 				<EdgeVertex Name="vertex65" PositionY="-510" PositionX="-880" />
 				<EdgeVertex Name="vertex66" PositionY="-510" PositionX="-1830" />
-				<EdgeVertex Name="vertex67" PositionY="150" PositionX="-2670" />
-				<EdgeVertex Name="vertex74" PositionY="180" PositionX="-2590" />
-				<EdgeVertex Name="vertex75" PositionY="210" PositionX="-2670" />
+				<EdgeVertex Name="vertex67" PositionY="150" PositionX="-2820" />
+				<EdgeVertex Name="vertex74" PositionY="180" PositionX="-2740" />
+				<EdgeVertex Name="vertex75" PositionY="210" PositionX="-2820" />
 				<EdgeVertex Name="vertex76" PositionY="200" PositionX="-560" />
-				<EdgeVertex Name="vertex77" PositionY="210" PositionX="-3690" />
-				<EdgeVertex Name="vertex78" PositionY="150" PositionX="-3770" />
+				<EdgeVertex Name="vertex77" PositionY="210" PositionX="-3840" />
+				<EdgeVertex Name="vertex78" PositionY="150" PositionX="-3920" />
 				<EdgeVertex Name="vertex79" PositionY="610" PositionX="910" />
 				<EdgeVertex Name="vertex8" PositionY="180" PositionX="-340" />
 				<EdgeVertex Name="vertex80" PositionY="590" PositionX="-2460" />
@@ -381,8 +381,8 @@
 				<EdgeVertex Name="vertex90" PositionY="390" PositionX="340" />
 				<EdgeVertex Name="vertex91" PositionY="450" PositionX="-860" />
 				<EdgeVertex Name="vertex92" PositionY="640" PositionX="910" />
-				<EdgeVertex Name="vertex97" PositionY="260" PositionX="-3660" />
-				<EdgeVertex Name="vertex98" PositionY="330" PositionX="-3660" />
+				<EdgeVertex Name="vertex97" PositionY="260" PositionX="-3810" />
+				<EdgeVertex Name="vertex98" PositionY="330" PositionX="-3810" />
 			</EdgeVertices>
 			<Assets>
 				<SoulAsset Name="playerWithCumans" SharedSoulGuids="4d90d6bc-fd27-20a4-4565-ca212361d2b5 41e1023a-db27-bb40-9532-fa8f7f4ef795 4140b386-70a0-8e8b-5d68-fdf91b49efa4 4ef67bf0-e21e-22a3-ec1a-9fcf76836b90 4c2dcffb-dea1-6263-72d7-b39f4db2d8b5 4f4c224f-543f-53f0-18fc-df823cff26aa" />

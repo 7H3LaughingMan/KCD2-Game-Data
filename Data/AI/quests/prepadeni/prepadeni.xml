@@ -3077,6 +3077,7 @@
 			<Variable name="dotProductGlobalResult" type="_float" values="" isPersistent="0" form="single" />
 			<Variable name="dotProductResult" type="_float" values="" isPersistent="0" form="single" />
 			<Variable name="jindrichWasSpoted" type="_bool" values="" isPersistent="0" form="single" />
+			<Variable name="pathToFinalPlace" type="_wuid" values="" isPersistent="0" form="single" />
 			<Variable name="pathfindingParams" type="pathFindingParams" values="" isPersistent="0" form="single" />
 			<Variable name="ptacekAndJindrich" type="_wuid" values="" isPersistent="0" form="array" />
 			<Variable name="ptacekContinuesToFallenTree" type="_bool" values="" isPersistent="0" form="single" />
@@ -3112,6 +3113,9 @@
 				<Sequence>
 					<GraphSearch Origin="$__object.id" Borders="" depth="1" selection="true" SearchPattern="Depth" EdgePruning="&apos;parent,inventory&apos;" AllowedEdges="" SubGraph="" AllowSubtraph="false" includeOrigin="false" excludeOrigin="false" failOnEmpty="true" SetOperationChoice="Intersection|And" errorOnEmpty="false" shortCircuit="false" skipTraversed="true">
 						<LinkTagFilter tag="&apos;slideAndBandit&apos;" prune="true" negprune="unknown" Parent="" Child="$slideAndBandit" Data="" />
+					</GraphSearch>
+					<GraphSearch Origin="$__object.id" Borders="" depth="1" selection="true" SearchPattern="Depth" EdgePruning="&apos;parent,inventory&apos;" AllowedEdges="" SubGraph="" AllowSubtraph="false" includeOrigin="false" excludeOrigin="false" failOnEmpty="true" SetOperationChoice="Intersection|And" errorOnEmpty="false" shortCircuit="false" skipTraversed="true">
+						<LinkTagFilter tag="&apos;pathToFinalPlace&apos;" prune="true" negprune="unknown" Parent="" Child="$pathToFinalPlace" Data="" />
 					</GraphSearch>
 					<PushToArray array="$ptacekAndJindrich" value="$this.id" direction="Back" />
 					<PushToArray array="$ptacekAndJindrich" value="$__player" direction="Back" />
@@ -3179,7 +3183,7 @@
 						<IfCondition failOnCondition="false" condition="$state == $enum:prepadeni_throughForrest.ToTheFirstCrossroad">
 							<EntityContext context="crime_escalationLevel_investigating" target="$this.id">
 								<Sequence>
-									<Move stopWithinDistance="0.200000" stopDistanceVariation="0.100000" rayCasteFlee="false" successDistance="8.000000" changeNPCState="true" fastForwardIncludesMove="false" destinationSpecification="$walkToCrossroad" destinationSpecification2="" destinationSpecification3="" speed="AlertedWalk" additionalParams="" pathFindingParams="" staminaPolicy="" pathInfo="" />
+									<Move stopWithinDistance="0.200000" stopDistanceVariation="0.100000" rayCasteFlee="false" successDistance="6.000000" changeNPCState="true" fastForwardIncludesMove="false" destinationSpecification="$walkToCrossroad" destinationSpecification2="" destinationSpecification3="" speed="AlertedWalk" additionalParams="" pathFindingParams="" staminaPolicy="" pathInfo="" />
 									<Function_speech_monolog alias="&apos;prepadeni_ptacekSpatriBandity&apos;" canBeDelayed="false" context="" dramaticBark="false" lookAtId="" metarole="" target="$this.id" wait="false" nodeLabel="98564084" />
 									<Callback_empty EventName="&apos;PtacekSeesLightAtCrossroad&apos;" />
 								</Sequence>
@@ -3300,25 +3304,23 @@
 						<IfCondition failOnCondition="false" condition="$state == $enum:prepadeni_throughForrest.OverTheFallenTree">
 							<StanceElement smartObject="" stance="crouch" allowAny="false" enabled="true">
 								<Sequence>
-									<Move stopWithinDistance="0.200000" stopDistanceVariation="0.100000" rayCasteFlee="false" successDistance="8.000000" changeNPCState="true" fastForwardIncludesMove="false" destinationSpecification="$toTheRockPathCrouch" destinationSpecification2="" destinationSpecification3="" speed="Run" additionalParams="" pathFindingParams="$pathfindingParams" staminaPolicy="" pathInfo="" />
-									<DistanceGate Origin="$this.id" ReferencePt="$toTheRockPathCrouch" Low="2.000000" High="2.000000" Negation="false" OpenInMiddle="false" RunLogic="KeepRunning">
-										<Sequence>
-											<CalculateLookDotProduct npc="$this.id" position="$__player" result="$dotProductResult" />
-											<IfCondition failOnCondition="false" condition="$dotProductResult &lt; 0">
+									<Move stopWithinDistance="0.200000" stopDistanceVariation="0.100000" rayCasteFlee="false" successDistance="2.000000" changeNPCState="true" fastForwardIncludesMove="false" destinationSpecification="$toTheRockPathCrouch" destinationSpecification2="" destinationSpecification3="" speed="Run" additionalParams="" pathFindingParams="$pathfindingParams" staminaPolicy="" pathInfo="" />
+									<Sequence>
+										<CalculateLookDotProduct npc="$this.id" position="$__player" result="$dotProductResult" />
+										<IfCondition failOnCondition="false" condition="$dotProductResult &lt; 0">
+											<DistanceCondition Origin="$this.id" ReferencePt="$__player" Low="8.000000" High="8.000000" Negation="true" ValueOnMiddle="false" failOnCondition="false">
 												<Sequence>
 													<Turn target="$__player" align="false" />
-													<DistanceCondition Origin="$this.id" ReferencePt="$__player" Low="4.000000" High="4.000000" Negation="true" ValueOnMiddle="false" failOnCondition="false">
-														<DistanceGate Origin="$this.id" ReferencePt="$__player" Low="4.000000" High="4.000000" Negation="false" OpenInMiddle="false" RunLogic="KeepRunning">
-															<Success />
-														</DistanceGate>
-													</DistanceCondition>
+													<DistanceGate Origin="$this.id" ReferencePt="$__player" Low="4.000000" High="4.000000" Negation="false" OpenInMiddle="false" RunLogic="KeepRunning">
+														<Success />
+													</DistanceGate>
 												</Sequence>
-											</IfCondition>
-										</Sequence>
-									</DistanceGate>
-									<SuppressFailure>
-										<Function_speech_schedulerMonolog alias="&apos;prepadeni_ptacekPobiziJindricha&apos;" animationApproach="$enum:animationApproach.dontPlayDialogAnimations" context="" lookAtId="" metarole="" skipInLod="false" subtitlesDown="false" nodeLabel="69553044" />
-									</SuppressFailure>
+											</DistanceCondition>
+										</IfCondition>
+										<SuppressFailure>
+											<Function_speech_schedulerMonolog alias="&apos;prepadeni_ptacekPobiziJindricha&apos;" animationApproach="$enum:animationApproach.dontPlayDialogAnimations" context="" lookAtId="" metarole="" skipInLod="false" subtitlesDown="false" nodeLabel="69553044" />
+										</SuppressFailure>
+									</Sequence>
 									<Callback_empty EventName="&apos;PtacekSprintsToRockPath&apos;" />
 									<Wait duration="&apos;-1&apos;" timeType="GameTime" doFail="false" variation="" />
 								</Sequence>
@@ -3327,6 +3329,7 @@
 						<IfCondition failOnCondition="false" condition="$state == $enum:prepadeni_throughForrest.ToTheRockPath">
 							<StanceElement smartObject="" stance="standing" allowAny="false" enabled="true">
 								<Sequence>
+									<Expression expressions="$pathfindingParams.usePaths = false" />
 									<MoveParamsDecorator speed="Sprint" pathFindingParams="$pathfindingParams" doorClosingPolicy="Automatic">
 										<UnstanceAction unstance="prepadeni_caponLookAround" locationObject="$toTheRockPath" slaveObject="" />
 									</MoveParamsDecorator>
@@ -3340,7 +3343,7 @@
 								<Sequence>
 									<Expression expressions="$pathfindingParams.usePaths = false" />
 									<Parallel successMode="All" failureMode="Any">
-										<MoveParamsDecorator speed="Sprint" pathFindingParams="$pathfindingParams" doorClosingPolicy="Automatic">
+										<MoveParamsDecorator speed="FastRun" pathFindingParams="$pathfindingParams" doorClosingPolicy="Automatic">
 											<UnstanceAction unstance="prepadeni_caponBreathing" locationObject="$toTheTreeAtHill" slaveObject="" />
 										</MoveParamsDecorator>
 										<FuseBox StatusPropagation="Child" OneCleanup="true" saveVersion="2">
@@ -3430,6 +3433,7 @@
 								<SuppressFailure>
 									<Function_speech_monolog alias="&apos;prepadeni_ptacekNaKonciBludiste&apos;" canBeDelayed="false" context="$__null" dramaticBark="false" lookAtId="$__null" metarole="" target="$this.id" wait="false" nodeLabel="82327129" />
 								</SuppressFailure>
+								<Move stopWithinDistance="0.200000" stopDistanceVariation="0.100000" rayCasteFlee="false" successDistance="5.000000" changeNPCState="true" fastForwardIncludesMove="false" destinationSpecification="$pathToFinalPlace" destinationSpecification2="" destinationSpecification3="" speed="FastRun" additionalParams="" pathFindingParams="" staminaPolicy="" pathInfo="" />
 								<MoveParamsDecorator speed="FastRun" pathFindingParams="$pathfindingParams" doorClosingPolicy="Automatic">
 									<UnstanceAction unstance="prepadeni_caponSlide" locationObject="$slideAndBandit" slaveObject="" />
 								</MoveParamsDecorator>
@@ -3447,9 +3451,11 @@
 						</IfCondition>
 						<IfCondition failOnCondition="false" condition="$state == $enum:prepadeni_throughForrest.Slide">
 							<Sequence>
-								<UnstanceElement unstance="prepadeni_caponSlide" locationObject="$slideAndBandit" slaveObject="" enabled="true">
-									<AnimationAction fragment="&apos;CaponSlideOut&apos;" tags="" eventReferenceObject="" alignObject="$slideAndBandit" slaveObject="" resourceOverride="&apos;capon&apos;" allowTorchForPlayer="false" />
-								</UnstanceElement>
+								<Synchronize SemaphoreCount="2" InsideTimerValue="&apos;-1&apos;" InvalidateOnExpire="false" atomic="false" OutsideQueuePosVariable="" InsidePosVariable="" TimerType="GameTime" OutsideTimerValue="&apos;-1&apos;" LockManagerType="Local" SemaphoreName="&apos;start_slide&apos;" RunLogic="KeepRunning">
+									<UnstanceElement unstance="prepadeni_caponSlide" locationObject="$slideAndBandit" slaveObject="" enabled="true">
+										<AnimationAction fragment="&apos;CaponSlideOut&apos;" tags="" eventReferenceObject="" alignObject="$slideAndBandit" slaveObject="" resourceOverride="&apos;capon&apos;" allowTorchForPlayer="false" />
+									</UnstanceElement>
+								</Synchronize>
 								<Wait duration="&apos;-1&apos;" timeType="GameTime" doFail="false" variation="" />
 							</Sequence>
 						</IfCondition>
@@ -3467,6 +3473,7 @@
 				<Variable name="dotProductGlobalResult" comment="" />
 				<Variable name="dotProductResult" comment="" />
 				<Variable name="jindrichWasSpoted" comment="" />
+				<Variable name="pathToFinalPlace" comment="" />
 				<Variable name="pathfindingParams" comment="" />
 				<Variable name="ptacekAndJindrich" comment="" />
 				<Variable name="ptacekContinuesToFallenTree" comment="" />
@@ -3501,6 +3508,12 @@
 				<OnInit>
 					<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
 						<OutputBreakpoints />
+						<GraphSearch hasInputBreakpoint="0" comment="" breakpointFlags="0">
+							<OutputBreakpoints />
+							<LinkTagFilter hasInputBreakpoint="0" comment="" breakpointFlags="0">
+								<OutputBreakpoints />
+							</LinkTagFilter>
+						</GraphSearch>
 						<GraphSearch hasInputBreakpoint="0" comment="" breakpointFlags="0">
 							<OutputBreakpoints />
 							<LinkTagFilter hasInputBreakpoint="0" comment="" breakpointFlags="0">
@@ -3856,39 +3869,36 @@
 										<Move hasInputBreakpoint="0" comment="" breakpointFlags="0">
 											<OutputBreakpoints />
 										</Move>
-										<DistanceGate hasInputBreakpoint="0" comment="" breakpointFlags="0">
+										<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
 											<OutputBreakpoints />
-											<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
+											<CalculateLookDotProduct hasInputBreakpoint="0" comment="" breakpointFlags="0">
 												<OutputBreakpoints />
-												<CalculateLookDotProduct hasInputBreakpoint="0" comment="" breakpointFlags="0">
-													<OutputBreakpoints />
-												</CalculateLookDotProduct>
-												<IfCondition hasInputBreakpoint="0" comment="" breakpointFlags="0">
+											</CalculateLookDotProduct>
+											<IfCondition hasInputBreakpoint="0" comment="" breakpointFlags="0">
+												<OutputBreakpoints />
+												<DistanceCondition hasInputBreakpoint="0" comment="" breakpointFlags="0">
 													<OutputBreakpoints />
 													<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
 														<OutputBreakpoints />
 														<Turn hasInputBreakpoint="0" comment="" breakpointFlags="0">
 															<OutputBreakpoints />
 														</Turn>
-														<DistanceCondition hasInputBreakpoint="0" comment="" breakpointFlags="0">
+														<DistanceGate hasInputBreakpoint="0" comment="" breakpointFlags="0">
 															<OutputBreakpoints />
-															<DistanceGate hasInputBreakpoint="0" comment="" breakpointFlags="0">
+															<Success hasInputBreakpoint="0" comment="" breakpointFlags="0">
 																<OutputBreakpoints />
-																<Success hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																	<OutputBreakpoints />
-																</Success>
-															</DistanceGate>
-														</DistanceCondition>
+															</Success>
+														</DistanceGate>
 													</Sequence>
-												</IfCondition>
-											</Sequence>
-										</DistanceGate>
-										<SuppressFailure hasInputBreakpoint="0" comment="" breakpointFlags="0">
-											<OutputBreakpoints />
-											<Function_speech_schedulerMonolog hasInputBreakpoint="0" comment="" breakpointFlags="0">
+												</DistanceCondition>
+											</IfCondition>
+											<SuppressFailure hasInputBreakpoint="0" comment="" breakpointFlags="0">
 												<OutputBreakpoints />
-											</Function_speech_schedulerMonolog>
-										</SuppressFailure>
+												<Function_speech_schedulerMonolog hasInputBreakpoint="0" comment="" breakpointFlags="0">
+													<OutputBreakpoints />
+												</Function_speech_schedulerMonolog>
+											</SuppressFailure>
+										</Sequence>
 										<Callback_empty hasInputBreakpoint="0" comment="" breakpointFlags="0">
 											<OutputBreakpoints />
 										</Callback_empty>
@@ -3904,6 +3914,9 @@
 									<OutputBreakpoints />
 									<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
 										<OutputBreakpoints />
+										<Expression hasInputBreakpoint="0" comment="" breakpointFlags="0">
+											<OutputBreakpoints />
+										</Expression>
 										<MoveParamsDecorator hasInputBreakpoint="0" comment="" breakpointFlags="0">
 											<OutputBreakpoints />
 											<UnstanceAction hasInputBreakpoint="0" comment="" breakpointFlags="0">
@@ -4101,6 +4114,9 @@
 											<OutputBreakpoints />
 										</Function_speech_monolog>
 									</SuppressFailure>
+									<Move hasInputBreakpoint="0" comment="" breakpointFlags="0">
+										<OutputBreakpoints />
+									</Move>
 									<MoveParamsDecorator hasInputBreakpoint="0" comment="" breakpointFlags="0">
 										<OutputBreakpoints />
 										<UnstanceAction hasInputBreakpoint="0" comment="" breakpointFlags="0">
@@ -4134,12 +4150,15 @@
 								<OutputBreakpoints />
 								<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
 									<OutputBreakpoints />
-									<UnstanceElement hasInputBreakpoint="0" comment="" breakpointFlags="0">
+									<Synchronize hasInputBreakpoint="0" comment="" breakpointFlags="0">
 										<OutputBreakpoints />
-										<AnimationAction hasInputBreakpoint="0" comment="" breakpointFlags="0">
+										<UnstanceElement hasInputBreakpoint="0" comment="" breakpointFlags="0">
 											<OutputBreakpoints />
-										</AnimationAction>
-									</UnstanceElement>
+											<AnimationAction hasInputBreakpoint="0" comment="" breakpointFlags="0">
+												<OutputBreakpoints />
+											</AnimationAction>
+										</UnstanceElement>
+									</Synchronize>
 									<Wait hasInputBreakpoint="0" comment="" breakpointFlags="0">
 										<OutputBreakpoints />
 									</Wait>
@@ -4248,57 +4267,151 @@
 	</BehaviorTree>
 	<BehaviorTree name="player_stoppedByBandit" is_function="0">
 		<Variables>
+			<Variable name="auxiliaryObjectForDotProduct" type="_wuid" values="" isPersistent="0" form="single" />
+			<Variable name="dotProductResult" type="_float" values="" isPersistent="0" form="single" />
+			<Variable name="playWhile" type="_bool" values="true" isPersistent="0" form="single" />
 			<Variable name="slideAndBandit" type="_wuid" values="" isPersistent="0" form="single" />
+			<Variable name="startStoppedByBanditAnimation" type="_wuid" values="" isPersistent="0" form="single" />
 		</Variables>
 		<Root OneTimeOnly="false" FailState="Recoverable" saveVersion="2">
 			<OnInit canSkip="1">
-				<GraphSearch Origin="$__object.id" Borders="" depth="1" selection="true" SearchPattern="Depth" EdgePruning="&apos;parent,inventory&apos;" AllowedEdges="" SubGraph="" AllowSubtraph="false" includeOrigin="false" excludeOrigin="false" failOnEmpty="true" SetOperationChoice="Intersection|And" errorOnEmpty="false" shortCircuit="false" skipTraversed="true">
-					<LinkTagFilter tag="&apos;slideAndBandit&apos;" prune="true" negprune="unknown" Parent="" Child="$slideAndBandit" Data="" />
-				</GraphSearch>
+				<Sequence>
+					<GraphSearch Origin="$__object.id" Borders="" depth="1" selection="true" SearchPattern="Depth" EdgePruning="&apos;parent,inventory&apos;" AllowedEdges="" SubGraph="" AllowSubtraph="false" includeOrigin="false" excludeOrigin="false" failOnEmpty="true" SetOperationChoice="Intersection|And" errorOnEmpty="false" shortCircuit="false" skipTraversed="true">
+						<LinkTagFilter tag="&apos;slideAndBandit&apos;" prune="true" negprune="unknown" Parent="" Child="$slideAndBandit" Data="" />
+					</GraphSearch>
+					<GraphSearch Origin="$__object.id" Borders="" depth="1" selection="true" SearchPattern="Depth" EdgePruning="&apos;parent,inventory&apos;" AllowedEdges="" SubGraph="" AllowSubtraph="false" includeOrigin="false" excludeOrigin="false" failOnEmpty="true" SetOperationChoice="Intersection|And" errorOnEmpty="false" shortCircuit="false" skipTraversed="true">
+						<LinkTagFilter tag="&apos;auxiliaryObjectForDotProduct&apos;" prune="true" negprune="unknown" Parent="" Child="$auxiliaryObjectForDotProduct" Data="" />
+					</GraphSearch>
+					<GraphSearch Origin="$__object.id" Borders="" depth="1" selection="true" SearchPattern="Depth" EdgePruning="&apos;parent,inventory&apos;" AllowedEdges="" SubGraph="" AllowSubtraph="false" includeOrigin="false" excludeOrigin="false" failOnEmpty="true" SetOperationChoice="Intersection|And" errorOnEmpty="false" shortCircuit="false" skipTraversed="true">
+						<LinkTagFilter tag="&apos;startStoppedByBanditAnimation&apos;" prune="true" negprune="unknown" Parent="" Child="$startStoppedByBanditAnimation" Data="" />
+					</GraphSearch>
+				</Sequence>
 			</OnInit>
 			<Behavior canSkip="1">
-				<UrgencyDecorator Urgency="Instant">
-					<EntityContext context="item_pickupAnimEventNonTemporal" target="">
+				<Sequence>
+					<While doFail="false" propagateChildFail="false" condition="$playWhile">
 						<Sequence>
-							<JoinedAnimationAction requiresMovement="false" lockContext="$slideAndBandit" lockName="&apos;prepadeni_stoppedByBandit&apos;" lockCount="2" timeout="&apos;-1&apos;" ignoreOthersLeaving="true" fragment="&apos;Quest_Prepadeni_StoppedByBandit_Player&apos;" tags="" eventReferenceObject="$slideAndBandit" alignObject="$slideAndBandit" slaveObject="" resourceOverride="&apos;player&apos;" allowTorchForPlayer="false" />
-							<Callback_empty EventName="&apos;OnFinished&apos;" />
+							<CalculateLookDotProduct npc="$this.id" position="$auxiliaryObjectForDotProduct" result="$dotProductResult" />
+							<AreaPresenceGate aiObjects="$this.id" area="$startStoppedByBanditAnimation" amount="AtLeastOne" presence="Present" RunLogic="Halt">
+								<IfElseCondition failOnCondition="false" condition="$dotProductResult &gt; 0.10" saveVersion="2">
+									<Then canSkip="1">
+										<Sequence>
+											<Callback_empty EventName="&apos;OnLookRightDirection&apos;" />
+											<Synchronize SemaphoreCount="2" InsideTimerValue="&apos;-1&apos;" InvalidateOnExpire="false" atomic="false" OutsideQueuePosVariable="" InsidePosVariable="" TimerType="GameTime" OutsideTimerValue="&apos;-1&apos;" LockManagerType="Local" SemaphoreName="&apos;start_slide&apos;" RunLogic="KeepRunning">
+												<Success />
+											</Synchronize>
+											<Expression expressions="$playWhile = false" />
+										</Sequence>
+									</Then>
+									<Else canSkip="1">
+										<Wait duration="&apos;500ms&apos;" timeType="GameTime" doFail="false" variation="" />
+									</Else>
+								</IfElseCondition>
+							</AreaPresenceGate>
 						</Sequence>
-					</EntityContext>
-				</UrgencyDecorator>
+					</While>
+					<UrgencyDecorator Urgency="Instant">
+						<EntityContext context="item_pickupAnimEventNonTemporal" target="">
+							<Sequence>
+								<JoinedAnimationAction requiresMovement="false" lockContext="$slideAndBandit" lockName="&apos;prepadeni_stoppedByBandit&apos;" lockCount="2" timeout="&apos;-1&apos;" ignoreOthersLeaving="true" fragment="&apos;Quest_Prepadeni_StoppedByBandit_Player&apos;" tags="" eventReferenceObject="$slideAndBandit" alignObject="$slideAndBandit" slaveObject="" resourceOverride="&apos;player&apos;" allowTorchForPlayer="false" />
+								<Callback_empty EventName="&apos;OnFinished&apos;" />
+							</Sequence>
+						</EntityContext>
+					</UrgencyDecorator>
+				</Sequence>
 			</Behavior>
 		</Root>
 		<ForestContainer />
-		<EditorData EventSet="">
+		<EditorData EventSet="prepadeni_playerStoppedByBandit">
 			<Variables>
+				<Variable name="auxiliaryObjectForDotProduct" comment="" />
+				<Variable name="dotProductResult" comment="" />
+				<Variable name="playWhile" comment="" />
 				<Variable name="slideAndBandit" comment="" />
+				<Variable name="startStoppedByBanditAnimation" comment="" />
 			</Variables>
 			<ForwardDeclarations />
 			<Root hasInputBreakpoint="0" comment="" breakpointFlags="4" saveVersion="2">
 				<OutputBreakpoints />
 				<OnInit>
-					<GraphSearch hasInputBreakpoint="0" comment="" breakpointFlags="0">
+					<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
 						<OutputBreakpoints />
-						<LinkTagFilter hasInputBreakpoint="0" comment="" breakpointFlags="0">
+						<GraphSearch hasInputBreakpoint="0" comment="" breakpointFlags="0">
 							<OutputBreakpoints />
-						</LinkTagFilter>
-					</GraphSearch>
+							<LinkTagFilter hasInputBreakpoint="0" comment="" breakpointFlags="0">
+								<OutputBreakpoints />
+							</LinkTagFilter>
+						</GraphSearch>
+						<GraphSearch hasInputBreakpoint="0" comment="" breakpointFlags="0">
+							<OutputBreakpoints />
+							<LinkTagFilter hasInputBreakpoint="0" comment="" breakpointFlags="0">
+								<OutputBreakpoints />
+							</LinkTagFilter>
+						</GraphSearch>
+						<GraphSearch hasInputBreakpoint="0" comment="" breakpointFlags="0">
+							<OutputBreakpoints />
+							<LinkTagFilter hasInputBreakpoint="0" comment="" breakpointFlags="0">
+								<OutputBreakpoints />
+							</LinkTagFilter>
+						</GraphSearch>
+					</Sequence>
 				</OnInit>
 				<Behavior>
-					<UrgencyDecorator hasInputBreakpoint="0" comment="" breakpointFlags="0">
+					<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
 						<OutputBreakpoints />
-						<EntityContext hasInputBreakpoint="0" comment="" breakpointFlags="0">
+						<While hasInputBreakpoint="0" comment="" breakpointFlags="0">
 							<OutputBreakpoints />
 							<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
 								<OutputBreakpoints />
-								<JoinedAnimationAction hasInputBreakpoint="0" comment="" breakpointFlags="0">
+								<CalculateLookDotProduct hasInputBreakpoint="0" comment="" breakpointFlags="0">
 									<OutputBreakpoints />
-								</JoinedAnimationAction>
-								<Callback_empty hasInputBreakpoint="0" comment="" breakpointFlags="0">
+								</CalculateLookDotProduct>
+								<AreaPresenceGate hasInputBreakpoint="0" comment="" breakpointFlags="0">
 									<OutputBreakpoints />
-								</Callback_empty>
+									<IfElseCondition hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
+										<OutputBreakpoints />
+										<Then>
+											<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
+												<OutputBreakpoints />
+												<Callback_empty hasInputBreakpoint="0" comment="" breakpointFlags="0">
+													<OutputBreakpoints />
+												</Callback_empty>
+												<Synchronize hasInputBreakpoint="0" comment="" breakpointFlags="0">
+													<OutputBreakpoints />
+													<Success hasInputBreakpoint="0" comment="" breakpointFlags="0">
+														<OutputBreakpoints />
+													</Success>
+												</Synchronize>
+												<Expression hasInputBreakpoint="0" comment="" breakpointFlags="0">
+													<OutputBreakpoints />
+												</Expression>
+											</Sequence>
+										</Then>
+										<Else>
+											<Wait hasInputBreakpoint="0" comment="" breakpointFlags="0">
+												<OutputBreakpoints />
+											</Wait>
+										</Else>
+									</IfElseCondition>
+								</AreaPresenceGate>
 							</Sequence>
-						</EntityContext>
-					</UrgencyDecorator>
+						</While>
+						<UrgencyDecorator hasInputBreakpoint="0" comment="" breakpointFlags="0">
+							<OutputBreakpoints />
+							<EntityContext hasInputBreakpoint="0" comment="" breakpointFlags="0">
+								<OutputBreakpoints />
+								<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
+									<OutputBreakpoints />
+									<JoinedAnimationAction hasInputBreakpoint="0" comment="" breakpointFlags="0">
+										<OutputBreakpoints />
+									</JoinedAnimationAction>
+									<Callback_empty hasInputBreakpoint="0" comment="" breakpointFlags="0">
+										<OutputBreakpoints />
+									</Callback_empty>
+								</Sequence>
+							</EntityContext>
+						</UrgencyDecorator>
+					</Sequence>
 				</Behavior>
 			</Root>
 			<Forest />
@@ -4841,6 +4954,65 @@
 				</Behavior>
 			</Root>
 			<Forest />
+			<Comments />
+		</EditorData>
+	</BehaviorTree>
+	<BehaviorTree name="bandit_givingOrders" is_function="0">
+		<Variables />
+		<Parameters>
+			<Variable name="data" type="_string" values="" isPersistent="0" form="single" requirementType="In" />
+		</Parameters>
+		<Root OneTimeOnly="false" FailState="Recoverable" saveVersion="2">
+			<Behavior canSkip="1">
+				<FuseBox StatusPropagation="Child" OneCleanup="false" saveVersion="2">
+					<Child canSkip="1">
+						<Function_speech_schedulerMonolog alias="$data" animationApproach="$enum:animationApproach.dontPlayDialogAnimations" context="" lookAtId="" metarole="" skipInLod="false" subtitlesDown="false" nodeLabel="47971559" />
+					</Child>
+					<OnSuccess canSkip="1">
+						<Callback_empty EventName="&apos;OnFinished&apos;" />
+					</OnSuccess>
+					<OnFail canSkip="1">
+						<Callback_empty EventName="&apos;OnInterrupt&apos;" />
+					</OnFail>
+				</FuseBox>
+			</Behavior>
+		</Root>
+		<ForestContainer>
+			<Function_speech_monolog alias="$data" canBeDelayed="false" context="" dramaticBark="false" lookAtId="" metarole="" target="$this.id" wait="true" nodeLabel="60607797" />
+		</ForestContainer>
+		<EditorData Signature="stringData" EventSet="prepadeni_banditOrdersResult">
+			<Variables>
+				<Variable name="data" comment="" />
+			</Variables>
+			<ForwardDeclarations />
+			<Root hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
+				<OutputBreakpoints />
+				<Behavior>
+					<FuseBox hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
+						<OutputBreakpoints />
+						<Child>
+							<Function_speech_schedulerMonolog hasInputBreakpoint="0" comment="" breakpointFlags="0">
+								<OutputBreakpoints />
+							</Function_speech_schedulerMonolog>
+						</Child>
+						<OnSuccess>
+							<Callback_empty hasInputBreakpoint="0" comment="" breakpointFlags="0">
+								<OutputBreakpoints />
+							</Callback_empty>
+						</OnSuccess>
+						<OnFail>
+							<Callback_empty hasInputBreakpoint="0" comment="" breakpointFlags="0">
+								<OutputBreakpoints />
+							</Callback_empty>
+						</OnFail>
+					</FuseBox>
+				</Behavior>
+			</Root>
+			<Forest>
+				<Function_speech_monolog editorPosX="490" editorPosY="-340" hasInputBreakpoint="0" comment="" breakpointFlags="0">
+					<OutputBreakpoints />
+				</Function_speech_monolog>
+			</Forest>
 			<Comments />
 		</EditorData>
 	</BehaviorTree>

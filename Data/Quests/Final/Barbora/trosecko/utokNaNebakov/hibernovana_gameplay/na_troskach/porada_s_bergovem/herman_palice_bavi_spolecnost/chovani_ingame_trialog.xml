@@ -31,12 +31,13 @@
 						<Vertex>87EtKx5W</Vertex>
 						<Vertex>6jSVYPy1</Vertex>
 					</Edge>
+					<Edge From="not18.bool" To="E" />
 				</Function>
 				<ingamepolylogchat_sitstand Name="ingamepolylogchat_sitstand" PositionY="-90" PositionX="700" Namespace="utoknanebakov">
 					<Asset Name="smartentity" Alias="feast" />
 					<Constant Name="aliaschat" Value="utokNaNebakov_feast_hermanChat" />
 					<Constant Name="aliaspolylog" Value="utokNaNebakov_feast_hermanIngamePolylog" />
-					<Constant Name="chatmaxdistance" Value="2" />
+					<Constant Name="chatmaxdistance" Value="3" />
 					<Edge From="makearray7.Array" To="sittingnpcs" />
 					<Edge From="makearray4.Array" To="sitplaces" />
 					<Edge From="makearray8.Array" To="standingnpcs" />
@@ -49,7 +50,13 @@
 					<Edge From="hostina_nastreamovana" To="isactive" />
 					<Edge From="makearray15.Array" To="dontcallwench" />
 					<Edge From="makearray16.Array" To="tables" />
+					<Edge From="isplayerindialog.onupdate" To="updatereferences">
+						<Vertex>vertex1</Vertex>
+					</Edge>
 				</ingamepolylogchat_sitstand>
+				<isplayerindialog Name="isplayerindialog" PositionY="510" PositionX="-340" Namespace="utoknanebakov">
+					<Edge From="hostina_nastreamovana" To="active" />
+				</isplayerindialog>
 				<MakeArray Name="makearray15" PositionY="390" PositionX="300" TypeT="wh::conceptmodule::Bools">
 					<Constant Name="A" Value="true" />
 					<Constant Name="B" Value="false" />
@@ -81,11 +88,14 @@
 				<Function Name="not14" PositionY="230" PositionX="-10" MethodName="math::boolean::Not" DeclaringType="math::boolean">
 					<Edge From="prijal_jindra_ukol_od_hermana" To="Value" />
 				</Function>
+				<Function Name="not18" PositionY="540" PositionX="-10" MethodName="math::boolean::Not" DeclaringType="math::boolean">
+					<Edge From="isplayerindialog.indialog" To="Value" />
+				</Function>
 			</Nodes>
 			<EdgeVertices>
 				<EdgeVertex Name="6jSVYPy1" PositionY="500" PositionX="180" />
 				<EdgeVertex Name="87EtKx5W" PositionY="500" PositionX="0" />
-				<EdgeVertex Name="vertex1" PositionY="50" PositionX="0" />
+				<EdgeVertex Name="vertex1" PositionY="70" PositionX="0" />
 			</EdgeVertices>
 			<Assets>
 				<SmartObjectAsset Name="seat_jan" />

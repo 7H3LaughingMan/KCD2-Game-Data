@@ -92,6 +92,11 @@
 																									</HasPerceivableState>
 																								</Else>
 																							</IsNightTimeOfDay>
+																							<GraphSearch Origin="$home" Borders="" depth="1" selection="true" SearchPattern="Depth" EdgePruning="&apos;parent,inventory&apos;" AllowedEdges="" SubGraph="" AllowSubtraph="false" includeOrigin="false" excludeOrigin="false" failOnEmpty="false" SetOperationChoice="Intersection|And" errorOnEmpty="false" shortCircuit="false" skipTraversed="true">
+																								<LinkTagFilter tag="&apos;crime_watchCampTrespass_freeRoam&apos;" prune="true" negprune="unknown" Parent="" Child="" Data="" />
+																								<WUIDFilter WUID="$__player" Source="Child" prune="true" negprune="unknown" Parent="" Child="" />
+																								<EvaLLyzer Expresion="$playerHasFreeRoam = true" Quantifiers="Exists" saveVersion="2" />
+																							</GraphSearch>
 																							<SubtreeDecorator saveVersion="2">
 																								<Init canSkip="1">
 																									<AddBuff SoulWUID="" BuffGUID="&apos;1951e0bc-532d-4813-a64d-38ef635b3fd5&apos;" />
@@ -262,48 +267,7 @@
 																											</IfCondition>
 																											<Function_crime_managePlayerUrging canUrge="$canTalk" priority="$urgingPriority" nodeLabel="22865442" />
 																										</Sequence>
-																										<Sequence>
-																											<IsTimeSkipping saveVersion="2">
-																												<Then canSkip="1">
-																													<Sequence>
-																														<UrgencyDecorator Urgency="Instant">
-																															<WaitAction />
-																														</UrgencyDecorator>
-																														<StopMovement waitUntilStopped="false" />
-																														<IsUnconsciousCheck SoulWUID="$__player" FailSubtMissing="false" saveVersion="2">
-																															<Else canSkip="1">
-																																<InterruptSkipTime />
-																															</Else>
-																														</IsUnconsciousCheck>
-																													</Sequence>
-																												</Then>
-																												<Else canSkip="1">
-																													<Sequence>
-																														<UrgencyDecorator Urgency="Fast">
-																															<WaitAction />
-																														</UrgencyDecorator>
-																														<StopMovement waitUntilStopped="false" />
-																													</Sequence>
-																												</Else>
-																											</IsTimeSkipping>
-																											<UrgencyDecorator Urgency="Fast">
-																												<ContinuousSwitch>
-																													<IfCondition failOnCondition="false" condition="~$playerLeft &amp; $canTalk &amp; ~$playerHasFreeRoam">
-																														<MoveParamsDecorator speed="Walk" pathFindingParams="$pathFindingParams" doorClosingPolicy="LeaveOpened">
-																															<CrimeFollower Target="$__player" Mode="Default" Role="Assist" RelativeSpeedLimit="Walk" DisableGhosting="false" />
-																														</MoveParamsDecorator>
-																													</IfCondition>
-																													<IfCondition failOnCondition="false" condition="~$playerLeft &amp; $followPlayer &amp; ~$playerHasFreeRoam">
-																														<MoveParamsDecorator speed="Walk" pathFindingParams="$pathFindingParams" doorClosingPolicy="LeaveOpened">
-																															<CrimeFollower Target="$__player" Mode="Default" Role="Assist" RelativeSpeedLimit="Walk" DisableGhosting="false" />
-																														</MoveParamsDecorator>
-																													</IfCondition>
-																													<IfCondition failOnCondition="false" condition="true">
-																														<CrimeFollower Target="$__player" Mode="NoMoveOnlyTurn" Role="Assist" RelativeSpeedLimit="Walk" DisableGhosting="false" />
-																													</IfCondition>
-																												</ContinuousSwitch>
-																											</UrgencyDecorator>
-																										</Sequence>
+																										<Function_crime_drawWeaponDecorator subtreeFile="&apos;crime/watchcamptrespass/actionsubtree.xml&apos;" subtreeName="&apos;crime_watchCampTrespass_actionSubtree&apos;" weaponSet="&apos;Primary&apos;" drawWeapon="$const_true" subtreeData_canUrge="$canTalk" subtreeData_crimesResolved="" subtreeData_followPlayer="$followPlayer" subtreeData_goIntoResolve="" subtreeData_playerHasFreeRoam="$playerHasFreeRoam" subtreeData_playerLeft="$playerLeft" subtreeData_target="" subtreeData_teleport="" nodeLabel="62787288" />
 																										<Loop count="-1">
 																											<IfGate atomic="false" condition="$canTalk" RunLogic="Halt">
 																												<LinkGate from="$home" to="$__player" tag="&apos;crime_watchCampTrespass_freeRoam&apos;" amount="AtLeastOne" presence="NotThere" RunLogic="Halt">
@@ -493,7 +457,6 @@
 																												</Sequence>
 																											</IfGate>
 																										</Loop>
-																										<Function_crime_weaponDecorator suppressWaitAction="true" weaponSet="&apos;Primary&apos;" shouldHaveDrawnWeapon="$const_true" waitActionFinished="" nodeLabel="68223741" />
 																										<Function_crime_playerInstantRecognitionHandler nodeLabel="18064242" />
 																										<Loop count="-1">
 																											<IfGate atomic="false" condition="$playerLeft" RunLogic="Halt">
@@ -652,9 +615,7 @@
 					<OnFail canSkip="1">
 						<Sequence>
 							<Function_crime_addLeavingInterruptCooldown nodeLabel="68118236" />
-							<AtomicDecorator>
-								<Function_crime_limits_removeReactionLink information="$watchCampTrespassData.information" reactionKind="$enum:crime_reactionKind.watchCampTrespass" nodeLabel="98147911" />
-							</AtomicDecorator>
+							<Function_crime_limits_removeReactionLink information="$watchCampTrespassData.information" reactionKind="$enum:crime_reactionKind.watchCampTrespass" nodeLabel="98147911" />
 						</Sequence>
 					</OnFail>
 				</FuseBox>
@@ -792,6 +753,18 @@
 																										</HasPerceivableState>
 																									</Else>
 																								</IsNightTimeOfDay>
+																								<GraphSearch hasInputBreakpoint="0" comment="KCD2-498703" breakpointFlags="0">
+																									<OutputBreakpoints />
+																									<LinkTagFilter hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																										<OutputBreakpoints />
+																									</LinkTagFilter>
+																									<WUIDFilter hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																										<OutputBreakpoints />
+																									</WUIDFilter>
+																									<EvaLLyzer hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
+																										<OutputBreakpoints />
+																									</EvaLLyzer>
+																								</GraphSearch>
 																								<SubtreeDecorator hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
 																									<OutputBreakpoints />
 																									<Init>
@@ -1089,78 +1062,9 @@
 																													<OutputBreakpoints />
 																												</Function_crime_managePlayerUrging>
 																											</Sequence>
-																											<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																											<Function_crime_drawWeaponDecorator hasInputBreakpoint="0" comment="" breakpointFlags="0">
 																												<OutputBreakpoints />
-																												<IsTimeSkipping hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
-																													<OutputBreakpoints />
-																													<Then>
-																														<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																															<OutputBreakpoints />
-																															<UrgencyDecorator hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																																<OutputBreakpoints />
-																																<WaitAction hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																																	<OutputBreakpoints />
-																																</WaitAction>
-																															</UrgencyDecorator>
-																															<StopMovement hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																																<OutputBreakpoints />
-																															</StopMovement>
-																															<IsUnconsciousCheck hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
-																																<OutputBreakpoints />
-																																<Else>
-																																	<InterruptSkipTime hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																																		<OutputBreakpoints />
-																																	</InterruptSkipTime>
-																																</Else>
-																															</IsUnconsciousCheck>
-																														</Sequence>
-																													</Then>
-																													<Else>
-																														<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																															<OutputBreakpoints />
-																															<UrgencyDecorator hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																																<OutputBreakpoints />
-																																<WaitAction hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																																	<OutputBreakpoints />
-																																</WaitAction>
-																															</UrgencyDecorator>
-																															<StopMovement hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																																<OutputBreakpoints />
-																															</StopMovement>
-																														</Sequence>
-																													</Else>
-																												</IsTimeSkipping>
-																												<UrgencyDecorator hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																													<OutputBreakpoints />
-																													<ContinuousSwitch hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																														<OutputBreakpoints />
-																														<IfCondition hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																															<OutputBreakpoints />
-																															<MoveParamsDecorator hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																																<OutputBreakpoints />
-																																<CrimeFollower hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																																	<OutputBreakpoints />
-																																</CrimeFollower>
-																															</MoveParamsDecorator>
-																														</IfCondition>
-																														<IfCondition hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																															<OutputBreakpoints />
-																															<MoveParamsDecorator hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																																<OutputBreakpoints />
-																																<CrimeFollower hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																																	<OutputBreakpoints />
-																																</CrimeFollower>
-																															</MoveParamsDecorator>
-																														</IfCondition>
-																														<IfCondition hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																															<OutputBreakpoints />
-																															<CrimeFollower hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																																<OutputBreakpoints />
-																															</CrimeFollower>
-																														</IfCondition>
-																													</ContinuousSwitch>
-																												</UrgencyDecorator>
-																											</Sequence>
+																											</Function_crime_drawWeaponDecorator>
 																											<Loop hasInputBreakpoint="0" comment="player approaching camp center" breakpointFlags="0">
 																												<OutputBreakpoints />
 																												<IfGate hasInputBreakpoint="0" comment="" breakpointFlags="0">
@@ -1489,9 +1393,6 @@
 																													</Sequence>
 																												</IfGate>
 																											</Loop>
-																											<Function_crime_weaponDecorator hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																												<OutputBreakpoints />
-																											</Function_crime_weaponDecorator>
 																											<Function_crime_playerInstantRecognitionHandler hasInputBreakpoint="0" comment="" breakpointFlags="0">
 																												<OutputBreakpoints />
 																											</Function_crime_playerInstantRecognitionHandler>
@@ -1757,12 +1658,9 @@
 								<Function_crime_addLeavingInterruptCooldown hasInputBreakpoint="0" comment="" breakpointFlags="0">
 									<OutputBreakpoints />
 								</Function_crime_addLeavingInterruptCooldown>
-								<AtomicDecorator hasInputBreakpoint="0" comment="" breakpointFlags="0">
+								<Function_crime_limits_removeReactionLink hasInputBreakpoint="0" comment="" breakpointFlags="0">
 									<OutputBreakpoints />
-									<Function_crime_limits_removeReactionLink hasInputBreakpoint="0" comment="" breakpointFlags="0">
-										<OutputBreakpoints />
-									</Function_crime_limits_removeReactionLink>
-								</AtomicDecorator>
+								</Function_crime_limits_removeReactionLink>
 							</Sequence>
 						</OnFail>
 					</FuseBox>

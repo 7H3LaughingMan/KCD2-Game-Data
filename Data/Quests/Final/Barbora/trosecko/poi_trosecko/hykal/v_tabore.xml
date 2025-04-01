@@ -12,9 +12,6 @@
 				<Port Name="jindra_jeste_nemluvil_s_ostravenym_nebo_otraveny_jeste_nezemrel" Direction="Out" Type="bool">
 					<DesignName StringName="v_tabore_jindra_jeste_nem_4Uq6" Text="Jindra ještě nemluvil s ostráveným nebo otrávený ještě nezemřel" />
 				</Port>
-				<Port Name="odmena" Direction="Out" Type="trigger">
-					<DesignName StringName="v_tabore_odmena_x8DX" Text="Odměna" />
-				</Port>
 			</Ports>
 			<Definitions>
 				<Definition File="v_tabore/otraveny_se_uzdravil.xml" />
@@ -35,7 +32,7 @@
 				<Function Name="audiooneshot42" PositionY="-470" PositionX="2150" MethodName="wh::soundmodule::AudioOneShot" DeclaringType="wh::soundmodule">
 					<Constant Name="AtlTriggerName" Value="howling_200m" />
 					<Asset Name="LinkableObject" Alias="hykal" />
-					<Edge From="ifcompare43.True" To="Exec" />
+					<Edge From="enablebehaviorendnotification41.OnFinished" To="Exec" />
 				</Function>
 				<SoulDeathTrigger Name="deathtrigger25" PositionY="1050" PositionX="-410">
 					<Asset Name="Souls" Alias="otraveny" />
@@ -50,10 +47,6 @@
 					<Asset Name="NPC" Alias="hejkaluvPes" />
 					<Edge From="zaludecnyOdvarNepredan.bool" To="IsActive" />
 				</EnableBehavior>
-				<Function Name="getdistance44" PositionY="-120" PositionX="1490" MethodName="wh::xgenaimodule::GetDistance" DeclaringType="wh::xgenaimodule">
-					<Asset Name="Origin" Alias="hejkaluvPes" />
-					<Asset Name="Target" Alias="player" />
-				</Function>
 				<Function Name="hejkalUmrelNeboBylUzdraven" PositionY="1320" PositionX="460" MethodName="math::boolean::Or" DeclaringType="math::boolean">
 					<Edge From="state36.Done" To="A" />
 					<Edge From="state36.Dead" To="B" />
@@ -65,12 +58,6 @@
 					</Edge>
 					<Edge From="OnWake" To="Exec" />
 				</If>
-				<IfFunction Name="ifcompare43" PositionY="-437" PositionX="1844" TypeT="float" MethodName="Control::Compare" DeclaringType="Control">
-					<Constant Name="Op" Value="Greater" />
-					<Constant Name="ValueB" Value="20" />
-					<Edge From="enablebehaviorendnotification41.OnFinished" To="Exec" />
-					<Edge From="getdistance44.Distance" To="ValueA" />
-				</IfFunction>
 				<Function Name="jindraViCoDatAZatimNedal" PositionY="300" PositionX="1470" MethodName="math::boolean::And" DeclaringType="math::boolean">
 					<Edge From="prohlidka_otraveneho.jindra_vi_co_mu_dat" To="B">
 						<Vertex>qY9IVC7c</Vertex>
@@ -106,7 +93,6 @@
 					<Edge From="not22.bool" To="jindra_jeste_nemluvil_s_ostravenym_nebo_otraveny_jeste_nezemrel">
 						<Vertex>PauXz1xb</Vertex>
 					</Edge>
-					<Edge From="otraveny_se_uzdravil.done" To="odmena" />
 				</Output>
 				<pes Name="pes" PositionY="-250" PositionX="370">
 					<Edge From="jindra_jeste_nesylsel_o_hejkalovi" To="jindra_jeste_nesylsel_o_hejkalovi" />

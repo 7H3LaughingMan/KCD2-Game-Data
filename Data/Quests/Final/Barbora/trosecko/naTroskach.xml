@@ -69,6 +69,9 @@
 				<Port Name="nasilne_vraceni_vybavy_pred_prepnutim_levelu" Direction="In" Type="trigger">
 					<DesignName StringName="natroskach_nasilne_vracen_MXC5" Text="násilné vrácení výbavy před přepnutím levelu" />
 				</Port>
+				<Port Name="patchtriggerdo1_1_nodinnerchairmoved" Direction="Out" Type="trigger">
+					<DesignName StringName="natroskach_patchtriggerdo_Ob9M" Text="PatchTriggerDo1_1 noDinnerChairMoved" />
+				</Port>
 			</Ports>
 			<Definitions>
 				<Definition File="naTroskach/probuzeni.xml" />
@@ -223,7 +226,7 @@
 						<Vertex>ofdFjLQ5</Vertex>
 					</Edge>
 				</hledani_leku>
-				<komori__aftermath Name="komori__aftermath" PositionY="420" PositionX="3410">
+				<komori__aftermath Name="komori__aftermath" PositionY="470" PositionX="3410">
 					<Edge From="hibernovana_cast.komori_prijmul_potion" To="hrac_pomohl_komorimu">
 						<Vertex>vertex136</Vertex>
 						<Vertex>vertex137</Vertex>
@@ -392,6 +395,14 @@
 						<Vertex>cw6MK5Kt</Vertex>
 					</Edge>
 					<Edge From="bergov__co_dal.done" To="bergov_zada_ukol__konec_questu" />
+					<Edge From="triggersequence52.B" To="patchtriggerdo1_1_nodinnerchairmoved">
+						<Vertex>ungdhzro</Vertex>
+						<Vertex>s4Qr3d37</Vertex>
+					</Edge>
+					<Edge From="triggersequence52_1.B" To="patchtriggerdo1_1_nodinnerchairmoved">
+						<Vertex>ungdhzro</Vertex>
+						<Vertex>s4Qr3d37</Vertex>
+					</Edge>
 				</Output>
 				<probuzeni Name="probuzeni" PositionY="-620" PositionX="300">
 					<Edge From="hrac_nasel_kemp_a_mluvil_s_ptackem" To="hrac_nasel_kemp_a_mluvil_s_ptackem">
@@ -501,6 +512,7 @@
 						<Vertex>vertex176</Vertex>
 						<Vertex>mcTprV5q</Vertex>
 					</Edge>
+					<Edge From="naTroskach.State" To="stav_questu" />
 				</quest_setting>
 				<AddReward Name="reward51" PositionY="-810" PositionX="3360">
 					<Edge From="cin_m0620t_natroskach__ptacek_execution.konec_cutsceny" To="AddReward" />
@@ -621,8 +633,10 @@
 				<EdgeVertex Name="R7RgTkTq" PositionY="160" PositionX="1360" />
 				<EdgeVertex Name="RLBjRrJQ" PositionY="-430" PositionX="-350" />
 				<EdgeVertex Name="rovPcCcD" PositionY="878" PositionX="804" />
+				<EdgeVertex Name="s4Qr3d37" PositionY="260" PositionX="3680" />
 				<EdgeVertex Name="sBAFDAak" PositionY="320" PositionX="1030" />
 				<EdgeVertex Name="t0P8S0AP" PositionY="310" PositionX="280" />
+				<EdgeVertex Name="ungdhzro" PositionY="260" PositionX="2810" />
 				<EdgeVertex Name="v2xz9NK6" PositionY="-590" PositionX="-180" />
 				<EdgeVertex Name="VBcs7Lzp" PositionY="255" PositionX="1051" />
 				<EdgeVertex Name="vertex102" PositionY="160" PositionX="3000" />
@@ -879,6 +893,7 @@
 				<TriggerAreaAsset Name="taKuchynDole" />
 				<AnimDoorAsset Name="keepOpenDoors" />
 				<AnimDoorAsset Name="keepOpenDoors2" />
+				<TagPointAsset Name="tpBergovPolylog" />
 			</Assets>
 			<Notes>
 				<Note Name="obecneMechaniky" PositionY="-900" PositionX="-850">

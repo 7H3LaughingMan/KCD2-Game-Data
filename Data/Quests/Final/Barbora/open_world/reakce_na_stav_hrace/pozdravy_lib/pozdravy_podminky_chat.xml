@@ -30,13 +30,13 @@
 					<Edge From="not2.bool" To="A">
 						<Vertex>UHkGKUCX</Vertex>
 					</Edge>
-					<Edge From="IsNaked.hasbarechest" To="B" />
+					<Edge From="IsNakedForNPC.hasbarechest" To="B" />
 				</Function>
 				<Function Name="and_noPantsWithoutOverride" PositionY="-620" PositionX="300" MethodName="math::boolean::And" DeclaringType="math::boolean">
 					<Edge From="not2.bool" To="A">
 						<Vertex>UHkGKUCX</Vertex>
 					</Edge>
-					<Edge From="IsNaked.hasnopants" To="B" />
+					<Edge From="IsNakedForNPC.hasnopants" To="B" />
 				</Function>
 				<Function Name="checkgamecontext1" PositionY="-770" PositionX="-470" MethodName="wh::xgenaimodule::CheckGameContext" DeclaringType="wh::xgenaimodule">
 					<Constant Name="Context" Value="speech_disableNakedPlayerReactions" />
@@ -47,7 +47,9 @@
 					<Edge From="getscriptparamvalue11.Value" To="ValueB" />
 				</Function>
 				<Function Name="createsoulquerycontext7" PositionY="390" PositionX="-60" MethodName="wh::rpgmodule::CreateSoulQueryContext" DeclaringType="wh::rpgmodule">
-					<Edge From="npc" To="Opponent" />
+					<Edge From="npc" To="Opponent">
+						<Vertex>VQv0mj60</Vertex>
+					</Edge>
 				</Function>
 				<getrelativedirtinessininterval Name="getrelativedirtinessininterval" PositionY="310" PositionX="270" Namespace="utils.rpg">
 					<Asset Name="soul" Alias="player_any" />
@@ -66,12 +68,18 @@
 					<Asset Name="Soul" Alias="player_any" />
 					<Constant Name="State" Value="health" />
 				</MemberFunction>
-				<IsNaked Name="IsNaked" PositionY="-660" PositionX="20" Namespace="utils.item">
-					<Asset Name="soul" Alias="player_any" />
-				</IsNaked>
+				<IsNakedForNPC Name="IsNakedForNPC" PositionY="-670" PositionX="-260" Namespace="utils.item">
+					<Asset Name="checksoul" Alias="player_any" />
+					<Edge From="makearray13.Array" To="targetsouls" />
+				</IsNakedForNPC>
 				<ObjectProperties Name="isoulproperties1" PositionY="-170" PositionX="-120" DeclaringType="wh::rpgmodule::I_Soul">
 					<Asset Name="I_Soul" Alias="player_any" />
 				</ObjectProperties>
+				<MakeArray Name="makearray13" PositionY="-610" PositionX="-560" TypeT="wh::rpgmodule::Souls">
+					<Edge From="npc" To="A">
+						<Vertex>VQv0mj60</Vertex>
+					</Edge>
+				</MakeArray>
 				<Function Name="not2" PositionY="-770" PositionX="20" MethodName="math::boolean::Not" DeclaringType="math::boolean">
 					<Edge From="checkgamecontext1.IsContextSet" To="Value" />
 				</Function>
@@ -99,6 +107,7 @@
 			<EdgeVertices>
 				<EdgeVertex Name="skXafBfQ" PositionY="-50" PositionX="590" />
 				<EdgeVertex Name="UHkGKUCX" PositionY="-680" PositionX="260" />
+				<EdgeVertex Name="VQv0mj60" PositionY="40" PositionX="-820" />
 			</EdgeVertices>
 			<Notes>
 				<Note Name="note12" PositionY="-810" PositionX="680">

@@ -69,6 +69,11 @@
 						<Vertex>vertex22</Vertex>
 					</Edge>
 				</areatrespassleveleffect>
+				<CleanAndHealTo Name="CleanAndHealTo" PositionY="-1140" PositionX="480" Namespace="utils.general">
+					<Asset Name="souls" Alias="ptacek" />
+					<Constant Name="hp" Value="100" />
+					<Edge From="dialog_s_bergovem_po_prijezdu.AfterPlay" To="exec" />
+				</CleanAndHealTo>
 				<cutscena_popravy Name="cutscena_popravy" PositionY="410" PositionX="1410">
 					<Edge From="polylog_s_bergovem_po_vypaleni_semina__bez_haska.henry_se_priznal" To="henry_se_priznal" />
 				</cutscena_popravy>
@@ -101,9 +106,9 @@
 					<Asset Name="B" Alias="bergov" />
 				</Function>
 				<LinkEffectNoData Name="linkeffectnodata9" PositionY="720" PositionX="820">
-					<Asset Name="From" Alias="bergovReportPolylogFader" />
+					<Asset Name="From" Alias="bergovReportPolylogHolder" />
 					<Asset Name="To" Alias="hasekReportSpotTP" />
-					<Constant Name="Tag" Value="teleport" />
+					<Constant Name="Tag" Value="teleportBefore" />
 					<Edge From="not10.bool" To="IsActive" />
 				</LinkEffectNoData>
 				<Function Name="not10" PositionY="720" PositionX="400" MethodName="math::boolean::Not" DeclaringType="math::boolean">
@@ -275,6 +280,7 @@
 			<Assets>
 				<CutsceneHolderAsset Name="bergovReportPolylogFader" />
 				<TagPointAsset Name="hasekReportSpotTP" />
+				<DialogueHolderAsset Name="bergovReportPolylogHolder" />
 			</Assets>
 			<Text StringName="navrat_na_trosky_ZjMR" Text="Návrat na Trosky" />
 			<Elements>

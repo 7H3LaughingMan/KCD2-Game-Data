@@ -13,6 +13,7 @@
 			<Variable name="npcCooldowns" type="crime:npcCooldowns" values="" isPersistent="0" form="single" />
 			<Variable name="playerAlreadyEngaged" type="_bool" values="" isPersistent="0" form="single" />
 			<Variable name="playerCrouchingAtNight" type="_bool" values="" isPersistent="0" form="single" />
+			<Variable name="playerOnBed" type="_bool" values="" isPersistent="0" form="single" />
 			<Variable name="playerWeaponDrawn" type="_bool" values="" isPersistent="0" form="single" />
 			<Variable name="reaction" type="_bool" values="" isPersistent="0" form="single" />
 			<Variable name="reactionSuppressed" type="_bool" values="" isPersistent="0" form="single" />
@@ -91,7 +92,15 @@
 																			</Then>
 																		</ActorStateCheck>
 																	</IfCondition>
-																	<IfCondition failOnCondition="false" condition="$banditOnCooldown | $playerWeaponDrawn | $deadMateKnown | $playerCrouchingAtNight">
+																	<StanceCheck soul="$__player" stance="lying" smartObject="" negate="false" failOnCondition="false" saveVersion="2">
+																		<Then canSkip="1">
+																			<Expression expressions="$playerOnBed = true" />
+																		</Then>
+																		<Else canSkip="1">
+																			<Success />
+																		</Else>
+																	</StanceCheck>
+																	<IfCondition failOnCondition="false" condition="$banditOnCooldown | $playerWeaponDrawn | $deadMateKnown | $playerCrouchingAtNight | $playerOnBed">
 																		<Expression expressions="$escalateImmediately = true" />
 																	</IfCondition>
 																</Sequence>
@@ -103,25 +112,30 @@
 										</EntityContextCheck>
 									</Sequence>
 								</IfCondition>
-								<StanceCheck soul="$__player" stance="lying" smartObject="" negate="false" failOnCondition="false" saveVersion="2">
-									<Then canSkip="1">
-										<Expression expressions="$escalateImmediately = true" />
-									</Then>
-									<Else canSkip="1">
-										<Sequence>
-											<Function_crime_getHomeFromArea area="$trespassArea" home="$home" nodeLabel="60068906" />
-											<IfCondition failOnCondition="false" condition="$home ~= $__null">
-												<GetHomeTrespassEscalation Home="$home" Counter="$homeEscalationCounter" IsPaused="$escalationPaused" />
-											</IfCondition>
-											<Expression expressions="$escalateImmediately = $escalateImmediately |  &#10;(($isBandit | $trespassAreaSevereness &gt;= $enum:trespassLevel.personal) &amp;  &#10;$homeEscalationCounter &gt; $data:script_param[&apos;crime_trespassEscalationThreshold&apos;].value)" />
-										</Sequence>
-									</Else>
-								</StanceCheck>
+								<Function_crime_getHomeFromArea area="$trespassArea" home="$home" nodeLabel="60068906" />
+								<IfCondition failOnCondition="false" condition="$home ~= $__null">
+									<GetHomeTrespassEscalation Home="$home" Counter="$homeEscalationCounter" IsPaused="$escalationPaused" />
+								</IfCondition>
 								<IfElseCondition failOnCondition="false" condition="$trespassAreaSevereness &gt;= $enum:trespassLevel.prohibited &amp; &#10;~$escalationPaused" saveVersion="2">
 									<Then canSkip="1">
 										<Expression expressions="$escalateImmediately = true" />
 									</Then>
+									<Else canSkip="1">
+										<IfCondition failOnCondition="false" condition="$trespassAreaSevereness &gt;= $enum:trespassLevel.personal">
+											<StanceCheck soul="$__player" stance="lying" smartObject="" negate="false" failOnCondition="false" saveVersion="2">
+												<Then canSkip="1">
+													<Expression expressions="$escalateImmediately = true" />
+												</Then>
+												<Else canSkip="1">
+													<Success />
+												</Else>
+											</StanceCheck>
+										</IfCondition>
+									</Else>
 								</IfElseCondition>
+								<IfCondition failOnCondition="false" condition="~$escalateImmediately">
+									<Expression expressions="$escalateImmediately =  &#10;($isBandit | $trespassAreaSevereness &gt;= $enum:trespassLevel.personal) &amp;  &#10;$homeEscalationCounter &gt; $data:script_param[&apos;crime_trespassEscalationThreshold&apos;].value" />
+								</IfCondition>
 								<IfElseCondition failOnCondition="false" condition="$escalateImmediately" saveVersion="2">
 									<Then canSkip="1">
 										<Sequence>
@@ -219,6 +233,7 @@
 				<Variable name="npcCooldowns" comment="" />
 				<Variable name="playerAlreadyEngaged" comment="" />
 				<Variable name="playerCrouchingAtNight" comment="" />
+				<Variable name="playerOnBed" comment="" />
 				<Variable name="playerWeaponDrawn" comment="" />
 				<Variable name="reaction" comment="" />
 				<Variable name="reactionSuppressed" comment="" />
@@ -357,6 +372,19 @@
 																				</Then>
 																			</ActorStateCheck>
 																		</IfCondition>
+																		<StanceCheck hasInputBreakpoint="0" comment="escalate immediately on a sleeping player in trespass" breakpointFlags="0" saveVersion="2">
+																			<OutputBreakpoints />
+																			<Then>
+																				<Expression hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																					<OutputBreakpoints />
+																				</Expression>
+																			</Then>
+																			<Else>
+																				<Success hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																					<OutputBreakpoints />
+																				</Success>
+																			</Else>
+																		</StanceCheck>
 																		<IfCondition hasInputBreakpoint="0" comment="" breakpointFlags="0">
 																			<OutputBreakpoints />
 																			<Expression hasInputBreakpoint="0" comment="" breakpointFlags="0">
@@ -372,31 +400,15 @@
 											</EntityContextCheck>
 										</Sequence>
 									</IfCondition>
-									<StanceCheck hasInputBreakpoint="0" comment="escalate immediately on a sleeping player in trespass" breakpointFlags="0" saveVersion="2">
+									<Function_crime_getHomeFromArea hasInputBreakpoint="0" comment="" breakpointFlags="0">
 										<OutputBreakpoints />
-										<Then>
-											<Expression hasInputBreakpoint="0" comment="" breakpointFlags="0">
-												<OutputBreakpoints />
-											</Expression>
-										</Then>
-										<Else>
-											<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
-												<OutputBreakpoints />
-												<Function_crime_getHomeFromArea hasInputBreakpoint="0" comment="" breakpointFlags="0">
-													<OutputBreakpoints />
-												</Function_crime_getHomeFromArea>
-												<IfCondition hasInputBreakpoint="0" comment="" breakpointFlags="0">
-													<OutputBreakpoints />
-													<GetHomeTrespassEscalation hasInputBreakpoint="0" comment="" breakpointFlags="0">
-														<OutputBreakpoints />
-													</GetHomeTrespassEscalation>
-												</IfCondition>
-												<Expression hasInputBreakpoint="0" comment="" breakpointFlags="0">
-													<OutputBreakpoints />
-												</Expression>
-											</Sequence>
-										</Else>
-									</StanceCheck>
+									</Function_crime_getHomeFromArea>
+									<IfCondition hasInputBreakpoint="0" comment="" breakpointFlags="0">
+										<OutputBreakpoints />
+										<GetHomeTrespassEscalation hasInputBreakpoint="0" comment="" breakpointFlags="0">
+											<OutputBreakpoints />
+										</GetHomeTrespassEscalation>
+									</IfCondition>
 									<IfElseCondition hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
 										<OutputBreakpoints />
 										<Then>
@@ -404,7 +416,31 @@
 												<OutputBreakpoints />
 											</Expression>
 										</Then>
+										<Else>
+											<IfCondition hasInputBreakpoint="0" comment="" breakpointFlags="0">
+												<OutputBreakpoints />
+												<StanceCheck hasInputBreakpoint="0" comment="escalate immediately on a sleeping player in trespass" breakpointFlags="0" saveVersion="2">
+													<OutputBreakpoints />
+													<Then>
+														<Expression hasInputBreakpoint="0" comment="" breakpointFlags="0">
+															<OutputBreakpoints />
+														</Expression>
+													</Then>
+													<Else>
+														<Success hasInputBreakpoint="0" comment="" breakpointFlags="0">
+															<OutputBreakpoints />
+														</Success>
+													</Else>
+												</StanceCheck>
+											</IfCondition>
+										</Else>
 									</IfElseCondition>
+									<IfCondition hasInputBreakpoint="0" comment="" breakpointFlags="0">
+										<OutputBreakpoints />
+										<Expression hasInputBreakpoint="0" comment="" breakpointFlags="0">
+											<OutputBreakpoints />
+										</Expression>
+									</IfCondition>
 									<IfElseCondition hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
 										<OutputBreakpoints />
 										<Then>

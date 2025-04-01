@@ -93,14 +93,20 @@
 				<Port Name="stream_kateriny" Direction="Out" Type="trigger">
 					<DesignName StringName="utoknaneb_stream_kateriny_GQEU" Text="stream Kateřiny" />
 				</Port>
-				<Port Name="u01__ohniste_panna_hotovo" Direction="In" Type="bool">
-					<DesignName StringName="utoknaneb_u01__ohniste_pa_Sa1O" Text="U01 - ohniště panna hotovo" />
-				</Port>
 				<Port Name="aktivace_questu_bez_zavreneho_salu" Direction="Out" Type="trigger">
 					<DesignName StringName="utoknaneb_aktivace_questu_oimu" Text="aktivace questu bez zavřeného sálu" />
 				</Port>
 				<Port Name="komori_umrel" Direction="Out" Type="bool">
 					<DesignName StringName="utoknaneb_komori_umrel_3siY" Text="komoří umřel" />
+				</Port>
+				<Port Name="u01__quest_progress" Direction="In" Type="wh::questmodule::QuestProgress">
+					<DesignName StringName="utoknaneb_u01__quest_prog_Vivg" Text="U01 - quest progress" />
+				</Port>
+				<Port Name="panna__stream_default" Direction="Out" Type="trigger">
+					<DesignName StringName="utoknaneb_panna__stream_d_mDTv" Text="Panna - Stream Default" />
+				</Port>
+				<Port Name="u01__ohniste_na_palaci_done" Direction="In" Type="bool">
+					<DesignName StringName="utoknaneb_u01__ohniste_na_Q0VG" Text="U01 - ohniště na paláci done" />
 				</Port>
 			</Ports>
 			<Definitions>
@@ -122,30 +128,48 @@
 				<Definition File="utokNaNebakov/u01__ohniste_na_panne.xml" />
 			</Definitions>
 			<Nodes>
+				<Function Name="and18" PositionY="340" PositionX="-570" MethodName="math::boolean::And" DeclaringType="math::boolean">
+					<Edge From="compare13.bool" To="A" />
+					<Edge From="questProgress.Active" To="B">
+						<Vertex>vertex134</Vertex>
+						<Vertex>vertex135</Vertex>
+						<Vertex>23PrLHgq</Vertex>
+					</Edge>
+					<Edge From="not21.bool" To="C" />
+				</Function>
 				<art Name="art" PositionY="3930" PositionX="170" />
+				<Function Name="compare13" PositionY="580" PositionX="-900" TypeT="wh::questmodule::QuestProgress" MethodName="Control::Compare" DeclaringType="Control">
+					<Constant Name="Op" Value="Equals" />
+					<Constant Name="ValueB" Value="Active" />
+					<Edge From="u01__quest_progress" To="ValueA">
+						<Vertex>ypRaK0eu</Vertex>
+					</Edge>
+				</Function>
 				<dvere_od_salu Name="dvere_od_salu" PositionY="1150" PositionX="-240">
 					<Edge From="haste.start_questu" To="stream_hostiny" />
-					<Edge From="troseko_finale_start" To="stream_hostiny" />
+					<Edge From="troseko_finale_start" To="stream_hostiny">
+						<Vertex>6NjdBWam</Vertex>
+					</Edge>
 					<Edge From="hibernovana_gameplay.unstream_exclusion_arei_na_panne" To="unstream_arei">
 						<Vertex>vertex133</Vertex>
 						<Vertex>vertex132</Vertex>
 					</Edge>
-					<Edge From="u01__ohniste_panna_hotovo" To="u01__ohniste_panna_hotovo" />
 					<Edge From="u01__ohniste_na_panne.zavreni_palace" To="zavreni_palace" />
+					<Edge From="compare13.bool" To="u01__ohniste_panna_hotovo" />
 				</dvere_od_salu>
 				<florianovo_a_hermnovo_bedna Name="florianovo_a_hermnovo_bedna" PositionY="1960" PositionX="660">
 					<Edge From="army_camp_nastreamovan" To="konec_porady">
 						<Vertex>lWMra2Dn</Vertex>
 					</Edge>
 				</florianovo_a_hermnovo_bedna>
-				<haste Name="haste" PositionY="1150" PositionX="-560">
+				<haste Name="haste" PositionY="1240" PositionX="-590">
 					<Edge From="questProgress.Active" To="aktivni_quest">
 						<Vertex>vertex134</Vertex>
 						<Vertex>vertex135</Vertex>
 						<Vertex>23PrLHgq</Vertex>
 					</Edge>
 				</haste>
-				<hibernovana_gameplay Name="hibernovana_gameplay" PositionY="-60" PositionX="130" RequiredForOutput="trosecko">
+				<hibernovana_gameplay Name="hibernovana_gameplay" PositionY="-110" PositionX="130" RequiredForOutput="trosecko">
 					<Edge From="semin_je_zachranen" To="semin_je_zachranen" />
 					<Edge From="semin_probehl" To="semin_probehl" />
 					<Edge From="jindra_byl_na_semine" To="jindra_byl_na_semine" />
@@ -163,6 +187,10 @@
 					<Edge From="haste.start_battle" To="start_battle" />
 					<Edge From="jindra_dal_ptackovi_stit_1" To="jindra_dal_ptackovi_stit_1" />
 				</hibernovana_gameplay>
+				<If Name="if20" PositionY="340" PositionX="-290">
+					<Edge From="patchtrigger17.OnPatch" To="Exec" />
+					<Edge From="and18.bool" To="Condition" />
+				</If>
 				<Function Name="kill1" PositionY="1790" PositionX="660" MethodName="wh::rpgmodule::Kill" DeclaringType="wh::rpgmodule">
 					<Asset Name="Souls" Alias="volek" />
 					<Constant Name="HideBody" Value="true" />
@@ -175,6 +203,14 @@
 				<nahravani_trackview Name="nahravani_trackview" PositionY="600" PositionX="1070" />
 				<Function Name="not2" PositionY="2130" PositionX="660" MethodName="math::boolean::Not" DeclaringType="math::boolean">
 					<Edge From="hibernovana_gameplay.hrac_si_muze_lehnout" To="Value" />
+				</Function>
+				<Function Name="not21" PositionY="340" PositionX="-900" MethodName="math::boolean::Not" DeclaringType="math::boolean">
+					<Edge From="hibernovana_gameplay.hostina_aktivni" To="Value">
+						<Vertex>qK9t0qjS</Vertex>
+						<Vertex>VDm1eGU0</Vertex>
+						<Vertex>pjbElAIY</Vertex>
+						<Vertex>huyNX6E3</Vertex>
+					</Edge>
 				</Function>
 				<odemceni_dveri_na_troskach Name="odemceni_dveri_na_troskach" PositionY="1620" PositionX="660">
 					<Edge From="hibernovana_gameplay.hostina_aktivni" To="hostina_aktivni" />
@@ -242,7 +278,14 @@
 						<Vertex>SrVcRS3M</Vertex>
 					</Edge>
 					<Edge From="hibernovana_gameplay.komori_umrel" To="komori_umrel" />
+					<Edge From="if20.True" To="panna__stream_default">
+						<Vertex>20EGlEoU</Vertex>
+						<Vertex>EDNvgWoT</Vertex>
+					</Edge>
 				</Output>
+				<PatchTrigger Name="patchtrigger17" PositionY="200" PositionX="-660">
+					<Constant Name="TransitionToVersion" Value="ver_01_02" />
+				</PatchTrigger>
 				<pridani_badge_hankovi Name="pridani_badge_hankovi" PositionY="700" PositionX="670">
 					<Edge From="hibernovana_gameplay.konec_porady" To="konec_porady" />
 				</pridani_badge_hankovi>
@@ -335,12 +378,14 @@
 					<Edge From="not2.bool" To="Awake" />
 				</trosky_hracovo_postel>
 				<u01__ohniste_na_panne Name="u01__ohniste_na_panne" PositionY="490" PositionX="-420">
-					<Edge From="u01__ohniste_panna_hotovo" To="u01__ohniste_panna_hotovo" />
-					<Edge From="questProgress.OnActive" To="aktivni_quest">
-						<Vertex>XfNg2L2f</Vertex>
-						<Vertex>pcUpF98U</Vertex>
-						<Vertex>TMD7IUgD</Vertex>
-						<Vertex>PoGQXMLK</Vertex>
+					<Edge From="u01__ohniste_na_palaci_done" To="u01__ohniste_na_palaci_done">
+						<Vertex>E3aJGmmy</Vertex>
+					</Edge>
+					<Edge From="compare13.bool" To="u01__quest_active" />
+					<Edge From="questProgress.Active" To="m09__quest_aktivni">
+						<Vertex>vertex134</Vertex>
+						<Vertex>vertex135</Vertex>
+						<Vertex>23PrLHgq</Vertex>
 					</Edge>
 				</u01__ohniste_na_panne>
 				<utoknanebakov Name="utoknanebakov" PositionY="-310" PositionX="130" />
@@ -352,22 +397,27 @@
 				</vino_pro_ptacka__quest_item>
 			</Nodes>
 			<EdgeVertices>
+				<EdgeVertex Name="20EGlEoU" PositionY="-120" PositionX="140" />
 				<EdgeVertex Name="23PrLHgq" PositionY="1040" PositionX="-550" />
+				<EdgeVertex Name="6NjdBWam" PositionY="1180" PositionX="-1030" />
 				<EdgeVertex Name="bq97oNhb" PositionY="-490" PositionX="470" />
 				<EdgeVertex Name="Ddt9s1n1" PositionY="1470" PositionX="1000" />
-				<EdgeVertex Name="KNszzQwT" PositionY="-100" PositionX="800" />
+				<EdgeVertex Name="E3aJGmmy" PositionY="550" PositionX="-1050" />
+				<EdgeVertex Name="EDNvgWoT" PositionY="-120" PositionX="800" />
+				<EdgeVertex Name="huyNX6E3" PositionY="980" PositionX="-880" />
+				<EdgeVertex Name="KNszzQwT" PositionY="-150" PositionX="800" />
 				<EdgeVertex Name="LqxagPPs" PositionY="1160" PositionX="120" />
-				<EdgeVertex Name="lWMra2Dn" PositionY="1950" PositionX="-520" />
+				<EdgeVertex Name="lWMra2Dn" PositionY="1990" PositionX="-1040" />
 				<EdgeVertex Name="nhLWsLVb" PositionY="1470" PositionX="1380" />
-				<EdgeVertex Name="oRDS4ovx" PositionY="-100" PositionX="140" />
-				<EdgeVertex Name="pcUpF98U" PositionY="1190" PositionX="120" />
-				<EdgeVertex Name="PoGQXMLK" PositionY="1010" PositionX="-430" />
+				<EdgeVertex Name="oRDS4ovx" PositionY="-150" PositionX="140" />
+				<EdgeVertex Name="pjbElAIY" PositionY="980" PositionX="-20" />
+				<EdgeVertex Name="qK9t0qjS" PositionY="1010" PositionX="350" />
 				<EdgeVertex Name="SrVcRS3M" PositionY="1160" PositionX="350" />
 				<EdgeVertex Name="TJVC516Y" PositionY="-250" PositionX="1420" />
-				<EdgeVertex Name="TMD7IUgD" PositionY="1010" PositionX="-20" />
+				<EdgeVertex Name="VDm1eGU0" PositionY="1010" PositionX="120" />
 				<EdgeVertex Name="vertex106" PositionY="-300" PositionX="470" />
-				<EdgeVertex Name="vertex107" PositionY="-130" PositionX="800" />
-				<EdgeVertex Name="vertex108" PositionY="-130" PositionX="140" />
+				<EdgeVertex Name="vertex107" PositionY="-180" PositionX="800" />
+				<EdgeVertex Name="vertex108" PositionY="-180" PositionX="140" />
 				<EdgeVertex Name="vertex126" PositionY="60" PositionX="910" />
 				<EdgeVertex Name="vertex127" PositionY="1130" PositionX="120" />
 				<EdgeVertex Name="vertex130" PositionY="1100" PositionX="120" />
@@ -380,7 +430,7 @@
 				<EdgeVertex Name="vertex79" PositionY="-360" PositionX="470" />
 				<EdgeVertex Name="vertex81" PositionY="-420" PositionX="470" />
 				<EdgeVertex Name="vertex85" PositionY="-460" PositionX="470" />
-				<EdgeVertex Name="XfNg2L2f" PositionY="1190" PositionX="350" />
+				<EdgeVertex Name="ypRaK0eu" PositionY="520" PositionX="-1050" />
 				<EdgeVertex Name="YTxfloP1" PositionY="1130" PositionX="350" />
 			</EdgeVertices>
 			<Types>

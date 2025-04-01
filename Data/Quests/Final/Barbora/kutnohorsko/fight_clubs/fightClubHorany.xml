@@ -45,7 +45,7 @@
 				<Definition File="fightClubHorany/sanceProBerusku.xml" />
 			</Definitions>
 			<Nodes>
-				<fightClubHorany Name="fightClubHorany" PositionY="-60" PositionX="-510" RequiredForOutput="kutnohorsko">
+				<fightClubHorany Name="fightClubHorany" PositionY="-60" PositionX="-860" RequiredForOutput="kutnohorsko">
 					<Edge From="jindra_dohral_zapasy_v_miskovicich" To="jindra_dohral_zapasy_v_miskovicich" />
 					<Edge From="moznost_nabrat_aktivitu" To="moznost_nabrat_aktivitu" />
 					<Edge From="jindra_vyhral_zapasy_v_kutne_hore" To="jindra_vyhral_zapasy_v_kutne_hore" />
@@ -53,15 +53,17 @@
 					<Edge From="nekdo_tipuje_fight_club_v_horanech" To="nekdo_tipuje_fight_club_v_horanech" />
 					<Edge From="zapasy_jsou_odvolany" To="zapasy_jsou_odvolany" />
 				</fightClubHorany>
-				<fighting_presets_outside_quest Name="fighting_preset_outside_quest" PositionY="-320" PositionX="420" Namespace="fist_fights_common_library">
+				<fighting_presets_outside_quest Name="fighting_preset_outside_quest" PositionY="-440" PositionX="420" Namespace="fist_fights_common_library">
 					<Asset Name="soul" Alias="beruska" />
 					<Constant Name="soulclothingpreset" Value="605a28dd-ee37-4bd0-bce8-280c0227011c" />
 					<Edge From="fightClubHorany.quest_failuje" To="questends">
 						<Vertex>6MNlfDHm</Vertex>
+						<Vertex>qXF1msLf</Vertex>
 						<Vertex>0GCDxCeW</Vertex>
 					</Edge>
 					<Edge From="fightClubHorany.quest_uspesne_dokoncen" To="questends">
 						<Vertex>6MNlfDHm</Vertex>
+						<Vertex>qXF1msLf</Vertex>
 						<Vertex>0GCDxCeW</Vertex>
 					</Edge>
 					<Edge From="sanceProBerusku.quest_konci" To="questends">
@@ -71,29 +73,35 @@
 					<Edge From="or3.bool" To="isquestactive">
 						<Vertex>44SDpGhU</Vertex>
 					</Edge>
+					<Edge From="sanceProBerusku.trenink_cutscene_beforeplay" To="forceactivation" />
+					<Edge From="sanceProBerusku.quest_konci_treninkem" To="forcedeactivation" />
 				</fighting_presets_outside_quest>
 				<fighting_presets_outside_quest Name="fighting_preset_outside_quest_1" PositionY="170" PositionX="420" Namespace="fist_fights_common_library">
 					<Asset Name="soul" Alias="stanik" />
 					<Constant Name="soulclothingpreset" Value="1a0288c3-75f6-4ec2-9841-67bfd9f631fc" />
 					<Edge From="fightClubHorany.quest_uspesne_dokoncen" To="questends">
 						<Vertex>6MNlfDHm</Vertex>
+						<Vertex>qXF1msLf</Vertex>
 					</Edge>
 					<Edge From="fightClubHorany.quest_failuje" To="questends">
 						<Vertex>6MNlfDHm</Vertex>
+						<Vertex>qXF1msLf</Vertex>
 					</Edge>
 					<Edge From="fightClubHorany.stanik_je_obleceny_do_fighting_presetu" To="isactivefromquest" />
 					<Edge From="or3.bool" To="isquestactive">
 						<Vertex>44SDpGhU</Vertex>
 					</Edge>
 				</fighting_presets_outside_quest>
-				<fighting_presets_outside_quest Name="fighting_preset_outside_quest_2" PositionY="-90" PositionX="420" Namespace="fist_fights_common_library">
+				<fighting_presets_outside_quest Name="fighting_preset_outside_quest_2" PositionY="-130" PositionX="420" Namespace="fist_fights_common_library">
 					<Asset Name="soul" Alias="tuma" />
 					<Constant Name="soulclothingpreset" Value="2f2d7df8-4621-46a6-b38c-0fa3f7f92cc7" />
 					<Edge From="fightClubHorany.quest_uspesne_dokoncen" To="questends">
 						<Vertex>6MNlfDHm</Vertex>
+						<Vertex>qXF1msLf</Vertex>
 					</Edge>
 					<Edge From="fightClubHorany.quest_failuje" To="questends">
 						<Vertex>6MNlfDHm</Vertex>
+						<Vertex>qXF1msLf</Vertex>
 					</Edge>
 					<Edge From="fightClubHorany.tuma_je_obleceny_do_fighting_presetu" To="isactivefromquest" />
 					<Edge From="or3.bool" To="isquestactive">
@@ -106,11 +114,11 @@
 					</Edge>
 					<Edge From="sanceProBerusku.mikroquest_je_dostupny_nebo_aktivni" To="A" />
 				</Function>
-				<Function Name="or2" PositionY="-380" PositionX="80" MethodName="math::boolean::Or" DeclaringType="math::boolean">
+				<Function Name="or2" PositionY="-500" PositionX="80" MethodName="math::boolean::Or" DeclaringType="math::boolean">
 					<Edge From="fightClubHorany.bojovnik_je_obleceny_do_fighting_presetu" To="A" />
 					<Edge From="sanceProBerusku.bojovnik_je_obleceny_do_fighting_presetu" To="B" />
 				</Function>
-				<Function Name="or3" PositionY="-120" PositionX="-100" MethodName="math::boolean::Or" DeclaringType="math::boolean">
+				<Function Name="or3" PositionY="-160" PositionX="-100" MethodName="math::boolean::Or" DeclaringType="math::boolean">
 					<Edge From="fightClubHorany.quest_je_aktivni" To="A">
 						<Vertex>EczwBTmX</Vertex>
 					</Edge>
@@ -133,10 +141,11 @@
 				</SchedulerLinkActivation>
 			</Nodes>
 			<EdgeVertices>
-				<EdgeVertex Name="0GCDxCeW" PositionY="1" PositionX="240" />
-				<EdgeVertex Name="44SDpGhU" PositionY="-30" PositionX="230" />
+				<EdgeVertex Name="0GCDxCeW" PositionY="-40" PositionX="240" />
+				<EdgeVertex Name="44SDpGhU" PositionY="-70" PositionX="230" />
 				<EdgeVertex Name="6MNlfDHm" PositionY="350" PositionX="-90" />
 				<EdgeVertex Name="EczwBTmX" PositionY="600" PositionX="-150" />
+				<EdgeVertex Name="qXF1msLf" PositionY="30" PositionX="150" />
 			</EdgeVertices>
 			<Assets>
 				<SoulAsset Name="fans" SharedSoulGuids="a9de3adb-72b2-4159-8aa9-0ab49b38d913 b19d072a-1cc8-4a9d-b774-e70ad803bc9f 8d4716c0-268e-4a44-9041-74b81e8b398a 8125ab6d-6044-4075-903c-a47df7c37866 420ae6cb-a930-d092-c344-97154273cbb8 9c4bdaaf-7b1e-48c5-b979-bf04098f2383 37b704b6-27a9-44a3-ab9a-b907084797ab" />

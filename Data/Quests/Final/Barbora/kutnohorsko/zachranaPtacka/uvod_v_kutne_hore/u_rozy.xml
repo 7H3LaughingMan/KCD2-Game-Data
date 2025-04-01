@@ -3,6 +3,9 @@
 	<Skald>
 		<Module Name="u_rozy">
 			<Ports>
+				<Port Name="hrac_dostal_zadano_promluvit_s_rozou" Direction="Out" Type="bool">
+					<DesignName StringName="u_rozy_hrac_dostal_zadano_c8GG" Text="Hráč dostal zadáno promluvit s Rózou" />
+				</Port>
 				<Port Name="promluv_si_s_konakem" Direction="Out" Type="trigger">
 					<DesignName StringName="u_rozy_promluv_si_s_konak_BrnW" Text="Promluv si s koňákem" />
 				</Port>
@@ -28,38 +31,39 @@
 					<Edge From="makearray4.Array" To="ConsoleCommands" />
 					<Edge From="makearray36.Array" To="Prerequisites" />
 				</HasteTrigger>
-				<Function Name="and13" PositionY="-70" PositionX="590" MethodName="math::boolean::And" DeclaringType="math::boolean">
+				<Function Name="and13" PositionY="-310" PositionX="770" MethodName="math::boolean::And" DeclaringType="math::boolean">
 					<Edge From="not17.bool" To="B" />
 					<Edge From="talkWithRoza.Active" To="A">
 						<Vertex>BDEqHYs6</Vertex>
 					</Edge>
 				</Function>
-				<Function Name="and22" PositionY="-790" PositionX="920" MethodName="math::boolean::And" DeclaringType="math::boolean">
+				<Function Name="and22" PositionY="-800" PositionX="1120" MethodName="math::boolean::And" DeclaringType="math::boolean">
 					<Edge From="and13.bool" To="B" />
 					<Edge From="rozaAfterFirstBark.Stopped" To="A" />
 				</Function>
-				<Function Name="and24" PositionY="-510" PositionX="930" MethodName="math::boolean::And" DeclaringType="math::boolean">
+				<Function Name="and24" PositionY="-520" PositionX="1130" MethodName="math::boolean::And" DeclaringType="math::boolean">
 					<Edge From="and13.bool" To="B" />
 					<Edge From="rozaAfterFirstBark.Finished" To="A" />
 				</Function>
-				<Function Name="and35" PositionY="-250" PositionX="580" MethodName="math::boolean::And" DeclaringType="math::boolean">
+				<Function Name="and35" PositionY="-80" PositionX="780" MethodName="math::boolean::And" DeclaringType="math::boolean">
 					<Edge From="roza_odesla" To="A">
 						<Vertex>l9oorLMD</Vertex>
 					</Edge>
 					<Edge From="not17.bool" To="B" />
+					<Edge From="not38.bool" To="C" />
 				</Function>
-				<constants Name="constants" PositionY="880" PositionX="-510" Namespace="zachranaptacka_library" />
-				<Function Name="deathcheck18" PositionY="280" PositionX="590" MethodName="wh::rpgmodule::DeathCheck" DeclaringType="wh::rpgmodule">
+				<constants Name="constants" PositionY="870" PositionX="-170" Namespace="zachranaptacka_library" />
+				<Function Name="deathcheck18" PositionY="270" PositionX="790" MethodName="wh::rpgmodule::DeathCheck" DeclaringType="wh::rpgmodule">
 					<Asset Name="Souls" Alias="hastal" />
 				</Function>
-				<EnableBehavior Name="enablebehaviorwuiddata20" PositionY="-1290" PositionX="930" Signature="wuidData" EventSet="">
+				<EnableBehavior Name="enablebehaviorwuiddata20" PositionY="-80" PositionX="1210" Signature="wuidData" EventSet="">
 					<Constant Name="Behavior" Value="roza_moveAndWait" />
 					<Asset Name="SmartEntity" Alias="qSo" />
 					<Asset Name="NPC" Alias="roza" />
 					<Asset Name="data" Alias="rozaAfterVavakConfrontationSpot" />
 					<Edge From="and35.bool" To="IsActive" />
 				</EnableBehavior>
-				<EnableBehavior Name="enablebehaviorwuiddatastringendnotification31" PositionY="-920" PositionX="1210" Signature="wuidData_string" EventSet="endNotification">
+				<EnableBehavior Name="enablebehaviorwuiddatastringendnotification31" PositionY="-930" PositionX="1410" Signature="wuidData_string" EventSet="endNotification">
 					<Constant Name="Behavior" Value="roza_barkAndWave" />
 					<Asset Name="SmartEntity" Alias="qSo" />
 					<Asset Name="NPC" Alias="roza" />
@@ -67,37 +71,57 @@
 					<Asset Name="wuid" Alias="rozaAfterVavakConfrontationSpot" />
 					<Edge From="and22.bool" To="IsActive" />
 				</EnableBehavior>
+				<IfFunction Name="ifand37" PositionY="590" PositionX="-140" MethodName="math::boolean::And" DeclaringType="math::boolean">
+					<Edge From="talkWithRoza.OnDone" To="Exec" />
+					<Edge From="rozaPatience.Running" To="A">
+						<Vertex>R1GPNmFP</Vertex>
+						<Vertex>mwMcr31x</Vertex>
+					</Edge>
+				</IfFunction>
 				<MakeArray Name="makearray36" PositionY="-230" PositionX="-1100" TypeT="wh::conceptmodule::ConceptPaths">
 					<Constant Name="A" Value="rozinaKniha.01_init" />
 				</MakeArray>
 				<MakeArray Name="makearray4" PositionY="-470" PositionX="-1080" TypeT="Strings">
 					<Constant Name="A" Value="goto kmal_hastal" />
 				</MakeArray>
-				<Function Name="not17" PositionY="60" PositionX="250" MethodName="math::boolean::Not" DeclaringType="math::boolean">
+				<Function Name="not17" PositionY="50" PositionX="450" MethodName="math::boolean::Not" DeclaringType="math::boolean">
 					<Edge From="rozaPatience.Finished" To="Value" />
 				</Function>
-				<promluv_si_s_rozou Name="objectiveVisual8" PositionY="270" PositionX="-110" RequiredForOutput="kutnohorsko">
+				<Function Name="not38" PositionY="200" PositionX="470" MethodName="math::boolean::Not" DeclaringType="math::boolean">
+					<Edge From="talkWithRoza.Done" To="Value">
+						<Vertex>vertex31</Vertex>
+						<Vertex>jDbNDtrB</Vertex>
+					</Edge>
+				</Function>
+				<Function Name="not40" PositionY="1310" PositionX="-170" MethodName="math::boolean::Not" DeclaringType="math::boolean">
+					<Edge From="talkWithRoza.None" To="Value" />
+				</Function>
+				<promluv_si_s_rozou Name="objectiveVisual8" PositionY="260" PositionX="90" RequiredForOutput="kutnohorsko">
 					<Edge From="talkWithRoza.State" To="Progress" />
 				</promluv_si_s_rozou>
 				<Output Name="Output">
 					<Edge From="talkWithRoza.Done" To="hrac_nemluvil_s_rozou">
 						<Vertex>vertex31</Vertex>
+						<Vertex>jDbNDtrB</Vertex>
 						<Vertex>vertex32</Vertex>
 					</Edge>
 					<Edge From="talkWithRoza.OnDone" To="promluv_si_s_konakem">
 						<Vertex>vertex34</Vertex>
 						<Vertex>vertex33</Vertex>
 					</Edge>
+					<Edge From="not40.bool" To="hrac_dostal_zadano_promluvit_s_rozou">
+						<Vertex>TvxjpUbk</Vertex>
+					</Edge>
 				</Output>
-				<roza__na_co_cekas Name="roza__na_co_cekas" PositionY="-490" PositionX="400" />
-				<roza__tady_sem Name="roza__tady_sem" PositionY="-830" PositionX="50" />
-				<roza_ruthard__planek_a_zadani_sq Name="roza_ruthard__planek_a_zadani_sq" PositionY="490" PositionX="860">
+				<roza__na_co_cekas Name="roza__na_co_cekas" PositionY="-500" PositionX="600" />
+				<roza__tady_sem Name="roza__tady_sem" PositionY="-840" PositionX="250" />
+				<roza_ruthard__planek_a_zadani_sq Name="roza_ruthard__planek_a_zadani_sq" PositionY="480" PositionX="1060">
 					<Edge From="rozaPatience.Finished" To="hrac_se_opozdil">
 						<Vertex>hJo0mwt4</Vertex>
 					</Edge>
 					<Edge From="deathcheck18.IsDead" To="hastal_je_mrtev" />
 				</roza_ruthard__planek_a_zadani_sq>
-				<Timer Name="rozaAfterFirstBark" PositionY="-890" PositionX="390">
+				<Timer Name="rozaAfterFirstBark" PositionY="-900" PositionX="590">
 					<Constant Name="Duration" Value="30s" />
 					<Constant Name="TimeType" Value="GameTime" />
 					<Edge From="enablebehaviorwuiddatastringendnotification31.OnFinished" To="SetRunning">
@@ -105,30 +129,36 @@
 						<Vertex>RKjNNhfA</Vertex>
 					</Edge>
 				</Timer>
-				<Timer Name="rozaPatience" PositionY="530" PositionX="-80">
+				<Timer Name="rozaPatience" PositionY="520" PositionX="120">
 					<Constant Name="TimeType" Value="WorldTime" />
-					<Edge From="talkWithRoza.OnActive" To="SetRunning" />
+					<Edge From="talkWithRoza.OnActive" To="SetRunning">
+						<Vertex>R6Mg0ocA</Vertex>
+					</Edge>
 					<Edge From="constants.cas_po_ktery_ceka_roza_na_hrace" To="Duration" />
 					<Edge From="roza__na_co_cekas.hotovo" To="SetFinished">
 						<Vertex>vertex38</Vertex>
 						<Vertex>vertex39</Vertex>
 					</Edge>
+					<Edge From="ifand37.True" To="SetStopped" />
 				</Timer>
-				<s_rozou_nekdy_pozdeji Name="s_rozou_nekdy_pozdeji" PositionY="610" PositionX="330">
+				<s_rozou_nekdy_pozdeji Name="s_rozou_nekdy_pozdeji" PositionY="600" PositionX="530">
 					<Edge From="talkWithRoza.Active" To="hrac_ma_mluvit_s_rozou">
 						<Vertex>vertex30</Vertex>
 						<Vertex>vertex29</Vertex>
 					</Edge>
 					<Edge From="rozaPatience.Running" To="roza_ceka_na_hrace" />
 				</s_rozou_nekdy_pozdeji>
-				<s_rozou_rovnou_po_boji_ Name="s_rozou_rovnou_po_boji_" PositionY="450" PositionX="330">
+				<s_rozou_rovnou_po_boji_ Name="s_rozou_rovnou_po_boji_" PositionY="440" PositionX="530">
 					<Edge From="talkWithRoza.Active" To="hrac_ma_mluvit_s_rozou">
 						<Vertex>vertex30</Vertex>
 						<Vertex>vertex29</Vertex>
 					</Edge>
 					<Edge From="rozaPatience.Running" To="roza_ceka_na_hrace" />
 				</s_rozou_rovnou_po_boji_>
-				<switchdialog Name="switchdialog_1" PositionY="-580" PositionX="1240" Namespace="utils.speech">
+				<SceneFinishedWaiter Name="scenefinishedwaiter39" PositionY="50" PositionX="-820">
+					<Edge From="zadat_obj_promluvit_si_s_rozou" To="Enqueue" />
+				</SceneFinishedWaiter>
+				<switchdialog Name="switchdialog_1" PositionY="-590" PositionX="1440" Namespace="utils.speech">
 					<Asset Name="souls" Alias="roza" />
 					<Asset Name="linksource" Alias="rozaOtherBarksLinkSource" />
 					<Constant Name="alias" Value="zachranaPtacka_rozaNaCoCekas" />
@@ -150,33 +180,40 @@
 						<Vertex>vertex6</Vertex>
 					</Edge>
 					<Edge From="03_afterDialogueWithRoza.OnTrigger" To="SetDone" />
-					<Edge From="zadat_obj_promluvit_si_s_rozou" To="SetActive">
-						<Vertex>vertex13</Vertex>
-					</Edge>
+					<Edge From="scenefinishedwaiter39.OnFinished" To="SetActive" />
 				</State>
 			</Nodes>
 			<EdgeVertices>
-				<EdgeVertex Name="AH4NT0cG" PositionY="-991" PositionX="1557" />
-				<EdgeVertex Name="BDEqHYs6" PositionY="22" PositionX="-127" />
-				<EdgeVertex Name="hJo0mwt4" PositionY="810" PositionX="790" />
-				<EdgeVertex Name="l9oorLMD" PositionY="11" PositionX="496" />
-				<EdgeVertex Name="RKjNNhfA" PositionY="-988" PositionX="398" />
-				<EdgeVertex Name="vertex13" PositionY="70" PositionX="-510" />
-				<EdgeVertex Name="vertex29" PositionY="470" PositionX="250" />
+				<EdgeVertex Name="AH4NT0cG" PositionY="-1000" PositionX="1750" />
+				<EdgeVertex Name="BDEqHYs6" PositionY="-200" PositionX="-110" />
+				<EdgeVertex Name="hJo0mwt4" PositionY="800" PositionX="990" />
+				<EdgeVertex Name="jDbNDtrB" PositionY="860" PositionX="408" />
+				<EdgeVertex Name="l9oorLMD" PositionY="0" PositionX="690" />
+				<EdgeVertex Name="mwMcr31x" PositionY="480" PositionX="-100" />
+				<EdgeVertex Name="R1GPNmFP" PositionY="480" PositionX="380" />
+				<EdgeVertex Name="R6Mg0ocA" PositionY="490" PositionX="60" />
+				<EdgeVertex Name="RKjNNhfA" PositionY="-1000" PositionX="590" />
+				<EdgeVertex Name="TvxjpUbk" PositionY="1398" PositionX="1775" />
+				<EdgeVertex Name="vertex29" PositionY="470" PositionX="390" />
 				<EdgeVertex Name="vertex30" PositionY="470" PositionX="-90" />
-				<EdgeVertex Name="vertex31" PositionY="872" PositionX="-96" />
-				<EdgeVertex Name="vertex32" PositionY="870" PositionX="1660" />
-				<EdgeVertex Name="vertex33" PositionY="850" PositionX="1660" />
-				<EdgeVertex Name="vertex34" PositionY="850" PositionX="-109" />
-				<EdgeVertex Name="vertex38" PositionY="-490" PositionX="620" />
-				<EdgeVertex Name="vertex39" PositionY="-490" PositionX="-100" />
-				<EdgeVertex Name="vertex5" PositionY="860" PositionX="1180" />
-				<EdgeVertex Name="vertex6" PositionY="860" PositionX="-420" />
+				<EdgeVertex Name="vertex31" PositionY="860" PositionX="-100" />
+				<EdgeVertex Name="vertex32" PositionY="860" PositionX="1860" />
+				<EdgeVertex Name="vertex33" PositionY="840" PositionX="1850" />
+				<EdgeVertex Name="vertex34" PositionY="840" PositionX="-110" />
+				<EdgeVertex Name="vertex38" PositionY="-500" PositionX="820" />
+				<EdgeVertex Name="vertex39" PositionY="-500" PositionX="90" />
+				<EdgeVertex Name="vertex5" PositionY="850" PositionX="1380" />
+				<EdgeVertex Name="vertex6" PositionY="850" PositionX="-420" />
 			</EdgeVertices>
 			<Assets>
 				<TagPointAsset Name="rozaOtherBarksLinkSource" />
 				<TagPointAsset Name="rozaInitialBarkLinkSource" />
 			</Assets>
+			<Notes>
+				<Note Name="note41" PositionY="274" PositionX="-850">
+					<Text StringName="u_rozy_note41_CJh1" Text="Aby se stráže nefastforwardnuli dovnitř paláce. Po zatmívačce vypnu tag, který když je povolený znevalidňuje scheduler linky na strážící prefaby uvnitř paláce." />
+				</Note>
+			</Notes>
 			<Text StringName="u_rozy_qYxg" Text="U Rózy" />
 		</Module>
 	</Skald>

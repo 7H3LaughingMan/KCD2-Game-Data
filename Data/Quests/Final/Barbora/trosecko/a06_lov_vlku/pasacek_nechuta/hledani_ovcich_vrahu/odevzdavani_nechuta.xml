@@ -36,6 +36,13 @@
 					<Edge From="odevzdavani_nechuta.neodevzdano" To="reject" />
 					<Edge From="odevzdavani_nechuta.odevzdano" To="reject" />
 				</ears_delivery>
+				<IfFunction Name="ifor4" PositionY="990" PositionX="350" MethodName="math::boolean::Or" DeclaringType="math::boolean">
+					<Edge From="odevzdavani_nechuta.jindra_nakonec_rekl_nechutovi_o_lapkach" To="B" />
+					<Edge From="odevzdavani_nechuta.jindra_rekl_nechutovi_o_lapkach" To="A" />
+					<Edge From="odevzdavani_nechuta.velka_odmena" To="Exec" />
+					<Edge From="odevzdavani_nechuta.odmena" To="Exec" />
+					<Edge From="odevzdavani_nechuta.mala_odmena" To="Exec" />
+				</IfFunction>
 				<odevzdavani_nechuta Name="odevzdavani_nechuta">
 					<Edge From="hrac_se_s_lapky_domluvil" To="hrac_se_s_lapky_domluvil" />
 					<Edge From="hrac_lapky_zabil" To="hrac_lapky_zabil" />
@@ -69,6 +76,12 @@
 					<Edge From="odevzdavani_nechuta.velka_odmena" To="AddReward" />
 					<Rewards>
 						<ItemReward Amount="1" ItemClass="3844bfed-e66b-4e97-bea4-4bf84d90ae82" />
+					</Rewards>
+				</AddReward>
+				<AddReward Name="reward2_1" PositionY="990" PositionX="610">
+					<Edge From="ifor4.True" To="AddReward" />
+					<Rewards>
+						<ItemReward Amount="1" ItemClass="d328f612-9fc1-4f07-8fa0-8893b23ad3fb" />
 					</Rewards>
 				</AddReward>
 			</Nodes>

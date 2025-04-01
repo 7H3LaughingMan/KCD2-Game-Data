@@ -21,6 +21,9 @@
 				<Port Name="ignaz_zemrel" Direction="Out" Type="trigger">
 					<DesignName StringName="ignaz_log_ignaz_zemrel_gaKD" Text="Ignaz zemřel" />
 				</Port>
+				<Port Name="jindra_si_promluvil_s_ignacem" Direction="Out" Type="bool">
+					<DesignName StringName="ignaz_log_jindra_si_proml_Rj2f" Text="Jindra si promluvil s ignácem" />
+				</Port>
 			</Ports>
 			<Definitions>
 				<Definition File="ignaz_logic/chat_s_ignacem.xml" />
@@ -40,6 +43,10 @@
 				<Function Name="areacheck418" PositionY="520" PositionX="1670" MethodName="wh::rpgmodule::AreaCheck" DeclaringType="wh::rpgmodule">
 					<Asset Name="Souls" Alias="player" />
 					<Asset Name="Areas" Alias="baitArea" />
+				</Function>
+				<Function Name="areacheck426" PositionY="300" PositionX="1680" MethodName="wh::rpgmodule::AreaCheck" DeclaringType="wh::rpgmodule">
+					<Asset Name="Souls" Alias="ignaz" />
+					<Asset Name="Areas" Alias="ignacHomeArea" />
 				</Function>
 				<chat_s_ignacem Name="chat_s_ignacem" PositionY="460" PositionX="2530">
 					<Edge From="and419.bool" To="hrac_je_omrkveny_a_jsou_v_baitarea_a_ignac_jeste_nelezi" />
@@ -105,22 +112,27 @@
 					<Asset Name="Areas" Alias="randomSheepBaitArea" />
 					<Edge From="deathtrigger424.OnAllDeath" To="Exec" />
 				</IfFunction>
+				<Function Name="JindraMluvilSIgnacem" PositionY="620" PositionX="2990" MethodName="math::boolean::Or" DeclaringType="math::boolean">
+					<Edge From="chat_s_ignacem.seq2" To="B" />
+					<Edge From="chat_s_ignacem.seq1" To="A" />
+				</Function>
 				<State Name="numberOfMealsIgnazHasEaten" PositionY="1030" PositionX="660" TypeT="int">
 					<Edge From="enablebehaviornumberofmealseatenignazeat417.Eaten" To="Increment" />
 				</State>
 				<Function Name="or420" PositionY="310" PositionX="2020" MethodName="math::boolean::Or" DeclaringType="math::boolean">
-					<Edge From="state66.StaysHome" To="B">
-						<Vertex>vertex16</Vertex>
-						<Vertex>vertex17</Vertex>
-					</Edge>
-					<Edge From="state66.GoesHome" To="A">
-						<Vertex>vertex18</Vertex>
-						<Vertex>vertex19</Vertex>
-					</Edge>
-					<Edge From="state66.RunsHome" To="C">
+					<Edge From="state66.RunsHome" To="D">
 						<Vertex>vertex37</Vertex>
 						<Vertex>vertex36</Vertex>
 					</Edge>
+					<Edge From="state66.StaysHome" To="C">
+						<Vertex>vertex16</Vertex>
+						<Vertex>vertex17</Vertex>
+					</Edge>
+					<Edge From="state66.GoesHome" To="B">
+						<Vertex>vertex18</Vertex>
+						<Vertex>vertex19</Vertex>
+					</Edge>
+					<Edge From="areacheck426.IsInside" To="A" />
 				</Function>
 				<Function Name="or421" PositionY="700" PositionX="2010" MethodName="math::boolean::Or" DeclaringType="math::boolean">
 					<Edge From="state66.FollowsPlayer" To="A">
@@ -144,6 +156,7 @@
 					</Edge>
 					<Edge From="ifareacheck425.False" To="ignaz_zemrel" />
 					<Edge From="ifareacheck425.True" To="ignaz_lezi_v_bait_area" />
+					<Edge From="JindraMluvilSIgnacem.bool" To="jindra_si_promluvil_s_ignacem" />
 				</Output>
 				<SchedulerLinkActivation Name="schedule42_1" PositionY="1020" PositionX="1340">
 					<Constant Name="LinkTag" Value="ignaz_stayHome" />
@@ -180,21 +193,21 @@
 				<EdgeVertex Name="8fAIWXXT" PositionY="310" PositionX="0" />
 				<EdgeVertex Name="uB6USPe0" PositionY="310" PositionX="280" />
 				<EdgeVertex Name="vertex1" PositionY="210" PositionX="880" />
-				<EdgeVertex Name="vertex10" PositionY="1300" PositionX="870" />
+				<EdgeVertex Name="vertex10" PositionY="1300" PositionX="860" />
 				<EdgeVertex Name="vertex11" PositionY="1300" PositionX="0" />
 				<EdgeVertex Name="vertex12" PositionY="940" PositionX="880" />
 				<EdgeVertex Name="vertex13" PositionY="940" PositionX="0" />
 				<EdgeVertex Name="vertex14" PositionY="-150" PositionX="1980" />
 				<EdgeVertex Name="vertex15" PositionY="-150" PositionX="0" />
 				<EdgeVertex Name="vertex16" PositionY="460" PositionX="1390" />
-				<EdgeVertex Name="vertex17" PositionY="460" PositionX="1940" />
+				<EdgeVertex Name="vertex17" PositionY="470" PositionX="1940" />
 				<EdgeVertex Name="vertex18" PositionY="440" PositionX="1390" />
-				<EdgeVertex Name="vertex19" PositionY="440" PositionX="1940" />
+				<EdgeVertex Name="vertex19" PositionY="450" PositionX="1940" />
 				<EdgeVertex Name="vertex2" PositionY="210" PositionX="0" />
 				<EdgeVertex Name="vertex20" PositionY="-130" PositionX="1090" />
 				<EdgeVertex Name="vertex21" PositionY="-130" PositionX="1980" />
 				<EdgeVertex Name="vertex22" PositionY="500" PositionX="1390" />
-				<EdgeVertex Name="vertex23" PositionY="500" PositionX="1940" />
+				<EdgeVertex Name="vertex23" PositionY="510" PositionX="1940" />
 				<EdgeVertex Name="vertex27" PositionY="670" PositionX="1930" />
 				<EdgeVertex Name="vertex28" PositionY="690" PositionX="1370" />
 				<EdgeVertex Name="vertex29" PositionY="690" PositionX="1930" />
@@ -203,7 +216,7 @@
 				<EdgeVertex Name="vertex31" PositionY="710" PositionX="1930" />
 				<EdgeVertex Name="vertex32" PositionY="290" PositionX="2210" />
 				<EdgeVertex Name="vertex33" PositionY="290" PositionX="1380" />
-				<EdgeVertex Name="vertex36" PositionY="480" PositionX="1940" />
+				<EdgeVertex Name="vertex36" PositionY="490" PositionX="1940" />
 				<EdgeVertex Name="vertex37" PositionY="480" PositionX="1390" />
 				<EdgeVertex Name="vertex38" PositionY="990" PositionX="1590" />
 				<EdgeVertex Name="vertex39" PositionY="990" PositionX="670" />
@@ -211,6 +224,9 @@
 				<EdgeVertex Name="vertex8" PositionY="290" PositionX="0" />
 				<EdgeVertex Name="vertex9" PositionY="290" PositionX="280" />
 			</EdgeVertices>
+			<Assets>
+				<TriggerAreaAsset Name="ignacHomeArea" />
+			</Assets>
 			<Text StringName="ignaz_logic_EFic" Text="Ignaz Logic" />
 		</Module>
 	</Skald>

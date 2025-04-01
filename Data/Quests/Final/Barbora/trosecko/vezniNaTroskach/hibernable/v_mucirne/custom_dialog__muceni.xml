@@ -27,15 +27,19 @@
 					</Edge>
 					<Edge From="select8.Value1" To="A" />
 				</Function>
-				<addbloodallbodyparts Name="addbloodallbodyparts" PositionY="890" PositionX="1000" Namespace="utils.general">
+				<addbloodallbodyparts Name="addbloodallbodyparts" PositionY="1070" PositionX="1010" Namespace="utils.general">
 					<Asset Name="soul" Alias="zizka" />
 					<Constant Name="value" Value="0.1" />
-					<Edge From="custom_dialog__muceni.AfterPlay" To="add_blood" />
+					<Constant Name="absolute" Value="false" />
+					<Edge From="custom_dialog__muceni.muceni_skoncilo" To="add_blood" />
 				</addbloodallbodyparts>
-				<addbloodallbodyparts Name="addbloodallbodyparts_1" PositionY="1060" PositionX="1000" Namespace="utils.general">
+				<addbloodallbodyparts Name="addbloodallbodyparts_1" PositionY="470" PositionX="3450" Namespace="utils.general">
 					<Asset Name="soul" Alias="player" />
 					<Constant Name="value" Value="0.2" />
-					<Edge From="custom_dialog__muceni.AfterPlay" To="add_blood" />
+					<Constant Name="absolute" Value="false" />
+					<Edge From="takedamage49_1.OnExec" To="add_blood" />
+					<Edge From="takedamage49_2.OnExec" To="add_blood" />
+					<Edge From="takedamage49.OnExec" To="add_blood" />
 				</addbloodallbodyparts>
 				<Function Name="addbuff40" PositionY="-1070" PositionX="2530" MethodName="wh::rpgmodule::AddBuff" DeclaringType="wh::rpgmodule">
 					<Asset Name="Souls" Alias="player" />
@@ -127,6 +131,16 @@
 					<Asset Name="Soul" Alias="player" />
 					<Constant Name="Stat" Value="vitality" />
 				</MemberFunction>
+				<IfFunction Name="ifcompare51" PositionY="-300" PositionX="1890" TypeT="int" MethodName="Control::Compare" DeclaringType="Control">
+					<Constant Name="Op" Value="Greater" />
+					<Edge From="playerTorturePoints.State" To="ValueA" />
+					<Edge From="multiply25.int" To="ValueB">
+						<Vertex>HMmjL6hh</Vertex>
+					</Edge>
+					<Edge From="custom_dialog__muceni.muceni_skoncilo" To="Exec">
+						<Vertex>JkV8UoF2</Vertex>
+					</Edge>
+				</IfFunction>
 				<IfFunction Name="ifor39" PositionY="-1080" PositionX="2200" MethodName="math::boolean::Or" DeclaringType="math::boolean">
 					<Edge From="vypni_mucici_debuffy" To="Exec">
 						<Vertex>vertex43</Vertex>
@@ -147,27 +161,18 @@
 					</Edge>
 				</IfFunction>
 				<If Name="ifTorturedHard" PositionY="190" PositionX="2720">
-					<Edge From="custom_dialog__muceni.AfterPlay" To="Exec">
-						<Vertex>vertex9</Vertex>
-						<Vertex>VLmVl953</Vertex>
-					</Edge>
 					<Edge From="compare28.bool" To="Condition" />
+					<Edge From="triggersequence52.B" To="Exec" />
 				</If>
 				<If Name="ifTorturedLittle" PositionY="490" PositionX="2720">
-					<Edge From="custom_dialog__muceni.AfterPlay" To="Exec">
-						<Vertex>vertex9</Vertex>
-						<Vertex>VLmVl953</Vertex>
-					</Edge>
 					<Edge From="valuebetween_1_1.valueisbetween" To="Condition" />
+					<Edge From="triggersequence52.B" To="Exec" />
 				</If>
 				<If Name="ifTorturedMedium" PositionY="340" PositionX="2720">
 					<Edge From="valuebetween_1.valueisbetween" To="Condition" />
-					<Edge From="custom_dialog__muceni.AfterPlay" To="Exec">
-						<Vertex>vertex9</Vertex>
-						<Vertex>VLmVl953</Vertex>
-					</Edge>
+					<Edge From="triggersequence52.B" To="Exec" />
 				</If>
-				<ObjectProperties Name="isoulproperties50" PositionY="700" PositionX="2670" DeclaringType="wh::rpgmodule::I_Soul">
+				<ObjectProperties Name="isoulproperties50" PositionY="790" PositionX="2730" DeclaringType="wh::rpgmodule::I_Soul">
 					<Asset Name="I_Soul" Alias="player" />
 				</ObjectProperties>
 				<MakeArray Name="makearray5" PositionY="-150" PositionX="-370" TypeT="wh::rpgmodule::Souls">
@@ -242,15 +247,17 @@
 					<Edge From="getstatlevel20.Value" To="float" />
 				</Function>
 				<State Name="tortureBuffsActive" PositionY="-900" PositionX="680" TypeT="bool">
-					<Edge From="custom_dialog__muceni.muceni_skoncilo" To="SetTrue">
-						<Vertex>vertex10</Vertex>
-						<Vertex>vertex26</Vertex>
-						<Vertex>vertex34</Vertex>
-					</Edge>
 					<Edge From="vypni_mucici_debuffy" To="SetFalse">
 						<Vertex>vertex43</Vertex>
 					</Edge>
+					<Edge From="triggersequence52.A" To="SetTrue">
+						<Vertex>23vDkWtD</Vertex>
+						<Vertex>vertex34</Vertex>
+					</Edge>
 				</State>
+				<TriggerSequence Name="triggersequence52" PositionY="-300" PositionX="2480">
+					<Edge From="ifcompare51.True" To="Exec" />
+				</TriggerSequence>
 				<HasteTrigger Name="unlockAllTorturingSequences" PositionY="270" PositionX="-250" />
 				<valuebetween Name="valuebetween_1" PositionY="230" PositionX="2170" Namespace="vezninatroskachlibrary">
 					<Constant Name="lowvalue" Value="-5" />
@@ -262,13 +269,11 @@
 					<Constant Name="highvalue" Value="-5" />
 					<Edge From="playerTorturePoints.State" To="inputvalue" />
 				</valuebetween>
-				<valuebetween Name="valuebetween_2" PositionY="720" PositionX="2170" Namespace="vezninatroskachlibrary">
-					<Constant Name="highvalue" Value="-10" />
-					<Edge From="multiply25.int" To="lowvalue" />
-					<Edge From="playerTorturePoints.State" To="inputvalue" />
-				</valuebetween>
 			</Nodes>
 			<EdgeVertices>
+				<EdgeVertex Name="23vDkWtD" PositionY="-570" PositionX="2620" />
+				<EdgeVertex Name="HMmjL6hh" PositionY="741" PositionX="1828" />
+				<EdgeVertex Name="JkV8UoF2" PositionY="-210" PositionX="940" />
 				<EdgeVertex Name="vertex1" PositionY="-170" PositionX="-380" />
 				<EdgeVertex Name="vertex10" PositionY="-60" PositionX="940" />
 				<EdgeVertex Name="vertex11" PositionY="-40" PositionX="940" />
@@ -278,7 +283,6 @@
 				<EdgeVertex Name="vertex2" PositionY="-180" PositionX="420" />
 				<EdgeVertex Name="vertex23" PositionY="-410" PositionX="2350" />
 				<EdgeVertex Name="vertex25" PositionY="-352" PositionX="1211" />
-				<EdgeVertex Name="vertex26" PositionY="-570" PositionX="950" />
 				<EdgeVertex Name="vertex28" PositionY="-360" PositionX="1130" />
 				<EdgeVertex Name="vertex31" PositionY="-404" PositionX="920" />
 				<EdgeVertex Name="vertex33" PositionY="-660" PositionX="950" />
@@ -300,8 +304,6 @@
 				<EdgeVertex Name="vertex6" PositionY="556" PositionX="1329" />
 				<EdgeVertex Name="vertex7" PositionY="610" PositionX="-310" />
 				<EdgeVertex Name="vertex8" PositionY="610" PositionX="850" />
-				<EdgeVertex Name="vertex9" PositionY="0" PositionX="940" />
-				<EdgeVertex Name="VLmVl953" PositionY="0" PositionX="2620" />
 			</EdgeVertices>
 			<Assets>
 				<SoulAsset Name="kat" SharedSoulGuids="67174a1b-d83c-436a-a5fd-de7930d8b999" />

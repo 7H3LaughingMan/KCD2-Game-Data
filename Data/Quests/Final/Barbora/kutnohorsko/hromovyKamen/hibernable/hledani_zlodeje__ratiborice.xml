@@ -50,10 +50,6 @@
 				<Definition File="hledani_zlodeje__ratiborice/jenikuv_kamos_pena__o_jenikovi.xml" />
 			</Definitions>
 			<Nodes>
-				<Function Name="and2329" PositionY="-850" PositionX="100" MethodName="math::boolean::And" DeclaringType="math::boolean">
-					<Edge From="not2325.bool" To="A" />
-					<Edge From="not2330.bool" To="B" />
-				</Function>
 				<IfFunction Name="asquiredStone" PositionY="-790" PositionX="-730" MethodName="math::boolean::And" DeclaringType="math::boolean">
 					<Edge From="henry_ziskal_kamen" To="Exec" />
 					<Edge From="findJenikAndPena.Zadano" To="A">
@@ -68,10 +64,10 @@
 					<Asset Name="Souls" Alias="pena" />
 					<Edge From="quest_active" To="IsActive" />
 				</SoulDeathTrigger>
-				<expectedeffect Name="expectedeffect" PositionY="-870" PositionX="360" Namespace="utils.crime.trespass">
+				<expectedeffect Name="expectedeffect" PositionY="-850" PositionX="100" Namespace="utils.crime.trespass">
 					<Asset Name="npcs" Alias="pena" />
 					<Constant Name="extenduntilplayerleavestrespass" Value="true" />
-					<Edge From="and2329.bool" To="isactive" />
+					<Edge From="findJenikAndPena.Zadano" To="isactive" />
 				</expectedeffect>
 				<State Name="findJenikAndPena" PositionY="-950" PositionX="-310" RequiredForOutput="kutnohorsko" TypeT="najdiJenika">
 					<Edge From="jenikuv_kamos_pena__o_jenikovi.najdi_bandity" To="SetCompleted">
@@ -132,14 +128,8 @@
 				<MakeArray Name="makearray4" PositionY="60" PositionX="-1190" TypeT="Strings">
 					<Constant Name="A" Value="wh_concept_hasteTrigger hromovyKamen.s34_3_getInfoFromThomlin" />
 				</MakeArray>
-				<Function Name="not2325" PositionY="-700" PositionX="100" MethodName="math::boolean::Not" DeclaringType="math::boolean">
+				<Function Name="not2325" PositionY="-570" PositionX="100" MethodName="math::boolean::Not" DeclaringType="math::boolean">
 					<Edge From="findJenikAndPena.None" To="Value" />
-				</Function>
-				<Function Name="not2330" PositionY="-580" PositionX="100" MethodName="math::boolean::Not" DeclaringType="math::boolean">
-					<Edge From="jenik_je_zpet_v_dolanech" To="Value">
-						<Vertex>vertex11</Vertex>
-						<Vertex>vertex12</Vertex>
-					</Edge>
 				</Function>
 				<zjisti_co_vi_pena_a_jenik_o_hromovem_kameni Name="objectiveVisual1" PositionY="-1020" PositionX="100" RequiredForOutput="kutnohorsko">
 					<Edge From="findJenikAndPena.State" To="Progress" />

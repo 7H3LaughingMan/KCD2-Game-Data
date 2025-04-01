@@ -547,18 +547,13 @@
 							<GetItemInSlot slot="$ladderSlot" useHomeItem="false" item="$ladder" />
 							<IsWeaponDrawn who="$__player" WeaponSet="Oversized" saveVersion="2">
 								<Then canSkip="1">
-									<Sequence>
-										<GetWeaponsFromWeaponSet WeaponSet="Oversized" LeftHand="$leftHand" RightHand="$halbert" UseTorchWhenAppropriate="true" />
-										<GetItemProperty itemId="$halbert" property="Guid" result="$halberdGuid" />
-										<Expression expressions="$weaponDrawn = 3" />
-									</Sequence>
+									<Expression expressions="$weaponDrawn = 3" />
 								</Then>
 								<Else canSkip="1">
 									<Sequence>
 										<GraphSearch Origin="$this.id" Borders="" depth="2" selection="true" SearchPattern="Depth" EdgePruning="&apos;parent&apos;" AllowedEdges="" SubGraph="" AllowSubtraph="false" includeOrigin="false" excludeOrigin="false" failOnEmpty="true" SetOperationChoice="Intersection|And" errorOnEmpty="false" shortCircuit="false" skipTraversed="true">
 											<ItemClassFilter ClassId="" Category="&apos;melee_weapon.halberd.*&apos;" Source="Child" prune="true" negprune="unknown" Parent="" Child="$halbert" />
 										</GraphSearch>
-										<GetItemProperty itemId="$halbert" property="Guid" result="$halberdGuid" />
 										<Expression expressions="$inventoryHalbert = true &#10;$weaponDrawn = 4" />
 									</Sequence>
 								</Else>
@@ -608,58 +603,26 @@
 								</Selector>
 								<HandCheck who="" LeftHand="$left" RightHand="$right" />
 								<SetVisibility ItemWUID="$ladderEntity" Visibility="false" />
-								<IfElseCondition failOnCondition="false" condition="$weaponDrawn == 3" saveVersion="2">
-									<Then canSkip="1">
-										<HandContentElement hand="Right" item="$halbert" allowAny="false" allowHomeSlotAutoReturn="false" decisionLabel="battle_halbert" useDecision="true" enabled="true" saveVersion="2">
-											<Search canSkip="1">
-												<Success />
-											</Search>
-											<Exec canSkip="1">
-												<Parallel successMode="Any" failureMode="Any">
-													<AnimationAction fragment="&apos;GuardHlbrdPushAway&apos;" tags="$ladderHeight" eventReferenceObject="$data" alignObject="$data" slaveObject="" resourceOverride="" allowTorchForPlayer="false">
-														<EventData_pickup Slot="$ladderSlot" name="&apos;placeSlot&apos;" />
-														<EventData_place Slot="$dropSlot" name="&apos;dropSlot&apos;" />
-													</AnimationAction>
-													<Sequence>
-														<SuppressFailure>
-															<Sequence>
-																<Wait duration="&apos;4500&apos;" timeType="GameTime" doFail="false" variation="" />
-																<GraphSearch Origin="$data" Borders="" depth="1" selection="true" SearchPattern="Depth" EdgePruning="&apos;parent,inventory&apos;" AllowedEdges="" SubGraph="" AllowSubtraph="false" includeOrigin="false" excludeOrigin="false" failOnEmpty="true" SetOperationChoice="Intersection|And" errorOnEmpty="false" shortCircuit="false" skipTraversed="true">
-																	<LinkTagFilter tag="&apos;particle&apos;" prune="true" negprune="unknown" Parent="" Child="$particle" Data="" />
-																</GraphSearch>
-																<ExecuteSoundTrigger entity="$particle" triggerName="&apos;q_M11_gate_crash_open2&apos;" stop="false" />
-																<ParticleEffectControl ParticleWuid="$particle" StartStopChoice="Start" />
-															</Sequence>
-														</SuppressFailure>
-														<Wait duration="&apos;-1&apos;" timeType="GameTime" doFail="false" variation="" />
-													</Sequence>
-												</Parallel>
-											</Exec>
-										</HandContentElement>
-									</Then>
-									<Else canSkip="1">
-										<Parallel successMode="Any" failureMode="Any">
-											<AnimationAction fragment="&apos;GuardHlbrdPushAway_Player&apos;" tags="$ladderHeight" eventReferenceObject="$data" alignObject="$data" slaveObject="" resourceOverride="" allowTorchForPlayer="false">
-												<EventData_spawnitem ItemClassId="$halberdGuid" name="&apos;halberd&apos;" />
-												<EventData_pickup Slot="$ladderSlot" name="&apos;placeSlot&apos;" />
-												<EventData_place Slot="$dropSlot" name="&apos;dropSlot&apos;" />
-											</AnimationAction>
+								<Parallel successMode="Any" failureMode="Any">
+									<AnimationAction fragment="&apos;GuardHlbrdPushAway_Player&apos;" tags="$ladderHeight" eventReferenceObject="$data" alignObject="$data" slaveObject="" resourceOverride="" allowTorchForPlayer="false">
+										<EventData_spawnitem ItemClassId="&apos;03b6321d-4151-46cd-bdec-451ea7bfaabc&apos;" name="&apos;halberd&apos;" />
+										<EventData_pickup Slot="$ladderSlot" name="&apos;placeSlot&apos;" />
+										<EventData_place Slot="$dropSlot" name="&apos;dropSlot&apos;" />
+									</AnimationAction>
+									<Sequence>
+										<SuppressFailure>
 											<Sequence>
-												<SuppressFailure>
-													<Sequence>
-														<Wait duration="&apos;4500&apos;" timeType="GameTime" doFail="false" variation="" />
-														<GraphSearch Origin="$data" Borders="" depth="1" selection="true" SearchPattern="Depth" EdgePruning="&apos;parent,inventory&apos;" AllowedEdges="" SubGraph="" AllowSubtraph="false" includeOrigin="false" excludeOrigin="false" failOnEmpty="true" SetOperationChoice="Intersection|And" errorOnEmpty="false" shortCircuit="false" skipTraversed="true">
-															<LinkTagFilter tag="&apos;particle&apos;" prune="true" negprune="unknown" Parent="" Child="$particle" Data="" />
-														</GraphSearch>
-														<ExecuteSoundTrigger entity="$particle" triggerName="&apos;q_M11_gate_crash_open2&apos;" stop="false" />
-														<ParticleEffectControl ParticleWuid="$particle" StartStopChoice="Start" />
-													</Sequence>
-												</SuppressFailure>
-												<Wait duration="&apos;-1&apos;" timeType="GameTime" doFail="false" variation="" />
+												<Wait duration="&apos;4500&apos;" timeType="GameTime" doFail="false" variation="" />
+												<GraphSearch Origin="$data" Borders="" depth="1" selection="true" SearchPattern="Depth" EdgePruning="&apos;parent,inventory&apos;" AllowedEdges="" SubGraph="" AllowSubtraph="false" includeOrigin="false" excludeOrigin="false" failOnEmpty="true" SetOperationChoice="Intersection|And" errorOnEmpty="false" shortCircuit="false" skipTraversed="true">
+													<LinkTagFilter tag="&apos;particle&apos;" prune="true" negprune="unknown" Parent="" Child="$particle" Data="" />
+												</GraphSearch>
+												<ExecuteSoundTrigger entity="$particle" triggerName="&apos;q_M11_gate_crash_open2&apos;" stop="false" />
+												<ParticleEffectControl ParticleWuid="$particle" StartStopChoice="Start" />
 											</Sequence>
-										</Parallel>
-									</Else>
-								</IfElseCondition>
+										</SuppressFailure>
+										<Wait duration="&apos;-1&apos;" timeType="GameTime" doFail="false" variation="" />
+									</Sequence>
+								</Parallel>
 							</Sequence>
 						</Child>
 						<OnSuccess canSkip="1">
@@ -703,13 +666,7 @@
 				</UrgencyDecorator>
 			</Behavior>
 		</Root>
-		<ForestContainer>
-			<Selector>
-				<GraphSearch Origin="$ladderEntity" Borders="" depth="1" selection="true" SearchPattern="Depth" EdgePruning="&apos;parent,inventory&apos;" AllowedEdges="" SubGraph="" AllowSubtraph="false" includeOrigin="false" excludeOrigin="false" failOnEmpty="true" SetOperationChoice="Intersection|And" errorOnEmpty="false" shortCircuit="false" skipTraversed="true">
-					<LinkTagFilter tag="&apos;battleLadder_pushLadder&apos;" prune="true" negprune="unknown" Parent="" Child="" Data="" />
-				</GraphSearch>
-			</Selector>
-		</ForestContainer>
+		<ForestContainer />
 		<EditorData Signature="wuidData" EventSet="resultNotificationAtomic">
 			<Variables>
 				<Variable name="climber" comment="" />
@@ -769,18 +726,9 @@
 								<IsWeaponDrawn hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
 									<OutputBreakpoints />
 									<Then>
-										<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
+										<Expression hasInputBreakpoint="0" comment="" breakpointFlags="0">
 											<OutputBreakpoints />
-											<GetWeaponsFromWeaponSet hasInputBreakpoint="0" comment="" breakpointFlags="0">
-												<OutputBreakpoints />
-											</GetWeaponsFromWeaponSet>
-											<GetItemProperty hasInputBreakpoint="0" comment="" breakpointFlags="0">
-												<OutputBreakpoints />
-											</GetItemProperty>
-											<Expression hasInputBreakpoint="0" comment="" breakpointFlags="0">
-												<OutputBreakpoints />
-											</Expression>
-										</Sequence>
+										</Expression>
 									</Then>
 									<Else>
 										<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
@@ -791,9 +739,6 @@
 													<OutputBreakpoints />
 												</ItemClassFilter>
 											</GraphSearch>
-											<GetItemProperty hasInputBreakpoint="0" comment="" breakpointFlags="0">
-												<OutputBreakpoints />
-											</GetItemProperty>
 											<Expression hasInputBreakpoint="0" comment="" breakpointFlags="0">
 												<OutputBreakpoints />
 											</Expression>
@@ -879,104 +824,48 @@
 									<SetVisibility hasInputBreakpoint="0" comment="" breakpointFlags="0">
 										<OutputBreakpoints />
 									</SetVisibility>
-									<IfElseCondition hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
+									<Parallel hasInputBreakpoint="0" comment="" breakpointFlags="0">
 										<OutputBreakpoints />
-										<Then>
-											<HandContentElement hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
+										<AnimationAction hasInputBreakpoint="0" comment="" breakpointFlags="0">
+											<OutputBreakpoints />
+											<EventData_spawnitem hasInputBreakpoint="0" comment="" breakpointFlags="0">
 												<OutputBreakpoints />
-												<Search>
-													<Success hasInputBreakpoint="0" comment="" breakpointFlags="0">
-														<OutputBreakpoints />
-													</Success>
-												</Search>
-												<Exec>
-													<Parallel hasInputBreakpoint="0" comment="" breakpointFlags="0">
-														<OutputBreakpoints />
-														<AnimationAction hasInputBreakpoint="0" comment="" breakpointFlags="0">
-															<OutputBreakpoints />
-															<EventData_pickup hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																<OutputBreakpoints />
-															</EventData_pickup>
-															<EventData_place hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																<OutputBreakpoints />
-															</EventData_place>
-														</AnimationAction>
-														<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
-															<OutputBreakpoints />
-															<SuppressFailure hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																<OutputBreakpoints />
-																<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																	<OutputBreakpoints />
-																	<Wait hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																		<OutputBreakpoints />
-																	</Wait>
-																	<GraphSearch hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																		<OutputBreakpoints />
-																		<LinkTagFilter hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																			<OutputBreakpoints />
-																		</LinkTagFilter>
-																	</GraphSearch>
-																	<ExecuteSoundTrigger hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																		<OutputBreakpoints />
-																	</ExecuteSoundTrigger>
-																	<ParticleEffectControl hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																		<OutputBreakpoints />
-																	</ParticleEffectControl>
-																</Sequence>
-															</SuppressFailure>
-															<Wait hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																<OutputBreakpoints />
-															</Wait>
-														</Sequence>
-													</Parallel>
-												</Exec>
-											</HandContentElement>
-										</Then>
-										<Else>
-											<Parallel hasInputBreakpoint="0" comment="" breakpointFlags="0">
+											</EventData_spawnitem>
+											<EventData_pickup hasInputBreakpoint="0" comment="" breakpointFlags="0">
 												<OutputBreakpoints />
-												<AnimationAction hasInputBreakpoint="0" comment="" breakpointFlags="0">
-													<OutputBreakpoints />
-													<EventData_spawnitem hasInputBreakpoint="0" comment="" breakpointFlags="0">
-														<OutputBreakpoints />
-													</EventData_spawnitem>
-													<EventData_pickup hasInputBreakpoint="0" comment="" breakpointFlags="0">
-														<OutputBreakpoints />
-													</EventData_pickup>
-													<EventData_place hasInputBreakpoint="0" comment="" breakpointFlags="0">
-														<OutputBreakpoints />
-													</EventData_place>
-												</AnimationAction>
+											</EventData_pickup>
+											<EventData_place hasInputBreakpoint="0" comment="" breakpointFlags="0">
+												<OutputBreakpoints />
+											</EventData_place>
+										</AnimationAction>
+										<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
+											<OutputBreakpoints />
+											<SuppressFailure hasInputBreakpoint="0" comment="" breakpointFlags="0">
+												<OutputBreakpoints />
 												<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
 													<OutputBreakpoints />
-													<SuppressFailure hasInputBreakpoint="0" comment="" breakpointFlags="0">
-														<OutputBreakpoints />
-														<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
-															<OutputBreakpoints />
-															<Wait hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																<OutputBreakpoints />
-															</Wait>
-															<GraphSearch hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																<OutputBreakpoints />
-																<LinkTagFilter hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																	<OutputBreakpoints />
-																</LinkTagFilter>
-															</GraphSearch>
-															<ExecuteSoundTrigger hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																<OutputBreakpoints />
-															</ExecuteSoundTrigger>
-															<ParticleEffectControl hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																<OutputBreakpoints />
-															</ParticleEffectControl>
-														</Sequence>
-													</SuppressFailure>
 													<Wait hasInputBreakpoint="0" comment="" breakpointFlags="0">
 														<OutputBreakpoints />
 													</Wait>
+													<GraphSearch hasInputBreakpoint="0" comment="" breakpointFlags="0">
+														<OutputBreakpoints />
+														<LinkTagFilter hasInputBreakpoint="0" comment="" breakpointFlags="0">
+															<OutputBreakpoints />
+														</LinkTagFilter>
+													</GraphSearch>
+													<ExecuteSoundTrigger hasInputBreakpoint="0" comment="" breakpointFlags="0">
+														<OutputBreakpoints />
+													</ExecuteSoundTrigger>
+													<ParticleEffectControl hasInputBreakpoint="0" comment="" breakpointFlags="0">
+														<OutputBreakpoints />
+													</ParticleEffectControl>
 												</Sequence>
-											</Parallel>
-										</Else>
-									</IfElseCondition>
+											</SuppressFailure>
+											<Wait hasInputBreakpoint="0" comment="" breakpointFlags="0">
+												<OutputBreakpoints />
+											</Wait>
+										</Sequence>
+									</Parallel>
 								</Sequence>
 							</Child>
 							<OnSuccess>
@@ -1052,17 +941,7 @@
 					</UrgencyDecorator>
 				</Behavior>
 			</Root>
-			<Forest>
-				<Selector editorPosX="2050" editorPosY="-330" hasInputBreakpoint="0" comment="" breakpointFlags="0">
-					<OutputBreakpoints />
-					<GraphSearch hasInputBreakpoint="0" comment="" breakpointFlags="0">
-						<OutputBreakpoints />
-						<LinkTagFilter hasInputBreakpoint="0" comment="" breakpointFlags="0">
-							<OutputBreakpoints />
-						</LinkTagFilter>
-					</GraphSearch>
-				</Selector>
-			</Forest>
+			<Forest />
 			<Comments />
 		</EditorData>
 	</BehaviorTree>

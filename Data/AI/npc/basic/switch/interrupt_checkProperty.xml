@@ -47,121 +47,124 @@
 																	<Expression expressions="$hotEntityData.reason = $enum:switch_hotEntityReason.suspiciousDoor &#10;$hotEntityData.suspiciousDoor = $checkPropertyData.suspiciousDoor" />
 																	<Function_switch_addHotEntity data="$hotEntityData" entity="$__player" expiration="20" nodeLabel="71945335" />
 																	<EntityContext context="crime_nrbLevel_searching" target="">
-																		<EntityContext context="crime_escalationLevel_looking" target="">
-																			<EntityContextElement context="crime_escalationLevel_looking" enabled="true">
-																				<EntityContext context="crime_interruptCheckProperty_checkingDoor" target="">
-																					<Parallel successMode="Any" failureMode="Any">
-																						<Sequence>
-																							<GetDoorPoints Door="$checkPropertyData.suspiciousDoor" Observer="$this.id" Point1="$doorPoints[1]" Point2="$doorPoints[0]" />
-																							<Expression expressions="$lookAtPosition.x = ($doorPoints[0].x + $doorPoints[1].x) / 2 &#10;$lookAtPosition.y = ($doorPoints[0].y + $doorPoints[1].y) / 2 &#10;$lookAtPosition.z = $doorPoints[0].z + 1.5" />
-																							<Switch>
-																								<IfCondition failOnCondition="false" condition="$checkPropertyData.stimulusKind == $enum:crime_stimulusKind.suspiciousDoor">
-																									<Sequence>
-																										<IfElseCondition failOnCondition="false" condition="$checkPropertyData.suspiciousDoorFreshlyOpened" saveVersion="2">
-																											<Then canSkip="1">
-																												<Expression expressions="$metarole = &apos;NPC_VIDI_NOVE_OTEVRENE_DVERE_DO_SVEHO_DOMU&apos;" />
-																											</Then>
-																											<Else canSkip="1">
-																												<EntityContextCheck context="crime_isAuthority" target="" saveVersion="2">
-																													<Then canSkip="1">
-																														<Selector>
-																															<Sequence>
-																																<GraphSearch Origin="$this.id" Borders="" depth="1" selection="true" SearchPattern="Depth" EdgePruning="&apos;parent,inventory&apos;" AllowedEdges="" SubGraph="" AllowSubtraph="false" includeOrigin="false" excludeOrigin="false" failOnEmpty="true" SetOperationChoice="Intersection|And" errorOnEmpty="false" shortCircuit="false" skipTraversed="true">
-																																	<LinkTagFilter tag="&apos;home&apos;" prune="true" negprune="unknown" Parent="" Child="" Data="" />
-																																	<WUIDFilter WUID="$checkPropertyData.home" Source="Child" prune="true" negprune="unknown" Parent="" Child="" />
-																																</GraphSearch>
-																																<Expression expressions="$metarole = &apos;NPC_VIDI_OTEVRENE_DVERE_DO_SVEHO_DOMU&apos;" />
-																															</Sequence>
-																															<Expression expressions="$metarole = &apos;STRAZ_VIDI_OTEVRENE_DVERE_V_HLIDANE_OBLASTI&apos;" />
-																														</Selector>
-																													</Then>
-																													<Else canSkip="1">
-																														<Expression expressions="$metarole = &apos;NPC_VIDI_OTEVRENE_DVERE_DO_SVEHO_DOMU&apos;" />
-																													</Else>
-																												</EntityContextCheck>
-																											</Else>
-																										</IfElseCondition>
-																										<ForceLook LookTarget="$lookAtPosition" DisableVariations="true">
-																											<Function_crime_crimeBark animationApproach="$enum:animationApproach.dontPlayDialogAnimations" canBeDelayed="false" dialogContext="" dramaticBark="false" lookAt="$__null" metarole="$metarole" priority="$enum:crime_barkPriority.important" nodeLabel="29077568" />
-																										</ForceLook>
-																									</Sequence>
-																								</IfCondition>
-																								<IfCondition failOnCondition="false" condition="$checkPropertyData.stimulusKind == $enum:crime_stimulusKind.lockpick">
-																									<ForceLook LookTarget="$lookAtPosition" DisableVariations="true">
-																										<Function_crime_crimeBark animationApproach="$enum:animationApproach.dontPlayDialogAnimations" canBeDelayed="false" dialogContext="" dramaticBark="false" lookAt="$__null" metarole="&apos;NPC_VIDI_VYPACENE_DVERE&apos;" priority="$enum:crime_barkPriority.important" nodeLabel="89363520" />
-																									</ForceLook>
-																								</IfCondition>
-																								<DefaultBranch>
-																									<Success />
-																								</DefaultBranch>
-																							</Switch>
-																							<ForEach startIndex="0" step="1" array="$doorPoints" iterator="" value="$doorPoint" break="">
-																								<Sequence>
-																									<IfElseCondition failOnCondition="false" condition="$doorPoint == $doorPoints[1]" saveVersion="2">
-																										<Then canSkip="1">
-																											<Expression expressions="$doorClosingPolicy = $enum:movementDoorClosingPolicy.leaveClosed" />
-																										</Then>
-																										<Else canSkip="1">
-																											<Expression expressions="$doorClosingPolicy = $enum:movementDoorClosingPolicy.leaveOpened" />
-																										</Else>
-																									</IfElseCondition>
-																									<MoveParamsDecorator speed="Run" pathFindingParams="" doorClosingPolicy="$doorClosingPolicy">
-																										<Move stopWithinDistance="0.200000" stopDistanceVariation="0.100000" rayCasteFlee="false" successDistance="0.000000" changeNPCState="true" fastForwardIncludesMove="false" destinationSpecification="$doorPoint" destinationSpecification2="" destinationSpecification3="" speed="Run" additionalParams="" pathFindingParams="" staminaPolicy="" pathInfo="" />
-																									</MoveParamsDecorator>
-																									<Parallel successMode="Any" failureMode="Any">
-																										<Parallel successMode="All" failureMode="Any">
-																											<IfElseCondition failOnCondition="false" condition="$canBeAttributedToPlayer" saveVersion="2">
+																		<Sequence>
+																			<ShowTutorial Name="crimeIcon_general" />
+																			<EntityContext context="crime_escalationLevel_looking" target="">
+																				<EntityContextElement context="crime_escalationLevel_looking" enabled="true">
+																					<EntityContext context="crime_interruptCheckProperty_checkingDoor" target="">
+																						<Parallel successMode="Any" failureMode="Any">
+																							<Sequence>
+																								<GetDoorPoints Door="$checkPropertyData.suspiciousDoor" Observer="$this.id" Point1="$doorPoints[1]" Point2="$doorPoints[0]" />
+																								<Expression expressions="$lookAtPosition.x = ($doorPoints[0].x + $doorPoints[1].x) / 2 &#10;$lookAtPosition.y = ($doorPoints[0].y + $doorPoints[1].y) / 2 &#10;$lookAtPosition.z = $doorPoints[0].z + 1.5" />
+																								<Switch>
+																									<IfCondition failOnCondition="false" condition="$checkPropertyData.stimulusKind == $enum:crime_stimulusKind.suspiciousDoor">
+																										<Sequence>
+																											<IfElseCondition failOnCondition="false" condition="$checkPropertyData.suspiciousDoorFreshlyOpened" saveVersion="2">
 																												<Then canSkip="1">
-																													<Function_crime_crimeBark animationApproach="$enum:animationApproach.dontPlayDialogAnimations" canBeDelayed="false" dialogContext="" dramaticBark="false" lookAt="$__null" metarole="&apos;NPC_PATRA_NA_MISTE_CINU_(VYTRZNOST)&apos;" priority="$enum:crime_barkPriority.low" nodeLabel="80384085" />
+																													<Expression expressions="$metarole = &apos;NPC_VIDI_NOVE_OTEVRENE_DVERE_DO_SVEHO_DOMU&apos;" />
 																												</Then>
 																												<Else canSkip="1">
-																													<Function_crime_crimeBark animationApproach="$enum:animationApproach.dontPlayDialogAnimations" canBeDelayed="false" dialogContext="" dramaticBark="false" lookAt="$__null" metarole="&apos;NPC_PATRA_NA_MISTE_CINU_(NEVI_O_HRACI)&apos;" priority="$enum:crime_barkPriority.low" nodeLabel="38404123" />
+																													<EntityContextCheck context="crime_isAuthority" target="" saveVersion="2">
+																														<Then canSkip="1">
+																															<Selector>
+																																<Sequence>
+																																	<GraphSearch Origin="$this.id" Borders="" depth="1" selection="true" SearchPattern="Depth" EdgePruning="&apos;parent,inventory&apos;" AllowedEdges="" SubGraph="" AllowSubtraph="false" includeOrigin="false" excludeOrigin="false" failOnEmpty="true" SetOperationChoice="Intersection|And" errorOnEmpty="false" shortCircuit="false" skipTraversed="true">
+																																		<LinkTagFilter tag="&apos;home&apos;" prune="true" negprune="unknown" Parent="" Child="" Data="" />
+																																		<WUIDFilter WUID="$checkPropertyData.home" Source="Child" prune="true" negprune="unknown" Parent="" Child="" />
+																																	</GraphSearch>
+																																	<Expression expressions="$metarole = &apos;NPC_VIDI_OTEVRENE_DVERE_DO_SVEHO_DOMU&apos;" />
+																																</Sequence>
+																																<Expression expressions="$metarole = &apos;STRAZ_VIDI_OTEVRENE_DVERE_V_HLIDANE_OBLASTI&apos;" />
+																															</Selector>
+																														</Then>
+																														<Else canSkip="1">
+																															<Expression expressions="$metarole = &apos;NPC_VIDI_OTEVRENE_DVERE_DO_SVEHO_DOMU&apos;" />
+																														</Else>
+																													</EntityContextCheck>
 																												</Else>
 																											</IfElseCondition>
-																											<Sequence>
-																												<AnimationAction fragment="&apos;SearchStand&apos;" tags="" eventReferenceObject="" alignObject="" slaveObject="" resourceOverride="" allowTorchForPlayer="false" />
-																												<Wait duration="&apos;0s&apos;" timeType="GameTime" doFail="false" variation="&apos;3s&apos;" />
-																											</Sequence>
+																											<ForceLook LookTarget="$lookAtPosition" DisableVariations="true">
+																												<Function_crime_crimeBark animationApproach="$enum:animationApproach.dontPlayDialogAnimations" canBeDelayed="false" dialogContext="" dramaticBark="false" lookAt="$__null" metarole="$metarole" priority="$enum:crime_barkPriority.important" nodeLabel="29077568" />
+																											</ForceLook>
+																										</Sequence>
+																									</IfCondition>
+																									<IfCondition failOnCondition="false" condition="$checkPropertyData.stimulusKind == $enum:crime_stimulusKind.lockpick">
+																										<ForceLook LookTarget="$lookAtPosition" DisableVariations="true">
+																											<Function_crime_crimeBark animationApproach="$enum:animationApproach.dontPlayDialogAnimations" canBeDelayed="false" dialogContext="" dramaticBark="false" lookAt="$__null" metarole="&apos;NPC_VIDI_VYPACENE_DVERE&apos;" priority="$enum:crime_barkPriority.important" nodeLabel="89363520" />
+																										</ForceLook>
+																									</IfCondition>
+																									<DefaultBranch>
+																										<Success />
+																									</DefaultBranch>
+																								</Switch>
+																								<ForEach startIndex="0" step="1" array="$doorPoints" iterator="" value="$doorPoint" break="">
+																									<Sequence>
+																										<IfElseCondition failOnCondition="false" condition="$doorPoint == $doorPoints[1]" saveVersion="2">
+																											<Then canSkip="1">
+																												<Expression expressions="$doorClosingPolicy = $enum:movementDoorClosingPolicy.leaveClosed" />
+																											</Then>
+																											<Else canSkip="1">
+																												<Expression expressions="$doorClosingPolicy = $enum:movementDoorClosingPolicy.leaveOpened" />
+																											</Else>
+																										</IfElseCondition>
+																										<MoveParamsDecorator speed="Run" pathFindingParams="" doorClosingPolicy="$doorClosingPolicy">
+																											<Move stopWithinDistance="0.200000" stopDistanceVariation="0.100000" rayCasteFlee="false" successDistance="0.000000" changeNPCState="true" fastForwardIncludesMove="false" destinationSpecification="$doorPoint" destinationSpecification2="" destinationSpecification3="" speed="Run" additionalParams="" pathFindingParams="" staminaPolicy="" pathInfo="" />
+																										</MoveParamsDecorator>
+																										<Parallel successMode="Any" failureMode="Any">
+																											<Parallel successMode="All" failureMode="Any">
+																												<IfElseCondition failOnCondition="false" condition="$canBeAttributedToPlayer" saveVersion="2">
+																													<Then canSkip="1">
+																														<Function_crime_crimeBark animationApproach="$enum:animationApproach.dontPlayDialogAnimations" canBeDelayed="false" dialogContext="" dramaticBark="false" lookAt="$__null" metarole="&apos;NPC_PATRA_NA_MISTE_CINU_(VYTRZNOST)&apos;" priority="$enum:crime_barkPriority.low" nodeLabel="80384085" />
+																													</Then>
+																													<Else canSkip="1">
+																														<Function_crime_crimeBark animationApproach="$enum:animationApproach.dontPlayDialogAnimations" canBeDelayed="false" dialogContext="" dramaticBark="false" lookAt="$__null" metarole="&apos;NPC_PATRA_NA_MISTE_CINU_(NEVI_O_HRACI)&apos;" priority="$enum:crime_barkPriority.low" nodeLabel="38404123" />
+																													</Else>
+																												</IfElseCondition>
+																												<Sequence>
+																													<AnimationAction fragment="&apos;SearchStand&apos;" tags="" eventReferenceObject="" alignObject="" slaveObject="" resourceOverride="" allowTorchForPlayer="false" />
+																													<Wait duration="&apos;0s&apos;" timeType="GameTime" doFail="false" variation="&apos;3s&apos;" />
+																												</Sequence>
+																											</Parallel>
+																											<Loop count="-1">
+																												<Sequence>
+																													<EntityContext context="crime_disabledRecurrentPerceptionIgnore" target="">
+																														<Sequence>
+																															<CancelPerceptionIgnore PerceptorObject="$this.id" PerceptibleObject="$__player" WasIgnoredAtLeastFor="&apos;0s&apos;" />
+																															<PerceptionSearch ComponentToBoost="BoostNothing" saveVersion="2">
+																																<Search canSkip="1">
+																																	<While doFail="false" propagateChildFail="false" condition="true">
+																																		<ProcessMessage Atomic="false" timeout="" timeType="GameTime" variable="$percept" senderInfo="" inbox="&apos;perceptionInfo_checkProperty&apos;" condition="" answerVar="">
+																																			<CheckWuidValid wuid="$percept.perceptible" FailSubtMissing="false" saveVersion="2">
+																																				<Then canSkip="1">
+																																					<IfCondition failOnCondition="false" condition="$percept.threshold == 1">
+																																						<DismissSearchCandidate PerceptibleObject="$percept.perceptible" />
+																																					</IfCondition>
+																																				</Then>
+																																			</CheckWuidValid>
+																																		</ProcessMessage>
+																																	</While>
+																																</Search>
+																																<NoCandidate canSkip="1">
+																																	<Success />
+																																</NoCandidate>
+																															</PerceptionSearch>
+																														</Sequence>
+																													</EntityContext>
+																													<Wait duration="&apos;1s&apos;" timeType="GameTime" doFail="false" variation="" />
+																												</Sequence>
+																											</Loop>
 																										</Parallel>
-																										<Loop count="-1">
-																											<Sequence>
-																												<EntityContext context="crime_disabledRecurrentPerceptionIgnore" target="">
-																													<Sequence>
-																														<CancelPerceptionIgnore PerceptorObject="$this.id" PerceptibleObject="$__player" WasIgnoredAtLeastFor="&apos;0s&apos;" />
-																														<PerceptionSearch ComponentToBoost="BoostNothing" saveVersion="2">
-																															<Search canSkip="1">
-																																<While doFail="false" propagateChildFail="false" condition="true">
-																																	<ProcessMessage Atomic="false" timeout="" timeType="GameTime" variable="$percept" senderInfo="" inbox="&apos;perceptionInfo_checkProperty&apos;" condition="" answerVar="">
-																																		<CheckWuidValid wuid="$percept.perceptible" FailSubtMissing="false" saveVersion="2">
-																																			<Then canSkip="1">
-																																				<IfCondition failOnCondition="false" condition="$percept.threshold == 1">
-																																					<DismissSearchCandidate PerceptibleObject="$percept.perceptible" />
-																																				</IfCondition>
-																																			</Then>
-																																		</CheckWuidValid>
-																																	</ProcessMessage>
-																																</While>
-																															</Search>
-																															<NoCandidate canSkip="1">
-																																<Success />
-																															</NoCandidate>
-																														</PerceptionSearch>
-																													</Sequence>
-																												</EntityContext>
-																												<Wait duration="&apos;1s&apos;" timeType="GameTime" doFail="false" variation="" />
-																											</Sequence>
-																										</Loop>
-																									</Parallel>
-																								</Sequence>
-																							</ForEach>
-																						</Sequence>
-																						<ExternalLock atomic="true" OutsideQueuePosVariable="" InsidePosVariable="" TimerType="GameTime" OutsideTimerValue="&apos;-1&apos;" LockManagerType="Intellect" SemaphoreName="&apos;crime_playerFoundNearSuspiciousDoor&apos;" RunLogic="KeepRunning">
-																							<Function_callInterrupt_mindPlayer ignorePriority="true" initiator="$enum:switch_interruptInitiator.scheduler" previousReaction="$enum:crime_reactionKind.checkProperty" soundType="$enum:sound.invalid" stimulusKind="$enum:crime_stimulusKind.suspiciousDoor" nodeLabel="68464953" />
-																						</ExternalLock>
-																					</Parallel>
-																				</EntityContext>
-																			</EntityContextElement>
-																		</EntityContext>
+																									</Sequence>
+																								</ForEach>
+																							</Sequence>
+																							<ExternalLock atomic="true" OutsideQueuePosVariable="" InsidePosVariable="" TimerType="GameTime" OutsideTimerValue="&apos;-1&apos;" LockManagerType="Intellect" SemaphoreName="&apos;crime_playerFoundNearSuspiciousDoor&apos;" RunLogic="KeepRunning">
+																								<Function_callInterrupt_mindPlayer ignorePriority="true" initiator="$enum:switch_interruptInitiator.scheduler" previousReaction="$enum:crime_reactionKind.checkProperty" soundType="$enum:sound.invalid" stimulusKind="$enum:crime_stimulusKind.suspiciousDoor" nodeLabel="68464953" />
+																							</ExternalLock>
+																						</Parallel>
+																					</EntityContext>
+																				</EntityContextElement>
+																			</EntityContext>
+																		</Sequence>
 																	</EntityContext>
 																</Sequence>
 															</IfCondition>
@@ -199,6 +202,7 @@
 																								<Function_crime_crimeBark animationApproach="$enum:animationApproach.dontPlayDialogAnimations" canBeDelayed="false" dialogContext="" dramaticBark="false" lookAt="$__null" metarole="&apos;NPC_VZDAVA_PATRANI_PO_ZMIZELEM_A_JDE_PRO_STRAZ&apos;" priority="$enum:crime_barkPriority.medium" nodeLabel="18883338" />
 																								<AnimationAction fragment="&apos;StealthRecognitionStabilization&apos;" tags="" eventReferenceObject="" alignObject="" slaveObject="" resourceOverride="" allowTorchForPlayer="false" />
 																							</Parallel>
+																							<AffectFeelings Npc="$this.id" Token="&apos;missingNpcNotFound&apos;" AffectNervousness="true" AffectReputation="false" />
 																							<AtomicDecorator>
 																								<Sequence>
 																									<ChooseReportDestination Information="$information" IsImportant="false" Destination="$reportDestination" DestinationType="$reportDestinationType" />
@@ -355,25 +359,98 @@
 																		</Function_switch_addHotEntity>
 																		<EntityContext hasInputBreakpoint="0" comment="" breakpointFlags="0">
 																			<OutputBreakpoints />
-																			<EntityContext hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																			<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
 																				<OutputBreakpoints />
-																				<EntityContextElement hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																				<ShowTutorial hasInputBreakpoint="0" comment="" breakpointFlags="0">
 																					<OutputBreakpoints />
-																					<EntityContext hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																				</ShowTutorial>
+																				<EntityContext hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																					<OutputBreakpoints />
+																					<EntityContextElement hasInputBreakpoint="0" comment="" breakpointFlags="0">
 																						<OutputBreakpoints />
-																						<Parallel hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																						<EntityContext hasInputBreakpoint="0" comment="" breakpointFlags="0">
 																							<OutputBreakpoints />
-																							<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																							<Parallel hasInputBreakpoint="0" comment="" breakpointFlags="0">
 																								<OutputBreakpoints />
-																								<GetDoorPoints hasInputBreakpoint="0" comment="Point1 is closer than Point2" breakpointFlags="0">
+																								<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
 																									<OutputBreakpoints />
-																								</GetDoorPoints>
-																								<Expression hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																									<OutputBreakpoints />
-																								</Expression>
-																								<Switch hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																									<OutputBreakpoints />
-																									<IfCondition hasInputBreakpoint="0" comment="NPC saw the open door" breakpointFlags="0">
+																									<GetDoorPoints hasInputBreakpoint="0" comment="Point1 is closer than Point2" breakpointFlags="0">
+																										<OutputBreakpoints />
+																									</GetDoorPoints>
+																									<Expression hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																										<OutputBreakpoints />
+																									</Expression>
+																									<Switch hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																										<OutputBreakpoints />
+																										<IfCondition hasInputBreakpoint="0" comment="NPC saw the open door" breakpointFlags="0">
+																											<OutputBreakpoints />
+																											<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																												<OutputBreakpoints />
+																												<IfElseCondition hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
+																													<OutputBreakpoints />
+																													<Then>
+																														<Expression hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																															<OutputBreakpoints />
+																														</Expression>
+																													</Then>
+																													<Else>
+																														<EntityContextCheck hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
+																															<OutputBreakpoints />
+																															<Then>
+																																<Selector hasInputBreakpoint="0" comment="Let&apos;s check if it&apos;s guard&apos;s home or just relevant" breakpointFlags="0">
+																																	<OutputBreakpoints />
+																																	<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																																		<OutputBreakpoints />
+																																		<GraphSearch hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																																			<OutputBreakpoints />
+																																			<LinkTagFilter hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																																				<OutputBreakpoints />
+																																			</LinkTagFilter>
+																																			<WUIDFilter hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																																				<OutputBreakpoints />
+																																			</WUIDFilter>
+																																		</GraphSearch>
+																																		<Expression hasInputBreakpoint="0" comment="Has to be a home owner" breakpointFlags="0">
+																																			<OutputBreakpoints />
+																																		</Expression>
+																																	</Sequence>
+																																	<Expression hasInputBreakpoint="0" comment="Has to be a home owner" breakpointFlags="0">
+																																		<OutputBreakpoints />
+																																	</Expression>
+																																</Selector>
+																															</Then>
+																															<Else>
+																																<Expression hasInputBreakpoint="0" comment="Has to be a home owner" breakpointFlags="0">
+																																	<OutputBreakpoints />
+																																</Expression>
+																															</Else>
+																														</EntityContextCheck>
+																													</Else>
+																												</IfElseCondition>
+																												<ForceLook hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																													<OutputBreakpoints />
+																													<Function_crime_crimeBark hasInputBreakpoint="0" comment="Has to be a home owner" breakpointFlags="0">
+																														<OutputBreakpoints />
+																													</Function_crime_crimeBark>
+																												</ForceLook>
+																											</Sequence>
+																										</IfCondition>
+																										<IfCondition hasInputBreakpoint="0" comment="NPC realized the door is lockpicked" breakpointFlags="0">
+																											<OutputBreakpoints />
+																											<ForceLook hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																												<OutputBreakpoints />
+																												<Function_crime_crimeBark hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																													<OutputBreakpoints />
+																												</Function_crime_crimeBark>
+																											</ForceLook>
+																										</IfCondition>
+																										<DefaultBranch>
+																											<Success hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																												<OutputBreakpoints />
+																											</Success>
+																										</DefaultBranch>
+																									</Switch>
+																									<ForEach hasInputBreakpoint="0" comment="" breakpointFlags="0">
 																										<OutputBreakpoints />
 																										<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
 																											<OutputBreakpoints />
@@ -385,171 +462,104 @@
 																													</Expression>
 																												</Then>
 																												<Else>
-																													<EntityContextCheck hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
+																													<Expression hasInputBreakpoint="0" comment="" breakpointFlags="0">
 																														<OutputBreakpoints />
-																														<Then>
-																															<Selector hasInputBreakpoint="0" comment="Let&apos;s check if it&apos;s guard&apos;s home or just relevant" breakpointFlags="0">
-																																<OutputBreakpoints />
-																																<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																																	<OutputBreakpoints />
-																																	<GraphSearch hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																																		<OutputBreakpoints />
-																																		<LinkTagFilter hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																																			<OutputBreakpoints />
-																																		</LinkTagFilter>
-																																		<WUIDFilter hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																																			<OutputBreakpoints />
-																																		</WUIDFilter>
-																																	</GraphSearch>
-																																	<Expression hasInputBreakpoint="0" comment="Has to be a home owner" breakpointFlags="0">
-																																		<OutputBreakpoints />
-																																	</Expression>
-																																</Sequence>
-																																<Expression hasInputBreakpoint="0" comment="Has to be a home owner" breakpointFlags="0">
-																																	<OutputBreakpoints />
-																																</Expression>
-																															</Selector>
-																														</Then>
-																														<Else>
-																															<Expression hasInputBreakpoint="0" comment="Has to be a home owner" breakpointFlags="0">
-																																<OutputBreakpoints />
-																															</Expression>
-																														</Else>
-																													</EntityContextCheck>
+																													</Expression>
 																												</Else>
 																											</IfElseCondition>
-																											<ForceLook hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																											<MoveParamsDecorator hasInputBreakpoint="0" comment="" breakpointFlags="0">
 																												<OutputBreakpoints />
-																												<Function_crime_crimeBark hasInputBreakpoint="0" comment="Has to be a home owner" breakpointFlags="0">
+																												<Move hasInputBreakpoint="0" comment="" breakpointFlags="0">
 																													<OutputBreakpoints />
-																												</Function_crime_crimeBark>
-																											</ForceLook>
-																										</Sequence>
-																									</IfCondition>
-																									<IfCondition hasInputBreakpoint="0" comment="NPC realized the door is lockpicked" breakpointFlags="0">
-																										<OutputBreakpoints />
-																										<ForceLook hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																											<OutputBreakpoints />
-																											<Function_crime_crimeBark hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																												<OutputBreakpoints />
-																											</Function_crime_crimeBark>
-																										</ForceLook>
-																									</IfCondition>
-																									<DefaultBranch>
-																										<Success hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																											<OutputBreakpoints />
-																										</Success>
-																									</DefaultBranch>
-																								</Switch>
-																								<ForEach hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																									<OutputBreakpoints />
-																									<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																										<OutputBreakpoints />
-																										<IfElseCondition hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
-																											<OutputBreakpoints />
-																											<Then>
-																												<Expression hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																													<OutputBreakpoints />
-																												</Expression>
-																											</Then>
-																											<Else>
-																												<Expression hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																													<OutputBreakpoints />
-																												</Expression>
-																											</Else>
-																										</IfElseCondition>
-																										<MoveParamsDecorator hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																											<OutputBreakpoints />
-																											<Move hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																												<OutputBreakpoints />
-																											</Move>
-																										</MoveParamsDecorator>
-																										<Parallel hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																											<OutputBreakpoints />
+																												</Move>
+																											</MoveParamsDecorator>
 																											<Parallel hasInputBreakpoint="0" comment="" breakpointFlags="0">
 																												<OutputBreakpoints />
-																												<IfElseCondition hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
+																												<Parallel hasInputBreakpoint="0" comment="" breakpointFlags="0">
 																													<OutputBreakpoints />
-																													<Then>
-																														<Function_crime_crimeBark hasInputBreakpoint="0" comment="good enough" breakpointFlags="0">
-																															<OutputBreakpoints />
-																														</Function_crime_crimeBark>
-																													</Then>
-																													<Else>
-																														<Function_crime_crimeBark hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																															<OutputBreakpoints />
-																														</Function_crime_crimeBark>
-																													</Else>
-																												</IfElseCondition>
-																												<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																													<OutputBreakpoints />
-																													<AnimationAction hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																													<IfElseCondition hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
 																														<OutputBreakpoints />
-																													</AnimationAction>
-																													<Wait hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																														<OutputBreakpoints />
-																													</Wait>
-																												</Sequence>
-																											</Parallel>
-																											<Loop hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																												<OutputBreakpoints />
-																												<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																													<OutputBreakpoints />
-																													<EntityContext hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																														<OutputBreakpoints />
-																														<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																															<OutputBreakpoints />
-																															<CancelPerceptionIgnore hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																														<Then>
+																															<Function_crime_crimeBark hasInputBreakpoint="0" comment="good enough" breakpointFlags="0">
 																																<OutputBreakpoints />
-																															</CancelPerceptionIgnore>
-																															<PerceptionSearch hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
+																															</Function_crime_crimeBark>
+																														</Then>
+																														<Else>
+																															<Function_crime_crimeBark hasInputBreakpoint="0" comment="" breakpointFlags="0">
 																																<OutputBreakpoints />
-																																<Search>
-																																	<While hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																																		<OutputBreakpoints />
-																																		<ProcessMessage hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																															</Function_crime_crimeBark>
+																														</Else>
+																													</IfElseCondition>
+																													<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																														<OutputBreakpoints />
+																														<AnimationAction hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																															<OutputBreakpoints />
+																														</AnimationAction>
+																														<Wait hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																															<OutputBreakpoints />
+																														</Wait>
+																													</Sequence>
+																												</Parallel>
+																												<Loop hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																													<OutputBreakpoints />
+																													<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																														<OutputBreakpoints />
+																														<EntityContext hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																															<OutputBreakpoints />
+																															<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																																<OutputBreakpoints />
+																																<CancelPerceptionIgnore hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																																	<OutputBreakpoints />
+																																</CancelPerceptionIgnore>
+																																<PerceptionSearch hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
+																																	<OutputBreakpoints />
+																																	<Search>
+																																		<While hasInputBreakpoint="0" comment="" breakpointFlags="0">
 																																			<OutputBreakpoints />
-																																			<CheckWuidValid hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
+																																			<ProcessMessage hasInputBreakpoint="0" comment="" breakpointFlags="0">
 																																				<OutputBreakpoints />
-																																				<Then>
-																																					<IfCondition hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																																						<OutputBreakpoints />
-																																						<DismissSearchCandidate hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																																				<CheckWuidValid hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
+																																					<OutputBreakpoints />
+																																					<Then>
+																																						<IfCondition hasInputBreakpoint="0" comment="" breakpointFlags="0">
 																																							<OutputBreakpoints />
-																																						</DismissSearchCandidate>
-																																					</IfCondition>
-																																				</Then>
-																																			</CheckWuidValid>
-																																		</ProcessMessage>
-																																	</While>
-																																</Search>
-																																<NoCandidate>
-																																	<Success hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																																		<OutputBreakpoints />
-																																	</Success>
-																																</NoCandidate>
-																															</PerceptionSearch>
-																														</Sequence>
-																													</EntityContext>
-																													<Wait hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																														<OutputBreakpoints />
-																													</Wait>
-																												</Sequence>
-																											</Loop>
-																										</Parallel>
-																									</Sequence>
-																								</ForEach>
-																							</Sequence>
-																							<ExternalLock hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																								<OutputBreakpoints />
-																								<Function_callInterrupt_mindPlayer hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																																							<DismissSearchCandidate hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																																								<OutputBreakpoints />
+																																							</DismissSearchCandidate>
+																																						</IfCondition>
+																																					</Then>
+																																				</CheckWuidValid>
+																																			</ProcessMessage>
+																																		</While>
+																																	</Search>
+																																	<NoCandidate>
+																																		<Success hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																																			<OutputBreakpoints />
+																																		</Success>
+																																	</NoCandidate>
+																																</PerceptionSearch>
+																															</Sequence>
+																														</EntityContext>
+																														<Wait hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																															<OutputBreakpoints />
+																														</Wait>
+																													</Sequence>
+																												</Loop>
+																											</Parallel>
+																										</Sequence>
+																									</ForEach>
+																								</Sequence>
+																								<ExternalLock hasInputBreakpoint="0" comment="" breakpointFlags="0">
 																									<OutputBreakpoints />
-																								</Function_callInterrupt_mindPlayer>
-																							</ExternalLock>
-																						</Parallel>
-																					</EntityContext>
-																				</EntityContextElement>
-																			</EntityContext>
+																									<Function_callInterrupt_mindPlayer hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																										<OutputBreakpoints />
+																									</Function_callInterrupt_mindPlayer>
+																								</ExternalLock>
+																							</Parallel>
+																						</EntityContext>
+																					</EntityContextElement>
+																				</EntityContext>
+																			</Sequence>
 																		</EntityContext>
 																	</Sequence>
 																</IfCondition>
@@ -623,6 +633,9 @@
 																										<OutputBreakpoints />
 																									</AnimationAction>
 																								</Parallel>
+																								<AffectFeelings hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																									<OutputBreakpoints />
+																								</AffectFeelings>
 																								<AtomicDecorator hasInputBreakpoint="0" comment="" breakpointFlags="0">
 																									<OutputBreakpoints />
 																									<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">

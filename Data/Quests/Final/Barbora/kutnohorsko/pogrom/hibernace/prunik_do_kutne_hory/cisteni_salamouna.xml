@@ -27,6 +27,9 @@
 				<Port Name="jindra_jde_prozkoumat_hospodu_1" Direction="Out" Type="bool">
 					<DesignName StringName="cisteni_s_jindra_jde_proz_LlVI" Text="Jindra je na dvorku u hospody" />
 				</Port>
+				<Port Name="onwake_hibernace" Direction="In" Type="trigger">
+					<DesignName StringName="cisteni_s_onwake_hibernace_r3iK" Text="OnWake hibernace" />
+				</Port>
 			</Ports>
 			<Definitions>
 				<Definition File="cisteni_salamouna/stav_hospody_pri_vstupu_z_podzemi.xml" />
@@ -36,6 +39,10 @@
 				<Definition File="cisteni_salamouna/jindra_barkuje_kdyz_vejde_do_hospody.xml" />
 			</Definitions>
 			<Nodes>
+				<Function Name="and19" PositionY="-480" PositionX="1590" MethodName="math::boolean::And" DeclaringType="math::boolean">
+					<Edge From="or9.bool" To="B" />
+					<Edge From="or23.bool" To="A" />
+				</Function>
 				<Function Name="and7" PositionY="60" PositionX="-180" MethodName="math::boolean::And" DeclaringType="math::boolean">
 					<Edge From="cisteni_hospody_a_rozestaveni_nepratel.jindra_nebyl_v_hospode" To="B">
 						<Vertex>vertex17</Vertex>
@@ -43,6 +50,18 @@
 					</Edge>
 					<Edge From="jindra_jde_s_lichtem" To="A" />
 				</Function>
+				<AreaTrigger Name="areatrigger17" PositionY="-1030" PositionX="1390">
+					<Asset Name="Souls" Alias="player" />
+					<Asset Name="Areas" Alias="nearOfficeArea" />
+					<Edge From="or21.bool" To="IsActive" />
+				</AreaTrigger>
+				<AreaTrigger Name="areatrigger22" PositionY="-1320" PositionX="1410">
+					<Asset Name="Souls" Alias="player" />
+					<Asset Name="Areas" Alias="hospodaArea" />
+					<Edge From="HracZustalZaDverma.Active" To="IsActive">
+						<Vertex>6femzSYG</Vertex>
+					</Edge>
+				</AreaTrigger>
 				<AreaTrigger Name="areatrigger3" PositionY="-70" PositionX="70">
 					<Asset Name="Souls" Alias="player" />
 					<Asset Name="Areas" Alias="hospodaArea" />
@@ -65,9 +84,13 @@
 						<Vertex>vertex26</Vertex>
 					</Edge>
 				</cisteni_hospody_a_rozestaveni_nepratel>
-				<DisableDoorInteractivity Name="disabledoorinteractivity11" PositionY="-370" PositionX="1560">
+				<Function Name="closedoor24" PositionY="-1140" PositionX="1830" MethodName="wh::entitymodule::CloseDoor" DeclaringType="wh::entitymodule">
+					<Asset Name="Door" Alias="dvereDoSklepu" />
+					<Edge From="areatrigger22.OnAllEnter" To="Exec" />
+				</Function>
+				<DisableDoorInteractivity Name="disabledoorinteractivity11" PositionY="-430" PositionX="1880">
 					<Asset Name="Doors" Alias="dvereDoSklepu" />
-					<Edge From="or9.bool" To="IsActive" />
+					<Edge From="and19.bool" To="IsActive" />
 				</DisableDoorInteractivity>
 				<State Name="DvereDoHospodyNejsouInteraktivni" PositionY="190" PositionX="1300" TypeT="bool">
 					<Constant Name="DefaultValue" Value="false" />
@@ -86,6 +109,30 @@
 						<Vertex>vertex27</Vertex>
 					</Edge>
 				</State>
+				<State Name="HracZustalZaDverma" PositionY="-1080" PositionX="850" TypeT="ProgressUpdated">
+					<Edge From="if18.True" To="SetActive" />
+					<Edge From="areatrigger17.OnAllEnter" To="SetUpdated">
+						<Vertex>a3E2SfGT</Vertex>
+						<Vertex>Nr3dXEmI</Vertex>
+					</Edge>
+					<Edge From="areatrigger17.OnAllLeave" To="SetActive">
+						<Vertex>NIneJIzT</Vertex>
+						<Vertex>XvXHvFJy</Vertex>
+					</Edge>
+					<Edge From="areatrigger22.OnAllEnter" To="SetDone">
+						<Vertex>cxIV8LIE</Vertex>
+						<Vertex>tzgz9o8B</Vertex>
+					</Edge>
+				</State>
+				<If Name="if18" PositionY="-960" PositionX="570">
+					<Edge From="onwake_hibernace" To="Exec">
+						<Vertex>LpPfe4KH</Vertex>
+					</Edge>
+					<Edge From="HracZustalZaDverma.None" To="Condition">
+						<Vertex>MJhoc1Pw</Vertex>
+						<Vertex>9E9U8ntI</Vertex>
+					</Edge>
+				</If>
 				<InteractorOverride_MonologOnPlayer_Effect Name="InteractorOverride_MonologOnPlayer_Effect_2" PositionY="200" PositionX="1590" Namespace="utils.speech">
 					<Asset Name="object" Alias="dvereDoHospody" />
 					<Constant Name="type" Value="Press" />
@@ -94,6 +141,14 @@
 					<Edge From="DvereDoHospodyNejsouInteraktivni.State" To="isactive" />
 				</InteractorOverride_MonologOnPlayer_Effect>
 				<jindra_barkuje_kdyz_vejde_do_hospody Name="jindra_barkuje_kdyz_vejde_do_hospody" PositionY="-550" PositionX="460" />
+				<Function Name="or21" PositionY="-1000" PositionX="1150" MethodName="math::boolean::Or" DeclaringType="math::boolean">
+					<Edge From="HracZustalZaDverma.Active" To="A" />
+					<Edge From="HracZustalZaDverma.Updated" To="B" />
+				</Function>
+				<Function Name="or23" PositionY="-540" PositionX="1300" MethodName="math::boolean::Or" DeclaringType="math::boolean">
+					<Edge From="HracZustalZaDverma.Active" To="A" />
+					<Edge From="HracZustalZaDverma.Done" To="B" />
+				</Function>
 				<Function Name="or9" PositionY="-370" PositionX="1290" MethodName="math::boolean::Or" DeclaringType="math::boolean">
 					<Edge From="trialog_v_hospode.licht_hleda_papiry_po_combatu" To="B" />
 					<Edge From="cisteni_hospody_a_rozestaveni_nepratel.jindra_jde_prozkoumat_hospodu" To="A">
@@ -133,6 +188,15 @@
 			</Nodes>
 			<EdgeVertices>
 				<EdgeVertex Name="1V5BcsmV" PositionY="-280" PositionX="1030" />
+				<EdgeVertex Name="6femzSYG" PositionY="-1230" PositionX="1210" />
+				<EdgeVertex Name="9E9U8ntI" PositionY="-1110" PositionX="590" />
+				<EdgeVertex Name="a3E2SfGT" PositionY="-610" PositionX="1620" />
+				<EdgeVertex Name="cxIV8LIE" PositionY="-580" PositionX="1620" />
+				<EdgeVertex Name="LpPfe4KH" PositionY="-870" PositionX="30" />
+				<EdgeVertex Name="MJhoc1Pw" PositionY="-1110" PositionX="1030" />
+				<EdgeVertex Name="NIneJIzT" PositionY="-640" PositionX="1620" />
+				<EdgeVertex Name="Nr3dXEmI" PositionY="-610" PositionX="850" />
+				<EdgeVertex Name="tzgz9o8B" PositionY="-580" PositionX="850" />
 				<EdgeVertex Name="vertex10" PositionY="-140" PositionX="480" />
 				<EdgeVertex Name="vertex17" PositionY="300" PositionX="900" />
 				<EdgeVertex Name="vertex18" PositionY="300" PositionX="-180" />
@@ -141,7 +205,11 @@
 				<EdgeVertex Name="vertex27" PositionY="350" PositionX="560" />
 				<EdgeVertex Name="vertex29" PositionY="673" PositionX="851" />
 				<EdgeVertex Name="vertex30" PositionY="670" PositionX="-170" />
+				<EdgeVertex Name="XvXHvFJy" PositionY="-640" PositionX="850" />
 			</EdgeVertices>
+			<Assets>
+				<TriggerAreaAsset Name="nearOfficeArea" />
+			</Assets>
 			<Text StringName="cisteni_salamouna_uwWC" Text="Čištění Šalamouna" />
 			<Elements>
 				<GameplayActionElement>

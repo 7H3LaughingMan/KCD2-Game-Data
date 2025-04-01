@@ -150,6 +150,21 @@
 										<FindInArray array="$alreadyReactedToCrimeNpcs" keyOut="$alreadyReactedMyIndex" condition="$__value == $this.id" />
 									</Sequence>
 								</SuppressFailure>
+								<IfCondition failOnCondition="false" condition="$alreadyReactedMyIndex &lt; 0">
+									<EntityContextCheck context="crime_interruptReturnWithHelp" target="" saveVersion="2">
+										<Then canSkip="1">
+											<SuppressFailure>
+												<Sequence>
+													<GraphSearch Origin="" Borders="" depth="1" selection="true" SearchPattern="Depth" EdgePruning="&apos;parent,inventory&apos;" AllowedEdges="" SubGraph="" AllowSubtraph="false" includeOrigin="false" excludeOrigin="false" failOnEmpty="true" SetOperationChoice="Intersection|And" errorOnEmpty="false" shortCircuit="false" skipTraversed="true">
+														<LinkTagFilter tag="&apos;crime_returningWithHelp&apos;" prune="true" negprune="unknown" Parent="" Child="" Data="" />
+														<WUIDFilter WUID="$stimulus.sender" Source="Child" prune="true" negprune="unknown" Parent="" Child="" />
+													</GraphSearch>
+													<Expression expressions="$alreadyReactedMyIndex = 1" />
+												</Sequence>
+											</SuppressFailure>
+										</Then>
+									</EntityContextCheck>
+								</IfCondition>
 								<IfCondition failOnCondition="false" condition="$alreadyReactedMyIndex &lt; 0 | $reactToReport">
 									<Switch>
 										<IfCondition failOnCondition="false" condition="$reactToReport">
@@ -763,6 +778,32 @@
 											</FindInArray>
 										</Sequence>
 									</SuppressFailure>
+									<IfCondition hasInputBreakpoint="0" comment="do not react if emitted from helping NPC i am already following" breakpointFlags="0">
+										<OutputBreakpoints />
+										<EntityContextCheck hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
+											<OutputBreakpoints />
+											<Then>
+												<SuppressFailure hasInputBreakpoint="0" comment="" breakpointFlags="0">
+													<OutputBreakpoints />
+													<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
+														<OutputBreakpoints />
+														<GraphSearch hasInputBreakpoint="0" comment="" breakpointFlags="0">
+															<OutputBreakpoints />
+															<LinkTagFilter hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																<OutputBreakpoints />
+															</LinkTagFilter>
+															<WUIDFilter hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																<OutputBreakpoints />
+															</WUIDFilter>
+														</GraphSearch>
+														<Expression hasInputBreakpoint="0" comment="" breakpointFlags="0">
+															<OutputBreakpoints />
+														</Expression>
+													</Sequence>
+												</SuppressFailure>
+											</Then>
+										</EntityContextCheck>
+									</IfCondition>
 									<IfCondition hasInputBreakpoint="0" comment="" breakpointFlags="0">
 										<OutputBreakpoints />
 										<Switch hasInputBreakpoint="0" comment="" breakpointFlags="0">
@@ -1366,7 +1407,7 @@
 				</Behavior>
 			</Root>
 			<Forest>
-				<Selector editorPosX="4250" editorPosY="-960" hasInputBreakpoint="0" comment="" breakpointFlags="0">
+				<Selector editorPosX="4890" editorPosY="-970" hasInputBreakpoint="0" comment="" breakpointFlags="0">
 					<OutputBreakpoints />
 					<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
 						<OutputBreakpoints />

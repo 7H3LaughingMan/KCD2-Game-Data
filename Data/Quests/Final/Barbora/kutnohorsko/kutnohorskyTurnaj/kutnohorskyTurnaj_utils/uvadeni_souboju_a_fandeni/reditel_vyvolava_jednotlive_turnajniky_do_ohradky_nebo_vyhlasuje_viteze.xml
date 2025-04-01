@@ -4,6 +4,7 @@
 		<Dialog Name="reditel_vyvolava_jednotlive_turnajniky_do_ohradky_nebo_vyhlasuje_viteze">
 			<Ports>
 				<Port Name="turnajovy_fanousek_reakce_na_turnajnika_muz" Direction="Out" Type="trigger">
+					<DesignName StringName="reditel_v_turnajovy_fanou_lSWO" Text="turnajový fanoušek reakce na turnajníka mužw" />
 				</Port>
 				<Port Name="turnajovy_fanousek_reakce_na_turnajnika_zena" Direction="Out" Type="trigger">
 					<DesignName StringName="reditel_v_turnajovy_fanou_7ZtK" Text="turnajový fanoušek reakce na turnajníka žena" />
@@ -89,6 +90,12 @@
 				<Port Name="hrac_vyhral_aspon_jeden_souboj" Direction="In" Type="bool">
 					<DesignName StringName="reditel_v_hrac_vyhral_asp_najC" Text="hrac vyhral aspon jeden souboj" />
 				</Port>
+				<Port Name="hrac_udelal_crime_" Direction="In" Type="bool">
+					<DesignName StringName="reditel_v_hrac_udelal_cri_LiI3" Text="hráč udělal crime " />
+				</Port>
+				<Port Name="skip_predsoubojem_vyhlaseni" Direction="Out" Type="trigger">
+					<DesignName StringName="reditel_v_skip_predsouboj_9Ay4" Text="Skip predsoubojem vyhlášení" />
+				</Port>
 			</Ports>
 			<Text StringName="reditel_vyvolava_jednotli_jVtF" Text="Ředitel vyvolává jednotlivé turnajníky do ohrádky nebo vyhlašuje vítěze" />
 			<Elements>
@@ -115,7 +122,7 @@
 							</Elements>
 							<Decision Name="dec2" Priority="SideQuestSubmission" DesignName="nyní se utkají" Autoselect="true">
 								<Sequences>
-									<Sequence EntryCondition="!Port('finale_kategorie')" EndType="Decision" Name="seq9">
+									<Sequence EntryCondition="!Port('finale_kategorie')&#xD;&#xA; AND &#xD;&#xA; !(&#xD;&#xA; Port('hrac_udelal_crime_')&#xD;&#xA; AND &#xD;&#xA; Port('hrac_v_souboji')&#xD;&#xA; ) &#xD;&#xA;" EndType="Decision" Name="seq9">
 										<DesignName StringName="reditel_v_seq9_1zKr" Text="seq9" />
 										<UiPrompt StringName="ui_reditel_v_seq9_xDfP" Text="" />
 										<Triggers>
@@ -2075,7 +2082,7 @@
 																		<Commands>
 																			<FacialMoodCommand FacialMood="thinking3" />
 																			<AnimationCommand Delay="4.7" FragmentId="ADLG_Grandeur" Guid="d1b32b74-10ad-a19a-f5c8-c76ca4cef8b7" Variant="1" DesiredDuration="3.07" />
-																			<AnimationCommand Delay="0" FragmentId="ADLG_posture_change" Guid="17c5b8b0-7d55-4dbf-ba89-7424983f2201" Variant="1" />
+																			<AnimationCommand FragmentId="ADLG_posture_change" Guid="17c5b8b0-7d55-4dbf-ba89-7424983f2201" Variant="1" />
 																		</Commands>
 																		<ReviewNotesConcept>
 																			<Item Date="2021-02-19 13:30:03" UserName="karel.kolmann" Text="oproti ostatním dost při zemi popis... a už to tam jednou bylo s tím strážnym" AcceptState="Accepted" />
@@ -2095,7 +2102,7 @@
 																					<Text StringName="redi_reditel_t_a_platenic_iky9" Text="Za každou sukní se dychtivě otočí, ale ne pro smilstvo ale z poctivý lásky k řemeslu!" />
 																					<Commands>
 																						<FacialMoodCommand FacialMood="happy3" />
-																						<AnimationCommand Delay="0" FragmentId="ADLG_Emphasis" Guid="ef25df68-e606-4b6a-b97d-e75270c52e55" Variant="7" DesiredDuration="2.9" />
+																						<AnimationCommand FragmentId="ADLG_Emphasis" Guid="ef25df68-e606-4b6a-b97d-e75270c52e55" Variant="7" DesiredDuration="2.9" />
 																						<AnimationCommand Delay="5.01" FragmentId="ADLG_Emphasis" Guid="1e0ea666-6d79-ff89-f9d8-c4247d3b8ae2" Variant="1" DesiredDuration="2.9" />
 																						<AnimationCommand Delay="3.24" FragmentId="ADLG_Gesture" Guid="002ace53-8d31-4d61-b729-4bae5c80b2e5" Variant="0" DesiredDuration="1.65" />
 																					</Commands>
@@ -2665,7 +2672,7 @@
 																					<Text StringName="redi_reditel_t_tonda_doka_mH4Z" Text="Tonda dokáže vypít dvacet kríglů, všecko si to pamatovat a ráno nastoupit na šichtu jako by nic!" />
 																					<Commands>
 																						<FacialMoodCommand FacialMood="happy3" />
-																						<AnimationCommand Delay="0" FragmentId="ADLG_posture_change" Guid="e84e5845-5ffc-4ffc-9022-6dd73e386521" Variant="14" />
+																						<AnimationCommand FragmentId="ADLG_posture_change" Guid="e84e5845-5ffc-4ffc-9022-6dd73e386521" Variant="14" />
 																						<AnimationCommand Delay="4.19" FragmentId="ADLG_Emphasis" Guid="c26bf88b-76a2-4e0f-8e02-bf6a1a69112d" Variant="4" />
 																					</Commands>
 																				</Response>
@@ -2880,7 +2887,7 @@
 															<Sequence EntryCondition="!SequenceUsed('fighter29oznamen')" EndType="GoTo" GoToDecision="dec4" Visibility="Internal" Name="fighter29oznamen">
 																<DesignName StringName="reditel_v_fighter29oznamen_XvEH" Text="fighter29oznamen" />
 																<Elements>
-																	<Response PostProcessPresetUpdatedOn="2024-04-23T11:23:09.8504358+02:00" PostProcessPreset="50_a30_bailiff" Role="FRIDUS_KUMEL" StartDelay="0" ReferenceLength="7.29">
+																	<Response PostProcessPresetUpdatedOn="2024-04-23T11:23:09.8504358+02:00" PostProcessPreset="50_a30_bailiff" Role="FRIDUS_KUMEL" ReferenceLength="7.29">
 																		<Parenthetical>
 																			<Text StringName="redi_reditel_t_nahlas_uzn_rbFI" Text="nahlas, uznale" />
 																		</Parenthetical>
@@ -3117,7 +3124,7 @@
 																					<Text StringName="redi_reditel_t_a_proti_ne_Zq9N" Text="Známe prvního turnajníka, teď pohleďte kdo s ním změří síly!" />
 																					<Commands>
 																						<FacialMoodCommand FacialMood="arrogant3" />
-																						<AnimationCommand Delay="0" FragmentId="ADLG_posture_change" Guid="5d4d4561-f100-4bc9-984e-71205bd3810c" Variant="4" DesiredDuration="7.39" />
+																						<AnimationCommand FragmentId="ADLG_posture_change" Guid="5d4d4561-f100-4bc9-984e-71205bd3810c" Variant="4" DesiredDuration="7.39" />
 																					</Commands>
 																				</Response>
 																			</Elements>
@@ -3401,7 +3408,7 @@
 																											<Text StringName="redi_reditel_t_jindrichuv_ICrh" Text="Jindřichův protivník se jej asi zalekl, neboť ho tu nikde nevidím!" />
 																											<Commands>
 																												<FacialMoodCommand FacialMood="happy3" />
-																												<AnimationCommand Delay="0" FragmentId="ADLG_posture_change" Guid="d1ba8eb7-4ed7-4721-a6fd-4d16021800a6" Variant="13" DesiredDuration="5.99" />
+																												<AnimationCommand FragmentId="ADLG_posture_change" Guid="d1ba8eb7-4ed7-4721-a6fd-4d16021800a6" Variant="13" DesiredDuration="5.99" />
 																											</Commands>
 																										</Response>
 																									</Elements>
@@ -3464,7 +3471,7 @@
 																					<Text StringName="redi_reditel_t_prejme_mu__xR54" Text="Přejme mu štěstí do dalšího kola! " />
 																					<Commands>
 																						<FacialMoodCommand FacialMood="thinking3" />
-																						<AnimationCommand Delay="0" FragmentId="ADLG_Grandeur" Guid="f6fc38e7-a7e2-9504-a2d7-fd80c4de9ac7" Variant="2" DesiredDuration="2.92" />
+																						<AnimationCommand FragmentId="ADLG_Grandeur" Guid="f6fc38e7-a7e2-9504-a2d7-fd80c4de9ac7" Variant="2" DesiredDuration="2.92" />
 																						<AnimationCommand Delay="3.83" FragmentId="ADLG_Gesture" Guid="002ace53-8d31-4d61-b729-4bae5c80b2e5" Variant="0" DesiredDuration="1.69" />
 																					</Commands>
 																				</Response>
@@ -3547,7 +3554,7 @@
 																					</Parenthetical>
 																					<Text StringName="redi_reditel_t_jeho_proti_vm0c" Text="Jeho protivník jistě ještě neřekl své poslední slovo!" />
 																					<Commands>
-																						<AnimationCommand Delay="0" FragmentId="ADLG_Emphasis" Guid="c26bf88b-76a2-4e0f-8e02-bf6a1a69112d" Variant="4" DesiredDuration="3.59" />
+																						<AnimationCommand FragmentId="ADLG_Emphasis" Guid="c26bf88b-76a2-4e0f-8e02-bf6a1a69112d" Variant="4" DesiredDuration="3.59" />
 																					</Commands>
 																				</Response>
 																			</Elements>
@@ -3677,7 +3684,7 @@
 																		<Text StringName="redi_reditel_t_doufejme_z_2QEZ" Text="Doufejme, že napříště už dostane možnost předvést své umění!" />
 																		<Commands>
 																			<FacialMoodCommand FacialMood="thinking3" />
-																			<AnimationCommand Delay="0" FragmentId="ADLG_posture_change" Guid="7c2b276f-8d8b-4435-b85f-ff02d2bbb66d" Variant="5" DesiredDuration="5.67" />
+																			<AnimationCommand FragmentId="ADLG_posture_change" Guid="7c2b276f-8d8b-4435-b85f-ff02d2bbb66d" Variant="5" DesiredDuration="5.67" />
 																		</Commands>
 																	</Response>
 																</Elements>
@@ -3905,7 +3912,7 @@
 																											<Text StringName="redi_reditel_t_zanedlouho_et01" Text="Zanedlouho jej znovu spatříme při finálovém střetnutí!" />
 																											<Commands>
 																												<FacialMoodCommand FacialMood="thinking3" />
-																												<AnimationCommand Delay="0" FragmentId="ADLG_Agree" Guid="a438c569-9289-47e4-b567-fa08cf7032aa" Variant="2" DesiredDuration="4.22" />
+																												<AnimationCommand FragmentId="ADLG_Agree" Guid="a438c569-9289-47e4-b567-fa08cf7032aa" Variant="2" DesiredDuration="4.22" />
 																											</Commands>
 																										</Response>
 																										<Response PostProcessPresetUpdatedOn="2024-04-23T11:23:09.9880449+02:00" PostProcessPreset="50_a30_bailiff" Role="FRIDUS_KUMEL" ReferenceLength="6.93">
@@ -4022,7 +4029,7 @@
 																				<Port Name="reakce_vyhlaseni_viteze_zena" />
 																			</Triggers>
 																			<Elements>
-																				<Response PostProcessPresetUpdatedOn="2024-04-23T11:23:10.0025539+02:00" PostProcessPreset="50_a30_bailiff" Role="FRIDUS_KUMEL" StartDelay="0" ReferenceLength="6.57">
+																				<Response PostProcessPresetUpdatedOn="2024-04-23T11:23:10.0025539+02:00" PostProcessPreset="50_a30_bailiff" Role="FRIDUS_KUMEL" ReferenceLength="6.57">
 																					<Parenthetical>
 																						<Text StringName="redi_reditel_t_nahlas_vyz_p4cv" Text="nahlas, významně a senzačně" />
 																					</Parenthetical>
@@ -4030,7 +4037,7 @@
 																					<Commands>
 																						<FacialMoodCommand FacialMood="happy3" />
 																						<AnimationCommand Delay="2.11" FragmentId="ADLG_Grandeur" Guid="f6fc38e7-a7e2-9504-a2d7-fd80c4de9ac7" Variant="2" DesiredDuration="3.01" />
-																						<AnimationCommand Delay="0" FragmentId="ADLG_Disagree" Guid="4ffec8d6-9671-4244-a6c6-aed77fe473ad" Variant="1" />
+																						<AnimationCommand FragmentId="ADLG_Disagree" Guid="4ffec8d6-9671-4244-a6c6-aed77fe473ad" Variant="1" />
 																					</Commands>
 																				</Response>
 																				<Response PostProcessPresetUpdatedOn="2024-04-23T11:23:10.004557+02:00" PostProcessPreset="50_a30_bailiff" Role="FRIDUS_KUMEL" ReferenceLength="4.59">
@@ -4061,7 +4068,7 @@
 																					<Commands>
 																						<FacialMoodCommand FacialMood="happy3" />
 																						<AnimationCommand Delay="3.62" FragmentId="ADLG_Grandeur" Guid="d1b32b74-10ad-a19a-f5c8-c76ca4cef8b7" Variant="1" DesiredDuration="3.05" />
-																						<AnimationCommand Delay="0" FragmentId="ADLG_Emphasis" Guid="c26bf88b-76a2-4e0f-8e02-bf6a1a69112d" Variant="4" />
+																						<AnimationCommand FragmentId="ADLG_Emphasis" Guid="c26bf88b-76a2-4e0f-8e02-bf6a1a69112d" Variant="4" />
 																						<AnimationCommand Delay="7.89" FragmentId="ADLG_Gesture" Guid="82614ed5-8978-4c2d-8771-aeab0b05a4e7" Variant="14" DesiredDuration="1.85" />
 																					</Commands>
 																				</Response>
@@ -4133,7 +4140,7 @@
 																														<Text StringName="redi_reditel_t_sampion_at_khAM" Text="Šampion ať se raduje z výhry a my se radujme také, neboť dnešní turnaj ještě není u konce!" />
 																														<Commands>
 																															<FacialMoodCommand FacialMood="happy3" />
-																															<AnimationCommand Delay="0" FragmentId="ADLG_Intense_Unpolished" Guid="ce07500f-b8ac-42ef-90e1-87a8979ecad4" Variant="8" />
+																															<AnimationCommand FragmentId="ADLG_Intense_Unpolished" Guid="ce07500f-b8ac-42ef-90e1-87a8979ecad4" Variant="8" />
 																															<AnimationCommand Delay="4.61" FragmentId="ADLG_Intense" Guid="a7b078ae-7adf-e03f-3246-eaa15307184d" Variant="4" />
 																														</Commands>
 																													</Response>
@@ -4172,7 +4179,7 @@
 																														<Text StringName="redi_reditel_t_dobra_zpra_yhie" Text="Dobrá zpráva je, že zde ještě čekají další turnajníci, kteří své umění předvedou v následující disciplíně!" />
 																														<Commands>
 																															<FacialMoodCommand FacialMood="happy3" />
-																															<AnimationCommand Delay="0" FragmentId="ADLG_posture_change" Guid="5d4d4561-f100-4bc9-984e-71205bd3810c" Variant="4" DesiredDuration="7.26" />
+																															<AnimationCommand FragmentId="ADLG_posture_change" Guid="5d4d4561-f100-4bc9-984e-71205bd3810c" Variant="4" DesiredDuration="7.26" />
 																														</Commands>
 																													</Response>
 																												</Elements>
@@ -4195,7 +4202,16 @@
 											</Sequences>
 										</Decision>
 									</Sequence>
-									<Sequence EntryCondition="!Port('finale_kategorie')" EndType="GoTo" GoToDecision="dec3" Cooldown="15m" Name="seq2">
+									<Sequence EntryCondition="Port('hrac_udelal_crime_')&#xD;&#xA;AND &#xD;&#xA;Port('hrac_v_souboji')" EndType="GoTo" GoToDecision="dec4" Name="seqjindravcrimu">
+										<DesignName StringName="reditel_v_seqjindravcrimu_x9mR" Text="seqJindraVCrimu" />
+										<Triggers>
+											<Port Name="skip_predsoubojem_vyhlaseni" />
+										</Triggers>
+										<Elements>
+											<Response Role="FRIDUS_KUMEL" />
+										</Elements>
+									</Sequence>
+									<Sequence EntryCondition="!Port('finale_kategorie')&#xD;&#xA; AND &#xD;&#xA;!(&#xD;&#xA; Port('hrac_udelal_crime_')&#xD;&#xA; AND &#xD;&#xA; Port('hrac_v_souboji')&#xD;&#xA; ) " EndType="GoTo" GoToDecision="dec3" Cooldown="15m" Name="seq2">
 										<DesignName StringName="reditel_v_seq2_fu5M" Text="seq2" />
 										<Triggers>
 											<Port Name="vyvolavani_posun" />
@@ -4214,7 +4230,7 @@
 											</Response>
 										</Elements>
 									</Sequence>
-									<Sequence EntryCondition="!Port('finale_kategorie')" EndType="GoTo" GoToDecision="dec3" Cooldown="15m" Name="seq3">
+									<Sequence EntryCondition="!Port('finale_kategorie')&#xD;&#xA; AND &#xD;&#xA;!(&#xD;&#xA; Port('hrac_udelal_crime_')&#xD;&#xA; AND &#xD;&#xA; Port('hrac_v_souboji')&#xD;&#xA; ) " EndType="GoTo" GoToDecision="dec3" Cooldown="15m" Name="seq3">
 										<DesignName StringName="reditel_v_seq3_0BJD" Text="seq3" />
 										<Triggers>
 											<Port Name="vyvolavani_posun" />
@@ -4228,12 +4244,12 @@
 												<Commands>
 													<FacialMoodCommand FacialMood="arrogant3" />
 													<AnimationCommand Delay="5.26" FragmentId="ADLG_Emphasis" Guid="1e0ea666-6d79-ff89-f9d8-c4247d3b8ae2" Variant="1" />
-													<AnimationCommand Delay="0" FragmentId="ADLG_posture_change" Guid="3ef9aa3d-a4d1-4eee-a973-3de14cfae95d" Variant="2" DesiredDuration="4.94" />
+													<AnimationCommand FragmentId="ADLG_posture_change" Guid="3ef9aa3d-a4d1-4eee-a973-3de14cfae95d" Variant="2" DesiredDuration="4.94" />
 												</Commands>
 											</Response>
 										</Elements>
 									</Sequence>
-									<Sequence EntryCondition="!Port('finale_kategorie')" EndType="GoTo" GoToDecision="dec3" Cooldown="15m" Name="seq4">
+									<Sequence EntryCondition="!Port('finale_kategorie')&#xD;&#xA;AND &#xD;&#xA;!(&#xD;&#xA; Port('hrac_udelal_crime_')&#xD;&#xA; AND &#xD;&#xA; Port('hrac_v_souboji')&#xD;&#xA; ) " EndType="GoTo" GoToDecision="dec3" Cooldown="15m" Name="seq4">
 										<DesignName StringName="reditel_v_seq4_RCjx" Text="seq4" />
 										<Triggers>
 											<Port Name="vyvolavani_posun" />
@@ -4251,7 +4267,7 @@
 											</Response>
 										</Elements>
 									</Sequence>
-									<Sequence EntryCondition="!Port('finale_kategorie')" EndType="GoTo" GoToDecision="dec3" Cooldown="15m" Name="seq5">
+									<Sequence EntryCondition="!Port('finale_kategorie')&#xD;&#xA; AND &#xD;&#xA;!(&#xD;&#xA; Port('hrac_udelal_crime_')&#xD;&#xA; AND &#xD;&#xA; Port('hrac_v_souboji')&#xD;&#xA; ) " EndType="GoTo" GoToDecision="dec3" Cooldown="15m" Name="seq5">
 										<DesignName StringName="reditel_v_seq5_1hh6" Text="seq5" />
 										<Triggers>
 											<Port Name="vyvolavani_posun" />
@@ -4269,7 +4285,7 @@
 											</Response>
 										</Elements>
 									</Sequence>
-									<Sequence EntryCondition="!Port('finale_kategorie')" EndType="GoTo" GoToDecision="dec3" Cooldown="15m" Name="seq20">
+									<Sequence EntryCondition="!Port('finale_kategorie')&#xD;&#xA; AND &#xD;&#xA;!(&#xD;&#xA; Port('hrac_udelal_crime_')&#xD;&#xA; AND &#xD;&#xA; Port('hrac_v_souboji')&#xD;&#xA; ) " EndType="GoTo" GoToDecision="dec3" Cooldown="15m" Name="seq20">
 										<DesignName StringName="reditel_v_seq20_t6Ze" Text="seq20" />
 										<Triggers>
 											<Port Name="vyvolavani_posun" />
@@ -4288,7 +4304,7 @@
 											</Response>
 										</Elements>
 									</Sequence>
-									<Sequence EntryCondition="Port('finale_kategorie')" EndType="Decision" Name="seq189">
+									<Sequence EntryCondition="Port('finale_kategorie')&#xD;&#xA; AND &#xD;&#xA;!(&#xD;&#xA; Port('hrac_udelal_crime_')&#xD;&#xA; AND &#xD;&#xA; Port('hrac_v_souboji')&#xD;&#xA; ) " EndType="Decision" Name="seq189">
 										<DesignName StringName="reditel_v_seq189_X3iG" Text="seq189" />
 										<UiPrompt StringName="ui_reditel_v_seq189_Y3Sg" Text="" />
 										<Elements>
@@ -4348,7 +4364,7 @@
 																			<FacialMoodCommand FacialMood="happy3" />
 																			<AnimationCommand Delay="7.59" FragmentId="ADLG_Surprised" Guid="1654ce2e-31d7-2c0c-a3a0-c9b8ae51a9d3" Variant="0" DesiredDuration="3.09" />
 																			<AnimationCommand Delay="2.48" FragmentId="ADLG_You" Guid="f44fe4ae-ec67-6b08-eb50-1ef109daf53e" Variant="5" DesiredDuration="2.12" />
-																			<AnimationCommand Delay="0" FragmentId="ADLG_Gesture" Guid="8c8fca6c-9607-4c98-8f74-95922b507a56" Variant="16" DesiredDuration="2.27" />
+																			<AnimationCommand FragmentId="ADLG_Gesture" Guid="8c8fca6c-9607-4c98-8f74-95922b507a56" Variant="16" DesiredDuration="2.27" />
 																		</Commands>
 																	</Response>
 																</Elements>
@@ -4384,7 +4400,7 @@
 																		<Text StringName="redi_reditel_t_nyni_nezby_nP1m" Text="Nyní nezbývá, než aby se spolu poměřili ti, které si dnes Fortuna vyvolila za své favority!" />
 																		<Commands>
 																			<FacialMoodCommand FacialMood="happy2" />
-																			<AnimationCommand Delay="0" FragmentId="ADLG_posture_change" Guid="5d4d4561-f100-4bc9-984e-71205bd3810c" Variant="4" DesiredDuration="6.32" />
+																			<AnimationCommand FragmentId="ADLG_posture_change" Guid="5d4d4561-f100-4bc9-984e-71205bd3810c" Variant="4" DesiredDuration="6.32" />
 																		</Commands>
 																	</Response>
 																</Elements>
@@ -4403,7 +4419,7 @@
 																		<Text StringName="redi_reditel_t_nyni_nasta_Mi7F" Text="Nyní nastává poslední souboj na meč a štít! Přivítejte ty, jejichž umění je zatím nepokořeno!" />
 																		<Commands>
 																			<FacialMoodCommand FacialMood="happy2" />
-																			<AnimationCommand Delay="0" FragmentId="ADLG_You" Guid="f44fe4ae-ec67-6b08-eb50-1ef109daf53e" Variant="5" />
+																			<AnimationCommand FragmentId="ADLG_You" Guid="f44fe4ae-ec67-6b08-eb50-1ef109daf53e" Variant="5" />
 																			<AnimationCommand Delay="3.89" FragmentId="ADLG_Surprised" Guid="76eb3ade-b59a-8434-39bc-fb1ec77e55cf" Variant="2" DesiredDuration="4.05" />
 																		</Commands>
 																	</Response>
@@ -4470,7 +4486,7 @@
 																		<Commands>
 																			<FacialMoodCommand FacialMood="happy3" />
 																			<AnimationCommand Delay="5.93" FragmentId="ADLG_Surprised" Guid="76eb3ade-b59a-8434-39bc-fb1ec77e55cf" Variant="2" DesiredDuration="3.69" />
-																			<AnimationCommand Delay="0" FragmentId="ADLG_Gesture" Guid="c146b5f3-dae0-4959-9e7f-34c7415efe01" Variant="19" DesiredDuration="3.04" />
+																			<AnimationCommand FragmentId="ADLG_Gesture" Guid="c146b5f3-dae0-4959-9e7f-34c7415efe01" Variant="19" DesiredDuration="3.04" />
 																		</Commands>
 																	</Response>
 																	<Response PostProcessPresetUpdatedOn="2024-04-23T11:23:10.0638122+02:00" PostProcessPreset="50_a30_bailiff" Role="FRIDUS_KUMEL" ReferenceLength="8.49">
@@ -4617,7 +4633,7 @@
 												<Text StringName="redi_reditel_t_sveho_soka_RqRX" Text="Bůh rozhodl, kdo bude pokořen a komu nadělí druhého vítězství!" />
 												<Commands>
 													<FacialMoodCommand FacialMood="happy3" />
-													<AnimationCommand Delay="0" FragmentId="ADLG_posture_change" Guid="5d4d4561-f100-4bc9-984e-71205bd3810c" Variant="4" DesiredDuration="7.68" />
+													<AnimationCommand FragmentId="ADLG_posture_change" Guid="5d4d4561-f100-4bc9-984e-71205bd3810c" Variant="4" DesiredDuration="7.68" />
 												</Commands>
 											</Response>
 										</Elements>
@@ -4646,7 +4662,7 @@
 												<Text StringName="redi_reditel_t_a_vitezem__icEJ" Text="Pohleďte, vítěz prvního souboje!" />
 												<Commands>
 													<FacialMoodCommand FacialMood="happy3" />
-													<AnimationCommand Delay="0" FragmentId="ADLG_Surprised" Guid="76eb3ade-b59a-8434-39bc-fb1ec77e55cf" Variant="2" DesiredDuration="3.65" />
+													<AnimationCommand FragmentId="ADLG_Surprised" Guid="76eb3ade-b59a-8434-39bc-fb1ec77e55cf" Variant="2" DesiredDuration="3.65" />
 												</Commands>
 											</Response>
 										</Elements>
@@ -4665,7 +4681,7 @@
 												<Text StringName="redi_reditel_t_slava_prvn_Sa7X" Text="Sláva! První úspěch si připsal náš statečný turnajník!" />
 												<Commands>
 													<FacialMoodCommand FacialMood="happy3" />
-													<AnimationCommand Delay="0" FragmentId="ADLG_Intense_Unpolished" Guid="ce07500f-b8ac-42ef-90e1-87a8979ecad4" Variant="8" DesiredDuration="5.13" />
+													<AnimationCommand FragmentId="ADLG_Intense_Unpolished" Guid="ce07500f-b8ac-42ef-90e1-87a8979ecad4" Variant="8" DesiredDuration="5.13" />
 												</Commands>
 											</Response>
 										</Elements>
@@ -4680,7 +4696,7 @@
 												<Text StringName="redi_reditel_t_v_prvnim_s_X6HC" Text="Triumf v prvním souboji získal obratný šermíř, který předvedl krásné techniky!" />
 												<Commands>
 													<FacialMoodCommand FacialMood="happy3" />
-													<AnimationCommand Delay="0" FragmentId="ADLG_posture_change" Guid="5d4d4561-f100-4bc9-984e-71205bd3810c" Variant="4" DesiredDuration="7.87" />
+													<AnimationCommand FragmentId="ADLG_posture_change" Guid="5d4d4561-f100-4bc9-984e-71205bd3810c" Variant="4" DesiredDuration="7.87" />
 												</Commands>
 											</Response>
 										</Elements>
@@ -4742,7 +4758,7 @@
 												<Text StringName="redi_reditel_t_necekany_z_NuPL" Text="Nečekaný zvrat a krásné vítězství pro odvážného bojovníka!" />
 												<Commands>
 													<FacialMoodCommand FacialMood="happy3" />
-													<AnimationCommand Delay="0" FragmentId="ADLG_posture_change" Guid="17c5b8b0-7d55-4dbf-ba89-7424983f2201" Variant="1" />
+													<AnimationCommand FragmentId="ADLG_posture_change" Guid="17c5b8b0-7d55-4dbf-ba89-7424983f2201" Variant="1" />
 													<AnimationCommand Delay="3.83" FragmentId="ADLG_Surprised_light" Guid="078c2b11-e2e3-4f4c-baf5-92aa3590fa78" Variant="1" DesiredDuration="2.96" />
 												</Commands>
 											</Response>
@@ -4758,7 +4774,7 @@
 												<Text StringName="redi_reditel_t_jak_tomu_c_4jOA" Text="Jak tomu často bývá, kolo Fortuny se otočilo a vítězství přihrálo nečekaným směrem!" />
 												<Commands>
 													<FacialMoodCommand FacialMood="thinking3" />
-													<AnimationCommand Delay="0" FragmentId="ADLG_posture_change" Guid="5d4d4561-f100-4bc9-984e-71205bd3810c" Variant="4" DesiredDuration="8.17" />
+													<AnimationCommand FragmentId="ADLG_posture_change" Guid="5d4d4561-f100-4bc9-984e-71205bd3810c" Variant="4" DesiredDuration="8.17" />
 												</Commands>
 											</Response>
 										</Elements>
@@ -4835,7 +4851,7 @@
 																<AnimationCommand Delay="4.26" FragmentId="ADLG_posture_change" Guid="d1ba8eb7-4ed7-4721-a6fd-4d16021800a6" Variant="13" />
 																<AnimationCommand Delay="9.19" FragmentId="ADLG_Gesture" Guid="0229b273-f5e4-4cb2-a60f-332f72774af3" Variant="1" DesiredDuration="2.62" />
 																<AnimationCommand Delay="12.07" FragmentId="ADLG_Emphasis" Guid="1e0ea666-6d79-ff89-f9d8-c4247d3b8ae2" Variant="1" DesiredDuration="2.6" />
-																<AnimationCommand Delay="0" FragmentId="ADLG_Surprised_light" Guid="078c2b11-e2e3-4f4c-baf5-92aa3590fa78" Variant="1" DesiredDuration="3.32" />
+																<AnimationCommand FragmentId="ADLG_Surprised_light" Guid="078c2b11-e2e3-4f4c-baf5-92aa3590fa78" Variant="1" DesiredDuration="3.32" />
 															</Commands>
 														</Response>
 													</Elements>
@@ -4850,7 +4866,7 @@
 															<Text StringName="redi_reditel_t_nac_dalsi__7RpW" Text="Nač další slova, sami jste vše viděli!" />
 															<Commands>
 																<FacialMoodCommand FacialMood="happy3" />
-																<AnimationCommand Delay="0" FragmentId="ADLG_Intense_Unpolished" Guid="ce07500f-b8ac-42ef-90e1-87a8979ecad4" Variant="8" DesiredDuration="4.71" />
+																<AnimationCommand FragmentId="ADLG_Intense_Unpolished" Guid="ce07500f-b8ac-42ef-90e1-87a8979ecad4" Variant="8" DesiredDuration="4.71" />
 															</Commands>
 														</Response>
 														<Response PostProcessPresetUpdatedOn="2024-04-23T11:23:10.1138833+02:00" PostProcessPreset="50_a30_bailiff" Role="FRIDUS_KUMEL" ReferenceLength="4">
@@ -4888,7 +4904,7 @@
 															<Text StringName="redi_reditel_t_dilo_je_do_1b6X" Text="Dílo je dokonáno!" />
 															<Commands>
 																<FacialMoodCommand FacialMood="thinking3" />
-																<AnimationCommand Delay="0" FragmentId="ADLG_Gesture" Guid="2f5b9a79-4e1b-4360-ac65-ce0ab1844c72" Variant="4" />
+																<AnimationCommand FragmentId="ADLG_Gesture" Guid="2f5b9a79-4e1b-4360-ac65-ce0ab1844c72" Variant="4" />
 																<AnimationCommand Delay="2.34" FragmentId="ADLG_posture_change" Guid="d1ba8eb7-4ed7-4721-a6fd-4d16021800a6" Variant="13" DesiredDuration="5.95" />
 															</Commands>
 														</Response>
@@ -4913,7 +4929,7 @@
 															<Text StringName="redi_reditel_t_pohledte_m_Q650" Text="Pohleďte měšťané kutnohorští! Jeho štít je neproniktelnou zdí a jeho meč trestajícím železem. Neporažený a nedostižný bojovník!" />
 															<Commands>
 																<FacialMoodCommand FacialMood="thinking3" />
-																<AnimationCommand Delay="0" FragmentId="ADLG_Surprised_light" Guid="078c2b11-e2e3-4f4c-baf5-92aa3590fa78" Variant="1" DesiredDuration="2.87" />
+																<AnimationCommand FragmentId="ADLG_Surprised_light" Guid="078c2b11-e2e3-4f4c-baf5-92aa3590fa78" Variant="1" DesiredDuration="2.87" />
 																<AnimationCommand Delay="2.97" FragmentId="ADLG_Emphasis" Guid="c26bf88b-76a2-4e0f-8e02-bf6a1a69112d" Variant="4" />
 																<AnimationCommand Delay="6.51" FragmentId="ADLG_Emphasis" Guid="1e0ea666-6d79-ff89-f9d8-c4247d3b8ae2" Variant="1" />
 																<AnimationCommand Delay="9.7" FragmentId="ADLG_Gesture" Guid="34ac6648-6fd5-4005-84ec-632a56223892" Variant="5" DesiredDuration="1.64" />
@@ -4998,8 +5014,8 @@
 									<Sequence EndType="GoTo" GoToDecision="dec3" Name="seq253">
 										<DesignName StringName="reditel_v_seq253_HkTV" Text="seq253" />
 										<Triggers>
-											<Port Name="obecna_pozitivni_reakce_zena" />
 											<Port Name="obecna_negativni_reakce_muz" />
+											<Port Name="obecna_negativni_reakce_zena" />
 										</Triggers>
 										<Elements>
 											<Response PostProcessPresetUpdatedOn="2024-04-23T11:23:10.1324263+02:00" PostProcessPreset="50_a30_bailiff" Role="FRIDUS_KUMEL" ReferenceLength="6.5">
@@ -5009,7 +5025,7 @@
 												<Text StringName="redi_reditel_t_protoze_ji_LuOS" Text="Protože Jindřich k souboji nenastoupil, vítězem je jeho štastlivý soupeř!" />
 												<Commands>
 													<FacialMoodCommand FacialMood="angry2" />
-													<AnimationCommand Delay="0" FragmentId="ADLG_posture_change" Guid="5d4d4561-f100-4bc9-984e-71205bd3810c" Variant="4" DesiredDuration="6.44" />
+													<AnimationCommand FragmentId="ADLG_posture_change" Guid="5d4d4561-f100-4bc9-984e-71205bd3810c" Variant="4" DesiredDuration="6.44" />
 												</Commands>
 											</Response>
 										</Elements>

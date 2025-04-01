@@ -23,20 +23,23 @@
 				<Function Name="createdialogparams1" PositionY="160" PositionX="-630" MethodName="wh::dialogmodule::CreateDialogParams" DeclaringType="wh::dialogmodule">
 					<Asset Name="Participants" Alias="lacek" />
 				</Function>
-				<DeleteNondivisibleItems_FromSoul Name="DeleteNondivisibleItems_FromSoul" PositionY="790" PositionX="390" Namespace="utils.item">
-					<Asset Name="soul" Alias="player" />
-					<Constant Name="itemclass" Value="5ef63059-322e-4e1b-abe8-926e100c770e" />
-					<Constant Name="allowpartialmatch" Value="false" />
-					<Constant Name="showuinotification" Value="true" />
-					<Edge From="dialog_s_lackem_v_hospode.hrac_plati_piti" To="exec" />
-					<Edge From="questconstants.beerprice" To="amount" />
-				</DeleteNondivisibleItems_FromSoul>
 				<dialog_s_lackem_v_hospode Name="dialog_s_lackem_v_hospode" PositionY="30" PositionX="-50">
 					<Asset Name="DialogueHolder" Alias="dialogWithLacekDH" />
 					<Edge From="createdialogparams1.DialogParams" To="DialogParams" />
 					<Edge From="sedi_lacek_v_hospode.lacek_sedi_hrac_dal_ecko_na_lacka" To="EnqueueDialogue" />
-					<Edge From="HasMoney_Soul.hasmoney" To="hrac_ma_penize" />
 					<Edge From="or1.bool" To="hrac_je_nobl" />
+					<Edge From="payment.playerhasmoney" To="hrac_ma_penize">
+						<Vertex>IDad4MfJ</Vertex>
+						<Vertex>n9Uljpk1</Vertex>
+					</Edge>
+					<Edge From="payment.money" To="Payment_seq36">
+						<Vertex>Be8xmjP4</Vertex>
+						<Vertex>BGJu7Itu</Vertex>
+					</Edge>
+					<Edge From="payment.money" To="Payment_seq32">
+						<Vertex>Be8xmjP4</Vertex>
+						<Vertex>BGJu7Itu</Vertex>
+					</Edge>
 				</dialog_s_lackem_v_hospode>
 				<EnableBehavior Name="enablebehavioremptyendnotification4" PositionY="400" PositionX="670" Signature="empty" EventSet="endNotification">
 					<Constant Name="Behavior" Value="damaVNesnazich_playerStandUp" />
@@ -44,10 +47,6 @@
 					<Asset Name="NPC" Alias="player" />
 					<Edge From="standUpPlayer.Active" To="IsActive" />
 				</EnableBehavior>
-				<HasMoney_Soul Name="HasMoney_Soul" PositionY="550" PositionX="-470" Namespace="utils.money">
-					<Asset Name="soul" Alias="player" />
-					<Constant Name="amount" Value="20" />
-				</HasMoney_Soul>
 				<je_hrac_nobl Name="je_hrac_nobl" PositionY="-260" PositionX="-630" Namespace="damavnesnazich" />
 				<Function Name="or1" PositionY="-240" PositionX="-330" MethodName="math::boolean::Or" DeclaringType="math::boolean">
 					<Edge From="je_hrac_nobl.hrac_vypada_hezky" To="A" />
@@ -58,7 +57,12 @@
 					<Edge From="dialog_s_lackem_v_hospode.lacek_jde_ven" To="lacek_jde_ven" />
 					<Edge From="dialog_s_lackem_v_hospode.lacek_odchazi" To="lacek_odchazi" />
 				</Output>
-				<questconstants Name="questconstants" PositionY="830" PositionX="-100" Namespace="damavnesnazich" />
+				<payment Name="payment" PositionY="-270" PositionX="340" Namespace="utils.speech">
+					<Asset Name="recipient" Alias="lacek" />
+					<Edge From="questconstants.beerprice" To="moneysettings" />
+					<Edge From="dialog_s_lackem_v_hospode.hrac_plati_piti" To="pay" />
+				</payment>
+				<questconstants Name="questconstants" PositionY="-580" PositionX="-10" Namespace="damavnesnazich" />
 				<sedi_lacek_v_hospode_zahajeni_dialogu Name="sedi_lacek_v_hospode" PositionY="-40" PositionX="-630" Namespace="damavnesnazich">
 					<Edge From="active" To="isactive" />
 				</sedi_lacek_v_hospode_zahajeni_dialogu>
@@ -71,6 +75,10 @@
 				</State>
 			</Nodes>
 			<EdgeVertices>
+				<EdgeVertex Name="Be8xmjP4" PositionY="-300" PositionX="520" />
+				<EdgeVertex Name="BGJu7Itu" PositionY="-300" PositionX="-30" />
+				<EdgeVertex Name="IDad4MfJ" PositionY="-270" PositionX="510" />
+				<EdgeVertex Name="n9Uljpk1" PositionY="-270" PositionX="-20" />
 				<EdgeVertex Name="vertex14" PositionY="760" PositionX="1010" />
 				<EdgeVertex Name="vertex15" PositionY="760" PositionX="390" />
 			</EdgeVertices>

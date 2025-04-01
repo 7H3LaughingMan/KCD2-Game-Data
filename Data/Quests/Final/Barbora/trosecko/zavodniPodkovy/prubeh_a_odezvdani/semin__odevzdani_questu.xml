@@ -18,6 +18,9 @@
 				<Port Name="podkovy_neodevzdany" Direction="Out" Type="bool">
 					<DesignName StringName="semin__od_podkovy_neodevz_dBbP" Text="podkovy neodevzdany" />
 				</Port>
+				<Port Name="jindra_nedostal_odmenu" Direction="Out" Type="bool">
+					<DesignName StringName="semin__od_jindra_nedostal_JgSq" Text="Jindra nedostal odměnu" />
+				</Port>
 				<Port Name="quest_fail" Direction="In" Type="trigger">
 					<DesignName StringName="semin__od_quest_fail_NoTZ" Text="quest fail" />
 				</Port>
@@ -57,6 +60,11 @@
 						<Vertex>vertex33</Vertex>
 					</Edge>
 				</State>
+				<expectedeffect Name="expectedeffect" PositionY="1200" PositionX="1560" Namespace="utils.crime.trespass">
+					<Asset Name="npcs" Alias="janek" />
+					<Constant Name="extenduntilplayerleavestrespass" Value="true" />
+					<Edge From="or25.bool" To="isactive" />
+				</expectedeffect>
 				<IfFunction Name="ifand12" PositionY="60" PositionX="320" MethodName="math::boolean::And" DeclaringType="math::boolean">
 					<Edge From="donesPodkovy.OdevzdavanoIncludem" To="A">
 						<Vertex>vertex31</Vertex>
@@ -107,6 +115,12 @@
 				<State Name="odevzdanyKvalitniPodkovy" PositionY="610" PositionX="360" TypeT="bool">
 					<Edge From="odevdzani_ukolu__celedin_sedlare.odevzdany_kvalitni_podkovy" To="SetTrue" />
 				</State>
+				<Function Name="or25" PositionY="1220" PositionX="1320" MethodName="math::boolean::Or" DeclaringType="math::boolean">
+					<Edge From="pockejNaOdmenu.Promluvit" To="A" />
+					<Edge From="donesPodkovy.LzeOdevzdat" To="B">
+						<Vertex>DMYs9xJy</Vertex>
+					</Edge>
+				</Function>
 				<Output Name="Output">
 					<Edge From="pockejNaOdmenu.OnOdmena" To="jindra_si_promluvil_o_finalni_odmene">
 						<Vertex>vertex28</Vertex>
@@ -126,6 +140,9 @@
 					</Edge>
 					<Edge From="pockejNaOdmenu.OnOdmena" To="janek_vyhral_zavod">
 						<Vertex>vertex37</Vertex>
+					</Edge>
+					<Edge From="pockejNaOdmenu.BezOdmeny" To="jindra_nedostal_odmenu">
+						<Vertex>5Nf028qV</Vertex>
 					</Edge>
 				</Output>
 				<State Name="pockejNaOdmenu" PositionY="20" PositionX="930" RequiredForOutput="trosecko" TypeT="DoubleSuccessPodkovy">
@@ -155,6 +172,8 @@
 				</Timer>
 			</Nodes>
 			<EdgeVertices>
+				<EdgeVertex Name="5Nf028qV" PositionY="471" PositionX="1987" />
+				<EdgeVertex Name="DMYs9xJy" PositionY="1330" PositionX="-29" />
 				<EdgeVertex Name="vertex1" PositionY="-70" PositionX="-340" />
 				<EdgeVertex Name="vertex12" PositionY="-80" PositionX="-130" />
 				<EdgeVertex Name="vertex14" PositionY="590" PositionX="-300" />

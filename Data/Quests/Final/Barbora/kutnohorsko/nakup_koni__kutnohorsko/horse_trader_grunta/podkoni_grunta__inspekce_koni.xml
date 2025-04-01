@@ -6,6 +6,9 @@
 				<Port Name="hrac_vyresil_vokraka_v_m34" Direction="In" Type="bool">
 					<DesignName StringName="podkoni_g_hrac_vyresil_vo_P3Ey" Text="hráč vyřešil Vokřáka v M34" />
 				</Port>
+				<Port Name="je_noc" Direction="In" Type="bool">
+					<DesignName StringName="podkoni_g_je_noc_vIsn" Text="je noc" />
+				</Port>
 				<Port Name="kun1available" Direction="In" Type="bool">
 					<DesignName StringName="podkoni_g_kun1available_WZc5" Text="kun1Available" />
 				</Port>
@@ -31,11 +34,11 @@
 					<SelectedSoul Role="HENRY" Voice="tomMcKay" Type="Wave" Language="ENG" />
 					<SelectedSoul Role="PODKONI_GRUNTA" Voice="rebeccaRisness" Type="Wave" Language="ENG" Stance="sittingNoTable" />
 				</SelectedSouls>
-				<Decision Name="dec1" Priority="General">
+				<Decision Name="dec1" Priority="Shop">
 					<Sequences>
-						<Sequence EntryCondition="!ThisSequenceUsed() AND &#xD;&#xA;(&#xD;&#xA;Port('kun1available') OR&#xD;&#xA;Port('kun2available') OR&#xD;&#xA;Port('kun3available') OR&#xD;&#xA;Port('kun4available') OR &#xD;&#xA;Port('kun5available') OR&#xD;&#xA;Port('kun6available')&#xD;&#xA;)" EndType="Decision" Visibility="Public" GrayOutIfSequencesUsed="Never" Name="podkonigrunta_forcedtutorial">
+						<Sequence EntryCondition="!Port('je_noc') AND !ThisSequenceUsed() AND &#xD;&#xA;(&#xD;&#xA;Port('kun1available') OR&#xD;&#xA;Port('kun2available') OR&#xD;&#xA;Port('kun3available') OR&#xD;&#xA;Port('kun4available') OR &#xD;&#xA;Port('kun5available') OR&#xD;&#xA;Port('kun6available')&#xD;&#xA;)" EndType="Decision" Visibility="Public" GrayOutIfSequencesUsed="Never" Name="podkonigrunta_forcedtutorial">
 							<DesignName StringName="podkoni_g_podkonigrunta_f_CWxq" Text="podkoniGrunta_forcedTutorial" />
-							<UiPrompt StringName="ui_podkoni_g_podkonigrunt_DBOR" Text="(Koupit koně.)" />
+							<UiPrompt StringName="ui_podkoni_g_podkonigrunt_DBOR" Text="(Koupit koně)" />
 							<Elements>
 								<Response Role="HENRY" ReferenceLength="4.09">
 									<Parenthetical>
@@ -161,7 +164,7 @@
 															<Text StringName="podk_podkoni_g_nacenim_ho_Mm6I" Text="Podívám se na něj a jeho cenu ti při platbě vodečtu vod toho novýho. " />
 															<Commands>
 																<FacialMoodCommand FacialMood="happy1" />
-																<AnimationCommand Delay="1.93" FragmentId="ADLG_Gesture" Guid="73a94c06-a15d-453c-a492-516e70eac734" Variant="9" />
+																<AnimationCommand Delay="1.93" FragmentId="ADLG_Gesture" Guid="73a94c06-a15d-453c-a492-516e70eac734" Variant="15" />
 																<CameraCommand CameraType="CloseShot" />
 															</Commands>
 														</Response>
@@ -174,7 +177,7 @@
 														<Response Role="PODKONI_GRUNTA" ReferenceLength="5.01">
 															<Text StringName="podk_podkoni_g_a_esli_mas_o07K" Text="A jestli máš nějakej statnej kousek, no... třeba na tom ještě vyděláš!" />
 															<Commands>
-																<AnimationCommand Delay="2.03" FragmentId="ADLG_You" Guid="f24cdd96-4f21-a543-102f-5e382cb92304" Variant="2" />
+																<AnimationCommand Delay="2.03" FragmentId="ADLG_You" Guid="f24cdd96-4f21-a543-102f-5e382cb92304" Variant="5" />
 															</Commands>
 														</Response>
 														<Response Role="PODKONI_GRUNTA" ReferenceLength="4.9">
@@ -206,7 +209,7 @@
 																		<Text StringName="podk_henry_obhlidnul_jsem_wq55" Text="Obhlídnul jsem je." />
 																		<Commands>
 																			<AnimationCommand FragmentId="ADLG_Nod" Guid="ca364fe9-66bd-48fa-8178-0e49459d7038" Variant="2" />
-																			<AnimationCommand Role="PODKONI_GRUNTA" Delay="0.91" FragmentId="ADLG_Gesture" Guid="204c327d-8e2a-4c9c-9275-1ee4fc12f54a" Variant="2" />
+																			<AnimationCommand Role="PODKONI_GRUNTA" Delay="0.91" FragmentId="ADLG_Gesture" Guid="204c327d-8e2a-4c9c-9275-1ee4fc12f54a" Variant="4" />
 																			<CameraCommand />
 																		</Commands>
 																	</Response>
@@ -242,7 +245,7 @@
 																		<Text StringName="podk_podkoni_g_kdyz_prijd_rZn6" Text="Kdybys přišel blíž, mohl by ses podívat, jak jsou na tom s kuráží, nosností, rychlostí a výdrží." />
 																		<Commands>
 																			<AnimationCommand Delay="0.13" FragmentId="ADLG_Frustration" Guid="509a2a80-6f00-3042-64dc-e43280fd3711" Variant="1" />
-																			<AnimationCommand Delay="3.4" FragmentId="ADLG_Gesture" Guid="73a94c06-a15d-453c-a492-516e70eac734" Variant="9" />
+																			<AnimationCommand Delay="3.4" FragmentId="ADLG_Gesture" Guid="73a94c06-a15d-453c-a492-516e70eac734" Variant="15" />
 																			<CameraCommand />
 																		</Commands>
 																	</Response>
@@ -281,7 +284,7 @@
 																					</Parenthetical>
 																					<Text StringName="podk_podkoni_g_tak_do_toh_o6lj" Text="Když je nebudeš moc provokovat, tak ti neutečou." />
 																					<Commands>
-																						<AnimationCommand Delay="0.1" FragmentId="ADLG_Gesture" Guid="204c327d-8e2a-4c9c-9275-1ee4fc12f54a" Variant="2" />
+																						<AnimationCommand Delay="0.1" FragmentId="ADLG_Gesture" Guid="204c327d-8e2a-4c9c-9275-1ee4fc12f54a" Variant="4" />
 																						<CameraCommand />
 																					</Commands>
 																				</Response>
@@ -324,7 +327,7 @@
 								</Sequences>
 							</Decision>
 						</Sequence>
-						<Sequence EntryCondition="SequenceUsed('podkonigrunta_forcedtutorial')" GrayOutIfSequencesUsed="Never" Name="seq8">
+						<Sequence EntryCondition="!Port('je_noc') AND SequenceUsed('podkonigrunta_forcedtutorial')" GrayOutIfSequencesUsed="Never" Name="seq8">
 							<DesignName StringName="podkoni_g_seq8_TRNw" Text="seq8" />
 							<UiPrompt StringName="ui_podkoni_g_seq8_w4rt" Text="Pověz mi o stájích v Gruntě." />
 							<Elements>
@@ -341,7 +344,7 @@
 									<Text StringName="podk_podkoni_g_semin_jsou_1TXI" Text="Gruntecký stáje maj dlouhou a bohatou tradici spojenou s místním kutáním." />
 									<Commands>
 										<FacialMoodCommand FacialMood="happy1" />
-										<AnimationCommand Delay="1.2" FragmentId="ADLG_Gesture" Guid="41555402-f6a7-44f9-8525-8a888d62e421" Variant="7" />
+										<AnimationCommand Delay="1.2" FragmentId="ADLG_Gesture" Guid="41555402-f6a7-44f9-8525-8a888d62e421" Variant="10" />
 										<CameraCommand CameraType="CloseShot" />
 									</Commands>
 								</Response>

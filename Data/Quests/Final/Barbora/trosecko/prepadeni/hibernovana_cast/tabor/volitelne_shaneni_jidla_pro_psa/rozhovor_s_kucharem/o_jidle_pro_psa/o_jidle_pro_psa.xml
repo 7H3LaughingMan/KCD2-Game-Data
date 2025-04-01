@@ -33,7 +33,7 @@
 				</SelectedSouls>
 				<Decision Name="dec1" Priority="MainQuestSubmission">
 					<Sequences>
-						<Sequence EntryCondition="Port('hrac_ma_prsten')" EndType="Decision" Name="seq18">
+						<Sequence EntryCondition="Port('hrac_ma_prsten') AND !SequenceUsed('kuchar_chce_prsten')" EndType="Decision" Name="seq18">
 							<DesignName StringName="jindrich__seq18_E7ow" Text="seq18" />
 							<UiPrompt StringName="ui_jindrich__seq18_f4c8" Text="Mám tvůj prsten." />
 							<Elements>
@@ -43,9 +43,6 @@
 								<Sequences>
 									<Sequence EntryCondition="SequenceUsed('kuchar_chce_prsten')" EndType="GoTo" GoToDecision="dec8" Name="seq16">
 										<DesignName StringName="jindrich__seq16_54mA" Text="seq16" />
-										<Triggers>
-											<Port Name="hrac_odevzdal_prsten" />
-										</Triggers>
 										<Elements>
 											<Response Role="HENRY" ReferenceLength="2.85">
 												<Text StringName="jind_henry_tak_to_vypada__NLW2" Text="Tak to vypadá, že Pivec nepozná pětku od šestky." />
@@ -70,6 +67,7 @@
 													<AnimationCommand Delay="4.57" FragmentId="ADLG_Bow_light" Guid="a31ff8b3-cbfe-c89b-167f-038b7ec8bff4" Variant="1" />
 													<AnimationCommand Delay="2.01" FragmentId="ADLG_Laugh" Guid="a332b333-53d7-766c-4436-4e59a79d295b" Variant="1" DesiredDuration="1.89" />
 													<AnimationCommand Delay="-0.16" FragmentId="ADLG_Surprised_light" Guid="05fbbee9-b1a6-ec13-8596-a39e097f4674" Variant="0" />
+													<CameraCommand Delay="0.23" CameraType="CloseShot" />
 												</Commands>
 											</Response>
 										</Elements>
@@ -77,7 +75,7 @@
 									<Sequence EntryCondition="!SequenceUsed('kuchar_chce_prsten')" EndType="Decision" Name="seq19">
 										<DesignName StringName="jindrich__seq19_RYND" Text="seq19" />
 										<Elements>
-											<Response Role="HENRY" StartDelay="0.23" ReferenceLength="5.34">
+											<Response Role="HENRY" StartDelay="0.23" ReferenceLength="5.09">
 												<Text StringName="jind_henry_hele_voves_vyh_CcsM" Text="Hele, Voves, vyhrál jsem nad Pivcem v kostkách prsten. Prej je tvůj." />
 												<Commands>
 													<AnimationCommand Delay="-0.23" FragmentId="ADLG_You" Guid="66521c85-917d-e375-a2fd-ef3af22eb0da" Variant="1" />
@@ -96,7 +94,7 @@
 										</Elements>
 										<Decision Name="dec8" Priority="MainQuestSubmission">
 											<Sequences>
-												<Sequence EntryCondition="!(SequenceUsed('klobasa_ze_skillchecku_1') OR SequenceUsed('klobasa_ze_skillchecku_2') OR SequenceUsed('klobasa_ze_skillchecku_3'))" EndType="Decision" Name="seq20">
+												<Sequence EntryCondition="!(SequenceUsed('klobasa_ze_skillchecku_1') OR SequenceUsed('klobasa_ze_skillchecku_2') OR SequenceUsed('klobasa_ze_skillchecku_3')) AND !SequenceUsed('kuchar_chce_prsten')" EndType="Decision" Name="seq20">
 													<DesignName StringName="jindrich__seq20_rYBt" Text="seq20" />
 													<Elements>
 														<Response Role="ZBROJNOS_VOVES" ReferenceLength="5.9">
@@ -216,11 +214,32 @@
 														</Sequences>
 													</Decision>
 												</Sequence>
+												<Sequence EntryCondition="!(SequenceUsed('klobasa_ze_skillchecku_1') OR SequenceUsed('klobasa_ze_skillchecku_2') OR SequenceUsed('klobasa_ze_skillchecku_3')) AND SequenceUsed('kuchar_chce_prsten')" EndType="GoTo" GoToDecision="dec9" Name="seq27">
+													<DesignName StringName="o_jidle_p_seq27_euHA" Text="seq27" />
+													<Elements>
+														<Response Role="ZBROJNOS_VOVES">
+															<Parenthetical>
+																<Text StringName="o_ji_zbrojnos__uznale_6re2" Text="uznale" />
+															</Parenthetical>
+															<Text StringName="o_ji_zbrojnos___i7sD" Text="A tady za něj máš tu klobásu. Přesně tak, jak jsme se dohodli." />
+															<Commands>
+																<CameraCommand />
+															</Commands>
+														</Response>
+													</Elements>
+												</Sequence>
 											</Sequences>
 										</Decision>
 									</Sequence>
 								</Sequences>
 							</Decision>
+						</Sequence>
+						<Sequence EntryCondition="Port('hrac_ma_prsten') AND SequenceUsed('kuchar_chce_prsten')" EndType="GoTo" GoToDecision="dec7" Name="seq28">
+							<DesignName StringName="o_jidle_p_seq28_G5x3" Text="seq28" />
+							<UiPrompt StringName="ui_o_jidle_p_seq28_726O" Text="Vyměním tvůj prsten za jídlo pro Vořecha." />
+							<Elements>
+								<Response Role="HENRY" />
+							</Elements>
 						</Sequence>
 						<Sequence EntryCondition="Port('vstup_vyptavani_se_na_jidlo_pro_psa')" EndType="Decision" Visibility="Public" Name="dotaz_na_jidlo_pro_psa">
 							<DesignName StringName="jindrich__dotaz_na_jidlo__1Ehe" Text="dotaz na jídlo pro psa" />
@@ -409,7 +428,7 @@
 												<Sequence EndType="GoTo" GoToDecision="dec2" SkillcheckCondition="Fail" Name="seq4">
 													<DesignName StringName="jindrich__seq4_yNST" Text="seq4" />
 													<Elements>
-														<Response Role="HENRY" ReferenceLength="3.01">
+														<Response Role="HENRY" ReferenceLength="3">
 															<Text StringName="jind_henry_ta_tvoje_kloba_34OO" Text="Ta tvoje klobása je dobrá tak akorát pro psa!" />
 															<Commands>
 																<AnimationCommand Delay="0.19" FragmentId="ADLG_You" Guid="66521c85-917d-e375-a2fd-ef3af22eb0da" Variant="1" />

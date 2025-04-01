@@ -32,7 +32,7 @@
 					<SelectedSoul Role="LACEK" Voice="jonathanMilshaw" Type="Wave" Language="ENG" />
 					<SelectedSoul Role="HENRY" Voice="tomMcKay" Soul="player_henry" Type="Wave" Language="ENG" />
 				</SelectedSouls>
-				<Decision Name="dec1" Priority="SideQuestSubmission" CustomCamera="damaVnesnazich_lacek_customCamera_08">
+				<Decision Name="dec1" Priority="SideQuestAssignment" CustomCamera="damaVnesnazich_lacek_customCamera_08">
 					<Sequences>
 						<Sequence EndType="Decision" Name="zacatek_trialogu">
 							<DesignName StringName="trialog_h_seq1_jJAm" Text="začátek trialogu" />
@@ -216,7 +216,7 @@
 										</Elements>
 										<Decision Name="dec28" Priority="SideQuestSubmission">
 											<Sequences>
-												<Sequence SpeechCoef="0" EndType="Decision" Name="seq57">
+												<Sequence EndType="Decision" SpeechCoef="0" Name="seq57">
 													<DesignName StringName="trialog_h_seq57_aBeB" Text="seq57" />
 													<Elements>
 														<Response Role="MARKETA" ReferenceLength="4.74">
@@ -430,7 +430,7 @@
 																</Elements>
 																<Decision Name="dec7" Priority="SideQuestSubmission">
 																	<Sequences>
-																		<Sequence SpeechCoef="0" EndType="Decision" Reputation="quest_decrease_5_notable" ReputationChangeTarget="MARKETA" Name="lacek_preda_markete_prachy">
+																		<Sequence EndType="Decision" SpeechCoef="0" Reputation="quest_decrease_5_notable" ReputationChangeTarget="MARKETA" Name="lacek_preda_markete_prachy">
 																			<DesignName StringName="trialog_h_lacek_preda_mar_gAd5" Text="Lacek předá Markétě prachy" />
 																			<Triggers>
 																				<Port Name="lacek_zaplatit_markete" />
@@ -1020,7 +1020,7 @@
 																																									<Response Role="MARKETA" ReferenceLength="1.65">
 																																										<Text StringName="tria_marketa_ale_ja_prece_yanO" Text="Ale já přece..." />
 																																										<Commands>
-																																											<CameraCommand CustomCamera="damaVnesnazich_lacek_customCamera_09" />
+																																											<InstantPropCommand Role="HENRY" Delay="0.19" Hand="Right" Prop="playerWeapon" />
 																																											<CameraCommand Role="HENRY" Delay="1.53" CustomCamera="damaVnesnazich_lacek_customCamera_12" />
 																																										</Commands>
 																																									</Response>
@@ -1068,16 +1068,16 @@
 																																														<MoodCommand Role="HENRY" Mood="angry" />
 																																														<AnimationCommand FragmentId="ADLG_Give" Guid="cefb36c7-9be1-9290-c4b8-850ef1f267ac" Variant="1" DesiredDuration="3.48" />
 																																														<AnimationHeadCommand Delay="0.04" FragmentId="ADLG_FA_Idle_nervous3" Guid="1daf722a-5d56-4459-ac7a-a59e13c5ab1b" Variant="0" />
-																																														<CameraCommand CustomCamera="damaVnesnazich_lacek_customCamera_23" />
+																																														<InstantPropCommand Role="HENRY" Delay="0.01" Hand="Right" Prop="playerWeapon" />
+																																														<CameraCommand CustomCamera="damaVnesnazich_lacek_customCamera_21" />
 																																														<LookAtCommand Role="LACEK" LookAtRole="MARKETA" />
 																																													</Commands>
 																																												</Response>
 																																												<Response Role="HENRY" StartDelay="3.35" ReferenceLength="4.18">
 																																													<Text StringName="tria_henry_a_ted_vypadni__4TvS" Text="A teď vypadni a doufej, že už se nikdy nepotkáme!" />
 																																													<Commands>
-																																														<AnimationCommand Role="LACEK" Delay="-3.01" FragmentId="ADLG_Take" Guid="8f890737-6b10-2c51-77d5-c6d0ccf58c77" Variant="0" />
-																																														<CameraCommand Delay="0.42" CustomCamera="damaVnesnazich_lacek_customCamera_07" />
-																																														<CameraCommand Role="MARKETA" Delay="-2.49" CustomCamera="damaVnesnazich_lacek_customCamera_03" />
+																																														<CameraCommand Delay="0.25" CustomCamera="damaVnesnazich_lacek_customCamera_07" />
+																																														<CameraCommand Role="MARKETA" Delay="-2.3" CustomCamera="damaVnesnazich_lacek_customCamera_17" />
 																																														<LookAtCommand Role="MARKETA" Delay="-3.16" LookAtRole="LACEK" />
 																																													</Commands>
 																																												</Response>
@@ -1102,6 +1102,7 @@
 																																											<MoodCommand Mood="angry" />
 																																											<FacialMoodCommand Role="MARKETA" FacialMood="angry3" />
 																																											<MoodCommand Role="MARKETA" Mood="angry" />
+																																											<InstantPropCommand Delay="0.01" Hand="Right" Prop="playerWeapon" />
 																																											<CameraCommand CustomCamera="damaVnesnazich_lacek_customCamera_23" />
 																																										</Commands>
 																																									</Response>
@@ -1111,7 +1112,7 @@
 																																										</Parenthetical>
 																																										<Text StringName="tria_marketa_ne_nedosla_j_ELHk" Text="Ne! Už semnou nikdo vyjebávat nebude! Jestli se vo něco pokusíš, tak tě to bude mrzet!" />
 																																										<Commands>
-																																											<AnimationCommand Delay="0" FragmentId="ADLG_Disagree" Guid="6ae22086-65b4-db41-d4ac-60333191463d" Variant="0" />
+																																											<AnimationCommand FragmentId="ADLG_Disagree" Guid="6ae22086-65b4-db41-d4ac-60333191463d" Variant="0" />
 																																											<CameraCommand CustomCamera="damaVnesnazich_lacek_customCamera_21" />
 																																											<CameraCommand Delay="3.68" CustomCamera="damaVnesnazich_lacek_customCamera_07" />
 																																										</Commands>
@@ -1162,6 +1163,7 @@
 																																										<Text StringName="tria_marketa_to_bys_neude_SOQ8" Text="Nebuď blbej! Ještě se můžem rozdělit!" />
 																																										<Commands>
 																																											<AnimationCommand Delay="0.11" FragmentId="ADLG_Disown" Guid="06e1fb6b-337e-a973-675b-4acee4664d56" Variant="0" />
+																																											<InstantPropCommand Role="HENRY" Delay="2.98" Hand="Right" Prop="playerWeapon" />
 																																											<CameraCommand CustomCamera="damaVnesnazich_lacek_customCamera_21" />
 																																											<CameraCommand Role="HENRY" Delay="2.52" CustomCamera="damaVnesnazich_lacek_customCamera_12" />
 																																										</Commands>
@@ -1178,16 +1180,17 @@
 																																										</Parenthetical>
 																																										<Text StringName="tria_marketa_kurva_co_ses_4A4K" Text="Kurva. Co seš to za člověka?!" />
 																																										<Commands>
+																																											<MoodCommand Role="HENRY" Delay="0.47" />
 																																											<AnimationCommand Delay="1.29" FragmentId="ADLG_Give" Guid="529b16d4-4459-c2a6-a5a5-e6db7ebd48d6" Variant="0" />
-																																											<AnimationCommand Role="HENRY" Delay="2.13" FragmentId="ADLG_Take" Guid="25219c20-5928-c911-7a11-b71f52756b01" Variant="0" />
-																																											<AnimationCommand Delay="0.06" FragmentId="ADLG_Disagree" Guid="39b4ce5d-b420-4941-b308-5e21b403eb51" Variant="2" DesiredDuration="1.11" />
+																																											<AnimationCommand Role="HENRY" Delay="2.49" FragmentId="ADLG_You" Guid="be891276-e31d-d3de-0861-950464b02445" Variant="3" />
 																																											<CameraCommand CustomCamera="damaVnesnazich_lacek_customCamera_09" />
 																																										</Commands>
 																																									</Response>
 																																									<Response Role="HENRY" ReferenceLength="2.99">
 																																										<Text StringName="tria_henry_a_ted_zmiz_nez_nJHx" Text="A teď zmiz, než si to rozmyslím." />
 																																										<Commands>
-																																											<CameraCommand CustomCamera="damaVnesnazich_lacek_customCamera_12" />
+																																											<MoodCommand Delay="2.73" Mood="angry" />
+																																											<CameraCommand Delay="0.84" CustomCamera="damaVnesnazich_lacek_customCamera_12" />
 																																										</Commands>
 																																									</Response>
 																																								</Elements>
@@ -1322,7 +1325,7 @@
 																																							<Commands>
 																																								<FacialMoodCommand FacialMood="angry2" />
 																																								<FacialMoodCommand Role="MARKETA" FacialMood="arrogant2" />
-																																								<MoodCommand Delay="0" Mood="angry" />
+																																								<MoodCommand Mood="angry" />
 																																								<AnimationCommand Delay="1.62" FragmentId="ADLG_Surprised_light" Guid="e2f8392e-0966-952e-15be-7851f1d3e124" Variant="0" />
 																																								<CameraCommand CustomCamera="damaVnesnazich_lacek_customCamera_23" />
 																																							</Commands>
@@ -1442,7 +1445,7 @@
 																																	<Commands>
 																																		<FacialMoodCommand FacialMood="angry1" />
 																																		<FacialMoodCommand Role="MARKETA" FacialMood="arrogant2" />
-																																		<MoodCommand Delay="0" Mood="angry" />
+																																		<MoodCommand Mood="angry" />
 																																		<AnimationCommand Delay="2.08" FragmentId="ADLG_Confusion" Guid="ed83e074-2405-01b4-0353-8b15e0726ac4" Variant="2" />
 																																		<CameraCommand CustomCamera="damaVnesnazich_lacek_customCamera_24" />
 																																		<CameraCommand Role="MARKETA" Delay="4.78" CustomCamera="damaVnesnazich_lacek_customCamera_09" />
@@ -1488,19 +1491,6 @@
 																							</Sequences>
 																						</Decision>
 																					</Sequence>
-																					<Sequence EndType="GoTo" GoToDecision="dec23" Name="seq18">
-																						<DesignName StringName="trialog_h_seq18_O2Ie" Text="seq18" />
-																						<UiPrompt StringName="ui_trialog_h_seq18_LOth" Text="(Mlčet)" />
-																						<Elements>
-																							<Response Role="HENRY" ReferenceLength="5">
-																								<Commands>
-																									<MoodCommand Mood="angry" />
-																									<FacialMoodCommand FacialMood="angry2" />
-																									<AnimationCommand Delay="1.77" FragmentId="ADLG_Disagree" Guid="2e6ac126-30f7-0b6c-f925-fe5e13814963" Variant="0" />
-																								</Commands>
-																							</Response>
-																						</Elements>
-																					</Sequence>
 																					<Sequence EndType="GoTo" GoToDecision="dec23" Name="seq32">
 																						<DesignName StringName="trialog_h_seq32_VWxX" Text="seq32" />
 																						<UiPrompt StringName="ui_trialog_h_seq32_Njnj" Text="Tohle ti neprojde ty svině." />
@@ -1522,6 +1512,19 @@
 																								<Commands>
 																									<AnimationCommand Delay="0.03" FragmentId="ADLG_Emphasis" Guid="44ff9c6a-317f-4ede-8765-31411d797c71" Variant="1" DesiredDuration="1.95" />
 																									<CameraCommand Delay="1.09" CustomCamera="damaVnesnazich_lacek_customCamera_09" />
+																								</Commands>
+																							</Response>
+																						</Elements>
+																					</Sequence>
+																					<Sequence EndType="GoTo" GoToDecision="dec23" Name="seq18">
+																						<DesignName StringName="trialog_h_seq18_O2Ie" Text="seq18" />
+																						<UiPrompt StringName="ui_trialog_h_seq18_LOth" Text="(Mlčet)" />
+																						<Elements>
+																							<Response Role="HENRY" ReferenceLength="5">
+																								<Commands>
+																									<MoodCommand Mood="angry" />
+																									<FacialMoodCommand FacialMood="angry2" />
+																									<AnimationCommand Delay="1.77" FragmentId="ADLG_Disagree" Guid="2e6ac126-30f7-0b6c-f925-fe5e13814963" Variant="0" />
 																								</Commands>
 																							</Response>
 																						</Elements>
@@ -1632,7 +1635,7 @@
 																						<FacialMoodCommand FacialMood="angry2" />
 																						<AnimationCommand Delay="0.02" FragmentId="ADLG_Disagree_light" Guid="eb7d333e-5eb6-4467-858f-258ddbb0f7ae" Variant="1" />
 																						<CameraCommand CustomCamera="damaVnesnazich_lacek_customCamera_09" />
-																						<LookAtCommand Delay="0" LookAtRole="HENRY" TransitionDuration="0.4" />
+																						<LookAtCommand LookAtRole="HENRY" TransitionDuration="0.4" />
 																						<LookAtCommand Role="HENRY" Delay="0.02" LookAtRole="LACEK" />
 																						<LookAtCommand Role="HENRY" Delay="0.51" LookAtRole="MARKETA" />
 																						<LookAtCommand Role="LACEK" Delay="0.34" LookAtRole="HENRY" />
@@ -1692,7 +1695,7 @@
 																						<FacialMoodCommand Role="MARKETA" FacialMood="arrogant2" />
 																						<FacialMoodCommand Role="HENRY" FacialMood="angry2" />
 																						<MoodCommand Mood="nervous" />
-																						<MoodCommand Role="MARKETA" Delay="0" Mood="angry" />
+																						<MoodCommand Role="MARKETA" Mood="angry" />
 																						<AnimationCommand Delay="0.04" FragmentId="ADLG_Disown" Guid="ccd08e57-384a-3efc-6fd5-1e33aa630ab7" Variant="0" />
 																						<CameraCommand CustomCamera="damaVnesnazich_lacek_customCamera_10" />
 																						<CameraCommand Delay="3.77" CustomCamera="damaVnesnazich_lacek_customCamera_20" />
@@ -1714,7 +1717,7 @@
 																									<FacialMoodCommand FacialMood="angry2" />
 																									<FacialMoodCommand Role="MARKETA" FacialMood="arrogant2" />
 																									<FacialMoodCommand Role="LACEK" FacialMood="nervous3" />
-																									<MoodCommand Delay="0" Mood="angry" />
+																									<MoodCommand Mood="angry" />
 																									<MoodCommand Role="MARKETA" Mood="angry" />
 																									<MoodCommand Role="MARKETA" Delay="3.26" />
 																									<MoodCommand Role="LACEK" Mood="nervous" />
@@ -1889,7 +1892,7 @@
 																								<Text StringName="tria_marketa_fajn_a_prist_Nazw" Text="Moudrý rozhodnutí." />
 																								<Commands>
 																									<CameraCommand CustomCamera="damaVnesnazich_lacek_customCamera_04" />
-																									<LookAtCommand Role="HENRY" Delay="0" LookAtRole="LACEK" />
+																									<LookAtCommand Role="HENRY" LookAtRole="LACEK" />
 																								</Commands>
 																							</Response>
 																							<Response Role="MARKETA" ReferenceLength="5.09">
@@ -1925,6 +1928,9 @@
 						</Sequence>
 					</Sequences>
 				</Decision>
+				<Props>
+					<Prop Name="playerWeapon" />
+				</Props>
 			</Dialogue>
 		</ForcedDialog>
 	</Skald>

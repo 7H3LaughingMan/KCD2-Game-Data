@@ -6,22 +6,34 @@
 				<Port Name="zacina_dialog" Direction="In" Type="trigger">
 					<DesignName StringName="chovani_b_zacina_dialog_v8sp" Text="začíná dialog" />
 				</Port>
-				<Port Name="kazani_navazuje_do_zbytku_cutsceny" Direction="In" Type="trigger">
-					<DesignName StringName="chovani_b_kazani_navazuje_bt2y" Text="kázání navazuje do zbytku cutscény" />
-				</Port>
 				<Port Name="je_aktivni" Direction="Out" Type="bool">
 					<DesignName StringName="chovani_b_je_aktivni_hDqq" Text="je aktivni" />
+				</Port>
+				<Port Name="zacatek_bitvy__afterplay" Direction="In" Type="trigger">
+					<DesignName StringName="chovani_b_zacatek_bitvy___mB7Q" Text="začátek bitvy - AfterPlay" />
 				</Port>
 			</Ports>
 			<Nodes>
 				<State Name="ChovaniBehemKazani" PositionY="-210" PositionX="-10" TypeT="Progress">
-					<Edge From="kazani_navazuje_do_zbytku_cutsceny" To="SetDone" />
 					<Edge From="zacina_dialog" To="SetActive" />
+					<Edge From="zacatek_bitvy__afterplay" To="SetDone" />
 				</State>
 				<ClothingPresetOverride Name="clothingpresetoverride6" PositionY="370" PositionX="320">
 					<Asset Name="Souls" Alias="digger" />
 					<Constant Name="PriorityEquip" Value="true" />
 					<Constant Name="ClothingPreset" Value="77f4f6a2-f202-4561-9310-7e9834eff6de" />
+					<Edge From="ChovaniBehemKazani.Active" To="IsActive" />
+				</ClothingPresetOverride>
+				<ClothingPresetOverride Name="clothingpresetoverride6_1" PositionY="820" PositionX="320">
+					<Asset Name="Souls" Alias="cryingLady2" />
+					<Constant Name="PriorityEquip" Value="true" />
+					<Constant Name="ClothingPreset" Value="f8b08e34-167c-4916-be70-e56e9ce136cf" />
+					<Edge From="ChovaniBehemKazani.Active" To="IsActive" />
+				</ClothingPresetOverride>
+				<ClothingPresetOverride Name="clothingpresetoverride6_1_1" PositionY="1040" PositionX="320">
+					<Asset Name="Souls" Alias="samuel" />
+					<Constant Name="PriorityEquip" Value="true" />
+					<Constant Name="ClothingPreset" Value="7e69be17-f5f2-4c39-b4de-fd5a9f1f4793" />
 					<Edge From="ChovaniBehemKazani.Active" To="IsActive" />
 				</ClothingPresetOverride>
 				<EnableBehavior Name="enablebehavior2" PositionY="110" PositionX="320" Signature="" EventSet="">

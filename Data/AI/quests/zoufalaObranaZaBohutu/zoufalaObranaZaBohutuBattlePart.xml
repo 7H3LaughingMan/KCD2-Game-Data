@@ -137,22 +137,23 @@
 	</BehaviorTree>
 	<BehaviorTree name="cert_commandPaviseMen" is_function="0">
 		<Variables>
-			<Variable name="currentIsRepeatingBark" type="_bool" values="" isPersistent="0" form="single" />
+			<Variable name="currentCommandBarkAlias" type="_string" values="" isPersistent="0" form="single" />
+			<Variable name="currentCommandPhase" type="enum:zoufalaObranaZaBohutu_certCommandingPaviseMen" values="" isPersistent="0" form="single" />
 			<Variable name="hitReaction" type="hitReaction" values="" isPersistent="0" form="single" />
-			<Variable name="lastCommandBarkAlias" type="_string" values="" isPersistent="0" form="single" />
 			<Variable name="leftHandItem" type="_wuid" values="" isPersistent="0" form="single" />
 			<Variable name="playerIsInArea" type="_bool" values="" isPersistent="0" form="single" />
 			<Variable name="rightHandItem" type="_wuid" values="" isPersistent="0" form="single" />
 		</Variables>
 		<Parameters>
+			<Variable name="animationFragment" type="_string" values="" isPersistent="0" form="single" requirementType="ConstReference" />
 			<Variable name="area" type="_wuid" values="" isPersistent="0" form="single" requirementType="In" />
 			<Variable name="barkingAtPlayer" type="_bool" values="" isPersistent="0" form="single" requirementType="ConstReference" />
 			<Variable name="commandBarkAlias" type="_string" values="" isPersistent="0" form="single" requirementType="ConstReference" />
+			<Variable name="commandPhase" type="enum:zoufalaObranaZaBohutu_certCommandingPaviseMen" values="" isPersistent="0" form="single" requirementType="ConstReference" />
 			<Variable name="commandSpot" type="_wuid" values="" isPersistent="0" form="single" requirementType="In" />
 			<Variable name="cooldown" type="_string" values="" isPersistent="0" form="single" requirementType="ConstReference" />
 			<Variable name="cooldownVariation" type="_string" values="" isPersistent="0" form="single" requirementType="ConstReference" />
 			<Variable name="gateLookSpot" type="_wuid" values="" isPersistent="0" form="single" requirementType="In" />
-			<Variable name="isRepeatingBark" type="_bool" values="" isPersistent="0" form="single" requirementType="ConstReference" />
 			<Variable name="playAnimationWhenBarking" type="_bool" values="" isPersistent="0" form="single" requirementType="ConstReference" />
 			<Variable name="playerBarkAlias" type="_string" values="" isPersistent="0" form="single" requirementType="In" />
 			<Variable name="triggerBark" type="_bool" values="" isPersistent="0" form="single" requirementType="ConstReference" />
@@ -168,50 +169,87 @@
 							<Parallel successMode="Any" failureMode="Any">
 								<Sequence>
 									<ExactMove directionType="AlignWithEntity" directionSpecification="$commandSpot" animationTriggerDist="0.150000" precise="true" changeNPCState="true" fastForwardIncludesMove="false" destinationSpecification="$commandSpot" destinationSpecification2="" destinationSpecification3="" speed="Walk" additionalParams="" pathFindingParams="" staminaPolicy="" pathInfo="" />
-									<UnstanceElement unstance="BattleLngsw" locationObject="" slaveObject="" enabled="true">
+									<UnstanceElement unstance="BattleLngsw_NoVariants" locationObject="" slaveObject="" enabled="true">
 										<Sequence>
 											<WaitAction />
 											<Parallel successMode="Any" failureMode="Any">
-												<ContinuousSwitch>
-													<IfCondition failOnCondition="false" condition="$playerIsInArea &amp; &#10;$lastCommandBarkAlias == $commandBarkAlias &amp; &#10;!$triggerBark">
-														<Sequence>
-															<Function_speech_schedulerMonolog alias="$playerBarkAlias" animationApproach="$enum:animationApproach.dontPlayDialogAnimations" context="" lookAtId="" metarole="" skipInLod="false" subtitlesDown="true" nodeLabel="71665849" />
-															<Wait duration="&apos;2s&apos;" timeType="GameTime" doFail="false" variation="&apos;1s&apos;" />
-														</Sequence>
-													</IfCondition>
-													<IfCondition failOnCondition="false" condition="$currentIsRepeatingBark &amp; &#10;!$playerIsInArea">
-														<Sequence>
-															<SetExternalLock LockManagerType="Local" Locked="true" LockName="&apos;repeatingBarkFinishedLock&apos;" />
-															<Parallel successMode="All" failureMode="Any">
-																<Function_speech_schedulerMonolog alias="$commandBarkAlias" animationApproach="$enum:animationApproach.dontPlayDialogAnimations" context="" lookAtId="" metarole="" skipInLod="false" subtitlesDown="$barkingAtPlayer" nodeLabel="97939113" />
-																<IfCondition failOnCondition="false" condition="$playAnimationWhenBarking">
-																	<Sequence>
-																		<Turn target="$commandSpot" align="true" />
-																		<AnimationAction fragment="&apos;BattleCommand&apos;" tags="" eventReferenceObject="" alignObject="" slaveObject="" resourceOverride="" allowTorchForPlayer="false" />
-																	</Sequence>
-																</IfCondition>
-															</Parallel>
-															<SetExternalLock LockManagerType="Local" Locked="false" LockName="&apos;repeatingBarkFinishedLock&apos;" />
-															<Wait duration="$cooldown" timeType="GameTime" doFail="false" variation="$cooldownVariation" />
-														</Sequence>
-													</IfCondition>
-													<IfCondition failOnCondition="false" condition="true">
-														<IfGate atomic="false" condition="$commandBarkAlias ~= &apos;none&apos;" RunLogic="KeepRunning">
-															<Sequence>
-																<SuppressFailure>
-																	<Function_speech_schedulerMonolog alias="$commandBarkAlias" animationApproach="$enum:animationApproach.dontPlayDialogAnimations" context="" lookAtId="" metarole="" skipInLod="false" subtitlesDown="$barkingAtPlayer" nodeLabel="69197349" />
-																</SuppressFailure>
-																<Expression expressions="$lastCommandBarkAlias = $commandBarkAlias" />
-																<IfCondition failOnCondition="false" condition="$triggerBark">
-																	<InstantCallback_empty EventName="&apos;OnFinished&apos;" />
-																</IfCondition>
-																<IfGate atomic="false" condition="$lastCommandBarkAlias ~= $commandBarkAlias" RunLogic="KeepRunning">
-																	<Success />
-																</IfGate>
-															</Sequence>
-														</IfGate>
-													</IfCondition>
-												</ContinuousSwitch>
+												<While doFail="false" propagateChildFail="false" condition="true">
+													<Synchronize SemaphoreCount="2" InsideTimerValue="&apos;-1&apos;" InvalidateOnExpire="false" atomic="false" OutsideQueuePosVariable="" InsidePosVariable="" TimerType="GameTime" OutsideTimerValue="&apos;-1&apos;" LockManagerType="Intellect" SemaphoreName="&apos;certBarkingLock&apos;" RunLogic="Halt">
+														<ContinuousSwitch>
+															<IfCondition failOnCondition="false" condition="$currentCommandPhase == $enum:zoufalaObranaZaBohutu_certCommandingPaviseMen.BarkRepeatedly &amp; &#10;$playerIsInArea">
+																<Sequence>
+																	<EntityContext context="zoufalaObranaZaBohutu_certBarking" target="">
+																		<SuppressFailure>
+																			<Parallel successMode="All" failureMode="Any">
+																				<Function_speech_schedulerMonolog alias="$playerBarkAlias" animationApproach="$enum:animationApproach.dontPlayDialogAnimations" context="" lookAtId="" metarole="" skipInLod="false" subtitlesDown="true" nodeLabel="71665849" />
+																				<RandomGate opensWithChance="0.600000" saveVersion="2">
+																					<Then canSkip="1">
+																						<AnimationAction fragment="&apos;Quest_BattleLngswGoThere&apos;" tags="" eventReferenceObject="" alignObject="" slaveObject="" resourceOverride="" allowTorchForPlayer="false" />
+																					</Then>
+																					<Else canSkip="1">
+																						<Success />
+																					</Else>
+																				</RandomGate>
+																			</Parallel>
+																		</SuppressFailure>
+																	</EntityContext>
+																	<Wait duration="&apos;2s&apos;" timeType="GameTime" doFail="false" variation="&apos;1s&apos;" />
+																</Sequence>
+															</IfCondition>
+															<IfCondition failOnCondition="false" condition="$currentCommandPhase == $enum:zoufalaObranaZaBohutu_certCommandingPaviseMen.BarkRepeatedly &amp; &#10;!$playerIsInArea">
+																<Sequence>
+																	<SuppressFailure>
+																		<EntityContext context="zoufalaObranaZaBohutu_certBarking" target="">
+																			<Parallel successMode="All" failureMode="Any">
+																				<Function_speech_schedulerMonolog alias="$commandBarkAlias" animationApproach="$enum:animationApproach.dontPlayDialogAnimations" context="" lookAtId="" metarole="" skipInLod="false" subtitlesDown="$barkingAtPlayer" nodeLabel="97939113" />
+																				<IfCondition failOnCondition="false" condition="$playAnimationWhenBarking">
+																					<Sequence>
+																						<Turn target="$commandSpot" align="true" />
+																						<AnimationAction fragment="$animationFragment" tags="" eventReferenceObject="" alignObject="" slaveObject="" resourceOverride="" allowTorchForPlayer="false" />
+																					</Sequence>
+																				</IfCondition>
+																			</Parallel>
+																		</EntityContext>
+																	</SuppressFailure>
+																	<Wait duration="$cooldown" timeType="GameTime" doFail="false" variation="$cooldownVariation" />
+																</Sequence>
+															</IfCondition>
+															<IfCondition failOnCondition="false" condition="$currentCommandPhase == $enum:zoufalaObranaZaBohutu_certCommandingPaviseMen.BarkOnce &amp; &#10;$commandBarkAlias ~= &apos;none&apos;">
+																<Sequence>
+																	<Expression expressions="$currentCommandBarkAlias = $commandBarkAlias" />
+																	<SuppressFailure>
+																		<EntityContext context="zoufalaObranaZaBohutu_certBarking" target="">
+																			<Parallel successMode="All" failureMode="Any">
+																				<Function_speech_schedulerMonolog alias="$currentCommandBarkAlias" animationApproach="$enum:animationApproach.dontPlayDialogAnimations" context="" lookAtId="" metarole="" skipInLod="false" subtitlesDown="$barkingAtPlayer" nodeLabel="69197349" />
+																				<IfCondition failOnCondition="false" condition="$playAnimationWhenBarking">
+																					<Sequence>
+																						<Turn target="$commandSpot" align="true" />
+																						<AnimationAction fragment="$animationFragment" tags="" eventReferenceObject="" alignObject="" slaveObject="" resourceOverride="" allowTorchForPlayer="false" />
+																					</Sequence>
+																				</IfCondition>
+																			</Parallel>
+																		</EntityContext>
+																	</SuppressFailure>
+																	<IfCondition failOnCondition="false" condition="$triggerBark &amp; &#10;$currentCommandBarkAlias == $commandBarkAlias">
+																		<InstantCallback_empty EventName="&apos;OnFinished&apos;" />
+																	</IfCondition>
+																	<IfGate atomic="false" condition="$currentCommandBarkAlias ~= $commandBarkAlias" RunLogic="KeepRunning">
+																		<Success />
+																	</IfGate>
+																</Sequence>
+															</IfCondition>
+															<IfCondition failOnCondition="false" condition="$currentCommandPhase == $enum:zoufalaObranaZaBohutu_certCommandingPaviseMen.PlayAnimationOnce">
+																<Sequence>
+																	<AnimationAction fragment="$animationFragment" tags="" eventReferenceObject="" alignObject="" slaveObject="" resourceOverride="" allowTorchForPlayer="false" />
+																	<Wait duration="&apos;-1&apos;" timeType="GameTime" doFail="false" variation="" />
+																</Sequence>
+															</IfCondition>
+															<IfCondition failOnCondition="false" condition="true">
+																<Wait duration="&apos;-1&apos;" timeType="GameTime" doFail="false" variation="" />
+															</IfCondition>
+														</ContinuousSwitch>
+													</Synchronize>
+												</While>
 												<ContinuousSwitch>
 													<IfCondition failOnCondition="false" condition="$barkingAtPlayer | &#10;$playerIsInArea">
 														<ForceLook LookTarget="$__player" DisableVariations="true">
@@ -228,23 +266,27 @@
 													<Sequence>
 														<AreaPresenceGate aiObjects="$__player" area="$area" amount="AtLeastOne" presence="Present" RunLogic="Halt">
 															<Sequence>
-																<Expression expressions="$playerIsInArea = true" />
+																<DialogGate Who="" Negation="true" EndDialogInRoot="false" Condition="InAny" RunLogic="KeepRunning">
+																	<Expression expressions="$playerIsInArea = true" />
+																</DialogGate>
 																<Wait duration="&apos;-1&apos;" timeType="GameTime" doFail="false" variation="" />
 															</Sequence>
 														</AreaPresenceGate>
-														<Expression expressions="$playerIsInArea = false" />
+														<DialogGate Who="" Negation="true" EndDialogInRoot="false" Condition="InAny" RunLogic="KeepRunning">
+															<Expression expressions="$playerIsInArea = false" />
+														</DialogGate>
 													</Sequence>
 												</While>
 												<While doFail="false" propagateChildFail="false" condition="true">
 													<Sequence>
-														<Expression expressions="$currentIsRepeatingBark = $isRepeatingBark" />
-														<While doFail="false" propagateChildFail="false" condition="$currentIsRepeatingBark == $isRepeatingBark">
-															<ExternalLock atomic="false" OutsideQueuePosVariable="" InsidePosVariable="" TimerType="GameTime" OutsideTimerValue="&apos;5s&apos;" LockManagerType="Local" SemaphoreName="&apos;repeatingBarkFinishedLock&apos;" RunLogic="Halt">
-																<IfGate atomic="false" condition="$currentIsRepeatingBark ~= $isRepeatingBark" RunLogic="KeepRunning">
+														<Expression expressions="$currentCommandPhase = $commandPhase" />
+														<Synchronize SemaphoreCount="2" InsideTimerValue="&apos;-1&apos;" InvalidateOnExpire="false" atomic="false" OutsideQueuePosVariable="" InsidePosVariable="" TimerType="GameTime" OutsideTimerValue="&apos;-1&apos;" LockManagerType="Intellect" SemaphoreName="&apos;certBarkingLock&apos;" RunLogic="KeepRunning">
+															<IfGate atomic="false" condition="$currentCommandPhase ~= $commandPhase" RunLogic="KeepRunning">
+																<DialogGate Who="" Negation="true" EndDialogInRoot="false" Condition="InAny" RunLogic="KeepRunning">
 																	<Success />
-																</IfGate>
-															</ExternalLock>
-														</While>
+																</DialogGate>
+															</IfGate>
+														</Synchronize>
 													</Sequence>
 												</While>
 											</Parallel>
@@ -267,20 +309,21 @@
 		<ForestContainer />
 		<EditorData Signature="zoufalaObranaZaBohutu_cert_commandPaviseMen" EventSet="endNotification">
 			<Variables>
-				<Variable name="currentIsRepeatingBark" comment="" />
+				<Variable name="currentCommandBarkAlias" comment="" />
+				<Variable name="currentCommandPhase" comment="" />
 				<Variable name="hitReaction" comment="" />
-				<Variable name="lastCommandBarkAlias" comment="" />
 				<Variable name="leftHandItem" comment="" />
 				<Variable name="playerIsInArea" comment="" />
 				<Variable name="rightHandItem" comment="" />
+				<Variable name="animationFragment" comment="" />
 				<Variable name="area" comment="" />
 				<Variable name="barkingAtPlayer" comment="" />
 				<Variable name="commandBarkAlias" comment="" />
+				<Variable name="commandPhase" comment="" />
 				<Variable name="commandSpot" comment="" />
 				<Variable name="cooldown" comment="" />
 				<Variable name="cooldownVariation" comment="" />
 				<Variable name="gateLookSpot" comment="" />
-				<Variable name="isRepeatingBark" comment="" />
 				<Variable name="playAnimationWhenBarking" comment="" />
 				<Variable name="playerBarkAlias" comment="" />
 				<Variable name="triggerBark" comment="" />
@@ -315,84 +358,145 @@
 												</WaitAction>
 												<Parallel hasInputBreakpoint="0" comment="" breakpointFlags="0">
 													<OutputBreakpoints />
-													<ContinuousSwitch hasInputBreakpoint="0" comment="" breakpointFlags="0">
+													<While hasInputBreakpoint="0" comment="" breakpointFlags="0">
 														<OutputBreakpoints />
-														<IfCondition hasInputBreakpoint="0" comment="" breakpointFlags="0">
+														<Synchronize hasInputBreakpoint="0" comment="" breakpointFlags="0">
 															<OutputBreakpoints />
-															<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
+															<ContinuousSwitch hasInputBreakpoint="0" comment="" breakpointFlags="0">
 																<OutputBreakpoints />
-																<Function_speech_schedulerMonolog hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																<IfCondition hasInputBreakpoint="0" comment="" breakpointFlags="0">
 																	<OutputBreakpoints />
-																</Function_speech_schedulerMonolog>
-																<Wait hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																	<OutputBreakpoints />
-																</Wait>
-															</Sequence>
-														</IfCondition>
-														<IfCondition hasInputBreakpoint="0" comment="" breakpointFlags="0">
-															<OutputBreakpoints />
-															<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																<OutputBreakpoints />
-																<SetExternalLock hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																	<OutputBreakpoints />
-																</SetExternalLock>
-																<Parallel hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																	<OutputBreakpoints />
-																	<Function_speech_schedulerMonolog hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																	<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
 																		<OutputBreakpoints />
-																	</Function_speech_schedulerMonolog>
-																	<IfCondition hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																		<OutputBreakpoints />
-																		<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																		<EntityContext hasInputBreakpoint="0" comment="" breakpointFlags="0">
 																			<OutputBreakpoints />
-																			<Turn hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																			<SuppressFailure hasInputBreakpoint="0" comment="" breakpointFlags="0">
 																				<OutputBreakpoints />
-																			</Turn>
-																			<AnimationAction hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																				<Parallel hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																					<OutputBreakpoints />
+																					<Function_speech_schedulerMonolog hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																						<OutputBreakpoints />
+																					</Function_speech_schedulerMonolog>
+																					<RandomGate hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
+																						<OutputBreakpoints />
+																						<Then>
+																							<AnimationAction hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																								<OutputBreakpoints />
+																							</AnimationAction>
+																						</Then>
+																						<Else>
+																							<Success hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																								<OutputBreakpoints />
+																							</Success>
+																						</Else>
+																					</RandomGate>
+																				</Parallel>
+																			</SuppressFailure>
+																		</EntityContext>
+																		<Wait hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																			<OutputBreakpoints />
+																		</Wait>
+																	</Sequence>
+																</IfCondition>
+																<IfCondition hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																	<OutputBreakpoints />
+																	<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																		<OutputBreakpoints />
+																		<SuppressFailure hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																			<OutputBreakpoints />
+																			<EntityContext hasInputBreakpoint="0" comment="" breakpointFlags="0">
 																				<OutputBreakpoints />
-																			</AnimationAction>
-																		</Sequence>
-																	</IfCondition>
-																</Parallel>
-																<SetExternalLock hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																	<OutputBreakpoints />
-																</SetExternalLock>
-																<Wait hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																	<OutputBreakpoints />
-																</Wait>
-															</Sequence>
-														</IfCondition>
-														<IfCondition hasInputBreakpoint="0" comment="" breakpointFlags="0">
-															<OutputBreakpoints />
-															<IfGate hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																<OutputBreakpoints />
-																<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																	<OutputBreakpoints />
-																	<SuppressFailure hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																		<OutputBreakpoints />
-																		<Function_speech_schedulerMonolog hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																				<Parallel hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																					<OutputBreakpoints />
+																					<Function_speech_schedulerMonolog hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																						<OutputBreakpoints />
+																					</Function_speech_schedulerMonolog>
+																					<IfCondition hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																						<OutputBreakpoints />
+																						<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																							<OutputBreakpoints />
+																							<Turn hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																								<OutputBreakpoints />
+																							</Turn>
+																							<AnimationAction hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																								<OutputBreakpoints />
+																							</AnimationAction>
+																						</Sequence>
+																					</IfCondition>
+																				</Parallel>
+																			</EntityContext>
+																		</SuppressFailure>
+																		<Wait hasInputBreakpoint="0" comment="" breakpointFlags="0">
 																			<OutputBreakpoints />
-																		</Function_speech_schedulerMonolog>
-																	</SuppressFailure>
-																	<Expression hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																		</Wait>
+																	</Sequence>
+																</IfCondition>
+																<IfCondition hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																	<OutputBreakpoints />
+																	<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
 																		<OutputBreakpoints />
-																	</Expression>
-																	<IfCondition hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																		<OutputBreakpoints />
-																		<InstantCallback_empty hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																		<Expression hasInputBreakpoint="0" comment="" breakpointFlags="0">
 																			<OutputBreakpoints />
-																		</InstantCallback_empty>
-																	</IfCondition>
-																	<IfGate hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																		<OutputBreakpoints />
-																		<Success hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																		</Expression>
+																		<SuppressFailure hasInputBreakpoint="0" comment="" breakpointFlags="0">
 																			<OutputBreakpoints />
-																		</Success>
-																	</IfGate>
-																</Sequence>
-															</IfGate>
-														</IfCondition>
-													</ContinuousSwitch>
+																			<EntityContext hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																				<OutputBreakpoints />
+																				<Parallel hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																					<OutputBreakpoints />
+																					<Function_speech_schedulerMonolog hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																						<OutputBreakpoints />
+																					</Function_speech_schedulerMonolog>
+																					<IfCondition hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																						<OutputBreakpoints />
+																						<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																							<OutputBreakpoints />
+																							<Turn hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																								<OutputBreakpoints />
+																							</Turn>
+																							<AnimationAction hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																								<OutputBreakpoints />
+																							</AnimationAction>
+																						</Sequence>
+																					</IfCondition>
+																				</Parallel>
+																			</EntityContext>
+																		</SuppressFailure>
+																		<IfCondition hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																			<OutputBreakpoints />
+																			<InstantCallback_empty hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																				<OutputBreakpoints />
+																			</InstantCallback_empty>
+																		</IfCondition>
+																		<IfGate hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																			<OutputBreakpoints />
+																			<Success hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																				<OutputBreakpoints />
+																			</Success>
+																		</IfGate>
+																	</Sequence>
+																</IfCondition>
+																<IfCondition hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																	<OutputBreakpoints />
+																	<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																		<OutputBreakpoints />
+																		<AnimationAction hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																			<OutputBreakpoints />
+																		</AnimationAction>
+																		<Wait hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																			<OutputBreakpoints />
+																		</Wait>
+																	</Sequence>
+																</IfCondition>
+																<IfCondition hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																	<OutputBreakpoints />
+																	<Wait hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																		<OutputBreakpoints />
+																	</Wait>
+																</IfCondition>
+															</ContinuousSwitch>
+														</Synchronize>
+													</While>
 													<ContinuousSwitch hasInputBreakpoint="0" comment="" breakpointFlags="0">
 														<OutputBreakpoints />
 														<IfCondition hasInputBreakpoint="0" comment="" breakpointFlags="0">
@@ -422,17 +526,23 @@
 																<OutputBreakpoints />
 																<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
 																	<OutputBreakpoints />
-																	<Expression hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																	<DialogGate hasInputBreakpoint="0" comment="" breakpointFlags="0">
 																		<OutputBreakpoints />
-																	</Expression>
+																		<Expression hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																			<OutputBreakpoints />
+																		</Expression>
+																	</DialogGate>
 																	<Wait hasInputBreakpoint="0" comment="" breakpointFlags="0">
 																		<OutputBreakpoints />
 																	</Wait>
 																</Sequence>
 															</AreaPresenceGate>
-															<Expression hasInputBreakpoint="0" comment="" breakpointFlags="0">
+															<DialogGate hasInputBreakpoint="0" comment="" breakpointFlags="0">
 																<OutputBreakpoints />
-															</Expression>
+																<Expression hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																	<OutputBreakpoints />
+																</Expression>
+															</DialogGate>
 														</Sequence>
 													</While>
 													<While hasInputBreakpoint="0" comment="" breakpointFlags="0">
@@ -442,18 +552,18 @@
 															<Expression hasInputBreakpoint="0" comment="" breakpointFlags="0">
 																<OutputBreakpoints />
 															</Expression>
-															<While hasInputBreakpoint="0" comment="" breakpointFlags="0">
+															<Synchronize hasInputBreakpoint="0" comment="" breakpointFlags="0">
 																<OutputBreakpoints />
-																<ExternalLock hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																<IfGate hasInputBreakpoint="0" comment="" breakpointFlags="0">
 																	<OutputBreakpoints />
-																	<IfGate hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																	<DialogGate hasInputBreakpoint="0" comment="" breakpointFlags="0">
 																		<OutputBreakpoints />
 																		<Success hasInputBreakpoint="0" comment="" breakpointFlags="0">
 																			<OutputBreakpoints />
 																		</Success>
-																	</IfGate>
-																</ExternalLock>
-															</While>
+																	</DialogGate>
+																</IfGate>
+															</Synchronize>
 														</Sequence>
 													</While>
 												</Parallel>
@@ -4905,12 +5015,14 @@
 							<AnyDecorator preset="bothHands_changeEquipment" enabled="$hasHalberd">
 								<Parallel successMode="Any" failureMode="Any">
 									<EntityContext context="combat_disabledAsTarget" target="">
-										<Function_npc_pushLadder guardArea="$wuid" ladderSO="$wuid_target" nodeLabel="77835943" />
+										<DisableCollisionAvoidance>
+											<Function_npc_pushLadder guardArea="$wuid" ladderSO="$wuid_target" nodeLabel="77835943" />
+										</DisableCollisionAvoidance>
 									</EntityContext>
 									<Sequence>
 										<DistanceGate Origin="$this.id" ReferencePt="$__player" Low="5.000000" High="5.000000" Negation="false" OpenInMiddle="false" RunLogic="KeepRunning">
 											<SuppressFailure>
-												<Function_speech_schedulerMonolog alias="$string" animationApproach="$enum:animationApproach.dontPlayDialogAnimations" context="" lookAtId="" metarole="" subtitlesDown="false" nodeLabel="91007491" />
+												<Function_speech_schedulerMonolog alias="$string" animationApproach="$enum:animationApproach.dontPlayDialogAnimations" context="" lookAtId="" metarole="" skipInLod="false" subtitlesDown="false" nodeLabel="91007491" />
 											</SuppressFailure>
 										</DistanceGate>
 										<Wait duration="&apos;-1&apos;" timeType="GameTime" doFail="false" variation="" />
@@ -4968,9 +5080,12 @@
 										<OutputBreakpoints />
 										<EntityContext hasInputBreakpoint="0" comment="" breakpointFlags="0">
 											<OutputBreakpoints />
-											<Function_npc_pushLadder hasInputBreakpoint="0" comment="" breakpointFlags="0">
+											<DisableCollisionAvoidance hasInputBreakpoint="0" comment="" breakpointFlags="0">
 												<OutputBreakpoints />
-											</Function_npc_pushLadder>
+												<Function_npc_pushLadder hasInputBreakpoint="0" comment="" breakpointFlags="0">
+													<OutputBreakpoints />
+												</Function_npc_pushLadder>
+											</DisableCollisionAvoidance>
 										</EntityContext>
 										<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
 											<OutputBreakpoints />
@@ -5154,7 +5269,7 @@
 				</Sequence>
 			</OnInit>
 			<Behavior canSkip="1">
-				<HandContentElement hand="$hand" item="$weapon" allowAny="false" decisionLabel="battle_ranged" useDecision="false" enabled="true" saveVersion="2">
+				<HandContentElement hand="$hand" item="$weapon" allowAny="false" allowHomeSlotAutoReturn="false" decisionLabel="battle_ranged" useDecision="false" enabled="true" saveVersion="2">
 					<Search canSkip="1">
 						<Function_getRangedWeapon hand="$hand" weaponToEquip="$weapon" nodeLabel="79199520" />
 					</Search>
@@ -5195,7 +5310,7 @@
 									</DefaultBranch>
 								</Switch>
 							</ForceLook>
-							<Wait duration="&apos;8s&apos;" timeType="GameTime" doFail="false" variation="&apos;4s&apos;" skipInLOD="false" />
+							<Wait duration="&apos;8s&apos;" timeType="GameTime" doFail="false" variation="&apos;4s&apos;" />
 						</Sequence>
 					</Exec>
 				</HandContentElement>
@@ -7138,6 +7253,38 @@
 							</Sequence>
 						</AnyDecorator>
 					</Sequence>
+				</Behavior>
+			</Root>
+			<Forest />
+			<Comments />
+		</EditorData>
+	</BehaviorTree>
+	<BehaviorTree name="onUpdate" is_function="0">
+		<Variables>
+			<Variable name="trackviewMessage" type="trackviewMessage" values="" isPersistent="0" form="single" />
+		</Variables>
+		<Root OneTimeOnly="false" FailState="Recoverable" saveVersion="2">
+			<Behavior canSkip="1">
+				<ProcessMessage Atomic="false" timeout="&apos;-1&apos;" timeType="GameTime" variable="$trackviewMessage" senderInfo="" inbox="&apos;trackviewMessage&apos;" condition="" answerVar="">
+					<SendAIConceptSignal_battleTrackviewMessage alias="$trackviewMessage.alias" type="$trackviewMessage.type" />
+				</ProcessMessage>
+			</Behavior>
+		</Root>
+		<ForestContainer />
+		<EditorData EventSet="">
+			<Variables>
+				<Variable name="trackviewMessage" comment="" />
+			</Variables>
+			<ForwardDeclarations />
+			<Root hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
+				<OutputBreakpoints />
+				<Behavior>
+					<ProcessMessage hasInputBreakpoint="0" comment="" breakpointFlags="0">
+						<OutputBreakpoints />
+						<SendAIConceptSignal_battleTrackviewMessage hasInputBreakpoint="0" comment="" breakpointFlags="0">
+							<OutputBreakpoints />
+						</SendAIConceptSignal_battleTrackviewMessage>
+					</ProcessMessage>
 				</Behavior>
 			</Root>
 			<Forest />

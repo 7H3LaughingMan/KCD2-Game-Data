@@ -4,7 +4,7 @@
 		<Gameplay Name="objective__otevri_bednu_s_jablky">
 			<Ports>
 				<Port Name="jindra_otevrel_bednu" Direction="Out" Type="bool">
-					<DesignName StringName="otevrit_b_jindra_otevrel__6caT" Text="Jindra otevřel bednu" />
+					<DesignName StringName="otevrit_b_jindra_otevrel__6caT" Text="indra otevřel bednu" />
 				</Port>
 				<Port Name="hrac_mluvil_s_kucharkou" Direction="In" Type="trigger">
 					<DesignName StringName="objective_hrac_mluvil_s_k_4zgD" Text="Hráč mluvil s kuchařkou" />
@@ -12,16 +12,25 @@
 				<Port Name="hrac_bednu_neotevrel" Direction="In" Type="trigger">
 					<DesignName StringName="objective_hrac_bednu_neot_2QoB" Text="Hráč bednu neotevřel" />
 				</Port>
-				<Port Name="mezi_tim_hrac_okradl_kucharku" Direction="Out" Type="trigger">
-					<DesignName StringName="objective_mezi_tim_hrac_o_G9Sl" Text="mezi tím hráč okradl kuchařku" />
+				<Port Name="hrac_okradl_kucharku" Direction="In" Type="trigger">
+					<DesignName StringName="objective_hrac_okradl_kuc_km24" Text="Hráč okradl kuchařku" />
 				</Port>
 			</Ports>
 			<Nodes>
-				<itemclasstrigger_playerinventory Name="itemclasstrigger_playerinventory" PositionY="590" PositionX="-100" Namespace="utils.item">
-					<Constant Name="itemclass" Value="08c35fd2-9f7d-427e-bbfa-007d51773940" />
-					<Constant Name="amount" Value="1" />
-					<Edge From="unlockChest.Started" To="isactive" />
-				</itemclasstrigger_playerinventory>
+				<If Name="if15" PositionY="120" PositionX="-750">
+					<Edge From="hrac_bednu_neotevrel" To="Exec" />
+					<Edge From="unlockChest.Started" To="Condition">
+						<Vertex>akQvA2FE</Vertex>
+						<Vertex>aQaxR83T</Vertex>
+					</Edge>
+				</If>
+				<If Name="if16" PositionY="270" PositionX="-750">
+					<Edge From="hrac_okradl_kucharku" To="Exec" />
+					<Edge From="unlockChest.Started" To="Condition">
+						<Vertex>akQvA2FE</Vertex>
+						<Vertex>aQaxR83T</Vertex>
+					</Edge>
+				</If>
 				<otevri_bednu_s_jablky Name="objectiveVisual6" PositionY="-160" PositionX="-100" RequiredForOutput="trosecko">
 					<Edge From="unlockChest.State" To="Progress" />
 				</otevri_bednu_s_jablky>
@@ -33,10 +42,6 @@
 					<Edge From="unlockChest.Completed" To="jindra_otevrel_bednu">
 						<Vertex>R96HWYxL</Vertex>
 						<Vertex>vertex4</Vertex>
-					</Edge>
-					<Edge From="itemclasstrigger_playerinventory.onacquire" To="mezi_tim_hrac_okradl_kucharku">
-						<Vertex>tN61uNzR</Vertex>
-						<Vertex>XT0CgGHw</Vertex>
 					</Edge>
 				</Output>
 				<SetOwner Name="setowner13" PositionY="430" PositionX="170">
@@ -50,7 +55,6 @@
 				</StashTrigger>
 				<State Name="unlockChest" PositionY="-140" PositionX="-430" RequiredForOutput="trosecko" TypeT="ProgressFailableAbortable">
 					<Edge From="hrac_mluvil_s_kucharkou" To="SetStarted" />
-					<Edge From="hrac_bednu_neotevrel" To="SetFailed" />
 					<Edge From="stashtrigger12.OnUnlocked" To="SetCompleted">
 						<Vertex>vertex1</Vertex>
 						<Vertex>vertex2</Vertex>
@@ -59,21 +63,17 @@
 						<Vertex>vertex1</Vertex>
 						<Vertex>vertex2</Vertex>
 					</Edge>
-					<Edge From="itemclasstrigger_playerinventory.onacquire" To="SetAborted">
-						<Vertex>tN61uNzR</Vertex>
-						<Vertex>XT0CgGHw</Vertex>
-						<Vertex>9TkrULRw</Vertex>
-					</Edge>
+					<Edge From="if15.True" To="SetFailed" />
+					<Edge From="if16.True" To="SetAborted" />
 				</State>
 			</Nodes>
 			<EdgeVertices>
-				<EdgeVertex Name="9TkrULRw" PositionY="400" PositionX="-420" />
+				<EdgeVertex Name="akQvA2FE" PositionY="440" PositionX="-190" />
+				<EdgeVertex Name="aQaxR83T" PositionY="440" PositionX="-730" />
 				<EdgeVertex Name="R96HWYxL" PositionY="240" PositionX="-80" />
-				<EdgeVertex Name="tN61uNzR" PositionY="802" PositionX="368" />
 				<EdgeVertex Name="vertex1" PositionY="360" PositionX="140" />
 				<EdgeVertex Name="vertex2" PositionY="360" PositionX="-420" />
 				<EdgeVertex Name="vertex4" PositionY="240" PositionX="140" />
-				<EdgeVertex Name="XT0CgGHw" PositionY="400" PositionX="360" />
 			</EdgeVertices>
 			<Assets>
 				<TriggerAreaAsset Name="kitchen_areaStash" />

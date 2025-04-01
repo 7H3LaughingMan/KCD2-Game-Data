@@ -35,7 +35,11 @@
 				<Definition File="predak_maslo_1/predak_maslo_1.xml" />
 			</Definitions>
 			<Nodes>
-				<fightconfiguration_indifference Name="fightconfiguration_indifference" PositionY="-30" PositionX="370" Namespace="utils.combat">
+				<disabledirectionschatsoul Name="disabledirectionschatsoul" PositionY="620" PositionX="1190" Namespace="utils.hardcoremode">
+					<Asset Name="soul" Alias="maslo" />
+					<Edge From="not6.bool" To="enabled" />
+				</disabledirectionschatsoul>
+				<fightconfiguration_indifference Name="fightconfiguration_indifference" PositionY="60" PositionX="960" Namespace="utils.combat">
 					<Asset Name="souls" Alias="maslo" />
 					<Constant Name="unarmedonly" Value="true" />
 					<Edge From="state5.InProgress" To="isactive" />
@@ -43,6 +47,9 @@
 				<henrys_mines_status Name="henrys_mines_status" PositionY="250" PositionX="-340" Namespace="kralovskestribro">
 					<Edge From="henrysminesstatus" To="henrysminesstatus" />
 				</henrys_mines_status>
+				<Function Name="not6" PositionY="640" PositionX="960" MethodName="math::boolean::Not" DeclaringType="math::boolean">
+					<Edge From="state5.None" To="Value" />
+				</Function>
 				<Output Name="Output">
 					<Edge From="predak_maslo.maslo_uspesne_konfrontovan" To="maslo_konfrontovan" />
 					<Edge From="state5.GroupAWon" To="maslo_zmlatil_hrace" />

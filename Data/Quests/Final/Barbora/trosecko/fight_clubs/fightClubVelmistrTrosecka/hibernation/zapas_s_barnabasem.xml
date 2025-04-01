@@ -45,6 +45,16 @@
 						<Vertex>vertex11</Vertex>
 					</Edge>
 				</barnabas__barky_pri_zapasu>
+				<BuffEffect Name="buff1" PositionY="-400" PositionX="1810">
+					<Asset Name="Souls" Alias="barnabas" />
+					<Constant Name="BuffGUID" Value="730503bf-735a-4f47-baae-c2d84ee77524" />
+					<Edge From="arena_fight_with_cheering.oponent_bojuje_s_jindrou" To="IsActive">
+						<Vertex>vertex41</Vertex>
+						<Vertex>5hIl4bhT</Vertex>
+						<Vertex>vertex11</Vertex>
+						<Vertex>snnoXwXA</Vertex>
+					</Edge>
+				</BuffEffect>
 				<combatarena Name="combatarena" PositionY="-730" PositionX="1450" Namespace="fist_fights_common_library">
 					<Asset Name="opponents" Alias="barnabas" />
 					<Asset Name="ledges" Alias="arenaLedges" />
@@ -58,14 +68,10 @@
 				<poraz_velmistra_barnabase Name="defeatChampion_objectiveVisual" PositionY="-290" PositionX="770" RequiredForOutput="trosecko">
 					<Edge From="arena_fight_with_cheering.stav_objectivu" To="Progress" />
 				</poraz_velmistra_barnabase>
-				<fightconfiguration_protections Name="fightconfiguration_protections" PositionY="-560" PositionX="1760" Namespace="utils.combat">
+				<fightconfiguration_protections Name="fightconfiguration_protections" PositionY="-920" PositionX="1980" Namespace="utils.combat">
 					<Asset Name="souls" Alias="barnabas" />
+					<Constant Name="isactive" Value="false" />
 					<Constant Name="immortality" Value="true" />
-					<Edge From="arena_fight_with_cheering.oponent_bojuje_s_jindrou" To="isactive">
-						<Vertex>vertex41</Vertex>
-						<Vertex>5hIl4bhT</Vertex>
-						<Vertex>vertex11</Vertex>
-					</Edge>
 				</fightconfiguration_protections>
 				<fighting_preset Name="fighting_preset" PositionY="-520" PositionX="770" Namespace="fist_fights_common_library">
 					<Edge From="arena_fight_with_cheering.konci_fight" To="unequip" />
@@ -124,6 +130,16 @@
 						<SkillReward Type="weapon_unarmed" ExperienceChange="1-micro" />
 					</Rewards>
 				</AddReward>
+				<SetEntityContext Name="ProtectionContext" PositionY="-580" PositionX="1810">
+					<Constant Name="Context" Value="combat_immortalityProtection" />
+					<Asset Name="Souls" Alias="barnabas" />
+					<Edge From="arena_fight_with_cheering.oponent_bojuje_s_jindrou" To="IsActive">
+						<Vertex>vertex41</Vertex>
+						<Vertex>5hIl4bhT</Vertex>
+						<Vertex>vertex11</Vertex>
+						<Vertex>snnoXwXA</Vertex>
+					</Edge>
+				</SetEntityContext>
 				<SetEntityContextPreset Name="setentitycontextpreset13" PositionY="227" PositionX="1403">
 					<Constant Name="Preset" Value="switch_unresponsive" />
 					<Asset Name="Souls" Alias="barnabasDog" />
@@ -142,6 +158,7 @@
 				<EdgeVertex Name="5hIl4bhT" PositionY="-360" PositionX="1250" />
 				<EdgeVertex Name="Q1fKnbQz" PositionY="-550" PositionX="800" />
 				<EdgeVertex Name="q3waCxEl" PositionY="-486" PositionX="564" />
+				<EdgeVertex Name="snnoXwXA" PositionY="-489" PositionX="1705" />
 				<EdgeVertex Name="vertex11" PositionY="-500" PositionX="1290" />
 				<EdgeVertex Name="vertex12" PositionY="-60" PositionX="2310" />
 				<EdgeVertex Name="vertex23" PositionY="130" PositionX="780" />

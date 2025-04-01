@@ -14,18 +14,29 @@
 				<duelbehaviorsimple Name="duelbehaviorsimple" PositionY="50" PositionX="-230" Namespace="utils.combat">
 					<Asset Name="attacker" Alias="kozina" />
 					<Asset Name="target" Alias="player" />
-					<Constant Name="lowhealththreshold" Value="5" />
+					<Constant Name="lowhealththreshold" Value="30" />
 					<Asset Name="qso" Alias="QSO" />
 					<Constant Name="behaviorname" Value="fightRepeated_template" />
 					<Edge From="kozina_zautoci_na_hrace" To="startfight" />
-					<Edge From="duelbehaviorsimple.onattackerwon" To="stopfight">
-						<Vertex>vertex1</Vertex>
-						<Vertex>vertex2</Vertex>
-					</Edge>
 					<Edge From="duelbehaviorsimple.ontargetwon" To="stopfight">
 						<Vertex>vertex3</Vertex>
 						<Vertex>vertex4</Vertex>
 					</Edge>
+					<Edge From="duelbehaviorsimple.ontargetwon" To="notificationsdisabled">
+						<Vertex>vertex3</Vertex>
+						<Vertex>vertex4</Vertex>
+					</Edge>
+					<Edge From="duelbehaviorsimple.onattackerwon" To="stopfight">
+						<Vertex>vertex3</Vertex>
+						<Vertex>vertex4</Vertex>
+					</Edge>
+					<Edge From="duelbehaviorsimple.onattackerwon" To="notificationsdisabled">
+						<Vertex>vertex3</Vertex>
+						<Vertex>vertex4</Vertex>
+					</Edge>
+					<Edge From="kozina_zautoci_na_hrace" To="notificationsenabled" />
+					<Edge From="patchtrigger6.OnPatch" To="notificationsdisabled" />
+					<Edge From="patchtrigger6.OnPatch" To="stopfight" />
 				</duelbehaviorsimple>
 				<fightconfiguration_indifference Name="fightconfiguration_indifference" PositionY="70" PositionX="540" Namespace="utils.combat">
 					<Asset Name="souls" Alias="kozina" />
@@ -33,6 +44,9 @@
 					<Edge From="state3.State" To="isactive" />
 				</fightconfiguration_indifference>
 				<kozina__utoci_na_hrace Name="kozina__utoci_na_hrace" PositionY="-250" PositionX="610" />
+				<PatchTrigger Name="patchtrigger6" PositionY="530" PositionX="-770">
+					<Constant Name="TransitionToVersion" Value="ver_01_02" />
+				</PatchTrigger>
 				<Function Name="requestmonologue2" PositionY="-290" PositionX="60" MethodName="wh::xgenaimodule::RequestMonologue" DeclaringType="wh::xgenaimodule">
 					<Asset Name="Souls" Alias="kozina" />
 					<Constant Name="DecisionAlias" Value="hledaniLichtenstejna_kozina_attackingPlayer" />
@@ -43,15 +57,24 @@
 					<Edge From="kozina_zautoci_na_hrace" To="SetTrue">
 						<Vertex>w8jBxYqb</Vertex>
 					</Edge>
+					<Edge From="duelbehaviorsimple.onattackerwon" To="SetFalse" />
+					<Edge From="duelbehaviorsimple.ontargetwon" To="SetFalse" />
+					<Edge From="patchtrigger6.OnPatch" To="SetFalse">
+						<Vertex>byXcAseI</Vertex>
+					</Edge>
 				</State>
 			</Nodes>
 			<EdgeVertices>
-				<EdgeVertex Name="vertex1" PositionY="480" PositionX="45" />
-				<EdgeVertex Name="vertex2" PositionY="483" PositionX="-319" />
-				<EdgeVertex Name="vertex3" PositionY="497" PositionX="39" />
-				<EdgeVertex Name="vertex4" PositionY="502" PositionX="-322" />
+				<EdgeVertex Name="byXcAseI" PositionY="620" PositionX="90" />
+				<EdgeVertex Name="vertex3" PositionY="510" PositionX="0" />
+				<EdgeVertex Name="vertex4" PositionY="510" PositionX="-260" />
 				<EdgeVertex Name="w8jBxYqb" PositionY="52" PositionX="150" />
 			</EdgeVertices>
+			<Notes>
+				<Note Name="note7" PositionY="490" PositionX="-710">
+					<Text StringName="kozina_ut_note7_l29q" Text="Fixing #KCD2-525959" />
+				</Note>
+			</Notes>
 			<Text StringName="kozina_utoci_na_hrace_scr_QbIy" Text="Kozina útočí na hráče (script)" />
 		</Gameplay>
 	</Skald>

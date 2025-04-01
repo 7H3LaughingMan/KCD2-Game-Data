@@ -303,6 +303,7 @@
 		<Variables>
 			<Variable name="amInitiator" type="_bool" values="" isPersistent="0" form="single" />
 			<Variable name="break" type="_bool" values="" isPersistent="0" form="single" />
+			<Variable name="chatNPCs" type="_wuid" values="" isPersistent="0" form="array" />
 			<Variable name="index" type="_int" values="" isPersistent="0" form="single" />
 			<Variable name="lockCount" type="_int" values="" isPersistent="0" form="single" />
 			<Variable name="npc" type="_wuid" values="" isPersistent="0" form="single" />
@@ -322,8 +323,9 @@
 			<Behavior canSkip="1">
 				<Sequence>
 					<SetExternalLock LockManagerType="Intellect" Locked="false" LockName="&apos;runIngameDialog&apos;" />
-					<Function_getNpcPolylogSettings npcs="$npcs" places="$places" amIInitiator="$amInitiator" myPlace="$place" nodeLabel="54297376" />
-					<Expression expressions="$lockCount = #npcs &#10;$placeCount = #places" />
+					<Function_getNpcPolylogSettings haveWeaponDrawn="" npcs="$npcs" places="$places" amIInitiator="$amInitiator" myPlace="$place" shouldIHaveWeaponDrawn="" nodeLabel="54297376" />
+					<CopyArray source="$npcs" target="$chatNPCs" />
+					<Expression expressions="$lockCount = #npcs &#10;$placeCount = #places &#10;$chatNPCs[#npcs] = $__player" />
 					<ExactMove directionType="AlignWithEntity" directionSpecification="$place" animationTriggerDist="0.150000" precise="false" changeNPCState="true" fastForwardIncludesMove="false" destinationSpecification="$place" destinationSpecification2="" destinationSpecification3="" speed="Walk" additionalParams="" pathFindingParams="" staminaPolicy="" pathInfo="" />
 					<Loop count="-1">
 						<Parallel successMode="Any" failureMode="Any">
@@ -349,25 +351,22 @@
 												<IfElseCondition failOnCondition="false" condition="$amInitiator" saveVersion="2">
 													<Then canSkip="1">
 														<Semaphore SemaphoreCount="1" atomic="false" OutsideQueuePosVariable="" InsidePosVariable="" TimerType="GameTime" OutsideTimerValue="&apos;-1&apos;" LockManagerType="Local" SemaphoreName="&apos;M09_chattingWithPlayer&apos;">
-															<Sequence>
-																<Expression expressions="$npcs[#npcs] = $__player" />
-																<Parallel successMode="All" failureMode="All">
-																	<Function_speech_schedulerPolylog_initiator alias="$aliasChat" animationApproach="$enum:animationApproach.tryDialogAnimations" areaForPlayer="" context="" customParameters="" metarole="" participants="$npcs" participantsMetaroles="" preset="$enum:dialogPreset.chat" nodeLabel="68452433" />
-																	<Loop count="-1">
-																		<ForceLook LookTarget="$__player" DisableVariations="false">
-																			<Sequence>
-																				<WaitAction />
-																				<Wait duration="&apos;200ms&apos;" timeType="GameTime" doFail="false" variation="&apos;50ms&apos;" />
-																				<Turn target="$__player" align="false" />
-																			</Sequence>
-																		</ForceLook>
-																	</Loop>
-																</Parallel>
-															</Sequence>
+															<Parallel successMode="All" failureMode="All">
+																<Function_speech_schedulerPolylog_initiator alias="$aliasChat" animationApproach="$enum:animationApproach.tryDialogAnimations" areaForPlayer="" context="" customParameters="" metarole="" participants="$chatNPCs" participantsMetaroles="" preset="$enum:dialogPreset.chat" nodeLabel="68452433" />
+																<Loop count="-1">
+																	<ForceLook LookTarget="$__player" DisableVariations="false">
+																		<Sequence>
+																			<WaitAction />
+																			<Wait duration="&apos;200ms&apos;" timeType="GameTime" doFail="false" variation="&apos;50ms&apos;" />
+																			<Turn target="$__player" align="false" />
+																		</Sequence>
+																	</ForceLook>
+																</Loop>
+															</Parallel>
 														</Semaphore>
 													</Then>
 													<Else canSkip="1">
-														<Function_speech_schedulerPolylog_receiver aliasOrMetarole="$aliasChat" initiator="$npcs[0]" numberOfParticipants="$lockCount" useIngameDialogPoseAndAnimations="false" nodeLabel="45727381" />
+														<Function_speech_schedulerPolylog_receiver aliasOrMetarole="$aliasChat" initiator="$chatNPCs[0]" numberOfParticipants="$lockCount" useIngameDialogPoseAndAnimations="false" nodeLabel="45727381" />
 													</Else>
 												</IfElseCondition>
 											</Sequence>
@@ -394,6 +393,7 @@
 			<Variables>
 				<Variable name="amInitiator" comment="" />
 				<Variable name="break" comment="" />
+				<Variable name="chatNPCs" comment="" />
 				<Variable name="index" comment="" />
 				<Variable name="lockCount" comment="" />
 				<Variable name="npc" comment="" />
@@ -419,6 +419,9 @@
 						<Function_getNpcPolylogSettings hasInputBreakpoint="0" comment="" breakpointFlags="0">
 							<OutputBreakpoints />
 						</Function_getNpcPolylogSettings>
+						<CopyArray hasInputBreakpoint="0" comment="" breakpointFlags="0">
+							<OutputBreakpoints />
+						</CopyArray>
 						<Expression hasInputBreakpoint="0" comment="" breakpointFlags="0">
 							<OutputBreakpoints />
 						</Expression>
@@ -469,36 +472,30 @@
 														<Then>
 															<Semaphore hasInputBreakpoint="0" comment="" breakpointFlags="0">
 																<OutputBreakpoints />
-																<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																<Parallel hasInputBreakpoint="0" comment="" breakpointFlags="0">
 																	<OutputBreakpoints />
-																	<Expression hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																	<Function_speech_schedulerPolylog_initiator hasInputBreakpoint="0" comment="" breakpointFlags="0">
 																		<OutputBreakpoints />
-																	</Expression>
-																	<Parallel hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																	</Function_speech_schedulerPolylog_initiator>
+																	<Loop hasInputBreakpoint="0" comment="" breakpointFlags="0">
 																		<OutputBreakpoints />
-																		<Function_speech_schedulerPolylog_initiator hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																		<ForceLook hasInputBreakpoint="0" comment="" breakpointFlags="0">
 																			<OutputBreakpoints />
-																		</Function_speech_schedulerPolylog_initiator>
-																		<Loop hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																			<OutputBreakpoints />
-																			<ForceLook hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																			<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
 																				<OutputBreakpoints />
-																				<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																				<WaitAction hasInputBreakpoint="0" comment="" breakpointFlags="0">
 																					<OutputBreakpoints />
-																					<WaitAction hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																						<OutputBreakpoints />
-																					</WaitAction>
-																					<Wait hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																						<OutputBreakpoints />
-																					</Wait>
-																					<Turn hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																						<OutputBreakpoints />
-																					</Turn>
-																				</Sequence>
-																			</ForceLook>
-																		</Loop>
-																	</Parallel>
-																</Sequence>
+																				</WaitAction>
+																				<Wait hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																					<OutputBreakpoints />
+																				</Wait>
+																				<Turn hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																					<OutputBreakpoints />
+																				</Turn>
+																			</Sequence>
+																		</ForceLook>
+																	</Loop>
+																</Parallel>
 															</Semaphore>
 														</Then>
 														<Else>
@@ -603,7 +600,7 @@
 													<Function_feast_drinkEat customerParams="$customerParams" dontCallWench="$dontCallWench" hiddenBeer="$hiddenBeer" smartobject="$__object.id" soupSlot="$soupSlot" table="$table" tableAlign="$tableAlign" nodeLabel="27058970" />
 													<IfElseCondition failOnCondition="false" condition="$npcs[0] == $this.id" saveVersion="2">
 														<Then canSkip="1">
-															<Function_speech_schedulerPolylog_initiator alias="$aliasPolylog" animationApproach="$enum:animationApproach.dontPlayDialogAnimations" areaForPlayer="" context="" customParameters="" metarole="" participants="$npcs" participantsMetaroles="" preset="$enum:dialogPreset.ingame" nodeLabel="64120963" />
+															<Function_speech_schedulerPolylog_initiator alias="$aliasPolylog" animationApproach="$enum:animationApproach.tryDialogAnimations" areaForPlayer="" context="" customParameters="" metarole="" participants="$npcs" participantsMetaroles="" preset="$enum:dialogPreset.ingame" nodeLabel="64120963" />
 														</Then>
 														<Else canSkip="1">
 															<Function_speech_schedulerPolylog_receiver aliasOrMetarole="$aliasPolylog" initiator="$npcs[0]" numberOfParticipants="$lockCount" useIngameDialogPoseAndAnimations="false" nodeLabel="20510392" />
@@ -625,7 +622,7 @@
 														<Then canSkip="1">
 															<Semaphore SemaphoreCount="1" atomic="false" OutsideQueuePosVariable="" InsidePosVariable="" TimerType="GameTime" OutsideTimerValue="&apos;-1&apos;" LockManagerType="Local" SemaphoreName="&apos;M09_chattingWithPlayer&apos;">
 																<ForceLook LookTarget="$__player" DisableVariations="false">
-																	<Function_speech_schedulerPolylog_initiator alias="$aliasChat" animationApproach="$enum:animationApproach.dontPlayDialogAnimations" areaForPlayer="" context="" customParameters="" metarole="" participants="$chatNpcs" participantsMetaroles="" preset="$enum:dialogPreset.chat" nodeLabel="58680083" />
+																	<Function_speech_schedulerPolylog_initiator alias="$aliasChat" animationApproach="$enum:animationApproach.tryDialogAnimations" areaForPlayer="" context="" customParameters="" metarole="" participants="$chatNpcs" participantsMetaroles="" preset="$enum:dialogPreset.chat" nodeLabel="58680083" />
 																</ForceLook>
 															</Semaphore>
 														</Then>
@@ -4655,7 +4652,7 @@
 							<GetWeaponsFromWeaponSet WeaponSet="$weaponSlot" LeftHand="$leftHand" RightHand="$rightHand" UseTorchWhenAppropriate="false" />
 							<IfElseCondition failOnCondition="false" condition="$leftHand == $__null" saveVersion="2">
 								<Then canSkip="1">
-									<HandContentElement hand="Right" item="$rightHand" allowAny="false" decisionLabel="Label1" useDecision="false" enabled="true" saveVersion="2">
+									<HandContentElement hand="Right" item="$rightHand" allowAny="false" allowHomeSlotAutoReturn="false" decisionLabel="Label1" useDecision="false" enabled="true" saveVersion="2">
 										<Search canSkip="1">
 											<Success />
 										</Search>
@@ -4676,12 +4673,12 @@
 									</HandContentElement>
 								</Then>
 								<Else canSkip="1">
-									<HandContentElement hand="Right" item="$rightHand" allowAny="false" decisionLabel="Label1" useDecision="false" enabled="true" saveVersion="2">
+									<HandContentElement hand="Right" item="$rightHand" allowAny="false" allowHomeSlotAutoReturn="false" decisionLabel="Label1" useDecision="false" enabled="true" saveVersion="2">
 										<Search canSkip="1">
 											<Success />
 										</Search>
 										<Exec canSkip="1">
-											<HandContentElement hand="Left" item="$leftHand" allowAny="false" decisionLabel="Label1" useDecision="false" enabled="true" saveVersion="2">
+											<HandContentElement hand="Left" item="$leftHand" allowAny="false" allowHomeSlotAutoReturn="false" decisionLabel="Label1" useDecision="false" enabled="true" saveVersion="2">
 												<Search canSkip="1">
 													<Success />
 												</Search>
@@ -5570,7 +5567,7 @@
 									<Sequence>
 										<Expression expressions="$guardMode = false" />
 										<IfCondition failOnCondition="false" condition="$goto ~= $__null">
-											<Move stopWithinDistance="0.200000" stopDistanceVariation="0.100000" rayCasteFlee="false" successDistance="1.000000" changeNPCState="true" fastForwardIncludesMove="false" destinationSpecification="$goto" destinationSpecification2="" destinationSpecification3="" speed="SlowDash" additionalParams="" pathFindingParams="" staminaPolicy="" pathInfo="" />
+											<Move stopWithinDistance="0.200000" stopDistanceVariation="0.100000" rayCasteFlee="false" successDistance="1.000000" changeNPCState="true" fastForwardIncludesMove="false" destinationSpecification="$goto" destinationSpecification2="" destinationSpecification3="" speed="FastRun" additionalParams="" pathFindingParams="" staminaPolicy="" pathInfo="" />
 										</IfCondition>
 										<IfCondition failOnCondition="false" condition="$shootSound ~= $__null">
 											<ExecuteSoundTrigger entity="$shootSound" triggerName="&apos;q_M09_pistala_shot&apos;" stop="false" />

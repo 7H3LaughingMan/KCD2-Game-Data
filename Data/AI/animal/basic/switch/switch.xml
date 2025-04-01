@@ -114,7 +114,11 @@
 						</While>
 						<While doFail="false" propagateChildFail="false" condition="true">
 							<ProcessMessage Atomic="true" timeout="&apos;-1&apos;" timeType="GameTime" variable="$arrowFlyingBy" senderInfo="" inbox="&apos;weaponOnPlayerArrowFlyingBy&apos;" condition="" answerVar="">
-								<Function_switch_animal_handleArrowFlyBy arrowFlyBy="$arrowFlyingBy" nodeLabel="20588053" />
+								<IsDeadCheck SoulWUID="$this.id" FailSubtMissing="false" saveVersion="2">
+									<Else canSkip="1">
+										<Function_switch_animal_handleArrowFlyBy arrowFlyBy="$arrowFlyingBy" nodeLabel="20588053" />
+									</Else>
+								</IsDeadCheck>
 							</ProcessMessage>
 						</While>
 						<While doFail="false" propagateChildFail="false" condition="true">
@@ -349,9 +353,14 @@
 								<OutputBreakpoints />
 								<ProcessMessage hasInputBreakpoint="0" comment="" breakpointFlags="0">
 									<OutputBreakpoints />
-									<Function_switch_animal_handleArrowFlyBy hasInputBreakpoint="0" comment="" breakpointFlags="0">
+									<IsDeadCheck hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
 										<OutputBreakpoints />
-									</Function_switch_animal_handleArrowFlyBy>
+										<Else>
+											<Function_switch_animal_handleArrowFlyBy hasInputBreakpoint="0" comment="" breakpointFlags="0">
+												<OutputBreakpoints />
+											</Function_switch_animal_handleArrowFlyBy>
+										</Else>
+									</IsDeadCheck>
 								</ProcessMessage>
 							</While>
 							<While hasInputBreakpoint="0" comment="Info diff" breakpointFlags="0">

@@ -44,6 +44,10 @@
 				<Function Name="createdialogparams2" PositionY="-410" PositionX="-410" MethodName="wh::dialogmodule::CreateDialogParams" DeclaringType="wh::dialogmodule">
 					<Asset Name="Participants" Alias="taras" />
 				</Function>
+				<If Name="if48" PositionY="480" PositionX="450">
+					<Edge From="taras_se_vzdava.AfterPlay" To="Exec" />
+					<Edge From="taras_se_vzdava.seq6" To="Condition" />
+				</If>
 				<State Name="inSurrenderDialog" PositionY="810" PositionX="0" TypeT="bool">
 					<Edge From="do_dialogu_o_smlouve" To="SetTrue" />
 					<Edge From="taras_se_vzdava.jindra_chce_zabit_tarase" To="SetFalse">
@@ -61,8 +65,8 @@
 				</Function>
 				<Output Name="Output">
 					<Edge From="taras_se_vzdava.jindra_se_chce_usmirit" To="jindra_se_chce_usmirit" />
-					<Edge From="taras_se_vzdava.jindra_chce_zabit_tarase" To="jindra_chce_zabit_tarase" />
 					<Edge From="or1.bool" To="usmireni" />
+					<Edge From="if48.True" To="jindra_chce_zabit_tarase" />
 				</Output>
 				<SetEntityContext Name="setentitycontext47" PositionY="930" PositionX="350">
 					<Constant Name="Context" Value="HighVisibilityTorch" />

@@ -162,6 +162,10 @@
 					<Edge From="fightWithRogues.Won" To="B" />
 					<Edge From="fightWithRogues.Lost" To="C" />
 				</Function>
+				<Function Name="or19" PositionY="-180" PositionX="480" MethodName="math::boolean::Or" DeclaringType="math::boolean">
+					<Edge From="investigateDeadSheepState.Active" To="A" />
+					<Edge From="investigateDeadSheepState.Updated" To="B" />
+				</Function>
 				<Output Name="Output">
 					<Edge From="deathcheck_AnyCuman.IsDead" To="hrac_kumany_zabil">
 						<Vertex>vertex14</Vertex>
@@ -213,18 +217,33 @@
 					<Edge From="rozhovor_s_lapky.hrac_lapky_vyhodil" To="SetActive" />
 				</State>
 				<rozhovor_s_lapky Name="rozhovor_s_lapky" PositionY="920" PositionX="250">
-					<Edge From="investigateDeadSheepState.Updated" To="Awake" />
+					<Edge From="investigateDeadSheepState.Updated" To="active" />
 				</rozhovor_s_lapky>
 				<SetEntityContext Name="setentitycontext16" PositionY="2020" PositionX="1640">
 					<Constant Name="Context" Value="combat_leavePlayerUnconsciousAfterFight" />
 					<Asset Name="Souls" Alias="bandits" />
 					<Edge From="or17.bool" To="IsActive" />
 				</SetEntityContext>
+				<SetOwner Name="setowner18" PositionY="1370" PositionX="150">
+					<Asset Name="What" Alias="deadSheepStash" />
+					<Asset Name="Who" Alias="player" />
+					<Edge From="investigateDeadSheepState.Done" To="IsActive" />
+				</SetOwner>
+				<SetOwner Name="setowner18_1" PositionY="-180" PositionX="760">
+					<Asset Name="What" Alias="deadSheepStash" />
+					<Asset Name="Who" Alias="bandit_1" />
+					<Edge From="or19.bool" To="IsActive" />
+				</SetOwner>
 				<skirmish Name="skirmish" PositionY="1120" PositionX="1400" Namespace="utils.combat">
 					<Asset Name="souls1" Alias="bandits" />
 					<Asset Name="souls2" Alias="player" />
 					<Edge From="fightWithRogues.InProgress" To="isactive" />
 				</skirmish>
+				<TemporaryFactionEffect Name="temporaryfaction22" PositionY="2560" PositionX="1270">
+					<Asset Name="Souls" Alias="bandits" />
+					<Constant Name="Faction" Value="trosecko_outskirts_rogues_leaveLevel" />
+					<Edge From="roguesLeaveLevelState.Active" To="IsActive" />
+				</TemporaryFactionEffect>
 				<Function Name="unconsciouscheck14" PositionY="970" PositionX="1290" MethodName="wh::rpgmodule::UnconsciousCheck" DeclaringType="wh::rpgmodule">
 					<Asset Name="Souls" Alias="bandits" />
 					<Constant Name="Mode" Value="Any" />

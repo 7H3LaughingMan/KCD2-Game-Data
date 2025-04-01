@@ -617,7 +617,7 @@
 																				</Response>
 																			</Elements>
 																		</Sequence>
-																		<Sequence SpeechCoef="0" EntryCondition="SequenceUsed('rysko_mentioned') AND !ThisSequenceUsed()" EndType="GoTo" GoToDecision="dec4" Visibility="Internal" Name="dodatecna_2">
+																		<Sequence SpeechCoef="0" EntryCondition="SequenceUsed('rysko_mentioned') AND !ThisSequenceUsed() AND Port('hrac_nastartoval_quest_ve_vesnici')" EndType="GoTo" GoToDecision="dec4" Visibility="Internal" Name="dodatecna_2">
 																			<DesignName StringName="taras_se__seq8_5eU2" Text="dodatečná 2" />
 																			<UiPrompt StringName="ui_taras_se__seq8_4jz0" Text="Ryško je mrtvý." />
 																			<Elements>
@@ -798,7 +798,7 @@
 																	</Response>
 																</Elements>
 															</Sequence>
-															<Sequence EndType="EndDialogue" Reputation="quest_decrease_5_notable" Name="seq6">
+															<Sequence EndType="EndDialogue" Visibility="Public" Reputation="quest_decrease_5_notable" Name="seq6">
 																<DesignName StringName="taras_se__seq6_YS2T" Text="seq6" />
 																<UiPrompt StringName="ui_taras_se__seq6_IHBS" Text="Nejsem tu, abych tě vystřídal." />
 																<Triggers>
@@ -837,6 +837,9 @@
 																		</Commands>
 																	</Response>
 																</Elements>
+																<FastForwards>
+																	<FastForward Role="TARAS_MURA" />
+																</FastForwards>
 															</Sequence>
 														</Sequences>
 													</Decision>

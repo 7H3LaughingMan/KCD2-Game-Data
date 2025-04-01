@@ -2,6 +2,11 @@
 <Database xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" Name="brambora">
 	<Skald>
 		<FaderDialog Name="se_seminem_o_svatbe">
+			<Ports>
+				<Port Name="jindra_bojoval_po_boku_semina__pro_svatbu" Direction="In" Type="bool">
+					<DesignName StringName="se_semine_jindra_bojoval__E3s8" Text="Jindra bojoval po boku Semína -  Pro Svatbu" />
+				</Port>
+			</Ports>
 			<Text StringName="se_seminem_o_svatbe_1OnX" Text="Se Semínem o svatbě" />
 			<Dialogue TechnicalStatus="Enabled" GesturesSetDate="2024-03-06T10:56:19.8647975+01:00" GesturesSetResponseCount="12">
 				<SelectedSouls>
@@ -57,7 +62,7 @@
 										</Elements>
 										<Decision Name="dec5" Priority="MainQuestSubmission" DesignName="Můžu přijít?">
 											<Sequences>
-												<Sequence SpeechCoef="0" EndType="Decision" Reputation="quest_decrease_2_minor" Name="seq8">
+												<Sequence EntryCondition="Port('jindra_bojoval_po_boku_semina__pro_svatbu')" EndType="Decision" SpeechCoef="0" Reputation="quest_decrease_2_minor" Name="seq8">
 													<DesignName StringName="se_semine_seq8_EsCC" Text="Jindra se pozval na svatbu" />
 													<Elements>
 														<Response Role="PAN_SEMIN" ReferenceLength="6.59">
@@ -141,6 +146,12 @@
 															</Sequence>
 														</Sequences>
 													</Decision>
+												</Sequence>
+												<Sequence EntryCondition="!Port('jindra_bojoval_po_boku_semina__pro_svatbu')" EndType="GoTo" GoToDecision="dec4" Name="seq10">
+													<DesignName StringName="se_semine_seq10_9QKK" Text="seq10" />
+													<Elements>
+														<Response Role="PAN_SEMIN" />
+													</Elements>
 												</Sequence>
 											</Sequences>
 										</Decision>

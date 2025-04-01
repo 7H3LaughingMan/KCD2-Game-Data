@@ -57,6 +57,9 @@
 				<Port Name="hostinaprochude_done" Direction="In" Type="trigger">
 					<DesignName StringName="starymistr_hostinaprochud_LV5X" Text="hostinaProChude DONE" />
 				</Port>
+				<Port Name="hostina_pro_chude_done" Direction="In" Type="bool">
+					<DesignName StringName="starymistr_hostina_pro_ch_GzAs" Text="hostina pro chude &lt;done&gt;" />
+				</Port>
 			</Ports>
 			<Definitions>
 				<Definition File="staryMistr/haste.xml" />
@@ -95,6 +98,14 @@
 					<Edge From="staryMistr.Active" To="quest_active" />
 					<Edge From="questAvailable.Active" To="Awake" />
 				</hibernation>
+				<IfFunction Name="ifand41" PositionY="520" PositionX="-1900" MethodName="math::boolean::And" DeclaringType="math::boolean">
+					<Edge From="patchtrigger40.OnPatch" To="Exec" />
+					<Edge From="staryMistr.None" To="A">
+						<Vertex>tNj5B06L</Vertex>
+						<Vertex>kg8TVcNW</Vertex>
+					</Edge>
+					<Edge From="not42.bool" To="B" />
+				</IfFunction>
 				<MakeArray Name="makearray36" PositionY="1704" PositionX="-404" TypeT="wh::conceptmodule::ConceptPaths">
 					<Constant Name="A" Value="staryMistr.endPreviousQuest" />
 					<Constant Name="B" Value="mazak_hynek.staryMistrUnstreamCorpse" />
@@ -104,6 +115,9 @@
 				<MakeArray Name="makearray37" PositionY="1677" PositionX="-1228" TypeT="wh::conceptmodule::ConceptPaths">
 					<Constant Name="A" Value="hostinaProChude.endQuest" />
 				</MakeArray>
+				<Function Name="not42" PositionY="140" PositionX="-2180" MethodName="math::boolean::Not" DeclaringType="math::boolean">
+					<Edge From="hostina_pro_chude_done" To="Value" />
+				</Function>
 				<Function Name="or16" PositionY="1090" PositionX="1770" MethodName="math::boolean::Or" DeclaringType="math::boolean">
 					<Edge From="staryMistr.None" To="A">
 						<Vertex>vertex20</Vertex>
@@ -146,6 +160,9 @@
 						<Vertex>vertex56</Vertex>
 					</Edge>
 				</Output>
+				<PatchTrigger Name="patchtrigger40" PositionY="520" PositionX="-2440">
+					<Constant Name="TransitionToVersion" Value="ver_01_02" />
+				</PatchTrigger>
 				<State Name="questAvailable" PositionY="-160" PositionX="-1690" TypeT="Progress">
 					<Edge From="hostinaprochude_done" To="SetActive" />
 					<Edge From="triggersequence23.A" To="SetDone">
@@ -158,6 +175,7 @@
 						<Vertex>vertex82</Vertex>
 						<Vertex>vertex78</Vertex>
 					</Edge>
+					<Edge From="ifand41.True" To="SetNone" />
 				</State>
 				<SaveGame Name="savegame24" PositionY="1030" PositionX="-250">
 					<Constant Name="Objective" Value="rozlouskni_tajemstvi_kutnohorskych_znacek" />
@@ -187,6 +205,8 @@
 				</TriggerSequence>
 			</Nodes>
 			<EdgeVertices>
+				<EdgeVertex Name="kg8TVcNW" PositionY="1160" PositionX="-1876" />
+				<EdgeVertex Name="tNj5B06L" PositionY="1160" PositionX="-490" />
 				<EdgeVertex Name="vertex1" PositionY="630" PositionX="1680" />
 				<EdgeVertex Name="vertex19" PositionY="1200" PositionX="390" />
 				<EdgeVertex Name="vertex20" PositionY="690" PositionX="400" />
@@ -350,6 +370,9 @@
 						<EnumLog Type="Completed" Name="Done">
 							<Log StringName="najdi_sta_vypada_to_ze_js_MrUf" Text="Vypadá to, že jsem našel ten zlodějskej úkryt! Teď ještě rozluštit význam těch značek..." />
 						</EnumLog>
+						<Log Name="cenekPoradil">
+							<Log StringName="najdi_sta_chtel_jsem_po_c_qZ7U" Text="Chtěl jsem po Čeňkovi radu ohledně hádanky, ale zase tolik mi neporadil - snad jen, že &quot;tryskající voda&quot; by mohla ve městě znamenat kašnu?" />
+						</Log>
 					</Logs>
 					<ReviewNotesConcept>
 						<Item Date="2021-05-18 10:28:38" UserName="jan.nemec" Text="Tohle by teda mohlo fungovat, jako ten nositel Té hádanky? Also, kdy se tohle splní, když vlezeš do toho správného? To snad ne, ne? Až když sebereš to co potřebuješ, aby jsi nemohl tu hádanku vyřešit prostě tím, že vlezeš do správného baráku." AcceptState="Accepted" />

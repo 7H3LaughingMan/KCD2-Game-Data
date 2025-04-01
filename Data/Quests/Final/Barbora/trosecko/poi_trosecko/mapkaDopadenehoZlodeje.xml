@@ -24,7 +24,7 @@
 				<Definition File="mapkaDopadenehoZlodeje/vysledek.xml" />
 			</Definitions>
 			<Nodes>
-				<AddSoulDefaultItem Name="addsouldefaultitem5" PositionY="-750" PositionX="-380">
+				<AddSoulDefaultItem Name="addsouldefaultitem5" PositionY="-740" PositionX="-550">
 					<Constant Name="Purpose" Value="Inventory" />
 					<Constant Name="Mode" Value="Create" />
 					<Constant Name="DisableRestock" Value="true" />
@@ -32,27 +32,27 @@
 					<Edge From="mapka_dopadeneho_zlodeje" To="ItemClass" />
 					<Edge From="bartos_je_na_troskach" To="IsActive" />
 				</AddSoulDefaultItem>
-				<Function Name="and8" PositionY="350" PositionX="-380" MethodName="math::boolean::And" DeclaringType="math::boolean">
+				<Function Name="and8" PositionY="360" PositionX="-550" MethodName="math::boolean::And" DeclaringType="math::boolean">
 					<Edge From="or7.bool" To="B">
 						<Vertex>vertex11</Vertex>
 						<Vertex>vertex12</Vertex>
 					</Edge>
 					<Edge From="HasItems_Soul_1.hasitems" To="A" />
 				</Function>
-				<Function Name="createdialogparams3" PositionY="-670" PositionX="840" MethodName="wh::dialogmodule::CreateDialogParams" DeclaringType="wh::dialogmodule">
+				<Function Name="createdialogparams3" PositionY="-710" PositionX="840" MethodName="wh::dialogmodule::CreateDialogParams" DeclaringType="wh::dialogmodule">
 					<Asset Name="Participants" Alias="CernyBartos" />
 				</Function>
-				<HasItems_Soul Name="HasItems_Soul_1" PositionY="140" PositionX="-650" Namespace="utils.item">
+				<HasItems_Soul Name="HasItems_Soul_1" PositionY="150" PositionX="-820" Namespace="utils.item">
 					<Asset Name="soul" Alias="CernyBartos" />
 					<Constant Name="amount" Value="1" />
 					<Edge From="mapka_dopadeneho_zlodeje" To="itemclass" />
 				</HasItems_Soul>
-				<itemclasstrigger_playerinventory Name="itemclasstrigger_playerinventory" PositionY="713" PositionX="-638" Namespace="utils.item">
+				<itemclasstrigger_playerinventory Name="itemclasstrigger_playerinventory" PositionY="730" PositionX="-810" Namespace="utils.item">
 					<Constant Name="itemclass" Value="a76e4c3b-a427-4afd-a27a-d4206f5c769c" />
 					<Constant Name="amount" Value="1" />
 					<Edge From="Awake" To="isactive" />
 				</itemclasstrigger_playerinventory>
-				<kostky_s_bartosem Name="kostky_s_bartosem" PositionY="-180" PositionX="-100">
+				<kostky_s_bartosem Name="kostky_s_bartosem" PositionY="-170" PositionX="-270">
 					<Edge From="and8.bool" To="jindra_jeste_neziskal_mapku" />
 					<Edge From="cena_mapky" To="cena_mapky" />
 					<Edge From="cena_sazky" To="cena_sazky" />
@@ -86,7 +86,7 @@
 					</Edge>
 					<Edge From="vysledek.jindra_vyhral_mapku" To="exec" />
 				</MoveMoney_SoulToSoul>
-				<Function Name="not13" PositionY="740" PositionX="70" MethodName="math::boolean::Not" DeclaringType="math::boolean">
+				<Function Name="not13" PositionY="750" PositionX="-100" MethodName="math::boolean::Not" DeclaringType="math::boolean">
 					<Edge From="state12.State" To="Value" />
 				</Function>
 				<Function Name="or7" PositionY="380" PositionX="1040" MethodName="math::boolean::Or" DeclaringType="math::boolean">
@@ -99,22 +99,26 @@
 						<Vertex>vertex19</Vertex>
 					</Edge>
 				</Output>
-				<questDice Name="questDice" PositionY="-180" PositionX="310" Namespace="open_world.minihry.kostky.dicebrary">
+				<questDice Name="questDice" PositionY="-100" PositionX="360" Namespace="open_world.minihry.kostky.dicebrary">
 					<Asset Name="npc" Alias="CernyBartos" />
 					<Asset Name="dicetable" Alias="bartosuvStul" />
 					<Constant Name="gamepreset" Value="beggar" />
 					<Constant Name="forcebadge" Value="false" />
 					<Constant Name="forcedbadgeeffect" Value="headstart" />
-					<Edge From="kostky_s_bartosem.jindra_jde_hrat_o_mapku" To="startminigame" />
+					<Edge From="triggersequence14.B" To="startminigame" />
 				</questDice>
-				<State Name="state12" PositionY="740" PositionX="-250" TypeT="bool">
+				<State Name="state12" PositionY="750" PositionX="-420" TypeT="bool">
 					<Edge From="itemclasstrigger_playerinventory.onacquire" To="SetTrue" />
 				</State>
-				<State Name="state2" PositionY="-180" PositionX="630" TypeT="DiceMinigameResult">
+				<State Name="state2" PositionY="-240" PositionX="640" TypeT="DiceMinigameResult">
 					<Edge From="questDice.playerwon" To="SetPlayerWon" />
 					<Edge From="questDice.playerlost" To="SetPlayerLost" />
 					<Edge From="questDice.playerleft" To="SetPlayerLeft" />
+					<Edge From="triggersequence14.A" To="SetNone" />
 				</State>
+				<TriggerSequence Name="triggersequence14" PositionY="-250" PositionX="100">
+					<Edge From="kostky_s_bartosem.jindra_jde_hrat_o_mapku" To="Exec" />
+				</TriggerSequence>
 				<vysledek Name="vysledek" PositionY="-300" PositionX="1370">
 					<Edge From="createdialogparams3.DialogParams" To="DialogParams" />
 					<Edge From="state2.OnPlayerWon" To="EnqueueDialogue" />
@@ -129,15 +133,15 @@
 				</vysledek>
 			</Nodes>
 			<EdgeVertices>
-				<EdgeVertex Name="vertex10" PositionY="-220" PositionX="310" />
+				<EdgeVertex Name="vertex10" PositionY="-280" PositionX="90" />
 				<EdgeVertex Name="vertex11" PositionY="576" PositionX="1226" />
-				<EdgeVertex Name="vertex12" PositionY="580" PositionX="-360" />
+				<EdgeVertex Name="vertex12" PositionY="590" PositionX="-530" />
 				<EdgeVertex Name="vertex13" PositionY="330" PositionX="320" />
 				<EdgeVertex Name="vertex14" PositionY="329" PositionX="1523" />
-				<EdgeVertex Name="vertex17" PositionY="-215" PositionX="1164" />
+				<EdgeVertex Name="vertex17" PositionY="-280" PositionX="1200" />
 				<EdgeVertex Name="vertex18" PositionY="190" PositionX="1270" />
 				<EdgeVertex Name="vertex19" PositionY="840" PositionX="2050" />
-				<EdgeVertex Name="vertex6" PositionY="311" PositionX="-47" />
+				<EdgeVertex Name="vertex6" PositionY="320" PositionX="-220" />
 				<EdgeVertex Name="vertex7" PositionY="310" PositionX="1520" />
 			</EdgeVertices>
 			<Assets>

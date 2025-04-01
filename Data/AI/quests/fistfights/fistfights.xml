@@ -385,7 +385,7 @@
 								<Loop count="-1">
 									<IfGate atomic="false" condition="$shouldPlayAnimation &amp; &#10;$leftHand == $__null &amp; &#10;$rightHand == $__null &amp; &#10;$useWaving" RunLogic="Halt">
 										<Sequence>
-											<AnimationAction fragment="&apos;GreetingsUpperBody&apos;" tags="$selectedAnimationTag" eventReferenceObject="" alignObject="" slaveObject="" resourceOverride="" allowTorchForPlayer="false" />
+											<PlayAdditiveAnimation Fragment="&apos;GreetingsUpperBody&apos;" Tags="$selectedAnimationTag" />
 											<Expression expressions="$shouldPlayAnimation = false" />
 										</Sequence>
 									</IfGate>
@@ -569,9 +569,9 @@
 											<OutputBreakpoints />
 											<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
 												<OutputBreakpoints />
-												<AnimationAction hasInputBreakpoint="0" comment="" breakpointFlags="0">
+												<PlayAdditiveAnimation hasInputBreakpoint="0" comment="" breakpointFlags="0">
 													<OutputBreakpoints />
-												</AnimationAction>
+												</PlayAdditiveAnimation>
 												<Expression hasInputBreakpoint="0" comment="" breakpointFlags="0">
 													<OutputBreakpoints />
 												</Expression>
@@ -624,7 +624,9 @@
 				<MoveParamsDecorator speed="AlertedWalk" pathFindingParams="$pathFindingParams" doorClosingPolicy="Automatic">
 					<AnyDecorator preset="teleport_keepClothes" enabled="true">
 						<Sequence>
-							<Move stopWithinDistance="0.200000" stopDistanceVariation="0.100000" rayCasteFlee="false" successDistance="0.000000" changeNPCState="true" fastForwardIncludesMove="false" destinationSpecification="$data" destinationSpecification2="" destinationSpecification3="" speed="Walk" additionalParams="" pathFindingParams="$pathFindingParams" staminaPolicy="" pathInfo="" />
+							<DistanceCondition Origin="$this.id" ReferencePt="$data" Low="1.000000" High="1.000000" Negation="true" ValueOnMiddle="false" failOnCondition="false">
+								<Move stopWithinDistance="0.200000" stopDistanceVariation="0.100000" rayCasteFlee="false" successDistance="0.000000" changeNPCState="true" fastForwardIncludesMove="false" destinationSpecification="$data" destinationSpecification2="" destinationSpecification3="" speed="Walk" additionalParams="" pathFindingParams="$pathFindingParams" staminaPolicy="" pathInfo="" />
+							</DistanceCondition>
 							<CallBehavior Target="$data" BehaviorName="&apos;use&apos;" ignoreDropUnloading="false" nodeLabel="51754064" />
 						</Sequence>
 					</AnyDecorator>
@@ -647,9 +649,12 @@
 							<OutputBreakpoints />
 							<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
 								<OutputBreakpoints />
-								<Move hasInputBreakpoint="0" comment="" breakpointFlags="0">
+								<DistanceCondition hasInputBreakpoint="0" comment="" breakpointFlags="0">
 									<OutputBreakpoints />
-								</Move>
+									<Move hasInputBreakpoint="0" comment="" breakpointFlags="0">
+										<OutputBreakpoints />
+									</Move>
+								</DistanceCondition>
 								<CallBehavior hasInputBreakpoint="0" comment="" breakpointFlags="0">
 									<OutputBreakpoints />
 								</CallBehavior>

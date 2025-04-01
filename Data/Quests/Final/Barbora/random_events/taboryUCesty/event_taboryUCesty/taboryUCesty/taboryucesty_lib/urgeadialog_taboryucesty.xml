@@ -3,12 +3,15 @@
 	<Skald>
 		<Module Name="urgeadialog_taboryucesty">
 			<Ports>
-				<Port Name="enable" Direction="In" Type="trigger">
-					<DesignName StringName="urgeadial_enable_ts3X" Text="Enable" />
+				<Port Name="onspawn" Direction="In" Type="trigger">
+					<DesignName StringName="urgeadial_enable_ts3X" Text="OnSpawn" />
 				</Port>
-				<Port Name="disable" Direction="In" Type="trigger">
-					<DesignName StringName="urgeadial_disable_g2QQ" Text="Disable" />
+				<Port Name="disable_urgeadialog" Direction="In" Type="trigger">
+					<DesignName StringName="urgeadial_disable_g2QQ" Text="Disable UrgeADialog" />
 				</Port>
+				<ConstantPort Name="urgeadialog_is_enabled" Direction="In" Type="bool" Value="true">
+					<DesignName StringName="dialogsta_urgeadialog_is__gDLb" Text="UrgeADialog is enabled" />
+				</ConstantPort>
 			</Ports>
 			<Nodes>
 				<AfterSeeingPlayer_UrgeADialog_Advanced Name="AfterSeeingPlayer_UrgeADialog_Advanced" PositionY="0" PositionX="850" Namespace="utils.speech">
@@ -33,7 +36,7 @@
 						<Vertex>vertex1</Vertex>
 						<Vertex>vertex2</Vertex>
 					</Edge>
-					<Edge From="disable" To="disable">
+					<Edge From="disable_urgeadialog" To="disable">
 						<Vertex>p71krDAB</Vertex>
 					</Edge>
 					<Edge From="if15.True" To="disable">
@@ -46,9 +49,13 @@
 					<Edge From="not19.bool" To="B" />
 					<Edge From="isitnight.itisnight" To="C" />
 				</Function>
+				<Function Name="and22" PositionY="240" PositionX="300" MethodName="math::boolean::And" DeclaringType="math::boolean">
+					<Edge From="UrgeCanHappen.State" To="A" />
+					<Edge From="urgeadialog_is_enabled" To="B" />
+				</Function>
 				<State Name="EnableNightCheck" PositionY="-860" PositionX="-980" TypeT="bool">
 					<Constant Name="DefaultValue" Value="false" />
-					<Edge From="enable" To="SetTrue" />
+					<Edge From="onspawn" To="SetTrue" />
 				</State>
 				<entitycontext_state Name="entitycontext_state" PositionY="-610" PositionX="-550" Namespace="events_common">
 					<Constant Name="context" Value="crime_interruptMercy" />
@@ -89,11 +96,11 @@
 					<Edge From="and17.bool" To="Condition" />
 					<Edge From="execmerger.out" To="Exec" />
 				</If>
-				<If Name="if21" PositionY="90" PositionX="510">
-					<Edge From="UrgeCanHappen.State" To="Condition" />
+				<If Name="if21" PositionY="90" PositionX="540">
 					<Edge From="timeofdayinterval7_1.OnIntervalStarted" To="Exec">
 						<Vertex>LhaWFz4I</Vertex>
 					</Edge>
+					<Edge From="and22.bool" To="Condition" />
 				</If>
 				<isitnight Name="isitnight" PositionY="-120" PositionX="-510" Namespace="utils.time" />
 				<Function Name="not18" PositionY="-510" PositionX="-210" MethodName="math::boolean::Not" DeclaringType="math::boolean">
@@ -112,9 +119,9 @@
 					<Edge From="getdusktime10.DuskTime" To="TimeOfDayEnd" />
 					<Edge From="EnableNightCheck.State" To="IsActive" />
 				</TimeOfDayInterval>
-				<State Name="UrgeCanHappen" PositionY="90" PositionX="210" TypeT="bool">
+				<State Name="UrgeCanHappen" PositionY="90" PositionX="20" TypeT="bool">
 					<Constant Name="DefaultValue" Value="true" />
-					<Edge From="disable" To="SetFalse">
+					<Edge From="disable_urgeadialog" To="SetFalse">
 						<Vertex>p71krDAB</Vertex>
 					</Edge>
 					<Edge From="AfterSeeingPlayer_UrgeADialog_Advanced.onplayerseenandurgestarted" To="SetFalse">
@@ -127,14 +134,14 @@
 				<EdgeVertex Name="1aHUVoI5" PositionY="-580" PositionX="630" />
 				<EdgeVertex Name="6cGngFAa" PositionY="-700" PositionX="-650" />
 				<EdgeVertex Name="LhaWFz4I" PositionY="-824" PositionX="524" />
-				<EdgeVertex Name="p71krDAB" PositionY="60" PositionX="100" />
-				<EdgeVertex Name="RkyWG4wT" PositionY="710" PositionX="280" />
+				<EdgeVertex Name="p71krDAB" PositionY="60" PositionX="-90" />
+				<EdgeVertex Name="RkyWG4wT" PositionY="710" PositionX="90" />
 				<EdgeVertex Name="vertex1" PositionY="670" PositionX="1200" />
 				<EdgeVertex Name="vertex2" PositionY="670" PositionX="850" />
 				<EdgeVertex Name="WFRXlnx5" PositionY="710" PositionX="1230" />
 				<EdgeVertex Name="wIm5g4As" PositionY="-750" PositionX="-250" />
 			</EdgeVertices>
-			<Text StringName="urgeadialog_taboryucesty_MvE9" Text="UrgeADialog TaboryUCesty" />
+			<Text StringName="urgeadialog_taboryucesty_MvE9" Text="DialogStarter TaboryUCesty" />
 		</Module>
 	</Skald>
 </Database>

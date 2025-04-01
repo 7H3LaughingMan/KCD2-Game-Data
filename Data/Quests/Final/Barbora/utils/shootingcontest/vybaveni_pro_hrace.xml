@@ -6,6 +6,9 @@
 				<Port Name="teleport_lukostrelcu_na_strelnici" Direction="In" Type="trigger">
 					<DesignName StringName="vybaveni__teleport_lukost_2iWW" Text="start teleportace" />
 				</Port>
+				<Port Name="konec_souteze" Direction="In" Type="trigger">
+					<DesignName StringName="vybaveni__konec_souteze_Ndrg" Text="konec soutěže" />
+				</Port>
 				<Port Name="zvolena_obtiznost" Direction="In" Type="shootingContest_difficulty">
 					<DesignName StringName="vybaveni__zvolena_obtizno_e0VT" Text="zvolená obtížnost" />
 				</Port>
@@ -23,6 +26,15 @@
 				</Port>
 			</Ports>
 			<Nodes>
+				<State Name="ammoConfiscation" PositionY="-500" PositionX="400" TypeT="Progress">
+					<Edge From="triggersequence19.A" To="SetActive" />
+					<Edge From="konec_souteze" To="SetDone">
+						<Vertex>4pfkPvMW</Vertex>
+					</Edge>
+				</State>
+				<Function Name="createitemcategorydescriptor22" PositionY="-1200" PositionX="280" MethodName="wh::entitymodule::CreateItemCategoryDescriptor" DeclaringType="wh::entitymodule">
+					<Constant Name="Category" Value="Ammo" />
+				</Function>
 				<Function Name="createitemclassdescriptor17" PositionY="310" PositionX="-440" MethodName="wh::entitymodule::CreateItemClassDescriptor" DeclaringType="wh::entitymodule">
 					<Edge From="switch13.Value1" To="ItemClass" />
 				</Function>
@@ -32,14 +44,14 @@
 						<Vertex>lEJawAlB</Vertex>
 					</Edge>
 					<Edge From="touintint16.uint" To="Amount" />
-					<Edge From="triggersequence19.B" To="Exec" />
+					<Edge From="triggersequence19.C" To="Exec" />
 				</EventFunction>
 				<EventMemberFunction Name="deleteitems18" PositionY="320" PositionX="290" MethodName="DeleteItems" DeclaringType="wh::entitymodule::Inventory">
 					<Constant Name="AllowPartialMatch" Value="true" />
 					<Constant Name="ShowUINotification" Value="false" />
 					<Edge From="createitemclassdescriptor17.ItemDescriptor" To="ItemDescriptor" />
 					<Edge From="isoulproperties6.Inventory" To="Inventory" />
-					<Edge From="triggersequence19.A" To="Exec" />
+					<Edge From="triggersequence19.B" To="Exec" />
 				</EventMemberFunction>
 				<MemberFunction Name="equipplayersitem3_1" PositionY="790" PositionX="700" MethodName="EquipPlayersItem" DeclaringType="wh::entitymodule::EquipmentManager">
 					<Constant Name="EquipToSlot" Value="QuickSlotMatchingWeaponSet" />
@@ -52,6 +64,12 @@
 				<ObjectProperties Name="isoulproperties6" PositionY="970" PositionX="-370" DeclaringType="wh::rpgmodule::I_Soul">
 					<Asset Name="I_Soul" Alias="player" />
 				</ObjectProperties>
+				<PlayerOutfitOverride Name="playeroutfitoverride20" PositionY="-500" PositionX="730">
+					<Asset Name="ConfiscationTarget" Alias="player_stash" />
+					<Asset Name="PlayerSouls" Alias="player_any" />
+					<Edge From="ammoConfiscation.Active" To="IsActive" />
+					<Edge From="createitemcategorydescriptor22.ItemDescriptor" To="ItemsToConfiscate" />
+				</PlayerOutfitOverride>
 				<Switch Name="switch13" PositionY="300" PositionX="-1120" TypeT="shootingContest_weapon" ValueTypes="wh::entitymodule::ItemClassId" SwitchValues="Crossbow Bow">
 					<Constant Name="CrossbowValue1" Value="a431da4e-3472-4bc8-9817-f5357ebf853b" />
 					<Constant Name="BowValue1" Value="c20b2a42-8d5c-48bc-ad24-a4a529207ca9" />
@@ -74,6 +92,7 @@
 			</Nodes>
 			<EdgeVertices>
 				<EdgeVertex Name="1V06qLBj" PositionY="1400" PositionX="580" />
+				<EdgeVertex Name="4pfkPvMW" PositionY="-210" PositionX="-1180" />
 				<EdgeVertex Name="lEJawAlB" PositionY="920" PositionX="-730" />
 			</EdgeVertices>
 			<Text StringName="vybaveni_pro_hrace_F6du" Text="vybavení pro hráče" />

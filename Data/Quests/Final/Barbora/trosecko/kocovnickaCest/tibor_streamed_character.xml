@@ -30,6 +30,7 @@
 				<addbloodallbodyparts Name="addbloodallbodyparts" PositionY="-170" PositionX="740" Namespace="utils.general">
 					<Asset Name="soul" Alias="tibor" />
 					<Constant Name="value" Value="0.1" />
+					<Constant Name="absolute" Value="false" />
 					<Edge From="StreamProfilesHandling_DeferredUnstreaming.onstreamed" To="add_blood" />
 				</addbloodallbodyparts>
 				<MemberFunction Name="adddirt3" PositionY="-360" PositionX="740" MethodName="AddDirt" DeclaringType="wh::rpgmodule::I_Soul">
@@ -59,6 +60,10 @@
 					<Asset Name="Areas" Alias="nomadCamp_area" />
 					<Edge From="tiborReturningToCamp.OnTheWay" To="IsActive" />
 				</AreaTrigger>
+				<disabledirectionschatsoul Name="disabledirectionschatsoul" PositionY="-610" PositionX="330" Namespace="utils.hardcoremode">
+					<Asset Name="soul" Alias="tibor" />
+					<Edge From="tibor_tiedInVillage.True" To="enabled" />
+				</disabledirectionschatsoul>
 				<DistanceTrigger Name="distancetrigger10" PositionY="270" PositionX="740">
 					<Asset Name="Origin" Alias="player" />
 					<Asset Name="Target" Alias="tibor" />
@@ -101,6 +106,11 @@
 						<Vertex>RX2S75D0</Vertex>
 					</Edge>
 				</Output>
+				<SetEntityContext Name="setentitycontext11" PositionY="880" PositionX="2060">
+					<Constant Name="Context" Value="crime_disableKeyGeneration" />
+					<Asset Name="Souls" Alias="tibor" />
+					<Edge From="and8.bool" To="IsActive" />
+				</SetEntityContext>
 				<StreamProfilesHandling_DeferredUnstreaming Name="StreamProfilesHandling_DeferredUnstreaming" PositionY="-30" PositionX="160" Namespace="utils.streaming">
 					<Asset Name="profiles" Alias="tibor_profile" />
 					<Constant Name="defaultstate" Value="Unloaded" />

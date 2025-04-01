@@ -26,8 +26,8 @@ RedDeerStag = {
 
 		CharacterSounds =
 		{
-			footstepEffect = "footsteps_RedDeer",			-- Footstep mfx library to use
-			foleyEffect = "foley_RedDeer",					-- Foley signal effect name
+			footstepEffect = "footsteps_deer",			-- Footstep mfx library to use
+			foleyEffect = "foley_deer",					-- Foley signal effect name
 		},
 	},
 

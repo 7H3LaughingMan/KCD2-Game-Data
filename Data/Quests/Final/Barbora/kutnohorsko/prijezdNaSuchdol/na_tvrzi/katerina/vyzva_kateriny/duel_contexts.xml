@@ -35,8 +35,8 @@
 				</Function>
 				<EnableAllowedWeaponsInQAM Name="enableallowedweaponsinqam8" PositionY="-1450" PositionX="40">
 					<Asset Name="PlayerSouls" Alias="player" />
-					<Edge From="or6.bool" To="IsActive" />
 					<Edge From="createitemclassdescriptor9.ItemDescriptor" To="MainHandDescriptor" />
+					<Edge From="or6.bool" To="IsActive" />
 				</EnableAllowedWeaponsInQAM>
 				<fightconfiguration_indifference Name="fightconfiguration_indifference" PositionY="-90" PositionX="40" Namespace="utils.combat">
 					<Constant Name="unarmedonly" Value="false" />
@@ -60,8 +60,10 @@
 					<Edge From="or6.bool" To="isactive" />
 				</fightconfiguration_surrendering>
 				<FilterInput Name="filterinput10" PositionY="-1600" PositionX="40">
-					<Edge From="or6.bool" To="IsActive" />
 					<Edge From="makearray11.Array" To="Filters" />
+					<Edge From="duel_active" To="IsActive">
+						<Vertex>k2Uabkhx</Vertex>
+					</Edge>
 				</FilterInput>
 				<Function Name="joinarrays3" PositionY="190" PositionX="-450" TypeT="wh::rpgmodule::Souls" MethodName="utilities::array::JoinArrays" DeclaringType="utilities::array">
 					<Asset Name="A" Alias="player" />
@@ -70,8 +72,8 @@
 				<MakeArray Name="makearray11" PositionY="-1530" PositionX="-650" TypeT="Strings">
 					<Constant Name="A" Value="no_inventory" />
 					<Constant Name="B" Value="no_qam_weapons" />
-					<Constant Name="C" Value="no_horse" />
-					<Constant Name="D" Value="no_distract" />
+					<Constant Name="C" Value="no_distract" />
+					<Constant Name="D" Value="no_horse" />
 				</MakeArray>
 				<Function Name="or6" PositionY="-493" PositionX="-576" MethodName="math::boolean::Or" DeclaringType="math::boolean">
 					<Edge From="vyhodnoceniduelu_active" To="B" />
@@ -94,6 +96,11 @@
 				<SetEntityContext Name="setentitycontext2" PositionY="120" PositionX="50">
 					<Constant Name="Context" Value="combat_invisible" />
 					<Edge From="joinarrays3.Array" To="Souls" />
+					<Edge From="or6.bool" To="IsActive" />
+				</SetEntityContext>
+				<SetEntityContext Name="setentitycontext26" PositionY="550" PositionX="60">
+					<Constant Name="Context" Value="crime_questMercy" />
+					<Asset Name="Souls" Alias="duelist" />
 					<Edge From="or6.bool" To="IsActive" />
 				</SetEntityContext>
 				<SetEntityContext Name="setentitycontext5" PositionY="-1160" PositionX="50">
@@ -120,6 +127,7 @@
 				</vip_protections>
 			</Nodes>
 			<EdgeVertices>
+				<EdgeVertex Name="k2Uabkhx" PositionY="-1376" PositionX="-213" />
 				<EdgeVertex Name="vertex1" PositionY="420" PositionX="-570" />
 			</EdgeVertices>
 			<Assets>

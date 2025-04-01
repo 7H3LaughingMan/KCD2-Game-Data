@@ -58,6 +58,10 @@
 						<PerkReward Perk="codex_gen_dragon_bones" />
 					</Rewards>
 				</AddReward>
+				<disabledirectionschatsoul Name="disabledirectionschatsoul" PositionY="690" PositionX="-880" Namespace="utils.hardcoremode">
+					<Asset Name="soul" Alias="opat" />
+					<Edge From="QuestProgressExpanded_NonRepeatable.active" To="enabled" />
+				</disabledirectionschatsoul>
 				<drak Name="drak" PositionY="-420" PositionX="-650" RequiredForOutput="kutnohorsko" />
 				<HasteTrigger Name="endQuest" PositionY="190" PositionX="70">
 					<Edge From="makearray22.Array" To="Prerequisites" />
@@ -303,7 +307,7 @@
 					<Constant Name="LinkTag" Value="drak" />
 					<Edge From="QuestProgressExpanded_NonRepeatable.active" To="IsActive" />
 				</SchedulerLinkActivation>
-				<streamingnpcs_a_leavelevel Name="streamingnpcs_a_leavelevel" PositionY="940" PositionX="540">
+				<streamingnpcs_a_leavelevel Name="streamingnpcs_a_leavelevel" PositionY="910" PositionX="540">
 					<Edge From="start_levelu" To="stream_slava">
 						<Vertex>vertex331</Vertex>
 						<Vertex>vertex391</Vertex>
@@ -352,6 +356,9 @@
 					<Edge From="h.rozdeleni_na_tretiny" To="leavelevel_groups" />
 					<Edge From="h.hrac_ziskal_kosti" To="hrac_ziskal_kosti" />
 					<Edge From="h.gerhart_odevzdano_leave_level" To="gerhart_odevzdano_leave_level" />
+					<Edge From="h.kosti_uz_tam_nejsou" To="kosti_uz_tam_nejsou" />
+					<Edge From="h.dialog_skoncil" To="dialog_skoncil" />
+					<Edge From="h.dialog_skoncil_1" To="dialog_skoncil_1" />
 				</streamingnpcs_a_leavelevel>
 				<streamovani_kosti Name="streamovani_kosti" PositionY="750" PositionX="680">
 					<Edge From="h.vykopoej_kosti" To="vykopat_kosti">
@@ -667,6 +674,7 @@
 				<SoulAsset Name="gerhartHorse" />
 				<SoulAsset Name="soldiers" SharedSoulGuids="4c76d915-2a27-770c-4279-d45ef95cca8c 4b928f4e-11be-1447-caf4-41f99341529a 423de5c1-93d7-149f-e9f2-06fb71f4a98b" />
 				<TagPointAsset Name="SoldirsFormation" />
+				<TagPointAsset Name="bonesMarker" />
 			</Assets>
 			<Text StringName="drak_7C6p" Text="Drak" />
 			<Elements>
@@ -1010,6 +1018,19 @@
 						<EnumLog Type="Canceled" Name="Canceled">
 							<Log StringName="givebones_kosti_jsem_gerh_6zPs" Text="Kosti jsem Gerhartovi nedonesl. Nanechal jsem se zlákat jeho podezřelou nabídkou." />
 						</EnumLog>
+					</Logs>
+				</Objective>
+				<Objective TypeT="ProgressFailable" Name="vykopej_kosti">
+					<LocalizedName StringName="drak_tady_mas_kosti_dane_VMAq" Text="Vykopej kosti." />
+					<Logs>
+						<EnumLog Type="None" Name="None" />
+						<EnumLog Type="Started" Name="Active" Marker="bonesMarker">
+							<Log StringName="tady_mas__kost_kost_23Qa" Text="Kosti jsem našel, teď už zbývá jen je vykopat." />
+						</EnumLog>
+						<EnumLog Type="Completed" Name="Done">
+							<Log StringName="tady_mas__kost_kost_kost_WFlG" Text="kost kost kost" />
+						</EnumLog>
+						<EnumLog Type="Canceled" Name="Canceled" />
 					</Logs>
 				</Objective>
 			</Objectives>

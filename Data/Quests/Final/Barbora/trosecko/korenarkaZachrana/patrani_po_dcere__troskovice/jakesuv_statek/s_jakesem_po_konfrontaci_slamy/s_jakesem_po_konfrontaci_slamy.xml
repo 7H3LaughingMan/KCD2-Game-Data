@@ -60,7 +60,7 @@
 											</Response>
 										</Elements>
 									</Sequence>
-									<Sequence SpeechCoef="0" EntryCondition="!SequenceUsed('pred_konfrontaci')" EndType="Decision" Name="seq5">
+									<Sequence EntryCondition="!SequenceUsed('pred_konfrontaci')" EndType="Decision" SpeechCoef="0" Name="seq5">
 										<DesignName StringName="s_jakesem_seq5_a9Tu" Text="seq5" />
 										<Elements>
 											<Response Role="STATKAR_JAKES" ReferenceLength="2.5">
@@ -76,7 +76,7 @@
 										</Elements>
 										<Decision Name="dec5" Priority="SideQuestSubmission">
 											<Sequences>
-												<Sequence EntryCondition="Port('slama_byl_propusten')" EndType="GoTo" GoToDecision="dec4" Name="seq10">
+												<Sequence EntryCondition="Port('slama_byl_propusten') AND &#xD;&#xA;!Port('slama_je_mrtvy')" EndType="GoTo" GoToDecision="dec4" Name="seq10">
 													<DesignName StringName="s_jakesem_seq10_lA7D" Text="seq10" />
 													<Elements>
 														<Response Role="HENRY" ReferenceLength="8.24">
@@ -89,7 +89,7 @@
 														</Response>
 													</Elements>
 												</Sequence>
-												<Sequence SpeechCoef="0" EntryCondition="Port('slama_jde_do_vezeni')" EndType="Decision" Name="seq9">
+												<Sequence EntryCondition="Port('slama_jde_do_vezeni')" EndType="Decision" SpeechCoef="0" Name="seq9">
 													<DesignName StringName="s_jakesem_seq9_weFb" Text="seq9" />
 													<Elements>
 														<Response Role="HENRY" ReferenceLength="3.77">
@@ -102,7 +102,7 @@
 													</Elements>
 													<Decision Name="dec4" Priority="SideQuestSubmission">
 														<Sequences>
-															<Sequence SpeechCoef="0" EndType="Decision" Name="seq7">
+															<Sequence EndType="Decision" SpeechCoef="0" Name="seq7">
 																<DesignName StringName="s_jakesem_seq7_de1q" Text="seq7" />
 																<Elements>
 																	<Response Role="STATKAR_JAKES" StartDelay="0.53" ReferenceLength="3.97">
@@ -202,7 +202,7 @@
 														</Sequences>
 													</Decision>
 												</Sequence>
-												<Sequence EntryCondition="Port('slama_je_mrtvy')" EndType="GoTo" GoToDecision="dec4" Name="seq11">
+												<Sequence EntryCondition="Port('slama_je_mrtvy') AND &#xD;&#xA;!Port('slama_jde_do_vezeni')" EndType="GoTo" GoToDecision="dec4" Name="seq11">
 													<DesignName StringName="s_jakesem_seq11_EcMp" Text="seq11" />
 													<Elements>
 														<Response Role="HENRY" ReferenceLength="1.78">

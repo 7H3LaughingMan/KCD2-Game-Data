@@ -17,6 +17,11 @@
 					<Asset Name="Areas" Alias="area_inHayloft" />
 					<Edge From="Awake" To="IsActive" />
 				</AreaTrigger>
+				<AreaTrigger Name="areatrigger34" PositionY="420" PositionX="-190">
+					<Asset Name="Souls" Alias="lacek" />
+					<Asset Name="Areas" Alias="area_inHayloft" />
+					<Edge From="Awake" To="IsActive" />
+				</AreaTrigger>
 				<IfFunction Name="ifareacheck23" PositionY="-50" PositionX="570" MethodName="wh::rpgmodule::AreaCheck" DeclaringType="wh::rpgmodule">
 					<Asset Name="Areas" Alias="area_inHayloft" />
 					<Edge From="makearray22.Array" To="Souls" />
@@ -28,6 +33,11 @@
 					<Edge From="actorcarrycorpsetrigger5.OnDrop" To="Exec" />
 					<Edge From="actorcarrycorpsetrigger5.Corpse" To="ValueA" />
 				</IfFunction>
+				<IfFunction Name="ifisinactorstate28" PositionY="420" PositionX="110" MethodName="wh::entitymodule::IsInActorState" DeclaringType="wh::entitymodule">
+					<Asset Name="Souls" Alias="lacek" />
+					<Constant Name="State" Value="ragdoll" />
+					<Edge From="areatrigger34.OnAllEnter" To="Exec" />
+				</IfFunction>
 				<State Name="inHayloft" PositionY="-450" PositionX="140" TypeT="bool">
 					<Edge From="areatrigger25.OnAllEnter" To="SetTrue" />
 					<Edge From="areatrigger25.OnLeave" To="SetFalse" />
@@ -38,12 +48,18 @@
 				</MakeArray>
 				<Output Name="Output">
 					<Edge From="ifareacheck23.True" To="hrac_polozil_lacka" />
+					<Edge From="ifisinactorstate28.True" To="hrac_polozil_lacka">
+						<Vertex>TCvp7oEP</Vertex>
+					</Edge>
 				</Output>
 				<SetGameContext Name="setgamecontext26" PositionY="-320" PositionX="440">
 					<Constant Name="Context" Value="disableHangoverTeleport" />
 					<Edge From="inHayloft.State" To="IsActive" />
 				</SetGameContext>
 			</Nodes>
+			<EdgeVertices>
+				<EdgeVertex Name="TCvp7oEP" PositionY="510" PositionX="700" />
+			</EdgeVertices>
 			<Text StringName="nese_hrac_lacka_8COw" Text="Nese hráč Lacka" />
 		</Module>
 	</Skald>

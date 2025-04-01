@@ -30,14 +30,32 @@
 				<HasteTrigger Name="01_initAndStart" PositionY="-170" PositionX="-2980">
 					<Edge From="makearray28_1_1.Array" To="Prerequisites" />
 				</HasteTrigger>
-				<Function Name="and15" PositionY="120" PositionX="-1770" MethodName="math::boolean::And" DeclaringType="math::boolean">
-					<Edge From="not14.bool" To="A" />
+				<Function Name="and15" PositionY="-50" PositionX="-1800" MethodName="math::boolean::And" DeclaringType="math::boolean">
 					<Edge From="kubenka_je_dostupny_na_zadani_questu" To="B" />
+					<Edge From="and42.bool" To="A" />
 				</Function>
 				<Function Name="and16" PositionY="270" PositionX="-150" MethodName="math::boolean::And" DeclaringType="math::boolean">
 					<Edge From="QuestProgressExpanded_NonRepeatable.none" To="A" />
 					<Edge From="QuestProgressExpanded_NonRepeatable.isavailable" To="B" />
 				</Function>
+				<Function Name="and41" PositionY="930" PositionX="1970" MethodName="math::boolean::And" DeclaringType="math::boolean">
+					<Edge From="not40.bool" To="B" />
+					<Edge From="stream_a_leavelevel_vydra.vydra_jeste_neodchazi" To="A" />
+				</Function>
+				<Function Name="and42" PositionY="290" PositionX="-2100" MethodName="math::boolean::And" DeclaringType="math::boolean">
+					<Edge From="not43.bool" To="B" />
+					<Edge From="QuestProgressExpanded_NonRepeatable.none" To="A">
+						<Vertex>lNkt3J5W</Vertex>
+						<Vertex>8Atptjtr</Vertex>
+					</Edge>
+				</Function>
+				<Function Name="deathcheck39" PositionY="970" PositionX="1360" MethodName="wh::rpgmodule::DeathCheck" DeclaringType="wh::rpgmodule">
+					<Asset Name="Souls" Alias="vydra" />
+				</Function>
+				<disabledirectionschatsoul Name="disabledirectionschatsoul" PositionY="-300" PositionX="-130" Namespace="utils.hardcoremode">
+					<Asset Name="soul" Alias="vydra" />
+					<Edge From="QuestProgressExpanded_NonRepeatable.active" To="enabled" />
+				</disabledirectionschatsoul>
 				<HasteTrigger Name="endPreviousQuest" PositionY="-1370" PositionX="-2960">
 					<Edge From="makearray28.Array" To="Prerequisites" />
 				</HasteTrigger>
@@ -50,6 +68,21 @@
 				<HasteTrigger Name="goto_vlasta" PositionY="-780" PositionX="-2990">
 					<Edge From="makearray8.Array" To="ConsoleCommands" />
 				</HasteTrigger>
+				<If Name="if35" PositionY="1030" PositionX="2250">
+					<Edge From="QuestProgressExpanded_NonRepeatable.onfailed" To="Exec">
+						<Vertex>vertex22</Vertex>
+						<Vertex>YMpwj5du</Vertex>
+					</Edge>
+					<Edge From="if37.True" To="Exec" />
+					<Edge From="and41.bool" To="Condition" />
+				</If>
+				<If Name="if37" PositionY="1300" PositionX="1990">
+					<Edge From="patchtrigger36.OnPatch" To="Exec" />
+					<Edge From="QuestProgressExpanded_NonRepeatable.failed" To="Condition">
+						<Vertex>shJfE8BF</Vertex>
+					</Edge>
+					<Edge From="patchtrigger36_1.OnPatch" To="Exec" />
+				</If>
 				<IfFunction Name="ifdeathcheck21" PositionY="-280" PositionX="-1060" MethodName="wh::rpgmodule::DeathCheck" DeclaringType="wh::rpgmodule">
 					<Asset Name="Souls" Alias="vlasta" />
 					<Edge From="kubenka_informuje_o_odbojarich.kubenka_hraci_povedel_heslo_odboje" To="Exec">
@@ -61,6 +94,11 @@
 						<Vertex>GPESvY2R</Vertex>
 					</Edge>
 				</IfFunction>
+				<Function Name="kill34" PositionY="1020" PositionX="2510" MethodName="wh::rpgmodule::Kill" DeclaringType="wh::rpgmodule">
+					<Asset Name="Souls" Alias="vydra" />
+					<Constant Name="HideBody" Value="false" />
+					<Edge From="if35.True" To="Exec" />
+				</Function>
 				<kubenka_informuje_o_odbojarich Name="kubenka_informuje_o_odbojarich" PositionY="90" PositionX="-1490">
 					<Edge From="and15.bool" To="Awake" />
 				</kubenka_informuje_o_odbojarich>
@@ -89,14 +127,17 @@
 				<MakeArray Name="makearray8_1" PositionY="-340" PositionX="-3270" TypeT="Strings">
 					<Constant Name="A" Value="goto kcer_kubenka" />
 				</MakeArray>
-				<Function Name="not14" PositionY="320" PositionX="-2050" MethodName="math::boolean::Not" DeclaringType="math::boolean">
-					<Edge From="QuestProgressExpanded_NonRepeatable.isavailable" To="Value">
-						<Vertex>vertex17</Vertex>
-						<Vertex>vertex18</Vertex>
-					</Edge>
-				</Function>
 				<Function Name="not29" PositionY="-50" PositionX="160" MethodName="math::boolean::Not" DeclaringType="math::boolean">
 					<Edge From="or30.bool" To="Value" />
+				</Function>
+				<Function Name="not40" PositionY="990" PositionX="1610" MethodName="math::boolean::Not" DeclaringType="math::boolean">
+					<Edge From="deathcheck39.IsDead" To="Value" />
+				</Function>
+				<Function Name="not43" PositionY="280" PositionX="-2390" MethodName="math::boolean::Not" DeclaringType="math::boolean">
+					<Edge From="QuestProgressExpanded_NonRepeatable.isavailable" To="Value">
+						<Vertex>rLhtYSQR</Vertex>
+						<Vertex>sGyoPRjQ</Vertex>
+					</Edge>
 				</Function>
 				<Function Name="or24" PositionY="1040" PositionX="-340" MethodName="math::boolean::Or" DeclaringType="math::boolean">
 					<Edge From="QuestProgressExpanded_NonRepeatable.active" To="A" />
@@ -121,6 +162,12 @@
 						<Vertex>vertex21</Vertex>
 					</Edge>
 				</Output>
+				<PatchTrigger Name="patchtrigger36" PositionY="1290" PositionX="1590">
+					<Constant Name="TransitionFromVersion" Value="ver_01_00" />
+				</PatchTrigger>
+				<PatchTrigger Name="patchtrigger36_1" PositionY="1450" PositionX="1590">
+					<Constant Name="TransitionToVersion" Value="ver_01_02" />
+				</PatchTrigger>
 				<PermaDeath Name="PermaDeath" PositionY="1060" PositionX="-50" Namespace="utils.general">
 					<Edge From="makearray23.Array" To="souls" />
 					<Edge From="or24.bool" To="isactive" />
@@ -132,7 +179,7 @@
 						<Vertex>vertex16</Vertex>
 					</Edge>
 				</prubeh_questu>
-				<QuestProgressExpanded_NonRepeatable Name="QuestProgressExpanded_NonRepeatable" PositionY="130" PositionX="-760" RequiredForOutput="kutnohorsko" Namespace="utils.general">
+				<QuestProgressExpanded_NonRepeatable Name="QuestProgressExpanded_NonRepeatable" PositionY="100" PositionX="-790" RequiredForOutput="kutnohorsko" Namespace="utils.general">
 					<Constant Name="suppressavailablestate" Value="false" />
 					<Asset Name="questgiver" Alias="vlasta" />
 					<Edge From="prubeh_questu.quest_selhal" To="setfailed">
@@ -193,7 +240,7 @@
 				<stream_pokladu Name="stream_pokladu" PositionY="580" PositionX="1050">
 					<Edge From="prubeh_questu.hrac_se_dozvedel_o_pokladu" To="hrac_se_dozvedel_o_pokladu" />
 				</stream_pokladu>
-				<stream_vlku Name="stream_vlku" PositionY="960" PositionX="1050">
+				<stream_vlku Name="stream_vlku" PositionY="940" PositionX="1030">
 					<Edge From="prubeh_questu.nastreamovat_vlky" To="vlci_se_objevuji" />
 					<Edge From="_streamWolves.OnTrigger" To="vlci_se_objevuji" />
 					<Edge From="QuestProgressExpanded_NonRepeatable.onfailed" To="quest_selhal">
@@ -209,15 +256,18 @@
 			</Nodes>
 			<EdgeVertices>
 				<EdgeVertex Name="4r1BBfx6" PositionY="967" PositionX="-783" />
+				<EdgeVertex Name="8Atptjtr" PositionY="870" PositionX="-2100" />
 				<EdgeVertex Name="DKeRXNHg" PositionY="950" PositionX="1590" />
 				<EdgeVertex Name="GPESvY2R" PositionY="180" PositionX="-1050" />
 				<EdgeVertex Name="IvbFWw06" PositionY="-430" PositionX="-1240" />
 				<EdgeVertex Name="KVDLwFSt" PositionY="-459" PositionX="521" />
+				<EdgeVertex Name="lNkt3J5W" PositionY="880" PositionX="-410" />
+				<EdgeVertex Name="rLhtYSQR" PositionY="920" PositionX="-440" />
+				<EdgeVertex Name="sGyoPRjQ" PositionY="910" PositionX="-2370" />
+				<EdgeVertex Name="shJfE8BF" PositionY="1445" PositionX="-326" />
 				<EdgeVertex Name="T0CafuSV" PositionY="-430" PositionX="-2220" />
 				<EdgeVertex Name="vertex15" PositionY="440" PositionX="1530" />
 				<EdgeVertex Name="vertex16" PositionY="439" PositionX="551" />
-				<EdgeVertex Name="vertex17" PositionY="880" PositionX="-420" />
-				<EdgeVertex Name="vertex18" PositionY="870" PositionX="-2060" />
 				<EdgeVertex Name="vertex21" PositionY="-485" PositionX="916" />
 				<EdgeVertex Name="vertex22" PositionY="1020" PositionX="20" />
 				<EdgeVertex Name="vertex5" PositionY="900" PositionX="730" />
@@ -227,6 +277,7 @@
 				<EdgeVertex Name="vertex9" PositionY="940" PositionX="-790" />
 				<EdgeVertex Name="wSS13WJF" PositionY="-476" PositionX="-2291" />
 				<EdgeVertex Name="y1YMNJSB" PositionY="-456" PositionX="-2238" />
+				<EdgeVertex Name="YMpwj5du" PositionY="1120" PositionX="400" />
 			</EdgeVertices>
 			<Types>
 				<Type TypeName="CampScouting">
@@ -277,7 +328,7 @@
 				<TagPointAsset Name="lookingSpot" />
 			</Assets>
 			<Notes>
-				<Note Name="note2" PositionY="-30" PositionX="-710">
+				<Note Name="note2" PositionY="-60" PositionX="-740">
 					<Text StringName="tabor_odb_note2_qQ4G" Text="Enviro:&#xD;&#xA;- tábor odbojářů - dvě vrstvy: default + raided (streamuje se)&#xD;&#xA;Osazení:&#xD;&#xA;- 4 vlci v táboře odbojářů&#xD;&#xA;- Vlasta v Miskovicích&#xD;&#xA;- Vydra v Miskovicích v táboře&#xD;&#xA;- stash s odměnou na konci mapy" />
 				</Note>
 			</Notes>

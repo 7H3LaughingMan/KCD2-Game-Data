@@ -20,7 +20,7 @@
 					<Edge From="makearray17.Array" To="SoulArray0" />
 					<Edge From="makearray17_1.Array" To="SoulArray1" />
 				</AddFactionRelationBetweenArrays>
-				<AudioSustainedEffect Name="audiosustainedeffect20" PositionY="-230" PositionX="-480">
+				<AudioSustainedEffect Name="audiosustainedeffect20" PositionY="-490" PositionX="-490">
 					<Constant Name="AtlTriggerName" Value="q_M42_pogrom_ambience" />
 					<Asset Name="LinkableObject" Alias="branaSkirmishKotva" />
 					<Edge From="jindra_je_na_dvorku" To="IsActive" />
@@ -29,26 +29,27 @@
 					<Asset Name="Door" Alias="dvereNaDvorekUBrany" />
 					<Edge From="pogrom_se_zapocal" To="Exec" />
 				</Function>
-				<contexty Name="contexty" PositionY="-370" PositionX="-460">
+				<contexty Name="contexty" PositionY="-630" PositionX="-470">
 					<Edge From="jindra_je_na_dvorku" To="jindra_je_na_dvorku" />
 				</contexty>
 				<SoulDeathTrigger Name="deathtrigger8" PositionY="-40" PositionX="-480">
 					<Asset Name="Souls" Alias="matka" />
 					<Edge From="jindra_je_na_dvorku" To="IsActive" />
 				</SoulDeathTrigger>
-				<DisableDoorInteractivity Name="disabledoorinteractivity2" PositionY="-690" PositionX="-460">
+				<DisableDoorInteractivity Name="disabledoorinteractivity2" PositionY="-950" PositionX="-470">
 					<Edge From="jindra_je_na_dvorku" To="IsActive" />
 					<Edge From="makearray13.Array" To="Doors" />
 				</DisableDoorInteractivity>
 				<Function Name="gameover6" PositionY="0" PositionX="-10" MethodName="wh::playermodule::GameOver" DeclaringType="wh::playermodule">
 					<Constant Name="Reason" Value="48" />
 					<Edge From="deathtrigger8.OnAllDeath" To="Exec" />
+					<Edge From="unconscioustrigger21.OnAllUnconscious" To="Exec" />
 				</Function>
-				<keepdooropen Name="keepdooropen" PositionY="-540" PositionX="-460" Namespace="utils.general">
+				<keepdooropen Name="keepdooropen" PositionY="-800" PositionX="-470" Namespace="utils.general">
 					<Asset Name="door" Alias="dvereNaDvorku" />
 					<Edge From="jindra_je_na_dvorku" To="isactive" />
 				</keepdooropen>
-				<MakeArray Name="makearray13" PositionY="-770" PositionX="-770" TypeT="wh::entitymodule::AnimDoors">
+				<MakeArray Name="makearray13" PositionY="-1030" PositionX="-780" TypeT="wh::entitymodule::AnimDoors">
 					<Asset Name="A" Alias="dvereNaDvorekUBrany" />
 					<Asset Name="B" Alias="dvereNaDvorku" />
 				</MakeArray>
@@ -69,6 +70,10 @@
 					<Constant Name="LinkTag" Value="pogrom_backyardRun" />
 					<Edge From="jindra_je_na_dvorku" To="IsActive" />
 				</SchedulerLinkActivation>
+				<SoulUnconsciousTrigger Name="unconscioustrigger21" PositionY="-290" PositionX="-500">
+					<Asset Name="Souls" Alias="player" />
+					<Edge From="jindra_je_na_dvorku" To="IsActive" />
+				</SoulUnconsciousTrigger>
 			</Nodes>
 			<Text StringName="contexty_sary_a_sama_BCaQ" Text="Podminky na dvorku" />
 		</Module>

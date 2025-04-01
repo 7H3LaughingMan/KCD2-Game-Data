@@ -37,6 +37,12 @@
 				<Definition File="osazeni_hradu__stav_3__co_kdo_dela/ptacek_barkuje.xml" />
 			</Definitions>
 			<Nodes>
+				<AddFactionRelationBetweenArrays Name="addfactionrelationbetweenarrays19" PositionY="2480" PositionX="650">
+					<Constant Name="RelationValue" Value="0" />
+					<Asset Name="SoulArray0" Alias="guards" />
+					<Asset Name="SoulArray1" Alias="diggers" />
+					<Edge From="or12.bool" To="IsActive" />
+				</AddFactionRelationBetweenArrays>
 				<State Name="cekaniNaVypad" PositionY="1190" PositionX="110" TypeT="Progress">
 					<Edge From="cutscena_prechazi_do_polylogu" To="SetActive" />
 					<Edge From="hrac_odstartoval_vypad" To="SetDone" />
@@ -93,6 +99,10 @@
 					<Edge From="diggers.OnDone" To="Exec" />
 				</Function>
 				<oblehani__truchleni__zena Name="oblehani__truchleni__zena" PositionY="910" PositionX="360" />
+				<Function Name="or12" PositionY="2480" PositionX="410" MethodName="math::boolean::Or" DeclaringType="math::boolean">
+					<Edge From="diggers.Dig" To="A" />
+					<Edge From="diggers.Hide" To="B" />
+				</Function>
 				<petr Name="petr" PositionY="760" PositionX="110">
 					<Edge From="quest_active" To="quest_active" />
 				</petr>

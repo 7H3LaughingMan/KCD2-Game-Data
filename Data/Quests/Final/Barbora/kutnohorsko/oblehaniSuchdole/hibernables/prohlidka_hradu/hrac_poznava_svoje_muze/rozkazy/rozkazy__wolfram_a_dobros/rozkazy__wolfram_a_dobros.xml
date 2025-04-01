@@ -60,7 +60,7 @@
 												<Commands>
 													<FacialMoodCommand FacialMood="thinking2" />
 													<AnimationCommand FragmentId="ADLG_Gesture" Guid="0229b273-f5e4-4cb2-a60f-332f72774af3" Variant="1" />
-													<LookAtCommand Delay="0" LookAtRole="RAS_WOLFRAM" />
+													<LookAtCommand LookAtRole="RAS_WOLFRAM" />
 													<LookAtCommand Delay="1.92" LookAtRole="SAMUEL" />
 													<CameraCommand CustomCamera="wolframdobros_customCamera_02" />
 													<CameraCommand Delay="2.11" CustomCamera="wolframdobros_customCamera_12" />
@@ -152,7 +152,7 @@
 														<Response Role="HENRY" ReferenceLength="2.63">
 															<Text StringName="rozk_henry_maji_prvotridn_tcK9" Text="Mají prvotřídní výzbroj, se kterou se nemůžeme rovnat." />
 															<Commands>
-																<AnimationCommand Delay="0" FragmentId="ADLG_Gesture" Guid="f897a1b3-c338-416e-88ea-7345a13432a2" Variant="26" DesiredDuration="1.6" />
+																<AnimationCommand FragmentId="ADLG_Gesture" Guid="f897a1b3-c338-416e-88ea-7345a13432a2" Variant="26" DesiredDuration="1.6" />
 																<AnimationCommand Role="JAROSLAV_SKALICKY" Delay="2.6" FragmentId="ADLG_Surprised" Guid="37ccf959-1452-4346-bc56-6c477a30e707" Variant="1" />
 															</Commands>
 														</Response>
@@ -243,7 +243,7 @@
 																<FacialMoodCommand FacialMood="arrogant1" />
 																<AnimationCommand Delay="0.06" FragmentId="ADLG_Deny" Guid="ccf976b0-9aba-4f13-a974-2db293124822" Variant="2" />
 																<LookAtCommand LookAtRole="HENRY" TransitionDuration="0.5" />
-																<CameraCommand CameraType="Custom" />
+																<CameraCommand CustomCamera="wolframdobros_customCamera_11" />
 															</Commands>
 														</Response>
 													</Elements>
@@ -374,8 +374,9 @@
 																<AnimationCommand Delay="0.04" FragmentId="ADLG_Surprised" Guid="37ccf959-1452-4346-bc56-6c477a30e707" Variant="1" />
 																<AnimationCommand Delay="2.97" FragmentId="ADLG_You" Guid="66521c85-917d-e375-a2fd-ef3af22eb0da" Variant="1" />
 																<AnimationCommand Role="KUBENKA" Delay="6.63" FragmentId="ADLG_Gesture" Guid="f897a1b3-c338-416e-88ea-7345a13432a2" Variant="26" />
-																<CameraCommand CameraType="Custom" />
-																<CameraCommand Role="KUBENKA" Delay="6.21" CameraType="Custom" />
+																<CameraCommand CustomCamera="wolframdobros_customCamera_08" />
+																<CameraCommand Role="HENRY" Delay="6.59" CustomCamera="wolframdobros_customCamera_11" />
+																<LookAtCommand Role="KUBENKA" Delay="6.55" LookAtRole="HENRY" Offset="BottomCenter" TransitionDuration="1.2" />
 															</Commands>
 														</Response>
 														<Response Role="KUBENKA" StartDelay="0.11" ReferenceLength="1.05">
@@ -385,7 +386,6 @@
 															<Text StringName="rozk_kubenka_hmm_iO98" Text="Hmm." />
 															<Commands>
 																<FacialMoodCommand FacialMood="angry2" />
-																<LookAtCommand Delay="-0.06" LookAtRole="HENRY" Offset="BottomCenter" TransitionDuration="1.2" />
 															</Commands>
 														</Response>
 													</Elements>
@@ -401,7 +401,7 @@
 												<Text StringName="rozk_henry_nebudu_vam_do__ayWg" Text="Nebudu vám do hlavy cpát žádný moudra. Nakonec je to na nás všech, jestli z toho vyváznem živý a vy to víte." />
 												<Commands>
 													<FacialMoodCommand FacialMood="thinking2" />
-													<AnimationCommand Delay="0" FragmentId="ADLG_Gesture" Guid="d85ed9b0-40b0-4887-a715-debff5158150" Variant="21" />
+													<AnimationCommand FragmentId="ADLG_Gesture" Guid="d85ed9b0-40b0-4887-a715-debff5158150" Variant="21" />
 													<AnimationCommand Delay="3.73" FragmentId="ADLG_You" Guid="e5cafc60-b65e-4d10-a528-3177e2dc88d2" Variant="4" />
 													<AnimationCommand Role="SAMUEL" Delay="7.75" FragmentId="ADLG_Gesture" Guid="c146b5f3-dae0-4959-9e7f-34c7415efe01" Variant="19" />
 													<LookAtCommand Delay="0.02" LookAtRole="RAS_WOLFRAM" />
@@ -423,7 +423,7 @@
 										</Elements>
 										<Decision Name="dec8" Priority="MainQuestSubmission" DesignName="k rozkazům">
 											<Sequences>
-												<Sequence SpeechCoef="0" EntryCondition="SequenceUsed('jindra_nedelal_proslov')" EndType="Decision" Name="continuation_after_include">
+												<Sequence EntryCondition="SequenceUsed('jindra_nedelal_proslov')" EndType="Decision" SpeechCoef="0" Name="continuation_after_include">
 													<DesignName StringName="rozkazy___continuation_af_4ZvP" Text="continuation after include" />
 													<Elements>
 														<Response Role="DOBROS_PERO" ReferenceLength="5.59">
@@ -471,7 +471,7 @@
 																	<Sequences>
 																		<Sequence EndType="EndDialogue" Name="seq25">
 																			<DesignName StringName="rozkazy___seq25_cQ0B" Text="seq25" />
-																			<UiPrompt StringName="ui_rozkazy___seq25_ikIo" Text="Noční hlídka." />
+																			<UiPrompt StringName="ui_rozkazy___seq25_ikIo" Text="Posílíte noční hlídku." />
 																			<Triggers>
 																				<Port Name="hrac_dal_muze_na_nocni_hlidku" />
 																			</Triggers>
@@ -533,7 +533,7 @@
 																		</Sequence>
 																		<Sequence EndType="EndDialogue" Name="seq26">
 																			<DesignName StringName="rozkazy___seq26_Smre" Text="seq26" />
-																			<UiPrompt StringName="ui_rozkazy___seq26_E4gL" Text="Odpočinek." />
+																			<UiPrompt StringName="ui_rozkazy___seq26_E4gL" Text="Pořádně si připravte výzbroj a odpočívejte." />
 																			<Triggers>
 																				<Port Name="hrac_dal_muze_odpocivat" />
 																			</Triggers>
@@ -651,7 +651,7 @@
 															<Text StringName="rozk_ras_wolfr_to_jsem_to_F6oE" Text="To jsem tomu zase vytřel prdel. Máma mi říkala, že umřu někde ve škarpě a měla pravdu!" />
 															<Commands>
 																<FacialMoodCommand FacialMood="nervous2" />
-																<AnimationCommand Delay="0" FragmentId="ADLG_Think" Guid="b1115e4d-b531-43a5-a3f0-a427c275042f" Variant="4" DesiredDuration="5.48" />
+																<AnimationCommand FragmentId="ADLG_Think" Guid="b1115e4d-b531-43a5-a3f0-a427c275042f" Variant="4" DesiredDuration="5.48" />
 																<AnimationCommand Role="DOBROS_PERO" Delay="5.73" FragmentId="ADLG_Gesture" Guid="5bfd99ad-b27c-429d-bf26-d9ae6bf0b730" Variant="8" />
 																<CameraCommand CustomCamera="wolframdobros_customCamera_23" />
 																<CameraCommand Delay="3.1" CustomCamera="wolframdobros_customCamera_04" />
@@ -716,7 +716,7 @@
 															<Commands>
 																<FacialMoodCommand FacialMood="thinking1" />
 																<AnimationCommand Delay="3.31" FragmentId="ADLG_Gesture" Guid="d85ed9b0-40b0-4887-a715-debff5158150" Variant="21" />
-																<AnimationCommand Delay="0" FragmentId="ADLG_Gesture" Guid="75625108-8f92-4220-a10e-6e1b8251f83d" Variant="11" />
+																<AnimationCommand FragmentId="ADLG_Gesture" Guid="75625108-8f92-4220-a10e-6e1b8251f83d" Variant="11" />
 																<CameraCommand CustomCamera="wolframdobros_customCamera_07" />
 																<CameraCommand Delay="4.03" CustomCamera="wolframdobros_customCamera_19" />
 																<LookAtCommand Delay="4.21" LookAtRole="KUBENKA" />

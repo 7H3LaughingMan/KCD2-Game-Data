@@ -6,6 +6,9 @@
 				<Port Name="zahajit_polylog" Direction="In" Type="trigger">
 					<DesignName StringName="vsichni_p_zahajit_polylog_W786" Text="zahájit polylog" />
 				</Port>
+				<Port Name="stav_souboje" Direction="Out" Type="Progress">
+					<DesignName StringName="vsichni_p_stav_souboje_IcBk" Text="stav souboje" />
+				</Port>
 				<Port Name="konec_souboje_proti_vsem" Direction="Out" Type="trigger">
 					<DesignName StringName="vsichni_p_konec_souboje_p_Jodb" Text="konec souboje proti všem" />
 				</Port>
@@ -26,6 +29,9 @@
 				</Port>
 				<Port Name="jindra_rozehnal_ovce" Direction="In" Type="Zaby_SheepStatus">
 					<DesignName StringName="vsichni_p_jindra_rozehnal_4lqX" Text="Jindra rozehnal ovce" />
+				</Port>
+				<Port Name="v_souboji_nekdo_umrel" Direction="Out" Type="trigger">
+					<DesignName StringName="vsichni_p_v_souboji_nekdo_IRe2" Text="v souboji někdo umřel" />
 				</Port>
 			</Ports>
 			<Definitions>
@@ -82,6 +88,8 @@
 					<Edge From="souboj_na_poli.konec_souboje" To="konec_souboje_proti_vsem" />
 					<Edge From="souboj_na_poli.v_souboji_vytazena_zbran" To="konec_souboje_v_souboji_vytazena_zbran" />
 					<Edge From="obe_strany_odhalily_jak_skodim__polylog_na_louce.AfterPlay" To="utec_nebo_je_zbij" />
+					<Edge From="souboj_na_poli.v_souboji_nekdo_umrel" To="v_souboji_nekdo_umrel" />
+					<Edge From="souboj_na_poli.stav_souboje" To="stav_souboje" />
 				</Output>
 				<HasteTrigger Name="prohra_proti_vsem" PositionY="270" PositionX="1430" />
 				<souboj_na_poli Name="souboj_na_poli" PositionY="-540" PositionX="1780" RequiredForOutput="trosecko" Namespace="konec_zabomysich_valek">

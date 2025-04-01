@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Database xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" Name="brambora">
 	<Skald>
-		<Quest Name="zbranePanaSemina" Type="Side" Difficulty="6" IsImportant="true" ProductionCode="S01">
+		<Quest Name="zbranePanaSemina" IsLocked="false" Type="Side" Difficulty="6" IsImportant="true" ProductionCode="S01">
 			<Ports>
 				<Port Name="s01_zbrane_pana_semina__quest_progress" Direction="Out" Type="wh::questmodule::QuestProgress">
 					<DesignName StringName="zbranepan_quest_progress_e5Xx" Text="S01 Zbraně pana Semína - quest progress" />
@@ -279,6 +279,13 @@
 					<StateTypeEnumeration Name="None" ObjectiveValueType="None" />
 					<StateTypeEnumeration Name="WeddingStarted" ObjectiveValueType="None" />
 				</Type>
+				<Type TypeName="ZbranePanaSemina_ProgressUpdatedAbortable">
+					<StateTypeEnumeration Name="None" ObjectiveValueType="None" />
+					<StateTypeEnumeration Name="Active" ObjectiveValueType="Started" />
+					<StateTypeEnumeration Name="Updated" ObjectiveValueType="Updated" />
+					<StateTypeEnumeration Name="Done" ObjectiveValueType="Completed" />
+					<StateTypeEnumeration Name="Aborted" ObjectiveValueType="None" />
+				</Type>
 			</Types>
 			<Assets>
 				<SmartObjectAsset Name="zbraneSO" />
@@ -402,8 +409,13 @@
 				<TagPointAsset Name="seminToRocksPoint" />
 				<CutsceneHolderAsset Name="endDialogWithBlacksmithCutsceneHolder" />
 				<TagPointAsset Name="pacholekAtSeminTagpoint" />
+				<TagPointAsset Name="tpSukBeforeFirstFight" />
+				<TagPointAsset Name="tpSeminBeforeFirstFight" />
 				<SmartObjectAsset Name="seminBorrowedBed" />
 				<SmartObjectAsset Name="seminBorrowedKettle" />
+				<TagPointAsset Name="tpCervenakWaitBefore" />
+				<TagPointAsset Name="SeminFindingClues_seminAtCart" />
+				<TagPointAsset Name="tpPacholekFleePointStart" />
 			</Assets>
 			<Text StringName="sq01__zbrane_pana_semina_f8rK" Text="Zbraně pana Semína">
 				<Note StringName="sq01__zbrane_pana_semina_f8rK_note" Text="Korekce Dan 18.8.22" />
@@ -745,7 +757,7 @@
 						<EnumLog Type="Canceled" Name="Canceled" />
 					</Logs>
 				</Objective>
-				<Objective TypeT="ProgressUpdated" Name="vrat_se_za_seminem2">
+				<Objective TypeT="ZbranePanaSemina_ProgressUpdatedAbortable" Name="vrat_se_za_seminem2">
 					<LocalizedName StringName="zbranepan_vrat_se_za_semi_cB1u" Text="Vrať se za Semínem." />
 					<Logs>
 						<EnumLog Type="None" Name="None" />
@@ -754,6 +766,7 @@
 						</EnumLog>
 						<EnumLog Type="Updated" Name="Updated" Marker="semin" />
 						<EnumLog Type="Completed" Name="Done" />
+						<EnumLog Type="None" Name="Aborted" />
 					</Logs>
 				</Objective>
 				<Objective TypeT="Progress" Name="podej_zpravu_kovari">

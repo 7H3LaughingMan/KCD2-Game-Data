@@ -6,11 +6,17 @@
 				<Port Name="isactive" Direction="In" Type="bool">
 					<DesignName StringName="reakce_dr_isactive_suqA" Text="IsActive" />
 				</Port>
+				<Port Name="hrac_zkusil_nedavno_priskrtit_ptacka" Direction="Out" Type="bool">
+					<DesignName StringName="reakce_dr_hrac_zkusil_ned_1geg" Text="Hráč zkusil nedávno přiškrtit Ptáčka" />
+				</Port>
 			</Ports>
 			<Definitions>
 				<Definition File="reakce_drabanta_a_ptacka_na_nasili_na_nich/ptacek__proc_me_mlatis_melee.xml" />
 			</Definitions>
 			<Nodes>
+				<Output Name="Output">
+					<Edge From="playerTriedToKnockOutPtacekRecently.Running" To="hrac_zkusil_nedavno_priskrtit_ptacka" />
+				</Output>
 				<overridestimulus_hit Name="overridestimulus_hit" PositionY="-276" PositionX="-220" Namespace="utils.crime.hit">
 					<Asset Name="npctooverride" Alias="ptacek" />
 					<Asset Name="qso" Alias="qSo" />
@@ -22,14 +28,16 @@
 					<Constant Name="overridetreename" Value="reactOnFailedKnockOutStimulusOverride" />
 					<Edge From="isactive" To="isactive" />
 				</overridestimulus_hit>
+				<Timer Name="playerTriedToKnockOutPtacekRecently" PositionY="-140" PositionX="240">
+					<Constant Name="Duration" Value="10s" />
+					<Constant Name="TimeType" Value="GameTime" />
+					<Edge From="overridestimulus_hit.overrideexec" To="SetRunning" />
+				</Timer>
 				<ptacek__proc_me_mlatis_melee Name="ptacek__proc_me_mlatis_melee" PositionY="-430" PositionX="-210" />
 			</Nodes>
 			<Notes>
-				<Note Name="Zbiti_a_looteni_Ptaka_a_Brabanta" PositionY="-440" PositionX="250">
+				<Note Name="Zbiti_a_looteni_Ptaka_a_Brabanta" PositionY="170" PositionX="-190">
 					<Text StringName="reakce_dr_zbiti_a_looteni_OkNN" Text="Ptáčka i Drabanta lze omráčit, lootit je nepůjde.&#xD;&#xA;Ptáček a Drabant na to budou reagovat akorát v dialogu po útěku a tím se to uzavře (že je henry zbil)&#xD;&#xA;Pokud by je Henry zbil tak budou mt jen nějaké barky typu &quot;co se to kurva stalo, cois to udělal kokote&quot; - to barkujou už na Malešově, v dialogu na cestě to pak Henrymu jen vyčtou (optional, možná mu to vyčtou až duialogu potom, uvidíme)&#xD;&#xA;To vyčtení neplatí, pokud Henry prchl s Ptáčkem tajnou chodbou, pak se to odbude v dialogu po tajné chodbě.&#xD;&#xA;" />
-				</Note>
-				<Note Name="note1" PositionY="-20" PositionX="230">
-					<Text StringName="reakce_dr_note1_IzRy" Text="Barky jsou pravděpodobně zbytečné. Ptáček s Brabantem by neměli mít vypnutou attack protekci, protože se týká jen hráče.&#xD;&#xA;Probereme ještě s Viktorem.&#xD;&#xA;Zatím zůstává zapnutá... uvidíme jak dopadne KCD2-63013" />
 				</Note>
 			</Notes>
 			<Text StringName="reakce_drabanta_a_ptacka__DQsw" Text="Reakce Drabanta a Ptáčka na násilí na nich" />

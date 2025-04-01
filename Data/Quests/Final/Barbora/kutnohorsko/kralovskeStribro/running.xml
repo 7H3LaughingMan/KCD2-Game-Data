@@ -60,9 +60,6 @@
 				<Port Name="raznice_predana_1" Direction="In" Type="trigger">
 					<DesignName StringName="running_raznice_predana_1_ABHn" Text="raznice předána Kristiánovi" />
 				</Port>
-				<Port Name="predani_vavakova_dopisu" Direction="In" Type="trigger">
-					<DesignName StringName="running_predani_vavakova__5rnM" Text="dopis od Vaváka předán Kristiánovi" />
-				</Port>
 				<Port Name="vstoupeno_do_tajne_mincovny" Direction="In" Type="trigger">
 					<DesignName StringName="running_vstoupeno_do_tajn_zMi2" Text="vstoupeno do tajné mincovny" />
 				</Port>
@@ -84,6 +81,15 @@
 				<Port Name="fight_active" Direction="In" Type="bool">
 					<DesignName StringName="running_fight_active_2d7H" Text="vavak battle active" />
 				</Port>
+				<Port Name="initial_cutscene_active" Direction="In" Type="bool">
+					<DesignName StringName="running_initial_cutscene__FpVs" Text="initial cutscene active" />
+				</Port>
+				<Port Name="poprveMluvenoSruthardem" Direction="In" Type="bool">
+					<DesignName StringName="running_poprvemluvenosrut_Ba1A" Text="poprvé mluveno s Ruthardem" />
+				</Port>
+				<Port Name="odevzdat_ucetni_knihy" Direction="In" Type="trigger">
+					<DesignName StringName="running_odevzdat_ucetni_k_UBWb" Text="Odevzdat Vavákův dopis v M35" />
+				</Port>
 			</Ports>
 			<Definitions>
 				<Definition File="running/streaming_and_leavelevels.xml" />
@@ -91,6 +97,10 @@
 				<Definition File="running/quest_items.xml" />
 			</Definitions>
 			<Nodes>
+				<Function Name="and2" PositionY="-480" PositionX="-300" MethodName="math::boolean::And" DeclaringType="math::boolean">
+					<Edge From="poprveMluvenoSruthardem" To="A" />
+					<Edge From="compare1.bool" To="B" />
+				</Function>
 				<Function Name="compare1" PositionY="0" PositionX="-410" TypeT="wh::questmodule::QuestProgress" MethodName="Control::Compare" DeclaringType="Control">
 					<Constant Name="Op" Value="Equals" />
 					<Constant Name="ValueB" Value="Active" />
@@ -101,6 +111,11 @@
 					<Constant Name="ValueB" Value="Done" />
 					<Edge From="quest_progress" To="ValueA" />
 				</Function>
+				<expectedeffect Name="expectedeffect" PositionY="-500" PositionX="-50" Namespace="utils.crime.trespass">
+					<Asset Name="npcs" Alias="kristian" />
+					<Constant Name="extenduntilplayerleavestrespass" Value="true" />
+					<Edge From="and2.bool" To="isactive" />
+				</expectedeffect>
 				<permadeaths Name="permadeaths" PositionY="-300" PositionX="-50">
 					<Edge From="quest_progress" To="quest_progress" />
 				</permadeaths>
@@ -113,12 +128,12 @@
 					<Edge From="compare1.bool" To="quest_active" />
 					<Edge From="raznice_predana_hraci" To="raznice_predana_hraci" />
 					<Edge From="raznice_predana_1" To="raznice_predana_1" />
-					<Edge From="predani_vavakova_dopisu" To="predani_vavakova_dopisu" />
 					<Edge From="zacina_tajna_mincovna" To="zacina_patrani_po_tajne_mincovne" />
 					<Edge From="predani_tajneho_klice" To="predani_tajneho_klice" />
 					<Edge From="predani_glejtu" To="predani_glejtu" />
 					<Edge From="quest_ended" To="quest_ended" />
 					<Edge From="predani_buresova_glejtu" To="predani_buresova_glejtu" />
+					<Edge From="odevzdat_ucetni_knihy" To="odevzdat_ucetni_knihy" />
 				</quest_items>
 				<streaming_and_leavelevels Name="streaming_and_leavelevels" PositionY="-130" PositionX="-50">
 					<Edge From="pregeri_muzou_jit" To="pregeri_muzou_jit" />
@@ -137,6 +152,7 @@
 					<Edge From="pregeri_zustavaji_v_mincovne" To="pregeri_zustavaji_v_mincovne" />
 					<Edge From="straze_zustavaji_v_mincovne" To="straze_zustavaji_v_mincovne" />
 					<Edge From="fight_active" To="fight_active" />
+					<Edge From="initial_cutscene_active" To="initial_cutscene_active" />
 				</streaming_and_leavelevels>
 			</Nodes>
 			<Text StringName="running_dfnR" Text="Running" />

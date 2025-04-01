@@ -52,6 +52,11 @@
 					<Edge From="arne_streamed" To="arne_streamed" />
 				</arne_chat>
 				<arne_vyzyva_barky Name="arne_vyzyva_barky" PositionY="-170" PositionX="-200" />
+				<BuffEffect Name="buff17" PositionY="-710" PositionX="950">
+					<Asset Name="Souls" Alias="menhart" />
+					<Constant Name="BuffGUID" Value="7d89d580-f6aa-45d2-aa66-6ce68d7d817d" />
+					<Edge From="Souboj_s_menhartem.Active" To="IsActive" />
+				</BuffEffect>
 				<Function Name="checkentitycontext30" PositionY="550" PositionX="-770" MethodName="wh::xgenaimodule::CheckEntityContext" DeclaringType="wh::xgenaimodule">
 					<Asset Name="Souls" Alias="menhart" />
 					<Constant Name="Context" Value="sermiri_menhartFirstConfrontation" />
@@ -120,17 +125,22 @@
 					<Edge From="makearray27.Array" To="Souls" />
 					<Edge From="Souboj_s_menhartem.Active" To="IsActive" />
 				</SetEntityContext>
+				<SetEntityContext Name="setentitycontext64" PositionY="-60" PositionX="-800">
+					<Constant Name="Context" Value="combat_preventMasterstrikeWeaponDisarm" />
+					<Asset Name="Souls" Alias="menhart" />
+					<Edge From="Awake" To="IsActive" />
+				</SetEntityContext>
 				<SetGameContext Name="setgamecontext25" PositionY="-520" PositionX="1460">
 					<Constant Name="Context" Value="global_deterrentAreasActive" />
 					<Edge From="streamprofileshandling.profileactive" To="IsActive" />
 				</SetGameContext>
-				<SetGameContext Name="setgamecontext63" PositionY="-750" PositionX="1100">
+				<SetGameContext Name="setgamecontext63" PositionY="-880" PositionX="1100">
 					<Constant Name="Context" Value="player_disablePlayerChangeClothes" />
 					<Edge From="Souboj_s_menhartem.Active" To="IsActive">
 						<Vertex>zekK7K83</Vertex>
 					</Edge>
 				</SetGameContext>
-				<SetGameContext Name="setgamecontext63_1" PositionY="-900" PositionX="1100">
+				<SetGameContext Name="setgamecontext63_1" PositionY="-1070" PositionX="1100">
 					<Constant Name="Context" Value="player_disablePlayerChangeWeapons" />
 					<Edge From="Souboj_s_menhartem.Active" To="IsActive">
 						<Vertex>zekK7K83</Vertex>

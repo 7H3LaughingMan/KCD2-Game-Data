@@ -30,10 +30,21 @@
 				<Port Name="leave_luevel_state" Direction="Out" Type="LeaveLevel">
 					<DesignName StringName="leaveleve_leave_luevel_st_n3aB" Text="Leave lůevel state" />
 				</Port>
+				<Port Name="soul_linkable_object" Direction="In" Type="wh::xgenaimodule::LinkableObject*">
+					<DesignName StringName="leaveleve_soul_linkable_o_k3q4" Text="Soul linkable object" />
+				</Port>
 			</Ports>
 			<Nodes>
 				<SetEntityContext Name="DontGreetPlayer" PositionY="-420" PositionX="650">
 					<Constant Name="Context" Value="situation_suppressNPCGreetings" />
+					<Edge From="leavelevelhandling_v2_2.profilesactive" To="IsActive" />
+					<Edge From="soul" To="Souls">
+						<Vertex>xolxgcSH</Vertex>
+						<Vertex>0YbXEevh</Vertex>
+					</Edge>
+				</SetEntityContext>
+				<SetEntityContext Name="DontGreetPlayer_1" PositionY="-230" PositionX="650">
+					<Constant Name="Context" Value="crime_ignoreCorpses" />
 					<Edge From="leavelevelhandling_v2_2.profilesactive" To="IsActive" />
 					<Edge From="soul" To="Souls">
 						<Vertex>xolxgcSH</Vertex>
@@ -47,14 +58,6 @@
 					</Edge>
 					<Edge From="leavelevel" To="Exec" />
 				</If>
-				<SetEntityContext Name="ignoreThisAsCorpse" PositionY="-220" PositionX="680">
-					<Constant Name="Context" Value="crime_ignoredCorpse" />
-					<Edge From="leavelevelhandling_v2_2.profilesactive" To="IsActive" />
-					<Edge From="soul" To="Souls">
-						<Vertex>xolxgcSH</Vertex>
-						<Vertex>0YbXEevh</Vertex>
-					</Edge>
-				</SetEntityContext>
 				<leavelevelhandling_v2 Name="leavelevelhandling_v2_2" PositionY="-40" PositionX="270" Namespace="utils.streaming">
 					<Asset Name="smartentity" Alias="tarasMura_qSO" />
 					<Constant Name="speed" Value="walk" />
@@ -70,11 +73,31 @@
 					<Edge From="leavelevelhandling_v2_2.profilesactive" To="profile_active" />
 					<Edge From="leavelevelhandling_v2_2.leavelevelstates" To="leave_luevel_state" />
 				</Output>
+				<SetRelationContext Name="setrelationcontext1" PositionY="-640" PositionX="660">
+					<Constant Name="Context" Value="crime_ignoreCorpse" />
+					<Asset Name="From" Alias="knezMarian" />
+					<Edge From="leavelevelhandling_v2_2.profilesactive" To="IsActive" />
+					<Edge From="soul_linkable_object" To="To">
+						<Vertex>o9Fsryxd</Vertex>
+						<Vertex>bdMSmaJN</Vertex>
+					</Edge>
+				</SetRelationContext>
+				<SetRelationContext Name="setrelationcontext2" PositionY="-870" PositionX="660">
+					<Constant Name="Context" Value="crime_ignoreCorpse" />
+					<Asset Name="From" Alias="predakVladimir" />
+					<Edge From="leavelevelhandling_v2_2.profilesactive" To="IsActive" />
+					<Edge From="soul_linkable_object" To="To">
+						<Vertex>o9Fsryxd</Vertex>
+						<Vertex>bdMSmaJN</Vertex>
+					</Edge>
+				</SetRelationContext>
 			</Nodes>
 			<EdgeVertices>
-				<EdgeVertex Name="0YbXEevh" PositionY="-60" PositionX="510" />
-				<EdgeVertex Name="63vyF293" PositionY="390" PositionX="0" />
-				<EdgeVertex Name="xolxgcSH" PositionY="-60" PositionX="-80" />
+				<EdgeVertex Name="0YbXEevh" PositionY="-80" PositionX="500" />
+				<EdgeVertex Name="63vyF293" PositionY="380" PositionX="-40" />
+				<EdgeVertex Name="bdMSmaJN" PositionY="-60" PositionX="500" />
+				<EdgeVertex Name="o9Fsryxd" PositionY="-60" PositionX="-100" />
+				<EdgeVertex Name="xolxgcSH" PositionY="-90" PositionX="-90" />
 				<EdgeVertex Name="yQqetJBa" PositionY="380" PositionX="470" />
 			</EdgeVertices>
 			<Assets>

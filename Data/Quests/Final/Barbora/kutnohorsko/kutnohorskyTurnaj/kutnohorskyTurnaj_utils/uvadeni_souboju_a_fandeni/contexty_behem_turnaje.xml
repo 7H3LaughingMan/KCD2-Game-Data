@@ -11,20 +11,6 @@
 				</Port>
 			</Ports>
 			<Nodes>
-				<Function Name="activeAndPlayerInOhrada" PositionY="-60" PositionX="250" MethodName="math::boolean::And" DeclaringType="math::boolean">
-					<Edge From="active" To="A">
-						<Vertex>YJUVymyW</Vertex>
-					</Edge>
-					<Edge From="areacheck125_1.IsInside" To="B" />
-				</Function>
-				<Function Name="areacheck125" PositionY="1720" PositionX="-270" MethodName="wh::rpgmodule::AreaCheck" DeclaringType="wh::rpgmodule">
-					<Asset Name="Souls" Alias="player" />
-					<Asset Name="Areas" Alias="taTurnajStart" />
-				</Function>
-				<Function Name="areacheck125_1" PositionY="-340" PositionX="-230" MethodName="wh::rpgmodule::AreaCheck" DeclaringType="wh::rpgmodule">
-					<Asset Name="Souls" Alias="player" />
-					<Asset Name="Areas" Alias="taTurnajOhrada" />
-				</Function>
 				<AreaLabelEffect Name="arealabelDogAndHorse" PositionY="1280" PositionX="260">
 					<Asset Name="Areas" Alias="taTurnajStart" />
 					<Constant Name="Operation" Value="Add" />
@@ -33,6 +19,18 @@
 						<Vertex>YJUVymyW</Vertex>
 					</Edge>
 				</AreaLabelEffect>
+				<AreaTrigger Name="areatrigger128" PositionY="-370" PositionX="-650">
+					<Asset Name="Souls" Alias="player" />
+					<Asset Name="Areas" Alias="taTurnajOhrada" />
+					<Edge From="active" To="IsActive" />
+				</AreaTrigger>
+				<AreaTrigger Name="areatrigger128_1" PositionY="1550" PositionX="-590">
+					<Asset Name="Souls" Alias="player" />
+					<Asset Name="Areas" Alias="taTurnajStart" />
+					<Edge From="active" To="IsActive">
+						<Vertex>CLdK9nXd</Vertex>
+					</Edge>
+				</AreaTrigger>
 				<Function Name="joinarrays122" PositionY="210" PositionX="-250" TypeT="wh::rpgmodule::Souls" MethodName="utilities::array::JoinArrays" DeclaringType="utilities::array">
 					<Asset Name="A" Alias="divakMuz" />
 					<Asset Name="B" Alias="divakZena" />
@@ -49,6 +47,14 @@
 					<Constant Name="A" Value="suppressHorseCall" />
 					<Constant Name="B" Value="dogForbidden" />
 				</MakeArray>
+				<State Name="playerInTurnajOhrada" PositionY="-370" PositionX="-320" TypeT="bool">
+					<Edge From="areatrigger128.OnEnter" To="SetTrue" />
+					<Edge From="areatrigger128.OnLeave" To="SetFalse" />
+				</State>
+				<State Name="playerInTurnajStart" PositionY="1550" PositionX="-250" TypeT="bool">
+					<Edge From="areatrigger128_1.OnEnter" To="SetTrue" />
+					<Edge From="areatrigger128_1.OnLeave" To="SetFalse" />
+				</State>
 				<SetEntityContext Name="setentitycontext120" PositionY="200" PositionX="230">
 					<Constant Name="Context" Value="crime_suppressBandageMyself" />
 					<Edge From="souls_fighters" To="Souls">
@@ -97,8 +103,21 @@
 						<Vertex>YJUVymyW</Vertex>
 					</Edge>
 				</SetEntityContext>
+				<SetGameContext Name="setgamecontext124" PositionY="1550" PositionX="260">
+					<Constant Name="Context" Value="NoDog" />
+					<Edge From="playerInTurnajStart.State" To="IsActive" />
+				</SetGameContext>
+				<SetGameContext Name="setgamecontext126" PositionY="-290" PositionX="240">
+					<Constant Name="Context" Value="crime_global_ignoreCombatSounds" />
+					<Edge From="playerInTurnajOhrada.State" To="IsActive" />
+				</SetGameContext>
+				<SetGameContext Name="setgamecontext126_1" PositionY="-130" PositionX="240">
+					<Constant Name="Context" Value="crime_global_ignorePlayersDrawnWeapon" />
+					<Edge From="playerInTurnajOhrada.State" To="IsActive" />
+				</SetGameContext>
 			</Nodes>
 			<EdgeVertices>
+				<EdgeVertex Name="CLdK9nXd" PositionY="1640" PositionX="-780" />
 				<EdgeVertex Name="evCj3ENh" PositionY="1050" PositionX="-240" />
 				<EdgeVertex Name="rIXI8Eu5" PositionY="59" PositionX="-136" />
 				<EdgeVertex Name="YJUVymyW" PositionY="-22" PositionX="-34" />

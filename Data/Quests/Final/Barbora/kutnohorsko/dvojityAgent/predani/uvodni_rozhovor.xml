@@ -104,6 +104,7 @@
 					<Edge From="slozene_aktivni_posily" To="Array" />
 				</FirstElement>
 				<jan_laszlo__uvod_pri_predani Name="jan_laszlo__uvod_pri_predani" PositionY="-80" PositionX="30">
+					<Asset Name="DialogueHolder" Alias="handover_DH" />
 					<Edge From="enqueuedialogue" To="EnqueueDialogue" />
 					<Edge From="jindrova_konfrontace_laszla" To="jindrova_konfrontace_laszla" />
 					<Edge From="co_jindra_sdelil_janovi" To="co_jindra_sdelil_janovi" />
@@ -150,6 +151,14 @@
 						<Vertex>vertex6</Vertex>
 					</Edge>
 				</Output>
+				<PlayerAction_DrawWeapon Name="PlayerAction_DrawWeapon" PositionY="520" PositionX="590" Namespace="utils.player">
+					<Constant Name="loadsecondaryweapon" Value="false" />
+					<Constant Name="useselectedweaponset" Value="true" />
+					<Constant Name="weaponset" Value="primary" />
+					<Constant Name="allowdifferentweaponset" Value="true" />
+					<Constant Name="urgency" Value="Instant" />
+					<Edge From="jan_laszlo__uvod_pri_predani.AfterPlay" To="drawweapon" />
+				</PlayerAction_DrawWeapon>
 				<SaveGame Name="savegame6" PositionY="110" PositionX="590">
 					<Constant Name="Objective" Value="DefeatLaszloFarkas" />
 					<Edge From="jan_laszlo__uvod_pri_predani.jindra_se_pridava_k_janovi" To="EnqueueSave" />

@@ -86,6 +86,7 @@
 				<Definition File="korenarkaZachrana/quest_item__roztrhane_saty.xml" />
 				<Definition File="korenarkaZachrana/pavlenaSkillTeacher.xml" />
 				<Definition File="korenarkaZachrana/ubehl_cas_na_fail_questu.xml" />
+				<Definition File="korenarkaZachrana/zakrvaceni_a_zaspineni_pavleny.xml" />
 			</Definitions>
 			<Nodes>
 				<barky_lidi_v_okoli_v_reakci_na_udalosti_questu Name="barky_lidi_v_okoli_v_reakci_na_udalosti_questu" PositionY="600" PositionX="2830">
@@ -200,7 +201,7 @@
 						<Vertex>yg8MsWDG</Vertex>
 					</Edge>
 				</Function>
-				<Timer Name="eventOnBridgeDeactivated" PositionY="2340" PositionX="-1230">
+				<Timer Name="eventOnBridgeDeactivated" PositionY="2480" PositionX="-1220">
 					<Constant Name="Duration" Value="2d" />
 					<Constant Name="TimeType" Value="WorldTime" />
 				</Timer>
@@ -208,7 +209,6 @@
 				<haste_init Name="haste_init" PositionY="-1850" PositionX="-1270" />
 				<If Name="if19" PositionY="910" PositionX="-2110">
 					<Edge From="ubehl_cas_na_fail_questu.quest_failuje_kvuli_cestovini_na_kh_uzavreti_v_mq_linii" To="Condition">
-						<Vertex>9YcxhuUm</Vertex>
 						<Vertex>2RUIuK3A</Vertex>
 					</Edge>
 					<Edge From="triggersequence18.B" To="Exec" />
@@ -264,7 +264,6 @@
 						<Vertex>vertex389</Vertex>
 					</Edge>
 					<Edge From="ubehl_cas_na_fail_questu.quest_failuje_kvuli_cestovini_na_kh_uzavreti_v_mq_linii" To="quest_failuje_smrti_bozeny">
-						<Vertex>9YcxhuUm</Vertex>
 						<Vertex>2RUIuK3A</Vertex>
 						<Vertex>DPueQ3hR</Vertex>
 					</Edge>
@@ -393,8 +392,7 @@
 						<Vertex>UxJRFF0L</Vertex>
 					</Edge>
 				</Function>
-				<HasteTrigger Name="playerLeaveTrosecko" PositionY="350" PositionX="-2780" />
-				<postmortem_dialogy_po_splneni_vrazd Name="postmortem_dialogy_po_splneni_vrazd" PositionY="320" PositionX="1860" RequiredForOutput="trosecko">
+				<postmortem_dialogy_po_splneni_vrazd Name="postmortem_dialogy_po_splneni_vrazd" PositionY="290" PositionX="1860" RequiredForOutput="trosecko">
 					<Edge From="jeskyne.dcera_zabila_oldricha_sama" To="dcera_zabila_oldricha_sama">
 						<Vertex>vertex227</Vertex>
 						<Vertex>vertex228</Vertex>
@@ -586,12 +584,7 @@
 						<Vertex>vertex168</Vertex>
 						<Vertex>vertex276</Vertex>
 					</Edge>
-					<Edge From="playerLeaveTrosecko.OnTrigger" To="Exec">
-						<Vertex>zuemnBFD</Vertex>
-					</Edge>
-					<Edge From="ubehl_cas_na_fail_questu.dlouhy_cas_ubehl__cestovani_na_kh_uzavreti_v_mq_linii" To="Exec">
-						<Vertex>zuemnBFD</Vertex>
-					</Edge>
+					<Edge From="ubehl_cas_na_fail_questu.dlouhy_cas_ubehl__cestovani_na_kh_uzavreti_v_mq_linii" To="Exec" />
 				</TriggerSequence>
 				<u_korenarky Name="u_korenarky" PositionY="-60" PositionX="-730" RequiredForOutput="trosecko">
 					<Edge From="jeskyne.jindra_byl_v_jeskyni" To="abortuj_obj_prohledej_pavlenin_pokoj">
@@ -621,7 +614,7 @@
 						<Vertex>vertex274</Vertex>
 					</Edge>
 				</u_korenarky>
-				<ubehl_cas_na_fail_questu Name="ubehl_cas_na_fail_questu" PositionY="500" PositionX="-3220">
+				<ubehl_cas_na_fail_questu Name="ubehl_cas_na_fail_questu" PositionY="490" PositionX="-2840">
 					<Edge From="m12_vezni_na_troskach" To="m12_vezni_na_troskach" />
 					<Edge From="dialogy_po_jeskyni_a_retezec_pomst.hrac_se_vratil_po_jeskyni_za_bozenou" To="hrac_se_vratil_po_jeskyni_za_bozenou">
 						<Vertex>x0QXyqgJ</Vertex>
@@ -635,6 +628,20 @@
 					<Edge From="hrac_odcestoval_do_kutnohorska_a_vratil_se" To="hrac_odcestoval_do_kutnohorska_a_vratil_se" />
 					<Edge From="m12_vezni_na_troskach_dokonceno__failnout_quest" To="m09_utok_na_nebakov_point_of_no_return__failnout_quest" />
 				</ubehl_cas_na_fail_questu>
+				<zakrvaceni_a_zaspineni_pavleny Name="zakrvaceni_a_zaspineni_pavleny" PositionY="2210" PositionX="1620">
+					<Edge From="u_korenarky.start_patch_pavlena_oldrich" To="zakrvacet_a_zaspinit__quest_start">
+						<Vertex>s4FDoQYS</Vertex>
+					</Edge>
+					<Edge From="QuestProgressExpanded_NonRepeatable.ondone" To="deaktivovat_efekty__quest_end">
+						<Vertex>qwAf0XsP</Vertex>
+					</Edge>
+					<Edge From="QuestProgressExpanded_NonRepeatable.onfailed" To="deaktivovat_efekty__quest_end">
+						<Vertex>qwAf0XsP</Vertex>
+					</Edge>
+					<Edge From="jeskyne.fast_travel_zpet_ke_korenarce" To="umyt__pavlena_je_prisla_domov">
+						<Vertex>k9Tlsz5M</Vertex>
+					</Edge>
+				</zakrvaceni_a_zaspineni_pavleny>
 				<zmeny_ve_svete_na_konci_questu Name="zmeny_ve_svete_na_konci_questu" PositionY="-160" PositionX="2400">
 					<Edge From="dialogy_po_jeskyni_a_retezec_pomst.jakes_a_slama_maji_zmizet__hrac_odmitl_vrazdit_a_pavlena_ziva" To="obeseni_pavleny_a_bozeny__pavlena_vrazdi">
 						<Vertex>MI0R6Ib4</Vertex>
@@ -653,11 +660,19 @@
 						<Vertex>0wjT47vs</Vertex>
 						<Vertex>uKybEPpS</Vertex>
 					</Edge>
+					<Edge From="postmortem_dialogy_po_splneni_vrazd.seq7" To="seq7" />
+					<Edge From="postmortem_dialogy_po_splneni_vrazd.konec_questu" To="konec_questu" />
 					<Edge From="if19.True" To="obeseni_bozeny__samovrazda_insta">
 						<Vertex>2Bw0IFMW</Vertex>
 						<Vertex>9lgr8sET</Vertex>
 						<Vertex>QxH7dnPC</Vertex>
 						<Vertex>yWXKM0nT</Vertex>
+					</Edge>
+					<Edge From="dialogy_po_jeskyni_a_retezec_pomst.hrac_odmitnul_vrazdit_az_po_zadani" To="hrac_odmitnul_vrazdit_az_po_zadani">
+						<Vertex>TfUGLk0V</Vertex>
+					</Edge>
+					<Edge From="dialogy_po_jeskyni_a_retezec_pomst.quest_completed" To="konec_questu">
+						<Vertex>ouflcPgj</Vertex>
 					</Edge>
 				</zmeny_ve_svete_na_konci_questu>
 			</Nodes>
@@ -668,32 +683,36 @@
 				<EdgeVertex Name="2Gs3gYbQ" PositionY="-620" PositionX="-100" />
 				<EdgeVertex Name="2RUIuK3A" PositionY="1320" PositionX="-2377" />
 				<EdgeVertex Name="3rys5J4n" PositionY="1421" PositionX="262" />
-				<EdgeVertex Name="4aT2NW3x" PositionY="30" PositionX="1670" />
+				<EdgeVertex Name="4aT2NW3x" PositionY="0" PositionX="1670" />
 				<EdgeVertex Name="6HD0WmQG" PositionY="886" PositionX="2715" />
 				<EdgeVertex Name="6hH5v4bF" PositionY="1250" PositionX="3690" />
 				<EdgeVertex Name="9lgr8sET" PositionY="-373" PositionX="-1259" />
-				<EdgeVertex Name="9YcxhuUm" PositionY="1320" PositionX="-2780" />
 				<EdgeVertex Name="A4h96U66" PositionY="1363" PositionX="3970" />
 				<EdgeVertex Name="cmqoGtf7" PositionY="815" PositionX="-1819" />
 				<EdgeVertex Name="cpIhvQSj" PositionY="1098" PositionX="1037" />
 				<EdgeVertex Name="DPueQ3hR" PositionY="1320" PositionX="430" />
 				<EdgeVertex Name="dtj4CDIn" PositionY="1430" PositionX="-1460" />
 				<EdgeVertex Name="G3RvzvbE" PositionY="1340" PositionX="3560" />
-				<EdgeVertex Name="h0pVVM7k" PositionY="1460" PositionX="-3230" />
+				<EdgeVertex Name="h0pVVM7k" PositionY="1450" PositionX="-2850" />
 				<EdgeVertex Name="j85CWnqL" PositionY="819" PositionX="-1430" />
-				<EdgeVertex Name="Kp0JQBnU" PositionY="1424" PositionX="-3221" />
+				<EdgeVertex Name="k9Tlsz5M" PositionY="2269" PositionX="954" />
+				<EdgeVertex Name="Kp0JQBnU" PositionY="1410" PositionX="-2840" />
 				<EdgeVertex Name="Lk5QYHcE" PositionY="-1120" PositionX="1990" />
 				<EdgeVertex Name="m60Gakn0" PositionY="1060" PositionX="2169" />
 				<EdgeVertex Name="MI0R6Ib4" PositionY="-50" PositionX="1670" />
 				<EdgeVertex Name="NhAkwxFv" PositionY="831" PositionX="-1430" />
 				<EdgeVertex Name="nSlILIII" PositionY="1000" PositionX="3640" />
 				<EdgeVertex Name="oaAMNm9L" PositionY="-1120" PositionX="2610" />
+				<EdgeVertex Name="ouflcPgj" PositionY="44" PositionX="1668" />
 				<EdgeVertex Name="Q6tMW7FK" PositionY="1030" PositionX="3644" />
 				<EdgeVertex Name="qgoK0K0m" PositionY="-622" PositionX="2279" />
 				<EdgeVertex Name="qR9hPcNH" PositionY="-20" PositionX="1670" />
+				<EdgeVertex Name="qwAf0XsP" PositionY="2290" PositionX="-1240" />
 				<EdgeVertex Name="QxH7dnPC" PositionY="-370" PositionX="1865" />
 				<EdgeVertex Name="RfpwUgwX" PositionY="1358" PositionX="1638" />
+				<EdgeVertex Name="s4FDoQYS" PositionY="2240" PositionX="-390" />
 				<EdgeVertex Name="t8rkKe36" PositionY="1059" PositionX="1222" />
+				<EdgeVertex Name="TfUGLk0V" PositionY="22" PositionX="1670" />
 				<EdgeVertex Name="u3B8PADA" PositionY="1443" PositionX="3970" />
 				<EdgeVertex Name="uKybEPpS" PositionY="1230" PositionX="2310" />
 				<EdgeVertex Name="UxJRFF0L" PositionY="1180" PositionX="3640" />
@@ -812,7 +831,6 @@
 				<EdgeVertex Name="yg8MsWDG" PositionY="1108" PositionX="3640" />
 				<EdgeVertex Name="YIlCrNkT" PositionY="870" PositionX="2710" />
 				<EdgeVertex Name="yWXKM0nT" PositionY="-368" PositionX="2336" />
-				<EdgeVertex Name="zuemnBFD" PositionY="680" PositionX="-2450" />
 			</EdgeVertices>
 			<Types>
 				<Type TypeName="investigationTroskovice">
@@ -875,6 +893,13 @@
 					<StateTypeEnumeration Name="Canceled_BozenaDead" ObjectiveValueType="Canceled" />
 					<StateTypeEnumeration Name="Aborted" ObjectiveValueType="None" />
 				</Type>
+				<Type TypeName="KorenarkaZachrana_ProgressFailableAbortable">
+					<StateTypeEnumeration Name="None" ObjectiveValueType="None" />
+					<StateTypeEnumeration Name="Active" ObjectiveValueType="Started" />
+					<StateTypeEnumeration Name="Done" ObjectiveValueType="Completed" />
+					<StateTypeEnumeration Name="Canceled" ObjectiveValueType="Canceled" />
+					<StateTypeEnumeration Name="Aborted" ObjectiveValueType="None" />
+				</Type>
 			</Types>
 			<Assets>
 				<SmartObjectAsset Name="qSO" />
@@ -913,7 +938,7 @@
 				<Note Name="note8" PositionY="-1470" PositionX="3020">
 					<Text StringName="korenarka_note8_vM7x" Text="Bug: vyriešila som Slámu, potom som šla za Drozdom pre dialóg a nereagovalo to na to že je Sláma už vyriešený. Rovnako to tak bude asi s Duškom&#xD;&#xA;&#xD;&#xA;" />
 				</Note>
-				<Note Name="note17" PositionY="2290" PositionX="-1200">
+				<Note Name="note17" PositionY="2430" PositionX="-1200">
 					<Text StringName="korenarka_note17_i9zs" Text="nesmie sa zmazať kvôli save compatibility" />
 				</Note>
 			</Notes>
@@ -942,7 +967,7 @@
 						</EnumLog>
 					</Logs>
 				</Objective>
-				<Objective TypeT="ProgressFailable" Name="searchTroskovice">
+				<Objective TypeT="KorenarkaZachrana_ProgressFailableAbortable" Name="searchTroskovice">
 					<LocalizedName StringName="korenarka_searchtroskovice_SDKR" Text="Zeptej se na Pavlenu v Troskovicích." />
 					<Logs>
 						<EnumLog Type="None" Name="None" />
@@ -955,6 +980,7 @@
 						<EnumLog Type="Canceled" Name="Canceled">
 							<Log StringName="searchtro_pavlena_dcera_k_EW8e" Text="Pavlena měla namířeno do Troskovic, takže jsem tam po ní chtěl pátrat, ale teď už je to zbytečné." />
 						</EnumLog>
+						<EnumLog Type="None" Name="Aborted" />
 					</Logs>
 				</Objective>
 				<Objective TypeT="ProgressAbortable" Name="pavlenaRoomSearch" IsOptional="true">

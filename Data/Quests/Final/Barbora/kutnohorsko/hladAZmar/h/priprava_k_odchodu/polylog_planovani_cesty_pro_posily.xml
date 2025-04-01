@@ -12,6 +12,9 @@
 				<Port Name="beforeplay" Direction="Out" Type="trigger">
 					<DesignName StringName="polylog_p_beforeplay_J6B7" Text="beforePlay" />
 				</Port>
+				<Port Name="zidle_nastreamovana" Direction="In" Type="trigger">
+					<DesignName StringName="polylog_p_zidle_nastreamo_8kc4" Text="židle nastreamována" />
+				</Port>
 			</Ports>
 			<Definitions>
 				<Definition File="polylog_planovani_cesty_pro_posily/polylog_planovani_cesty_pro_posily.xml" />
@@ -52,10 +55,12 @@
 					<Edge From="polylog_planovani_cesty_pro_posily.BeforePlay" To="beforeplay" />
 				</Output>
 				<polylog_planovani_cesty_pro_posily Name="polylog_planovani_cesty_pro_posily">
+					<Constant Name="AutoPlay" Value="false" />
 					<Asset Name="DialogueHolder" Alias="polylogPlanovaniCestyDH" />
 					<Constant Name="goblet_Kubenka" Value="4d1f1d19-dc87-4ff6-8ca5-9219ce9f6621" />
 					<Edge From="polylog_zacina_z_cutsceny" To="EnqueueDialogue" />
 					<Edge From="createdialogparams1.DialogParams" To="DialogParams" />
+					<Edge From="zidle_nastreamovana" To="PlayDialogue" />
 				</polylog_planovani_cesty_pro_posily>
 			</Nodes>
 			<Assets>

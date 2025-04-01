@@ -77,8 +77,8 @@
 					<Child canSkip="1">
 						<EntityContext context="crime_preventDespawn" target="">
 							<AnyDecorator preset="crime_keepStateAndItems" enabled="true">
-								<EntityContext context="speech_greyOutE" target="$this.id">
-									<EntityContextElement context="speech_greyOutE" enabled="true">
+								<EntityContextPreset preset="crime_greyOutEAndDisableChat" target="$this.id">
+									<EntityContextPresetElement contextPreset="crime_greyOutEAndDisableChat" enabled="true">
 										<EntityContextElement context="crime_interrupt" enabled="true">
 											<EntityContext context="crime_interruptCheck" target="">
 												<AddPerceivableState PerceivableLabel="&apos;crime_interrupt&apos;">
@@ -251,7 +251,7 @@
 																											<Expression expressions="$movementSpeed = $enum:movementSpeed.run &#10;$stoppingDistance = 2" />
 																										</Then>
 																									</HasActiveThreats>
-																									<IfCondition failOnCondition="false" condition="$checkData.previousReaction == $enum:crime_reactionKind.lookAround |  &#10;$checkData.stimulusKind == $enum:crime_stimulusKind.combat | &#10;($checkData.target ~= $__player &amp; $checkData.stimulusKind == $enum:crime_stimulusKind.lyingBody)">
+																									<IfCondition failOnCondition="false" condition="$checkData.previousReaction == $enum:crime_reactionKind.lookAround |  &#10;$checkData.stimulusKind == $enum:crime_stimulusKind.combat | &#10;$checkData.stimulusKind == $enum:crime_stimulusKind.hit | &#10;$checkData.stimulusKind == $enum:crime_stimulusKind.shooter | &#10;$checkData.stimulusKind == $enum:crime_stimulusKind.unknownShooter | &#10;($checkData.target ~= $__player &amp; $checkData.stimulusKind == $enum:crime_stimulusKind.lyingBody)">
 																										<Expression expressions="$movementSpeed = $enum:movementSpeed.run &#10;$stoppingDistance = 2" />
 																									</IfCondition>
 																									<DefaultBranch>
@@ -370,9 +370,7 @@
 																						<Expression expressions="$targetFound = true &#10;$endBark_shooter = true" />
 																					</ExternalLock>
 																					<ExternalLock atomic="false" OutsideQueuePosVariable="" InsidePosVariable="" TimerType="GameTime" OutsideTimerValue="&apos;-1&apos;" LockManagerType="Intellect" SemaphoreName="&apos;crime_playerFoundNearTrespass&apos;" RunLogic="KeepRunning">
-																						<AtomicDecorator>
-																							<Function_callInterrupt_mindPlayer ignorePriority="true" initiator="$enum:switch_interruptInitiator.scheduler" previousReaction="$enum:crime_reactionKind.check" soundType="$enum:sound.invalid" stimulusKind="$enum:crime_stimulusKind.nearTrespass" nodeLabel="27778846" />
-																						</AtomicDecorator>
+																						<Function_callInterrupt_mindPlayer ignorePriority="true" initiator="$enum:switch_interruptInitiator.scheduler" previousReaction="$enum:crime_reactionKind.check" soundType="$enum:sound.invalid" stimulusKind="$enum:crime_stimulusKind.nearTrespass" nodeLabel="27778846" />
 																					</ExternalLock>
 																					<ExternalLock atomic="false" OutsideQueuePosVariable="" InsidePosVariable="" TimerType="GameTime" OutsideTimerValue="&apos;-1&apos;" LockManagerType="Intellect" SemaphoreName="&apos;crime_soundSourceFound_dogWhistle&apos;" RunLogic="KeepRunning">
 																						<Expression expressions="$targetFound = true &#10;$endBark_callDog = true" />
@@ -606,7 +604,7 @@
 																									<Else canSkip="1">
 																										<Switch>
 																											<IfCondition failOnCondition="false" condition="$endBark_shooter">
-																												<Function_crime_crimeBark animationApproach="$enum:animationApproach.dontPlayDialogAnimations" canBeDelayed="false" dialogContext="" dramaticBark="false" lookAt="$checkData.target" metarole="&apos;NPC_UKONCUJE_STAV_II_(NASLO_TO_ALE_NEREAGUJE)&apos;" priority="$enum:crime_barkPriority.medium" nodeLabel="28970360" />
+																												<Function_crime_crimeBark animationApproach="$enum:animationApproach.dontPlayDialogAnimations" canBeDelayed="false" dialogContext="" dramaticBark="false" lookAt="$checkData.target" metarole="&apos;NPC_ROZPOZNALO_VYTRZNIKA_(KAMINEK)&apos;" priority="$enum:crime_barkPriority.medium" nodeLabel="28970360" />
 																											</IfCondition>
 																											<IfCondition failOnCondition="false" condition="$endBark_callDog">
 																												<Function_crime_crimeBark animationApproach="$enum:animationApproach.dontPlayDialogAnimations" canBeDelayed="false" dialogContext="" dramaticBark="false" lookAt="$checkData.target" metarole="&apos;NPC_REAGUJE_NA_ZVUK_PISKANI_NA_PSA&apos;" priority="$enum:crime_barkPriority.medium" nodeLabel="95376250" />
@@ -759,8 +757,8 @@
 												</AddPerceivableState>
 											</EntityContext>
 										</EntityContextElement>
-									</EntityContextElement>
-								</EntityContext>
+									</EntityContextPresetElement>
+								</EntityContextPreset>
 							</AnyDecorator>
 						</EntityContext>
 					</Child>
@@ -887,9 +885,9 @@
 								<OutputBreakpoints />
 								<AnyDecorator hasInputBreakpoint="0" comment="" breakpointFlags="0">
 									<OutputBreakpoints />
-									<EntityContext hasInputBreakpoint="0" comment="" breakpointFlags="0">
+									<EntityContextPreset hasInputBreakpoint="0" comment="" breakpointFlags="0">
 										<OutputBreakpoints />
-										<EntityContextElement hasInputBreakpoint="0" comment="" breakpointFlags="0">
+										<EntityContextPresetElement hasInputBreakpoint="0" comment="" breakpointFlags="0">
 											<OutputBreakpoints />
 											<EntityContextElement hasInputBreakpoint="0" comment="" breakpointFlags="0">
 												<OutputBreakpoints />
@@ -1412,12 +1410,9 @@
 																						</ExternalLock>
 																						<ExternalLock hasInputBreakpoint="0" comment="" breakpointFlags="0">
 																							<OutputBreakpoints />
-																							<AtomicDecorator hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																							<Function_callInterrupt_mindPlayer hasInputBreakpoint="0" comment="" breakpointFlags="0">
 																								<OutputBreakpoints />
-																								<Function_callInterrupt_mindPlayer hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																									<OutputBreakpoints />
-																								</Function_callInterrupt_mindPlayer>
-																							</AtomicDecorator>
+																							</Function_callInterrupt_mindPlayer>
 																						</ExternalLock>
 																						<ExternalLock hasInputBreakpoint="0" comment="" breakpointFlags="0">
 																							<OutputBreakpoints />
@@ -2073,8 +2068,8 @@
 													</AddPerceivableState>
 												</EntityContext>
 											</EntityContextElement>
-										</EntityContextElement>
-									</EntityContext>
+										</EntityContextPresetElement>
+									</EntityContextPreset>
 								</AnyDecorator>
 							</EntityContext>
 						</Child>

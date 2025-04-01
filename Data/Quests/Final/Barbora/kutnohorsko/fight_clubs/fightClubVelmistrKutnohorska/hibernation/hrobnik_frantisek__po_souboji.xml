@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Database xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" Name="brambora">
 	<Skald>
-		<FaderDialog Name="hrobnik_frantisek__po_souboji">
+		<ForcedDialog Name="hrobnik_frantisek__po_souboji">
 			<Ports>
 				<Port Name="jindra_po_fightu_nemluvil_s_frantiskem" Direction="In" Type="bool">
 					<DesignName StringName="hrobnik_f_jindra_po_fight_HJG6" Text="Jindra po fightu nemluvil s Frantiskem" />
@@ -21,7 +21,7 @@
 			</Ports>
 			<Text StringName="hrobnik_frantisek__po_sou_pz2Z" Text="Hrobník František - po souboji" />
 			<MapVizLocation MapName="kutnohorsko" PositionX="3125" PositionY="958" />
-			<Dialogue TechnicalStatus="Enabled" AllowFarewell="false" AllowGreeting="false" Priority="1" GesturesSetDate="2024-05-27T15:05:58.4897776+02:00" GesturesSetResponseCount="30">
+			<Dialogue TechnicalStatus="Enabled" AllowFarewell="false" AllowGreeting="false" Priority="1" Initiator="NonPlayer" GesturesSetDate="2024-05-27T15:05:58.4897776+02:00" GesturesSetResponseCount="30">
 				<SelectedSouls>
 					<SelectedSoul Role="HROBNIK_FRANTISEK_KUTNA_HORA" Voice="gregoryGudgeon" Type="Wave" Language="ENG" />
 					<SelectedSoul Role="HENRY" Voice="tomMcKay" Type="Wave" Language="ENG" />
@@ -101,6 +101,9 @@
 									</Commands>
 								</Response>
 							</Elements>
+							<FastForwards>
+								<FastForwardAll />
+							</FastForwards>
 						</Sequence>
 						<Sequence EntryCondition="Port('jindra_po_fightu_nemluvil_s_frantiskem') AND Port('jindra_porazil_hrobnika')" EndType="Decision" Name="seq3">
 							<DesignName StringName="hrobnik_f_seq3_rNhI" Text="seq3" />
@@ -109,7 +112,7 @@
 									<Text StringName="hrob_henry_tak_to_by_bylo_Uxk5" Text="Tak... to by bylo..." />
 									<Commands>
 										<FacialMoodCommand FacialMood="arrogant2" />
-										<AnimationCommand Delay="0" FragmentId="ADLG_Nod" Guid="e42b3bf3-fd0e-478c-b9f7-cacc887c47b9" Variant="3" />
+										<AnimationCommand FragmentId="ADLG_Nod" Guid="e42b3bf3-fd0e-478c-b9f7-cacc887c47b9" Variant="3" />
 										<AnimationCommand Delay="1.05" FragmentId="ADLG_Gesture" Guid="82614ed5-8978-4c2d-8771-aeab0b05a4e7" Variant="14" />
 										<CameraCommand CameraType="CloseUp" />
 									</Commands>
@@ -364,6 +367,9 @@
 																		</Commands>
 																	</Response>
 																</Elements>
+																<FastForwards>
+																	<FastForwardAll />
+																</FastForwards>
 															</Sequence>
 														</Sequences>
 													</Decision>
@@ -429,10 +435,13 @@
 									</Commands>
 								</Response>
 							</Elements>
+							<FastForwards>
+								<FastForwardAll />
+							</FastForwards>
 						</Sequence>
 					</Sequences>
 				</Decision>
 			</Dialogue>
-		</FaderDialog>
+		</ForcedDialog>
 	</Skald>
 </Database>

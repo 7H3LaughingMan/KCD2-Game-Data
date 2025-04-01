@@ -42,6 +42,12 @@
 				<Port Name="hrac_sas_opustil_po_boji_v_tabore" Direction="In" Type="trigger">
 					<DesignName StringName="pacholek_hrac_sas_opustil_Dr37" Text="Hráč SaS opustil po boji v táboře" />
 				</Port>
+				<Port Name="pacholek_streamovat_po_fightu" Direction="Out" Type="trigger">
+					<DesignName StringName="pacholek_pacholek_streamo_jAm1" Text="Pacholek streamovat po fightu" />
+				</Port>
+				<Port Name="prived_pacholka_active" Direction="In" Type="bool">
+					<DesignName StringName="pacholek_prived_pacholka__Nji3" Text="Přived pacholka active" />
+				</Port>
 			</Ports>
 			<Definitions>
 				<Definition File="pacholek/debata_s_pacholkem_1.xml" />
@@ -79,7 +85,14 @@
 						<Vertex>2KdF4KKF</Vertex>
 					</Edge>
 				</Function>
-				<bark_vasek__zranena_noha Name="bark_vasek__zranena_noha" PositionY="1340" PositionX="-700" />
+				<AreaTrigger Name="areatrigger72" PositionY="1410" PositionX="-90">
+					<Asset Name="Souls" Alias="pacholek" />
+					<Asset Name="Areas" Alias="mainCampArea" />
+					<Edge From="prived_pacholka_active" To="IsActive">
+						<Vertex>ffoSunpa</Vertex>
+					</Edge>
+				</AreaTrigger>
+				<bark_vasek__zranena_noha Name="bark_vasek__zranena_noha" PositionY="1210" PositionX="-760" />
 				<BuffEffect Name="buff_stealProt" PositionY="-290" PositionX="-740">
 					<Asset Name="Souls" Alias="pacholek" />
 					<Constant Name="BuffGUID" Value="d5996d8b-611d-4cc8-bfbd-7ab2c8884cf6" />
@@ -108,6 +121,12 @@
 					</Edge>
 					<Edge From="pacholekState.OnDialogActive" To="SetRunning" />
 					<Edge From="if_timerRunningFinishIt.True" To="SetFinished" />
+					<Edge From="ifunconsciouscheck73.True" To="SetStopped">
+						<Vertex>sPHgRUbA</Vertex>
+						<Vertex>E2HBCq7F</Vertex>
+						<Vertex>vertex17</Vertex>
+						<Vertex>vertex18</Vertex>
+					</Edge>
 				</Timer>
 				<debata_s_pacholkem_1 Name="debata_s_pacholkem_1" PositionY="60" PositionX="-130">
 					<Edge From="pacholekState.DialogActive" To="dialog_aktivni" />
@@ -130,7 +149,7 @@
 						<Vertex>J6zzwGXo</Vertex>
 					</Edge>
 				</fightconfiguration_surrendering>
-				<HasItems_Soul Name="HasItems_Soul" PositionY="820" PositionX="-400" Namespace="utils.item">
+				<HasItems_Soul Name="HasItems_Soul" PositionY="900" PositionX="-400" Namespace="utils.item">
 					<Asset Name="soul" Alias="pacholek" />
 					<Constant Name="amount" Value="1" />
 					<Edge From="konstanty__itemy.vaskova_mapa" To="itemclass" />
@@ -148,7 +167,22 @@
 					</Edge>
 					<Edge From="switch69.Value1" To="Condition" />
 				</If>
+				<IfFunction Name="ifunconsciouscheck73" PositionY="1410" PositionX="280" MethodName="wh::rpgmodule::UnconsciousCheck" DeclaringType="wh::rpgmodule">
+					<Asset Name="Souls" Alias="pacholek" />
+					<Edge From="areatrigger72.OnEnter" To="Exec" />
+				</IfFunction>
 				<konstanty__itemy Name="konstanty__itemy" PositionY="890" PositionX="-830" Namespace="zbrane_pana_semina" />
+				<Migration_Advanced Name="Migration_Advanced" PositionY="-550" PositionX="680" Namespace="utils.general">
+					<Constant Name="linktag" Value="none" />
+					<Asset Name="souls" Alias="pacholek" />
+					<Constant Name="faction" Value="trosecko_enemies_bandits_zbranePanaSemina" />
+					<Edge From="pacholekFight.Active" To="isactive">
+						<Vertex>J6zzwGXo</Vertex>
+					</Edge>
+					<Edge From="pacholekFight.OnDone" To="forgetcrime">
+						<Vertex>nPuNCQhT</Vertex>
+					</Edge>
+				</Migration_Advanced>
 				<MoveItem_SoulToSoul Name="MoveItem_SoulToSoul" PositionY="900" PositionX="200" Namespace="utils.item">
 					<Asset Name="fromsoul" Alias="pacholek" />
 					<Asset Name="tosoul" Alias="player" />
@@ -206,6 +240,13 @@
 						<Vertex>J6zzwGXo</Vertex>
 						<Vertex>t0GFDNHj</Vertex>
 					</Edge>
+					<Edge From="casDoKdyLzeMluvitSPacholkem.OnRunning" To="pacholek_streamovat_po_fightu">
+						<Vertex>3czvr4HW</Vertex>
+						<Vertex>61txJdbk</Vertex>
+					</Edge>
+					<Edge From="stopcrime.crimestopped" To="pacholek_se_vzdal">
+						<Vertex>zVC6j6HE</Vertex>
+					</Edge>
 				</Output>
 				<pacholek_peepoleave Name="pacholek_peepoleave" PositionY="690" PositionX="720">
 					<Edge From="debata_s_pacholkem_1.jindra_ho_nechal_jit" To="start">
@@ -246,6 +287,10 @@
 						<Vertex>EBmP2tqQ</Vertex>
 						<Vertex>XMmuvUYo</Vertex>
 						<Vertex>gQNdaTGf</Vertex>
+					</Edge>
+					<Edge From="ifunconsciouscheck73.True" To="SetDone">
+						<Vertex>sPHgRUbA</Vertex>
+						<Vertex>E2HBCq7F</Vertex>
 					</Edge>
 				</State>
 				<State Name="pacholekState" PositionY="80" PositionX="-600" TypeT="pacholekState">
@@ -292,6 +337,13 @@
 						<Vertex>Eoax6cQq</Vertex>
 						<Vertex>TFlAcErI</Vertex>
 					</Edge>
+					<Edge From="ifunconsciouscheck73.True" To="SetDialogDone">
+						<Vertex>sPHgRUbA</Vertex>
+						<Vertex>E2HBCq7F</Vertex>
+						<Vertex>vertex17</Vertex>
+						<Vertex>vertex18</Vertex>
+						<Vertex>vertex20</Vertex>
+					</Edge>
 				</State>
 				<sas_jdou_zmlatit_vaska Name="sas_jdou_zmlatit_vaska" PositionY="580" PositionX="-130">
 					<Edge From="pacholekState.TimerFinished" To="active" />
@@ -302,6 +354,11 @@
 						<Vertex>vPNmRmVA</Vertex>
 					</Edge>
 				</SchedulerLinkActivation>
+				<stopcrime Name="stopcrime" PositionY="1430" PositionX="710" Namespace="utils.crime">
+					<Asset Name="npcs" Alias="pacholek" />
+					<Constant Name="forgetcrimeinformations" Value="true" />
+					<Edge From="ifunconsciouscheck73.True" To="stopcrime" />
+				</stopcrime>
 				<Switch Name="switch69" PositionY="-900" PositionX="250" TypeT="crime_attackKind" ValueTypes="bool" SwitchValues="playerHorseCollision stealth missile dog armed unarmed">
 					<Constant Name="playerHorseCollisionValue1" Value="true" />
 					<Constant Name="stealthValue1" Value="true" />
@@ -312,13 +369,6 @@
 					<Constant Name="DefaultValue1" Value="false" />
 					<Edge From="aiconceptsignaltriggerhitreactionnotification68.hitType" To="Switch" />
 				</Switch>
-				<TemporaryFactionEffect Name="temporaryfaction63" PositionY="-520" PositionX="710">
-					<Asset Name="Souls" Alias="pacholek" />
-					<Constant Name="Faction" Value="trosecko_enemies_bandits_zbranePanaSemina" />
-					<Edge From="pacholekFight.Active" To="IsActive">
-						<Vertex>J6zzwGXo</Vertex>
-					</Edge>
-				</TemporaryFactionEffect>
 				<TiedSpot Name="TiedSpot_1_1" PositionY="360" PositionX="-1010" Namespace="utils.special">
 					<Asset Name="tiedsoul" Alias="pacholek" />
 					<Asset Name="tiedspot_smartentity" Alias="pacholekTiedSpotSO" />
@@ -331,21 +381,27 @@
 			</Nodes>
 			<EdgeVertices>
 				<EdgeVertex Name="2KdF4KKF" PositionY="-460" PositionX="-1480" />
+				<EdgeVertex Name="3czvr4HW" PositionY="-285" PositionX="310" />
 				<EdgeVertex Name="3WNUFGTs" PositionY="-730" PositionX="-730" />
 				<EdgeVertex Name="4FGslf6M" PositionY="60" PositionX="-1440" />
 				<EdgeVertex Name="5W56nqpz" PositionY="-1020" PositionX="220" />
+				<EdgeVertex Name="61txJdbk" PositionY="-281" PositionX="1043" />
 				<EdgeVertex Name="aJUe6JWC" PositionY="40" PositionX="-240" />
 				<EdgeVertex Name="Bbo0uehB" PositionY="-460" PositionX="-820" />
 				<EdgeVertex Name="BfwVWXDT" PositionY="-180" PositionX="-1150" />
 				<EdgeVertex Name="BTqERnMQ" PositionY="-121" PositionX="-489" />
+				<EdgeVertex Name="E2HBCq7F" PositionY="880" PositionX="340" />
 				<EdgeVertex Name="EBmP2tqQ" PositionY="-100" PositionX="-230" />
 				<EdgeVertex Name="Eoax6cQq" PositionY="-40" PositionX="-320" />
+				<EdgeVertex Name="ffoSunpa" PositionY="1490" PositionX="-2060" />
 				<EdgeVertex Name="gQNdaTGf" PositionY="210" PositionX="270" />
 				<EdgeVertex Name="Hurx4Wh9" PositionY="-121" PositionX="48" />
 				<EdgeVertex Name="J6zzwGXo" PositionY="-190" PositionX="610" />
 				<EdgeVertex Name="lN2J59cX" PositionY="-460" PositionX="-270" />
 				<EdgeVertex Name="mcUknohM" PositionY="-560" PositionX="790" />
+				<EdgeVertex Name="nPuNCQhT" PositionY="-510" PositionX="570" />
 				<EdgeVertex Name="P98rabDw" PositionY="40" PositionX="-1410" />
+				<EdgeVertex Name="sPHgRUbA" PositionY="880" PositionX="450" />
 				<EdgeVertex Name="SVxY6W1p" PositionY="60" PositionX="-240" />
 				<EdgeVertex Name="t0GFDNHj" PositionY="-275" PositionX="712" />
 				<EdgeVertex Name="TFlAcErI" PositionY="-37" PositionX="-589" />
@@ -353,7 +409,7 @@
 				<EdgeVertex Name="vertex13" PositionY="590" PositionX="280" />
 				<EdgeVertex Name="vertex14" PositionY="624" PositionX="935" />
 				<EdgeVertex Name="vertex15" PositionY="610" PositionX="280" />
-				<EdgeVertex Name="vertex17" PositionY="21" PositionX="79" />
+				<EdgeVertex Name="vertex17" PositionY="20" PositionX="90" />
 				<EdgeVertex Name="vertex18" PositionY="20" PositionX="-90" />
 				<EdgeVertex Name="vertex20" PositionY="20" PositionX="-590" />
 				<EdgeVertex Name="vertex21" PositionY="-10" PositionX="40" />
@@ -379,6 +435,7 @@
 				<EdgeVertex Name="XMmuvUYo" PositionY="-100" PositionX="70" />
 				<EdgeVertex Name="YCNHC2vn" PositionY="551" PositionX="-1569" />
 				<EdgeVertex Name="yFn8zac3" PositionY="-570" PositionX="-280" />
+				<EdgeVertex Name="zVC6j6HE" PositionY="1500" PositionX="1159" />
 			</EdgeVertices>
 			<Types>
 				<Type TypeName="pacholekState">
@@ -394,7 +451,7 @@
 			</Assets>
 			<Notes>
 				<Note Name="note71" PositionY="386" PositionX="359">
-					<Text StringName="pacholek_note71_qp14" Text="TODO(Andy): Co tu definitivně je a ještě není nahlášený:&#xD;&#xA;- při zmlácení by měl pacholek umřít&#xD;&#xA;- když pacholek umře z openworldu, musí se zasavit timer a správně nastavit objectivy (ideálně přeskočit)&#xD;&#xA;- nějaký detaily při přinešení těla do tábora zpátky za SaS možná" />
+					<Text StringName="pacholek_note71_qp14" Text="TODO(Andy): Co tu definitivně je a ještě není nahlášený:&#xD;&#xA;- při zmlácení by měl pacholek umřít&#xD;&#xA;- když pacholek umře z openworldu, musí se zasavit timer a správně nastavit objectivy (ideálně přeskočit)&#xD;&#xA;- nějaký detaily při přinešení těla do tábora zpátky za SaS možná&#xD;&#xA;&#xD;&#xA;Edit: Ondra vyřešil přinešení těla do tábora (v bezvědomí)" />
 				</Note>
 			</Notes>
 			<Text StringName="pacholek_TWFm" Text="Pacholek Vašek" />

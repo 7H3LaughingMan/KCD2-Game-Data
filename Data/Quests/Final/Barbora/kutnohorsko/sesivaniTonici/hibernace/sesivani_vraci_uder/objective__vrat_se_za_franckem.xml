@@ -12,6 +12,9 @@
 				<Port Name="active__jdi_za_franckem" Direction="Out" Type="bool">
 					<DesignName StringName="objective_active__jdi_za__Euid" Text="active - jdi za Franckem" />
 				</Port>
+				<Port Name="vrat_se_za_franckem__aktivni" Direction="Out" Type="trigger">
+					<DesignName StringName="objective_vrat_se_za_fran_QYc5" Text="Vrať se za Franckem - aktivní" />
+				</Port>
 				<Port Name="nekdo_umrel_quest_fail" Direction="Out" Type="trigger">
 					<DesignName StringName="objective_nekdo_umrel_que_nSst" Text="někdo umřel quest fail" />
 				</Port>
@@ -51,6 +54,7 @@
 				<Output Name="Output">
 					<Edge From="goBackToFrancek.Active" To="active__jdi_za_franckem" />
 					<Edge From="triggersequence5.B" To="nekdo_umrel_quest_fail" />
+					<Edge From="goBackToFrancek.OnActive" To="vrat_se_za_franckem__aktivni" />
 				</Output>
 				<quest_fail_deathtrigger Name="quest_fail_deathtrigger" PositionY="180" PositionX="-410" Namespace="sesivanitonici">
 					<Edge From="goBackToFrancek.Active" To="isactive">
@@ -58,6 +62,10 @@
 						<Vertex>vertex2</Vertex>
 					</Edge>
 				</quest_fail_deathtrigger>
+				<SaveGame Name="savegame2" PositionY="-380" PositionX="340">
+					<Constant Name="Objective" Value="vrat_se_za_franckem" />
+					<Edge From="goBackToFrancek.OnActive" To="EnqueueSave" />
+				</SaveGame>
 				<Timer Name="timer4" PositionY="490" PositionX="450">
 					<Constant Name="TimeType" Value="WorldTime" />
 					<Edge From="goBackToFrancek.OnActive" To="SetRunning" />

@@ -18,7 +18,12 @@
 					<Asset Name="Souls" Alias="ttro_cernyBartos" />
 					<Constant Name="Context" Value="trainingGrounds_ableToOfferTraining" />
 				</Function>
-				<Function Name="createdialogparams1" PositionY="840" PositionX="790" MethodName="wh::dialogmodule::CreateDialogParams" DeclaringType="wh::dialogmodule">
+				<ClothingPresetOverride Name="clothingpresetoverride57" PositionY="90" PositionX="2620">
+					<Asset Name="Souls" Alias="ttro_cernyBartos" />
+					<Constant Name="ClothingPreset" Value="97220923-a5f9-4c13-82d8-b23d7d88c898" />
+					<Edge From="state60_1.State" To="IsActive" />
+				</ClothingPresetOverride>
+				<Function Name="createdialogparams1" PositionY="-320" PositionX="720" MethodName="wh::dialogmodule::CreateDialogParams" DeclaringType="wh::dialogmodule">
 					<Asset Name="Participants" Alias="ttro_cernyBartos" />
 				</Function>
 				<dostupnostpoolu Name="dostupnostpoolu" PositionY="130" PositionX="-960">
@@ -28,6 +33,10 @@
 					</Edge>
 					<Edge From="makearray1.Array" To="pool" />
 				</dostupnostpoolu>
+				<If Name="if61" PositionY="260" PositionX="2070">
+					<Edge From="not63.bool" To="Condition" />
+					<Edge From="s_vaskem_po_souboji.afterplay" To="Exec" />
+				</If>
 				<MakeArray Name="makearray1" PositionY="130" PositionX="-1330" TypeT="wh::rpgmodule::Souls">
 					<Asset Name="A" Alias="ttro_man_5" />
 					<Asset Name="B" Alias="ttro_man_11" />
@@ -35,6 +44,12 @@
 					<Asset Name="D" Alias="ttro_man_24" />
 					<Asset Name="E" Alias="ttro_man_25" />
 				</MakeArray>
+				<Function Name="not63" PositionY="530" PositionX="1800" MethodName="math::boolean::Not" DeclaringType="math::boolean">
+					<Edge From="state60.State" To="Value">
+						<Vertex>Phwpt6N7</Vertex>
+						<Vertex>hYgA2Czc</Vertex>
+					</Edge>
+				</Function>
 				<Function Name="or45" PositionY="-560" PositionX="-1370" MethodName="math::boolean::Or" DeclaringType="math::boolean">
 					<Edge From="state3.State" To="A" />
 					<Edge From="hrac_muze_trenovat" To="B" />
@@ -44,7 +59,7 @@
 					<Constant Name="DecisionAlias" Value="trainingGround_zacatekCvicnehoSouboje" />
 					<Edge From="traininggroundmanager.npc_barkuje_zacatek_cvicneho_souboje" To="Exec" />
 				</Function>
-				<Function Name="requestmonologue56_1" PositionY="1270" PositionX="320" MethodName="wh::xgenaimodule::RequestMonologue" DeclaringType="wh::xgenaimodule">
+				<Function Name="requestmonologue56_1" PositionY="1490" PositionX="340" MethodName="wh::xgenaimodule::RequestMonologue" DeclaringType="wh::xgenaimodule">
 					<Asset Name="Souls" Alias="ttro_cernyBartos" />
 					<Constant Name="DecisionAlias" Value="trainingGround_zacatekDalsi" />
 					<Edge From="traininggroundmanager.npc_barkuje_zacatek_ostreho_souboje" To="Exec" />
@@ -70,7 +85,20 @@
 					<Edge From="or45.bool" To="IsActive" />
 				</SchedulerLinkActivation>
 				<State Name="state3" PositionY="-700" PositionX="-1680" TypeT="bool">
-					<Edge From="trainingGrounds_ttro_waitingForPlayer.OnTrigger" To="SetTrue" />
+					<Edge From="trainingGrounds_cernyBartos.OnTrigger" To="SetTrue" />
+				</State>
+				<State Name="state60" PositionY="-20" PositionX="2070" TypeT="bool">
+					<Edge From="traininggroundmanager.npc_barkuje_zacatek_cvicneho_souboje" To="SetTrue">
+						<Vertex>Wvn1EI88</Vertex>
+					</Edge>
+					<Edge From="traininggroundmanager.npc_barkuje_zacatek_ostreho_souboje" To="SetTrue">
+						<Vertex>Wvn1EI88</Vertex>
+					</Edge>
+					<Edge From="s_vaskem_po_souboji.konec_dialogu" To="SetFalse" />
+				</State>
+				<State Name="state60_1" PositionY="90" PositionX="2350" TypeT="bool">
+					<Edge From="if61.True" To="SetFalse" />
+					<Edge From="state60.OnTrue" To="SetTrue" />
 				</State>
 				<TimeOfDayBetweenCheck Name="TimeOfDayBetweenCheck" PositionY="1240" PositionX="790" Namespace="utils.time">
 					<Constant Name="fromtime" Value="18h00m00s" />
@@ -126,7 +154,7 @@
 						<Vertex>vertex16</Vertex>
 					</Edge>
 				</traininggroundmanager>
-				<HasteTrigger Name="trainingGrounds_ttro_waitingForPlayer" PositionY="-700" PositionX="-2000" />
+				<HasteTrigger Name="trainingGrounds_cernyBartos" PositionY="-700" PositionX="-2000" />
 				<treninkovy_souboj Name="treninkovy_souboj" PositionY="480" PositionX="380">
 					<Edge From="traininggroundmanager.trener_se_jenom_brani" To="protivnik_se_jenom_brani" />
 					<Edge From="traininggroundmanager.trener_je_v_treninkovem_souboji" To="trener_je_v_treninkovem_souboji" />
@@ -142,8 +170,10 @@
 				</vasko_je_u_arenky>
 			</Nodes>
 			<EdgeVertices>
+				<EdgeVertex Name="hYgA2Czc" PositionY="-60" PositionX="1840" />
+				<EdgeVertex Name="Phwpt6N7" PositionY="-60" PositionX="2260" />
 				<EdgeVertex Name="vertex1" PositionY="392" PositionX="-215" />
-				<EdgeVertex Name="vertex10" PositionY="157" PositionX="684" />
+				<EdgeVertex Name="vertex10" PositionY="300" PositionX="510" />
 				<EdgeVertex Name="vertex11" PositionY="240" PositionX="400" />
 				<EdgeVertex Name="vertex12" PositionY="571" PositionX="277" />
 				<EdgeVertex Name="vertex13" PositionY="978" PositionX="1335" />
@@ -157,6 +187,7 @@
 				<EdgeVertex Name="vertex7" PositionY="840" PositionX="-100" />
 				<EdgeVertex Name="vertex8" PositionY="910" PositionX="600" />
 				<EdgeVertex Name="vertex9" PositionY="910" PositionX="-160" />
+				<EdgeVertex Name="Wvn1EI88" PositionY="160" PositionX="320" />
 			</EdgeVertices>
 			<Assets>
 				<ProfileAsset Name="arenaBarrier" AssetProfiles="trainingGroundsTrosky_arenaBarrier" />

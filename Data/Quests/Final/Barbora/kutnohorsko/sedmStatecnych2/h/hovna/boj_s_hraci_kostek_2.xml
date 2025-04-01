@@ -18,6 +18,9 @@
 				<Port Name="jindra_se_pustil_do_boje_1" Direction="In" Type="trigger">
 					<DesignName StringName="boj_s_hra_jindra_se_pusti_MNNQ" Text="Jindra se pustil do boje z dialogu" />
 				</Port>
+				<Port Name="hrac_muze_pohrbit_lukostrelce" Direction="Out" Type="trigger">
+					<DesignName StringName="boj_s_hra_hrac_muze_pohrb_UaSW" Text="Hrac muze pohrbit lukostrelce" />
+				</Port>
 			</Ports>
 			<Nodes>
 				<AddFactionRelationBetweenArrays Name="addfactionrelationbetweenarrays2" PositionY="240" PositionX="280">
@@ -75,13 +78,17 @@
 						<Vertex>vertex4</Vertex>
 						<Vertex>vertex5</Vertex>
 					</Edge>
+					<Edge From="fight.OnDone" To="hrac_muze_pohrbit_lukostrelce">
+						<Vertex>XFcqgCDo</Vertex>
+						<Vertex>7BgG2aCA</Vertex>
+					</Edge>
 				</Output>
 				<SetEntityContext Name="setentitycontext10" PositionY="240" PositionX="620">
 					<Constant Name="Context" Value="combat_forceMelee" />
 					<Asset Name="Souls" Alias="gamblers" />
 					<Edge From="or9.bool" To="IsActive" />
 				</SetEntityContext>
-				<skirmish Name="skirmish" PositionY="690" PositionX="280" Namespace="utils.combat">
+				<skirmish Name="skirmish" PositionY="720" PositionX="280" Namespace="utils.combat">
 					<Asset Name="souls1" Alias="player" />
 					<Asset Name="souls2" Alias="gamblers" />
 					<Edge From="fight.Updated" To="isactive" />
@@ -94,10 +101,12 @@
 				</SkirmishTrigger>
 			</Nodes>
 			<EdgeVertices>
+				<EdgeVertex Name="7BgG2aCA" PositionY="710" PositionX="870" />
 				<EdgeVertex Name="vertex4" PositionY="-60" PositionX="270" />
 				<EdgeVertex Name="vertex5" PositionY="-60" PositionX="950" />
 				<EdgeVertex Name="vertex6" PositionY="690" PositionX="560" />
 				<EdgeVertex Name="vertex7" PositionY="690" PositionX="-10" />
+				<EdgeVertex Name="XFcqgCDo" PositionY="710" PositionX="290" />
 			</EdgeVertices>
 			<Text StringName="boj_s_hraci_kostek_2_sO9M" Text="Boj s hráči kostek 2" />
 		</Module>

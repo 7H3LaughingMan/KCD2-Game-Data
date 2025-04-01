@@ -62,6 +62,10 @@
 						<Vertex>vertex185</Vertex>
 					</Edge>
 				</Function>
+				<SoulDeathTrigger Name="deathtrigger14" PositionY="2330" PositionX="-1570">
+					<Asset Name="Souls" Alias="vlach" />
+					<Edge From="postFailDialog.Active" To="IsActive" />
+				</SoulDeathTrigger>
 				<dialog_po_fail_questu Name="dialog_po_fail_questu" PositionY="1440" PositionX="-1570">
 					<Edge From="postFailDialog.Active" To="isactive" />
 					<Edge From="quest_failnul__hrac_polozil_antona_na_zem.anton_po_failu_lezi_na_zemi" To="anton_po_failu_lezi_na_zemi">
@@ -101,6 +105,12 @@
 					<Asset Name="Souls" Alias="player" />
 					<Edge From="postFailDialog.OnActive" To="Exec" />
 				</IfFunction>
+				<marklivingsoul Name="marklivingsoul" PositionY="2060" PositionX="-1570" Namespace="utils.tipsters">
+					<Asset Name="soul" Alias="francek" />
+					<Constant Name="markertype" Value="QuestGiver" />
+					<Edge From="postFailDialog.Active" To="tracktipsters" />
+					<Edge From="postFailDialog.Active" To="markercanbeshown" />
+				</marklivingsoul>
 				<navsteva_u_sesivanejch_toniku Name="navsteva_u_sesivanejch_toniku" PositionY="280" PositionX="-1900">
 					<Edge From="init_questu" To="init_questu" />
 					<Edge From="haste__init_questu.init_quest" To="init_questu">
@@ -159,9 +169,18 @@
 					<Edge From="dialog_po_fail_questu.AfterPlay" To="SetDone">
 						<Vertex>vertex206</Vertex>
 						<Vertex>vertex208</Vertex>
+						<Vertex>CHWHUKRz</Vertex>
 						<Vertex>vertex207</Vertex>
 					</Edge>
 					<Edge From="if5.False" To="SetActive" />
+					<Edge From="marklivingsoul.soul_died_or_came_back_to_life" To="SetDone">
+						<Vertex>CHWHUKRz</Vertex>
+						<Vertex>vertex207</Vertex>
+					</Edge>
+					<Edge From="deathtrigger14.OnDeath" To="SetDone">
+						<Vertex>CHWHUKRz</Vertex>
+						<Vertex>vertex207</Vertex>
+					</Edge>
 				</State>
 				<quest_failnul__hrac_polozil_antona_na_zem Name="quest_failnul__hrac_polozil_antona_na_zem" PositionY="1290" PositionX="-570">
 					<Edge From="hibernace.quest_fail_s_antonem_na_zadech" To="quest_fail_s_antonem_na_zadech" />
@@ -234,6 +253,7 @@
 				<EdgeVertex Name="cpgqC4sU" PositionY="1310" PositionX="-780" />
 				<EdgeVertex Name="e7DhIKDp" PositionY="1310" PositionX="-1930" />
 				<EdgeVertex Name="HzGkl6PT" PositionY="1750" PositionX="-1560" />
+				<EdgeVertex Name="CHWHUKRz" PositionY="1850" PositionX="-1380" />
 				<EdgeVertex Name="nWKNx048" PositionY="1570" PositionX="-560" />
 				<EdgeVertex Name="vertex185" PositionY="580" PositionX="-480" />
 				<EdgeVertex Name="vertex192" PositionY="1340" PositionX="-780" />
@@ -521,8 +541,8 @@
 						</EnumLog>
 					</Logs>
 				</Objective>
-				<Objective TypeT="ProgressFailableAbortable" Name="prines_cervene_ruze" IsOptional="true">
-					<LocalizedName StringName="sesivanit_jdi_pro_kvetiny_ge1B" Text="Přines červené růže." />
+				<Objective TypeT="ProgressFailableAbortable" Name="utrhni_kvetiny_pro_rezy" IsOptional="true">
+					<LocalizedName StringName="sesivanit_jdi_pro_kvetiny_ge1B" Text="Utrhni květiny pro Rézy" />
 					<Logs>
 						<EnumLog Type="None" Name="None" />
 						<EnumLog Type="Started" Name="Started" Marker="area_garden">
@@ -532,13 +552,13 @@
 							<Log StringName="jdi_pro_k_mam_cerstve_kve_Co93" Text="Sehnat čerstvé růže pro Rézy v Kutné Hoře nebylo vážně nic jednoduchého. Tohle hornické město totiž zrovna neoplývá rozkvetlými zahradami, ale v Leflířské čtvrti jsem jednu skrytou zahradu objevil a květiny tam natrhal." />
 						</EnumLog>
 						<EnumLog Type="Canceled" Name="Failed">
-							<Log StringName="prines_ce_neprinesl_jsem__JRgu" Text="Nepřinesl jsem kytici včas a Sešívaní Toníci dokončili obchůzku beze mne. Nejspíš si mysleli, že jsme se na ně vykašlal." />
+							<Log StringName="prines_ce_neprinesl_jsem__JRgu" Text="Nepřinesl jsem kytici včas a Sešívaní Toníci dokončili obchůzku beze mne. Nejspíš si mysleli, že jsem se na ně vykašlal." />
 						</EnumLog>
 						<EnumLog Type="None" Name="Aborted" />
 					</Logs>
 				</Objective>
 				<Objective TypeT="ProgressFailableAbortable" Name="ziskejzpatky_cervene_ruze" IsOptional="true">
-					<LocalizedName StringName="sesivanit_prines_zpatky_c_pTJw" Text="Získej zpět červené růže." />
+					<LocalizedName StringName="sesivanit_prines_zpatky_c_pTJw" Text="Získej zpět květiny." />
 					<Logs>
 						<EnumLog Type="None" Name="None" />
 						<EnumLog Type="Started" Name="Started" Marker="freshFlowers">
@@ -564,7 +584,7 @@
 							<Log StringName="jdi_pro_p_mam_elsinu_vona_myrN" Text="Získal jsem od Else její voňavku. Nebylo to nic moc těžkého, ale trochu šikovnosti to rozhodně chtělo." />
 						</EnumLog>
 						<EnumLog Type="Canceled" Name="Failed">
-							<Log StringName="ziskej_vo_neprinesl_jsem__UV14" Text="Nepřinesl jsem voňavku včas a Sešívaní Toníci dokončili obchůzku beze mne. Nejspíš si mysleli, že jsme se na ně vykašlal." />
+							<Log StringName="ziskej_vo_neprinesl_jsem__UV14" Text="Nepřinesl jsem voňavku včas a Sešívaní Toníci dokončili obchůzku beze mne. Nejspíš si mysleli, že jsem se na ně vykašlal." />
 						</EnumLog>
 						<EnumLog Type="None" Name="Aborted" />
 					</Logs>

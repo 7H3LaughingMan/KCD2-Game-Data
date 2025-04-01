@@ -42,6 +42,9 @@
 				<Port Name="jarka__prokop_byl_prisny" Direction="Out" Type="bool">
 					<DesignName StringName="n1_sluzka_jarka__prokop_b_CGOe" Text="jarka - prokop byl prisny" />
 				</Port>
+				<Port Name="obj_neaktivni" Direction="Out" Type="bool">
+					<DesignName StringName="n1_sluzka_obj_neaktivni_wIQy" Text="obj neaktivní" />
+				</Port>
 			</Ports>
 			<Definitions>
 				<Definition File="n1_sluzka_jarka/rozhovor_s_knezem_o_jarce.xml" />
@@ -92,6 +95,24 @@
 						<Vertex>zzgTjK0P</Vertex>
 					</Edge>
 				</vypatrej_neco_o_pozadi_jarky>
+				<Function Name="or10" PositionY="260" PositionX="760" MethodName="math::boolean::Or" DeclaringType="math::boolean">
+					<Edge From="vysetrovaniJarky.Aborted" To="D">
+						<Vertex>ICeBkPDf</Vertex>
+						<Vertex>rngkHVzE</Vertex>
+					</Edge>
+					<Edge From="vysetrovaniJarky.Failed" To="C">
+						<Vertex>4tJ8zeVA</Vertex>
+						<Vertex>vl1F4qH9</Vertex>
+					</Edge>
+					<Edge From="vysetrovaniJarky.Completed" To="B">
+						<Vertex>mWyWH71o</Vertex>
+						<Vertex>okESRqSm</Vertex>
+					</Edge>
+					<Edge From="vysetrovaniJarky.None" To="A">
+						<Vertex>XaMlp79v</Vertex>
+						<Vertex>YwltyhvI</Vertex>
+					</Edge>
+				</Function>
 				<Output Name="Output">
 					<Edge From="vysetrovaniJarky.OnCompleted" To="hrac_zjistil_vic_o_jarce">
 						<Vertex>vertex46</Vertex>
@@ -130,9 +151,15 @@
 						<Vertex>JspyPjVR</Vertex>
 						<Vertex>CvKTuTgd</Vertex>
 					</Edge>
+					<Edge From="or10.bool" To="obj_neaktivni" />
+					<Edge From="triggersequence11.B" To="hrac_zabil_kneze__quest_failed" />
+					<Edge From="vysetrovaniJarky.OnAborted" To="hrac_zabil_kneze__quest_failed">
+						<Vertex>SfI7nsJY</Vertex>
+						<Vertex>FC54AbPG</Vertex>
+					</Edge>
 					<Edge From="vysetrovaniJarky.OnFailed" To="hrac_zabil_kneze__quest_failed">
-						<Vertex>HwtJyD5o</Vertex>
-						<Vertex>6hSs3KBW</Vertex>
+						<Vertex>SfI7nsJY</Vertex>
+						<Vertex>FC54AbPG</Vertex>
 					</Edge>
 				</Output>
 				<rozhovor_s_knezem_o_jarce Name="rozhovor_s_knezem_o_jarce_1" PositionY="-330" PositionX="-70" RequiredForOutput="kutnohorsko">
@@ -140,13 +167,16 @@
 						<Vertex>vertex32</Vertex>
 					</Edge>
 				</rozhovor_s_knezem_o_jarce>
-				<SaveGame Name="savegame3" PositionY="-240" PositionX="650">
+				<SaveGame Name="savegame3" PositionY="-480" PositionX="670">
 					<Constant Name="Objective" Value="vypatrej_neco_o_pozadi_jarky" />
 					<Edge From="vysetrovaniJarky.OnCompleted" To="EnqueueSave">
 						<Vertex>vertex46</Vertex>
 						<Vertex>vertex49</Vertex>
 					</Edge>
 				</SaveGame>
+				<TriggerSequence Name="triggersequence11" PositionY="-200" PositionX="670">
+					<Edge From="deathtrigger2.OnDeath" To="Exec" />
+				</TriggerSequence>
 				<State Name="vysetrovaniJarky" PositionY="-450" PositionX="-690" RequiredForOutput="kutnohorsko" TypeT="ProgressFailableAbortable">
 					<Edge From="hrac_ma_zjistit_vic_o_jarce" To="SetStarted">
 						<Vertex>vertex24</Vertex>
@@ -157,23 +187,28 @@
 					</Edge>
 					<Edge From="kubaParalu_jarkaDone.OnTrigger" To="SetCompleted" />
 					<Edge From="ifand2.True" To="SetAborted" />
-					<Edge From="deathtrigger2.OnDeath" To="SetFailed">
+					<Edge From="if9.True" To="SetAborted" />
+					<Edge From="triggersequence11.A" To="SetFailed">
 						<Vertex>vertex19</Vertex>
 						<Vertex>vertex34</Vertex>
 					</Edge>
-					<Edge From="if9.True" To="SetAborted" />
 				</State>
 			</Nodes>
 			<EdgeVertices>
-				<EdgeVertex Name="6hSs3KBW" PositionY="202" PositionX="961" />
+				<EdgeVertex Name="4tJ8zeVA" PositionY="260" PositionX="-340" />
 				<EdgeVertex Name="CvKTuTgd" PositionY="140" PositionX="960" />
-				<EdgeVertex Name="HwtJyD5o" PositionY="195" PositionX="-341" />
+				<EdgeVertex Name="FC54AbPG" PositionY="341" PositionX="634" />
+				<EdgeVertex Name="ICeBkPDf" PositionY="280" PositionX="-340" />
 				<EdgeVertex Name="JspyPjVR" PositionY="140" PositionX="340" />
+				<EdgeVertex Name="mWyWH71o" PositionY="240" PositionX="-340" />
 				<EdgeVertex Name="nynFscpG" PositionY="210" PositionX="-950" />
+				<EdgeVertex Name="okESRqSm" PositionY="240" PositionX="670" />
+				<EdgeVertex Name="rngkHVzE" PositionY="280" PositionX="670" />
+				<EdgeVertex Name="SfI7nsJY" PositionY="357" PositionX="-299" />
 				<EdgeVertex Name="vc8e8y4n" PositionY="180" PositionX="340" />
 				<EdgeVertex Name="vertex15" PositionY="80" PositionX="200" />
 				<EdgeVertex Name="vertex16" PositionY="80" PositionX="-670" />
-				<EdgeVertex Name="vertex19" PositionY="60" PositionX="620" />
+				<EdgeVertex Name="vertex19" PositionY="60" PositionX="850" />
 				<EdgeVertex Name="vertex24" PositionY="-230" PositionX="-1380" />
 				<EdgeVertex Name="vertex26" PositionY="-190" PositionX="-1040" />
 				<EdgeVertex Name="vertex28" PositionY="160" PositionX="960" />
@@ -200,9 +235,12 @@
 				<EdgeVertex Name="vertex62" PositionY="120" PositionX="960" />
 				<EdgeVertex Name="vertex63" PositionY="120" PositionX="340" />
 				<EdgeVertex Name="vertex7" PositionY="160" PositionX="-1380" />
+				<EdgeVertex Name="vl1F4qH9" PositionY="260" PositionX="670" />
+				<EdgeVertex Name="XaMlp79v" PositionY="220" PositionX="-340" />
 				<EdgeVertex Name="yHzD4ylQ" PositionY="210" PositionX="-500" />
 				<EdgeVertex Name="yNgfDL5D" PositionY="180" PositionX="960" />
 				<EdgeVertex Name="YPCs1UTN" PositionY="100" PositionX="200" />
+				<EdgeVertex Name="YwltyhvI" PositionY="220" PositionX="670" />
 				<EdgeVertex Name="zzgTjK0P" PositionY="100" PositionX="-220" />
 			</EdgeVertices>
 			<Text StringName="n1_sluzka_jarka_MCQP" Text="1. Služka Jarka" />

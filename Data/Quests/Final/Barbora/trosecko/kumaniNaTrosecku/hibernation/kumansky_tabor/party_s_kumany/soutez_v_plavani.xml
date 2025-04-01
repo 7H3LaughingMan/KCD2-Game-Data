@@ -45,13 +45,18 @@
 				<addbloodallbodyparts Name="addbloodallbodyparts" PositionY="-540" PositionX="1180" Namespace="utils.general">
 					<Asset Name="soul" Alias="player" />
 					<Constant Name="value" Value="-1" />
+					<Constant Name="absolute" Value="false" />
 					<Edge From="adddirt44.OnExec" To="add_blood" />
 				</addbloodallbodyparts>
-				<Function Name="addbuff_hangover" PositionY="10" PositionX="2900" MethodName="wh::rpgmodule::AddBuff" DeclaringType="wh::rpgmodule">
+				<Function Name="addbuff_hangover" PositionY="30" PositionX="3620" MethodName="wh::rpgmodule::AddBuff" DeclaringType="wh::rpgmodule">
 					<Asset Name="Souls" Alias="player" />
 					<Constant Name="Buff" Value="75ad69c0-51be-451f-a455-00ea054b5da0" />
-					<Edge From="drinkingWithCumansTimeskip_cutscenehandler.AfterPlay" To="Exec">
-						<Vertex>BrlvGBhh</Vertex>
+					<Edge From="addbuff_removeDrunkness.OnExec" To="Exec" />
+				</Function>
+				<Function Name="addbuff_removeDrunkness" PositionY="30" PositionX="3290" MethodName="wh::rpgmodule::AddBuff" DeclaringType="wh::rpgmodule">
+					<Asset Name="Souls" Alias="player" />
+					<Constant Name="Buff" Value="e928b585-1391-4cbd-84b2-4ed573263efa" />
+					<Edge From="advanceworldtime56.OnExec" To="Exec">
 						<Vertex>vertex70</Vertex>
 					</Edge>
 				</Function>
@@ -60,6 +65,10 @@
 					<Constant Name="Value" Value="-1" />
 					<Edge From="audiooneshot_swimming.OnExec" To="Exec" />
 				</MemberFunction>
+				<Function Name="advanceworldtime56" PositionY="30" PositionX="2870" MethodName="wh::rpgmodule::AdvanceWorldTime" DeclaringType="wh::rpgmodule">
+					<Constant Name="TimeOfDay" Value="6h" />
+					<Edge From="drinkingWithCumansTimeskip_cutscenehandler.AfterPlay" To="Exec" />
+				</Function>
 				<Function Name="and_shouldHenryBeWet" PositionY="740" PositionX="1690" MethodName="math::boolean::And" DeclaringType="math::boolean">
 					<Edge From="not_dialogInitTimerStopped.bool" To="A" />
 					<Edge From="not_partyOver.bool" To="B" />
@@ -101,13 +110,7 @@
 						<Vertex>qRCtX5sU</Vertex>
 					</Edge>
 				</BodyPartOverride>
-				<BuffEffect Name="buff_vision" PositionY="-1250" PositionX="20">
-					<Asset Name="Souls" Alias="player" />
-					<Constant Name="BuffGUID" Value="43c56ec5-676e-4ab4-b7e3-f2765f479b83" />
-					<Edge From="greaterVision.Active" To="IsActive" />
-				</BuffEffect>
 				<Function Name="createdialogparams11" PositionY="40" PositionX="880" MethodName="wh::dialogmodule::CreateDialogParams" DeclaringType="wh::dialogmodule">
-					<Constant Name="RotateParticipants" Value="true" />
 					<Edge From="makearray45.Array" To="Participants" />
 				</Function>
 				<Function Name="createdialogparams4" PositionY="80" PositionX="-1240" MethodName="wh::dialogmodule::CreateDialogParams" DeclaringType="wh::dialogmodule">
@@ -307,10 +310,9 @@
 				<PatchTrigger Name="patchtrigger_KCD2_469569" PositionY="-670" PositionX="1550">
 					<Constant Name="TransitionFromVersion" Value="ver_01_00" />
 				</PatchTrigger>
-				<PlayerAction_WakeUpOnBed Name="PlayerAction_WakeUpOnBed" PositionY="280" PositionX="2900" Namespace="utils.player">
+				<PlayerAction_WakeUpOnBed Name="PlayerAction_WakeUpOnBed" PositionY="290" PositionX="3260" Namespace="utils.player">
 					<Asset Name="targetobject" Alias="henrysBedInCamp" />
-					<Edge From="drinkingWithCumansTimeskip_cutscenehandler.AfterPlay" To="wakeuponbed">
-						<Vertex>BrlvGBhh</Vertex>
+					<Edge From="advanceworldtime56.OnExec" To="wakeuponbed">
 						<Vertex>vertex70</Vertex>
 					</Edge>
 				</PlayerAction_WakeUpOnBed>
@@ -331,7 +333,7 @@
 					<Constant Name="DecisionAlias" Value="kumaniNaTrosecku_henryStojiNaKladeANeviCoDelat" />
 					<Edge From="scenefinishedwaiter32.OnFinished" To="Exec" />
 				</Function>
-				<AddReward Name="reward34" PositionY="390" PositionX="3220">
+				<AddReward Name="reward34" PositionY="390" PositionX="3840">
 					<Edge From="drinkingWithCumansTimeskip_cutscenehandler.OnFinished" To="AddReward">
 						<Vertex>KSMv5qh7</Vertex>
 						<Vertex>vertex73</Vertex>
@@ -423,7 +425,6 @@
 			<EdgeVertices>
 				<EdgeVertex Name="53d6LRqv" PositionY="92" PositionX="-311" />
 				<EdgeVertex Name="8vh4qhMz" PositionY="660" PositionX="490" />
-				<EdgeVertex Name="BrlvGBhh" PositionY="110" PositionX="2760" />
 				<EdgeVertex Name="CTq8LFjE" PositionY="1227" PositionX="-1467" />
 				<EdgeVertex Name="duJtKg1L" PositionY="-240" PositionX="-1210" />
 				<EdgeVertex Name="g8D1KmsQ" PositionY="-110" PositionX="10" />
@@ -436,13 +437,13 @@
 				<EdgeVertex Name="qa05jwRh" PositionY="564" PositionX="1418" />
 				<EdgeVertex Name="qRCtX5sU" PositionY="830" PositionX="1970" />
 				<EdgeVertex Name="tq6rcIvs" PositionY="220" PositionX="400" />
-				<EdgeVertex Name="tq9uRY3L" PositionY="260" PositionX="3510" />
+				<EdgeVertex Name="tq9uRY3L" PositionY="260" PositionX="4020" />
 				<EdgeVertex Name="tSn4oM7o" PositionY="100" PositionX="60" />
 				<EdgeVertex Name="TvRl7aGH" PositionY="50" PositionX="1940" />
 				<EdgeVertex Name="Udva6R9M" PositionY="1120" PositionX="-1090" />
 				<EdgeVertex Name="UL5gWdDx" PositionY="-50" PositionX="2940" />
 				<EdgeVertex Name="vertex15" PositionY="550" PositionX="-1180" />
-				<EdgeVertex Name="vertex25" PositionY="530" PositionX="3680" />
+				<EdgeVertex Name="vertex25" PositionY="540" PositionX="4040" />
 				<EdgeVertex Name="vertex26" PositionY="550" PositionX="240" />
 				<EdgeVertex Name="vertex3" PositionY="1200" PositionX="1220" />
 				<EdgeVertex Name="vertex31" PositionY="1000" PositionX="900" />
@@ -463,10 +464,10 @@
 				<EdgeVertex Name="vertex65" PositionY="580" PositionX="-718" />
 				<EdgeVertex Name="vertex66" PositionY="-80" PositionX="1210" />
 				<EdgeVertex Name="vertex68" PositionY="280" PositionX="-370" />
-				<EdgeVertex Name="vertex70" PositionY="110" PositionX="2820" />
+				<EdgeVertex Name="vertex70" PositionY="120" PositionX="3180" />
 				<EdgeVertex Name="vertex71" PositionY="60" PositionX="-1410" />
 				<EdgeVertex Name="vertex72" PositionY="47" PositionX="-1112" />
-				<EdgeVertex Name="vertex73" PositionY="480" PositionX="2840" />
+				<EdgeVertex Name="vertex73" PositionY="490" PositionX="3200" />
 				<EdgeVertex Name="vlwT3DD0" PositionY="-314" PositionX="-932" />
 				<EdgeVertex Name="YcoKRp4X" PositionY="1240" PositionX="-1490" />
 				<EdgeVertex Name="yFHlSBXX" PositionY="303" PositionX="1862" />
@@ -503,6 +504,14 @@
 				<CameraAsset Name="poplavani_customCamera_11" />
 				<CameraAsset Name="poplavani_customCamera_12" />
 			</Assets>
+			<Notes>
+				<Note Name="note55" PositionY="-1500" PositionX="-310">
+					<Text StringName="soutez_v__note55_E9NR" Text="NOTE(Andy): Disconnected state is left here for patching information.&#xD;&#xA;&#xD;&#xA;Was: Active -&gt; Buff onIslandVision" />
+				</Note>
+				<Note Name="note57" PositionY="-20" PositionX="2840">
+					<Text StringName="soutez_v__note57_s5gv" Text="NOTE(Andy): After this there is a timer started, order of operation is important so that the timer is not expired immediately." />
+				</Note>
+			</Notes>
 			<Text StringName="druha__soutez_v_plavani_L9RQ" Text="Soutěž v plavání" />
 		</Gameplay>
 	</Skald>

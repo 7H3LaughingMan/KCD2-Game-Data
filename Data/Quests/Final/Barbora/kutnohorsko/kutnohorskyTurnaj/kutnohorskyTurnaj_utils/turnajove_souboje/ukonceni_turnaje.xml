@@ -3,6 +3,9 @@
 	<Skald>
 		<Module Name="ukonceni_turnaje">
 			<Ports>
+				<Port Name="hrac_spachal_crime" Direction="In" Type="trigger">
+					<DesignName StringName="ukonceni__hrac_spachal_cr_2xX8" Text="hráč spáchal crime" />
+				</Port>
 				<Port Name="hrac_si_vyzvedl_jednu_odmenu" Direction="In" Type="trigger">
 					<DesignName StringName="ukonceni__hrac_si_vyzvedl_ijTn" Text="hráč si vyzvedl jednu odměnu" />
 				</Port>
@@ -24,6 +27,9 @@
 				<Port Name="konec_turnaje_vyhlasen" Direction="In" Type="bool">
 					<DesignName StringName="ukonceni__konec_turnaje_v_D5Ot" Text="konec turnaje vyhlášen" />
 				</Port>
+				<Port Name="zrusit_bezici_objectivy" Direction="Out" Type="trigger">
+					<DesignName StringName="ukonceni__zrusit_bezici_o_tac0" Text="zrušit bežící objectivy" />
+				</Port>
 				<Port Name="zrusit_objectiv_s_vracenim_vybavy" Direction="Out" Type="trigger">
 					<DesignName StringName="ukonceni__zrusit_objectiv_gzDo" Text="zrušit objectiv s vrácením výbavy" />
 				</Port>
@@ -44,6 +50,12 @@
 				</Port>
 				<Port Name="obj_jdi_na_turnaj_active" Direction="In" Type="bool">
 					<DesignName StringName="ukonceni__obj_jdi_na_turn_P0QD" Text="Obj Jdi na Turnaj active" />
+				</Port>
+				<Port Name="obj_pockej_na_konec_active" Direction="In" Type="bool">
+					<DesignName StringName="ukonceni__obj_pockej_na_k_6SXn" Text="Obj Počkej na konec done" />
+				</Port>
+				<Port Name="obj_vyckej_do_konce_done" Direction="In" Type="trigger">
+					<DesignName StringName="ukonceni__obj_vyckej_do_k_GoUd" Text="Obj vyckej do konce done" />
 				</Port>
 			</Ports>
 			<Nodes>
@@ -92,7 +104,7 @@
 						<Vertex>BqsVdepu</Vertex>
 					</Edge>
 				</If>
-				<If Name="if108" PositionY="-330" PositionX="2400">
+				<If Name="if108" PositionY="-330" PositionX="2070">
 					<Edge From="ifand104.True" To="Exec">
 						<Vertex>BqsVdepu</Vertex>
 						<Vertex>tsPW4AT5</Vertex>
@@ -154,6 +166,10 @@
 						<Vertex>4q3X9Es5</Vertex>
 						<Vertex>p82V4Iyq</Vertex>
 					</Edge>
+					<Edge From="hrac_spachal_crime" To="Exec">
+						<Vertex>FvNA8Y3n</Vertex>
+						<Vertex>snUNuzs6</Vertex>
+					</Edge>
 				</IfFunction>
 				<IfFunction Name="ifcompare96_1" PositionY="200" PositionX="2290" TypeT="PlayerTournamentPreset" MethodName="Control::Compare" DeclaringType="Control">
 					<Constant Name="Op" Value="Equals" />
@@ -176,7 +192,17 @@
 						<Vertex>mvQbcuq8</Vertex>
 					</Edge>
 					<Edge From="compare1_1.bool" To="A" />
+					<Edge From="obj_vyckej_do_konce_done" To="Exec">
+						<Vertex>b78fcmTP</Vertex>
+					</Edge>
 				</IfFunction>
+				<If Name="ifVyckejObjActive" PositionY="-390" PositionX="2410">
+					<Edge From="if108.False" To="Exec" />
+					<Edge From="obj_pockej_na_konec_active" To="Condition">
+						<Vertex>C0C3MrCK</Vertex>
+						<Vertex>FA9Jz5pL</Vertex>
+					</Edge>
+				</If>
 				<konstanty Name="konstanty" PositionY="520" PositionX="210" Namespace="" />
 				<Function Name="not105" PositionY="470" PositionX="-520" MethodName="math::boolean::Not" DeclaringType="math::boolean">
 					<Edge From="hrac_si_muze_vyzvednout_odmenu" To="Value" />
@@ -188,7 +214,8 @@
 					<Edge From="ifcompare96.True" To="hrac_nevratil_vybavu_s_mecem_a_stitem" />
 					<Edge From="ifcompare96_1.True" To="hrac_nevratil_vybavu_s_dlouhym_mecem" />
 					<Edge From="if108.True" To="turnaj_konci_failed_hrac_neprisel" />
-					<Edge From="if108.False" To="turnaj_konci_completed" />
+					<Edge From="triggersequence111.A" To="zrusit_bezici_objectivy" />
+					<Edge From="triggersequence111.B" To="turnaj_konci_completed" />
 				</Output>
 				<Timer Name="timer_returnEquipLenience" PositionY="120" PositionX="620">
 					<Constant Name="TimeType" Value="WorldTime" />
@@ -204,6 +231,9 @@
 						<Vertex>B2vxd4fj</Vertex>
 					</Edge>
 				</Timer>
+				<TriggerSequence Name="triggersequence111" PositionY="-390" PositionX="2670">
+					<Edge From="ifVyckejObjActive.False" To="Exec" />
+				</TriggerSequence>
 				<TriggerSequence Name="triggersequence95" PositionY="20" PositionX="1460">
 					<Edge From="if10_1.True" To="Exec" />
 				</TriggerSequence>
@@ -216,19 +246,24 @@
 				<EdgeVertex Name="8nWb0M1u" PositionY="-18" PositionX="37" />
 				<EdgeVertex Name="a6EIkeC8" PositionY="619" PositionX="1144" />
 				<EdgeVertex Name="B2vxd4fj" PositionY="622" PositionX="641" />
+				<EdgeVertex Name="b78fcmTP" PositionY="182" PositionX="-333" />
 				<EdgeVertex Name="BqsVdepu" PositionY="-140" PositionX="180" />
+				<EdgeVertex Name="C0C3MrCK" PositionY="-193" PositionX="-357" />
 				<EdgeVertex Name="DIIvjfJV" PositionY="680" PositionX="-590" />
 				<EdgeVertex Name="dpjaT9cS" PositionY="-50" PositionX="830" />
 				<EdgeVertex Name="exlXqtx1" PositionY="-70" PositionX="1820" />
+				<EdgeVertex Name="FA9Jz5pL" PositionY="-170" PositionX="2300" />
 				<EdgeVertex Name="FjDEfkDY" PositionY="156" PositionX="41" />
+				<EdgeVertex Name="FvNA8Y3n" PositionY="-458" PositionX="-661" />
 				<EdgeVertex Name="JqY66Mge" PositionY="10" PositionX="-220" />
 				<EdgeVertex Name="kBQlJKQz" PositionY="-50" PositionX="340" />
 				<EdgeVertex Name="LqhMCGS0" PositionY="-209" PositionX="-380" />
 				<EdgeVertex Name="M1P2sf8f" PositionY="790" PositionX="-600" />
 				<EdgeVertex Name="mvQbcuq8" PositionY="-20" PositionX="-210" />
-				<EdgeVertex Name="ob83JuLa" PositionY="-160" PositionX="2250" />
+				<EdgeVertex Name="ob83JuLa" PositionY="-150" PositionX="1950" />
 				<EdgeVertex Name="p82V4Iyq" PositionY="320" PositionX="1860" />
 				<EdgeVertex Name="PxJu15Ab" PositionY="-321" PositionX="992" />
+				<EdgeVertex Name="snUNuzs6" PositionY="-471" PositionX="1783" />
 				<EdgeVertex Name="tsPW4AT5" PositionY="-150" PositionX="1370" />
 				<EdgeVertex Name="w3A9wA1h" PositionY="-150" PositionX="1770" />
 				<EdgeVertex Name="yz9hSg5M" PositionY="161" PositionX="-107" />

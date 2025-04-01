@@ -1684,7 +1684,9 @@
 															<Sequence>
 																<Wait duration="&apos;10s&apos;" timeType="GameTime" doFail="false" variation="&apos;10s&apos;" />
 																<InstantSemaphore SemaphoreCount="1" LockManagerType="Intellect" SemaphoreName="&apos;carts_driverCurrentlyTalking&apos;">
-																	<Function_speech_schedulerMonolog alias="" animationApproach="$enum:animationApproach.dontPlayDialogAnimations" context="" lookAtId="" metarole="&apos;VOZY_A_KARAVANY_VOZKA_POPOHANENI&apos;" skipInLod="true" subtitlesDown="false" nodeLabel="98120698" />
+																	<SuppressFailure>
+																		<Function_speech_schedulerMonolog alias="" animationApproach="$enum:animationApproach.dontPlayDialogAnimations" context="" lookAtId="" metarole="&apos;VOZY_A_KARAVANY_VOZKA_POPOHANENI&apos;" skipInLod="true" subtitlesDown="false" nodeLabel="98120698" />
+																	</SuppressFailure>
 																</InstantSemaphore>
 															</Sequence>
 														</While>
@@ -1972,9 +1974,12 @@
 																	</Wait>
 																	<InstantSemaphore hasInputBreakpoint="0" comment="" breakpointFlags="0">
 																		<OutputBreakpoints />
-																		<Function_speech_schedulerMonolog hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																		<SuppressFailure hasInputBreakpoint="0" comment="" breakpointFlags="0">
 																			<OutputBreakpoints />
-																		</Function_speech_schedulerMonolog>
+																			<Function_speech_schedulerMonolog hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																				<OutputBreakpoints />
+																			</Function_speech_schedulerMonolog>
+																		</SuppressFailure>
 																	</InstantSemaphore>
 																</Sequence>
 															</While>
@@ -2354,7 +2359,7 @@
 						</EntityContextBarrier>
 						<IfElseCondition failOnCondition="false" condition="$horse ~= $__null" saveVersion="2">
 							<Then canSkip="1">
-								<StanceElement smartObject="$horse" stance="horse" allowAny="false">
+								<StanceElement smartObject="$horse" stance="horse" allowAny="false" enabled="true">
 									<Sequence>
 										<WaitAction />
 										<IncludeTree File="&apos;carts/carts.xml&apos;" Name="&apos;cart_formationMovement&apos;" nodeLabel="66290189" />
@@ -2362,7 +2367,10 @@
 								</StanceElement>
 							</Then>
 							<Else canSkip="1">
-								<IncludeTree File="&apos;carts/carts.xml&apos;" Name="&apos;cart_formationMovement&apos;" nodeLabel="27736642" />
+								<Sequence>
+									<WaitAction />
+									<IncludeTree File="&apos;carts/carts.xml&apos;" Name="&apos;cart_formationMovement&apos;" nodeLabel="27736642" />
+								</Sequence>
 							</Else>
 						</IfElseCondition>
 					</Parallel>
@@ -2430,9 +2438,15 @@
 									</StanceElement>
 								</Then>
 								<Else>
-									<IncludeTree hasInputBreakpoint="0" comment="" breakpointFlags="0">
+									<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
 										<OutputBreakpoints />
-									</IncludeTree>
+										<WaitAction hasInputBreakpoint="0" comment="" breakpointFlags="0">
+											<OutputBreakpoints />
+										</WaitAction>
+										<IncludeTree hasInputBreakpoint="0" comment="" breakpointFlags="0">
+											<OutputBreakpoints />
+										</IncludeTree>
+									</Sequence>
 								</Else>
 							</IfElseCondition>
 						</Parallel>

@@ -21,6 +21,9 @@
 				<Port Name="tour_do_troskovic_je_aktivni" Direction="In" Type="bool">
 					<DesignName StringName="semin_a_s_tour_do_troskov_rI5N" Text="Tour do Troskovic je aktivní" />
 				</Port>
+				<Port Name="vykaslani_je_ve_stavu_objectivedonekovar" Direction="In" Type="bool">
+					<DesignName StringName="semin_a_s_vykaslani_je_ve_IPjl" Text="Vykašlání je ve stavu ObjectiveDoneKovář" />
+				</Port>
 			</Ports>
 			<Definitions>
 				<Definition File="semin_a_suk_bez_hrace/slezni_z_koni.xml" />
@@ -31,6 +34,9 @@
 						<Vertex>qf446aLn</Vertex>
 					</Edge>
 					<Edge From="tourStatesCrossroadsAndRocks.ActiveFirstHalf" To="B" />
+					<Edge From="not8_1.bool" To="C">
+						<Vertex>djLvwIBS</Vertex>
+					</Edge>
 				</Function>
 				<Function Name="and7_1" PositionY="-450" PositionX="320" MethodName="math::boolean::And" DeclaringType="math::boolean">
 					<Edge From="tourStatesCrossroadsAndRocks.ActiveSecondHalfPredVozem" To="B">
@@ -39,13 +45,19 @@
 					<Edge From="not8.bool" To="A">
 						<Vertex>qf446aLn</Vertex>
 					</Edge>
+					<Edge From="not8_1.bool" To="C">
+						<Vertex>djLvwIBS</Vertex>
+					</Edge>
 				</Function>
-				<Function Name="and7_2" PositionY="-580" PositionX="620" MethodName="math::boolean::And" DeclaringType="math::boolean">
+				<Function Name="and7_2" PositionY="-590" PositionX="620" MethodName="math::boolean::And" DeclaringType="math::boolean">
 					<Edge From="tourStatesCrossroadsAndRocks.ActiveSecondHalfPoVoze" To="B">
 						<Vertex>vertex17</Vertex>
 					</Edge>
 					<Edge From="not8.bool" To="A">
 						<Vertex>qf446aLn</Vertex>
+					</Edge>
+					<Edge From="not8_1.bool" To="C">
+						<Vertex>djLvwIBS</Vertex>
 					</Edge>
 				</Function>
 				<State Name="crossroadsStates" PositionY="430" PositionX="-1520" TypeT="StateKrizovatek">
@@ -84,6 +96,9 @@
 						<Vertex>wlfktWn6</Vertex>
 					</Edge>
 				</Function>
+				<Function Name="not8_1" PositionY="-470" PositionX="-1750" MethodName="math::boolean::Not" DeclaringType="math::boolean">
+					<Edge From="vykaslani_je_ve_stavu_objectivedonekovar" To="Value" />
+				</Function>
 				<Output Name="Output">
 					<Edge From="tour_advanced_1_1.onsuccess" To="finished" />
 				</Output>
@@ -105,6 +120,7 @@
 					<Constant Name="movementspeed" Value="run" />
 					<Asset Name="currenttagpoint" Alias="seminCrossroadTwoPoint" />
 					<Asset Name="finaltagpoint" Alias="seminCrossroadTwoPoint" />
+					<Constant Name="disableorca" Value="false" />
 					<Constant Name="followtype" Value="none" />
 					<Asset Name="followablesoul" Alias="semin" />
 					<Constant Name="followablesoulpreferedposition" Value="none" />
@@ -148,6 +164,7 @@
 					<Constant Name="movementspeed" Value="alertedWalk" />
 					<Asset Name="currenttagpoint" Alias="sukFindingCluesCrossroadTwo3" />
 					<Asset Name="finaltagpoint" Alias="sukFindingCluesCrossroadTwo3" />
+					<Constant Name="disableorca" Value="false" />
 					<Constant Name="followtype" Value="none" />
 					<Asset Name="followablesoul" Alias="semin" />
 					<Constant Name="followablesoulpreferedposition" Value="None" />
@@ -191,6 +208,7 @@
 					<Constant Name="movementspeed" Value="alertedWalk" />
 					<Asset Name="currenttagpoint" Alias="seminToRocksPoint" />
 					<Asset Name="finaltagpoint" Alias="seminToRocksPoint" />
+					<Constant Name="disableorca" Value="false" />
 					<Constant Name="followtype" Value="none" />
 					<Asset Name="followablesoul" Alias="semin" />
 					<Constant Name="followablesoulpreferedposition" Value="None" />
@@ -240,6 +258,7 @@
 			</Nodes>
 			<EdgeVertices>
 				<EdgeVertex Name="qf446aLn" PositionY="-500" PositionX="-40" />
+				<EdgeVertex Name="djLvwIBS" PositionY="-460" PositionX="-140" />
 				<EdgeVertex Name="vertex1" PositionY="1250" PositionX="410" />
 				<EdgeVertex Name="vertex10" PositionY="1300" PositionX="-410" />
 				<EdgeVertex Name="vertex11" PositionY="140" PositionX="70" />

@@ -14,10 +14,10 @@
 				</Port>
 			</Ports>
 			<Text StringName="smlouvani_v_obchode_zena__aTGf" Text="SMLOUVÁNÍ V OBCHODĚ (ŽENA)" />
-			<Dialogue TechnicalStatus="Enabled" AllowFarewell="false" AllowGreeting="false" Priority="1">
+			<Dialogue TechnicalStatus="Enabled" AllowFarewell="false" AllowGreeting="false" Priority="1" GesturesSetDate="2024-10-24T17:04:48.3751866+02:00" GesturesSetResponseCount="102">
 				<SelectedSouls>
 					<SelectedSoul Role="HRAC" Voice="tomMcKay" Type="Wave" Language="ENG" />
-					<SelectedSoul Role="SMLOUVANI_ZENA" Voice="abigailRice" Type="Wave" Language="ENG" />
+					<SelectedSoul Role="SMLOUVANI_ZENA" Voice="F49" Soul="kkut_woman_20" Type="Wave" Language="ENG" />
 				</SelectedSouls>
 				<Decision Name="23469" Priority="General" Alias="bribeHaggleNegotiationWoman" Included="true" Autoselect="true">
 					<Sequences>
@@ -35,8 +35,12 @@
 									<Sequence EntryCondition="gvar('haggle_suspiciousness_reaction') == 0" EndType="GoTo" GoToDecision="23479" Name="seq2">
 										<DesignName StringName="smlouvani_seq2_BDZ7" Text="seq2" />
 										<Elements>
-											<Response Role="HRAC">
+											<Response Role="HRAC" ReferenceLength="1.36">
 												<Text StringName="smlo_henry_pojdme_si_prom_kT7n" Text="Pojďme si promluvit o ceně..." />
+												<Commands>
+													<FacialMoodCommand FacialMood="thinking1" />
+													<CameraCommand Delay="0.02" CameraType="CloseUp" />
+												</Commands>
 												<Comments>
 													<Item Date="2015-11-18 21:26:03" UserName="martin.sourek" Text="Random" />
 													<Item Date="2015-11-25 15:56:20" UserName="david.horak" Text="Pro smlouvání" />
@@ -47,8 +51,13 @@
 									<Sequence EntryCondition="gvar('haggle_suspiciousness_reaction') == 0" EndType="GoTo" GoToDecision="23479" Name="seq3">
 										<DesignName StringName="smlouvani_seq3_SyKW" Text="seq3" />
 										<Elements>
-											<Response Role="HRAC">
+											<Response Role="HRAC" ReferenceLength="1.88">
 												<Text StringName="smlo_henry_neco_bych_udel_9d83" Text="Něco bych udělal s tou cenou..." />
+												<Commands>
+													<FacialMoodCommand FacialMood="thinking2" />
+													<AnimationCommand Delay="0.02" FragmentId="ADLG_Gesture" Guid="002ace53-8d31-4d61-b729-4bae5c80b2e5" Variant="0" />
+													<CameraCommand Delay="0.02" CameraType="CloseUp" />
+												</Commands>
 												<Comments>
 													<Item Date="2015-11-25 15:56:25" UserName="david.horak" Text="Pro smlouvání" />
 												</Comments>
@@ -58,8 +67,13 @@
 									<Sequence EntryCondition="gvar('haggle_suspiciousness_reaction') == 0" EndType="GoTo" GoToDecision="23479" Name="seq4">
 										<DesignName StringName="smlouvani_seq4_09Be" Text="seq4" />
 										<Elements>
-											<Response Role="HRAC">
+											<Response Role="HRAC" ReferenceLength="1.57">
 												<Text StringName="smlo_henry_rad_bych_se_po_I3Qk" Text="Rád bych se pobavil o té ceně." />
+												<Commands>
+													<FacialMoodCommand FacialMood="thinking1" />
+													<AnimationCommand Delay="0.02" FragmentId="ADLG_Gesture" Guid="f897a1b3-c338-416e-88ea-7345a13432a2" Variant="26" />
+													<CameraCommand Delay="0.02" CameraType="CloseUp" />
+												</Commands>
 												<Comments>
 													<Item Date="2015-12-14 12:31:33" UserName="david.horak" Text="Pro smlouvání" />
 												</Comments>
@@ -69,8 +83,13 @@
 									<Sequence EntryCondition="gvar('haggle_suspiciousness_reaction') == 0" EndType="Decision" Name="seq5">
 										<DesignName StringName="smlouvani_seq5_OhYt" Text="seq5" />
 										<Elements>
-											<Response Role="HRAC">
+											<Response Role="HRAC" ReferenceLength="1.22">
 												<Text StringName="smlo_henry_dal_bych_rec_o_EHV2" Text="Dal bych řeč o ceně..." />
+												<Commands>
+													<FacialMoodCommand FacialMood="thinking3" />
+													<AnimationCommand Delay="0" FragmentId="ADLG_Gesture" Guid="5d70018a-2501-4f38-bd2e-e946f1527032" Variant="9" />
+													<CameraCommand Delay="0.02" CameraType="CloseUp" />
+												</Commands>
 												<Comments>
 													<Item Date="2015-11-25 15:56:33" UserName="david.horak" Text="Pro smlouvání" />
 												</Comments>
@@ -92,13 +111,15 @@
 															<Sequence EndType="Decision" Name="seq65">
 																<DesignName StringName="smlouvani_seq65_NT5R" Text="seq65" />
 																<Elements>
-																	<Response Role="SMLOUVANI_ZENA">
+																	<Response Role="SMLOUVANI_ZENA" ReferenceLength="2">
 																		<Parenthetical>
 																			<Text StringName="smlo_smlouvani_vesele_s_u_6BpJ" Text="vesele s úsměvem" />
 																		</Parenthetical>
 																		<Text StringName="smlo_smlouvani_ale_samozr_gKHr" Text="Ale samozřejmě." />
 																		<Commands>
-																			<CameraCommand />
+																			<FacialMoodCommand FacialMood="happy1" />
+																			<AnimationCommand Delay="0.34" FragmentId="ADLG_Nod" Guid="e19b4783-39a0-4a4e-951d-018bc8ad1a03" Variant="0" />
+																			<CameraCommand CameraType="CloseUp" />
 																		</Commands>
 																		<Comments>
 																			<Item Date="2015-12-14 12:34:42" UserName="david.horak" Text="Je si jistý svýk skillem." />
@@ -119,13 +140,15 @@
 															<Sequence EndType="GoTo" GoToDecision="dec11" Name="seq7">
 																<DesignName StringName="smlouvani_seq7_Diom" Text="seq7" />
 																<Elements>
-																	<Response Role="SMLOUVANI_ZENA">
+																	<Response Role="SMLOUVANI_ZENA" ReferenceLength="1.58">
 																		<Parenthetical>
 																			<Text StringName="smlo_smlouvani_sebejiste_A70m" Text="sebejistě" />
 																		</Parenthetical>
 																		<Text StringName="smlo_smlouvani_jiste_proc_di7r" Text="Jistě, proč ne." />
 																		<Commands>
-																			<CameraCommand />
+																			<FacialMoodCommand FacialMood="thinking1" />
+																			<AnimationCommand Delay="0.02" FragmentId="ADLG_Nod" Guid="e19b4783-39a0-4a4e-951d-018bc8ad1a03" Variant="0" />
+																			<CameraCommand CameraType="CloseUp" />
 																		</Commands>
 																		<Comments>
 																			<Item Date="2015-12-14 12:35:58" UserName="david.horak" Text="Je si jistý svýk skillem." />
@@ -136,7 +159,7 @@
 															<Sequence EndType="GoTo" GoToDecision="dec11" VoiceCategoryRoles="SMLOUVANI_ZENA" VoiceCategory="german" Name="german04">
 																<DesignName StringName="smlouvani_german04_UGoy" Text="german04" />
 																<Elements>
-																	<Response Role="SMLOUVANI_ZENA">
+																	<Response Role="SMLOUVANI_ZENA" ReferenceLength="3">
 																		<Parenthetical>
 																			<Text StringName="smlo_smlouvani_nemecky_se_srb1" Text="německy, sebejistě, v dobrém" />
 																		</Parenthetical>
@@ -144,7 +167,9 @@
 																			<Note StringName="smlo_smlouvani_naturlich__iX6e_note" Text="německy: Samozřejmě, žádný problém." />
 																		</Text>
 																		<Commands>
-																			<CameraCommand />
+																			<FacialMoodCommand FacialMood="happy1" />
+																			<AnimationCommand Delay="0.04" FragmentId="ADLG_Agree" Guid="f0f76cf7-bf3c-416e-83df-3f9594209321" Variant="3" />
+																			<CameraCommand CameraType="CloseUp" />
 																		</Commands>
 																	</Response>
 																</Elements>
@@ -152,7 +177,7 @@
 															<Sequence EndType="GoTo" GoToDecision="dec11" VoiceCategoryRoles="SMLOUVANI_ZENA" VoiceCategory="jew" Name="jew04">
 																<DesignName StringName="smlouvani_jew04_3UhK" Text="jew04" />
 																<Elements>
-																	<Response Role="SMLOUVANI_ZENA">
+																	<Response Role="SMLOUVANI_ZENA" ReferenceLength="3">
 																		<Parenthetical>
 																			<Text StringName="smlo_smlouvani_jidis_ocho_yYI0" Text="jidiš, ochotně" />
 																		</Parenthetical>
@@ -160,7 +185,8 @@
 																			<Note StringName="smlo_smlouvani_borur_mir__3O0h_note" Text="jidiš: Jasně! Pojďme na to." />
 																		</Text>
 																		<Commands>
-																			<CameraCommand />
+																			<FacialMoodCommand FacialMood="happy1" />
+																			<CameraCommand CameraType="CloseUp" />
 																		</Commands>
 																	</Response>
 																</Elements>
@@ -168,7 +194,7 @@
 															<Sequence EndType="GoTo" GoToDecision="dec11" VoiceCategoryRoles="SMLOUVANI_ZENA" VoiceCategory="german" Name="german05">
 																<DesignName StringName="smlouvani_german05_lPdR" Text="german05" />
 																<Elements>
-																	<Response Role="SMLOUVANI_ZENA">
+																	<Response Role="SMLOUVANI_ZENA" ReferenceLength="3">
 																		<Parenthetical>
 																			<Text StringName="smlo_smlouvani_nemecky_se_3cjt" Text="německy, sevejistě, v dobrém" />
 																		</Parenthetical>
@@ -176,7 +202,8 @@
 																			<Note StringName="smlo_smlouvani_gut_los_ge_kF9z_note" Text="německy: Gut, los geht's! = Dobře, pojďme!" />
 																		</Text>
 																		<Commands>
-																			<CameraCommand />
+																			<AnimationCommand Delay="0.02" FragmentId="ADLG_Nod" Guid="e19b4783-39a0-4a4e-951d-018bc8ad1a03" Variant="0" />
+																			<CameraCommand CameraType="CloseUp" />
 																		</Commands>
 																	</Response>
 																</Elements>
@@ -184,7 +211,7 @@
 															<Sequence EndType="GoTo" GoToDecision="dec11" VoiceCategoryRoles="SMLOUVANI_ZENA" VoiceCategory="romani" Name="romani02">
 																<DesignName StringName="smlouvani_romani02_W0hS" Text="romani02" />
 																<Elements>
-																	<Response Role="SMLOUVANI_ZENA">
+																	<Response Role="SMLOUVANI_ZENA" ReferenceLength="2.37">
 																		<Parenthetical>
 																			<Text StringName="smlo_smlouvani_romsky_seb_Brf4" Text="romsky, sebejistě, vesele" />
 																		</Parenthetical>
@@ -192,7 +219,9 @@
 																			<Note StringName="smlo_smlouvani_mistes_gad_fyxt_note" Text="romsky: Jasně, týpku! Kolik?" />
 																		</Text>
 																		<Commands>
-																			<CameraCommand />
+																			<FacialMoodCommand FacialMood="happy1" />
+																			<AnimationCommand Delay="0.02" FragmentId="ADLG_Gesture" Guid="962a4745-715f-478e-85ce-61c4bb981afa" Variant="9" />
+																			<CameraCommand CameraType="CloseUp" />
 																		</Commands>
 																	</Response>
 																</Elements>
@@ -214,13 +243,15 @@
 															<Sequence EndType="Decision" Name="seq66">
 																<DesignName StringName="smlouvani_seq66_E2Mx" Text="seq66" />
 																<Elements>
-																	<Response Role="SMLOUVANI_ZENA">
+																	<Response Role="SMLOUVANI_ZENA" ReferenceLength="2">
 																		<Parenthetical>
 																			<Text StringName="smlo_smlouvani_vazne_XFcF" Text="vážně" />
 																		</Parenthetical>
 																		<Text StringName="smlo_smlouvani_ano_poslou_KSKz" Text="Ano, poslouchám..." />
 																		<Commands>
-																			<CameraCommand />
+																			<FacialMoodCommand FacialMood="thinking1" />
+																			<AnimationCommand Delay="0.04" FragmentId="ADLG_Nod" Guid="e19b4783-39a0-4a4e-951d-018bc8ad1a03" Variant="0" />
+																			<CameraCommand CameraType="CloseUp" />
 																		</Commands>
 																	</Response>
 																</Elements>
@@ -238,13 +269,15 @@
 															<Sequence EndType="GoTo" GoToDecision="dec12" Name="seq9">
 																<DesignName StringName="smlouvani_seq9_dgXe" Text="seq9" />
 																<Elements>
-																	<Response Role="SMLOUVANI_ZENA">
+																	<Response Role="SMLOUVANI_ZENA" ReferenceLength="1.82">
 																		<Parenthetical>
 																			<Text StringName="smlo_smlouvani_zamyslene_Zbbq" Text="zamyšleně" />
 																		</Parenthetical>
 																		<Text StringName="smlo_smlouvani_dobre_proc_gxcw" Text="Dobře, proč ne..." />
 																		<Commands>
-																			<CameraCommand />
+																			<FacialMoodCommand FacialMood="thinking2" />
+																			<AnimationCommand Delay="0.04" FragmentId="ADLG_Agree" Guid="f0f76cf7-bf3c-416e-83df-3f9594209321" Variant="3" />
+																			<CameraCommand CameraType="CloseUp" />
 																		</Commands>
 																	</Response>
 																</Elements>
@@ -252,7 +285,7 @@
 															<Sequence EndType="GoTo" GoToDecision="dec12" VoiceCategoryRoles="SMLOUVANI_ZENA" VoiceCategory="german" Name="german06">
 																<DesignName StringName="smlouvani_german06_CtFu" Text="german06" />
 																<Elements>
-																	<Response Role="SMLOUVANI_ZENA">
+																	<Response Role="SMLOUVANI_ZENA" ReferenceLength="4">
 																		<Parenthetical>
 																			<Text StringName="smlo_smlouvani_zamyslene_0nah" Text="zamyšleně" />
 																		</Parenthetical>
@@ -260,7 +293,9 @@
 																			<Note StringName="smlo_smlouvani_gut_versuc_3GRb_note" Text="německy: Dobře, zkusme to." />
 																		</Text>
 																		<Commands>
-																			<CameraCommand />
+																			<FacialMoodCommand FacialMood="thinking1" />
+																			<AnimationCommand Delay="0.02" FragmentId="ADLG_Nod" Guid="e19b4783-39a0-4a4e-951d-018bc8ad1a03" Variant="0" />
+																			<CameraCommand CameraType="CloseUp" />
 																		</Commands>
 																	</Response>
 																</Elements>
@@ -268,7 +303,7 @@
 															<Sequence EndType="GoTo" GoToDecision="dec12" VoiceCategoryRoles="SMLOUVANI_ZENA" VoiceCategory="german" Name="german07">
 																<DesignName StringName="smlouvani_german07_xJGM" Text="german07" />
 																<Elements>
-																	<Response Role="SMLOUVANI_ZENA">
+																	<Response Role="SMLOUVANI_ZENA" ReferenceLength="3">
 																		<Parenthetical>
 																			<Text StringName="smlo_smlouvani_nemecky_za_PBcO" Text="německy, zamyšleně" />
 																		</Parenthetical>
@@ -276,7 +311,9 @@
 																			<Note StringName="smlo_smlouvani_hm_warum_n_UGa2_note" Text="německy: Hm, proč ne?" />
 																		</Text>
 																		<Commands>
-																			<CameraCommand />
+																			<FacialMoodCommand FacialMood="thinking2" />
+																			<AnimationCommand Delay="0.9" FragmentId="ADLG_Gesture" Guid="f06bb98c-9989-448b-9a76-e03932eac1c8" Variant="23" />
+																			<CameraCommand CameraType="CloseUp" />
 																		</Commands>
 																	</Response>
 																</Elements>
@@ -284,7 +321,7 @@
 															<Sequence EndType="GoTo" GoToDecision="dec12" VoiceCategoryRoles="SMLOUVANI_ZENA" VoiceCategory="jew" Name="jew05">
 																<DesignName StringName="smlouvani_jew05_fQDB" Text="jew05" />
 																<Elements>
-																	<Response Role="SMLOUVANI_ZENA">
+																	<Response Role="SMLOUVANI_ZENA" ReferenceLength="4">
 																		<Parenthetical>
 																			<Text StringName="smlo_smlouvani_jidis_zamy_p2W9" Text="jidiš, zamyšleně" />
 																		</Parenthetical>
@@ -292,7 +329,9 @@
 																			<Note StringName="smlo_smlouvani_hm_mir_kom_EtFU_note" Text="jidiš: Hm, mir komen, Frajnd. = Hm... pojďme na to, příteli." />
 																		</Text>
 																		<Commands>
-																			<CameraCommand />
+																			<FacialMoodCommand FacialMood="thinking2" />
+																			<AnimationCommand Delay="1.01" FragmentId="ADLG_Gesture" Guid="d7ebaebf-faa8-488a-b2b4-fa43cbb67de8" Variant="21" />
+																			<CameraCommand CameraType="CloseUp" />
 																		</Commands>
 																	</Response>
 																</Elements>
@@ -300,7 +339,7 @@
 															<Sequence EndType="GoTo" GoToDecision="dec12" VoiceCategoryRoles="SMLOUVANI_ZENA" VoiceCategory="romani" Name="romani04">
 																<DesignName StringName="smlouvani_romani04_R9Ta" Text="romani04" />
 																<Elements>
-																	<Response Role="SMLOUVANI_ZENA">
+																	<Response Role="SMLOUVANI_ZENA" ReferenceLength="1.62">
 																		<Parenthetical>
 																			<Text StringName="smlo_smlouvani_zamyslene_y1tR" Text="zamyšleně" />
 																		</Parenthetical>
@@ -308,7 +347,9 @@
 																			<Note StringName="smlo_smlouvani_hm_keci_ga_wyZW_note" Text="romsky: Hm... keci, gádžo? = Hm... kolik, týpku?" />
 																		</Text>
 																		<Commands>
-																			<CameraCommand />
+																			<FacialMoodCommand FacialMood="thinking2" />
+																			<AnimationCommand Delay="0.42" FragmentId="ADLG_Gesture" Guid="0ab09611-db48-4378-9218-4a5539f328c3" Variant="1" />
+																			<CameraCommand CameraType="CloseUp" />
 																		</Commands>
 																	</Response>
 																</Elements>
@@ -330,13 +371,15 @@
 															<Sequence EndType="GoTo" GoToDecision="dec13" Name="seq67">
 																<DesignName StringName="smlouvani_seq67_p18k" Text="seq67" />
 																<Elements>
-																	<Response Role="SMLOUVANI_ZENA">
+																	<Response Role="SMLOUVANI_ZENA" ReferenceLength="5">
 																		<Parenthetical>
 																			<Text StringName="smlo_smlouvani_mirne_vaha_i8UB" Text="mírně váhavě" />
 																		</Parenthetical>
 																		<Text StringName="smlo_smlouvani_no_zkusit__O4CX" Text="No... Zkusit to můžeme... " />
 																		<Commands>
-																			<CameraCommand />
+																			<FacialMoodCommand FacialMood="thinking3" />
+																			<AnimationCommand Delay="1.58" FragmentId="ADLG_Nod" Guid="e19b4783-39a0-4a4e-951d-018bc8ad1a03" Variant="0" />
+																			<CameraCommand CameraType="CloseUp" />
 																		</Commands>
 																		<Comments>
 																			<Item Date="2015-12-14 12:38:19" UserName="david.horak" Text="Není si jistý svým skillem." />
@@ -347,13 +390,15 @@
 															<Sequence EndType="GoTo" GoToDecision="dec13" Name="seq11">
 																<DesignName StringName="smlouvani_seq11_Xswc" Text="seq11" />
 																<Elements>
-																	<Response Role="SMLOUVANI_ZENA">
+																	<Response Role="SMLOUVANI_ZENA" ReferenceLength="2.07">
 																		<Parenthetical>
 																			<Text StringName="smlo_smlouvani_mirne_vaha_SV3f" Text="mírně váhavě" />
 																		</Parenthetical>
 																		<Text StringName="smlo_smlouvani_hm_tak_jo_p6UJ" Text="Hm... Tak jo..." />
 																		<Commands>
-																			<CameraCommand />
+																			<FacialMoodCommand FacialMood="thinking2" />
+																			<AnimationCommand Delay="1.01" FragmentId="ADLG_Nod" Guid="e19b4783-39a0-4a4e-951d-018bc8ad1a03" Variant="0" DesiredDuration="0.96" />
+																			<CameraCommand CameraType="CloseUp" />
 																		</Commands>
 																		<Comments>
 																			<Item Date="2015-12-14 12:39:23" UserName="david.horak" Text="Není si jistý svým skillem." />
@@ -364,7 +409,7 @@
 															<Sequence EndType="Decision" VoiceCategoryRoles="SMLOUVANI_ZENA" VoiceCategory="german" Name="german08">
 																<DesignName StringName="smlouvani_german08_OB9e" Text="german08" />
 																<Elements>
-																	<Response Role="SMLOUVANI_ZENA">
+																	<Response Role="SMLOUVANI_ZENA" ReferenceLength="4">
 																		<Parenthetical>
 																			<Text StringName="smlo_smlouvani_vahave_jDZV" Text="váhavě" />
 																		</Parenthetical>
@@ -372,7 +417,9 @@
 																			<Note StringName="smlo_smlouvani_hm_was_sol_wle1_note" Text="německy. No proč ne." />
 																		</Text>
 																		<Commands>
-																			<CameraCommand />
+																			<FacialMoodCommand FacialMood="thinking2" />
+																			<AnimationCommand Delay="0.99" FragmentId="ADLG_Gesture" Guid="f06bb98c-9989-448b-9a76-e03932eac1c8" Variant="23" />
+																			<CameraCommand CameraType="CloseUp" />
 																		</Commands>
 																	</Response>
 																</Elements>
@@ -390,7 +437,7 @@
 															<Sequence EndType="GoTo" GoToDecision="dec13" VoiceCategoryRoles="SMLOUVANI_ZENA" VoiceCategory="german" Name="german09">
 																<DesignName StringName="smlouvani_german09_eqrK" Text="german09" />
 																<Elements>
-																	<Response Role="SMLOUVANI_ZENA">
+																	<Response Role="SMLOUVANI_ZENA" ReferenceLength="5">
 																		<Parenthetical>
 																			<Text StringName="smlo_smlouvani_vahave_R0Rb" Text="váhavě" />
 																		</Parenthetical>
@@ -398,7 +445,9 @@
 																			<Note StringName="smlo_smlouvani_vielleicht_vXf8_note" Text="německy: Hm, možná bychom mohli." />
 																		</Text>
 																		<Commands>
-																			<CameraCommand />
+																			<FacialMoodCommand FacialMood="thinking1" />
+																			<AnimationCommand Delay="0.88" FragmentId="ADLG_Agree" Guid="abded27f-7bf0-44fb-b568-a2d149d54ce6" Variant="2" DesiredDuration="1.27" />
+																			<CameraCommand CameraType="CloseUp" />
 																		</Commands>
 																	</Response>
 																</Elements>
@@ -406,7 +455,7 @@
 															<Sequence EndType="GoTo" GoToDecision="dec13" VoiceCategoryRoles="SMLOUVANI_ZENA" VoiceCategory="jew" Name="jew06">
 																<DesignName StringName="smlouvani_jew06_lqJY" Text="jew06" />
 																<Elements>
-																	<Response Role="SMLOUVANI_ZENA">
+																	<Response Role="SMLOUVANI_ZENA" ReferenceLength="3">
 																		<Parenthetical>
 																			<Text StringName="smlo_smlouvani_vahave_eaXG" Text="váhavě" />
 																		</Parenthetical>
@@ -414,7 +463,9 @@
 																			<Note StringName="smlo_smlouvani_hm_hm_bite_HIM3_note" Text="jidiš: Hm, hm... jak chceš." />
 																		</Text>
 																		<Commands>
-																			<CameraCommand />
+																			<FacialMoodCommand FacialMood="thinking3" />
+																			<AnimationCommand Delay="4.1" FragmentId="ADLG_Nod" Guid="e19b4783-39a0-4a4e-951d-018bc8ad1a03" Variant="0" DesiredDuration="1" />
+																			<CameraCommand CameraType="CloseUp" />
 																		</Commands>
 																	</Response>
 																</Elements>
@@ -422,7 +473,7 @@
 															<Sequence EndType="GoTo" GoToDecision="dec13" VoiceCategoryRoles="SMLOUVANI_ZENA" VoiceCategory="romani" Name="romani05">
 																<DesignName StringName="smlouvani_romani05_P0Fx" Text="romani05" />
 																<Elements>
-																	<Response Role="SMLOUVANI_ZENA">
+																	<Response Role="SMLOUVANI_ZENA" ReferenceLength="1.63">
 																		<Parenthetical>
 																			<Text StringName="smlo_smlouvani_vahave_p9jq" Text="váhavě" />
 																		</Parenthetical>
@@ -430,7 +481,9 @@
 																			<Note StringName="smlo_smlouvani_uf_laches__ESKF_note" Text="romsky: Uf... no dobře, týpku." />
 																		</Text>
 																		<Commands>
-																			<CameraCommand />
+																			<FacialMoodCommand FacialMood="thinking2" />
+																			<AnimationCommand Delay="0.57" FragmentId="ADLG_Nod" Guid="e19b4783-39a0-4a4e-951d-018bc8ad1a03" Variant="0" DesiredDuration="0.98" />
+																			<CameraCommand CameraType="CloseUp" />
 																		</Commands>
 																	</Response>
 																</Elements>
@@ -455,13 +508,15 @@
 												<Sequence ExitScript="local merchant = dc['SMLOUVANI_ZENA']&#xD;&#xA;Shops.CancelTransaction(merchant.id)" EndType="EndDialogue" Cooldown="5s" Name="seq13">
 													<DesignName StringName="smlouvani_seq13_lOlT" Text="seq13" />
 													<Elements>
-														<Response Role="SMLOUVANI_ZENA">
+														<Response Role="SMLOUVANI_ZENA" ReferenceLength="11">
 															<Parenthetical>
 																<Text StringName="smlo_smlouvani_pohorsene_CTM7" Text="pohoršeně" />
 															</Parenthetical>
 															<Text StringName="smlo_smlouvani_tak_to_ne__oh9R" Text="Tak to ne, tohle vypadá jako kradený. To vod tebe nekoupim." />
 															<Commands>
-																<CameraCommand />
+																<FacialMoodCommand FacialMood="angry1" />
+																<AnimationCommand Delay="0.04" FragmentId="ADLG_Deny" Guid="2e96ab9c-6081-eee2-7c89-ff557ca6914c" Variant="0" />
+																<CameraCommand CameraType="CloseUp" />
 															</Commands>
 															<Comments>
 																<Item Date="2015-11-23 14:47:24" UserName="david.horak" Text="Zásadově nekupuje kradený věci." />
@@ -472,13 +527,15 @@
 												<Sequence ExitScript="local merchant = dc['SMLOUVANI_ZENA']&#xD;&#xA;Shops.CancelTransaction(merchant.id)" EndType="EndDialogue" Cooldown="5s" Name="seq14">
 													<DesignName StringName="smlouvani_seq14_IUZE" Text="seq14" />
 													<Elements>
-														<Response Role="SMLOUVANI_ZENA">
+														<Response Role="SMLOUVANI_ZENA" ReferenceLength="5.5">
 															<Parenthetical>
 																<Text StringName="smlo_smlouvani_udivene_vr_TR95" Text="udiveně, vrtí hlavou" />
 															</Parenthetical>
 															<Text StringName="smlo_smlouvani_chces_me_p_UHuP" Text="Chceš mě přivíst do maléru? Kradený věci u mě teda neprodáš." />
 															<Commands>
-																<CameraCommand />
+																<FacialMoodCommand FacialMood="angry2" />
+																<AnimationCommand Delay="0" FragmentId="ADLG_Surprised" Guid="364379fe-358d-4b99-9356-3a769ebe21cb" Variant="1" />
+																<CameraCommand CameraType="CloseUp" />
 															</Commands>
 															<Comments>
 																<Item Date="2015-11-23 14:47:27" UserName="david.horak" Text="Zásadově nekupuje kradený věci." />
@@ -489,13 +546,16 @@
 												<Sequence ExitScript="local merchant = dc['SMLOUVANI_ZENA']&#xD;&#xA;Shops.CancelTransaction(merchant.id)" EndType="EndDialogue" Cooldown="5s" Name="seq15">
 													<DesignName StringName="smlouvani_seq15_UxOK" Text="seq15" />
 													<Elements>
-														<Response Role="SMLOUVANI_ZENA">
+														<Response Role="SMLOUVANI_ZENA" ReferenceLength="12">
 															<Parenthetical>
 																<Text StringName="smlo_smlouvani_pohorsene__Q3am" Text="pohoršeně, gesto rukou" />
 															</Parenthetical>
 															<Text StringName="smlo_smlouvani_tohle_je_k_XTqT" Text="Tohle je kradený! Co to na mě zkoušíš? Táhni s tim vodsud." />
 															<Commands>
-																<CameraCommand />
+																<FacialMoodCommand FacialMood="angry2" />
+																<AnimationCommand Delay="3.05" FragmentId="ADLG_Leave" Guid="ba284961-6b1e-9ddc-d179-574661286867" Variant="0" />
+																<AnimationCommand Delay="0.02" FragmentId="ADLG_Emphasis" Guid="4abb7e77-72cf-42f1-9924-3d448055b4d4" Variant="2" />
+																<CameraCommand CameraType="CloseShot" />
 															</Commands>
 															<Comments>
 																<Item Date="2015-11-23 14:47:31" UserName="david.horak" Text="Zásadově nekupuje kradený věci." />
@@ -506,7 +566,7 @@
 												<Sequence EndType="GoTo" GoToDecision="dec10" VoiceCategoryRoles="SMLOUVANI_ZENA" VoiceCategory="german" Cooldown="5s" Name="german01">
 													<DesignName StringName="smlouvani_german01_eazV" Text="german01" />
 													<Elements>
-														<Response Role="SMLOUVANI_ZENA">
+														<Response Role="SMLOUVANI_ZENA" ReferenceLength="4">
 															<Parenthetical>
 																<Text StringName="smlo_smlouvani_nemecky_pr_1onI" Text="německy, překvapeně" />
 															</Parenthetical>
@@ -514,7 +574,8 @@
 																<Note StringName="smlo_smlouvani_was_soll_d_wqXQ_note" Text="německy: Co je to?" />
 															</Text>
 															<Commands>
-																<CameraCommand />
+																<FacialMoodCommand FacialMood="nervous1" />
+																<CameraCommand CameraType="CloseUp" />
 															</Commands>
 														</Response>
 													</Elements>
@@ -522,7 +583,7 @@
 												<Sequence EndType="GoTo" GoToDecision="dec10" VoiceCategoryRoles="SMLOUVANI_ZENA" VoiceCategory="german" Cooldown="5s" Name="german02">
 													<DesignName StringName="smlouvani_german02_5q70" Text="german02" />
 													<Elements>
-														<Response Role="SMLOUVANI_ZENA">
+														<Response Role="SMLOUVANI_ZENA" ReferenceLength="5">
 															<Parenthetical>
 																<Text StringName="smlo_smlouvani_nemecky_po_lh0I" Text="německy, pohoršeně" />
 															</Parenthetical>
@@ -530,7 +591,9 @@
 																<Note StringName="smlo_smlouvani_was_wollen_XPQP_note" Text="německy: Co si o mě myslíš?" />
 															</Text>
 															<Commands>
-																<CameraCommand />
+																<FacialMoodCommand FacialMood="angry1" />
+																<AnimationCommand FragmentId="ADLG_Frustration" Guid="559c4856-a553-47f4-a7ce-cce43e70613d" Variant="0" />
+																<CameraCommand CameraType="CloseShot" />
 															</Commands>
 														</Response>
 													</Elements>
@@ -538,7 +601,7 @@
 												<Sequence EndType="GoTo" GoToDecision="dec10" VoiceCategoryRoles="SMLOUVANI_ZENA" VoiceCategory="jew" Cooldown="5s" Name="jew01">
 													<DesignName StringName="smlouvani_jew01_gu1B" Text="jew01" />
 													<Elements>
-														<Response Role="SMLOUVANI_ZENA">
+														<Response Role="SMLOUVANI_ZENA" ReferenceLength="4">
 															<Parenthetical>
 																<Text StringName="smlo_smlouvani_jidis_poho_kWKA" Text="jidiš, pohoršeně" />
 															</Parenthetical>
@@ -546,7 +609,9 @@
 																<Note StringName="smlo_smlouvani_vos_machst_OJ13_note" Text="jidiš: Co blbneš, osle?" />
 															</Text>
 															<Commands>
-																<CameraCommand />
+																<FacialMoodCommand FacialMood="angry2" />
+																<AnimationCommand Delay="0" FragmentId="ADLG_Surprised_light" Guid="ec1ef83e-f206-5b50-63ea-27915e5061a3" Variant="0" />
+																<CameraCommand CameraType="CloseShot" />
 															</Commands>
 														</Response>
 													</Elements>
@@ -554,7 +619,7 @@
 												<Sequence EndType="Decision" VoiceCategoryRoles="SMLOUVANI_ZENA" VoiceCategory="romani" Cooldown="5s" Name="romani01">
 													<DesignName StringName="smlouvani_romani01_bFkg" Text="romani01" />
 													<Elements>
-														<Response Role="SMLOUVANI_ZENA">
+														<Response Role="SMLOUVANI_ZENA" ReferenceLength="1.33">
 															<Parenthetical>
 																<Text StringName="smlo_smlouvani_romsky_udi_Xxo4" Text="romsky, udiveně" />
 															</Parenthetical>
@@ -562,7 +627,8 @@
 																<Note StringName="smlo_smlouvani_so_hin_oda_Sg1y_note" Text="romsky: Co to je, chlape?" />
 															</Text>
 															<Commands>
-																<CameraCommand />
+																<FacialMoodCommand FacialMood="thinking1" />
+																<CameraCommand CameraType="CloseUp" />
 															</Commands>
 														</Response>
 													</Elements>
@@ -571,13 +637,15 @@
 															<Sequence ExitScript="local merchant = dc['SMLOUVANI_ZENA']&#xD;&#xA;Shops.CancelTransaction(merchant.id)" EndType="EndDialogue" Name="seq76">
 																<DesignName StringName="smlouvani_seq76_KmVT" Text="seq76" />
 																<Elements>
-																	<Response Role="SMLOUVANI_ZENA">
+																	<Response Role="SMLOUVANI_ZENA" ReferenceLength="2.62">
 																		<Parenthetical>
 																			<Text StringName="smlo_smlouvani_vrti_hlavou_PStF" Text="vrtí hlavou" />
 																		</Parenthetical>
 																		<Text StringName="smlo_smlouvani_s_kradenym_Bseb" Text="S kradeným zbožím nechci mít nic společnýho." />
 																		<Commands>
-																			<CameraCommand />
+																			<FacialMoodCommand FacialMood="angry1" />
+																			<AnimationCommand Delay="0.02" FragmentId="ADLG_Deny" Guid="c0c790f5-52d2-49df-5ec5-a94973096814" Variant="2" />
+																			<CameraCommand CameraType="CloseUp" />
 																		</Commands>
 																	</Response>
 																</Elements>
@@ -588,7 +656,7 @@
 												<Sequence EndType="GoTo" GoToDecision="dec10" VoiceCategoryRoles="SMLOUVANI_ZENA" VoiceCategory="german" Cooldown="5s" Name="german03">
 													<DesignName StringName="smlouvani_german03_yqn9" Text="german03" />
 													<Elements>
-														<Response Role="SMLOUVANI_ZENA">
+														<Response Role="SMLOUVANI_ZENA" ReferenceLength="4">
 															<Parenthetical>
 																<Text StringName="smlo_smlouvani_nemecky_ud_o5D2" Text="německy, udiveně" />
 															</Parenthetical>
@@ -596,7 +664,9 @@
 																<Note StringName="smlo_smlouvani_was_machst_BkR3_note" Text="německy: Co blbneš, chlape?" />
 															</Text>
 															<Commands>
-																<CameraCommand />
+																<FacialMoodCommand FacialMood="nervous1" />
+																<AnimationCommand Delay="0" FragmentId="ADLG_Surprised_light" Guid="ec1ef83e-f206-5b50-63ea-27915e5061a3" Variant="0" />
+																<CameraCommand CameraType="CloseShot" />
 															</Commands>
 														</Response>
 													</Elements>
@@ -618,13 +688,16 @@
 												<Sequence EndType="GoTo" GoToDecision="23483" Name="seq68">
 													<DesignName StringName="smlouvani_seq68_RPLM" Text="seq68" />
 													<Elements>
-														<Response Role="SMLOUVANI_ZENA">
+														<Response Role="SMLOUVANI_ZENA" ReferenceLength="9">
 															<Parenthetical>
 																<Text StringName="smlo_smlouvani_pokrci_ram_rkSZ" Text="pokrčí rameny" />
 															</Parenthetical>
 															<Text StringName="smlo_smlouvani_tohle_je_v_RKlE" Text="Tohle je vážně černota. Za to ti moc nedám." />
 															<Commands>
-																<CameraCommand />
+																<FacialMoodCommand FacialMood="thinking2" />
+																<AnimationCommand Delay="2.27" FragmentId="ADLG_Disagree_light" Guid="5acf8d95-df36-4634-834b-980ef7993e74" Variant="1" />
+																<AnimationCommand Delay="0.02" FragmentId="ADLG_Gesture" Guid="d7ebaebf-faa8-488a-b2b4-fa43cbb67de8" Variant="21" />
+																<CameraCommand CameraType="CloseUp" />
 															</Commands>
 															<Comments>
 																<Item Date="2015-11-23 14:51:23" UserName="david.horak" Text="Obchodník vykupuje kradené věci, ale tohle je hodně podezřelý." />
@@ -635,105 +708,129 @@
 												<Sequence EndType="GoTo" GoToDecision="23483" Name="seq17">
 													<DesignName StringName="smlouvani_seq17_FRd3" Text="seq17" />
 													<Elements>
-														<Response Role="SMLOUVANI_ZENA">
+														<Response Role="SMLOUVANI_ZENA" ReferenceLength="4.73">
 															<Parenthetical>
 																<Text StringName="smlo_smlouvani_usklibne_se_sLwf" Text="ušklíbne se" />
 															</Parenthetical>
 															<Text StringName="smlo_smlouvani_prodavas_m_6uJj" Text="Prodáváš mě kradený věci, co? Je to poznat na první pohled." />
 															<Commands>
-																<CameraCommand />
+																<FacialMoodCommand FacialMood="thinking3" />
+																<AnimationCommand Delay="0.02" FragmentId="ADLG_Surprised" Guid="364379fe-358d-4b99-9356-3a769ebe21cb" Variant="1" />
+																<AnimationCommand Delay="4.34" FragmentId="ADLG_Emphasis" Guid="68c4ec63-0567-4c43-b48e-86ee96ddf9ee" Variant="3" />
+																<CameraCommand CameraType="CloseShot" />
 															</Commands>
 															<Comments>
 																<Item Date="2015-11-23 14:51:29" UserName="david.horak" Text="Obchodník vykupuje kradené věci, ale tohle je hodně podezřelý." />
 															</Comments>
 														</Response>
-														<Response Role="SMLOUVANI_ZENA">
+														<Response Role="SMLOUVANI_ZENA" ReferenceLength="1.75">
 															<Parenthetical>
 																<Text StringName="smlo_smlouvani_v_dobrem_p_nCoN" Text="v dobrém poznamená" />
 															</Parenthetical>
 															<Text StringName="smlo_smlouvani_to_snizuje_1XfX" Text="To snižuje cenu, příteli." />
+															<Commands>
+																<FacialMoodCommand FacialMood="happy1" />
+															</Commands>
 														</Response>
 													</Elements>
 												</Sequence>
 												<Sequence EndType="GoTo" GoToDecision="23483" Name="seq18">
 													<DesignName StringName="smlouvani_seq18_kkNq" Text="seq18" />
 													<Elements>
-														<Response Role="SMLOUVANI_ZENA">
+														<Response Role="SMLOUVANI_ZENA" ReferenceLength="10">
 															<Parenthetical>
 																<Text StringName="smlo_smlouvani_usklibne_se_NOmA" Text="ušklíbne se" />
 															</Parenthetical>
 															<Text StringName="smlo_smlouvani_ze_je_to_k_Z9Dc" Text="Že je to kradený z toho smrdí na sto honů." />
 															<Commands>
-																<CameraCommand />
+																<FacialMoodCommand FacialMood="thinking2" />
+																<AnimationCommand Delay="0.02" FragmentId="ADLG_Emphasis" Guid="fa542b3b-9509-688e-80bc-8ebeee30790c" Variant="7" />
+																<CameraCommand CameraType="CloseShot" />
 															</Commands>
 															<Comments>
 																<Item Date="2015-11-23 14:51:33" UserName="david.horak" Text="Obchodník vykupuje kradené věci, ale tohle je hodně podezřelý." />
 															</Comments>
 														</Response>
-														<Response Role="SMLOUVANI_ZENA">
+														<Response Role="SMLOUVANI_ZENA" ReferenceLength="5">
 															<Parenthetical>
 																<Text StringName="smlo_smlouvani_doda_vecne_EMzg" Text="dodá věcně, přikývne" />
 															</Parenthetical>
 															<Text StringName="smlo_smlouvani_koupim_to__hanQ" Text="Koupím to, ale se slevou." />
+															<Commands>
+																<FacialMoodCommand FacialMood="happy1" />
+															</Commands>
 														</Response>
 													</Elements>
 												</Sequence>
 												<Sequence EndType="GoTo" GoToDecision="23483" Name="seq19">
 													<DesignName StringName="smlouvani_seq19_REBr" Text="seq19" />
 													<Elements>
-														<Response Role="SMLOUVANI_ZENA">
+														<Response Role="SMLOUVANI_ZENA" ReferenceLength="10">
 															<Parenthetical>
 																<Text StringName="smlo_smlouvani_zamyslene_cDUo" Text="zamyšleně" />
 															</Parenthetical>
 															<Text StringName="smlo_smlouvani_mam_pocit__mkRs" Text="Mám pocit, že se mě snažíš prodat nějaký kradený zboží..." />
 															<Commands>
-																<CameraCommand />
+																<FacialMoodCommand FacialMood="thinking3" />
+																<AnimationCommand Delay="1.18" FragmentId="ADLG_Emphasis" Guid="fa542b3b-9509-688e-80bc-8ebeee30790c" Variant="7" />
+																<CameraCommand CameraType="CloseShot" />
 															</Commands>
 															<Comments>
 																<Item Date="2015-11-23 15:03:34" UserName="david.horak" Text="Koupí kradené zboží a není zase až tak horký." />
 															</Comments>
 														</Response>
-														<Response Role="SMLOUVANI_ZENA">
+														<Response Role="SMLOUVANI_ZENA" ReferenceLength="7">
 															<Parenthetical>
 																<Text StringName="smlo_smlouvani_usmeje_se_suGV" Text="usměje se" />
 															</Parenthetical>
 															<Text StringName="smlo_smlouvani_rad_ti_to__EaLA" Text="Rád ti to odečtu z ceny, příteli." />
+															<Commands>
+																<FacialMoodCommand FacialMood="happy1" />
+																<AnimationCommand Delay="1.98" FragmentId="ADLG_Nod" Guid="e19b4783-39a0-4a4e-951d-018bc8ad1a03" Variant="0" />
+															</Commands>
 														</Response>
 													</Elements>
 												</Sequence>
 												<Sequence EndType="GoTo" GoToDecision="23483" Name="seq20">
 													<DesignName StringName="smlouvani_seq20_IGPJ" Text="seq20" />
 													<Elements>
-														<Response Role="SMLOUVANI_ZENA">
+														<Response Role="SMLOUVANI_ZENA" ReferenceLength="9">
 															<Parenthetical>
 																<Text StringName="smlo_smlouvani_ustepacne_ljxd" Text="uštěpačně" />
 															</Parenthetical>
 															<Text StringName="smlo_smlouvani_hm_jakoby__UOW5" Text="Hm, jakoby ses mi snažil prodat kradený věci, co..." />
 															<Commands>
-																<CameraCommand />
+																<FacialMoodCommand FacialMood="thinking3" />
+																<AnimationCommand Delay="1.68" FragmentId="ADLG_Emphasis" Guid="4abb7e77-72cf-42f1-9924-3d448055b4d4" Variant="2" />
+																<CameraCommand CameraType="CloseShot" />
 															</Commands>
 															<Comments>
 																<Item Date="2015-11-23 15:03:37" UserName="david.horak" Text="Koupí kradené zboží a není zase až tak horký." />
 															</Comments>
 														</Response>
-														<Response Role="SMLOUVANI_ZENA">
+														<Response Role="SMLOUVANI_ZENA" ReferenceLength="6">
 															<Parenthetical>
 																<Text StringName="smlo_smlouvani_usmeje_se_B8OT" Text="usměje se" />
 															</Parenthetical>
 															<Text StringName="smlo_smlouvani_tak_to_mi__S875" Text="Tak to mi budeš muset slevit." />
+															<Commands>
+																<FacialMoodCommand FacialMood="happy1" />
+															</Commands>
 														</Response>
 													</Elements>
 												</Sequence>
 												<Sequence EndType="Decision" Name="seq21">
 													<DesignName StringName="smlouvani_seq21_Yb1e" Text="seq21" />
 													<Elements>
-														<Response Role="SMLOUVANI_ZENA">
+														<Response Role="SMLOUVANI_ZENA" ReferenceLength="11">
 															<Parenthetical>
 																<Text StringName="smlo_smlouvani_zamyslene_yMXi" Text="zamyšleně" />
 															</Parenthetical>
 															<Text StringName="smlo_smlouvani_hm_koukam__RhnF" Text="Hm, koukám na to a vidím, že tohle je kradený, co..." />
 															<Commands>
-																<CameraCommand />
+																<FacialMoodCommand FacialMood="thinking3" />
+																<AnimationCommand Delay="2.27" FragmentId="ADLG_Emphasis" Guid="4abb7e77-72cf-42f1-9924-3d448055b4d4" Variant="2" />
+																<CameraCommand CameraType="CloseUp" />
 															</Commands>
 															<Comments>
 																<Item Date="2015-11-23 15:03:41" UserName="david.horak" Text="Koupí kradené zboží a není zase až tak horký." />
@@ -751,10 +848,12 @@
 															<Sequence EndType="GoTo" GoToDecision="23480" Name="seq22">
 																<DesignName StringName="smlouvani_seq22_vheI" Text="seq22" />
 																<Elements>
-																	<Response Role="SMLOUVANI_ZENA">
+																	<Response Role="SMLOUVANI_ZENA" ReferenceLength="5">
 																		<Text StringName="smlo_smlouvani_takze_koli_7Myo" Text="Takže kolik za to chceš?" />
 																		<Commands>
-																			<CameraCommand />
+																			<FacialMoodCommand FacialMood="thinking2" />
+																			<AnimationCommand Delay="0" FragmentId="ADLG_Threat" Guid="4f7e1056-799d-4bd9-80bc-d76f419149da" Variant="0" />
+																			<CameraCommand CameraType="CloseUp" />
 																		</Commands>
 																	</Response>
 																</Elements>
@@ -762,10 +861,12 @@
 															<Sequence EndType="GoTo" GoToDecision="23480" Name="seq23">
 																<DesignName StringName="smlouvani_seq23_5xNs" Text="seq23" />
 																<Elements>
-																	<Response Role="SMLOUVANI_ZENA">
+																	<Response Role="SMLOUVANI_ZENA" ReferenceLength="1.61">
 																		<Text StringName="smlo_smlouvani_tak_se_poj_ZN6G" Text="Tak se pojďme dohodnout na ceně." />
 																		<Commands>
-																			<CameraCommand />
+																			<FacialMoodCommand FacialMood="thinking1" />
+																			<AnimationCommand Delay="0.02" FragmentId="ADLG_Gesture" Guid="962a4745-715f-478e-85ce-61c4bb981afa" Variant="9" />
+																			<CameraCommand CameraType="CloseUp" />
 																		</Commands>
 																	</Response>
 																</Elements>
@@ -773,10 +874,12 @@
 															<Sequence EndType="GoTo" GoToDecision="23480" Name="seq24">
 																<DesignName StringName="smlouvani_seq24_76uI" Text="seq24" />
 																<Elements>
-																	<Response Role="SMLOUVANI_ZENA">
+																	<Response Role="SMLOUVANI_ZENA" ReferenceLength="1.58">
 																		<Text StringName="smlo_smlouvani_takze_koli_X8Gj" Text="Takže kolik za to?" />
 																		<Commands>
-																			<CameraCommand />
+																			<FacialMoodCommand FacialMood="thinking2" />
+																			<AnimationCommand Delay="0" FragmentId="ADLG_Gesture" Guid="98e183ba-7e1d-4aac-8ec8-908609e643e2" Variant="10" />
+																			<CameraCommand CameraType="CloseUp" />
 																		</Commands>
 																	</Response>
 																</Elements>
@@ -787,7 +890,7 @@
 												<Sequence EndType="GoTo" GoToDecision="23483" VoiceCategoryRoles="SMLOUVANI_ZENA" VoiceCategory="german" Name="german11">
 													<DesignName StringName="smlouvani_german11_YclH" Text="german11" />
 													<Elements>
-														<Response Role="SMLOUVANI_ZENA">
+														<Response Role="SMLOUVANI_ZENA" ReferenceLength="5">
 															<Parenthetical>
 																<Text StringName="smlo_smlouvani_usklibne_se_p0dq" Text="ušklíbne se" />
 															</Parenthetical>
@@ -795,21 +898,26 @@
 																<Note StringName="smlo_smlouvani_hm_das_sti_oD8q_note" Text="německy: Hm, tohle smrdí, příteli. (ve smyslu kradené věci)" />
 															</Text>
 															<Commands>
-																<CameraCommand />
+																<FacialMoodCommand FacialMood="thinking3" />
+																<AnimationCommand Delay="1.16" FragmentId="ADLG_Emphasis" Guid="fa542b3b-9509-688e-80bc-8ebeee30790c" Variant="7" />
+																<CameraCommand CameraType="CloseUp" />
 															</Commands>
 														</Response>
-														<Response Role="SMLOUVANI_ZENA">
+														<Response Role="SMLOUVANI_ZENA" ReferenceLength="7">
 															<Parenthetical>
 																<Text StringName="smlo_smlouvani_usmeje_se_DaSF" Text="usměje se" />
 															</Parenthetical>
 															<Text StringName="smlo_smlouvani_za_takovy__Kfff" Text="Za tohle kradený zboží mě musíš slevit." />
+															<Commands>
+																<FacialMoodCommand FacialMood="happy1" />
+															</Commands>
 														</Response>
 													</Elements>
 												</Sequence>
 												<Sequence EndType="GoTo" GoToDecision="23483" VoiceCategoryRoles="SMLOUVANI_ZENA" VoiceCategory="german" Name="german12">
 													<DesignName StringName="smlouvani_german12_c60E" Text="german12" />
 													<Elements>
-														<Response Role="SMLOUVANI_ZENA">
+														<Response Role="SMLOUVANI_ZENA" ReferenceLength="7">
 															<Parenthetical>
 																<Text StringName="smlo_smlouvani_usklibne_se_zuCH" Text="ušklíbne se" />
 															</Parenthetical>
@@ -817,21 +925,26 @@
 																<Note StringName="smlo_smlouvani_heh_du_ver_OChj_note" Text="německy: Prodáváš mě pěknou černotu." />
 															</Text>
 															<Commands>
-																<CameraCommand />
+																<FacialMoodCommand FacialMood="thinking3" />
+																<AnimationCommand Delay="1.03" FragmentId="ADLG_Gesture" Guid="962a4745-715f-478e-85ce-61c4bb981afa" Variant="9" />
+																<CameraCommand CameraType="CloseUp" />
 															</Commands>
 														</Response>
-														<Response Role="SMLOUVANI_ZENA">
+														<Response Role="SMLOUVANI_ZENA" ReferenceLength="7">
 															<Parenthetical>
 																<Text StringName="smlo_smlouvani_pokrci_ram_xZhr" Text="pokrčí rameny" />
 															</Parenthetical>
 															<Text StringName="smlo_smlouvani_za_kradeny_cUew" Text="Za kradený zboží ti nedám plnou cenu." />
+															<Commands>
+																<AnimationCommand Delay="0.04" FragmentId="ADLG_Confusion" Guid="d66ec093-3ef1-4d8c-b717-68254998806c" Variant="5" />
+															</Commands>
 														</Response>
 													</Elements>
 												</Sequence>
 												<Sequence EndType="GoTo" GoToDecision="23483" VoiceCategoryRoles="SMLOUVANI_ZENA" VoiceCategory="jew" Name="jew07">
 													<DesignName StringName="smlouvani_jew07_v3ud" Text="jew07" />
 													<Elements>
-														<Response Role="SMLOUVANI_ZENA">
+														<Response Role="SMLOUVANI_ZENA" ReferenceLength="3">
 															<Parenthetical>
 																<Text StringName="smlo_smlouvani_usklibne_se_mGfi" Text="ušklíbne se" />
 															</Parenthetical>
@@ -839,21 +952,26 @@
 																<Note StringName="smlo_smlouvani_oy_vej_fra_tkGs_note" Text="jidiš: Aj jaj, ale příteli!" />
 															</Text>
 															<Commands>
-																<CameraCommand />
+																<FacialMoodCommand FacialMood="happy1" />
+																<AnimationCommand Delay="0.46" FragmentId="ADLG_Surprised" Guid="364379fe-358d-4b99-9356-3a769ebe21cb" Variant="1" />
+																<CameraCommand CameraType="CloseUp" />
 															</Commands>
 														</Response>
-														<Response Role="SMLOUVANI_ZENA">
+														<Response Role="SMLOUVANI_ZENA" ReferenceLength="7">
 															<Parenthetical>
 																<Text StringName="smlo_smlouvani_sibalsky_hXKw" Text="šibalsky" />
 															</Parenthetical>
 															<Text StringName="smlo_smlouvani_tohle_je_k_Ru3H" Text="Tohle je kradený zboží, to snižuje cenu." />
+															<Commands>
+																<AnimationCommand Delay="1.8" FragmentId="ADLG_Gesture" Guid="d7ebaebf-faa8-488a-b2b4-fa43cbb67de8" Variant="21" />
+															</Commands>
 														</Response>
 													</Elements>
 												</Sequence>
 												<Sequence EndType="GoTo" GoToDecision="23483" VoiceCategoryRoles="SMLOUVANI_ZENA" VoiceCategory="romani" Name="romani07">
 													<DesignName StringName="smlouvani_romani07_IAPG" Text="romani07" />
 													<Elements>
-														<Response Role="SMLOUVANI_ZENA">
+														<Response Role="SMLOUVANI_ZENA" ReferenceLength="2.14">
 															<Parenthetical>
 																<Text StringName="smlo_smlouvani_usklibne_se_BPgh" Text="ušklíbne se" />
 															</Parenthetical>
@@ -861,14 +979,19 @@
 																<Note StringName="smlo_smlouvani_sap_sapes__etvD_note" Text="romsky: (pořekadlo) Had hada nepokouše..." />
 															</Text>
 															<Commands>
-																<CameraCommand />
+																<FacialMoodCommand FacialMood="happy1" />
+																<AnimationCommand Delay="0.02" FragmentId="ADLG_Surprised_light" Guid="ec1ef83e-f206-5b50-63ea-27915e5061a3" Variant="0" />
+																<CameraCommand CameraType="CloseUp" />
 															</Commands>
 														</Response>
-														<Response Role="SMLOUVANI_ZENA">
+														<Response Role="SMLOUVANI_ZENA" ReferenceLength="3.16">
 															<Parenthetical>
 																<Text StringName="smlo_smlouvani_usmeje_se_R2rx" Text="usměje se" />
 															</Parenthetical>
 															<Text StringName="smlo_smlouvani_ale_za_to__MFHm" Text="Ale za to kradený zboží dostanu vod tebe slevu." />
+															<Commands>
+																<AnimationCommand Delay="1.06" FragmentId="ADLG_Gesture" Guid="374a4d5e-d2c6-40e7-9ad7-5928801404ee" Variant="2" />
+															</Commands>
 														</Response>
 													</Elements>
 												</Sequence>
@@ -885,13 +1008,16 @@
 												<Sequence EndType="Decision" Name="seq93">
 													<DesignName StringName="smlouvani_seq93_DvhN" Text="seq93" />
 													<Elements>
-														<Response Role="SMLOUVANI_ZENA">
+														<Response Role="SMLOUVANI_ZENA" ReferenceLength="11">
 															<Parenthetical>
 																<Text StringName="smlo_smlouvani_udivene_na_KCgh" Text="udiveně, naštvaně" />
 															</Parenthetical>
 															<Text StringName="smlo_smlouvani_hele_co_to_rtBn" Text="Hele! Co to jako zkoušíš? Prodat mě moje vlastní věci? Zloději!" />
 															<Commands>
-																<CameraCommand />
+																<FacialMoodCommand FacialMood="angry2" />
+																<AnimationCommand Delay="0.02" FragmentId="ADLG_Surprised_light" Guid="ec1ef83e-f206-5b50-63ea-27915e5061a3" Variant="0" />
+																<AnimationCommand Delay="5.47" FragmentId="ADLG_You" Guid="ec63b92a-2ac1-f7a0-2715-f626e382168a" Variant="1" />
+																<CameraCommand CameraType="CloseShot" />
 															</Commands>
 														</Response>
 													</Elements>
@@ -912,7 +1038,7 @@
 												<Sequence EndType="GoTo" GoToDecision="dec14" VoiceCategoryRoles="SMLOUVANI_ZENA" VoiceCategory="german" Name="german10">
 													<DesignName StringName="smlouvani_german10_JRJH" Text="german10" />
 													<Elements>
-														<Response Role="SMLOUVANI_ZENA">
+														<Response Role="SMLOUVANI_ZENA" ReferenceLength="6">
 															<Parenthetical>
 																<Text StringName="smlo_smlouvani_pohorsene_K0qP" Text="pohoršeně" />
 															</Parenthetical>
@@ -920,41 +1046,53 @@
 																<Note StringName="smlo_smlouvani_was_machst_hBDN_note" Text="německy: Co děláš, ty ničemo?" />
 															</Text>
 															<Commands>
-																<CameraCommand />
+																<FacialMoodCommand FacialMood="angry2" />
+																<AnimationCommand Delay="0.02" FragmentId="ADLG_Surprised_light" Guid="ec1ef83e-f206-5b50-63ea-27915e5061a3" Variant="0" DesiredDuration="2.81" />
+																<CameraCommand CameraType="CloseShot" />
 															</Commands>
 														</Response>
-														<Response Role="SMLOUVANI_ZENA">
+														<Response Role="SMLOUVANI_ZENA" ReferenceLength="8">
 															<Parenthetical>
 																<Text StringName="smlo_smlouvani_nastvane_I9q4" Text="naštvaně" />
 															</Parenthetical>
 															<Text StringName="smlo_smlouvani_myslis_ze__qBHa" Text="Myslíš, že nepoznám vlastní věci?! Okradl si mě!" />
+															<Commands>
+																<FacialMoodCommand FacialMood="angry3" />
+																<AnimationCommand Delay="2.77" FragmentId="ADLG_You" Guid="ec63b92a-2ac1-f7a0-2715-f626e382168a" Variant="1" />
+															</Commands>
 														</Response>
 													</Elements>
 												</Sequence>
 												<Sequence EndType="GoTo" GoToDecision="dec14" Name="seq95">
 													<DesignName StringName="smlouvani_seq95_VWim" Text="seq95" />
 													<Elements>
-														<Response Role="SMLOUVANI_ZENA">
+														<Response Role="SMLOUVANI_ZENA" ReferenceLength="10">
 															<Parenthetical>
 																<Text StringName="smlo_smlouvani_udivene_na_s3aW" Text="udiveně, naštvaně" />
 															</Parenthetical>
 															<Text StringName="smlo_smlouvani_coze_to_me_uVmD" Text="Cože? To mě jako zkoušíš prodat mý vlastní věci? " />
 															<Commands>
-																<CameraCommand />
+																<FacialMoodCommand FacialMood="angry2" />
+																<AnimationCommand FragmentId="ADLG_Surprised" Guid="216c5f57-7d80-cbec-6032-f1018313e097" Variant="0" />
+																<CameraCommand CameraType="CloseUp" />
 															</Commands>
 														</Response>
-														<Response Role="SMLOUVANI_ZENA">
+														<Response Role="SMLOUVANI_ZENA" ReferenceLength="7">
 															<Parenthetical>
 																<Text StringName="smlo_smlouvani_nastvane_u_DzUo" Text="naštvaně, ukáže na Jindru" />
 															</Parenthetical>
 															<Text StringName="smlo_smlouvani_ses_zlodej_PCFi" Text="Seš zloděj a ještě k tomu blbej!" />
+															<Commands>
+																<FacialMoodCommand FacialMood="angry3" />
+																<AnimationCommand Delay="1.92" FragmentId="ADLG_Agree" Guid="f172188c-f368-42d8-b1e8-2353d9db3787" Variant="4" />
+															</Commands>
 														</Response>
 													</Elements>
 												</Sequence>
 												<Sequence EndType="GoTo" GoToDecision="dec14" VoiceCategoryRoles="SMLOUVANI_ZENA" VoiceCategory="jew" Name="jew10">
 													<DesignName StringName="smlouvani_jew10_KFf7" Text="jew10" />
 													<Elements>
-														<Response Role="SMLOUVANI_ZENA">
+														<Response Role="SMLOUVANI_ZENA" ReferenceLength="4">
 															<Parenthetical>
 																<Text StringName="smlo_smlouvani_udivene_na_MG6g" Text="udiveně, naštvaně" />
 															</Parenthetical>
@@ -962,21 +1100,27 @@
 																<Note StringName="smlo_smlouvani_vos_machst_xl9g_note" Text="jidiš: Co blbneš, hovado?" />
 															</Text>
 															<Commands>
-																<CameraCommand />
+																<FacialMoodCommand FacialMood="angry3" />
+																<AnimationCommand Delay="0" FragmentId="ADLG_Surprised" Guid="364379fe-358d-4b99-9356-3a769ebe21cb" Variant="1" />
+																<CameraCommand CameraType="CloseShot" />
 															</Commands>
 														</Response>
-														<Response Role="SMLOUVANI_ZENA">
+														<Response Role="SMLOUVANI_ZENA" ReferenceLength="10">
 															<Parenthetical>
 																<Text StringName="smlo_smlouvani_nastvane_u_3umB" Text="naštvaně, ukáže na Jindru" />
 															</Parenthetical>
 															<Text StringName="smlo_smlouvani_chces_me_p_adbh" Text="Chceš mě prodat mý vlastní věci? Tys mě okradl, zloději!" />
+															<Commands>
+																<FacialMoodCommand FacialMood="angry2" />
+																<AnimationCommand Delay="3.63" FragmentId="ADLG_You" Guid="ec63b92a-2ac1-f7a0-2715-f626e382168a" Variant="1" />
+															</Commands>
 														</Response>
 													</Elements>
 												</Sequence>
 												<Sequence EndType="GoTo" GoToDecision="dec14" VoiceCategoryRoles="SMLOUVANI_ZENA" VoiceCategory="romani" Name="romani06">
 													<DesignName StringName="smlouvani_romani06_0aaY" Text="romani06" />
 													<Elements>
-														<Response Role="SMLOUVANI_ZENA">
+														<Response Role="SMLOUVANI_ZENA" ReferenceLength="2.93">
 															<Parenthetical>
 																<Text StringName="smlo_smlouvani_udivene_na_RPiT" Text="udiveně, naštvaně" />
 															</Parenthetical>
@@ -984,14 +1128,20 @@
 																<Note StringName="smlo_smlouvani_te_chas_le_rM3V_note" Text="romsky: (pořekadlo) Dlouhej jazyk, krátkej rozum!" />
 															</Text>
 															<Commands>
-																<CameraCommand />
+																<FacialMoodCommand FacialMood="angry2" />
+																<AnimationCommand Delay="0.02" FragmentId="ADLG_Gesture" Guid="447b018f-9485-446f-a811-c0cde0b017f7" Variant="4" />
+																<CameraCommand CameraType="CloseUp" />
 															</Commands>
 														</Response>
-														<Response Role="SMLOUVANI_ZENA">
+														<Response Role="SMLOUVANI_ZENA" ReferenceLength="3.91">
 															<Parenthetical>
 																<Text StringName="smlo_smlouvani_nastvane_jVQh" Text="naštvaně" />
 															</Parenthetical>
 															<Text StringName="smlo_smlouvani_tohle_sou__Sw78" Text="Tohle sou přece moje věci! Myslíš že sem blbej, ty zloději!" />
+															<Commands>
+																<FacialMoodCommand FacialMood="angry3" />
+																<AnimationCommand Delay="1.76" FragmentId="ADLG_Frustration" Guid="c58ba881-4060-4094-a70f-f9b6a690f66e" Variant="1" />
+															</Commands>
 														</Response>
 													</Elements>
 												</Sequence>
@@ -1061,8 +1211,13 @@
 																					<Sequence EndType="GoTo" GoToDecision="dec8" Name="seq30">
 																						<DesignName StringName="smlouvani_seq30_kdb0" Text="seq30" />
 																						<Elements>
-																							<Response Role="HRAC">
+																							<Response Role="HRAC" ReferenceLength="1.95">
 																								<Text StringName="smlo_henry_no_tak_tohle_j_2kcA" Text="No, tak tohle je slušná cena." />
+																								<Commands>
+																									<FacialMoodCommand FacialMood="thinking2" />
+																									<AnimationCommand Delay="1.3" FragmentId="ADLG_Nod" Guid="ca364fe9-66bd-48fa-8178-0e49459d7038" Variant="2" />
+																									<CameraCommand Delay="0.04" CameraType="CloseUp" />
+																								</Commands>
 																								<Comments>
 																									<Item Date="2016-03-07 18:36:58" UserName="david.horak" Text="Souhlas s nabídkou obchodníka." />
 																								</Comments>
@@ -1072,8 +1227,13 @@
 																					<Sequence EndType="GoTo" GoToDecision="dec8" Name="seq31">
 																						<DesignName StringName="smlouvani_seq31_kMDf" Text="seq31" />
 																						<Elements>
-																							<Response Role="HRAC">
+																							<Response Role="HRAC" ReferenceLength="1.24">
 																								<Text StringName="smlo_henry_tahle_suma_uz__FnpS" Text="Tahle suma už jde." />
+																								<Commands>
+																									<FacialMoodCommand FacialMood="thinking1" />
+																									<AnimationCommand Delay="0.04" FragmentId="ADLG_Gesture" Guid="82614ed5-8978-4c2d-8771-aeab0b05a4e7" Variant="14" />
+																									<CameraCommand CameraType="CloseUp" />
+																								</Commands>
 																								<Comments>
 																									<Item Date="2016-03-07 18:37:03" UserName="david.horak" Text="Souhlas s nabídkou obchodníka." />
 																								</Comments>
@@ -1083,8 +1243,13 @@
 																					<Sequence EndType="GoTo" GoToDecision="dec8" Name="seq32">
 																						<DesignName StringName="smlouvani_seq32_a6GM" Text="seq32" />
 																						<Elements>
-																							<Response Role="HRAC">
+																							<Response Role="HRAC" ReferenceLength="0.77">
 																								<Text StringName="smlo_henry_tohle_beru_J3O7" Text="Tohle beru." />
+																								<Commands>
+																									<FacialMoodCommand FacialMood="thinking2" />
+																									<AnimationCommand Delay="0" FragmentId="ADLG_Nod" Guid="e42b3bf3-fd0e-478c-b9f7-cacc887c47b9" Variant="3" />
+																									<CameraCommand CameraType="CloseUp" />
+																								</Commands>
 																								<Comments>
 																									<Item Date="2016-03-07 18:37:08" UserName="david.horak" Text="Souhlas s nabídkou obchodníka." />
 																								</Comments>
@@ -1094,11 +1259,16 @@
 																					<Sequence EndType="GoTo" GoToDecision="dec8" Name="seq33">
 																						<DesignName StringName="smlouvani_seq33_Iy41" Text="seq33" />
 																						<Elements>
-																							<Response Role="HRAC">
+																							<Response Role="HRAC" ReferenceLength="2.51">
 																								<Parenthetical>
 																									<Text StringName="smlo_henry_souhlasi_s_cen_cGz6" Text="souhlasí s cenou" />
 																								</Parenthetical>
 																								<Text StringName="smlo_henry_a_pak_ze_se_ne_3LOw" Text="A pak že se nedohodnem." />
+																								<Commands>
+																									<FacialMoodCommand FacialMood="happy1" />
+																									<AnimationCommand Delay="0.02" FragmentId="ADLG_Disagree_light" Guid="4d0b5172-105b-411f-bf16-b6f08b544a51" Variant="2" DesiredDuration="0.95" />
+																									<CameraCommand CameraType="CloseUp" />
+																								</Commands>
 																								<Comments>
 																									<Item Date="2016-03-07 18:37:12" UserName="david.horak" Text="Souhlas s nabídkou obchodníka." />
 																								</Comments>
@@ -1108,8 +1278,13 @@
 																					<Sequence EndType="Decision" Name="seq34">
 																						<DesignName StringName="smlouvani_seq34_tdaH" Text="seq34" />
 																						<Elements>
-																							<Response Role="HRAC">
+																							<Response Role="HRAC" ReferenceLength="1.99">
 																								<Text StringName="smlo_henry_dobre_souhlasim_g3KZ" Text="Dobře, souhlasim." />
+																								<Commands>
+																									<FacialMoodCommand FacialMood="thinking1" />
+																									<AnimationCommand Delay="0.02" FragmentId="ADLG_Nod" Guid="f219ea89-720f-4384-b0f6-57044649e8dd" Variant="4" />
+																									<CameraCommand CameraType="CloseUp" />
+																								</Commands>
 																								<Comments>
 																									<Item Date="2016-03-07 18:37:17" UserName="david.horak" Text="Souhlas s nabídkou obchodníka." />
 																								</Comments>
@@ -1146,7 +1321,9 @@
 																							<Response Role="HRAC" ReferenceLength="1.85">
 																								<Text StringName="smlo_henry_takhle_a_mensi_IVrm" Text="Takhle a menší všimný k tomu." />
 																								<Commands>
-																									<CameraCommand CameraType="CloseShot" />
+																									<FacialMoodCommand FacialMood="thinking2" />
+																									<AnimationCommand Delay="0.93" FragmentId="ADLG_Gesture" Guid="5d70018a-2501-4f38-bd2e-e946f1527032" Variant="9" />
+																									<CameraCommand CameraType="CloseUp" />
 																								</Commands>
 																								<Comments>
 																									<Item Date="2016-03-09 09:48:16" UserName="david.horak" Text="Hráč dal dýško." />
@@ -1157,10 +1334,11 @@
 																					<Sequence EndType="GoTo" GoToDecision="23511" Name="seq39">
 																						<DesignName StringName="smlouvani_seq39_H6rs" Text="seq39" />
 																						<Elements>
-																							<Response Role="HRAC" ReferenceLength="2.76">
+																							<Response Role="HRAC" ReferenceLength="2.79">
 																								<Text StringName="smlo_henry_tady_a_jeste_n_vQM5" Text="Tady a ještě něco navíc." />
 																								<Commands>
-																									<CameraCommand CameraType="CloseShot" />
+																									<AnimationCommand Delay="0" FragmentId="ADLG_Gesture" Guid="649b3c66-46dc-4666-8a6c-7d8df90c80ea" Variant="10" />
+																									<CameraCommand CameraType="CloseUp" />
 																								</Commands>
 																								<Comments>
 																									<Item Date="2016-03-09 09:48:22" UserName="david.horak" Text="Hráč dal dýško." />
@@ -1174,6 +1352,8 @@
 																							<Response Role="HRAC" ReferenceLength="2.88">
 																								<Text StringName="smlo_henry_tady_a_neco_od_25p2" Text="Tady a něco od cesty." />
 																								<Commands>
+																									<FacialMoodCommand FacialMood="happy1" />
+																									<AnimationCommand Delay="1.43" FragmentId="ADLG_Gesture" Guid="002ace53-8d31-4d61-b729-4bae5c80b2e5" Variant="0" />
 																									<CameraCommand CameraType="CloseUp" />
 																								</Commands>
 																								<Comments>
@@ -1186,12 +1366,14 @@
 																								<Sequence EndType="GoTo" GoToDecision="dec7" Name="seq41">
 																									<DesignName StringName="smlouvani_seq41_4tJb" Text="seq41" />
 																									<Elements>
-																										<Response Role="SMLOUVANI_ZENA" ReferenceLength="1.97">
+																										<Response Role="SMLOUVANI_ZENA" ReferenceLength="2.35">
 																											<Parenthetical>
 																												<Text StringName="smlo_smlouvani_prekvapene_2N1s" Text="překvapeně, uctivě" />
 																											</Parenthetical>
 																											<Text StringName="smlo_smlouvani_no_teda_de_RxaX" Text="No teda, děkuju moc!" />
 																											<Commands>
+																												<FacialMoodCommand FacialMood="happy1" />
+																												<AnimationCommand Delay="1.43" FragmentId="ADLG_Agree" Guid="abded27f-7bf0-44fb-b568-a2d149d54ce6" Variant="2" />
 																												<CameraCommand CameraType="CloseUp" />
 																											</Commands>
 																											<Comments>
@@ -1203,13 +1385,15 @@
 																								<Sequence EndType="GoTo" GoToDecision="dec7" Name="seq42">
 																									<DesignName StringName="smlouvani_seq42_oV5k" Text="seq42" />
 																									<Elements>
-																										<Response Role="SMLOUVANI_ZENA" ReferenceLength="1.71">
+																										<Response Role="SMLOUVANI_ZENA" ReferenceLength="3">
 																											<Parenthetical>
 																												<Text StringName="smlo_smlouvani_prekvapene_1tWi" Text="překvapeně, uctivě" />
 																											</Parenthetical>
 																											<Text StringName="smlo_smlouvani_panecku_uc_gQpp" Text="Panečku, uctivě děkuju." />
 																											<Commands>
-																												<CameraCommand CameraType="CloseShot" />
+																												<FacialMoodCommand FacialMood="happy1" />
+																												<AnimationCommand Delay="0.61" FragmentId="ADLG_Nod" Guid="e19b4783-39a0-4a4e-951d-018bc8ad1a03" Variant="0" />
+																												<CameraCommand CameraType="CloseUp" />
 																											</Commands>
 																											<Comments>
 																												<Item Date="2015-12-14 12:25:03" UserName="david.horak" Text="Hráč dal dýško." />
@@ -1220,13 +1404,15 @@
 																								<Sequence EndType="Decision" Name="seq43">
 																									<DesignName StringName="smlouvani_seq43_eiXr" Text="seq43" />
 																									<Elements>
-																										<Response Role="SMLOUVANI_ZENA" ReferenceLength="5">
+																										<Response Role="SMLOUVANI_ZENA" ReferenceLength="1.33">
 																											<Parenthetical>
 																												<Text StringName="smlo_smlouvani_prekvapene_bOot" Text="překvapeně, uctivě" />
 																											</Parenthetical>
 																											<Text StringName="smlo_smlouvani_dekuju_mno_VUAH" Text="Děkuju mnohokrát." />
 																											<Commands>
-																												<CameraCommand CameraType="CloseShot" />
+																												<FacialMoodCommand FacialMood="happy2" />
+																												<AnimationCommand Delay="0.53" FragmentId="ADLG_Agree" Guid="f0f76cf7-bf3c-416e-83df-3f9594209321" Variant="3" />
+																												<CameraCommand CameraType="CloseUp" />
 																											</Commands>
 																											<Comments>
 																												<Item Date="2015-12-14 12:26:21" UserName="david.horak" Text="Hráč dal dýško." />
@@ -1247,7 +1433,7 @@
 																								<Sequence EndType="GoTo" GoToDecision="dec7" VoiceCategoryRoles="SMLOUVANI_ZENA" VoiceCategory="german" Name="german17">
 																									<DesignName StringName="smlouvani_german17_sWnp" Text="german17" />
 																									<Elements>
-																										<Response Role="SMLOUVANI_ZENA">
+																										<Response Role="SMLOUVANI_ZENA" ReferenceLength="3">
 																											<Parenthetical>
 																												<Text StringName="smlo_smlouvani_nemecky_vy_D7QJ" Text="německy, výrazně potěšeně, děkuje za tuzér" />
 																											</Parenthetical>
@@ -1255,7 +1441,9 @@
 																												<Note StringName="smlo_smlouvani_prachtvoll_T3af_note" Text="německy: Skvělé! Děkuju." />
 																											</Text>
 																											<Commands>
-																												<CameraCommand />
+																												<FacialMoodCommand FacialMood="happy1" />
+																												<AnimationCommand Delay="0.32" FragmentId="ADLG_Surprised_light" Guid="ec1ef83e-f206-5b50-63ea-27915e5061a3" Variant="0" />
+																												<CameraCommand CameraType="CloseUp" />
 																											</Commands>
 																										</Response>
 																									</Elements>
@@ -1295,7 +1483,7 @@
 																								<Sequence EndType="GoTo" GoToDecision="dec7" VoiceCategoryRoles="SMLOUVANI_ZENA" VoiceCategory="jew" Name="seq111">
 																									<DesignName StringName="smlouvani_seq111_hbC1" Text="seq111" />
 																									<Elements>
-																										<Response Role="SMLOUVANI_ZENA">
+																										<Response Role="SMLOUVANI_ZENA" ReferenceLength="3">
 																											<Parenthetical>
 																												<Text StringName="smlo_smlouvani_jidis_vyra_e52r" Text="jidiš, výrazně potěšeně děkuje" />
 																											</Parenthetical>
@@ -1303,7 +1491,9 @@
 																												<Note StringName="smlo_smlouvani_epes_sejne_dvSM_note" Text="jidiš: Skvěle! Mockrát děkuju." />
 																											</Text>
 																											<Commands>
-																												<CameraCommand />
+																												<FacialMoodCommand FacialMood="happy1" />
+																												<AnimationCommand Delay="0" FragmentId="ADLG_Surprised_light" Guid="ec1ef83e-f206-5b50-63ea-27915e5061a3" Variant="0" />
+																												<CameraCommand CameraType="CloseUp" />
 																											</Commands>
 																										</Response>
 																									</Elements>
@@ -1335,10 +1525,12 @@
 																								<Sequence EndType="Decision" Name="seq51">
 																									<DesignName StringName="smlouvani_seq51_d4aL" Text="seq51" />
 																									<Elements>
-																										<Response Role="SMLOUVANI_ZENA">
+																										<Response Role="SMLOUVANI_ZENA" ReferenceLength="2.39">
 																											<Text StringName="smlo_smlouvani_jo_tolik_p_c4Su" Text="Jo, tolik peněz už mě přesvědčí." />
 																											<Commands>
-																												<CameraCommand />
+																												<FacialMoodCommand FacialMood="happy1" />
+																												<AnimationCommand Delay="0.02" FragmentId="ADLG_Nod" Guid="e19b4783-39a0-4a4e-951d-018bc8ad1a03" Variant="0" />
+																												<CameraCommand CameraType="CloseUp" />
 																											</Commands>
 																											<Comments>
 																												<Item Date="2015-10-02 09:04:07" UserName="david.horak" Text="hráč nabídl dost." />
@@ -1369,13 +1561,15 @@
 																								<Sequence EndType="GoTo" GoToDecision="dec9" Cooldown="3s" Name="seq50">
 																									<DesignName StringName="smlouvani_seq50_xk3l" Text="seq50" />
 																									<Elements>
-																										<Response Role="SMLOUVANI_ZENA">
+																										<Response Role="SMLOUVANI_ZENA" ReferenceLength="4">
 																											<Parenthetical>
 																												<Text StringName="smlo_smlouvani_prikyvne_z0TW" Text="přikývne" />
 																											</Parenthetical>
 																											<Text StringName="smlo_smlouvani_jo_to_by_s_PCgi" Text="Jo, to by šlo." />
 																											<Commands>
-																												<CameraCommand />
+																												<FacialMoodCommand FacialMood="thinking1" />
+																												<AnimationCommand Delay="0.02" FragmentId="ADLG_Nod" Guid="e19b4783-39a0-4a4e-951d-018bc8ad1a03" Variant="0" />
+																												<CameraCommand CameraType="CloseUp" />
 																											</Commands>
 																											<Comments>
 																												<Item Date="2015-10-02 09:04:01" UserName="david.horak" Text="hráč nabídl dost." />
@@ -1386,13 +1580,15 @@
 																								<Sequence EndType="GoTo" GoToDecision="dec9" Cooldown="3s" Name="seq49">
 																									<DesignName StringName="smlouvani_seq49_eQma" Text="seq49" />
 																									<Elements>
-																										<Response Role="SMLOUVANI_ZENA">
+																										<Response Role="SMLOUVANI_ZENA" ReferenceLength="2">
 																											<Parenthetical>
 																												<Text StringName="smlo_smlouvani_prikyvne_VJz4" Text="přikývne" />
 																											</Parenthetical>
 																											<Text StringName="smlo_smlouvani_dobre_tedy_iyGN" Text="Dobře tedy." />
 																											<Commands>
-																												<CameraCommand />
+																												<FacialMoodCommand FacialMood="happy1" />
+																												<AnimationCommand FragmentId="ADLG_Agree" Guid="8f019433-57ac-450f-9b0c-b387030f1515" Variant="1" />
+																												<CameraCommand CameraType="CloseUp" />
 																											</Commands>
 																											<Comments>
 																												<Item Date="2015-10-02 09:03:57" UserName="david.horak" Text="hráč nabídl dost." />
@@ -1403,13 +1599,15 @@
 																								<Sequence EndType="GoTo" GoToDecision="dec9" Cooldown="3s" Name="seq48">
 																									<DesignName StringName="smlouvani_seq48_nUH7" Text="seq48" />
 																									<Elements>
-																										<Response Role="SMLOUVANI_ZENA">
+																										<Response Role="SMLOUVANI_ZENA" ReferenceLength="6">
 																											<Parenthetical>
 																												<Text StringName="smlo_smlouvani_usmeje_se_2Nby" Text="usměje se" />
 																											</Parenthetical>
 																											<Text StringName="smlo_smlouvani_no_vidis_z_Damd" Text="No vidíš, že se dokážeme domluvit." />
 																											<Commands>
-																												<CameraCommand />
+																												<FacialMoodCommand FacialMood="happy1" />
+																												<AnimationCommand Delay="0.84" FragmentId="ADLG_Gesture" Guid="962a4745-715f-478e-85ce-61c4bb981afa" Variant="9" />
+																												<CameraCommand CameraType="CloseUp" />
 																											</Commands>
 																											<Comments>
 																												<Item Date="2015-10-02 09:03:52" UserName="david.horak" Text="hráč nabídl dost." />
@@ -1420,13 +1618,15 @@
 																								<Sequence EndType="GoTo" GoToDecision="dec9" Cooldown="3s" Name="seq47">
 																									<DesignName StringName="smlouvani_seq47_Dtf3" Text="seq47" />
 																									<Elements>
-																										<Response Role="SMLOUVANI_ZENA">
+																										<Response Role="SMLOUVANI_ZENA" ReferenceLength="4">
 																											<Parenthetical>
 																												<Text StringName="smlo_smlouvani_usmeje_se_TyXO" Text="usměje se" />
 																											</Parenthetical>
 																											<Text StringName="smlo_smlouvani_no_konecne_Br0u" Text="No konečně rozumná částka." />
 																											<Commands>
-																												<CameraCommand />
+																												<FacialMoodCommand FacialMood="happy1" />
+																												<AnimationCommand Delay="0.02" FragmentId="ADLG_Surprised_light" Guid="ec1ef83e-f206-5b50-63ea-27915e5061a3" Variant="0" />
+																												<CameraCommand CameraType="CloseUp" />
 																											</Commands>
 																											<Comments>
 																												<Item Date="2015-10-02 09:00:47" UserName="david.horak" Text="hráč nabídl dost." />
@@ -1437,7 +1637,7 @@
 																								<Sequence EndType="GoTo" GoToDecision="dec9" VoiceCategoryRoles="SMLOUVANI_ZENA" VoiceCategory="german" Name="german15">
 																									<DesignName StringName="smlouvani_german15_LmBY" Text="german15" />
 																									<Elements>
-																										<Response Role="SMLOUVANI_ZENA">
+																										<Response Role="SMLOUVANI_ZENA" ReferenceLength="3">
 																											<Parenthetical>
 																												<Text StringName="smlo_smlouvani_nemecky_po_V6Um" Text="německy, potěšeně" />
 																											</Parenthetical>
@@ -1445,7 +1645,9 @@
 																												<Note StringName="smlo_smlouvani_sehr_gut_m_rLfp_note" Text="německy: Výborně, chlape." />
 																											</Text>
 																											<Commands>
-																												<CameraCommand />
+																												<FacialMoodCommand FacialMood="happy1" />
+																												<AnimationCommand Delay="0.25" FragmentId="ADLG_Nod" Guid="e19b4783-39a0-4a4e-951d-018bc8ad1a03" Variant="0" DesiredDuration="0.96" />
+																												<CameraCommand CameraType="CloseUp" />
 																											</Commands>
 																										</Response>
 																										<Response Role="SMLOUVANI_ZENA">
@@ -1456,7 +1658,7 @@
 																								<Sequence EndType="GoTo" GoToDecision="dec9" VoiceCategoryRoles="SMLOUVANI_ZENA" VoiceCategory="german" Name="german16">
 																									<DesignName StringName="smlouvani_german16_zCqS" Text="german16" />
 																									<Elements>
-																										<Response Role="SMLOUVANI_ZENA">
+																										<Response Role="SMLOUVANI_ZENA" ReferenceLength="4">
 																											<Parenthetical>
 																												<Text StringName="smlo_smlouvani_potesene_lLOj" Text="potěšeně" />
 																											</Parenthetical>
@@ -1464,7 +1666,9 @@
 																												<Note StringName="smlo_smlouvani_ja_das_ist_6DXx_note" Text="německy: Jo, to by šlo." />
 																											</Text>
 																											<Commands>
-																												<CameraCommand />
+																												<FacialMoodCommand FacialMood="happy1" />
+																												<AnimationCommand Delay="0" FragmentId="ADLG_Agree" Guid="3855e936-aaa8-40bb-a9c6-c4a26f4a19e5" Variant="0" />
+																												<CameraCommand CameraType="CloseUp" />
 																											</Commands>
 																										</Response>
 																										<Response Role="SMLOUVANI_ZENA">
@@ -1475,7 +1679,7 @@
 																								<Sequence EndType="GoTo" GoToDecision="dec9" VoiceCategoryRoles="SMLOUVANI_ZENA" VoiceCategory="jew" Name="jew09">
 																									<DesignName StringName="smlouvani_jew09_eoSr" Text="jew09" />
 																									<Elements>
-																										<Response Role="SMLOUVANI_ZENA">
+																										<Response Role="SMLOUVANI_ZENA" ReferenceLength="3">
 																											<Parenthetical>
 																												<Text StringName="smlo_smlouvani_jidis_pote_Weku" Text="jidiš, potěšeně" />
 																											</Parenthetical>
@@ -1483,7 +1687,8 @@
 																												<Note StringName="smlo_smlouvani_masa_umata_7FNu_note" Text="jidiš: Dobrej obchod..." />
 																											</Text>
 																											<Commands>
-																												<CameraCommand />
+																												<FacialMoodCommand FacialMood="happy1" />
+																												<CameraCommand CameraType="CloseUp" />
 																											</Commands>
 																										</Response>
 																										<Response Role="SMLOUVANI_ZENA">
@@ -1494,7 +1699,7 @@
 																								<Sequence EndType="GoTo" GoToDecision="dec9" VoiceCategoryRoles="SMLOUVANI_ZENA" VoiceCategory="jew" Name="jew11">
 																									<DesignName StringName="smlouvani_jew11_jVyM" Text="jew11" />
 																									<Elements>
-																										<Response Role="SMLOUVANI_ZENA">
+																										<Response Role="SMLOUVANI_ZENA" ReferenceLength="2">
 																											<Parenthetical>
 																												<Text StringName="smlo_smlouvani_jidis_pote_crnW" Text="jidiš, potěšeně" />
 																											</Parenthetical>
@@ -1502,21 +1707,25 @@
 																												<Note StringName="smlo_smlouvani_borur_fraj_gvc6_note" Text="jidiš: Skvěle, příteli..." />
 																											</Text>
 																											<Commands>
-																												<CameraCommand />
+																												<FacialMoodCommand FacialMood="happy1" />
+																												<CameraCommand CameraType="CloseUp" />
 																											</Commands>
 																										</Response>
-																										<Response Role="SMLOUVANI_ZENA">
+																										<Response Role="SMLOUVANI_ZENA" ReferenceLength="1">
 																											<Parenthetical>
 																												<Text StringName="smlo_smlouvani_prikyvne_caO8" Text="přikývne" />
 																											</Parenthetical>
 																											<Text StringName="smlo_smlouvani_souhlasim_8sMv" Text="Souhlasím." />
+																											<Commands>
+																												<AnimationCommand Delay="0.02" FragmentId="ADLG_Nod" Guid="e19b4783-39a0-4a4e-951d-018bc8ad1a03" Variant="0" DesiredDuration="1" />
+																											</Commands>
 																										</Response>
 																									</Elements>
 																								</Sequence>
 																								<Sequence EndType="GoTo" GoToDecision="dec9" VoiceCategoryRoles="SMLOUVANI_ZENA" VoiceCategory="romani" Name="romani09">
 																									<DesignName StringName="smlouvani_romani09_Vi0f" Text="romani09" />
 																									<Elements>
-																										<Response Role="SMLOUVANI_ZENA">
+																										<Response Role="SMLOUVANI_ZENA" ReferenceLength="1.26">
 																											<Parenthetical>
 																												<Text StringName="smlo_smlouvani_romsky_pot_fZHg" Text="romsky, potěšeně přikývne" />
 																											</Parenthetical>
@@ -1524,18 +1733,22 @@
 																												<Note StringName="smlo_smlouvani_mistes_gad_BGnB_note" Text="romsky: Dobře, týpku" />
 																											</Text>
 																											<Commands>
-																												<CameraCommand />
+																												<FacialMoodCommand FacialMood="happy1" />
+																												<CameraCommand CameraType="CloseUp" />
 																											</Commands>
 																										</Response>
-																										<Response Role="SMLOUVANI_ZENA">
+																										<Response Role="SMLOUVANI_ZENA" ReferenceLength="0.97">
 																											<Text StringName="smlo_smlouvani_souhlasim_YnkK" Text="Souhlasím." />
+																											<Commands>
+																												<AnimationCommand Delay="0.04" FragmentId="ADLG_Nod" Guid="e19b4783-39a0-4a4e-951d-018bc8ad1a03" Variant="0" DesiredDuration="1" />
+																											</Commands>
 																										</Response>
 																									</Elements>
 																								</Sequence>
 																								<Sequence EndType="GoTo" GoToDecision="dec9" VoiceCategoryRoles="SMLOUVANI_ZENA" VoiceCategory="romani" Name="romani10">
 																									<DesignName StringName="smlouvani_romani10_bzTw" Text="romani10" />
 																									<Elements>
-																										<Response Role="SMLOUVANI_ZENA">
+																										<Response Role="SMLOUVANI_ZENA" ReferenceLength="2.11">
 																											<Parenthetical>
 																												<Text StringName="smlo_smlouvani_romsky_pri_rYPm" Text="romsky, přikývne, potěšeně" />
 																											</Parenthetical>
@@ -1543,7 +1756,9 @@
 																												<Note StringName="smlo_smlouvani_laches_ada_cM45_note" Text="romsky: Dobře. Tohle koupím." />
 																											</Text>
 																											<Commands>
-																												<CameraCommand />
+																												<FacialMoodCommand FacialMood="happy1" />
+																												<AnimationCommand Delay="0.04" FragmentId="ADLG_Nod" Guid="e19b4783-39a0-4a4e-951d-018bc8ad1a03" Variant="0" DesiredDuration="1" />
+																												<CameraCommand CameraType="CloseUp" />
 																											</Commands>
 																										</Response>
 																										<Response Role="SMLOUVANI_ZENA">
@@ -1588,13 +1803,15 @@
 																					<Sequence ExitScript="local merchant = dc['SMLOUVANI_ZENA']&#xD;&#xA;merchant.soul:ModifyPlayerReputation('haggle_fail', true)" EndType="Decision" Name="seq64">
 																						<DesignName StringName="smlouvani_seq64_RBDT" Text="seq64" />
 																						<Elements>
-																							<Response Role="SMLOUVANI_ZENA">
+																							<Response Role="SMLOUVANI_ZENA" ReferenceLength="1.23">
 																								<Parenthetical>
 																									<Text StringName="smlo_smlouvani_rezolutne_NQmp" Text="rezolutně" />
 																								</Parenthetical>
 																								<Text StringName="smlo_smlouvani_smlouvat_u_4g6a" Text="Smlouvat už nebudu." />
 																								<Commands>
-																									<CameraCommand />
+																									<FacialMoodCommand FacialMood="thinking3" />
+																									<AnimationCommand Delay="0.02" FragmentId="ADLG_Emphasis" Guid="68c4ec63-0567-4c43-b48e-86ee96ddf9ee" Variant="3" />
+																									<CameraCommand CameraType="CloseShot" />
 																								</Commands>
 																							</Response>
 																						</Elements>
@@ -1635,13 +1852,15 @@
 																					<Sequence EndType="GoTo" GoToDecision="dec2" Name="seq57">
 																						<DesignName StringName="smlouvani_seq57_D7bQ" Text="seq57" />
 																						<Elements>
-																							<Response Role="SMLOUVANI_ZENA">
+																							<Response Role="SMLOUVANI_ZENA" ReferenceLength="4">
 																								<Parenthetical>
 																									<Text StringName="smlo_smlouvani_otravene_u9QI" Text="otráveně" />
 																								</Parenthetical>
 																								<Text StringName="smlo_smlouvani_tak_to_se__IpB3" Text="Tak to se nedohodnem." />
 																								<Commands>
-																									<CameraCommand />
+																									<FacialMoodCommand FacialMood="angry2" />
+																									<AnimationCommand Delay="0" FragmentId="ADLG_Disagree" Guid="091e2dd0-6079-467c-b878-66ed9ab3edc6" Variant="0" />
+																									<CameraCommand CameraType="CloseUp" />
 																								</Commands>
 																								<Comments>
 																									<Item Date="2015-10-02 13:42:09" UserName="david.horak" Text="hráč se vůbec nestrefil, promarnil příležitost a minihru failnul." />
@@ -1652,13 +1871,15 @@
 																					<Sequence EndType="GoTo" GoToDecision="dec2" Name="seq58">
 																						<DesignName StringName="smlouvani_seq58_0ofr" Text="seq58" />
 																						<Elements>
-																							<Response Role="SMLOUVANI_ZENA">
+																							<Response Role="SMLOUVANI_ZENA" ReferenceLength="1.29">
 																								<Parenthetical>
 																									<Text StringName="smlo_smlouvani_otravene_Sjzq" Text="otráveně" />
 																								</Parenthetical>
 																								<Text StringName="smlo_smlouvani_tak_nic_zntM" Text="Tak nic." />
 																								<Commands>
-																									<CameraCommand />
+																									<FacialMoodCommand FacialMood="angry1" />
+																									<AnimationCommand Delay="0.02" FragmentId="ADLG_Discard" Guid="840e1625-4267-97a9-acfb-33a57427351c" Variant="3" />
+																									<CameraCommand CameraType="CloseShot" />
 																								</Commands>
 																								<Comments>
 																									<Item Date="2015-10-05 09:43:29" UserName="david.horak" Text="hráč se vůbec nestrefil, promarnil příležitost a minihru failnul." />
@@ -1669,13 +1890,14 @@
 																					<Sequence EndType="GoTo" GoToDecision="dec2" Name="seq59">
 																						<DesignName StringName="smlouvani_seq59_NLxP" Text="seq59" />
 																						<Elements>
-																							<Response Role="SMLOUVANI_ZENA">
+																							<Response Role="SMLOUVANI_ZENA" ReferenceLength="1">
 																								<Parenthetical>
 																									<Text StringName="smlo_smlouvani_otravene_28UE" Text="otráveně" />
 																								</Parenthetical>
 																								<Text StringName="smlo_smlouvani_smula_SXlg" Text="Smůla." />
 																								<Commands>
-																									<CameraCommand />
+																									<FacialMoodCommand FacialMood="angry2" />
+																									<CameraCommand CameraType="CloseUp" />
 																								</Commands>
 																								<Comments>
 																									<Item Date="2015-10-05 09:43:33" UserName="david.horak" Text="hráč se vůbec nestrefil, promarnil příležitost a minihru failnul." />
@@ -1696,13 +1918,16 @@
 																					<Sequence EndType="GoTo" GoToDecision="dec2" Name="seq61">
 																						<DesignName StringName="smlouvani_seq61_8z9N" Text="seq61" />
 																						<Elements>
-																							<Response Role="SMLOUVANI_ZENA">
+																							<Response Role="SMLOUVANI_ZENA" ReferenceLength="4">
 																								<Parenthetical>
 																									<Text StringName="smlo_smlouvani_otravene_SCS1" Text="otráveně" />
 																								</Parenthetical>
 																								<Text StringName="smlo_smlouvani_to_je_k_ni_mhLP" Text="To je k ničemu." />
 																								<Commands>
-																									<CameraCommand />
+																									<FacialMoodCommand FacialMood="angry2" />
+																									<AnimationCommand Delay="0.4" />
+																									<AnimationCommand Delay="0.51" FragmentId="ADLG_Disagree_light" Guid="56132953-95ec-41eb-9969-07b6b68e2e7f" Variant="0" />
+																									<CameraCommand CameraType="CloseUp" />
 																								</Commands>
 																								<Comments>
 																									<Item Date="2015-10-05 09:43:42" UserName="david.horak" Text="hráč se vůbec nestrefil, promarnil příležitost a minihru failnul." />
@@ -1713,7 +1938,7 @@
 																					<Sequence EndType="GoTo" GoToDecision="dec2" VoiceCategoryRoles="SMLOUVANI_ZENA" VoiceCategory="german" Name="german13">
 																						<DesignName StringName="smlouvani_german13_jrCS" Text="german13" />
 																						<Elements>
-																							<Response Role="SMLOUVANI_ZENA">
+																							<Response Role="SMLOUVANI_ZENA" ReferenceLength="4">
 																								<Parenthetical>
 																									<Text StringName="smlo_smlouvani_nemecky_ot_n6Y7" Text="německy, otráveně" />
 																								</Parenthetical>
@@ -1721,7 +1946,9 @@
 																									<Note StringName="smlo_smlouvani_nein_das_i_A9Kl_note" Text="německy: Ne, to je zbytečný." />
 																								</Text>
 																								<Commands>
-																									<CameraCommand />
+																									<FacialMoodCommand FacialMood="angry1" />
+																									<AnimationCommand Delay="0.02" FragmentId="ADLG_Disagree_light" Guid="5acf8d95-df36-4634-834b-980ef7993e74" Variant="1" />
+																									<CameraCommand CameraType="CloseUp" />
 																								</Commands>
 																							</Response>
 																						</Elements>
@@ -1729,7 +1956,7 @@
 																					<Sequence EndType="GoTo" GoToDecision="dec2" VoiceCategoryRoles="SMLOUVANI_ZENA" VoiceCategory="german" Name="german14">
 																						<DesignName StringName="smlouvani_german14_yKmV" Text="german14" />
 																						<Elements>
-																							<Response Role="SMLOUVANI_ZENA">
+																							<Response Role="SMLOUVANI_ZENA" ReferenceLength="4">
 																								<Parenthetical>
 																									<Text StringName="smlo_smlouvani_nemecky_ot_UDXC" Text="německy, otráveně" />
 																								</Parenthetical>
@@ -1737,7 +1964,9 @@
 																									<Note StringName="smlo_smlouvani_nein_das_n_ULyO_note" Text="německy, Ne, tohle ne, chlape." />
 																								</Text>
 																								<Commands>
-																									<CameraCommand />
+																									<FacialMoodCommand FacialMood="angry2" />
+																									<AnimationCommand Delay="0.02" FragmentId="ADLG_Disagree_light" Guid="90562064-04ce-e372-a5df-a85d90c72608" Variant="2" />
+																									<CameraCommand CameraType="CloseUp" />
 																								</Commands>
 																							</Response>
 																						</Elements>
@@ -1745,7 +1974,7 @@
 																					<Sequence EndType="GoTo" GoToDecision="dec2" VoiceCategoryRoles="SMLOUVANI_ZENA" VoiceCategory="jew" Name="jew08">
 																						<DesignName StringName="smlouvani_jew08_lOS3" Text="jew08" />
 																						<Elements>
-																							<Response Role="SMLOUVANI_ZENA">
+																							<Response Role="SMLOUVANI_ZENA" ReferenceLength="3">
 																								<Parenthetical>
 																									<Text StringName="smlo_smlouvani_jidis_otra_b5Oq" Text="jidiš, otráveně" />
 																								</Parenthetical>
@@ -1753,7 +1982,9 @@
 																									<Note StringName="smlo_smlouvani_pche_chaso_ng8e_note" Text="jidiš: Neplácej hovadiny." />
 																								</Text>
 																								<Commands>
-																									<CameraCommand />
+																									<FacialMoodCommand FacialMood="angry2" />
+																									<AnimationCommand Delay="1.39" FragmentId="ADLG_Discard" Guid="fceaeaab-50a2-9513-7543-292d2f98323b" Variant="6" />
+																									<CameraCommand CameraType="CloseShot" />
 																								</Commands>
 																							</Response>
 																						</Elements>
@@ -1761,7 +1992,7 @@
 																					<Sequence EndType="GoTo" GoToDecision="dec2" VoiceCategoryRoles="SMLOUVANI_ZENA" VoiceCategory="romani" Name="romani08">
 																						<DesignName StringName="smlouvani_romani08_EzKf" Text="romani08" />
 																						<Elements>
-																							<Response Role="SMLOUVANI_ZENA">
+																							<Response Role="SMLOUVANI_ZENA" ReferenceLength="1.71">
 																								<Parenthetical>
 																									<Text StringName="smlo_smlouvani_otravene_C5L1" Text="otráveně" />
 																								</Parenthetical>
@@ -1769,7 +2000,9 @@
 																									<Note StringName="smlo_smlouvani_na_na_gadzo_VXu9_note" Text="romsky: Ne, ne týpku..." />
 																								</Text>
 																								<Commands>
-																									<CameraCommand />
+																									<FacialMoodCommand FacialMood="angry1" />
+																									<AnimationCommand Delay="0.02" FragmentId="ADLG_Disagree" Guid="e75df559-6860-4234-bdac-0bf6fb204b31" Variant="4" />
+																									<CameraCommand CameraType="CloseUp" />
 																								</Commands>
 																							</Response>
 																						</Elements>

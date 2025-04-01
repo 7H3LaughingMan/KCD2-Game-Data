@@ -15,6 +15,9 @@
 				<Port Name="abort_aktivnich_objectivu" Direction="In" Type="trigger">
 					<DesignName StringName="vyhraobje_abort_aktivnich_1FHq" Text="Abort aktivních objectivů" />
 				</Port>
+				<Port Name="zrusit_vyzvednuti_odmeny" Direction="In" Type="trigger">
+					<DesignName StringName="vyhraobje_zrusit_vyzvednu_3967" Text="Zrušit vyzvednutí odměny" />
+				</Port>
 				<Port Name="vyhra_volny_boj" Direction="In" Type="bool">
 					<DesignName StringName="vyhraobje_vyhra_zapasy_Lmbu" Text="Výhra volny boj" />
 				</Port>
@@ -60,18 +63,21 @@
 					<Edge From="vyhra.otevrena_truhla_s_vyhrou_za_mece_a_stity" To="SetCompleted" />
 					<Edge From="if75.True" To="SetAborted" />
 					<Edge From="ifQuestActive.True" To="SetStarted" />
+					<Edge From="if78.True" To="SetFailed" />
 				</State>
-				<State Name="getRewardAnyEquipment" PositionY="1410" PositionX="390" RequiredForOutput="kutnohorsko" TypeT="ProgressFailableAbortable">
+				<State Name="getRewardAnyEquipment" PositionY="1620" PositionX="390" RequiredForOutput="kutnohorsko" TypeT="ProgressFailableAbortable">
 					<Edge From="vyhra.otevrena_truhla_s_vyhrou_za_volnou_disciplinu" To="SetCompleted" />
 					<Edge From="if75_2.True" To="SetAborted" />
 					<Edge From="ifQuestActive_1_1.True" To="SetStarted" />
+					<Edge From="if75_2_1.True" To="SetFailed" />
 				</State>
-				<State Name="getRewardLongsword" PositionY="700" PositionX="390" RequiredForOutput="kutnohorsko" TypeT="ProgressFailableAbortable">
+				<State Name="getRewardLongsword" PositionY="780" PositionX="390" RequiredForOutput="kutnohorsko" TypeT="ProgressFailableAbortable">
 					<Edge From="vyhra.otevrena_truhla_s_vyhrou_za_dlouhe_mece" To="SetCompleted" />
 					<Edge From="if75_1.True" To="SetAborted" />
 					<Edge From="ifQuestActive_1.True" To="SetStarted" />
+					<Edge From="if75_1_1.True" To="SetFailed" />
 				</State>
-				<If Name="if75" PositionY="310" PositionX="-10">
+				<If Name="if75" PositionY="350" PositionX="-40">
 					<Edge From="abort_aktivnich_objectivu" To="Exec">
 						<Vertex>eftEuKE0</Vertex>
 					</Edge>
@@ -81,7 +87,7 @@
 						<Vertex>8U26B7oA</Vertex>
 					</Edge>
 				</If>
-				<If Name="if75_1" PositionY="1020" PositionX="40">
+				<If Name="if75_1" PositionY="1170" PositionX="40">
 					<Edge From="abort_aktivnich_objectivu" To="Exec">
 						<Vertex>eftEuKE0</Vertex>
 						<Vertex>cyuoa9We</Vertex>
@@ -92,7 +98,18 @@
 						<Vertex>2LAXRUtv</Vertex>
 					</Edge>
 				</If>
-				<If Name="if75_2" PositionY="1730" PositionX="70">
+				<If Name="if75_1_1" PositionY="1010" PositionX="40">
+					<Edge From="getRewardLongsword.Started" To="Condition">
+						<Vertex>FtXKtpwe</Vertex>
+						<Vertex>cpTrU2vH</Vertex>
+						<Vertex>2LAXRUtv</Vertex>
+					</Edge>
+					<Edge From="zrusit_vyzvednuti_odmeny" To="Exec">
+						<Vertex>uHtBmRQN</Vertex>
+						<Vertex>ftt4QD5X</Vertex>
+					</Edge>
+				</If>
+				<If Name="if75_2" PositionY="1960" PositionX="50">
 					<Edge From="abort_aktivnich_objectivu" To="Exec">
 						<Vertex>eftEuKE0</Vertex>
 						<Vertex>cyuoa9We</Vertex>
@@ -101,6 +118,27 @@
 						<Vertex>DTp5S5Yg</Vertex>
 						<Vertex>SwWy1dyT</Vertex>
 						<Vertex>M89aX4FX</Vertex>
+					</Edge>
+				</If>
+				<If Name="if75_2_1" PositionY="1820" PositionX="50">
+					<Edge From="zrusit_vyzvednuti_odmeny" To="Exec">
+						<Vertex>uHtBmRQN</Vertex>
+						<Vertex>ftt4QD5X</Vertex>
+					</Edge>
+					<Edge From="getRewardAnyEquipment.Started" To="Condition">
+						<Vertex>DTp5S5Yg</Vertex>
+						<Vertex>SwWy1dyT</Vertex>
+						<Vertex>M89aX4FX</Vertex>
+					</Edge>
+				</If>
+				<If Name="if78" PositionY="200" PositionX="-40">
+					<Edge From="getRewadrSwordAndShild.Started" To="Condition">
+						<Vertex>CRSpKvBv</Vertex>
+						<Vertex>uErU6Xt4</Vertex>
+						<Vertex>8U26B7oA</Vertex>
+					</Edge>
+					<Edge From="zrusit_vyzvednuti_odmeny" To="Exec">
+						<Vertex>uHtBmRQN</Vertex>
 					</Edge>
 				</If>
 				<If Name="ifQuestActive" PositionY="-510" PositionX="-180">
@@ -124,10 +162,10 @@
 				<vyzvedni_si_vyhru_za_vitezstvi_v_boji_na_mec_a_stit Name="objectiveVisual64" PositionY="180" PositionX="1230" RequiredForOutput="kutnohorsko">
 					<Edge From="switch77.Value1" To="Progress" />
 				</vyzvedni_si_vyhru_za_vitezstvi_v_boji_na_mec_a_stit>
-				<vyzvedni_si_vyhru_za_vitezstvi_v_boji_dlouhym_mecem Name="objectiveVisual71" PositionY="730" PositionX="1190" RequiredForOutput="kutnohorsko">
+				<vyzvedni_si_vyhru_za_vitezstvi_v_boji_dlouhym_mecem Name="objectiveVisual71" PositionY="810" PositionX="1190" RequiredForOutput="kutnohorsko">
 					<Edge From="switch77_1.Value1" To="Progress" />
 				</vyzvedni_si_vyhru_za_vitezstvi_v_boji_dlouhym_mecem>
-				<vyzvedni_si_vyhru_za_vitezstvi_ve_volnem_boji Name="objectiveVisual72" PositionY="1390" PositionX="1160" RequiredForOutput="kutnohorsko">
+				<vyzvedni_si_vyhru_za_vitezstvi_ve_volnem_boji Name="objectiveVisual72" PositionY="1600" PositionX="1160" RequiredForOutput="kutnohorsko">
 					<Edge From="switch77_1_1.Value1" To="Progress" />
 				</vyzvedni_si_vyhru_za_vitezstvi_ve_volnem_boji>
 				<Function Name="or74" PositionY="330" PositionX="1560" MethodName="math::boolean::Or" DeclaringType="math::boolean">
@@ -163,7 +201,7 @@
 					<Edge From="getRewadrSwordAndShild.State" To="DefaultValue1" />
 					<Edge From="getRewadrSwordAndShild.State" To="falseValue1" />
 				</Switch>
-				<Switch Name="switch77_1" PositionY="560" PositionX="870" RequiredForOutput="kutnohorsko" TypeT="bool" ValueTypes="ProgressFailableAbortable" SwitchValues="true false">
+				<Switch Name="switch77_1" PositionY="640" PositionX="870" RequiredForOutput="kutnohorsko" TypeT="bool" ValueTypes="ProgressFailableAbortable" SwitchValues="true false">
 					<Constant Name="trueValue1" Value="None" />
 					<Edge From="obj_jdi_na_turnaj_active" To="Switch">
 						<Vertex>oWtgVCCk</Vertex>
@@ -173,7 +211,7 @@
 					<Edge From="getRewardLongsword.State" To="DefaultValue1" />
 					<Edge From="getRewardLongsword.State" To="falseValue1" />
 				</Switch>
-				<Switch Name="switch77_1_1" PositionY="1390" PositionX="860" RequiredForOutput="kutnohorsko" TypeT="bool" ValueTypes="ProgressFailableAbortable" SwitchValues="true false">
+				<Switch Name="switch77_1_1" PositionY="1600" PositionX="860" RequiredForOutput="kutnohorsko" TypeT="bool" ValueTypes="ProgressFailableAbortable" SwitchValues="true false">
 					<Constant Name="trueValue1" Value="None" />
 					<Edge From="obj_jdi_na_turnaj_active" To="Switch">
 						<Vertex>oWtgVCCk</Vertex>
@@ -183,7 +221,7 @@
 					<Edge From="getRewardAnyEquipment.State" To="DefaultValue1" />
 					<Edge From="getRewardAnyEquipment.State" To="falseValue1" />
 				</Switch>
-				<vyhra Name="vyhra" PositionY="500" PositionX="-120">
+				<vyhra Name="vyhra" PositionY="580" PositionX="-120">
 					<Edge From="varianta_predmetu_pro_vyhru_v_discipline_mece_a_stity" To="varianta_predmetu_pro_vyhru_v_discipline_mece_a_stity" />
 					<Edge From="varianta_predmetu_pro_vyhru_v_discipline_dlouhe_mece" To="varianta_predmetu_pro_vyhru_v_discipline_dlouhe_mece" />
 					<Edge From="varianta_predmetu_pro_vyhru_ve_volne_discipline" To="varianta_predmetu_pro_vyhru_ve_volne_discipline" />
@@ -196,23 +234,25 @@
 				</vyhra>
 			</Nodes>
 			<EdgeVertices>
-				<EdgeVertex Name="2LAXRUtv" PositionY="1230" PositionX="80" />
-				<EdgeVertex Name="8U26B7oA" PositionY="490" PositionX="0" />
-				<EdgeVertex Name="cpTrU2vH" PositionY="1230" PositionX="1270" />
+				<EdgeVertex Name="2LAXRUtv" PositionY="1440" PositionX="80" />
+				<EdgeVertex Name="8U26B7oA" PositionY="530" PositionX="0" />
+				<EdgeVertex Name="cpTrU2vH" PositionY="1440" PositionX="1270" />
 				<EdgeVertex Name="CRSpKvBv" PositionY="420" PositionX="810" />
-				<EdgeVertex Name="cyuoa9We" PositionY="1110" PositionX="-140" />
-				<EdgeVertex Name="DTp5S5Yg" PositionY="1660" PositionX="1290" />
-				<EdgeVertex Name="eftEuKE0" PositionY="400" PositionX="-490" />
+				<EdgeVertex Name="cyuoa9We" PositionY="1190" PositionX="-140" />
+				<EdgeVertex Name="DTp5S5Yg" PositionY="1870" PositionX="1290" />
+				<EdgeVertex Name="eftEuKE0" PositionY="440" PositionX="-500" />
 				<EdgeVertex Name="eW8RNs8N" PositionY="580" PositionX="720" />
-				<EdgeVertex Name="FtXKtpwe" PositionY="960" PositionX="1330" />
+				<EdgeVertex Name="ftt4QD5X" PositionY="1085" PositionX="-184" />
+				<EdgeVertex Name="FtXKtpwe" PositionY="1040" PositionX="1330" />
 				<EdgeVertex Name="GIbVyU5V" PositionY="-34" PositionX="-317" />
 				<EdgeVertex Name="hq8EsltL" PositionY="-40" PositionX="700" />
 				<EdgeVertex Name="jUhFVqwC" PositionY="580" PositionX="420" />
-				<EdgeVertex Name="M89aX4FX" PositionY="1920" PositionX="100" />
-				<EdgeVertex Name="oWtgVCCk" PositionY="190" PositionX="160" />
-				<EdgeVertex Name="SwWy1dyT" PositionY="1920" PositionX="1190" />
+				<EdgeVertex Name="M89aX4FX" PositionY="2180" PositionX="90" />
+				<EdgeVertex Name="oWtgVCCk" PositionY="170" PositionX="160" />
+				<EdgeVertex Name="SwWy1dyT" PositionY="2180" PositionX="1280" />
 				<EdgeVertex Name="tNfez7VT" PositionY="-63" PositionX="-317" />
-				<EdgeVertex Name="uErU6Xt4" PositionY="490" PositionX="780" />
+				<EdgeVertex Name="uErU6Xt4" PositionY="530" PositionX="780" />
+				<EdgeVertex Name="uHtBmRQN" PositionY="290" PositionX="-340" />
 				<EdgeVertex Name="vVoSFzwY" PositionY="-88" PositionX="-316" />
 			</EdgeVertices>
 			<Text StringName="vyhraobjective_jYlP" Text="VyhraObjective" />

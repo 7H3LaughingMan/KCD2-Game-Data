@@ -14,21 +14,31 @@
 				</Port>
 			</Ports>
 			<Nodes>
+				<ClothingPresetOverride Name="clothingpresetoverride1347" PositionY="500" PositionX="550">
+					<Asset Name="Souls" Alias="soldier1" />
+					<Constant Name="PriorityEquip" Value="true" />
+					<Constant Name="ClothingPreset" Value="75bab7cb-ab80-4ee2-98f1-21375bb19a7f" />
+					<Edge From="SoldierOnePresetOverride.State" To="IsActive" />
+				</ClothingPresetOverride>
 				<CutsceneHandler Name="cutscenehandler1333" PositionY="62" PositionX="366">
 					<Asset Name="CutsceneHolder" Alias="cutscene_standOff_full" />
 					<Constant Name="AutoPlay" Value="false" />
-					<Edge From="start_cutsceny" To="EnqueueCutscene" />
 					<Edge From="ifand1338.False" To="PlayCutscene" />
 					<Edge From="loadThirdBodyguard.OnDone" To="PlayCutscene">
 						<Vertex>vertex11</Vertex>
 						<Vertex>vertex12</Vertex>
 					</Edge>
+					<Edge From="if1346.False" To="EnqueueCutscene" />
+					<Edge From="SoldierOnePresetOverride.OnTrue" To="EnqueueCutscene" />
 				</CutsceneHandler>
-				<Function Name="deathcheck1337" PositionY="-210" PositionX="-220" MethodName="wh::rpgmodule::DeathCheck" DeclaringType="wh::rpgmodule">
+				<Function Name="deathcheck1337" PositionY="-250" PositionX="-290" MethodName="wh::rpgmodule::DeathCheck" DeclaringType="wh::rpgmodule">
 					<Asset Name="Souls" Alias="alchemist_bodyguard1" />
 				</Function>
 				<Function Name="deathcheck1337_1" PositionY="-90" PositionX="-290" MethodName="wh::rpgmodule::DeathCheck" DeclaringType="wh::rpgmodule">
 					<Asset Name="Souls" Alias="alchemist_bodyguard2" />
+				</Function>
+				<Function Name="deathcheck1343" PositionY="450" PositionX="-550" MethodName="wh::rpgmodule::DeathCheck" DeclaringType="wh::rpgmodule">
+					<Edge From="makearray1344.Array" To="Souls" />
 				</Function>
 				<If Name="if1342" PositionY="-930" PositionX="-120">
 					<Edge From="deathcheck1337.IsDead" To="Condition" />
@@ -42,9 +52,14 @@
 						<Vertex>vertex14</Vertex>
 					</Edge>
 				</If>
+				<If Name="if1346" PositionY="440" PositionX="-250">
+					<Edge From="deathcheck1343.IsDead" To="Condition" />
+					<Edge From="start_cutsceny" To="Exec">
+						<Vertex>mPLBBc0g</Vertex>
+					</Edge>
+				</If>
 				<IfFunction Name="ifand1338" PositionY="-220" PositionX="120" MethodName="math::boolean::And" DeclaringType="math::boolean">
 					<Edge From="deathcheck1337.IsDead" To="A" />
-					<Edge From="deathcheck1337_1.IsDead" To="B" />
 					<Edge From="cutscenehandler1333.BeforePlay" To="Exec">
 						<Vertex>vertex3</Vertex>
 						<Vertex>vertex4</Vertex>
@@ -57,6 +72,10 @@
 						<Vertex>vertex10</Vertex>
 					</Edge>
 				</State>
+				<MakeArray Name="makearray1344" PositionY="560" PositionX="-830" TypeT="wh::rpgmodule::Souls">
+					<Asset Name="A" Alias="soldier1" />
+					<Asset Name="B" Alias="soldier2" />
+				</MakeArray>
 				<Output Name="Output">
 					<Edge From="cutscenehandler1333.OnQueued" To="force" />
 					<Edge From="loadThirdBodyguard.OnActive" To="stream_bodyguard3">
@@ -67,6 +86,10 @@
 					<Asset Name="Profiles" Alias="profile_alchemistBodyguard3" />
 					<Edge From="loadThirdBodyguard.Active" To="IsActive" />
 				</ProfileStateTrigger>
+				<MemberFunction Name="revive1345" PositionY="430" PositionX="40" MethodName="Revive" DeclaringType="wh::rpgmodule::I_Soul">
+					<Asset Name="Soul" Alias="soldier1" />
+					<Edge From="if1346.True" To="Exec" />
+				</MemberFunction>
 				<MemberFunction Name="setstate1341" PositionY="-940" PositionX="160" MethodName="SetState" DeclaringType="wh::rpgmodule::I_Soul">
 					<Asset Name="Soul" Alias="alchemist_bodyguard1" />
 					<Constant Name="State" Value="health" />
@@ -79,8 +102,12 @@
 					<Constant Name="Value" Value="100" />
 					<Edge From="if1342_1.False" To="Exec" />
 				</MemberFunction>
+				<State Name="SoldierOnePresetOverride" PositionY="500" PositionX="260" TypeT="bool">
+					<Edge From="revive1345.OnExec" To="SetTrue" />
+				</State>
 			</Nodes>
 			<EdgeVertices>
+				<EdgeVertex Name="mPLBBc0g" PositionY="420" PositionX="-330" />
 				<EdgeVertex Name="vertex10" PositionY="-410" PositionX="645" />
 				<EdgeVertex Name="vertex11" PositionY="367" PositionX="763" />
 				<EdgeVertex Name="vertex12" PositionY="372" PositionX="345" />

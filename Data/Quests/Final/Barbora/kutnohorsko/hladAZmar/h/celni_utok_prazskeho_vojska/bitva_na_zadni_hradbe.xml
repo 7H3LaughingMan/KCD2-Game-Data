@@ -6,14 +6,11 @@
 				<Port Name="done_objectivy" Direction="Out" Type="trigger">
 					<DesignName StringName="bitva_na__done_objectivy_sPOi" Text="zabitých hodně nepřátel - insta win" />
 				</Port>
-				<Port Name="utok_byl_odrazen" Direction="Out" Type="trigger">
-					<DesignName StringName="bitva_na__utok_byl_odrazen_OLPD" Text="útok byl odražen" />
-				</Port>
 				<Port Name="battle_status" Direction="In" Type="BattleStatusSouth">
 					<DesignName StringName="bitva_na__objective__znes_DJop" Text="battle status" />
 				</Port>
 				<Port Name="zebriky_ze_zadni_hradby_byly_shozeny" Direction="In" Type="trigger">
-					<DesignName StringName="bitva_na__zebriky_ze_zadn_whyt" Text="žebříky ze zadní hradby byly shozeny" />
+					<DesignName StringName="bitva_na__zebriky_ze_zadn_whyt" Text="konec bitvy" />
 				</Port>
 				<Port Name="dvere_vykopnuty" Direction="In" Type="trigger">
 					<DesignName StringName="bitva_na__dvere_vykopnuty_Kljf" Text="dveře vykopnuty" />
@@ -30,8 +27,11 @@
 				<Port Name="spojenci_strili_pred_vezi" Direction="In" Type="bool">
 					<DesignName StringName="bitva_na__spojenci_strili_Mz8t" Text="spojenci střílí před věží" />
 				</Port>
+				<Port Name="nepritel_neni_ve_hrad" Direction="Out" Type="trigger">
+					<DesignName StringName="bitva_na__nepritel_neni_v_a6YR" Text="nepřítel není ve hradě" />
+				</Port>
 				<Port Name="nepritel_neni_ve_hrade" Direction="Out" Type="bool">
-					<DesignName StringName="bitva_na__nepritel_neni_v_VJGy" Text="nepřítel není ve hradě" />
+					<DesignName StringName="bitva_na__nepritel_neni_v_VJGy" Text="je nepřítel ve hradě" />
 				</Port>
 			</Ports>
 			<Definitions>
@@ -72,10 +72,6 @@
 						<Vertex>vertex48</Vertex>
 						<Vertex>vertex47</Vertex>
 					</Edge>
-					<Edge From="zebriky_ze_zadni_hradby_byly_shozeny" To="konec_bitvy">
-						<Vertex>vertex28</Vertex>
-						<Vertex>xRFWLm8I</Vertex>
-					</Edge>
 					<Edge From="nekdo_jde_nahoru_ke_strelcum" To="nekdo_jde_nahoru_ke_strelcum">
 						<Vertex>RnVfRsTG</Vertex>
 					</Edge>
@@ -85,18 +81,21 @@
 					<Edge From="spojenci_strili_pred_vezi" To="spojenci_strili_pred_vezi">
 						<Vertex>dkCzEEsn</Vertex>
 					</Edge>
+					<Edge From="zebriky_ze_zadni_hradby_byly_shozeny" To="konec_bitvy">
+						<Vertex>r0DJ8tem</Vertex>
+						<Vertex>d0lXVRxw</Vertex>
+					</Edge>
+					<Edge From="skupinka_na_hradbe_bojujici_dokola.z_hradby_prisli_do_veze" To="z_hradby_prisli_do_veze" />
 				</nastaveni_bitvy>
 				<Output Name="Output">
 					<Edge From="skupinka_na_hradbe_bojujici_dokola.dvere_k_zadni_palisade_otevreny" To="dvere_k_zadni_palisade_otevreny" />
-					<Edge From="zebriky_ze_zadni_hradby_byly_shozeny" To="utok_byl_odrazen">
-						<Vertex>vertex28</Vertex>
-						<Vertex>xRFWLm8I</Vertex>
-						<Vertex>vertex25</Vertex>
-					</Edge>
 					<Edge From="isareaclear.isclear" To="nepritel_neni_ve_hrade">
 						<Vertex>aJ8VxtVz</Vertex>
 					</Edge>
 					<Edge From="ifcompare13.True" To="done_objectivy" />
+					<Edge From="isareaclear.areaisclear" To="nepritel_neni_ve_hrad">
+						<Vertex>gHdMV5bW</Vertex>
+					</Edge>
 				</Output>
 				<skupinka_na_hradbe_bojujici_dokola Name="skupinka_na_hradbe_bojujici_dokola" PositionY="-290" PositionX="-430">
 					<Edge From="battle_status" To="bitva_aktivni" />
@@ -114,17 +113,17 @@
 				<EdgeVertex Name="4jIXkDHv" PositionY="-20" PositionX="-420" />
 				<EdgeVertex Name="aJ8VxtVz" PositionY="220" PositionX="928" />
 				<EdgeVertex Name="BAnP1dA4" PositionY="-370" PositionX="-420" />
+				<EdgeVertex Name="d0lXVRxw" PositionY="300" PositionX="100" />
 				<EdgeVertex Name="dkCzEEsn" PositionY="-310" PositionX="-418" />
+				<EdgeVertex Name="gHdMV5bW" PositionY="189" PositionX="928" />
+				<EdgeVertex Name="r0DJ8tem" PositionY="300" PositionX="-420" />
 				<EdgeVertex Name="RnVfRsTG" PositionY="-340" PositionX="-420" />
-				<EdgeVertex Name="vertex25" PositionY="250" PositionX="930" />
-				<EdgeVertex Name="vertex28" PositionY="250" PositionX="-420" />
 				<EdgeVertex Name="vertex40" PositionY="490" PositionX="0" />
 				<EdgeVertex Name="vertex43" PositionY="10" PositionX="530" />
 				<EdgeVertex Name="vertex46" PositionY="10" PositionX="-420" />
 				<EdgeVertex Name="vertex47" PositionY="330" PositionX="100" />
 				<EdgeVertex Name="vertex48" PositionY="330" PositionX="-420" />
 				<EdgeVertex Name="vyj5vqe0" PositionY="-20" PositionX="530" />
-				<EdgeVertex Name="xRFWLm8I" PositionY="248" PositionX="204" />
 			</EdgeVertices>
 			<Types>
 				<Type TypeName="BattleSouthFight">

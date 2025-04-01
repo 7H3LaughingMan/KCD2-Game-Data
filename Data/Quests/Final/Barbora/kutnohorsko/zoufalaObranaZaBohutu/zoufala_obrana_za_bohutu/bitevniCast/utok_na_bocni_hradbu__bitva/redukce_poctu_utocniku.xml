@@ -12,6 +12,9 @@
 				<Port Name="reset" Direction="In" Type="trigger">
 					<DesignName StringName="redukce_p_reset_PD7b" Text="Reset" />
 				</Port>
+				<Port Name="decrement" Direction="In" Type="trigger">
+					<DesignName StringName="redukce_p_decrement_v29h" Text="Decrement množství živých přepnutých vykuchů" />
+				</Port>
 				<Port Name="mnozstvi_nepratel_na_hradbe" Direction="In" Type="int">
 					<DesignName StringName="redukce_p_mnozstvi_neprat_cGn6" Text="Množství nepřátel na hradbě" />
 				</Port>
@@ -51,7 +54,14 @@
 					<Edge From="add18.int" To="A" />
 					<Edge From="add17.int" To="B" />
 				</Function>
-				<Function Name="compare31" PositionY="-1180" PositionX="-1160" TypeT="int" MethodName="Control::Compare" DeclaringType="Control">
+				<Function Name="and32" PositionY="-1310" PositionX="-880" MethodName="math::boolean::And" DeclaringType="math::boolean">
+					<Edge From="compare31.bool" To="B" />
+					<Edge From="isactive" To="A">
+						<Vertex>xr351FGT</Vertex>
+						<Vertex>fYGwLJ2q</Vertex>
+					</Edge>
+				</Function>
+				<Function Name="compare31" PositionY="-1300" PositionX="-1140" TypeT="int" MethodName="Control::Compare" DeclaringType="Control">
 					<Constant Name="Op" Value="GreaterEquals" />
 					<Edge From="delay_pro_lezeni_na_zebrik.mnozstvi_utocniku_po_kterem_se_delay_zapne" To="ValueB" />
 					<Edge From="mnozstvi_nepratel_na_hradbe" To="ValueA">
@@ -89,11 +99,13 @@
 					<Asset Name="B" Alias="sideWallDefenders" />
 					<Edge From="makearray14.Array" To="A" />
 				</Function>
-				<LinkEffect Name="linkeffectladderwait24" PositionY="-1150" PositionX="-880" Tag="ladderWait">
+				<LinkEffect Name="linkeffectladderwait24" PositionY="-1340" PositionX="-600" Tag="ladderWait">
 					<Asset Name="From" Alias="sideWallLadder_2" />
 					<Asset Name="To" Alias="sideWallLadder_2" />
-					<Edge From="compare31.bool" To="IsActive" />
-					<Edge From="delay_pro_lezeni_na_zebrik.delay" To="ladderWait" />
+					<Edge From="delay_pro_lezeni_na_zebrik.delay" To="ladderWait">
+						<Vertex>p51cka39</Vertex>
+					</Edge>
+					<Edge From="and32.bool" To="IsActive" />
 				</LinkEffect>
 				<MakeArray Name="makearray14" PositionY="270" PositionX="-1020" TypeT="wh::rpgmodule::Souls">
 					<Asset Name="A" Alias="ptacek" />
@@ -107,6 +119,9 @@
 				<obranci_na_bocni_hradbe Name="obranci_na_bocni_hradbe" PositionY="-910" PositionX="-960">
 					<Edge From="isactive" To="isactive">
 						<Vertex>2UqX9oQA</Vertex>
+					</Edge>
+					<Edge From="decrement" To="decrement">
+						<Vertex>jJD6RJWb</Vertex>
 					</Edge>
 				</obranci_na_bocni_hradbe>
 				<reducenumberofattackers Name="reducenumberofattackers" PositionY="320" PositionX="230" Namespace="utils.battle">
@@ -181,17 +196,21 @@
 				<EdgeVertex Name="DnGsgnIJ" PositionY="660" PositionX="-950" />
 				<EdgeVertex Name="DX5RERap" PositionY="660" PositionX="130" />
 				<EdgeVertex Name="E2jG6lhE" PositionY="-500" PositionX="40" />
+				<EdgeVertex Name="fYGwLJ2q" PositionY="-1379" PositionX="-946" />
 				<EdgeVertex Name="g3vBboKL" PositionY="650" PositionX="130" />
 				<EdgeVertex Name="HqtlATlD" PositionY="-649" PositionX="-431" />
 				<EdgeVertex Name="jGxojyBJ" PositionY="-645" PositionX="-69" />
+				<EdgeVertex Name="jJD6RJWb" PositionY="-837" PositionX="-1462" />
 				<EdgeVertex Name="mQLUdDvX" PositionY="-396" PositionX="-822" />
 				<EdgeVertex Name="NSGsXtcD" PositionY="-460" PositionX="-260" />
 				<EdgeVertex Name="oYeIkQ0X" PositionY="-648" PositionX="-628" />
+				<EdgeVertex Name="p51cka39" PositionY="-910" PositionX="-690" />
 				<EdgeVertex Name="qIU75hw6" PositionY="-100" PositionX="160" />
 				<EdgeVertex Name="QwJqpYUJ" PositionY="-392" PositionX="-1422" />
 				<EdgeVertex Name="R07U0FQP" PositionY="560" PositionX="-310" />
-				<EdgeVertex Name="WcqyalSM" PositionY="-1090" PositionX="-1541" />
+				<EdgeVertex Name="WcqyalSM" PositionY="-1200" PositionX="-1510" />
 				<EdgeVertex Name="wKwsoptW" PositionY="550" PositionX="-950" />
+				<EdgeVertex Name="xr351FGT" PositionY="-1379" PositionX="-1500" />
 				<EdgeVertex Name="y7PHTNjz" PositionY="570" PositionX="-1280" />
 			</EdgeVertices>
 			<Assets>

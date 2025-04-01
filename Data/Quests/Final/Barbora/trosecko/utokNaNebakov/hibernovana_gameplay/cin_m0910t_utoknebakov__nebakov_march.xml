@@ -3,6 +3,9 @@
 	<Skald>
 		<Scene Name="cin_m0910t_utoknebakov__nebakov_march" IsLocked="true">
 			<Ports>
+				<Port Name="onqueued" Direction="Out" Type="trigger">
+					<DesignName StringName="cin_m0910_onqueued_Jram" Text="OnQueued" />
+				</Port>
 				<Port Name="cutscena__beforeplay" Direction="Out" Type="trigger">
 					<DesignName StringName="cin_m0910_cutscena__befor_MuAx" Text="cutscéna - beforePlay" />
 				</Port>
@@ -67,7 +70,7 @@
 				<Function Name="not36" PositionY="580" PositionX="-700" MethodName="math::boolean::Not" DeclaringType="math::boolean">
 					<Edge From="bitva_aktivni" To="Value" />
 				</Function>
-				<NPCs_TeleportOnHorse Name="NPCs_TeleportOnHorse" PositionY="-70" PositionX="560" Namespace="utils.general">
+				<NPCs_TeleportOnHorse Name="NPCs_TeleportOnHorse" PositionY="-130" PositionX="560" Namespace="utils.general">
 					<Asset Name="npcs" Alias="komori" />
 					<Asset Name="horses" Alias="komoriHorse" />
 					<Asset Name="destinations" Alias="teleport_horseAndKomori" />
@@ -78,6 +81,7 @@
 					<Edge From="cutscenehandler1.OnFinished" To="po_skonceni_cutsceny__onfinished" />
 					<Edge From="cutscenehandler1.AfterPlay" To="po_skonceni_cutsceny__afterplay" />
 					<Edge From="cutscenehandler1.BeforePlay" To="cutscena__beforeplay" />
+					<Edge From="cutscenehandler1.OnQueued" To="onqueued" />
 				</Output>
 				<HasteTrigger Name="play_main_cutscene" PositionY="-20" PositionX="-400">
 					<Edge From="makearray28.Array" To="ConsoleCommands" />

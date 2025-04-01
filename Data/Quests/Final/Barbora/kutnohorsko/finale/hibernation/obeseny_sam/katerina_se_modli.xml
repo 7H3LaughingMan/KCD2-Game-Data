@@ -28,7 +28,13 @@
 				<Definition File="katerina_se_modli/s_katerinou_kdyz_se_modli_u_mrtveho_sama.xml" />
 			</Definitions>
 			<Nodes>
-				<EnableBehavior Name="enablebehaviorkaterinaprayingendnotification30" PositionY="-180" PositionX="710" Signature="katerina_praying" EventSet="endNotification">
+				<disabledirectionschatsoul Name="disabledirectionschatsoul" PositionY="-360" PositionX="770" Namespace="utils.hardcoremode">
+					<Asset Name="soul" Alias="katerina" />
+					<Edge From="prayingActive_or.bool" To="enabled">
+						<Vertex>NwaNYxuV</Vertex>
+					</Edge>
+				</disabledirectionschatsoul>
+				<EnableBehavior Name="enablebehaviorkaterinaprayingendnotification30" PositionY="-180" PositionX="760" Signature="katerina_praying" EventSet="endNotification">
 					<Constant Name="Behavior" Value="katerina_praying" />
 					<Asset Name="SmartEntity" Alias="qso" />
 					<Asset Name="NPC" Alias="katerina" />
@@ -46,7 +52,9 @@
 					<Edge From="katerinaPraying.Leaving" To="isPrayingDone">
 						<Vertex>vertex5</Vertex>
 					</Edge>
-					<Edge From="prayingActive_or.bool" To="IsActive" />
+					<Edge From="prayingActive_or.bool" To="IsActive">
+						<Vertex>NwaNYxuV</Vertex>
+					</Edge>
 				</EnableBehavior>
 				<IfFunction Name="ifand34" PositionY="30" PositionX="-270" MethodName="math::boolean::And" DeclaringType="math::boolean">
 					<Edge From="katerina_se_tise_modli_za_sama.prvni_modlitba" To="A">
@@ -63,8 +71,8 @@
 					</Edge>
 					<Edge From="jindra_se_pomodlil" To="B" />
 				</IfFunction>
-				<katerina_odchazi_bark Name="katerina_odchazi_bark" PositionY="-360" PositionX="930" />
-				<katerina_se_tise_modli_za_sama Name="katerina_se_tise_modli_za_sama" PositionY="-520" PositionX="530" />
+				<katerina_odchazi_bark Name="katerina_odchazi_bark" PositionY="-830" PositionX="890" />
+				<katerina_se_tise_modli_za_sama Name="katerina_se_tise_modli_za_sama" PositionY="-670" PositionX="890" />
 				<State Name="katerinaPraying" PositionY="-220" PositionX="40" TypeT="KaterinaPraying">
 					<Edge From="enablebehaviorkaterinaprayingendnotification30.OnFinished" To="SetDone">
 						<Vertex>vertex2</Vertex>
@@ -99,13 +107,14 @@
 				</s_katerinou_kdyz_se_modli_u_mrtveho_sama>
 			</Nodes>
 			<EdgeVertices>
+				<EdgeVertex Name="NwaNYxuV" PositionY="-60" PositionX="680" />
 				<EdgeVertex Name="vertex1" PositionY="0" PositionX="320" />
 				<EdgeVertex Name="vertex11" PositionY="40" PositionX="-400" />
-				<EdgeVertex Name="vertex12" PositionY="-270" PositionX="-410" />
-				<EdgeVertex Name="vertex13" PositionY="-250" PositionX="790" />
-				<EdgeVertex Name="vertex14" PositionY="-270" PositionX="740" />
-				<EdgeVertex Name="vertex15" PositionY="-250" PositionX="-270" />
-				<EdgeVertex Name="vertex2" PositionY="250" PositionX="1080" />
+				<EdgeVertex Name="vertex12" PositionY="-420" PositionX="-410" />
+				<EdgeVertex Name="vertex13" PositionY="-400" PositionX="1150" />
+				<EdgeVertex Name="vertex14" PositionY="-420" PositionX="1100" />
+				<EdgeVertex Name="vertex15" PositionY="-400" PositionX="-270" />
+				<EdgeVertex Name="vertex2" PositionY="250" PositionX="1130" />
 				<EdgeVertex Name="vertex3" PositionY="250" PositionX="60" />
 				<EdgeVertex Name="vertex4" PositionY="30" PositionX="310" />
 				<EdgeVertex Name="vertex5" PositionY="100" PositionX="370" />

@@ -87,9 +87,6 @@
 				<Port Name="raznice_predana_1" Direction="Out" Type="trigger">
 					<DesignName StringName="main_hibe_raznice_predana_FDV0" Text="raznice předána Kristiánovi" />
 				</Port>
-				<Port Name="predani_vavakova_dopisu" Direction="Out" Type="trigger">
-					<DesignName StringName="main_hibe_predani_vavakov_K1Mz" Text="dopis od Vaváka předán Kristiánovi" />
-				</Port>
 				<Port Name="hrac_ziskal_vsechny_tri_knihy" Direction="Out" Type="trigger">
 					<DesignName StringName="main_hibe_hrac_ziskal_vse_zQuG" Text="hráč získal všechny tři knihy" />
 				</Port>
@@ -122,6 +119,9 @@
 				</Port>
 				<Port Name="predani_buresova_glejtu" Direction="Out" Type="trigger">
 					<DesignName StringName="main_hibe_predani_buresov_RUtA" Text="předání burešova glejtu" />
+				</Port>
+				<Port Name="initial_cutscene_active" Direction="Out" Type="bool">
+					<DesignName StringName="main_hibe_initial_cutscen_Nb9S" Text="initial cutscene active" />
 				</Port>
 			</Ports>
 			<Definitions>
@@ -174,7 +174,11 @@
 						<PerkReward Perk="codex_gen_urbura" />
 					</Rewards>
 				</AddReward>
-				<doly Name="doly" PositionY="600" PositionX="4210" RequiredForOutput="kutnohorsko">
+				<disabledirectionschatsoul Name="disabledirectionschatsoul" PositionY="-80" PositionX="3000" Namespace="utils.hardcoremode">
+					<Asset Name="soul" Alias="bures" />
+					<Edge From="kralovskeStribro.Active" To="enabled" />
+				</disabledirectionschatsoul>
+				<doly Name="doly" PositionY="580" PositionX="4210" RequiredForOutput="kutnohorsko">
 					<Edge From="kralovskeStribro.Active" To="quest_active">
 						<Vertex>vertex114</Vertex>
 						<Vertex>vertex106</Vertex>
@@ -182,14 +186,10 @@
 					<Edge From="seznameni_s_kristianem.presun_do_dolu" To="presun_do_dolu">
 						<Vertex>vertex132</Vertex>
 					</Edge>
-				</doly>
-				<expectedeffect Name="expectedeffect" PositionY="200" PositionX="2730" Namespace="utils.crime.trespass">
-					<Asset Name="npcs" Alias="kristian" />
-					<Constant Name="extenduntilplayerleavestrespass" Value="true" />
-					<Edge From="kralovskeStribro.Active" To="isactive">
-						<Vertex>vertex114</Vertex>
+					<Edge From="seznameni_s_kristianem.poprve_promluveno_s_kristianem" To="poprve_promluveno_s_kristianem">
+						<Vertex>kTfzXh3h</Vertex>
 					</Edge>
-				</expectedeffect>
+				</doly>
 				<HasteTrigger Name="finishQuest" PositionY="340" PositionX="1760">
 					<Constant Name="IsHidden" Value="true" />
 				</HasteTrigger>
@@ -233,7 +233,7 @@
 						<Vertex>h3CzN5wh</Vertex>
 					</Edge>
 				</hute>
-				<IfFunction Name="ifand85" PositionY="1430" PositionX="3710" MethodName="math::boolean::And" DeclaringType="math::boolean">
+				<IfFunction Name="ifand85" PositionY="1420" PositionX="3710" MethodName="math::boolean::And" DeclaringType="math::boolean">
 					<Edge From="tajna_mincovna.UpdatedSearchSecretMint" To="Exec">
 						<Vertex>a6yx4l3a</Vertex>
 						<Vertex>nlAv0ARm</Vertex>
@@ -321,7 +321,6 @@
 					<Edge From="zaver_u_kristiana.lhal_ze_burese_nezabil" To="lhal_ze_burese_nezabil" />
 					<Edge From="zaver_u_kristiana.kristianIsAngry" To="kristianIsAngry" />
 					<Edge From="zaver_u_kristiana.raznice_predana" To="raznice_predana_1" />
-					<Edge From="zaver_u_kristiana.predani_vavakova_dopisu" To="predani_vavakova_dopisu" />
 					<Edge From="sidlo_ruthardovcu.cutscene_beforeplay" To="initial_cutscene_beforeplay">
 						<Vertex>vertex247</Vertex>
 					</Edge>
@@ -365,6 +364,10 @@
 					<Edge From="storyProgress.OnAdded" To="quest_konci">
 						<Vertex>01FEa9dP</Vertex>
 					</Edge>
+					<Edge From="sidlo_ruthardovcu.initial_cutscene_active" To="initial_cutscene_active">
+						<Vertex>WS2fL6GS</Vertex>
+						<Vertex>HWtYNbkH</Vertex>
+					</Edge>
 				</Output>
 				<revive_npcs Name="revive_npcs" PositionY="-80" PositionX="2730">
 					<Edge From="kralovskeStribro.OnActive" To="revive" />
@@ -386,7 +389,12 @@
 					<Edge From="02_startMines.OnTrigger" To="EnqueueSave" />
 					<Edge From="sidlo_ruthardovcu.mam_zadani" To="EnqueueSave" />
 				</SaveGame>
-				<seznameni_s_kristianem Name="seznameni_s_kristianem" PositionY="1400" PositionX="2970" RequiredForOutput="kutnohorsko">
+				<SetEntityContext Name="setentitycontext91" PositionY="220" PositionX="2730">
+					<Constant Name="Context" Value="crime_disabledDenialDialog" />
+					<Asset Name="Souls" Alias="kristian" />
+					<Edge From="kralovskeStribro.Active" To="IsActive" />
+				</SetEntityContext>
+				<seznameni_s_kristianem Name="seznameni_s_kristianem" PositionY="1350" PositionX="2970" RequiredForOutput="kutnohorsko">
 					<Edge From="sidlo_ruthardovcu.mam_zadani" To="bez_za_kristianem" />
 					<Edge From="02_startMines.OnTrigger" To="bez_za_kristianem" />
 					<Edge From="sidlo_ruthardovcu.fastforward_kristian_and_maslo" To="fastforward_kristian_and_maslo" />
@@ -436,7 +444,7 @@
 						<Vertex>dxpwMfEL</Vertex>
 					</Edge>
 				</TriggerSequence>
-				<TriggerSequence Name="triggersequence90" PositionY="1440" PositionX="3410">
+				<TriggerSequence Name="triggersequence90" PositionY="1420" PositionX="3410">
 					<Edge From="zaver_u_kristiana.vysledky_patrani_odevzdany_kristianovi" To="Exec">
 						<Vertex>vertex229</Vertex>
 						<Vertex>vertex230</Vertex>
@@ -458,6 +466,7 @@
 					</Edge>
 					<Edge From="tajna_mincovna.hrac_byl_uplacen" To="hrac_byl_uplacen" />
 					<Edge From="tajna_mincovna.hrac_mluvil_s_buresem_v_mincovne" To="hrac_mluvil_s_buresem_v_mincovne" />
+					<Edge From="tajna_mincovna.hrac_mluvil_s_pregeri" To="hrac_mluvil_s_pregeri" />
 				</zaver_u_kristiana>
 			</Nodes>
 			<EdgeVertices>
@@ -473,9 +482,11 @@
 				<EdgeVertex Name="dxpwMfEL" PositionY="1330" PositionX="1850" />
 				<EdgeVertex Name="dygA4g6j" PositionY="1400" PositionX="3730" />
 				<EdgeVertex Name="fa2XhKx2" PositionY="1500" PositionX="6010" />
-				<EdgeVertex Name="FUjoE7Ty" PositionY="180" PositionX="3190" />
+				<EdgeVertex Name="FUjoE7Ty" PositionY="180" PositionX="3350" />
 				<EdgeVertex Name="h3CzN5wh" PositionY="1500" PositionX="4910" />
+				<EdgeVertex Name="HWtYNbkH" PositionY="162" PositionX="6432" />
 				<EdgeVertex Name="IpTHVrCn" PositionY="200" PositionX="6430" />
+				<EdgeVertex Name="kTfzXh3h" PositionY="1606" PositionX="3958" />
 				<EdgeVertex Name="LR1YpQgQ" PositionY="2200" PositionX="6560" />
 				<EdgeVertex Name="Lt6VHzt0" PositionY="1690" PositionX="3000" />
 				<EdgeVertex Name="MNHv7skM" PositionY="810" PositionX="1860" />
@@ -494,7 +505,7 @@
 				<EdgeVertex Name="vertex116" PositionY="1660" PositionX="2200" />
 				<EdgeVertex Name="vertex126" PositionY="900" PositionX="2470" />
 				<EdgeVertex Name="vertex127" PositionY="900" PositionX="2290" />
-				<EdgeVertex Name="vertex132" PositionY="1640" PositionX="3990" />
+				<EdgeVertex Name="vertex132" PositionY="1580" PositionX="3960" />
 				<EdgeVertex Name="vertex199" PositionY="-490" PositionX="6290" />
 				<EdgeVertex Name="vertex200" PositionY="230" PositionX="3400" />
 				<EdgeVertex Name="vertex202" PositionY="-540" PositionX="2650" />
@@ -520,8 +531,8 @@
 				<EdgeVertex Name="vertex236" PositionY="-160" PositionX="5760" />
 				<EdgeVertex Name="vertex237" PositionY="-210" PositionX="5750" />
 				<EdgeVertex Name="vertex238" PositionY="-90" PositionX="5780" />
-				<EdgeVertex Name="vertex239" PositionY="1530" PositionX="4710" />
-				<EdgeVertex Name="vertex240" PositionY="1560" PositionX="4710" />
+				<EdgeVertex Name="vertex239" PositionY="1550" PositionX="4710" />
+				<EdgeVertex Name="vertex240" PositionY="1580" PositionX="4710" />
 				<EdgeVertex Name="vertex241" PositionY="457" PositionX="5361" />
 				<EdgeVertex Name="vertex243" PositionY="-390" PositionX="4990" />
 				<EdgeVertex Name="vertex245" PositionY="2010" PositionX="6560" />
@@ -529,6 +540,7 @@
 				<EdgeVertex Name="vertex247" PositionY="-480" PositionX="3420" />
 				<EdgeVertex Name="vertex99" PositionY="460" PositionX="4620" />
 				<EdgeVertex Name="WDjJ5v9p" PositionY="2170" PositionX="6560" />
+				<EdgeVertex Name="WS2fL6GS" PositionY="150" PositionX="3360" />
 				<EdgeVertex Name="yH89WGPJ" PositionY="500" PositionX="4180" />
 			</EdgeVertices>
 			<Assets>

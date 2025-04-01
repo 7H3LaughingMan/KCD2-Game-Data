@@ -2,6 +2,11 @@
 <Database xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" Name="brambora">
 	<Skald>
 		<Dialog Name="svedek_vidi_vrazdu_blizkeho__zena">
+			<Ports>
+				<Port Name="vo_sandraosgerby" Direction="In" Type="bool">
+					<DesignName StringName="svedek_vi_vo_sandraosgerby_l4wu" Text="vo_sandraOsgerby" />
+				</Port>
+			</Ports>
 			<Text StringName="svedek_vidi_vrazdu_blizke_X7ig" Text="Svědek vidí vraždu blízkého - žena" />
 			<Dialogue Type="ingame monolog" TechnicalStatus="Enabled" Hearing="35" Initiator="NonPlayer" ForceMood="noScope" ClashPriority="CrimeHigh" GesturesNotNeeded="true">
 				<Decision Name="dec1" Priority="General">
@@ -20,7 +25,7 @@
 										</Elements>
 										<Decision Name="dec3" Priority="General" VoiceoverReductionMaxSequences="1" VoiceoverReductionRole="NPC_VIDI_VRAZDU_BLIZKEHO_ZENA">
 											<Sequences>
-												<Sequence EndType="EndDialogue" VoiceCategoryRoles="NPC_VIDI_VRAZDU_BLIZKEHO_ZENA" VoiceCategory="christian" Cooldown="10s" Name="seq3">
+												<Sequence EntryCondition="!Port('vo_sandraosgerby')" EndType="EndDialogue" VoiceCategoryRoles="NPC_VIDI_VRAZDU_BLIZKEHO_ZENA" VoiceCategory="christian" Cooldown="10s" Name="seq3">
 													<DesignName StringName="svedek_vi_seq3_9VAW" Text="seq3" />
 													<Elements>
 														<Response Role="NPC_VIDI_VRAZDU_BLIZKEHO_ZENA">

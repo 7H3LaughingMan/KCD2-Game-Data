@@ -27,6 +27,9 @@
 				<Port Name="fightclub_miskovice_je_aktivni" Direction="In" Type="bool">
 					<DesignName StringName="eventplac_fightclub_misko_mN67" Text="FightClub Miskovice je aktivni" />
 				</Port>
+				<Port Name="hrac_prave_vyhlasuje__uklid_eventy_na_namestich" Direction="In" Type="bool">
+					<DesignName StringName="eventplac_hrac_prave_vyhl_oOgQ" Text="Hráč právě vyhlašuje - ukliď eventy na náměstích" />
+				</Port>
 				<Port Name="malesov_shorel" Direction="In" Type="bool">
 					<DesignName StringName="eventplac_vesnice_shorela_JZ3r" Text="Malesov shořel" />
 				</Port>
@@ -200,7 +203,7 @@
 				<Definition File="eventPlaces/ksta_tarasMura2.xml" />
 			</Definitions>
 			<Nodes>
-				<Function Name="and10" PositionY="90" PositionX="-310" MethodName="math::boolean::And" DeclaringType="math::boolean">
+				<Function Name="and10" PositionY="150" PositionX="-270" MethodName="math::boolean::And" DeclaringType="math::boolean">
 					<Edge From="not2.bool" To="A" />
 					<Edge From="not2_1.bool" To="B" />
 				</Function>
@@ -326,6 +329,10 @@
 				</kkut_constructionSite>
 				<kkut_hrncirskyTrh Name="kkut_hrncirskyTrh" PositionY="280" PositionX="2770">
 					<Constant Name="IsEnabled" Value="true" />
+					<Edge From="hrac_prave_vyhlasuje__uklid_eventy_na_namestich" To="hrac_prave_vyhlasuje__uklid_eventy_na_namestich">
+						<Vertex>T60jM9Hw</Vertex>
+						<Vertex>SC1Cs1pk</Vertex>
+					</Edge>
 				</kkut_hrncirskyTrh>
 				<kkut_lefirskaWall Name="kkut_lefirskaWall" PositionY="3190" PositionX="2780">
 					<Constant Name="IsEnabled" Value="true" />
@@ -356,6 +363,10 @@
 				</kkut_nearTavernSvatych>
 				<kkut_radnicniPillory Name="kkut_radnicniPillory" PositionY="480" PositionX="2770">
 					<Constant Name="IsEnabled" Value="true" />
+					<Edge From="hrac_prave_vyhlasuje__uklid_eventy_na_namestich" To="hrac_prave_vyhlasuje__uklid_eventy_na_namestich">
+						<Vertex>T60jM9Hw</Vertex>
+						<Vertex>SC1Cs1pk</Vertex>
+					</Edge>
 				</kkut_radnicniPillory>
 				<kkut_roadJunction Name="kkut_roadJunction" PositionY="3740" PositionX="2780">
 					<Constant Name="IsEnabled" Value="true" />
@@ -369,8 +380,12 @@
 				<kkut_townhallEntrance Name="kkut_townhallEntrance" PositionY="690" PositionX="2770">
 					<Constant Name="IsEnabled" Value="true" />
 				</kkut_townhallEntrance>
-				<kkut_vinnaFountain Name="kkut_vinnaFountain" PositionY="1260" PositionX="2770">
+				<kkut_vinnaFountain Name="kkut_vinnaFountain" PositionY="1230" PositionX="2770">
 					<Constant Name="IsEnabled" Value="true" />
+					<Edge From="hrac_prave_vyhlasuje__uklid_eventy_na_namestich" To="hrac_prave_vyhlasuje__uklid_eventy_na_namestich">
+						<Vertex>T60jM9Hw</Vertex>
+						<Vertex>SC1Cs1pk</Vertex>
+					</Edge>
 				</kkut_vinnaFountain>
 				<kkut_vlasskaWall Name="kkut_vlasskaWall" PositionY="3000" PositionX="2780">
 					<Constant Name="IsEnabled" Value="true" />
@@ -956,19 +971,19 @@
 						<Vertex>UXbhtjkl</Vertex>
 					</Edge>
 				</kzik_road>
-				<Function Name="not16" PositionY="300" PositionX="-560" MethodName="math::boolean::Not" DeclaringType="math::boolean">
+				<Function Name="not16" PositionY="350" PositionX="-560" MethodName="math::boolean::Not" DeclaringType="math::boolean">
 					<Edge From="m51_finale_dokonceno" To="Value" />
 				</Function>
-				<Function Name="not2" PositionY="50" PositionX="-560" MethodName="math::boolean::Not" DeclaringType="math::boolean">
+				<Function Name="not2" PositionY="100" PositionX="-560" MethodName="math::boolean::Not" DeclaringType="math::boolean">
 					<Edge From="zachrana_ptacka_nedavno_skoncila" To="Value" />
 				</Function>
-				<Function Name="not2_1" PositionY="170" PositionX="-560" MethodName="math::boolean::Not" DeclaringType="math::boolean">
+				<Function Name="not2_1" PositionY="220" PositionX="-560" MethodName="math::boolean::Not" DeclaringType="math::boolean">
 					<Edge From="disable_krab_creek_event" To="Value" />
 				</Function>
 				<Function Name="not4" PositionY="550" PositionX="-550" MethodName="math::boolean::Not" DeclaringType="math::boolean">
 					<Edge From="disable_eventplace_bytherocks" To="Value" />
 				</Function>
-				<Function Name="not5" PositionY="-70" PositionX="-570" MethodName="math::boolean::Not" DeclaringType="math::boolean">
+				<Function Name="not5" PositionY="-30" PositionX="-560" MethodName="math::boolean::Not" DeclaringType="math::boolean">
 					<Edge From="malesov_shorel" To="Value" />
 				</Function>
 				<Function Name="not6" PositionY="-540" PositionX="-590" MethodName="math::boolean::Not" DeclaringType="math::boolean">
@@ -1008,20 +1023,22 @@
 				<EdgeVertex Name="nVMaWM45" PositionY="-180" PositionX="-580" />
 				<EdgeVertex Name="P8MyAczg" PositionY="-1930" PositionX="1230" />
 				<EdgeVertex Name="S0SnIyXd" PositionY="-170" PositionX="4320" />
+				<EdgeVertex Name="SC1Cs1pk" PositionY="-60" PositionX="2700" />
 				<EdgeVertex Name="SD2DeyJ4" PositionY="-1520" PositionX="-170" />
 				<EdgeVertex Name="SfaydCVu" PositionY="-120" PositionX="760" />
 				<EdgeVertex Name="SQbyJL7B" PositionY="-480" PositionX="2220" />
 				<EdgeVertex Name="t3JzYB9I" PositionY="-1520" PositionX="460" />
+				<EdgeVertex Name="T60jM9Hw" PositionY="-59" PositionX="-600" />
 				<EdgeVertex Name="t7mFrGIv" PositionY="-240" PositionX="1160" />
 				<EdgeVertex Name="TmKlYa5T" PositionY="-670" PositionX="-380" />
 				<EdgeVertex Name="TXKesXca" PositionY="-2110" PositionX="-230" />
-				<EdgeVertex Name="u2v5J8QP" PositionY="-70" PositionX="4260" />
+				<EdgeVertex Name="u2v5J8QP" PositionY="-90" PositionX="4260" />
 				<EdgeVertex Name="UXbhtjkl" PositionY="-660" PositionX="9520" />
 				<EdgeVertex Name="VKWp38Tj" PositionY="-610" PositionX="350" />
-				<EdgeVertex Name="wcLSpMmd" PositionY="460" PositionX="-540" />
+				<EdgeVertex Name="wcLSpMmd" PositionY="530" PositionX="-550" />
 				<EdgeVertex Name="Wu1k4SVl" PositionY="550" PositionX="9530" />
 				<EdgeVertex Name="Y7nf22TP" PositionY="1460" PositionX="-480" />
-				<EdgeVertex Name="Y9WPYxvd" PositionY="180" PositionX="5880" />
+				<EdgeVertex Name="Y9WPYxvd" PositionY="230" PositionX="5880" />
 			</EdgeVertices>
 			<Text StringName="eventy_kh_C8Lq" Text="Event places" />
 		</Gameplay>

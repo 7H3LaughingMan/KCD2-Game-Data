@@ -27,6 +27,9 @@
 				<Port Name="minihry_jsou_otevreny" Direction="In" Type="bool">
 					<DesignName StringName="kapitan_s_minihry_jsou_ot_cBTh" Text="minihry jsou otevreny" />
 				</Port>
+				<Port Name="seq1" Direction="In" Type="bool">
+					<DesignName StringName="kapitan_s_seq1_4Am0" Text="seq1" />
+				</Port>
 			</Ports>
 			<Definitions>
 				<Definition File="kapitan_strazi__u_stolu/kapitan_strazi__u_stolu.xml" />
@@ -36,7 +39,11 @@
 					<Asset Name="Participants" Alias="michalCaptain" />
 					<Constant Name="HideNearbyNPCs" Value="false" />
 				</Function>
-				<kapitan_strazi__u_stolu Name="kapitan_strazi__u_stolu" PositionY="-100" PositionX="390" RequiredForOutput="trosecko">
+				<IfFunction Name="ifand3" PositionY="-260" PositionX="910" MethodName="math::boolean::And" DeclaringType="math::boolean">
+					<Edge From="kapitan_strazi__u_stolu.BeforePlay" To="Exec" />
+					<Edge From="seq1" To="A" />
+				</IfFunction>
+				<kapitan_strazi__u_stolu Name="kapitan_strazi__u_stolu" PositionY="-70" PositionX="540" RequiredForOutput="trosecko">
 					<Asset Name="DialogueHolder" Alias="dialogHolder_michalIntroTalk" />
 					<Edge From="probehla_prohlidka" To="probehla_prohlidka" />
 					<Edge From="force_dialog" To="EnqueueDialogue" />
@@ -50,6 +57,12 @@
 					<Edge From="kapitan_strazi__u_stolu.duel_prijat" To="duel_prjat" />
 					<Edge From="kapitan_strazi__u_stolu.duel_neprijat" To="duel_neprijat" />
 				</Output>
+				<PlayerAction_StanceObject Name="PlayerAction_StanceObject" PositionY="-290" PositionX="1160" Namespace="utils.player">
+					<Asset Name="targetobject" Alias="benchSo_player" />
+					<Constant Name="desiredstance" Value="sitting" />
+					<Constant Name="urgency" Value="Instant" />
+					<Edge From="ifand3.True" To="useobject" />
+				</PlayerAction_StanceObject>
 			</Nodes>
 		</DialogWrapper>
 	</Skald>

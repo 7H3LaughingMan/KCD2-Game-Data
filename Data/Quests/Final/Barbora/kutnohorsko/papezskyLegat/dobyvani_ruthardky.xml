@@ -58,8 +58,25 @@
 				<Definition File="dobyvani_ruthardky/pobuda_u_dveri__barks.xml" />
 			</Definitions>
 			<Nodes>
+				<MemberFunction Name="addblood64" PositionY="950" PositionX="3600" MethodName="AddBlood" DeclaringType="wh::rpgmodule::I_Soul">
+					<Asset Name="Soul" Alias="player" />
+					<Constant Name="Absolute" Value="true" />
+					<Edge From="proza__po_dobyti_ruthardky_20.BeforePlay" To="Exec" />
+					<Edge From="makearray65.Array" To="BodyParts" />
+					<Edge From="makearray66.Array" To="Values" />
+				</MemberFunction>
+				<MemberFunction Name="adddirt67" PositionY="1220" PositionX="3590" MethodName="AddDirt" DeclaringType="wh::rpgmodule::I_Soul">
+					<Asset Name="Soul" Alias="player" />
+					<Constant Name="Value" Value="-1" />
+					<Constant Name="Absolute" Value="true" />
+					<Edge From="proza__po_dobyti_ruthardky_20.BeforePlay" To="Exec" />
+				</MemberFunction>
 				<Function Name="closedoor35" PositionY="-1210" PositionX="450" MethodName="wh::entitymodule::CloseDoor" DeclaringType="wh::entitymodule">
 					<Asset Name="Door" Alias="tunnel_door" />
+					<Edge From="roza__varuje_jindru_pred_otrapy.roza_chain_ends" To="Exec" />
+				</Function>
+				<Function Name="closedoor35_1" PositionY="-1580" PositionX="450" MethodName="wh::entitymodule::CloseDoor" DeclaringType="wh::entitymodule">
+					<Asset Name="Door" Alias="ruthardkaDoor" />
 					<Edge From="roza__varuje_jindru_pred_otrapy.roza_chain_ends" To="Exec" />
 				</Function>
 				<contexty Name="contexty" PositionY="-760" PositionX="-1360">
@@ -126,6 +143,7 @@
 					<Constant Name="C" Value="head_coif" />
 					<Constant Name="D" Value="head_hood" />
 					<Constant Name="E" Value="head_cap" />
+					<Constant Name="F" Value="head_coif_padded" />
 				</MakeArray>
 				<MakeArray Name="makearray30" PositionY="-1410" PositionX="-630" TypeT="Strings">
 					<Constant Name="A" Value="goto 2978.56 672.12 48.52 -6.30 0.00 -123.73" />
@@ -137,6 +155,12 @@
 					<Asset Name="D" Alias="dvere_prizemi_1" />
 					<Asset Name="E" Alias="dvere_prizemi_2" />
 				</MakeArray>
+				<MakeArray Name="makearray65" PositionY="1810" PositionX="3300" TypeT="wh::entitymodule::BodyParts">
+					<Constant Name="A" Value="head" />
+				</MakeArray>
+				<MakeArray Name="makearray66" PositionY="1950" PositionX="3290" TypeT="wh::conceptmodule::Floats">
+					<Constant Name="A" Value="-1" />
+				</MakeArray>
 				<SkaldBoxProbe Name="musicstate40" PositionY="-940" PositionX="-1370">
 					<Constant Name="Toggle" Value="STORY_M45_RECLAIMING_RUTHARDKA" />
 					<Edge From="Awake" To="IsActive" />
@@ -147,6 +171,10 @@
 				<rekni_roze_ze_je_vzduch_cisty Name="objectiveVisual19" PositionY="-950" PositionX="3120" RequiredForOutput="kutnohorsko">
 					<Edge From="getBackToRoza.State" To="Progress" />
 				</rekni_roze_ze_je_vzduch_cisty>
+				<Function Name="opendoor63" PositionY="-1390" PositionX="450" MethodName="wh::entitymodule::OpenDoor" DeclaringType="wh::entitymodule">
+					<Asset Name="Door" Alias="dverePlayersRoom" />
+					<Edge From="roza__varuje_jindru_pred_otrapy.roza_chain_ends" To="Exec" />
+				</Function>
 				<Function Name="or58" PositionY="-1130" PositionX="3100" MethodName="math::boolean::Or" DeclaringType="math::boolean">
 					<Edge From="getBackToRoza.AllThugsGoneOrElse" To="A" />
 					<Edge From="getBackToRoza.CheckedOnRozaInHideout" To="B" />
@@ -171,14 +199,12 @@
 					<Edge From="rozina_komnata.roza_otevira_dvere" To="roza_otevira_dvere">
 						<Vertex>NFLXRWoA</Vertex>
 					</Edge>
-					<Edge From="roza__varuje_jindru_pred_otrapy.roza_chain_ends" To="jindra_dostal_postel_v_ruthardce">
-						<Vertex>AgsMIE9w</Vertex>
-						<Vertex>uw2QY0tu</Vertex>
-						<Vertex>J2LK71j5</Vertex>
-					</Edge>
 					<Edge From="triggersequence60.B" To="prehraj_noc_s_rozou_nebo_fader">
 						<Vertex>3SeylfSG</Vertex>
 						<Vertex>EVLEQJLI</Vertex>
+					</Edge>
+					<Edge From="triggersequence60.A" To="jindra_dostal_postel_v_ruthardce">
+						<Vertex>jwfYvIoe</Vertex>
 					</Edge>
 				</Output>
 				<PauseWorldTime Name="pauseworldtime27" PositionY="-1250" PositionX="-1350">
@@ -272,6 +298,10 @@
 					<Constant Name="LinkTag" Value="papezskyLegat_rozaWaitingForPlayer" />
 					<Edge From="or58.bool" To="IsActive" />
 				</SchedulerLinkActivation>
+				<SetGameContext Name="setgamecontext40" PositionY="-1590" PositionX="-1340">
+					<Constant Name="Context" Value="hardcoreMode_disableDirectionsChatGlobally" />
+					<Edge From="Awake" To="IsActive" />
+				</SetGameContext>
 				<SetGameContext Name="setgamecontext56" PositionY="-1130" PositionX="-1360">
 					<Constant Name="Context" Value="global_deterrentAreasActive" />
 					<Edge From="Awake" To="IsActive" />
@@ -337,7 +367,6 @@
 				<EdgeVertex Name="3jNJUcb4" PositionY="120" PositionX="-220" />
 				<EdgeVertex Name="3SeylfSG" PositionY="420" PositionX="2450" />
 				<EdgeVertex Name="5yS7rc9l" PositionY="780" PositionX="350" />
-				<EdgeVertex Name="AgsMIE9w" PositionY="-710" PositionX="760" />
 				<EdgeVertex Name="aLVxrkmx" PositionY="-150" PositionX="2340" />
 				<EdgeVertex Name="bf6RofYW" PositionY="872" PositionX="3771" />
 				<EdgeVertex Name="bqrJsyYc" PositionY="-411" PositionX="990" />
@@ -345,7 +374,7 @@
 				<EdgeVertex Name="EVLEQJLI" PositionY="420" PositionX="3740" />
 				<EdgeVertex Name="HFjTUae7" PositionY="830" PositionX="3770" />
 				<EdgeVertex Name="HrJhCaSr" PositionY="-50" PositionX="380" />
-				<EdgeVertex Name="J2LK71j5" PositionY="-704" PositionX="3668" />
+				<EdgeVertex Name="jwfYvIoe" PositionY="-60" PositionX="2630" />
 				<EdgeVertex Name="LMnxDaTT" PositionY="320" PositionX="1110" />
 				<EdgeVertex Name="LmPWWlWl" PositionY="830" PositionX="-190" />
 				<EdgeVertex Name="LxmtMoSV" PositionY="310" PositionX="2400" />
@@ -357,7 +386,6 @@
 				<EdgeVertex Name="SaJdbW5D" PositionY="90" PositionX="-220" />
 				<EdgeVertex Name="sJAgD2AM" PositionY="-750" PositionX="20" />
 				<EdgeVertex Name="uE6EehAc" PositionY="780" PositionX="-70" />
-				<EdgeVertex Name="uw2QY0tu" PositionY="-710" PositionX="2980" />
 				<EdgeVertex Name="vertex12" PositionY="440" PositionX="-540" />
 				<EdgeVertex Name="vertex13" PositionY="410" PositionX="-510" />
 				<EdgeVertex Name="vertex18" PositionY="410" PositionX="1480" />
@@ -377,8 +405,8 @@
 				<EdgeVertex Name="vertex52" PositionY="-750" PositionX="-450" />
 				<EdgeVertex Name="vertex53" PositionY="150" PositionX="-680" />
 				<EdgeVertex Name="vertex6" PositionY="350" PositionX="-450" />
-				<EdgeVertex Name="vertex63" PositionY="-70" PositionX="2510" />
-				<EdgeVertex Name="vertex64" PositionY="-70" PositionX="3370" />
+				<EdgeVertex Name="vertex63" PositionY="-90" PositionX="2510" />
+				<EdgeVertex Name="vertex64" PositionY="-90" PositionX="3370" />
 				<EdgeVertex Name="vertex69" PositionY="-150" PositionX="1900" />
 				<EdgeVertex Name="vertex70" PositionY="120" PositionX="-670" />
 				<EdgeVertex Name="vertex77" PositionY="500" PositionX="-600" />
@@ -432,6 +460,7 @@
 				<AnimDoorAsset Name="dvereDoPredpokoje" />
 				<AnimDoorAsset Name="dvere_prizemi_2" />
 				<AnimDoorAsset Name="dvere_prizemi_1" />
+				<AnimDoorAsset Name="dverePlayersRoom" />
 			</Assets>
 			<Text StringName="dobyvani_ruthardky_w8KT" Text="Dobývání Ruthardky" />
 			<Elements>

@@ -32,17 +32,11 @@
 					<Asset Name="StartingLocation" Alias="bathhousePerfumeStash" />
 					<Edge From="perfumeForCouncilman_duringQuest.Stash" To="IsActive" />
 				</AddQuestItem>
-				<AddQuestItem Name="addquestitem1_1" PositionY="-30" PositionX="640">
+				<AddQuestItem Name="addquestitem1_1" PositionY="150" PositionX="640">
 					<Constant Name="ItemClassGUID" Value="a55d34e5-6127-469c-a4cd-838b86df074e" />
 					<Asset Name="BackupLocation" Alias="bathhousePerfumeStash" />
 					<Asset Name="StartingLocation" Alias="player" />
 					<Edge From="perfumeForCouncilman_duringQuest.Player" To="IsActive" />
-				</AddQuestItem>
-				<AddQuestItem Name="addquestitem1_1_1" PositionY="220" PositionX="640">
-					<Constant Name="ItemClassGUID" Value="a55d34e5-6127-469c-a4cd-838b86df074e" />
-					<Asset Name="BackupLocation" Alias="bathhousePerfumeStash" />
-					<Asset Name="StartingLocation" Alias="beta" />
-					<Edge From="perfumeForCouncilman_duringQuest.Beta" To="IsActive" />
 				</AddQuestItem>
 				<AddQuestItem Name="addquestitem1_2" PositionY="-1740" PositionX="630">
 					<Constant Name="ItemClassGUID" Value="242ba713-bb2b-4664-b4a6-4ad89b91576b" />
@@ -56,7 +50,7 @@
 					<Asset Name="StartingLocation" Alias="player" />
 					<Edge From="fleasQuiltState_duringQuest.Player" To="IsActive" />
 				</AddQuestItem>
-				<AddSoulDefaultItem Name="addsouldefaultitem3" PositionY="1240" PositionX="640">
+				<AddSoulDefaultItem Name="addsouldefaultitem3" PositionY="1290" PositionX="640">
 					<Constant Name="ItemClass" Value="a55d34e5-6127-469c-a4cd-838b86df074e" />
 					<Constant Name="Purpose" Value="Inventory" />
 					<Constant Name="Mode" Value="Create" />
@@ -74,12 +68,16 @@
 					<Asset Name="Stashes" Alias="fleasStash" />
 					<Edge From="fleasQuiltState_afterQuest.Stash" To="IsActive" />
 				</AddStashDefaultItem>
+				<Function Name="and9" PositionY="390" PositionX="-310" MethodName="math::boolean::And" DeclaringType="math::boolean">
+					<Edge From="compare1.bool" To="A" />
+					<Edge From="perfumeForCouncilman_afterQuest.None" To="B" />
+				</Function>
 				<Function Name="compare1" PositionY="200" PositionX="-310" TypeT="wh::questmodule::QuestProgress" MethodName="Control::Compare" DeclaringType="Control">
 					<Constant Name="Op" Value="Equals" />
 					<Constant Name="ValueB" Value="Active" />
 					<Edge From="quest_progress" To="ValueA" />
 				</Function>
-				<EventFunction Name="createplayerreward3_1" PositionY="900" PositionX="640" MethodName="wh::entitymodule::CreatePlayerReward" DeclaringType="wh::entitymodule">
+				<EventFunction Name="createplayerreward3_1" PositionY="970" PositionX="640" MethodName="wh::entitymodule::CreatePlayerReward" DeclaringType="wh::entitymodule">
 					<Constant Name="ItemClass" Value="a55d34e5-6127-469c-a4cd-838b86df074e" />
 					<Constant Name="ShowUINotification" Value="false" />
 					<Edge From="perfumeForCouncilman_afterQuest.OnPlayer" To="Exec" />
@@ -107,7 +105,7 @@
 				<itemclasstrigger_playerinventory Name="itemclasstrigger_playerinventory" PositionY="170" PositionX="-60" Namespace="utils.item">
 					<Constant Name="itemclass" Value="a55d34e5-6127-469c-a4cd-838b86df074e" />
 					<Constant Name="amount" Value="1" />
-					<Edge From="compare1.bool" To="isactive" />
+					<Edge From="and9.bool" To="isactive" />
 				</itemclasstrigger_playerinventory>
 				<State Name="perfumeForCouncilman_afterQuest" PositionY="590" PositionX="320" TypeT="perfumeState">
 					<Edge From="perfumeForCouncilman_duringQuest.State" To="Value">
@@ -116,6 +114,7 @@
 					</Edge>
 					<Edge From="quest_ended" To="Exec" />
 					<Edge From="parfem_nepredan_bete" To="Exec" />
+					<Edge From="perfumeForCouncilman_duringQuest.OnBeta" To="Exec" />
 				</State>
 				<State Name="perfumeForCouncilman_duringQuest" PositionY="-250" PositionX="340" TypeT="perfumeState">
 					<Edge From="itemclasstrigger_playerinventory.ontargetamountacquire" To="SetPlayer" />

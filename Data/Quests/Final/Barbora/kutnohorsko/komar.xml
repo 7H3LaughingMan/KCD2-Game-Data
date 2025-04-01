@@ -70,11 +70,11 @@
 					<Edge From="triggersequence13.B" To="Exec" />
 				</Function>
 				<HasteTrigger Name="komarWeaponPreset" PositionY="1250" PositionX="-760" />
-				<Migration_Simple_StreamingSafeguard Name="Migration_Simple_StreamingSafeguard" PositionY="-1020" PositionX="0" Namespace="utils.general">
+				<Migration_Simple_StreamingSafeguard Name="Migration_Simple_StreamingSafeguard" PositionY="-1100" PositionX="350" Namespace="utils.general">
 					<Asset Name="profiles" Alias="profile_komar" />
 					<Constant Name="linktag" Value="komar_inCertovka" />
 					<Asset Name="souls" Alias="komar" />
-					<Edge From="migrationsControl.Certovka" To="isactive" />
+					<Edge From="or15.bool" To="isactive" />
 				</Migration_Simple_StreamingSafeguard>
 				<Migration_Simple_StreamingSafeguard Name="Migration_Simple_StreamingSafeguard_1" PositionY="-750" PositionX="30" Namespace="utils.general">
 					<Asset Name="profiles" Alias="profile_komar" />
@@ -106,6 +106,10 @@
 				<Function Name="or11" PositionY="490" PositionX="170" MethodName="math::boolean::Or" DeclaringType="math::boolean">
 					<Edge From="StreamovaniKomara.StreamDebug" To="A" />
 					<Edge From="StreamovaniKomara.StreamPapezskyLegat" To="B" />
+				</Function>
+				<Function Name="or15" PositionY="-980" PositionX="0" MethodName="math::boolean::Or" DeclaringType="math::boolean">
+					<Edge From="migrationsControl.Certovka" To="A" />
+					<Edge From="migrationsControl.SpyingMalesovEnd" To="B" />
 				</Function>
 				<Function Name="or8" PositionY="-310" PositionX="40" MethodName="math::boolean::Or" DeclaringType="math::boolean">
 					<Edge From="migrationsControl.InSuchdol" To="A" />

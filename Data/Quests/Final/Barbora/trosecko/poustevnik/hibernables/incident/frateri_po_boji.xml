@@ -18,6 +18,9 @@
 				<Port Name="incident_resolved_kill_clesgin" Direction="In" Type="trigger">
 					<DesignName StringName="frateri_p_incident_resolv_86k5" Text="Incident Resolved kill Clesgin" />
 				</Port>
+				<Port Name="dohoda_s_rytiri_uzavrena" Direction="In" Type="bool">
+					<DesignName StringName="frateri_p_dohoda_s_rytiri_CiLI" Text="Dohoda s rytíři uzavřena" />
+				</Port>
 			</Ports>
 			<Definitions>
 				<Definition File="frateri_po_boji/rytir_po_bitce.xml" />
@@ -95,13 +98,13 @@
 						<SoulReputationReward ReputationChange="quest_decrease_4_normal" Target="knight_niclas" />
 						<SoulReputationReward ReputationChange="quest_reward_4_normal" Target="knight_sebald" />
 						<SkillReward Type="weapon_sword" ExperienceChange="2-minor" />
-						<SkillReward Type="weapon_shield" ExperienceChange="2-minor" />
 						<SkillReward Type="scholarship" ExperienceChange="2-minor" />
 					</Rewards>
 				</AddReward>
 				<rytir_po_bitce Name="rytir_po_bitce" PositionY="330" PositionX="340">
 					<Edge From="jsme_po_boji" To="isValid" />
 					<Edge From="HasItems_Soul.hasitems" To="jindra_ma_kroniku" />
+					<Edge From="dohoda_s_rytiri_uzavrena" To="dohoda_s_rytiri_uzavrena" />
 				</rytir_po_bitce>
 				<SchedulerLinkActivation Name="schedule29" PositionY="220" PositionX="-520">
 					<Constant Name="LinkTag" Value="FrateriBydliUKonrada" />

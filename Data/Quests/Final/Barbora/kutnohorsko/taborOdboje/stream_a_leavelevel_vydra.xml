@@ -19,6 +19,7 @@
 			<Nodes>
 				<MemberFunction Name="addblood5" PositionY="450" PositionX="300" MethodName="AddBlood" DeclaringType="wh::rpgmodule::I_Soul">
 					<Asset Name="Soul" Alias="vydra" />
+					<Constant Name="Absolute" Value="true" />
 					<Edge From="leavelevelhandling_v2.onstreamed" To="Exec" />
 					<Edge From="makearray9.Array" To="BodyParts" />
 					<Edge From="makearray10.Array" To="Values" />
@@ -39,13 +40,13 @@
 					<Asset Name="souls" Alias="vydra" />
 					<Constant Name="speed" Value="alertedWalk" />
 					<Edge From="hrac_prijal_quest" To="streamprofiles" />
-					<Edge From="vydra_ochazi_z_levelu" To="leavelevel" />
 					<Edge From="vydraUnstream.OnTrigger" To="unstreamprofiles" />
+					<Edge From="setstate11.OnExec" To="leavelevel" />
 				</leavelevelhandling_v2>
 				<MakeArray Name="makearray10" PositionY="680" PositionX="-70" TypeT="wh::conceptmodule::Floats">
-					<Constant Name="A" Value="1" />
-					<Constant Name="B" Value="0.2" />
-					<Constant Name="C" Value="0.3" />
+					<Constant Name="A" Value="0.5" />
+					<Constant Name="B" Value="0.05" />
+					<Constant Name="C" Value="0.1" />
 				</MakeArray>
 				<MakeArray Name="makearray9" PositionY="470" PositionX="-70" TypeT="wh::entitymodule::BodyParts">
 					<Constant Name="A" Value="leg_left" />
@@ -66,6 +67,12 @@
 					<Asset Name="Souls" Alias="vydra" />
 					<Edge From="leavelevelhandling_v2.profilesactive" To="IsActive" />
 				</SetEntityContextPreset>
+				<MemberFunction Name="setstate11" PositionY="80" PositionX="-730" MethodName="SetState" DeclaringType="wh::rpgmodule::I_Soul">
+					<Asset Name="Soul" Alias="vydra" />
+					<Constant Name="State" Value="health" />
+					<Constant Name="Value" Value="15" />
+					<Edge From="vydra_ochazi_z_levelu" To="Exec" />
+				</MemberFunction>
 				<HasteTrigger Name="vydraUnstream" PositionY="100" PositionX="-370">
 					<Constant Name="IsHidden" Value="true" />
 				</HasteTrigger>

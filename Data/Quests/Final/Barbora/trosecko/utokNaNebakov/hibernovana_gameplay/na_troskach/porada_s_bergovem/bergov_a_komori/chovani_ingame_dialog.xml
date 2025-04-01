@@ -26,9 +26,17 @@
 				</Port>
 			</Ports>
 			<Nodes>
+				<areallnpcssitting Name="areallnpcssitting" PositionY="700" PositionX="-940" Namespace="utoknanebakov">
+					<Edge From="hostina_nastreamovana" To="active" />
+					<Edge From="makearray1.Array" To="souls">
+						<Vertex>LdkA0Wcw</Vertex>
+						<Vertex>xCSPcuMw</Vertex>
+					</Edge>
+				</areallnpcssitting>
 				<EnableBehavior Name="enablebehaviorpolylogchatonspots1371222" PositionY="10" PositionX="340" Signature="polylogChatOnSpots" EventSet="">
 					<Constant Name="Behavior" Value="sittingIngameDialogChat" />
 					<Asset Name="SmartEntity" Alias="feast" />
+					<Constant Name="ForceKick" Value="true" />
 					<Constant Name="aliasChat" Value="utokNaNebakov_feast_komoriBergovChat" />
 					<Constant Name="aliasPolylog" Value="utokNaNebakov_feast_komoriBergovIngame" />
 					<Constant Name="chatDistance" Value="4" />
@@ -44,7 +52,21 @@
 					</Edge>
 					<Edge From="makearray1371226.Array" To="tables" />
 					<Edge From="makearray1371227.Array" To="dontCallWench" />
+					<Edge From="isplayerindialog.onupdate" To="UpdateReferences">
+						<Vertex>vertex1</Vertex>
+					</Edge>
+					<Edge From="areallnpcssitting.allsitting" To="UpdateReferences">
+						<Vertex>MSRqK17l</Vertex>
+						<Vertex>vertex1</Vertex>
+					</Edge>
+					<Edge From="areallnpcssitting.someonestandup" To="UpdateReferences">
+						<Vertex>MSRqK17l</Vertex>
+						<Vertex>vertex1</Vertex>
+					</Edge>
 				</EnableBehavior>
+				<isplayerindialog Name="isplayerindialog" PositionY="560" PositionX="-620" Namespace="utoknanebakov">
+					<Edge From="hostina_nastreamovana" To="active" />
+				</isplayerindialog>
 				<MakeArray Name="makearray1" PositionY="320" PositionX="-20" TypeT="wh::rpgmodule::Souls">
 					<Asset Name="A" Alias="komori" />
 					<Asset Name="B" Alias="bergov" />
@@ -70,16 +92,24 @@
 				<Function Name="not1371230" PositionY="450" PositionX="-620" MethodName="math::boolean::Not" DeclaringType="math::boolean">
 					<Edge From="polylog_probehl" To="Value" />
 				</Function>
+				<Function Name="not1371231" PositionY="760" PositionX="-620" MethodName="math::boolean::Not" DeclaringType="math::boolean">
+					<Edge From="areallnpcssitting.areallsitting" To="Value" />
+				</Function>
 				<Function Name="or1371225" PositionY="160" PositionX="-320" MethodName="math::boolean::Or" DeclaringType="math::boolean">
 					<Edge From="jindra_mluvil_s_bergovem" To="A" />
 					<Edge From="odmitnout" To="C" />
 					<Edge From="zakazat_chat" To="B" />
 					<Edge From="not1371228.bool" To="D" />
 					<Edge From="not1371230.bool" To="E" />
+					<Edge From="isplayerindialog.indialog" To="F" />
+					<Edge From="not1371231.bool" To="G" />
 				</Function>
 			</Nodes>
 			<EdgeVertices>
+				<EdgeVertex Name="LdkA0Wcw" PositionY="1019" PositionX="184" />
+				<EdgeVertex Name="MSRqK17l" PositionY="900" PositionX="-430" />
 				<EdgeVertex Name="vertex1" PositionY="90" PositionX="-340" />
+				<EdgeVertex Name="xCSPcuMw" PositionY="990" PositionX="-930" />
 			</EdgeVertices>
 			<Assets>
 				<SmartObjectAsset Name="table_bergov" />

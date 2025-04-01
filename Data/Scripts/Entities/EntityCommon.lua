@@ -935,6 +935,52 @@ function EntityCommon.OnEntityBookmarkCreated(entityId, propertiesInstance)
 end
 
 -- =============================================================================
+function EntityCommon.IsUsableForLockpick(user, lockpickable)
+
+	local useDistance = lockpickable.Properties.fUseLockpickDistance
+	if (useDistance == nil) then
+		System.Log("Lockpickable '" .. lockpickable:GetName() ..  "' entity does not define property fUseLockpickDistance.")
+		return
+	end
+	if (useDistance <= 0.0) then
+		return 0
+	end
+
+	local userPos = g_Vectors.temp_v1
+	local doorPos, bbmax = lockpickable:GetWorldBBox()
+
+	-- Distance test
+	doorPos = VectorUtils.Sum(doorPos, bbmax)
+	doorPos = VectorUtils.Scale(doorPos, 0.5)
+	user:GetWorldPos(userPos)
+
+	local vecFromPlayer = VectorUtils.Subtract(doorPos, userPos)
+
+	if (VectorUtils.LengthSquared(vecFromPlayer) >= useDistance * useDistance) then
+		return 0
+	end
+
+	-- Angle test with player rotation to the doors
+	local userDirection = user:GetDirectionVector()
+    
+	vecFromPlayer.z = 0
+	vecFromPlayer = VectorUtils.Normalize(vecFromPlayer)
+
+	local dp = VectorUtils.DotProduct2D(userDirection,vecFromPlayer)
+
+	local useAngle = lockpickable.Properties.fUseLockpickAngle
+	if (useAngle == nil) then
+		System.Log("Lockpickable '" .. lockpickable:GetName() ..  "' entity does not define property fUseLockpickAngle.")
+		return
+	end
+	if (dp < useAngle) then
+		return 0
+	end
+
+	return 1
+end
+
+-- =============================================================================
 -- Reload shared scripts
 -- =============================================================================
 Script.ReloadScript("Scripts/Entities/actor/BasicActor.lua")

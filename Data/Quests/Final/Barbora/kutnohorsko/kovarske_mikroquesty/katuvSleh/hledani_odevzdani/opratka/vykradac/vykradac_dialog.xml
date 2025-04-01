@@ -3,6 +3,9 @@
 	<Skald>
 		<FaderDialog Name="vykradac_dialog">
 			<Ports>
+				<Port Name="jindra_promluvil_na_zlodeje" Direction="Out" Type="trigger">
+					<DesignName StringName="vykradac__jindra_promluvi_V4cg" Text="Jindra promluvil na zloděje" />
+				</Port>
 				<Port Name="zlodej_utoci_na_jindru" Direction="Out" Type="trigger">
 					<DesignName StringName="dialog_s__zlodej_utoci_na_e5w1" Text="Zloděj útočí na Jindru" />
 				</Port>
@@ -28,7 +31,7 @@
 					<Text StringName="dialog_s__odejit_muze_zlo_YUaV" Text="Odejít může zloděj buď hned, nebo po krátké chvíli ohledávání. Záleží na výsledku dialogu." />
 				</GameplayActionElement>
 			</Elements>
-			<Dialogue TechnicalStatus="Enabled" AllowGreeting="false" GesturesSetDate="2024-04-04T16:33:10.5600454+02:00" GesturesSetResponseCount="11">
+			<Dialogue TechnicalStatus="Enabled" AllowFarewell="false" AllowGreeting="false" Priority="1" GesturesSetDate="2024-04-04T16:33:10.5600454+02:00" GesturesSetResponseCount="11">
 				<SelectedSouls>
 					<SelectedSoul Role="HENRY" Voice="fejk" Type="Wave" Language="PDG" />
 					<SelectedSoul Role="ZLODEJ" Voice="danielZappi" Type="Wave" Language="ENG" />
@@ -38,6 +41,9 @@
 						<Sequence EntryCondition="Port('lze_mluvis_s_vykradacem') AND &#xD;&#xA;!ThisSequenceUsed()" EndType="Decision" Name="seq1">
 							<DesignName StringName="dialog_s__seq1_OBHM" Text="seq1" />
 							<UiPrompt StringName="ui_dialog_s__seq1_eucx" Text="Co tady děláš?" />
+							<Triggers>
+								<Port Name="jindra_promluvil_na_zlodeje" />
+							</Triggers>
 							<Elements>
 								<Response Role="HENRY" ReferenceLength="1.97">
 									<Parenthetical>
@@ -283,7 +289,7 @@
 																	<Sequences>
 																		<Sequence EndType="EndDialogue" Name="seq10">
 																			<DesignName StringName="dialog_s__seq10_l4OV" Text="seq10" />
-																			<UiPrompt StringName="ui_dialog_s__seq10_aL66" Text="Dost řečí. (zaútočit)" />
+																			<UiPrompt StringName="ui_dialog_s__seq10_aL66" Text="Dost řečí. (Zaútočit)" />
 																			<Triggers>
 																				<Port Name="zlodej_utoci_na_jindru" />
 																			</Triggers>

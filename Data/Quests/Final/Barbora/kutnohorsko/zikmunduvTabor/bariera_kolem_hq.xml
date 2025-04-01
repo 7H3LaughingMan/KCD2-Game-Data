@@ -12,6 +12,9 @@
 				<Port Name="odjezd_z_tabora" Direction="In" Type="trigger">
 					<DesignName StringName="bariera_k_odjezd_z_tabora_WPwQ" Text="odjezd z tábora" />
 				</Port>
+				<Port Name="brana_otevrena" Direction="Out" Type="bool">
+					<DesignName StringName="bariera_k_brana_otevrena_LwCO" Text="brána otevřena" />
+				</Port>
 			</Ports>
 			<Nodes>
 				<HasteTrigger Name="closeHQ" PositionY="-390" PositionX="-680" />
@@ -28,6 +31,12 @@
 					<Edge From="odjezd_z_tabora" To="SetFalse" />
 				</State>
 				<HasteTrigger Name="openHQ" PositionY="-200" PositionX="-680" />
+				<Output Name="Output">
+					<Edge From="HQbarrierGateStream.State" To="brana_otevrena">
+						<Vertex>1wc6pksg</Vertex>
+						<Vertex>IqjdAeqk</Vertex>
+					</Edge>
+				</Output>
 				<PauseWorldTime Name="pauseworldtime8" PositionY="90" PositionX="-80">
 					<Edge From="HQBarrier.State" To="IsActive" />
 				</PauseWorldTime>
@@ -40,6 +49,10 @@
 					<Edge From="HQbarrierGateStream.State" To="IsActive" />
 				</Layer>
 			</Nodes>
+			<EdgeVertices>
+				<EdgeVertex Name="1wc6pksg" PositionY="225" PositionX="-88" />
+				<EdgeVertex Name="IqjdAeqk" PositionY="217" PositionX="182" />
+			</EdgeVertices>
 			<Assets>
 				<ProfileAsset Name="playerBarrier" AssetProfiles="zikmunduvTabor_hqBarrier" />
 				<ProfileAsset Name="barrierOpened" AssetProfiles="zikmunduvTabor_hqBarrier_opened" />

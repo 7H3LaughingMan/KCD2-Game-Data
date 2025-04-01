@@ -18,8 +18,8 @@
 				<Port Name="mastertrike_tutorial_dokoncen" Direction="In" Type="bool">
 					<DesignName StringName="konec_tut_mastertrike_tut_DvrL" Text="mastertrike tutorial dokončen" />
 				</Port>
-				<Port Name="jindrama_dost_zdravi_na_duel" Direction="In" Type="bool">
-					<DesignName StringName="konec_tut_jindra_je_prili_5juY" Text="Jindramá dost zdraví na duel" />
+				<Port Name="bool_false" Direction="In" Type="bool">
+					<DesignName StringName="konec_tut_bool_false_Q0bY" Text="Bool false" />
 				</Port>
 			</Ports>
 			<Text StringName="konec_tutorialu_ZgQg" Text="Konec tutoriálu" />
@@ -201,7 +201,7 @@
 																			</Elements>
 																			<Decision Name="dec10">
 																				<Sequences>
-																					<Sequence EntryCondition="!Port('jindrama_dost_zdravi_na_duel')" EndType="EndDialogue" Name="seq19">
+																					<Sequence EntryCondition="Port('bool_false')" EndType="EndDialogue" Name="seq19">
 																						<DesignName StringName="konec_tut_seq19_EZQJ" Text="seq19" />
 																						<Elements>
 																							<Response Role="KOCOUR" StartDelay="0.25" ReferenceLength="10.79">
@@ -215,7 +215,7 @@
 																							</Response>
 																						</Elements>
 																					</Sequence>
-																					<Sequence EntryCondition="Port('jindrama_dost_zdravi_na_duel')" EndType="EndDialogue" Name="seq18">
+																					<Sequence EntryCondition="Port('bool_false')" EndType="EndDialogue" Name="seq18">
 																						<DesignName StringName="konec_tut_seq18_XxqV" Text="seq18" />
 																						<UiPrompt StringName="ui_konec_tut_seq5_L9cI" Text="" />
 																						<Triggers>
@@ -234,6 +234,15 @@
 																						<FastForwards>
 																							<FastForward Role="KOCOUR" />
 																						</FastForwards>
+																					</Sequence>
+																					<Sequence EndType="EndDialogue" Name="seq20">
+																						<DesignName StringName="konec_tut_seq20_6P2e" Text="seq20" />
+																						<Elements>
+																							<Response Role="KOCOUR" />
+																						</Elements>
+																						<IncludedDecisions>
+																							<IncludedDecision Decision="masterstrikeTutorial_vyzvaKDueluSKocouremDecisions" />
+																						</IncludedDecisions>
 																					</Sequence>
 																				</Sequences>
 																			</Decision>
@@ -283,7 +292,7 @@
 														</Sequences>
 													</Decision>
 												</Sequence>
-												<Sequence SpeechCoef="0" EntryCondition="!SequenceUsed('masterstrikehint')" EndType="GoTo" GoToDecision="dec4" Name="seq7">
+												<Sequence SpeechCoef="0" EntryCondition="!ThisSequenceUsed() AND &#xD;&#xA;!SequenceUsed('seq8')" EndType="GoTo" GoToDecision="dec4" Name="seq7">
 													<DesignName StringName="konec_tut_seq7_aEop" Text="seq7" />
 													<UiPrompt StringName="ui_konec_tut_seq7_Yxgt" Text="Můžu si to někdy zopakovat?" />
 													<Elements>
@@ -304,7 +313,7 @@
 														</Response>
 													</Elements>
 												</Sequence>
-												<Sequence EndType="EndDialogue" Name="seq15">
+												<Sequence EntryCondition="SequenceUsed('seq8')" EndType="EndDialogue" Name="seq15">
 													<DesignName StringName="konec_tut_seq15_kAlp" Text="seq15" />
 													<UiPrompt StringName="ui_konec_tut_seq15_92rb" Text="Chci to zkusit znovu." />
 													<Triggers>

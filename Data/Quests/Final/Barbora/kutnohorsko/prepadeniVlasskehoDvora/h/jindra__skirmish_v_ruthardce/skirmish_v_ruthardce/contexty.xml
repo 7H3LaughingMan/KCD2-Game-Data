@@ -16,7 +16,7 @@
 						<Vertex>vertex5</Vertex>
 					</Edge>
 				</AreaTrigger>
-				<fightconfiguration_protections Name="fightconfiguration_protections" PositionY="-20" PositionX="530" Namespace="utils.combat">
+				<fightconfiguration_protections Name="fightconfiguration_protections" PositionY="30" PositionX="530" Namespace="utils.combat">
 					<Asset Name="souls" Alias="hracovaSkupina" />
 					<Constant Name="immortality" Value="true" />
 					<Edge From="jsou_aktivni" To="isactive">
@@ -77,6 +77,9 @@
 					<Asset Name="A" Alias="brabantSoldier1" />
 					<Asset Name="B" Alias="brabantSoldier2" />
 				</MakeArray>
+				<Function Name="not50" PositionY="730" PositionX="880" MethodName="math::boolean::Not" DeclaringType="math::boolean">
+					<Edge From="state33.State" To="Value" />
+				</Function>
 				<removevip_protections Name="removevip_protections" PositionY="770" PositionX="-620" Namespace="utils.combat">
 					<Constant Name="stealprotection" Value="true" />
 					<Constant Name="attackprotection" Value="true" />
@@ -119,6 +122,11 @@
 					<Constant Name="Context" Value="combat_forceRanged" />
 					<Asset Name="Souls" Alias="strelce" />
 					<Edge From="state33.State" To="IsActive" />
+				</SetEntityContext>
+				<SetEntityContext Name="setentitycontext31_1_1_1" PositionY="700" PositionX="1150">
+					<Constant Name="Context" Value="combat_forceMelee" />
+					<Asset Name="Souls" Alias="strelce" />
+					<Edge From="not50.bool" To="IsActive" />
 				</SetEntityContext>
 				<SetEntityContext Name="setentitycontext38" PositionY="420" PositionX="-620">
 					<Constant Name="Context" Value="crime_animal_suppressSwitchPerceptionReaction" />

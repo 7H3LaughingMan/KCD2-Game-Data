@@ -18,9 +18,6 @@
 				<Port Name="barnabas_je_tezce_raneny" Direction="In" Type="bool">
 					<DesignName StringName="te__pred__barnabas_ma_niz_lbj2" Text="Barnabáš je těžce raněný" />
 				</Port>
-				<Port Name="je_den" Direction="In" Type="bool">
-					<DesignName StringName="korenar_b_je_den_Ke5p" Text="Je den" />
-				</Port>
 				<Port Name="teleport_and_start_fight" Direction="Out" Type="trigger">
 					<DesignName StringName="korenar_b_teleport_and_st_JrsC" Text="Teleport and start fight" />
 				</Port>
@@ -36,7 +33,7 @@
 				</SelectedSouls>
 				<Decision Name="dec1" Priority="SideQuestAssignment">
 					<Sequences>
-						<Sequence EntryCondition="Port('je_den') AND&#xD;&#xA;Port('jindra_nasel_barnabase')&#xD;&#xA;AND &#xD;&#xA;!ThisSequenceUsed()" EndType="Decision" Visibility="Internal" Name="premlouvani">
+						<Sequence EntryCondition="Port('jindra_nasel_barnabase') AND &#xD;&#xA;!ThisSequenceUsed()" EndType="Decision" Visibility="Internal" Name="premlouvani">
 							<DesignName StringName="te__pred__premlouvani_Mqr2" Text="premlouvani" />
 							<UiPrompt StringName="ui_te__pred__premlouvani_b45K" Text="Vážně zápasit nechceš?" />
 							<Elements>
@@ -104,7 +101,7 @@
 											</Response>
 										</Elements>
 									</Sequence>
-									<Sequence SpeechCoef="0" EndType="Decision" Name="seq30">
+									<Sequence EndType="Decision" SpeechCoef="0" Name="seq30">
 										<DesignName StringName="te__pred__seq30_uiby" Text="seq30" />
 										<UiPrompt StringName="ui_te__pred__seq30_PhNs" Text="Už jsem přežil horší věci." />
 										<Elements>
@@ -144,7 +141,7 @@
 										</Elements>
 										<Decision Name="dec10" Priority="SideQuestSubmission">
 											<Sequences>
-												<Sequence SpeechCoef="0" EndType="Decision" Name="seq26">
+												<Sequence EndType="Decision" SpeechCoef="0" Name="seq26">
 													<DesignName StringName="te__pred__seq26_Ppj4" Text="seq26" />
 													<UiPrompt StringName="ui_te__pred__seq26_ZIOm" Text="Souhlasím." />
 													<Elements>
@@ -353,7 +350,7 @@
 								</Sequences>
 							</Decision>
 						</Sequence>
-						<Sequence EntryCondition="Port('je_den') AND&#xD;&#xA;SequenceUsed('premlouvani')" EndType="GoTo" GoToDecision="dec5" Name="seq29">
+						<Sequence EntryCondition="SequenceUsed('premlouvani')" EndType="GoTo" GoToDecision="dec5" Name="seq29">
 							<DesignName StringName="te__pred__seq29_3lGG" Text="seq29" />
 							<UiPrompt StringName="ui_te__pred__seq29_7c8p" Text="Pojď se bít!" />
 							<Elements>

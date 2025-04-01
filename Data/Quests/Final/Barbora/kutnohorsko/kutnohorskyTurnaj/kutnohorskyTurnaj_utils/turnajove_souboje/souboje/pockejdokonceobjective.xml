@@ -30,6 +30,12 @@
 				<Port Name="hrac_daleko_pri_objecitvu" Direction="Out" Type="trigger">
 					<DesignName StringName="pockejdok_hrac_daleko_pri_CtYK" Text="hráč daleko při objecitvu" />
 				</Port>
+				<Port Name="obj_pockejnakonec_active" Direction="Out" Type="bool">
+					<DesignName StringName="pockejdok_obj_pockejnakon_w3Bn" Text="Obj PockejNaKonec Done" />
+				</Port>
+				<Port Name="obj_pockejnakonec_done" Direction="Out" Type="trigger">
+					<DesignName StringName="pockejdok_obj_pockejnakon_hjav" Text="Obj PockejNaKonec done" />
+				</Port>
 			</Ports>
 			<Nodes>
 				<DistanceTrigger Name="distancetrigger70" PositionY="300" PositionX="780">
@@ -93,6 +99,8 @@
 				<Output Name="Output">
 					<Edge From="pockej_na_konec_turnaje.OnStarted" To="nastartovan_objectiv_vyckej_do_konce_turnaje" />
 					<Edge From="distancetrigger70.OnMatch" To="hrac_daleko_pri_objecitvu" />
+					<Edge From="pockej_na_konec_turnaje.Started" To="obj_pockejnakonec_active" />
+					<Edge From="pockej_na_konec_turnaje.OnCompleted" To="obj_pockejnakonec_done" />
 				</Output>
 				<State Name="pockej_na_konec_turnaje" PositionY="-30" PositionX="440" RequiredForOutput="kutnohorsko" TypeT="ProgressAbortable">
 					<Edge From="objectivyTurnaj.True" To="SetStarted" />

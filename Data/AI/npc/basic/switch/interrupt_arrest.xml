@@ -23,6 +23,7 @@
 			<Variable name="goIntoAttack" type="_bool" values="false" isPersistent="1" form="single" />
 			<Variable name="goIntoResolve" type="_bool" values="false" isPersistent="1" form="single" />
 			<Variable name="hasWeaponDrawn" type="_bool" values="" isPersistent="0" form="single" />
+			<Variable name="inTenseCircumstance" type="_bool" values="" isPersistent="0" form="single" />
 			<Variable name="knownInformation" type="information" values="" isPersistent="0" form="single" />
 			<Variable name="knownInformations" type="information" values="" isPersistent="0" form="array" />
 			<Variable name="lockOnFromSharedPerception" type="_bool" values="" isPersistent="0" form="single" />
@@ -56,8 +57,8 @@
 								<Sequence>
 									<Function_crime_getAnyDecoratorPreset tryToKeepItems="false" tryToKeepSecondaryWeapon="true" presetString="$anyDecoratorPreset" nodeLabel="90573315" />
 									<AnyDecorator preset="$anyDecoratorPreset" enabled="true">
-										<EntityContext context="speech_greyOutE" target="$this.id">
-											<EntityContextElement context="speech_greyOutE" enabled="true">
+										<EntityContextPreset preset="crime_greyOutEAndDisableChat" target="$this.id">
+											<EntityContextPresetElement contextPreset="crime_greyOutEAndDisableChat" enabled="true">
 												<EntityContextElement context="crime_interrupt" enabled="true">
 													<EntityContext context="crime_interruptArrest" target="">
 														<AddPerceivableState PerceivableLabel="&apos;crime_interrupt&apos;">
@@ -190,43 +191,11 @@
 																																	<MoveParamsDecorator speed="Walk" pathFindingParams="$pathFindingParams" doorClosingPolicy="LeaveOpened">
 																																		<MeleeGuardAutomationDecorator GuardMode="forceEnable" active="$useGuardStance">
 																																			<SubsequentLocationDecorator Location="$__player">
-																																				<Loop count="-1">
-																																					<Switch>
-																																						<IfCondition failOnCondition="false" condition="$goIntoResolve &amp; ~$crimesResolved">
-																																							<Parallel successMode="Any" failureMode="Any">
-																																								<Wait duration="&apos;-1&apos;" timeType="GameTime" doFail="false" variation="" />
-																																								<IfGate atomic="false" condition="~$goIntoResolve | $crimesResolved" RunLogic="KeepRunning">
-																																									<Success />
-																																								</IfGate>
-																																							</Parallel>
-																																						</IfCondition>
-																																						<IfCondition failOnCondition="false" condition="$canUrge">
-																																							<UrgencyDecorator Urgency="Fast">
-																																								<Parallel successMode="Any" failureMode="Any">
-																																									<CrimeFollower Target="$__player" Mode="DontBackOff" Role="Main" RelativeSpeedLimit="Dash" DisableGhosting="true" />
-																																									<IfGate atomic="false" condition="($goIntoResolve &amp; ~$crimesResolved) | ~$canUrge" RunLogic="KeepRunning">
-																																										<Success />
-																																									</IfGate>
-																																								</Parallel>
-																																							</UrgencyDecorator>
-																																						</IfCondition>
-																																						<IfCondition failOnCondition="false" condition="~$canUrge">
-																																							<UrgencyDecorator Urgency="Fast">
-																																								<Parallel successMode="Any" failureMode="Any">
-																																									<CrimeFollower Target="$__player" Mode="DontBackOff" Role="Assist" RelativeSpeedLimit="Dash" DisableGhosting="true" />
-																																									<IfGate atomic="false" condition="($goIntoResolve &amp; ~$crimesResolved) | $canUrge" RunLogic="KeepRunning">
-																																										<Success />
-																																									</IfGate>
-																																								</Parallel>
-																																							</UrgencyDecorator>
-																																						</IfCondition>
-																																					</Switch>
-																																				</Loop>
+																																				<Function_crime_drawWeaponDecorator subtreeFile="&apos;crime/arrestselfhelp/actionsubtree.xml&apos;" subtreeName="&apos;crime_arrestSelfhelp_actionSubtree&apos;" weaponSet="&apos;Primary&apos;" drawWeapon="$shouldHaveDrawnWeapon" subtreeData_canUrge="$canUrge" subtreeData_crimesResolved="$crimesResolved" subtreeData_followPlayer="" subtreeData_goIntoResolve="$goIntoResolve" subtreeData_playerHasFreeRoam="" subtreeData_playerLeft="" subtreeData_target="" subtreeData_teleport="" nodeLabel="59101975" />
 																																			</SubsequentLocationDecorator>
 																																		</MeleeGuardAutomationDecorator>
 																																	</MoveParamsDecorator>
 																																	<Function_crime_emitInformation crimeInformation="$emittingInformation" emitCrimeInformation="true" longDistanceModeEnabled="$const_false" reactionKind="$enum:crime_reactionKind.arrest" emitAlarmInformation="$const_true" nodeLabel="92256491" />
-																																	<Function_crime_weaponDecorator suppressWaitAction="true" weaponSet="&apos;Primary&apos;" shouldHaveDrawnWeapon="$shouldHaveDrawnWeapon" waitActionFinished="" nodeLabel="40921886" />
 																																	<Function_crime_playerInstantRecognitionHandler nodeLabel="53741190" />
 																																	<ContinuousSwitch>
 																																		<IfCondition failOnCondition="false" condition="$goIntoAttack">
@@ -234,7 +203,6 @@
 																																				<Sequence>
 																																					<AffectFeelings Npc="$this.id" Token="&apos;confrontationDialog_run&apos;" AffectNervousness="false" AffectReputation="true" />
 																																					<Function_crime_broadcastCooperationNotification cooperationNotification="$enum:crime_cooperationNotification.arrestEscalation" nodeLabel="57769412" />
-																																					<AddArrestEscalation Npc="$this.id" Reset="false" />
 																																					<Function_callInterrupt_attack assaultData="$arrestData.assaultData" criminalFreshness="$enum:crime_criminalFreshness.unknown" defenceMode="false" escalatedFromFailedSurrender="false" freshlyAttributedCrime="false" ignorePriority="true" information="$arrestData.information" initiator="$enum:switch_interruptInitiator.scheduler" previousReaction="$enum:crime_reactionKind.arrest" priority="160" questBehavior="false" relationOverride="true" stimulusKind="$arrestData.stimulusKind" target="$__player" nodeLabel="45944054" />
 																																				</Sequence>
 																																			</AtomicDecorator>
@@ -333,16 +301,23 @@
 																																									<Loop count="-1">
 																																										<IfGate atomic="false" condition="$canUrge" RunLogic="Halt">
 																																											<Parallel successMode="Any" failureMode="Any">
-																																												<Sequence>
-																																													<SuppressFailure>
-																																														<TenseCircumstanceBarrier RunLogic="Halt">
-																																															<LogToLabel Name="&apos;tense&apos;" Wuid="" Message="&apos;under TenseCircumstanceBarrier&apos;">
-																																																<Wait duration="&apos;-1&apos;" timeType="GameTime" doFail="false" variation="" />
-																																															</LogToLabel>
-																																														</TenseCircumstanceBarrier>
-																																													</SuppressFailure>
-																																													<Wait duration="&apos;-1&apos;" timeType="GameTime" doFail="false" variation="" />
-																																												</Sequence>
+																																												<While doFail="false" propagateChildFail="false" condition="true">
+																																													<TenseCircumstanceBarrier RunLogic="Halt">
+																																														<SubtreeDecorator saveVersion="2">
+																																															<Init canSkip="1">
+																																																<Expression expressions="$inTenseCircumstance = true" />
+																																															</Init>
+																																															<Subtree canSkip="1">
+																																																<LogToLabel Name="&apos;tense&apos;" Wuid="" Message="&apos;under TenseCircumstanceBarrier&apos;">
+																																																	<Wait duration="&apos;-1&apos;" timeType="GameTime" doFail="false" variation="" />
+																																																</LogToLabel>
+																																															</Subtree>
+																																															<Cleanup canSkip="1">
+																																																<Expression expressions="$inTenseCircumstance = false" />
+																																															</Cleanup>
+																																														</SubtreeDecorator>
+																																													</TenseCircumstanceBarrier>
+																																												</While>
 																																												<ContinuousSwitch>
 																																													<IfCondition failOnCondition="false" condition="$goIntoResolve &amp; ~$crimesResolved">
 																																														<Sequence>
@@ -351,7 +326,7 @@
 																																															<Function_crime_resolveCrimeDialogue postresolveSubscribers="" resolveData="$resolveData" crimesResolved="$crimesResolved" punishmentChanged="$punishmentChanged" nodeLabel="65260340" />
 																																														</Sequence>
 																																													</IfCondition>
-																																													<IfCondition failOnCondition="false" condition="$crimesResolved">
+																																													<IfCondition failOnCondition="false" condition="$crimesResolved | ~$inTenseCircumstance">
 																																														<Wait duration="&apos;-1&apos;" timeType="GameTime" doFail="false" variation="" />
 																																													</IfCondition>
 																																													<IfCondition failOnCondition="false" condition="true">
@@ -426,25 +401,30 @@
 																																																						</Sequence>
 																																																					</Loop>
 																																																				</Sequence>
-																																																				<Sequence>
-																																																					<ShowTutorial Name="crime_arrest" />
+																																																				<Loop count="-1">
 																																																					<SuppressFailure>
-																																																						<Function_speech_dialogInitiator alias="" animationApproach="$enum:animationApproach.dontPlayDialogAnimations" context="" customParameters="" metarole="&apos;STRAZ_ZATYKANI_CHAT&apos;" preset="$enum:dialogPreset.chat" recipient="$__player" recipientMetaroles="" nodeLabel="69694973" />
+																																																						<Sequence>
+																																																							<ShowTutorial Name="crime_arrest" />
+																																																							<Function_speech_dialogInitiator alias="" animationApproach="$enum:animationApproach.dontPlayDialogAnimations" context="" customParameters="" metarole="&apos;STRAZ_ZATYKANI_CHAT&apos;" preset="$enum:dialogPreset.chat" recipient="$__player" recipientMetaroles="" nodeLabel="69694973" />
+																																																							<IfGate atomic="false" condition="$feedbackReceived" RunLogic="KeepRunning">
+																																																								<Sequence>
+																																																									<Switch>
+																																																										<IfCondition failOnCondition="false" condition="$arrestChatFeedback.action == $enum:crime_arrestChatResult.accept">
+																																																											<Expression expressions="$goIntoResolve = true &#10;$urgingPriority = $enum:crime_playerUrgingPriority.resolve" />
+																																																										</IfCondition>
+																																																										<IfCondition failOnCondition="false" condition="$arrestChatFeedback.action == $enum:crime_arrestChatResult.reject">
+																																																											<Expression expressions="$goIntoAttack = true" />
+																																																										</IfCondition>
+																																																										<DefaultBranch>
+																																																											<Expression expressions="$goIntoAttack = true" />
+																																																										</DefaultBranch>
+																																																									</Switch>
+																																																									<Wait duration="&apos;-1&apos;" timeType="GameTime" doFail="false" variation="" />
+																																																								</Sequence>
+																																																							</IfGate>
+																																																						</Sequence>
 																																																					</SuppressFailure>
-																																																					<IfGate atomic="false" condition="$feedbackReceived" RunLogic="KeepRunning">
-																																																						<Switch>
-																																																							<IfCondition failOnCondition="false" condition="$arrestChatFeedback.action == $enum:crime_arrestChatResult.accept">
-																																																								<Expression expressions="$goIntoResolve = true &#10;$urgingPriority = $enum:crime_playerUrgingPriority.resolve" />
-																																																							</IfCondition>
-																																																							<IfCondition failOnCondition="false" condition="$arrestChatFeedback.action == $enum:crime_arrestChatResult.reject">
-																																																								<Expression expressions="$goIntoAttack = true" />
-																																																							</IfCondition>
-																																																							<DefaultBranch>
-																																																								<Expression expressions="$goIntoAttack = true" />
-																																																							</DefaultBranch>
-																																																						</Switch>
-																																																					</IfGate>
-																																																				</Sequence>
+																																																				</Loop>
 																																																				<ProcessMessage Atomic="true" timeout="&apos;-1&apos;" timeType="GameTime" variable="$arrestChatFeedback" senderInfo="" inbox="&apos;crime_arrestChatFeedback&apos;" condition="" answerVar="">
 																																																					<Expression expressions="$feedbackReceived = true" />
 																																																				</ProcessMessage>
@@ -576,8 +556,8 @@
 														</AddPerceivableState>
 													</EntityContext>
 												</EntityContextElement>
-											</EntityContextElement>
-										</EntityContext>
+											</EntityContextPresetElement>
+										</EntityContextPreset>
 									</AnyDecorator>
 								</Sequence>
 							</EntityContext>
@@ -630,6 +610,7 @@
 				<Variable name="goIntoAttack" comment="" />
 				<Variable name="goIntoResolve" comment="" />
 				<Variable name="hasWeaponDrawn" comment="" />
+				<Variable name="inTenseCircumstance" comment="" />
 				<Variable name="knownInformation" comment="" />
 				<Variable name="knownInformations" comment="" />
 				<Variable name="lockOnFromSharedPerception" comment="" />
@@ -670,9 +651,9 @@
 										</Function_crime_getAnyDecoratorPreset>
 										<AnyDecorator hasInputBreakpoint="0" comment="" breakpointFlags="0">
 											<OutputBreakpoints />
-											<EntityContext hasInputBreakpoint="0" comment="" breakpointFlags="0">
+											<EntityContextPreset hasInputBreakpoint="0" comment="" breakpointFlags="0">
 												<OutputBreakpoints />
-												<EntityContextElement hasInputBreakpoint="0" comment="" breakpointFlags="0">
+												<EntityContextPresetElement hasInputBreakpoint="0" comment="" breakpointFlags="0">
 													<OutputBreakpoints />
 													<EntityContextElement hasInputBreakpoint="0" comment="" breakpointFlags="0">
 														<OutputBreakpoints />
@@ -916,72 +897,15 @@
 																																				<OutputBreakpoints />
 																																				<SubsequentLocationDecorator hasInputBreakpoint="0" comment="" breakpointFlags="0">
 																																					<OutputBreakpoints />
-																																					<Loop hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																																					<Function_crime_drawWeaponDecorator hasInputBreakpoint="0" comment="" breakpointFlags="0">
 																																						<OutputBreakpoints />
-																																						<Switch hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																																							<OutputBreakpoints />
-																																							<IfCondition hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																																								<OutputBreakpoints />
-																																								<Parallel hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																																									<OutputBreakpoints />
-																																									<Wait hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																																										<OutputBreakpoints />
-																																									</Wait>
-																																									<IfGate hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																																										<OutputBreakpoints />
-																																										<Success hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																																											<OutputBreakpoints />
-																																										</Success>
-																																									</IfGate>
-																																								</Parallel>
-																																							</IfCondition>
-																																							<IfCondition hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																																								<OutputBreakpoints />
-																																								<UrgencyDecorator hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																																									<OutputBreakpoints />
-																																									<Parallel hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																																										<OutputBreakpoints />
-																																										<CrimeFollower hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																																											<OutputBreakpoints />
-																																										</CrimeFollower>
-																																										<IfGate hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																																											<OutputBreakpoints />
-																																											<Success hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																																												<OutputBreakpoints />
-																																											</Success>
-																																										</IfGate>
-																																									</Parallel>
-																																								</UrgencyDecorator>
-																																							</IfCondition>
-																																							<IfCondition hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																																								<OutputBreakpoints />
-																																								<UrgencyDecorator hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																																									<OutputBreakpoints />
-																																									<Parallel hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																																										<OutputBreakpoints />
-																																										<CrimeFollower hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																																											<OutputBreakpoints />
-																																										</CrimeFollower>
-																																										<IfGate hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																																											<OutputBreakpoints />
-																																											<Success hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																																												<OutputBreakpoints />
-																																											</Success>
-																																										</IfGate>
-																																									</Parallel>
-																																								</UrgencyDecorator>
-																																							</IfCondition>
-																																						</Switch>
-																																					</Loop>
+																																					</Function_crime_drawWeaponDecorator>
 																																				</SubsequentLocationDecorator>
 																																			</MeleeGuardAutomationDecorator>
 																																		</MoveParamsDecorator>
 																																		<Function_crime_emitInformation hasInputBreakpoint="0" comment="" breakpointFlags="0">
 																																			<OutputBreakpoints />
 																																		</Function_crime_emitInformation>
-																																		<Function_crime_weaponDecorator hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																																			<OutputBreakpoints />
-																																		</Function_crime_weaponDecorator>
 																																		<Function_crime_playerInstantRecognitionHandler hasInputBreakpoint="0" comment="" breakpointFlags="0">
 																																			<OutputBreakpoints />
 																																		</Function_crime_playerInstantRecognitionHandler>
@@ -999,9 +923,6 @@
 																																						<Function_crime_broadcastCooperationNotification hasInputBreakpoint="0" comment="" breakpointFlags="0">
 																																							<OutputBreakpoints />
 																																						</Function_crime_broadcastCooperationNotification>
-																																						<AddArrestEscalation hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																																							<OutputBreakpoints />
-																																						</AddArrestEscalation>
 																																						<Function_callInterrupt_attack hasInputBreakpoint="0" comment="" breakpointFlags="0">
 																																							<OutputBreakpoints />
 																																						</Function_callInterrupt_attack>
@@ -1171,24 +1092,33 @@
 																																												<OutputBreakpoints />
 																																												<Parallel hasInputBreakpoint="0" comment="" breakpointFlags="0">
 																																													<OutputBreakpoints />
-																																													<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																																													<While hasInputBreakpoint="0" comment="" breakpointFlags="0">
 																																														<OutputBreakpoints />
-																																														<SuppressFailure hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																																														<TenseCircumstanceBarrier hasInputBreakpoint="0" comment="" breakpointFlags="0">
 																																															<OutputBreakpoints />
-																																															<TenseCircumstanceBarrier hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																																															<SubtreeDecorator hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
 																																																<OutputBreakpoints />
-																																																<LogToLabel hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																																																	<OutputBreakpoints />
-																																																	<Wait hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																																																<Init>
+																																																	<Expression hasInputBreakpoint="0" comment="" breakpointFlags="0">
 																																																		<OutputBreakpoints />
-																																																	</Wait>
-																																																</LogToLabel>
-																																															</TenseCircumstanceBarrier>
-																																														</SuppressFailure>
-																																														<Wait hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																																															<OutputBreakpoints />
-																																														</Wait>
-																																													</Sequence>
+																																																	</Expression>
+																																																</Init>
+																																																<Subtree>
+																																																	<LogToLabel hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																																																		<OutputBreakpoints />
+																																																		<Wait hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																																																			<OutputBreakpoints />
+																																																		</Wait>
+																																																	</LogToLabel>
+																																																</Subtree>
+																																																<Cleanup>
+																																																	<Expression hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																																																		<OutputBreakpoints />
+																																																	</Expression>
+																																																</Cleanup>
+																																															</SubtreeDecorator>
+																																														</TenseCircumstanceBarrier>
+																																													</While>
 																																													<ContinuousSwitch hasInputBreakpoint="0" comment="" breakpointFlags="0">
 																																														<OutputBreakpoints />
 																																														<IfCondition hasInputBreakpoint="0" comment="" breakpointFlags="0">
@@ -1339,41 +1269,50 @@
 																																																							</Sequence>
 																																																						</Loop>
 																																																					</Sequence>
-																																																					<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																																																					<Loop hasInputBreakpoint="0" comment="" breakpointFlags="0">
 																																																						<OutputBreakpoints />
-																																																						<ShowTutorial hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																																																							<OutputBreakpoints />
-																																																						</ShowTutorial>
 																																																						<SuppressFailure hasInputBreakpoint="0" comment="" breakpointFlags="0">
 																																																							<OutputBreakpoints />
-																																																							<Function_speech_dialogInitiator hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																																																							<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
 																																																								<OutputBreakpoints />
-																																																							</Function_speech_dialogInitiator>
+																																																								<ShowTutorial hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																																																									<OutputBreakpoints />
+																																																								</ShowTutorial>
+																																																								<Function_speech_dialogInitiator hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																																																									<OutputBreakpoints />
+																																																								</Function_speech_dialogInitiator>
+																																																								<IfGate hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																																																									<OutputBreakpoints />
+																																																									<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																																																										<OutputBreakpoints />
+																																																										<Switch hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																																																											<OutputBreakpoints />
+																																																											<IfCondition hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																																																												<OutputBreakpoints />
+																																																												<Expression hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																																																													<OutputBreakpoints />
+																																																												</Expression>
+																																																											</IfCondition>
+																																																											<IfCondition hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																																																												<OutputBreakpoints />
+																																																												<Expression hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																																																													<OutputBreakpoints />
+																																																												</Expression>
+																																																											</IfCondition>
+																																																											<DefaultBranch>
+																																																												<Expression hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																																																													<OutputBreakpoints />
+																																																												</Expression>
+																																																											</DefaultBranch>
+																																																										</Switch>
+																																																										<Wait hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																																																											<OutputBreakpoints />
+																																																										</Wait>
+																																																									</Sequence>
+																																																								</IfGate>
+																																																							</Sequence>
 																																																						</SuppressFailure>
-																																																						<IfGate hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																																																							<OutputBreakpoints />
-																																																							<Switch hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																																																								<OutputBreakpoints />
-																																																								<IfCondition hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																																																									<OutputBreakpoints />
-																																																									<Expression hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																																																										<OutputBreakpoints />
-																																																									</Expression>
-																																																								</IfCondition>
-																																																								<IfCondition hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																																																									<OutputBreakpoints />
-																																																									<Expression hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																																																										<OutputBreakpoints />
-																																																									</Expression>
-																																																								</IfCondition>
-																																																								<DefaultBranch>
-																																																									<Expression hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																																																										<OutputBreakpoints />
-																																																									</Expression>
-																																																								</DefaultBranch>
-																																																							</Switch>
-																																																						</IfGate>
-																																																					</Sequence>
+																																																					</Loop>
 																																																					<ProcessMessage hasInputBreakpoint="0" comment="" breakpointFlags="0">
 																																																						<OutputBreakpoints />
 																																																						<Expression hasInputBreakpoint="0" comment="" breakpointFlags="0">
@@ -1587,8 +1526,8 @@
 															</AddPerceivableState>
 														</EntityContext>
 													</EntityContextElement>
-												</EntityContextElement>
-											</EntityContext>
+												</EntityContextPresetElement>
+											</EntityContextPreset>
 										</AnyDecorator>
 									</Sequence>
 								</EntityContext>

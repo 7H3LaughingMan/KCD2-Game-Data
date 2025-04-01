@@ -33,9 +33,6 @@
 				<Port Name="jindra_na_duel_nedorazil_nebo_utekl" Direction="In" Type="bool">
 					<DesignName StringName="haste_s42__jindra_na_duel_8ReX" Text="Jindra na duel nedorazil nebo utekl" />
 				</Port>
-				<Port Name="hrac_zacal_bonzovat_na_tovaryse" Direction="In" Type="bool">
-					<DesignName StringName="haste_hrac_zacal_bonzovat_NlSV" Text="Hráč začal bonzovat na Tovaryše" />
-				</Port>
 				<Port Name="eldris_zna_jindru" Direction="In" Type="bool">
 					<DesignName StringName="haste_eldris_zna_jindru_rPfe" Text="Eldris zná Jindru" />
 				</Port>
@@ -69,9 +66,6 @@
 				<Port Name="sermiri_jeste_nezacali_1" Direction="Out" Type="bool">
 					<DesignName StringName="haste_sermiri_jeste_nezac_ompQ" Text="Jindra na duel nedorazil nebo utekl" />
 				</Port>
-				<Port Name="jindra_se_zna_s_polnerem_z_turnaje_1" Direction="Out" Type="bool">
-					<DesignName StringName="haste_jindra_se_zna_s_pol_7ltc" Text="Hráč začal bonzovat na Tovaryše" />
-				</Port>
 				<Port Name="eldris_zna_jindru_1" Direction="Out" Type="bool">
 					<DesignName StringName="haste_eldris_zna_jindru_1_UIy4" Text="Eldris zná Jindru" />
 				</Port>
@@ -91,9 +85,6 @@
 				</State>
 				<State Name="havelZnaJindruHaste" PositionY="260" PositionX="350" TypeT="bool">
 					<Edge From="zz_havelZnaJindru.OnTrigger" To="SetTrue" />
-				</State>
-				<State Name="hracZacalBonzovatNaTovarystvoHaste" PositionY="2600" PositionX="350" TypeT="bool">
-					<Edge From="zz_hracZacalBonzovatNaTovarystvo.OnTrigger" To="SetTrue" />
 				</State>
 				<State Name="jindraBojovalZaFiflehoAProhralHaste" PositionY="2080" PositionX="350" TypeT="bool">
 					<Edge From="zz_jindraBojovalZaFiflehoAProhral.OnTrigger" To="SetTrue" />
@@ -137,13 +128,6 @@
 						<Vertex>vertex10</Vertex>
 					</Edge>
 					<Edge From="mikulasMistrHaste.State" To="B" />
-				</Function>
-				<Function Name="or4_11" PositionY="2600" PositionX="660" MethodName="math::boolean::Or" DeclaringType="math::boolean">
-					<Edge From="hrac_zacal_bonzovat_na_tovaryse" To="A">
-						<Vertex>vertex29</Vertex>
-						<Vertex>vertex30</Vertex>
-					</Edge>
-					<Edge From="hracZacalBonzovatNaTovarystvoHaste.State" To="B" />
 				</Function>
 				<Function Name="or4_12" PositionY="2860" PositionX="650" MethodName="math::boolean::Or" DeclaringType="math::boolean">
 					<Edge From="eldris_zna_jindru" To="A">
@@ -203,7 +187,6 @@
 					<Edge From="or4_6.bool" To="duel_byl_1" />
 					<Edge From="or4_7.bool" To="sermiri_skoncili__je_tam_dal_mikulas_1" />
 					<Edge From="or4_8.bool" To="sermiri_jeste_nezacali_1" />
-					<Edge From="or4_11.bool" To="jindra_se_zna_s_polnerem_z_turnaje_1" />
 					<Edge From="or4_12.bool" To="eldris_zna_jindru_1" />
 					<Edge From="or4.bool" To="sermiri_skoncili__je_tam_menhart_1" />
 					<Edge From="or4_1.bool" To="duel_zacal_a_jindra_bojoval_za_fifleho_1" />
@@ -216,7 +199,6 @@
 				<HasteTrigger Name="zz_bohunoviceVypaleny" />
 				<HasteTrigger Name="zz_eldrisZnaJindru" PositionY="2860" PositionX="0" />
 				<HasteTrigger Name="zz_havelZnaJindru" PositionY="260" PositionX="0" />
-				<HasteTrigger Name="zz_hracZacalBonzovatNaTovarystvo" PositionY="2600" PositionX="0" />
 				<HasteTrigger Name="zz_jindraBojovalZaFiflehoAProhral" PositionY="2080" PositionX="0" />
 				<HasteTrigger Name="zz_jindraBojovalZaFiflehoAVyhral" PositionY="1820" PositionX="0" />
 				<HasteTrigger Name="zz_jindraNaDuelNedorazilNeboUtekl" PositionY="2340" PositionX="0" />
@@ -240,8 +222,6 @@
 				<EdgeVertex Name="vertex22" PositionY="2070" PositionX="560" />
 				<EdgeVertex Name="vertex23" PositionY="2330" PositionX="0" />
 				<EdgeVertex Name="vertex24" PositionY="2330" PositionX="560" />
-				<EdgeVertex Name="vertex29" PositionY="2590" PositionX="0" />
-				<EdgeVertex Name="vertex30" PositionY="2590" PositionX="560" />
 				<EdgeVertex Name="vertex31" PositionY="2850" PositionX="0" />
 				<EdgeVertex Name="vertex32" PositionY="2850" PositionX="560" />
 				<EdgeVertex Name="vertex5" PositionY="250" PositionX="0" />

@@ -25,7 +25,7 @@
 					<DesignName StringName="crimedete_duel_active_Q8KI" Text="duel active" />
 				</Port>
 				<Port Name="seq16" Direction="In" Type="bool">
-					<DesignName Text="seq16" />
+					<DesignName StringName="crimedete_seq16_oftc" Text="zlocin odpusten" />
 				</Port>
 			</Ports>
 			<Definitions>
@@ -37,25 +37,25 @@
 					<Edge From="crime_odpusten" To="SetNoCrime" />
 					<Edge From="playercausedcrime.playercausedlightcrime" To="SetLightCrime" />
 					<Edge From="playercausedcrime.playercausedviolentcrime" To="SetViolentCrime" />
-					<Edge From="ifand1.True" To="SetNoCrime" />
+					<Edge From="ifand2.True" To="SetNoCrime" />
 				</State>
-				<IfFunction Name="ifand1" PositionY="-240" PositionX="240" MethodName="math::boolean::And" DeclaringType="math::boolean">
+				<IfFunction Name="ifand2" PositionY="-290" PositionX="250" MethodName="math::boolean::And" DeclaringType="math::boolean">
+					<Edge From="patchtrigger1.OnPatch" To="Exec" />
 					<Edge From="seq16" To="B" />
-					<Edge From="not2.bool" To="A">
-						<Vertex>CyGr2wJP</Vertex>
-						<Vertex>WEALS8vA</Vertex>
+					<Edge From="not3.bool" To="A">
+						<Vertex>HMQh5KzC</Vertex>
+						<Vertex>WXKFbXBd</Vertex>
 					</Edge>
-					<Edge From="patchtrigger3.OnPatch" To="Exec" />
 				</IfFunction>
-				<Function Name="not2" PositionY="-128" PositionX="926" MethodName="math::boolean::Not" DeclaringType="math::boolean">
+				<Function Name="not3" PositionY="-160" PositionX="870" MethodName="math::boolean::Not" DeclaringType="math::boolean">
 					<Edge From="crimeDetection.NoCrime" To="Value" />
 				</Function>
 				<Output Name="Output">
 					<Edge From="crimeDetection.LightCrime" To="player_commited_light_crime" />
 					<Edge From="crimeDetection.ViolentCrime" To="player_commited_violent_crime" />
 				</Output>
-				<PatchTrigger Name="patchtrigger3" PositionY="-290" PositionX="-270">
-					<Constant Name="TransitionFromVersion" Value="ver_01_01" />
+				<PatchTrigger Name="patchtrigger1" PositionY="-290" PositionX="-150">
+					<Constant Name="TransitionToVersion" Value="ver_01_01_01" />
 				</PatchTrigger>
 				<playercausedcrime Name="playercausedcrime" PositionY="100" PositionX="50">
 					<Edge From="isactive" To="active" />
@@ -70,9 +70,9 @@
 			</Nodes>
 			<EdgeVertices>
 				<EdgeVertex Name="7sYLPeBh" PositionY="438" PositionX="767" />
-				<EdgeVertex Name="CyGr2wJP" PositionY="-328" PositionX="1085" />
+				<EdgeVertex Name="HMQh5KzC" PositionY="-384" PositionX="1005" />
 				<EdgeVertex Name="u02yulqd" PositionY="440" PositionX="50" />
-				<EdgeVertex Name="WEALS8vA" PositionY="-330" PositionX="268" />
+				<EdgeVertex Name="WXKFbXBd" PositionY="-384" PositionX="330" />
 			</EdgeVertices>
 			<Types>
 				<Type TypeName="CrimeDetection">

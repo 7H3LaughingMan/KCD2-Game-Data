@@ -18,12 +18,15 @@
 				<Port Name="skirmish_done" Direction="In" Type="trigger">
 					<DesignName StringName="check_hra_skirmish_done_bCoC" Text="skirmish done" />
 				</Port>
+				<Port Name="zjistijaktodopadlo_obj_state" Direction="In" Type="Progress">
+					<DesignName StringName="check_hra_zjistijaktodopa_kmJl" Text="ZjistiJakToDopadlo obj state" />
+				</Port>
 			</Ports>
 			<Definitions>
 				<Definition File="check_hrace_solo_vybiti/hrac_utoci_na_hlidku.xml" />
 			</Definitions>
 			<Nodes>
-				<Function Name="and3" PositionY="-290" PositionX="690" MethodName="math::boolean::And" DeclaringType="math::boolean">
+				<Function Name="and3" PositionY="-340" PositionX="690" MethodName="math::boolean::And" DeclaringType="math::boolean">
 					<Edge From="not_SaSInArea.bool" To="A" />
 					<Edge From="active" To="B">
 						<Vertex>M3L63V8r</Vertex>
@@ -31,6 +34,9 @@
 					</Edge>
 					<Edge From="cervenak_se_vzdava" To="C">
 						<Vertex>raJIahF4</Vertex>
+					</Edge>
+					<Edge From="compare20.bool" To="D">
+						<Vertex>eILDkSpe</Vertex>
 					</Edge>
 				</Function>
 				<AreaTrigger Name="areatrigger10" PositionY="-320" PositionX="-350">
@@ -42,6 +48,11 @@
 					</Edge>
 				</AreaTrigger>
 				<camp2souls Name="camp2souls" PositionY="-140" PositionX="690" Namespace="zbrane_pana_semina" />
+				<Function Name="compare20" PositionY="260" PositionX="-310" TypeT="Progress" MethodName="Control::Compare" DeclaringType="Control">
+					<Constant Name="Op" Value="Equals" />
+					<Constant Name="ValueB" Value="None" />
+					<Edge From="zjistijaktodopadlo_obj_state" To="ValueA" />
+				</Function>
 				<SoulDeathTrigger Name="deathtrigger4" PositionY="-280" PositionX="1210">
 					<Edge From="and3.bool" To="IsActive">
 						<Vertex>NplJbgwA</Vertex>
@@ -55,9 +66,12 @@
 					</Edge>
 				</hrac_utoci_na_hlidku>
 				<If Name="if15" PositionY="0" PositionX="1210">
-					<Edge From="skirmish_done" To="Exec" />
 					<Edge From="and3.bool" To="Condition">
 						<Vertex>NplJbgwA</Vertex>
+					</Edge>
+					<Edge From="skirmish_done" To="Exec">
+						<Vertex>NzgldAeT</Vertex>
+						<Vertex>zvbYUNnb</Vertex>
 					</Edge>
 				</If>
 				<Function Name="not_SaSInArea" PositionY="-290" PositionX="310" MethodName="math::boolean::Not" DeclaringType="math::boolean">
@@ -73,7 +87,7 @@
 					<Edge From="areatrigger10.OnAllEnter" To="SetTrue" />
 					<Edge From="areatrigger10.OnLeave" To="SetFalse" />
 				</State>
-				<Timer Name="timer_dialogDelay" PositionY="-310" PositionX="1590">
+				<Timer Name="timer_dialogDelay" PositionY="-310" PositionX="1530">
 					<Constant Name="Duration" Value="1m" />
 					<Constant Name="TimeType" Value="WorldTime" />
 					<Edge From="deathtrigger4.OnAllDeath" To="SetRunning">
@@ -86,12 +100,15 @@
 			</Nodes>
 			<EdgeVertices>
 				<EdgeVertex Name="5FTGsgcB" PositionY="-390" PositionX="1820" />
+				<EdgeVertex Name="eILDkSpe" PositionY="90" PositionX="440" />
 				<EdgeVertex Name="hj9U0ECx" PositionY="-192" PositionX="1504" />
 				<EdgeVertex Name="M3L63V8r" PositionY="10" PositionX="-560" />
 				<EdgeVertex Name="nDU98vp5" PositionY="-230" PositionX="-430" />
 				<EdgeVertex Name="NplJbgwA" PositionY="-194" PositionX="1042" />
+				<EdgeVertex Name="NzgldAeT" PositionY="178" PositionX="-427" />
 				<EdgeVertex Name="raJIahF4" PositionY="60" PositionX="420" />
 				<EdgeVertex Name="xRBT5Cs8" PositionY="10" PositionX="420" />
+				<EdgeVertex Name="zvbYUNnb" PositionY="167" PositionX="1069" />
 			</EdgeVertices>
 			<Text StringName="check_hrace_solo_vybiti_cPAM" Text="Check hráče solo vybití" />
 		</Gameplay>

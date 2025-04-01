@@ -102,6 +102,13 @@
 						<Vertex>vertex136</Vertex>
 					</Edge>
 				</IfFunction>
+				<If Name="ifObjCrossTourActive" PositionY="650" PositionX="-1870">
+					<Edge From="abort_objectives" To="Exec" />
+					<Edge From="tourToCrossroadTwo.Active" To="Condition">
+						<Vertex>PU9j7Jc5</Vertex>
+						<Vertex>scy83arV</Vertex>
+					</Edge>
+				</If>
 				<State Name="InvestigateCrossroadsByCliffs" PositionY="-400" PositionX="800" RequiredForOutput="trosecko" TypeT="InvestigateWithSuk">
 					<Edge From="if_crossroadsInvestigationObjectiveIsActive.True" To="Setcanceled" />
 					<Edge From="ifnot46.True" To="Setactive" />
@@ -189,7 +196,7 @@
 				<suk__semin_jeli_dal Name="suk__semin_jeli_dal" PositionY="580" PositionX="-110">
 					<Edge From="tour_na_druhou_krizovatku.done_a_areatriggered" To="force_dialog" />
 				</suk__semin_jeli_dal>
-				<suk_nasel_vuz_sam_1 Name="suk_nasel_vuz_sam_1" PositionY="580" PositionX="1840" />
+				<suk_nasel_vuz_sam_1 Name="suk_nasel_vuz_sam_1" PositionY="550" PositionX="1810" />
 				<tour_na_druhou_krizovatku Name="tour_na_druhou_krizovatku" PositionY="320" PositionX="-1050">
 					<Constant Name="alias_chat_cesta" Value="zbranePanaSemina_cestaKDruheKrizovatce" />
 					<Constant Name="alias_dialog_na_miste" Value="zbranePanaSemina_sukSeminJeliDal" />
@@ -197,7 +204,6 @@
 					<Edge From="tourToCrossroadTwo.OnDone" To="dialog_finished" />
 				</tour_na_druhou_krizovatku>
 				<State Name="tourToCrossroadTwo" PositionY="410" PositionX="-1460" TypeT="ProgressFailable">
-					<Edge From="abort_objectives" To="SetCanceled" />
 					<Edge From="InvestigateCrossroadsByCliffs.Onactive" To="SetDone">
 						<Vertex>vertex114</Vertex>
 						<Vertex>vertex115</Vertex>
@@ -211,6 +217,7 @@
 						<Vertex>vertex132</Vertex>
 						<Vertex>vertex133</Vertex>
 					</Edge>
+					<Edge From="ifObjCrossTourActive.True" To="SetCanceled" />
 				</State>
 			</Nodes>
 			<EdgeVertices>
@@ -221,8 +228,10 @@
 				<EdgeVertex Name="6RqmhIWJ" PositionY="-40" PositionX="1690" />
 				<EdgeVertex Name="JCINqENw" PositionY="750" PositionX="1126" />
 				<EdgeVertex Name="Jk3Te2Qv" PositionY="-120" PositionX="2080" />
+				<EdgeVertex Name="PU9j7Jc5" PositionY="868" PositionX="-1261" />
 				<EdgeVertex Name="QtEF8lqb" PositionY="238" PositionX="1494" />
 				<EdgeVertex Name="Re89yeoP" PositionY="-20" PositionX="1690" />
+				<EdgeVertex Name="scy83arV" PositionY="868" PositionX="-1853" />
 				<EdgeVertex Name="vertex108" PositionY="980" PositionX="-960" />
 				<EdgeVertex Name="vertex109" PositionY="970" PositionX="1160" />
 				<EdgeVertex Name="vertex114" PositionY="224" PositionX="1017" />

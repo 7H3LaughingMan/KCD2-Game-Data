@@ -19,6 +19,9 @@
 					<DesignName StringName="teleport__cutscena_skonci_iXp3" Text="cutscena skončila" />
 				</Port>
 			</Ports>
+			<Definitions>
+				<Definition File="teleport_nastaveni_casu_muzika/odstraneni_vizualniho_zakrvaceni.xml" />
+			</Definitions>
 			<Nodes>
 				<Function Name="advanceworldtime2" PositionY="140" PositionX="380" MethodName="wh::rpgmodule::AdvanceWorldTime" DeclaringType="wh::rpgmodule">
 					<Edge From="cutscenehandler1.AfterPlay" To="Exec" />
@@ -40,8 +43,13 @@
 					<Edge From="advanceworldtime2.OnExec" To="Exec" />
 				</Function>
 				<CutsceneHandler Name="cutscenehandler1" PositionY="-80" PositionX="10">
+					<Constant Name="AutoPlay" Value="false" />
 					<Edge From="switch5.Value1" To="CutsceneHolder" />
 					<Edge From="zmena_faze" To="EnqueueCutscene" />
+					<Edge From="odstraneni_vizualniho_zakrvaceni.konec" To="PlayCutscene">
+						<Vertex>enr16fcf</Vertex>
+						<Vertex>RsCI9Gh8</Vertex>
+					</Edge>
 				</CutsceneHandler>
 				<SkaldBoxProbe Name="musicstate7" PositionY="1090" PositionX="-100">
 					<Constant Name="Toggle" Value="STORY_M05_WEDDING" />
@@ -50,6 +58,9 @@
 				<od_1_faze_do_5_faze Name="od_1_faze_do_5_faze" PositionY="1140" PositionX="-440" Namespace="svatba">
 					<Edge From="faze_svatby" To="stav" />
 				</od_1_faze_do_5_faze>
+				<odstraneni_vizualniho_zakrvaceni Name="odstraneni_vizualniho_zakrvaceni" PositionY="-250" PositionX="380">
+					<Edge From="cutscenehandler1.BeforePlay" To="start" />
+				</odstraneni_vizualniho_zakrvaceni>
 				<Output Name="Output">
 					<Edge From="cutscenehandler1.AfterPlay" To="teleportace_dokoncena" />
 					<Edge From="cutscenehandler1.OnFinished" To="cutscena_skoncila" />
@@ -71,6 +82,10 @@
 					<Edge From="faze_svatby" To="Switch" />
 				</Switch>
 			</Nodes>
+			<EdgeVertices>
+				<EdgeVertex Name="enr16fcf" PositionY="-258" PositionX="697" />
+				<EdgeVertex Name="RsCI9Gh8" PositionY="-260" PositionX="40" />
+			</EdgeVertices>
 			<Assets>
 				<TagPointAsset Name="speaker" />
 				<ItemSlotAsset Name="slotForTrainingLongSword" />

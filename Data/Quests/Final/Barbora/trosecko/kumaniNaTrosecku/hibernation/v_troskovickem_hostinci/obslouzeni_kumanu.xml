@@ -92,6 +92,13 @@
 						<Vertex>5C0YesTC</Vertex>
 					</Edge>
 				</Function>
+				<Function Name="and93" PositionY="1510" PositionX="2300" MethodName="math::boolean::And" DeclaringType="math::boolean">
+					<Edge From="serveCumans_objective.GetFoodFromKitchen" To="A">
+						<Vertex>vertex96</Vertex>
+						<Vertex>vertex125</Vertex>
+					</Edge>
+					<Edge From="compare94.bool" To="B" />
+				</Function>
 				<State Name="areCumansSitting" PositionY="660" PositionX="2290" TypeT="bool">
 					<Edge From="cumansSittingStanceTrigger.OnAllStanceMatched" To="SetTrue" />
 					<Edge From="cumansSittingStanceTrigger.OnStanceUnmatched" To="SetFalse" />
@@ -102,6 +109,7 @@
 					<Edge From="stav_rvacky_v_hospode" To="ValueA">
 						<Vertex>WTteT1ko</Vertex>
 						<Vertex>pdf9rkbx</Vertex>
+						<Vertex>eux7sDkT</Vertex>
 					</Edge>
 				</Function>
 				<Function Name="compare84" PositionY="370" PositionX="1020" TypeT="kumaniNaTrosecku_pubFightEscalation" MethodName="Control::Compare" DeclaringType="Control">
@@ -110,6 +118,15 @@
 					<Edge From="faze_eskalace" To="ValueA">
 						<Vertex>2knvX6w2</Vertex>
 						<Vertex>DIewFCJp</Vertex>
+					</Edge>
+				</Function>
+				<Function Name="compare94" PositionY="1540" PositionX="1990" TypeT="PubSkirmish" MethodName="Control::Compare" DeclaringType="Control">
+					<Constant Name="Op" Value="Equals" />
+					<Constant Name="ValueB" Value="None" />
+					<Edge From="stav_rvacky_v_hospode" To="ValueA">
+						<Vertex>WTteT1ko</Vertex>
+						<Vertex>pdf9rkbx</Vertex>
+						<Vertex>eux7sDkT</Vertex>
 					</Edge>
 				</Function>
 				<Function Name="createdialogparams6" PositionY="570" PositionX="4480" MethodName="wh::dialogmodule::CreateDialogParams" DeclaringType="wh::dialogmodule">
@@ -121,13 +138,13 @@
 					<Edge From="joinarrays31.Array" To="Participants" />
 				</Function>
 				<StanceTrigger Name="cumansSittingStanceTrigger" PositionY="660" PositionX="1880">
-					<Asset Name="Souls" Alias="vasko" />
 					<Constant Name="Stance" Value="sitting" />
 					<Edge From="serveCumans_objective.ServeCumans" To="IsActive">
 						<Vertex>7sXp6flG</Vertex>
 						<Vertex>vertex108</Vertex>
 						<Vertex>vertex12</Vertex>
 					</Edge>
+					<Edge From="joinarrays98.Array" To="Souls" />
 				</StanceTrigger>
 				<EventMemberFunction Name="deleteitems68" PositionY="-490" PositionX="3580" MethodName="DeleteItems" DeclaringType="wh::entitymodule::Inventory">
 					<Constant Name="AllowPartialMatch" Value="true" />
@@ -215,6 +232,14 @@
 					<Asset Name="A" Alias="cumansInPub" />
 					<Asset Name="B" Alias="vujtek" />
 				</Function>
+				<Function Name="joinarrays98" PositionY="920" PositionX="1610" TypeT="wh::rpgmodule::Souls" MethodName="utilities::array::JoinArrays" DeclaringType="utilities::array">
+					<Asset Name="A" Alias="vasko" />
+					<Asset Name="B" Alias="vujtek" />
+				</Function>
+				<keepdooropen Name="keepdooropen" PositionY="1490" PositionX="2600" Namespace="utils.general">
+					<Asset Name="door" Alias="pubDoor" />
+					<Edge From="and93.bool" To="isactive" />
+				</keepdooropen>
 				<kumansky_refusal_bez_jidla Name="kumansky_refusal_bez_jidla" PositionY="-80" PositionX="2780">
 					<Edge From="or76.bool" To="obsluha_u_stolu_jeste_neni_aktivni" />
 				</kumansky_refusal_bez_jidla>
@@ -253,6 +278,10 @@
 						<Vertex>qCTH4Pqh</Vertex>
 					</Edge>
 				</objednavaci_dialog_s_vaskem>
+				<Function Name="opendoor92" PositionY="-320" PositionX="2470" MethodName="wh::entitymodule::OpenDoor" DeclaringType="wh::entitymodule">
+					<Asset Name="Door" Alias="pubDoor" />
+					<Edge From="fullyrestock60.OnExec" To="Exec" />
+				</Function>
 				<optional_dialog_s_hostinskou_pred_obsouzenim Name="optional_dialog_s_hostinskou_pred_obsouzenim" PositionY="-960" PositionX="1320">
 					<Edge From="or80.bool" To="henry_mluvil_s_vaskem">
 						<Vertex>hRg7dCx4</Vertex>
@@ -374,16 +403,16 @@
 					<Edge From="createdialogparams6.DialogParams" To="DialogParams" />
 					<Edge From="if_dialogWithNoFightInPub.False" To="EnqueueDialogue" />
 				</polylog_s_kumany_po_odchodu_na_dvorek>
-				<polylog_s_kumany_u_servirovani Name="polylog_s_kumany_u_servirovani" PositionY="360" PositionX="3430">
+				<polylog_s_kumany_u_servirovani Name="polylog_s_kumany_u_servirovani" PositionY="390" PositionX="3620">
 					<Asset Name="DialogueHolder" Alias="servingCumansPolylogHolder" />
 					<Constant Name="cumanFood" Value="86e4ff24-88db-4024-abe6-46545fa0fbd1" />
+					<Edge From="createdialogparams6_1.DialogParams" To="DialogParams" />
 					<Edge From="interactiontrigger14.OnInteraction" To="EnqueueDialogue">
 						<Vertex>vertex37</Vertex>
 					</Edge>
 					<Edge From="forcePubPolylog.OnTrigger" To="EnqueueDialogue">
 						<Vertex>vertex37</Vertex>
 					</Edge>
-					<Edge From="createdialogparams6_1.DialogParams" To="DialogParams" />
 					<Edge From="SpeakTrigger.onspoke" To="EnqueueDialogue">
 						<Vertex>vertex37</Vertex>
 					</Edge>
@@ -507,6 +536,7 @@
 				<EdgeVertex Name="Dj805MAY" PositionY="980" PositionX="5680" />
 				<EdgeVertex Name="e9PMcbSv" PositionY="590" PositionX="1710" />
 				<EdgeVertex Name="EPkhrTpY" PositionY="660" PositionX="2520" />
+				<EdgeVertex Name="eux7sDkT" PositionY="1240" PositionX="1920" />
 				<EdgeVertex Name="fwsWSPQM" PositionY="340" PositionX="2720" />
 				<EdgeVertex Name="geMP5gLl" PositionY="-950" PositionX="2380" />
 				<EdgeVertex Name="hRg7dCx4" PositionY="-913" PositionX="1227" />
@@ -615,6 +645,7 @@
 				<CameraAsset Name="bitkuman_customCamera_10" />
 				<CameraAsset Name="bitkuman_customCamera_11" />
 				<CameraAsset Name="bitkuman_customCamera_12" />
+				<AnimDoorAsset Name="pubDoor" />
 			</Assets>
 			<Text StringName="obslouzeni_kumanu_jBMG" Text="Obsloužení Kumánů" />
 		</Gameplay>

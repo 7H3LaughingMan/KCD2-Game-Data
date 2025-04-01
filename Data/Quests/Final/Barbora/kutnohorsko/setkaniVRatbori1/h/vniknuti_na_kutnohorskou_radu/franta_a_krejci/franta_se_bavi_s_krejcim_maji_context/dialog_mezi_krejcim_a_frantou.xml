@@ -36,7 +36,7 @@
 							</Elements>
 							<Decision Name="dec2" Priority="MainQuestSubmission" DesignName="AUTO - where is Disguise">
 								<Sequences>
-									<Sequence EntryCondition="--technická sekvence, ignoruj&#xD;&#xA;Port('krejci_ma_vsechno')" EndType="Decision" Name="seq2">
+									<Sequence EntryCondition="--technická sekvence, ignoruj&#xD;&#xA;!Port('saty_predany')&#xD;&#xA;AND &#xD;&#xA;Port('krejci_ma_vsechno')" EndType="Decision" Name="seq2">
 										<DesignName StringName="dialog_me_seq2_wMrc" Text="seq2" />
 										<Triggers>
 											<Port Name="presun_hadry" />
@@ -102,7 +102,7 @@
 											<Response Role="KREJCI_HADRABA" />
 										</Elements>
 									</Sequence>
-									<Sequence EntryCondition="-- hráč buď uplatil krejčího nebo ukradl z truhly aspoň jedno oblečení&#xD;&#xA;!Port('krejci_ma_vsechno')" EndType="Decision" Name="seq3">
+									<Sequence EntryCondition="-- hráč buď uplatil krejčího nebo ukradl z truhly aspoň jedno oblečení&#xD;&#xA;!Port('saty_predany')&#xD;&#xA;AND &#xD;&#xA;!Port('krejci_ma_vsechno')" EndType="Decision" Name="seq3">
 										<DesignName StringName="dialog_me_seq3_Edsw" Text="seq3" />
 										<Triggers>
 											<Port Name="krejci_pro_frantu_nema_vsechno" />
@@ -122,7 +122,7 @@
 															<Text StringName="dial_krejci_ha_ehm_YB1a" Text="Ehm..." />
 															<Commands>
 																<FacialMoodCommand FacialMood="nervous2" />
-																<AnimationCommand Delay="0" FragmentId="ADLG_Surprised_light" Guid="5b035a8d-44ba-433c-a77a-293e98a0d744" Variant="4" DesiredDuration="3.22" />
+																<AnimationCommand FragmentId="ADLG_Surprised_light" Guid="5b035a8d-44ba-433c-a77a-293e98a0d744" Variant="4" DesiredDuration="3.22" />
 																<AnimationCommand Role="FRANTA_KULDANU" Delay="1.09" FragmentId="ADLG_Surprised_light" Guid="05fbbee9-b1a6-ec13-8596-a39e097f4674" Variant="0" />
 															</Commands>
 														</Response>

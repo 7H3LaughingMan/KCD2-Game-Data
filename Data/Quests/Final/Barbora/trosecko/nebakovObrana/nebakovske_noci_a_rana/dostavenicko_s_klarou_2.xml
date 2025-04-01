@@ -29,29 +29,16 @@
 				<Function Name="createdialogparams2" PositionY="220" PositionX="-460" MethodName="wh::dialogmodule::CreateDialogParams" DeclaringType="wh::dialogmodule">
 					<Asset Name="Participants" Alias="klara" />
 				</Function>
-				<CutsceneHandler Name="cutscenehandler72" PositionY="40" PositionX="780">
-					<Asset Name="CutsceneHolder" Alias="sexTimeSkip" />
-					<Edge From="ifiscontentfilteractive73.False" To="EnqueueCutscene" />
-				</CutsceneHandler>
-				<CutsceneHandler Name="cutscenehandler72_1" PositionY="430" PositionX="780">
-					<Asset Name="CutsceneHolder" Alias="sexTimeSkip_censored" />
-					<Edge From="ifiscontentfilteractive73.True" To="EnqueueCutscene" />
-				</CutsceneHandler>
 				<dostavenicko_s_klarou_2 Name="dostavenicko_s_klarou">
 					<Asset Name="DialogueHolder" Alias="sexWithKlaraFader2" />
 					<Edge From="createdialogparams2.DialogParams" To="DialogParams" />
 					<Edge From="enqueuedialogue" To="EnqueueDialogue" />
 				</dostavenicko_s_klarou_2>
-				<IfFunction Name="ifiscontentfilteractive73" PositionY="170" PositionX="470" MethodName="wh::conceptmodule::IsContentFilterActive" DeclaringType="wh::conceptmodule">
-					<Constant Name="Filter" Value="Sex" />
-					<Edge From="dostavenicko_s_klarou.hrac_sel_spat" To="Exec" />
-				</IfFunction>
 				<Output Name="Output">
-					<Edge From="cutscenehandler72.OnQueued" To="jindra_sel_spat" />
 					<Edge From="dostavenicko_s_klarou.BeforePlay" To="unpause">
 						<Vertex>InlpRlVG</Vertex>
 					</Edge>
-					<Edge From="cutscenehandler72_1.OnQueued" To="jindra_sel_spat" />
+					<Edge From="dostavenicko_s_klarou.hrac_sel_spat" To="jindra_sel_spat" />
 				</Output>
 			</Nodes>
 			<EdgeVertices>

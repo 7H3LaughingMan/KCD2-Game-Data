@@ -133,6 +133,9 @@
 		<!-- azZaHrob -->
 		<FaderCutscene Name="azZaHrob_faderWall" />
 
+		<!-- barber -->
+		<FaderCutscene Name="barber_fader" />
+
 		<!-- baths -->
 		<SkipTimeCutscene Name="bathhouse_skipTime_1h" />
 		<SkipTimeCutscene Name="bathhouse_skipTime_2h" />
@@ -154,7 +157,7 @@
 				<Profile Type="Default" FileName="cin_m1010t_bohutovavlozka__bohuta_arrival" />
 			</Profiles>
 		</RenderedCutscene>
-		<IngameCutscene Name="bohutovaVlozka_intro" StartWeather="summer_overcast_C" StartBlendDuration="0s" Checkpoints="ch0_start ch2_view ch3_beer" >
+		<IngameCutscene Name="bohutovaVlozka_intro" StartWeather="summer_overcast_C" StartBlendDuration="0s" Checkpoints="ch0_start ch3_beer" >
 			<Events>
 				<Event Type="CustomText" StartFrame="1478" EndFrame="1689" StringData="cin__vypravec__zelejov_tr_JnWY" Layout="CenterBottom" FadeIn="50" FadeOut="50"/>
 			</Events>
@@ -165,6 +168,7 @@
 		<FaderCutscene Name="bohutovaVlozka_afterFirstFightFader" />
 		<IngameCutscene Name="bohutovaVlozka_bohutaNebakov" Checkpoints="ch0_start ch1_where_is_the_chief ch2_zizka ch3_he_is_looking_for_hans_capon ch4_I_just_had" />
 		<IngameCutscene Name="bohutovaVlozka_standoffZizka" Checkpoints="ch0_start ch1_standoff ch2_objective" PreemptedMusicDuration="15" PreemptedMusicStateToggle="STORY_M10_NEBAKOV_SKIRMISH" />
+		<FaderCutscene Name="bohutovaVlozka_dismountingHorseCutscene" />
 		<IngameCutscene Name="bohutovaVlozka_nebakovJail" Checkpoints="ch0_start ch1_pista ch2 ch3_pista_cell" >
 			<Events>
 				<Event Type="CustomText" StartFrame="25" EndFrame="181" StringData="cin__vypravec__o_neco_dri_U2Nz" Layout="CenterBottom" FadeIn="40" FadeOut="24"/>
@@ -229,6 +233,9 @@
 		<FaderCutscene Name="drak_standOff_prepare" />
 		<FaderCutscene Name="drak_afterAlchemistFistfight" />
 				<SkipTimeCutscene Name="drak_diggingBones" />
+		
+		<!-- dlc2Duels -->
+		<FastTravelCutscene Name="duels_teleportArena1" />
 
 		<!-- drevorubecAVlci -->
 		<TextCutscene Name="drevorubecAVlci_lumberjackTeachingHenry" StringName="drevorube_drevorubec_ti_u_NhN1" Duration="3s" />
@@ -380,6 +387,9 @@
 			<Profiles>
 		    	<Profile Type="Default" FileName="cin_m5165k_finale__theresa_ending" />
 		  </Profiles>
+			<Events>
+				<Event Type="CustomText" StartFrame="30" EndFrame="148" StringData="cin__vypravec__nekdy_pozd_WuSV" Layout="Center" FadeIn="70" FadeOut="56"/>
+			</Events>
 		</RenderedCutscene>
 		<FaderCutscene Name="finale_openGate" Duration="3s" InterruptsIngameMusic="0" />
 		<TrackViewCutscene Name="finale_battle_outsideRiders" />
@@ -442,24 +452,33 @@
 		<IngameCutscene Name="hledaniLichtenstejna_meetLichtenstejn" Time="3h" StartWeather="semicloudy_clear" StartBlendDuration="0s" EndWeather="semicloudy_clear" EndBlendDuration="0s"/>
 
 		<!-- hledaniPsa -->
-		<IngameCutscene Name="hledaniPsa_meetingVorech_sword" Checkpoints="ch0_start ch01_mutt ch02_alpha ch03_wolfes ch06_sword ch07_fight" />
-		<IngameCutscene Name="hledaniPsa_meetingVorech_mace" Checkpoints="ch0_start ch01_mutt ch02_alpha ch03_wolfes ch05_mace_axe ch07_fight" />
-		<IngameCutscene Name="hledaniPsa_meetingVorech_bow" Checkpoints="ch0_start ch01_mutt ch02_alpha ch03_wolfes ch04_nothing ch07_fight" />
+		<IngameCutscene Name="hledaniPsa_meetingVorech_sword" Checkpoints="ch0_start ch01_mutt ch02_alpha ch03_wolfes ch06_sword ch07_fight" PreemptedMusicDuration="10" PreemptedMusicStateToggle="SKIRMISH_ARMED_FORCED" />
+		<IngameCutscene Name="hledaniPsa_meetingVorech_mace" Checkpoints="ch0_start ch01_mutt ch02_alpha ch03_wolfes ch05_mace_axe ch07_fight" PreemptedMusicDuration="10" PreemptedMusicStateToggle="SKIRMISH_ARMED_FORCED" />
+		<IngameCutscene Name="hledaniPsa_meetingVorech_bow" Checkpoints="ch0_start ch01_mutt ch02_alpha ch03_wolfes ch04_nothing ch07_fight" PreemptedMusicDuration="10" PreemptedMusicStateToggle="SKIRMISH_ARMED_FORCED" />
 		<IngameCutscene Name="hledaniPsa_meetingVorech" />
 		<SkipTimeCutscene Name="hledaniPsa_skipTimeFirstPack" />
 		<TrackViewCutscene Name="hledaniPsa_secondWolfPack_idle" />
 		<FaderCutscene Name="hledaniPsa_firstPackStream" />
 
 		<!-- HorseBuying -->
-		<SkipTimeCutscene Name="horseBuying_skipTime_wash" />
-		<SkipTimeCutscene Name="horseBuying_skipTime_transaction" />
+		<TextCutscene  Name="horseBuying_skipTime_wash" StringName="horsebuyi_podkoni_se_nale_IMDd" Duration="4s"/>
+		<TextCutscene  Name="horseBuying_skipTime_transaction_groom"  StringName="horsebuyi_podkoni_priprav_NBNb" Duration="4s"/>
+		<TextCutscene  Name="horseBuying_skipTime_transaction_handler" StringName="horsebuyi_handlir_priprav_MrBA" Duration="4s"/>
+		<TextCutscene  Name="horseBuying_skipTime_transaction_sedivka" StringName="horsebuyi_podkoni_priprav_ug41" Duration="4s"/>
 		<FaderCutscene Name="horseBuying_fader_transaction" />
+
+		<!-- hrob -->
+		<TextCutscene Name="hrob_cleaningGrave" StringName="hrob_bez_spechu_uklizis_h_bCG2" Duration="5000ms"/>
+		<TextCutscene Name="hrob_returningSkull" Duration="500ms"/>
 
 		<!-- hromovyKamen -->
 		<FaderCutscene Name="hromovyKamen_streamCamp" />
 		<FaderCutscene Name="hromovyKamen_fansTeleport" />
 		<SkipTimeCutscene Name="hromovyKamen_skillTeachers_skipTime_learnLesson_thomlin" />
 
+		<!-- katuvSleh -->
+		<SkipTimeCutscene Name="katuvSleh_waitingForHorse" />
+		
 		<!-- kejkliri -->
 		<FaderCutscene Name="kejkliri_startFirstTrialog" />
 		<FaderCutscene Name="kejkliri_startTrialog" />
@@ -479,6 +498,7 @@
 
 		<!-- kocovnickaCest -->
 		<FaderCutscene Name="kocovnickaCest_cut" />
+		<FaderCutscene Name="kocovnickaCest_marika_priorityHealing" />
 		<TextCutscene Name="kocovnickaCest_preparingGejzaBurial" StringName="pohrebni__hlidas_gejzovo__PemT" Duration="5s" PreemptedMusicDuration="10" PreemptedMusicStateToggle="STORY_S25_GEJZA_BURIAL" />
 		<FaderCutscene Name="kocovnickaCest_preparingBurialThanks" InterruptsIngameMusic="0" />
 		<TextCutscene Name="kocovnickaCest_travelingFromBurialToCamp" StringName="pohrebni__vracis_se_s_ost_ygdA" Duration="5s" />
@@ -575,8 +595,8 @@
 
 		<!-- kumaniNaTrosecku -->
 		<FaderCutscene Name="kumaniNaTrosecku_extraQuestGuardFader" />
-		<SkipTimeCutscene Name="kumaniNaTrosecku_drinkingTillNightWithCumansTimeskip" />
-		<SkipTimeCutscene Name="kumaniNaTrosecku_drinkingTillMorningWithCumansTimeskip" />
+		<TextCutscene Name="kumaniNaTrosecku_drinkingTillNightWithCumansTimeskip" StringName="ui_dlg_kumani_DrinkingTillNight" Duration="3s" InterruptsIngameMusic="0" />
+		<TextCutscene Name="kumaniNaTrosecku_drinkingTillMorningWithCumansTimeskip" StringName="ui_dlg_kumani_DrunkSleeping" Duration="3s" InterruptsIngameMusic="0" />
 		<FastTravelCutscene Name="kumaniNaTrosecku_followingVaskoToCamp" />
 		<FaderCutscene Name="kumaniNaTrosecku_swimmingFader" />
 
@@ -665,7 +685,7 @@
 		<IngameCutscene Name="mucirna_vypaleniSemina_seminBurnDownPosily" StartWeather="cloudless_sunny_B" StartBlendDuration="0s" EndWeather="cloudless_sunny_B" EndBlendDuration="0s" />
 		<IngameCutscene Name="mucirna_vypaleniSemina_seminBurnDownBezPosil" StartWeather="cloudless_sunny_B" StartBlendDuration="0s" EndWeather="cloudless_sunny_B" EndBlendDuration="0s" />
 		<FaderCutscene Name="mucirna_vypaleniSemina_streamBurntSeminFader" />
-		<SkipTimeCutscene Name="mucirna_vypaleniSemina_prepareForTour" />
+		<TextCutscene Name="mucirna_vypaleniSemina_prepareForTour" StringName="ui_dlg_mucirna_WaitingWithCapon" Duration="5s"/>
 
 		<!--magickySip-->
 		<FaderCutscene Name="magickySip_circleOfDeath" />
@@ -886,12 +906,12 @@
 
 		<!-- papezskyLegat -->
 		<FaderCutscene Name="papezskyLegat_septalog" />
-		<TextCutscene Name="papezskyLegat_beforePolylogSuchdol" StringName="rada_a_vy_chysta_se_vysle_qoOo" Duration="3s"/>
+		<TextCutscene Name="papezskyLegat_beforePolylogSuchdol" StringName="rada_a_vy_chysta_se_vysle_qoOo" Duration="3s" PreemptedMusicDuration="10" PreemptedMusicStateToggle="STORY_M45_OCTALOG"/>
 		<TextCutscene Name="papezskyLegat_travelToRuthardka" StringName="odjezd_do_pozdeji_tehoz_d_R6Bk" Duration="3s"/>
 		<SkipTimeCutscene Name="papezskyLegat_timeskipDoRana" />
 		<SkipTimeCutscene Name="papezskyLegat_timeskipDoRanaWithRoza" />
 		<IngameCutscene Name="papezskyLegat_nocSRozou" Time="19h30m" StartWeather="cloudy_no_rain" StartBlendDuration="0s" EndWeather="cloudy_no_rain" EndBlendDuration="0s" />
-		<IngameCutscene Name="papezskyLegat_nocSRozou_noSex" Time="19h30m" StartWeather="cloudy_no_rain" StartBlendDuration="0s" EndWeather="cloudy_no_rain" EndBlendDuration="0s" />
+		<IngameCutscene Name="papezskyLegat_nocSRozou_noSex" Time="19h30m" StartWeather="cloudy_no_rain" StartBlendDuration="0s" EndWeather="cloudy_no_rain" EndBlendDuration="0s" Checkpoints="ch0_start ch1_henry ch2_kiss ch3_hopla" />
 		<IngameCutscene Name="papezskyLegat_prepadeniLegata" Time="6h" StartWeather="cloudy_no_rain" StartBlendDuration="0s" EndWeather="cloudy_no_rain" EndBlendDuration="0s" PreemptedMusicDuration="10" PreemptedMusicStateToggle="STORY_M45_LEGATE_CHASE" />
 		<IngameCutscene Name="papezskyLegat_smrtLegata" Time="6h15m" StartWeather="cloudy_no_rain" StartBlendDuration="0s" EndWeather="cloudy_no_rain" EndBlendDuration="0s"/>
 		<FastTravelCutscene Name="papezskyLegat_travelToLegate" />
@@ -931,6 +951,7 @@
 		<SkipTimeCutscene Name="pracharna_timeSkip" />
 		<IngameCutscene Name="pracharna_contrabant_sack" StartWeather="semicloudy_clear" StartBlendDuration="0s" EndWeather="semicloudy_clear" EndBlendDuration="0s"/>
 		<SkipTimeCutscene Name="pracharna_timeSkip_drozd" />
+		<TextCutscene Name="pracharna_pripravy" StringName="pracharna_probihaji_posle_uG71" Duration="5s" />
 
 		<!-- prepadeni -->
 		<FaderCutscene Name="prepadeni_ptacekStartPositionTeleport" />
@@ -1015,8 +1036,8 @@
 		<!-- pytlakPtacek -->
 		<FaderCutscene Name="pytlakPtacek_faderProfile" />
 		<FastTravelCutscene Name="pytlakPtacek_fastTravelToHuntsman" />
-		<SkipTimeCutscene Name="pytlakPtacek_VezakHangSkiptime" />
-		<SkipTimeCutscene Name="pytlakPtacek_VidlakHangSkiptime" />
+		<TextCutscene Name="pytlakPtacek_VezakHangSkiptime" StringName="ui_dlg_pytlakPtacek_poacherHanging" Duration="5s" />
+		<TextCutscene Name="pytlakPtacek_VidlakHangSkiptime" StringName="ui_dlg_pytlakPtacek_poacherHanging" Duration="5s" />
 
 
 		<!-- mlynaruvUcen -->
@@ -1227,6 +1248,12 @@
 		<IngameCutscene Name="stealthMiseZaJindru_finishWithoutSam" Checkpoints="ch02_start_nosam" />
 		<FaderCutscene Name="stealthMiseZaJindru_interactiveBarnDoor" />
 
+		<!-- strasidlo -->
+		<TextCutscene Name="strasidlo_straseni" StringName="straseni__jindra_priprvuj_xLWm" Duration="5s" />
+		<TextCutscene Name="strasidlo_vyroba" StringName="vyroba_ob_s_malirem_tvori_Gemz" Duration="5s" />
+		<TextCutscene Name="strasidlo_trialogue" StringName="zacatek_q_nasledujes_mali_Fvs4" Duration="5s" />
+		<FaderCutscene Name="strasidlo_fader" />
+
 		<!-- svatba -->
 		<FaderCutscene Name="svatba_fastTravelToWedding" />
 		<FaderCutscene Name="svatba_teleportPhase_1" />
@@ -1285,6 +1312,10 @@
 		<FaderCutscene Name="svatyAntonin_playerThrewOutOfSaintsDen" />
 		<FaderCutscene Name="svatyAntonin_polylogAfterReturnToSaintsDen" />
 
+		<!-- svatyne -->
+		<TextCutscene Name="svatyne_teleportDoSvatyne" StringName="malir__ko_o_nekolik_hodin_6ltl" Duration="5s" />
+		<FaderCutscene Name="svatyne_babkaSePrevleka" />
+
 		<!-- symbolSermirny -->
 		<FaderCutscene Name="symbolSermirny_teleportOutsideBucher" />
 		<FaderCutscene Name="symbolSermirny_swordStreaming" />
@@ -1309,6 +1340,18 @@
 		<SkipTimeCutscene Name="traskavePoselstvi_skiptime" />
 		<FaderCutscene Name="traskavePoselstvi_fader" />
 				<SkipTimeCutscene Name="traskavePoselstvi_firefighting" />
+
+		<!-- truhlari -->
+		<TextCutscene Name="truhlari_BurnPainting_ingame" StringName="konec_que_placeholder_cut_F62p" Duration="5s" />
+		<TextCutscene Name="truhlari_FinishPaintingSad_ingame" StringName="konec_que_placeholder_cut_tbf2" Duration="5s" />
+		<TextCutscene Name="truhlari_FinishPaintingHappy_ingame" StringName="konec_que_placeholder_cut_iviu" Duration="5s" />
+
+		
+		<!-- uchazec -->
+		<FaderCutscene Name="uchazec_intro" />
+		<SkipTimeCutscene Name="uchazec_cekaniNaCechmistry" />
+		<SkipTimeCutscene Name="uchazec_ceremonie" />
+		<FaderCutscene Name="uchazec_uklid" />
 
 		<!-- ukradenyKun -->
 		<FaderCutscene Name="ukradenyKun_faderStreamingHorse" />
@@ -1379,7 +1422,7 @@
 		<TrackViewCutscene Name="utokNaNebakov_feast_courtyardTrackview_near" />
 		<TrackViewCutscene Name="utokNaNebakov_feast_courtyardTrackview_far" />
 		<IngameCutscene Name="utokNaNebakov_valley_beforeDuel" Time="8h05m" StartWeather="semicloudy_clear" StartBlendDuration="0s" EndWeather="semicloudy_clear" EndBlendDuration="0s" checkpoints="ch0_start ch01_downed ch02_circled ch03_entrance ch04_courage ch05_reveal ch06_defiance ch07_duel ch08_fight" PreemptedMusicDuration="10" PreemptedMusicStateToggle="STORY_M09_JAN_ZIZKA_BOSS_FIGHT"/>
-		<IngameCutscene Name="utokNaNebakov_valley_afterDuel" Time="8h05m" StartWeather="semicloudy_clear" StartBlendDuration="0s" EndWeather="semicloudy_clear" EndBlendDuration="0s" checkpoints="ch0_start ch01_zizka ch02_word_of_honor ch03_hanging"/>
+		<IngameCutscene Name="utokNaNebakov_valley_afterDuel" Time="8h05m" StartWeather="semicloudy_clear" StartBlendDuration="0s" EndWeather="semicloudy_clear" EndBlendDuration="0s" checkpoints="ch0_start ch01_zizka ch02_word_of_honor"/>
 		<RenderedCutscene Name="utokNaNebakov_valley_afterDuel_render" Root="Videos\m09\cin_m0930t_utoknebakov__after_duel">
 		  <Profiles>
 			<Profile Type="Default" FileName="cin_m0930t_utoknebakov__after_duel" />
@@ -1434,6 +1477,7 @@
 
 		<!-- zaby -->
 		<FaderCutscene Name="zaby_displayedMaypole" />
+		<FaderCutscene Name="zaby_manureTeleport" />
 		<FaderCutscene Name="zaby_henryGetsHitByLighting" />
 
 		<!-- zachrana -->
@@ -1556,9 +1600,9 @@
 		<SkipTimeCutscene Name="zikmunduvTabor_skipTimeBeforeMurder" />
 		<IngameCutscene Name="cin_m4420k_zikmundtabor__cuman_murder" DisposeOfCorpses="true" Time="23h" StartWeather="cloudless_sunny" StartBlendDuration="3s" />
 		<FaderCutscene Name="cin_m4430k_zikmundtabor_streamingPreparations" />
-		<IngameCutscene Name="cin_m4430k_zikmundtabor__ambush_praguers_boomVar" Time="7h30m" StartWeather="cloudy_no_rain" StartBlendDuration="0s" EndtWeather="cloudy_no_rain" EndBlendDuration="0s" checkpoints="ch1_start_both_AB ch2_A_explosion ch3_end_A_explosion ch6_ending_both_AB" PreemptedMusicDuration="5" PreemptedMusicStateToggle="M44A_PRAGUERS_AMBUSH" /> <!-- add checkpoints KCD2-56987 -->
-		<IngameCutscene Name="cin_m4430k_zikmundtabor__ambush_praguers_no_boomVar" Time="7h30m" StartWeather="cloudy_no_rain" StartBlendDuration="0s" EndtWeather="cloudy_no_rain" EndBlendDuration="0s" checkpoints="ch1_start_both_AB ch4_start_B ch5_end_B ch6_ending_both_AB" PreemptedMusicDuration="5" PreemptedMusicStateToggle="M44A_PRAGUERS_AMBUSH"  /> <!-- add checkpoints KCD2-56987 -->
-		<FaderCutscene Name="zikmundtabor_ambushFastForwardPreparation" />
+		<IngameCutscene Name="cin_m4430k_zikmundtabor__ambush_praguers_boomVar" Time="7h30m" StartWeather="cloudy_no_rain" StartBlendDuration="0s" EndtWeather="cloudy_no_rain" EndBlendDuration="0s" checkpoints="ch1_start_both_AB ch2_A_explosion ch3_end_A_explosion ch6_ending_both_AB" PreemptedMusicDuration="5" PreemptedMusicStateToggle="STORY_M44A_PRAGUERS_AMBUSH" /> <!-- add checkpoints KCD2-56987 -->
+		<IngameCutscene Name="cin_m4430k_zikmundtabor__ambush_praguers_no_boomVar" Time="7h30m" StartWeather="cloudy_no_rain" StartBlendDuration="0s" EndtWeather="cloudy_no_rain" EndBlendDuration="0s" checkpoints="ch1_start_both_AB ch4_start_B ch5_end_B ch6_ending_both_AB" PreemptedMusicDuration="5" PreemptedMusicStateToggle="STORY_M44A_PRAGUERS_AMBUSH"  /> <!-- add checkpoints KCD2-56987 -->
+		<FaderCutscene Name="zikmundtabor_ambushFastForwardPreparation" PreemptedMusicDuration="5" PreemptedMusicStateToggle="STORY_M44A_PRAGUERS_AMBUSH" />
 		<FastTravelCutscene Name="zikmunduvTabor_FT_toCertovka" />
 		<FaderCutscene Name="zikmunduvTabor_teleport_toCertovka" />
 		<FaderCutscene Name="zikmundtabor_stalkerPrep" />
@@ -1654,6 +1698,11 @@
 		<TrackViewCutscene Name="zoufalaObranaZaBohutu_frontWallShootersFlee_3" />
 		<TrackViewCutscene Name="zoufalaObranaZaBohutu_frontWallShootersFlee_4" />
 		<TrackViewCutscene Name="zoufalaObranaZaBohutu_frontWallShootersFlee_5" />
+		<TrackViewCutscene Name="zoufalaObranaZaBohutu_frontWallShootersIdle_1" />
+		<TrackViewCutscene Name="zoufalaObranaZaBohutu_frontWallShootersIdle_2" />
+		<TrackViewCutscene Name="zoufalaObranaZaBohutu_frontWallShootersIdle_3" />
+		<TrackViewCutscene Name="zoufalaObranaZaBohutu_frontWallShootersIdle_4" />
+		<TrackViewCutscene Name="zoufalaObranaZaBohutu_frontWallShootersIdle_5" />
 
 		<!-- zranenyLovci -->
 		<FaderCutscene Name="zranenyLovci_trackingAndCampStreaming" />

@@ -225,9 +225,9 @@
 							<IsInsideAreaWithLabelBarrier Who="$__player" Label="&apos;ignazProhibited&apos;" Negation="true" RunLogic="Halt">
 								<Loop count="-1">
 									<Sequence>
-										<Move stopWithinDistance="3.000000" stopDistanceVariation="0.000000" rayCasteFlee="false" successDistance="0.000000" changeNPCState="true" fastForwardIncludesMove="false" destinationSpecification="$__player" destinationSpecification2="" destinationSpecification3="" speed="$speed" additionalParams="$additionalParams" pathFindingParams="$pathFindingParams" staminaPolicy="" pathInfo="" />
+										<Move stopWithinDistance="2.000000" stopDistanceVariation="0.000000" rayCasteFlee="false" successDistance="0.000000" changeNPCState="true" fastForwardIncludesMove="false" destinationSpecification="$__player" destinationSpecification2="" destinationSpecification3="" speed="$speed" additionalParams="$additionalParams" pathFindingParams="$pathFindingParams" staminaPolicy="" pathInfo="" />
 										<Expression expressions="$move = false" />
-										<Wait duration="&apos;2s&apos;" timeType="GameTime" doFail="false" variation="" />
+										<Wait duration="&apos;200ms&apos;" timeType="GameTime" doFail="false" variation="" />
 									</Sequence>
 								</Loop>
 							</IsInsideAreaWithLabelBarrier>
@@ -236,7 +236,7 @@
 							<Loop count="-1">
 								<Sequence>
 									<Turn target="$__player" align="false" />
-									<Wait duration="&apos;2s&apos;" timeType="GameTime" doFail="false" variation="" />
+									<Wait duration="&apos;200ms&apos;" timeType="GameTime" doFail="false" variation="" />
 								</Sequence>
 							</Loop>
 						</IfCondition>
@@ -244,12 +244,12 @@
 					<Loop count="-1">
 						<Sequence>
 							<Selector>
-								<DistanceCondition Origin="$this.id" ReferencePt="$__player" Low="5.000000" High="5.000000" Negation="false" ValueOnMiddle="false" failOnCondition="true">
+								<DistanceCondition Origin="$this.id" ReferencePt="$__player" Low="3.500000" High="3.500000" Negation="false" ValueOnMiddle="false" failOnCondition="true">
 									<Expression expressions="$move = true &#10;$speed = $enum:movementSpeed.walk" />
 								</DistanceCondition>
 								<Expression expressions="$move = true &#10;$speed = $enum:movementSpeed.run" />
 							</Selector>
-							<Wait duration="&apos;1s&apos;" timeType="GameTime" doFail="false" variation="" />
+							<Wait duration="&apos;100ms&apos;" timeType="GameTime" doFail="false" variation="" />
 						</Sequence>
 					</Loop>
 					<Loop count="-1">

@@ -87,7 +87,11 @@
 																				<Success />
 																			</Then>
 																			<Else canSkip="1">
-																				<AddArrestEscalation Npc="$this.id" Reset="false" />
+																				<EntityContextCheck context="crime_isAuthority" target="$this.id" saveVersion="2">
+																					<Then canSkip="1">
+																						<AddArrestEscalation Npc="$this.id" Reset="false" />
+																					</Then>
+																				</EntityContextCheck>
 																			</Else>
 																		</IsPublicEnemy>
 																	</IfCondition>
@@ -270,9 +274,14 @@
 																					</Success>
 																				</Then>
 																				<Else>
-																					<AddArrestEscalation hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																					<EntityContextCheck hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
 																						<OutputBreakpoints />
-																					</AddArrestEscalation>
+																						<Then>
+																							<AddArrestEscalation hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																								<OutputBreakpoints />
+																							</AddArrestEscalation>
+																						</Then>
+																					</EntityContextCheck>
 																				</Else>
 																			</IsPublicEnemy>
 																		</IfCondition>

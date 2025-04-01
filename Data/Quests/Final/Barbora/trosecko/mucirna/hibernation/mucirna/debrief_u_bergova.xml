@@ -178,7 +178,7 @@
 				</haste_override_few_men>
 				<IfFunction Name="ifareacheck18" PositionY="-350" PositionX="1640" MethodName="wh::rpgmodule::AreaCheck" DeclaringType="wh::rpgmodule">
 					<Asset Name="Souls" Alias="bergov" />
-					<Asset Name="Areas" Alias="bergovMeetingArea" />
+					<Asset Name="Areas" Alias="bergovChamber" />
 					<Edge From="ifBothInCorrectChamber.True" To="Exec">
 						<Vertex>vertex48</Vertex>
 						<Vertex>vertex47</Vertex>
@@ -329,6 +329,10 @@
 						<Vertex>vertex66</Vertex>
 					</Edge>
 				</SchedulerLinkActivation>
+				<SchedulerLinkActivation Name="schedule36" PositionY="640" PositionX="2820">
+					<Constant Name="LinkTag" Value="mucirna_bergovWaitsInHisRoom" />
+					<Edge From="timer_bergovWaitsInHisRoom.Running" To="IsActive" />
+				</SchedulerLinkActivation>
 				<SetEntityContext Name="setentitycontext31" PositionY="580" PositionX="240">
 					<Constant Name="Context" Value="deterrenceImmunity" />
 					<Edge From="and28.bool" To="IsActive">
@@ -350,9 +354,14 @@
 					</Edge>
 				</SpeakTrigger>
 				<State Name="state20" PositionY="-490" PositionX="1990" TypeT="BergovDebriefPlaces">
-					<Edge From="ifareacheck18.False" To="SetUpperRoom" />
-					<Edge From="ifareacheck18.True" To="SetLowerRoom" />
+					<Edge From="ifareacheck18.False" To="SetLowerRoom" />
+					<Edge From="ifareacheck18.True" To="SetUpperRoom" />
 				</State>
+				<Timer Name="timer_bergovWaitsInHisRoom" PositionY="490" PositionX="2360">
+					<Constant Name="Duration" Value="1h" />
+					<Constant Name="TimeType" Value="WorldTime" />
+					<Edge From="state20.OnUpperRoom" To="SetRunning" />
+				</Timer>
 				<Timer Name="timer_tortureeBarks" PositionY="-2150" PositionX="-1970">
 					<Constant Name="Duration" Value="3h" />
 					<Constant Name="TimeType" Value="WorldTime" />

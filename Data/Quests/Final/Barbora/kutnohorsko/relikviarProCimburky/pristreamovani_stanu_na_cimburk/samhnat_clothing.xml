@@ -14,18 +14,32 @@
 					<Constant Name="Mode" Value="EnsureThenKeep" />
 					<Asset Name="Souls" Alias="miroslav" />
 					<Constant Name="Quality" Value="3" />
-					<Edge From="state21.State" To="IsActive" />
+					<Edge From="and25.bool" To="IsActive" />
 				</AddSoulDefaultItem>
+				<Function Name="and25" PositionY="210" PositionX="660" MethodName="math::boolean::And" DeclaringType="math::boolean">
+					<Edge From="state21.State" To="B" />
+					<Edge From="loadedprofilestate.isloaded" To="A" />
+				</Function>
+				<Function Name="and26" PositionY="948" PositionX="630" MethodName="math::boolean::And" DeclaringType="math::boolean">
+					<Edge From="loadedprofilestate_1.isloaded" To="B" />
+					<Edge From="state21.State" To="A" />
+				</Function>
 				<ClothingPresetOverride Name="clothingpresetoverride22" PositionY="647" PositionX="943">
 					<Asset Name="Souls" Alias="miroslav" />
 					<Constant Name="ClothingPreset" Value="0a6773ff-7e8b-4c80-869c-f8cdbb744fd8" />
-					<Edge From="state21.State" To="IsActive" />
+					<Edge From="and25.bool" To="IsActive" />
 				</ClothingPresetOverride>
 				<ClothingPresetOverride Name="clothingpresetoverride23" PositionY="877" PositionX="943">
 					<Asset Name="Souls" Alias="samhnatHorse" />
 					<Constant Name="ClothingPreset" Value="3db48ae2-7b53-494f-bd4d-691dd3d2fa50" />
-					<Edge From="state21.State" To="IsActive" />
+					<Edge From="and26.bool" To="IsActive" />
 				</ClothingPresetOverride>
+				<loadedprofilestate Name="loadedprofilestate" PositionY="90" PositionX="350" Namespace="utils.streaming">
+					<Asset Name="profiles" Alias="miroProfile" />
+				</loadedprofilestate>
+				<loadedprofilestate Name="loadedprofilestate_1" PositionY="980" PositionX="340" Namespace="utils.streaming">
+					<Asset Name="profiles" Alias="campProfile" />
+				</loadedprofilestate>
 				<HasteTrigger Name="miroslavPreset" PositionY="470" PositionX="50">
 					<Constant Name="IsHidden" Value="true" />
 				</HasteTrigger>
@@ -34,6 +48,10 @@
 					<Edge From="cloathe" To="SetTrue" />
 				</State>
 			</Nodes>
+			<Assets>
+				<ProfileAsset Name="miroProfile" AssetProfiles="bratrizcimburka_miroslav" />
+				<ProfileAsset Name="campProfile" />
+			</Assets>
 			<Text StringName="samhnat_clothing_E1oA" Text="Samhnat clothing" />
 		</Module>
 	</Skald>

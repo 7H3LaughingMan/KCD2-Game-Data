@@ -45,6 +45,9 @@
 				<Port Name="hrac_si_pujcil_longsword" Direction="In" Type="bool">
 					<DesignName StringName="vybavaobj_hrac_si_pujcil__NckF" Text="Hráč si pujčil longsword" />
 				</Port>
+				<Port Name="active_to_return" Direction="Out" Type="bool">
+					<DesignName StringName="vybavaobj_active_to_return_dms1" Text="Active to Return" />
+				</Port>
 			</Ports>
 			<Nodes>
 				<State Name="borroenEqipment" PositionY="340" PositionX="870" RequiredForOutput="kutnohorsko" TypeT="BorrowEquipment">
@@ -62,10 +65,13 @@
 					</Edge>
 					<Edge From="ifdeathcheck80.False" To="SetSwordAndShield" />
 					<Edge From="ifdeathcheck80.True" To="SetNone" />
-					<Edge From="ifdeathcheck80_1.False" To="SetLongsword" />
 					<Edge From="ifdeathcheck80_1.True" To="SetNone" />
-					<Edge From="ifObjPujcActive.True" To="SetNone">
-						<Vertex>gotUa8nm</Vertex>
+					<Edge From="ifnot81.True" To="SetLongsword" />
+					<Edge From="ifpujcenoStitAMec.True" To="SetSwordAndShieldReturned">
+						<Vertex>CJ9H1Adm</Vertex>
+					</Edge>
+					<Edge From="ifpujcenoStitAMec.False" To="SetNone">
+						<Vertex>Sx4dcz5s</Vertex>
 					</Edge>
 				</State>
 				<IfFunction Name="ifand75" PositionY="-60" PositionX="200" MethodName="math::boolean::And" DeclaringType="math::boolean">
@@ -117,6 +123,13 @@
 					<Asset Name="Souls" Alias="gearMaster" />
 					<Edge From="ifcompare73_1_1.True" To="Exec" />
 				</IfFunction>
+				<IfFunction Name="ifnot81" PositionY="800" PositionX="560" MethodName="math::boolean::Not" DeclaringType="math::boolean">
+					<Edge From="borroenEqipment.LongswordReturned" To="Value">
+						<Vertex>jRqqCdRR</Vertex>
+						<Vertex>P1aLAE4f</Vertex>
+					</Edge>
+					<Edge From="ifdeathcheck80_1.False" To="Exec" />
+				</IfFunction>
 				<If Name="ifObjPujcActive" PositionY="1120" PositionX="-130">
 					<Edge From="or78.bool" To="Condition">
 						<Vertex>UNeaqATu</Vertex>
@@ -126,13 +139,25 @@
 						<Vertex>MJQWN7sG</Vertex>
 					</Edge>
 				</If>
+				<If Name="ifpujcenoStitAMec" PositionY="1120" PositionX="260">
+					<Edge From="ifObjPujcActive.True" To="Exec" />
+					<Edge From="hrac_si_pujcil_shield" To="Condition">
+						<Vertex>CWr6zsv2</Vertex>
+						<Vertex>eQDoC9GD</Vertex>
+					</Edge>
+				</If>
 				<If Name="ifQActive" PositionY="-250" PositionX="-1080">
 					<Edge From="start" To="Exec" />
 					<Edge From="turnajove_objectivy" To="Condition" />
 				</If>
+				<Function Name="MusimVratitEquip" PositionY="331" PositionX="1713" MethodName="math::boolean::Or" DeclaringType="math::boolean">
+					<Edge From="borroenEqipment.LongswordReturned" To="B" />
+					<Edge From="borroenEqipment.SwordAndShieldReturned" To="A" />
+				</Function>
 				<Function Name="not76" PositionY="780" PositionX="-450" MethodName="math::boolean::Not" DeclaringType="math::boolean">
 					<Edge From="borroenEqipment.LongswordReturned" To="Value">
 						<Vertex>jRqqCdRR</Vertex>
+						<Vertex>P1aLAE4f</Vertex>
 						<Vertex>cFeos2WR</Vertex>
 					</Edge>
 				</Function>
@@ -142,7 +167,7 @@
 						<Vertex>eSjMFVmN</Vertex>
 					</Edge>
 				</Function>
-				<pujc_si_turnajovou_vyzbroj Name="objectiveVisual75" PositionY="90" PositionX="1900" RequiredForOutput="kutnohorsko">
+				<pujc_si_turnajovou_vyzbroj Name="objectiveVisual75" PositionY="50" PositionX="1840" RequiredForOutput="kutnohorsko">
 					<Edge From="switch79.Value1" To="Progress" />
 				</pujc_si_turnajovou_vyzbroj>
 				<Function Name="or78" PositionY="620" PositionX="1710" MethodName="math::boolean::Or" DeclaringType="math::boolean">
@@ -151,6 +176,7 @@
 				</Function>
 				<Output Name="Output">
 					<Edge From="or78.bool" To="active" />
+					<Edge From="MusimVratitEquip.bool" To="active_to_return" />
 				</Output>
 				<Switch Name="switch79" PositionY="-60" PositionX="1410" RequiredForOutput="kutnohorsko" TypeT="bool" ValueTypes="BorrowEquipment" SwitchValues="true false">
 					<Constant Name="trueValue1" Value="None" />
@@ -171,16 +197,20 @@
 				<EdgeVertex Name="9Gs7c70R" PositionY="-207" PositionX="-444" />
 				<EdgeVertex Name="bMHItvH0" PositionY="1050" PositionX="-770" />
 				<EdgeVertex Name="cFeos2WR" PositionY="960" PositionX="-420" />
+				<EdgeVertex Name="CJ9H1Adm" PositionY="1211" PositionX="725" />
+				<EdgeVertex Name="CWr6zsv2" PositionY="1340" PositionX="-750" />
 				<EdgeVertex Name="EGpYEjxQ" PositionY="269" PositionX="216" />
+				<EdgeVertex Name="eQDoC9GD" PositionY="1326" PositionX="239" />
 				<EdgeVertex Name="eSjMFVmN" PositionY="-140" PositionX="-110" />
 				<EdgeVertex Name="g7gvI3cB" PositionY="-196" PositionX="1208" />
 				<EdgeVertex Name="gEHystrP" PositionY="394" PositionX="669" />
-				<EdgeVertex Name="gotUa8nm" PositionY="1210" PositionX="710" />
 				<EdgeVertex Name="jRqqCdRR" PositionY="960" PositionX="1230" />
 				<EdgeVertex Name="Ld9HPCPa" PositionY="-120" PositionX="1220" />
 				<EdgeVertex Name="MJQWN7sG" PositionY="1207" PositionX="-753" />
+				<EdgeVertex Name="P1aLAE4f" PositionY="958" PositionX="576" />
 				<EdgeVertex Name="PkrT3cuJ" PositionY="-90" PositionX="-810" />
 				<EdgeVertex Name="Ro6lGRjI" PositionY="1050" PositionX="730" />
+				<EdgeVertex Name="Sx4dcz5s" PositionY="1240" PositionX="763" />
 				<EdgeVertex Name="UNeaqATu" PositionY="1290" PositionX="1890" />
 				<EdgeVertex Name="vertex8" PositionY="-80" PositionX="740" />
 				<EdgeVertex Name="vrFkyARn" PositionY="1010" PositionX="-760" />

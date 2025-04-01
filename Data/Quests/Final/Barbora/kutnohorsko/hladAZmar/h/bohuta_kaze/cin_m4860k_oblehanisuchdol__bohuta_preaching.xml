@@ -38,14 +38,19 @@
 				<Definition File="cin_m4860k_oblehanisuchdol__bohuta_preaching/haste__spusteni_bitvy.xml" />
 				<Definition File="cin_m4860k_oblehanisuchdol__bohuta_preaching/kopirovani_hracovo_presetu_na_henry_npc.xml" />
 				<Definition File="cin_m4860k_oblehanisuchdol__bohuta_preaching/nakrmeni_hrace_pokud_ma_jidlo.xml" />
+				<Definition File="cin_m4860k_oblehanisuchdol__bohuta_preaching/bohutovo_clothing_preset.xml" />
 			</Definitions>
 			<Nodes>
-				<Function Name="advanceworldtime24" PositionY="220" PositionX="660" MethodName="wh::rpgmodule::AdvanceWorldTime" DeclaringType="wh::rpgmodule">
+				<Function Name="advanceworldtime24" PositionY="220" PositionX="840" MethodName="wh::rpgmodule::AdvanceWorldTime" DeclaringType="wh::rpgmodule">
 					<Constant Name="TimeOfDay" Value="12h30m" />
 					<Edge From="revive.onexec" To="Exec">
 						<Vertex>HeF69YuH</Vertex>
 					</Edge>
 				</Function>
+				<bohutovo_clothing_preset Name="bohutovo_clothing_preset" PositionY="-440" PositionX="840">
+					<Edge From="switchplayer.onfinished" To="konec_prvni_cutsceny" />
+					<Edge From="cutscenehandler8.BeforePlay" To="zacatek_druhe_cutsceny" />
+				</bohutovo_clothing_preset>
 				<Function Name="changeweather23_1" PositionY="-130" PositionX="-180" MethodName="ChangeWeather" DeclaringType="">
 					<Constant Name="Profile" Value="foggy_storm" />
 					<Constant Name="BlendTime" Value="0s" />
@@ -85,11 +90,11 @@
 						<Vertex>vertex100</Vertex>
 					</Edge>
 				</If>
-				<kopirovani_hracovo_presetu_na_henry_npc Name="kopirovani_hracovo_presetu_na_henry_npc" PositionY="0" PositionX="660">
-					<Edge From="switchplayer.onfinished" To="po_prepnuta_na_bohutu__aktivace_presetu" />
+				<kopirovani_hracovo_presetu_na_henry_npc Name="kopirovani_hracovo_presetu_na_henry_npc" PositionY="0" PositionX="840">
 					<Edge From="revive.onexec" To="pred_cutscenou__ulozeni_presetu">
 						<Vertex>HeF69YuH</Vertex>
 					</Edge>
+					<Edge From="switchplayer.onfinished" To="po_prepnuta_na_bohutu__aktivace_presetu" />
 				</kopirovani_hracovo_presetu_na_henry_npc>
 				<nakrmeni_hrace_pokud_ma_jidlo Name="nakrmeni_hrace_pokud_ma_jidlo" PositionY="710" PositionX="1670">
 					<Edge From="changeweather23_2.OnExec" To="po_cutscene">
@@ -126,7 +131,7 @@
 						<Vertex>vVDBI5LT</Vertex>
 					</Edge>
 				</Output>
-				<PlayerAction_TeleportWithItems Name="PlayerAction_TeleportWithItems" PositionY="-180" PositionX="660" Namespace="utils.player">
+				<PlayerAction_TeleportWithItems Name="PlayerAction_TeleportWithItems" PositionY="-180" PositionX="840" Namespace="utils.player">
 					<Asset Name="destination" Alias="bohuta_preaching" />
 					<Edge From="switchplayer.onfinished" To="TeleportWithItems" />
 				</PlayerAction_TeleportWithItems>
@@ -145,6 +150,8 @@
 					<Constant Name="playerid" Value="1" />
 					<Constant Name="heal" Value="true" />
 					<Constant Name="remove_dirt" Value="false" />
+					<Constant Name="remove_hunger" Value="false" />
+					<Constant Name="remove_drunkness" Value="false" />
 					<Edge From="changeweather23_1.OnExec" To="switch" />
 				</switchplayer>
 				<SwitchPlayer Name="switchplayer4" PositionY="600" PositionX="0">
@@ -154,7 +161,7 @@
 			</Nodes>
 			<EdgeVertices>
 				<EdgeVertex Name="7416brpy" PositionY="540" PositionX="-275" />
-				<EdgeVertex Name="HeF69YuH" PositionY="180" PositionX="470" />
+				<EdgeVertex Name="HeF69YuH" PositionY="180" PositionX="670" />
 				<EdgeVertex Name="jntTU3RS" PositionY="820" PositionX="320" />
 				<EdgeVertex Name="jvydfPgv" PositionY="820" PositionX="10" />
 				<EdgeVertex Name="msC2pMsg" PositionY="550" PositionX="1500" />
@@ -167,7 +174,7 @@
 				<EdgeVertex Name="vertex77" PositionY="540" PositionX="-680" />
 				<EdgeVertex Name="vertex78" PositionY="540" PositionX="320" />
 				<EdgeVertex Name="vertex96" PositionY="820" PositionX="1500" />
-				<EdgeVertex Name="vVDBI5LT" PositionY="-240" PositionX="670" />
+				<EdgeVertex Name="vVDBI5LT" PositionY="-240" PositionX="850" />
 			</EdgeVertices>
 			<Assets>
 				<CutsceneHolderAsset Name="bohutovoKazaniCS" />

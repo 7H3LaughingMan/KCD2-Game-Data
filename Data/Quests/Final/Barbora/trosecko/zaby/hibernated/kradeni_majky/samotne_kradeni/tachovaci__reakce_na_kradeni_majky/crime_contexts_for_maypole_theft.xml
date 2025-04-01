@@ -8,11 +8,15 @@
 				</Port>
 			</Ports>
 			<Nodes>
-				<BuffEffect Name="buff98" PositionY="250" PositionX="650">
-					<Asset Name="Souls" Alias="Tachovaci_women" />
-					<Constant Name="BuffGUID" Value="61bf5b0d-aa94-45cc-9cdd-dd76d3903189" />
+				<MakeArray Name="makearray102" PositionY="330" PositionX="340" TypeT="wh::rpgmodule::Souls">
+					<Asset Name="A" Alias="Tachovaci_women" />
+					<Asset Name="B" Alias="blacksmith" />
+				</MakeArray>
+				<SetEntityContext Name="setentitycontext101" PositionY="260" PositionX="650">
+					<Constant Name="Context" Value="combat_indifference_observer" />
 					<Edge From="zapni_kontexty" To="IsActive" />
-				</BuffEffect>
+					<Edge From="makearray102.Array" To="Souls" />
+				</SetEntityContext>
 				<SetEntityContext Name="setentitycontext42_1" PositionY="-310" PositionX="650">
 					<Constant Name="Context" Value="combat_forceUnarmedWhileInUnarmedSkirmish" />
 					<Asset Name="Souls" Alias="Tachovaci_men" />
@@ -20,20 +24,15 @@
 				</SetEntityContext>
 				<SetEntityContext Name="setentitycontext42_1_1" PositionY="-490" PositionX="630">
 					<Constant Name="Context" Value="crime_isHelpingNonmates" />
-					<Asset Name="Souls" Alias="Tachovaci_all" />
+					<Asset Name="Souls" Alias="Tachovaci_men" />
 					<Edge From="zapni_kontexty" To="IsActive" />
 				</SetEntityContext>
-				<SetEntityContext Name="setentitycontext77" PositionY="-690" PositionX="630">
+				<SetEntityContext Name="setentitycontext77" PositionY="-670" PositionX="620">
 					<Constant Name="Context" Value="combat_alwaysJoinSkirmish" />
-					<Asset Name="Souls" Alias="Tachovaci_all" />
+					<Asset Name="Souls" Alias="Tachovaci_men" />
 					<Edge From="zapni_kontexty" To="IsActive" />
 				</SetEntityContext>
-				<SetEntityContext Name="setentitycontext77_1" PositionY="-1210" PositionX="610">
-					<Constant Name="Context" Value="combat_disableAllSkirmishBarks" />
-					<Asset Name="Souls" Alias="Tachovaci_all" />
-					<Edge From="zapni_kontexty" To="IsActive" />
-				</SetEntityContext>
-				<SetEntityContext Name="setentitycontext77_2" PositionY="-860" PositionX="620">
+				<SetEntityContext Name="setentitycontext77_2" PositionY="-850" PositionX="610">
 					<Constant Name="Context" Value="combat_neverSurrenderOrFlee" />
 					<Asset Name="Souls" Alias="Tachovaci_all" />
 					<Edge From="zapni_kontexty" To="IsActive" />
@@ -53,7 +52,7 @@
 					<Asset Name="Souls" Alias="blacksmith" />
 					<Edge From="zapni_kontexty" To="IsActive" />
 				</SetEntityContext>
-				<SetEntityContext Name="setentitycontext99" PositionY="516" PositionX="696">
+				<SetEntityContext Name="setentitycontext99" PositionY="450" PositionX="650">
 					<Constant Name="Context" Value="combat_alwaysWithdrawSkirmish" />
 					<Asset Name="Souls" Alias="doggos" />
 					<Edge From="zapni_kontexty" To="IsActive" />

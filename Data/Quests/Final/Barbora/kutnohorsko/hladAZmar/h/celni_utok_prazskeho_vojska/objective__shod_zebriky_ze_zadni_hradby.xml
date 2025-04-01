@@ -12,8 +12,11 @@
 				<Port Name="tracker" Direction="In" Type="wh::questmodule::nodes::Tracker">
 					<DesignName StringName="objective_tracker_LmFF" Text="počet shozených žebříků - tracker" />
 				</Port>
-				<Port Name="shozeny_vsechny_zebriky" Direction="Out" Type="trigger">
-					<DesignName StringName="objective_shozeny_vsechny_Kmxi" Text="shozeny všechny žebříky" />
+				<Port Name="zebriky_shozen" Direction="Out" Type="trigger">
+					<DesignName StringName="objective_zebriky_shozen_kQSr" Text="žebříky shozeny" />
+				</Port>
+				<Port Name="zebriky_shozeny" Direction="Out" Type="bool">
+					<DesignName StringName="objective_zebriky_shozeny_NrL0" Text=" jsou žebříky shozeny" />
 				</Port>
 			</Ports>
 			<Nodes>
@@ -25,8 +28,11 @@
 					</Edge>
 				</shod_zebriky_ze_zadni_hradby>
 				<Output Name="Output">
-					<Edge From="shod_zebriky_ze_zadni_hradby.OnDone" To="shozeny_vsechny_zebriky">
-						<Vertex>vertex6</Vertex>
+					<Edge From="shod_zebriky_ze_zadni_hradby.Done" To="zebriky_shozeny">
+						<Vertex>q5PQT9EL</Vertex>
+					</Edge>
+					<Edge From="shod_zebriky_ze_zadni_hradby.OnDone" To="zebriky_shozen">
+						<Vertex>Km5BqMKg</Vertex>
 					</Edge>
 				</Output>
 				<State Name="shod_zebriky_ze_zadni_hradby" PositionY="-80" PositionX="-60" RequiredForOutput="kutnohorsko" TypeT="Progress">
@@ -35,9 +41,10 @@
 				</State>
 			</Nodes>
 			<EdgeVertices>
+				<EdgeVertex Name="Km5BqMKg" PositionY="197" PositionX="405" />
+				<EdgeVertex Name="q5PQT9EL" PositionY="230" PositionX="410" />
 				<EdgeVertex Name="vertex1" PositionY="-120" PositionX="-50" />
 				<EdgeVertex Name="vertex2" PositionY="-120" PositionX="130" />
-				<EdgeVertex Name="vertex6" PositionY="200" PositionX="410" />
 			</EdgeVertices>
 			<Text StringName="objective__shod_zebriky_z_d2Qh" Text="Objective - Shoď žebříky ze zadní hradby!" />
 		</Module>

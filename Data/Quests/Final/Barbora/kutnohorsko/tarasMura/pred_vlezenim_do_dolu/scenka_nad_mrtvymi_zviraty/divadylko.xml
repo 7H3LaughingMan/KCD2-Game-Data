@@ -19,7 +19,7 @@
 					<DesignName StringName="divadylko_argument_nastar_qzIz" Text="Argument nastartoval" />
 				</Port>
 				<Port Name="hadka_done" Direction="Out" Type="trigger">
-					<DesignName StringName="divadylko_hadka_done_Pv5m" Text="hádka done" />
+					<DesignName StringName="divadylko_hadka_done_Pv5m" Text="hádka done - hráč se nezapojil" />
 				</Port>
 			</Ports>
 			<Definitions>
@@ -157,10 +157,6 @@
 					<Edge From="eventState.EventBehav" To="B" />
 					<Edge From="eventState.WaitAfterEvent" To="C" />
 				</Function>
-				<Function Name="or14" PositionY="-180" PositionX="560" MethodName="math::boolean::Or" DeclaringType="math::boolean">
-					<Edge From="eventState.WaitAfterEvent" To="A" />
-					<Edge From="eventState.Done" To="B" />
-				</Function>
 				<Output Name="Output">
 					<Edge From="eventState.None" To="dialog_jeste_neaktivni">
 						<Vertex>JLnlsrNx</Vertex>
@@ -168,13 +164,8 @@
 					<Edge From="eventState.OnEventBehav" To="argument_nastartoval">
 						<Vertex>I2VQYb5H</Vertex>
 					</Edge>
-					<Edge From="eventState.OnWaitAfterEvent" To="hadka_done">
-						<Vertex>s3jGfsPM</Vertex>
-						<Vertex>KGkmR3Id</Vertex>
-					</Edge>
-					<Edge From="eventState.OnDone" To="hadka_done">
-						<Vertex>s3jGfsPM</Vertex>
-						<Vertex>KGkmR3Id</Vertex>
+					<Edge From="marian_se_hada_s_vladimirem.hrac_to_nechal_bezet" To="hadka_done">
+						<Vertex>aw1kuR36</Vertex>
 					</Edge>
 				</Output>
 				<SchedulerLinkActivation Name="schedule3" PositionY="240" PositionX="1020">
@@ -227,14 +218,13 @@
 			</Nodes>
 			<EdgeVertices>
 				<EdgeVertex Name="3co1umj2" PositionY="760" PositionX="-640" />
+				<EdgeVertex Name="aw1kuR36" PositionY="-502" PositionX="1805" />
 				<EdgeVertex Name="Fakkg7Ar" PositionY="-10" PositionX="40" />
 				<EdgeVertex Name="I2VQYb5H" PositionY="-221" PositionX="1831" />
 				<EdgeVertex Name="JLnlsrNx" PositionY="-330" PositionX="1820" />
-				<EdgeVertex Name="KGkmR3Id" PositionY="-190" PositionX="1830" />
 				<EdgeVertex Name="kNIJcY1g" PositionY="-7" PositionX="-677" />
 				<EdgeVertex Name="LSNVgN9B" PositionY="350" PositionX="-600" />
 				<EdgeVertex Name="MMUEFsfK" PositionY="40" PositionX="-200" />
-				<EdgeVertex Name="s3jGfsPM" PositionY="-180" PositionX="220" />
 				<EdgeVertex Name="sCgQNDut" PositionY="765" PositionX="-383" />
 				<EdgeVertex Name="VE9QQXCb" PositionY="356" PositionX="-388" />
 				<EdgeVertex Name="vertex1" PositionY="10" PositionX="430" />

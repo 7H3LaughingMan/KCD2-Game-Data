@@ -249,17 +249,13 @@
 							<StanceElement smartObject="$__resource.id" stance="sitting" allowAny="false" enabled="true">
 								<Sequence>
 									<EntityContextElement context="tavern_customer" enabled="true">
-										<Sequence>
-											<AnimationAction fragment="&apos;Guest_MoveBowl&apos;" tags="&apos;fillSideLeft&apos;" eventReferenceObject="" alignObject="" slaveObject="" resourceOverride="" allowTorchForPlayer="false">
-												<EventData_pickup Slot="$soupSlot" name="&apos;bowlFarIn&apos;" />
-												<EventData_place Slot="$bowlSlot" name="&apos;bowlCloseIn&apos;" />
-											</AnimationAction>
-											<UnstanceAction unstance="guest_eatingMashSitting_left" locationObject="" slaveObject="">
-												<EventData_phaseitem Slot="$bowlSlot" name="&apos;bowlSlot&apos;" />
-												<EventData_pickup Slot="$bowlSlot" name="&apos;bowlCloseOut&apos;" />
-												<EventData_place Slot="$soupSlot" name="&apos;bowlFarOut&apos;" />
-											</UnstanceAction>
-										</Sequence>
+										<UnstanceAction unstance="guest_eatingMashSitting_left" locationObject="" slaveObject="">
+											<EventData_pickup Slot="$soupSlot" name="&apos;bowlFarIn&apos;" />
+											<EventData_place Slot="$bowlSlot" name="&apos;bowlCloseIn&apos;" />
+											<EventData_phaseitem Slot="$bowlSlot" name="&apos;bowlSlot&apos;" />
+											<EventData_pickup Slot="$bowlSlot" name="&apos;bowlCloseOut&apos;" />
+											<EventData_place Slot="$soupSlot" name="&apos;bowlFarOut&apos;" />
+										</UnstanceAction>
 									</EntityContextElement>
 									<DistanceGate Origin="$this.id" ReferencePt="$__resource.id" Low="4.000000" High="4.000000" Negation="false" OpenInMiddle="false" RunLogic="Halt">
 										<Synchronize SemaphoreCount="3" InsideTimerValue="&apos;-1&apos;" InvalidateOnExpire="false" atomic="false" OutsideQueuePosVariable="" InsidePosVariable="" TimerType="GameTime" OutsideTimerValue="&apos;-1&apos;" LockManagerType="Local" SemaphoreName="&apos;canTalk&apos;" RunLogic="KeepRunning">
@@ -327,30 +323,24 @@
 										<OutputBreakpoints />
 										<EntityContextElement hasInputBreakpoint="0" comment="" breakpointFlags="0">
 											<OutputBreakpoints />
-											<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
+											<UnstanceAction hasInputBreakpoint="0" comment="" breakpointFlags="0">
 												<OutputBreakpoints />
-												<AnimationAction hasInputBreakpoint="0" comment="" breakpointFlags="0">
+												<EventData_pickup hasInputBreakpoint="0" comment="" breakpointFlags="0">
 													<OutputBreakpoints />
-													<EventData_pickup hasInputBreakpoint="0" comment="" breakpointFlags="0">
-														<OutputBreakpoints />
-													</EventData_pickup>
-													<EventData_place hasInputBreakpoint="0" comment="" breakpointFlags="0">
-														<OutputBreakpoints />
-													</EventData_place>
-												</AnimationAction>
-												<UnstanceAction hasInputBreakpoint="0" comment="" breakpointFlags="0">
+												</EventData_pickup>
+												<EventData_place hasInputBreakpoint="0" comment="" breakpointFlags="0">
 													<OutputBreakpoints />
-													<EventData_phaseitem hasInputBreakpoint="0" comment="" breakpointFlags="0">
-														<OutputBreakpoints />
-													</EventData_phaseitem>
-													<EventData_pickup hasInputBreakpoint="0" comment="" breakpointFlags="0">
-														<OutputBreakpoints />
-													</EventData_pickup>
-													<EventData_place hasInputBreakpoint="0" comment="" breakpointFlags="0">
-														<OutputBreakpoints />
-													</EventData_place>
-												</UnstanceAction>
-											</Sequence>
+												</EventData_place>
+												<EventData_phaseitem hasInputBreakpoint="0" comment="" breakpointFlags="0">
+													<OutputBreakpoints />
+												</EventData_phaseitem>
+												<EventData_pickup hasInputBreakpoint="0" comment="" breakpointFlags="0">
+													<OutputBreakpoints />
+												</EventData_pickup>
+												<EventData_place hasInputBreakpoint="0" comment="" breakpointFlags="0">
+													<OutputBreakpoints />
+												</EventData_place>
+											</UnstanceAction>
 										</EntityContextElement>
 										<DistanceGate hasInputBreakpoint="0" comment="" breakpointFlags="0">
 											<OutputBreakpoints />
@@ -508,76 +498,54 @@
 	</BehaviorTree>
 	<BehaviorTree name="dinnerPisek" is_function="0">
 		<Variables />
-		<Parameters>
-			<Variable name="data" type="_wuid" values="" isPersistent="0" form="single" requirementType="In" />
-		</Parameters>
 		<Root OneTimeOnly="false" FailState="Recoverable" saveVersion="2">
 			<Behavior canSkip="1">
-				<Parallel successMode="Any" failureMode="Any">
-					<MoveParamsDecorator speed="RelaxedWalk" pathFindingParams="" doorClosingPolicy="Automatic">
+				<MoveParamsDecorator speed="RelaxedWalk" pathFindingParams="" doorClosingPolicy="Automatic">
+					<Parallel successMode="Any" failureMode="Any">
+						<EntityContext context="speech_readyForSwitchDialog" target="$this.id">
+							<Wait duration="&apos;-1&apos;" timeType="GameTime" doFail="false" variation="" />
+						</EntityContext>
 						<Sequence>
-							<UnstanceAction unstance="waiting_armAkimbo" locationObject="$data" slaveObject="" />
-							<Wait duration="&apos;15s&apos;" timeType="GameTime" doFail="false" variation="" />
 							<UnstanceAction unstance="party_standing_talkingAndDrinking_holdingCup_01_male" locationObject="$__resource.id" slaveObject="" />
-							<Wait duration="&apos;-1&apos;" timeType="GameTime" doFail="false" variation="" />
+							<Synchronize SemaphoreCount="3" InsideTimerValue="&apos;-1&apos;" InvalidateOnExpire="false" atomic="false" OutsideQueuePosVariable="" InsidePosVariable="" TimerType="GameTime" OutsideTimerValue="&apos;-1&apos;" LockManagerType="Local" SemaphoreName="&apos;canTalk&apos;" RunLogic="Halt">
+								<Wait duration="&apos;-1&apos;" timeType="GameTime" doFail="false" variation="" />
+							</Synchronize>
 						</Sequence>
-					</MoveParamsDecorator>
-					<DistanceGate Origin="$this.id" ReferencePt="$__resource.id" Low="4.000000" High="4.000000" Negation="false" OpenInMiddle="false" RunLogic="Halt">
-						<Synchronize SemaphoreCount="3" InsideTimerValue="&apos;-1&apos;" InvalidateOnExpire="false" atomic="false" OutsideQueuePosVariable="" InsidePosVariable="" TimerType="GameTime" OutsideTimerValue="&apos;-1&apos;" LockManagerType="Local" SemaphoreName="&apos;canTalk&apos;" RunLogic="Halt">
-							<Wait duration="&apos;-1&apos;" timeType="GameTime" doFail="false" variation="" />
-						</Synchronize>
-					</DistanceGate>
-					<EntityContext context="speech_readyForSwitchDialog" target="$this.id">
-						<Wait duration="&apos;-1&apos;" timeType="GameTime" doFail="false" variation="" />
-					</EntityContext>
-				</Parallel>
+					</Parallel>
+				</MoveParamsDecorator>
 			</Behavior>
 		</Root>
 		<ForestContainer />
-		<EditorData Signature="wuidData" EventSet="">
-			<Variables>
-				<Variable name="data" comment="" />
-			</Variables>
+		<EditorData EventSet="">
+			<Variables />
 			<ForwardDeclarations />
 			<Root hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
 				<OutputBreakpoints />
 				<Behavior>
-					<Parallel hasInputBreakpoint="0" comment="" breakpointFlags="0">
+					<MoveParamsDecorator hasInputBreakpoint="0" comment="" breakpointFlags="0">
 						<OutputBreakpoints />
-						<MoveParamsDecorator hasInputBreakpoint="0" comment="" breakpointFlags="0">
+						<Parallel hasInputBreakpoint="0" comment="" breakpointFlags="0">
 							<OutputBreakpoints />
+							<EntityContext hasInputBreakpoint="0" comment="" breakpointFlags="0">
+								<OutputBreakpoints />
+								<Wait hasInputBreakpoint="0" comment="" breakpointFlags="0">
+									<OutputBreakpoints />
+								</Wait>
+							</EntityContext>
 							<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
 								<OutputBreakpoints />
 								<UnstanceAction hasInputBreakpoint="0" comment="" breakpointFlags="0">
 									<OutputBreakpoints />
 								</UnstanceAction>
-								<Wait hasInputBreakpoint="0" comment="" breakpointFlags="0">
+								<Synchronize hasInputBreakpoint="0" comment="" breakpointFlags="0">
 									<OutputBreakpoints />
-								</Wait>
-								<UnstanceAction hasInputBreakpoint="0" comment="" breakpointFlags="0">
-									<OutputBreakpoints />
-								</UnstanceAction>
-								<Wait hasInputBreakpoint="0" comment="" breakpointFlags="0">
-									<OutputBreakpoints />
-								</Wait>
+									<Wait hasInputBreakpoint="0" comment="" breakpointFlags="0">
+										<OutputBreakpoints />
+									</Wait>
+								</Synchronize>
 							</Sequence>
-						</MoveParamsDecorator>
-						<DistanceGate hasInputBreakpoint="0" comment="" breakpointFlags="0">
-							<OutputBreakpoints />
-							<Synchronize hasInputBreakpoint="0" comment="" breakpointFlags="0">
-								<OutputBreakpoints />
-								<Wait hasInputBreakpoint="0" comment="" breakpointFlags="0">
-									<OutputBreakpoints />
-								</Wait>
-							</Synchronize>
-						</DistanceGate>
-						<EntityContext hasInputBreakpoint="0" comment="" breakpointFlags="0">
-							<OutputBreakpoints />
-							<Wait hasInputBreakpoint="0" comment="" breakpointFlags="0">
-								<OutputBreakpoints />
-							</Wait>
-						</EntityContext>
-					</Parallel>
+						</Parallel>
+					</MoveParamsDecorator>
 				</Behavior>
 			</Root>
 			<Forest />

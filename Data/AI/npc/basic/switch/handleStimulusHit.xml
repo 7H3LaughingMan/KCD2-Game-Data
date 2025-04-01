@@ -264,21 +264,23 @@
 													</Then>
 												</EntityContextCheck>
 											</IfCondition>
-											<EntityContextCheck context="crime_interruptFlee" target="" saveVersion="2">
-												<Then canSkip="1">
-													<Expression expressions="$moraleBoost = true" />
-												</Then>
-												<Else canSkip="1">
-													<EntityContextCheck context="crime_interruptReport" target="" saveVersion="2">
-														<Then canSkip="1">
-															<Expression expressions="$moraleBoost = true" />
-														</Then>
-														<Else canSkip="1">
-															<Success />
-														</Else>
-													</EntityContextCheck>
-												</Else>
-											</EntityContextCheck>
+											<IfCondition failOnCondition="false" condition="$stimulus.directHit &amp; $stimulus.kind ~= $enum:crime_attackKind.missile">
+												<EntityContextCheck context="crime_interruptFlee" target="" saveVersion="2">
+													<Then canSkip="1">
+														<Expression expressions="$moraleBoost = true" />
+													</Then>
+													<Else canSkip="1">
+														<EntityContextCheck context="crime_interruptReport" target="" saveVersion="2">
+															<Then canSkip="1">
+																<Expression expressions="$moraleBoost = true" />
+															</Then>
+															<Else canSkip="1">
+																<Success />
+															</Else>
+														</EntityContextCheck>
+													</Else>
+												</EntityContextCheck>
+											</IfCondition>
 											<IfCondition failOnCondition="false" condition="$chosenReaction == $enum:crime_reactionKind.unknown">
 												<CallDecorator_crime_chooseReaction>
 													<Subtree canSkip="1">
@@ -896,29 +898,32 @@
 														</Then>
 													</EntityContextCheck>
 												</IfCondition>
-												<EntityContextCheck hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
+												<IfCondition hasInputBreakpoint="0" comment="" breakpointFlags="0">
 													<OutputBreakpoints />
-													<Then>
-														<Expression hasInputBreakpoint="0" comment="" breakpointFlags="0">
-															<OutputBreakpoints />
-														</Expression>
-													</Then>
-													<Else>
-														<EntityContextCheck hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
-															<OutputBreakpoints />
-															<Then>
-																<Expression hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																	<OutputBreakpoints />
-																</Expression>
-															</Then>
-															<Else>
-																<Success hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																	<OutputBreakpoints />
-																</Success>
-															</Else>
-														</EntityContextCheck>
-													</Else>
-												</EntityContextCheck>
+													<EntityContextCheck hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
+														<OutputBreakpoints />
+														<Then>
+															<Expression hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																<OutputBreakpoints />
+															</Expression>
+														</Then>
+														<Else>
+															<EntityContextCheck hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
+																<OutputBreakpoints />
+																<Then>
+																	<Expression hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																		<OutputBreakpoints />
+																	</Expression>
+																</Then>
+																<Else>
+																	<Success hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																		<OutputBreakpoints />
+																	</Success>
+																</Else>
+															</EntityContextCheck>
+														</Else>
+													</EntityContextCheck>
+												</IfCondition>
 												<IfCondition hasInputBreakpoint="0" comment="" breakpointFlags="0">
 													<OutputBreakpoints />
 													<CallDecorator_crime_chooseReaction hasInputBreakpoint="0" comment="" breakpointFlags="0">

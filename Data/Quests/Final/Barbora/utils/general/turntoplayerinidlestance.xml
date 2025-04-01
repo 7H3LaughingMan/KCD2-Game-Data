@@ -9,16 +9,20 @@
 				<Port Name="npc" Direction="In" Type="wh::rpgmodule::I_Soul*">
 					<DesignName StringName="makenpctu_npc_3R8u" Text="Npc" />
 				</Port>
+				<ConstantPort Name="anydecoratorpreset" Direction="In" Type="turnToPlayerInIdleStance_anyDecoratorPreset" Value="changeEquipment">
+					<DesignName StringName="turntopla_anydecoratorpre_qrQZ" Text="anyDecoratorPreset" />
+				</ConstantPort>
 			</Ports>
 			<Nodes>
-				<AddInterruptConceptNode Name="addinterruptempty2" PositionY="-60" PositionX="-140" Signature="empty">
+				<AddInterruptConceptNode Name="addinterruptturntoplayerinidlestance3" PositionY="-80" PositionX="-160" Signature="turnToPlayerInIdleStance">
 					<Constant Name="Behavior" Value="interupt_turnToPlayerInIdleStance" />
 					<Asset Name="SmartEntity" Alias="land" />
 					<Constant Name="Priority" Value="220" />
 					<Constant Name="Urgency" Value="Instant" />
 					<Constant Name="Privileged" Value="true" />
-					<Edge From="turntoplayerinidlestance" To="Activate" />
 					<Edge From="npc" To="NPC" />
+					<Edge From="turntoplayerinidlestance" To="Activate" />
+					<Edge From="anydecoratorpreset" To="anyDecoratorPreset" />
 				</AddInterruptConceptNode>
 			</Nodes>
 			<Text StringName="makenpcturntoplayerandidle_cC0O" Text="TurnToPlayerInIdleStance" />

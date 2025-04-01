@@ -133,12 +133,19 @@
 										</DeadUnconsciousGate>
 									</While>
 									<While doFail="false" propagateChildFail="false" condition="true">
-													<IfGate atomic="false" condition="$recognizing &gt; 0" RunLogic="Halt">
-														<EntityContext context="crime_escalationLevel_recognizing" target="">
-															<Wait duration="&apos;-1&apos;" timeType="GameTime" doFail="false" variation="" />
-														</EntityContext>
-													</IfGate>
-												</While>
+										<IfGate atomic="false" condition="$recognizing &gt; 0" RunLogic="KeepRunning">
+											<Sequence>
+												<ShowTutorial Name="crimeIcon_general" />
+												<While doFail="false" propagateChildFail="false" condition="true">
+										<IfGate atomic="false" condition="$recognizing &gt; 0" RunLogic="Halt">
+											<EntityContext context="crime_escalationLevel_recognizing" target="">
+												<Wait duration="&apos;-1&apos;" timeType="GameTime" doFail="false" variation="" />
+											</EntityContext>
+										</IfGate>
+									</While>
+											</Sequence>
+										</IfGate>
+									</While>
 									<While doFail="false" propagateChildFail="false" condition="true">
 										<DeadUnconsciousGate Who="" State="Dead" Negation="true" RunLogic="Halt">
 											<ProcessMessage Atomic="true" timeout="&apos;-1&apos;" timeType="GameTime" variable="$perception" senderInfo="" inbox="&apos;perceptionInfo&apos;" condition="" answerVar="">
@@ -681,7 +688,7 @@
 					<While hasInputBreakpoint="0" comment="" breakpointFlags="0">
 						<OutputBreakpoints />
 						<FuseBox hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
-							<OutputBreakpoints />
+						<OutputBreakpoints />
 							<Child>
 						<GameContextBarrier hasInputBreakpoint="0" comment="" breakpointFlags="0">
 							<OutputBreakpoints />
@@ -807,14 +814,26 @@
 											<OutputBreakpoints />
 											<IfGate hasInputBreakpoint="0" comment="" breakpointFlags="0">
 												<OutputBreakpoints />
-															<EntityContext hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																<OutputBreakpoints />
-																<Wait hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																	<OutputBreakpoints />
-																</Wait>
-															</EntityContext>
-														</IfGate>
-													</While>
+												<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
+													<OutputBreakpoints />
+													<ShowTutorial hasInputBreakpoint="0" comment="" breakpointFlags="0">
+														<OutputBreakpoints />
+													</ShowTutorial>
+													<While hasInputBreakpoint="0" comment="" breakpointFlags="0">
+														<OutputBreakpoints />
+														<IfGate hasInputBreakpoint="0" comment="" breakpointFlags="0">
+															<OutputBreakpoints />
+												<EntityContext hasInputBreakpoint="0" comment="" breakpointFlags="0">
+													<OutputBreakpoints />
+													<Wait hasInputBreakpoint="0" comment="" breakpointFlags="0">
+														<OutputBreakpoints />
+													</Wait>
+												</EntityContext>
+											</IfGate>
+										</While>
+												</Sequence>
+											</IfGate>
+										</While>
 										<While hasInputBreakpoint="0" comment="" breakpointFlags="0">
 											<OutputBreakpoints />
 											<DeadUnconsciousGate hasInputBreakpoint="0" comment="" breakpointFlags="0">

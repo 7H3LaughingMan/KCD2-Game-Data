@@ -41,11 +41,11 @@
 			<Nodes>
 				<Function Name="and24" PositionY="800" PositionX="1220" MethodName="math::boolean::And" DeclaringType="math::boolean">
 					<Edge From="or16.bool" To="A" />
-					<Edge From="checkentitycontext19.HasContext" To="B" />
+					<Edge From="checkentitycontext27.HasContext" To="B" />
 				</Function>
-				<Function Name="checkentitycontext19" PositionY="980" PositionX="1220" MethodName="wh::xgenaimodule::CheckEntityContext" DeclaringType="wh::xgenaimodule">
+				<Function Name="checkentitycontext27" PositionY="960" PositionX="1150" MethodName="wh::xgenaimodule::CheckEntityContext" DeclaringType="wh::xgenaimodule">
 					<Asset Name="Souls" Alias="miningForeman_1" />
-					<Constant Name="Context" Value="speech_sleepRefusalToTalk" />
+					<Constant Name="Context" Value="speech_sleeping" />
 				</Function>
 				<HasteTrigger Name="complete_minesShift1" PositionY="770" PositionX="-380">
 					<Constant Name="IsHidden" Value="true" />
@@ -62,6 +62,10 @@
 					<Asset Name="Souls" Alias="miningForeman_1" />
 					<Edge From="resolveMinersShift1active.bool" To="IsActive" />
 				</SoulDeathTrigger>
+				<disabledirectionschatsoul Name="disabledirectionschatsoul" PositionY="-1360" PositionX="1660" Namespace="utils.hardcoremode">
+					<Asset Name="soul" Alias="maslo" />
+					<Edge From="not28.bool" To="enabled" />
+				</disabledirectionschatsoul>
 				<fightconfiguration_indifference Name="fightconfiguration_indifference" PositionY="-1160" PositionX="1500" Namespace="utils.combat">
 					<Asset Name="souls" Alias="maslo" />
 					<Constant Name="unarmedonly" Value="true" />
@@ -95,6 +99,9 @@
 				<maslo_zbil_hrace_u_piva Name="maslo_zbil_hrace_u_piva" PositionY="-970" PositionX="1560">
 					<Edge From="state25.GroupAWon" To="maslo_zbil_hrace_u_piva" />
 				</maslo_zbil_hrace_u_piva>
+				<Function Name="not28" PositionY="-1340" PositionX="1420" MethodName="math::boolean::Not" DeclaringType="math::boolean">
+					<Edge From="state25.None" To="Value" />
+				</Function>
 				<zjisti_tezbu_frantovic_synku Name="objectiveVisual1" PositionY="440" PositionX="340" RequiredForOutput="kutnohorsko">
 					<Edge From="resolveMinersShift1.State" To="Progress" />
 				</zjisti_tezbu_frantovic_synku>
@@ -178,7 +185,7 @@
 					<Edge From="resolveMinersShift1.GetBeer" To="B" />
 					<Edge From="resolveMinersShift1.DeliverBeer" To="C" />
 				</Function>
-				<s_maslem_o_pivu Name="s_maslem_o_pivu" PositionY="-570" PositionX="320">
+				<s_maslem_o_pivu Name="s_maslem_o_pivu" PositionY="-570" PositionX="330">
 					<Edge From="resolveMinersShift1.GetBeer" To="shanim_pivo" />
 					<Edge From="predstaveni_s_maslem" To="predstaveni_s_maslem" />
 					<Edge From="payment.playerhasmoney" To="hrac_ma_na_pivo" />
@@ -188,11 +195,6 @@
 					<Constant Name="Objective" Value="zjisti_tezbu_frantovic_synku" />
 					<Edge From="resolveMinersShift1.OnGotInformation" To="EnqueueSave" />
 				</SaveGame>
-				<SetEntityContext Name="setentitycontext1" PositionY="1180" PositionX="1220">
-					<Constant Name="Context" Value="speech_wakeUpWithDialog" />
-					<Asset Name="Souls" Alias="miningForeman_1" />
-					<Edge From="or16.bool" To="IsActive" />
-				</SetEntityContext>
 				<SetOwner Name="setowner19" PositionY="-310" PositionX="990">
 					<Asset Name="What" Alias="beerStash" />
 					<Asset Name="Who" Alias="player" />

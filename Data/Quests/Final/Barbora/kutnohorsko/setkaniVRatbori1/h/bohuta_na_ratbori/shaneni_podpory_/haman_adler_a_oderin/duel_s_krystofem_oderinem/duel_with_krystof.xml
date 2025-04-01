@@ -11,7 +11,6 @@
 				</Port>
 			</Ports>
 			<Definitions>
-				<Definition File="duel_with_krystof/duel_barky_krystof_oderin.xml" />
 				<Definition File="duel_with_krystof/healplayerbeforeduelconvention.xml" />
 				<Definition File="duel_with_krystof/buffs.xml" />
 				<Definition File="duel_with_krystof/setentitycontexts.xml" />
@@ -30,15 +29,6 @@
 						<Vertex>vertex9</Vertex>
 					</Edge>
 				</buffs>
-				<Function Name="createitemcategorydescriptor53" PositionY="210" PositionX="-1720" MethodName="wh::entitymodule::CreateItemCategoryDescriptor" DeclaringType="wh::entitymodule">
-					<Constant Name="Category" Value="Weapon" />
-					<Constant Name="Type" Value="4" />
-				</Function>
-				<duel_barky_krystof_oderin Name="duel_barky_krystof_oderin" PositionY="660" PositionX="-480">
-					<Edge From="Awake" To="active">
-						<Vertex>vertex10</Vertex>
-					</Edge>
-				</duel_barky_krystof_oderin>
 				<duelbehavioradvanced Name="duelbehavioradvanced" PositionY="-240" PositionX="-100" Namespace="utils.combat">
 					<Asset Name="attacker" Alias="krystof" />
 					<Asset Name="target" Alias="player_bohuta" />
@@ -106,9 +96,6 @@
 						<Vertex>rKWRdvIa</Vertex>
 					</Edge>
 				</fightconfiguration_surrendering>
-				<FirstElement Name="firstelement48" PositionY="140" PositionX="-1050" TypeT="wh::entitymodule::Items">
-					<Edge From="soulmatchingitems.items" To="Array" />
-				</FirstElement>
 				<healing Name="healing" PositionY="400" PositionX="-30" Namespace="utils.general">
 					<Edge From="makearray5.Array" To="souls" />
 					<Edge From="duelbehavioradvanced.onattackersurrender" To="healimmortalnpcafterfight">
@@ -165,7 +152,7 @@
 					<Constant Name="Max" Value="1" />
 				</Function>
 				<ratiboreveryone Name="ratiboreveryone_1" PositionY="-1090" PositionX="-230" Namespace="utils" />
-				<Function Name="requestmonologue22_1" PositionY="860" PositionX="480" MethodName="wh::xgenaimodule::RequestMonologue" DeclaringType="wh::xgenaimodule">
+				<Function Name="requestmonologue22_1" PositionY="770" PositionX="470" MethodName="wh::xgenaimodule::RequestMonologue" DeclaringType="wh::xgenaimodule">
 					<Asset Name="Souls" Alias="player_bohuta" />
 					<Constant Name="DecisionAlias" Value="setkaniVRatbori1_duelBarkyBohuta" />
 					<Asset Name="LookAtTarget" Alias="player_bohuta" />
@@ -177,21 +164,19 @@
 					<Asset Name="LookAtTarget" Alias="player_bohuta" />
 					<Edge From="ifcompare58.False" To="Exec" />
 				</Function>
+				<RestrictWeaponsInQAM Name="RestrictWeaponsInQAM" PositionY="-160" PositionX="-630" Namespace="utils.player">
+					<Constant Name="mainhand_weaponselection" Value="type_longSword" />
+					<Constant Name="offhand_weaponselection" Value="anything" />
+					<Constant Name="loadsecondaryweapon" Value="false" />
+					<Constant Name="drawweaponurgency" Value="Slow" />
+					<Edge From="Awake" To="isactive" />
+				</RestrictWeaponsInQAM>
 				<setentitycontexts Name="setentitycontexts" PositionY="-680" PositionX="-600">
 					<Edge From="makearray2.Array" To="souls" />
 					<Edge From="Awake" To="isactive">
 						<Vertex>vertex9</Vertex>
 					</Edge>
 				</setentitycontexts>
-				<SetOwner Name="setowner45" PositionY="-40" PositionX="-750">
-					<Asset Name="Who" Alias="player_bohuta" />
-					<Edge From="Awake" To="IsActive" />
-					<Edge From="firstelement48.Value" To="What" />
-				</SetOwner>
-				<soulmatchingitems Name="soulmatchingitems" PositionY="80" PositionX="-1310" Namespace="utils.item">
-					<Asset Name="soul" Alias="krystof" />
-					<Edge From="createitemcategorydescriptor53.ItemDescriptor" To="itemdescriptor" />
-				</soulmatchingitems>
 			</Nodes>
 			<EdgeVertices>
 				<EdgeVertex Name="qDSkNAhf" PositionY="250" PositionX="260" />

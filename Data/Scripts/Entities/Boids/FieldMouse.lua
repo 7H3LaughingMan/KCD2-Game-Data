@@ -186,7 +186,6 @@ end
 
 -- =============================================================================
 function FieldMouse:OnPropertyChange()
-	self:OnShutDown();
 	if (self.Properties.Options.bActivate == true) then
 		self:CreateFlock();
 		self:Event_Activate();

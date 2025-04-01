@@ -24,6 +24,12 @@
 				<Port Name="dopis_je_napsan" Direction="Out" Type="bool">
 					<DesignName StringName="psani_dop_bitka_vyvolana__eWOI" Text="dopis je napsán" />
 				</Port>
+				<Port Name="hrac_zautocil_na_horniky_po_psani_dopisu" Direction="Out" Type="trigger">
+					<DesignName StringName="psani_dop_hrac_zautocil_n_4dvb" Text="hráč zaútočil na horníky po psaní dopisu" />
+				</Port>
+				<Port Name="hornici_zautocili_na_hrace_po_psani_dopisu" Direction="Out" Type="trigger">
+					<DesignName StringName="psani_dop_hornici_zautoci_PfHF" Text="horníci zaútočili na hráče po psaní dopisu" />
+				</Port>
 			</Ports>
 			<Definitions>
 				<Definition File="psani_dopisu/psani_dopisu.xml" />
@@ -133,6 +139,8 @@
 					<Edge From="LetterQuality.OnExec" To="vytvorit_dopis_pro_markolt_u_jindricha" />
 					<Edge From="psani_dopisu.hrac_se_dozvedel_pravdu_o_hornicich_a_markoltovi" To="hrac_se_dozvedel_pravdu_o_hornicich_a_markoltovi" />
 					<Edge From="psani_dopisu.dopis_je_napsan" To="dopis_je_napsan" />
+					<Edge From="psani_dopisu.hrac_zautocil_na_horniky_po_psani_dopisu" To="hrac_zautocil_na_horniky_po_psani_dopisu" />
+					<Edge From="psani_dopisu.hornici_zautocili_na_hrace_po_psani_dopisu" To="hornici_zautocili_na_hrace_po_psani_dopisu" />
 				</Output>
 				<psani_dopisu Name="psani_dopisu" PositionY="20" PositionX="0">
 					<Constant Name="quill" Value="47c3bd7b-1411-4da7-83e7-669385331d91" />

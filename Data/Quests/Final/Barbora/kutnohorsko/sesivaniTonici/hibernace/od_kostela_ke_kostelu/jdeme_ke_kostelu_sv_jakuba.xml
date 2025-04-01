@@ -49,7 +49,18 @@
 				<Definition File="jdeme_ke_kostelu_sv_jakuba/lore_o_sestakovi.xml" />
 			</Definitions>
 			<Nodes>
-				<Function Name="and101" PositionY="-300" PositionX="-2020" MethodName="math::boolean::And" DeclaringType="math::boolean">
+				<State Name="activePerception" PositionY="-150" PositionX="3080" TypeT="bool">
+					<Constant Name="DefaultValue" Value="true" />
+					<Edge From="distancetrigger110.OnMatch" To="SetFalse">
+						<Vertex>vertex168</Vertex>
+						<Vertex>cncV6TCt</Vertex>
+					</Edge>
+					<Edge From="perceptionsearchfortarget.onseen" To="SetFalse">
+						<Vertex>vertex168</Vertex>
+						<Vertex>cncV6TCt</Vertex>
+					</Edge>
+				</State>
+				<Function Name="and101" PositionY="-270" PositionX="-2020" MethodName="math::boolean::And" DeclaringType="math::boolean">
 					<Edge From="pathToSecondChurch.FormationToSecondChurch" To="A" />
 					<Edge From="not102.bool" To="B">
 						<Vertex>CozV15DJ</Vertex>
@@ -66,6 +77,10 @@
 						<Vertex>alw1SUJA</Vertex>
 					</Edge>
 				</Function>
+				<Function Name="and112" PositionY="-300" PositionX="3330" MethodName="math::boolean::And" DeclaringType="math::boolean">
+					<Edge From="or89.bool" To="A" />
+					<Edge From="activePerception.State" To="B" />
+				</Function>
 				<Function Name="and38" PositionY="190" PositionX="3370" MethodName="math::boolean::And" DeclaringType="math::boolean">
 					<Edge From="areacheck36.IsInside" To="A" />
 					<Edge From="speakWithAnton.Active" To="B">
@@ -80,7 +95,7 @@
 						<Vertex>vertex212</Vertex>
 					</Edge>
 				</Function>
-				<anton_pred_kostelem_1 Name="anton_pred_kostelem_1_1" PositionY="-790" PositionX="3810">
+				<anton_pred_kostelem_1 Name="anton_pred_kostelem_1_1" PositionY="-790" PositionX="3930">
 					<Edge From="urgingState.Active" To="aktivni_chat">
 						<Vertex>vertex183</Vertex>
 						<Vertex>USCPszY7</Vertex>
@@ -115,15 +130,15 @@
 				<chat__cesta_k_horejsimu_kostelu Name="chat__cesta_k_horejsimu_kostelu" PositionY="-1040" PositionX="-1650">
 					<Edge From="deathcheck94.IsDead" To="jorg_prank_je_mrtvy" />
 				</chat__cesta_k_horejsimu_kostelu>
-				<Function Name="deathcheck94" PositionY="-980" PositionX="-2050" MethodName="wh::rpgmodule::DeathCheck" DeclaringType="wh::rpgmodule">
+				<Function Name="deathcheck94" PositionY="-1210" PositionX="-1550" MethodName="wh::rpgmodule::DeathCheck" DeclaringType="wh::rpgmodule">
 					<Asset Name="Souls" Alias="svaty_jorg" />
 				</Function>
-				<DistanceTrigger Name="distancetrigger110" PositionY="-420" PositionX="3410">
+				<DistanceTrigger Name="distancetrigger110" PositionY="-420" PositionX="3590">
 					<Asset Name="Origin" Alias="anton" />
 					<Asset Name="Target" Alias="player" />
 					<Constant Name="Operator" Value="Less" />
 					<Constant Name="Distance" Value="2" />
-					<Edge From="or89.bool" To="IsActive" />
+					<Edge From="and112.bool" To="IsActive" />
 				</DistanceTrigger>
 				<exactmove Name="exactmove" PositionY="120" PositionX="1230" Namespace="sesivanitonici">
 					<Asset Name="soul" Alias="anton" />
@@ -139,7 +154,7 @@
 					<Constant Name="speed" Value="AlertedWalk" />
 					<Edge From="or98.bool" To="isactive" />
 				</exactmove>
-				<If Name="if103" PositionY="690" PositionX="-2220">
+				<If Name="if103" PositionY="690" PositionX="-2250">
 					<Edge From="vyprsel_cas_hrac_se_nevratil" To="Exec">
 						<Vertex>vertex165</Vertex>
 						<Vertex>vertex164</Vertex>
@@ -242,7 +257,7 @@
 						<Vertex>vertex185</Vertex>
 					</Edge>
 				</Function>
-				<Function Name="or89" PositionY="-230" PositionX="3130" MethodName="math::boolean::Or" DeclaringType="math::boolean">
+				<Function Name="or89" PositionY="-300" PositionX="3080" MethodName="math::boolean::Or" DeclaringType="math::boolean">
 					<Edge From="urgingState.EnabledButInactive" To="A" />
 					<Edge From="urgingState.Active" To="B" />
 				</Function>
@@ -309,10 +324,10 @@
 					</Edge>
 					<Edge From="scenefinishedwaiter63.OnFinished" To="SetFormationToSecondChurch" />
 				</State>
-				<perceptionsearchfortarget Name="perceptionsearchfortarget" PositionY="-170" PositionX="3410" Namespace="utils.crime">
+				<perceptionsearchfortarget Name="perceptionsearchfortarget" PositionY="-170" PositionX="3590" Namespace="utils.crime">
 					<Asset Name="source" Alias="anton" />
 					<Asset Name="target" Alias="player" />
-					<Edge From="or89.bool" To="isactive" />
+					<Edge From="and112.bool" To="isactive" />
 				</perceptionsearchfortarget>
 				<quest_fail_deathtrigger Name="quest_fail_deathtrigger" PositionY="420" PositionX="-3210" Namespace="sesivanitonici">
 					<Edge From="or40.bool" To="isactive">
@@ -382,6 +397,18 @@
 						<Vertex>vertex145</Vertex>
 					</Edge>
 				</Switch>
+				<Switch Name="switch106" PositionY="-730" PositionX="-2340" TypeT="int" ValueTypes="formationType wh::entitymodule::TagPoint* string" SwitchValues="1 2">
+					<Constant Name="1Value1" Value="MoveHistory" />
+					<Asset Name="1Value2" Alias="pathJakubChurch_2" />
+					<Constant Name="1Value3" Value="sesivaniTonici_antonFrancek_history" />
+					<Constant Name="2Value1" Value="MoveHistory" />
+					<Asset Name="2Value2" Alias="churchJakub_Anton" />
+					<Constant Name="2Value3" Value="sesivaniTonici_antonFrancek_right" />
+					<Constant Name="DefaultValue1" Value="MoveHistory" />
+					<Asset Name="DefaultValue2" Alias="pathJakubChurch_1" />
+					<Constant Name="DefaultValue3" Value="sesivaniTonici_antonFrancek_left" />
+					<Edge From="tourPhase.State" To="Switch" />
+				</Switch>
 				<Timer Name="timer104" PositionY="-360" PositionX="360">
 					<Constant Name="Duration" Value="10m" />
 					<Constant Name="TimeType" Value="WorldTime" />
@@ -393,14 +420,12 @@
 				<tour_advanced Name="tour_advanced" PositionY="-780" PositionX="-1640" Namespace="utils.speech">
 					<Asset Name="smartentity" Alias="sesivaniTonici" />
 					<Asset Name="formationleader" Alias="anton" />
-					<Constant Name="formationname" Value="sesivaniTonici_antonFrancek" />
-					<Constant Name="formationtype" Value="MoveHistory" />
 					<Constant Name="preferedposition" Value="''" />
 					<Constant Name="formationspeedlimit" Value="run" />
 					<Constant Name="usehorseincontext" Value="''" />
 					<Constant Name="movementspeed" Value="alertedWalk" />
-					<Asset Name="currenttagpoint" Alias="churchJakub_Anton" />
 					<Asset Name="finaltagpoint" Alias="churchJakub_Anton" />
+					<Constant Name="disableorca" Value="false" />
 					<Constant Name="followtype" Value="followableNpcCenter" />
 					<Asset Name="followablesoul" Alias="anton" />
 					<Constant Name="followablesoulpreferedposition" Value="none" />
@@ -432,7 +457,17 @@
 					<Edge From="makearray78_1.Array" To="participants" />
 					<Edge From="switch100.Value1" To="onplayerleft_wait" />
 					<Edge From="and101.bool" To="isactive" />
+					<Edge From="tourPhase.OnExec" To="updatereference" />
+					<Edge From="switch106.Value1" To="formationtype" />
+					<Edge From="switch106.Value2" To="currenttagpoint" />
+					<Edge From="switch106.Value3" To="formationname" />
 				</tour_advanced>
+				<State Name="tourPhase" PositionY="-840" PositionX="-2590" TypeT="int">
+					<Edge From="tour_advanced.ontagpointreached" To="Increment">
+						<Vertex>syRcu0P6</Vertex>
+						<Vertex>ll9AoXho</Vertex>
+					</Edge>
+				</State>
 				<trialog_pred_kostelem Name="trialog_pred_kostelem" PositionY="130" PositionX="4370">
 					<Edge From="anton_pred_kostelem_1_1.chci_mluvit_polylog" To="chci_mluvit_polylog">
 						<Vertex>vertex170</Vertex>
@@ -445,11 +480,11 @@
 				<TriggerSequence Name="triggersequence96" PositionY="0" PositionX="4710">
 					<Edge From="trialog_pred_kostelem.pokecali_jsme_si_u_kostela" To="Exec" />
 				</TriggerSequence>
-				<UrgeADialog Name="UrgeADialog" PositionY="-510" PositionX="3810" Namespace="utils.speech">
+				<UrgeADialog Name="UrgeADialog" PositionY="-510" PositionX="3930" Namespace="utils.speech">
 					<Constant Name="behaviorname" Value="urgeDialog" />
 					<Asset Name="smartentity" Alias="sesivaniTonici" />
 					<Asset Name="souls" Alias="anton" />
-					<Constant Name="urgemovementtype" Value="TurnBody" />
+					<Constant Name="urgemovementtype" Value="NoMovement" />
 					<Constant Name="urgeischatorbark" Value="Chat" />
 					<Constant Name="urgealiasormetarole" Value="sesivaniTonici_antonPredKostelem1" />
 					<Constant Name="usemetarole" Value="false" />
@@ -465,6 +500,7 @@
 				<State Name="urgingState" PositionY="-340" PositionX="2650" TypeT="UrgingState">
 					<Edge From="perceptionsearchfortarget.onseen" To="SetActive">
 						<Vertex>vertex168</Vertex>
+						<Vertex>cncV6TCt</Vertex>
 						<Vertex>vertex167</Vertex>
 					</Edge>
 					<Edge From="speakWithAnton.OnDone" To="SetDisabled">
@@ -475,6 +511,7 @@
 					</Edge>
 					<Edge From="distancetrigger110.OnMatch" To="SetActive">
 						<Vertex>vertex168</Vertex>
+						<Vertex>cncV6TCt</Vertex>
 						<Vertex>vertex167</Vertex>
 					</Edge>
 					<Edge From="anton_pred_kostelem_1_1.zakaz_chatu" To="SetEnabledButInactive">
@@ -491,21 +528,24 @@
 				<EdgeVertex Name="ACLTSwdu" PositionY="150" PositionX="2680" />
 				<EdgeVertex Name="alw1SUJA" PositionY="80" PositionX="990" />
 				<EdgeVertex Name="Cb1CS4Hr" PositionY="640" PositionX="1900" />
+				<EdgeVertex Name="cncV6TCt" PositionY="119" PositionX="3094" />
 				<EdgeVertex Name="CozV15DJ" PositionY="51" PositionX="652" />
 				<EdgeVertex Name="DncMKh0s" PositionY="650" PositionX="360" />
 				<EdgeVertex Name="FxMu15b4" PositionY="610" PositionX="2680" />
 				<EdgeVertex Name="H3kTtgRV" PositionY="110" PositionX="800" />
 				<EdgeVertex Name="lAGnflbm" PositionY="390" PositionX="2620" />
 				<EdgeVertex Name="lB721acA" PositionY="630" PositionX="-1980" />
+				<EdgeVertex Name="ll9AoXho" PositionY="740" PositionX="-1980" />
 				<EdgeVertex Name="MEVYAHFp" PositionY="630" PositionX="600" />
-				<EdgeVertex Name="mQBnFPBa" PositionY="-510" PositionX="4060" />
+				<EdgeVertex Name="mQBnFPBa" PositionY="-510" PositionX="4180" />
 				<EdgeVertex Name="oATGU0nm" PositionY="1140" PositionX="4640" />
 				<EdgeVertex Name="r43UcXRR" PositionY="150" PositionX="2950" />
 				<EdgeVertex Name="SQXNf328" PositionY="650" PositionX="1560" />
+				<EdgeVertex Name="syRcu0P6" PositionY="740" PositionX="-1310" />
 				<EdgeVertex Name="U48s7Pw7" PositionY="510" PositionX="600" />
 				<EdgeVertex Name="uG2QJ7IX" PositionY="110" PositionX="1890" />
 				<EdgeVertex Name="Ukl52Awj" PositionY="640" PositionX="1720" />
-				<EdgeVertex Name="USCPszY7" PositionY="-580" PositionX="3630" />
+				<EdgeVertex Name="USCPszY7" PositionY="-580" PositionX="3750" />
 				<EdgeVertex Name="vertex100" PositionY="670" PositionX="-2830" />
 				<EdgeVertex Name="vertex118" PositionY="530" PositionX="600" />
 				<EdgeVertex Name="vertex119" PositionY="530" PositionX="70" />
@@ -531,7 +571,7 @@
 				<EdgeVertex Name="vertex164" PositionY="780" PositionX="-2830" />
 				<EdgeVertex Name="vertex165" PositionY="70" PositionX="-2970" />
 				<EdgeVertex Name="vertex167" PositionY="120" PositionX="2680" />
-				<EdgeVertex Name="vertex168" PositionY="120" PositionX="3620" />
+				<EdgeVertex Name="vertex168" PositionY="120" PositionX="3800" />
 				<EdgeVertex Name="vertex170" PositionY="-620" PositionX="4260" />
 				<EdgeVertex Name="vertex179" PositionY="-590" PositionX="4260" />
 				<EdgeVertex Name="vertex183" PositionY="-580" PositionX="3140" />
@@ -589,6 +629,9 @@
 			<Assets>
 				<TagPointAsset Name="churchJakub_Francek" />
 				<CutsceneHolderAsset Name="cutscene_JakubChurch" />
+				<TagPointAsset Name="pathJakubChurch_1" />
+				<TagPointAsset Name="pathJakubChurch_2" />
+				<TagPointAsset Name="pathJakubChurch_3" />
 			</Assets>
 			<Text StringName="jdeme_ke_kostelu_sv_jakuba_rtRw" Text="Jdeme ke kostelu sv. Jakuba" />
 		</Module>

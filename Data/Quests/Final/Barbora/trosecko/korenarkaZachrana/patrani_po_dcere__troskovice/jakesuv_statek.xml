@@ -63,6 +63,9 @@
 				<Port Name="hrac_se_za_slamu_prihovoril" Direction="Out" Type="bool">
 					<DesignName StringName="jakesuv_s_hrac_se_za_slam_8KtG" Text="Hráč se za Slámu prihovoril u rychtáře" />
 				</Port>
+				<Port Name="hrac_ma_zadano_vyreseni_slamy" Direction="Out" Type="bool">
+					<DesignName StringName="jakesuv_s_hrac_ma_zadano__LBE7" Text="Hráč má zadáno vyřešení Slámy" />
+				</Port>
 			</Ports>
 			<Definitions>
 				<Definition File="jakesuv_statek/jindra_objevil_hrob.xml" />
@@ -76,7 +79,7 @@
 				<Definition File="jakesuv_statek/slamovo_chovani_a_omezeni.xml" />
 			</Definitions>
 			<Nodes>
-				<Function Name="and22" PositionY="580" PositionX="-1090" MethodName="math::boolean::And" DeclaringType="math::boolean">
+				<Function Name="and22" PositionY="640" PositionX="-1080" MethodName="math::boolean::And" DeclaringType="math::boolean">
 					<Edge From="hrac_ma_zadany_quest" To="A" />
 					<Edge From="not23.bool" To="B" />
 				</Function>
@@ -132,6 +135,10 @@
 						<Vertex>vertex33</Vertex>
 					</Edge>
 				</SoulDeathTrigger>
+				<disabledirectionschatsoul Name="disabledirectionschatsoul" PositionY="-790" PositionX="-150" Namespace="utils.hardcoremode">
+					<Asset Name="soul" Alias="slama" />
+					<Edge From="not27.bool" To="enabled" />
+				</disabledirectionschatsoul>
 				<If Name="if20" PositionY="-100" PositionX="-1120">
 					<Edge From="confrontSlama.active" To="Condition">
 						<Vertex>vertex32</Vertex>
@@ -206,8 +213,14 @@
 					</Edge>
 				</jindra_se_bavi_s_vyplasenym_pacholkem_slamou>
 				<HasteTrigger Name="korenarkaZachrana_confrontSlama" PositionY="-340" PositionX="-1090" />
-				<Function Name="not23" PositionY="670" PositionX="-1350" MethodName="math::boolean::Not" DeclaringType="math::boolean">
+				<Function Name="not23" PositionY="730" PositionX="-1340" MethodName="math::boolean::Not" DeclaringType="math::boolean">
 					<Edge From="hrac_byl_v_jeskyni" To="Value" />
+				</Function>
+				<Function Name="not26" PositionY="580" PositionX="-430" MethodName="math::boolean::Not" DeclaringType="math::boolean">
+					<Edge From="confrontSlama.none" To="Value" />
+				</Function>
+				<Function Name="not27" PositionY="-740" PositionX="-390" MethodName="math::boolean::Not" DeclaringType="math::boolean">
+					<Edge From="confrontSlama.none" To="Value" />
 				</Function>
 				<confrontSlama Name="objectiveVisual5" PositionY="-480" PositionX="-410" RequiredForOutput="trosecko">
 					<Edge From="confrontSlama.State" To="Progress" />
@@ -260,6 +273,9 @@
 						<Vertex>3HWgRlWL</Vertex>
 					</Edge>
 					<Edge From="rychtar_zatyka_slamu.hrac_se_za_slamu_prihovoril" To="hrac_se_za_slamu_prihovoril" />
+					<Edge From="not26.bool" To="hrac_ma_zadano_vyreseni_slamy">
+						<Vertex>n86SDD2y</Vertex>
+					</Edge>
 				</Output>
 				<rychtar_zatyka_slamu Name="rychtar_zatyka_slamu" PositionY="-590" PositionX="1020">
 					<Edge From="jindra_se_bavi_s_vyplasenym_pacholkem_slamou.predani_rychtari" To="predani_rychtari">
@@ -347,6 +363,7 @@
 				<EdgeVertex Name="fyWYV0s7" PositionY="-331" PositionX="888" />
 				<EdgeVertex Name="gbCVsYSB" PositionY="-330" PositionX="484" />
 				<EdgeVertex Name="lpb6woe1" PositionY="-2331" PositionX="-421" />
+				<EdgeVertex Name="n86SDD2y" PositionY="674" PositionX="1619" />
 				<EdgeVertex Name="pyF5J0qW" PositionY="-2106" PositionX="502" />
 				<EdgeVertex Name="vertex19" PositionY="-290" PositionX="890" />
 				<EdgeVertex Name="vertex20" PositionY="-290" PositionX="-50" />
@@ -399,7 +416,7 @@
 				<EdgeVertex Name="vertex89" PositionY="-1200" PositionX="1590" />
 				<EdgeVertex Name="vertex90" PositionY="320" PositionX="560" />
 				<EdgeVertex Name="vertex91" PositionY="320" PositionX="1620" />
-				<EdgeVertex Name="yfETAjY6" PositionY="670" PositionX="-170" />
+				<EdgeVertex Name="yfETAjY6" PositionY="730" PositionX="-160" />
 			</EdgeVertices>
 			<Assets>
 				<TriggerAreaAsset Name="areaAroundSlama" />

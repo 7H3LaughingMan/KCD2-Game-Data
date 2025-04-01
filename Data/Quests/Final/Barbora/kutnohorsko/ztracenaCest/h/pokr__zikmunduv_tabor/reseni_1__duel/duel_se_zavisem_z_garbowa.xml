@@ -95,7 +95,7 @@
 					<Edge From="not127.bool" To="A" />
 					<Edge From="or128.bool" To="B" />
 				</Function>
-				<areatrespassleveleffect Name="areatrespassleveleffect" PositionY="-1160" PositionX="1080" Namespace="utils.crime.trespass">
+				<areatrespassleveleffect Name="areatrespassleveleffect" PositionY="-1160" PositionX="1120" Namespace="utils.crime.trespass">
 					<Asset Name="area" Alias="duelArena" />
 					<Constant Name="trespasslevel" Value="public" />
 					<Edge From="porazZavise.Started" To="isactive">
@@ -105,6 +105,7 @@
 						<Vertex>vertex389</Vertex>
 						<Vertex>vertex376</Vertex>
 						<Vertex>vertex445</Vertex>
+						<Vertex>6huqSbyz</Vertex>
 					</Edge>
 				</areatrespassleveleffect>
 				<Function Name="audiooneshot3" PositionY="-1390" PositionX="-2490" MethodName="wh::soundmodule::AudioOneShot" DeclaringType="wh::soundmodule">
@@ -163,6 +164,7 @@
 						<Vertex>vertex432</Vertex>
 					</Edge>
 					<Edge From="or118.bool" To="roundjustfinished" />
+					<Edge From="zavis__priprava_na_duely.zavis_je_behem_turnaje_v_arene" To="zavis_je_behem_turnaje_v_arene" />
 				</combat_configurations>
 				<Function Name="compare11" PositionY="180" PositionX="-660" TypeT="int" MethodName="Control::Compare" DeclaringType="Control">
 					<Constant Name="Op" Value="GreaterEquals" />
@@ -173,6 +175,13 @@
 						<Vertex>vertex406</Vertex>
 					</Edge>
 				</Function>
+				<disabledirectionschatsoul Name="disabledirectionschatsoul" PositionY="750" PositionX="160" Namespace="utils.hardcoremode">
+					<Asset Name="soul" Alias="zavis" />
+					<Edge From="porazZavise.Started" To="enabled">
+						<Vertex>vertex469</Vertex>
+						<Vertex>vertex470</Vertex>
+					</Edge>
+				</disabledirectionschatsoul>
 				<EnableBehavior Name="enablebehaviorboolreference96" PositionY="-510" PositionX="1440" Signature="boolReference" EventSet="">
 					<Constant Name="Behavior" Value="bathmaidHealing" />
 					<Asset Name="SmartEntity" Alias="qSO" />
@@ -680,6 +689,19 @@
 					<Edge From="not133.bool" To="IsActive" />
 					<Edge From="joinarrays135.Array" To="Souls" />
 				</SetEntityContext>
+				<SetEntityContext Name="setentitycontext136" PositionY="-1380" PositionX="1120">
+					<Constant Name="Context" Value="speech_greyOutE" />
+					<Asset Name="Souls" Alias="herold" />
+					<Edge From="porazZavise.Started" To="IsActive">
+						<Vertex>vertex469</Vertex>
+						<Vertex>vertex243</Vertex>
+						<Vertex>vertex467</Vertex>
+						<Vertex>vertex389</Vertex>
+						<Vertex>vertex376</Vertex>
+						<Vertex>vertex445</Vertex>
+						<Vertex>6huqSbyz</Vertex>
+					</Edge>
+				</SetEntityContext>
 				<MemberFunction Name="setstate122" PositionY="-800" PositionX="-3400" MethodName="SetState" DeclaringType="wh::rpgmodule::I_Soul">
 					<Asset Name="Soul" Alias="zavis" />
 					<Constant Name="State" Value="health" />
@@ -965,7 +987,7 @@
 						<Vertex>vertex367</Vertex>
 					</Edge>
 				</vytas_longsword>
-				<zavis__priprava_na_duely Name="zavis__priprava_na_duely" PositionY="-580" PositionX="-8120">
+				<zavis__priprava_na_duely Name="zavis__priprava_na_duely" PositionY="-620" PositionX="-8120">
 					<Edge From="heroldovy_kecy_u_turnaje.konec_drevcu__priprav_jednorucku" To="drevcove_kolo_skoncilo">
 						<Vertex>vertex113</Vertex>
 						<Vertex>vertex114</Vertex>
@@ -1032,6 +1054,7 @@
 			<EdgeVertices>
 				<EdgeVertex Name="0oghjVxU" PositionY="-460" PositionX="520" />
 				<EdgeVertex Name="6DDAwdzg" PositionY="-390" PositionX="-1470" />
+				<EdgeVertex Name="6huqSbyz" PositionY="-1130" PositionX="1060" />
 				<EdgeVertex Name="bCTR6WLJ" PositionY="-890" PositionX="1490" />
 				<EdgeVertex Name="CEHSQLfJ" PositionY="-490" PositionX="540" />
 				<EdgeVertex Name="cjw6bvXS" PositionY="-460" PositionX="720" />
@@ -1159,7 +1182,7 @@
 				<EdgeVertex Name="vertex421" PositionY="-80" PositionX="-2530" />
 				<EdgeVertex Name="vertex425" PositionY="150" PositionX="-5290" />
 				<EdgeVertex Name="vertex426" PositionY="30" PositionX="-7040" />
-				<EdgeVertex Name="vertex427" PositionY="-260" PositionX="-7190" />
+				<EdgeVertex Name="vertex427" PositionY="-300" PositionX="-7190" />
 				<EdgeVertex Name="vertex428" PositionY="150" PositionX="-40" />
 				<EdgeVertex Name="vertex430" PositionY="-80" PositionX="870" />
 				<EdgeVertex Name="vertex431" PositionY="230" PositionX="2060" />

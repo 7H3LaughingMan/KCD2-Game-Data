@@ -50,6 +50,12 @@
 					<Asset Name="Areas" Alias="tadeasFightArea" />
 					<Edge From="CutsceneEnded.State" To="IsActive" />
 				</AreaTrigger>
+				<Function Name="closedoor49" PositionY="-750" PositionX="270" MethodName="wh::entitymodule::CloseDoor" DeclaringType="wh::entitymodule">
+					<Asset Name="Door" Alias="bedroomDoor" />
+					<Edge From="zastavVraha.OnActive" To="Exec">
+						<Vertex>DdWUScdp</Vertex>
+					</Edge>
+				</Function>
 				<State Name="CutsceneEnded" PositionY="-130" PositionX="-530" TypeT="bool">
 					<Edge From="past_sklapla" To="SetTrue">
 						<Vertex>vertex143</Vertex>
@@ -279,8 +285,17 @@
 						<Vertex>8SzCJImJ</Vertex>
 					</Edge>
 				</Output>
+				<PlayerAction_DrawWeapon Name="PlayerAction_DrawWeapon" PositionY="-770" PositionX="-570" Namespace="utils.player">
+					<Constant Name="loadsecondaryweapon" Value="false" />
+					<Constant Name="useselectedweaponset" Value="true" />
+					<Constant Name="weaponset" Value="primary" />
+					<Constant Name="allowdifferentweaponset" Value="true" />
+					<Constant Name="urgency" Value="Fast" />
+					<Edge From="zastavVraha.OnActive" To="drawweapon" />
+				</PlayerAction_DrawWeapon>
 				<questsurrenderprotection Name="questsurrenderprotection" PositionY="130" PositionX="1250" Namespace="utils.combat">
 					<Asset Name="soul" Alias="pomocnik" />
+					<Constant Name="calm_down_after_surrender" Value="false" />
 					<Edge From="vzdavaniPomocnika.OnHracChceDorazit" To="disable" />
 					<Edge From="vzdavaniPomocnika.OnPomocnikSeVzdava" To="enable" />
 					<Edge From="stop_surrender_protection" To="disable">
@@ -390,6 +405,7 @@
 				<EdgeVertex Name="aoNt4eW0" PositionY="540" PositionX="-850" />
 				<EdgeVertex Name="BQvlTEBn" PositionY="-120" PositionX="690" />
 				<EdgeVertex Name="cB0APCj7" PositionY="-180" PositionX="520" />
+				<EdgeVertex Name="DdWUScdp" PositionY="-851" PositionX="-417" />
 				<EdgeVertex Name="F2wE485f" PositionY="350" PositionX="-860" />
 				<EdgeVertex Name="Hd7NRD9v" PositionY="310" PositionX="-310" />
 				<EdgeVertex Name="Hr8zIHVt" PositionY="83" PositionX="-569" />

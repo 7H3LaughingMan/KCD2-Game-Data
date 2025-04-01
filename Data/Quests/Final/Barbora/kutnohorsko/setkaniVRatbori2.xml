@@ -60,6 +60,9 @@
 				<Port Name="jindra_vi_ze_samuel_je_jeho_nevlastni_bratr" Direction="Out" Type="bool">
 					<DesignName StringName="setkanivr_jindra_vi_ze_sa_fBSu" Text="Jindra ví že Samuel je jeho nevlastni bratr" />
 				</Port>
+				<Port Name="fader_before_post_battle_dialog_onbeforeplay" Direction="Out" Type="trigger">
+					<DesignName StringName="setkanivr_fader_before_po_TLp0" Text="deadbodies in corner streamed" />
+				</Port>
 			</Ports>
 			<Definitions>
 				<Definition File="setkaniVRatbori2/setkanivratbori2library.xml" />
@@ -77,12 +80,12 @@
 					<Edge From="hibernable.party_afterplay" To="party_afterplay" />
 					<Edge From="hibernable.attack_onbeforeplay" To="attack_onbeforeplay" />
 					<Edge From="hibernable.henryarrival_beforeplayonfinishedplayerswitch" To="henryarrival_beforeplayonfinishedplayerswitch" />
-					<Edge From="hibernable.deadbodies_in_corner_streamed" To="deadbodies_in_corner_streamed" />
 					<Edge From="hibernable.attack_onafterplay" To="quest_active" />
 					<Edge From="onlongdistanceaftertorchingratbor" To="onlongdistanceaftertorchingratbor">
 						<Vertex>eCqClsUk</Vertex>
 						<Vertex>EWxraFy8</Vertex>
 					</Edge>
+					<Edge From="triggersequence1.A" To="deadbodies_in_corner_streamed" />
 				</deadbodies_handling>
 				<haste Name="haste" PositionY="-570" PositionX="-1070" />
 				<hibernable Name="hibernable" PositionY="-190" PositionX="-180" RequiredForOutput="kutnohorsko">
@@ -117,6 +120,7 @@
 					</Edge>
 					<Edge From="hibernable.quest_skoncil" To="aktualizovat_aktivitu" />
 					<Edge From="hibernable.jindra_vi_ze_samuel_je_jeho_nevlastni_bratr" To="jindra_vi_ze_samuel_je_jeho_nevlastni_bratr" />
+					<Edge From="triggersequence1.B" To="fader_before_post_battle_dialog_onbeforeplay" />
 				</Output>
 				<State Name="ratbor2Hibernace" PositionY="-450" PositionX="-680" TypeT="Ratbor2Hibernation">
 					<Edge From="quest_" To="SetAwake" />
@@ -154,6 +158,9 @@
 						<Vertex>K7a5rvvK</Vertex>
 					</Edge>
 				</streamprofileshandling>
+				<TriggerSequence Name="triggersequence1" PositionY="400" PositionX="310">
+					<Edge From="hibernable.deadbodies_in_corner_streamed" To="Exec" />
+				</TriggerSequence>
 				<unlocking_hall_stashes_ Name="unlocking_hall_stashes_" PositionY="-720" PositionX="-320">
 					<Edge From="ratbor2Hibernace.OnAwake" To="lock" />
 					<Edge From="ratbor2Hibernace.OnDone" To="unlock" />
@@ -395,7 +402,7 @@
 					</Logs>
 				</Objective>
 				<Objective TypeT="ProgressFailable" Name="zachran_bratra" IsOptional="true">
-					<LocalizedName StringName="setkanivr_zachran_bratra_aXNc" Text="Zachraň bratra." />
+					<LocalizedName StringName="setkanivr_zachran_bratra_aXNc" Text="Chraň bratra." />
 					<Logs>
 						<EnumLog Type="None" Name="None" />
 						<EnumLog Type="Started" Name="Active">

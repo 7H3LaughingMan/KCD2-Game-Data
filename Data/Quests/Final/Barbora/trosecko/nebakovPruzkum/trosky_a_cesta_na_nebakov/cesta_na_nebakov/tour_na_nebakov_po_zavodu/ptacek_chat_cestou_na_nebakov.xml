@@ -6,6 +6,9 @@
 				<Port Name="fast_travel_na_nebakov" Direction="Out" Type="trigger">
 					<DesignName StringName="ptacek_ch_fast_travel_na__gRwn" Text="fast travel na nebakov" />
 				</Port>
+				<Port Name="scholarship_reward" Direction="Out" Type="trigger">
+					<DesignName StringName="ptacek_ch_scholarship_rew_2c27" Text="scholarship reward" />
+				</Port>
 			</Ports>
 			<Text StringName="jpj_chat_cestou_na_nebakov_28na" Text="Ptáček chat cestou na Nebákov" />
 			<Dialogue Type="chat" TechnicalStatus="Enabled" Hearing="35" DefaultMaxDistance="15" Initiator="NonPlayer" ClashPriority="CrimeLow" GesturesSetDate="2023-12-06T19:02:54.8080018+01:00" GesturesSetResponseCount="55">
@@ -122,6 +125,9 @@
 															<Sequence EndType="GoTo" GoToDecision="dec10" ChatPosition="First" Name="seq14">
 																<DesignName StringName="jpj_chat__seq14_38f2" Text="seq14" />
 																<UiPrompt StringName="ui_jpj_chat__seq14_Ycea" Text="Václav je volba cti!" />
+																<Triggers>
+																	<Port Name="scholarship_reward" />
+																</Triggers>
 																<Elements>
 																	<Response Role="HENRY" ReferenceLength="5.59">
 																		<Parenthetical>
@@ -199,6 +205,9 @@
 															<Sequence EndType="GoTo" GoToDecision="dec10" ChatPosition="Second" Name="seq15">
 																<DesignName StringName="jpj_chat__seq15_ysBG" Text="seq15" />
 																<UiPrompt StringName="ui_jpj_chat__seq15_dwgJ" Text="A co může získat?" />
+																<Triggers>
+																	<Port Name="scholarship_reward" />
+																</Triggers>
 																<Elements>
 																	<Response Role="HENRY" ReferenceLength="1.47">
 																		<Text StringName="jpj__henry_a_co_muze_zisk_WBZS" Text="A co může získat?" />
@@ -230,8 +239,11 @@
 																</Elements>
 																<Decision Name="dec7" Priority="MainQuestSubmission">
 																	<Sequences>
-																		<Sequence SpeechCoef="0" EndType="GoTo" GoToDecision="dec10" Name="seq13">
+																		<Sequence EndType="GoTo" GoToDecision="dec10" SpeechCoef="0" Name="seq13">
 																			<DesignName StringName="jpj_chat__seq13_NQTR" Text="seq8" />
+																			<Triggers>
+																				<Port Name="scholarship_reward" />
+																			</Triggers>
 																			<Elements>
 																				<Response Role="PTACEK" ReferenceLength="3.9">
 																					<Parenthetical>
@@ -281,6 +293,9 @@
 												<Sequence EndType="Decision" ChatPosition="Second" Name="seq9">
 													<DesignName StringName="jpj_chat__seq9_tLQM" Text="seq9" />
 													<UiPrompt StringName="ui_jpj_chat__seq9_VRQx" Text="A já jsem tu proč?" />
+													<Triggers>
+														<Port Name="scholarship_reward" />
+													</Triggers>
 													<Elements>
 														<Response Role="HENRY" ReferenceLength="1.16">
 															<Text StringName="jpj__henry_a_ja_jsem_tu_p_6f9g" Text="A já jsem tady proč?" />
@@ -370,6 +385,12 @@
 																			<AnimationCommand Delay="0.06" FragmentId="ADLG_Gesture" Guid="5a97cf50-508f-4386-9bee-b2aa7a27d34f" Variant="5" DesiredDuration="2.62" />
 																		</Commands>
 																	</Response>
+																</Elements>
+															</Sequence>
+															<Sequence EndType="GoTo" GoToDecision="dec7" ChatPosition="Refusal" Name="seq27">
+																<DesignName StringName="ptacek_ch_seq27_M29F" Text="seq27" />
+																<Elements>
+																	<Response Role="PTACEK" />
 																</Elements>
 															</Sequence>
 														</Sequences>

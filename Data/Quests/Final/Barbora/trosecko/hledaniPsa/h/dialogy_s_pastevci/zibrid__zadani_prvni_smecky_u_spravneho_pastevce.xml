@@ -42,6 +42,12 @@
 					<Constant Name="TimeOfDay" Value="17h" />
 					<Edge From="20_firstPackAccepted.OnTrigger" To="Exec" />
 				</Function>
+				<Function Name="and33" PositionY="-1190" PositionX="780" MethodName="math::boolean::And" DeclaringType="math::boolean">
+					<Edge From="speakWithTheCorrectShepherd.None" To="B" />
+					<Edge From="hrac_podezriva_ze_pes_zije" To="A">
+						<Vertex>X4MxWjBS</Vertex>
+					</Edge>
+				</Function>
 				<AddReward Name="codexDomaciZvirata" PositionY="460" PositionX="230">
 					<Edge From="pokec_s_pastevcem_o_vlcich_1.hrac_dostava_ignace" To="AddReward" />
 					<Rewards>
@@ -58,6 +64,11 @@
 						<Vertex>vertex3</Vertex>
 					</Edge>
 				</SoulDeathTrigger>
+				<expectedeffect Name="expectedeffect" PositionY="-1220" PositionX="1080" Namespace="utils.crime.trespass">
+					<Asset Name="npcs" Alias="theCorrectShepherd" />
+					<Constant Name="extenduntilplayerleavestrespass" Value="true" />
+					<Edge From="and33.bool" To="isactive" />
+				</expectedeffect>
 				<State Name="hracMluvilSZibridem" PositionY="1040" PositionX="1410" TypeT="bool">
 					<Edge From="pokec_s_pastevcem_o_vlcich_1.hrac_poznal_zibrida" To="SetTrue">
 						<Vertex>2DKmfU6b</Vertex>
@@ -92,6 +103,10 @@
 					<Edge From="pokec_s_pastevcem_o_vlcich_1.ignac_prijat" To="Condition" />
 					<Edge From="pokec_s_pastevcem_o_vlcich_1.hrac_prijal_poreseni_prvni_smecky" To="Exec" />
 				</If>
+				<If Name="if32" PositionY="-100" PositionX="580">
+					<Edge From="pokec_s_pastevcem_o_vlcich_1.AfterPlay" To="Exec" />
+					<Edge From="pokec_s_pastevcem_o_vlcich_1.ignac_prijat" To="Condition" />
+				</If>
 				<MakeArray Name="makearray22" PositionY="860" PositionX="-80" TypeT="Strings">
 					<Constant Name="A" Value="goto tbuk_zibrid" />
 				</MakeArray>
@@ -108,12 +123,10 @@
 					<Edge From="or27.bool" To="hrac_vi_o_zibridovi">
 						<Vertex>vertex7</Vertex>
 					</Edge>
-					<Edge From="pokec_s_pastevcem_o_vlcich_1.hrac_dostava_ignace" To="hrac_dostava_ignace">
-						<Vertex>vertex16</Vertex>
-					</Edge>
 					<Edge From="20_firstPackAccepted.OnTrigger" To="hrac_dostava_ignace" />
 					<Edge From="hracPoznalIgnace.State" To="ignac_prijat" />
 					<Edge From="hracMluvilSZibridem.State" To="hrac_mluvil_s_zibridem" />
+					<Edge From="if32.True" To="hrac_dostava_ignace" />
 				</Output>
 				<pokec_s_pastevcem_o_vlcich_1 Name="pokec_s_pastevcem_o_vlcich_1" PositionY="-140" PositionX="-130">
 					<Edge From="hrac_podezriva_ze_pes_zije" To="hrac_podezriva_ze_pes_zije" />
@@ -156,7 +169,6 @@
 				<EdgeVertex Name="vertex11" PositionY="-1030" PositionX="80" />
 				<EdgeVertex Name="vertex12" PositionY="-150" PositionX="680" />
 				<EdgeVertex Name="vertex13" PositionY="-160" PositionX="-60" />
-				<EdgeVertex Name="vertex16" PositionY="100" PositionX="1590" />
 				<EdgeVertex Name="vertex2" PositionY="-180" PositionX="460" />
 				<EdgeVertex Name="vertex3" PositionY="-450" PositionX="830" />
 				<EdgeVertex Name="vertex5" PositionY="-450" PositionX="-10" />
@@ -165,6 +177,7 @@
 				<EdgeVertex Name="vertex8" PositionY="-180" PositionX="670" />
 				<EdgeVertex Name="vertex9" PositionY="-180" PositionX="-110" />
 				<EdgeVertex Name="wM2D98K8" PositionY="300" PositionX="-110" />
+				<EdgeVertex Name="X4MxWjBS" PositionY="-1100" PositionX="-190" />
 				<EdgeVertex Name="zBTK9MKk" PositionY="300" PositionX="100" />
 			</EdgeVertices>
 			<Notes>

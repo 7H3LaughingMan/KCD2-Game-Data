@@ -9,6 +9,9 @@
 				<Port Name="tabor_je_na_kopci" Direction="In" Type="bool">
 					<DesignName StringName="s_viktork_tabor_je_na_kop_7DJu" Text="Tábor je na kopci" />
 				</Port>
+				<Port Name="hrac_vi_o_vojakovi" Direction="In" Type="bool">
+					<DesignName StringName="s_viktork_hrac_vi_o_vojak_35xl" Text="Hráč ví o vojákovi" />
+				</Port>
 				<Port Name="hrac_si_s_vojakem_uz_nepromluvi" Direction="In" Type="bool">
 					<DesignName StringName="s_viktork_vojak_umrel_CGZd" Text="Hráč si s vojákem už nepromluví" />
 				</Port>
@@ -27,7 +30,7 @@
 				</SelectedSouls>
 				<Decision Name="dec1" Priority="SideQuestSubmission">
 					<Sequences>
-						<Sequence EntryCondition="!SequenceUsed('za_vojakem')" EndType="Decision" Name="seq1">
+						<Sequence EntryCondition="0" EndType="Decision" Name="seq1">
 							<DesignName StringName="s_viktork_seq1_CuLH" Text="seq1" />
 							<UiPrompt StringName="ui_s_viktork_seq1_B6Ji" Text="Co tady děláš?" />
 							<Elements>
@@ -137,11 +140,8 @@
 										</Elements>
 										<Decision Name="dec3" Priority="SideQuestSubmission">
 											<Sequences>
-												<Sequence SpeechCoef="0" EndType="EndDialogue" Visibility="Public" Name="za_vojakem">
-													<DesignName StringName="s_viktork_o_vojakovi_dZRz" Text="Za vojákem" />
-													<Triggers>
-														<Port Name="hrac_mluvil_s_viktorkou_brzo" />
-													</Triggers>
+												<Sequence EntryCondition="!Port('hrac_vi_o_vojakovi')" EndType="Decision" Name="seq6">
+													<DesignName StringName="s_viktork_seq6_8Dta" Text="seq6" />
 													<Elements>
 														<Response Role="HENRY" ReferenceLength="3.54">
 															<Text StringName="s_vi_henry_kdo_je_cerny_3giR" Text="Kdo to je, ten Černej? Někdo ze vsi?" />
@@ -160,23 +160,41 @@
 																<CameraCommand CameraType="CloseUp" />
 															</Commands>
 														</Response>
-														<Response Role="HENRY" ReferenceLength="3.37">
-															<Text StringName="s_vi_viktorka_vojak_vedle_2R0u" Text="Jakože, Zikmundův voják? Z tábora?" />
-															<Commands>
-																<CameraCommand CameraType="CloseUp" />
-																<LookAtCommand Role="VIKTORKA" Delay="3.23" LookAtRole="HENRY" Offset="BottomCenter" />
-															</Commands>
-														</Response>
-														<Response Role="VIKTORKA" ReferenceLength="2.99">
-															<Parenthetical>
-																<Text StringName="s_vi_viktorka_kyve_xakF" Text="kýve" />
-															</Parenthetical>
-															<Text StringName="s_vi_viktorka_slibil_ze_b_RWF4" Text="Slíbil mi, že za mnou přijde a budeme už jenom spolu." />
-															<Commands>
-																<CameraCommand CameraType="CloseShot" />
-																<LookAtCommand Delay="2.21" LookAtRole="HENRY" />
-															</Commands>
-														</Response>
+													</Elements>
+													<Decision Name="dec5">
+														<Sequences>
+															<Sequence SpeechCoef="0" EndType="EndDialogue" Visibility="Public" Name="za_vojakem">
+																<DesignName StringName="s_viktork_o_vojakovi_dZRz" Text="Za vojákem" />
+																<Triggers>
+																	<Port Name="hrac_mluvil_s_viktorkou_brzo" />
+																</Triggers>
+																<Elements>
+																	<Response Role="HENRY" ReferenceLength="3.37">
+																		<Text StringName="s_vi_viktorka_vojak_vedle_2R0u" Text="Jakože, Zikmundův voják? Z tábora?" />
+																		<Commands>
+																			<CameraCommand CameraType="CloseUp" />
+																			<LookAtCommand Role="VIKTORKA" Delay="3.23" LookAtRole="HENRY" Offset="BottomCenter" />
+																		</Commands>
+																	</Response>
+																	<Response Role="VIKTORKA" ReferenceLength="2.99">
+																		<Parenthetical>
+																			<Text StringName="s_vi_viktorka_kyve_xakF" Text="kýve" />
+																		</Parenthetical>
+																		<Text StringName="s_vi_viktorka_slibil_ze_b_RWF4" Text="Slíbil mi, že za mnou přijde a budeme už jenom spolu." />
+																		<Commands>
+																			<CameraCommand CameraType="CloseShot" />
+																			<LookAtCommand Delay="2.21" LookAtRole="HENRY" />
+																		</Commands>
+																	</Response>
+																</Elements>
+															</Sequence>
+														</Sequences>
+													</Decision>
+												</Sequence>
+												<Sequence EntryCondition="Port('hrac_vi_o_vojakovi')" EndType="GoTo" GoToDecision="dec5" Name="seq8">
+													<DesignName StringName="s_viktork_seq8_vADt" Text="seq8" />
+													<Elements>
+														<Response Role="HENRY" />
 													</Elements>
 												</Sequence>
 											</Sequences>

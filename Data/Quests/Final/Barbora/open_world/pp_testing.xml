@@ -34,6 +34,9 @@
 					<Asset Name="soul" Alias="player" />
 					<Constant Name="rpgstati" Value="MediumToHigh" />
 				</getrelativecharismaininterval>
+				<informationdifftrigger_helper_empty Name="informationdifftrigger_helper_empty" PositionY="-1260" PositionX="1630" Namespace="utils.crime">
+					<Edge From="state67.State" To="isactive" />
+				</informationdifftrigger_helper_empty>
 				<InstantSendMessage Name="instantsendmessagekzikactionrequest65" PositionY="560" PositionX="460" MessageType="kzik:actionRequest">
 					<Asset Name="Receiver" Alias="test_conceptAiTypes" />
 					<Constant Name="Content_action" Value="GivePlayerAccess" />
@@ -79,6 +82,10 @@
 					<Edge From="CRIME_surrender_debug_enable.OnTrigger" To="SetTrue" />
 					<Edge From="CRIME_surrender_debug_disable.OnTrigger" To="SetFalse" />
 				</State>
+				<State Name="state67" PositionY="-1150" PositionX="1330" TypeT="bool">
+					<Edge From="vadim_infotrigger_enable.OnTrigger" To="SetTrue" />
+					<Edge From="vadim_infotrigger_disable.OnTrigger" To="SetFalse" />
+				</State>
 				<HasteTrigger Name="test_conceptAiTypes" PositionY="580" PositionX="120" />
 				<Trace Name="trace54" PositionY="510" PositionX="3180" TypeT="bool">
 					<Edge From="PP_0_GetRelativeCharisma_Low.OnTrigger" To="Exec">
@@ -118,6 +125,16 @@
 					<Edge From="PP_0_GetRelativeCharisma_Low_1_1.OnTrigger" To="Exec" />
 					<Edge From="isplayerbranded.isplayerbranded" To="Value" />
 				</Trace>
+				<Trace Name="trace68" PositionY="-1220" PositionX="2090" TypeT="string">
+					<Constant Name="Value" Value="========== OnLearned" />
+					<Edge From="informationdifftrigger_helper_empty.onlearned" To="Exec" />
+				</Trace>
+				<Trace Name="trace68_1" PositionY="-1060" PositionX="2100" TypeT="string">
+					<Constant Name="Value" Value="========== OnForgot" />
+					<Edge From="informationdifftrigger_helper_empty.onforgot" To="Exec" />
+				</Trace>
+				<HasteTrigger Name="vadim_infotrigger_disable" PositionY="-981" PositionX="1018" />
+				<HasteTrigger Name="vadim_infotrigger_enable" PositionY="-1220" PositionX="1040" />
 			</Nodes>
 			<EdgeVertices>
 				<EdgeVertex Name="vertex1" PositionY="417" PositionX="3003" />

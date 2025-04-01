@@ -14,21 +14,21 @@
 						<LinkTagFilter tag="&apos;tempBucketSlot&apos;" prune="true" negprune="unknown" Parent="" Child="" Data="" />
 						<Nodalyzer Quantifiers="Exists" Parent="" Child="$tempBucketSlot" saveVersion="2" />
 					</GraphSearch>
-					<GetBehaviorHolders area="$__object.id" behaviors="&apos;useCow&apos;" targetVar="$cowBehaviorTargets" />
-					<IfCondition failOnCondition="false" condition="#cowBehaviorTargets == 0">
-						<WaitAction />
-					</IfCondition>
-					<HandContentElement hand="Right" item="$item" allowAny="false" decisionLabel="housekeeper_cow_bucket" useDecision="true" enabled="true" saveVersion="2">
+					<HandContentElement hand="Right" item="$item" allowAny="false" allowHomeSlotAutoReturn="false" decisionLabel="housekeeper_cow_bucket" useDecision="true" enabled="true" saveVersion="2">
 						<Search canSkip="1">
 							<ErrorNode Message="&apos;trying to use search in use (cowPrefab) HCE&apos;" />
 						</Search>
 						<Exec canSkip="1">
 							<EntityContextElement context="situation_gossipDuringActivity" enabled="true">
 								<Sequence>
-									<JoinedUnstanceAction lockContext="$__object.id" lockName="&apos;milkingCow&apos;" lockCount="2" timeout="&apos;-1&apos;" ignoreOthersLeaving="false" unstance="housekeeper_milking" locationObject="$__object.id" slaveObject="">
+									<GetBehaviorHolders area="$__object.id" behaviors="&apos;useCow&apos;" targetVar="$cowBehaviorTargets" />
+									<IfCondition failOnCondition="false" condition="#cowBehaviorTargets == 0">
+										<WaitAction />
+									</IfCondition>
+									<JoinedUnstanceAction lockContext="$__object.id" lockName="&apos;milkingCow&apos;" lockCount="2" timeout="&apos;20s&apos;" ignoreOthersLeaving="false" unstance="housekeeper_milking" locationObject="$__object.id" slaveObject="">
 										<EventData_phaseitem Slot="$tempBucketSlot" name="&apos;bucketPhase&apos;" />
 									</JoinedUnstanceAction>
-									<Wait duration="&apos;45s&apos;" timeType="GameTime" doFail="false" variation="" skipInLOD="false" />
+									<Wait duration="&apos;45s&apos;" timeType="GameTime" doFail="false" variation="" />
 								</Sequence>
 							</EntityContextElement>
 						</Exec>
@@ -59,15 +59,6 @@
 								<OutputBreakpoints />
 							</Nodalyzer>
 						</GraphSearch>
-						<GetBehaviorHolders hasInputBreakpoint="0" comment="" breakpointFlags="0">
-							<OutputBreakpoints />
-						</GetBehaviorHolders>
-						<IfCondition hasInputBreakpoint="0" comment="" breakpointFlags="0">
-							<OutputBreakpoints />
-							<WaitAction hasInputBreakpoint="0" comment="if there is no cow in behavior, we can expect that cow have no behavior enabled" breakpointFlags="0">
-								<OutputBreakpoints />
-							</WaitAction>
-						</IfCondition>
 						<HandContentElement hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
 							<OutputBreakpoints />
 							<Search>
@@ -80,6 +71,15 @@
 									<OutputBreakpoints />
 									<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
 										<OutputBreakpoints />
+										<GetBehaviorHolders hasInputBreakpoint="0" comment="" breakpointFlags="0">
+											<OutputBreakpoints />
+										</GetBehaviorHolders>
+										<IfCondition hasInputBreakpoint="0" comment="" breakpointFlags="0">
+											<OutputBreakpoints />
+											<WaitAction hasInputBreakpoint="0" comment="if there is no cow in behavior, we can expect that cow have no behavior enabled" breakpointFlags="0">
+												<OutputBreakpoints />
+											</WaitAction>
+										</IfCondition>
 										<JoinedUnstanceAction hasInputBreakpoint="0" comment="" breakpointFlags="0">
 											<OutputBreakpoints />
 											<EventData_phaseitem hasInputBreakpoint="0" comment="" breakpointFlags="0">

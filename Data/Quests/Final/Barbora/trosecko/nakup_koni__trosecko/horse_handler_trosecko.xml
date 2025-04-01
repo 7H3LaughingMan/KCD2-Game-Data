@@ -9,6 +9,9 @@
 				<Port Name="hrac_si_koupil_prvniho_kone_u_handlire" Direction="Out" Type="bool">
 					<DesignName StringName="horse_han_hrac_si_koupil__ODix" Text="hráč si koupil prvního koně u handlíře" />
 				</Port>
+				<Port Name="sedivka_privlastnena" Direction="Out" Type="trigger">
+					<DesignName StringName="horse_han_sedivka_privlas_r0DA" Text="Šedivka přivlastněna" />
+				</Port>
 				<Port Name="hrac_dostal_kone_na_troskach" Direction="In" Type="bool">
 					<DesignName StringName="horse_han_hrac_dostal_kon_zm2Z" Text="Hráč dostal koně na Troskách" />
 				</Port>
@@ -30,6 +33,12 @@
 					<Asset Name="Souls" Alias="horseHandler_horses" />
 					<Edge From="state42.State" To="IsActive" />
 				</SoulDeathTrigger>
+				<MemberFunction Name="getprimarycompanion62" PositionY="180" PositionX="2790" MethodName="GetPrimaryCompanion" DeclaringType="wh::rpgmodule::CompanionManager">
+					<Constant Name="Type" Value="Horse" />
+					<Edge From="isoulproperties13_1.CompanionManager" To="Manager">
+						<Vertex>qTS5sjou</Vertex>
+					</Edge>
+				</MemberFunction>
 				<handlir_trosecko__konske_protipravnosti Name="handlir_trosecko__konske_protipravnosti" PositionY="120" PositionX="1590">
 					<Edge From="state9.State" To="tutorial_dokoncen" />
 					<Edge From="areacheck12.IsInside" To="handlir_je_u_ohradky">
@@ -189,6 +198,14 @@
 						<Vertex>vertex44</Vertex>
 					</Edge>
 				</IfFunction>
+				<IfFunction Name="ifcompare63" PositionY="200" PositionX="3100" TypeT="wh::rpgmodule::I_Soul*" MethodName="Control::Compare" DeclaringType="Control">
+					<Constant Name="Op" Value="Equals" />
+					<Asset Name="ValueB" Alias="sedivka" />
+					<Edge From="horsehandler_logic.onhorsereplaced" To="Exec">
+						<Vertex>Jf9sH6JE</Vertex>
+					</Edge>
+					<Edge From="getprimarycompanion62.Companion" To="ValueA" />
+				</IfFunction>
 				<InstantSendMessage Name="instantsendmessagehorsehandlercleanupassets40" PositionY="730" PositionX="3130" MessageType="horseHandler:cleanupAssets">
 					<Asset Name="Receiver" Alias="horseHandler_QSO" />
 					<Asset Name="Content_sender" Alias="horseHandler_QSO" />
@@ -204,6 +221,9 @@
 				<ObjectProperties Name="isoulproperties13_1" PositionY="920" PositionX="-470" DeclaringType="wh::rpgmodule::I_Soul">
 					<Asset Name="I_Soul" Alias="player" />
 				</ObjectProperties>
+				<MakeArray Name="makearray58" PositionY="-1160" PositionX="-1810" TypeT="Strings">
+					<Constant Name="A" Value="goto tvez_mikolaj" />
+				</MakeArray>
 				<State Name="NumberOfValidHorses" PositionY="-10" PositionX="-800" TypeT="int">
 					<Constant Name="Value" Value="0" />
 					<Edge From="ifcompare26_2.True" To="Increment" />
@@ -219,6 +239,7 @@
 					<Edge From="handlir_trosecko__konske_protipravnosti.hrac_si_koupil_prvniho_kone_u_handlire_1" To="hrac_si_koupil_prvniho_kone_u_handlire">
 						<Vertex>dMDEvu6K</Vertex>
 					</Edge>
+					<Edge From="ifcompare63.True" To="sedivka_privlastnena" />
 				</Output>
 				<State Name="PlayerHorseInsideArea" PositionY="-430" PositionX="-800" TypeT="bool">
 					<Edge From="ifcompare26.True" To="SetTrue" />
@@ -248,6 +269,9 @@
 				<State Name="state9" PositionY="650" PositionX="820" TypeT="bool">
 					<Edge From="handlir_trosecko__tutorial.tutorial_dokoncen" To="SetTrue" />
 				</State>
+				<HasteTrigger Name="teleportHandlir" PositionY="-1210" PositionX="-1490">
+					<Edge From="makearray58.Array" To="ConsoleCommands" />
+				</HasteTrigger>
 				<Function Name="TooManyHorses" PositionY="290" PositionX="130" TypeT="int" MethodName="Control::Compare" DeclaringType="Control">
 					<Constant Name="Op" Value="GreaterEquals" />
 					<Constant Name="ValueB" Value="2" />
@@ -285,6 +309,7 @@
 				<EdgeVertex Name="PjFTT9E7" PositionY="903" PositionX="2570" />
 				<EdgeVertex Name="q9Yro6uG" PositionY="905" PositionX="1543" />
 				<EdgeVertex Name="qbM2A5gz" PositionY="900" PositionX="1180" />
+				<EdgeVertex Name="qTS5sjou" PositionY="1324" PositionX="2643" />
 				<EdgeVertex Name="RH8gvPv4" PositionY="880" PositionX="1550" />
 				<EdgeVertex Name="tm40j993" PositionY="98" PositionX="2219" />
 				<EdgeVertex Name="tWFIwzfQ" PositionY="950" PositionX="2580" />
@@ -317,6 +342,7 @@
 				<CameraAsset Name="horseShop_handlerSpot" />
 				<SmartObjectAsset Name="horseHandler_QSO" />
 				<CutsceneHolderAsset Name="transactionHandler_skipTime" />
+				<SoulAsset Name="sedivka" SharedSoulGuids="4e5abeff-f19e-0eab-0921-a24611c4ad8f" />
 				<StashAsset Name="horseHandler_shopStash" />
 			</Assets>
 			<Notes>

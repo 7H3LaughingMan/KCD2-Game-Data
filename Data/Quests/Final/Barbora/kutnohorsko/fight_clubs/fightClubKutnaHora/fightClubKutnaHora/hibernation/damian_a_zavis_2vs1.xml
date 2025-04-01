@@ -121,6 +121,16 @@
 					</Edge>
 				</fist_fight_line>
 				<haste__defeat_vbnca Name="haste__defeat_vbnca" PositionY="-720" PositionX="-540" />
+				<healiflowhealth Name="healiflowhealth" PositionY="740" PositionX="1240" Namespace="fight_club_kutna_hora_library">
+					<Asset Name="soul" Alias="zavis" />
+					<Constant Name="checkforverylowhealth" Value="false" />
+					<Edge From="zavis__damian__pred_arenkou.teleport_all_3_and_start_fight" To="tryheal" />
+				</healiflowhealth>
+				<healiflowhealth Name="healiflowhealth_1" PositionY="931" PositionX="1243" Namespace="fight_club_kutna_hora_library">
+					<Asset Name="soul" Alias="damian" />
+					<Constant Name="checkforverylowhealth" Value="true" />
+					<Edge From="zavis__damian__pred_arenkou.teleport_all_3_and_start_fight" To="tryheal" />
+				</healiflowhealth>
 				<lowhealth_soul Name="lowhealth_soul" PositionY="1480" PositionX="-1070" Namespace="fist_fights_common_library">
 					<Asset Name="soul" Alias="damian" />
 				</lowhealth_soul>
@@ -182,6 +192,11 @@
 				<preber_si_vyhru_od_zavise_a_damiana Name="talkToZavisAfter2vs1Fight_objectiveVisual" PositionY="100" PositionX="-40" RequiredForOutput="kutnohorsko">
 					<Edge From="fist_fight_line.stav_objectivu_po_boji" To="Progress" />
 				</preber_si_vyhru_od_zavise_a_damiana>
+				<turntoplayerinidlestance Name="turntoplayerinidlestance" PositionY="3020" PositionX="990" Namespace="utils.general">
+					<Asset Name="npc" Alias="zavis" />
+					<Constant Name="anydecoratorpreset" Value="changeEquipment" />
+					<Edge From="zapo_souboji.AfterPlay" To="turntoplayerinidlestance" />
+				</turntoplayerinidlestance>
 				<AddReward Name="vyhra" PositionY="1670" PositionX="-270">
 					<Edge From="fist_fight_line.jindrich_vyhrava" To="AddReward" />
 					<Rewards>
@@ -203,6 +218,8 @@
 					<Edge From="fist_fight_line.oponent_ma_dost_penez_na_vraceni" To="zavis_ma_penize_se_sazek">
 						<Vertex>vertex76</Vertex>
 					</Edge>
+					<Edge From="fist_fight_line.dialogparams_pro_forcovany_dialog" To="DialogParams" />
+					<Edge From="fist_fight_line.jindrich_vyhrava" To="EnqueueDialogue" />
 				</zapo_souboji>
 				<zavis__barky_pri_zapasu Name="zavis__barky_pri_zapasu_dialog" PositionY="2040" PositionX="470" Namespace="fight_club_kutna_hora_library">
 					<Edge From="fist_fight_line.souboj_probiha" To="isactive">
@@ -215,10 +232,10 @@
 					<Constant Name="zavis_je_dostatecne_opily" Value="true" />
 					<Constant Name="jindra_ma_na_sobe_zbroj" Value="false" />
 					<Constant Name="jindra_ma_equiple_zbrane" Value="false" />
+					<Constant Name="zavis_nebo_damian_jsou_lehce_zraneni" Value="false" />
 					<Edge From="areacheck4.IsInside" To="jindra_damian_i_zavis_jsou_v_ohradce">
 						<Vertex>vertex77</Vertex>
 					</Edge>
-					<Edge From="or8.bool" To="zavis_nebo_damian_jsou_lehce_zraneni" />
 					<Edge From="fist_fight_line.jindra_ma_vyzvat_oponenta" To="jindra_ma_vyzvat_zavise_a_damiana">
 						<Vertex>vertex45</Vertex>
 					</Edge>

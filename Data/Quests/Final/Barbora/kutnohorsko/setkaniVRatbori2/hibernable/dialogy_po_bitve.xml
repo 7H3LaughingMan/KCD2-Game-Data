@@ -98,6 +98,11 @@
 						<Vertex>vertex5</Vertex>
 					</Edge>
 				</IfFunction>
+				<Function Name="joinarrays26" PositionY="-780" PositionX="1110" TypeT="wh::entitymodule::LayerProfiles" MethodName="utilities::array::JoinArrays" DeclaringType="utilities::array">
+					<Asset Name="A" Alias="servantsProfile" />
+					<Asset Name="B" Alias="guardsProfile" />
+					<Asset Name="C" Alias="noblesProfile" />
+				</Function>
 				<Function Name="joinarrays9" PositionY="-990" PositionX="-110" TypeT="wh::rpgmodule::Souls" MethodName="utilities::array::JoinArrays" DeclaringType="utilities::array">
 					<Asset Name="A" Alias="cert" />
 					<Asset Name="B" Alias="bohutaNPC" />
@@ -164,13 +169,13 @@
 					<Edge From="cutscenehandler21.OnFinished" To="jede_se_do_kh_cleanup_fader_onfinished">
 						<Vertex>01UnsrPq</Vertex>
 					</Edge>
-					<Edge From="triggersequence22.A" To="deadbodies_in_corner_streamed" />
 					<Edge From="s_bohutou_zizkou_a_certem.fader_before_post_battle_dialog_onbeforeplay" To="fader_before_post_battle_dialog_onbeforeplay" />
 					<Edge From="se_samem_a_rabinem.mluvil_se_samem" To="jindra_vi_ze_samuel_je_jeho_nevlastni_bratr">
 						<Vertex>vertex16</Vertex>
 						<Vertex>cfNhSndP</Vertex>
 						<Vertex>CAEa6wFc</Vertex>
 					</Edge>
+					<Edge From="profilestatetrigger24.OnLoaded" To="deadbodies_in_corner_streamed" />
 				</Output>
 				<postbattleactivities Name="postbattleactivities" PositionY="-460" PositionX="1250">
 					<Edge From="krystof_zemrel" To="krystof_zemrel">
@@ -201,9 +206,17 @@
 						<Vertex>vertex31</Vertex>
 					</Edge>
 				</postbattlecontexts>
-				<ProfileStateTrigger Name="profilestatetrigger24" PositionY="-1150" PositionX="750">
+				<ProfileStateTrigger Name="profilestatetrigger24" PositionY="-1140" PositionX="1440">
 					<Asset Name="Profiles" Alias="deadbodiesInCorner" />
-					<Edge From="afterBattlePolylog.Started" To="IsActive" />
+					<Edge From="afterBattlePolylog.Started" To="IsActive">
+						<Vertex>XYURvQxG</Vertex>
+					</Edge>
+				</ProfileStateTrigger>
+				<ProfileStateTrigger Name="profilestatetrigger27" PositionY="-950" PositionX="1430">
+					<Edge From="joinarrays26.Array" To="Profiles" />
+					<Edge From="afterBattlePolylog.Started" To="IsActive">
+						<Vertex>XYURvQxG</Vertex>
+					</Edge>
 				</ProfileStateTrigger>
 				<rabbi_and_samuel_control Name="rabbi_and_samuel_control" PositionY="1010" PositionX="50">
 					<Edge From="s_bohutou_zizkou_a_certem.polylog_onafterplay" To="postbattle">
@@ -223,7 +236,7 @@
 					<Edge From="triggersequence20.B" To="speakwithbohuta_active">
 						<Vertex>aru8kcfW</Vertex>
 					</Edge>
-					<Edge From="triggersequence22.B" To="deadbodies_in_corner_streamed">
+					<Edge From="profilestatetrigger27.OnLoaded" To="deadbodies_in_corner_streamed">
 						<Vertex>0bqj1XK4</Vertex>
 						<Vertex>zCagDRaK</Vertex>
 					</Edge>
@@ -270,9 +283,6 @@
 				</se_samem_a_rabinem>
 				<TriggerSequence Name="triggersequence20" PositionY="-1230" PositionX="-110">
 					<Edge From="afterBattlePolylog.OnStarted" To="Exec" />
-				</TriggerSequence>
-				<TriggerSequence Name="triggersequence22" PositionY="-1150" PositionX="1260">
-					<Edge From="profilestatetrigger24.OnLoaded" To="Exec" />
 				</TriggerSequence>
 				<TriggerSequence Name="triggersequence25" PositionY="-130" PositionX="-360">
 					<Edge From="SamAndLichtPolylogs.OnDone" To="Exec">
@@ -322,6 +332,7 @@
 				<EdgeVertex Name="vertex8" PositionY="970" PositionX="720" />
 				<EdgeVertex Name="vertex9" PositionY="970" PositionX="-1350" />
 				<EdgeVertex Name="VWpYd7cw" PositionY="-70" PositionX="1220" />
+				<EdgeVertex Name="XYURvQxG" PositionY="-970" PositionX="1300" />
 				<EdgeVertex Name="YJD18L2n" PositionY="-40" PositionX="-600" />
 				<EdgeVertex Name="zCagDRaK" PositionY="1050" PositionX="510" />
 			</EdgeVertices>
@@ -368,6 +379,9 @@
 				<CameraAsset Name="1m37b_jind_CustomCamera_35" />
 				<CameraAsset Name="1m37b_jind_CustomCamera_36" />
 				<CutsceneHolderAsset Name="cleanupFader" />
+				<ProfileAsset Name="noblesProfile" AssetProfiles="setkanivratbori1_ratibornobles" />
+				<ProfileAsset Name="servantsProfile" AssetProfiles="setkanivratbori1_ratiborservants" />
+				<ProfileAsset Name="guardsProfile" AssetProfiles="setkanivratbori1_ratiborguards" />
 			</Assets>
 			<Text StringName="dialogy_po_bitve_eiIb" Text="dialogy po bitvě" />
 			<Elements>

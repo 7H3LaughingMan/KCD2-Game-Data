@@ -6,6 +6,9 @@
 				<Port Name="mikus_lezi_v_chatrci" Direction="In" Type="bool">
 					<DesignName StringName="mikus_po__mikus_lezi_v_ch_pDGf" Text="mikuš leží v chatrči" />
 				</Port>
+				<Port Name="mikus_se_uz_vylecil" Direction="In" Type="bool">
+					<DesignName StringName="mikus_po__mikus_se_uz_vyl_h3qs" Text="mikuš se už vyléčil" />
+				</Port>
 			</Ports>
 			<Text StringName="mikus_po_navratu_ingame_sfzy" Text="Mikuš leží po návratu" />
 			<Elements>
@@ -16,7 +19,7 @@
 			<Dialogue Type="ingame" TechnicalStatus="Enabled" Priority="1" ClashPriority="Flavor" GesturesSetDate="2024-08-19T13:10:50.3122513+02:00" GesturesSetResponseCount="10">
 				<Decision Name="dec1" Priority="SideQuestSubmission">
 					<Sequences>
-						<Sequence EntryCondition="Port('mikus_lezi_v_chatrci')" EndType="Decision" Name="seq1">
+						<Sequence EntryCondition="Port('mikus_lezi_v_chatrci') AND &#xD;&#xA;!Port('mikus_se_uz_vylecil')" EndType="Decision" Name="seq1">
 							<DesignName StringName="mikus_po__seq1_oHQB" Text="seq1" />
 							<Elements>
 								<Response Role="KREJCI_MIKUS" />

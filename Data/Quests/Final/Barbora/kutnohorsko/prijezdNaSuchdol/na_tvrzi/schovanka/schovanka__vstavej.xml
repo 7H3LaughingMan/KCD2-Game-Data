@@ -21,11 +21,13 @@
 			</Ports>
 			<Definitions>
 				<Definition File="schovanka__vstavej/schovanka__vstavej.xml" />
+				<Definition File="schovanka__vstavej/playerbedoutfit.xml" />
 			</Definitions>
 			<Nodes>
 				<addbloodallbodyparts Name="addbloodallbodyparts" PositionY="200" PositionX="1450" Namespace="utils.general">
 					<Asset Name="soul" Alias="zizka" />
 					<Constant Name="value" Value="-1" />
+					<Constant Name="absolute" Value="false" />
 					<Edge From="adddirt9.OnExec" To="add_blood" />
 				</addbloodallbodyparts>
 				<MemberFunction Name="adddirt13" PositionY="-570" PositionX="440" MethodName="AddDirt" DeclaringType="wh::rpgmodule::I_Soul">
@@ -61,7 +63,7 @@
 				<Function Name="createdialogparams4" PositionY="170" PositionX="-440" MethodName="wh::dialogmodule::CreateDialogParams" DeclaringType="wh::dialogmodule">
 					<Asset Name="Participants" Alias="schovanka" />
 				</Function>
-				<EnableBehavior Name="enablebehavior11" PositionY="-190" PositionX="690" Signature="" EventSet="">
+				<EnableBehavior Name="enablebehavior11" PositionY="-290" PositionX="870" Signature="" EventSet="">
 					<Constant Name="Behavior" Value="playerLyingOnBed" />
 					<Asset Name="SmartEntity" Alias="qSo" />
 					<Asset Name="NPC" Alias="player" />
@@ -81,6 +83,9 @@
 					<Constant Name="urgency" Value="Instant" />
 					<Edge From="schovanka__vstavej.AfterPlay" To="useobject" />
 				</PlayerAction_StanceObject>
+				<playerbedoutfit Name="playerbedoutfit" PositionY="-470" PositionX="870">
+					<Edge From="lyingOnBed.Active" To="playerlyingonbed_active" />
+				</playerbedoutfit>
 				<schovanka__vstavej Name="schovanka__vstavej">
 					<Asset Name="DialogueHolder" Alias="schovankaWakeUpDH" />
 					<Edge From="createdialogparams4.DialogParams" To="DialogParams" />

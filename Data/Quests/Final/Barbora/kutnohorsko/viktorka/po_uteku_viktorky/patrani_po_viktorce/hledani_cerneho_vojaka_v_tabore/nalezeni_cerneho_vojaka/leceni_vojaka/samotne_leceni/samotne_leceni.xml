@@ -57,6 +57,7 @@
 											<Response Role="HENRY" ReferenceLength="3.24">
 												<Text StringName="samo_henry_mam_pro_tebe_n_a49g" Text="Mám pro tebe něco, co by mělo zabrat. Vypij to!" />
 												<Commands>
+													<FacialMoodCommand FacialMood="thinking1" />
 													<AnimationCommand Delay="0.08" FragmentId="ADLG_Give" Guid="00ebf610-b3ea-9950-e27a-18618ccae1a3" Variant="0" DesiredDuration="3.25" />
 													<CameraCommand CameraType="CloseUp" />
 												</Commands>
@@ -77,6 +78,7 @@
 															</Parenthetical>
 															<Text StringName="samo_cerny_voj_dekuju_ti_6BIP" Text="Děkuju ti..." />
 															<Commands>
+																<FacialMoodCommand FacialMood="nervous1" />
 																<AnimationCommand Delay="0.06" FragmentId="ADLG_Bow_light" Guid="02e353df-8415-4ce7-d48c-7def553bf780" Variant="0" />
 																<CameraCommand CameraType="CloseUp" />
 															</Commands>
@@ -95,7 +97,7 @@
 													</Elements>
 													<Decision Name="dec8" Priority="SideQuestSubmission">
 														<Sequences>
-															<Sequence SkillCheckType="persuade" Type="Skillcheck" SkillCheck="Medium" Name="seq18">
+															<Sequence Name="seq18">
 																<DesignName StringName="samotne_l_seq18_wPO0" Text="seq18" />
 																<UiPrompt StringName="ui_samotne_l_seq18_GNwO" Text="" />
 																<Elements>
@@ -120,6 +122,7 @@
 															</Parenthetical>
 															<Text StringName="samo_cerny_voj_delas_si_z_X5k3" Text="Tak máš něco, nebo ne?" />
 															<Commands>
+																<FacialMoodCommand FacialMood="angry2" />
 																<AnimationCommand Delay="0.04" FragmentId="ADLG_Frustration" Guid="5a6fee9a-86bb-4868-9fb1-c61c456a0953" Variant="1" />
 																<CameraCommand CameraType="CloseShot" />
 															</Commands>
@@ -139,6 +142,8 @@
 												</Parenthetical>
 												<Text StringName="samo_henry_zatim_pro_tebe_aDzo" Text="Zatím pro tebe nic nemám, zkus ještě zatnout zuby..." />
 												<Commands>
+													<FacialMoodCommand FacialMood="nervous1" />
+													<FacialMoodCommand Role="CERNY_VOJAK" FacialMood="angry2" />
 													<AnimationCommand Delay="0.08" FragmentId="ADLG_Confusion" Guid="4fcec99e-67a8-4f82-9734-675a1804203e" Variant="3" />
 													<CameraCommand CameraType="CloseShot" />
 												</Commands>
@@ -169,14 +174,13 @@
 									<Text StringName="samo_henry_zatni_zuby_a_v_DVXd" Text="Jestli je královský vojsko plný padavek jako ty, tak nechápu, jak jste dobyli Kutnou Horu." />
 									<Commands>
 										<MoodCommand Mood="pensive" />
+										<FacialMoodCommand FacialMood="arrogant2" />
+										<FacialMoodCommand Role="CERNY_VOJAK" FacialMood="angry3" />
 										<CameraCommand CameraType="CloseShot" />
 									</Commands>
 								</Response>
-								<Response Role="HENRY" ReferenceLength="4.19">
+								<Response Role="HENRY">
 									<Text StringName="samo_henry_koukej_bejt_tr_XZDI" Text="Koukej bejt trochu chlap a přestaň kňourat. Brzy to stejně přejde..." />
-									<Commands>
-										<MoodCommand Delay="4.12" />
-									</Commands>
 								</Response>
 								<Response Role="CERNY_VOJAK" ReferenceLength="3.92">
 									<Parenthetical>
@@ -184,6 +188,7 @@
 									</Parenthetical>
 									<Text StringName="samo_cerny_voj_jdi_do_haj_sFEn" Text="A ty jdi taky do prdele! Kecama mi nepomůžeš!" />
 									<Commands>
+										<MoodCommand Role="HENRY" Delay="0.58" />
 										<AnimationCommand Delay="3.65" FragmentId="ADLG_Emphasis" Guid="01ecb483-41b3-4d95-ae8b-9702489a9246" Variant="0" />
 										<CameraCommand CameraType="CloseUp" />
 									</Commands>
@@ -207,6 +212,7 @@
 											<Response Role="HENRY" ReferenceLength="1.89">
 												<Text StringName="samo_henry_no_dobre_neco__UCSr" Text="Asi tu mám něco, co by ti pomohlo." />
 												<Commands>
+													<FacialMoodCommand FacialMood="thinking1" />
 													<AnimationCommand FragmentId="ADLG_Give" Guid="c82ba550-1031-4af2-ebc4-ccea2f571cb8" Variant="1" DesiredDuration="2.6" />
 													<CameraCommand CameraType="CloseUp" />
 												</Commands>
@@ -226,6 +232,7 @@
 															</Parenthetical>
 															<Text StringName="samo_cerny_voj_tobe_se_as_ettS" Text="Přestaň dělat kraviny a buď mi pomoz, nebo táhni pryč!" />
 															<Commands>
+																<FacialMoodCommand FacialMood="angry2" />
 																<AnimationCommand Delay="0.02" FragmentId="ADLG_Discard" Guid="85e16227-8f7c-43da-ba99-d084e1dbd989" Variant="1" />
 																<CameraCommand CameraType="CloseUp" />
 															</Commands>
@@ -254,6 +261,8 @@
 																		</Parenthetical>
 																		<Text StringName="samo_cerny_voj_jestli_si__TQoN" Text="Myslíš, že mi zrovna tohle pomůže? Já prd poznám, ale nějak se mi to nezdá." />
 																		<Commands>
+																			<FacialMoodCommand FacialMood="angry1" />
+																			<FacialMoodCommand Role="HENRY" FacialMood="thinking1" />
 																			<AnimationCommand Delay="0.84" FragmentId="ADLG_Nod" Guid="2ddda320-2a14-4160-b352-ad7c194f57b3" Variant="0" />
 																			<CameraCommand CameraType="CloseUp" />
 																		</Commands>
@@ -283,6 +292,7 @@
 																		</Parenthetical>
 																		<Text StringName="samo_cerny_voj_diky_pIcc" Text="Díky... " />
 																		<Commands>
+																			<FacialMoodCommand Role="HENRY" FacialMood="thinking1" />
 																			<AnimationCommand Role="HENRY" Delay="0.06" FragmentId="ADLG_Nod" Guid="e42b3bf3-fd0e-478c-b9f7-cacc887c47b9" Variant="3" />
 																			<CameraCommand CameraType="CloseUp" />
 																		</Commands>
@@ -314,6 +324,8 @@
 												</Parenthetical>
 												<Text StringName="samo_henry_asi_nemam_nic__6ev0" Text="Asi nemám nic, co by ti mohlo pomoct. Třeba to přestane samo." />
 												<Commands>
+													<FacialMoodCommand FacialMood="nervous1" />
+													<FacialMoodCommand Role="CERNY_VOJAK" FacialMood="sad1" />
 													<AnimationCommand Delay="1.07" FragmentId="ADLG_Frustration" Guid="66924018-bb87-46e7-b19a-08a3f28cb3ef" Variant="2" />
 													<CameraCommand CameraType="CloseUp" />
 												</Commands>
@@ -340,6 +352,8 @@
 								<Response Role="HENRY" ReferenceLength="1.56">
 									<Text StringName="samo_henry_porad_je_ti_bl_Va2A" Text="Pořád se to nezlepšilo?" />
 									<Commands>
+										<FacialMoodCommand FacialMood="thinking2" />
+										<FacialMoodCommand Role="CERNY_VOJAK" FacialMood="sad3" />
 										<AnimationCommand Role="CERNY_VOJAK" Delay="0.44" FragmentId="ADLG_Disagree" Guid="3410de25-76f4-4581-9189-3bee9548358a" Variant="0" />
 										<CameraCommand CameraType="CloseUp" />
 									</Commands>

@@ -29,7 +29,11 @@
 								<AddLink From="$corpse" To="$corpse" Tag="&apos;switch_corpse&apos;" Data="$corpseData" LinkOpHandleMode="OverWrite" />
 							</Sequence>
 							<IfCondition failOnCondition="false" condition="$corpseData.state &gt; $enum:corpseState.undiscovered &amp; &#10;$corpseData.state &lt; $enum:corpseState.cleared">
-								<DiscoverBody DeadSoulId="$corpse" />
+								<IsPublicEnemy Soul="$corpse" FailOnSubtreeMissing="false" saveVersion="2">
+									<Else canSkip="1">
+										<DiscoverBody DeadSoulId="$corpse" />
+									</Else>
+								</IsPublicEnemy>
 							</IfCondition>
 						</Sequence>
 					</Then>
@@ -50,7 +54,7 @@
 			<Root editorPosX="-150" hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
 				<OutputBreakpoints />
 				<Behavior>
-					<CheckWuidValid hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
+					<CheckWuidValid hasInputBreakpoint="0" comment="corpse might be unstreamed already (mainly for event NPCs)" breakpointFlags="0" saveVersion="2">
 						<OutputBreakpoints />
 						<Then>
 							<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
@@ -81,9 +85,14 @@
 								</Sequence>
 								<IfCondition hasInputBreakpoint="0" comment="" breakpointFlags="0">
 									<OutputBreakpoints />
-									<DiscoverBody hasInputBreakpoint="0" comment="" breakpointFlags="0">
+									<IsPublicEnemy hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
 										<OutputBreakpoints />
-									</DiscoverBody>
+										<Else>
+											<DiscoverBody hasInputBreakpoint="0" comment="" breakpointFlags="0">
+												<OutputBreakpoints />
+											</DiscoverBody>
+										</Else>
+									</IsPublicEnemy>
 								</IfCondition>
 							</Sequence>
 						</Then>

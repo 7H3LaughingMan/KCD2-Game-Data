@@ -108,11 +108,14 @@
 																</Sequence>
 															</While>
 															<IfGate atomic="false" condition="$checkHomeStashesData.stolenItemsFound &amp; $checkHomeStashesData.playerRelated" RunLogic="KeepRunning">
-																<EntityContext context="crime_escalationLevel_investigating" target="">
-																	<EntityContextElement context="crime_escalationLevel_investigating" enabled="true">
-																		<Wait duration="&apos;-1&apos;" timeType="GameTime" doFail="false" variation="" />
-																	</EntityContextElement>
-																</EntityContext>
+																<Sequence>
+																	<ShowTutorial Name="crimeIcon_general" />
+																	<EntityContext context="crime_escalationLevel_investigating" target="">
+																		<EntityContextElement context="crime_escalationLevel_investigating" enabled="true">
+																			<Wait duration="&apos;-1&apos;" timeType="GameTime" doFail="false" variation="" />
+																		</EntityContextElement>
+																	</EntityContext>
+																</Sequence>
 															</IfGate>
 															<IfGate atomic="false" condition="~$endBehavior" RunLogic="Halt">
 																<ContinuousSwitch>
@@ -216,7 +219,7 @@
 																																				<Expression expressions="$feelingsToken = &apos;witness_theft_large_unattributed&apos;" />
 																																			</DefaultBranch>
 																																		</Switch>
-																																		<AffectFeelings Npc="$this.id" Token="$feelingsToken" AffectNervousness="true" AffectReputation="false" />
+																																		<Function_crime_addAngriness angriness="$feelingsToken" target="$this.id" nodeLabel="16986651" />
 																																	</Sequence>
 																																</AtomicDecorator>
 																																<Function_crime_crimeBark animationApproach="$enum:animationApproach.dontPlayDialogAnimations" canBeDelayed="false" dialogContext="" dramaticBark="false" lookAt="$__null" metarole="&apos;NPC_NAHODNA_PROHLIDKA_TRUHEL_ZJISTI_KRADEZ&apos;" priority="$enum:crime_barkPriority.medium" nodeLabel="30793871" />
@@ -237,6 +240,7 @@
 																												</IfCondition>
 																											</Else>
 																										</IfElseCondition>
+																										<WaitAction />
 																										<ExecuteLua code="local stashEntity = XGenAIModule.GetEntityByWUID(data.stashes[0]); &#10;if (stashEntity.Properties.Lock.bLocked) then &#10;  stashEntity:Lock() &#10;end" />
 																										<AddLink From="$this.id" To="$stashes[0]" Tag="&apos;crime_checkHomeStashes_checkedStash&apos;" Data="" LinkOpHandleMode="Error" />
 																									</Sequence>
@@ -269,13 +273,13 @@
 																			<AtomicDecorator>
 																				<Sequence>
 																					<ForEach startIndex="0" step="1" array="$checkedStashes" iterator="" value="$checkedStashes_value" break="">
-																						<RemoveLink From="$this.id" To="$checkedStashes_value" Tag="&apos;crime_checkHomeStashes_checkedStash&apos;" LinkOpHandleMode="Error" />
+																						<RemoveLink From="$this.id" To="$checkedStashes_value" Tag="&apos;crime_checkHomeStashes_checkedStash&apos;" LinkOpHandleMode="Success" />
 																					</ForEach>
 																					<RemoveLink From="$this.id" To="$checkHomeStashesData.home" Tag="&apos;crime_followUpBehavior_checkHomeStashes&apos;" LinkOpHandleMode="Error" />
 																					<IfCondition failOnCondition="false" condition="$checkHomeStashesData.stolenItemsFound &amp; &#10;$checkHomeStashesData.information ~= &apos;&apos;">
 																						<EntityContextCheck context="crime_isAuthority" target="" saveVersion="2">
 																							<Then canSkip="1">
-																								<Function_callInterrupt_lookAround alarmReactionType="$enum:crime_alarmReactionType.none" amIBuddy="false" corpseState="$enum:corpseState.undiscovered" directHit="false" forcePebbleReaction="false" ignorePriority="true" information_look="$checkHomeStashesData.information" initiator="$enum:switch_interruptInitiator.scheduler" missingNpc="$__null" position="" previousReaction="$enum:crime_reactionKind.checkHomeStashes" reactingToSoundBecauseAlone="false" reportedBy="$__null" searchDirection="" searchPointsFromDirection="false" shooter="$__player" soundType="$enum:sound.movement" source="$checkHomeStashesData.source" stimulusAnimalAbuse="" stimulusKind="$enum:crime_stimulusKind.theft" nodeLabel="29646809" />
+																								<Function_callInterrupt_lookAround alarmReactionType="$enum:crime_alarmReactionType.none" amIBuddy="false" corpseState="$enum:corpseState.undiscovered" directHit="false" forceSubscribedSoundReaction="false" ignorePriority="true" information_look="$checkHomeStashesData.information" initiator="$enum:switch_interruptInitiator.scheduler" missingNpc="$__null" position="" previousReaction="$enum:crime_reactionKind.checkHomeStashes" reactingToSoundBecauseAlone="false" reportedBy="$__null" searchDirection="" searchPointsFromDirection="false" shooter="$__player" soundType="$enum:sound.movement" source="$checkHomeStashesData.source" stimulusAnimalAbuse="" stimulusKind="$enum:crime_stimulusKind.theft" nodeLabel="29646809" />
 																							</Then>
 																							<Else canSkip="1">
 																								<Sequence>
@@ -306,9 +310,7 @@
 						</EntityContext>
 					</Child>
 					<OnFail canSkip="1">
-						<AtomicDecorator>
-							<Function_crime_limits_removeReactionLink information="$checkHomeStashesData.information" reactionKind="$enum:crime_reactionKind.checkHomeStashes" nodeLabel="17761627" />
-						</AtomicDecorator>
+						<Function_crime_limits_removeReactionLink information="$checkHomeStashesData.information" reactionKind="$enum:crime_reactionKind.checkHomeStashes" nodeLabel="17761627" />
 					</OnFail>
 				</FuseBox>
 			</Behavior>
@@ -498,15 +500,21 @@
 																</While>
 																<IfGate hasInputBreakpoint="0" comment="" breakpointFlags="0">
 																	<OutputBreakpoints />
-																	<EntityContext hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																	<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
 																		<OutputBreakpoints />
-																		<EntityContextElement hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																		<ShowTutorial hasInputBreakpoint="0" comment="" breakpointFlags="0">
 																			<OutputBreakpoints />
-																			<Wait hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																		</ShowTutorial>
+																		<EntityContext hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																			<OutputBreakpoints />
+																			<EntityContextElement hasInputBreakpoint="0" comment="" breakpointFlags="0">
 																				<OutputBreakpoints />
-																			</Wait>
-																		</EntityContextElement>
-																	</EntityContext>
+																				<Wait hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																					<OutputBreakpoints />
+																				</Wait>
+																			</EntityContextElement>
+																		</EntityContext>
+																	</Sequence>
 																</IfGate>
 																<IfGate hasInputBreakpoint="0" comment="" breakpointFlags="0">
 																	<OutputBreakpoints />
@@ -708,9 +716,9 @@
 																																					</Expression>
 																																				</DefaultBranch>
 																																			</Switch>
-																																			<AffectFeelings hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																																			<Function_crime_addAngriness hasInputBreakpoint="0" comment="" breakpointFlags="0">
 																																				<OutputBreakpoints />
-																																			</AffectFeelings>
+																																			</Function_crime_addAngriness>
 																																		</Sequence>
 																																	</AtomicDecorator>
 																																	<Function_crime_crimeBark hasInputBreakpoint="0" comment="" breakpointFlags="0">
@@ -742,6 +750,9 @@
 																													</IfCondition>
 																												</Else>
 																											</IfElseCondition>
+																											<WaitAction hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																												<OutputBreakpoints />
+																											</WaitAction>
 																											<ExecuteLua hasInputBreakpoint="0" comment="" breakpointFlags="0">
 																												<OutputBreakpoints />
 																											</ExecuteLua>
@@ -852,12 +863,9 @@
 							</EntityContext>
 						</Child>
 						<OnFail>
-							<AtomicDecorator hasInputBreakpoint="0" comment="" breakpointFlags="0">
+							<Function_crime_limits_removeReactionLink hasInputBreakpoint="0" comment="" breakpointFlags="0">
 								<OutputBreakpoints />
-								<Function_crime_limits_removeReactionLink hasInputBreakpoint="0" comment="" breakpointFlags="0">
-									<OutputBreakpoints />
-								</Function_crime_limits_removeReactionLink>
-							</AtomicDecorator>
+							</Function_crime_limits_removeReactionLink>
 						</OnFail>
 					</FuseBox>
 				</Behavior>

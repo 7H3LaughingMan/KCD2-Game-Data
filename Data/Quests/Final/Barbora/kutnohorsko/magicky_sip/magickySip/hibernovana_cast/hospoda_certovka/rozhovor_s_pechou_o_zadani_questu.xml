@@ -9,6 +9,9 @@
 				<Port Name="jindrich_si_rekl_o_praci" Direction="Out" Type="trigger">
 					<DesignName StringName="rozhovor__jindrich_si_rek_Jbm5" Text="Jindřich si řekl o práci" />
 				</Port>
+				<Port Name="skillcheck_passed" Direction="Out" Type="trigger">
+					<DesignName StringName="rozhovor__skillcheck_pass_3MCA" Text="skillcheck passed" />
+				</Port>
 				<Port Name="fist_fight" Direction="Out" Type="trigger">
 					<DesignName StringName="rozhovor__fist_fight_36iM" Text="fist fight" />
 				</Port>
@@ -70,6 +73,11 @@
 					<Asset Name="target" Alias="player" />
 					<Constant Name="reputationflag" Value="neutral" />
 				</HasReputationFlag_SoulToSoul>
+				<IfFunction Name="ifor13" PositionY="-450" PositionX="1350" MethodName="math::boolean::Or" DeclaringType="math::boolean">
+					<Edge From="rozhovor_s_pechou_o_zadani_questu.seq37" To="A" />
+					<Edge From="rozhovor_s_pechou_o_zadani_questu.seq55" To="B" />
+					<Edge From="patchtrigger14.OnPatch" To="Exec" />
+				</IfFunction>
 				<MakeArray Name="makearray11" PositionY="500" PositionX="30" TypeT="wh::rpgmodule::Souls">
 					<Asset Name="A" Alias="pecha" />
 					<Asset Name="B" Alias="zajic" />
@@ -82,8 +90,13 @@
 					<Edge From="rozhovor_s_pechou_o_zadani_questu.hrac_prijal_quest" To="hrac_prijal_quest" />
 					<Edge From="rozhovor_s_pechou_o_zadani_questu.jindrich_si_rekl_o_praci" To="jindrich_si_rekl_o_praci" />
 					<Edge From="cutscenehandler12.AfterPlay" To="fist_fight" />
+					<Edge From="rozhovor_s_pechou_o_zadani_questu.skillcheck_passed" To="skillcheck_passed" />
+					<Edge From="ifor13.True" To="skillcheck_passed" />
 				</Output>
-				<rozhovor_s_pechou_o_zadani_questu Name="rozhovor_s_pechou_o_zadani_questu" PositionY="-410" PositionX="730">
+				<PatchTrigger Name="patchtrigger14" PositionY="-630" PositionX="850">
+					<Constant Name="TransitionToVersion" Value="ver_01_02" />
+				</PatchTrigger>
+				<rozhovor_s_pechou_o_zadani_questu Name="rozhovor_s_pechou_o_zadani_questu" PositionY="-470" PositionX="720">
 					<Edge From="and2_1.bool" To="karel_nese_pytel_dohrano_dobra_reputace" />
 					<Edge From="and2_2.bool" To="karel_nese_pytel_nedohrano_dobra_reputace" />
 					<Edge From="rozhovor_s_pechou_o_zadani_questu.hrac_odmitl_quest" To="quest_byl_na_poprve_odmitnut">

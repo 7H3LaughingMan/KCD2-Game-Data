@@ -529,16 +529,20 @@
 						</Sequence>
 					</Loop>
 					<Sequence>
-						<ExactMove directionType="AlignWithEntity" directionSpecification="$data" animationTriggerDist="0.150000" precise="true" changeNPCState="true" fastForwardIncludesMove="false" destinationSpecification="$data" destinationSpecification2="" destinationSpecification3="" speed="Walk" additionalParams="" pathFindingParams="" staminaPolicy="" pathInfo="" />
+						<DistanceCondition Origin="$this.id" ReferencePt="$data" Low="1.000000" High="1.000000" Negation="true" ValueOnMiddle="false" failOnCondition="false">
+							<ExactMove directionType="AlignWithEntity" directionSpecification="$data" animationTriggerDist="0.150000" precise="true" changeNPCState="true" fastForwardIncludesMove="false" destinationSpecification="$data" destinationSpecification2="" destinationSpecification3="" speed="Walk" additionalParams="" pathFindingParams="" staminaPolicy="" pathInfo="" />
+						</DistanceCondition>
 						<ContinuousSwitch>
 							<IfCondition failOnCondition="false" condition="$isInDeepSleep">
 								<EntityContextElement context="mysi_bullSleepsDeeply" enabled="true">
-									<StanceElement smartObject="" stance="lying" allowAny="false" enabled="true">
-										<Sequence>
-											<UnstanceAction unstance="animal_sleepLying" locationObject="" slaveObject="" />
-											<Wait duration="&apos;-1&apos;" timeType="GameTime" doFail="false" variation="" />
-										</Sequence>
-									</StanceElement>
+									<EntityContextElement context="combat_actorSupressHitreactionAnimation" enabled="true">
+										<StanceElement smartObject="" stance="lying" allowAny="false" enabled="true">
+											<Sequence>
+												<UnstanceAction unstance="animal_sleepLying" locationObject="" slaveObject="" />
+												<Wait duration="&apos;-1&apos;" timeType="GameTime" doFail="false" variation="" />
+											</Sequence>
+										</StanceElement>
+									</EntityContextElement>
 								</EntityContextElement>
 							</IfCondition>
 							<IfCondition failOnCondition="false" condition="~$isInDeepSleep">
@@ -587,27 +591,33 @@
 						</Loop>
 						<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
 							<OutputBreakpoints />
-							<ExactMove hasInputBreakpoint="0" comment="" breakpointFlags="0">
+							<DistanceCondition hasInputBreakpoint="0" comment="" breakpointFlags="0">
 								<OutputBreakpoints />
-							</ExactMove>
+								<ExactMove hasInputBreakpoint="0" comment="" breakpointFlags="0">
+									<OutputBreakpoints />
+								</ExactMove>
+							</DistanceCondition>
 							<ContinuousSwitch hasInputBreakpoint="0" comment="" breakpointFlags="0">
 								<OutputBreakpoints />
 								<IfCondition hasInputBreakpoint="0" comment="" breakpointFlags="0">
 									<OutputBreakpoints />
 									<EntityContextElement hasInputBreakpoint="0" comment="" breakpointFlags="0">
 										<OutputBreakpoints />
-										<StanceElement hasInputBreakpoint="0" comment="" breakpointFlags="0">
+										<EntityContextElement hasInputBreakpoint="0" comment="" breakpointFlags="0">
 											<OutputBreakpoints />
-											<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
+											<StanceElement hasInputBreakpoint="0" comment="" breakpointFlags="0">
 												<OutputBreakpoints />
-												<UnstanceAction hasInputBreakpoint="0" comment="" breakpointFlags="0">
+												<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
 													<OutputBreakpoints />
-												</UnstanceAction>
-												<Wait hasInputBreakpoint="0" comment="" breakpointFlags="0">
-													<OutputBreakpoints />
-												</Wait>
-											</Sequence>
-										</StanceElement>
+													<UnstanceAction hasInputBreakpoint="0" comment="" breakpointFlags="0">
+														<OutputBreakpoints />
+													</UnstanceAction>
+													<Wait hasInputBreakpoint="0" comment="" breakpointFlags="0">
+														<OutputBreakpoints />
+													</Wait>
+												</Sequence>
+											</StanceElement>
+										</EntityContextElement>
 									</EntityContextElement>
 								</IfCondition>
 								<IfCondition hasInputBreakpoint="0" comment="" breakpointFlags="0">

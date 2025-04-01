@@ -8,6 +8,20 @@
 				</Port>
 			</Ports>
 			<Nodes>
+				<areatrespassleveleffect Name="areatrespassleveleffect" PositionY="-280" PositionX="-40" Namespace="utils.crime.trespass">
+					<Asset Name="area" Alias="brloch_trespass" />
+					<Constant Name="trespasslevel" Value="public" />
+					<Edge From="dobry_konec" To="isactive" />
+				</areatrespassleveleffect>
+				<expectedeffect Name="expectedeffect" PositionY="90" PositionX="-40" Namespace="utils.crime.trespass">
+					<Constant Name="extenduntilplayerleavestrespass" Value="true" />
+					<Edge From="dobry_konec" To="isactive" />
+					<Edge From="makearray2.Array" To="npcs" />
+				</expectedeffect>
+				<MakeArray Name="makearray2" PositionY="160" PositionX="-310" TypeT="wh::rpgmodule::Souls">
+					<Asset Name="A" Alias="bonka" />
+					<Asset Name="B" Alias="zink" />
+				</MakeArray>
 				<SchedulerLinkActivation Name="schedule1" PositionY="-50" PositionX="-40">
 					<Constant Name="LinkTag" Value="pracharna_laboratoryWork" />
 					<Edge From="dobry_konec" To="IsActive" />

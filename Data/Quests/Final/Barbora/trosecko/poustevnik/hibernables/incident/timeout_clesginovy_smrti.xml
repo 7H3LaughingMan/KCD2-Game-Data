@@ -30,6 +30,7 @@
 					<Edge From="or10.bool" To="A" />
 					<Edge From="not15.bool" To="B" />
 					<Edge From="loadedprofilestate_1.isloaded" To="C" />
+					<Edge From="timer21.Running" To="D" />
 				</Function>
 				<AreaTrigger Name="areatrigger19" PositionY="-170" PositionX="220">
 					<Asset Name="Souls" Alias="player" />
@@ -48,7 +49,7 @@
 						<Vertex>vertex6</Vertex>
 					</Edge>
 				</If>
-				<AudioSustainedEffect Name="audiosustainedeffect9" PositionY="-460" PositionX="1460">
+				<AudioSustainedEffect Name="audiosustainedeffect9" PositionY="-510" PositionX="1550">
 					<Constant Name="AtlTriggerName" Value="q_S02_Clesgin_in_pain" />
 					<Asset Name="LinkableObject" Alias="knight_clesgin" />
 					<Edge From="and13.bool" To="IsActive" />
@@ -59,7 +60,7 @@
 				<clesgin_zarve_na_lesy Name="clesgin_zarve_na_lesy" PositionY="-640" PositionX="640">
 					<Edge From="areatrigger19.OnEnter" To="exec" />
 				</clesgin_zarve_na_lesy>
-				<Timer Name="clesginDyingtimer" PositionY="-440" PositionX="640">
+				<Timer Name="clesginDyingtimer" PositionY="-450" PositionX="640">
 					<Constant Name="Duration" Value="4h" />
 					<Constant Name="TimeType" Value="WorldTime" />
 					<Edge From="areatrigger3.OnEnter" To="SetRunning" />
@@ -75,7 +76,7 @@
 					<Asset Name="origin" Alias="player" />
 					<Asset Name="target" Alias="incidentSpot" />
 					<Constant Name="operator" Value="Greater" />
-					<Constant Name="distance" Value="25" />
+					<Constant Name="distance" Value="75" />
 				</DistanceCheck>
 				<State Name="distanceTesting" PositionY="-440" PositionX="-90" TypeT="bool">
 					<Constant Name="DefaultValue" Value="true" />
@@ -170,6 +171,11 @@
 						<Vertex>vUksp9lV</Vertex>
 					</Edge>
 				</State>
+				<Timer Name="timer21" PositionY="-70" PositionX="1020">
+					<Constant Name="Duration" Value="10s" />
+					<Constant Name="TimeType" Value="GameTime" />
+					<Edge From="clesginDyingtimer.OnRunning" To="SetRunning" />
+				</Timer>
 			</Nodes>
 			<EdgeVertices>
 				<EdgeVertex Name="aRxF6oP5" PositionY="-680" PositionX="2390" />

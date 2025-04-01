@@ -9,6 +9,9 @@
 				<Port Name="after_play_cutscene" Direction="In" Type="trigger">
 					<DesignName StringName="override__after_play_cuts_nM68" Text="after play cutscene" />
 				</Port>
+				<Port Name="je_aktivni" Direction="In" Type="bool">
+					<DesignName StringName="override__je_aktivni_gbRK" Text="Bohutovo kazani je aktivni" />
+				</Port>
 			</Ports>
 			<Nodes>
 				<MemberFunction Name="addblood4" PositionY="820" PositionX="-40" MethodName="AddBlood" DeclaringType="wh::rpgmodule::I_Soul">
@@ -35,6 +38,10 @@
 					<Edge From="makearray5.Array" To="BodyParts" />
 					<Edge From="makearray6.Array" To="Values" />
 				</MemberFunction>
+				<Function Name="and11" PositionY="-100" PositionX="-310" MethodName="math::boolean::And" DeclaringType="math::boolean">
+					<Edge From="mimo_bitvu" To="A" />
+					<Edge From="not12.bool" To="B" />
+				</Function>
 				<BodyPartOverride Name="bodypartoverride2" PositionY="360" PositionX="-40">
 					<Asset Name="Soul" Alias="injuredVillager_1" />
 					<Constant Name="BodyPart" Value="Underwear" />
@@ -49,8 +56,8 @@
 				</BodyPartOverride>
 				<ClothingPresetOverride Name="clothingpresetoverride1" PositionY="-100" PositionX="-50">
 					<Asset Name="Souls" Alias="samuel" />
-					<Constant Name="ClothingPreset" Value="7e69be17-f5f2-4c39-b4de-fd5a9f1f4793" />
-					<Edge From="mimo_bitvu" To="IsActive" />
+					<Constant Name="ClothingPreset" Value="4b2b1b9d-0cea-4a66-9108-f8c7bddd0fa2" />
+					<Edge From="and11.bool" To="IsActive" />
 				</ClothingPresetOverride>
 				<ClothingPresetOverride Name="clothingpresetoverride1_1" PositionY="120" PositionX="-50">
 					<Asset Name="Souls" Alias="bohuta" />
@@ -65,6 +72,18 @@
 				<ClothingPresetOverride Name="clothingpresetoverride1_1_1_1" PositionY="600" PositionX="310">
 					<Asset Name="Souls" Alias="injuredVillager_2" />
 					<Constant Name="ClothingPreset" Value="b912cb44-18d5-43cd-9d2d-6ab1c4d01333" />
+					<Edge From="mimo_bitvu" To="IsActive" />
+				</ClothingPresetOverride>
+				<ClothingPresetOverride Name="clothingpresetoverride1_3" PositionY="-850" PositionX="-50">
+					<Asset Name="Souls" Alias="nejakejTypek1" />
+					<Constant Name="PriorityEquip" Value="true" />
+					<Constant Name="ClothingPreset" Value="63a559da-b3a6-4f24-9ffc-2788e05295ca" />
+					<Edge From="mimo_bitvu" To="IsActive" />
+				</ClothingPresetOverride>
+				<ClothingPresetOverride Name="clothingpresetoverride1_3_1" PositionY="-640" PositionX="-50">
+					<Asset Name="Souls" Alias="nejakejTypek2" />
+					<Constant Name="PriorityEquip" Value="true" />
+					<Constant Name="ClothingPreset" Value="5d4290a7-2ebf-4eca-a13a-11c6b34b7569" />
 					<Edge From="mimo_bitvu" To="IsActive" />
 				</ClothingPresetOverride>
 				<MakeArray Name="makearray5" PositionY="1460" PositionX="-440" TypeT="wh::entitymodule::BodyParts">
@@ -93,6 +112,16 @@
 				<MakeArray Name="makearray8" PositionY="930" PositionX="-440" TypeT="wh::conceptmodule::Floats">
 					<Constant Name="A" Value="1" />
 				</MakeArray>
+				<Function Name="not12" PositionY="-290" PositionX="-580" MethodName="math::boolean::Not" DeclaringType="math::boolean">
+					<Edge From="je_aktivni" To="Value" />
+				</Function>
+				<PlayerOutfitOverride Name="playeroutfitoverride10" PositionY="-410" PositionX="-50">
+					<Constant Name="ClothingPreset" Value="a1306422-a1cf-481e-aed4-eb6d24ff4b77" />
+					<Constant Name="WeaponPreset" Value="88cb20e5-f446-41ae-a7ef-3a9ad887ce90" />
+					<Constant Name="DestroyOverridesOnDeactivate" Value="true" />
+					<Asset Name="PlayerSouls" Alias="player_bohuta" />
+					<Edge From="mimo_bitvu" To="IsActive" />
+				</PlayerOutfitOverride>
 			</Nodes>
 			<EdgeVertices>
 				<EdgeVertex Name="qGXdSgfD" PositionY="1152" PositionX="-92" />
@@ -103,6 +132,8 @@
 				<SoulAsset Name="injuredVillager_1" SharedSoulGuids="eaf9caaa-0753-46e1-a10f-f9f2fca04d80" />
 				<SoulAsset Name="injuredVillager_2" SharedSoulGuids="bcbac81b-075e-4a8c-9067-1bb8e749690a" />
 				<SoulAsset Name="injuredSoldier_1" SharedSoulGuids="ea4bcd32-08e8-4b87-8d46-2727d47b6876" />
+				<SoulAsset Name="nejakejTypek1" SharedSoulGuids="d54978be-7b96-4eda-8827-42adaa20e2bb" />
+				<SoulAsset Name="nejakejTypek2" SharedSoulGuids="14cd673b-49e7-43e2-b221-0b2b2af21718" />
 			</Assets>
 			<Text StringName="override_obleceni_4Rzs" Text="Override oblečení" />
 		</Module>

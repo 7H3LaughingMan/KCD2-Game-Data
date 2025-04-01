@@ -910,91 +910,91 @@
 		<Root OneTimeOnly="false" FailState="Recoverable" saveVersion="2">
 			<Behavior canSkip="1">
 				<EntityContext context="ForceForbidAutoTorch" target="">
-				<Sequence>
-					<IsFastForwarded failOnCondition="false" saveVersion="2">
-						<Then canSkip="1">
-							<GraphSearch Origin="$__object.id" Borders="" depth="1" selection="true" SearchPattern="Depth" EdgePruning="&apos;parent,inventory&apos;" AllowedEdges="" SubGraph="" AllowSubtraph="false" includeOrigin="false" excludeOrigin="false" failOnEmpty="false" SetOperationChoice="Intersection|And" errorOnEmpty="false" shortCircuit="false" skipTraversed="true">
-								<LinkTagFilter tag="&apos;deadbody_fastforward&apos;" prune="true" negprune="unknown" Parent="" Child="$corpseSO" Data="" />
-							</GraphSearch>
-						</Then>
-						<Else canSkip="1">
-							<IfCondition failOnCondition="false" condition="$corpseSO == $__null">
-								<ForEach startIndex="0" step="1" array="$corpses" iterator="" value="$corpseCandidate" break="">
-									<Selector>
-										<GraphSearch Origin="$corpseCandidate" Borders="" depth="1" selection="true" SearchPattern="Depth" EdgePruning="&apos;parent,inventory&apos;" AllowedEdges="" SubGraph="" AllowSubtraph="false" includeOrigin="false" excludeOrigin="false" failOnEmpty="true" SetOperationChoice="Intersection|And" errorOnEmpty="false" shortCircuit="false" skipTraversed="true">
-											<LinkTagFilter tag="&apos;looted&apos;" prune="true" negprune="unknown" Parent="" Child="" Data="" />
-										</GraphSearch>
-										<Sequence>
+					<Sequence>
+						<IsFastForwarded failOnCondition="false" saveVersion="2">
+							<Then canSkip="1">
+								<GraphSearch Origin="$__object.id" Borders="" depth="1" selection="true" SearchPattern="Depth" EdgePruning="&apos;parent,inventory&apos;" AllowedEdges="" SubGraph="" AllowSubtraph="false" includeOrigin="false" excludeOrigin="false" failOnEmpty="false" SetOperationChoice="Intersection|And" errorOnEmpty="false" shortCircuit="false" skipTraversed="true">
+									<LinkTagFilter tag="&apos;deadbody_fastforward&apos;" prune="true" negprune="unknown" Parent="" Child="$corpseSO" Data="" />
+								</GraphSearch>
+							</Then>
+							<Else canSkip="1">
+								<IfCondition failOnCondition="false" condition="$corpseSO == $__null">
+									<ForEach startIndex="0" step="1" array="$corpses" iterator="" value="$corpseCandidate" break="">
+										<Selector>
 											<GraphSearch Origin="$corpseCandidate" Borders="" depth="1" selection="true" SearchPattern="Depth" EdgePruning="&apos;parent,inventory&apos;" AllowedEdges="" SubGraph="" AllowSubtraph="false" includeOrigin="false" excludeOrigin="false" failOnEmpty="true" SetOperationChoice="Intersection|And" errorOnEmpty="false" shortCircuit="false" skipTraversed="true">
-												<LinkTagFilter tag="&apos;deadBody_lyingDead&apos;" prune="true" negprune="unknown" Parent="" Child="$corpseSO" Data="" />
+												<LinkTagFilter tag="&apos;looted&apos;" prune="true" negprune="unknown" Parent="" Child="" Data="" />
 											</GraphSearch>
-											<Expression expressions="$corpse = $corpseCandidate" />
-										</Sequence>
-									</Selector>
-								</ForEach>
-							</IfCondition>
-						</Else>
-					</IsFastForwarded>
-					<IfElseCondition failOnCondition="false" condition="$corpseSO ~= $__null" saveVersion="2">
-						<Then canSkip="1">
-							<Sequence>
-								<Parallel successMode="Any" failureMode="Any">
-									<Loop count="-1">
-										<RelationContextDecorator context="behavior_lootingDeadBody" target="$this.id" reverse="false" enabled="true">
 											<Sequence>
-												<UnstanceAction unstance="LootAligned" locationObject="$corpseSO" slaveObject="" />
-												<Wait duration="&apos;-1&apos;" timeType="GameTime" doFail="false" variation="" />
+												<GraphSearch Origin="$corpseCandidate" Borders="" depth="1" selection="true" SearchPattern="Depth" EdgePruning="&apos;parent,inventory&apos;" AllowedEdges="" SubGraph="" AllowSubtraph="false" includeOrigin="false" excludeOrigin="false" failOnEmpty="true" SetOperationChoice="Intersection|And" errorOnEmpty="false" shortCircuit="false" skipTraversed="true">
+													<LinkTagFilter tag="&apos;deadBody_lyingDead&apos;" prune="true" negprune="unknown" Parent="" Child="$corpseSO" Data="" />
+												</GraphSearch>
+												<Expression expressions="$corpse = $corpseCandidate" />
 											</Sequence>
-										</RelationContextDecorator>
-									</Loop>
-									<Sequence>
-										<Expression expressions="$forceStartEventTimer = $data:script_param[&apos;event_forceStartAfterTimer&apos;].value * 1000" />
-										<Parallel successMode="Any" failureMode="Any">
-											<DistanceGate Origin="$__player" ReferencePt="$this.id" Low="$data:script_param[&apos;event_startDistance&apos;].value" High="$data:script_param[&apos;event_startDistance&apos;].value" Negation="false" OpenInMiddle="false" RunLogic="KeepRunning">
-												<Success />
-											</DistanceGate>
-											<Wait duration="$forceStartEventTimer" timeType="GameTime" doFail="false" variation="" />
-										</Parallel>
-										<RelationContextBarrier context="behavior_lootingDeadBody" from="$this" to="$this" Negation="false" RunLogic="KeepRunning">
-											<Sequence>
-												<IfCondition failOnCondition="false" condition="$corpse == $__null">
-													<LinkGate from="$corpses[0]" to="" tag="&apos;deadBody_lyingDead&apos;" amount="AtLeastOne" presence="Present" RunLogic="KeepRunning">
-														<GraphSearch Origin="$corpseSO" Borders="" depth="1" selection="true" SearchPattern="Depth" EdgePruning="&apos;parent,inventory&apos;" AllowedEdges="" SubGraph="" AllowSubtraph="false" includeOrigin="false" excludeOrigin="false" failOnEmpty="true" SetOperationChoice="Intersection|And" errorOnEmpty="false" shortCircuit="false" skipTraversed="true">
-															<LinkTagFilter tag="&apos;deadBody_lyingDead_reverse&apos;" prune="true" negprune="unknown" Parent="" Child="$corpse" Data="" />
-														</GraphSearch>
+										</Selector>
+									</ForEach>
+								</IfCondition>
+							</Else>
+						</IsFastForwarded>
+						<IfElseCondition failOnCondition="false" condition="$corpseSO ~= $__null" saveVersion="2">
+							<Then canSkip="1">
+								<Sequence>
+									<Parallel successMode="Any" failureMode="Any">
+										<Loop count="-1">
+											<RelationContextDecorator context="behavior_lootingDeadBody" target="$this.id" reverse="false" enabled="true">
+												<Sequence>
+													<UnstanceAction unstance="LootAligned" locationObject="$corpseSO" slaveObject="" />
+													<Wait duration="&apos;-1&apos;" timeType="GameTime" doFail="false" variation="" />
+												</Sequence>
+											</RelationContextDecorator>
+										</Loop>
+										<Sequence>
+											<Expression expressions="$forceStartEventTimer = $data:script_param[&apos;event_forceStartAfterTimer&apos;].value * 1000" />
+											<Parallel successMode="Any" failureMode="Any">
+												<DistanceGate Origin="$__player" ReferencePt="$this.id" Low="$data:script_param[&apos;event_startDistance&apos;].value" High="$data:script_param[&apos;event_startDistance&apos;].value" Negation="false" OpenInMiddle="false" RunLogic="KeepRunning">
+													<Success />
+												</DistanceGate>
+												<Wait duration="$forceStartEventTimer" timeType="GameTime" doFail="false" variation="" />
+											</Parallel>
+											<RelationContextBarrier context="behavior_lootingDeadBody" from="$this" to="$this" Negation="false" RunLogic="KeepRunning">
+												<Sequence>
+													<IfCondition failOnCondition="false" condition="$corpse == $__null">
+														<LinkGate from="$corpses[0]" to="" tag="&apos;deadBody_lyingDead&apos;" amount="AtLeastOne" presence="Present" RunLogic="KeepRunning">
+															<GraphSearch Origin="$corpseSO" Borders="" depth="1" selection="true" SearchPattern="Depth" EdgePruning="&apos;parent,inventory&apos;" AllowedEdges="" SubGraph="" AllowSubtraph="false" includeOrigin="false" excludeOrigin="false" failOnEmpty="true" SetOperationChoice="Intersection|And" errorOnEmpty="false" shortCircuit="false" skipTraversed="true">
+																<LinkTagFilter tag="&apos;deadBody_lyingDead_reverse&apos;" prune="true" negprune="unknown" Parent="" Child="$corpse" Data="" />
+															</GraphSearch>
+														</LinkGate>
+													</IfCondition>
+													<LinkGate from="$corpse" to="" tag="&apos;deadBody_lyingDead&apos;" amount="AtLeastOne" presence="Present" RunLogic="Halt">
+														<Sequence>
+															<Parallel successMode="Any" failureMode="Any">
+																<Function_lootItemTransfer badLootBark="$badLootBark" corpse="$corpse" enableBarks="$enableBarks" goodLootBark="$goodLootBark" lootingBark="$lootingBark" minPriceForGoodLoot="$minPriceForGoodLoot" nodeLabel="23347180" />
+																<Sequence>
+																	<Parallel successMode="Any" failureMode="Any">
+																		<LinkGate from="$__player" to="$corpse" tag="&apos;loot&apos;" amount="AtLeastOne" presence="Present" RunLogic="KeepRunning">
+																			<Success />
+																		</LinkGate>
+																		<LinkGate from="$__player" to="$corpse" tag="&apos;carriedBody&apos;" amount="AtLeastOne" presence="Present" RunLogic="KeepRunning">
+																			<Success />
+																		</LinkGate>
+																	</Parallel>
+																	<Callback_empty EventName="&apos;PlayerAlsoLootTheSameCorpse&apos;" />
+																</Sequence>
+															</Parallel>
+															<AddLink From="$corpse" To="$corpse" Tag="&apos;looted&apos;" Data="" LinkOpHandleMode="Error" />
+														</Sequence>
 													</LinkGate>
-												</IfCondition>
-												<LinkGate from="$corpse" to="" tag="&apos;deadBody_lyingDead&apos;" amount="AtLeastOne" presence="Present" RunLogic="Halt">
-													<Sequence>
-														<Parallel successMode="Any" failureMode="Any">
-														<Function_lootItemTransfer badLootBark="$badLootBark" corpse="$corpse" enableBarks="$enableBarks" goodLootBark="$goodLootBark" lootingBark="$lootingBark" minPriceForGoodLoot="$minPriceForGoodLoot" nodeLabel="23347180" />
-															<Sequence>
-																<Parallel successMode="Any" failureMode="Any">
-																	<LinkGate from="$__player" to="$corpse" tag="&apos;loot&apos;" amount="AtLeastOne" presence="Present" RunLogic="KeepRunning">
-																		<Success />
-																	</LinkGate>
-																	<LinkGate from="$__player" to="$corpse" tag="&apos;carriedBody&apos;" amount="AtLeastOne" presence="Present" RunLogic="KeepRunning">
-																		<Success />
-																	</LinkGate>
-																</Parallel>
-																<Callback_empty EventName="&apos;PlayerAlsoLootTheSameCorpse&apos;" />
-															</Sequence>
-														</Parallel>
-														<AddLink From="$corpse" To="$corpse" Tag="&apos;looted&apos;" Data="" LinkOpHandleMode="Error" />
-													</Sequence>
-												</LinkGate>
-											</Sequence>
-										</RelationContextBarrier>
-									</Sequence>
-								</Parallel>
-								<WaitAction />
-							</Sequence>
-						</Then>
-						<Else canSkip="1">
-							<Callback_empty EventName="&apos;AllCorpsesAreLooted&apos;" />
-						</Else>
-					</IfElseCondition>
-				</Sequence>
+												</Sequence>
+											</RelationContextBarrier>
+										</Sequence>
+									</Parallel>
+									<WaitAction />
+								</Sequence>
+							</Then>
+							<Else canSkip="1">
+								<Callback_empty EventName="&apos;AllCorpsesAreLooted&apos;" />
+							</Else>
+						</IfElseCondition>
+					</Sequence>
 				</EntityContext>
 			</Behavior>
 		</Root>
@@ -1018,32 +1018,24 @@
 				<Behavior>
 					<EntityContext hasInputBreakpoint="0" comment="" breakpointFlags="0">
 						<OutputBreakpoints />
-					<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
-						<OutputBreakpoints />
-						<IsFastForwarded hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
+						<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
 							<OutputBreakpoints />
-							<Then>
-								<GraphSearch hasInputBreakpoint="0" comment="For fastforward to work we always loot a specific corpse at first" breakpointFlags="0">
-									<OutputBreakpoints />
-									<LinkTagFilter hasInputBreakpoint="0" comment="" breakpointFlags="0">
+							<IsFastForwarded hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
+								<OutputBreakpoints />
+								<Then>
+									<GraphSearch hasInputBreakpoint="0" comment="For fastforward to work we always loot a specific corpse at first" breakpointFlags="0">
 										<OutputBreakpoints />
-									</LinkTagFilter>
-								</GraphSearch>
-							</Then>
-							<Else>
-								<IfCondition hasInputBreakpoint="0" comment="When save/loading we save nextCorpse as a persistent variable so that NPC would continiue to loot corpse after the load. There we check if there something stored in this variable:" breakpointFlags="0">
-									<OutputBreakpoints />
-									<ForEach hasInputBreakpoint="0" comment="" breakpointFlags="0">
-										<OutputBreakpoints />
-										<Selector hasInputBreakpoint="0" comment="" breakpointFlags="0">
+										<LinkTagFilter hasInputBreakpoint="0" comment="" breakpointFlags="0">
 											<OutputBreakpoints />
-											<GraphSearch hasInputBreakpoint="0" comment="" breakpointFlags="0">
-												<OutputBreakpoints />
-												<LinkTagFilter hasInputBreakpoint="0" comment="" breakpointFlags="0">
-													<OutputBreakpoints />
-												</LinkTagFilter>
-											</GraphSearch>
-											<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
+										</LinkTagFilter>
+									</GraphSearch>
+								</Then>
+								<Else>
+									<IfCondition hasInputBreakpoint="0" comment="When save/loading we save nextCorpse as a persistent variable so that NPC would continiue to loot corpse after the load. There we check if there something stored in this variable:" breakpointFlags="0">
+										<OutputBreakpoints />
+										<ForEach hasInputBreakpoint="0" comment="" breakpointFlags="0">
+											<OutputBreakpoints />
+											<Selector hasInputBreakpoint="0" comment="" breakpointFlags="0">
 												<OutputBreakpoints />
 												<GraphSearch hasInputBreakpoint="0" comment="" breakpointFlags="0">
 													<OutputBreakpoints />
@@ -1051,122 +1043,130 @@
 														<OutputBreakpoints />
 													</LinkTagFilter>
 												</GraphSearch>
+												<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
+													<OutputBreakpoints />
+													<GraphSearch hasInputBreakpoint="0" comment="" breakpointFlags="0">
+														<OutputBreakpoints />
+														<LinkTagFilter hasInputBreakpoint="0" comment="" breakpointFlags="0">
+															<OutputBreakpoints />
+														</LinkTagFilter>
+													</GraphSearch>
+													<Expression hasInputBreakpoint="0" comment="" breakpointFlags="0">
+														<OutputBreakpoints />
+													</Expression>
+												</Sequence>
+											</Selector>
+										</ForEach>
+									</IfCondition>
+								</Else>
+							</IsFastForwarded>
+							<IfElseCondition hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
+								<OutputBreakpoints />
+								<Then>
+									<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
+										<OutputBreakpoints />
+										<Parallel hasInputBreakpoint="0" comment="" breakpointFlags="0">
+											<OutputBreakpoints />
+											<Loop hasInputBreakpoint="0" comment="" breakpointFlags="0">
+												<OutputBreakpoints />
+												<RelationContextDecorator hasInputBreakpoint="0" comment="" breakpointFlags="0">
+													<OutputBreakpoints />
+													<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
+														<OutputBreakpoints />
+														<UnstanceAction hasInputBreakpoint="0" comment="" breakpointFlags="0">
+															<OutputBreakpoints />
+														</UnstanceAction>
+														<Wait hasInputBreakpoint="0" comment="" breakpointFlags="0">
+															<OutputBreakpoints />
+														</Wait>
+													</Sequence>
+												</RelationContextDecorator>
+											</Loop>
+											<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
+												<OutputBreakpoints />
 												<Expression hasInputBreakpoint="0" comment="" breakpointFlags="0">
 													<OutputBreakpoints />
 												</Expression>
-											</Sequence>
-										</Selector>
-									</ForEach>
-								</IfCondition>
-							</Else>
-						</IsFastForwarded>
-						<IfElseCondition hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
-							<OutputBreakpoints />
-							<Then>
-								<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
-									<OutputBreakpoints />
-									<Parallel hasInputBreakpoint="0" comment="" breakpointFlags="0">
-										<OutputBreakpoints />
-										<Loop hasInputBreakpoint="0" comment="" breakpointFlags="0">
-											<OutputBreakpoints />
-											<RelationContextDecorator hasInputBreakpoint="0" comment="" breakpointFlags="0">
-												<OutputBreakpoints />
-												<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
+												<Parallel hasInputBreakpoint="0" comment="" breakpointFlags="0">
 													<OutputBreakpoints />
-													<UnstanceAction hasInputBreakpoint="0" comment="" breakpointFlags="0">
+													<DistanceGate hasInputBreakpoint="0" comment="" breakpointFlags="0">
 														<OutputBreakpoints />
-													</UnstanceAction>
+														<Success hasInputBreakpoint="0" comment="" breakpointFlags="0">
+															<OutputBreakpoints />
+														</Success>
+													</DistanceGate>
 													<Wait hasInputBreakpoint="0" comment="" breakpointFlags="0">
 														<OutputBreakpoints />
 													</Wait>
-												</Sequence>
-											</RelationContextDecorator>
-										</Loop>
-										<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
-											<OutputBreakpoints />
-											<Expression hasInputBreakpoint="0" comment="" breakpointFlags="0">
-												<OutputBreakpoints />
-											</Expression>
-											<Parallel hasInputBreakpoint="0" comment="" breakpointFlags="0">
-												<OutputBreakpoints />
-												<DistanceGate hasInputBreakpoint="0" comment="" breakpointFlags="0">
+												</Parallel>
+												<RelationContextBarrier hasInputBreakpoint="0" comment="" breakpointFlags="0">
 													<OutputBreakpoints />
-													<Success hasInputBreakpoint="0" comment="" breakpointFlags="0">
+													<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
 														<OutputBreakpoints />
-													</Success>
-												</DistanceGate>
-												<Wait hasInputBreakpoint="0" comment="" breakpointFlags="0">
-													<OutputBreakpoints />
-												</Wait>
-											</Parallel>
-											<RelationContextBarrier hasInputBreakpoint="0" comment="" breakpointFlags="0">
-												<OutputBreakpoints />
-												<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
-													<OutputBreakpoints />
-													<IfCondition hasInputBreakpoint="0" comment="Corpse is null only when event is fastforwarded and NPC should be playing animation on a specific linked SO" breakpointFlags="0">
-														<OutputBreakpoints />
-														<LinkGate hasInputBreakpoint="0" comment="Wait until corpses ready" breakpointFlags="0">
+														<IfCondition hasInputBreakpoint="0" comment="Corpse is null only when event is fastforwarded and NPC should be playing animation on a specific linked SO" breakpointFlags="0">
 															<OutputBreakpoints />
-															<GraphSearch hasInputBreakpoint="0" comment="" breakpointFlags="0">
+															<LinkGate hasInputBreakpoint="0" comment="Wait until corpses ready" breakpointFlags="0">
 																<OutputBreakpoints />
-																<LinkTagFilter hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																<GraphSearch hasInputBreakpoint="0" comment="" breakpointFlags="0">
 																	<OutputBreakpoints />
-																</LinkTagFilter>
-															</GraphSearch>
+																	<LinkTagFilter hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																		<OutputBreakpoints />
+																	</LinkTagFilter>
+																</GraphSearch>
+															</LinkGate>
+														</IfCondition>
+														<LinkGate hasInputBreakpoint="0" comment="" breakpointFlags="0">
+															<OutputBreakpoints />
+															<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																<OutputBreakpoints />
+																<Parallel hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																	<OutputBreakpoints />
+																	<Function_lootItemTransfer hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																		<OutputBreakpoints />
+																	</Function_lootItemTransfer>
+																	<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																		<OutputBreakpoints />
+																		<Parallel hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																			<OutputBreakpoints />
+																			<LinkGate hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																				<OutputBreakpoints />
+																				<Success hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																					<OutputBreakpoints />
+																				</Success>
+																			</LinkGate>
+																			<LinkGate hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																				<OutputBreakpoints />
+																				<Success hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																					<OutputBreakpoints />
+																				</Success>
+																			</LinkGate>
+																		</Parallel>
+																		<Callback_empty hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																			<OutputBreakpoints />
+																		</Callback_empty>
+																	</Sequence>
+																</Parallel>
+																<AddLink hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																	<OutputBreakpoints />
+																</AddLink>
+															</Sequence>
 														</LinkGate>
-													</IfCondition>
-													<LinkGate hasInputBreakpoint="0" comment="" breakpointFlags="0">
-														<OutputBreakpoints />
-														<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
-															<OutputBreakpoints />
-															<Parallel hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																<OutputBreakpoints />
-															<Function_lootItemTransfer hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																<OutputBreakpoints />
-															</Function_lootItemTransfer>
-																<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																	<OutputBreakpoints />
-																	<Parallel hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																		<OutputBreakpoints />
-																		<LinkGate hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																			<OutputBreakpoints />
-																			<Success hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																				<OutputBreakpoints />
-																			</Success>
-																		</LinkGate>
-																		<LinkGate hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																			<OutputBreakpoints />
-																			<Success hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																				<OutputBreakpoints />
-																			</Success>
-																		</LinkGate>
-																	</Parallel>
-																	<Callback_empty hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																		<OutputBreakpoints />
-																	</Callback_empty>
-																</Sequence>
-															</Parallel>
-															<AddLink hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																<OutputBreakpoints />
-															</AddLink>
-														</Sequence>
-													</LinkGate>
-												</Sequence>
-											</RelationContextBarrier>
-										</Sequence>
-									</Parallel>
-									<WaitAction hasInputBreakpoint="0" comment="" breakpointFlags="0">
+													</Sequence>
+												</RelationContextBarrier>
+											</Sequence>
+										</Parallel>
+										<WaitAction hasInputBreakpoint="0" comment="" breakpointFlags="0">
+											<OutputBreakpoints />
+										</WaitAction>
+									</Sequence>
+								</Then>
+								<Else>
+									<Callback_empty hasInputBreakpoint="0" comment="" breakpointFlags="0">
 										<OutputBreakpoints />
-									</WaitAction>
-								</Sequence>
-							</Then>
-							<Else>
-								<Callback_empty hasInputBreakpoint="0" comment="" breakpointFlags="0">
-									<OutputBreakpoints />
-								</Callback_empty>
-							</Else>
-						</IfElseCondition>
-					</Sequence>
+									</Callback_empty>
+								</Else>
+							</IfElseCondition>
+						</Sequence>
 					</EntityContext>
 				</Behavior>
 			</Root>
@@ -1253,7 +1253,7 @@
 						</Sequence>
 						<Sequence>
 							<Parallel successMode="Any" failureMode="Any">
-						<LinkGate from="$__player" to="" tag="&apos;loot&apos;" amount="AtLeastOne" presence="Present" RunLogic="KeepRunning">
+								<LinkGate from="$__player" to="" tag="&apos;loot&apos;" amount="AtLeastOne" presence="Present" RunLogic="KeepRunning">
 									<Success />
 								</LinkGate>
 								<LinkGate from="$__player" to="" tag="&apos;carriedBody&apos;" amount="AtLeastOne" presence="Present" RunLogic="KeepRunning">
@@ -1396,7 +1396,7 @@
 								<Parallel hasInputBreakpoint="0" comment="" breakpointFlags="0">
 									<OutputBreakpoints />
 									<LinkGate hasInputBreakpoint="0" comment="" breakpointFlags="0">
-								<OutputBreakpoints />
+										<OutputBreakpoints />
 										<Success hasInputBreakpoint="0" comment="" breakpointFlags="0">
 											<OutputBreakpoints />
 										</Success>
@@ -2176,13 +2176,13 @@
 		<Root OneTimeOnly="false" FailState="Recoverable" saveVersion="2">
 			<Behavior canSkip="1">
 				<EntityContext context="combat_actorSupressHitreactionAnimation" target="$this.id">
-				<Parallel successMode="All" failureMode="All">
-					<SuppressFailure>
-						<Function_speech_dialogInitiator alias="$string" animationApproach="$enum:animationApproach.dontPlayDialogAnimations" context="" customParameters="" metarole="" preset="$enum:dialogPreset.ingame" recipient="$__player" recipientMetaroles="" nodeLabel="25231518" />
-					</SuppressFailure>
+					<Parallel successMode="All" failureMode="All">
+						<SuppressFailure>
+							<Function_speech_dialogInitiator alias="$string" animationApproach="$enum:animationApproach.dontPlayDialogAnimations" context="" customParameters="" metarole="" preset="$enum:dialogPreset.ingame" recipient="$__player" recipientMetaroles="" nodeLabel="25231518" />
+						</SuppressFailure>
 						<UnstanceAction unstance="CrimeSurrender" locationObject="$__null" slaveObject="" />
-					<Wait duration="&apos;-1&apos;" timeType="GameTime" doFail="false" variation="" />
-				</Parallel>
+						<Wait duration="&apos;-1&apos;" timeType="GameTime" doFail="false" variation="" />
+					</Parallel>
 				</EntityContext>
 			</Behavior>
 		</Root>
@@ -2197,21 +2197,21 @@
 				<Behavior>
 					<EntityContext hasInputBreakpoint="0" comment="" breakpointFlags="0">
 						<OutputBreakpoints />
-					<Parallel hasInputBreakpoint="0" comment="" breakpointFlags="0">
-						<OutputBreakpoints />
-						<SuppressFailure hasInputBreakpoint="0" comment="" breakpointFlags="0">
+						<Parallel hasInputBreakpoint="0" comment="" breakpointFlags="0">
 							<OutputBreakpoints />
-							<Function_speech_dialogInitiator hasInputBreakpoint="0" comment="" breakpointFlags="0">
+							<SuppressFailure hasInputBreakpoint="0" comment="" breakpointFlags="0">
 								<OutputBreakpoints />
-							</Function_speech_dialogInitiator>
-						</SuppressFailure>
-						<UnstanceAction hasInputBreakpoint="0" comment="" breakpointFlags="0">
-							<OutputBreakpoints />
-						</UnstanceAction>
-						<Wait hasInputBreakpoint="0" comment="" breakpointFlags="0">
-							<OutputBreakpoints />
-						</Wait>
-					</Parallel>
+								<Function_speech_dialogInitiator hasInputBreakpoint="0" comment="" breakpointFlags="0">
+									<OutputBreakpoints />
+								</Function_speech_dialogInitiator>
+							</SuppressFailure>
+							<UnstanceAction hasInputBreakpoint="0" comment="" breakpointFlags="0">
+								<OutputBreakpoints />
+							</UnstanceAction>
+							<Wait hasInputBreakpoint="0" comment="" breakpointFlags="0">
+								<OutputBreakpoints />
+							</Wait>
+						</Parallel>
 					</EntityContext>
 				</Behavior>
 			</Root>
@@ -3346,32 +3346,32 @@
 		</Parameters>
 		<Root OneTimeOnly="false" FailState="Recoverable" saveVersion="2">
 			<Behavior canSkip="1">
-					<Sequence>
-						<Selector>
-							<Sequence>
-								<GraphSearch Origin="$__object.id" Borders="" depth="1" selection="true" SearchPattern="Depth" EdgePruning="&apos;parent,inventory&apos;" AllowedEdges="" SubGraph="" AllowSubtraph="false" includeOrigin="false" excludeOrigin="false" failOnEmpty="true" SetOperationChoice="Intersection|And" errorOnEmpty="false" shortCircuit="false" skipTraversed="true">
-									<LinkTagFilter tag="&apos;deadbody_fastforward&apos;" prune="true" negprune="unknown" Parent="" Child="$corpse" Data="" />
-								</GraphSearch>
-								<Expression expressions="$stopDistance = 0.8" />
-							</Sequence>
-							<Sequence>
-								<GraphSearch Origin="$__object.id" Borders="" depth="1" selection="true" SearchPattern="Depth" EdgePruning="&apos;parent,inventory&apos;" AllowedEdges="" SubGraph="" AllowSubtraph="false" includeOrigin="false" excludeOrigin="false" failOnEmpty="true" SetOperationChoice="Intersection|And" errorOnEmpty="false" shortCircuit="false" skipTraversed="true">
-									<LinkTagFilter tag="&apos;deadbody_fastforward_horse&apos;" prune="true" negprune="unknown" Parent="" Child="$corpse" Data="" />
-								</GraphSearch>
-								<Expression expressions="$stopDistance = 1" />
-							</Sequence>
-							<Sequence>
-								<Expression expressions="$corpse = $data" />
-								<EntityContextCheck context="switch_isHorse" target="$corpse" saveVersion="2">
-									<Then canSkip="1">
-										<Expression expressions="$stopDistance = 1" />
-									</Then>
-									<Else canSkip="1">
-										<Expression expressions="$stopDistance = 0.8" />
-									</Else>
-								</EntityContextCheck>
-							</Sequence>
-						</Selector>
+				<Sequence>
+					<Selector>
+						<Sequence>
+							<GraphSearch Origin="$__object.id" Borders="" depth="1" selection="true" SearchPattern="Depth" EdgePruning="&apos;parent,inventory&apos;" AllowedEdges="" SubGraph="" AllowSubtraph="false" includeOrigin="false" excludeOrigin="false" failOnEmpty="true" SetOperationChoice="Intersection|And" errorOnEmpty="false" shortCircuit="false" skipTraversed="true">
+								<LinkTagFilter tag="&apos;deadbody_fastforward&apos;" prune="true" negprune="unknown" Parent="" Child="$corpse" Data="" />
+							</GraphSearch>
+							<Expression expressions="$stopDistance = 0.8" />
+						</Sequence>
+						<Sequence>
+							<GraphSearch Origin="$__object.id" Borders="" depth="1" selection="true" SearchPattern="Depth" EdgePruning="&apos;parent,inventory&apos;" AllowedEdges="" SubGraph="" AllowSubtraph="false" includeOrigin="false" excludeOrigin="false" failOnEmpty="true" SetOperationChoice="Intersection|And" errorOnEmpty="false" shortCircuit="false" skipTraversed="true">
+								<LinkTagFilter tag="&apos;deadbody_fastforward_horse&apos;" prune="true" negprune="unknown" Parent="" Child="$corpse" Data="" />
+							</GraphSearch>
+							<Expression expressions="$stopDistance = 1" />
+						</Sequence>
+						<Sequence>
+							<Expression expressions="$corpse = $data" />
+							<EntityContextCheck context="switch_isHorse" target="$corpse" saveVersion="2">
+								<Then canSkip="1">
+									<Expression expressions="$stopDistance = 1" />
+								</Then>
+								<Else canSkip="1">
+									<Expression expressions="$stopDistance = 0.8" />
+								</Else>
+							</EntityContextCheck>
+						</Sequence>
+					</Selector>
 					<Expression expressions="$rotationTarget = $corpse" />
 					<IsFastTraveling saveVersion="2">
 						<Then canSkip="1">
@@ -3384,14 +3384,14 @@
 					<Function_scatterAroundPoint SO="$__object.id" innerCircleRadius="2.000000" outerCircleRadius="3.000000" referencePoint="$corpse" rotateTowardsTarget="$rotationTarget" isFastForwarded="" nodeLabel="16561357" />
 					<Function_crime_checkPlayerAwareness timeThreshold="10000" isAwareOfPlayer="$isAwareOfPlayer" nodeLabel="90860505" />
 					<IfCondition failOnCondition="false" condition="~$isAwareOfPlayer">
-							<Sequence>
-								<Move stopWithinDistance="$stopDistance" stopDistanceVariation="0.200000" rayCasteFlee="false" successDistance="0.000000" changeNPCState="true" fastForwardIncludesMove="false" destinationSpecification="$corpse" destinationSpecification2="" destinationSpecification3="" speed="Walk" additionalParams="" pathFindingParams="" staminaPolicy="" pathInfo="" />
-								<Turn target="$corpse" align="false" />
-								<UnstanceAction unstance="dog_eatingStanding" locationObject="" slaveObject="" />
-								<Wait duration="&apos;-1&apos;" timeType="GameTime" doFail="false" variation="" />
-							</Sequence>
+						<Sequence>
+							<Move stopWithinDistance="$stopDistance" stopDistanceVariation="0.200000" rayCasteFlee="false" successDistance="0.000000" changeNPCState="true" fastForwardIncludesMove="false" destinationSpecification="$corpse" destinationSpecification2="" destinationSpecification3="" speed="Walk" additionalParams="" pathFindingParams="" staminaPolicy="" pathInfo="" />
+							<Turn target="$corpse" align="false" />
+							<UnstanceAction unstance="dog_eatingStanding" locationObject="" slaveObject="" />
+							<Wait duration="&apos;-1&apos;" timeType="GameTime" doFail="false" variation="" />
+						</Sequence>
 					</IfCondition>
-					</Sequence>
+				</Sequence>
 			</Behavior>
 		</Root>
 		<ForestContainer>
@@ -3453,54 +3453,54 @@
 			<Root hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
 				<OutputBreakpoints />
 				<Behavior>
+					<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
+						<OutputBreakpoints />
+						<Selector hasInputBreakpoint="0" comment="" breakpointFlags="0">
+							<OutputBreakpoints />
 							<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
 								<OutputBreakpoints />
-							<Selector hasInputBreakpoint="0" comment="" breakpointFlags="0">
+								<GraphSearch hasInputBreakpoint="0" comment="" breakpointFlags="0">
+									<OutputBreakpoints />
+									<LinkTagFilter hasInputBreakpoint="0" comment="" breakpointFlags="0">
+										<OutputBreakpoints />
+									</LinkTagFilter>
+								</GraphSearch>
+								<Expression hasInputBreakpoint="0" comment="" breakpointFlags="0">
+									<OutputBreakpoints />
+								</Expression>
+							</Sequence>
+							<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
 								<OutputBreakpoints />
-								<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
+								<GraphSearch hasInputBreakpoint="0" comment="" breakpointFlags="0">
 									<OutputBreakpoints />
-									<GraphSearch hasInputBreakpoint="0" comment="" breakpointFlags="0">
+									<LinkTagFilter hasInputBreakpoint="0" comment="" breakpointFlags="0">
 										<OutputBreakpoints />
-										<LinkTagFilter hasInputBreakpoint="0" comment="" breakpointFlags="0">
+									</LinkTagFilter>
+								</GraphSearch>
+								<Expression hasInputBreakpoint="0" comment="" breakpointFlags="0">
+									<OutputBreakpoints />
+								</Expression>
+							</Sequence>
+							<Sequence hasInputBreakpoint="0" comment="Not crimeScene, corpse is sent via EnableBehavior" breakpointFlags="0">
+								<OutputBreakpoints />
+								<Expression hasInputBreakpoint="0" comment="" breakpointFlags="0">
+									<OutputBreakpoints />
+								</Expression>
+								<EntityContextCheck hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
+									<OutputBreakpoints />
+									<Then>
+										<Expression hasInputBreakpoint="0" comment="" breakpointFlags="0">
 											<OutputBreakpoints />
-										</LinkTagFilter>
-									</GraphSearch>
-									<Expression hasInputBreakpoint="0" comment="" breakpointFlags="0">
-										<OutputBreakpoints />
-									</Expression>
-								</Sequence>
-								<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
-									<OutputBreakpoints />
-									<GraphSearch hasInputBreakpoint="0" comment="" breakpointFlags="0">
-										<OutputBreakpoints />
-										<LinkTagFilter hasInputBreakpoint="0" comment="" breakpointFlags="0">
+										</Expression>
+									</Then>
+									<Else>
+										<Expression hasInputBreakpoint="0" comment="" breakpointFlags="0">
 											<OutputBreakpoints />
-										</LinkTagFilter>
-									</GraphSearch>
-									<Expression hasInputBreakpoint="0" comment="" breakpointFlags="0">
-										<OutputBreakpoints />
-									</Expression>
-								</Sequence>
-								<Sequence hasInputBreakpoint="0" comment="Not crimeScene, corpse is sent via EnableBehavior" breakpointFlags="0">
-									<OutputBreakpoints />
-									<Expression hasInputBreakpoint="0" comment="" breakpointFlags="0">
-										<OutputBreakpoints />
-									</Expression>
-									<EntityContextCheck hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
-										<OutputBreakpoints />
-										<Then>
-											<Expression hasInputBreakpoint="0" comment="" breakpointFlags="0">
-												<OutputBreakpoints />
-											</Expression>
-										</Then>
-										<Else>
-											<Expression hasInputBreakpoint="0" comment="" breakpointFlags="0">
-												<OutputBreakpoints />
-											</Expression>
-										</Else>
-									</EntityContextCheck>
-								</Sequence>
-							</Selector>
+										</Expression>
+									</Else>
+								</EntityContextCheck>
+							</Sequence>
+						</Selector>
 						<Expression hasInputBreakpoint="0" comment="" breakpointFlags="0">
 							<OutputBreakpoints />
 						</Expression>
@@ -3517,31 +3517,31 @@
 								</Success>
 							</Else>
 						</IsFastTraveling>
-							<Function_scatterAroundPoint hasInputBreakpoint="0" comment="" breakpointFlags="0">
-								<OutputBreakpoints />
-							</Function_scatterAroundPoint>
+						<Function_scatterAroundPoint hasInputBreakpoint="0" comment="" breakpointFlags="0">
+							<OutputBreakpoints />
+						</Function_scatterAroundPoint>
 						<Function_crime_checkPlayerAwareness hasInputBreakpoint="0" comment="" breakpointFlags="0">
 							<OutputBreakpoints />
 						</Function_crime_checkPlayerAwareness>
 						<IfCondition hasInputBreakpoint="0" comment="" breakpointFlags="0">
+							<OutputBreakpoints />
+							<Sequence hasInputBreakpoint="0" comment="Lets just eat one corpse, its impossible to make wolves not to clip into one another with several corpses" breakpointFlags="0">
 								<OutputBreakpoints />
-								<Sequence hasInputBreakpoint="0" comment="Lets just eat one corpse, its impossible to make wolves not to clip into one another with several corpses" breakpointFlags="0">
+								<Move hasInputBreakpoint="0" comment="" breakpointFlags="0">
 									<OutputBreakpoints />
-									<Move hasInputBreakpoint="0" comment="" breakpointFlags="0">
-										<OutputBreakpoints />
-									</Move>
-									<Turn hasInputBreakpoint="0" comment="" breakpointFlags="0">
-										<OutputBreakpoints />
-									</Turn>
-									<UnstanceAction hasInputBreakpoint="0" comment="" breakpointFlags="0">
-										<OutputBreakpoints />
-									</UnstanceAction>
-									<Wait hasInputBreakpoint="0" comment="" breakpointFlags="0">
-										<OutputBreakpoints />
-									</Wait>
-								</Sequence>
+								</Move>
+								<Turn hasInputBreakpoint="0" comment="" breakpointFlags="0">
+									<OutputBreakpoints />
+								</Turn>
+								<UnstanceAction hasInputBreakpoint="0" comment="" breakpointFlags="0">
+									<OutputBreakpoints />
+								</UnstanceAction>
+								<Wait hasInputBreakpoint="0" comment="" breakpointFlags="0">
+									<OutputBreakpoints />
+								</Wait>
+							</Sequence>
 						</IfCondition>
-						</Sequence>
+					</Sequence>
 				</Behavior>
 			</Root>
 			<Forest>

@@ -90,7 +90,7 @@
 								<Response Role="HENRY" ReferenceLength="2.19">
 									<Text StringName="lece_henry_tak_co_s_tebou_dqb0" Text="Tak co s tebou uděláme, chlape?" />
 									<Commands>
-										<AnimationCommand FragmentId="ADLG_HealingLeft_In" Guid="e12c5657-c898-4e83-843d-646c9d2a75ea" Variant="0" />
+										<AnimationCommand FragmentId="ADLG_HealingLeft_Aligned_In" Guid="5856546c-490d-4299-81ec-da8600733ced" Variant="0" />
 										<CameraCommand Delay="0.04" CustomCamera="S55_leceni_customCamera_02" />
 									</Commands>
 								</Response>
@@ -114,8 +114,8 @@
 							<Elements>
 								<Response Role="HENRY" ReferenceLength="5">
 									<Commands>
-										<MoodCommand Delay="5.65" Mood="healing_left" />
-										<AnimationCommand Delay="4.83" FragmentId="ADLG_HealingLeft_In" Guid="e12c5657-c898-4e83-843d-646c9d2a75ea" Variant="0" />
+										<MoodCommand Delay="7.35" Mood="healing_left" />
+										<AnimationCommand Delay="4.47" FragmentId="ADLG_HealingLeft_Aligned_In" Guid="5856546c-490d-4299-81ec-da8600733ced" Variant="0" />
 										<AnimationHeadCommand Role="KREJCI_MIKUS" Delay="3.13" FragmentId="ADLG_FA_EyebrowRaise_Left" Guid="58bccf36-fb2d-4a50-8616-916837cc774d" Variant="0" />
 										<CameraCommand Delay="6.63" CustomCamera="S55_leceni_customCamera_01" />
 										<CameraCommand Delay="5.03" CustomCamera="S55_leceni_customCamera_02" />
@@ -152,6 +152,8 @@
 												<Text StringName="lece_henry_jak_to_jenom_b_wKts" Text="Jak to jenom bylo..." />
 												<Commands>
 													<FacialMoodCommand FacialMood="thinking2" />
+													<AnimationCommand Delay="0.04" FragmentId="ADLG_HealingLeft_Aligned_Out" Guid="0c21b5eb-14fa-487b-8ac3-5cd2a9995593" Variant="0" />
+													<CameraCommand Delay="1.02" CustomCamera="S55_leceni_customCamera_05" />
 												</Commands>
 											</Response>
 										</Elements>
@@ -169,30 +171,25 @@
 															</Parenthetical>
 															<Text StringName="lece_henry_boze_spaso_ver_qnxs" Text="Bože, spáso věřících, vyslyš prosbu za našeho nemocného bratra. Má účast na utrpení tvého Syna." />
 															<Commands>
-																<MoodCommand Delay="5.87" Mood="pray" />
-																<MoodCommand Mood="healing_left" />
-																<AnimationCommand Delay="2.48" FragmentId="ADLG_Healing_Out" />
-																<CameraCommand Delay="3.41" CustomCamera="S55_leceni_customCamera_05" />
-																<CameraCommand Delay="6.95" CustomCamera="S55_leceni_customCamera_09" />
+																<MoodCommand Mood="pray" />
+																<CameraCommand Delay="0.01" CustomCamera="S55_leceni_customCamera_05" />
+																<CameraCommand Delay="3.8" CustomCamera="S55_leceni_customCamera_09" />
 															</Commands>
 														</Response>
 														<Response Role="HENRY" ReferenceLength="8.26">
 															<Text StringName="lece_henry_poskytni_mu_ve_4EfO" Text="Poskytni mu ve svém milosrdenství pomoc a navrať mu zdraví, ať se s ním můžeme radovat v tvé církvi z jeho uzdravení." />
 															<Commands>
-																<AnimationCommand Delay="6.21" FragmentId="ADLG_Pray_Out" Guid="497d7cea-8404-496f-90a9-6f522953876e" Variant="0" />
 																<CameraCommand Delay="6.56" CustomCamera="S55_leceni_customCamera_09" />
 																<CameraCommand Delay="0.03" CustomCamera="S55_leceni_customCamera_10" />
 															</Commands>
 														</Response>
-														<Response Role="KREJCI_MIKUS" StartDelay="0.22" ReferenceLength="2.45">
+														<Response Role="KREJCI_MIKUS" StartDelay="0.22" HearingOverride="20" ReferenceLength="2.45">
 															<Parenthetical>
 																<Text StringName="lece_krejci_mi_stena_jest_qjCe" Text="sténá ještě slaběji" />
 															</Parenthetical>
 															<Text StringName="lece_krejci_mi_eeeh_lWgu" Text="Eeeh..." />
 															<Commands>
-																<MoodCommand Role="HENRY" Delay="2.35" Mood="healing_left" />
 																<CameraCommand Role="HENRY" Delay="0.07" CustomCamera="S55_leceni_customCamera_08" />
-																<HideActorCommand Role="HENRY" Delay="2.42" />
 															</Commands>
 														</Response>
 														<Response Role="HENRY" ReferenceLength="0.64">
@@ -201,7 +198,16 @@
 															</Parenthetical>
 															<Text StringName="lece_henry_amen_5oTw" Text="Amen." />
 															<Commands>
-																<ShowActorCommand Delay="0.66" />
+																<AnimationCommand FragmentId="ADLG_Pray_Out" Guid="497d7cea-8404-496f-90a9-6f522953876e" Variant="0" DesiredDuration="2.72" />
+																<CameraCommand Delay="0" CustomCamera="S55_leceni_customCamera_09" />
+															</Commands>
+														</Response>
+														<Response Role="HENRY" StartDelay="4.44" ReferenceLength="5">
+															<Commands>
+																<MoodCommand Delay="0.3" Mood="healing_left" />
+																<MoodCommand Delay="-2.47" />
+																<AnimationCommand Delay="-2.43" FragmentId="ADLG_HealingLeft_Aligned_In" Guid="5856546c-490d-4299-81ec-da8600733ced" Variant="0" DesiredDuration="2.79" />
+																<CameraCommand Delay="-2.03" CustomCamera="S55_leceni_customCamera_01" />
 															</Commands>
 														</Response>
 													</Elements>
@@ -215,13 +221,11 @@
 															</Parenthetical>
 															<Text StringName="lece_henry_hm_na_zadnou_m_gcXo" Text="Hm... Nemocný, jenž k Bohu vzhlíží, dojde milosrdenství... a uzdraví se slovem... který je činem... Božím?" />
 															<Commands>
-																<MoodCommand Delay="3.63" Mood="pray" />
 																<FacialMoodCommand FacialMood="thinking2" />
-																<MoodCommand Mood="healing_left" />
-																<AnimationCommand Delay="0.01" FragmentId="ADLG_Healing_Out" />
-																<CameraCommand Delay="6.1" CustomCamera="S55_leceni_customCamera_10" />
-																<CameraCommand Delay="1.14" CustomCamera="S55_leceni_customCamera_09" />
-																<CameraCommand Delay="0.06" CustomCamera="S55_leceni_customCamera_06" />
+																<MoodCommand Mood="pray" />
+																<CameraCommand Delay="9.07" CustomCamera="S55_leceni_customCamera_10" />
+																<CameraCommand Delay="1.89" CustomCamera="S55_leceni_customCamera_09" />
+																<CameraCommand Delay="0.01" CustomCamera="S55_leceni_customCamera_05" />
 															</Commands>
 														</Response>
 														<Response Role="KREJCI_MIKUS" ReferenceLength="0.95">
@@ -230,17 +234,14 @@
 															</Parenthetical>
 															<Text StringName="lece_krejci_mi_eeeh_eHad" Text="Eeeh?" />
 															<Commands>
-																<CameraCommand Role="HENRY" Delay="0.07" CustomCamera="S55_leceni_customCamera_08" />
+																<CameraCommand Role="HENRY" Delay="0.93" CustomCamera="S55_leceni_customCamera_09" />
 															</Commands>
 														</Response>
-														<Response Role="HENRY" ReferenceLength="4.48">
+														<Response Role="HENRY">
 															<Parenthetical>
 																<Text StringName="lece_henry_pro_sebe_AwoA" Text="pro sebe" />
 															</Parenthetical>
 															<Text StringName="lece_henry_nejak_jsem_to__atjl" Text="Nějak jsem to zmotal. Úplně se mi ta modlitba vykouřila z hlavy..." />
-															<Commands>
-																<CameraCommand Delay="1.01" CustomCamera="S55_leceni_customCamera_09" />
-															</Commands>
 														</Response>
 														<Response Role="KREJCI_MIKUS" ReferenceLength="1.43">
 															<Parenthetical>
@@ -257,12 +258,17 @@
 															</Parenthetical>
 															<Text StringName="lece_henry_amen_9N0a" Text="No co. Amen." />
 															<Commands>
-																<MoodCommand Delay="2.29" Mood="healing_left" />
 																<AnimationHeadCommand Role="KREJCI_MIKUS" Delay="1.47" FragmentId="ADLG_FA_EyebrowRaise_Left" Guid="58bccf36-fb2d-4a50-8616-916837cc774d" Variant="0" />
+																<AnimationCommand Delay="0.05" FragmentId="ADLG_Pray_Out" Guid="497d7cea-8404-496f-90a9-6f522953876e" Variant="0" DesiredDuration="2.74" />
 																<CameraCommand Delay="0.05" CustomCamera="S55_leceni_customCamera_09" />
-																<CameraCommand Delay="1.98" CustomCamera="S55_leceni_customCamera_08" />
-																<HideActorCommand Delay="2.23" />
-																<ShowActorCommand Delay="3.98" />
+															</Commands>
+														</Response>
+														<Response Role="HENRY" StartDelay="2.95" ReferenceLength="5">
+															<Commands>
+																<MoodCommand Delay="0.01" Mood="healing_left" />
+																<MoodCommand Delay="-2.77" />
+																<AnimationCommand Delay="-2.75" FragmentId="ADLG_HealingLeft_Aligned_In" Guid="5856546c-490d-4299-81ec-da8600733ced" Variant="0" DesiredDuration="2.79" />
+																<CameraCommand Delay="-2.39" CustomCamera="S55_leceni_customCamera_01" />
 															</Commands>
 														</Response>
 													</Elements>
@@ -447,7 +453,7 @@
 															</Parenthetical>
 															<Text StringName="lece_krejci_mi_ahhh_vEEY" Text="Ahhh..." />
 															<Commands>
-																<CameraCommand Role="HENRY" Delay="-1.32" CustomCamera="S55_leceni_customCamera_04" />
+																<CameraCommand Role="HENRY" Delay="-1.32" CustomCamera="S55_leceni_customCamera_05" />
 																<CameraCommand Role="HENRY" Delay="4.41" CustomCamera="S55_leceni_customCamera_01" />
 															</Commands>
 														</Response>
@@ -719,7 +725,9 @@
 											<Response Role="HENRY" ReferenceLength="0.71">
 												<Text StringName="lece_henry_to_bude_vsechno_6AEo" Text="To bude všechno." />
 												<Commands>
+													<MoodCommand Delay="3.68" />
 													<MoodCommand Mood="healing_left" />
+													<AnimationCommand Delay="0.02" FragmentId="ADLG_HealingLeft_Aligned_Out" Guid="0c21b5eb-14fa-487b-8ac3-5cd2a9995593" Variant="0" DesiredDuration="4.12" />
 													<CameraCommand CustomCamera="S55_leceni_customCamera_01" />
 												</Commands>
 											</Response>
@@ -735,20 +743,15 @@
 														<Response Role="HENRY" ReferenceLength="3.17">
 															<Text StringName="lece_henry_delal_jsem_co__oWxo" Text="Dělal jsem co jsem moh. Snad to bude stačit." />
 															<Commands>
-																<MoodCommand Delay="0.01" Mood="healing_left" />
-																<AnimationCommand Delay="1.98" FragmentId="ADLG_Healing_Out" />
 																<CameraCommand CustomCamera="S55_leceni_customCamera_01" />
 																<CameraCommand Delay="2.06" CustomCamera="S55_leceni_customCamera_03" />
 															</Commands>
 														</Response>
-														<Response Role="KREJCI_MIKUS" ReferenceLength="3.39">
+														<Response Role="KREJCI_MIKUS">
 															<Parenthetical>
 																<Text StringName="lece_krejci_mi_stena_mTZg" Text="sténá" />
 															</Parenthetical>
 															<Text StringName="lece_krejci_mi_ehhh_uuu_CNgV" Text="Ehhh... uuu..." />
-															<Commands>
-																<MoodCommand Role="HENRY" Delay="0.3" />
-															</Commands>
 														</Response>
 													</Elements>
 												</Sequence>
@@ -761,7 +764,6 @@
 														<Response Role="HENRY" ReferenceLength="1.34">
 															<Text StringName="lece_henry_to_by_bylo_aby_EeOR" Text="To by bylo, aby se z toho nevylízal." />
 															<Commands>
-																<MoodCommand Mood="healing_left" />
 																<CameraCommand CustomCamera="S55_leceni_customCamera_01" />
 															</Commands>
 														</Response>
@@ -771,8 +773,6 @@
 															</Parenthetical>
 															<Text StringName="lece_krejci_mi_hmm_mW9p" Text="Hmm..." />
 															<Commands>
-																<MoodCommand Role="HENRY" Delay="2.32" />
-																<AnimationCommand Role="HENRY" Delay="0.34" FragmentId="ADLG_Healing_Out" />
 																<CameraCommand Role="HENRY" Delay="1.04" CustomCamera="S55_leceni_customCamera_03" />
 															</Commands>
 														</Response>
@@ -791,10 +791,10 @@
 											<Response Role="HENRY" ReferenceLength="0.77">
 												<Text StringName="lece_henry_jeste_se_vratim_teo8" Text="Ještě se vrátím." />
 												<Commands>
-													<MoodCommand Delay="2.78" />
+													<MoodCommand Delay="3.64" />
 													<MoodCommand Mood="healing_left" />
 													<AnimationCommand />
-													<AnimationCommand Delay="0.01" FragmentId="ADLG_Healing_Out" />
+													<AnimationCommand Delay="0.01" FragmentId="ADLG_HealingLeft_Aligned_Out" Guid="0c21b5eb-14fa-487b-8ac3-5cd2a9995593" Variant="0" />
 													<CameraCommand CustomCamera="S55_leceni_customCamera_01" />
 													<CameraCommand Delay="1.33" CustomCamera="S55_leceni_customCamera_10" />
 												</Commands>

@@ -57,6 +57,11 @@
 				<Definition File="hrac_jde_udavat/udavani_horniku_a_markolta.xml" />
 			</Definitions>
 			<Nodes>
+				<AIConceptSignalTrigger Name="aiconceptsignaltriggerhitreactionnotification49" PositionY="-1010" PositionX="190" NotificationName="hitReactionNotification">
+					<Asset Name="attacker_value_filter" Alias="player" />
+					<Asset Name="victim_value_filter" Alias="andreas" />
+					<Edge From="reporting.Reporting" To="IsActive" />
+				</AIConceptSignalTrigger>
 				<SoulDeathTrigger Name="deathtrigger35" PositionY="-610" PositionX="200">
 					<Asset Name="Souls" Alias="andreas" />
 					<Edge From="reporting.Reporting" To="IsActive" />
@@ -82,6 +87,10 @@
 						<Vertex>rQGhtrcG</Vertex>
 					</Edge>
 				</If>
+				<If Name="if52" PositionY="-1010" PositionX="1010">
+					<Edge From="aiconceptsignaltriggerhitreactionnotification49.OnNotification" To="Exec" />
+					<Edge From="switch51.Value1" To="Condition" />
+				</If>
 				<jindra_dostava_odmenu_po_skiptimu Name="jindra_dostava_odmenu_po_skiptimu" PositionY="-770" PositionX="-1910">
 					<Edge From="udavani_horniku_a_markolta.zafrontovani_odmenovaciho_dialogu" To="zafrontovani_odmenovaciho_dialogu">
 						<Vertex>7q2KMncw</Vertex>
@@ -95,12 +104,13 @@
 						<Vertex>hJCc0k50</Vertex>
 					</Edge>
 				</jindra_dostava_odmenu_po_skiptimu>
-				<udej_horniky_rychtari Name="objectiveVisual4" PositionY="-980" PositionX="220" RequiredForOutput="kutnohorsko">
+				<udej_horniky_rychtari Name="objectiveVisual4" PositionY="-1180" PositionX="190" RequiredForOutput="kutnohorsko">
 					<Edge From="reporting.State" To="Progress" />
 				</udej_horniky_rychtari>
 				<Output Name="Output">
 					<Edge From="udavani_horniku_a_markolta.jindrich_odevzdal_dopis_rychtari" To="jindrich_odevzdal_dopis_rychtari">
 						<Vertex>vertex17</Vertex>
+						<Vertex>tcDBH1Ug</Vertex>
 						<Vertex>vertex18</Vertex>
 					</Edge>
 					<Edge From="reporting.Reporting" To="radnice_je_pristupna_pro_hrace" />
@@ -126,9 +136,15 @@
 					<Edge From="reporting.OnBailiffGiveRewardAfterCheckedInfoAboutBlackmailing" To="zapnout_sledovani_odchodu_z_radnice">
 						<Vertex>vertex28</Vertex>
 					</Edge>
+					<Edge From="triggersequence45.B" To="jindrich_odevzdal_dopis_rychtari">
+						<Vertex>tcDBH1Ug</Vertex>
+						<Vertex>vertex18</Vertex>
+					</Edge>
 				</Output>
 				<State Name="reporting" PositionY="-500" PositionX="-790" RequiredForOutput="kutnohorsko" TypeT="ReportingToBailiff">
-					<Edge From="udavani_horniku_a_markolta.hrac_byl_potrestan" To="SetHenryGoToJail" />
+					<Edge From="udavani_horniku_a_markolta.hrac_byl_potrestan" To="SetHenryGoToJail">
+						<Vertex>v85wBcb1</Vertex>
+					</Edge>
 					<Edge From="if41.True" To="SetAborted" />
 					<Edge From="deathtrigger35.OnDeath" To="SetBailiffDied">
 						<Vertex>vertex26</Vertex>
@@ -139,8 +155,13 @@
 					<Edge From="triggersequence45.A" To="SetBailiffGiveRewardNow" />
 					<Edge From="triggersequence46.A" To="SetBailiffGiveRewardAfterArresting" />
 					<Edge From="triggersequence46_1.A" To="SetBailiffGiveRewardAfterCheckedInfoAboutBlackmailing" />
+					<Edge From="if52.True" To="SetBailiffDied">
+						<Vertex>zRhBK69V</Vertex>
+						<Vertex>vertex26</Vertex>
+						<Vertex>vertex27</Vertex>
+					</Edge>
 				</State>
-				<AddReward Name="reward1" PositionY="-780" PositionX="750">
+				<AddReward Name="reward1" PositionY="-470" PositionX="800">
 					<Edge From="triggersequence43.B" To="AddReward">
 						<Vertex>vertex15</Vertex>
 					</Edge>
@@ -149,6 +170,13 @@
 						<StatReward Type="storyProgress" ExperienceChange="1-micro" />
 					</Rewards>
 				</AddReward>
+				<Switch Name="switch51" PositionY="-890" PositionX="660" TypeT="crime_attackKind" ValueTypes="bool" SwitchValues="stealth missile armed">
+					<Constant Name="stealthValue1" Value="true" />
+					<Constant Name="missileValue1" Value="true" />
+					<Constant Name="armedValue1" Value="true" />
+					<Constant Name="DefaultValue1" Value="false" />
+					<Edge From="aiconceptsignaltriggerhitreactionnotification49.hitType" To="Switch" />
+				</Switch>
 				<TriggerSequence Name="triggersequence39" PositionY="-280" PositionX="800">
 					<Edge From="triggersequence43.B" To="Exec">
 						<Vertex>vertex15</Vertex>
@@ -158,10 +186,6 @@
 					<Edge From="udavani_horniku_a_markolta.rychtar_hraci_neveri" To="Exec" />
 				</TriggerSequence>
 				<TriggerSequence Name="triggersequence43" PositionY="-380" PositionX="160">
-					<Edge From="triggersequence45.B" To="Exec">
-						<Vertex>NNkAIaYq</Vertex>
-						<Vertex>2BLJaoKo</Vertex>
-					</Edge>
 					<Edge From="triggersequence46.B" To="Exec">
 						<Vertex>lC8T8xDa</Vertex>
 						<Vertex>lDmN3tqD</Vertex>
@@ -169,6 +193,10 @@
 					<Edge From="triggersequence46_1.B" To="Exec">
 						<Vertex>TCdRLKd2</Vertex>
 						<Vertex>9oWHAwPv</Vertex>
+					</Edge>
+					<Edge From="triggersequence45.C" To="Exec">
+						<Vertex>NNkAIaYq</Vertex>
+						<Vertex>2BLJaoKo</Vertex>
 					</Edge>
 				</TriggerSequence>
 				<TriggerSequence Name="triggersequence45" PositionY="-170" PositionX="-1690">
@@ -208,8 +236,10 @@
 				<EdgeVertex Name="PIn1UA3l" PositionY="323" PositionX="-842" />
 				<EdgeVertex Name="rQGhtrcG" PositionY="550" PositionX="-1730" />
 				<EdgeVertex Name="svk2okIM" PositionY="20" PositionX="-1970" />
+				<EdgeVertex Name="tcDBH1Ug" PositionY="237" PositionX="-1406" />
 				<EdgeVertex Name="TCdRLKd2" PositionY="391" PositionX="-871" />
 				<EdgeVertex Name="ucbd0oEL" PositionY="0" PositionX="-2180" />
+				<EdgeVertex Name="v85wBcb1" PositionY="50" PositionX="-2070" />
 				<EdgeVertex Name="vertex15" PositionY="-200" PositionX="500" />
 				<EdgeVertex Name="vertex17" PositionY="230" PositionX="-2110" />
 				<EdgeVertex Name="vertex18" PositionY="260" PositionX="880" />
@@ -218,6 +248,7 @@
 				<EdgeVertex Name="vertex28" PositionY="-90" PositionX="160" />
 				<EdgeVertex Name="y35sK2AY" PositionY="420" PositionX="-2500" />
 				<EdgeVertex Name="yL6fwakY" PositionY="550" PositionX="-40" />
+				<EdgeVertex Name="zRhBK69V" PositionY="-626" PositionX="1162" />
 			</EdgeVertices>
 			<Text StringName="hrac_jde_udavat_3vGg" Text="Hráč jde udávat" />
 			<Elements>

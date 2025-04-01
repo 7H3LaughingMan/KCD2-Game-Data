@@ -14,20 +14,26 @@
 				</Port>
 			</Ports>
 			<Nodes>
-				<itemclasstrigger_playerinventory Name="itemclasstrigger_playerinventory" PositionY="-50" PositionX="-70" Namespace="utils.item">
+				<itemclasstrigger_playerinventory Name="itemclasstrigger_playerinventory" PositionY="-280" PositionX="-50" Namespace="utils.item">
 					<Constant Name="amount" Value="1" />
 					<Edge From="hledani_aktivni" To="isactive" />
 					<Edge From="konstanty.podkova_vzor" To="itemclass" />
 				</itemclasstrigger_playerinventory>
-				<konstanty Name="konstanty" PositionY="80" PositionX="-320" Namespace="" />
+				<konstanty Name="konstanty" PositionY="-460" PositionX="-300" Namespace="" />
 				<Output Name="Output">
-					<Edge From="itemclasstrigger_playerinventory.ontargetamountacquire" To="hrac_nasel_podkovu" />
+					<Edge From="requestmonologue3.OnExec" To="hrac_nasel_podkovu" />
 				</Output>
-				<Function Name="requestmonologue3" PositionY="130" PositionX="350" MethodName="wh::xgenaimodule::RequestMonologue" DeclaringType="wh::xgenaimodule">
+				<Function Name="requestmonologue3" PositionY="90" PositionX="640" MethodName="wh::xgenaimodule::RequestMonologue" DeclaringType="wh::xgenaimodule">
 					<Asset Name="Souls" Alias="player" />
 					<Edge From="alias_barku" To="DecisionAlias" />
-					<Edge From="itemclasstrigger_playerinventory.ontargetamountacquire" To="Exec" />
+					<Edge From="reward4.OnAdded" To="Exec" />
 				</Function>
+				<AddReward Name="reward4" PositionY="10" PositionX="370">
+					<Edge From="itemclasstrigger_playerinventory.ontargetamountacquire" To="AddReward" />
+					<Rewards>
+						<PerkReward Perk="BS recipe - r_kovaniZavodniPodkovy_caulkinHorseshoe" />
+					</Rewards>
+				</AddReward>
 			</Nodes>
 			<Text StringName="hledanipodkovy_h0QW" Text="HledaniPodkovy" />
 		</Module>

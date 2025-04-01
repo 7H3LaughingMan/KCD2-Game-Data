@@ -16,22 +16,19 @@
 						<Vertex>vertex1</Vertex>
 					</Edge>
 				</DisableHorseInventory>
-				<FilterInput Name="filterHorseInput" PositionY="60" PositionX="290">
-					<Edge From="makearray.Array" To="Filters" />
-					<Edge From="or.bool" To="IsActive">
-						<Vertex>vertex1</Vertex>
-					</Edge>
-				</FilterInput>
-				<MakeArray Name="makearray" PositionY="90" PositionX="-60" TypeT="Strings">
-					<Constant Name="A" Value="no_horse" />
-				</MakeArray>
 				<Function Name="or" PositionY="-70" PositionX="-60" MethodName="math::boolean::Or" DeclaringType="math::boolean">
 					<Edge From="vzpoura_probiha" To="B" />
 					<Edge From="bohuta_si_ma_jit_promluvit_s_zizkou" To="A" />
 				</Function>
+				<SetGameContext Name="setgamecontext1" PositionY="80" PositionX="290">
+					<Constant Name="Context" Value="DisableHorseCall" />
+					<Edge From="or.bool" To="IsActive">
+						<Vertex>vertex1</Vertex>
+					</Edge>
+				</SetGameContext>
 			</Nodes>
 			<EdgeVertices>
-				<EdgeVertex Name="vertex1" PositionY="70" PositionX="220" />
+				<EdgeVertex Name="vertex1" PositionY="20" PositionX="220" />
 			</EdgeVertices>
 			<Text StringName="zakazani_privolani_hracov_cSTb" Text="Zakázání přivolání hráčova koně" />
 		</Module>

@@ -2,17 +2,33 @@
 <Database xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" Name="brambora">
 	<Skald>
 		<Gameplay Name="zelejovHospoda">
+			<Ports>
+				<Port Name="jindra_ma_pronajatej_pokoj_zelejov" Direction="Out" Type="bool">
+					<DesignName StringName="zelejovho_jindra_ma_prona_a0L3" Text="Jindra má pronajatej pokoj Zelejov" />
+				</Port>
+				<Port Name="levelswitch" Direction="In" Type="trigger">
+					<DesignName StringName="zelejovho_levelswitch_DRVS" Text="LevelSwitch" />
+				</Port>
+			</Ports>
 			<Definitions>
 				<Definition File="zelejovHospoda/zelejov_rent_room_kde_je_pokoj_muz_.xml" />
 				<Definition File="zelejovHospoda/zelejov_rent_room_kde_je_pokoj_zena.xml" />
 			</Definitions>
 			<Nodes>
+				<keepdoorunlocked Name="keepdoorunlocked" PositionY="-80" PositionX="190" Namespace="utils.general">
+					<Asset Name="door" Alias="vstupniDvere" />
+					<Edge From="roomrent.jindra_ma_pronajatej_pokoj" To="isactive" />
+				</keepdoorunlocked>
+				<Output Name="Output">
+					<Edge From="roomrent.jindra_ma_pronajatej_pokoj" To="jindra_ma_pronajatej_pokoj_zelejov" />
+				</Output>
 				<roomrent Name="roomrent" PositionY="-60" PositionX="-90" Namespace="utils.roomrenting">
 					<Asset Name="souls" Alias="owners" />
 					<Asset Name="dvere" Alias="dvere" />
 					<Asset Name="so" Alias="so_zelejov" />
 					<Asset Name="postel" Alias="bed" />
 					<Asset Name="kotlik" Alias="kotlik" />
+					<Edge From="levelswitch" To="levelswitched" />
 				</roomrent>
 				<zelejov_rent_room_kde_je_pokoj_muz_ Name="zelejov_rent_room_kde_je_pokoj_muz_" PositionY="200" PositionX="170">
 					<Edge From="roomrent.jindra_ma_pronajatej_pokoj" To="jindra_ma_pronajaty_pokoj" />
@@ -28,6 +44,7 @@
 				<TriggerAreaAsset Name="roomArea" />
 				<SmartObjectAsset Name="bed" />
 				<SmartObjectAsset Name="kotlik" />
+				<AnimDoorAsset Name="vstupniDvere" />
 			</Assets>
 			<Text StringName="zelejovhospoda_z6kr" Text="ZelejovHospoda" />
 			<Elements>

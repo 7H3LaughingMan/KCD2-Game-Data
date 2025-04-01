@@ -45,11 +45,11 @@
 					<Edge From="journey_state" To="ValueA" />
 				</Function>
 				<customswitchtree Name="customswitchtree" PositionY="-640" PositionX="640" Namespace="utils.crime">
-					<Asset Name="souls" Alias="holka3" />
 					<Asset Name="qso" Alias="budovaniLazni" />
 					<Constant Name="treefilename" Value="quests/budovaniLazni/budovaniLazni.xml" />
 					<Constant Name="treename" Value="bathmaid_polylogOnCart" />
 					<Edge From="compare50.bool" To="isactive" />
+					<Edge From="makearray52.Array" To="souls" />
 				</customswitchtree>
 				<DistanceTrigger Name="distancetrigger28" PositionY="400" PositionX="200">
 					<Asset Name="Origin" Alias="wagonStartPoint" />
@@ -65,6 +65,10 @@
 					<Constant Name="Distance" Value="1000" />
 					<Edge From="compare1_1.bool" To="IsActive" />
 				</DistanceTrigger>
+				<MakeArray Name="makearray52" PositionY="-340" PositionX="320" TypeT="wh::rpgmodule::Souls">
+					<Asset Name="A" Alias="holka3" />
+					<Asset Name="B" Alias="holka2" />
+				</MakeArray>
 				<Output Name="Output">
 					<Edge From="wagoncrewtrigger.allboarded" To="vsichni_nasadli" />
 					<Edge From="wagoncrewtrigger.someondisboarded" To="nekdo_sesedl" />

@@ -211,13 +211,6 @@
 					</Edge>
 					<Edge From="OnWake" To="Exec" />
 				</IfFunction>
-				<FilterInput Name="filterinput5" PositionY="150" PositionX="2690">
-					<Edge From="makearray6.Array" To="Filters" />
-					<Edge From="bitva_za_jindru.jed_na_pomoc_none" To="IsActive">
-						<Vertex>Y9RLbbty</Vertex>
-						<Vertex>fM8Gg6fm</Vertex>
-					</Edge>
-				</FilterInput>
 				<ForEach Name="foreach25" PositionY="-520" PositionX="20" TypeT="wh::rpgmodule::Souls">
 					<Edge From="ifand24.True" To="Begin" />
 					<Edge From="joinarrays26.Array" To="Array" />
@@ -284,10 +277,6 @@
 					<Asset Name="A" Alias="bohutaNPC" />
 					<Asset Name="B" Alias="brabant" />
 				</Function>
-				<MakeArray Name="makearray6" PositionY="50" PositionX="2340" TypeT="Strings">
-					<Constant Name="A" Value="no_horse" />
-					<Constant Name="B" Value="no_horse_mount" />
-				</MakeArray>
 				<nocni_bitva Name="nocni_bitva" PositionY="930" PositionX="2590" RequiredForOutput="kutnohorsko">
 					<Edge From="cin_m3780k_setkaniratbordva__ratbor_attack.attack_onfinished" To="attack_onfinished" />
 					<Edge From="cin_m3780k_setkaniratbordva__ratbor_attack.attack_onafterplay" To="attack_afterplay" />
@@ -400,6 +389,13 @@
 					<Edge From="and15.bool" To="IsActive" />
 				</SchedulerLinkActivation>
 				<HasteTrigger Name="SetFailedSkillcheckWithHorsetrader" PositionY="1510" PositionX="-270" />
+				<SetGameContext Name="setgamecontext27" PositionY="110" PositionX="2690">
+					<Constant Name="Context" Value="DisableHorseCall" />
+					<Edge From="bitva_za_jindru.jed_na_pomoc_none" To="IsActive">
+						<Vertex>Y9RLbbty</Vertex>
+						<Vertex>fM8Gg6fm</Vertex>
+					</Edge>
+				</SetGameContext>
 				<State Name="setkaniVRatbori2" PositionY="280" PositionX="880" RequiredForOutput="kutnohorsko" TypeT="wh::questmodule::QuestProgress">
 					<Edge From="dialogy_po_bitve.jede_se_do_kh_cleanup_fader_onafterplay" To="SetDone">
 						<Vertex>SLmus54G</Vertex>

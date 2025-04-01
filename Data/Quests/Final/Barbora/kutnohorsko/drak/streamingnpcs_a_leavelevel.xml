@@ -51,12 +51,49 @@
 				<Port Name="gerhart_odevzdano_leave_level" Direction="In" Type="trigger">
 					<DesignName StringName="streaming_gerhart_odevzda_JYOw" Text="Gerhart odevzdáno leave level" />
 				</Port>
+				<Port Name="kosti_uz_tam_nejsou" Direction="In" Type="trigger">
+					<DesignName StringName="streaming_kosti_uz_tam_ne_oASK" Text="kosti uz tam nejsou" />
+				</Port>
+				<Port Name="dialog_skoncil" Direction="In" Type="trigger">
+					<DesignName StringName="streaming_dialog_skoncil_447Y" Text="dialog skoncil soldier" />
+				</Port>
+				<Port Name="dialog_skoncil_1" Direction="In" Type="trigger">
+					<DesignName StringName="streaming_dialog_skoncil_1_Ep2U" Text="dialog skoncil alch" />
+				</Port>
 			</Ports>
+			<Definitions>
+				<Definition File="streamingnpcs_a_leavelevel/distance_trigger_multipe_targets.xml" />
+				<Definition File="streamingnpcs_a_leavelevel/distance_trigger_multipe_targets_alch.xml" />
+			</Definitions>
 			<Nodes>
 				<State Name="Alchemist" PositionY="-170" PositionX="-790" TypeT="AlchemistExistance">
 					<Edge From="streamalchemistgroup_fistfight" To="SetstreamInFistFight" />
 					<Edge From="streamalchemistgroup_standoff" To="SetstreamInStandOff" />
 				</State>
+				<disabledirectionschatsoul Name="disabledirectionschatsoul" PositionY="780" PositionX="470" Namespace="utils.hardcoremode">
+					<Asset Name="soul" Alias="alchemist_bodyguard3" />
+					<Edge From="leavelevelhandling_v2_1.profilesactive" To="enabled" />
+				</disabledirectionschatsoul>
+				<disabledirectionschatsoul Name="disabledirectionschatsoul_1" PositionY="340" PositionX="500" Namespace="utils.hardcoremode">
+					<Edge From="leavelevelhandling_v2.profilesactive" To="enabled" />
+					<Edge From="makearray152.Array" To="soul" />
+				</disabledirectionschatsoul>
+				<disabledirectionschatsoul Name="disabledirectionschatsoul_2" PositionY="1190" PositionX="580" Namespace="utils.hardcoremode">
+					<Edge From="leavelevelhandling_v2_1_1.profilesactive" To="enabled" />
+					<Edge From="makearray1521_1.Array" To="soul">
+						<Vertex>vertex86</Vertex>
+						<Vertex>vertex87</Vertex>
+						<Vertex>vertex88</Vertex>
+						<Vertex>IrUSuwfm</Vertex>
+						<Vertex>G2a0WUYQ</Vertex>
+					</Edge>
+				</disabledirectionschatsoul>
+				<distance_trigger_multipe_targets Name="distance_trigger_multipe_targets" PositionY="710" PositionX="-710">
+					<Edge From="state1536_1.Active" To="formace_active" />
+				</distance_trigger_multipe_targets>
+				<distance_trigger_multipe_targets_alch Name="distance_trigger_multipe_targets_alch" PositionY="230" PositionX="-750">
+					<Edge From="state1536.Active" To="formace_active" />
+				</distance_trigger_multipe_targets_alch>
 				<konstanty Name="konstanty" PositionY="1540" PositionX="-1820" Namespace="drak" />
 				<leavelevelhandling_v2 Name="leavelevelhandling_v2" PositionY="150" PositionX="-190" Namespace="utils.streaming">
 					<Asset Name="profiles" Alias="profile_alchemist" />
@@ -65,9 +102,16 @@
 					<Edge From="makearray152.Array" To="souls" />
 					<Edge From="Alchemist.OnstreamInStandOff" To="streamprofiles" />
 					<Edge From="Alchemist.OnstreamInFistFight" To="streamprofiles" />
-					<Edge From="state1527.OnLeaveLevel" To="leavelevel" />
 					<Edge From="moveinformation_simple_2.onfinished" To="leavelevel" />
 					<Edge From="moveinformation_simple_2.onleaderdeath" To="leavelevel" />
+					<Edge From="dialog_skoncil" To="unstreamprofiles" />
+					<Edge From="triggersequence1543.B" To="unstreamprofiles" />
+					<Edge From="kosti_uz_tam_nejsou" To="leavelevel">
+						<Vertex>qCvNMvIu</Vertex>
+					</Edge>
+					<Edge From="hrac_ziskal_kosti" To="leavelevel">
+						<Vertex>E8wsNtBE</Vertex>
+					</Edge>
 				</leavelevelhandling_v2>
 				<leavelevelhandling_v2 Name="leavelevelhandling_v2_1" PositionY="570" PositionX="-220" Namespace="utils.streaming">
 					<Asset Name="profiles" Alias="profile_alchemistBodyguard3" />
@@ -79,6 +123,7 @@
 					</Edge>
 					<Edge From="moveinformation_simple_2.onfinished" To="leavelevel" />
 					<Edge From="moveinformation_simple_2.onleaderdeath" To="leavelevel" />
+					<Edge From="triggersequence1543.B" To="unstreamprofiles" />
 				</leavelevelhandling_v2>
 				<leavelevelhandling_v2 Name="leavelevelhandling_v2_1_1" PositionY="1010" PositionX="-220" Namespace="utils.streaming">
 					<Asset Name="profiles" Alias="profile_leader" />
@@ -92,6 +137,11 @@
 					</Edge>
 					<Edge From="moveinformation_simple_1.onfinished" To="leavelevel" />
 					<Edge From="moveinformation_simple_1.onleaderdeath" To="leavelevel" />
+					<Edge From="triggersequence1542.B" To="unstreamprofiles" />
+					<Edge From="dialog_skoncil_1" To="unstreamprofiles">
+						<Vertex>1zGVGHrU</Vertex>
+						<Vertex>LmS85Cno</Vertex>
+					</Edge>
 				</leavelevelhandling_v2>
 				<leavelevelhandling_v2 Name="leavelevelhandling_v2_1_1_1" PositionY="1690" PositionX="-870" Namespace="utils.streaming">
 					<Asset Name="profiles" Alias="profile_slava" />
@@ -122,7 +172,7 @@
 					<Constant Name="Tag" Value="horse" />
 					<Edge From="state1527.LeaveLevel" To="IsActive" />
 				</LinkEffectNoData>
-				<MakeArray Name="makearray152" PositionY="400" PositionX="-570" TypeT="wh::rpgmodule::Souls">
+				<MakeArray Name="makearray152" PositionY="420" PositionX="-610" TypeT="wh::rpgmodule::Souls">
 					<Asset Name="A" Alias="alchemist" />
 					<Asset Name="B" Alias="alchemist_bodyguard1" />
 					<Asset Name="C" Alias="alchemist_bodyguard2" />
@@ -247,6 +297,10 @@
 					<Edge From="or1538.bool" To="alch_beforeleavelevel" />
 					<Edge From="or1539.bool" To="velitel_beforeleavelevel" />
 				</Output>
+				<SchedulerLinkActivation Name="schedule1540" PositionY="-1390" PositionX="-410">
+					<Constant Name="LinkTag" Value="drak_alchemyPub" />
+					<Edge From="state1527.LeaveLevel" To="IsActive" />
+				</SchedulerLinkActivation>
 				<SetEntityContext Name="setentitycontext1525" PositionY="500" PositionX="150">
 					<Constant Name="Context" Value="crime_disableReport" />
 					<Edge From="leavelevelhandling_v2.profilesactive" To="IsActive" />
@@ -339,6 +393,11 @@
 						<Vertex>vertex13</Vertex>
 						<Vertex>FI5PpHlV</Vertex>
 					</Edge>
+					<Edge From="triggersequence1543.A" To="SetDone">
+						<Vertex>A0XIWQgg</Vertex>
+						<Vertex>xI1yrPqK</Vertex>
+					</Edge>
+					<Edge From="dialog_skoncil_1" To="SetActive" />
 				</State>
 				<State Name="state1536_1" PositionY="740" PositionX="-1590" TypeT="Progress">
 					<Edge From="leavelevel_groups" To="SetActive">
@@ -353,6 +412,10 @@
 					<Edge From="moveinformation_simple_1.onleaderdeath" To="SetDone">
 						<Vertex>dssAevaJ</Vertex>
 						<Vertex>bMHe5VR3</Vertex>
+					</Edge>
+					<Edge From="triggersequence1542.A" To="SetDone">
+						<Vertex>4cY9I1nJ</Vertex>
+						<Vertex>rqwKd9L4</Vertex>
 					</Edge>
 				</State>
 				<Switch Name="switch1526" PositionY="1140" PositionX="100" TypeT="LeaveLevel" ValueTypes="bool" SwitchValues="LeavingLevel Unloaded">
@@ -383,38 +446,53 @@
 						<Vertex>vertex75</Vertex>
 					</Edge>
 				</Timer>
+				<TriggerSequence Name="triggersequence1542" PositionY="880" PositionX="-430">
+					<Edge From="distance_trigger_multipe_targets.distancetrigger" To="Exec" />
+				</TriggerSequence>
+				<TriggerSequence Name="triggersequence1543" PositionY="340" PositionX="-430">
+					<Edge From="distance_trigger_multipe_targets_alch.distancetrigger" To="Exec" />
+				</TriggerSequence>
 			</Nodes>
 			<EdgeVertices>
+				<EdgeVertex Name="1zGVGHrU" PositionY="1208" PositionX="-1942" />
 				<EdgeVertex Name="2onnpg4L" PositionY="696" PositionX="104" />
 				<EdgeVertex Name="3JnPBkUx" PositionY="-790" PositionX="-440" />
+				<EdgeVertex Name="4cY9I1nJ" PositionY="1194" PositionX="-262" />
 				<EdgeVertex Name="4z13BwDs" PositionY="753" PositionX="-1113" />
 				<EdgeVertex Name="6e9tlhfH" PositionY="696" PositionX="400" />
 				<EdgeVertex Name="7tHsel0G" PositionY="-228" PositionX="-1075" />
 				<EdgeVertex Name="9eBDrLJH" PositionY="648" PositionX="-1631" />
+				<EdgeVertex Name="A0XIWQgg" PositionY="639" PositionX="-263" />
 				<EdgeVertex Name="APWIMIjA" PositionY="1274" PositionX="-1647" />
 				<EdgeVertex Name="ba8y6FYB" PositionY="-850" PositionX="-700" />
 				<EdgeVertex Name="bMHe5VR3" PositionY="1236" PositionX="-1507" />
 				<EdgeVertex Name="CKW7AaMc" PositionY="137" PositionX="-1159" />
 				<EdgeVertex Name="cRkST0jH" PositionY="-790" PositionX="-680" />
 				<EdgeVertex Name="dssAevaJ" PositionY="1240" PositionX="-770" />
+				<EdgeVertex Name="E8wsNtBE" PositionY="102" PositionX="-933" />
 				<EdgeVertex Name="EGhQLVXQ" PositionY="140" PositionX="-1350" />
 				<EdgeVertex Name="FI5PpHlV" PositionY="110" PositionX="-1700" />
+				<EdgeVertex Name="G2a0WUYQ" PositionY="1366" PositionX="538" />
 				<EdgeVertex Name="g4y8L0TJ" PositionY="-760" PositionX="-1200" />
 				<EdgeVertex Name="GyaG4Vh2" PositionY="597" PositionX="62" />
 				<EdgeVertex Name="H7wNjEQm" PositionY="1292" PositionX="-959" />
 				<EdgeVertex Name="hkADGMWE" PositionY="-790" PositionX="-1210" />
 				<EdgeVertex Name="HlrGGbCl" PositionY="1214" PositionX="-1496" />
 				<EdgeVertex Name="IaPrsPMP" PositionY="630" PositionX="-1160" />
+				<EdgeVertex Name="IrUSuwfm" PositionY="1366" PositionX="79" />
 				<EdgeVertex Name="jQWlTvEb" PositionY="675" PositionX="-759" />
 				<EdgeVertex Name="jwChvoN9" PositionY="1220" PositionX="-760" />
 				<EdgeVertex Name="L9nDoqWS" PositionY="-802" PositionX="-1387" />
+				<EdgeVertex Name="LmS85Cno" PositionY="1164" PositionX="-312" />
 				<EdgeVertex Name="NlzKGeLw" PositionY="-228" PositionX="313" />
 				<EdgeVertex Name="P8sAMRro" PositionY="606" PositionX="-1079" />
+				<EdgeVertex Name="qCvNMvIu" PositionY="-96" PositionX="-2010" />
+				<EdgeVertex Name="rqwKd9L4" PositionY="1179" PositionX="-1577" />
 				<EdgeVertex Name="Spe2BUMs" PositionY="716" PositionX="-1655" />
 				<EdgeVertex Name="sVPSWNWX" PositionY="691" PositionX="-1644" />
 				<EdgeVertex Name="V5WGXRQj" PositionY="-830" PositionX="0" />
 				<EdgeVertex Name="vaKoB4q8" PositionY="-594" PositionX="-1419" />
-				<EdgeVertex Name="vertex13" PositionY="100" PositionX="-1210" />
+				<EdgeVertex Name="vertex13" PositionY="80" PositionX="-1220" />
 				<EdgeVertex Name="vertex73" PositionY="1720" PositionX="-1960" />
 				<EdgeVertex Name="vertex74" PositionY="1800" PositionX="-1840" />
 				<EdgeVertex Name="vertex75" PositionY="1680" PositionX="-1370" />
@@ -428,6 +506,7 @@
 				<EdgeVertex Name="vertex88" PositionY="1438" PositionX="25" />
 				<EdgeVertex Name="VSzBo7I8" PositionY="-600" PositionX="-110" />
 				<EdgeVertex Name="wXlWgCQR" PositionY="697" PositionX="-767" />
+				<EdgeVertex Name="xI1yrPqK" PositionY="671" PositionX="-1598" />
 				<EdgeVertex Name="yCHxRoqU" PositionY="-840" PositionX="-1170" />
 				<EdgeVertex Name="YpzJ4kH9" PositionY="488" PositionX="383" />
 				<EdgeVertex Name="zvYceCCU" PositionY="-1022" PositionX="-1640" />

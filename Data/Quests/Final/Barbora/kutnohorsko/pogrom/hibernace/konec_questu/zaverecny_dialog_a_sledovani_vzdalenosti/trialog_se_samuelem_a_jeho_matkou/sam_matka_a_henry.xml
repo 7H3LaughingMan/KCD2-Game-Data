@@ -22,9 +22,9 @@
 					<SelectedSoul Role="SARA_SAMOVA_MATKA_POGROM" Voice="sandraSchneider" Soul="kkut_sara" Type="Wave" Language="ENG" />
 					<SelectedSoul Role="SAMUEL_POGROM" Voice="madsHjulmand" Soul="kkut_samuel" Type="Wave" Language="ENG" />
 				</SelectedSouls>
-				<Decision Name="dec1" Priority="MainQuestSubmission" CustomCamera="M42_zaver_customCamera_05">
+				<Decision Name="dec1" Priority="MainQuestSubmission" CustomCamera="M42_zaver_customCamera_02">
 					<Sequences>
-						<Sequence EntryCondition="!ThisSequenceUsed()" EndType="GoTo" GoToDecision="dec1" Visibility="Internal" Name="seq15">
+						<Sequence EntryCondition="!ThisSequenceUsed()" EndType="Decision" Visibility="Internal" Name="seq15">
 							<DesignName StringName="sam_matka_seq15_MnAf" Text="seq15" />
 							<UiPrompt StringName="ui_sam_matka_seq15_zjFR" Text="Jsi v pořádku?" />
 							<Elements>
@@ -64,8 +64,9 @@
 									</Commands>
 								</Response>
 							</Elements>
-						</Sequence>
-						<Sequence EntryCondition="!ThisSequenceUsed() AND SequenceUsed('seq15') AND !SequenceUsed('seq1')" EndType="GoTo" GoToDecision="dec1" Reputation="quest_reward_4_normal" ReputationChangeTarget="SARA_SAMOVA_MATKA_POGROM" Name="seq17">
+							<Decision Name="dec10" CustomCamera="M42_zaver_customCamera_05">
+								<Sequences>
+									<Sequence EntryCondition="!ThisSequenceUsed() AND SequenceUsed('seq15') AND !SequenceUsed('seq1')" EndType="GoTo" GoToDecision="dec10" Reputation="quest_reward_4_normal" ReputationChangeTarget="SARA_SAMOVA_MATKA_POGROM" Name="seq17">
 										<DesignName StringName="sam_matka_seq17_xzm8" Text="seq17" />
 										<UiPrompt StringName="ui_sam_matka_seq17_L8mf" Text="Můžu ještě nějak pomoct?" />
 										<Elements>
@@ -193,7 +194,7 @@
 															<Commands>
 																<FacialMoodCommand FacialMood="happy1" />
 																<AnimationCommand Delay="0.02" FragmentId="ADLG_Gesture" Guid="b06c8e56-a71c-4874-8dfd-b9f32cc09253" Variant="13" DesiredDuration="2.73" />
-																<CameraCommand Delay="0" CustomCamera="M42_zaver_customCamera_03" />
+																<CameraCommand CustomCamera="M42_zaver_customCamera_03" />
 																<CameraCommand Role="HENRY" Delay="2.85" CustomCamera="M42_zaver_customCamera_04" />
 															</Commands>
 														</Response>
@@ -302,12 +303,12 @@
 																		</Parenthetical>
 																		<Text StringName="sam__sara_samo_presne_tak_I440" Text="To je mi líto, chlapče... Ale přesně takovýho jsem Martina znala. Vždycky myslel nejdřív na ostatní." />
 																		<Commands>
-																			<CameraCommand Delay="4.91" CustomCamera="M42_zaver_customCamera_08" />
 																			<LookAtCommand Delay="4.19" CustomTarget="LookAt_raneni" TransitionDuration="0.7" />
 																			<LookAtCommand Role="HENRY" Delay="5.22" CustomTarget="LookAt_raneni" TransitionDuration="0.6" />
+																			<CameraCommand Role="HENRY" Delay="4.91" CustomCamera="M42_zaver_customCamera_29" />
 																		</Commands>
 																	</Response>
-																	<Response Role="SARA_SAMOVA_MATKA_POGROM" StartDelay="2.19" ReferenceLength="3.87">
+																	<Response Role="SARA_SAMOVA_MATKA_POGROM" StartDelay="0.92" ReferenceLength="3.87">
 																		<Parenthetical>
 																			<Text StringName="sam__sara_samo_taky_smutn_qZLF" Text="podívá se na Jindru a s nadějí v hlase přemáhá smutek" />
 																		</Parenthetical>
@@ -317,8 +318,7 @@
 																			<AnimationCommand Delay="0.01" FragmentId="ADLG_Emphasis" Guid="fa542b3b-9509-688e-80bc-8ebeee30790c" Variant="7" />
 																			<LookAtCommand Role="HENRY" Delay="-0.12" LookAtRole="SARA_SAMOVA_MATKA_POGROM" />
 																			<LookAtCommand Delay="-0.1" LookAtRole="HENRY" />
-																			<CameraCommand Role="HENRY" Delay="0" CustomCamera="M42_zaver_customCamera_05" />
-																			<CameraCommand Role="HENRY" Delay="-1.93" CustomCamera="M42_zaver_customCamera_29" />
+																			<CameraCommand Delay="-0.01" CustomCamera="M42_zaver_customCamera_08" />
 																		</Commands>
 																	</Response>
 																	<Response Role="HENRY" ReferenceLength="2.41">
@@ -330,7 +330,7 @@
 																			<FacialMoodCommand FacialMood="sad1" />
 																			<AnimationCommand Delay="0.04" FragmentId="ADLG_Confusion" Guid="3ee18b27-3ab6-44ff-973a-dac45dd39426" Variant="1" DesiredDuration="2.04" />
 																			<AnimationCommand Role="SARA_SAMOVA_MATKA_POGROM" Delay="2.33" FragmentId="ADLG_Disagree_light" Guid="9d53ef1b-4290-44fa-be4c-69761089532a" Variant="3" DesiredDuration="1.9" />
-																			<CameraCommand Delay="0.08" CustomCamera="M42_zaver_customCamera_03" />
+																			<CameraCommand Delay="0.03" CustomCamera="M42_zaver_customCamera_05" />
 																		</Commands>
 																	</Response>
 																	<Response Role="SARA_SAMOVA_MATKA_POGROM" ReferenceLength="5.38">
@@ -342,6 +342,7 @@
 																			<AnimationCommand Delay="2.49" FragmentId="ADLG_Confusion" Guid="886b368e-34df-4f89-a8b4-266ae4e863e8" Variant="2" />
 																			<ShowActorCommand Role="SAMUEL_POGROM" Delay="2.56" />
 																			<CameraCommand Role="HENRY" Delay="2.09" CustomCamera="M42_zaver_customCamera_03" />
+																			<CameraCommand Role="HENRY" Delay="0.03" CustomCamera="M42_zaver_customCamera_03" />
 																		</Commands>
 																		<ReviewNotesStylistic>
 																			<Item Date="2023-07-29 10:41:32" UserName="david.horak" Text="Divný. - Něco jako doba je zlá." />
@@ -373,7 +374,7 @@
 																			<AnimationCommand Role="SAMUEL_POGROM" Delay="3.9" FragmentId="ADLG_posture_change" Guid="e84e5845-5ffc-4ffc-9022-6dd73e386521" Variant="14" />
 																			<LookAtCommand Delay="2.72" LookAtRole="HENRY" />
 																			<LookAtCommand Role="SAMUEL_POGROM" Delay="3.58" LookAtRole="HENRY" />
-																			<CameraCommand Role="SAMUEL_POGROM" Delay="0" CustomCamera="M42_zaver_customCamera_10" />
+																			<CameraCommand Role="SAMUEL_POGROM" CustomCamera="M42_zaver_customCamera_10" />
 																			<CameraCommand Role="HENRY" Delay="5.59" CustomCamera="M42_zaver_customCamera_11" />
 																		</Commands>
 																	</Response>
@@ -691,7 +692,7 @@
 																								<Commands>
 																									<FacialMoodCommand FacialMood="happy1" />
 																									<CameraCommand CustomCamera="M42_zaver_customCamera_10" />
-																						<LookAtCommand Role="SARA_SAMOVA_MATKA_POGROM" Delay="0" LookAtRole="SAMUEL_POGROM" />
+																									<LookAtCommand Role="SARA_SAMOVA_MATKA_POGROM" LookAtRole="SAMUEL_POGROM" />
 																								</Commands>
 																							</Response>
 																							<Response Role="SARA_SAMOVA_MATKA_POGROM" ReferenceLength="4.05">
@@ -1043,6 +1044,9 @@
 									</Sequence>
 								</Sequences>
 							</Decision>
+						</Sequence>
+					</Sequences>
+				</Decision>
 			</Dialogue>
 		</ForcedDialog>
 	</Skald>

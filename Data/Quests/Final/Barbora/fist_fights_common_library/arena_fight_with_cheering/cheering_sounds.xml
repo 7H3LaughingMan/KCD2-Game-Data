@@ -66,10 +66,21 @@
 					<Edge From="switch_peopleSounds.Value1" To="AtlTriggerName" />
 					<Edge From="and6.bool" To="IsActive" />
 				</AudioSustainedEffect>
+				<Function Name="compare37" PositionY="-830" PositionX="-740" TypeT="int" MethodName="Control::Compare" DeclaringType="Control">
+					<Constant Name="Op" Value="LessEquals" />
+					<Constant Name="ValueB" Value="5" />
+					<Edge From="numberOfActiveFans.State" To="ValueA">
+						<Vertex>1EmEXmDa</Vertex>
+						<Vertex>WlPJP2oy</Vertex>
+						<Vertex>azGqvmkc</Vertex>
+					</Edge>
+				</Function>
 				<Function Name="compare7" PositionY="-290" PositionX="640" TypeT="int" MethodName="Control::Compare" DeclaringType="Control">
 					<Constant Name="Op" Value="GreaterEquals" />
 					<Constant Name="ValueB" Value="5" />
-					<Edge From="numberOfActiveFans.State" To="ValueA" />
+					<Edge From="numberOfActiveFans.State" To="ValueA">
+						<Vertex>1EmEXmDa</Vertex>
+					</Edge>
 				</Function>
 				<EntityContextTrigger Name="entitycontexttrigger1" PositionY="-220" PositionX="-170">
 					<Constant Name="Context" Value="fistfights_cheering" />
@@ -125,13 +136,20 @@
 				<Switch Name="switch_peopleSounds" PositionY="-830" PositionX="-30" TypeT="bool" ValueTypes="wh::soundmodule::SkaldAtlTriggerId wh::soundmodule::SkaldAtlTriggerId" SwitchValues="true">
 					<Constant Name="Switch" Value="true" />
 					<Constant Name="trueValue1" Value="q_a37_spectators" />
-					<Constant Name="trueValue2" Value="q_a37_spectators_winner" />
 					<Constant Name="DefaultValue1" Value="c_people_fight_spectators" />
 					<Constant Name="DefaultValue2" Value="c_people_fight_spectators_win" />
+					<Edge From="switch38.Value1" To="trueValue2" />
+				</Switch>
+				<Switch Name="switch38" PositionY="-830" PositionX="-450" TypeT="bool" ValueTypes="wh::soundmodule::SkaldAtlTriggerId" SwitchValues="true">
+					<Constant Name="trueValue1" Value="q_a37_spectators_good" />
+					<Constant Name="DefaultValue1" Value="q_a37_spectators_winner" />
+					<Edge From="compare37.bool" To="Switch" />
 				</Switch>
 			</Nodes>
 			<EdgeVertices>
+				<EdgeVertex Name="1EmEXmDa" PositionY="-195" PositionX="580" />
 				<EdgeVertex Name="7YpjRJpD" PositionY="-200" PositionX="890" />
+				<EdgeVertex Name="azGqvmkc" PositionY="-380" PositionX="-750" />
 				<EdgeVertex Name="CguWPp5J" PositionY="-710" PositionX="900" />
 				<EdgeVertex Name="NKVU3Drr" PositionY="460" PositionX="1310" />
 				<EdgeVertex Name="vertex1" PositionY="30" PositionX="-390" />
@@ -145,6 +163,7 @@
 				<EdgeVertex Name="vertex26" PositionY="450" PositionX="-1000" />
 				<EdgeVertex Name="vertex27" PositionY="450" PositionX="-370" />
 				<EdgeVertex Name="vertex5" PositionY="140" PositionX="-20" />
+				<EdgeVertex Name="WlPJP2oy" PositionY="-380" PositionX="550" />
 				<EdgeVertex Name="wxTye8u8" PositionY="-30" PositionX="1380" />
 				<EdgeVertex Name="XkLkLpDX" PositionY="-30" PositionX="340" />
 			</EdgeVertices>

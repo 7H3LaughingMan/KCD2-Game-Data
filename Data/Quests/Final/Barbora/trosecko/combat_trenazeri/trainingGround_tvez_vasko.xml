@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Database xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" Name="brambora">
 	<Skald>
-		<Gameplay Name="trainingGround_tvez_vasko" HasteNamespace="true">
+		<Gameplay Name="trainingGround_tvez_vasko">
 			<Ports>
 				<Port Name="poprve" Direction="In" Type="bool">
 					<DesignName StringName="trainingg_poprve_qAYk" Text="Hráč poznal Kocoura jako trenéra" />
@@ -24,12 +24,12 @@
 					<Asset Name="Souls" Alias="tvez_kocour" />
 					<Constant Name="Context" Value="trainingGrounds_ableToOfferTraining" />
 				</Function>
-				<ClothingPresetOverride Name="clothingpresetoverride57" PositionY="570" PositionX="3890">
+				<ClothingPresetOverride Name="clothingpresetoverride57" PositionY="-830" PositionX="3800">
 					<Asset Name="Souls" Alias="tvez_kocour" />
 					<Constant Name="ClothingPreset" Value="c9108b31-3ae7-40a5-b1bc-c325957617b2" />
 					<Edge From="state60_1.State" To="IsActive" />
 				</ClothingPresetOverride>
-				<Function Name="createdialogparams1" PositionY="-810" PositionX="2120" MethodName="wh::dialogmodule::CreateDialogParams" DeclaringType="wh::dialogmodule">
+				<Function Name="createdialogparams1" PositionY="-1420" PositionX="1630" MethodName="wh::dialogmodule::CreateDialogParams" DeclaringType="wh::dialogmodule">
 					<Asset Name="Participants" Alias="tvez_kocour" />
 				</Function>
 				<DistanceCheck Name="DistanceCheck" PositionY="-770" PositionX="440" Namespace="utils.general">
@@ -45,7 +45,7 @@
 						<Vertex>vertex36</Vertex>
 					</Edge>
 				</dostupnostpoolu>
-				<If Name="if61" PositionY="740" PositionX="3340">
+				<If Name="if61" PositionY="-660" PositionX="3250">
 					<Edge From="s_vaskem_po_souboji.afterplay" To="Exec" />
 					<Edge From="not63.bool" To="Condition" />
 				</If>
@@ -56,7 +56,7 @@
 					<Asset Name="D" Alias="tvez_man_5" />
 					<Asset Name="E" Alias="tvez_bibrek" />
 				</MakeArray>
-				<Function Name="not63" PositionY="910" PositionX="3080" MethodName="math::boolean::Not" DeclaringType="math::boolean">
+				<Function Name="not63" PositionY="-540" PositionX="2990" MethodName="math::boolean::Not" DeclaringType="math::boolean">
 					<Edge From="state60.State" To="Value">
 						<Vertex>aAttz8Uk</Vertex>
 						<Vertex>L5wq5Wja</Vertex>
@@ -68,17 +68,17 @@
 					</Edge>
 					<Edge From="state3.State" To="B" />
 				</Function>
-				<Function Name="requestmonologue56" PositionY="1150" PositionX="2140" MethodName="wh::xgenaimodule::RequestMonologue" DeclaringType="wh::xgenaimodule">
+				<Function Name="requestmonologue56" PositionY="1250" PositionX="2220" MethodName="wh::xgenaimodule::RequestMonologue" DeclaringType="wh::xgenaimodule">
 					<Asset Name="Souls" Alias="tvez_kocour" />
 					<Constant Name="DecisionAlias" Value="trainingGround_zacatekCvicnehoSouboje" />
 					<Edge From="traininggroundmanager.npc_barkuje_zacatek_cvicneho_souboje" To="Exec" />
 				</Function>
-				<Function Name="requestmonologue56_1" PositionY="1470" PositionX="2140" MethodName="wh::xgenaimodule::RequestMonologue" DeclaringType="wh::xgenaimodule">
+				<Function Name="requestmonologue56_1" PositionY="1650" PositionX="2220" MethodName="wh::xgenaimodule::RequestMonologue" DeclaringType="wh::xgenaimodule">
 					<Asset Name="Souls" Alias="tvez_kocour" />
 					<Constant Name="DecisionAlias" Value="trainingGround_zacatekDalsi" />
 					<Edge From="traininggroundmanager.npc_barkuje_zacatek_ostreho_souboje" To="Exec" />
 				</Function>
-				<s_vaskem_po_souboji Name="s_vaskem_po_souboji" PositionY="-280" PositionX="2570">
+				<s_vaskem_po_souboji Name="s_vaskem_po_souboji" PositionY="-1010" PositionX="2220">
 					<Edge From="createdialogparams1.DialogParams" To="DialogParams" />
 					<Edge From="TimeOfDayBetweenCheck.isbetween" To="vasko_uz_ma_jine_chovani" />
 					<Edge From="traininggroundmanager.vysledek_souboje" To="vysledek_treninku" />
@@ -94,26 +94,28 @@
 					<Edge From="or45.bool" To="IsActive" />
 				</SchedulerLinkActivation>
 				<State Name="state3" PositionY="-280" PositionX="-40" TypeT="bool">
-					<Edge From="trainingGrounds_tvez_waitingForPlayer.OnTrigger" To="SetTrue" />
+					<Edge From="trainingGrounds_kocour.OnTrigger" To="SetTrue" />
 				</State>
-				<State Name="state60" PositionY="460" PositionX="3340" TypeT="bool">
+				<State Name="state60" PositionY="-940" PositionX="3250" TypeT="bool">
 					<Edge From="traininggroundmanager.npc_barkuje_zacatek_cvicneho_souboje" To="SetTrue">
 						<Vertex>Mb6gLWrs</Vertex>
+						<Vertex>Rug1zyJC</Vertex>
 					</Edge>
 					<Edge From="traininggroundmanager.npc_barkuje_zacatek_ostreho_souboje" To="SetTrue">
 						<Vertex>Mb6gLWrs</Vertex>
+						<Vertex>Rug1zyJC</Vertex>
 					</Edge>
 					<Edge From="s_vaskem_po_souboji.konec_dialogu" To="SetFalse" />
 				</State>
-				<State Name="state60_1" PositionY="570" PositionX="3620" TypeT="bool">
+				<State Name="state60_1" PositionY="-830" PositionX="3530" TypeT="bool">
 					<Edge From="if61.True" To="SetFalse" />
 					<Edge From="state60.OnTrue" To="SetTrue" />
 				</State>
-				<TimeOfDayBetweenCheck Name="TimeOfDayBetweenCheck" PositionY="-410" PositionX="2120" Namespace="utils.time">
+				<TimeOfDayBetweenCheck Name="TimeOfDayBetweenCheck" PositionY="-1020" PositionX="1630" Namespace="utils.time">
 					<Constant Name="fromtime" Value="18h00m00s" />
 					<Constant Name="totime" Value="09h00m00s" />
 				</TimeOfDayBetweenCheck>
-				<traininggroundmanager Name="traininggroundmanager" PositionY="30" PositionX="1790" Namespace="utils.combat">
+				<traininggroundmanager Name="traininggroundmanager" PositionY="-80" PositionX="1780" Namespace="utils.combat">
 					<Asset Name="trener_npc" Alias="tvez_kocour" />
 					<Asset Name="trainingcs" Alias="trainingCS" />
 					<Asset Name="qso" Alias="qso" />
@@ -154,7 +156,7 @@
 						<Vertex>vertex43</Vertex>
 					</Edge>
 				</traininggroundmanager>
-				<HasteTrigger Name="trainingGrounds_tvez_waitingForPlayer" PositionY="-280" PositionX="-360" />
+				<HasteTrigger Name="trainingGrounds_kocour" PositionY="-280" PositionX="-360" />
 				<treninkovy_souboj Name="treninkovy_souboj" PositionY="-630" PositionX="1390">
 					<Edge From="traininggroundmanager.trener_je_v_ostrem_souboji" To="trener_je_v_ostrem_souboji">
 						<Vertex>vertex27</Vertex>
@@ -180,14 +182,15 @@
 					<Edge From="dostupnostpoolu.pocet_moznych_oponentu_krome_vaska" To="pocet_moznych_oponentu_krome_vaska" />
 					<Edge From="and7.bool" To="vasko_je_u_arenky_pripraveny_trenovat" />
 				</vasko_je_u_arenky>
-				<zacatek_cvicneho_souboje Name="zacatek_cvicneho_souboje" PositionY="1340" PositionX="2140" />
-				<zacatek_dalsi Name="zacatek_dalsi" PositionY="1650" PositionX="2140" />
+				<zacatek_cvicneho_souboje Name="zacatek_cvicneho_souboje" PositionY="1350" PositionX="2710" />
+				<zacatek_dalsi Name="zacatek_dalsi" PositionY="1730" PositionX="2690" />
 			</Nodes>
 			<EdgeVertices>
-				<EdgeVertex Name="aAttz8Uk" PositionY="420" PositionX="3530" />
-				<EdgeVertex Name="L5wq5Wja" PositionY="420" PositionX="3110" />
-				<EdgeVertex Name="Mb6gLWrs" PositionY="1090" PositionX="2180" />
-				<EdgeVertex Name="vertex11" PositionY="-650" PositionX="1440" />
+				<EdgeVertex Name="aAttz8Uk" PositionY="-980" PositionX="3440" />
+				<EdgeVertex Name="L5wq5Wja" PositionY="-980" PositionX="3020" />
+				<EdgeVertex Name="Mb6gLWrs" PositionY="1020" PositionX="2950" />
+				<EdgeVertex Name="Rug1zyJC" PositionY="-750" PositionX="2990" />
+				<EdgeVertex Name="vertex11" PositionY="-650" PositionX="1430" />
 				<EdgeVertex Name="vertex13" PositionY="-650" PositionX="2020" />
 				<EdgeVertex Name="vertex20" PositionY="-690" PositionX="2020" />
 				<EdgeVertex Name="vertex21" PositionY="-690" PositionX="1430" />
@@ -196,12 +199,12 @@
 				<EdgeVertex Name="vertex31" PositionY="50" PositionX="60" />
 				<EdgeVertex Name="vertex35" PositionY="1100" PositionX="1360" />
 				<EdgeVertex Name="vertex36" PositionY="1100" PositionX="800" />
-				<EdgeVertex Name="vertex37" PositionY="1130" PositionX="2640" />
+				<EdgeVertex Name="vertex37" PositionY="1110" PositionX="2430" />
 				<EdgeVertex Name="vertex38" PositionY="1130" PositionX="1800" />
-				<EdgeVertex Name="vertex39" PositionY="1030" PositionX="2220" />
+				<EdgeVertex Name="vertex39" PositionY="960" PositionX="2140" />
 				<EdgeVertex Name="vertex40" PositionY="-750" PositionX="2030" />
-				<EdgeVertex Name="vertex41" PositionY="-770" PositionX="1380" />
-				<EdgeVertex Name="vertex42" PositionY="1159" PositionX="2702" />
+				<EdgeVertex Name="vertex41" PositionY="-750" PositionX="1390" />
+				<EdgeVertex Name="vertex42" PositionY="1170" PositionX="2440" />
 				<EdgeVertex Name="vertex43" PositionY="1180" PositionX="1780" />
 			</EdgeVertices>
 			<Types>
@@ -234,10 +237,10 @@
 				<LedgeObjectAsset Name="areaLedge" />
 			</Assets>
 			<Notes>
-				<Note Name="note46" PositionY="1380" PositionX="2430">
+				<Note Name="note46" PositionY="1540" PositionX="2710">
 					<Text StringName="trainingg_note46_Se1v" Text="Bark pouštíme jen při cvičném boji v jednom" />
 				</Note>
-				<Note Name="note47" PositionY="1700" PositionX="2420">
+				<Note Name="note47" PositionY="1930" PositionX="2680">
 					<Text StringName="trainingg_note47_NsSM" Text="Bark pouštíme, při začátku jakéhokoliv jiného souboje" />
 				</Note>
 			</Notes>

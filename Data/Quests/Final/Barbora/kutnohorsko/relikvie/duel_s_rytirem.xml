@@ -11,6 +11,12 @@
 				</Port>
 			</Ports>
 			<Nodes>
+				<AddFactionRelation Name="addfactionrelation9" PositionY="440" PositionX="420">
+					<Constant Name="RelationValue" Value="-1" />
+					<Edge From="isoulproperties10.FactionNode" To="Faction" />
+					<Edge From="isoulproperties10_1.FactionNode" To="RelationTarget" />
+					<Edge From="state1.Done" To="IsActive" />
+				</AddFactionRelation>
 				<duelbehaviorsimple Name="duelbehaviorsimple" PositionY="-190" PositionX="460" Namespace="utils.combat">
 					<Asset Name="attacker" Alias="pokornyRytir" />
 					<Asset Name="target" Alias="player" />
@@ -35,6 +41,12 @@
 					<Constant Name="alwaysmercy" Value="false" />
 					<Edge From="state1.Active" To="isactive" />
 				</fightconfiguration_surrendering>
+				<ObjectProperties Name="isoulproperties10" PositionY="440" PositionX="-140" DeclaringType="wh::rpgmodule::I_Soul">
+					<Asset Name="I_Soul" Alias="player" />
+				</ObjectProperties>
+				<ObjectProperties Name="isoulproperties10_1" PositionY="960" PositionX="-140" DeclaringType="wh::rpgmodule::I_Soul">
+					<Asset Name="I_Soul" Alias="pokornyRytir" />
+				</ObjectProperties>
 				<SetEntityContext Name="setentitycontext7" PositionY="-880" PositionX="150">
 					<Constant Name="Context" Value="combat_forceArmed" />
 					<Asset Name="Souls" Alias="pokornyRytir" />
@@ -49,6 +61,7 @@
 				</State>
 				<turntoplayerinidlestance Name="turntoplayerinidlestance" PositionY="240" PositionX="-170" Namespace="utils.general">
 					<Asset Name="npc" Alias="pokornyRytir" />
+					<Constant Name="anydecoratorpreset" Value="changeEquipment" />
 					<Edge From="turn_to_player" To="turntoplayerinidlestance" />
 				</turntoplayerinidlestance>
 			</Nodes>

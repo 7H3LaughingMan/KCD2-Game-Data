@@ -161,7 +161,7 @@
 											</Response>
 										</Elements>
 									</Sequence>
-									<Sequence SpeechCoef="0" EndType="Decision" Name="seq30">
+									<Sequence EndType="Decision" SpeechCoef="0" Name="seq30">
 										<DesignName StringName="beruska___seq30_SplV" Text="seq30" />
 										<UiPrompt StringName="ui_beruska___seq30_3kAE" Text="Co ti provádí?" />
 										<Elements>
@@ -334,7 +334,7 @@
 								</Sequences>
 							</Decision>
 						</Sequence>
-						<Sequence SpeechCoef="0" EntryCondition="Port('je_den') AND&#xD;&#xA;Port('jindra_ma_vyzvat_berusku')&#xD;&#xA;AND &#xD;&#xA;!Port('jindra_uz_berusku_jednou_vyzval')&#xD;&#xA;AND &#xD;&#xA;SequenceUsed('jindra_vi_ze_stanik_terorizuje_berusku')" EndType="Decision" Name="seq26">
+						<Sequence EntryCondition="Port('je_den') AND&#xD;&#xA;Port('jindra_ma_vyzvat_berusku')&#xD;&#xA;AND &#xD;&#xA;!Port('jindra_uz_berusku_jednou_vyzval')&#xD;&#xA;AND &#xD;&#xA;SequenceUsed('jindra_vi_ze_stanik_terorizuje_berusku')" EndType="Decision" SpeechCoef="0" Name="seq26">
 							<DesignName StringName="tobias__p_seq26_cVvQ" Text="seq26" />
 							<UiPrompt StringName="ui_tobias__p_seq26_gcBw" Text="Pojď se bít!" />
 							<Elements>
@@ -494,7 +494,7 @@
 																				</Response>
 																			</Elements>
 																		</Sequence>
-																		<Sequence SpeechCoef="0" EntryCondition="Port('jindra_ma_dost_penez')" EndType="EndDialogue" Name="fight_s_sazkou">
+																		<Sequence EntryCondition="Port('jindra_ma_dost_penez')" EndType="EndDialogue" SpeechCoef="0" Name="fight_s_sazkou">
 																			<DesignName StringName="beruska___fight_s_sazkou_rDtc" Text="Fight s sazkou" />
 																			<Triggers>
 																				<Port Name="jindra_plati_sazku" />
@@ -555,20 +555,13 @@
 									<Sequence EntryCondition="Port('beruska_je_tezce_zranen')" Name="seq18">
 										<DesignName StringName="tobias__p_seq18_suLZ" Text="seq18" />
 										<Elements>
-											<Response Role="PACHOLEK_BERUSKA_GRUNTA" ReferenceLength="3.7">
-												<Parenthetical>
-													<Text StringName="beru_pacholek__omluvne_R0iD" Text="omluvně" />
-												</Parenthetical>
-												<Text StringName="tobi_hudebnik__dneska_ne__lqGX" Text="Přijď někdy jindy... Dneska už na to ňák nemám chuť." />
-												<Commands>
-													<FacialMoodCommand FacialMood="thinking1" />
-													<AnimationCommand Delay="1.35" FragmentId="ADLG_Confusion" Guid="4fcec99e-67a8-4f82-9734-675a1804203e" Variant="3" DesiredDuration="1.99" />
-													<CameraCommand CameraType="CloseShot" />
-												</Commands>
-											</Response>
+											<Response Role="PACHOLEK_BERUSKA_GRUNTA" />
 										</Elements>
+										<IncludedDecisions>
+											<IncludedDecision Decision="fightClubHorany_beruskaOdmitaTedBojovat" />
+										</IncludedDecisions>
 									</Sequence>
-									<Sequence EntryCondition="Port('jindra_ma_nizky_health_bar')" EndType="Decision" Name="seq23">
+									<Sequence EntryCondition="Port('jindra_ma_nizky_health_bar')&#xD;&#xA;AND &#xD;&#xA;!Port('beruska_je_tezce_zranen')" EndType="Decision" Name="seq23">
 										<DesignName StringName="tobias__p_seq23_7G62" Text="seq23" />
 										<Elements>
 											<Response Role="PACHOLEK_BERUSKA_GRUNTA" ReferenceLength="3.9">
@@ -614,7 +607,7 @@
 											</Sequences>
 										</Decision>
 									</Sequence>
-									<Sequence EntryCondition="Port('beruska_je_lehce_zranen')" EndType="GoTo" GoToDecision="dec6" Name="seq32">
+									<Sequence EntryCondition="Port('beruska_je_lehce_zranen')&#xD;&#xA;AND &#xD;&#xA;!Port('beruska_je_tezce_zranen')" EndType="GoTo" GoToDecision="dec6" Name="seq32">
 										<DesignName StringName="beruska___seq32_MnrW" Text="seq32" />
 										<Elements>
 											<Response Role="PACHOLEK_BERUSKA_GRUNTA" ReferenceLength="4.64">

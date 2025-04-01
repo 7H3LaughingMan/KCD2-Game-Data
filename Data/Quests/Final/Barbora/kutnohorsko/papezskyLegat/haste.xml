@@ -34,8 +34,11 @@
 					<DesignName StringName="haste_skiptoepilog_4aDo" Text="skipToEpilog" />
 				</Port>
 			</Ports>
+			<Definitions>
+				<Definition File="haste/neonpcs.xml" />
+			</Definitions>
 			<Nodes>
-				<HasteTrigger Name="_initAndStart" PositionY="40" PositionX="280">
+				<HasteTrigger Name="_initAndStart" PositionY="20" PositionX="-70">
 					<Edge From="makearray13712171_1.Array" To="Prerequisites" />
 				</HasteTrigger>
 				<AddInterruptConceptNode Name="addinterruptteleport13712178" PositionY="2050" PositionX="600" Signature="teleport">
@@ -73,14 +76,14 @@
 				<MakeArray Name="makearray13712171" PositionY="-800" PositionX="100" TypeT="wh::conceptmodule::ConceptPaths">
 					<Constant Name="A" Value="utokNaMalesov.endQuest" />
 				</MakeArray>
-				<MakeArray Name="makearray13712171_1" PositionY="40" PositionX="-140" TypeT="wh::conceptmodule::ConceptPaths">
-					<Constant Name="A" Value="horse.horse_streamUnstream" />
-					<Constant Name="B" Value="papezskyLegat.teleportBeforeEndPreviousQuest" />
-					<Constant Name="C" Value="papezskyLegat.endPreviousQuest" />
-					<Constant Name="D" Value="kunzlin_ruthard.opustilHru" />
-					<Constant Name="E" Value="bohuta.stream" />
-					<Constant Name="F" Value="bohuta.inSuchdol" />
-					<Constant Name="G" Value="krystof_oderin.stream" />
+				<MakeArray Name="makearray13712171_1" PositionY="20" PositionX="-490" TypeT="wh::conceptmodule::ConceptPaths">
+					<Constant Name="A" Value="papezskyLegat.teleportBeforeEndPreviousQuest" />
+					<Constant Name="B" Value="papezskyLegat.endPreviousQuest" />
+					<Constant Name="C" Value="kunzlin_ruthard.opustilHru" />
+					<Constant Name="D" Value="bohuta.stream" />
+					<Constant Name="E" Value="bohuta.inSuchdol" />
+					<Constant Name="F" Value="krystof_oderin.stream" />
+					<Constant Name="G" Value="papezskyLegat.teleportToSuchdol" />
 				</MakeArray>
 				<MakeArray Name="makearray13712171_2" PositionY="-670" PositionX="0" TypeT="wh::conceptmodule::ConceptPaths">
 					<Constant Name="A" Value="papezskyLegat.endPreviousQuest" />
@@ -126,6 +129,9 @@
 				<MakeArray Name="makearray16_2" PositionY="1510" PositionX="210" TypeT="Strings">
 					<Constant Name="A" Value="goto 2863.14 696.42 40.06 -10.89 0.00 2.51" />
 				</MakeArray>
+				<neonpcs Name="neonpcs" PositionY="310" PositionX="280">
+					<Edge From="teleportToSuchdol.OnTrigger" To="quest_started" />
+				</neonpcs>
 				<NPCs_TeleportIngame Name="NPCs_TeleportIngame" PositionY="1620" PositionX="1140" Namespace="utils.general">
 					<Asset Name="npcs" Alias="Roza" />
 					<Asset Name="destinations" Alias="rozaCekaUDveri" />
@@ -168,12 +174,17 @@
 					<Edge From="makearray13712174.Array" To="ConsoleCommands" />
 				</HasteTrigger>
 				<HasteTrigger Name="teleportNPCtoRuthardka" PositionY="1900" PositionX="-120" />
+				<HasteTrigger Name="teleportToSuchdol" PositionY="336" PositionX="-43">
+					<Constant Name="IsHidden" Value="true" />
+				</HasteTrigger>
 			</Nodes>
 			<EdgeVertices>
 				<EdgeVertex Name="AF9bz1GD" PositionY="1980" PositionX="932" />
 			</EdgeVertices>
 			<Assets>
 				<TagPointAsset Name="undeground_testPoint" />
+				<TagPointAsset Name="suchdolTeleportKomar" />
+				<TagPointAsset Name="suchdolTeleportHansZUher" />
 			</Assets>
 			<Text StringName="haste_HnVo" Text="haste" />
 		</Module>

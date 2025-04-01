@@ -56,6 +56,12 @@
 				<Definition File="rozhovor_s_bardem_o_zenskych/rozhovor_s_bardem_o_zenskych.xml" />
 			</Definitions>
 			<Nodes>
+				<EnableBehavior Name="enablebehavior9" PositionY="-250" PositionX="790" Signature="" EventSet="">
+					<Constant Name="Behavior" Value="vilem_standUp" />
+					<Asset Name="SmartEntity" Alias="qSO" />
+					<Asset Name="NPC" Alias="bard" />
+					<Edge From="state8.State" To="IsActive" />
+				</EnableBehavior>
 				<Output Name="Output">
 					<Edge From="rozhovor_s_bardem_o_zenskych.jindra_vyslechl_barda_a_veri_mu" To="jindra_vyslechl_barda_a_veri_mu">
 						<Vertex>vertex12</Vertex>
@@ -93,6 +99,7 @@
 					</Rewards>
 				</AddReward>
 				<rozhovor_s_bardem_o_zenskych Name="rozhovor_s_bardem_o_zenskych" PositionY="-150" PositionX="-10">
+					<Asset Name="DialogueHolder" Alias="vilemDH" />
 					<Edge From="hrac_vi_o_jarce_a_bardovi" To="hrac_vi_o_jarce_a_bardovi" />
 					<Edge From="hrac_vi_o_sarce_a_bardovi" To="hrac_vi_o_sarce_a_bardovi" />
 					<Edge From="hrac_vi_o_zdene_a_bardovi" To="hrac_vi_o_zdene_a_bardovi" />
@@ -103,6 +110,16 @@
 					<Edge From="hrac_nasel_mrtvou_zdenu" To="hrac_nasel_mrtvou_zdenu" />
 					<Edge From="hrac_nasel_sarku" To="hrac_nasel_sarku" />
 				</rozhovor_s_bardem_o_zenskych>
+				<SaveGame Name="savegame7" PositionY="300" PositionX="520">
+					<Constant Name="Objective" Value="promluv_si_s_muzikantem_vilemem" />
+					<Edge From="rozhovor_s_bardem_o_zenskych.jindra_vyslechl_barda_a_neveri_mu" To="EnqueueSave" />
+					<Edge From="rozhovor_s_bardem_o_zenskych.jindra_vyslechl_barda_a_veri_mu" To="EnqueueSave" />
+				</SaveGame>
+				<State Name="state8" PositionY="-140" PositionX="470" TypeT="bool">
+					<Edge From="rozhovor_s_bardem_o_zenskych.jindra_vyslechl_barda_a_neveri_mu" To="SetFalse" />
+					<Edge From="rozhovor_s_bardem_o_zenskych.jindra_vyslechl_barda_a_veri_mu" To="SetFalse" />
+					<Edge From="rozhovor_s_bardem_o_zenskych.BeforePlay" To="SetTrue" />
+				</State>
 			</Nodes>
 			<EdgeVertices>
 				<EdgeVertex Name="40mkcoPD" PositionY="140" PositionX="920" />
@@ -120,6 +137,9 @@
 				<EdgeVertex Name="vertex6" PositionY="260" PositionX="920" />
 				<EdgeVertex Name="yzyw6Dcz" PositionY="200" PositionX="920" />
 			</EdgeVertices>
+			<Assets>
+				<DialogueHolderAsset Name="vilemDH" />
+			</Assets>
 		</DialogWrapper>
 	</Skald>
 </Database>

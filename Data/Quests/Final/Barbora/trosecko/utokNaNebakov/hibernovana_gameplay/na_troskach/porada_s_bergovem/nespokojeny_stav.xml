@@ -27,6 +27,9 @@
 				<Port Name="hrac_neni_zatykan" Direction="In" Type="bool">
 					<DesignName StringName="nespokoje_hrac_neni_zatyk_bjHO" Text="hráč není zatýkán" />
 				</Port>
+				<Port Name="skiptime__beforeplay" Direction="In" Type="trigger">
+					<DesignName StringName="nespokoje_skiptime__befor_MwZl" Text="skiptime - BeforePlay" />
+				</Port>
 			</Ports>
 			<Definitions>
 				<Definition File="nespokojeny_stav/chat_5__nespokojeny_stav.xml" />
@@ -56,6 +59,7 @@
 					</Edge>
 					<Edge From="hrac_neni_zatykan" To="hrac_neni_zatykan" />
 					<Edge From="konec_porady" To="chat_update" />
+					<Edge From="skiptime__beforeplay" To="skiptime__beforeplay" />
 				</chovani_ingame_polylog>
 				<converttodecigroshen Name="converttodecigroshen" PositionY="730" PositionX="1620" Namespace="utils.money">
 					<Edge From="getdicegamelevelbetsize.price" To="groshen" />
@@ -67,7 +71,7 @@
 					</Edge>
 					<Edge From="converttodecigroshen.decigroshenuint" To="Amount" />
 				</EventFunction>
-				<dialog_s_rytirem Name="dialog_s_rytirem" PositionY="-110" PositionX="880">
+				<dialog_s_rytirem Name="dialog_s_rytirem" PositionY="-130" PositionX="880">
 					<Edge From="chat_5__nespokojeny_stav.zacina_chat" To="zacina_chat" />
 					<Edge From="polylog_skoncil" To="polylog_skoncil">
 						<Vertex>vertex15</Vertex>

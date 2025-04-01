@@ -22,6 +22,22 @@
 				<MakeArray Name="makearray2" PositionY="340" PositionX="400" TypeT="wh::rpgmodule::Souls">
 					<Edge From="bitka.soula_bojovnika_ktery_upadl_do_bezvedomi" To="A" />
 				</MakeArray>
+				<State Name="markoltWins" PositionY="-300" PositionX="490" TypeT="bool">
+					<Edge From="bitka.markolt_vyhral" To="SetTrue" />
+				</State>
+				<State Name="mysliborWins" PositionY="-80" PositionX="490" TypeT="bool">
+					<Edge From="bitka.hornici_vyhali" To="SetTrue" />
+				</State>
+				<SetEntityContext Name="setentitycontext3" PositionY="-300" PositionX="760">
+					<Constant Name="Context" Value="crime_ignoredCorpse" />
+					<Asset Name="Souls" Alias="MysliborsGroup" />
+					<Edge From="markoltWins.State" To="IsActive" />
+				</SetEntityContext>
+				<SetEntityContext Name="setentitycontext3_1" PositionY="-70" PositionX="760">
+					<Constant Name="Context" Value="crime_ignoredCorpse" />
+					<Asset Name="Souls" Alias="MarkoltsGroup" />
+					<Edge From="mysliborWins.State" To="IsActive" />
+				</SetEntityContext>
 			</Nodes>
 			<Text StringName="bitka_bez_jindricha_Jvng" Text="bitka bez Jindřicha" />
 		</Module>

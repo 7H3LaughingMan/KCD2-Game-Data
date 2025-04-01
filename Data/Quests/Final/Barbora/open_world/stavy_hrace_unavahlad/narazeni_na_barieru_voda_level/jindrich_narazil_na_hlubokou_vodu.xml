@@ -6,6 +6,9 @@
 				<Port Name="onhorse" Direction="In" Type="bool">
 					<DesignName StringName="jindrich__onhorse_Ja0b" Text="onHorse" />
 				</Port>
+				<Port Name="m03_dohrano" Direction="In" Type="bool">
+					<DesignName StringName="jindrich__m03_dohrano_yj0b" Text="M03 dohráno" />
+				</Port>
 			</Ports>
 			<Text StringName="jindrich_narazi_na_hlubok_DnPc" Text="Jindřich narazil na hlubokou vodu" />
 			<Elements>
@@ -73,7 +76,7 @@
 											</Response>
 										</Elements>
 									</Sequence>
-									<Sequence EndType="EndDialogue" Name="seq6">
+									<Sequence EntryCondition="!Port('onhorse')" EndType="EndDialogue" Name="seq6">
 										<DesignName StringName="jindrich__seq6_Ravq" Text="seq6" />
 										<Elements>
 											<Response Role="JINDRICH_NEMUZE_DO_HLUBOKE_VODY">
@@ -81,6 +84,28 @@
 													<Text StringName="jind_jindrich__pro_sebe_oKsq" Text="pro sebe" />
 												</Parenthetical>
 												<Text StringName="jind_jindrich__uf_neumim__yZ3Z" Text="Uf... neumím plavat." />
+											</Response>
+										</Elements>
+									</Sequence>
+									<Sequence EntryCondition="!Port('onhorse') AND Port('m03_dohrano')" EndType="EndDialogue" Name="seq7">
+										<DesignName StringName="jindrich__seq7_Eofb" Text="seq7" />
+										<Elements>
+											<Response Role="JINDRICH_NEMUZE_DO_HLUBOKE_VODY">
+												<Parenthetical>
+													<Text StringName="jind_jindrich__pro_sebe_STrE" Text="pro sebe" />
+												</Parenthetical>
+												<Text StringName="jind_jindrich__uz_nikdy_j_izFi" Text="Už nikdy! Jednou zkusím plavat a jak to dopadlo.." />
+											</Response>
+										</Elements>
+									</Sequence>
+									<Sequence EntryCondition="!Port('onhorse') AND Port('m03_dohrano')" EndType="EndDialogue" Name="seq8">
+										<DesignName StringName="jindrich__seq8_t7r1" Text="seq8" />
+										<Elements>
+											<Response Role="JINDRICH_NEMUZE_DO_HLUBOKE_VODY">
+												<Parenthetical>
+													<Text StringName="jind_jindrich__pro_sebe_NIl2" Text="pro sebe" />
+												</Parenthetical>
+												<Text StringName="jind_jindrich__do_hluboky_9Z4r" Text="Do hluboký vody už mě nikdo nedostane! Doteď mě to rameno bolí..." />
 											</Response>
 										</Elements>
 									</Sequence>

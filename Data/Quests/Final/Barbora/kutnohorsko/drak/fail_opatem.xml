@@ -17,10 +17,10 @@
 				<AIConceptSignalTrigger Name="aiconceptsignaltriggerhitreactionnotification12" PositionY="-160" PositionX="240" NotificationName="hitReactionNotification">
 					<Asset Name="attacker_value_filter" Alias="player" />
 					<Asset Name="victim_value_filter" Alias="opat" />
-					<Edge From="quest_aktivni" To="IsActive" />
+					<Edge From="opat_loaded.State" To="IsActive" />
 				</AIConceptSignalTrigger>
 				<AIConceptSignalTrigger Name="aiconceptsignaltriggernpclearnsinformationnotification2_1" PositionY="257" PositionX="-30" NotificationName="NPCLearnsInformationNotification">
-					<Edge From="quest_aktivni" To="IsActive" />
+					<Edge From="opat_loaded.State" To="IsActive" />
 				</AIConceptSignalTrigger>
 				<ContainsElement Name="containselement5" PositionY="517" PositionX="629" TypeT="wh::xgenaimodule::LinkableObjects">
 					<Asset Name="Array" Alias="opat" />
@@ -40,11 +40,19 @@
 					</Edge>
 					<Edge From="containselement5.Result" To="B" />
 				</IfFunction>
+				<State Name="opat_loaded" PositionY="120" PositionX="-660" TypeT="bool">
+					<Edge From="profilestatetrigger22.OnLoaded" To="SetTrue" />
+					<Edge From="profilestatetrigger22.OnUnloaded" To="SetFalse" />
+				</State>
 				<Output Name="Output">
 					<Edge From="ifand10.True" To="fail" />
 					<Edge From="if17.True" To="fail" />
 					<Edge From="state18.State" To="fail_opatem" />
 				</Output>
+				<ProfileStateTrigger Name="profilestatetrigger22" PositionY="180" PositionX="-1000">
+					<Asset Name="Profiles" Alias="opatProfile" />
+					<Edge From="quest_aktivni" To="IsActive" />
+				</ProfileStateTrigger>
 				<State Name="state18" PositionY="-350" PositionX="1390" TypeT="bool">
 					<Edge From="if17.True" To="SetTrue" />
 					<Edge From="ifand10.True" To="SetTrue" />

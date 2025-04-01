@@ -110,8 +110,17 @@
 				<Definition File="zaby/stav_majky.xml" />
 				<Definition File="zaby/reakce_na_progress_s23__konec_zabomysich_valek.xml" />
 				<Definition File="zaby/skillteacher_olbram.xml" />
+				<Definition File="zaby/cow_streaming.xml" />
 			</Definitions>
 			<Nodes>
+				<cow_streaming Name="cow_streaming" PositionY="110" PositionX="230">
+					<Edge From="questProgress.OnDone" To="quest_done" />
+					<Edge From="questProgress.OnFailed" To="quest_fail" />
+					<Edge From="hibernated.sheep_started" To="sheep_started">
+						<Vertex>6lnN1km3</Vertex>
+						<Vertex>zUo654Vz</Vertex>
+					</Edge>
+				</cow_streaming>
 				<expectedeffect Name="expectedeffect" PositionY="-430" PositionX="-230" Namespace="utils.crime.trespass">
 					<Asset Name="npcs" Alias="olbram" />
 					<Constant Name="extenduntilplayerleavestrespass" Value="true" />
@@ -157,7 +166,7 @@
 						<Vertex>xN6B1tBs</Vertex>
 					</Edge>
 				</henik_hlida_majku>
-				<henry_pomaloval_bejka_po_zacatku_majky__neviden Name="henry_pomaloval_bejka_po_zacatku_majky__neviden" PositionY="-700" PositionX="330">
+				<henry_pomaloval_bejka_po_zacatku_majky__neviden Name="henry_pomaloval_bejka_po_zacatku_majky__neviden" PositionY="-710" PositionX="190">
 					<Edge From="haste.c" To="henry_namaloval_bejka_neviden">
 						<Vertex>vertex342</Vertex>
 					</Edge>
@@ -286,7 +295,7 @@
 						<Vertex>oFeR4hBu</Vertex>
 					</Edge>
 				</Output>
-				<PermaDeath Name="PermaDeath" PositionY="-660" PositionX="20" Namespace="utils.general">
+				<PermaDeath Name="PermaDeath" PositionY="-570" PositionX="-110" Namespace="utils.general">
 					<Asset Name="souls" Alias="important_souls" />
 					<Edge From="questNotNone.bool" To="isactive" />
 				</PermaDeath>
@@ -295,6 +304,7 @@
 				</pristreamuj_majku_do_zelejova>
 				<quest_itemy Name="quest_itemy" PositionY="530" PositionX="1130">
 					<Edge From="questProgress.OnFailed" To="quest_skoncil">
+						<Vertex>Dhqt1Sya</Vertex>
 						<Vertex>vertex379</Vertex>
 					</Edge>
 					<Edge From="questZabyDone.A" To="quest_skoncil">
@@ -317,7 +327,7 @@
 					</Edge>
 					<Edge From="zadani_questu_a_interakce_s_mysema.quest_failne_predcasne" To="Exec" />
 				</If>
-				<Function Name="questNotNone" PositionY="-630" PositionX="-240" MethodName="math::boolean::Not" DeclaringType="math::boolean">
+				<Function Name="questNotNone" PositionY="-630" PositionX="-340" MethodName="math::boolean::Not" DeclaringType="math::boolean">
 					<Edge From="questProgress.None" To="Value" />
 				</Function>
 				<State Name="questProgress" PositionY="-150" PositionX="-660" RequiredForOutput="trosecko" TypeT="wh::questmodule::QuestProgress">
@@ -338,7 +348,7 @@
 						<Vertex>x1uWuqq0</Vertex>
 					</Edge>
 				</State>
-				<TriggerSequence Name="questZabyDone" PositionY="200" PositionX="-90">
+				<TriggerSequence Name="questZabyDone" PositionY="280" PositionX="-90">
 					<Edge From="questProgress.OnDone" To="Exec" />
 				</TriggerSequence>
 				<reakce_na_progress_s23__konec_zabomysich_valek Name="reakce_na_progress_s23__konec_zabomysich_valek" PositionY="-450" PositionX="-2530" RequiredForOutput="trosecko">
@@ -353,9 +363,8 @@
 						<Vertex>9Qg3eHuK</Vertex>
 					</Edge>
 				</reakce_na_progress_s23__konec_zabomysich_valek>
-				<save_na_konci Name="save_na_konci" PositionY="230" PositionX="800">
+				<save_na_konci Name="save_na_konci" PositionY="320" PositionX="230">
 					<Edge From="questZabyDone.B" To="save_game" />
-					<Edge From="hibernated.henry_rozehnal_ovce" To="ovce_rozehnany" />
 				</save_na_konci>
 				<SaveGame Name="savegame188" PositionY="-480" PositionX="400">
 					<Constant Name="Objective" Value="ukradni_tachovskou_majku" />
@@ -448,16 +457,17 @@
 				<EdgeVertex Name="0e3SP79H" PositionY="-190" PositionX="-690" />
 				<EdgeVertex Name="0YX3gEg0" PositionY="2620" PositionX="720" />
 				<EdgeVertex Name="1qDromGC" PositionY="890" PositionX="-2040" />
-				<EdgeVertex Name="4nb6CLk1" PositionY="760" PositionX="470" />
+				<EdgeVertex Name="4nb6CLk1" PositionY="800" PositionX="560" />
 				<EdgeVertex Name="4WeIsmb2" PositionY="350" PositionX="-430" />
 				<EdgeVertex Name="5bb7WsTL" PositionY="350" PositionX="-910" />
 				<EdgeVertex Name="5bSh6Ewp" PositionY="894" PositionX="561" />
-				<EdgeVertex Name="5tVrPvYd" PositionY="704" PositionX="481" />
+				<EdgeVertex Name="5tVrPvYd" PositionY="780" PositionX="560" />
 				<EdgeVertex Name="5ucbvjYI" PositionY="1353" PositionX="-928" />
 				<EdgeVertex Name="5YLsA3RY" PositionY="2720" PositionX="660" />
 				<EdgeVertex Name="6BKGFzTU" PositionY="-240" PositionX="500" />
 				<EdgeVertex Name="6Jy7Vy9K" PositionY="1040" PositionX="-2030" />
-				<EdgeVertex Name="6S84oDLz" PositionY="680" PositionX="511" />
+				<EdgeVertex Name="6lnN1km3" PositionY="664" PositionX="559" />
+				<EdgeVertex Name="6S84oDLz" PositionY="750" PositionX="560" />
 				<EdgeVertex Name="6w5WQILL" PositionY="2590" PositionX="740" />
 				<EdgeVertex Name="782yWN2V" PositionY="3000" PositionX="1680" />
 				<EdgeVertex Name="7kmL83zF" PositionY="-523" PositionX="-490" />
@@ -467,9 +477,10 @@
 				<EdgeVertex Name="A0bAVrQg" PositionY="2748" PositionX="676" />
 				<EdgeVertex Name="BBu84uS1" PositionY="578" PositionX="-2175" />
 				<EdgeVertex Name="CFcStEy5" PositionY="2600" PositionX="1660" />
-				<EdgeVertex Name="cmC36wRS" PositionY="650" PositionX="-1910" />
-				<EdgeVertex Name="cYhRhS7I" PositionY="830" PositionX="560" />
+				<EdgeVertex Name="cmC36wRS" PositionY="560" PositionX="-1990" />
+				<EdgeVertex Name="cYhRhS7I" PositionY="850" PositionX="560" />
 				<EdgeVertex Name="dCf2pkF2" PositionY="870" PositionX="-80" />
+				<EdgeVertex Name="Dhqt1Sya" PositionY="580" PositionX="-290" />
 				<EdgeVertex Name="dSPKlA6q" PositionY="-790" PositionX="1440" />
 				<EdgeVertex Name="DVGbtb7X" PositionY="945" PositionX="-1005" />
 				<EdgeVertex Name="E80c0Vnz" PositionY="941" PositionX="-2484" />
@@ -477,15 +488,15 @@
 				<EdgeVertex Name="f5VIfjGL" PositionY="929" PositionX="320" />
 				<EdgeVertex Name="fFf2mmbj" PositionY="483" PositionX="-297" />
 				<EdgeVertex Name="FfU1Abax" PositionY="870" PositionX="560" />
-				<EdgeVertex Name="fRQqekHw" PositionY="686" PositionX="-1498" />
+				<EdgeVertex Name="fRQqekHw" PositionY="750" PositionX="-1470" />
 				<EdgeVertex Name="fv2y8U9L" PositionY="1358" PositionX="82" />
-				<EdgeVertex Name="JsAC1zPX" PositionY="910" PositionX="-200" />
+				<EdgeVertex Name="JsAC1zPX" PositionY="920" PositionX="-200" />
 				<EdgeVertex Name="K3GMj4jf" PositionY="481" PositionX="245" />
 				<EdgeVertex Name="kDkRag2p" PositionY="841" PositionX="-2586" />
 				<EdgeVertex Name="KdwvNMSj" PositionY="-770" PositionX="-1060" />
-				<EdgeVertex Name="lHCbhtJB" PositionY="230" PositionX="720" />
+				<EdgeVertex Name="lHCbhtJB" PositionY="690" PositionX="560" />
 				<EdgeVertex Name="lLvfA7Kv" PositionY="1000" PositionX="-1010" />
-				<EdgeVertex Name="o4zxSvk8" PositionY="607" PositionX="510" />
+				<EdgeVertex Name="o4zxSvk8" PositionY="610" PositionX="550" />
 				<EdgeVertex Name="oFeR4hBu" PositionY="2738" PositionX="1691" />
 				<EdgeVertex Name="ozxlLgoC" PositionY="2640" PositionX="700" />
 				<EdgeVertex Name="P4FrhvUo" PositionY="2660" PositionX="1720" />
@@ -493,25 +504,25 @@
 				<EdgeVertex Name="Q3kJjq2q" PositionY="-740" PositionX="-1490" />
 				<EdgeVertex Name="qJwgqtWq" PositionY="2170" PositionX="530" />
 				<EdgeVertex Name="qStqykoA" PositionY="2560" PositionX="1640" />
-				<EdgeVertex Name="QVAfFuUR" PositionY="613" PositionX="-994" />
+				<EdgeVertex Name="QVAfFuUR" PositionY="600" PositionX="-950" />
 				<EdgeVertex Name="r8q2babN" PositionY="2690" PositionX="670" />
 				<EdgeVertex Name="rCfe6jDK" PositionY="892" PositionX="-76" />
 				<EdgeVertex Name="rI9Rgm93" PositionY="2540" PositionX="780" />
 				<EdgeVertex Name="RKlIq1k4" PositionY="840" PositionX="-690" />
 				<EdgeVertex Name="SKWAkG1A" PositionY="2970" PositionX="1690" />
 				<EdgeVertex Name="t0PKYvmh" PositionY="-179" PositionX="-242" />
-				<EdgeVertex Name="twx0Xpyu" PositionY="900" PositionX="-760" />
-				<EdgeVertex Name="uhMyzDjJ" PositionY="638" PositionX="513" />
+				<EdgeVertex Name="twx0Xpyu" PositionY="910" PositionX="-760" />
+				<EdgeVertex Name="uhMyzDjJ" PositionY="730" PositionX="560" />
 				<EdgeVertex Name="UK6UBvLD" PositionY="2620" PositionX="1680" />
-				<EdgeVertex Name="ux3yKIIz" PositionY="797" PositionX="559" />
+				<EdgeVertex Name="ux3yKIIz" PositionY="830" PositionX="560" />
 				<EdgeVertex Name="vertex337" PositionY="-190" PositionX="1740" />
 				<EdgeVertex Name="vertex342" PositionY="-640" PositionX="-1250" />
-				<EdgeVertex Name="vertex347" PositionY="590" PositionX="-1440" />
-				<EdgeVertex Name="vertex348" PositionY="600" PositionX="-380" />
-				<EdgeVertex Name="vertex355" PositionY="540" PositionX="-780" />
+				<EdgeVertex Name="vertex347" PositionY="690" PositionX="-1470" />
+				<EdgeVertex Name="vertex348" PositionY="710" PositionX="-390" />
+				<EdgeVertex Name="vertex355" PositionY="510" PositionX="-950" />
 				<EdgeVertex Name="vertex356" PositionY="500" PositionX="1740" />
-				<EdgeVertex Name="vertex357" PositionY="510" PositionX="-740" />
-				<EdgeVertex Name="vertex358" PositionY="570" PositionX="-820" />
+				<EdgeVertex Name="vertex357" PositionY="490" PositionX="-950" />
+				<EdgeVertex Name="vertex358" PositionY="530" PositionX="-950" />
 				<EdgeVertex Name="vertex359" PositionY="530" PositionX="1740" />
 				<EdgeVertex Name="vertex360" PositionY="470" PositionX="1740" />
 				<EdgeVertex Name="vertex375" PositionY="-200" PositionX="-270" />
@@ -519,11 +530,11 @@
 				<EdgeVertex Name="vertex391" PositionY="820" PositionX="-410" />
 				<EdgeVertex Name="vertex392" PositionY="840" PositionX="-2460" />
 				<EdgeVertex Name="vertex423" PositionY="1060" PositionX="-2480" />
-				<EdgeVertex Name="vJAHYpfy" PositionY="220" PositionX="320" />
+				<EdgeVertex Name="vJAHYpfy" PositionY="680" PositionX="260" />
 				<EdgeVertex Name="VqCyHj7f" PositionY="2690" PositionX="1730" />
 				<EdgeVertex Name="vvsrJr3u" PositionY="2530" PositionX="1640" />
-				<EdgeVertex Name="wbUDfTPL" PositionY="750" PositionX="-20" />
-				<EdgeVertex Name="WHGID4AP" PositionY="617" PositionX="-1505" />
+				<EdgeVertex Name="wbUDfTPL" PositionY="790" PositionX="-50" />
+				<EdgeVertex Name="WHGID4AP" PositionY="720" PositionX="-1470" />
 				<EdgeVertex Name="wpzkS03D" PositionY="2580" PositionX="1660" />
 				<EdgeVertex Name="wWKtRUqY" PositionY="2660" PositionX="680" />
 				<EdgeVertex Name="x1uWuqq0" PositionY="780" PositionX="-680" />
@@ -532,7 +543,8 @@
 				<EdgeVertex Name="xN6B1tBs" PositionY="2170" PositionX="-20" />
 				<EdgeVertex Name="xQqCzhkI" PositionY="250" PositionX="-800" />
 				<EdgeVertex Name="Ysl4Xq6v" PositionY="935" PositionX="1293" />
-				<EdgeVertex Name="YSM8kDhN" PositionY="707" PositionX="-1561" />
+				<EdgeVertex Name="YSM8kDhN" PositionY="780" PositionX="-1470" />
+				<EdgeVertex Name="zUo654Vz" PositionY="660" PositionX="251" />
 			</EdgeVertices>
 			<Types>
 				<Type TypeName="ProgressFailableHenikMankaRande">

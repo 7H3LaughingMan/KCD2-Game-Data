@@ -53,11 +53,11 @@
 			<Nodes>
 				<HasteTrigger Name="gotoMeadow_zelejov" PositionY="200" PositionX="-910" />
 				<State Name="helpOlbram" PositionY="-680" PositionX="-930" RequiredForOutput="trosecko" TypeT="ProgressAbortable">
-					<Edge From="procek_zjistil_ze_jsem_skodil_jeho_vesnici" To="SetStarted">
-						<Vertex>vertex33</Vertex>
-					</Edge>
 					<Edge From="if9.True" To="SetCompleted" />
 					<Edge From="if9_1.True" To="SetAborted" />
+					<Edge From="ifcompare11.True" To="SetStarted">
+						<Vertex>vertex33</Vertex>
+					</Edge>
 				</State>
 				<If Name="if9" PositionY="-470" PositionX="-1230">
 					<Edge From="helpOlbram.Started" To="Condition">
@@ -67,7 +67,7 @@
 					<Edge From="ifcompare4.True" To="Exec" />
 					<Edge From="init_zelejov.OnTrigger" To="Exec" />
 				</If>
-				<If Name="if9_1" PositionY="-286" PositionX="-1226">
+				<If Name="if9_1" PositionY="-290" PositionX="-1230">
 					<Edge From="konec_questu" To="Exec">
 						<Vertex>vertex35</Vertex>
 					</Edge>
@@ -75,7 +75,23 @@
 						<Vertex>vertex31</Vertex>
 						<Vertex>vertex32</Vertex>
 					</Edge>
+					<Edge From="ifcompare13.True" To="Exec" />
 				</If>
+				<IfFunction Name="ifcompare11" PositionY="-120" PositionX="-1590" TypeT="wh::questmodule::QuestProgress" MethodName="Control::Compare" DeclaringType="Control">
+					<Constant Name="Op" Value="Equals" />
+					<Constant Name="ValueB" Value="None" />
+					<Edge From="procek_zjistil_ze_jsem_skodil_jeho_vesnici" To="Exec" />
+					<Edge From="stav_questu_zaby" To="ValueA" />
+				</IfFunction>
+				<IfFunction Name="ifcompare13" PositionY="-1390" PositionX="-1600" TypeT="KonecZabomysichValek_aboutQuest" MethodName="Control::Compare" DeclaringType="Control">
+					<Constant Name="Op" Value="NotEquals" />
+					<Constant Name="ValueB" Value="None" />
+					<Edge From="patchtrigger12.OnPatch" To="Exec" />
+					<Edge From="rizeni_zadavaciho_dialogu.objectiv" To="ValueA">
+						<Vertex>nqevzQ3d</Vertex>
+						<Vertex>kJjJrgSe</Vertex>
+					</Edge>
+				</IfFunction>
 				<IfFunction Name="ifcompare4" PositionY="-575" PositionX="-1610" TypeT="wh::questmodule::QuestProgress" MethodName="Control::Compare" DeclaringType="Control">
 					<Constant Name="Op" Value="Equals" />
 					<Constant Name="ValueB" Value="Done" />
@@ -118,6 +134,9 @@
 					</Edge>
 					<Edge From="zadavaci_dialog__olbram_zelejov.quest_nebude" To="quest_nebude" />
 				</Output>
+				<PatchTrigger Name="patchtrigger12" PositionY="-1390" PositionX="-2020">
+					<Constant Name="TransitionToVersion" Value="ver_01_02" />
+				</PatchTrigger>
 				<rizeni_zadavaciho_dialogu Name="rizeni_zadavaciho_dialogu" PositionY="-30" PositionX="-520" RequiredForOutput="trosecko" Namespace="konec_zabomysich_valek">
 					<Asset Name="zadavatel" Alias="olbram" />
 					<Edge From="triggersequence6.B" To="quest_prijat">
@@ -185,14 +204,16 @@
 				<EdgeVertex Name="12eUdktL" PositionY="449" PositionX="-135" />
 				<EdgeVertex Name="2YGszjGY" PositionY="-832" PositionX="-695" />
 				<EdgeVertex Name="ghEulYRd" PositionY="510" PositionX="-600" />
+				<EdgeVertex Name="kJjJrgSe" PositionY="-1440" PositionX="-1580" />
+				<EdgeVertex Name="nqevzQ3d" PositionY="-1430" PositionX="-320" />
 				<EdgeVertex Name="RUBPN3x3" PositionY="445" PositionX="-1231" />
 				<EdgeVertex Name="tJl2LdTh" PositionY="-450" PositionX="-2130" />
 				<EdgeVertex Name="TMarA3vE" PositionY="410" PositionX="-140" />
 				<EdgeVertex Name="UkH1hanK" PositionY="-831" PositionX="-2011" />
 				<EdgeVertex Name="v9ENyFvX" PositionY="500" PositionX="-1240" />
 				<EdgeVertex Name="vertex1" PositionY="-140" PositionX="550" />
-				<EdgeVertex Name="vertex18" PositionY="-181" PositionX="632" />
-				<EdgeVertex Name="vertex19" PositionY="-175" PositionX="-546" />
+				<EdgeVertex Name="vertex18" PositionY="-180" PositionX="660" />
+				<EdgeVertex Name="vertex19" PositionY="-180" PositionX="-520" />
 				<EdgeVertex Name="vertex20" PositionY="548" PositionX="387" />
 				<EdgeVertex Name="vertex21" PositionY="553" PositionX="-466" />
 				<EdgeVertex Name="vertex22" PositionY="-110" PositionX="-130" />
@@ -206,10 +227,10 @@
 				<EdgeVertex Name="vertex30" PositionY="780" PositionX="-1230" />
 				<EdgeVertex Name="vertex31" PositionY="-740" PositionX="-740" />
 				<EdgeVertex Name="vertex32" PositionY="-740" PositionX="-1160" />
-				<EdgeVertex Name="vertex33" PositionY="130" PositionX="-1030" />
+				<EdgeVertex Name="vertex33" PositionY="-30" PositionX="-1020" />
 				<EdgeVertex Name="vertex34" PositionY="-50" PositionX="-90" />
-				<EdgeVertex Name="vertex35" PositionY="160" PositionX="-1310" />
-				<EdgeVertex Name="vertex36" PositionY="0" PositionX="-910" />
+				<EdgeVertex Name="vertex35" PositionY="180" PositionX="-1310" />
+				<EdgeVertex Name="vertex36" PositionY="30" PositionX="-910" />
 				<EdgeVertex Name="vertex6" PositionY="480" PositionX="-140" />
 				<EdgeVertex Name="vertex7" PositionY="480" PositionX="-1230" />
 				<EdgeVertex Name="wcda1N3L" PositionY="410" PositionX="-1240" />

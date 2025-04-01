@@ -12,6 +12,7 @@
 			<Variable name="alias" type="_string" values="" isPersistent="0" form="single" requirementType="ConstReference" />
 			<Variable name="destination" type="_wuid" values="" isPersistent="0" form="single" requirementType="ConstReference" />
 			<Variable name="dialogFinishedAndTagpointReachedLock" type="_string" values="" isPersistent="0" form="single" requirementType="In" />
+			<Variable name="disableORCA" type="_bool" values="" isPersistent="0" form="single" requirementType="ConstReference" />
 			<Variable name="finalTagpoint" type="_wuid" values="" isPersistent="0" form="single" requirementType="In" optional="1" />
 			<Variable name="followFormationParams" type="followFormationParams" values="" isPersistent="0" form="single" requirementType="In" />
 			<Variable name="followableSoul" type="_wuid" values="" isPersistent="0" form="single" requirementType="In" optional="1" />
@@ -50,7 +51,7 @@
 											<Sequence>
 												<SetExternalLock LockManagerType="Global" Locked="false" LockName="&apos;$formationLock&apos;" />
 												<Parallel successMode="Any" failureMode="Any">
-													<Function_speech_tour_movement alias="$alias" destination="$destination" dialogFinishedAndTagpointReachedLock="$dialogFinishedAndTagpointReachedLock" finalTagpoint="$finalTagpoint" movementSpeed="$movementSpeed" nextPhaseTrigger="$nextPhaseTrigger" onPlayerLeft_wait="$onPlayerLeft_wait" onTagpointReached_turnOnPlayer="$onTagpointReached_turnOnPlayer" pathOffset="$pathOffset" playerLeft_maxReactionDistance="$playerLeft_maxReactionDistance" progressTour="$progressTour" successDistance="$successDistance" successDistanceMove="$successDistanceMove" turningCooldown="$turningCooldown" turningCooldownVariation="$turningCooldownVariation" nodeLabel="86158294" />
+													<Function_speech_tour_movement alias="$alias" destination="$destination" dialogFinishedAndTagpointReachedLock="$dialogFinishedAndTagpointReachedLock" disableORCA="$disableORCA" finalTagpoint="$finalTagpoint" movementSpeed="$movementSpeed" nextPhaseTrigger="$nextPhaseTrigger" onPlayerLeft_wait="$onPlayerLeft_wait" onTagpointReached_turnOnPlayer="$onTagpointReached_turnOnPlayer" pathOffset="$pathOffset" playerLeft_maxReactionDistance="$playerLeft_maxReactionDistance" progressTour="$progressTour" successDistance="$successDistance" successDistanceMove="$successDistanceMove" turningCooldown="$turningCooldown" turningCooldownVariation="$turningCooldownVariation" nodeLabel="86158294" />
 													<While doFail="false" propagateChildFail="false" condition="true">
 														<IfGate atomic="false" condition="$currentFormation ~= $formationName" RunLogic="KeepRunning">
 															<Sequence>
@@ -117,43 +118,7 @@
 				</FuseBox>
 			</Behavior>
 		</Root>
-		<ForestContainer>
-			<Concatenation OutString="$formationLock" Pattern="&apos;followNPC_leader_$followFormationParams.formation.leader&apos;" />
-			<InstantSendMessageToNPC target="$followFormationParams.formation.leader" type="&apos;tour:followerLeftFormation&apos;" values="follower($this.id)" />
-			<InstantSendMessageToNPC target="$followFormationParams.formation.leader" type="&apos;tour:followerJoiningFormation&apos;" values="follower($this.id)" />
-			<ExternalLock atomic="false" OutsideQueuePosVariable="" InsidePosVariable="" TimerType="GameTime" OutsideTimerValue="&apos;-1&apos;" LockManagerType="Local" SemaphoreName="&apos;$formationLock&apos;" RunLogic="KeepRunning">
-				<Sequence>
-					<GetMemberFormation MemberWUID="$followFormationParams.formation.leader" FormationHandleOut="$formationWUID" />
-					<IfCondition failOnCondition="true" condition="$formationWUID~=$__null">
-						<FormationFollower FormationHandle="$formationWUID" PreferredPositions="$followFormationParams.formation.preferedPosition" FormationMode="$followFormationParams.formation.policy" AllowRelocation="$followFormationParams.formation.allowRelocation" />
-					</IfCondition>
-				</Sequence>
-			</ExternalLock>
-			<AddLinkElement from="$this.id" to="$followFormationParams.formation.leader" tag="&apos;tour_readyToTour&apos;" data="" enabled="true" />
-			<Parallel successMode="Any" failureMode="Any">
-				<While doFail="false" propagateChildFail="false" condition="true">
-					<IfGate atomic="false" condition="$followableSoulPreferredPosition ~= &apos;none&apos; &amp; &#10;$currentPreferredPosition ~= $followableSoulPreferredPosition" RunLogic="KeepRunning">
-						<IfElseCondition failOnCondition="false" condition="$followableSoul == $this.id" saveVersion="2">
-							<Else canSkip="1">
-								<Expression expressions="$currentPreferredPosition = $followableSoulPreferredPosition" />
-							</Else>
-						</IfElseCondition>
-					</IfGate>
-				</While>
-			</Parallel>
-			<Wait duration="&apos;-1&apos;" timeType="GameTime" doFail="false" variation="" />
-			<Sequence>
-				<Concatenation OutString="$formationLock" Pattern="&apos;followNPC_leader_$followFormationParams.formation.leader&apos;" />
-				<ExternalLock atomic="false" OutsideQueuePosVariable="" InsidePosVariable="" TimerType="GameTime" OutsideTimerValue="&apos;10m&apos;" LockManagerType="Global" SemaphoreName="&apos;$formationLock&apos;" RunLogic="KeepRunning">
-					<Sequence>
-						<GetMemberFormation MemberWUID="$followFormationParams.formation.leader" FormationHandleOut="$formationWUID" />
-						<IfCondition failOnCondition="true" condition="$formationWUID~=$__null">
-							<FormationFollower FormationHandle="$formationWUID" PreferredPositions="$followFormationParams.formation.preferedPosition" FormationMode="$followFormationParams.formation.policy" AllowRelocation="$followFormationParams.formation.allowRelocation" />
-						</IfCondition>
-					</Sequence>
-				</ExternalLock>
-			</Sequence>
-		</ForestContainer>
+		<ForestContainer />
 		<EditorData EventSet="">
 			<Variables>
 				<Variable name="currentFormation" comment="" />
@@ -164,6 +129,7 @@
 				<Variable name="alias" comment="" />
 				<Variable name="destination" comment="" />
 				<Variable name="dialogFinishedAndTagpointReachedLock" comment="" />
+				<Variable name="disableORCA" comment="" />
 				<Variable name="finalTagpoint" comment="" />
 				<Variable name="followFormationParams" comment="" />
 				<Variable name="followableSoul" comment="" />
@@ -334,76 +300,7 @@
 					</FuseBox>
 				</Behavior>
 			</Root>
-			<Forest>
-				<Concatenation editorPosX="1190" editorPosY="2040" hasInputBreakpoint="0" comment="" breakpointFlags="0">
-					<OutputBreakpoints />
-				</Concatenation>
-				<InstantSendMessageToNPC editorPosX="220" editorPosY="1020" hasInputBreakpoint="0" comment="" breakpointFlags="0">
-					<OutputBreakpoints />
-				</InstantSendMessageToNPC>
-				<InstantSendMessageToNPC editorPosX="230" editorPosY="900" hasInputBreakpoint="0" comment="" breakpointFlags="0">
-					<OutputBreakpoints />
-				</InstantSendMessageToNPC>
-				<ExternalLock editorPosX="1500" editorPosY="1930" hasInputBreakpoint="0" comment="Waiting for leader to create formation" breakpointFlags="0">
-					<OutputBreakpoints />
-					<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
-						<OutputBreakpoints />
-						<GetMemberFormation hasInputBreakpoint="0" comment="" breakpointFlags="0">
-							<OutputBreakpoints />
-						</GetMemberFormation>
-						<IfCondition hasInputBreakpoint="0" comment="Formation already finished moving?" breakpointFlags="0">
-							<OutputBreakpoints />
-							<FormationFollower hasInputBreakpoint="0" comment="" breakpointFlags="0">
-								<OutputBreakpoints />
-							</FormationFollower>
-						</IfCondition>
-					</Sequence>
-				</ExternalLock>
-				<AddLinkElement editorPosX="120" editorPosY="-600" hasInputBreakpoint="0" comment="" breakpointFlags="0">
-					<OutputBreakpoints />
-				</AddLinkElement>
-				<Parallel editorPosX="1200" editorPosY="1780" hasInputBreakpoint="0" comment="" breakpointFlags="0">
-					<OutputBreakpoints />
-					<While hasInputBreakpoint="0" comment="" breakpointFlags="0">
-						<OutputBreakpoints />
-						<IfGate hasInputBreakpoint="0" comment="" breakpointFlags="0">
-							<OutputBreakpoints />
-							<IfElseCondition hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
-								<OutputBreakpoints />
-								<Else>
-									<Expression hasInputBreakpoint="0" comment="" breakpointFlags="0">
-										<OutputBreakpoints />
-									</Expression>
-								</Else>
-							</IfElseCondition>
-						</IfGate>
-					</While>
-				</Parallel>
-				<Wait editorPosX="2020" editorPosY="1470" hasInputBreakpoint="0" comment="" breakpointFlags="0">
-					<OutputBreakpoints />
-				</Wait>
-				<Sequence editorPosX="2280" editorPosY="1460" hasInputBreakpoint="0" comment="Hotfix for KCD2-127443. To be replaced with moveInFormation_slave function" breakpointFlags="0">
-					<OutputBreakpoints />
-					<Concatenation hasInputBreakpoint="0" comment="" breakpointFlags="0">
-						<OutputBreakpoints />
-					</Concatenation>
-					<ExternalLock hasInputBreakpoint="0" comment="Waiting for leader to create formation" breakpointFlags="0">
-						<OutputBreakpoints />
-						<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
-							<OutputBreakpoints />
-							<GetMemberFormation hasInputBreakpoint="0" comment="" breakpointFlags="0">
-								<OutputBreakpoints />
-							</GetMemberFormation>
-							<IfCondition hasInputBreakpoint="0" comment="Formation already finished moving?" breakpointFlags="0">
-								<OutputBreakpoints />
-								<FormationFollower hasInputBreakpoint="0" comment="" breakpointFlags="0">
-									<OutputBreakpoints />
-								</FormationFollower>
-							</IfCondition>
-						</Sequence>
-					</ExternalLock>
-				</Sequence>
-			</Forest>
+			<Forest />
 			<Comments />
 		</EditorData>
 	</BehaviorTree>

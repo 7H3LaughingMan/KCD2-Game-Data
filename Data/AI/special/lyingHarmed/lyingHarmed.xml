@@ -16,34 +16,36 @@
 			</OnInit>
 			<Behavior canSkip="1">
 				<EntityContextPresetElement contextPreset="switch_unresponsive_spawnHitVolume" enabled="true">
-					<StanceElement smartObject="$__resource.id" stance="lying" allowAny="false" enabled="true">
-						<IfElseCondition failOnCondition="false" condition="$dialogueHolder == $__null" saveVersion="2">
-							<Then canSkip="1">
-								<Sequence>
-									<UnstanceAction unstance="$unstanceName" locationObject="$__object.id" slaveObject="" />
-									<SuppressFailure>
-										<Function_speech_schedulerMonolog alias="" animationApproach="$enum:animationApproach.dontPlayDialogAnimations" context="" lookAtId="" metarole="&apos;RANENY_POVZDECHY&apos;" skipInLod="false" subtitlesDown="false" nodeLabel="13212929" />
-									</SuppressFailure>
-									<Wait duration="&apos;5s&apos;" timeType="GameTime" doFail="false" variation="" />
-								</Sequence>
-							</Then>
-							<Else canSkip="1">
-								<EntityContextElement context="speech_dialogTwinKeepsStance" enabled="true">
-									<EntityContextElement context="speech_readyForSwitchDialog" enabled="true">
-										<AddLinkElement from="$this.id" to="$dialogueHolder" tag="&apos;forceDialogueHolder&apos;" data="" enabled="true">
-											<Sequence>
-												<UnstanceAction unstance="$unstanceName" locationObject="$__object.id" slaveObject="" />
-												<SuppressFailure>
-													<Function_speech_schedulerMonolog alias="" animationApproach="$enum:animationApproach.dontPlayDialogAnimations" context="" lookAtId="" metarole="&apos;RANENY_POVZDECHY&apos;" skipInLod="false" subtitlesDown="false" nodeLabel="71689738" />
-												</SuppressFailure>
-												<Wait duration="&apos;5s&apos;" timeType="GameTime" doFail="false" variation="" />
-											</Sequence>
-										</AddLinkElement>
+					<EntityContextElement context="crime_suppressAllPlayerCollisionBarks" enabled="true">
+						<StanceElement smartObject="$__resource.id" stance="lying" allowAny="false" enabled="true">
+							<IfElseCondition failOnCondition="false" condition="$dialogueHolder == $__null" saveVersion="2">
+								<Then canSkip="1">
+									<Sequence>
+										<UnstanceAction unstance="$unstanceName" locationObject="$__object.id" slaveObject="" />
+										<SuppressFailure>
+											<Function_speech_schedulerMonolog alias="" animationApproach="$enum:animationApproach.dontPlayDialogAnimations" context="" lookAtId="" metarole="&apos;RANENY_POVZDECHY&apos;" skipInLod="false" subtitlesDown="false" nodeLabel="13212929" />
+										</SuppressFailure>
+										<Wait duration="&apos;5s&apos;" timeType="GameTime" doFail="false" variation="" />
+									</Sequence>
+								</Then>
+								<Else canSkip="1">
+									<EntityContextElement context="speech_dialogTwinKeepsStance" enabled="true">
+										<EntityContextElement context="speech_readyForSwitchDialog" enabled="true">
+											<AddLinkElement from="$this.id" to="$dialogueHolder" tag="&apos;forceDialogueHolder&apos;" data="" enabled="true">
+												<Sequence>
+													<UnstanceAction unstance="$unstanceName" locationObject="$__object.id" slaveObject="" />
+													<SuppressFailure>
+														<Function_speech_schedulerMonolog alias="" animationApproach="$enum:animationApproach.dontPlayDialogAnimations" context="" lookAtId="" metarole="&apos;RANENY_POVZDECHY&apos;" skipInLod="false" subtitlesDown="false" nodeLabel="71689738" />
+													</SuppressFailure>
+													<Wait duration="&apos;5s&apos;" timeType="GameTime" doFail="false" variation="" />
+												</Sequence>
+											</AddLinkElement>
+										</EntityContextElement>
 									</EntityContextElement>
-								</EntityContextElement>
-							</Else>
-						</IfElseCondition>
-					</StanceElement>
+								</Else>
+							</IfElseCondition>
+						</StanceElement>
+					</EntityContextElement>
 				</EntityContextPresetElement>
 			</Behavior>
 		</Root>
@@ -73,55 +75,58 @@
 				<Behavior>
 					<EntityContextPresetElement hasInputBreakpoint="0" comment="" breakpointFlags="0">
 						<OutputBreakpoints />
-						<StanceElement hasInputBreakpoint="0" comment="" breakpointFlags="0">
+						<EntityContextElement hasInputBreakpoint="0" comment="" breakpointFlags="0">
 							<OutputBreakpoints />
-							<IfElseCondition hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
+							<StanceElement hasInputBreakpoint="0" comment="" breakpointFlags="0">
 								<OutputBreakpoints />
-								<Then>
-									<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
-										<OutputBreakpoints />
-										<UnstanceAction hasInputBreakpoint="0" comment="" breakpointFlags="0">
+								<IfElseCondition hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
+									<OutputBreakpoints />
+									<Then>
+										<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
 											<OutputBreakpoints />
-										</UnstanceAction>
-										<SuppressFailure hasInputBreakpoint="0" comment="" breakpointFlags="0">
-											<OutputBreakpoints />
-											<Function_speech_schedulerMonolog hasInputBreakpoint="0" comment="" breakpointFlags="0">
+											<UnstanceAction hasInputBreakpoint="0" comment="" breakpointFlags="0">
 												<OutputBreakpoints />
-											</Function_speech_schedulerMonolog>
-										</SuppressFailure>
-										<Wait hasInputBreakpoint="0" comment="" breakpointFlags="0">
-											<OutputBreakpoints />
-										</Wait>
-									</Sequence>
-								</Then>
-								<Else>
-									<EntityContextElement hasInputBreakpoint="0" comment="" breakpointFlags="0">
-										<OutputBreakpoints />
+											</UnstanceAction>
+											<SuppressFailure hasInputBreakpoint="0" comment="" breakpointFlags="0">
+												<OutputBreakpoints />
+												<Function_speech_schedulerMonolog hasInputBreakpoint="0" comment="" breakpointFlags="0">
+													<OutputBreakpoints />
+												</Function_speech_schedulerMonolog>
+											</SuppressFailure>
+											<Wait hasInputBreakpoint="0" comment="" breakpointFlags="0">
+												<OutputBreakpoints />
+											</Wait>
+										</Sequence>
+									</Then>
+									<Else>
 										<EntityContextElement hasInputBreakpoint="0" comment="" breakpointFlags="0">
 											<OutputBreakpoints />
-											<AddLinkElement hasInputBreakpoint="0" comment="" breakpointFlags="0">
+											<EntityContextElement hasInputBreakpoint="0" comment="" breakpointFlags="0">
 												<OutputBreakpoints />
-												<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
+												<AddLinkElement hasInputBreakpoint="0" comment="" breakpointFlags="0">
 													<OutputBreakpoints />
-													<UnstanceAction hasInputBreakpoint="0" comment="" breakpointFlags="0">
+													<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
 														<OutputBreakpoints />
-													</UnstanceAction>
-													<SuppressFailure hasInputBreakpoint="0" comment="" breakpointFlags="0">
-														<OutputBreakpoints />
-														<Function_speech_schedulerMonolog hasInputBreakpoint="0" comment="" breakpointFlags="0">
+														<UnstanceAction hasInputBreakpoint="0" comment="" breakpointFlags="0">
 															<OutputBreakpoints />
-														</Function_speech_schedulerMonolog>
-													</SuppressFailure>
-													<Wait hasInputBreakpoint="0" comment="" breakpointFlags="0">
-														<OutputBreakpoints />
-													</Wait>
-												</Sequence>
-											</AddLinkElement>
+														</UnstanceAction>
+														<SuppressFailure hasInputBreakpoint="0" comment="" breakpointFlags="0">
+															<OutputBreakpoints />
+															<Function_speech_schedulerMonolog hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																<OutputBreakpoints />
+															</Function_speech_schedulerMonolog>
+														</SuppressFailure>
+														<Wait hasInputBreakpoint="0" comment="" breakpointFlags="0">
+															<OutputBreakpoints />
+														</Wait>
+													</Sequence>
+												</AddLinkElement>
+											</EntityContextElement>
 										</EntityContextElement>
-									</EntityContextElement>
-								</Else>
-							</IfElseCondition>
-						</StanceElement>
+									</Else>
+								</IfElseCondition>
+							</StanceElement>
+						</EntityContextElement>
 					</EntityContextPresetElement>
 				</Behavior>
 			</Root>

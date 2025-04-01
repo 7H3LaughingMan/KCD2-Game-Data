@@ -20,12 +20,13 @@
 				</Port>
 			</Ports>
 			<Nodes>
-				<addbloodallbodyparts Name="addbloodallbodyparts" PositionY="-200" PositionX="430" Namespace="utils.general">
+				<addbloodallbodyparts Name="addbloodallbodyparts" PositionY="-260" PositionX="430" Namespace="utils.general">
 					<Asset Name="soul" Alias="player" />
 					<Constant Name="value" Value="-1" />
+					<Constant Name="absolute" Value="false" />
 					<Edge From="cutscenehandler1.OnQueued" To="add_blood" />
 				</addbloodallbodyparts>
-				<MemberFunction Name="adddirt8" PositionY="-10" PositionX="470" MethodName="AddDirt" DeclaringType="wh::rpgmodule::I_Soul">
+				<MemberFunction Name="adddirt8" PositionY="-50" PositionX="480" MethodName="AddDirt" DeclaringType="wh::rpgmodule::I_Soul">
 					<Asset Name="Soul" Alias="player" />
 					<Constant Name="Value" Value="-1" />
 					<Edge From="cutscenehandler1.OnQueued" To="Exec" />
@@ -61,6 +62,16 @@
 						<Vertex>vertex10</Vertex>
 					</Edge>
 				</IfFunction>
+				<ObjectProperties Name="isoulproperties14" PositionY="-1090" PositionX="10" DeclaringType="wh::rpgmodule::I_Soul">
+					<Asset Name="I_Soul" Alias="player" />
+				</ObjectProperties>
+				<MakeArray Name="makearray13" PositionY="-570" PositionX="80" TypeT="wh::entitymodule::EquipmentSlotIds">
+					<Constant Name="A" Value="head_helmet" />
+					<Constant Name="B" Value="head_coif" />
+					<Constant Name="C" Value="head_hood" />
+					<Constant Name="D" Value="head_cap" />
+					<Constant Name="E" Value="head_coif_padded" />
+				</MakeArray>
 				<Output Name="Output">
 					<Edge From="profilestatetrigger3.OnLoaded" To="loaded_lichtenstejn" />
 					<Edge From="WaitForDoorLoad.OnLoading" To="open_doors">
@@ -77,6 +88,11 @@
 					<Asset Name="Profiles" Alias="DoorOpen" />
 					<Edge From="WaitForDoorLoad.Loading" To="IsActive" />
 				</ProfileStateTrigger>
+				<MemberFunction Name="unequipplayersarmorslots11" PositionY="-460" PositionX="420" MethodName="UnequipPlayersArmorSlots" DeclaringType="wh::entitymodule::EquipmentManager">
+					<Edge From="makearray13.Array" To="ArmorSlots" />
+					<Edge From="isoulproperties14.EquipmentManager" To="EquipmentManager" />
+					<Edge From="cutscenehandler1.BeforePlay" To="Exec" />
+				</MemberFunction>
 				<State Name="WaitForDoorLoad" PositionY="520" PositionX="580" TypeT="WaitForDoorsLoad">
 					<Edge From="cutscenehandler1.BeforePlay" To="SetLoading" />
 					<Edge From="profilestatetrigger4.OnLoaded" To="SetDone">
@@ -93,8 +109,8 @@
 				</State>
 			</Nodes>
 			<EdgeVertices>
-				<EdgeVertex Name="4NBCKXmx" PositionY="-190" PositionX="710" />
-				<EdgeVertex Name="hkhXRlhI" PositionY="-158" PositionX="-116" />
+				<EdgeVertex Name="4NBCKXmx" PositionY="-260" PositionX="750" />
+				<EdgeVertex Name="hkhXRlhI" PositionY="-270" PositionX="-160" />
 				<EdgeVertex Name="vertex1" PositionY="510" PositionX="1110" />
 				<EdgeVertex Name="vertex10" PositionY="900" PositionX="-230" />
 				<EdgeVertex Name="vertex11" PositionY="940" PositionX="760" />

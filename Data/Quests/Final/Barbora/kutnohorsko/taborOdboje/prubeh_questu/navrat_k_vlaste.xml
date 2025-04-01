@@ -29,6 +29,13 @@
 				<Definition File="navrat_k_vlaste/jindra_rika_vlaste_jak_to_dopadlo.xml" />
 			</Definitions>
 			<Nodes>
+				<Function Name="and10" PositionY="-350" PositionX="-490" MethodName="math::boolean::And" DeclaringType="math::boolean">
+					<Edge From="deathcheck3_1.IsDead" To="A" />
+					<Edge From="rekni_vlaste_co_se_stalo.Active" To="B">
+						<Vertex>vertex8</Vertex>
+						<Vertex>vertex9</Vertex>
+					</Edge>
+				</Function>
 				<Function Name="and4" PositionY="630" PositionX="340" MethodName="math::boolean::And" DeclaringType="math::boolean">
 					<Edge From="not5.bool" To="A" />
 					<Edge From="not6.bool" To="B" />
@@ -42,6 +49,13 @@
 				<Function Name="deathcheck3" PositionY="340" PositionX="-320" MethodName="wh::rpgmodule::DeathCheck" DeclaringType="wh::rpgmodule">
 					<Asset Name="Souls" Alias="vydra" />
 				</Function>
+				<Function Name="deathcheck3_1" PositionY="-340" PositionX="-800" MethodName="wh::rpgmodule::DeathCheck" DeclaringType="wh::rpgmodule">
+					<Asset Name="Souls" Alias="vlasta" />
+				</Function>
+				<If Name="if4" PositionY="-610" PositionX="-190">
+					<Edge From="patchtrigger2.OnPatch" To="Exec" />
+					<Edge From="and10.bool" To="Condition" />
+				</If>
 				<If Name="if8" PositionY="-150" PositionX="-180">
 					<Edge From="vlasta_umrela" To="Exec" />
 					<Edge From="rekni_vlaste_co_se_stalo.Active" To="Condition">
@@ -78,6 +92,9 @@
 					<Edge From="rekni_vlaste_co_se_stalo.OnDone" To="hrac_odevzdal_quest_vlaste" />
 					<Edge From="rekni_vlaste_co_se_stalo.OnCanceled" To="quest_selhal" />
 				</Output>
+				<PatchTrigger Name="patchtrigger2" PositionY="-490" PositionX="-640">
+					<Constant Name="TransitionToVersion" Value="ver_01_02" />
+				</PatchTrigger>
 				<State Name="rekni_vlaste_co_se_stalo" PositionY="-150" PositionX="70" RequiredForOutput="kutnohorsko" TypeT="ProgressFailable">
 					<Edge From="hrac_byl_v_tabore" To="SetActive" />
 					<Edge From="reward7_1.OnAdded" To="SetDone">
@@ -85,6 +102,7 @@
 						<Vertex>vertex3</Vertex>
 					</Edge>
 					<Edge From="if8.True" To="SetCanceled" />
+					<Edge From="if4.True" To="SetCanceled" />
 				</State>
 				<AddReward Name="reward7" PositionY="750" PositionX="1260">
 					<Edge From="jindra_rika_vlaste_jak_to_dopadlo.jindra_dostava_obvaz" To="AddReward" />

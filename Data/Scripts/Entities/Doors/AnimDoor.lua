@@ -16,12 +16,14 @@ AnimDoor =
 		esNavCompoment = "Door",
 		esDoorAnimSet = "",
 		bInteractiveCollisionClass = true,
+		bNoCrimeDoorLink  = false,
 		Lock =
 		{
 			bLocked = false, -- default state
 			fLockDifficulty = 0.5, -- fLockDifficulty is referenced from code.
 			bLockDifficultyOverride = false,
 			esLockFanciness = "Common",
+			bLockFancinessOverride = false,
 			bCanLockPick = true,
 			bCanUnlockWithDynamicKey = true, -- master key to all locks in home or shop generated in code while looting / pickpocketing. Disable to enable only legacy guid keys
 			bSendMessage = false, -- send signals to AI
@@ -54,9 +56,11 @@ AnimDoor =
 			Density = -1,
 			Mass = -1,
 		},
-		fUseDistance = 2.5,
+		fUseDistance = 2.0,
 		bActivatePortal = false,
 		bNoFriendlyFire = false,
+		fUseLockpickDistance = 2.0,
+		fUseLockpickAngle = 0.8,
 	},
 	Editor =
 	{
@@ -314,9 +318,17 @@ function AnimDoor:Reset()
 
 	self.lockpickable = self.Properties.Lock.bCanLockPick == true
 
-	if self.Properties.Lock.bLockDifficultyOverride == false then
-		self.Properties.Lock.fLockDifficulty = self:GenerateLockDifficulty()
+	local shouldGenerateLockData = self.Properties.Lock.bLockDifficultyOverride == false or self.Properties.Lock.bLockFancinessOverride == false
+	if shouldGenerateLockData then
+		local lockData = self:GenerateLockData()
+		if self.Properties.Lock.bLockDifficultyOverride == false then
+			self.Properties.Lock.fLockDifficulty = lockData.difficulty
+		end	
+		if self.Properties.Lock.bLockFancinessOverride == false then
+			self.Properties.Lock.esLockFanciness = lockData.fanciness
+		end
 	end
+
 	-- ShouldBeLocked requires the properties set above
 	-- default state of lock is the same if npc would be leaving
 	if self.Properties.Lock.bLocked == true or self:ShouldBeLocked(false) then
@@ -488,7 +500,7 @@ function AnimDoor:GetActions(user, firstFast)
 	end
 
 	-- locked door
-	if self.lockpickable and (self.bLocked == true) and self:IsOnKeySide() == 1 and (self.nUserId == 0) and (user.soul:HaveSkill('thievery')) then
+	if self.lockpickable and (self.bLocked == true) and self:IsOnKeySide() == 1 and (self.nUserId == 0) and (user.soul:HaveSkill('thievery')) and (EntityCommon.IsUsableForLockpick(user, self) == 1) then
 		local isEnabled = not player.soul:IsInTenseCircumstance()
 		AddInteractorAction( output, firstFast, Action():hint( '@' .. Crime.BuildLockpickPromptStrName(self.Properties.Lock.fLockDifficulty) ):action( "use_other" ):hintType( AHT_HOLD ):func( AnimDoor.Lockpick ):interaction( inr_doorLockpick ):enabled(isEnabled) )
 	end
@@ -503,7 +515,7 @@ end
 
 -- =============================================================================
 function AnimDoor:Lockpick(user, slot)
-	if self.lockpickable and (self.bLocked == true) and self:IsOnKeySide() == 1 and (self.nUserId == 0) then
+	if self.lockpickable and (self.bLocked == true) and self:IsOnKeySide() == 1 and (self.nUserId == 0) and (EntityCommon.IsUsableForLockpick(user, self) == 1) then
 		Minigame.StartLockPicking(self.id)
 	end
 end
@@ -698,7 +710,7 @@ function AnimDoor.Server:OnUpdate(dt)
 				self.inUse = 0
 				EntityCommon.BroadcastEvent(self, "Open")
 
-				if (self.animDoor ~= nil) then
+				if (self.animDoor ~= nil) and (self.lastUsedBy ~= nil) then
 					self.animDoor:ReportOpened(self.lastUsedBy)
 				end
 			end
@@ -911,76 +923,77 @@ function AnimDoor:DoLockOnMissingHomeArea()
 end
 
 -- =============================================================================
-function AnimDoor:GenerateLockDifficulty()
-	local model2lockDifficulty = {
-		["doors/lvl1_door_a_left"] = 3.3,
-		["doors/lvl1_door_a_left_plague"] = 3.3,
-		["doors/lvl1_door_a_right"] = 3.3,
+function AnimDoor:GenerateLockData()
+	local model2lockData = {
+		["doors/lvl1_door_a_left"] = {difficulty = 3.3, fanciness = "Common"},
+		["doors/lvl1_door_a_left_plague"] = {difficulty = 3.3, fanciness = "Common"},
+		["doors/lvl1_door_a_right"] = {difficulty = 3.3, fanciness = "Fancy"},
 
-		["doors/lvl2_door_a_left"] = 6.5,
-		["doors/lvl2_door_a_right"] = 6.5,
-		["doors/lvl2_door_townhouse_d_red_left"] = 9.2,
-		["doors/lvl2_door_townhouse_d_red_right"] = 9.2,
-		["doors/lvl2_door_townhouse_d_wooda_left"] = 9.2,
-		["doors/lvl2_door_townhouse_d_wooda_right"] = 9.2,
-		["doors/lvl2_door_townhouse_d_woodb_left"] = 7.2,
-		["doors/lvl2_door_townhouse_d_woodb_right"] = 7.2,
-		["doors/lvl2_door_townhouse_d_woodc_left"] = 6.8,
-		["doors/lvl2_door_townhouse_d_woodc_right"] = 6.8,
+		["doors/lvl2_door_a_left"] = {difficulty = 6.5, fanciness = "Fancy"},
+		["doors/lvl2_door_a_right"] = {difficulty = 6.5, fanciness = "Fancy"},
+		["doors/lvl2_door_townhouse_d_red_left"] = {difficulty = 9.2, fanciness = "Fancy"},
+		["doors/lvl2_door_townhouse_d_red_right"] = {difficulty = 9.2, fanciness = "Common"},
+		["doors/lvl2_door_townhouse_d_wooda_left"] = {difficulty = 9.2, fanciness = "Fancy"},
+		["doors/lvl2_door_townhouse_d_wooda_right"] = {difficulty = 9.2, fanciness = "Fancy"},
+		["doors/lvl2_door_townhouse_d_woodb_left"] = {difficulty = 7.6, fanciness = "Common"},
+		["doors/lvl2_door_townhouse_d_woodb_right"] = {difficulty = 7.6, fanciness = "Fancy"},
+		["doors/lvl2_door_townhouse_d_woodc_left"] = {difficulty = 7.4, fanciness = "Common"},
+		["doors/lvl2_door_townhouse_d_woodc_right"] = {difficulty = 7.4, fanciness = "Common"},
 
-		["doors/lvl3_door_cave_right"] = 10.6,
-		["doors/lvl3_door_e_left"] = 7.2,
-		["doors/lvl3_door_e_right"] = 7.2,
-		["doors/lvl3_door_prison_left"] = 18.7,
-		["doors/lvl3_door_prison_right"] = 18.7,
-		["doors/lvl3_door_townhouse_b_black_left"] = 10.6,
-		["doors/lvl3_door_townhouse_b_black_right"] = 10.6,
-		["doors/lvl3_door_townhouse_b_green_left"] = 11.4,
-		["doors/lvl3_door_townhouse_b_green_right"] = 11.4,
-		["doors/lvl3_door_townhouse_b_wooda_left"] = 11,
-		["doors/lvl3_door_townhouse_b_wooda_right"] = 11,
-		["doors/lvl3_door_townhouse_b_woodb_left"] = 10,
-		["doors/lvl3_door_townhouse_b_woodb_right"] = 10,
-		["doors/lvl3_door_townhouse_d_left"] = 11.2,
-		["doors/lvl3_door_townhouse_d_right"] = 11.2,
-		["doors/lvl3_door_townhouse_g_black_left"] = 11.6,
-		["doors/lvl3_door_townhouse_g_black_right"] = 11.6,
-		["doors/lvl3_door_townhouse_g_red_left"] = 13.6,
-		["doors/lvl3_door_townhouse_g_red_right"] = 13.6,
-		["doors/lvl3_door_townhouse_g_wooda_left"] = 13.6,
-		["doors/lvl3_door_townhouse_g_wooda_right"] = 13.6,
-		["doors/lvl3_door_townhouse_g_woodb_left"] = 14,
-		["doors/lvl3_door_townhouse_g_woodb_right"] = 14,
-		["doors/lvl3_doors_double_a_left"] = 14.6,
-		["doors/lvl3_doors_double_a_right"] = 14.6,
+		["doors/lvl3_door_cave_right"] = {difficulty = 10.6, fanciness = "Common"},
+		["doors/lvl3_door_e_left"] = {difficulty = 7.2, fanciness = "Common"},
+		["doors/lvl3_door_e_right"] = {difficulty = 7.2, fanciness = "Fancy"},
+		["doors/lvl3_door_prison_left"] = {difficulty = 18.7, fanciness = "Common"},
+		["doors/lvl3_door_prison_right"] = {difficulty = 18.7, fanciness = "Common"},
+		["doors/lvl3_door_townhouse_b_black_left"] = {difficulty = 10.6, fanciness = "Common"},
+		["doors/lvl3_door_townhouse_b_black_right"] = {difficulty = 10.6, fanciness = "Fancy"},
+		["doors/lvl3_door_townhouse_b_green_left"] = {difficulty = 11.4, fanciness = "Fancy"},
+		["doors/lvl3_door_townhouse_b_green_right"] = {difficulty = 11.4, fanciness = "Common"},
+		["doors/lvl3_door_townhouse_b_wooda_left"] = {difficulty = 11, fanciness = "Common"},
+		["doors/lvl3_door_townhouse_b_wooda_right"] = {difficulty = 11, fanciness = "Fancy"},
+		["doors/lvl3_door_townhouse_b_woodb_left"] = {difficulty = 10, fanciness = "Fancy"},
+		["doors/lvl3_door_townhouse_b_woodb_right"] = {difficulty = 10, fanciness = "Common"},
+		["doors/lvl3_door_townhouse_d_left"] = {difficulty = 11.2, fanciness = "Fancy"},
+		["doors/lvl3_door_townhouse_d_right"] = {difficulty = 11.2, fanciness = "Common"},
+		["doors/lvl3_door_townhouse_g_black_left"] = {difficulty = 11.6, fanciness = "Fancy"},
+		["doors/lvl3_door_townhouse_g_black_right"] = {difficulty = 11.6, fanciness = "Fancy"},
+		["doors/lvl3_door_townhouse_g_red_left"] = {difficulty = 13.6, fanciness = "Fancy"},
+		["doors/lvl3_door_townhouse_g_red_right"] = {difficulty = 13.6, fanciness = "Common"},
+		["doors/lvl3_door_townhouse_g_wooda_left"] = {difficulty = 13.6, fanciness = "Fancy"},
+		["doors/lvl3_door_townhouse_g_wooda_right"] = {difficulty = 13.6, fanciness = "Common"},
+		["doors/lvl3_door_townhouse_g_woodb_left"] = {difficulty = 14, fanciness = "Fancy"},
+		["doors/lvl3_door_townhouse_g_woodb_right"] = {difficulty = 14, fanciness = "Fancy"},
+		["doors/lvl3_doors_double_a_left"] = {difficulty = 14.6, fanciness = "Common"},
+		["doors/lvl3_doors_double_a_right"] = {difficulty = 14.6, fanciness = "Fancy"},
 
-		["doors/lvl4_door_townhouse_g_left"] = 16.8,
-		["doors/lvl4_door_townhouse_g_right"] = 16.8,
-		["doors/lvl4_doors_double_a_left"] = 15.4,
-		["doors/lvl4_doors_double_a_right"] = 15.4,
-		["doors/lvl4_doors_f_v1_left"] = 16.5,
-		["doors/lvl4_doors_f_v1_right"] = 16.5,
-		["doors/lvl4_doors_f_v2_left"] = 16.8,
-		["doors/lvl4_doors_f_v2_right"] = 16.8,
-		["doors/lvl4_doors_f_v3_left"] = 16,
-		["doors/lvl4_doors_f_v3_right"] = 16,
-		["doors/lvl4_doors_g_left"] = 16,
-		["doors/lvl4_doors_g_right"] = 16,
-		["doors/lvl4_doors_townhouse_j_left"] = 13.8,
-		["doors/lvl4_doors_townhouse_j2_left"] = 13.8,
-		["doors/lvl4_doors_townhouse_j4_right"] = 13.4,
-		["doors/lvl4_doors_townhouse_j5_right"] = 13.4,
+		["doors/lvl4_door_townhouse_g_left"] = {difficulty = 16.8, fanciness = "Fancy"},
+		["doors/lvl4_door_townhouse_g_right"] = {difficulty = 16.8, fanciness = "Fancy"},
+		["doors/lvl4_doors_double_a_left"] = {difficulty = 15.4, fanciness = "Fancy"},
+		["doors/lvl4_doors_double_a_right"] = {difficulty = 15.4, fanciness = "Fancy"},
+		["doors/lvl4_doors_f_v1_left"] = {difficulty = 16.5, fanciness = "Fancy"},
+		["doors/lvl4_doors_f_v1_right"] = {difficulty = 16.5, fanciness = "Fancy"},
+		["doors/lvl4_doors_f_v2_left"] = {difficulty = 16.8, fanciness = "Fancy"},
+		["doors/lvl4_doors_f_v2_right"] = {difficulty = 16.8, fanciness = "Fancy"},
+		["doors/lvl4_doors_f_v3_left"] = {difficulty = 16, fanciness = "Fancy"},
+		["doors/lvl4_doors_f_v3_right"] = {difficulty = 16, fanciness = "Common"},
+		["doors/lvl4_doors_g_left"] = {difficulty = 16, fanciness = "Common"},
+		["doors/lvl4_doors_g_right"] = {difficulty = 16, fanciness = "Fancy"},
+		["doors/lvl4_doors_townhouse_j_left"] = {difficulty = 13.8, fanciness = "Common"},
+		["doors/lvl4_doors_townhouse_j2_left"] = {difficulty = 13.8, fanciness = "Fancy"},
+		["doors/lvl4_doors_townhouse_j4_right"] = {difficulty = 13.4, fanciness = "Fancy"},
+		["doors/lvl4_doors_townhouse_j5_right"] = {difficulty = 13.4, fanciness = "Common"},
 	}
 
-	for nameSnippet, difficulty in pairs(model2lockDifficulty) do
-
+	for nameSnippet, lockData in pairs(model2lockData) do
 		if string.match(self.Properties.object_Model, nameSnippet) ~= nil then
-			return difficulty / 20.0
+			return {
+				difficulty = lockData.difficulty / 20.0,
+				fanciness = lockData.fanciness
+			}
 		end
-
 	end
 
-	return 0
+	return {difficulty = 0, fanciness = "Common"}
 
 end
 

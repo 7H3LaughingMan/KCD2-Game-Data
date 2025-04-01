@@ -38,7 +38,7 @@
 													<Then canSkip="1">
 														<Sequence>
 															<Expression expressions="$resetMove = true" />
-															<IfCondition failOnCondition="false" condition="$stimulusKind ==$enum:crime_stimulusKind.corpse |  &#10;$stimulusKind == $enum:crime_stimulusKind.murder">
+															<IfCondition failOnCondition="false" condition="$stimulusKind == $enum:crime_stimulusKind.corpse | &#10;$stimulusKind == $enum:crime_stimulusKind.murder">
 																<CheckWuidValid wuid="$information.perceivedWuid" FailSubtMissing="false" saveVersion="2">
 																	<Then canSkip="1">
 																		<Expression expressions="$corpseValid = true" />
@@ -49,13 +49,13 @@
 																<IfCondition failOnCondition="false" condition="$stimulusKind == $enum:crime_stimulusKind.sound &amp; &#10;$soundType == $enum:sound.dog_bark">
 																	<Expression expressions="$approachType = $enum:crime_lookAround_approachType.special_sound_dog_bark_align" />
 																</IfCondition>
-																<IfCondition failOnCondition="false" condition="($stimulusKind == $enum:crime_stimulusKind.sound | $positionUpdatedFromSound)  &#10;&amp; &#10;~$firstIterationSoundSkip">
+																<IfCondition failOnCondition="false" condition="($stimulusKind == $enum:crime_stimulusKind.sound | $positionUpdatedFromSound) &#10;&amp; &#10;~$firstIterationSoundSkip">
 																	<Expression expressions="$approachType = $enum:crime_lookAround_approachType.special_sound" />
 																</IfCondition>
 																<IfCondition failOnCondition="false" condition="$positionUpdated">
 																	<Expression expressions="$approachType = $enum:crime_lookAround_approachType.close" />
 																</IfCondition>
-																<IfCondition failOnCondition="false" condition="$corpseValid &amp; &#10;( &#10; $stimulusKind == $enum:crime_stimulusKind.corpse | &#10; $stimulusKind == $enum:crime_stimulusKind.murder &#10;)">
+																<IfCondition failOnCondition="false" condition="$corpseValid &amp; ( &#10;$stimulusKind == $enum:crime_stimulusKind.corpse | &#10;$stimulusKind == $enum:crime_stimulusKind.murder &#10;)">
 																	<Expression expressions="$approachType = $enum:crime_lookAround_approachType.special_corpse" />
 																</IfCondition>
 																<IfCondition failOnCondition="false" condition="$stimulusKind == $enum:crime_stimulusKind.theft &amp; &#10;$information.label == &apos;theft&apos;">

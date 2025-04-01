@@ -81,17 +81,6 @@
 				<Definition File="v_jeskyni__stealth_fail/osetrenie_vyabortovanej_hostage_animacie.xml" />
 			</Definitions>
 			<Nodes>
-				<MemberFunction Name="addblood3" PositionY="930" PositionX="-290" MethodName="AddBlood" DeclaringType="wh::rpgmodule::I_Soul">
-					<Asset Name="Soul" Alias="pavlena" />
-					<Edge From="povolit_chovani__hostage_situation" To="Exec" />
-					<Edge From="makearray4.Array" To="BodyParts" />
-					<Edge From="makearray5.Array" To="Values" />
-				</MemberFunction>
-				<MemberFunction Name="adddirt6" PositionY="930" PositionX="-40" MethodName="AddDirt" DeclaringType="wh::rpgmodule::I_Soul">
-					<Asset Name="Soul" Alias="pavlena" />
-					<Constant Name="Value" Value="0.8" />
-					<Edge From="addblood3.OnExec" To="Exec" />
-				</MemberFunction>
 				<AIConceptSignalTrigger Name="aiconceptsignaltriggerhitreactionnotification13" PositionY="1140" PositionX="1080" NotificationName="hitReactionNotification">
 					<Asset Name="victim_value_filter" Alias="pavlena" />
 					<Edge From="HostageSituation_MaleHoldsTiedFemale.hostagetiedonground" To="IsActive" />
@@ -167,14 +156,6 @@
 					<Constant Name="suppresshitreaction" Value="false" />
 					<Edge From="if15.True" To="exec" />
 				</KillNpc>
-				<MakeArray Name="makearray4" PositionY="1040" PositionX="-560" TypeT="wh::entitymodule::BodyParts">
-					<Constant Name="A" Value="head" />
-					<Constant Name="B" Value="torso" />
-				</MakeArray>
-				<MakeArray Name="makearray5" PositionY="1200" PositionX="-560" TypeT="wh::conceptmodule::Floats">
-					<Constant Name="A" Value="0.2" />
-					<Constant Name="B" Value="0.2" />
-				</MakeArray>
 				<Function Name="or11" PositionY="-1090" PositionX="1070" MethodName="math::boolean::Or" DeclaringType="math::boolean">
 					<Edge From="hostageSituationBehavior.Finished_playerNotInCave" To="B" />
 					<Edge From="hostageSituationBehavior.Active" To="A" />

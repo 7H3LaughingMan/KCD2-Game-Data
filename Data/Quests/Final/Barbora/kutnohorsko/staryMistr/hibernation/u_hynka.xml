@@ -45,6 +45,9 @@
 				<Port Name="hrac_odevzdal_quest" Direction="In" Type="trigger">
 					<DesignName StringName="u_hynka_hrac_odevzdal_que_4U9j" Text="hrac odevzdal quest" />
 				</Port>
+				<Port Name="seq1" Direction="Out" Type="bool">
+					<DesignName StringName="u_hynka_seq1_6eTr" Text="hráč se poradil s čenkem o hadance" />
+				</Port>
 			</Ports>
 			<Definitions>
 				<Definition File="u_hynka/vepr_barkuje_pred_henryho_prichodem.xml" />
@@ -88,7 +91,7 @@
 				<Function Name="deathcheck50" PositionY="220" PositionX="830" MethodName="wh::rpgmodule::DeathCheck" DeclaringType="wh::rpgmodule">
 					<Asset Name="Souls" Alias="cenek" />
 				</Function>
-				<dialog_o_hadance_s_cenkem Name="dialog_o_hadance_s_cenkem" PositionY="-1450" PositionX="1900">
+				<dialog_o_hadance_s_cenkem Name="dialog_o_hadance_s_cenkem" PositionY="-1450" PositionX="1900" RequiredForOutput="kutnohorsko">
 					<Edge From="and23.bool" To="isactive" />
 				</dialog_o_hadance_s_cenkem>
 				<dialog_o_hadance_se_stulcem Name="dialog_o_hadance_se_stulcem" PositionY="-1260" PositionX="1900">
@@ -391,6 +394,9 @@
 					<Edge From="ifdeathcheck48.True" To="hrac_si_promluvil_s_veprem">
 						<Vertex>vertex134</Vertex>
 					</Edge>
+					<Edge From="dialog_o_hadance_s_cenkem.seq1" To="seq1">
+						<Vertex>vYjDArcf</Vertex>
+					</Edge>
 				</Output>
 				<State Name="prectiSiHadanku" PositionY="-830" PositionX="2570" RequiredForOutput="kutnohorsko" TypeT="ProgressAbortable">
 					<Edge From="ifcompare25.False" To="SetStarted">
@@ -632,6 +638,7 @@
 				<EdgeVertex Name="vertex94" PositionY="910" PositionX="1700" />
 				<EdgeVertex Name="vertex96" PositionY="440" PositionX="2110" />
 				<EdgeVertex Name="vertex97" PositionY="430" PositionX="540" />
+				<EdgeVertex Name="vYjDArcf" PositionY="-1251" PositionX="3968" />
 			</EdgeVertices>
 			<Types>
 				<Type TypeName="staryMistr_hadanka">

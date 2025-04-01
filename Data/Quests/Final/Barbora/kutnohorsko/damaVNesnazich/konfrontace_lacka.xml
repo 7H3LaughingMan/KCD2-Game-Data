@@ -62,6 +62,17 @@
 				<Definition File="konfrontace_lacka/extendedtrespass.xml" />
 			</Definitions>
 			<Nodes>
+				<AIConceptSignalTrigger Name="aiconceptsignaltriggerhitreactionnotification25" PositionY="1610" PositionX="1000" NotificationName="hitReactionNotification">
+					<Asset Name="attacker_value_filter" Alias="player" />
+					<Asset Name="victim_value_filter" Alias="lacek" />
+					<Constant Name="hitType_filter" Value="missile" />
+					<Edge From="dialogueTriggerActiveAndLacekInside.bool" To="IsActive" />
+				</AIConceptSignalTrigger>
+				<AreaTrigger Name="areatrigger18" PositionY="1520" PositionX="-150">
+					<Asset Name="Souls" Alias="lacek" />
+					<Asset Name="Areas" Alias="area_trialog" />
+					<Edge From="or8.bool" To="IsActive" />
+				</AreaTrigger>
 				<dialog_s_lackem_po_questu Name="dialog_s_lackem_po_questu" PositionY="-50" PositionX="980">
 					<Edge From="trialog_hrac_lacek_a_marketa.hrac_vyhnal_marketu_a_jeji_penize_ma_lacek" To="hrac_vyhnal_marketu_a_jeji_penize_ma_lacek">
 						<Vertex>vertex30</Vertex>
@@ -81,6 +92,13 @@
 						<Vertex>rv1GgwCU</Vertex>
 					</Edge>
 				</dialog_s_lackem_po_questu>
+				<Function Name="dialogueTriggerActiveAndLacekInside" PositionY="1430" PositionX="760" MethodName="math::boolean::And" DeclaringType="math::boolean">
+					<Edge From="state_lacekWaitingInTrialogArea.True" To="B" />
+					<Edge From="or10.bool" To="A">
+						<Vertex>lbM3pY3T</Vertex>
+						<Vertex>0kDU9baX</Vertex>
+					</Edge>
+				</Function>
 				<extendedtrespass Name="extendedtrespass" PositionY="-410" PositionX="70">
 					<Edge From="followMarketa.OnActive" To="enable">
 						<Vertex>TkP19wF7</Vertex>
@@ -119,6 +137,11 @@
 						<Vertex>qA06C9j8</Vertex>
 					</Edge>
 					<Edge From="fail_objectivu" To="Exec" />
+					<Edge From="aiconceptsignaltriggerhitreactionnotification25.OnNotification" To="Exec">
+						<Vertex>PVey6vGP</Vertex>
+						<Vertex>H74f4WD0</Vertex>
+						<Vertex>UadLn0ns</Vertex>
+					</Edge>
 				</If>
 				<If Name="if16" PositionY="690" PositionX="-1130">
 					<Edge From="talkWithLacek.Active" To="Condition">
@@ -128,7 +151,25 @@
 					<Edge From="fail_objectivu" To="Exec">
 						<Vertex>7CYfTwWf</Vertex>
 					</Edge>
+					<Edge From="aiconceptsignaltriggerhitreactionnotification25.OnNotification" To="Exec">
+						<Vertex>PVey6vGP</Vertex>
+						<Vertex>H74f4WD0</Vertex>
+					</Edge>
 				</If>
+				<IfFunction Name="ifnot23" PositionY="1550" PositionX="160" MethodName="math::boolean::Not" DeclaringType="math::boolean">
+					<Edge From="areatrigger18.OnEnter" To="Exec" />
+					<Edge From="state_lacekWaitingInTrialogArea.Done" To="Value">
+						<Vertex>0vJcCIUq</Vertex>
+						<Vertex>cnzm2qAR</Vertex>
+					</Edge>
+				</IfFunction>
+				<IfFunction Name="ifnot24" PositionY="1700" PositionX="160" MethodName="math::boolean::Not" DeclaringType="math::boolean">
+					<Edge From="areatrigger18.OnLeave" To="Exec" />
+					<Edge From="state_lacekWaitingInTrialogArea.Done" To="Value">
+						<Vertex>0vJcCIUq</Vertex>
+						<Vertex>cnzm2qAR</Vertex>
+					</Edge>
+				</IfFunction>
 				<lacek_videl_vrazdu_markety Name="lacek_videl_vrazdu_markety" PositionY="-240" PositionX="1010">
 					<Edge From="playerIsNotExcused.Started" To="hrac_se_muze_omluvit" />
 				</lacek_videl_vrazdu_markety>
@@ -259,6 +300,20 @@
 					<Constant Name="LinkTag" Value="damaVNesnazich_LacekSittingInHall" />
 					<Edge From="or8.bool" To="IsActive" />
 				</SchedulerLinkActivation>
+				<SetEntityContextPreset Name="setentitycontextpreset22" PositionY="1430" PositionX="1000">
+					<Constant Name="Preset" Value="crime_preoccupied" />
+					<Asset Name="Souls" Alias="lacek" />
+					<Edge From="dialogueTriggerActiveAndLacekInside.bool" To="IsActive" />
+				</SetEntityContextPreset>
+				<State Name="state_lacekWaitingInTrialogArea" PositionY="1420" PositionX="420" TypeT="ListenForLacekInsideDialogArea">
+					<Edge From="ifnot23.True" To="SetTrue" />
+					<Edge From="ifnot24.True" To="SetFalse" />
+					<Edge From="trialog_hrac_lacek_a_marketa.zacal_dialog" To="SetDone" />
+					<Edge From="fail_objectivu" To="SetDone">
+						<Vertex>w6tF6CUC</Vertex>
+						<Vertex>V1NaIuUS</Vertex>
+					</Edge>
+				</State>
 				<State Name="talkWithLacek" PositionY="-40" PositionX="-810" RequiredForOutput="kutnohorsko" TypeT="TalkWithLacek">
 					<Edge From="quest_deathtrigger.ondeath" To="SetCanceled" />
 					<Edge From="trialog_hrac_lacek_a_marketa.lacek_zaplatil_vsichni_jsou_spokojeni" To="SetDoneHaveMoney">
@@ -336,22 +391,28 @@
 				</TriggerSequence>
 			</Nodes>
 			<EdgeVertices>
+				<EdgeVertex Name="0kDU9baX" PositionY="390" PositionX="620" />
+				<EdgeVertex Name="0vJcCIUq" PositionY="1878" PositionX="688" />
 				<EdgeVertex Name="7CYfTwWf" PositionY="770" PositionX="-2270" />
 				<EdgeVertex Name="7go7LsCS" PositionY="590" PositionX="-210" />
 				<EdgeVertex Name="c1e7pNfT" PositionY="870" PositionX="-600" />
 				<EdgeVertex Name="c58ygjCw" PositionY="-760" PositionX="-740" />
+				<EdgeVertex Name="cnzm2qAR" PositionY="1878" PositionX="197" />
 				<EdgeVertex Name="Coq1mtMr" PositionY="320" PositionX="590" />
 				<EdgeVertex Name="dGLYPwfe" PositionY="380" PositionX="-50" />
 				<EdgeVertex Name="edK0KWEs" PositionY="650" PositionX="840" />
 				<EdgeVertex Name="ELDyz0fY" PositionY="-780" PositionX="-1530" />
 				<EdgeVertex Name="G2e92WP0" PositionY="620" PositionX="1250" />
 				<EdgeVertex Name="GvXrBEGb" PositionY="1460" PositionX="-280" />
+				<EdgeVertex Name="H74f4WD0" PositionY="2010" PositionX="-1100" />
 				<EdgeVertex Name="HElWtfeg" PositionY="-200" PositionX="-100" />
 				<EdgeVertex Name="HgRpoYph" PositionY="-760" PositionX="70" />
 				<EdgeVertex Name="ISL9mPVf" PositionY="490" PositionX="-1900" />
+				<EdgeVertex Name="lbM3pY3T" PositionY="390" PositionX="0" />
 				<EdgeVertex Name="Ltyf4ojC" PositionY="620" PositionX="620" />
 				<EdgeVertex Name="n4xBrzfg" PositionY="-170" PositionX="-1560" />
 				<EdgeVertex Name="Pd6mG9Sy" PositionY="650" PositionX="460" />
+				<EdgeVertex Name="PVey6vGP" PositionY="2010" PositionX="1340" />
 				<EdgeVertex Name="qA06C9j8" PositionY="558" PositionX="-2247" />
 				<EdgeVertex Name="qykwpjVq" PositionY="590" PositionX="1250" />
 				<EdgeVertex Name="QYVrlJ3s" PositionY="490" PositionX="330" />
@@ -360,6 +421,8 @@
 				<EdgeVertex Name="tatPhbzC" PositionY="850" PositionX="-2300" />
 				<EdgeVertex Name="TJa6mgJX" PositionY="-790" PositionX="1220" />
 				<EdgeVertex Name="TkP19wF7" PositionY="-200" PositionX="-1590" />
+				<EdgeVertex Name="UadLn0ns" PositionY="2010" PositionX="-2250" />
+				<EdgeVertex Name="V1NaIuUS" PositionY="1930" PositionX="330" />
 				<EdgeVertex Name="vertex14" PositionY="-110" PositionX="-1900" />
 				<EdgeVertex Name="vertex15" PositionY="-110" PositionX="-100" />
 				<EdgeVertex Name="vertex16" PositionY="-140" PositionX="-100" />
@@ -374,7 +437,7 @@
 				<EdgeVertex Name="vertex31" PositionY="-140" PositionX="800" />
 				<EdgeVertex Name="vertex32" PositionY="370" PositionX="1250" />
 				<EdgeVertex Name="vertex33" PositionY="370" PositionX="620" />
-				<EdgeVertex Name="vertex36" PositionY="570" PositionX="-1590" />
+				<EdgeVertex Name="vertex36" PositionY="560" PositionX="-1590" />
 				<EdgeVertex Name="vertex37" PositionY="420" PositionX="-1370" />
 				<EdgeVertex Name="vertex38" PositionY="420" PositionX="-1900" />
 				<EdgeVertex Name="vertex39" PositionY="450" PositionX="-1370" />
@@ -408,9 +471,23 @@
 				<EdgeVertex Name="vertex75" PositionY="340" PositionX="1250" />
 				<EdgeVertex Name="vertex8" PositionY="510" PositionX="360" />
 				<EdgeVertex Name="vertex9" PositionY="510" PositionX="-800" />
+				<EdgeVertex Name="w6tF6CUC" PositionY="1930" PositionX="-2430" />
 				<EdgeVertex Name="wK4nrIb4" PositionY="490" PositionX="-780" />
 				<EdgeVertex Name="Wm2r08x8" PositionY="1460" PositionX="290" />
 			</EdgeVertices>
+			<Types>
+				<Type TypeName="ListenForLacekInsideDialogArea">
+					<StateTypeEnumeration Name="None" ObjectiveValueType="None" />
+					<StateTypeEnumeration Name="True" ObjectiveValueType="None" />
+					<StateTypeEnumeration Name="False" ObjectiveValueType="None" />
+					<StateTypeEnumeration Name="Done" ObjectiveValueType="None" />
+				</Type>
+			</Types>
+			<Notes>
+				<Note Name="note26" PositionY="1300" PositionX="1000">
+					<Text StringName="konfronta_note26_Ebgk" Text="KCD2-466482&#xD;&#xA;debilni clash questu a crimu kdy hrac muze lacka otravovat pres okno kde ma byt forcovana situace... slaby crime jako otravovani kaminkem bude ignorovan a strileni sipem bude quest fail...&#xD;&#xA;- Damian" />
+				</Note>
+			</Notes>
 			<Text StringName="konfrontace_lacka_f6Nm" Text="Konfrontace Lacka" />
 			<Elements>
 				<GameplayActionElement>

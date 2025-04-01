@@ -35,7 +35,7 @@
 					<Edge From="MakeHostileToGuards.State" To="IsActive" />
 					<Edge From="getfaction7.Faction" To="RelationTarget" />
 				</AddFactionRelation>
-				<bark_do_utoku Name="bark_do_utoku" PositionY="-90" PositionX="550">
+				<bark_do_utoku Name="bark_do_utoku" PositionY="180" PositionX="580">
 					<Edge From="or76.bool" To="isactive" />
 				</bark_do_utoku>
 				<eventattackhuman Name="eventattackhuman" PositionY="-1400" PositionX="730" Namespace="events_common">
@@ -89,12 +89,23 @@
 				<State Name="MakeHostileToGuards" PositionY="-950" PositionX="1490" TypeT="bool">
 					<Edge From="triggersequence160.B" To="SetTrue" />
 				</State>
-				<Function Name="or76" PositionY="-60" PositionX="270" MethodName="math::boolean::Or" DeclaringType="math::boolean">
+				<Function Name="or76" PositionY="210" PositionX="300" MethodName="math::boolean::Or" DeclaringType="math::boolean">
 					<Edge From="isreachedgang" To="B" />
 					<Edge From="isattackwithgang" To="A">
 						<Vertex>jj9pXCI1</Vertex>
 					</Edge>
 				</Function>
+				<SetEntityContext Name="setentitycontext161" PositionY="-90" PositionX="720">
+					<Constant Name="Context" Value="combat_ignoreMurderedByPlayer" />
+					<Edge From="makearray10.Array" To="Souls">
+						<Vertex>C7N7LPn6</Vertex>
+					</Edge>
+					<Edge From="isattackwithgang" To="IsActive">
+						<Vertex>jj9pXCI1</Vertex>
+						<Vertex>lMnGVdMG</Vertex>
+						<Vertex>T8GlISNI</Vertex>
+					</Edge>
+				</SetEntityContext>
 				<SetEntityContext Name="setentitycontext24" PositionY="-280" PositionX="730">
 					<Constant Name="Context" Value="combat_neverMercyAlwaysFlee" />
 					<Edge From="makearray10.Array" To="Souls">

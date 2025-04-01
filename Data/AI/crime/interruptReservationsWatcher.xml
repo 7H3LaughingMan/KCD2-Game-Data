@@ -102,213 +102,216 @@
 					<While doFail="false" propagateChildFail="false" condition="true">
 						<IfGate atomic="false" condition="$reactionData.fastForwardCrimeIcon" RunLogic="Halt">
 							<DeadUnconsciousGate Who="$this.id" State="Any" Negation="true" RunLogic="Halt">
-								<ContinuousSwitch>
-									<IfCondition failOnCondition="false" condition="$reactionData.reactionKind == $enum:crime_reactionKind.attack">
-										<Loop count="-1">
-											<EntityContextCheck context="crime_escalationLevel_setFromBehavior_attack" target="" saveVersion="2">
-												<Then canSkip="1">
-													<Wait duration="&apos;-1&apos;" timeType="GameTime" doFail="false" variation="" />
-												</Then>
-												<Else canSkip="1">
-													<GameContext context="crime_escalationLevel_script_global_confrontingGeneral">
-														<EntityContext context="crime_escalationLevel_script_confrontingGeneral_player" target="$__player">
-															<EntityContext context="crime_escalationLevel_script_confrontingGeneral" target="">
-																<EntityContext context="combat_forceIconCombatDanger" target="">
+								<Sequence>
+									<ShowTutorial Name="crimeIcon_general" />
+									<ContinuousSwitch>
+										<IfCondition failOnCondition="false" condition="$reactionData.reactionKind == $enum:crime_reactionKind.attack">
+											<Loop count="-1">
+												<EntityContextCheck context="crime_escalationLevel_setFromBehavior_attack" target="" saveVersion="2">
+													<Then canSkip="1">
+														<Wait duration="&apos;-1&apos;" timeType="GameTime" doFail="false" variation="" />
+													</Then>
+													<Else canSkip="1">
+														<GameContext context="crime_escalationLevel_script_global_confrontingGeneral">
+															<EntityContext context="crime_escalationLevel_script_confrontingGeneral_player" target="$__player">
+																<EntityContext context="crime_escalationLevel_script_confrontingGeneral" target="">
+																	<EntityContext context="combat_forceIconCombatDanger" target="">
+																		<ForceLook LookTarget="$__player" DisableVariations="true">
+																			<EntityContext context="speech_greyOutE" target="$this.id">
+																				<EntityContextBarrier context="crime_escalationLevel_setFromBehavior_attack" target="" Negation="false" RunLogic="KeepRunning">
+																					<Success />
+																				</EntityContextBarrier>
+																			</EntityContext>
+																		</ForceLook>
+																	</EntityContext>
+																</EntityContext>
+															</EntityContext>
+														</GameContext>
+													</Else>
+												</EntityContextCheck>
+											</Loop>
+										</IfCondition>
+										<IfCondition failOnCondition="false" condition="$reactionData.reactionKind == $enum:crime_reactionKind.arrest">
+											<Loop count="-1">
+												<EntityContextCheck context="crime_escalationLevel_setFromBehavior_arrest" target="" saveVersion="2">
+													<Then canSkip="1">
+														<Wait duration="&apos;-1&apos;" timeType="GameTime" doFail="false" variation="" />
+													</Then>
+													<Else canSkip="1">
+														<GameContext context="crime_escalationLevel_script_global_confrontingGeneral">
+															<EntityContext context="crime_escalationLevel_confrontingGeneral" target="">
+																<EntityContext context="crime_escalationLevel_script_confrontingGeneral" target="">
 																	<ForceLook LookTarget="$__player" DisableVariations="true">
 																		<EntityContext context="speech_greyOutE" target="$this.id">
-																			<EntityContextBarrier context="crime_escalationLevel_setFromBehavior_attack" target="" Negation="false" RunLogic="KeepRunning">
+																			<EntityContextBarrier context="crime_escalationLevel_setFromBehavior_arrest" target="" Negation="false" RunLogic="KeepRunning">
 																				<Success />
 																			</EntityContextBarrier>
 																		</EntityContext>
 																	</ForceLook>
 																</EntityContext>
 															</EntityContext>
-														</EntityContext>
-													</GameContext>
-												</Else>
-											</EntityContextCheck>
-										</Loop>
-									</IfCondition>
-									<IfCondition failOnCondition="false" condition="$reactionData.reactionKind == $enum:crime_reactionKind.arrest">
-										<Loop count="-1">
-											<EntityContextCheck context="crime_escalationLevel_setFromBehavior_arrest" target="" saveVersion="2">
-												<Then canSkip="1">
-													<Wait duration="&apos;-1&apos;" timeType="GameTime" doFail="false" variation="" />
-												</Then>
-												<Else canSkip="1">
-													<GameContext context="crime_escalationLevel_script_global_confrontingGeneral">
-														<EntityContext context="crime_escalationLevel_confrontingGeneral" target="">
-															<EntityContext context="crime_escalationLevel_script_confrontingGeneral" target="">
+														</GameContext>
+													</Else>
+												</EntityContextCheck>
+											</Loop>
+										</IfCondition>
+										<IfCondition failOnCondition="false" condition="$reactionData.reactionKind == $enum:crime_reactionKind.selfhelp">
+											<Loop count="-1">
+												<EntityContextCheck context="crime_escalationLevel_setFromBehavior_selfhelp" target="" saveVersion="2">
+													<Then canSkip="1">
+														<Wait duration="&apos;-1&apos;" timeType="GameTime" doFail="false" variation="" />
+													</Then>
+													<Else canSkip="1">
+														<GameContext context="crime_escalationLevel_script_global_confrontingGeneral">
+															<EntityContext context="crime_escalationLevel_confrontingGeneral" target="">
+																<EntityContext context="crime_escalationLevel_script_confrontingGeneral" target="">
+																	<ForceLook LookTarget="$__player" DisableVariations="true">
+																		<EntityContext context="speech_greyOutE" target="$this.id">
+																			<EntityContextBarrier context="crime_escalationLevel_setFromBehavior_selfhelp" target="" Negation="false" RunLogic="KeepRunning">
+																				<Success />
+																			</EntityContextBarrier>
+																		</EntityContext>
+																	</ForceLook>
+																</EntityContext>
+															</EntityContext>
+														</GameContext>
+													</Else>
+												</EntityContextCheck>
+											</Loop>
+										</IfCondition>
+										<IfCondition failOnCondition="false" condition="$reactionData.reactionKind == $enum:crime_reactionKind.warnPlayer">
+											<Loop count="-1">
+												<EntityContextCheck context="crime_escalationLevel_setFromBehavior_warnPlayer" target="" saveVersion="2">
+													<Then canSkip="1">
+														<Wait duration="&apos;-1&apos;" timeType="GameTime" doFail="false" variation="" />
+													</Then>
+													<Else canSkip="1">
+														<GameContext context="crime_escalationLevel_script_global_confrontingGeneral">
+															<EntityContext context="crime_escalationLevel_confrontingGeneral" target="">
+																<EntityContext context="crime_escalationLevel_script_confrontingGeneral" target="">
+																	<ForceLook LookTarget="$__player" DisableVariations="true">
+																		<EntityContext context="speech_greyOutE" target="$this.id">
+																			<EntityContextBarrier context="crime_escalationLevel_setFromBehavior_warnPlayer" target="" Negation="false" RunLogic="KeepRunning">
+																				<Success />
+																			</EntityContextBarrier>
+																		</EntityContext>
+																	</ForceLook>
+																</EntityContext>
+															</EntityContext>
+														</GameContext>
+													</Else>
+												</EntityContextCheck>
+											</Loop>
+										</IfCondition>
+										<IfCondition failOnCondition="false" condition="$reactionData.reactionKind == $enum:crime_reactionKind.frisk">
+											<Loop count="-1">
+												<EntityContextCheck context="crime_escalationLevel_setFromBehavior_frisk" target="" saveVersion="2">
+													<Then canSkip="1">
+														<Wait duration="&apos;-1&apos;" timeType="GameTime" doFail="false" variation="" />
+													</Then>
+													<Else canSkip="1">
+														<GameContext context="crime_escalationLevel_script_global_confrontingGeneral">
+															<EntityContext context="crime_escalationLevel_confrontingGeneral" target="">
+																<EntityContext context="crime_escalationLevel_script_confrontingGeneral" target="">
+																	<ForceLook LookTarget="$__player" DisableVariations="true">
+																		<EntityContext context="speech_greyOutE" target="$this.id">
+																			<EntityContextBarrier context="crime_escalationLevel_setFromBehavior_frisk" target="" Negation="false" RunLogic="KeepRunning">
+																				<Success />
+																			</EntityContextBarrier>
+																		</EntityContext>
+																	</ForceLook>
+																</EntityContext>
+															</EntityContext>
+														</GameContext>
+													</Else>
+												</EntityContextCheck>
+											</Loop>
+										</IfCondition>
+										<IfCondition failOnCondition="false" condition="$reactionData.reactionKind == $enum:crime_reactionKind.watchCampTrespass">
+											<Loop count="-1">
+												<EntityContextCheck context="crime_escalationLevel_setFromBehavior_watchCampTrespass" target="" saveVersion="2">
+													<Then canSkip="1">
+														<Wait duration="&apos;-1&apos;" timeType="GameTime" doFail="false" variation="" />
+													</Then>
+													<Else canSkip="1">
+														<GameContext context="crime_escalationLevel_script_global_confrontingTrespass">
+															<EntityContext context="crime_escalationLevel_confrontingTrespass" target="">
 																<ForceLook LookTarget="$__player" DisableVariations="true">
-																	<EntityContext context="speech_greyOutE" target="$this.id">
-																		<EntityContextBarrier context="crime_escalationLevel_setFromBehavior_arrest" target="" Negation="false" RunLogic="KeepRunning">
-																			<Success />
-																		</EntityContextBarrier>
-																	</EntityContext>
+																	<EntityContextBarrier context="crime_escalationLevel_setFromBehavior_watchCampTrespass" target="" Negation="false" RunLogic="KeepRunning">
+																		<Success />
+																	</EntityContextBarrier>
 																</ForceLook>
 															</EntityContext>
-														</EntityContext>
-													</GameContext>
-												</Else>
-											</EntityContextCheck>
-										</Loop>
-									</IfCondition>
-									<IfCondition failOnCondition="false" condition="$reactionData.reactionKind == $enum:crime_reactionKind.selfhelp">
-										<Loop count="-1">
-											<EntityContextCheck context="crime_escalationLevel_setFromBehavior_selfhelp" target="" saveVersion="2">
-												<Then canSkip="1">
-													<Wait duration="&apos;-1&apos;" timeType="GameTime" doFail="false" variation="" />
-												</Then>
-												<Else canSkip="1">
-													<GameContext context="crime_escalationLevel_script_global_confrontingGeneral">
-														<EntityContext context="crime_escalationLevel_confrontingGeneral" target="">
-															<EntityContext context="crime_escalationLevel_script_confrontingGeneral" target="">
+														</GameContext>
+													</Else>
+												</EntityContextCheck>
+											</Loop>
+										</IfCondition>
+										<IfCondition failOnCondition="false" condition="$reactionData.reactionKind == $enum:crime_reactionKind.watchTrespass">
+											<Loop count="-1">
+												<EntityContextCheck context="crime_escalationLevel_setFromBehavior_watchTrespass" target="" saveVersion="2">
+													<Then canSkip="1">
+														<Wait duration="&apos;-1&apos;" timeType="GameTime" doFail="false" variation="" />
+													</Then>
+													<Else canSkip="1">
+														<GameContext context="crime_escalationLevel_script_global_confrontingTrespass">
+															<EntityContext context="crime_escalationLevel_confrontingTrespass" target="">
 																<ForceLook LookTarget="$__player" DisableVariations="true">
-																	<EntityContext context="speech_greyOutE" target="$this.id">
-																		<EntityContextBarrier context="crime_escalationLevel_setFromBehavior_selfhelp" target="" Negation="false" RunLogic="KeepRunning">
-																			<Success />
-																		</EntityContextBarrier>
-																	</EntityContext>
+																	<EntityContextBarrier context="crime_escalationLevel_setFromBehavior_watchTrespass" target="" Negation="false" RunLogic="KeepRunning">
+																		<Success />
+																	</EntityContextBarrier>
 																</ForceLook>
 															</EntityContext>
-														</EntityContext>
-													</GameContext>
-												</Else>
-											</EntityContextCheck>
-										</Loop>
-									</IfCondition>
-									<IfCondition failOnCondition="false" condition="$reactionData.reactionKind == $enum:crime_reactionKind.warnPlayer">
-										<Loop count="-1">
-											<EntityContextCheck context="crime_escalationLevel_setFromBehavior_warnPlayer" target="" saveVersion="2">
-												<Then canSkip="1">
-													<Wait duration="&apos;-1&apos;" timeType="GameTime" doFail="false" variation="" />
-												</Then>
-												<Else canSkip="1">
-													<GameContext context="crime_escalationLevel_script_global_confrontingGeneral">
-														<EntityContext context="crime_escalationLevel_confrontingGeneral" target="">
-															<EntityContext context="crime_escalationLevel_script_confrontingGeneral" target="">
-																<ForceLook LookTarget="$__player" DisableVariations="true">
-																	<EntityContext context="speech_greyOutE" target="$this.id">
-																		<EntityContextBarrier context="crime_escalationLevel_setFromBehavior_warnPlayer" target="" Negation="false" RunLogic="KeepRunning">
-																			<Success />
-																		</EntityContextBarrier>
-																	</EntityContext>
-																</ForceLook>
-															</EntityContext>
-														</EntityContext>
-													</GameContext>
-												</Else>
-											</EntityContextCheck>
-										</Loop>
-									</IfCondition>
-									<IfCondition failOnCondition="false" condition="$reactionData.reactionKind == $enum:crime_reactionKind.frisk">
-										<Loop count="-1">
-											<EntityContextCheck context="crime_escalationLevel_setFromBehavior_frisk" target="" saveVersion="2">
-												<Then canSkip="1">
-													<Wait duration="&apos;-1&apos;" timeType="GameTime" doFail="false" variation="" />
-												</Then>
-												<Else canSkip="1">
-													<GameContext context="crime_escalationLevel_script_global_confrontingGeneral">
-														<EntityContext context="crime_escalationLevel_confrontingGeneral" target="">
-															<EntityContext context="crime_escalationLevel_script_confrontingGeneral" target="">
-																<ForceLook LookTarget="$__player" DisableVariations="true">
-																	<EntityContext context="speech_greyOutE" target="$this.id">
-																		<EntityContextBarrier context="crime_escalationLevel_setFromBehavior_frisk" target="" Negation="false" RunLogic="KeepRunning">
-																			<Success />
-																		</EntityContextBarrier>
-																	</EntityContext>
-																</ForceLook>
-															</EntityContext>
-														</EntityContext>
-													</GameContext>
-												</Else>
-											</EntityContextCheck>
-										</Loop>
-									</IfCondition>
-									<IfCondition failOnCondition="false" condition="$reactionData.reactionKind == $enum:crime_reactionKind.watchCampTrespass">
-										<Loop count="-1">
-											<EntityContextCheck context="crime_escalationLevel_setFromBehavior_watchCampTrespass" target="" saveVersion="2">
-												<Then canSkip="1">
-													<Wait duration="&apos;-1&apos;" timeType="GameTime" doFail="false" variation="" />
-												</Then>
-												<Else canSkip="1">
-													<GameContext context="crime_escalationLevel_script_global_confrontingTrespass">
-														<EntityContext context="crime_escalationLevel_confrontingTrespass" target="">
+														</GameContext>
+													</Else>
+												</EntityContextCheck>
+											</Loop>
+										</IfCondition>
+										<IfCondition failOnCondition="false" condition="$reactionData.reactionKind == $enum:crime_reactionKind.report">
+											<Loop count="-1">
+												<EntityContextCheck context="crime_escalationLevel_setFromBehavior_report" target="" saveVersion="2">
+													<Then canSkip="1">
+														<Wait duration="&apos;-1&apos;" timeType="GameTime" doFail="false" variation="" />
+													</Then>
+													<Else canSkip="1">
+														<EntityContext context="crime_escalationLevel_reporting" target="">
 															<ForceLook LookTarget="$__player" DisableVariations="true">
-																<EntityContextBarrier context="crime_escalationLevel_setFromBehavior_watchCampTrespass" target="" Negation="false" RunLogic="KeepRunning">
-																	<Success />
-																</EntityContextBarrier>
+																<EntityContext context="speech_greyOutE" target="$this.id">
+																	<EntityContextBarrier context="crime_escalationLevel_setFromBehavior_report" target="" Negation="false" RunLogic="KeepRunning">
+																		<Success />
+																	</EntityContextBarrier>
+																</EntityContext>
 															</ForceLook>
 														</EntityContext>
-													</GameContext>
-												</Else>
-											</EntityContextCheck>
-										</Loop>
-									</IfCondition>
-									<IfCondition failOnCondition="false" condition="$reactionData.reactionKind == $enum:crime_reactionKind.watchTrespass">
-										<Loop count="-1">
-											<EntityContextCheck context="crime_escalationLevel_setFromBehavior_watchTrespass" target="" saveVersion="2">
-												<Then canSkip="1">
-													<Wait duration="&apos;-1&apos;" timeType="GameTime" doFail="false" variation="" />
-												</Then>
-												<Else canSkip="1">
-													<GameContext context="crime_escalationLevel_script_global_confrontingTrespass">
-														<EntityContext context="crime_escalationLevel_confrontingTrespass" target="">
-															<ForceLook LookTarget="$__player" DisableVariations="true">
-																<EntityContextBarrier context="crime_escalationLevel_setFromBehavior_watchTrespass" target="" Negation="false" RunLogic="KeepRunning">
-																	<Success />
-																</EntityContextBarrier>
-															</ForceLook>
-														</EntityContext>
-													</GameContext>
-												</Else>
-											</EntityContextCheck>
-										</Loop>
-									</IfCondition>
-									<IfCondition failOnCondition="false" condition="$reactionData.reactionKind == $enum:crime_reactionKind.report">
-										<Loop count="-1">
-											<EntityContextCheck context="crime_escalationLevel_setFromBehavior_report" target="" saveVersion="2">
-												<Then canSkip="1">
-													<Wait duration="&apos;-1&apos;" timeType="GameTime" doFail="false" variation="" />
-												</Then>
-												<Else canSkip="1">
-													<EntityContext context="crime_escalationLevel_reporting" target="">
+													</Else>
+												</EntityContextCheck>
+											</Loop>
+										</IfCondition>
+										<IfCondition failOnCondition="false" condition="$reactionData.reactionKind == $enum:crime_reactionKind.check">
+											<Loop count="-1">
+												<EntityContextCheck context="crime_escalationLevel_setFromBehavior_check" target="" saveVersion="2">
+													<Then canSkip="1">
+														<Wait duration="&apos;-1&apos;" timeType="GameTime" doFail="false" variation="" />
+													</Then>
+													<Else canSkip="1">
 														<ForceLook LookTarget="$__player" DisableVariations="true">
-															<EntityContext context="speech_greyOutE" target="$this.id">
-																<EntityContextBarrier context="crime_escalationLevel_setFromBehavior_report" target="" Negation="false" RunLogic="KeepRunning">
-																	<Success />
-																</EntityContextBarrier>
-															</EntityContext>
+															<RelationContext context="PerceptionPriorityBoost" source="$this.id" target="$__player">
+																<EntityContext context="speech_greyOutE" target="$this.id">
+																	<EntityContextBarrier context="crime_escalationLevel_setFromBehavior_check" target="" Negation="false" RunLogic="KeepRunning">
+																		<Success />
+																	</EntityContextBarrier>
+																</EntityContext>
+															</RelationContext>
 														</ForceLook>
-													</EntityContext>
-												</Else>
-											</EntityContextCheck>
-										</Loop>
-									</IfCondition>
-									<IfCondition failOnCondition="false" condition="$reactionData.reactionKind == $enum:crime_reactionKind.check">
-										<Loop count="-1">
-											<EntityContextCheck context="crime_escalationLevel_setFromBehavior_check" target="" saveVersion="2">
-												<Then canSkip="1">
-													<Wait duration="&apos;-1&apos;" timeType="GameTime" doFail="false" variation="" />
-												</Then>
-												<Else canSkip="1">
-													<ForceLook LookTarget="$__player" DisableVariations="true">
-														<RelationContext context="PerceptionPriorityBoost" source="$this.id" target="$__player">
-															<EntityContext context="speech_greyOutE" target="$this.id">
-																<EntityContextBarrier context="crime_escalationLevel_setFromBehavior_check" target="" Negation="false" RunLogic="KeepRunning">
-																	<Success />
-																</EntityContextBarrier>
-															</EntityContext>
-														</RelationContext>
-													</ForceLook>
-												</Else>
-											</EntityContextCheck>
-										</Loop>
-									</IfCondition>
-									<IfCondition failOnCondition="false" condition="true">
-										<Wait duration="&apos;-1&apos;" timeType="GameTime" doFail="false" variation="" />
-									</IfCondition>
-								</ContinuousSwitch>
+													</Else>
+												</EntityContextCheck>
+											</Loop>
+										</IfCondition>
+										<IfCondition failOnCondition="false" condition="true">
+											<Wait duration="&apos;-1&apos;" timeType="GameTime" doFail="false" variation="" />
+										</IfCondition>
+									</ContinuousSwitch>
+								</Sequence>
 							</DeadUnconsciousGate>
 						</IfGate>
 					</While>
@@ -490,23 +493,66 @@
 								<OutputBreakpoints />
 								<DeadUnconsciousGate hasInputBreakpoint="0" comment="rm upon death/unco" breakpointFlags="0">
 									<OutputBreakpoints />
-									<ContinuousSwitch hasInputBreakpoint="0" comment="" breakpointFlags="0">
+									<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
 										<OutputBreakpoints />
-										<IfCondition hasInputBreakpoint="0" comment="" breakpointFlags="0">
+										<ShowTutorial hasInputBreakpoint="0" comment="" breakpointFlags="0">
 											<OutputBreakpoints />
-											<Loop hasInputBreakpoint="0" comment="" breakpointFlags="0">
+										</ShowTutorial>
+										<ContinuousSwitch hasInputBreakpoint="0" comment="" breakpointFlags="0">
+											<OutputBreakpoints />
+											<IfCondition hasInputBreakpoint="0" comment="" breakpointFlags="0">
 												<OutputBreakpoints />
-												<EntityContextCheck hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
+												<Loop hasInputBreakpoint="0" comment="" breakpointFlags="0">
 													<OutputBreakpoints />
-													<Then>
-														<Wait hasInputBreakpoint="0" comment="" breakpointFlags="0">
-															<OutputBreakpoints />
-														</Wait>
-													</Then>
-													<Else>
-														<GameContext hasInputBreakpoint="0" comment="" breakpointFlags="0">
-															<OutputBreakpoints />
-															<EntityContext hasInputBreakpoint="0" comment="KCD2-414173" breakpointFlags="0">
+													<EntityContextCheck hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
+														<OutputBreakpoints />
+														<Then>
+															<Wait hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																<OutputBreakpoints />
+															</Wait>
+														</Then>
+														<Else>
+															<GameContext hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																<OutputBreakpoints />
+																<EntityContext hasInputBreakpoint="0" comment="KCD2-414173" breakpointFlags="0">
+																	<OutputBreakpoints />
+																	<EntityContext hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																		<OutputBreakpoints />
+																		<EntityContext hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																			<OutputBreakpoints />
+																			<ForceLook hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																				<OutputBreakpoints />
+																				<EntityContext hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																					<OutputBreakpoints />
+																					<EntityContextBarrier hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																						<OutputBreakpoints />
+																						<Success hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																							<OutputBreakpoints />
+																						</Success>
+																					</EntityContextBarrier>
+																				</EntityContext>
+																			</ForceLook>
+																		</EntityContext>
+																	</EntityContext>
+																</EntityContext>
+															</GameContext>
+														</Else>
+													</EntityContextCheck>
+												</Loop>
+											</IfCondition>
+											<IfCondition hasInputBreakpoint="0" comment="" breakpointFlags="0">
+												<OutputBreakpoints />
+												<Loop hasInputBreakpoint="0" comment="" breakpointFlags="0">
+													<OutputBreakpoints />
+													<EntityContextCheck hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
+														<OutputBreakpoints />
+														<Then>
+															<Wait hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																<OutputBreakpoints />
+															</Wait>
+														</Then>
+														<Else>
+															<GameContext hasInputBreakpoint="0" comment="" breakpointFlags="0">
 																<OutputBreakpoints />
 																<EntityContext hasInputBreakpoint="0" comment="" breakpointFlags="0">
 																	<OutputBreakpoints />
@@ -526,291 +572,254 @@
 																		</ForceLook>
 																	</EntityContext>
 																</EntityContext>
-															</EntityContext>
-														</GameContext>
-													</Else>
-												</EntityContextCheck>
-											</Loop>
-										</IfCondition>
-										<IfCondition hasInputBreakpoint="0" comment="" breakpointFlags="0">
-											<OutputBreakpoints />
-											<Loop hasInputBreakpoint="0" comment="" breakpointFlags="0">
+															</GameContext>
+														</Else>
+													</EntityContextCheck>
+												</Loop>
+											</IfCondition>
+											<IfCondition hasInputBreakpoint="0" comment="" breakpointFlags="0">
 												<OutputBreakpoints />
-												<EntityContextCheck hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
+												<Loop hasInputBreakpoint="0" comment="" breakpointFlags="0">
 													<OutputBreakpoints />
-													<Then>
-														<Wait hasInputBreakpoint="0" comment="" breakpointFlags="0">
-															<OutputBreakpoints />
-														</Wait>
-													</Then>
-													<Else>
-														<GameContext hasInputBreakpoint="0" comment="" breakpointFlags="0">
-															<OutputBreakpoints />
-															<EntityContext hasInputBreakpoint="0" comment="" breakpointFlags="0">
+													<EntityContextCheck hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
+														<OutputBreakpoints />
+														<Then>
+															<Wait hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																<OutputBreakpoints />
+															</Wait>
+														</Then>
+														<Else>
+															<GameContext hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																<OutputBreakpoints />
+																<EntityContext hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																	<OutputBreakpoints />
+																	<EntityContext hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																		<OutputBreakpoints />
+																		<ForceLook hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																			<OutputBreakpoints />
+																			<EntityContext hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																				<OutputBreakpoints />
+																				<EntityContextBarrier hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																					<OutputBreakpoints />
+																					<Success hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																						<OutputBreakpoints />
+																					</Success>
+																				</EntityContextBarrier>
+																			</EntityContext>
+																		</ForceLook>
+																	</EntityContext>
+																</EntityContext>
+															</GameContext>
+														</Else>
+													</EntityContextCheck>
+												</Loop>
+											</IfCondition>
+											<IfCondition hasInputBreakpoint="0" comment="" breakpointFlags="0">
+												<OutputBreakpoints />
+												<Loop hasInputBreakpoint="0" comment="" breakpointFlags="0">
+													<OutputBreakpoints />
+													<EntityContextCheck hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
+														<OutputBreakpoints />
+														<Then>
+															<Wait hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																<OutputBreakpoints />
+															</Wait>
+														</Then>
+														<Else>
+															<GameContext hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																<OutputBreakpoints />
+																<EntityContext hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																	<OutputBreakpoints />
+																	<EntityContext hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																		<OutputBreakpoints />
+																		<ForceLook hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																			<OutputBreakpoints />
+																			<EntityContext hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																				<OutputBreakpoints />
+																				<EntityContextBarrier hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																					<OutputBreakpoints />
+																					<Success hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																						<OutputBreakpoints />
+																					</Success>
+																				</EntityContextBarrier>
+																			</EntityContext>
+																		</ForceLook>
+																	</EntityContext>
+																</EntityContext>
+															</GameContext>
+														</Else>
+													</EntityContextCheck>
+												</Loop>
+											</IfCondition>
+											<IfCondition hasInputBreakpoint="0" comment="" breakpointFlags="0">
+												<OutputBreakpoints />
+												<Loop hasInputBreakpoint="0" comment="" breakpointFlags="0">
+													<OutputBreakpoints />
+													<EntityContextCheck hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
+														<OutputBreakpoints />
+														<Then>
+															<Wait hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																<OutputBreakpoints />
+															</Wait>
+														</Then>
+														<Else>
+															<GameContext hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																<OutputBreakpoints />
+																<EntityContext hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																	<OutputBreakpoints />
+																	<EntityContext hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																		<OutputBreakpoints />
+																		<ForceLook hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																			<OutputBreakpoints />
+																			<EntityContext hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																				<OutputBreakpoints />
+																				<EntityContextBarrier hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																					<OutputBreakpoints />
+																					<Success hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																						<OutputBreakpoints />
+																					</Success>
+																				</EntityContextBarrier>
+																			</EntityContext>
+																		</ForceLook>
+																	</EntityContext>
+																</EntityContext>
+															</GameContext>
+														</Else>
+													</EntityContextCheck>
+												</Loop>
+											</IfCondition>
+											<IfCondition hasInputBreakpoint="0" comment="" breakpointFlags="0">
+												<OutputBreakpoints />
+												<Loop hasInputBreakpoint="0" comment="" breakpointFlags="0">
+													<OutputBreakpoints />
+													<EntityContextCheck hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
+														<OutputBreakpoints />
+														<Then>
+															<Wait hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																<OutputBreakpoints />
+															</Wait>
+														</Then>
+														<Else>
+															<GameContext hasInputBreakpoint="0" comment="" breakpointFlags="0">
 																<OutputBreakpoints />
 																<EntityContext hasInputBreakpoint="0" comment="" breakpointFlags="0">
 																	<OutputBreakpoints />
 																	<ForceLook hasInputBreakpoint="0" comment="" breakpointFlags="0">
 																		<OutputBreakpoints />
-																		<EntityContext hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																		<EntityContextBarrier hasInputBreakpoint="0" comment="" breakpointFlags="0">
 																			<OutputBreakpoints />
-																			<EntityContextBarrier hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																			<Success hasInputBreakpoint="0" comment="" breakpointFlags="0">
 																				<OutputBreakpoints />
-																				<Success hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																					<OutputBreakpoints />
-																				</Success>
-																			</EntityContextBarrier>
-																		</EntityContext>
+																			</Success>
+																		</EntityContextBarrier>
 																	</ForceLook>
 																</EntityContext>
-															</EntityContext>
-														</GameContext>
-													</Else>
-												</EntityContextCheck>
-											</Loop>
-										</IfCondition>
-										<IfCondition hasInputBreakpoint="0" comment="" breakpointFlags="0">
-											<OutputBreakpoints />
-											<Loop hasInputBreakpoint="0" comment="" breakpointFlags="0">
+															</GameContext>
+														</Else>
+													</EntityContextCheck>
+												</Loop>
+											</IfCondition>
+											<IfCondition hasInputBreakpoint="0" comment="" breakpointFlags="0">
 												<OutputBreakpoints />
-												<EntityContextCheck hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
+												<Loop hasInputBreakpoint="0" comment="" breakpointFlags="0">
 													<OutputBreakpoints />
-													<Then>
-														<Wait hasInputBreakpoint="0" comment="" breakpointFlags="0">
-															<OutputBreakpoints />
-														</Wait>
-													</Then>
-													<Else>
-														<GameContext hasInputBreakpoint="0" comment="" breakpointFlags="0">
-															<OutputBreakpoints />
-															<EntityContext hasInputBreakpoint="0" comment="" breakpointFlags="0">
+													<EntityContextCheck hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
+														<OutputBreakpoints />
+														<Then>
+															<Wait hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																<OutputBreakpoints />
+															</Wait>
+														</Then>
+														<Else>
+															<GameContext hasInputBreakpoint="0" comment="" breakpointFlags="0">
 																<OutputBreakpoints />
 																<EntityContext hasInputBreakpoint="0" comment="" breakpointFlags="0">
 																	<OutputBreakpoints />
 																	<ForceLook hasInputBreakpoint="0" comment="" breakpointFlags="0">
 																		<OutputBreakpoints />
-																		<EntityContext hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																		<EntityContextBarrier hasInputBreakpoint="0" comment="" breakpointFlags="0">
 																			<OutputBreakpoints />
-																			<EntityContextBarrier hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																			<Success hasInputBreakpoint="0" comment="" breakpointFlags="0">
 																				<OutputBreakpoints />
-																				<Success hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																					<OutputBreakpoints />
-																				</Success>
-																			</EntityContextBarrier>
-																		</EntityContext>
+																			</Success>
+																		</EntityContextBarrier>
 																	</ForceLook>
 																</EntityContext>
-															</EntityContext>
-														</GameContext>
-													</Else>
-												</EntityContextCheck>
-											</Loop>
-										</IfCondition>
-										<IfCondition hasInputBreakpoint="0" comment="" breakpointFlags="0">
-											<OutputBreakpoints />
-											<Loop hasInputBreakpoint="0" comment="" breakpointFlags="0">
+															</GameContext>
+														</Else>
+													</EntityContextCheck>
+												</Loop>
+											</IfCondition>
+											<IfCondition hasInputBreakpoint="0" comment="" breakpointFlags="0">
 												<OutputBreakpoints />
-												<EntityContextCheck hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
+												<Loop hasInputBreakpoint="0" comment="" breakpointFlags="0">
 													<OutputBreakpoints />
-													<Then>
-														<Wait hasInputBreakpoint="0" comment="" breakpointFlags="0">
-															<OutputBreakpoints />
-														</Wait>
-													</Then>
-													<Else>
-														<GameContext hasInputBreakpoint="0" comment="" breakpointFlags="0">
-															<OutputBreakpoints />
-															<EntityContext hasInputBreakpoint="0" comment="" breakpointFlags="0">
+													<EntityContextCheck hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
+														<OutputBreakpoints />
+														<Then>
+															<Wait hasInputBreakpoint="0" comment="" breakpointFlags="0">
 																<OutputBreakpoints />
-																<EntityContext hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																	<OutputBreakpoints />
-																	<ForceLook hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																		<OutputBreakpoints />
-																		<EntityContext hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																			<OutputBreakpoints />
-																			<EntityContextBarrier hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																				<OutputBreakpoints />
-																				<Success hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																					<OutputBreakpoints />
-																				</Success>
-																			</EntityContextBarrier>
-																		</EntityContext>
-																	</ForceLook>
-																</EntityContext>
-															</EntityContext>
-														</GameContext>
-													</Else>
-												</EntityContextCheck>
-											</Loop>
-										</IfCondition>
-										<IfCondition hasInputBreakpoint="0" comment="" breakpointFlags="0">
-											<OutputBreakpoints />
-											<Loop hasInputBreakpoint="0" comment="" breakpointFlags="0">
-												<OutputBreakpoints />
-												<EntityContextCheck hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
-													<OutputBreakpoints />
-													<Then>
-														<Wait hasInputBreakpoint="0" comment="" breakpointFlags="0">
-															<OutputBreakpoints />
-														</Wait>
-													</Then>
-													<Else>
-														<GameContext hasInputBreakpoint="0" comment="" breakpointFlags="0">
-															<OutputBreakpoints />
-															<EntityContext hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																<OutputBreakpoints />
-																<EntityContext hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																	<OutputBreakpoints />
-																	<ForceLook hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																		<OutputBreakpoints />
-																		<EntityContext hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																			<OutputBreakpoints />
-																			<EntityContextBarrier hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																				<OutputBreakpoints />
-																				<Success hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																					<OutputBreakpoints />
-																				</Success>
-																			</EntityContextBarrier>
-																		</EntityContext>
-																	</ForceLook>
-																</EntityContext>
-															</EntityContext>
-														</GameContext>
-													</Else>
-												</EntityContextCheck>
-											</Loop>
-										</IfCondition>
-										<IfCondition hasInputBreakpoint="0" comment="" breakpointFlags="0">
-											<OutputBreakpoints />
-											<Loop hasInputBreakpoint="0" comment="" breakpointFlags="0">
-												<OutputBreakpoints />
-												<EntityContextCheck hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
-													<OutputBreakpoints />
-													<Then>
-														<Wait hasInputBreakpoint="0" comment="" breakpointFlags="0">
-															<OutputBreakpoints />
-														</Wait>
-													</Then>
-													<Else>
-														<GameContext hasInputBreakpoint="0" comment="" breakpointFlags="0">
-															<OutputBreakpoints />
+															</Wait>
+														</Then>
+														<Else>
 															<EntityContext hasInputBreakpoint="0" comment="" breakpointFlags="0">
 																<OutputBreakpoints />
 																<ForceLook hasInputBreakpoint="0" comment="" breakpointFlags="0">
 																	<OutputBreakpoints />
-																	<EntityContextBarrier hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																	<EntityContext hasInputBreakpoint="0" comment="" breakpointFlags="0">
 																		<OutputBreakpoints />
-																		<Success hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																		<EntityContextBarrier hasInputBreakpoint="0" comment="" breakpointFlags="0">
 																			<OutputBreakpoints />
-																		</Success>
-																	</EntityContextBarrier>
+																			<Success hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																				<OutputBreakpoints />
+																			</Success>
+																		</EntityContextBarrier>
+																	</EntityContext>
 																</ForceLook>
 															</EntityContext>
-														</GameContext>
-													</Else>
-												</EntityContextCheck>
-											</Loop>
-										</IfCondition>
-										<IfCondition hasInputBreakpoint="0" comment="" breakpointFlags="0">
-											<OutputBreakpoints />
-											<Loop hasInputBreakpoint="0" comment="" breakpointFlags="0">
+														</Else>
+													</EntityContextCheck>
+												</Loop>
+											</IfCondition>
+											<IfCondition hasInputBreakpoint="0" comment="" breakpointFlags="0">
 												<OutputBreakpoints />
-												<EntityContextCheck hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
+												<Loop hasInputBreakpoint="0" comment="" breakpointFlags="0">
 													<OutputBreakpoints />
-													<Then>
-														<Wait hasInputBreakpoint="0" comment="" breakpointFlags="0">
-															<OutputBreakpoints />
-														</Wait>
-													</Then>
-													<Else>
-														<GameContext hasInputBreakpoint="0" comment="" breakpointFlags="0">
-															<OutputBreakpoints />
-															<EntityContext hasInputBreakpoint="0" comment="" breakpointFlags="0">
+													<EntityContextCheck hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
+														<OutputBreakpoints />
+														<Then>
+															<Wait hasInputBreakpoint="0" comment="" breakpointFlags="0">
 																<OutputBreakpoints />
-																<ForceLook hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																	<OutputBreakpoints />
-																	<EntityContextBarrier hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																		<OutputBreakpoints />
-																		<Success hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																			<OutputBreakpoints />
-																		</Success>
-																	</EntityContextBarrier>
-																</ForceLook>
-															</EntityContext>
-														</GameContext>
-													</Else>
-												</EntityContextCheck>
-											</Loop>
-										</IfCondition>
-										<IfCondition hasInputBreakpoint="0" comment="" breakpointFlags="0">
-											<OutputBreakpoints />
-											<Loop hasInputBreakpoint="0" comment="" breakpointFlags="0">
-												<OutputBreakpoints />
-												<EntityContextCheck hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
-													<OutputBreakpoints />
-													<Then>
-														<Wait hasInputBreakpoint="0" comment="" breakpointFlags="0">
-															<OutputBreakpoints />
-														</Wait>
-													</Then>
-													<Else>
-														<EntityContext hasInputBreakpoint="0" comment="" breakpointFlags="0">
-															<OutputBreakpoints />
+															</Wait>
+														</Then>
+														<Else>
 															<ForceLook hasInputBreakpoint="0" comment="" breakpointFlags="0">
 																<OutputBreakpoints />
-																<EntityContext hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																<RelationContext hasInputBreakpoint="0" comment="" breakpointFlags="0">
 																	<OutputBreakpoints />
-																	<EntityContextBarrier hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																	<EntityContext hasInputBreakpoint="0" comment="" breakpointFlags="0">
 																		<OutputBreakpoints />
-																		<Success hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																		<EntityContextBarrier hasInputBreakpoint="0" comment="" breakpointFlags="0">
 																			<OutputBreakpoints />
-																		</Success>
-																	</EntityContextBarrier>
-																</EntityContext>
+																			<Success hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																				<OutputBreakpoints />
+																			</Success>
+																		</EntityContextBarrier>
+																	</EntityContext>
+																</RelationContext>
 															</ForceLook>
-														</EntityContext>
-													</Else>
-												</EntityContextCheck>
-											</Loop>
-										</IfCondition>
-										<IfCondition hasInputBreakpoint="0" comment="" breakpointFlags="0">
-											<OutputBreakpoints />
-											<Loop hasInputBreakpoint="0" comment="" breakpointFlags="0">
+														</Else>
+													</EntityContextCheck>
+												</Loop>
+											</IfCondition>
+											<IfCondition hasInputBreakpoint="0" comment="" breakpointFlags="0">
 												<OutputBreakpoints />
-												<EntityContextCheck hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
+												<Wait hasInputBreakpoint="0" comment="" breakpointFlags="0">
 													<OutputBreakpoints />
-													<Then>
-														<Wait hasInputBreakpoint="0" comment="" breakpointFlags="0">
-															<OutputBreakpoints />
-														</Wait>
-													</Then>
-													<Else>
-														<ForceLook hasInputBreakpoint="0" comment="" breakpointFlags="0">
-															<OutputBreakpoints />
-															<RelationContext hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																<OutputBreakpoints />
-																<EntityContext hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																	<OutputBreakpoints />
-																	<EntityContextBarrier hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																		<OutputBreakpoints />
-																		<Success hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																			<OutputBreakpoints />
-																		</Success>
-																	</EntityContextBarrier>
-																</EntityContext>
-															</RelationContext>
-														</ForceLook>
-													</Else>
-												</EntityContextCheck>
-											</Loop>
-										</IfCondition>
-										<IfCondition hasInputBreakpoint="0" comment="" breakpointFlags="0">
-											<OutputBreakpoints />
-											<Wait hasInputBreakpoint="0" comment="" breakpointFlags="0">
-												<OutputBreakpoints />
-											</Wait>
-										</IfCondition>
-									</ContinuousSwitch>
+												</Wait>
+											</IfCondition>
+										</ContinuousSwitch>
+									</Sequence>
 								</DeadUnconsciousGate>
 							</IfGate>
 						</While>

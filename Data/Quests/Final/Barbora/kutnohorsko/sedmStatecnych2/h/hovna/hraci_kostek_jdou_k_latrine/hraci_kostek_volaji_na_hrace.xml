@@ -6,12 +6,15 @@
 				<Port Name="jindra_je_blizko" Direction="In" Type="bool">
 					<DesignName StringName="hraci_kos_jindra_je_blizko_XPmA" Text="Jindra je blízko" />
 				</Port>
+				<Port Name="ranek_je_mrtvy" Direction="In" Type="bool">
+					<DesignName StringName="hraci_kos_ranek_je_mrtvy_VqEY" Text="Raněk je mrtvý" />
+				</Port>
 			</Ports>
 			<Text StringName="hraci_kostek_volaji_na_hr_sGUX" Text="Hráči kostek volají na hráče" />
 			<Dialogue Type="chat" TechnicalStatus="Enabled" Hearing="35" DefaultMaxDistance="10" DefaultChatTimeLimit="6" Initiator="NonPlayer" ClashPriority="Crime">
 				<Decision Name="dec1" Priority="MainQuestSubmission" Alias="sedmStatecnych2_hraciKostekVolajiNaHrace" TimeLimit="0">
 					<Sequences>
-						<Sequence EndType="Decision" Name="seq5">
+						<Sequence EntryCondition="!Port('ranek_je_mrtvy')" EndType="Decision" Name="seq5">
 							<DesignName StringName="hraci_kos_seq5_YcWo" Text="seq5" />
 							<Elements>
 								<Response Role="HRAC_KOSTEK_BYLANY" />

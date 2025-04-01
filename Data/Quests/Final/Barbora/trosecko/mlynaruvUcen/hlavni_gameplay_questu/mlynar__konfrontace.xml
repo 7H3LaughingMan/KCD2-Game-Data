@@ -28,6 +28,11 @@
 			<Nodes>
 				<Function Name="createdialogparams7" PositionY="150" PositionX="-610" MethodName="wh::dialogmodule::CreateDialogParams" DeclaringType="wh::dialogmodule">
 					<Asset Name="Participants" Alias="krejzl" />
+					<Edge From="millerHasJobForPlayer.Active" To="RotateParticipants">
+						<Vertex>vertex12</Vertex>
+						<Vertex>vertex13</Vertex>
+						<Vertex>x3CyVvPf</Vertex>
+					</Edge>
 				</Function>
 				<SoulDeathTrigger Name="deathtrigger15" PositionY="520" PositionX="290">
 					<Edge From="makearray16.Array" To="Souls" />
@@ -55,6 +60,19 @@
 						<Vertex>eMXMI1PN</Vertex>
 					</Edge>
 				</If>
+				<If Name="if38" PositionY="-430" PositionX="-1090">
+					<Edge From="TimeOfDayBetweenCheck.isbetween" To="Condition" />
+					<Edge From="mlynar__konfrontace.AfterPlay" To="Exec">
+						<Vertex>bP1bUYNd</Vertex>
+						<Vertex>cLrCXT90</Vertex>
+					</Edge>
+				</If>
+				<LinkEffectNoData Name="linkeffectnodata37" PositionY="-1020" PositionX="180">
+					<Asset Name="From" Alias="dialogAfterCutscene" />
+					<Asset Name="To" Alias="krejzl" />
+					<Constant Name="Tag" Value="fastForward" />
+					<Edge From="or34.bool" To="IsActive" />
+				</LinkEffectNoData>
 				<MakeArray Name="makearray16" PositionY="560" PositionX="0" TypeT="wh::rpgmodule::Souls">
 					<Asset Name="A" Alias="krejzl" />
 				</MakeArray>
@@ -82,7 +100,7 @@
 				<mlynar_pro_mne_ma_nejakou_praci_ Name="objectiveVisual14" PositionY="290" PositionX="940" RequiredForOutput="trosecko">
 					<Edge From="millerHasJobForPlayer.State" To="Progress" />
 				</mlynar_pro_mne_ma_nejakou_praci_>
-				<Function Name="or34" PositionY="-480" PositionX="-540" MethodName="math::boolean::Or" DeclaringType="math::boolean">
+				<Function Name="or34" PositionY="-480" PositionX="-430" MethodName="math::boolean::Or" DeclaringType="math::boolean">
 					<Edge From="state30.Active" To="A" />
 					<Edge From="state30.Updated" To="B" />
 				</Function>
@@ -95,34 +113,40 @@
 					<Edge From="millerHasJobForPlayer.Active" To="isactive" />
 				</SpeakTrigger>
 				<State Name="state30" PositionY="-640" PositionX="-820" TypeT="ProgressUpdated">
-					<Edge From="mlynar__konfrontace.AfterPlay" To="SetUpdated">
-						<Vertex>bP1bUYNd</Vertex>
-						<Vertex>cLrCXT90</Vertex>
+					<Edge From="forced_dialog" To="SetActive">
+						<Vertex>0YQ1Ih71</Vertex>
 					</Edge>
-					<Edge From="forced_dialog" To="SetActive" />
 					<Edge From="if33.True" To="SetDone">
 						<Vertex>7Vp3C47J</Vertex>
 						<Vertex>0F62scQo</Vertex>
 					</Edge>
+					<Edge From="if38.True" To="SetUpdated" />
+					<Edge From="if38.False" To="SetDone" />
 				</State>
 				<Switch Name="switch31" PositionY="-670" PositionX="-490" TypeT="ProgressUpdated" ValueTypes="wh::entitymodule::DialogueHolder*" SwitchValues="Active">
 					<Asset Name="ActiveValue1" Alias="dialogAfterCutscene" />
 					<Asset Name="DefaultValue1" Alias="krejzlDH" />
 					<Edge From="state30.State" To="Switch" />
 				</Switch>
+				<TimeOfDayBetweenCheck Name="TimeOfDayBetweenCheck" PositionY="-580" PositionX="-1440" Namespace="utils.time">
+					<Constant Name="fromtime" Value="7h0m" />
+					<Constant Name="totime" Value="19h0m" />
+				</TimeOfDayBetweenCheck>
 			</Nodes>
 			<EdgeVertices>
 				<EdgeVertex Name="0F62scQo" PositionY="-740" PositionX="-840" />
+				<EdgeVertex Name="0YQ1Ih71" PositionY="-140" PositionX="-910" />
 				<EdgeVertex Name="7Vp3C47J" PositionY="-730" PositionX="450" />
-				<EdgeVertex Name="assYS6vU" PositionY="-140" PositionX="-530" />
+				<EdgeVertex Name="assYS6vU" PositionY="-140" PositionX="-490" />
 				<EdgeVertex Name="bP1bUYNd" PositionY="-690" PositionX="140" />
-				<EdgeVertex Name="cLrCXT90" PositionY="-690" PositionX="-810" />
+				<EdgeVertex Name="cLrCXT90" PositionY="-700" PositionX="-1040" />
 				<EdgeVertex Name="eMXMI1PN" PositionY="-320" PositionX="170" />
 				<EdgeVertex Name="vertex12" PositionY="760" PositionX="810" />
 				<EdgeVertex Name="vertex13" PositionY="760" PositionX="300" />
 				<EdgeVertex Name="vertex14" PositionY="800" PositionX="1110" />
 				<EdgeVertex Name="vertex15" PositionY="800" PositionX="-10" />
 				<EdgeVertex Name="vertex16" PositionY="270" PositionX="480" />
+				<EdgeVertex Name="x3CyVvPf" PositionY="760" PositionX="-600" />
 			</EdgeVertices>
 			<Assets>
 				<DialogueHolderAsset Name="krejzlDH" />

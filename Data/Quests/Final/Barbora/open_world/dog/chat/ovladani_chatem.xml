@@ -39,6 +39,9 @@
 				<Port Name="playerhasperksearch" Direction="In" Type="bool">
 					<DesignName StringName="ovladani__playerhasperkse_Tjzq" Text="playerHasPerkSearch" />
 				</Port>
+				<Port Name="hrac_nebo_pes_je_v_combatu" Direction="In" Type="bool">
+					<DesignName StringName="ovladani__hrac_nebo_pes_j_Sq0U" Text="hráč nebo pes je v combatu" />
+				</Port>
 			</Ports>
 			<Text StringName="ovladani_chatem_Jv6N" Text="Ovládání chatem" />
 			<Elements>
@@ -76,9 +79,6 @@
 														<Sequences>
 															<Sequence EntryCondition="!Port('playerhasperksearch')" EndType="Decision" Name="seq70">
 																<DesignName StringName="ovladani__seq70_GIza" Text="seq70" />
-																<Triggers>
-																	<Port Name="volno" />
-																</Triggers>
 																<Elements>
 																	<Response Role="HENRY" />
 																</Elements>
@@ -86,6 +86,9 @@
 																	<Sequences>
 																		<Sequence EndType="Decision" Name="seq7">
 																			<DesignName StringName="ovladani__seq7_3GId" Text="seq7" />
+																			<Triggers>
+																				<Port Name="volno" />
+																			</Triggers>
 																			<Elements>
 																				<Response Role="HENRY">
 																					<Text StringName="ovla_henry_volno_rXAG" Text="Volno!" />
@@ -126,6 +129,9 @@
 																		</Sequence>
 																		<Sequence EndType="GoTo" GoToDecision="dec8" Name="seq8">
 																			<DesignName StringName="ovladani__seq8_lCXI" Text="seq8" />
+																			<Triggers>
+																				<Port Name="volno" />
+																			</Triggers>
 																			<Elements>
 																				<Response Role="HENRY">
 																					<Text StringName="ovla_henry_utikej_Orp2" Text="Utíkej!" />
@@ -134,6 +140,9 @@
 																		</Sequence>
 																		<Sequence EndType="GoTo" GoToDecision="dec8" Name="seq9">
 																			<DesignName StringName="ovladani__seq9_QmzT" Text="seq9" />
+																			<Triggers>
+																				<Port Name="volno" />
+																			</Triggers>
 																			<Elements>
 																				<Response Role="HENRY">
 																					<Text StringName="ovla_henry_volno_mF3R" Text="Volno!" />
@@ -142,6 +151,9 @@
 																		</Sequence>
 																		<Sequence EntryCondition="Port('playerhasperksearch')" EndType="Decision" Name="seq59">
 																			<DesignName StringName="ovladani__seq59_xckw" Text="seq59" />
+																			<Triggers>
+																				<Port Name="volno" />
+																			</Triggers>
 																			<Elements>
 																				<Response Role="HENRY">
 																					<Text StringName="ovla_henry_hledej_qfXj" Text="Hledej!" />
@@ -187,6 +199,9 @@
 																		</Sequence>
 																		<Sequence EntryCondition="Port('playerhasperksearch')" EndType="GoTo" GoToDecision="dec22" Name="seq60">
 																			<DesignName StringName="ovladani__seq60_nGbW" Text="seq60" />
+																			<Triggers>
+																				<Port Name="volno" />
+																			</Triggers>
 																			<Elements>
 																				<Response Role="HENRY">
 																					<Text StringName="ovla_henry_je_tu_neco_hle_KEhr" Text="Je tu něco? Hledej!" />
@@ -195,6 +210,9 @@
 																		</Sequence>
 																		<Sequence EntryCondition="Port('playerhasperksearch')" EndType="GoTo" GoToDecision="dec22" Name="seq65">
 																			<DesignName StringName="ovladani__seq65_hkSZ" Text="seq65" />
+																			<Triggers>
+																				<Port Name="volno" />
+																			</Triggers>
 																			<Elements>
 																				<Response Role="HENRY">
 																					<Text StringName="ovla_henry_hledej_e31g" Text="Hledej!" />
@@ -550,7 +568,7 @@
 											</Sequences>
 										</Decision>
 									</Sequence>
-									<Sequence EndType="Decision" ChatPosition="First" Name="seq19">
+									<Sequence EntryCondition="!Port('hrac_nebo_pes_je_v_combatu')" EndType="Decision" ChatPosition="First" Name="seq19">
 										<DesignName StringName="ovladani__seq19_uPAQ" Text="seq19" />
 										<UiPrompt StringName="ui_ovladani__seq19_2r0d" Text="Nakrmit" />
 										<Triggers>

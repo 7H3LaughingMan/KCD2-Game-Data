@@ -120,14 +120,6 @@
 					<Asset Name="souls" Alias="player_bohuta" />
 					<Edge From="bitevniCast.afterplay__zaverecna_cutscena" To="removeallinjuriesandpoisons" />
 				</healing>
-				<IfFunction Name="ifnot35" PositionY="-120" PositionX="90" MethodName="math::boolean::Not" DeclaringType="math::boolean">
-					<Edge From="OnWake" To="Exec" />
-					<Edge From="streamovani_pro_bitvu.profily_jsou_nastreamovane" To="Value">
-						<Vertex>vertex49</Vertex>
-						<Vertex>e2PQCfng</Vertex>
-						<Vertex>vertex50</Vertex>
-					</Edge>
-				</IfFunction>
 				<MakeArray Name="makearray9" PositionY="1850" PositionX="60" TypeT="Strings">
 					<Constant Name="A" Value="wh_concept_hasteTrigger posledniPomazani.completeGoToWall" />
 					<Constant Name="B" Value="wh_concept_hasteTrigger posledniPomazani.completeDefendWall" />
@@ -201,6 +193,20 @@
 						<Vertex>vertex46</Vertex>
 					</Edge>
 				</restrikce>
+				<SetGameContext Name="setgamecontext52" PositionY="-1650" PositionX="840">
+					<Constant Name="Context" Value="DisableDiscoveryLocations" />
+					<Edge From="Awake" To="IsActive">
+						<Vertex>vertex10</Vertex>
+						<Vertex>vertex46</Vertex>
+					</Edge>
+				</SetGameContext>
+				<SetGameContextPreset Name="setgamecontextpreset34" PositionY="-1830" PositionX="850">
+					<Constant Name="Preset" Value="crime_global_battleInProgress" />
+					<Edge From="Awake" To="IsActive">
+						<Vertex>vertex10</Vertex>
+						<Vertex>vertex46</Vertex>
+					</Edge>
+				</SetGameContextPreset>
 				<Function Name="setpoidiscoverystatus42" PositionY="1660" PositionX="1300" MethodName="wh::rpgmodule::SetPOIDiscoveryStatus" DeclaringType="wh::rpgmodule">
 					<Constant Name="POIType" Value="882a2326-ab14-4b8e-a953-b7e54346c41c" />
 					<Constant Name="Status" Value="Unknown" />
@@ -253,7 +259,12 @@
 						<Vertex>vertex1</Vertex>
 						<Vertex>vertex2</Vertex>
 					</Edge>
-					<Edge From="ifnot35.True" To="start_cutscene" />
+					<Edge From="OnWake" To="start_cutscene" />
+					<Edge From="streamovani_pro_bitvu.profily_jsou_nastreamovane" To="profily_jsou_nastreamovane">
+						<Vertex>vertex49</Vertex>
+						<Vertex>e2PQCfng</Vertex>
+						<Vertex>YwqSPrMR</Vertex>
+					</Edge>
 				</uvodni_cutscena>
 			</Nodes>
 			<EdgeVertices>
@@ -285,10 +296,10 @@
 				<EdgeVertex Name="vertex46" PositionY="-760" PositionX="750" />
 				<EdgeVertex Name="vertex49" PositionY="879" PositionX="1117" />
 				<EdgeVertex Name="vertex5" PositionY="860" PositionX="1120" />
-				<EdgeVertex Name="vertex50" PositionY="880" PositionX="145" />
 				<EdgeVertex Name="vertex6" PositionY="860" PositionX="860" />
 				<EdgeVertex Name="vertex7" PositionY="870" PositionX="770" />
 				<EdgeVertex Name="vertex8" PositionY="870" PositionX="1120" />
+				<EdgeVertex Name="YwqSPrMR" PositionY="880" PositionX="436" />
 			</EdgeVertices>
 			<Assets>
 				<CutsceneHolderAsset Name="fader_switchPlayer" />
@@ -299,6 +310,9 @@
 			<Notes>
 				<Note Name="note46" PositionY="2350" PositionX="1320">
 					<Text StringName="hibernable_note46_P2bD" Text="Kvůli odebrání posbíraných itemů" />
+				</Note>
+				<Note Name="note99" PositionY="-1870" PositionX="840">
+					<Text StringName="bitevnica_note99_4yyl" Text="KCD2-511398 - Musí se zapnout dřív." />
 				</Note>
 			</Notes>
 			<Text StringName="hibernable_3HQQ" Text="Hibernable" />

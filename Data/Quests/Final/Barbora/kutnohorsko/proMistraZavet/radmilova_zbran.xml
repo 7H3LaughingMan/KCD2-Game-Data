@@ -32,14 +32,22 @@
 					<Constant Name="ClothingPreset" Value="a302bea2-0ee6-44fd-baeb-e0402be88ce0" />
 					<Edge From="and3.bool" To="IsActive" />
 				</ClothingPresetOverride>
-				<constants Name="constants" PositionY="440" PositionX="-610" Namespace="promistrazavetlibrary" />
+				<constants Name="constants" PositionY="440" PositionX="-730" Namespace="promistrazavetlibrary" />
+				<SoulDeathTrigger Name="deathtrigger16" PositionY="-200" PositionX="110">
+					<Asset Name="Souls" Alias="protistrana" />
+					<Edge From="radmilHasWeaponCooldown.Running" To="IsActive" />
+				</SoulDeathTrigger>
 				<Function Name="not2" PositionY="110" PositionX="230" MethodName="math::boolean::Not" DeclaringType="math::boolean">
 					<Edge From="radmilHasWeaponCooldown.Finished" To="Value" />
 				</Function>
-				<Timer Name="radmilHasWeaponCooldown" PositionY="110" PositionX="-90">
+				<Timer Name="radmilHasWeaponCooldown" PositionY="90" PositionX="-220">
 					<Constant Name="TimeType" Value="WorldTime" />
 					<Edge From="odeber_radmilovu_zbran_a_armor__po_vyprsani_timeru" To="SetRunning" />
 					<Edge From="constants.cas_po_ktery_ma_radmil_zbran_a_armor_po_souboji" To="Duration" />
+					<Edge From="deathtrigger16.OnDeath" To="SetStopped">
+						<Vertex>jKSQuQf5</Vertex>
+						<Vertex>coFvGKMk</Vertex>
+					</Edge>
 				</Timer>
 				<Switch Name="switch15" PositionY="340" PositionX="410" TypeT="ZavetAgreedWeapon" ValueTypes="wh::entitymodule::ItemClassId" SwitchValues="Sword Dagger Sabre Axe">
 					<Edge From="constants.mec_pro_protistranu" To="SwordValue1" />
@@ -53,6 +61,8 @@
 				</Switch>
 			</Nodes>
 			<EdgeVertices>
+				<EdgeVertex Name="coFvGKMk" PositionY="-224" PositionX="-212" />
+				<EdgeVertex Name="jKSQuQf5" PositionY="-224" PositionX="323" />
 				<EdgeVertex Name="vertex1" PositionY="430" PositionX="-550" />
 			</EdgeVertices>
 			<Text StringName="radmilova_zbran_JTAU" Text="Radmilová zbraň" />

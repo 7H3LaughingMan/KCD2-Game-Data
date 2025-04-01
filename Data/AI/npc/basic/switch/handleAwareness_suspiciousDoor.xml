@@ -122,7 +122,7 @@
 																					<Function_stealth_recognitionState_II_reaction stimulusKind="$enum:crime_stimulusKind.suspiciousDoor" target="$__player" nodeLabel="44932663" />
 																				</Then>
 																				<Else canSkip="1">
-																					<Function_callInterrupt_mindPlayer ignorePriority="true" initiator="$enum:switch_interruptInitiator.scheduler" previousReaction="$enum:crime_reactionKind.checkProperty" soundType="$enum:sound.invalid" stimulusKind="$enum:crime_stimulusKind.suspiciousDoor" nodeLabel="63088942" />
+																					<Function_callInterrupt_mindPlayer ignorePriority="false" initiator="$enum:switch_interruptInitiator.scheduler" previousReaction="$enum:crime_reactionKind.checkProperty" soundType="$enum:sound.invalid" stimulusKind="$enum:crime_stimulusKind.suspiciousDoor" nodeLabel="63088942" />
 																				</Else>
 																			</EntityContextCheck>
 																		</IfCondition>
@@ -142,16 +142,18 @@
 																		<AffectFeelings Npc="" Token="&apos;suspiciousDoor&apos;" AffectNervousness="true" AffectReputation="false" />
 																		<Expression expressions="$freshlyOpened = $now/1000 - $suspiciousInteractionTimestamp &lt; 5" />
 																		<Function_callInterrupt_checkProperty home="$home" ignorePriority="false" initiator="$enum:switch_interruptInitiator.switch" missingNpc="" previousReaction="$enum:crime_reactionKind.unknown" stimulusKind="$enum:crime_stimulusKind.suspiciousDoor" suspiciousDoor="$door" suspiciousDoorFreshlyOpened="$freshlyOpened" nodeLabel="57663135" />
-																		<SuppressFailure>
-																			<Sequence>
-																				<GraphSearch Origin="" Borders="" depth="1" selection="true" SearchPattern="Depth" EdgePruning="&apos;parent,inventory&apos;" AllowedEdges="" SubGraph="" AllowSubtraph="false" includeOrigin="false" excludeOrigin="false" failOnEmpty="true" SetOperationChoice="Intersection|And" errorOnEmpty="false" shortCircuit="false" skipTraversed="true">
-																					<LinkTagFilter tag="&apos;home&apos;" prune="true" negprune="unknown" Parent="" Child="" Data="" />
-																					<WUIDFilter WUID="$home" Source="Child" prune="true" negprune="unknown" Parent="" Child="" />
-																				</GraphSearch>
-																				<Function_crime_checkLongTermMemoryTrespass home="$home" knowAboutPlayer="$playerRelated" nodeLabel="36104544" />
-																				<Function_crime_addFollowUp_checkHomeStashes home="$home" information="" playerRelated="$playerRelated" resetStolenItemsFound="false" stolenItemsFound="false" added="" nodeLabel="93611811" />
-																			</Sequence>
-																		</SuppressFailure>
+																		<IfCondition failOnCondition="false" condition="~$freshlyOpened">
+																			<SuppressFailure>
+																				<Sequence>
+																					<GraphSearch Origin="" Borders="" depth="1" selection="true" SearchPattern="Depth" EdgePruning="&apos;parent,inventory&apos;" AllowedEdges="" SubGraph="" AllowSubtraph="false" includeOrigin="false" excludeOrigin="false" failOnEmpty="true" SetOperationChoice="Intersection|And" errorOnEmpty="false" shortCircuit="false" skipTraversed="true">
+																						<LinkTagFilter tag="&apos;home&apos;" prune="true" negprune="unknown" Parent="" Child="" Data="" />
+																						<WUIDFilter WUID="$home" Source="Child" prune="true" negprune="unknown" Parent="" Child="" />
+																					</GraphSearch>
+																					<Function_crime_checkLongTermMemoryTrespass home="$home" knowAboutPlayer="$playerRelated" nodeLabel="36104544" />
+																					<Function_crime_addFollowUp_checkHomeStashes home="$home" information="" playerRelated="$playerRelated" resetStolenItemsFound="false" stolenItemsFound="false" added="" nodeLabel="93611811" />
+																				</Sequence>
+																			</SuppressFailure>
+																		</IfCondition>
 																	</Sequence>
 																</Then>
 															</IfElseCondition>
@@ -407,27 +409,30 @@
 																			<Function_callInterrupt_checkProperty hasInputBreakpoint="0" comment="" breakpointFlags="0">
 																				<OutputBreakpoints />
 																			</Function_callInterrupt_checkProperty>
-																			<SuppressFailure hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																			<IfCondition hasInputBreakpoint="0" comment="" breakpointFlags="0">
 																				<OutputBreakpoints />
-																				<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																				<SuppressFailure hasInputBreakpoint="0" comment="" breakpointFlags="0">
 																					<OutputBreakpoints />
-																					<GraphSearch hasInputBreakpoint="0" comment="guards wont check ppls stashes" breakpointFlags="0">
+																					<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
 																						<OutputBreakpoints />
-																						<LinkTagFilter hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																						<GraphSearch hasInputBreakpoint="0" comment="guards wont check ppls stashes" breakpointFlags="0">
 																							<OutputBreakpoints />
-																						</LinkTagFilter>
-																						<WUIDFilter hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																							<LinkTagFilter hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																								<OutputBreakpoints />
+																							</LinkTagFilter>
+																							<WUIDFilter hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																								<OutputBreakpoints />
+																							</WUIDFilter>
+																						</GraphSearch>
+																						<Function_crime_checkLongTermMemoryTrespass hasInputBreakpoint="0" comment="" breakpointFlags="0">
 																							<OutputBreakpoints />
-																						</WUIDFilter>
-																					</GraphSearch>
-																					<Function_crime_checkLongTermMemoryTrespass hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																						<OutputBreakpoints />
-																					</Function_crime_checkLongTermMemoryTrespass>
-																					<Function_crime_addFollowUp_checkHomeStashes hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																						<OutputBreakpoints />
-																					</Function_crime_addFollowUp_checkHomeStashes>
-																				</Sequence>
-																			</SuppressFailure>
+																						</Function_crime_checkLongTermMemoryTrespass>
+																						<Function_crime_addFollowUp_checkHomeStashes hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																							<OutputBreakpoints />
+																						</Function_crime_addFollowUp_checkHomeStashes>
+																					</Sequence>
+																				</SuppressFailure>
+																			</IfCondition>
 																		</Sequence>
 																	</Then>
 																</IfElseCondition>

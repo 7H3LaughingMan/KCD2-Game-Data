@@ -3,6 +3,9 @@
 	<Skald>
 		<Module Name="zabaveni_veci">
 			<Ports>
+				<Port Name="gameplay_part_state" Direction="In" Type="VezniNaTroskachGamePlay">
+					<DesignName StringName="zabaveni__gameplay_part_s_vno5" Text="Gameplay part state" />
+				</Port>
 				<Port Name="zabavit_veci_bohutovi_zizkovi" Direction="In" Type="trigger">
 					<DesignName StringName="zabaveni__zabavit_bohutov_UIas" Text="Zabavit věci Bohutovi Žižkovi" />
 				</Port>
@@ -16,15 +19,26 @@
 			<Nodes>
 				<allitemsexceptkeyrings Name="allitemsexceptkeyrings" PositionY="360" PositionX="1050" Namespace="utils.item" />
 				<Function Name="and31" PositionY="170" PositionX="1050" MethodName="math::boolean::And" DeclaringType="math::boolean">
-					<Edge From="not32.bool" To="B" />
-					<Edge From="overrideClothes.Active" To="A" />
+					<Edge From="compare35.bool" To="A" />
+					<Edge From="not32.bool" To="C" />
+					<Edge From="compare35_1.bool" To="B" />
 				</Function>
-				<ClothingPresetOverride Name="clothingpresetoverride23_1_1_1" PositionY="-30" PositionX="1050">
+				<ClothingPresetOverride Name="clothingpresetoverride23_1_1_1" PositionY="-200" PositionX="1040">
 					<Asset Name="Souls" Alias="bohuta" />
 					<Constant Name="ClothingPreset" Value="2fe0055a-482a-4308-a96a-adcb13db28a7" />
 					<Edge From="overrideClothes.Active" To="IsActive" />
 				</ClothingPresetOverride>
-				<Function Name="not32" PositionY="250" PositionX="790" MethodName="math::boolean::Not" DeclaringType="math::boolean">
+				<Function Name="compare35" PositionY="-10" PositionX="480" TypeT="VezniNaTroskachGamePlay" MethodName="Control::Compare" DeclaringType="Control">
+					<Constant Name="Op" Value="NotEquals" />
+					<Constant Name="ValueB" Value="None" />
+					<Edge From="gameplay_part_state" To="ValueA" />
+				</Function>
+				<Function Name="compare35_1" PositionY="170" PositionX="480" TypeT="VezniNaTroskachGamePlay" MethodName="Control::Compare" DeclaringType="Control">
+					<Constant Name="Op" Value="NotEquals" />
+					<Constant Name="ValueB" Value="QuestStart" />
+					<Edge From="gameplay_part_state" To="ValueA" />
+				</Function>
+				<Function Name="not32" PositionY="360" PositionX="490" MethodName="math::boolean::Not" DeclaringType="math::boolean">
 					<Edge From="hrac_nesebral_svuj_equip" To="Value" />
 				</Function>
 				<Output Name="Output">

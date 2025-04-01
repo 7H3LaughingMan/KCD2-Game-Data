@@ -21,6 +21,9 @@
 				<Port Name="hrac_ma_presvedcit_viktorku" Direction="Out" Type="trigger">
 					<DesignName StringName="s_viktork_hrac_ma_presved_Zccb" Text="Hráč má přesvědčit Viktorku" />
 				</Port>
+				<Port Name="hrac_vi_o_vojakovi" Direction="In" Type="bool">
+					<DesignName StringName="s_viktork_hrac_vi_o_vojak_NQTa" Text="Hráč ví o vojákovi" />
+				</Port>
 			</Ports>
 			<Definitions>
 				<Definition File="s_viktorkou_o_vojakovi/s_viktorkou_o_vojakovi.xml" />
@@ -48,8 +51,14 @@
 					<Edge From="checkentitycontext2.HasContext" To="viktorka_sedi_u_stromu" />
 					<Edge From="tabor_je_na_kopci" To="tabor_je_na_kopci" />
 					<Edge From="deathcheck4.IsDead" To="hrac_si_s_vojakem_uz_nepromluvi" />
+					<Edge From="hrac_vi_o_vojakovi" To="hrac_vi_o_vojakovi" />
 				</s_viktorkou_o_vojakovi>
 			</Nodes>
+			<Notes>
+				<Note Name="note5" PositionY="-60" PositionX="-20">
+					<Text StringName="s_viktork_note5_2r9N" Text="Jednu root sekvenci jsme pro jistotu znevalidnili, ale nemazali, kdyby se v budoucnu ukázala jako potřebná. Viz KCD2-497678" />
+				</Note>
+			</Notes>
 		</DialogWrapper>
 	</Skald>
 </Database>

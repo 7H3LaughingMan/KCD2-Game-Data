@@ -57,12 +57,22 @@
 				<Definition File="zalezitost_s_bandity/vyhnani_banditu.xml" />
 			</Definitions>
 			<Nodes>
+				<areatrespassleveleffect Name="areatrespassleveleffect" PositionY="480" PositionX="970" Namespace="utils.crime.trespass">
+					<Asset Name="area" Alias="lightTrespassAreas" />
+					<Constant Name="trespasslevel" Value="semipersonal" />
+					<Edge From="not1.bool" To="isactive" />
+				</areatrespassleveleffect>
 				<hrac_ma_vybit_bandity Name="hrac_ma_vybit_bandity" PositionY="0" PositionX="240" RequiredForOutput="kutnohorsko">
 					<Edge From="vyhnani_banditu.hrac_vyhnal_bandity" To="hrac_vyhnal_bandity" />
 					<Edge From="hrac_prijal_quest" To="hrac_prijal_quest">
 						<Vertex>vertex27</Vertex>
 					</Edge>
 				</hrac_ma_vybit_bandity>
+				<Function Name="not1" PositionY="500" PositionX="650" MethodName="math::boolean::Not" DeclaringType="math::boolean">
+					<Edge From="hrac_ma_vybit_bandity.o_bandity_je_postarano" To="Value">
+						<Vertex>nWzGhHyc</Vertex>
+					</Edge>
+				</Function>
 				<Output Name="Output">
 					<Edge From="hrac_ma_vybit_bandity.hrac_splnil_objective_s_vyhnanim_banditu" To="hrac_splnil_objective_s_vyhnanim_banditu" />
 					<Edge From="hrac_ma_vybit_bandity.quest_fail" To="quest_fail" />
@@ -75,7 +85,9 @@
 					<Edge From="vyhnani_banditu.lapka_utekl" To="lapka_utekl">
 						<Vertex>vertex47</Vertex>
 					</Edge>
-					<Edge From="hrac_ma_vybit_bandity.o_bandity_je_postarano" To="o_bandity_je_postarano" />
+					<Edge From="hrac_ma_vybit_bandity.o_bandity_je_postarano" To="o_bandity_je_postarano">
+						<Vertex>nWzGhHyc</Vertex>
+					</Edge>
 				</Output>
 				<vyhnani_banditu Name="vyhnani_banditu" PositionY="-20" PositionX="-230">
 					<Edge From="mlyn_je_prepaden" To="mlyn_je_prepaden" />
@@ -90,6 +102,7 @@
 				</vyhnani_banditu>
 			</Nodes>
 			<EdgeVertices>
+				<EdgeVertex Name="nWzGhHyc" PositionY="211" PositionX="548" />
 				<EdgeVertex Name="vertex27" PositionY="-40" PositionX="60" />
 				<EdgeVertex Name="vertex29" PositionY="310" PositionX="520" />
 				<EdgeVertex Name="vertex45" PositionY="380" PositionX="550" />

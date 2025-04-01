@@ -141,6 +141,18 @@
 				<Port Name="finish_tournament" Direction="In" Type="trigger">
 					<DesignName StringName="nastaveni_finish_tourname_5p2q" Text="finish tournament" />
 				</Port>
+				<Port Name="oznami_se_ted_hrace_souboj" Direction="Out" Type="trigger">
+					<DesignName StringName="nastaveni_oznami_se_ted_h_IeHB" Text="Oznámí se ted hráče souboj" />
+				</Port>
+				<Port Name="timeskip_a_jsou_mece" Direction="Out" Type="trigger">
+					<DesignName StringName="nastaveni_timeskip_a_jsou_BJOB" Text="timeSkip a jsou mece" />
+				</Port>
+				<Port Name="timeskip_a_je_volna" Direction="Out" Type="trigger">
+					<DesignName StringName="nastaveni_timeskip_a_je_v_p61G" Text="timeSkip a je volna" />
+				</Port>
+				<Port Name="crime_konec_turnaje" Direction="In" Type="trigger">
+					<DesignName StringName="nastaveni_crime_konec_tur_SPvy" Text="Crime konec turnaje" />
+				</Port>
 			</Ports>
 			<Definitions>
 				<Definition File="nastaveni_souboje/hrac_v_budoucich_soubojich.xml" />
@@ -154,6 +166,14 @@
 				<HasteTrigger Name="30_switchToMece3" PositionY="330" PositionX="300" />
 				<HasteTrigger Name="31_switchToStity3" PositionY="530" PositionX="300" />
 				<HasteTrigger Name="32_FinishTournament" PositionY="-1330" PositionX="240" />
+				<ActorSkipTimeTrigger Name="actorskiptimetriggerMece" PositionY="-790" PositionX="2730">
+					<Asset Name="Soul" Alias="player" />
+					<Edge From="switchMece.Value1" To="IsActive" />
+				</ActorSkipTimeTrigger>
+				<ActorSkipTimeTrigger Name="actorskiptimetriggerVolenj" PositionY="-540" PositionX="2730">
+					<Asset Name="Soul" Alias="player" />
+					<Edge From="switchVolnej.Value1" To="IsActive" />
+				</ActorSkipTimeTrigger>
 				<Function Name="and94" PositionY="880" PositionX="3520" MethodName="math::boolean::And" DeclaringType="math::boolean">
 					<Edge From="or95.bool" To="A" />
 					<Edge From="compare96.bool" To="B" />
@@ -463,6 +483,12 @@
 						<Vertex>xmfbDlMT</Vertex>
 					</Edge>
 				</If>
+				<IfFunction Name="ifHracVSobuojiTedBude" PositionY="1580" PositionX="4690" TypeT="wh::rpgmodule::I_Soul*" MethodName="Control::Compare" DeclaringType="Control">
+					<Constant Name="Op" Value="Equals" />
+					<Asset Name="ValueB" Alias="player" />
+					<Edge From="elementat78.Value" To="ValueA" />
+					<Edge From="ifnot98.True" To="Exec" />
+				</IfFunction>
 				<IfFunction Name="ifnot89" PositionY="1210" PositionX="3620" MethodName="math::boolean::Not" DeclaringType="math::boolean">
 					<Edge From="triggersequence87.B" To="Exec">
 						<Vertex>vertex624</Vertex>
@@ -683,6 +709,14 @@
 						<Vertex>rmuhsKmK</Vertex>
 						<Vertex>dAY2yjmb</Vertex>
 					</Edge>
+					<Edge From="ifHracVSobuojiTedBude.True" To="oznami_se_ted_hrace_souboj" />
+					<Edge From="actorskiptimetriggerMece.SkipTimeEnded" To="timeskip_a_jsou_mece">
+						<Vertex>80QHGCoF</Vertex>
+					</Edge>
+					<Edge From="actorskiptimetriggerVolenj.SkipTimeEnded" To="timeskip_a_je_volna">
+						<Vertex>Tym3wAjb</Vertex>
+						<Vertex>VfedtBFk</Vertex>
+					</Edge>
 				</Output>
 				<pocitani_kol Name="pocitani_kol" PositionY="850" PositionX="2400" Namespace="">
 					<Edge From="fighter_b_vyhral" To="vyhrava_fighter_b">
@@ -792,7 +826,9 @@
 				<State Name="state62_1" PositionY="100" PositionX="1010" TypeT="CurrentSouboj">
 					<Constant Name="DefaultValue" Value="start" />
 					<Edge From="switch65_1.Value1" To="Value" />
-					<Edge From="ifReadyProNovySouboj.True" To="Exec" />
+					<Edge From="ifReadyProNovySouboj.True" To="Exec">
+						<Vertex>d29UGwtI</Vertex>
+					</Edge>
 					<Edge From="30_switchToMece3.OnTrigger" To="Setmece3">
 						<Vertex>PououSMP</Vertex>
 						<Vertex>b3xzLEdV</Vertex>
@@ -809,6 +845,10 @@
 						<Vertex>fFwrebTF</Vertex>
 					</Edge>
 					<Edge From="timeOfDayForBeSureAboutEnd.OnIntervalStarted" To="Setfinished" />
+					<Edge From="crime_konec_turnaje" To="Setfinished">
+						<Vertex>FwlsGYeX</Vertex>
+						<Vertex>fFwrebTF</Vertex>
+					</Edge>
 				</State>
 				<Switch Name="switch65_1" PositionY="260" PositionX="650" TypeT="CurrentSouboj" ValueTypes="CurrentSouboj" SwitchValues="start volna1 volna2 volna3 stity1 stity2 stity3 mece1 mece2 mece3">
 					<Constant Name="startValue1" Value="stity1" />
@@ -868,6 +908,21 @@
 					<Edge From="hrac_prihlasen__dlouhe_mece" To="Switch">
 						<Vertex>vertex675</Vertex>
 					</Edge>
+				</Switch>
+				<Switch Name="switchMece" PositionY="-790" PositionX="2400" TypeT="CurrentSouboj" ValueTypes="bool" SwitchValues="mece1 mece2 mece3">
+					<Constant Name="mece1Value1" Value="true" />
+					<Constant Name="mece2Value1" Value="true" />
+					<Constant Name="mece3Value1" Value="true" />
+					<Constant Name="DefaultValue1" Value="false" />
+					<Edge From="state62_1.State" To="Switch" />
+				</Switch>
+				<Switch Name="switchVolnej" PositionY="-540" PositionX="2400" TypeT="CurrentSouboj" ValueTypes="bool" SwitchValues="volna1 volna2 volna3 finished">
+					<Constant Name="volna1Value1" Value="true" />
+					<Constant Name="volna2Value1" Value="true" />
+					<Constant Name="volna3Value1" Value="true" />
+					<Constant Name="finishedValue1" Value="true" />
+					<Constant Name="DefaultValue1" Value="false" />
+					<Edge From="state62_1.State" To="Switch" />
 				</Switch>
 				<TimeOfDayInterval Name="timeOfDayForBeSureAboutEnd" PositionY="1050" PositionX="590">
 					<Constant Name="TimeOfDayStart" Value="21h00m" />
@@ -985,6 +1040,7 @@
 				<EdgeVertex Name="4qAMd448" PositionY="900" PositionX="2140" />
 				<EdgeVertex Name="6S42kdp4" PositionY="2189" PositionX="3299" />
 				<EdgeVertex Name="7RzKHwFq" PositionY="2143" PositionX="3293" />
+				<EdgeVertex Name="80QHGCoF" PositionY="-670" PositionX="4920" />
 				<EdgeVertex Name="8smDlXl5" PositionY="1537" PositionX="4881" />
 				<EdgeVertex Name="8WeEw88s" PositionY="696" PositionX="2338" />
 				<EdgeVertex Name="9xUJ5EzE" PositionY="940" PositionX="4840" />
@@ -993,6 +1049,7 @@
 				<EdgeVertex Name="btusvNFr" PositionY="10" PositionX="443" />
 				<EdgeVertex Name="bXyMytWx" PositionY="-992" PositionX="2987" />
 				<EdgeVertex Name="cGMArTwA" PositionY="-1040" PositionX="2983" />
+				<EdgeVertex Name="d29UGwtI" PositionY="189" PositionX="659" />
 				<EdgeVertex Name="D6eTmIjx" PositionY="890" PositionX="4860" />
 				<EdgeVertex Name="dAY2yjmb" PositionY="-1180" PositionX="4760" />
 				<EdgeVertex Name="DtTgDAQr" PositionY="15" PositionX="283" />
@@ -1041,6 +1098,7 @@
 				<EdgeVertex Name="t26AvmMs" PositionY="2150" PositionX="3790" />
 				<EdgeVertex Name="t3zPT78g" PositionY="910" PositionX="4850" />
 				<EdgeVertex Name="tCv6fYJv" PositionY="1124" PositionX="4642" />
+				<EdgeVertex Name="Tym3wAjb" PositionY="-646" PositionX="3213" />
 				<EdgeVertex Name="UcMBa9gm" PositionY="-960" PositionX="2992" />
 				<EdgeVertex Name="UmcFJdh2" PositionY="1471" PositionX="2997" />
 				<EdgeVertex Name="uoac3Vb0" PositionY="450" PositionX="4076" />
@@ -1163,6 +1221,7 @@
 				<EdgeVertex Name="vertex675" PositionY="3580" PositionX="520" />
 				<EdgeVertex Name="vertex676" PositionY="2724" PositionX="2155" />
 				<EdgeVertex Name="vertex677" PositionY="2726" PositionX="3830" />
+				<EdgeVertex Name="VfedtBFk" PositionY="-646" PositionX="4922" />
 				<EdgeVertex Name="vpr7YpIV" PositionY="1061" PositionX="2054" />
 				<EdgeVertex Name="vQKXKQyR" PositionY="772" PositionX="2132" />
 				<EdgeVertex Name="WUWCmWHV" PositionY="2871" PositionX="4583" />

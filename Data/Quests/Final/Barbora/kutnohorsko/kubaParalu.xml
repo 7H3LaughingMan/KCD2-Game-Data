@@ -76,6 +76,12 @@
 				<Definition File="kubaParalu/rozhovor_o_questu_dead.xml" />
 			</Definitions>
 			<Nodes>
+				<HasteTrigger Name="00_init" PositionY="-620" PositionX="-90">
+					<Edge From="makearray17.Array" To="ConsoleCommands" />
+					<Edge From="makearray48.Array" To="Prerequisites" />
+				</HasteTrigger>
+				<HasteTrigger Name="01_startQuest" PositionY="-720" PositionX="4460" />
+				<HasteTrigger Name="05_skipFirstPart" PositionY="-540" PositionX="1940" />
 				<AddStashDefaultItem Name="addstashdefaultitem43" PositionY="-1450" PositionX="880">
 					<Constant Name="ItemClass" Value="d9cb14d8-724e-4810-b4dd-74f12550ef8e" />
 					<Constant Name="DisableRestock" Value="true" />
@@ -87,11 +93,7 @@
 						<Vertex>tar4vuKc</Vertex>
 						<Vertex>LnepHLuc</Vertex>
 					</Edge>
-					<Edge From="eliminace_kneze.henry_se_rozhodl_nezabit_prokopa" To="ale_ne_tohle">
-						<Vertex>DAakh0qw</Vertex>
-						<Vertex>yveXgNDB</Vertex>
-						<Vertex>tvYTEWsP</Vertex>
-					</Edge>
+					<Edge From="or52.bool" To="ale_ne_tohle" />
 				</and_not>
 				<chovani_kamaradky Name="chovani_kamaradky" PositionY="-1210" PositionX="1530">
 					<Edge From="hibernace_vysetrovani.active" To="active" />
@@ -136,7 +138,13 @@
 						<Vertex>vertex235</Vertex>
 						<Vertex>vertex321</Vertex>
 					</Edge>
+					<Edge From="05_skipFirstPart.OnTrigger" To="leopold_vi_o_hracovi" />
 				</expected_pro_katerinu_a_leopolda>
+				<expectedeffect Name="expectedeffect" PositionY="1560" PositionX="2200" Namespace="utils.crime.trespass">
+					<Asset Name="npcs" Alias="sarka" />
+					<Constant Name="extenduntilplayerleavestrespass" Value="true" />
+					<Edge From="sarkaExpected.Active" To="isactive" />
+				</expectedeffect>
 				<finalni_final_fail_rozhovor_s_katerinou Name="finalni_final_fail_rozhovor_s_katerinou" PositionY="1070" PositionX="2740">
 					<Edge From="QuestProgressExpanded_NonRepeatable.failed" To="quest_failed">
 						<Vertex>Hk1JsJo9</Vertex>
@@ -224,6 +232,14 @@
 						<Vertex>b7z4Qsss</Vertex>
 					</Edge>
 				</If>
+				<IfFunction Name="ifand55" PositionY="1360" PositionX="1500" MethodName="math::boolean::And" DeclaringType="math::boolean">
+					<Edge From="patchtrigger54.OnPatch" To="Exec" />
+					<Edge From="not56.bool" To="B">
+						<Vertex>od2EVJqG</Vertex>
+						<Vertex>9Vdxys1y</Vertex>
+					</Edge>
+					<Edge From="vysetrovani_vrazd.hrac_zjistil_vic_o_senkyrce_sarce" To="A" />
+				</IfFunction>
 				<IfFunction Name="ifnot19" PositionY="100" PositionX="-430" MethodName="math::boolean::Not" DeclaringType="math::boolean">
 					<Edge From="levelLoaded.State" To="Value" />
 					<Edge From="start_levelu" To="Exec">
@@ -257,12 +273,6 @@
 					</Edge>
 				</infiltrace>
 				<kuba_paralu Name="kuba_paralu" PositionY="-230" PositionX="-460" />
-				<HasteTrigger Name="kubaParalu_init" PositionY="-620" PositionX="-90">
-					<Edge From="makearray17.Array" To="ConsoleCommands" />
-					<Edge From="makearray48.Array" To="Prerequisites" />
-				</HasteTrigger>
-				<HasteTrigger Name="kubaParalu_skipFirstPart" PositionY="-540" PositionX="1940" />
-				<HasteTrigger Name="kubaParalu_startQuest" PositionY="-720" PositionX="4460" />
 				<State Name="levelLoaded" PositionY="80" PositionX="-730" TypeT="bool">
 					<Edge From="ifnot19.True" To="SetTrue">
 						<Vertex>9x4Xg8kN</Vertex>
@@ -282,7 +292,7 @@
 						<Vertex>vertex327</Vertex>
 						<Vertex>vertex328</Vertex>
 					</Edge>
-					<Edge From="kubaParalu_skipFirstPart.OnTrigger" To="lipold_je_vylecen">
+					<Edge From="05_skipFirstPart.OnTrigger" To="lipold_je_vylecen">
 						<Vertex>vertex338</Vertex>
 						<Vertex>vertex339</Vertex>
 					</Edge>
@@ -303,7 +313,7 @@
 				</MakeArray>
 				<State Name="murdersInvestigated" PositionY="-490" PositionX="2360" TypeT="bool">
 					<Edge From="vysetrovani_vrazd.hrac_je_na_stope__do_infiltrace" To="SetTrue" />
-					<Edge From="kubaParalu_skipFirstPart.OnTrigger" To="SetTrue" />
+					<Edge From="05_skipFirstPart.OnTrigger" To="SetTrue" />
 					<Edge From="vysetrovani_vrazd.hrac_zabil_nekoho_z_domu__jde_prohledat_dum" To="SetTrue" />
 				</State>
 				<nemocny_otec_setup Name="nemocny_otec_setup" PositionY="-330" PositionX="-460" />
@@ -312,6 +322,9 @@
 				</Function>
 				<Function Name="not26" PositionY="-1320" PositionX="650" MethodName="math::boolean::Not" DeclaringType="math::boolean">
 					<Edge From="QuestProgressExpanded_NonRepeatable.none" To="Value" />
+				</Function>
+				<Function Name="not56" PositionY="1780" PositionX="2200" MethodName="math::boolean::Not" DeclaringType="math::boolean">
+					<Edge From="sarkaExpected.Done" To="Value" />
 				</Function>
 				<nova_vrazda__obsolete Name="nova_vrazda__obsolete" PositionY="-1690" PositionX="2950" />
 				<Function Name="or23" PositionY="-60" PositionX="-710" MethodName="math::boolean::Or" DeclaringType="math::boolean">
@@ -323,6 +336,17 @@
 					<Edge From="vysetrovani_vrazd.hrac_podezdriva_grolle" To="B">
 						<Vertex>doQXuzv2</Vertex>
 						<Vertex>XE3kGdrR</Vertex>
+					</Edge>
+				</Function>
+				<Function Name="or52" PositionY="1080" PositionX="4800" MethodName="math::boolean::Or" DeclaringType="math::boolean">
+					<Edge From="eliminace_kneze.henry_se_rozhodl_nezabit_prokopa" To="A">
+						<Vertex>DAakh0qw</Vertex>
+						<Vertex>yveXgNDB</Vertex>
+						<Vertex>tvYTEWsP</Vertex>
+					</Edge>
+					<Edge From="vysetrovani_vrazd.seq220" To="B">
+						<Vertex>JgkuyagK</Vertex>
+						<Vertex>Uc05x56U</Vertex>
 					</Edge>
 				</Function>
 				<Output Name="Output">
@@ -392,6 +416,9 @@
 						<Vertex>HuG5tlyS</Vertex>
 					</Edge>
 				</past>
+				<PatchTrigger Name="patchtrigger54" PositionY="1360" PositionX="1060">
+					<Constant Name="TransitionFromVersion" Value="ver_01_00" />
+				</PatchTrigger>
 				<permadeath Name="permadeath" PositionY="-740" PositionX="800">
 					<Edge From="QuestProgressExpanded_NonRepeatable.none" To="quest_jeste_nezacal" />
 				</permadeath>
@@ -428,7 +455,7 @@
 				<QuestProgressExpanded_NonRepeatable Name="QuestProgressExpanded_NonRepeatable" PositionY="-700" PositionX="290" RequiredForOutput="kutnohorsko" Namespace="utils.general">
 					<Constant Name="suppressavailablestate" Value="false" />
 					<Asset Name="questgiver" Alias="katerina" />
-					<Edge From="kubaParalu_init.OnTrigger" To="setavailable" />
+					<Edge From="00_init.OnTrigger" To="setavailable" />
 					<Edge From="past.quest_completed" To="setdone">
 						<Vertex>vertex8</Vertex>
 						<Vertex>vertex204</Vertex>
@@ -440,7 +467,7 @@
 						<Vertex>vertex277</Vertex>
 						<Vertex>vertex57</Vertex>
 					</Edge>
-					<Edge From="kubaParalu_init.OnTrigger" To="setquestgivermarker" />
+					<Edge From="00_init.OnTrigger" To="setquestgivermarker" />
 					<Edge From="hledani_lichtenstejna_done" To="setavailable">
 						<Vertex>vertex65</Vertex>
 						<Vertex>vertex263</Vertex>
@@ -457,7 +484,6 @@
 						<Vertex>vertex204</Vertex>
 						<Vertex>vertex9</Vertex>
 					</Edge>
-					<Edge From="trackovani_smrti_lipolda.lipold_zabit" To="setfailed" />
 					<Edge From="vysetrovani_vrazd.konec_vysetrovani__quest_end" To="setdone">
 						<Vertex>vertex204</Vertex>
 						<Vertex>vertex9</Vertex>
@@ -541,6 +567,12 @@
 						<MoneyReward Amount="07 Sword" />
 					</Rewards>
 				</AddReward>
+				<AddReward Name="reward57" PositionY="-1120" PositionX="4920">
+					<Edge From="rozhovor_o_questu_alive.reward" To="AddReward" />
+					<Rewards>
+						<ItemReward Amount="2" ItemClass="3d4a8904-98f1-464a-9b3e-d3926b835804" />
+					</Rewards>
+				</AddReward>
 				<rozhovor_o_questu_alive Name="rozhovor_o_questu_alive" PositionY="-1140" PositionX="4520">
 					<Edge From="timer6.Finished" To="tri_dny_po_postmortem" />
 					<Edge From="past.mandelina_odvedena_lipoldem" To="mandelina_odvedena_lipoldem" />
@@ -559,8 +591,16 @@
 						<Vertex>xreVsfwI</Vertex>
 					</Edge>
 				</State>
+				<State Name="sarkaExpected" PositionY="1470" PositionX="1880" TypeT="Progress">
+					<Edge From="vysetrovani_vrazd.hrac_zjistil_vic_o_sarce" To="SetActive" />
+					<Edge From="SarkaAfterQuest.OnDone" To="SetDone">
+						<Vertex>gt7nrJ3j</Vertex>
+						<Vertex>pRTfFX38</Vertex>
+					</Edge>
+					<Edge From="ifand55.True" To="SetActive" />
+				</State>
 				<SaveGame Name="savegame1" PositionY="740" PositionX="1230">
-					<Constant Name="Objective" Value="jdi_na_misto_cinu" />
+					<Constant Name="Objective" Value="promluv_si_s_hrobnikem_o_tele" />
 					<Edge From="QuestProgressExpanded_NonRepeatable.onactive" To="EnqueueSave">
 						<Vertex>vertex188</Vertex>
 						<Vertex>vertex181</Vertex>
@@ -619,7 +659,7 @@
 					</Rewards>
 				</AddReward>
 				<stream_profilu Name="stream_profilu" PositionY="-730" PositionX="4910">
-					<Edge From="kubaParalu_startQuest.OnTrigger" To="start_stream" />
+					<Edge From="01_startQuest.OnTrigger" To="start_stream" />
 					<Edge From="past.unstream_mandelina" To="unstream_mandeliny">
 						<Vertex>vertex285</Vertex>
 						<Vertex>vertex54</Vertex>
@@ -650,7 +690,7 @@
 						<Vertex>vertex283</Vertex>
 						<Vertex>vertex174</Vertex>
 					</Edge>
-					<Edge From="kubaParalu_init.OnTrigger" To="start_levelu">
+					<Edge From="00_init.OnTrigger" To="start_levelu">
 						<Vertex>vertex210</Vertex>
 						<Vertex>vertex209</Vertex>
 					</Edge>
@@ -799,6 +839,7 @@
 				<EdgeVertex Name="8QYY6SF7" PositionY="-790" PositionX="5060" />
 				<EdgeVertex Name="9bFIeDEn" PositionY="90" PositionX="4780" />
 				<EdgeVertex Name="9HmYEKEH" PositionY="340" PositionX="1760" />
+				<EdgeVertex Name="9Vdxys1y" PositionY="1911" PositionX="1489" />
 				<EdgeVertex Name="9vTnWhaV" PositionY="160" PositionX="3660" />
 				<EdgeVertex Name="9x4Xg8kN" PositionY="520" PositionX="-270" />
 				<EdgeVertex Name="b7z4Qsss" PositionY="259" PositionX="4100" />
@@ -813,10 +854,12 @@
 				<EdgeVertex Name="EpGdGAkr" PositionY="300" PositionX="800" />
 				<EdgeVertex Name="EslqwxvY" PositionY="740" PositionX="4450" />
 				<EdgeVertex Name="g5Eknyjr" PositionY="340" PositionX="4100" />
+				<EdgeVertex Name="gt7nrJ3j" PositionY="1456" PositionX="2089" />
 				<EdgeVertex Name="gy9XDm07" PositionY="660" PositionX="4450" />
 				<EdgeVertex Name="Hk1JsJo9" PositionY="990" PositionX="800" />
 				<EdgeVertex Name="HUFq7Flf" PositionY="-739" PositionX="2712" />
 				<EdgeVertex Name="HuG5tlyS" PositionY="260" PositionX="3660" />
+				<EdgeVertex Name="JgkuyagK" PositionY="1048" PositionX="1922" />
 				<EdgeVertex Name="JxBjlHB1" PositionY="620" PositionX="4770" />
 				<EdgeVertex Name="k6fbQn6H" PositionY="420" PositionX="4100" />
 				<EdgeVertex Name="K8FCAcRe" PositionY="340" PositionX="800" />
@@ -829,9 +872,11 @@
 				<EdgeVertex Name="Mzln19Qy" PositionY="360" PositionX="4100" />
 				<EdgeVertex Name="NCWUf37e" PositionY="720" PositionX="730" />
 				<EdgeVertex Name="NFoWxxXo" PositionY="780" PositionX="2490" />
+				<EdgeVertex Name="od2EVJqG" PositionY="1905" PositionX="2390" />
 				<EdgeVertex Name="pjgMPIMM" PositionY="660" PositionX="1390" />
 				<EdgeVertex Name="PMW1xJy1" PositionY="740" PositionX="2920" />
 				<EdgeVertex Name="PQjDhPJs" PositionY="760" PositionX="730" />
+				<EdgeVertex Name="pRTfFX38" PositionY="1460" PositionX="1801" />
 				<EdgeVertex Name="QV8rkrBJ" PositionY="110" PositionX="4240" />
 				<EdgeVertex Name="s0XkHqjv" PositionY="320" PositionX="2470" />
 				<EdgeVertex Name="SMPeMdbd" PositionY="720" PositionX="4772" />
@@ -844,6 +889,7 @@
 				<EdgeVertex Name="tvnvRoqj" PositionY="-739" PositionX="3393" />
 				<EdgeVertex Name="tvYTEWsP" PositionY="1060" PositionX="4742" />
 				<EdgeVertex Name="txD7LeKE" PositionY="720" PositionX="3750" />
+				<EdgeVertex Name="Uc05x56U" PositionY="1100" PositionX="4715" />
 				<EdgeVertex Name="UnFzclvn" PositionY="360" PositionX="320" />
 				<EdgeVertex Name="vcvEWLNH" PositionY="280" PositionX="1940" />
 				<EdgeVertex Name="vertex10" PositionY="-850" PositionX="3000" />
@@ -1344,7 +1390,7 @@
 							<Log StringName="zjisti_bl_zdena_druha_z_n_3TeV" Text="Zdena, druhá z nezvěstnýho obětí, byla čelem kapsářské bandy. Její kumpán Strnad mě poslal za překupníkem Škopkem, protože zrovna obrala nějakýho prachatýho hejla. Škopek řekl, že si nechala na památku nějaký erbový prsten, jakýho erbu si nepamatuje a zmínila, že se po cestě možná zastaví a svlaží nohy." />
 						</EnumLog>
 						<EnumLog Type="Updated" Name="NalezenyZdeninyVeci" Marker="kolemZdeny">
-							<Log StringName="zjisti_bl_zdena_druha_z_n_W5BV" Text="Zdena, druhá z nezvěstných obětí, se po prodeji kradeného zboží u Škopka zastavila u nědalekého mostku, aby si odpočinula. A pořád někde kolem odpočívat musí, protože několik kousků jejího oblečení tady pořád leží." />
+							<Log StringName="zjisti_bl_zdena_druha_z_n_W5BV" Text="Zdena, druhá z nezvěstných obětí, se po prodeji kradeného zboží u Škopka zastavila u nedalekého brodu, aby si odpočinula. A pořád někde kolem odpočívat musí, protože jejího vysypaný košík stříbra tady pořád leží." />
 						</EnumLog>
 						<EnumLog Type="Completed" Name="ZdenaProhledana">
 							<Log StringName="zjisti_bl_zdena_druha_z_n_gGaZ" Text="Zdena, druhá z nezvěstných obětí, byla konečně nalezena, byť byla opravdu mrtvá a to už nějakou dobu. Dle Strnada, jejího kumpána, a Škopka, jejího překupníka, ji nejspíš zabil právě ten okradený.  Proč tedy ale u ní nechal svůj prsten s rodovým znakem? Doufal jsem, že Lipold dokáže ten znak poznat." />
@@ -1388,6 +1434,9 @@
 							<Log StringName="informuj__tolik_behani_ko_OjqJ" Text="Tolik běhaní kolem a vyptávání se lidí a úplně zbytečně. Bez Lipolda se s tím nešlo pohnout dál." />
 						</EnumLog>
 						<EnumLog Type="None" Name="Aborted" />
+						<Log Name="prokop_nezabit">
+							<Log StringName="informuj__podle_vseho_to__1ZWs" Text="Podle všeho to vypadalo, že vrahem byl Prokop, ale odmítl jsem se s ním vypořádat. Kateřina to neslyšela ráda a bylo na ní vidět, že jsem ji zklamal, ale nedávala to najevo a tvrdila, že ho zabije sama." />
+						</Log>
 					</Logs>
 				</Objective>
 				<Objective TypeT="ProgressFailable" Name="vrat_se_za_lipoldem">
@@ -1410,7 +1459,7 @@
 					<Logs>
 						<EnumLog Type="None" Name="None" />
 						<EnumLog Type="Started" Name="InfiltrujDum" Marker="pomocnik">
-							<Log StringName="infiltruj_dostat_se_do_do_4qie" Text="Dostat se do domu Grollů není úplně snadný, je to uzavřená rodina. Musím mít dobrý důvod, proč by mě měli pustit dovnitř." />
+							<Log StringName="infiltruj_dostat_se_do_do_4qie" Text="Dostat se do domu Grollů není úplně snadný, je to uzavřená rodina. Musím mít dobrý důvod, proč by mě měli pustit dovnitř. Synek se prý snaží naučit šermovat a jeho otec je chronicky nemocen a hledají léčitele." />
 						</EnumLog>
 						<EnumLog Type="Updated" Name="MuzeDalAlePriselPozde">
 							<Log StringName="infiltruj_musim_prijit_ko_34tJ" Text="Musím přijít kolem poledne, abych se snadno dostal dovnitř." />
@@ -1428,10 +1477,10 @@
 							<Log StringName="infiltruj_podarilo_se_mi__TJs2" Text="Podařilo se mi v Hendlově pokoji najít několik několik různých pramenů vlasů. Byl jsem si jist, že je to ten důkaz, který jsme potřebovali." />
 						</EnumLog>
 						<EnumLog Type="Canceled" Name="HracPokazilInfiltraci">
-							<Log StringName="infiltruj_kdyz_se_dari_ta_TWva" Text="Když se daří, tak se daří. Nepovedlo se mi dostat se do domu a najít potřebný důkaz, takže to celý bylo zbytečný." />
+							<Log StringName="infiltruj_kdyz_se_dari_ta_TWva" Text="Když se daří, tak se daří. Měl jsem potíže se po domě pořádně porozhlídnout, ale nakonec se to nějak vyvrbilo a dalo se s tím vyšetřováním pohnout..." />
 						</EnumLog>
 						<EnumLog Type="Canceled" Name="Fail">
-							<Log StringName="infiltruj_nepovedlo_se_mi_Rzb1" Text="Nepovedlo se mi v domě najít žádný důkaz a celý to šlo do kopru." />
+							<Log StringName="infiltruj_nepovedlo_se_mi_Rzb1" Text="Prozkoumávání domu se smrtelně zkomplikovalo... umrtím a celý to šlo do kopru." />
 						</EnumLog>
 					</Logs>
 				</Objective>

@@ -54,6 +54,19 @@
 					<Asset Name="Souls" Alias="player" />
 					<Edge From="ifand5.False" To="Exec" />
 				</IfFunction>
+				<IfFunction Name="ifunconsciouscheck25" PositionY="-420" PositionX="1580" MethodName="wh::rpgmodule::UnconsciousCheck" DeclaringType="wh::rpgmodule">
+					<Asset Name="Souls" Alias="ptacek" />
+					<Edge From="ifthreatscheck23.False" To="Exec" />
+				</IfFunction>
+				<IfFunction Name="ifunconsciouscheck25_1" PositionY="-140" PositionX="1460" MethodName="wh::rpgmodule::UnconsciousCheck" DeclaringType="wh::rpgmodule">
+					<Asset Name="Souls" Alias="ptacek" />
+					<Edge From="ifand5.True" To="Exec">
+						<Vertex>GumT12xn</Vertex>
+					</Edge>
+					<Edge From="ifand8.True" To="Exec">
+						<Vertex>GumT12xn</Vertex>
+					</Edge>
+				</IfFunction>
 				<ObjectProperties Name="isoulproperties3" PositionY="-810" PositionX="450" DeclaringType="wh::rpgmodule::I_Soul">
 					<Asset Name="I_Soul" Alias="player" />
 				</ObjectProperties>
@@ -63,21 +76,16 @@
 				<Output Name="Output">
 					<Edge From="requestmonologue12.OnExec" To="hrac_dal_signal" />
 				</Output>
-				<Function Name="requestmonologue10" PositionY="-490" PositionX="1610" MethodName="wh::xgenaimodule::RequestMonologue" DeclaringType="wh::xgenaimodule">
+				<Function Name="requestmonologue10" PositionY="-490" PositionX="1860" MethodName="wh::xgenaimodule::RequestMonologue" DeclaringType="wh::xgenaimodule">
 					<Asset Name="Souls" Alias="player" />
 					<Constant Name="DecisionAlias" Value="zachranaPtacka_vytahnoutPochodenKSignaluJeOk" />
-					<Edge From="ifthreatscheck23.False" To="Exec" />
+					<Edge From="ifunconsciouscheck25.False" To="Exec" />
 				</Function>
 				<Function Name="requestmonologue12" PositionY="-140" PositionX="1730" MethodName="wh::xgenaimodule::RequestMonologue" DeclaringType="wh::xgenaimodule">
 					<Asset Name="Souls" Alias="player" />
 					<Constant Name="DecisionAlias" Value="zachranaPtacka_dalJsemSignal" />
 					<Constant Name="CanBeDelayed" Value="true" />
-					<Edge From="ifand5.True" To="Exec">
-						<Vertex>GumT12xn</Vertex>
-					</Edge>
-					<Edge From="ifand8.True" To="Exec">
-						<Vertex>GumT12xn</Vertex>
-					</Edge>
+					<Edge From="ifunconsciouscheck25_1.False" To="Exec" />
 				</Function>
 				<Function Name="threatscheck24" PositionY="460" PositionX="1460" MethodName="wh::rpgmodule::ThreatsCheck" DeclaringType="wh::rpgmodule">
 					<Asset Name="Souls" Alias="player" />
@@ -86,6 +94,7 @@
 				<WeaponDrawTrigger Name="weapondrawtrigger14" PositionY="40" PositionX="-20">
 					<Asset Name="Soul" Alias="player" />
 					<Constant Name="IncludeNonCombatWeapons" Value="true" />
+					<Constant Name="TriggerForMainHand" Value="false" />
 					<Edge From="isactive" To="IsActive" />
 				</WeaponDrawTrigger>
 			</Nodes>

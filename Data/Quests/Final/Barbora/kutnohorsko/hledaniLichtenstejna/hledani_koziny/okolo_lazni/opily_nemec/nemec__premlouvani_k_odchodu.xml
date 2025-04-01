@@ -64,7 +64,7 @@
 									<Text StringName="neme_henry_heinrich_rHqL" Text="Já jsem Heinrich. Von Skalitz." />
 									<Commands>
 										<AnimationCommand Delay="0.43" FragmentId="ADLG_Me" Guid="5d30d8f1-3b80-4bec-a98d-dc8ca39379d8" Variant="2" />
-										<AnimationCommand Delay="2.35" FragmentId="ADLG_Nod" Guid="c05d1d1b-ecca-45b7-8434-c2d21c80187b" Variant="1" />
+										<AnimationCommand Delay="2.48" FragmentId="ADLG_Nod" Guid="c05d1d1b-ecca-45b7-8434-c2d21c80187b" Variant="1" />
 										<CameraCommand />
 									</Commands>
 								</Response>
@@ -414,7 +414,7 @@
 											</Sequences>
 										</Decision>
 									</Sequence>
-									<Sequence SpeechCoef="0" EntryCondition="Port('snoopingAroundBaths') AND&#xD;&#xA;(&#xD;&#xA;    !SequenceUsed('goHome_dread') OR&#xD;&#xA;    !SequenceUsed('goHome_persuade') OR&#xD;&#xA;    !SequenceUsed('goHome_impress')&#xD;&#xA;)" EndType="Decision" Name="seq18">
+									<Sequence EntryCondition="Port('snoopingAroundBaths') AND&#xD;&#xA;(&#xD;&#xA;    !SequenceUsed('goHome_dread') OR&#xD;&#xA;    !SequenceUsed('goHome_persuade') OR&#xD;&#xA;    !SequenceUsed('goHome_impress')&#xD;&#xA;)" EndType="Decision" SpeechCoef="0" Name="seq18">
 										<DesignName StringName="nemec__pr_seq18_6L7l" Text="seq18" />
 										<UiPrompt StringName="ui_nemec__pr_seq18_Kkh6" Text="Měl bys vyrazit domů." />
 										<Elements>
@@ -498,18 +498,17 @@
 																	</Sequences>
 																</Decision>
 															</Sequence>
-															<Sequence SpeechCoef="0" EndType="Decision" SkillcheckCondition="Fail" Name="seq5">
+															<Sequence EndType="Decision" SpeechCoef="0" SkillcheckCondition="Fail" Name="seq5">
 																<DesignName StringName="nemec__pr_seq5_cJD4" Text="seq5" />
 																<Elements>
 																	<Response Role="UDO_AUS_TAUBERBISHOFSHEIM" ReferenceLength="8.57">
 																		<Text StringName="neme_udo_aus_t_ale_ne_tad_HGrK" Text="Geschlossen? Ale ne, mein freund, tady se nezavírá. Nechceš si dát kostky? Wurfel?" />
 																		<Commands>
-																			<AnimationCommand Delay="1.28" FragmentId="ADLG_Disagree" Guid="4ffec8d6-9671-4244-a6c6-aed77fe473ad" Variant="1" DesiredDuration="2.19" />
-																			<AnimationCommand Delay="3.79" FragmentId="ADLG_Disagree_light" Guid="79d31739-0b64-45f8-804e-b13957903d82" Variant="3" DesiredDuration="1.11" />
-																			<AnimationCommand Delay="5.26" FragmentId="ADLG_You" Guid="f44fe4ae-ec67-6b08-eb50-1ef109daf53e" Variant="5" DesiredDuration="1.29" />
-																			<AnimationCommand Delay="7.12" FragmentId="ADLG_Confusion" Guid="4fcec99e-67a8-4f82-9734-675a1804203e" Variant="3" />
-																			<AnimationHeadCommand Delay="0.04" FragmentId="ADLG_FA_Surprise" Guid="23e7bdd6-7119-4e5a-886e-8e9b143871fd" Variant="1" />
-																			<CameraCommand />
+																			<FacialMoodCommand FacialMood="nervous2" />
+																			<AnimationCommand FragmentId="ADLG_Surprised" Guid="878ea94e-5332-fcad-8166-c6fe4a378a6d" Variant="0" DesiredDuration="3.4" />
+																			<AnimationCommand Delay="3.68" FragmentId="ADLG_Disagree_light" Guid="055580b2-814c-1b52-3b53-6a872844cf0b" Variant="0" />
+																			<AnimationCommand Delay="7.24" FragmentId="ADLG_Gesture" Guid="1e0ac885-51ab-4f78-850d-3f007fc971ba" Variant="4" />
+																			<CameraCommand CameraType="CloseShot" />
 																		</Commands>
 																	</Response>
 																</Elements>
@@ -651,7 +650,11 @@
 																	<Response Role="HENRY">
 																		<Text StringName="neme_henry_tvoje_druha_ze_4gXA" Text="Ale ne tahle žena. Tvoje druhá žena!" />
 																		<Commands>
-																			<CameraCommand />
+																			<FacialMoodCommand FacialMood="thinking2" />
+																			<FacialMoodCommand Role="UDO_AUS_TAUBERBISHOFSHEIM" FacialMood="happy2" />
+																			<AnimationCommand FragmentId="ADLG_Disagree_light" Guid="231a82ae-beac-4474-8538-e58365c056b8" Variant="0" />
+																			<AnimationCommand Role="UDO_AUS_TAUBERBISHOFSHEIM" Delay="2.15" FragmentId="ADLG_Laugh" Guid="92a96cb1-6ba2-3ef2-2e4e-57be8ef84ced" Variant="3" />
+																			<CameraCommand CameraType="CloseUp" />
 																		</Commands>
 																	</Response>
 																	<Response Role="UDO_AUS_TAUBERBISHOFSHEIM">
@@ -706,7 +709,11 @@
 																	<Response Role="UDO_AUS_TAUBERBISHOFSHEIM">
 																		<Text StringName="neme_udo_aus_t_ah_nein___k6HF" Text="Problém? Jaký?" />
 																		<Commands>
-																			<CameraCommand />
+																			<FacialMoodCommand FacialMood="nervous2" />
+																			<FacialMoodCommand Role="HENRY" FacialMood="thinking2" />
+																			<AnimationCommand FragmentId="ADLG_Surprised" Guid="551fbb64-93e2-431f-a195-6fef88f6495d" Variant="0" />
+																			<AnimationCommand Role="HENRY" Delay="3.7" FragmentId="ADLG_Think" Guid="cc93cb13-ae27-42a5-a8ab-52594a9fa30c" Variant="7" />
+																			<CameraCommand CameraType="CloseShot" />
 																		</Commands>
 																	</Response>
 																	<Response Role="HENRY">
@@ -741,13 +748,11 @@
 																	<Response Role="UDO_AUS_TAUBERBISHOFSHEIM" ReferenceLength="11.83">
 																		<Text StringName="neme_udo_aus_t_no_a_co_ra_oDfj" Text="Tě posílá Gerhart, co? Zas nějaký šprýmy. Dyť ty vůbec nevypadáš jako Händler... jako obchodník!" />
 																		<Commands>
-																			<MoodCommand Delay="11.64" />
-																			<MoodCommand Mood="happy" />
-																			<AnimationCommand FragmentId="ADLG_Confusion" Guid="73537328-f4a6-4c55-8ca4-51c05f614811" Variant="1" />
-																			<AnimationCommand Delay="3.73" FragmentId="ADLG_Disagree_light" Guid="78d154f4-dacc-df4d-974c-19a62efad66d" Variant="0" DesiredDuration="1.51" />
-																			<AnimationCommand Delay="8.53" FragmentId="ADLG_Confusion" Guid="83f1fd62-b39c-48d8-923f-405f12ae185e" Variant="2" DesiredDuration="3.09" />
-																			<AnimationCommand Delay="2.1" FragmentId="ADLG_Surprised_light" Guid="1572e740-e771-d9f6-3158-f3e3fad75030" Variant="0" DesiredDuration="1.81" />
-																			<CameraCommand />
+																			<FacialMoodCommand FacialMood="happy1" />
+																			<FacialMoodCommand Role="HENRY" FacialMood="arrogant2" />
+																			<AnimationCommand FragmentId="ADLG_Confusion" Guid="219c40d2-e0cf-49f2-8250-31e65ad50e64" Variant="2" />
+																			<AnimationCommand Delay="6.1" FragmentId="ADLG_Disagree" Guid="21032af1-be0f-6b8a-c6ed-814ff5326b55" Variant="0" />
+																			<CameraCommand CameraType="CloseShot" />
 																			<LookAtCommand Delay="5.3" LookAtRole="HENRY" Offset="BottomCenter" />
 																			<LookAtCommand Delay="6.67" LookAtRole="HENRY" TransitionDuration="0.5" />
 																		</Commands>

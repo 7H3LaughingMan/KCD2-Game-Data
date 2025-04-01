@@ -3,6 +3,9 @@
 	<Skald>
 		<Dialog Name="greeting_obchodnika_">
 			<Ports>
+				<Port Name="obchodnik_uz_zdravil" Direction="In" Type="bool">
+					<DesignName StringName="greeting__obchodnik_uz_zd_lQOE" Text="obchodník už zdravil" />
+				</Port>
 				<Port Name="je_rano" Direction="In" Type="bool">
 					<DesignName StringName="greeting__je_rano_R3Jr" Text="je ráno" />
 				</Port>
@@ -63,6 +66,9 @@
 				<Port Name="obchodnik_je_v_obchode" Direction="In" Type="bool">
 					<DesignName StringName="greeting__obchodnik_je_v__SSyK" Text="obchodník je v obchodě" />
 				</Port>
+				<Port Name="nastav_cooldown" Direction="Out" Type="trigger">
+					<DesignName StringName="greeting__nastav_cooldown_2tSj" Text="nastav cooldown" />
+				</Port>
 			</Ports>
 			<Text StringName="greeting_obchodnika_8CzX" Text="Greeting obchodníka - MUŽ" />
 			<Elements>
@@ -77,8 +83,11 @@
 				</SelectedSouls>
 				<Decision Name="dec1" Priority="General">
 					<Sequences>
-						<Sequence EntryCondition="Port('obchodnik_je_v_obchode')" EndType="Decision" Cooldown="15s" Name="seq1">
+						<Sequence EntryCondition="Port('obchodnik_je_v_obchode')&#xD;&#xA;AND &#xD;&#xA;!Port('obchodnik_uz_zdravil')" EndType="Decision" Cooldown="15s" Name="seq1">
 							<DesignName StringName="greeting__seq1_p1a8" Text="seq1" />
+							<Triggers>
+								<Port Name="nastav_cooldown" />
+							</Triggers>
 							<Elements>
 								<Response Role="HRAC" />
 							</Elements>

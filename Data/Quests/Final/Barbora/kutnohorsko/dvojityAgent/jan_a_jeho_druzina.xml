@@ -30,6 +30,9 @@
 				<Port Name="odstreamovat_janovu_druzinu_okamzite" Direction="In" Type="trigger">
 					<DesignName StringName="jan_a_jeh_odstreamovat_ja_rz3L" Text="Odstreamovat Janovu družinu okamžitě" />
 				</Port>
+				<Port Name="odstreamovat_mrtve_henchmany_u_prepadeni" Direction="In" Type="trigger">
+					<DesignName StringName="jan_a_jeh_odstreamovat_mr_Cwoj" Text="Odstreamovat mrtvé henchmany u přepadení" />
+				</Port>
 				<Port Name="jan_je_zrovna_obeseny" Direction="In" Type="bool">
 					<DesignName StringName="jan_a_jeh_jan_je_zrovna_o_ZqPN" Text="Jan je zrovna oběšený" />
 				</Port>
@@ -66,6 +69,14 @@
 					<Constant Name="extenduntilplayerleavestrespass" Value="true" />
 					<Edge From="and3.bool" To="isactive" />
 				</expectedeffect>
+				<IfFunction Name="ifDeathCheck_henchman_1" PositionY="100" PositionX="-410" MethodName="wh::rpgmodule::DeathCheck" DeclaringType="wh::rpgmodule">
+					<Asset Name="Souls" Alias="jansHenchman_1" />
+					<Edge From="odstreamovat_mrtve_henchmany_u_prepadeni" To="Exec" />
+				</IfFunction>
+				<IfFunction Name="ifDeathCheck_henchman_2" PositionY="280" PositionX="-410" MethodName="wh::rpgmodule::DeathCheck" DeclaringType="wh::rpgmodule">
+					<Asset Name="Souls" Alias="jansHenchman_2" />
+					<Edge From="odstreamovat_mrtve_henchmany_u_prepadeni" To="Exec" />
+				</IfFunction>
 				<IfFunction Name="ifnot6" PositionY="-780" PositionX="-420" MethodName="math::boolean::Not" DeclaringType="math::boolean">
 					<Edge From="jan_je_zrovna_obeseny" To="Value" />
 					<Edge From="jan_a_jeho_druzina_mizi" To="Exec" />
@@ -94,6 +105,7 @@
 					<Edge From="jan_a_jeho_druzina_mizi" To="unstreamprofiles" />
 					<Edge From="jan_s_druzinou_se_objevuji_u_prepadeni" To="streamprofiles" />
 					<Edge From="odstreamovat_janovu_druzinu_okamzite" To="unstreamprofiles" />
+					<Edge From="ifDeathCheck_henchman_1.True" To="unstreamprofiles" />
 				</leavelevelhandling_v2>
 				<leavelevelhandling_v2 Name="leavelevelhandling_jansHenchman2" PositionY="-10" PositionX="-100" Namespace="utils.streaming">
 					<Asset Name="profiles" Alias="jansHenchman2_profile" />
@@ -104,6 +116,7 @@
 					<Edge From="jan_a_jeho_druzina_mizi" To="unstreamprofiles" />
 					<Edge From="jan_s_druzinou_se_objevuji_u_prepadeni" To="streamprofiles" />
 					<Edge From="odstreamovat_janovu_druzinu_okamzite" To="unstreamprofiles" />
+					<Edge From="ifDeathCheck_henchman_2.True" To="unstreamprofiles" />
 				</leavelevelhandling_v2>
 				<ocisteni_jana Name="ocisteni_jana" PositionY="-1090" PositionX="300">
 					<Edge From="jindra_domluvil_s_laszlem_predani" To="jancleanbloodanddirt">

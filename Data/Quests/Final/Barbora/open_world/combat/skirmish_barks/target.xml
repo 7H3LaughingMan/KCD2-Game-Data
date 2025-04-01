@@ -238,20 +238,20 @@
 				</MakeArray>
 				<nekdo_si_me_zatargetil__kuman Name="nekdo_si_me_zatargetil__civilista_1_1_1" PositionY="2170" PositionX="-730">
 					<Edge From="getstate24.Value" To="hp_kumana" />
-					<Edge From="skirmishstatisticsproperties23.Enemies" To="pocet_nepratel">
+					<Edge From="checkentitycontext01_4_1_1.HasContext" To="arrangedfight" />
+					<Edge From="checkentitycontext26_4_1.HasContext" To="disabledbarks" />
+					<Edge From="skirmishstatisticsproperties23.HumanEnemies" To="pocet_nepratel">
 						<Vertex>vertex60</Vertex>
 						<Vertex>vertex61</Vertex>
 					</Edge>
-					<Edge From="checkentitycontext01_4_1_1.HasContext" To="arrangedfight" />
-					<Edge From="checkentitycontext26_4_1.HasContext" To="disabledbarks" />
 				</nekdo_si_me_zatargetil__kuman>
 				<nekdo_si_me_zatargetil__soldier Name="nekdo_si_me_zatargetil__soldier_1" PositionY="-900" PositionX="-1180">
-					<Edge From="skirmishstatisticsproperties6_1.Enemies" To="pocetnepratel" />
 					<Edge From="getstate7.Value" To="soldierhp" />
 					<Edge From="checkentitycontext01.HasContext" To="arrangedfight" />
 					<Edge From="checkentitycontext26.HasContext" To="disabledbarks" />
 					<Edge From="checkgamecontext35.IsContextSet" To="realbattle" />
-					<Edge From="skirmishstatisticsproperties6_1.Friends" To="pocetpratel" />
+					<Edge From="skirmishstatisticsproperties6_1.HumanEnemies" To="pocetnepratel" />
+					<Edge From="skirmishstatisticsproperties6_1.HumanFriends" To="pocetpratel" />
 				</nekdo_si_me_zatargetil__soldier>
 				<spolubojovnik_zatargetil_muj_target__soldier Name="nekdo_si_me_zatargetil_1_1" PositionY="-1080" PositionX="4010">
 					<Edge From="compare5.bool" To="targeti_muj_target">
@@ -264,10 +264,6 @@
 						<Vertex>vertex49</Vertex>
 						<Vertex>vertex50</Vertex>
 					</Edge>
-					<Edge From="skirmishstatisticsproperties19.Enemies" To="pocet_nepratel">
-						<Vertex>vertex52</Vertex>
-						<Vertex>vertex53</Vertex>
-					</Edge>
 					<Edge From="skirmishstatisticsproperties19.HistoryEnemies" To="historicky_pocet_nepratel">
 						<Vertex>vertex54</Vertex>
 						<Vertex>vertex55</Vertex>
@@ -275,6 +271,10 @@
 					<Edge From="checkentitycontext01_2.HasContext" To="arrangedfight" />
 					<Edge From="checkentitycontext27_1.HasContext" To="disabledbarks" />
 					<Edge From="checkgamecontext37.IsContextSet" To="realbattle" />
+					<Edge From="skirmishstatisticsproperties19.HumanEnemies" To="pocet_nepratel">
+						<Vertex>vertex52</Vertex>
+						<Vertex>vertex53</Vertex>
+					</Edge>
 				</spolubojovnik_zatargetil_muj_target__soldier>
 				<nekoho_targetim__kuman Name="nekoho_targetim__mistr_1_1" PositionY="470" PositionX="-1000">
 					<Edge From="skirmishstatisticsproperties6_2.Predominance" To="predominancekumana">
@@ -282,22 +282,14 @@
 						<Vertex>vertex34</Vertex>
 					</Edge>
 					<Edge From="compare12.bool" To="mujcilbojujesnekymjinym" />
-					<Edge From="skirmishstatisticsproperties6_2.Enemies" To="pocetnepratel">
+					<Edge From="checkentitycontext01_4.HasContext" To="arrangedfight" />
+					<Edge From="checkentitycontext26_3.HasContext" To="disabledbarks" />
+					<Edge From="skirmishstatisticsproperties6_2.HumanEnemies" To="pocetnepratel">
 						<Vertex>vertex62</Vertex>
 						<Vertex>vertex63</Vertex>
 					</Edge>
-					<Edge From="checkentitycontext01_4.HasContext" To="arrangedfight" />
-					<Edge From="checkentitycontext26_3.HasContext" To="disabledbarks" />
 				</nekoho_targetim__kuman>
 				<nekoho_targetim__soldier Name="nekoho_targetim__soldier" PositionY="-1170" PositionX="920">
-					<Edge From="skirmishstatisticsproperties6.Friends" To="spolubojovnici">
-						<Vertex>vertex8</Vertex>
-						<Vertex>vertex9</Vertex>
-					</Edge>
-					<Edge From="skirmishstatisticsproperties6.Enemies" To="protivnici">
-						<Vertex>vertex10</Vertex>
-						<Vertex>vertex11</Vertex>
-					</Edge>
 					<Edge From="skirmishstatisticsproperties6.Predominance" To="predominancesoldiera">
 						<Vertex>vertex18</Vertex>
 						<Vertex>vertex19</Vertex>
@@ -306,6 +298,14 @@
 					<Edge From="checkentitycontext01_1.HasContext" To="arrangedfight" />
 					<Edge From="checkentitycontext27.HasContext" To="disabledbarks" />
 					<Edge From="checkgamecontext36.IsContextSet" To="realbattle" />
+					<Edge From="skirmishstatisticsproperties6.HumanFriends" To="spolubojovnici">
+						<Vertex>vertex8</Vertex>
+						<Vertex>vertex9</Vertex>
+					</Edge>
+					<Edge From="skirmishstatisticsproperties6.HumanEnemies" To="protivnici">
+						<Vertex>vertex10</Vertex>
+						<Vertex>vertex11</Vertex>
+					</Edge>
 				</nekoho_targetim__soldier>
 				<ObjectProperties Name="skirmishstatisticsproperties19" PositionY="-940" PositionX="5270" DeclaringType="wh::rpgmodule::SkirmishStatistics">
 					<Edge From="icombatsoulproperties2.SkirmishStatistics" To="SkirmishStatistics" />
@@ -313,7 +313,7 @@
 				<ObjectProperties Name="skirmishstatisticsproperties23" PositionY="2210" PositionX="400" DeclaringType="wh::rpgmodule::SkirmishStatistics">
 					<Edge From="icombatsoulproperties22.SkirmishStatistics" To="SkirmishStatistics" />
 				</ObjectProperties>
-				<ObjectProperties Name="skirmishstatisticsproperties6" PositionY="-1050" PositionX="2050" DeclaringType="wh::rpgmodule::SkirmishStatistics">
+				<ObjectProperties Name="skirmishstatisticsproperties6" PositionY="-1040" PositionX="2050" DeclaringType="wh::rpgmodule::SkirmishStatistics">
 					<Edge From="icombatsoulproperties2_1.SkirmishStatistics" To="SkirmishStatistics" />
 				</ObjectProperties>
 				<ObjectProperties Name="skirmishstatisticsproperties6_1" PositionY="-810" PositionX="-1580" DeclaringType="wh::rpgmodule::SkirmishStatistics">

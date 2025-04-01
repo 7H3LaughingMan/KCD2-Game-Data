@@ -17,7 +17,7 @@
 				</Port>
 			</Ports>
 			<Text StringName="nafasovani_jidla_u_hanse_19AE" Text="Nafasování jídla u Hanse" />
-			<Dialogue TechnicalStatus="Enabled" Initiator="Player" GesturesSetDate="2024-05-15T16:50:45.5614908+02:00" GesturesSetResponseCount="14">
+			<Dialogue TechnicalStatus="Enabled" Initiator="Player" GesturesSetDate="2024-10-15T15:12:26.5233571+02:00" GesturesSetResponseCount="14">
 				<SelectedSouls>
 					<SelectedSoul Role="HENRY" Voice="tomMcKay" Soul="player_henry" Type="Wave" Language="ENG" />
 					<SelectedSoul Role="HANS_UHER" Voice="lukasLatinak" Soul="kmis_hansZUher" Type="Wave" Language="ENG" />
@@ -34,6 +34,8 @@
 								<Response Role="HENRY" ReferenceLength="1.14">
 									<Text StringName="nafa_henry_prisel_jsem_se_HIgh" Text="Přišel jsem si pro jídlo." />
 									<Commands>
+										<FacialMoodCommand FacialMood="thinking1" />
+										<FacialMoodCommand Role="HANS_UHER" FacialMood="happy1" />
 										<CameraCommand CameraType="CloseUp" />
 									</Commands>
 									<ReviewNotesConcept>
@@ -63,15 +65,17 @@
 								<Response Role="HENRY" ReferenceLength="1.24">
 									<Text StringName="nafa_henry_dej_mi_jeste_n_64WL" Text="Dej mi ještě něco k jídlu, Hansi." />
 									<Commands>
+										<FacialMoodCommand FacialMood="thinking1" />
+										<FacialMoodCommand Role="HANS_UHER" FacialMood="thinking2" />
 										<AnimationCommand Role="HANS_UHER" Delay="0.91" FragmentId="ADLG_Deny" Guid="ccf976b0-9aba-4f13-a974-2db293124822" Variant="2" />
 										<AnimationCommand Delay="0.15" FragmentId="ADLG_Gesture" Guid="34ac6648-6fd5-4005-84ec-632a56223892" Variant="5" />
-										<CameraCommand />
+										<CameraCommand CameraType="CloseUp" />
 									</Commands>
 								</Response>
-								<Response Role="HANS_UHER">
+								<Response Role="HANS_UHER" ReferenceLength="3.05">
 									<Text StringName="nafa_hans_uher_uz_jsi_dos_JrwC" Text="Už jsi dostal, další bude zase zítra!" />
 									<Commands>
-										<CameraCommand />
+										<CameraCommand CameraType="CloseUp" />
 									</Commands>
 								</Response>
 							</Elements>
@@ -83,9 +87,10 @@
 								<Response Role="HENRY" StartDelay="0.25" ReferenceLength="1.63">
 									<Text StringName="nafa_henry_jak_jsme_na_to_eLTe" Text="Jak jsme na tom se zásobama?" />
 									<Commands>
+										<FacialMoodCommand Role="HANS_UHER" FacialMood="thinking2" />
 										<AnimationCommand Delay="-0.21" FragmentId="ADLG_Confusion" Guid="5da7fd8b-7cec-40c8-a723-f3cc47022f36" Variant="4" />
 										<AnimationCommand Role="HANS_UHER" Delay="1.39" FragmentId="ADLG_Confusion" Guid="19e1b926-8753-4893-af45-10d39fa3a985" Variant="0" />
-										<CameraCommand />
+										<CameraCommand CameraType="CloseUp" />
 									</Commands>
 								</Response>
 								<Response Role="HANS_UHER" ReferenceLength="5.23">
@@ -94,7 +99,7 @@
 									</Text>
 									<Commands>
 										<AnimationCommand Delay="2.92" FragmentId="ADLG_Gesture" Guid="772acf5a-6278-4ba5-b562-50981cf99cda" Variant="12" />
-										<CameraCommand />
+										<CameraCommand CameraType="CloseShot" />
 									</Commands>
 									<ReviewNotesStylistic>
 										<Item Date="2022-03-03 16:42:28" UserName="jan.zeman" Text="Kuchyňský pacholci..." AcceptState="Accepted" />
@@ -112,9 +117,10 @@
 												</Parenthetical>
 												<Text StringName="nafa_hans_uher_s_tou_zaso_pDdJ" Text="S tou zásobičkou od tebe to není vůbec špatný." />
 												<Commands>
+													<FacialMoodCommand FacialMood="happy1" />
 													<AnimationCommand Delay="0.86" FragmentId="ADLG_You" Guid="f44fe4ae-ec67-6b08-eb50-1ef109daf53e" Variant="5" />
 													<AnimationCommand Delay="2.67" FragmentId="ADLG_Disagree" Guid="4ffec8d6-9671-4244-a6c6-aed77fe473ad" Variant="1" />
-													<CameraCommand />
+													<CameraCommand CameraType="Medium" />
 												</Commands>
 											</Response>
 										</Elements>
@@ -127,15 +133,16 @@
 														<Response Role="HENRY" ReferenceLength="1.02">
 															<Text StringName="nafa_henry_kolik_toho_mame_jfk8" Text="Kolik toho máme?" />
 															<Commands>
+																<FacialMoodCommand Role="HANS_UHER" FacialMood="thinking1" />
 																<AnimationCommand Role="HANS_UHER" Delay="0.97" FragmentId="ADLG_posture_change" Guid="17c5b8b0-7d55-4dbf-ba89-7424983f2201" Variant="1" />
-																<CameraCommand />
+																<CameraCommand CameraType="CloseUp" />
 															</Commands>
 														</Response>
 														<Response Role="HANS_UHER" ReferenceLength="5.23">
 															<Text StringName="nafa_hans_uher_na_nekolik_q3QK" Text="Na několik týdnů určitě, ale ještě musíme všechno pořádně rozpočítat." />
 															<Commands>
 																<AnimationCommand Delay="4.22" FragmentId="ADLG_Gesture" Guid="649b3c66-46dc-4666-8a6c-7d8df90c80ea" Variant="10" />
-																<CameraCommand />
+																<CameraCommand CameraType="CloseShot" />
 															</Commands>
 														</Response>
 													</Elements>
@@ -147,11 +154,13 @@
 														<Response Role="HENRY" ReferenceLength="3.05">
 															<Text StringName="nafa_henry_moc_se_mi_neli_riq4" Text="Moc se mi nelíbí, že jste se mi hrabali ve věcech a vzali mi jídlo." />
 															<Commands>
-																<AnimationCommand Delay="0" FragmentId="ADLG_Disagree_light" Guid="e640819e-2655-4e4c-94c2-1e04c5dd7090" Variant="4" DesiredDuration="1.33" />
-																<CameraCommand />
+																<FacialMoodCommand FacialMood="thinking3" />
+																<FacialMoodCommand Role="HANS_UHER" FacialMood="angry1" />
+																<AnimationCommand FragmentId="ADLG_Disagree_light" Guid="e640819e-2655-4e4c-94c2-1e04c5dd7090" Variant="4" DesiredDuration="1.33" />
+																<CameraCommand CameraType="CloseUp" />
 															</Commands>
 														</Response>
-														<Response Role="HANS_UHER" ReferenceLength="7.21">
+														<Response Role="HANS_UHER" ReferenceLength="7.11">
 															<Parenthetical>
 																<Text StringName="nafa_hans_uher_s_nelibosti_xvdw" Text="s nelibostí" />
 															</Parenthetical>
@@ -159,7 +168,7 @@
 															<Commands>
 																<AnimationCommand Delay="0.15" FragmentId="ADLG_Gesture" Guid="c146b5f3-dae0-4959-9e7f-34c7415efe01" Variant="19" />
 																<AnimationCommand Delay="4.43" FragmentId="ADLG_Confusion" Guid="19e1b926-8753-4893-af45-10d39fa3a985" Variant="0" />
-																<CameraCommand />
+																<CameraCommand CameraType="CloseShot" />
 																<LookAtCommand Delay="3.92" LookAtRole="HENRY" Offset="BottomCenter" TransitionDuration="2.4" />
 																<LookAtCommand Delay="6.78" LookAtRole="HENRY" TransitionDuration="1.4" />
 															</Commands>
@@ -185,8 +194,9 @@
 											<Response Role="HANS_UHER" ReferenceLength="3.88">
 												<Text StringName="nafa_hans_uher_vzali_jsme_9Nps" Text="Vzali jsme si všechno i z tvejch věcí." />
 												<Commands>
+													<FacialMoodCommand FacialMood="thinking2" />
 													<AnimationCommand Delay="0.15" FragmentId="ADLG_Gesture" Guid="8c8fca6c-9607-4c98-8f74-95922b507a56" Variant="16" />
-													<CameraCommand />
+													<CameraCommand CameraType="CloseShot" />
 												</Commands>
 											</Response>
 										</Elements>
@@ -194,12 +204,13 @@
 									<Sequence EntryCondition="Port('hrac_nemel_zadne_jidlo')" EndType="GoTo" GoToDecision="dec4" Name="seq16">
 										<DesignName StringName="nafasovan_seq16_SboZ" Text="seq16" />
 										<Elements>
-											<Response Role="HANS_UHER" ReferenceLength="4.97">
+											<Response Role="HANS_UHER" ReferenceLength="5.18">
 												<Text StringName="nafa_hans_uher_u_tebe_jsm_jKQy" Text="U tebe jsme teda žádný jídlo nenašli, ale i tak tě budem krmit, neboj." />
 												<Commands>
+													<FacialMoodCommand FacialMood="thinking3" />
 													<AnimationCommand Delay="0.19" FragmentId="ADLG_Disagree_light" Guid="79d31739-0b64-45f8-804e-b13957903d82" Variant="3" DesiredDuration="1.11" />
 													<AnimationCommand Delay="4.08" FragmentId="ADLG_Disagree_light" Guid="4d0b5172-105b-411f-bf16-b6f08b544a51" Variant="2" />
-													<CameraCommand />
+													<CameraCommand CameraType="CloseShot" />
 												</Commands>
 											</Response>
 											<Response Role="HANS_UHER" ReferenceLength="3.03">

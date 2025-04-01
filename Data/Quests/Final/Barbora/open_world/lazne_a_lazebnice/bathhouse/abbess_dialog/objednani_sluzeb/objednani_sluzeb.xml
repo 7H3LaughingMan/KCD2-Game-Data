@@ -191,7 +191,7 @@
 											</Response>
 										</Elements>
 									</Sequence>
-									<Sequence EndType="Decision" Cooldown="30s" Name="seq4">
+									<Sequence EndType="Decision" Name="seq4">
 										<DesignName StringName="objednani_seq4_7Sh5" Text="seq4" />
 										<Elements>
 											<Response Role="HENRY" ReferenceLength="1.08">
@@ -770,7 +770,7 @@
 																																									</Response>
 																																								</Elements>
 																																							</Sequence>
-																																							<Sequence SpeechCoef="0" EndType="Decision" Name="seq120">
+																																							<Sequence EndType="Decision" SpeechCoef="0" Name="seq120">
 																																								<DesignName StringName="objednani_seq120_0rrF" Text="seq120" />
 																																								<Elements>
 																																									<Response Role="LAZEBNICE_OBJEDNANI" ReferenceLength="1.69">
@@ -835,9 +835,9 @@
 																																			</Sequences>
 																																		</Decision>
 																																	</Sequence>
-																																	<Sequence ExitScript="SetupBribe(Ports['Payment_seq48'])" EntryCondition="Port('ma_hrac_nejake_penize')" EndType="Decision" GrayOutIfSequencesUsed="Never" Type="Bribe" Name="seq50">
+																																	<Sequence ExitScript="SetupHaggle(Ports['Payment_seq48'], 1)" EntryCondition="Port('ma_hrac_nejake_penize')" EndType="Decision" GrayOutIfSequencesUsed="Never" Type="Bribe" Name="seq50">
 																																		<DesignName StringName="objednani_seq50_YmwI" Text="seq50" />
-																																		<UiPrompt StringName="ui_objednani_seq50_aAFV" Text="Pojďme si promluvit o ceně." />
+																																		<UiPrompt StringName="ui_objednani_seq50_aAFV" Text="Pojďme si promluvit o ceně. (Smlouvat)" />
 																																		<Triggers>
 																																			<Port Name="zaplaceni_pres_haggle" />
 																																		</Triggers>
@@ -866,11 +866,11 @@
 																																			</Response>
 																																		</Elements>
 																																		<IncludedDecisions>
-																																			<IncludedDecision Decision="bribe_woman" />
+																																			<IncludedDecision Decision="haggle_woman" />
 																																		</IncludedDecisions>
 																																		<Decision Name="26850" Priority="General" DesignName="výsledek hagglu">
 																																			<Sequences>
-																																				<Sequence ExitScript="if GameUtils.GetLocalVar('s_baths_service_id') == 5 or   GameUtils.GetLocalVar('s_baths_service_id') == 6 then&#xD;&#xA; Barbershop.Cleanup();&#xD;&#xA;end" EntryCondition="var('success') == -1" EndType="GoTo" GoToDecision="28565" Name="seq51">
+																																				<Sequence ExitScript="if GameUtils.GetLocalVar('s_baths_service_id') == 5 or   GameUtils.GetLocalVar('s_baths_service_id') == 6 then&#xD;&#xA; Barbershop.Cleanup();&#xD;&#xA;end" EntryCondition="var('success') == -1" EndType="GoTo" GoToDecision="dec21" Reputation="haggle_fail" Name="seq51">
 																																					<DesignName StringName="objednani_seq51_GoZ3" Text="neuspesne smlouvani" />
 																																					<UiPrompt StringName="ui_objednani_seq51_rK16" Text="" />
 																																					<Elements>
@@ -999,7 +999,7 @@
 																											<Parenthetical>
 																												<Text StringName="obje_lazebnice_usmeje_se__w3mH" Text="usměje se, šibalsky" />
 																											</Parenthetical>
-																											<Text StringName="obje_lazebnice_moje_holky_MU1I" Text="Neměj obavy, až si tě vemou moje holky do péče, zapomeneš na všecky strati. Alespoň na chvíli." />
+																											<Text StringName="obje_lazebnice_moje_holky_MU1I" Text="Neměj obavy, až si tě vemou moje holky do péče, zapomeneš na všecky strasti. Alespoň na chvíli." />
 																											<Commands>
 																												<FacialMoodCommand FacialMood="happy3" />
 																												<FacialMoodCommand Role="HENRY" FacialMood="happy1" />
@@ -1636,7 +1636,7 @@
 																	</Sequences>
 																</Decision>
 															</Sequence>
-															<Sequence EndType="GoTo" GoToDecision="26832" Cooldown="30s" Name="seq39">
+															<Sequence EndType="GoTo" GoToDecision="26832" Name="seq39">
 																<DesignName StringName="objednani_seq39_6Jpr" Text="seq39" />
 																<Elements>
 																	<Response Role="LAZEBNICE_OBJEDNANI" ReferenceLength="1.77">

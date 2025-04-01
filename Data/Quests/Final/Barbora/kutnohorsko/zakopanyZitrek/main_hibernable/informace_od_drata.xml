@@ -15,6 +15,9 @@
 				<Port Name="bandite_nastreamovani" Direction="In" Type="bool">
 					<DesignName StringName="informace_vycaruj_mapu_ZrFg" Text="Bandité nastreamováni" />
 				</Port>
+				<Port Name="vim_kde_je_krizovatka_bez_pomoci_cernika" Direction="Out" Type="trigger">
+					<DesignName StringName="informace_vim_kde_je_kriz_uStV" Text="vím kde je křižovatka bez pomoci Černíka" />
+				</Port>
 				<Port Name="znam_hankovo_tajemstvi" Direction="Out" Type="bool">
 					<DesignName StringName="informace_znam_hankovo_ta_BF6X" Text="Znám Hankovo tajemství" />
 				</Port>
@@ -134,6 +137,13 @@
 						<Vertex>qY3azb8X</Vertex>
 					</Edge>
 				</If>
+				<If Name="if26" PositionY="-670" PositionX="970">
+					<Edge From="proklepniDrata.Active" To="Condition">
+						<Vertex>vQ0vsCJC</Vertex>
+						<Vertex>RQq3wIn5</Vertex>
+					</Edge>
+					<Edge From="include_doznani_drata.znam_misto_prepadeni" To="Exec" />
+				</If>
 				<If Name="if8" PositionY="210" PositionX="-1240">
 					<Edge From="or5.bool" To="Condition">
 						<Vertex>vertex25</Vertex>
@@ -199,15 +209,15 @@
 						<Vertex>vertex29</Vertex>
 					</Edge>
 					<Edge From="include_doznani_drata.hankovo_tajemstvi" To="znam_hankovo_tajemstvi" />
+					<Edge From="if26.False" To="znam_misto_prepadeni">
+						<Vertex>vertex32</Vertex>
+					</Edge>
+					<Edge From="if26.False" To="vim_kde_je_krizovatka_bez_pomoci_cernika">
+						<Vertex>xddrqNS1</Vertex>
+					</Edge>
 				</Output>
 				<State Name="proklepniDrata" PositionY="-470" PositionX="-680" RequiredForOutput="kutnohorsko" TypeT="ProklepniDrataProgress">
 					<Edge From="dialog_zena_bylany_statek.znam_misto_prepadeni" To="SetDone">
-						<Vertex>vertex19</Vertex>
-						<Vertex>vertex5</Vertex>
-					</Edge>
-					<Edge From="include_doznani_drata.znam_misto_prepadeni" To="SetDone">
-						<Vertex>vertex20</Vertex>
-						<Vertex>vertex4</Vertex>
 						<Vertex>vertex19</Vertex>
 						<Vertex>vertex5</Vertex>
 					</Edge>
@@ -220,6 +230,12 @@
 					<Edge From="if24.True" To="SetDoneWithoutDratHelp" />
 					<Edge From="if25.False" To="SetUpdated" />
 					<Edge From="if25.True" To="SetAborted" />
+					<Edge From="if26.True" To="SetDone">
+						<Vertex>vertex20</Vertex>
+						<Vertex>vertex4</Vertex>
+						<Vertex>vertex19</Vertex>
+						<Vertex>vertex5</Vertex>
+					</Edge>
 				</State>
 				<Function Name="requestmonologue6" PositionY="620" PositionX="730" MethodName="wh::xgenaimodule::RequestMonologue" DeclaringType="wh::xgenaimodule">
 					<Asset Name="Souls" Alias="player" />
@@ -254,6 +270,7 @@
 				<EdgeVertex Name="NTXP5KL8" PositionY="945" PositionX="404" />
 				<EdgeVertex Name="P5oHW3wm" PositionY="630" PositionX="-1170" />
 				<EdgeVertex Name="qY3azb8X" PositionY="-640" PositionX="-930" />
+				<EdgeVertex Name="RQq3wIn5" PositionY="-549" PositionX="351" />
 				<EdgeVertex Name="rUpDYs87" PositionY="-350" PositionX="390" />
 				<EdgeVertex Name="StEauWUP" PositionY="-643" PositionX="-299" />
 				<EdgeVertex Name="t6XSRvfB" PositionY="630" PositionX="170" />
@@ -262,7 +279,7 @@
 				<EdgeVertex Name="vertex15" PositionY="520" PositionX="410" />
 				<EdgeVertex Name="vertex16" PositionY="520" PositionX="-610" />
 				<EdgeVertex Name="vertex19" PositionY="550" PositionX="1070" />
-				<EdgeVertex Name="vertex20" PositionY="-190" PositionX="1400" />
+				<EdgeVertex Name="vertex20" PositionY="-580" PositionX="1370" />
 				<EdgeVertex Name="vertex21" PositionY="-540" PositionX="-360" />
 				<EdgeVertex Name="vertex22" PositionY="-530" PositionX="-1230" />
 				<EdgeVertex Name="vertex25" PositionY="600" PositionX="100" />
@@ -274,11 +291,12 @@
 				<EdgeVertex Name="vertex31" PositionY="-510" PositionX="360" />
 				<EdgeVertex Name="vertex32" PositionY="-450" PositionX="1320" />
 				<EdgeVertex Name="vertex33" PositionY="100" PositionX="0" />
-				<EdgeVertex Name="vertex4" PositionY="550" PositionX="1370" />
+				<EdgeVertex Name="vertex4" PositionY="550" PositionX="1320" />
 				<EdgeVertex Name="vertex5" PositionY="550" PositionX="-620" />
 				<EdgeVertex Name="vertex8" PositionY="-60" PositionX="370" />
 				<EdgeVertex Name="vertex9" PositionY="-450" PositionX="570" />
 				<EdgeVertex Name="vQ0vsCJC" PositionY="-130" PositionX="130" />
+				<EdgeVertex Name="xddrqNS1" PositionY="-420" PositionX="1320" />
 				<EdgeVertex Name="YVDXnTph" PositionY="190" PositionX="950" />
 				<EdgeVertex Name="zCPYcDu5" PositionY="-122" PositionX="674" />
 			</EdgeVertices>

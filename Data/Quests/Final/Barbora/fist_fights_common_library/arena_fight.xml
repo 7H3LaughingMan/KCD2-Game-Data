@@ -61,7 +61,7 @@
 						<Vertex>vertex34</Vertex>
 					</Edge>
 				</Timer>
-				<EnableAllowedWeaponsInQAM Name="enableallowedweaponsinqam22" PositionY="-950" PositionX="370">
+				<EnableAllowedWeaponsInQAM Name="enableallowedweaponsinqam22" PositionY="-950" PositionX="430">
 					<Constant Name="RequireMainHandEmpty" Value="true" />
 					<Constant Name="RequireOffHandEmpty" Value="true" />
 					<Asset Name="PlayerSouls" Alias="player_any" />
@@ -70,6 +70,7 @@
 						<Vertex>vertex26</Vertex>
 						<Vertex>vertex38</Vertex>
 						<Vertex>aXGxHzIv</Vertex>
+						<Vertex>PnGrsePQ</Vertex>
 					</Edge>
 				</EnableAllowedWeaponsInQAM>
 				<fightstop Name="fightstop" PositionY="210" PositionX="1880" Namespace="utils.combat">
@@ -81,7 +82,7 @@
 						<Vertex>SKvSBwsg</Vertex>
 					</Edge>
 				</fightstop>
-				<FilterInput Name="filterinput" PositionY="-630" PositionX="370">
+				<FilterInput Name="filterinput" PositionY="-630" PositionX="430">
 					<Edge From="makearray.Array" To="Filters" />
 					<Edge From="isactive" To="IsActive">
 						<Vertex>vertex2</Vertex>
@@ -101,8 +102,7 @@
 				</healing>
 				<MakeArray Name="makearray" PositionY="-600" PositionX="-10" TypeT="Strings">
 					<Constant Name="A" Value="no_inventory" />
-					<Constant Name="B" Value="no_horse" />
-					<Constant Name="C" Value="no_horse_mount" />
+					<Constant Name="B" Value="no_horse_mount" />
 				</MakeArray>
 				<Output Name="Output">
 					<Edge From="skirmish.souls2won" To="opponentwins">
@@ -112,7 +112,7 @@
 						<Vertex>vertex35</Vertex>
 					</Edge>
 				</Output>
-				<SetGameContext Name="setgamecontext1" PositionY="-410" PositionX="380">
+				<SetGameContext Name="setgamecontext1" PositionY="-410" PositionX="440">
 					<Constant Name="Context" Value="NoDog" />
 					<Edge From="isactive" To="IsActive">
 						<Vertex>vertex2</Vertex>
@@ -120,11 +120,21 @@
 						<Vertex>vertex38</Vertex>
 					</Edge>
 				</SetGameContext>
+				<SetGameContext Name="setgamecontext24" PositionY="-1110" PositionX="430">
+					<Constant Name="Context" Value="DisableHorseCall" />
+					<Edge From="isactive" To="IsActive">
+						<Vertex>vertex2</Vertex>
+						<Vertex>vertex26</Vertex>
+						<Vertex>vertex38</Vertex>
+						<Vertex>aXGxHzIv</Vertex>
+						<Vertex>PnGrsePQ</Vertex>
+					</Edge>
+				</SetGameContext>
 				<SetGameContext Name="setgamecontext3" PositionY="600" PositionX="2230">
 					<Constant Name="Context" Value="speech_disableNakedPlayerReactions" />
 					<Edge From="timer2.Running" To="IsActive" />
 				</SetGameContext>
-				<skirmish Name="skirmish" PositionY="-240" PositionX="370" Namespace="utils.combat">
+				<skirmish Name="skirmish" PositionY="-240" PositionX="430" Namespace="utils.combat">
 					<Asset Name="souls1" Alias="player" />
 					<Edge From="opponentsouls" To="souls2">
 						<Vertex>vertex16</Vertex>
@@ -144,6 +154,7 @@
 			</Nodes>
 			<EdgeVertices>
 				<EdgeVertex Name="aXGxHzIv" PositionY="-540" PositionX="330" />
+				<EdgeVertex Name="PnGrsePQ" PositionY="-860" PositionX="360" />
 				<EdgeVertex Name="SKvSBwsg" PositionY="240" PositionX="1770" />
 				<EdgeVertex Name="vertex16" PositionY="20" PositionX="230" />
 				<EdgeVertex Name="vertex2" PositionY="-30" PositionX="-20" />

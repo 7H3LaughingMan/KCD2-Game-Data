@@ -2,17 +2,23 @@
 <Database xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" Name="brambora">
 	<Skald>
 		<Gameplay Name="pritokyHospoda">
+			<Ports>
+				<Port Name="onlevelswitched" Direction="In" Type="trigger">
+					<DesignName StringName="pritokyho_onlevelswitched_WMHh" Text="OnLevelSwitched" />
+				</Port>
+			</Ports>
 			<Definitions>
 				<Definition File="pritokyHospoda/stara_rent_room_kde_je_pokoj_zena.xml" />
 				<Definition File="pritokyHospoda/stara_rent_room_kde_je_pokoj_zena_1.xml" />
 			</Definitions>
 			<Nodes>
-				<roomrent Name="roomrent" PositionY="-30" PositionX="20" Namespace="utils.roomrenting">
+				<roomrent Name="roomrent" PositionY="-120" PositionX="60" Namespace="utils.roomrenting">
 					<Asset Name="souls" Alias="owners" />
 					<Asset Name="dvere" Alias="dvere" />
 					<Asset Name="so" Alias="so_pritoky" />
 					<Asset Name="postel" Alias="bed" />
 					<Asset Name="kotlik" Alias="kotlik" />
+					<Edge From="onlevelswitched" To="levelswitched" />
 				</roomrent>
 				<stara_rent_room_kde_je_pokoj_zena Name="stara_rent_room_kde_je_pokoj_zena_1" PositionY="420" PositionX="370">
 					<Edge From="roomrent.jindra_ma_pronajatej_pokoj" To="jindra_ma_pronajaty_pokoj" />

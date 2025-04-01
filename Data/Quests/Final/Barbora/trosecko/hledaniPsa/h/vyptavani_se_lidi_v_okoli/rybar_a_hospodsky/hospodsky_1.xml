@@ -18,6 +18,9 @@
 				<Port Name="hrac_tusi_ze_by_vorech_mohl_byt_nazivu" Direction="In" Type="bool">
 					<DesignName StringName="hospodsky_hrac_tusi_ze_by_0m6m" Text="Hráč tuší že by Vořech mohl být naživu" />
 				</Port>
+				<Port Name="jeste_me_nenapadlo_jit_za_lovcim" Direction="In" Type="bool">
+					<DesignName StringName="hospodsky_jeste_me_nenapa_gTrh" Text="Ještě mě nenapadlo jít za lovčím" />
+				</Port>
 			</Ports>
 			<Text StringName="hospodsky_1_SeJc" Text="Hospodský" />
 			<Dialogue TechnicalStatus="Enabled" GesturesSetDate="2024-04-12T20:12:27.6965619+02:00" GesturesSetResponseCount="17">
@@ -165,7 +168,7 @@
 													</Elements>
 													<Decision Name="dec11" Priority="SideQuestSubmission">
 														<Sequences>
-															<Sequence EndType="Decision" Name="seq5">
+															<Sequence EntryCondition="Port('jeste_me_nenapadlo_jit_za_lovcim')" EndType="Decision" Name="seq5">
 																<DesignName StringName="hospodsky_seq5_Z35d" Text="seq5" />
 																<Triggers>
 																	<Port Name="hraci_poradili_lovciho" />
@@ -254,6 +257,12 @@
 																		</Sequence>
 																	</Sequences>
 																</Decision>
+															</Sequence>
+															<Sequence EntryCondition="!Port('jeste_me_nenapadlo_jit_za_lovcim')" EndType="GoTo" GoToDecision="dec10" Name="seq19">
+																<DesignName StringName="hospodsky_seq19_NV0u" Text="seq19" />
+																<Elements>
+																	<Response Role="HENRY" />
+																</Elements>
 															</Sequence>
 														</Sequences>
 													</Decision>

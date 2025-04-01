@@ -6,6 +6,9 @@
 				<Port Name="tutorial_o_inspekci_dokoncen" Direction="In" Type="bool">
 					<DesignName StringName="podkoni_t_tutorial_o_insp_Wkcm" Text="Tutorial o inspekci dokončen" />
 				</Port>
+				<Port Name="je_noc" Direction="In" Type="bool">
+					<DesignName StringName="podkoni___je_noc_eBaN" Text="je noc" />
+				</Port>
 				<Port Name="kun1_exchange_value" Direction="In" Type="float">
 					<DesignName StringName="podkoni_t_kun1_exchange_v_ibDv" Text="Kun1_exchange_value" />
 				</Port>
@@ -108,9 +111,9 @@
 				</SelectedSouls>
 				<Decision Name="dec1" Priority="General">
 					<Sequences>
-						<Sequence EntryCondition="Port('tutorial_o_inspekci_dokoncen') AND&#xD;&#xA;(&#xD;&#xA;Port('kun1available') OR &#xD;&#xA;Port('kun2available') OR &#xD;&#xA;Port('kun3available') OR &#xD;&#xA;Port('kun4available') OR &#xD;&#xA;Port('kun5available') OR&#xD;&#xA;Port('kun6available')&#xD;&#xA;)" EndType="Decision" GrayOutIfSequencesUsed="Never" Name="seq1">
+						<Sequence EntryCondition="!Port('je_noc') AND Port('tutorial_o_inspekci_dokoncen') AND&#xD;&#xA;(&#xD;&#xA;Port('kun1available') OR &#xD;&#xA;Port('kun2available') OR &#xD;&#xA;Port('kun3available') OR &#xD;&#xA;Port('kun4available') OR &#xD;&#xA;Port('kun5available') OR&#xD;&#xA;Port('kun6available')&#xD;&#xA;)" EndType="Decision" GrayOutIfSequencesUsed="Never" Name="seq1">
 							<DesignName StringName="podkoni_t_seq1_4abx" Text="seq1" />
-							<UiPrompt StringName="ui_podkoni_t_seq1_qQvc" Text="(Koupit koně.)" />
+							<UiPrompt StringName="ui_podkoni_t_seq1_qQvc" Text="(Koupit koně)" />
 							<Triggers>
 								<Port Name="entereddialogue" />
 							</Triggers>
@@ -160,7 +163,7 @@
 													</Elements>
 													<Decision Name="dec5" Priority="General" DesignName="Kůň 1 Enough Money?">
 														<Sequences>
-															<Sequence ExitScript="Shops.DoMoneyTransaction(dc['PODKONI_GRUNTA'].id, Ports['Payment_kutnohorsko_grunta_kun1'] * 10, 0)" EntryCondition="Port('playerhasenoughmoneykun1')" EndType="Decision" GrayOutIfSequencesUsed="Never" Name="kutnohorsko_grunta_kun1bought">
+															<Sequence ExitScript="Shops.DoMoneyTransaction(dc['PODKONI_GRUNTA'].id, Ports['Payment_kutnohorsko_grunta_kun1'] * 10, 0) &#xD;&#xA;Game.ShowItemsTransfer(ItemUtils.itemIDs.money, -10 * Ports['Payment_kutnohorsko_grunta_kun1'])" EntryCondition="Port('playerhasenoughmoneykun1')" EndType="Decision" GrayOutIfSequencesUsed="Never" Name="kutnohorsko_grunta_kun1bought">
 																<DesignName StringName="podkoni_t_trosecko_kun1bo_VvMU" Text="kutnohorsko_grunta_kun1Bought" />
 																<Triggers>
 																	<Port Name="paykun_fullprice_1" />
@@ -247,7 +250,7 @@
 														</Sequences>
 													</Decision>
 												</Sequence>
-												<Sequence ExitScript="Shops.DoMoneyTransaction(dc['PODKONI_GRUNTA'].id, Ports['Payment_kutnohorsko_grunta_kun1_cashback'] * -10, 0)" EntryCondition="!Port('Payment_kutnohorsko_grunta_kun1')" EndType="GoTo" GoToDecision="dec9" Visibility="Internal" GrayOutIfSequencesUsed="Never" Type="Payment" Name="kutnohorsko_grunta_kun1_cashback">
+												<Sequence ExitScript="Shops.DoMoneyTransaction(dc['PODKONI_GRUNTA'].id, Ports['Payment_kutnohorsko_grunta_kun1_cashback'] * -10, 0) &#xD;&#xA;Game.ShowItemsTransfer(ItemUtils.itemIDs.money, 10 * Ports['Payment_kutnohorsko_grunta_kun1_cashback'])" EntryCondition="!Port('Payment_kutnohorsko_grunta_kun1')" EndType="GoTo" GoToDecision="dec9" Visibility="Internal" GrayOutIfSequencesUsed="Never" Type="Payment" Name="kutnohorsko_grunta_kun1_cashback">
 													<DesignName StringName="podkoni_t_trosecko_kun1_c_prWt" Text="kutnohorsko_grunta_kun1_cashback" />
 													<UiPrompt StringName="ui_podkoni_t_trosecko_kun_jS8L" Text="Obdržet peníze." />
 													<Triggers>
@@ -271,7 +274,7 @@
 															</Parenthetical>
 															<Text StringName="podk_podkoni_t_je_to_tak__BjDm" Text="Správně. Tady máš, co ti dlužim." />
 															<Commands>
-																<AnimationCommand Delay="1.01" FragmentId="ADLG_Gesture" Guid="b4fba4ff-d68c-4bc9-9c1a-11a4a99c54d1" Variant="19" />
+																<AnimationCommand Delay="1.01" FragmentId="ADLG_Gesture" Guid="b4fba4ff-d68c-4bc9-9c1a-11a4a99c54d1" Variant="25" />
 																<CameraCommand CameraType="CloseUp" />
 															</Commands>
 														</Response>
@@ -375,7 +378,7 @@
 																<Note StringName="podk_podkoni_t_backstory_MYgh_note" Text="" />
 															</Text>
 															<Commands>
-																<AnimationCommand Delay="4.57" FragmentId="ADLG_Gesture" Guid="b4fba4ff-d68c-4bc9-9c1a-11a4a99c54d1" Variant="19" />
+																<AnimationCommand Delay="4.57" FragmentId="ADLG_Gesture" Guid="b4fba4ff-d68c-4bc9-9c1a-11a4a99c54d1" Variant="25" />
 																<AnimationCommand Delay="2.04" FragmentId="ADLG_Frustration" Guid="33d77de2-2a9e-d643-4842-7f681b928eff" Variant="0" />
 																<CameraCommand />
 															</Commands>
@@ -476,7 +479,7 @@
 													</Elements>
 													<Decision Name="dec7" Priority="General" DesignName="Kůň 2 Enough Money?">
 														<Sequences>
-															<Sequence ExitScript="Shops.DoMoneyTransaction(dc['PODKONI_GRUNTA'].id, Ports['Payment_kutnohorsko_grunta_kun2'] * 10, 0)" EntryCondition="Port('playerhasenoughmoneykun2')" EndType="GoTo" GoToDecision="dec9" Visibility="Internal" GrayOutIfSequencesUsed="Never" Name="kutnohorsko_grunta_kun2bought">
+															<Sequence ExitScript="Shops.DoMoneyTransaction(dc['PODKONI_GRUNTA'].id, Ports['Payment_kutnohorsko_grunta_kun2'] * 10, 0) &#xD;&#xA;Game.ShowItemsTransfer(ItemUtils.itemIDs.money, -10 * Ports['Payment_kutnohorsko_grunta_kun2'])" EntryCondition="Port('playerhasenoughmoneykun2')" EndType="GoTo" GoToDecision="dec9" Visibility="Internal" GrayOutIfSequencesUsed="Never" Name="kutnohorsko_grunta_kun2bought">
 																<DesignName StringName="podkoni_t_trosecko_kun2bo_TvL9" Text="kutnohorsko_grunta_kun2Bought" />
 																<Triggers>
 																	<Port Name="paykun_fullprice_2" />
@@ -498,7 +501,7 @@
 																		</Parenthetical>
 																		<Text StringName="podk_podkoni_t_nemuzu_nez_0NNF" Text="Ha, ty se na něj jó těšíš, koukám..." />
 																		<Commands>
-																			<AnimationCommand Delay="-0.58" FragmentId="ADLG_You" Guid="26634b59-3950-2cce-8454-2597cee5f410" Variant="0" />
+																			<AnimationCommand Delay="-0.58" FragmentId="ADLG_You" Guid="26634b59-3950-2cce-8454-2597cee5f410" Variant="1" />
 																			<CameraCommand CameraType="CloseUp" />
 																		</Commands>
 																	</Response>
@@ -529,7 +532,7 @@
 														</Sequences>
 													</Decision>
 												</Sequence>
-												<Sequence ExitScript="Shops.DoMoneyTransaction(dc['PODKONI_GRUNTA'].id, Ports['Payment_kutnohorsko_grunta_kun2_cashback'] * -10, 0)" EntryCondition="!Port('Payment_kutnohorsko_grunta_kun2')" EndType="GoTo" GoToDecision="dec9" Visibility="Internal" GrayOutIfSequencesUsed="Never" Type="Payment" Name="kutnohorsko_grunta_kun2_cashback">
+												<Sequence ExitScript="Shops.DoMoneyTransaction(dc['PODKONI_GRUNTA'].id, Ports['Payment_kutnohorsko_grunta_kun2_cashback'] * -10, 0) &#xD;&#xA;Game.ShowItemsTransfer(ItemUtils.itemIDs.money, 10 * Ports['Payment_kutnohorsko_grunta_kun2_cashback'])" EntryCondition="!Port('Payment_kutnohorsko_grunta_kun2')" EndType="GoTo" GoToDecision="dec9" Visibility="Internal" GrayOutIfSequencesUsed="Never" Type="Payment" Name="kutnohorsko_grunta_kun2_cashback">
 													<DesignName StringName="podkoni_t_trosecko_kun2_c_GMcR" Text="kutnohorsko_grunta_kun2_cashback" />
 													<UiPrompt StringName="ui_podkoni_t_trosecko_kun_PZSM" Text="Obdržet peníze." />
 													<Triggers>
@@ -542,7 +545,7 @@
 															</Parenthetical>
 															<Text StringName="podk_henry_kdyz_ti_necham_rZmn" Text="Když ti tu nechám svýho koně, tak bys mi měla něco vrátit." />
 															<Commands>
-																<AnimationCommand Role="PODKONI_GRUNTA" Delay="2.74" FragmentId="ADLG_You" Guid="26634b59-3950-2cce-8454-2597cee5f410" Variant="0" />
+																<AnimationCommand Role="PODKONI_GRUNTA" Delay="2.74" FragmentId="ADLG_You" Guid="26634b59-3950-2cce-8454-2597cee5f410" Variant="1" />
 																<AnimationCommand Delay="1.33" FragmentId="ADLG_Gesture" Guid="002ace53-8d31-4d61-b729-4bae5c80b2e5" Variant="0" />
 																<CameraCommand />
 															</Commands>
@@ -652,7 +655,7 @@
 															</Text>
 															<Commands>
 																<AnimationCommand Delay="4.98" FragmentId="ADLG_Disagree" Guid="6533e784-9f27-9506-5906-feb95071b254" Variant="3" />
-																<AnimationCommand Delay="0.56" FragmentId="ADLG_Gesture" Guid="d55387f4-59fe-4d84-9943-03561c714d1d" Variant="25" />
+																<AnimationCommand Delay="0.56" FragmentId="ADLG_Gesture" Guid="d55387f4-59fe-4d84-9943-03561c714d1d" Variant="32" />
 																<CameraCommand CameraType="CloseUp" />
 															</Commands>
 														</Response>
@@ -722,7 +725,7 @@
 													</Elements>
 													<Decision Name="dec13" Priority="General" DesignName="Kůň 3 Enough Money?">
 														<Sequences>
-															<Sequence ExitScript="Shops.DoMoneyTransaction(dc['PODKONI_GRUNTA'].id, Ports['Payment_kutnohorsko_grunta_kun3'] * 10, 0)" EntryCondition="Port('playerhasenoughmoneykun3')" EndType="GoTo" GoToDecision="dec9" Visibility="Internal" GrayOutIfSequencesUsed="Never" Name="kutnohorsko_grunta_kun3bought">
+															<Sequence ExitScript="Shops.DoMoneyTransaction(dc['PODKONI_GRUNTA'].id, Ports['Payment_kutnohorsko_grunta_kun3'] * 10, 0) &#xD;&#xA;Game.ShowItemsTransfer(ItemUtils.itemIDs.money, -10 * Ports['Payment_kutnohorsko_grunta_kun3'])" EntryCondition="Port('playerhasenoughmoneykun3')" EndType="GoTo" GoToDecision="dec9" Visibility="Internal" GrayOutIfSequencesUsed="Never" Name="kutnohorsko_grunta_kun3bought">
 																<DesignName StringName="podkoni_t_trosecko_kun3bo_VoAK" Text="kutnohorsko_grunta_kun3Bought" />
 																<Triggers>
 																	<Port Name="paykun_fullprice_3" />
@@ -744,7 +747,7 @@
 																		</Parenthetical>
 																		<Text StringName="podk_podkoni_t_bobrek_bud_viCc" Text="Děkuju. Von by se moh taky zlobit, kdyby věděl, že vo něj nedejbože smlouváme." />
 																		<Commands>
-																			<AnimationCommand Delay="1.71" FragmentId="ADLG_You" Guid="26634b59-3950-2cce-8454-2597cee5f410" Variant="0" />
+																			<AnimationCommand Delay="1.71" FragmentId="ADLG_You" Guid="26634b59-3950-2cce-8454-2597cee5f410" Variant="1" />
 																			<CameraCommand Delay="1.09" CameraType="CloseUp" />
 																		</Commands>
 																	</Response>
@@ -778,7 +781,7 @@
 														</Sequences>
 													</Decision>
 												</Sequence>
-												<Sequence ExitScript="Shops.DoMoneyTransaction(dc['PODKONI_GRUNTA'].id, Ports['Payment_kutnohorsko_grunta_kun3_cashback'] * -10, 0)" EntryCondition="!Port('Payment_kutnohorsko_grunta_kun3')" EndType="GoTo" GoToDecision="dec9" Visibility="Internal" GrayOutIfSequencesUsed="Never" Type="Payment" Name="kutnohorsko_grunta_kun3_cashback">
+												<Sequence ExitScript="Shops.DoMoneyTransaction(dc['PODKONI_GRUNTA'].id, Ports['Payment_kutnohorsko_grunta_kun3_cashback'] * -10, 0) &#xD;&#xA;Game.ShowItemsTransfer(ItemUtils.itemIDs.money, 10 * Ports['Payment_kutnohorsko_grunta_kun3_cashback'])" EntryCondition="!Port('Payment_kutnohorsko_grunta_kun3')" EndType="GoTo" GoToDecision="dec9" Visibility="Internal" GrayOutIfSequencesUsed="Never" Type="Payment" Name="kutnohorsko_grunta_kun3_cashback">
 													<DesignName StringName="podkoni_t_trosecko_kun3_c_SiZo" Text="kutnohorsko_grunta_kun3_cashback" />
 													<UiPrompt StringName="ui_podkoni_t_trosecko_kun_qNvp" Text="Obdržet peníze." />
 													<Triggers>
@@ -801,7 +804,7 @@
 															</Parenthetical>
 															<Text StringName="podk_podkoni_t_pocitas_sp_NXHZ" Text="Tak ti vrátím groše. Jo, je to tak." />
 															<Commands>
-																<AnimationCommand Delay="1" FragmentId="ADLG_You" Guid="26634b59-3950-2cce-8454-2597cee5f410" Variant="0" />
+																<AnimationCommand Delay="1" FragmentId="ADLG_You" Guid="26634b59-3950-2cce-8454-2597cee5f410" Variant="1" />
 																<CameraCommand CameraType="CloseUp" />
 															</Commands>
 														</Response>
@@ -912,7 +915,7 @@
 															<Text StringName="podk_podkoni_g_privedl_ho_8vyR" Text="Přivedl ho sem chlap, hrozně velikej, ruce jak lopaty, divná mluva. Že prej měl Sváďu na práci." />
 															<Commands>
 																<AnimationCommand Delay="0.88" FragmentId="ADLG_Frustration" Guid="33d77de2-2a9e-d643-4842-7f681b928eff" Variant="0" />
-																<AnimationCommand Delay="6.25" FragmentId="ADLG_You" Guid="97f8ee62-3dc7-23eb-bbb4-d35e228d8417" Variant="1" />
+																<AnimationCommand Delay="6.25" FragmentId="ADLG_You" Guid="97f8ee62-3dc7-23eb-bbb4-d35e228d8417" Variant="3" />
 															</Commands>
 														</Response>
 														<Response Role="PODKONI_GRUNTA" ReferenceLength="6.21">
@@ -983,7 +986,7 @@
 													</Elements>
 													<Decision Name="dec13_1" Priority="General" DesignName="Kůň 4 Enough Money?">
 														<Sequences>
-															<Sequence ExitScript="Shops.DoMoneyTransaction(dc['PODKONI_GRUNTA'].id, Ports['Payment_kutnohorsko_grunta_kun4'] * 10, 0)" EntryCondition="Port('playerhasenoughmoneykun4')" EndType="GoTo" GoToDecision="dec9" Visibility="Internal" GrayOutIfSequencesUsed="Never" Name="kutnohorsko_grunta_kun4bought">
+															<Sequence ExitScript="Shops.DoMoneyTransaction(dc['PODKONI_GRUNTA'].id, Ports['Payment_kutnohorsko_grunta_kun4'] * 10, 0) &#xD;&#xA;Game.ShowItemsTransfer(ItemUtils.itemIDs.money, -10 * Ports['Payment_kutnohorsko_grunta_kun4'])" EntryCondition="Port('playerhasenoughmoneykun4')" EndType="GoTo" GoToDecision="dec9" Visibility="Internal" GrayOutIfSequencesUsed="Never" Name="kutnohorsko_grunta_kun4bought">
 																<DesignName StringName="podkoni_t_trosecko_kun4bo_CQtb" Text="kutnohorsko_grunta_kun4bought" />
 																<Triggers>
 																	<Port Name="paykun_fullprice_4" />
@@ -1039,7 +1042,7 @@
 														</Sequences>
 													</Decision>
 												</Sequence>
-												<Sequence ExitScript="Shops.DoMoneyTransaction(dc['PODKONI_GRUNTA'].id, Ports['Payment_kutnohorsko_grunta_kun4_cashback'] * -10, 0)" EntryCondition="!Port('Payment_kutnohorsko_grunta_kun4')" EndType="GoTo" GoToDecision="dec9" Visibility="Internal" GrayOutIfSequencesUsed="Never" Type="Payment" Name="kutnohorsko_grunta_kun4_cashback">
+												<Sequence ExitScript="Shops.DoMoneyTransaction(dc['PODKONI_GRUNTA'].id, Ports['Payment_kutnohorsko_grunta_kun4_cashback'] * -10, 0) &#xD;&#xA;Game.ShowItemsTransfer(ItemUtils.itemIDs.money, 10 * Ports['Payment_kutnohorsko_grunta_kun4_cashback'])" EntryCondition="!Port('Payment_kutnohorsko_grunta_kun4')" EndType="GoTo" GoToDecision="dec9" Visibility="Internal" GrayOutIfSequencesUsed="Never" Type="Payment" Name="kutnohorsko_grunta_kun4_cashback">
 													<DesignName StringName="podkoni_t_trosecko_kun4_c_U3Ni" Text="kutnohorsko_grunta_kun4_cashback" />
 													<UiPrompt StringName="ui_podkoni_t_trosecko_kun_Dauh" Text="Obdržet peníze." />
 													<Triggers>
@@ -1062,7 +1065,7 @@
 															</Parenthetical>
 															<Text StringName="podk_podkoni_t_aby_ne_tad_o1fL" Text="To ti budu muset teda něco vrátit, tak počkej..." />
 															<Commands>
-																<AnimationCommand Delay="1.25" FragmentId="ADLG_You" Guid="97f8ee62-3dc7-23eb-bbb4-d35e228d8417" Variant="1" />
+																<AnimationCommand Delay="1.25" FragmentId="ADLG_You" Guid="97f8ee62-3dc7-23eb-bbb4-d35e228d8417" Variant="3" />
 																<CameraCommand CameraType="CloseUp" />
 															</Commands>
 														</Response>
@@ -1177,7 +1180,7 @@
 															</Parenthetical>
 															<Text StringName="podk_podkoni_t_vypada_ze__QQKn" Text="Co vím, tak jeden Windwurfův bratříček točí kola v kuklickejch trejvech a je spokojenej." />
 															<Commands>
-																<AnimationCommand Delay="2.22" FragmentId="ADLG_You" Guid="f24cdd96-4f21-a543-102f-5e382cb92304" Variant="2" />
+																<AnimationCommand Delay="2.22" FragmentId="ADLG_You" Guid="f24cdd96-4f21-a543-102f-5e382cb92304" Variant="5" />
 															</Commands>
 														</Response>
 														<Response Role="PODKONI_GRUNTA" ReferenceLength="5.23">
@@ -1225,7 +1228,7 @@
 													</Elements>
 													<Decision Name="dec13_1_1" Priority="General" DesignName="Kůň 5 Enough Money?">
 														<Sequences>
-															<Sequence ExitScript="Shops.DoMoneyTransaction(dc['PODKONI_GRUNTA'].id, Ports['Payment_kutnohorsko_grunta_kun5'] * 10, 0)" EntryCondition="Port('playerhasenoughmoneykun5')" EndType="GoTo" GoToDecision="dec9" Visibility="Internal" GrayOutIfSequencesUsed="Never" Name="kutnohorsko_grunta_kun5bought">
+															<Sequence ExitScript="Shops.DoMoneyTransaction(dc['PODKONI_GRUNTA'].id, Ports['Payment_kutnohorsko_grunta_kun5'] * 10, 0) &#xD;&#xA;Game.ShowItemsTransfer(ItemUtils.itemIDs.money, -10 * Ports['Payment_kutnohorsko_grunta_kun5'])" EntryCondition="Port('playerhasenoughmoneykun5')" EndType="GoTo" GoToDecision="dec9" Visibility="Internal" GrayOutIfSequencesUsed="Never" Name="kutnohorsko_grunta_kun5bought">
 																<DesignName StringName="podkoni___trosecko_kun4bo_RNa6" Text="kutnohorsko_grunta_kun5bought" />
 																<Triggers>
 																	<Port Name="paykun_fullprice_5" />
@@ -1238,7 +1241,7 @@
 																		<Text StringName="podk_henry_tady_jsou_grose_6VUX" Text="A dávám za něj přesně kolik chceš." />
 																		<Commands>
 																			<AnimationCommand Delay="0.08" FragmentId="ADLG_Give" Guid="00ebf610-b3ea-9950-e27a-18618ccae1a3" Variant="0" />
-																			<AnimationCommand Role="PODKONI_GRUNTA" Delay="1.75" FragmentId="ADLG_You" Guid="26634b59-3950-2cce-8454-2597cee5f410" Variant="0" />
+																			<AnimationCommand Role="PODKONI_GRUNTA" Delay="1.75" FragmentId="ADLG_You" Guid="26634b59-3950-2cce-8454-2597cee5f410" Variant="1" />
 																			<CameraCommand CameraType="CloseUp" />
 																		</Commands>
 																	</Response>
@@ -1281,7 +1284,7 @@
 														</Sequences>
 													</Decision>
 												</Sequence>
-												<Sequence ExitScript="Shops.DoMoneyTransaction(dc['PODKONI_GRUNTA'].id, Ports['Payment_kutnohorsko_grunta_kun5_cashback'] * -10, 0)" EntryCondition="!Port('Payment_kutnohorsko_grunta_kun5')" EndType="GoTo" GoToDecision="dec9" Visibility="Internal" GrayOutIfSequencesUsed="Never" Type="Payment" Name="kutnohorsko_grunta_kun5_cashback">
+												<Sequence ExitScript="Shops.DoMoneyTransaction(dc['PODKONI_GRUNTA'].id, Ports['Payment_kutnohorsko_grunta_kun5_cashback'] * -10, 0) &#xD;&#xA;Game.ShowItemsTransfer(ItemUtils.itemIDs.money, 10 * Ports['Payment_kutnohorsko_grunta_kun5_cashback'])" EntryCondition="!Port('Payment_kutnohorsko_grunta_kun5')" EndType="GoTo" GoToDecision="dec9" Visibility="Internal" GrayOutIfSequencesUsed="Never" Type="Payment" Name="kutnohorsko_grunta_kun5_cashback">
 													<DesignName StringName="podkoni___trosecko_kun4_c_6icW" Text="kutnohorsko_grunta_kun5_cashback" />
 													<UiPrompt StringName="ui_podkoni___trosecko_kun_9RFa" Text="Obdržet peníze." />
 													<Triggers>
@@ -1304,7 +1307,7 @@
 															</Parenthetical>
 															<Text StringName="podk_podkoni_g_aby_ne_tad_TYDp" Text="S Veillantifem bys druhýho stejně nezvlád. " />
 															<Commands>
-																<AnimationCommand Delay="3.72" FragmentId="ADLG_You" Guid="f24cdd96-4f21-a543-102f-5e382cb92304" Variant="2" />
+																<AnimationCommand Delay="3.72" FragmentId="ADLG_You" Guid="f24cdd96-4f21-a543-102f-5e382cb92304" Variant="5" />
 																<AnimationCommand Delay="0.41" FragmentId="ADLG_Disagree" Guid="3d087b1a-db83-4f7c-6fe7-78c3fae79e32" Variant="1" />
 																<CameraCommand CameraType="CloseUp" />
 															</Commands>
@@ -1409,7 +1412,7 @@
 														<Response Role="PODKONI_GRUNTA" ReferenceLength="6.38">
 															<Text StringName="podk_podkoni_g_a_to_on_je_ihWN" Text="A to von je. Jak se něco někde šustne, hned má uši na šťopkách. A dokonce nám tu v noci hlídá." />
 															<Commands>
-																<AnimationCommand Delay="0.28" FragmentId="ADLG_You" Guid="26634b59-3950-2cce-8454-2597cee5f410" Variant="0" />
+																<AnimationCommand Delay="0.28" FragmentId="ADLG_You" Guid="26634b59-3950-2cce-8454-2597cee5f410" Variant="1" />
 															</Commands>
 														</Response>
 														<Response Role="PODKONI_GRUNTA" ReferenceLength="6.67">
@@ -1462,7 +1465,7 @@
 													</Elements>
 													<Decision Name="dec13_1_2" Priority="General" DesignName="Kůň 6 Enough Money?">
 														<Sequences>
-															<Sequence ExitScript="Shops.DoMoneyTransaction(dc['PODKONI_GRUNTA'].id, Ports['Payment_kutnohorsko_grunta_kun6'] * 10, 0)" EntryCondition="Port('playerhasenoughmoneykun6')" EndType="GoTo" GoToDecision="dec9" Visibility="Internal" GrayOutIfSequencesUsed="Never" Name="kutnohorsko_grunta_kun6bought">
+															<Sequence ExitScript="Shops.DoMoneyTransaction(dc['PODKONI_GRUNTA'].id, Ports['Payment_kutnohorsko_grunta_kun6'] * 10, 0) &#xD;&#xA;Game.ShowItemsTransfer(ItemUtils.itemIDs.money, -10 * Ports['Payment_kutnohorsko_grunta_kun6'])" EntryCondition="Port('playerhasenoughmoneykun6')" EndType="GoTo" GoToDecision="dec9" Visibility="Internal" GrayOutIfSequencesUsed="Never" Name="kutnohorsko_grunta_kun6bought">
 																<DesignName StringName="podkoni___trosecko_kun6bo_pkTM" Text="kutnohorsko_grunta_kun6bought" />
 																<Triggers>
 																	<Port Name="paykun_fullprice_6" />
@@ -1484,7 +1487,7 @@
 																		</Parenthetical>
 																		<Text StringName="podk_podkoni_g_dobra_dobra_rKtr" Text="Děkuju uctivě." />
 																		<Commands>
-																			<AnimationCommand Delay="-0.87" FragmentId="ADLG_You" Guid="26634b59-3950-2cce-8454-2597cee5f410" Variant="0" />
+																			<AnimationCommand Delay="-0.87" FragmentId="ADLG_You" Guid="26634b59-3950-2cce-8454-2597cee5f410" Variant="1" />
 																			<CameraCommand CameraType="CloseUp" />
 																		</Commands>
 																	</Response>
@@ -1509,7 +1512,7 @@
 																		</Parenthetical>
 																		<Text StringName="podk_podkoni_g_a_co_takhl_MTWu" Text="No tak počkáme. Snad ti Hýli někdo nevyfoukne." />
 																		<Commands>
-																			<AnimationCommand Delay="0.67" FragmentId="ADLG_You" Guid="f24cdd96-4f21-a543-102f-5e382cb92304" Variant="2" />
+																			<AnimationCommand Delay="0.67" FragmentId="ADLG_You" Guid="f24cdd96-4f21-a543-102f-5e382cb92304" Variant="5" />
 																			<CameraCommand />
 																		</Commands>
 																	</Response>
@@ -1518,7 +1521,7 @@
 														</Sequences>
 													</Decision>
 												</Sequence>
-												<Sequence ExitScript="Shops.DoMoneyTransaction(dc['PODKONI_GRUNTA'].id, Ports['Payment_kutnohorsko_grunta_kun6_cashback'] * -10, 0)" EntryCondition="!Port('Payment_kutnohorsko_grunta_kun6')" EndType="GoTo" GoToDecision="dec9" Visibility="Internal" GrayOutIfSequencesUsed="Never" Type="Payment" Name="kutnohorsko_grunta_kun6_cashback">
+												<Sequence ExitScript="Shops.DoMoneyTransaction(dc['PODKONI_GRUNTA'].id, Ports['Payment_kutnohorsko_grunta_kun6_cashback'] * -10, 0) &#xD;&#xA;Game.ShowItemsTransfer(ItemUtils.itemIDs.money, 10 * Ports['Payment_kutnohorsko_grunta_kun6_cashback'])" EntryCondition="!Port('Payment_kutnohorsko_grunta_kun6')" EndType="GoTo" GoToDecision="dec9" Visibility="Internal" GrayOutIfSequencesUsed="Never" Type="Payment" Name="kutnohorsko_grunta_kun6_cashback">
 													<DesignName StringName="podkoni___trosecko_kun6_c_uAmh" Text="kutnohorsko_grunta_kun6_cashback" />
 													<UiPrompt StringName="ui_podkoni___trosecko_kun_IjWi" Text="Obdržet peníze." />
 													<Triggers>
@@ -1547,7 +1550,7 @@
 														</Response>
 													</Elements>
 												</Sequence>
-												<Sequence ExitScript="SetupHaggle(Ports['kun6_exchange_value'],0)" EndType="Decision" GrayOutIfSequencesUsed="Never" Name="seq33_1_2">
+												<Sequence ExitScript="SetupHaggle(Ports['kun5_exchange_value'],0)" EndType="Decision" GrayOutIfSequencesUsed="Never" Name="seq33_1_2">
 													<DesignName StringName="podkoni___seq33_1_2_IaEb" Text="seq33" />
 													<UiPrompt StringName="ui_podkoni___seq33_1_2_LQuU" Text="Smlouvat." />
 													<Elements>
@@ -1699,7 +1702,7 @@
 								</Sequences>
 							</Decision>
 						</Sequence>
-						<Sequence EntryCondition="Port('tutorial_o_inspekci_dokoncen') AND &#xD;&#xA;(&#xD;&#xA;!Port('kun1available') AND &#xD;&#xA;!Port('kun2available') AND&#xD;&#xA;!Port('kun3available') AND&#xD;&#xA;!Port('kun4available') AND&#xD;&#xA;!Port('kun5available') AND&#xD;&#xA;!Port('kun6available')&#xD;&#xA;)" EndType="EndDialogue" GrayOutIfSequencesUsed="Never" Name="seq24">
+						<Sequence EntryCondition="!Port('je_noc') AND Port('tutorial_o_inspekci_dokoncen') AND &#xD;&#xA;(&#xD;&#xA;!Port('kun1available') AND &#xD;&#xA;!Port('kun2available') AND&#xD;&#xA;!Port('kun3available') AND&#xD;&#xA;!Port('kun4available') AND&#xD;&#xA;!Port('kun5available') AND&#xD;&#xA;!Port('kun6available')&#xD;&#xA;)" EndType="EndDialogue" GrayOutIfSequencesUsed="Never" Name="seq24">
 							<DesignName StringName="podkoni_t_seq24_b1SV" Text="seq24" />
 							<UiPrompt StringName="ui_podkoni_t_seq24_2YaI" Text="Koupit koně." />
 							<Elements>

@@ -60,6 +60,9 @@
 				<Port Name="jindra_slibil_zabit_erika" Direction="In" Type="bool">
 					<DesignName StringName="erik_jindra_slibil_zabit__vcpT" Text="Jindra slíbil zabít Erika" />
 				</Port>
+				<Port Name="uvodni_cutscena_afterplay" Direction="Out" Type="trigger">
+					<DesignName StringName="erik_uvodni_cutscena_afte_Njai" Text="M47 Erik úvodní cutscéna afterPlay" />
+				</Port>
 			</Ports>
 			<Definitions>
 				<Definition File="erik/divadlo_v_pozad.xml" />
@@ -77,6 +80,9 @@
 					<Edge From="makearray26_1_1.Array" To="Prerequisites" />
 					<Edge From="switch3.Value1" To="ConsoleCommands" />
 				</HasteTrigger>
+				<disabledirectionschatglobal Name="disabledirectionschatglobal" PositionY="-570" PositionX="-200" Namespace="utils.hardcoremode">
+					<Edge From="questProgress.Active" To="enabled" />
+				</disabledirectionschatglobal>
 				<divadlo_v_pozad Name="divadlo_v_pozad" PositionY="-1290" PositionX="-520">
 					<Edge From="haste.nahravani_divadla" To="Awake" />
 				</divadlo_v_pozad>
@@ -112,7 +118,7 @@
 					<Edge From="questProgress.OnDone" To="SetFalse" />
 					<Edge From="profilovani_cutscen.zacit_profilovat_cutscenu" To="SetTrue" />
 				</State>
-				<hibernables Name="hibernables" PositionY="-700" PositionX="410" RequiredForOutput="kutnohorsko">
+				<hibernables Name="hibernables" PositionY="-710" PositionX="400" RequiredForOutput="kutnohorsko">
 					<Edge From="hrac_se_ucastnil_vypaleni_malesova" To="hrac_se_ucastnil_vypaleni_malesova">
 						<Vertex>vertex174</Vertex>
 						<Vertex>vertex175</Vertex>
@@ -239,6 +245,7 @@
 					<Edge From="profilovani_cutscen.zacit_profilovat_cutscenu" To="m47__stream_profilu_nazacatku_questu">
 						<Vertex>gQBQ2dIN</Vertex>
 					</Edge>
+					<Edge From="hibernables.uvodni_cutscena_afterplay" To="uvodni_cutscena_afterplay" />
 				</Output>
 				<PauseWorldTime Name="pauseworldtime9" PositionY="-680" PositionX="-200">
 					<Edge From="questProgress.Active" To="IsActive" />

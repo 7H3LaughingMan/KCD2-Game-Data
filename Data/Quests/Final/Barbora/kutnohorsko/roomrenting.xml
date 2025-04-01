@@ -18,6 +18,9 @@
 				<Port Name="jindra_dostava_pokoj_jako_odmenu__u63a_duely_zavet" Direction="In" Type="trigger">
 					<DesignName StringName="roomrenti_jindra_dostava__3CGK" Text="Jindra dostáva pokoj jako odměnu - U63a Duely: závěť" />
 				</Port>
+				<Port Name="onlevelswitched" Direction="In" Type="trigger">
+					<DesignName StringName="roomrenti_onlevelswitched_C89I" Text="OnLevelSwitched" />
+				</Port>
 			</Ports>
 			<Definitions>
 				<Definition File="roomRenting/gruntaOneNight.xml" />
@@ -53,7 +56,9 @@
 					<Edge From="uCisareKarlaHospoda.pronajaty_pokoj_u_cisare_karla" To="pronajaty_pokoj_u_cisare_karla" />
 					<Edge From="naOpratceHospoda.jindra_ma_pronajatej_pokoj_na_tarmarku" To="jindra_ma_pronajatej_pokoj_na_tarmarku" />
 				</Output>
-				<pritokyHospoda Name="pritokyHospoda" PositionY="60" PositionX="620" />
+				<pritokyHospoda Name="pritokyHospoda" PositionY="60" PositionX="620">
+					<Edge From="onlevelswitched" To="onlevelswitched" />
+				</pritokyHospoda>
 				<rabstejnsko_onenight Name="rabstejnskoOneNight" PositionY="1470" PositionX="150" />
 				<ruthardkaSafeHouse Name="ruthardkaSafeHouse" PositionY="-50" PositionX="150">
 					<Edge From="ruthardkaenable" To="enable" />

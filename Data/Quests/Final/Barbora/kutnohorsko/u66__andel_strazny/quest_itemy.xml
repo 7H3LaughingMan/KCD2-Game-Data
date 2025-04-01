@@ -47,6 +47,20 @@
 					<Asset Name="StartingLocation" Alias="sindel" />
 					<Edge From="state18.Aborted" To="IsActive" />
 				</AddQuestItem>
+				<AddQuestItem Name="addquestitem31" PositionY="-1350" PositionX="-130">
+					<Constant Name="ItemClassGUID" Value="ff1994fb-a737-4e68-9dc4-7f1ca47a9168" />
+					<Asset Name="BackupLocation" Alias="player_stash" />
+					<Asset Name="StartingLocation" Alias="Andel" />
+					<Edge From="state30_1.None" To="IsActive">
+						<Vertex>GF43D45G</Vertex>
+					</Edge>
+				</AddQuestItem>
+				<AddQuestItem Name="addquestitem31_1" PositionY="-880" PositionX="-140">
+					<Constant Name="ItemClassGUID" Value="ff1994fb-a737-4e68-9dc4-7f1ca47a9168" />
+					<Asset Name="BackupLocation" Alias="player_stash" />
+					<Asset Name="StartingLocation" Alias="player" />
+					<Edge From="state30_1.Active" To="IsActive" />
+				</AddQuestItem>
 				<AddSoulDefaultItem Name="addsouldefaultitem29" PositionY="410" PositionX="890">
 					<Constant Name="ItemClass" Value="ff0e9782-252b-4cba-8931-62b0ff08bd21" />
 					<Constant Name="Purpose" Value="Inventory" />
@@ -86,6 +100,11 @@
 						<Vertex>xH63IzaF</Vertex>
 					</Edge>
 				</EventFunction>
+				<EventFunction Name="createplayerreward32" PositionY="-910" PositionX="840" MethodName="wh::entitymodule::CreatePlayerReward" DeclaringType="wh::entitymodule">
+					<Constant Name="ItemClass" Value="ff1994fb-a737-4e68-9dc4-7f1ca47a9168" />
+					<Constant Name="ShowUINotification" Value="false" />
+					<Edge From="state30.OnActive" To="Exec" />
+				</EventFunction>
 				<HasteTrigger Name="goto_execution_site" PositionY="-120" PositionX="-340">
 					<Edge From="makearray27.Array" To="ConsoleCommands" />
 				</HasteTrigger>
@@ -110,6 +129,14 @@
 						<Vertex>946LEu2p</Vertex>
 					</Edge>
 				</State>
+				<itemclasstrigger_playerinventory Name="itemclasstrigger_playerinventory" PositionY="-970" PositionX="-1180" Namespace="utils.item">
+					<Constant Name="itemclass" Value="ff1994fb-a737-4e68-9dc4-7f1ca47a9168" />
+					<Constant Name="amount" Value="1" />
+					<Edge From="state30_1.None" To="isactive">
+						<Vertex>GF43D45G</Vertex>
+						<Vertex>fu2lyeoT</Vertex>
+					</Edge>
+				</itemclasstrigger_playerinventory>
 				<HasteTrigger Name="loot_items" PositionY="1200" PositionX="30" />
 				<MakeArray Name="makearray25" PositionY="-300" PositionX="-840" TypeT="Strings">
 					<Constant Name="A" Value="playerGoto 3232.40 686.79 39.94 -61.22 -0.00 -112.83" />
@@ -175,14 +202,44 @@
 						<Vertex>ULKLj0XD</Vertex>
 					</Edge>
 				</State>
+				<State Name="state30" PositionY="-1060" PositionX="450" TypeT="Progress">
+					<Edge From="state30_1.State" To="Value">
+						<Vertex>8fSlIE65</Vertex>
+					</Edge>
+					<Edge From="fail_questu" To="Exec">
+						<Vertex>nsU9Tnmt</Vertex>
+						<Vertex>T5gXMQDa</Vertex>
+						<Vertex>0qNdJdAm</Vertex>
+					</Edge>
+					<Edge From="quest_done" To="Exec">
+						<Vertex>nsU9Tnmt</Vertex>
+						<Vertex>T5gXMQDa</Vertex>
+						<Vertex>0qNdJdAm</Vertex>
+					</Edge>
+				</State>
+				<State Name="state30_1" PositionY="-1080" PositionX="-610" TypeT="Progress">
+					<Edge From="state30.OnExec" To="SetDone">
+						<Vertex>fvs7u4hx</Vertex>
+						<Vertex>51kVd8qC</Vertex>
+					</Edge>
+					<Edge From="itemclasstrigger_playerinventory.onacquire" To="SetActive" />
+				</State>
 			</Nodes>
 			<EdgeVertices>
+				<EdgeVertex Name="0qNdJdAm" PositionY="-977" PositionX="-134" />
+				<EdgeVertex Name="51kVd8qC" PositionY="-1420" PositionX="-640" />
+				<EdgeVertex Name="8fSlIE65" PositionY="-958" PositionX="381" />
 				<EdgeVertex Name="946LEu2p" PositionY="1874" PositionX="-512" />
 				<EdgeVertex Name="b0c72Muf" PositionY="860" PositionX="690" />
 				<EdgeVertex Name="BUaIb3EW" PositionY="570" PositionX="738" />
+				<EdgeVertex Name="fu2lyeoT" PositionY="-1180" PositionX="-1240" />
+				<EdgeVertex Name="fvs7u4hx" PositionY="-1430" PositionX="650" />
+				<EdgeVertex Name="GF43D45G" PositionY="-1183" PositionX="-222" />
+				<EdgeVertex Name="nsU9Tnmt" PositionY="-549" PositionX="-1073" />
 				<EdgeVertex Name="PDupGgIk" PositionY="1015" PositionX="-815" />
 				<EdgeVertex Name="Poe7tK2f" PositionY="270" PositionX="-210" />
 				<EdgeVertex Name="s83XP3HA" PositionY="-50" PositionX="1510" />
+				<EdgeVertex Name="T5gXMQDa" PositionY="-549" PositionX="-259" />
 				<EdgeVertex Name="ULKLj0XD" PositionY="1018" PositionX="305" />
 				<EdgeVertex Name="WDubVxTy" PositionY="1870" PositionX="360" />
 				<EdgeVertex Name="xH63IzaF" PositionY="1474" PositionX="453" />
@@ -191,6 +248,9 @@
 				<EdgeVertex Name="YuS0KKPR" PositionY="981" PositionX="-29" />
 				<EdgeVertex Name="zmC72j5s" PositionY="860" PositionX="1350" />
 			</EdgeVertices>
+			<Assets>
+				<SoulAsset Name="Andel" SharedSoulGuids="8f94817d-9bd0-4d89-8922-00e621052dcf" />
+			</Assets>
 			<Text StringName="quest_itemy_dgFM" Text="Quest itemy" />
 			<Elements>
 				<ActionPromptElement>

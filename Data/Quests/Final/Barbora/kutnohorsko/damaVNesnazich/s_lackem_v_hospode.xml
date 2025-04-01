@@ -152,7 +152,7 @@
 						<Vertex>Ug4yDCf1</Vertex>
 					</Edge>
 				</naliti_lektvaru_do_korbelu_vidi_pri_tom_lacek_hrace>
-				<objective__bez_si_promluvit_s_lackem_do_hospody Name="objective__bez_si_promluvit_s_lackem_do_hospody" PositionY="-80" PositionX="-1720" RequiredForOutput="kutnohorsko">
+				<objective__bez_si_promluvit_s_lackem_do_hospody Name="objective__bez_si_promluvit_s_lackem_do_hospody" PositionY="-120" PositionX="-1720" RequiredForOutput="kutnohorsko">
 					<Edge From="jindra_muze_jit_za_lackem" To="jindra_muze_jit_za_lackem" />
 					<Edge From="dialog_s_lackem_v_hospode.lacek_odchazi" To="lacek_odchazi">
 						<Vertex>vertex112</Vertex>
@@ -199,7 +199,7 @@
 						<Vertex>E8dbddML</Vertex>
 					</Edge>
 				</objective__bez_si_promluvit_s_lackem_do_hospody>
-				<objective__nenapadne_nalej_uspavaci_odvar_do_lackova_korbelu Name="objective__nenapadne_nalej_uspavaci_odvar_do_lackova_korbelu" PositionY="-30" PositionX="-1080" RequiredForOutput="kutnohorsko">
+				<objective__nenapadne_nalej_uspavaci_odvar_do_lackova_korbelu Name="objective__nenapadne_nalej_uspavaci_odvar_do_lackova_korbelu" PositionY="-60" PositionX="-1080" RequiredForOutput="kutnohorsko">
 					<Edge From="dialog_s_lackem_v_hospode.lacek_odchazi" To="setcanceled">
 						<Vertex>vertex112</Vertex>
 						<Vertex>vertex113</Vertex>
@@ -310,6 +310,7 @@
 					</Edge>
 					<Edge From="objective__bez_si_promluvit_s_lackem_do_hospody.crime__pokus_se_lacka_omracit" To="setactive">
 						<Vertex>qXAcRNXq</Vertex>
+						<Vertex>uTndVVD8</Vertex>
 						<Vertex>979PBAI7</Vertex>
 					</Edge>
 					<Edge From="lacek_v_hospode_jde_ven.hrac_napadnul_lacka" To="setactive">
@@ -326,6 +327,10 @@
 					<Edge From="objective__bez_si_promluvit_s_lackem_do_hospody.timeout__pokus_se_lacka_omracit" To="setactive">
 						<Vertex>fkIBA65o</Vertex>
 						<Vertex>a0IFvTzJ</Vertex>
+					</Edge>
+					<Edge From="objective__nenapadne_nalej_uspavaci_odvar_do_lackova_korbelu.crime__pokus_se_lacka_omracit" To="setactive">
+						<Vertex>uTndVVD8</Vertex>
+						<Vertex>979PBAI7</Vertex>
 					</Edge>
 				</objective__zkus_lacka_nejak_omracit>
 				<omraceni_lacka Name="omraceni_lacka" PositionY="1310" PositionX="880">
@@ -421,14 +426,22 @@
 					<Edge From="objective__pockej_az_se_lacek_napije.fail_questu" To="fail_questu">
 						<Vertex>pUyTF1yT</Vertex>
 					</Edge>
-					<Edge From="objective__nenapadne_nalej_uspavaci_odvar_do_lackova_korbelu.jindra_uz_nepotrebuje_uspavak" To="jindra_uz_nepotrebuje_uspavak">
-						<Vertex>Vr1yhSVL</Vertex>
-						<Vertex>CVtaK6dW</Vertex>
-					</Edge>
 					<Edge From="objective__zkus_lacka_nejak_omracit.hrac_zmeskal_sanci_fail" To="fail_questu">
 						<Vertex>eRyfhYVq</Vertex>
 					</Edge>
+					<Edge From="poisoningOrUnconsciousObjectiveOver.bool" To="jindra_uz_nepotrebuje_uspavak" />
 				</Output>
+				<Function Name="poisoningOrUnconsciousObjectiveOver" PositionY="-410" PositionX="2510" MethodName="math::boolean::Or" DeclaringType="math::boolean">
+					<Edge From="omraceni_lacka.lacek_uz_byl_questove_omracen" To="C">
+						<Vertex>RHgGxAJk</Vertex>
+					</Edge>
+					<Edge From="objective__nenapadne_nalej_uspavaci_odvar_do_lackova_korbelu.jindra_uz_nepotrebuje_uspavak" To="B">
+						<Vertex>Vr1yhSVL</Vertex>
+					</Edge>
+					<Edge From="objective__bez_si_promluvit_s_lackem_do_hospody.jindra_uz_nepotrebuje_uspavak" To="A">
+						<Vertex>UT8UfW0p</Vertex>
+					</Edge>
+				</Function>
 			</Nodes>
 			<EdgeVertices>
 				<EdgeVertex Name="0Ko9xWUk" PositionY="-130" PositionX="-1710" />
@@ -445,7 +458,6 @@
 				<EdgeVertex Name="AoqqfdRj" PositionY="1550" PositionX="1300" />
 				<EdgeVertex Name="azNfzt29" PositionY="853" PositionX="899" />
 				<EdgeVertex Name="BlBvm77N" PositionY="470" PositionX="-1060" />
-				<EdgeVertex Name="CVtaK6dW" PositionY="-280" PositionX="2810" />
 				<EdgeVertex Name="E8dbddML" PositionY="280" PositionX="-1710" />
 				<EdgeVertex Name="EbNL9JXl" PositionY="1230" PositionX="1730" />
 				<EdgeVertex Name="eRyfhYVq" PositionY="544" PositionX="2795" />
@@ -476,11 +488,14 @@
 				<EdgeVertex Name="QlHjf5FG" PositionY="1550" PositionX="2850" />
 				<EdgeVertex Name="qXAcRNXq" PositionY="-190" PositionX="-1140" />
 				<EdgeVertex Name="QXj4S2oN" PositionY="880" PositionX="-400" />
+				<EdgeVertex Name="RHgGxAJk" PositionY="1604" PositionX="2230" />
 				<EdgeVertex Name="rxpujsbg" PositionY="550" PositionX="1120" />
 				<EdgeVertex Name="t3Xsctsd" PositionY="820" PositionX="-400" />
 				<EdgeVertex Name="TAFpbEod" PositionY="1290" PositionX="1070" />
 				<EdgeVertex Name="Ug4yDCf1" PositionY="910" PositionX="-400" />
 				<EdgeVertex Name="uPrrjh94" PositionY="1230" PositionX="890" />
+				<EdgeVertex Name="UT8UfW0p" PositionY="-340" PositionX="-1160" />
+				<EdgeVertex Name="uTndVVD8" PositionY="-185" PositionX="-319" />
 				<EdgeVertex Name="vertex112" PositionY="260" PositionX="550" />
 				<EdgeVertex Name="vertex113" PositionY="290" PositionX="-1060" />
 				<EdgeVertex Name="vertex114" PositionY="170" PositionX="900" />

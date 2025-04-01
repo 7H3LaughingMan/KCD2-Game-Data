@@ -24,18 +24,22 @@
 						<Vertex>8RNCl2SP</Vertex>
 						<Vertex>6SBXefwX</Vertex>
 					</Edge>
+					<Edge From="Move.onfinished" To="SetGoToInjured">
+						<Vertex>PY6oeoKz</Vertex>
+						<Vertex>tjG2KMgt</Vertex>
+					</Edge>
 				</State>
-				<dialog Name="dialog" PositionY="-300" PositionX="730">
+				<dialog Name="dialog" PositionY="-340" PositionX="870">
 					<Constant Name="je_aktivni" Value="false" />
 				</dialog>
-				<EnableBehavior Name="enablebehaviorwuiddata18" PositionY="710" PositionX="340" Signature="wuidData" EventSet="">
+				<EnableBehavior Name="enablebehaviorwuiddata18" PositionY="500" PositionX="360" Signature="wuidData" EventSet="">
 					<Constant Name="Behavior" Value="sam_healing" />
 					<Asset Name="SmartEntity" Alias="qSO" />
 					<Asset Name="NPC" Alias="samuel" />
 					<Asset Name="data" Alias="zranenyNaZidovske" />
 					<Edge From="ChovaniBehemCesty.Healing" To="IsActive" />
 				</EnableBehavior>
-				<EnableBehavior Name="enablebehaviorwuiddatawuiddataarray16" PositionY="330" PositionX="630" Signature="wuidDataWuidDataArray" EventSet="">
+				<EnableBehavior Name="enablebehaviorwuiddatawuiddataarray16" PositionY="350" PositionX="650" Signature="wuidDataWuidDataArray" EventSet="">
 					<Constant Name="Behavior" Value="npc_polylogWithInjured" />
 					<Asset Name="SmartEntity" Alias="qSO" />
 					<Asset Name="NPC" Alias="zranenyNaZidovske" />
@@ -43,7 +47,7 @@
 					<Edge From="makearray7.Array" To="wuidDataArray" />
 					<Edge From="or17.bool" To="IsActive" />
 				</EnableBehavior>
-				<EnableBehavior Name="enablebehaviorwuiddatawuiddataarrayendnotification14" PositionY="-10" PositionX="650" Signature="wuidDataWuidDataArray" EventSet="endNotification">
+				<EnableBehavior Name="enablebehaviorwuiddatawuiddataarrayendnotification14" PositionY="10" PositionX="670" Signature="wuidDataWuidDataArray" EventSet="endNotification">
 					<Constant Name="Behavior" Value="samuel_polylogWithInjured" />
 					<Asset Name="SmartEntity" Alias="qSO" />
 					<Asset Name="NPC" Alias="samuel" />
@@ -51,14 +55,22 @@
 					<Edge From="makearray7.Array" To="wuidDataArray" />
 					<Edge From="or17.bool" To="IsActive" />
 				</EnableBehavior>
-				<MakeArray Name="makearray7" PositionY="460" PositionX="330" TypeT="wh::rpgmodule::Souls">
+				<MakeArray Name="makearray7" PositionY="190" PositionX="370" TypeT="wh::rpgmodule::Souls">
 					<Asset Name="A" Alias="samuel" />
 					<Asset Name="B" Alias="injuredOnStreet" />
 				</MakeArray>
+				<Move Name="Move" PositionY="-380" PositionX="400" Namespace="utils.move">
+					<Asset Name="soul" Alias="samuel" />
+					<Asset Name="smartentity" Alias="qSO" />
+					<Asset Name="destination" Alias="samUZranenehoPoint" />
+					<Constant Name="speed" Value="Run" />
+					<Constant Name="stealth" Value="false" />
+					<Constant Name="successdistance" Value="10" />
+					<Edge From="ChovaniBehemCesty.TalkWithGuard" To="isactive" />
+				</Move>
 				<Function Name="or17" PositionY="-30" PositionX="380" MethodName="math::boolean::Or" DeclaringType="math::boolean">
-					<Edge From="ChovaniBehemCesty.TalkWithGuard" To="A" />
-					<Edge From="ChovaniBehemCesty.BarkToMother" To="B" />
-					<Edge From="ChovaniBehemCesty.GoToInjured" To="C" />
+					<Edge From="ChovaniBehemCesty.BarkToMother" To="A" />
+					<Edge From="ChovaniBehemCesty.GoToInjured" To="B" />
 				</Function>
 				<Output Name="Output">
 					<Edge From="enablebehaviorwuiddatawuiddataarrayendnotification14.OnFinished" To="jindra_musi_za_matkou_1" />
@@ -66,7 +78,9 @@
 			</Nodes>
 			<EdgeVertices>
 				<EdgeVertex Name="6SBXefwX" PositionY="1200" PositionX="70" />
-				<EdgeVertex Name="8RNCl2SP" PositionY="1198" PositionX="863" />
+				<EdgeVertex Name="8RNCl2SP" PositionY="1200" PositionX="880" />
+				<EdgeVertex Name="PY6oeoKz" PositionY="400" PositionX="560" />
+				<EdgeVertex Name="tjG2KMgt" PositionY="400" PositionX="10" />
 			</EdgeVertices>
 			<Assets>
 				<SoulAsset Name="injuredOnStreet" SharedSoulGuids="e4aa3a8e-7db4-4579-86bc-8a3ac8f5b601" />

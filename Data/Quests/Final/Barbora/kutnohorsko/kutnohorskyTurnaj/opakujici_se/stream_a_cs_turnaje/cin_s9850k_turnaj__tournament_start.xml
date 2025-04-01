@@ -66,6 +66,9 @@
 				<Port Name="turnajnici_ready_trigger" Direction="In" Type="trigger">
 					<DesignName StringName="cin_s9850_turnajnici_read_izI0" Text="Turnajníci ready trigger" />
 				</Port>
+				<Port Name="hracvareeprostart" Direction="In" Type="bool">
+					<DesignName StringName="cin_s9850_hracvareeprosta_C5u9" Text="hracVAreeProStart" />
+				</Port>
 			</Ports>
 			<Definitions>
 				<Definition File="cin_s9850k_turnaj__tournament_start/wrappedindexselection.xml" />
@@ -83,6 +86,24 @@
 					<Constant Name="BlendTime" Value="0" />
 					<Edge From="cutscenehandler_turnaj_1.BeforePlay" To="Exec" />
 				</Function>
+				<Function Name="csStartCriteria" PositionY="520" PositionX="-90" MethodName="math::boolean::And" DeclaringType="math::boolean">
+					<Edge From="turnajnici_ready" To="A">
+						<Vertex>HtHf2kCS</Vertex>
+						<Vertex>Ta7ffFpf</Vertex>
+					</Edge>
+					<Edge From="CutscenaInprogress.State" To="B">
+						<Vertex>dTmyGIK6</Vertex>
+						<Vertex>LNl6kqPv</Vertex>
+					</Edge>
+					<Edge From="hracvareeprostart" To="C">
+						<Vertex>WKvKys2k</Vertex>
+						<Vertex>0JxpQh1g</Vertex>
+					</Edge>
+					<Edge From="streamPreTurnaj_1_1.profileactive" To="D">
+						<Vertex>Lpr2LoME</Vertex>
+						<Vertex>0CEMaAB9</Vertex>
+					</Edge>
+				</Function>
 				<State Name="CutscenaInprogress" PositionY="1030" PositionX="810" TypeT="bool">
 					<Edge From="cutscenehandler_turnaj_1.AfterPlay" To="SetFalse">
 						<Vertex>HCJpLFPQ</Vertex>
@@ -99,6 +120,7 @@
 				</State>
 				<State Name="CutscenaProbehlaNeboUzNeprobehne" PositionY="370" PositionX="770" TypeT="bool">
 					<Edge From="unstream_start" To="SetFalse">
+						<Vertex>YFeGsvoA</Vertex>
 						<Vertex>vertex21</Vertex>
 						<Vertex>vertex23</Vertex>
 					</Edge>
@@ -118,10 +140,9 @@
 					<Constant Name="AutoPlay" Value="false" />
 					<Edge From="if2_2.False" To="EnqueueCutscene" />
 					<Edge From="switch4.Value1" To="CutsceneHolder" />
-					<Edge From="if12.True" To="PlayCutscene" />
-					<Edge From="savelockStartCS.OnFinished" To="PlayCutscene">
-						<Vertex>clLP41uW</Vertex>
-						<Vertex>UTbm9P7L</Vertex>
+					<Edge From="if21.True" To="PlayCutscene" />
+					<Edge From="watchbool.onchangedtotrue" To="PlayCutscene">
+						<Vertex>vvAGdsdp</Vertex>
 					</Edge>
 				</CutsceneHandler>
 				<If Name="if_isCutsceneAfterPlayWithPlayer" PositionY="-140" PositionX="400">
@@ -130,7 +151,7 @@
 						<Vertex>C8Qu6v5G</Vertex>
 					</Edge>
 				</If>
-				<If Name="if10" PositionY="770" PositionX="1220">
+				<If Name="if10" PositionY="780" PositionX="1210">
 					<Edge From="streamPreTurnaj_1_1.profileactive" To="Condition">
 						<Vertex>3ztWAcnG</Vertex>
 						<Vertex>eFtu5Nyu</Vertex>
@@ -144,21 +165,6 @@
 						<Vertex>95Dsbb2Y</Vertex>
 					</Edge>
 				</If>
-				<If Name="if12" PositionY="420" PositionX="-340">
-					<Edge From="turnajnici_ready" To="Condition">
-						<Vertex>HtHf2kCS</Vertex>
-						<Vertex>Ta7ffFpf</Vertex>
-					</Edge>
-					<Edge From="if2_2_1.False" To="Exec" />
-					<Edge From="if3_1.True" To="Exec">
-						<Vertex>IuBgPoC5</Vertex>
-						<Vertex>fF0hJG86</Vertex>
-					</Edge>
-					<Edge From="timer13.OnFinished" To="Exec">
-						<Vertex>3jd9Chup</Vertex>
-						<Vertex>4DMzVTXF</Vertex>
-					</Edge>
-				</If>
 				<If Name="if2_2" PositionY="190" PositionX="-640">
 					<Edge From="cstimerfinished" To="Condition">
 						<Vertex>kx8QLUEf</Vertex>
@@ -166,13 +172,15 @@
 					<Edge From="cs_start" To="Exec" />
 					<Edge From="triggersequence15.A" To="Exec" />
 				</If>
-				<If Name="if2_2_1" PositionY="360" PositionX="-650">
+				<If Name="if21" PositionY="350" PositionX="-290">
 					<Edge From="streamPreTurnaj_1_1.onloaded" To="Exec">
-						<Vertex>vertex28</Vertex>
-						<Vertex>vertex29</Vertex>
+						<Vertex>UWD2v9Ux</Vertex>
+						<Vertex>y5d49QWC</Vertex>
 					</Edge>
-					<Edge From="cstimerfinished" To="Condition">
-						<Vertex>kx8QLUEf</Vertex>
+					<Edge From="turnajnici_ready" To="Condition">
+						<Vertex>HtHf2kCS</Vertex>
+						<Vertex>Ta7ffFpf</Vertex>
+						<Vertex>VStuY8lJ</Vertex>
 					</Edge>
 				</If>
 				<If Name="if3" PositionY="50" PositionX="1060">
@@ -216,6 +224,9 @@
 					<Asset Name="B" Alias="csStartTourney_variantB" />
 					<Asset Name="C" Alias="csStartTourney_variantC" />
 				</MakeArray>
+				<Function Name="notCSDone" PositionY="370" PositionX="1050" MethodName="math::boolean::Not" DeclaringType="math::boolean">
+					<Edge From="CutscenaProbehlaNeboUzNeprobehne.State" To="Value" />
+				</Function>
 				<Output Name="Output">
 					<Edge From="streamPreTurnaj_2.onloaded" To="preturnaj_nastreamovan" />
 					<Edge From="streamPreTurnaj_1_1.onloaded" To="turnaj_nastreamovan" />
@@ -250,12 +261,6 @@
 						<Vertex>WuHQbz4w</Vertex>
 					</Edge>
 				</Output>
-				<Timer Name="savelockStartCS" PositionY="890" PositionX="20">
-					<Constant Name="Duration" Value="1m" />
-					<Constant Name="TimeType" Value="WorldTime" />
-					<Edge From="if12.True" To="SetStopped" />
-					<Edge From="if12.False" To="SetRunning" />
-				</Timer>
 				<streamprofileshandling Name="streamPreTurnaj_1_1" PositionY="30" PositionX="1480" Namespace="utils.streaming">
 					<Asset Name="profiles" Alias="profileTurnaj" />
 					<Constant Name="autodeactivatenotificationafterstream" Value="false" />
@@ -263,6 +268,7 @@
 						<Vertex>LXmI1Bs5</Vertex>
 					</Edge>
 					<Edge From="unstream_start" To="unstreamprofiles">
+						<Vertex>YFeGsvoA</Vertex>
 						<Vertex>vertex21</Vertex>
 						<Vertex>vertex23</Vertex>
 						<Vertex>vertex22</Vertex>
@@ -279,6 +285,7 @@
 					<Asset Name="profiles" Alias="profilePreTurnaj" />
 					<Constant Name="autodeactivatenotificationafterstream" Value="false" />
 					<Edge From="unstream_start" To="unstreamprofiles">
+						<Vertex>YFeGsvoA</Vertex>
 						<Vertex>vertex21</Vertex>
 						<Vertex>vertex23</Vertex>
 						<Vertex>vertex22</Vertex>
@@ -297,17 +304,22 @@
 					</Edge>
 					<Edge From="wrappedindexselection.index" To="trueValue1" />
 				</Switch>
-				<Timer Name="timer13" PositionY="860" PositionX="-360">
-					<Constant Name="Duration" Value="5s" />
-					<Constant Name="TimeType" Value="WorldTime" />
-					<Edge From="if12.False" To="SetRunning" />
-				</Timer>
 				<TriggerSequence Name="triggersequence11" PositionY="430" PositionX="360">
 					<Edge From="cutscenehandler_turnaj_1.BeforePlay" To="Exec" />
 				</TriggerSequence>
 				<TriggerSequence Name="triggersequence15" PositionY="650" PositionX="-950">
 					<Edge From="ifHracTimeSkipuje.True" To="Exec" />
 				</TriggerSequence>
+				<watchbool Name="watchbool" PositionY="330" PositionX="-630" Namespace="utils.general">
+					<Edge From="notCSDone.bool" To="isactive">
+						<Vertex>QXbJGo0w</Vertex>
+						<Vertex>XSp6Shr2</Vertex>
+					</Edge>
+					<Edge From="csStartCriteria.bool" To="watchedstate">
+						<Vertex>xUkN1JID</Vertex>
+						<Vertex>UfbkLtVL</Vertex>
+					</Edge>
+				</watchbool>
 				<wrappedindexselection Name="wrappedindexselection" PositionY="-620" PositionX="-930">
 					<Edge From="makearray6.Array" To="array" />
 					<Edge From="cutscenehandler_turnaj_1.OnFinished" To="increment">
@@ -318,12 +330,12 @@
 				</wrappedindexselection>
 			</Nodes>
 			<EdgeVertices>
+				<EdgeVertex Name="0CEMaAB9" PositionY="780" PositionX="-90" />
+				<EdgeVertex Name="0JxpQh1g" PositionY="600" PositionX="-810" />
 				<EdgeVertex Name="1mAfqUny" PositionY="-50" PositionX="1750" />
 				<EdgeVertex Name="1YnYkhDk" PositionY="346" PositionX="600" />
 				<EdgeVertex Name="3DPjLkGg" PositionY="79" PositionX="-335" />
-				<EdgeVertex Name="3jd9Chup" PositionY="1220" PositionX="-130" />
 				<EdgeVertex Name="3ztWAcnG" PositionY="730" PositionX="1690" />
-				<EdgeVertex Name="4DMzVTXF" PositionY="1219" PositionX="-397" />
 				<EdgeVertex Name="734Tjt2I" PositionY="840" PositionX="-910" />
 				<EdgeVertex Name="7mcoTRHt" PositionY="1160" PositionX="1790" />
 				<EdgeVertex Name="8yGJ56TH" PositionY="410" PositionX="385" />
@@ -332,46 +344,52 @@
 				<EdgeVertex Name="AQXubK6d" PositionY="954" PositionX="759" />
 				<EdgeVertex Name="C8Qu6v5G" PositionY="-20" PositionX="-610" />
 				<EdgeVertex Name="CbQEXvGq" PositionY="348" PositionX="788" />
-				<EdgeVertex Name="clLP41uW" PositionY="825" PositionX="233" />
 				<EdgeVertex Name="CQrpvul6" PositionY="890" PositionX="1760" />
 				<EdgeVertex Name="DD4YDjHG" PositionY="-390" PositionX="570" />
 				<EdgeVertex Name="DK0T8XVl" PositionY="1000" PositionX="1380" />
 				<EdgeVertex Name="DQ3zpyEE" PositionY="30" PositionX="130" />
+				<EdgeVertex Name="dTmyGIK6" PositionY="1316" PositionX="975" />
 				<EdgeVertex Name="e4yx8eGr" PositionY="1298" PositionX="1376" />
 				<EdgeVertex Name="eFtu5Nyu" PositionY="730" PositionX="1230" />
 				<EdgeVertex Name="fbcrHRMf" PositionY="1007" PositionX="749" />
-				<EdgeVertex Name="fF0hJG86" PositionY="720" PositionX="-340" />
 				<EdgeVertex Name="gcRYMGf7" PositionY="-51" PositionX="762" />
 				<EdgeVertex Name="HCJpLFPQ" PositionY="1242" PositionX="417" />
 				<EdgeVertex Name="HtHf2kCS" PositionY="1256" PositionX="-1090" />
-				<EdgeVertex Name="IuBgPoC5" PositionY="708" PositionX="970" />
 				<EdgeVertex Name="jh8j48P4" PositionY="640" PositionX="1673" />
 				<EdgeVertex Name="K0utghkQ" PositionY="30" PositionX="1710" />
 				<EdgeVertex Name="kx8QLUEf" PositionY="330" PositionX="-760" />
+				<EdgeVertex Name="LNl6kqPv" PositionY="1284" PositionX="-475" />
+				<EdgeVertex Name="Lpr2LoME" PositionY="790" PositionX="1710" />
 				<EdgeVertex Name="LXmI1Bs5" PositionY="70" PositionX="1310" />
 				<EdgeVertex Name="pDE4kvjD" PositionY="1537" PositionX="-1099" />
+				<EdgeVertex Name="QXbJGo0w" PositionY="742" PositionX="1148" />
 				<EdgeVertex Name="Ta7ffFpf" PositionY="1259" PositionX="-967" />
 				<EdgeVertex Name="tEcvYll5" PositionY="79" PositionX="241" />
-				<EdgeVertex Name="UTbm9P7L" PositionY="821" PositionX="26" />
+				<EdgeVertex Name="UfbkLtVL" PositionY="590" PositionX="-590" />
+				<EdgeVertex Name="UWD2v9Ux" PositionY="820" PositionX="1680" />
 				<EdgeVertex Name="vaVnkDHH" PositionY="410" PositionX="539" />
 				<EdgeVertex Name="vertex14" PositionY="140" PositionX="-10" />
 				<EdgeVertex Name="vertex16" PositionY="-20" PositionX="1720" />
 				<EdgeVertex Name="vertex17" PositionY="-20" PositionX="1080" />
-				<EdgeVertex Name="vertex21" PositionY="620" PositionX="-630" />
+				<EdgeVertex Name="vertex21" PositionY="760" PositionX="-580" />
 				<EdgeVertex Name="vertex22" PositionY="620" PositionX="1250" />
-				<EdgeVertex Name="vertex23" PositionY="620" PositionX="590" />
+				<EdgeVertex Name="vertex23" PositionY="760" PositionX="650" />
 				<EdgeVertex Name="vertex24" PositionY="490" PositionX="1670" />
 				<EdgeVertex Name="vertex25" PositionY="-330" PositionX="-500" />
-				<EdgeVertex Name="vertex28" PositionY="680" PositionX="1680" />
-				<EdgeVertex Name="vertex29" PositionY="680" PositionX="-650" />
 				<EdgeVertex Name="VStuY8lJ" PositionY="1265" PositionX="-614" />
+				<EdgeVertex Name="vvAGdsdp" PositionY="326" PositionX="-357" />
+				<EdgeVertex Name="WKvKys2k" PositionY="600" PositionX="-1290" />
 				<EdgeVertex Name="wlqkf5GV" PositionY="960" PositionX="1380" />
 				<EdgeVertex Name="wMUKpIjg" PositionY="345" PositionX="1691" />
 				<EdgeVertex Name="wPyvGBMF" PositionY="9" PositionX="1726" />
 				<EdgeVertex Name="WuHQbz4w" PositionY="1470" PositionX="1820" />
 				<EdgeVertex Name="X1R4lu7G" PositionY="1320" PositionX="540" />
 				<EdgeVertex Name="xja2LmRL" PositionY="648" PositionX="758" />
+				<EdgeVertex Name="XSp6Shr2" PositionY="734" PositionX="-490" />
+				<EdgeVertex Name="xUkN1JID" PositionY="480" PositionX="90" />
+				<EdgeVertex Name="y5d49QWC" PositionY="820" PositionX="-70" />
 				<EdgeVertex Name="Ya1Y1KMw" PositionY="1300" PositionX="-359" />
+				<EdgeVertex Name="YFeGsvoA" PositionY="350" PositionX="-850" />
 				<EdgeVertex Name="yMGcIsMl" PositionY="-390" PositionX="-900" />
 			</EdgeVertices>
 			<Text StringName="zahajeni_turnaje_cs_t2Tq" Text="Zahájení turnaje CS" />

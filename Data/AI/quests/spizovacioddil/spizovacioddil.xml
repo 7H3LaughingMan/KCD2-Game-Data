@@ -909,6 +909,7 @@
 			</OnInit>
 			<Behavior canSkip="1">
 				<Sequence>
+					<Wait duration="&apos;3m&apos;" timeType="GameTime" doFail="false" variation="" />
 					<IfCondition failOnCondition="false" condition="$spot ~= $__null">
 						<ExactMove directionType="AlignWithEntity" directionSpecification="$spot" animationTriggerDist="0.150000" precise="false" changeNPCState="true" fastForwardIncludesMove="true" destinationSpecification="$spot" destinationSpecification2="" destinationSpecification3="" speed="Walk" additionalParams="" pathFindingParams="" staminaPolicy="" pathInfo="" />
 					</IfCondition>
@@ -935,6 +936,9 @@
 				<Behavior>
 					<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
 						<OutputBreakpoints />
+						<Wait hasInputBreakpoint="0" comment="In case player steals the horse, so player doesn&apos;t see how the horse goes to his spot immediately" breakpointFlags="0">
+							<OutputBreakpoints />
+						</Wait>
 						<IfCondition hasInputBreakpoint="0" comment="" breakpointFlags="0">
 							<OutputBreakpoints />
 							<ExactMove hasInputBreakpoint="0" comment="" breakpointFlags="0">

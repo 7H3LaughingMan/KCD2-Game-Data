@@ -16,7 +16,7 @@
 					<SelectedSoul Role="HENRY" Voice="tomMcKay" Type="Wave" Language="ENG" />
 					<SelectedSoul Role="QUEST_TIPSTER_SABOTAZ_LAZNI_MUZ_CUSTONT" Voice="johnComer" Type="Wave" Language="ENG" />
 				</SelectedSouls>
-				<Decision Name="dec1" Priority="SideQuestSubmission" Alias="sabotazLazni_tipsterMuz_custont" Included="true">
+				<Decision Name="dec1" Priority="QuestGiver" Alias="sabotazLazni_tipsterMuz_custont" Included="true">
 					<Sequences>
 						<Sequence EntryCondition="Port('tipster_alive_and_tip_available')" EndType="Decision" Name="seq2">
 							<DesignName StringName="quest_tip_seq2_H5Vg" Text="seq2" />
@@ -31,6 +31,7 @@
 											<Response Role="QUEST_TIPSTER_SABOTAZ_LAZNI_MUZ_CUSTONT" ReferenceLength="4.91">
 												<Text StringName="ques_quest_tip_zkus_se_ze_jnCx" Text="Zkus se zeptat v lázních u Ledňáčka. Lázeňská tam má prej nějakej šprajc." />
 												<Commands>
+													<FacialMoodCommand FacialMood="thinking2" />
 													<AnimationCommand Delay="0.93" FragmentId="ADLG_Gesture" Guid="772acf5a-6278-4ba5-b562-50981cf99cda" Variant="12" />
 													<CameraCommand CameraType="CloseShot" />
 												</Commands>
@@ -40,10 +41,12 @@
 									<Sequence EntryCondition="var('tip_given') == 1" EndType="Decision" Name="seq3">
 										<DesignName StringName="quest_tip_seq3_Mv8W" Text="seq3" />
 										<Elements>
-											<Response Role="QUEST_TIPSTER_SABOTAZ_LAZNI_MUZ_CUSTONT">
+											<Response Role="QUEST_TIPSTER_SABOTAZ_LAZNI_MUZ_CUSTONT" ReferenceLength="4.98">
 												<Text StringName="ques_quest_tip_taky_by_se_YIV2" Text="Taky by ses moh zastavit v lázních u Ledňáčka. Lázeňská tam prej má nějakej šprajc." />
 												<Commands>
-													<CameraCommand />
+													<FacialMoodCommand FacialMood="thinking2" />
+													<AnimationCommand Delay="0" FragmentId="ADLG_Gesture" Guid="c146b5f3-dae0-4959-9e7f-34c7415efe01" Variant="19" />
+													<CameraCommand CameraType="CloseShot" />
 												</Commands>
 											</Response>
 										</Elements>
@@ -61,6 +64,8 @@
 															</Parenthetical>
 															<Text StringName="ques_henry_lazenska_beta__cwfl" Text="Lázeňská Běta? Má potíže?" />
 															<Commands>
+																<FacialMoodCommand FacialMood="nervous1" />
+																<FacialMoodCommand Role="QUEST_TIPSTER_SABOTAZ_LAZNI_MUZ_CUSTONT" FacialMood="thinking2" />
 																<AnimationCommand Delay="0.02" FragmentId="ADLG_Surprised" Guid="37ccf959-1452-4346-bc56-6c477a30e707" Variant="1" />
 																<AnimationCommand Role="QUEST_TIPSTER_SABOTAZ_LAZNI_MUZ_CUSTONT" Delay="2.59" FragmentId="ADLG_Nod" Guid="c05d1d1b-ecca-45b7-8434-c2d21c80187b" Variant="1" />
 																<CameraCommand CameraType="CloseShot" />
@@ -90,6 +95,7 @@
 															</Parenthetical>
 															<Text StringName="ques_henry_jo_urcite_za_n_7ZAP" Text="Jo, určitě za ní zajdu, je to moje známá." />
 															<Commands>
+																<FacialMoodCommand FacialMood="thinking2" />
 																<AnimationCommand Delay="0.08" FragmentId="ADLG_Nod" Guid="2ddda320-2a14-4160-b352-ad7c194f57b3" Variant="0" />
 																<CameraCommand CameraType="CloseUp" />
 															</Commands>

@@ -7,7 +7,7 @@
 					<DesignName StringName="utoknamal_aktualizovat_ak_yduT" Text="aktualizovat aktivitu" />
 				</Port>
 				<Port Name="novy_plan" Direction="In" Type="trigger">
-					<DesignName StringName="mq23__pre_hrac_zachranil__Bt4T" Text="nový plán" />
+					<DesignName StringName="mq23__pre_hrac_zachranil__Bt4T" Text="Nový plán" />
 				</Port>
 				<Port Name="hrac_promluvil_s_zizkou_na_zacatku_questu" Direction="Out" Type="trigger">
 					<DesignName StringName="utoknamal_hrac_promluvil__iPLw" Text="Hráč promluvil s Žižkou na začátku questu" />
@@ -18,11 +18,20 @@
 				<Port Name="planovaci_polylog_dokoncen" Direction="Out" Type="bool">
 					<DesignName StringName="utoknamal_planovaci_polyl_Kx6C" Text="Plánovací polylog dokončen" />
 				</Port>
+				<Port Name="hrac_mel_duel_s_certem" Direction="Out" Type="bool">
+					<DesignName StringName="utoknamal_hrac_mel_duel_s_V53y" Text="Hráč měl duel s Čertem" />
+				</Port>
+				<Port Name="hrac_vyhral_duel_s_certem" Direction="Out" Type="bool">
+					<DesignName StringName="utoknamal_hrac_vyhral_due_EoFI" Text="Hráč vyhrál duel s Čertem" />
+				</Port>
 				<Port Name="palime_a_bojujeme" Direction="Out" Type="bool">
 					<DesignName StringName="utok_na_m_palime_a_bojuje_atIV" Text="Jindra souhlasil s vypálením vesnice Malešov" />
 				</Port>
 				<Port Name="prevliknout_do_boje" Direction="Out" Type="trigger">
 					<DesignName StringName="utoknamal_prevliknout_do__3Upy" Text="Zabití ponocného - BeforePlay" />
+				</Port>
+				<Port Name="zabiti_ponocneho__afterplay" Direction="Out" Type="trigger">
+					<DesignName StringName="utoknamal_zabiti_ponocneh_x85T" Text="Zabití ponocného - AfterPlay" />
 				</Port>
 				<Port Name="utok_na_vesnici_byl_prave_zahajen" Direction="Out" Type="trigger">
 					<DesignName StringName="utoknamal_utok_na_vesnici_Pagi" Text="Útok na vesnici byl právě zahájen" />
@@ -41,12 +50,6 @@
 				</Port>
 				<Port Name="nastreamovat_posadku_na_vnitrnim_nadvori_1" Direction="Out" Type="trigger">
 					<DesignName StringName="utoknamal_nastreamovat_po_l0RQ" Text="Brána na vnitřní nádvoří byla právě zničena" />
-				</Port>
-				<Port Name="hrac_mel_duel_s_certem" Direction="Out" Type="bool">
-					<DesignName StringName="utoknamal_hrac_mel_duel_s_V53y" Text="Hráč měl duel s Čertem" />
-				</Port>
-				<Port Name="hrac_vyhral_duel_s_certem" Direction="Out" Type="bool">
-					<DesignName StringName="utoknamal_hrac_vyhral_due_EoFI" Text="Hráč vyhrál duel s Čertem" />
 				</Port>
 				<Port Name="zacina_polylog_s_bergovem" Direction="Out" Type="trigger">
 					<DesignName StringName="utoknamal_zacina_polylog__jIv2" Text="Začíná polylog s Bergovem" />
@@ -75,8 +78,8 @@
 				<Port Name="odstreamovat_mrtvoly_ve_vesnici" Direction="Out" Type="trigger">
 					<DesignName StringName="utoknamal_odstreamovat_mr_bQmL" Text="Hráč se vzdálil od Malešova po dokončení questu" />
 				</Port>
-				<Port Name="vrana_neni_naverbovan" Direction="In" Type="bool">
-					<DesignName StringName="utoknamal_vrana_neni_nave_GpgS" Text="Vrána není naverbován" />
+				<Port Name="vrana_je_naverbovan" Direction="In" Type="bool">
+					<DesignName StringName="utoknamal_vrana_neni_nave_GpgS" Text="Desátník Štěpán Vrána je naverbován" />
 				</Port>
 				<Port Name="cas_po_questu_uplynul" Direction="Out" Type="trigger">
 					<DesignName StringName="utoknamal_cas_po_questu_u_YRMQ" Text="Odstreamovat loot v Malešově" />
@@ -119,7 +122,7 @@
 						<Vertex>vertex13</Vertex>
 					</Edge>
 				</haste>
-				<hibernovana_cast Name="hibernovana_cast" PositionY="-680" PositionX="-1080" RequiredForOutput="kutnohorsko">
+				<hibernovana_cast Name="hibernovana_cast" PositionY="-700" PositionX="-1080" RequiredForOutput="kutnohorsko">
 					<Edge From="attackOnMalesov.Active" To="Awake" />
 					<Edge From="nehibernovana_cast.zebrik_je_nastreamovany" To="zebrik_je_nastreamovany">
 						<Vertex>vertex59</Vertex>
@@ -128,7 +131,7 @@
 					<Edge From="haste.profilovani_je_zapnuto" To="profilovani_uvodniho_polylogu">
 						<Vertex>vertex76</Vertex>
 					</Edge>
-					<Edge From="vrana_neni_naverbovan" To="vrana_neni_naverbovan">
+					<Edge From="vrana_je_naverbovan" To="vrana_je_naverbovan">
 						<Vertex>0FhpB9tV</Vertex>
 						<Vertex>XrSSUPgb</Vertex>
 					</Edge>
@@ -269,6 +272,10 @@
 						<Vertex>cM1PRJB6</Vertex>
 						<Vertex>Ge03BN5n</Vertex>
 					</Edge>
+					<Edge From="hibernovana_cast.zabiti_ponocneho__afterplay" To="zabiti_ponocneho__afterplay">
+						<Vertex>lRGf3B8r</Vertex>
+						<Vertex>S3w3krrD</Vertex>
+					</Edge>
 					<Edge From="nehibernovana_cast.odstreamovat_loot_v_malesove" To="cas_po_questu_uplynul">
 						<Vertex>zxDAa1Fa</Vertex>
 					</Edge>
@@ -302,10 +309,12 @@
 				<EdgeVertex Name="eMjmWVf9" PositionY="160" PositionX="-832" />
 				<EdgeVertex Name="Ge03BN5n" PositionY="-9" PositionX="-379" />
 				<EdgeVertex Name="GwqJvs1v" PositionY="130" PositionX="-1070" />
+				<EdgeVertex Name="lRGf3B8r" PositionY="-109" PositionX="-647" />
 				<EdgeVertex Name="MF6cMMkr" PositionY="580" PositionX="-1120" />
 				<EdgeVertex Name="Nqc9eEel" PositionY="130" PositionX="-829" />
 				<EdgeVertex Name="PeJCXKDT" PositionY="161" PositionX="-1062" />
-				<EdgeVertex Name="qrrw6eTq" PositionY="567" PositionX="-280" />
+				<EdgeVertex Name="qrrw6eTq" PositionY="580" PositionX="-280" />
+				<EdgeVertex Name="S3w3krrD" PositionY="-110" PositionX="-366" />
 				<EdgeVertex Name="TxGTLfAz" PositionY="-150" PositionX="-640" />
 				<EdgeVertex Name="UrITLUU4" PositionY="-130" PositionX="-650" />
 				<EdgeVertex Name="vertex12" PositionY="-500" PositionX="-1270" />
@@ -426,6 +435,7 @@
 				<TagPointAsset Name="gateOpeningMarker" />
 				<SoulAsset Name="outerCourtyardDefendersAndShooters" SharedSoulGuids="ecf7aba9-7966-4d62-a73d-1dad1d53a5bf e5e713e2-d4c4-476e-a16f-9f6fda89242e 9f540c4d-b089-47e8-8b9d-077f6a6307eb 798955ed-0d60-4e65-bfeb-e9e690fb0415 ae5075fd-4292-480d-8800-1dfd129da430 fdb7c789-a491-4ba7-968e-b55f7977b098 c9b240e9-81ac-4102-abb8-ac80ffed107e d0dc3456-37da-40ec-96ee-3d604c150e4a db6b2c35-69df-47c0-afa4-605af7aa42ad f9b7cfbd-833d-4369-bc90-c3673aa37ecc 3313417d-e56f-4d4e-9c49-cc5d944a6c09 aee11d6a-2e81-47df-ad36-b477f32be3fe 2cd85109-cc0c-4650-a594-1c65c53bb2c0 8cf774d2-cbb9-409a-aaac-da7c64d4f1a3 e0b8666f-e355-4206-8348-72262aa46b65 eb9e874c-2c77-455f-aa00-22eaae1dbf8f d83df658-2248-4c6e-b274-d157d8a8cbcc 56e16111-2bf6-480f-b371-734a0c1f0ab8 5dbc1134-557a-4822-9962-bb37f76f6206 e1d228b2-7466-413c-a5b4-2e14e43a55e0" />
 				<SoulAsset Name="innerCourtyardDefenders_basicCrew" SharedSoulGuids="bff770fb-fe40-47cd-a451-e1444fc415bd 0a313d70-34d5-4ac8-aae2-34621af9ed0b 9dec14c9-4d70-459f-88f7-b66d8059d042 0708c4f2-5e6a-4e47-8fc5-53cede1ca838 2372b223-7ca0-4629-93cd-ca21f0b29ce1 99208abb-fc40-4faa-81f2-6f1fe03df356 0f7b0b4b-de5a-4405-b707-4114e4a2c4c1" />
+				<SoulAsset Name="desatnikStepanVrana" SharedSoulGuids="020cb8b3-a7dd-472b-b515-be23a51a637e" />
 			</Assets>
 			<Notes>
 				<Note Name="noteDelostrelba" PositionY="760" PositionX="-1550">

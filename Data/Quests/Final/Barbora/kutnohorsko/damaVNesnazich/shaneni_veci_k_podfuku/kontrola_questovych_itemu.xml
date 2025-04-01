@@ -42,15 +42,15 @@
 					</Edge>
 					<Edge From="state33.State" To="B" />
 				</Function>
-				<State Name="canMarketaStandUp" PositionY="600" PositionX="1540" TypeT="CanMarketaStandUp">
+				<State Name="canMarketaStandUp" PositionY="600" PositionX="1360" TypeT="CanMarketaStandUp">
 					<Edge From="enablebehavioremptyendnotification21.OnFinished" To="SetDone">
 						<Vertex>vertex24</Vertex>
 						<Vertex>vertex25</Vertex>
 					</Edge>
-					<Edge From="itemdeliveryhandler11.OnAccept" To="SetWaitingForFF" />
-					<Edge From="ifnot35.True" To="SetStandingUp" />
+					<Edge From="ifand39.True" To="SetWaitingForFF" />
+					<Edge From="ifand40.True" To="SetStandingUp" />
 				</State>
-				<EnableBehavior Name="enablebehavioremptyendnotification21" PositionY="760" PositionX="1940" Signature="empty" EventSet="endNotification">
+				<EnableBehavior Name="enablebehavioremptyendnotification21" PositionY="760" PositionX="1760" Signature="empty" EventSet="endNotification">
 					<Constant Name="Behavior" Value="MarketaStandUp" />
 					<Asset Name="SmartEntity" Alias="damaVNesnazich" />
 					<Asset Name="NPC" Alias="marketa" />
@@ -59,11 +59,21 @@
 				<FirstElement Name="firstelement29" PositionY="-80" PositionX="1190" TypeT="wh::entitymodule::Items">
 					<Edge From="itemdeliveryhandler11.DeliveryItems" To="Array" />
 				</FirstElement>
-				<IfFunction Name="ifnot35" PositionY="1060" PositionX="690" MethodName="math::boolean::Not" DeclaringType="math::boolean">
-					<Edge From="kontrola_questovych_itemu.AfterPlay" To="Exec" />
-					<Edge From="kontrola_questovych_itemu.fast_travel" To="Value" />
+				<IfFunction Name="ifand39" PositionY="730" PositionX="1140" MethodName="math::boolean::And" DeclaringType="math::boolean">
+					<Edge From="itemdeliveryhandler11.OnAccept" To="Exec" />
+					<Edge From="canMarketaStandUp.None" To="A">
+						<Vertex>PM5DJ8Eq</Vertex>
+						<Vertex>vUtAPSJw</Vertex>
+					</Edge>
 				</IfFunction>
-				<ItemDeliveryHandler Name="itemdeliveryhandler11" PositionY="310" PositionX="1050">
+				<IfFunction Name="ifand40" PositionY="880" PositionX="1080" MethodName="math::boolean::And" DeclaringType="math::boolean">
+					<Edge From="canMarketaStandUp.WaitingForFF" To="A">
+						<Vertex>UD3wzrHH</Vertex>
+						<Vertex>jUxCzX8e</Vertex>
+					</Edge>
+					<Edge From="triggersequence31.D" To="Exec" />
+				</IfFunction>
+				<ItemDeliveryHandler Name="itemdeliveryhandler11" PositionY="350" PositionX="830">
 					<Edge From="kontrola_questovych_itemu.predavani" To="BeginDelivery" />
 					<Edge From="kontrola_questovych_itemu.itemy_odmitnuty" To="RejectDelivery" />
 					<Edge From="zenske_saty.item_delivery" To="ItemDelivery" />
@@ -92,7 +102,7 @@
 						<Vertex>oUp5bg7a</Vertex>
 					</Edge>
 				</kontrola_questovych_itemu>
-				<LinkEffectNoData Name="linkeffectnodata27" PositionY="1110" PositionX="2220">
+				<LinkEffectNoData Name="linkeffectnodata27" PositionY="1110" PositionX="2040">
 					<Asset Name="From" Alias="MarketaStandUpDH" />
 					<Asset Name="To" Alias="marketa" />
 					<Constant Name="Tag" Value="fastForward" />
@@ -105,7 +115,7 @@
 					<Edge From="and36.bool" To="IsActive" />
 				</LinkEffectNoData>
 				<ma_hrac_uspavak Name="ma_hrac_uspavak" PositionY="520" PositionX="-420" />
-				<Function Name="or28" PositionY="1110" PositionX="1950" MethodName="math::boolean::Or" DeclaringType="math::boolean">
+				<Function Name="or28" PositionY="1110" PositionX="1770" MethodName="math::boolean::Or" DeclaringType="math::boolean">
 					<Edge From="canMarketaStandUp.WaitingForFF" To="A" />
 					<Edge From="canMarketaStandUp.StandingUp" To="B" />
 				</Function>
@@ -122,7 +132,9 @@
 					<Edge From="triggersequence31.A" To="nastaveni_satu">
 						<Vertex>onXfw3zv</Vertex>
 					</Edge>
-					<Edge From="triggersequence31.C" To="prevleceni_satu" />
+					<Edge From="triggersequence31.C" To="prevleceni_satu">
+						<Vertex>W1pGb0zR</Vertex>
+					</Edge>
 					<Edge From="kontrola_questovych_itemu.cesta_do_kh" To="cesta_do_kh">
 						<Vertex>vertex13</Vertex>
 						<Vertex>vertex21</Vertex>
@@ -137,26 +149,31 @@
 					<Edge From="stancetrigger32.OnStanceMatched" To="SetTrue" />
 					<Edge From="stancetrigger32.OnStanceUnmatched" To="SetFalse" />
 				</State>
-				<TriggerSequence Name="triggersequence31" PositionY="550" PositionX="660">
+				<TriggerSequence Name="triggersequence31" PositionY="550" PositionX="480">
 					<Edge From="kontrola_questovych_itemu.itemy_prijmuty" To="Exec" />
 				</TriggerSequence>
-				<zenske_saty Name="zenske_saty" PositionY="750" PositionX="690" Namespace="damavnesnazich" />
+				<zenske_saty Name="zenske_saty" PositionY="750" PositionX="510" Namespace="damavnesnazich" />
 			</Nodes>
 			<EdgeVertices>
 				<EdgeVertex Name="9hJ8QuRd" PositionY="-330" PositionX="-410" />
-				<EdgeVertex Name="MP0QLN3w" PositionY="1040" PositionX="870" />
-				<EdgeVertex Name="onXfw3zv" PositionY="590" PositionX="1290" />
+				<EdgeVertex Name="jUxCzX8e" PositionY="1130" PositionX="1100" />
+				<EdgeVertex Name="MP0QLN3w" PositionY="1040" PositionX="690" />
+				<EdgeVertex Name="onXfw3zv" PositionY="620" PositionX="1120" />
 				<EdgeVertex Name="oUp5bg7a" PositionY="1040" PositionX="0" />
+				<EdgeVertex Name="PM5DJ8Eq" PositionY="560" PositionX="1580" />
+				<EdgeVertex Name="UD3wzrHH" PositionY="1130" PositionX="1590" />
 				<EdgeVertex Name="vertex13" PositionY="230" PositionX="460" />
 				<EdgeVertex Name="vertex17" PositionY="280" PositionX="460" />
 				<EdgeVertex Name="vertex18" PositionY="260" PositionX="460" />
 				<EdgeVertex Name="vertex19" PositionY="280" PositionX="1070" />
 				<EdgeVertex Name="vertex20" PositionY="260" PositionX="1070" />
 				<EdgeVertex Name="vertex21" PositionY="230" PositionX="1070" />
-				<EdgeVertex Name="vertex24" PositionY="1080" PositionX="2200" />
-				<EdgeVertex Name="vertex25" PositionY="1080" PositionX="1540" />
-				<EdgeVertex Name="vertex3" PositionY="760" PositionX="1290" />
+				<EdgeVertex Name="vertex24" PositionY="1080" PositionX="2020" />
+				<EdgeVertex Name="vertex25" PositionY="1080" PositionX="1360" />
+				<EdgeVertex Name="vertex3" PositionY="760" PositionX="1080" />
 				<EdgeVertex Name="vertex4" PositionY="760" PositionX="10" />
+				<EdgeVertex Name="vUtAPSJw" PositionY="560" PositionX="1170" />
+				<EdgeVertex Name="W1pGb0zR" PositionY="660" PositionX="1110" />
 			</EdgeVertices>
 			<Assets>
 				<DialogueHolderAsset Name="MarketaStandUpDH" />

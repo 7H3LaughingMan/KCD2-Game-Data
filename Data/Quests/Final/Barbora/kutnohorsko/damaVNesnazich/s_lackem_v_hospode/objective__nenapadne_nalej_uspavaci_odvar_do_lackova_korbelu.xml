@@ -21,6 +21,9 @@
 				<Port Name="hrac_omracil_lacka" Direction="In" Type="trigger">
 					<DesignName StringName="objective_hrac_omracil_la_wJ5T" Text="hráč omráčil Lacka" />
 				</Port>
+				<Port Name="crime__pokus_se_lacka_omracit" Direction="Out" Type="trigger">
+					<DesignName StringName="objective_crime__pokus_se_B4Y4" Text="crime - pokus se lacka omráčit" />
+				</Port>
 				<Port Name="jindra_uz_nepotrebuje_uspavak" Direction="Out" Type="bool">
 					<DesignName StringName="objective_jindra_uz_nepot_hsam" Text="Jindra už nepotřebuje uspávák" />
 				</Port>
@@ -35,6 +38,10 @@
 					<Edge From="triggersequence9.A" To="Exec">
 						<Vertex>f7PtFRpy</Vertex>
 						<Vertex>DyXDus9V</Vertex>
+					</Edge>
+					<Edge From="triggersequence10.A" To="Exec">
+						<Vertex>tHJdetxQ</Vertex>
+						<Vertex>4pYXyAkB</Vertex>
 					</Edge>
 				</If>
 				<If Name="if6" PositionY="-180" PositionX="-510">
@@ -51,6 +58,12 @@
 						<Vertex>vertex6</Vertex>
 					</Edge>
 				</If>
+				<AIConceptSignalTrigger Name="lacekLearnsCrime_notification" PositionY="1300" PositionX="210" NotificationName="NPCLearnsInformationNotification">
+					<Asset Name="who_value_filter" Alias="lacek" />
+					<Constant Name="isCrime_filter" Value="true" />
+					<Constant Name="crimeLevel_filter" Value="violent" />
+					<Edge From="putLacekToSleep.Started" To="IsActive" />
+				</AIConceptSignalTrigger>
 				<marketalearnsspecificcrimenotification Name="marketalearnsspecificcrimenotification" PositionY="920" PositionX="210" Namespace="damavnesnazich">
 					<Asset Name="soul" Alias="marketa" />
 					<Edge From="putLacekToSleep.Started" To="isactive" />
@@ -68,6 +81,7 @@
 					<Edge From="putLacekToSleep.Started" To="aktivni_objective" />
 					<Edge From="or8.bool" To="jindra_uz_nepotrebuje_uspavak" />
 					<Edge From="triggersequence9.B" To="nekdo_umrel" />
+					<Edge From="triggersequence10.B" To="crime__pokus_se_lacka_omracit" />
 				</Output>
 				<pickpocket_crime_notification Name="pickpocket_crime_notification" PositionY="1100" PositionX="210" Namespace="damavnesnazich">
 					<Asset Name="soul" Alias="marketa" />
@@ -102,6 +116,9 @@
 						<Vertex>guXzbp4u</Vertex>
 					</Edge>
 				</TimeOfDayWatch>
+				<TriggerSequence Name="triggersequence10" PositionY="1300" PositionX="650">
+					<Edge From="lacekLearnsCrime_notification.OnNotification" To="Exec" />
+				</TriggerSequence>
 				<TriggerSequence Name="triggersequence9" PositionY="590" PositionX="510">
 					<Edge From="timeofdaywatch19.OnTimeOfDay" To="Exec" />
 					<Edge From="marketalearnsspecificcrimenotification.onnotification" To="Exec" />
@@ -109,9 +126,11 @@
 				</TriggerSequence>
 			</Nodes>
 			<EdgeVertices>
+				<EdgeVertex Name="4pYXyAkB" PositionY="1661" PositionX="-430" />
 				<EdgeVertex Name="DyXDus9V" PositionY="910" PositionX="-450" />
 				<EdgeVertex Name="f7PtFRpy" PositionY="919" PositionX="671" />
 				<EdgeVertex Name="guXzbp4u" PositionY="680" PositionX="170" />
+				<EdgeVertex Name="tHJdetxQ" PositionY="1670" PositionX="810" />
 				<EdgeVertex Name="vertex1" PositionY="340" PositionX="430" />
 				<EdgeVertex Name="vertex2" PositionY="340" PositionX="-120" />
 				<EdgeVertex Name="vertex5" PositionY="310" PositionX="70" />

@@ -28,8 +28,8 @@ Boar = {
 
         CharacterSounds =
         {
-            footstepEffect = "footsteps_Sheep",			-- Footstep mfx library to use
-            foleyEffect = "foley_Sheep",					-- Foley signal effect name
+            footstepEffect = "footsteps_boar",			-- Footstep mfx library to use
+            foleyEffect = "foley_boar",					-- Foley signal effect name
         },
     },
 

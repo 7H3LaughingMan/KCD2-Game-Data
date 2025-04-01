@@ -48,6 +48,9 @@
 				<Port Name="pavel_hlasi_crime" Direction="In" Type="bool">
 					<DesignName StringName="odevzdani_pavel_hlasi_cri_2SwT" Text="pavel hlasi crime" />
 				</Port>
+				<Port Name="timer_na_report_crimu_bezi" Direction="In" Type="bool">
+					<DesignName StringName="odevzdani_timer_na_report_2nlu" Text="timer na report crimu bezi" />
+				</Port>
 			</Ports>
 			<Definitions>
 				<Definition File="odevzdani_pavlovi/odevzdani_pavlovi.xml" />
@@ -87,6 +90,7 @@
 					<Edge From="payment.playerhasmoney" To="hrac_ma_penize" />
 					<Edge From="payment.money" To="Payment_seq42" />
 					<Edge From="payment.money" To="Payment_seq16" />
+					<Edge From="timer_na_report_crimu_bezi" To="timer_na_report_crimu_bezi" />
 				</odevzdani_pavlovi>
 				<AddReward Name="odmenaVitalita" PositionY="630" PositionX="720">
 					<Edge From="cutscenehandler1.OnFinished" To="AddReward" />
@@ -141,6 +145,7 @@
 				</TriggerSequence>
 				<turntoplayerinidlestance Name="turntoplayerinidlestance" PositionY="830" PositionX="700" Namespace="utils.general">
 					<Asset Name="npc" Alias="pavel" />
+					<Constant Name="anydecoratorpreset" Value="changeEquipment" />
 					<Edge From="triggersequence47.A" To="turntoplayerinidlestance" />
 				</turntoplayerinidlestance>
 			</Nodes>

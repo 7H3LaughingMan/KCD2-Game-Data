@@ -71,6 +71,10 @@
 					<Edge From="isoulproperties622.Inventory" To="inventory" />
 					<Edge From="constants.falesny_hromovy_kamen" To="item" />
 				</hasitems>
+				<IfFunction Name="ifand629" PositionY="320" PositionX="-280" MethodName="math::boolean::And" DeclaringType="math::boolean">
+					<Edge From="thomlin_pred_bojem.dialog_s_thomlinem_probehl" To="Exec" />
+					<Edge From="thomlin_pred_bojem.henryodhalilpodvod" To="A" />
+				</IfFunction>
 				<ObjectProperties Name="isoulproperties622" PositionY="-860" PositionX="-1150" DeclaringType="wh::rpgmodule::I_Soul">
 					<Asset Name="I_Soul" Alias="thomlin" />
 				</ObjectProperties>
@@ -94,9 +98,13 @@
 						<SkillReward Type="scholarship" ExperienceChange="2-minor" />
 					</Rewards>
 				</AddReward>
-				<SaveGame Name="savegame626" PositionY="50" PositionX="40">
+				<SaveGame Name="savegame626" PositionY="440" PositionX="60">
 					<Constant Name="Objective" Value="poraz_thomlina_z_horan" />
-					<Edge From="thomlin_pred_bojem.dialog_s_thomlinem_probehl" To="EnqueueSave" />
+					<Edge From="ifand629.False" To="EnqueueSave" />
+				</SaveGame>
+				<SaveGame Name="savegame626_1" PositionY="220" PositionX="60">
+					<Constant Name="Objective" Value="zjisti_co_vi_pena_a_jenik_o_hromovem_kameni" />
+					<Edge From="ifand629.True" To="EnqueueSave" />
 				</SaveGame>
 				<thomlin_pred_bojem Name="thomlin_pred_bojem" PositionY="-850" PositionX="-320">
 					<Edge From="henry_zna_kamen" To="henry_zna_kamen" />

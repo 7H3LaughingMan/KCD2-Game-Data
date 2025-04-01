@@ -169,25 +169,27 @@
 									<Loop count="-1">
 										<DialogGate Who="$__player" Negation="true" EndDialogInRoot="false" Condition="InAny" RunLogic="Halt">
 											<LinkGate from="$this.id" to="$this.id" tag="&apos;horse_shouldCheckDespawn&apos;" amount="AtLeastOne" presence="Present" RunLogic="Halt">
-												<DecoratorBuff BuffId="&apos;7a61a139-4ae5-49e1-9b7f-31b72ff2e1e6&apos;" SoulWUID="$this.id">
-													<Loop count="-1">
-														<Sequence>
-															<GetPlayerHorse HorseWuid="$playerHorse" />
-															<BuffTagCheck SoulId="$this.id" buffAITagId="12" FailWithSubtreeMissing="false" saveVersion="2">
-																<Then canSkip="1">
-																	<Success />
-																</Then>
-																<Else canSkip="1">
-																	<NotSeenByPlayer target="$this.id" timespan="&apos;5m&apos;" result="$shouldDespawn" />
-																</Else>
-															</BuffTagCheck>
-															<IfCondition failOnCondition="false" condition="$shouldDespawn">
-																<Despawn DeSpawnedEntity="$this.id" />
-															</IfCondition>
-															<Wait duration="&apos;10s&apos;" timeType="GameTime" doFail="false" variation="" />
-														</Sequence>
-													</Loop>
-												</DecoratorBuff>
+												<LinkGate from="$this.id" to="" tag="&apos;rider&apos;" amount="AtLeastOne" presence="NotThere" RunLogic="Halt">
+													<DecoratorBuff BuffId="&apos;7a61a139-4ae5-49e1-9b7f-31b72ff2e1e6&apos;" SoulWUID="$this.id">
+														<Loop count="-1">
+															<Sequence>
+																<GetPlayerHorse HorseWuid="$playerHorse" />
+																<BuffTagCheck SoulId="$this.id" buffAITagId="12" FailWithSubtreeMissing="false" saveVersion="2">
+																	<Then canSkip="1">
+																		<Success />
+																	</Then>
+																	<Else canSkip="1">
+																		<NotSeenByPlayer target="$this.id" timespan="&apos;5m&apos;" result="$shouldDespawn" />
+																	</Else>
+																</BuffTagCheck>
+																<IfCondition failOnCondition="false" condition="$shouldDespawn">
+																	<Despawn DeSpawnedEntity="$this.id" />
+																</IfCondition>
+																<Wait duration="&apos;10s&apos;" timeType="GameTime" doFail="false" variation="" />
+															</Sequence>
+														</Loop>
+													</DecoratorBuff>
+												</LinkGate>
 											</LinkGate>
 										</DialogGate>
 									</Loop>
@@ -516,40 +518,43 @@
 												<OutputBreakpoints />
 												<LinkGate hasInputBreakpoint="0" comment="" breakpointFlags="0">
 													<OutputBreakpoints />
-													<DecoratorBuff hasInputBreakpoint="0" comment="streamed horse doesn&apos;t have meaning of life - permadeath" breakpointFlags="0">
+													<LinkGate hasInputBreakpoint="0" comment="" breakpointFlags="0">
 														<OutputBreakpoints />
-														<Loop hasInputBreakpoint="0" comment="" breakpointFlags="0">
+														<DecoratorBuff hasInputBreakpoint="0" comment="streamed horse doesn&apos;t have meaning of life - permadeath" breakpointFlags="0">
 															<OutputBreakpoints />
-															<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
+															<Loop hasInputBreakpoint="0" comment="" breakpointFlags="0">
 																<OutputBreakpoints />
-																<GetPlayerHorse hasInputBreakpoint="0" comment="Kills the tree - IfGate" breakpointFlags="0">
+																<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
 																	<OutputBreakpoints />
-																</GetPlayerHorse>
-																<BuffTagCheck hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
-																	<OutputBreakpoints />
-																	<Then>
-																		<Success hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																			<OutputBreakpoints />
-																		</Success>
-																	</Then>
-																	<Else>
-																		<NotSeenByPlayer hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																			<OutputBreakpoints />
-																		</NotSeenByPlayer>
-																	</Else>
-																</BuffTagCheck>
-																<IfCondition hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																	<OutputBreakpoints />
-																	<Despawn hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																	<GetPlayerHorse hasInputBreakpoint="0" comment="Kills the tree - IfGate" breakpointFlags="0">
 																		<OutputBreakpoints />
-																	</Despawn>
-																</IfCondition>
-																<Wait hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																	<OutputBreakpoints />
-																</Wait>
-															</Sequence>
-														</Loop>
-													</DecoratorBuff>
+																	</GetPlayerHorse>
+																	<BuffTagCheck hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
+																		<OutputBreakpoints />
+																		<Then>
+																			<Success hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																				<OutputBreakpoints />
+																			</Success>
+																		</Then>
+																		<Else>
+																			<NotSeenByPlayer hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																				<OutputBreakpoints />
+																			</NotSeenByPlayer>
+																		</Else>
+																	</BuffTagCheck>
+																	<IfCondition hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																		<OutputBreakpoints />
+																		<Despawn hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																			<OutputBreakpoints />
+																		</Despawn>
+																	</IfCondition>
+																	<Wait hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																		<OutputBreakpoints />
+																	</Wait>
+																</Sequence>
+															</Loop>
+														</DecoratorBuff>
+													</LinkGate>
 												</LinkGate>
 											</DialogGate>
 										</Loop>

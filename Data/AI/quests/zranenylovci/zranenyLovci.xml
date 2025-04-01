@@ -943,83 +943,91 @@
 	</BehaviorTree>
 	<BehaviorTree name="hunter_rideHome" is_function="0">
 		<Variables>
-			<Variable name="path" type="_wuid" values="" isPersistent="0" form="single" />
 			<Variable name="pathParams" type="predefinedPathParams" values="" isPersistent="0" form="single" />
-			<Variable name="pepik" type="_wuid" values="" isPersistent="0" form="single" />
 		</Variables>
+		<Parameters>
+			<Variable name="destinationArea" type="_wuid" values="" isPersistent="0" form="single" requirementType="In" />
+			<Variable name="horse" type="_wuid" values="" isPersistent="0" form="single" requirementType="In" />
+			<Variable name="path" type="_wuid" values="" isPersistent="0" form="single" requirementType="In" />
+		</Parameters>
 		<Root OneTimeOnly="false" FailState="Recoverable" saveVersion="2">
 			<Behavior canSkip="1">
-				<FuseBox StatusPropagation="Child" OneCleanup="true" saveVersion="2">
-					<Child canSkip="1">
-						<Sequence>
-							<GraphSearch Origin="$__object.id" Borders="" depth="1" selection="true" SearchPattern="Depth" EdgePruning="&apos;parent,inventory&apos;" AllowedEdges="" SubGraph="" AllowSubtraph="false" includeOrigin="false" excludeOrigin="false" failOnEmpty="true" SetOperationChoice="Intersection|And" errorOnEmpty="false" shortCircuit="false" skipTraversed="true">
-								<LinkTagFilter tag="&apos;path_fromHideoutToHome&apos;" prune="true" negprune="unknown" Parent="" Child="$path" Data="" />
-							</GraphSearch>
-							<Function_getQuestAsset assetName="&apos;PepikTheHorse&apos;" questObject="$__object.id" assetOut="$pepik" nodeLabel="16012571" />
-							<Expression expressions="$pathParams.approachFirstNode = false" />
-							<EntityContext context="switch_horse_disableMountableByPlayer" target="$pepik">
-								<EntityContext context="zranenyLovci_rideHome" target="$this.id">
-									<StanceElement smartObject="$pepik" stance="horse" allowAny="false" enabled="true">
-										<Move stopWithinDistance="0.200000" stopDistanceVariation="0.100000" rayCasteFlee="false" successDistance="0.000000" changeNPCState="true" fastForwardIncludesMove="false" destinationSpecification="$path" destinationSpecification2="$pathParams" destinationSpecification3="" speed="Walk" additionalParams="" pathFindingParams="" staminaPolicy="" pathInfo="" />
-									</StanceElement>
-								</EntityContext>
-							</EntityContext>
-						</Sequence>
-					</Child>
-					<OnFail canSkip="1">
-						<InstantCallback_empty EventName="&apos;OnFinished&apos;" />
-					</OnFail>
-				</FuseBox>
+				<IsInsideArea Origin="$this.id" Area="$destinationArea" FailSubtMissing="false" saveVersion="2">
+					<Then canSkip="1">
+						<InstantCallback_empty EventName="&apos;HomeReached&apos;" />
+					</Then>
+					<Else canSkip="1">
+						<IsDeadCheck SoulWUID="$horse" FailSubtMissing="false" saveVersion="2">
+							<Then canSkip="1">
+								<InstantCallback_empty EventName="&apos;HorseDied&apos;" />
+							</Then>
+							<Else canSkip="1">
+								<Sequence>
+									<Expression expressions="$pathParams.approachFirstNode = false" />
+									<EntityContext context="switch_horse_disableMountableByPlayer" target="$horse">
+										<EntityContext context="zranenyLovci_rideHome" target="$this.id">
+											<StanceElement smartObject="$horse" stance="horse" allowAny="false" enabled="true">
+												<Move stopWithinDistance="0.200000" stopDistanceVariation="0.100000" rayCasteFlee="false" successDistance="0.000000" changeNPCState="true" fastForwardIncludesMove="false" destinationSpecification="$path" destinationSpecification2="$pathParams" destinationSpecification3="" speed="Walk" additionalParams="" pathFindingParams="" staminaPolicy="" pathInfo="" />
+											</StanceElement>
+										</EntityContext>
+									</EntityContext>
+								</Sequence>
+							</Else>
+						</IsDeadCheck>
+					</Else>
+				</IsInsideArea>
 			</Behavior>
 		</Root>
 		<ForestContainer />
-		<EditorData Signature="empty" EventSet="endNotification">
+		<EditorData Signature="zranenyLovci_hunter_rideHome" EventSet="zranenyLovci_hunter_rideHome">
 			<Variables>
-				<Variable name="path" comment="" />
 				<Variable name="pathParams" comment="" />
-				<Variable name="pepik" comment="" />
+				<Variable name="destinationArea" comment="" />
+				<Variable name="horse" comment="" />
+				<Variable name="path" comment="" />
 			</Variables>
 			<ForwardDeclarations />
 			<Root editorPosY="-20" hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
 				<OutputBreakpoints />
 				<Behavior>
-					<FuseBox hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
+					<IsInsideArea hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
 						<OutputBreakpoints />
-						<Child>
-							<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
-								<OutputBreakpoints />
-								<GraphSearch hasInputBreakpoint="0" comment="" breakpointFlags="0">
-									<OutputBreakpoints />
-									<LinkTagFilter hasInputBreakpoint="0" comment="" breakpointFlags="0">
-										<OutputBreakpoints />
-									</LinkTagFilter>
-								</GraphSearch>
-								<Function_getQuestAsset hasInputBreakpoint="0" comment="" breakpointFlags="0">
-									<OutputBreakpoints />
-								</Function_getQuestAsset>
-								<Expression hasInputBreakpoint="0" comment="" breakpointFlags="0">
-									<OutputBreakpoints />
-								</Expression>
-								<EntityContext hasInputBreakpoint="0" comment="" breakpointFlags="0">
-									<OutputBreakpoints />
-									<EntityContext hasInputBreakpoint="0" comment="" breakpointFlags="0">
-										<OutputBreakpoints />
-										<StanceElement hasInputBreakpoint="0" comment="" breakpointFlags="0">
-											<OutputBreakpoints />
-											<Move hasInputBreakpoint="0" comment="" breakpointFlags="0">
-												<OutputBreakpoints />
-											</Move>
-										</StanceElement>
-									</EntityContext>
-								</EntityContext>
-							</Sequence>
-						</Child>
-						<OnFail>
+						<Then>
 							<InstantCallback_empty hasInputBreakpoint="0" comment="" breakpointFlags="0">
 								<OutputBreakpoints />
 							</InstantCallback_empty>
-						</OnFail>
-					</FuseBox>
+						</Then>
+						<Else>
+							<IsDeadCheck hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
+								<OutputBreakpoints />
+								<Then>
+									<InstantCallback_empty hasInputBreakpoint="0" comment="" breakpointFlags="0">
+										<OutputBreakpoints />
+									</InstantCallback_empty>
+								</Then>
+								<Else>
+									<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
+										<OutputBreakpoints />
+										<Expression hasInputBreakpoint="0" comment="" breakpointFlags="0">
+											<OutputBreakpoints />
+										</Expression>
+										<EntityContext hasInputBreakpoint="0" comment="" breakpointFlags="0">
+											<OutputBreakpoints />
+											<EntityContext hasInputBreakpoint="0" comment="" breakpointFlags="0">
+												<OutputBreakpoints />
+												<StanceElement hasInputBreakpoint="0" comment="" breakpointFlags="0">
+													<OutputBreakpoints />
+													<Move hasInputBreakpoint="0" comment="" breakpointFlags="0">
+														<OutputBreakpoints />
+													</Move>
+												</StanceElement>
+											</EntityContext>
+										</EntityContext>
+									</Sequence>
+								</Else>
+							</IsDeadCheck>
+						</Else>
+					</IsInsideArea>
 				</Behavior>
 			</Root>
 			<Forest />

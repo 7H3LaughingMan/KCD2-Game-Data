@@ -30,8 +30,8 @@
 				<Port Name="stav_zbrani_pana_semina" Direction="In" Type="wh::questmodule::QuestProgress">
 					<DesignName StringName="hibernova_hrac_dohral_zbr_1dAR" Text="stav Zbraní pana Semína" />
 				</Port>
-				<Port Name="stav_kejkliru" Direction="In" Type="wh::questmodule::QuestProgress">
-					<DesignName StringName="hibernova_stav_kejkliru_FcSg" Text="stav Kejklířů" />
+				<Port Name="quest_kejkliri_dokoncen_s_cs_pisnickou" Direction="In" Type="bool">
+					<DesignName StringName="hibernova_quest_kejkliri__R8tE" Text="quest Kejklíři dokončen s CS písničkou" />
 				</Port>
 				<Port Name="stav_zraneneho_lovciho" Direction="In" Type="wh::questmodule::QuestProgress">
 					<DesignName StringName="hibernova_stav_zraneneho__g3I6" Text="stav Zraněného lovčího" />
@@ -198,6 +198,7 @@
 				<Definition File="hibernovana_cast/fasttravel_a_nastaveni_soul.xml" />
 				<Definition File="hibernovana_cast/presun_zakazanych_itemu.xml" />
 				<Definition File="hibernovana_cast/suppresswakeupreaction.xml" />
+				<Definition File="hibernovana_cast/globalni_nastaveni.xml" />
 			</Definitions>
 			<Nodes>
 				<baleni_holky Name="baleni_holky" PositionY="1160" PositionX="1240" RequiredForOutput="trosecko">
@@ -320,13 +321,8 @@
 					<Constant Name="ValueB" Value="Done" />
 					<Edge From="s26_kumani_na_trosecku" To="ValueA" />
 				</Function>
-				<SetGameContext Name="crime_skipInformationBroadcast" PositionY="-1060" PositionX="-1050">
-					<Constant Name="Context" Value="crime_skipInformationBroadcast" />
-					<Edge From="Awake" To="IsActive" />
-				</SetGameContext>
 				<fasttravel_a_nastaveni_soul Name="fasttravel_a_nastaveni_soul" PositionY="-880" PositionX="-660">
 					<Edge From="hrac_vyrazil_na_svatbu_s_kovarem" To="s_kovarem" />
-					<Edge From="stav_kejkliru" To="stav_kejkliru" />
 					<Edge From="debug_pritomnosti_michala_a_davida" To="debug_vyskyt_michala_a_davida_na_svatbe" />
 					<Edge From="compare2.bool" To="hrac_dohral_zbrane_pana_semina" />
 					<Edge From="debug_vyskyt_cervenaka_na_svatbe" To="debug_vyskyt_cervenaka_na_svatbe" />
@@ -336,6 +332,7 @@
 					<Edge From="stav_zraneneho_lovciho" To="stav_zraneneho_lovciho" />
 					<Edge From="debug_lovci_na_svatbe" To="debug_lovci_na_svatbe" />
 					<Edge From="debug_profilovani_cutsceny_svatebni_ceremonie" To="debug_profilovani_cutsceny_svatebni_ceremonie" />
+					<Edge From="quest_kejkliri_dokoncen_s_cs_pisnickou" To="quest_kejkliri_dokoncen_s_cs_pisnickou" />
 				</fasttravel_a_nastaveni_soul>
 				<faze__objectiv_a_logy Name="faze__objectiv_a_logy" PositionY="1050" PositionX="2440" RequiredForOutput="trosecko">
 					<Edge From="baleni_holky.jindra_si_pripil_s_rychtarovym_synem" To="jindra_si_pripil_s_rychtarovym_synem">
@@ -400,6 +397,9 @@
 						<Vertex>kcVf0xwy</Vertex>
 					</Edge>
 				</faze__objectiv_a_logy>
+				<globalni_nastaveni Name="globalni_nastaveni" PositionY="-1402" PositionX="-1132">
+					<Edge From="Awake" To="bezi_svatba" />
+				</globalni_nastaveni>
 				<jindra_vyprovokoval_rvacku Name="jindra_vyprovokoval_rvacku" PositionY="2120" PositionX="4630">
 					<Edge From="faze__objectiv_a_logy.faze" To="faze">
 						<Vertex>vertex77</Vertex>
@@ -416,10 +416,6 @@
 				<kostkarsky_turnaj Name="kostkarsky_turnaj" PositionY="160" PositionX="3120" RequiredForOutput="trosecko">
 					<Edge From="faze__objectiv_a_logy.faze" To="faze">
 						<Vertex>vertex7</Vertex>
-					</Edge>
-					<Edge From="ztraceny_mec_a_konkubina.jindra_hleda_konkubinu" To="komori_zrovna_hleda_kurtizanu">
-						<Vertex>vertex41</Vertex>
-						<Vertex>vertex40</Vertex>
 					</Edge>
 					<Edge From="ztraceny_mec_a_konkubina.kovar_hleda_mec" To="kovar_zrovna_hleda_mec">
 						<Vertex>vertex42</Vertex>
@@ -445,6 +441,14 @@
 					<Edge From="compare5.bool" To="hrac_dokoncil_kumany">
 						<Vertex>vertex107</Vertex>
 						<Vertex>vertex125</Vertex>
+					</Edge>
+					<Edge From="prichod_na_svatbu.jindra_prisel_s_konkubinou" To="jindra_prisel_s_konkubinou">
+						<Vertex>vertex98</Vertex>
+						<Vertex>vertex54</Vertex>
+						<Vertex>vertex49</Vertex>
+						<Vertex>vertex14</Vertex>
+						<Vertex>vertex16</Vertex>
+						<Vertex>YMBoAhlF</Vertex>
 					</Edge>
 				</kostkarsky_turnaj>
 				<moravaci_a_chlast Name="moravaci_a_chlast" PositionY="1980" PositionX="1210" RequiredForOutput="trosecko">
@@ -503,6 +507,7 @@
 						<Vertex>vertex49</Vertex>
 						<Vertex>vertex14</Vertex>
 						<Vertex>vertex16</Vertex>
+						<Vertex>YMBoAhlF</Vertex>
 						<Vertex>vertex128</Vertex>
 					</Edge>
 					<Edge From="prichod_na_svatbu.jindra_prisel_s_kovarem" To="jindra_prisel_s_kovarem">
@@ -672,9 +677,6 @@
 						<Vertex>vertex100</Vertex>
 					</Edge>
 				</Output>
-				<PauseWorldTime Name="pauseworldtime1" PositionY="-1190" PositionX="-1090">
-					<Edge From="Awake" To="IsActive" />
-				</PauseWorldTime>
 				<presun_zakazanych_itemu Name="presun_zakazanych_itemu" PositionY="1700" PositionX="6180">
 					<Edge From="prichod_na_svatbu.jindra_prosel_uvitanim" To="odebrat_zakazane_itemy">
 						<Vertex>vertex84</Vertex>
@@ -963,8 +965,6 @@
 				<EdgeVertex Name="vertex38" PositionY="1100" PositionX="580" />
 				<EdgeVertex Name="vertex39" PositionY="3270" PositionX="720" />
 				<EdgeVertex Name="vertex4" PositionY="3260" PositionX="2670" />
-				<EdgeVertex Name="vertex40" PositionY="1100" PositionX="3140" />
-				<EdgeVertex Name="vertex41" PositionY="1100" PositionX="3420" />
 				<EdgeVertex Name="vertex42" PositionY="1120" PositionX="3420" />
 				<EdgeVertex Name="vertex43" PositionY="1120" PositionX="3140" />
 				<EdgeVertex Name="vertex44" PositionY="1210" PositionX="5000" />
@@ -1025,6 +1025,7 @@
 				<EdgeVertex Name="vertex99" PositionY="540" PositionX="-900" />
 				<EdgeVertex Name="VjlMI3vz" PositionY="-404" PositionX="6576" />
 				<EdgeVertex Name="WInNdQUh" PositionY="-930" PositionX="-790" />
+				<EdgeVertex Name="YMBoAhlF" PositionY="639" PositionX="3024" />
 				<EdgeVertex Name="zTALGDmD" PositionY="2510" PositionX="6020" />
 			</EdgeVertices>
 			<Assets>

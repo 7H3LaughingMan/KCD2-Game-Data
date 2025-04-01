@@ -39,9 +39,14 @@ function Lamp:OnPropertyChange()
 end
 
 -- =============================================================================
-function Lamp:OnReset()
-	--System.Log("Lamp:OnReset")
+function Lamp:OnDestroy()
+	self:Cleanup()
+end
+
+-- =============================================================================
+function Lamp:Cleanup()
 	if (self.nParticleSlot) then
+		self:DeleteParticleEmitter(self.nParticleSlot)
 		self:FreeSlot(self.nParticleSlot)
 		self.nParticleSlot = nil
 	end
@@ -49,6 +54,12 @@ function Lamp:OnReset()
 		self:FreeSlot(self.nLightSlot)
 		self.nLightSlot = nil
 	end
+end
+
+-- =============================================================================
+function Lamp:OnReset()
+	--System.Log("Lamp:OnReset")
+	self:Cleanup()
 	self:TurnLightOn()
 end
 

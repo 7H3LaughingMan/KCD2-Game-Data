@@ -24,6 +24,9 @@
 				<Port Name="najdi_knihu" Direction="Out" Type="bool">
 					<DesignName StringName="objective_najdi_knihu_OkhZ" Text="najdi knihu" />
 				</Port>
+				<Port Name="znovu_ziskal_knihu_po_ztraceni" Direction="Out" Type="trigger">
+					<DesignName StringName="objective_znovu_ziskal_kn_1Y5y" Text="Znovu získal knihu po ztracení" />
+				</Port>
 			</Ports>
 			<Nodes>
 				<Function Name="and7" PositionY="440" PositionX="920" MethodName="math::boolean::And" DeclaringType="math::boolean">
@@ -47,17 +50,30 @@
 					<Edge From="deathtrigger3.OnDeath" To="SetCanceled" />
 					<Edge From="if10.True" To="SetDoneWithNikKnowledge" />
 					<Edge From="if10.False" To="SetDone" />
+					<Edge From="itemclasstrigger_playerinventory.onlose" To="SetLost">
+						<Vertex>YfJachbW</Vertex>
+						<Vertex>pfUfMffP</Vertex>
+					</Edge>
 				</State>
 				<If Name="if10" PositionY="20" PositionX="-190">
 					<Edge From="done" To="Exec">
 						<Vertex>vertex7</Vertex>
 					</Edge>
 					<Edge From="najdi_knihu_nikvard_done" To="Condition" />
+					<Edge From="itemclasstrigger_playerinventory_1.onacquire" To="Exec">
+						<Vertex>dpPFwGsv</Vertex>
+						<Vertex>FwggSv1S</Vertex>
+					</Edge>
 				</If>
 				<itemclasstrigger_playerinventory Name="itemclasstrigger_playerinventory" PositionY="410" PositionX="1230" Namespace="utils.item">
 					<Constant Name="itemclass" Value="6f82c02b-bc46-4155-a289-514ce0193e73" />
 					<Constant Name="amount" Value="1" />
 					<Edge From="and7.bool" To="isactive" />
+				</itemclasstrigger_playerinventory>
+				<itemclasstrigger_playerinventory Name="itemclasstrigger_playerinventory_1" PositionY="810" PositionX="580" Namespace="utils.item">
+					<Constant Name="itemclass" Value="6f82c02b-bc46-4155-a289-514ce0193e73" />
+					<Constant Name="amount" Value="1" />
+					<Edge From="findTheBook.Lost" To="isactive" />
 				</itemclasstrigger_playerinventory>
 				<MakeArray Name="makearray13" PositionY="-490" PositionX="470" TypeT="wh::rpgmodule::Souls">
 					<Asset Name="A" Alias="scribeTrosky" />
@@ -87,9 +103,12 @@
 						<Vertex>vertex15</Vertex>
 						<Vertex>vertex16</Vertex>
 					</Edge>
+					<Edge From="itemclasstrigger_playerinventory_1.onacquire" To="znovu_ziskal_knihu_po_ztraceni">
+						<Vertex>cLSmLpaQ</Vertex>
+					</Edge>
 				</Output>
 				<SaveGame Name="savegame15" PositionY="80" PositionX="1120">
-					<Constant Name="Objective" Value="najdi_pro_mlynare_knihu" />
+					<Constant Name="Objective" Value="dones_mlynarovi_knihu" />
 					<Edge From="findTheBook.OnDone" To="EnqueueSave">
 						<Vertex>vertex13</Vertex>
 					</Edge>
@@ -99,6 +118,10 @@
 				</SaveGame>
 			</Nodes>
 			<EdgeVertices>
+				<EdgeVertex Name="cLSmLpaQ" PositionY="1010" PositionX="1600" />
+				<EdgeVertex Name="dpPFwGsv" PositionY="1200" PositionX="910" />
+				<EdgeVertex Name="FwggSv1S" PositionY="1200" PositionX="-110" />
+				<EdgeVertex Name="pfUfMffP" PositionY="810" PositionX="210" />
 				<EdgeVertex Name="vertex1" PositionY="370" PositionX="530" />
 				<EdgeVertex Name="vertex11" PositionY="560" PositionX="-230" />
 				<EdgeVertex Name="vertex13" PositionY="77" PositionX="1066" />
@@ -108,6 +131,7 @@
 				<EdgeVertex Name="vertex2" PositionY="370" PositionX="-230" />
 				<EdgeVertex Name="vertex5" PositionY="330" PositionX="570" />
 				<EdgeVertex Name="vertex7" PositionY="40" PositionX="-280" />
+				<EdgeVertex Name="YfJachbW" PositionY="810" PositionX="1550" />
 			</EdgeVertices>
 			<Text StringName="objective__najdi_pro_mlyn_Th6q" Text="Objective - Najdi pro mlynáře knihu. " />
 		</Module>

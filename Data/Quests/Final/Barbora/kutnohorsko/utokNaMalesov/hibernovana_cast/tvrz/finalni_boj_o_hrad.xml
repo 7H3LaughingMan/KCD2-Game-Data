@@ -15,6 +15,9 @@
 				<Port Name="henry_souhlasil_s_vypalenim" Direction="Out" Type="bool">
 					<DesignName StringName="finalni_b_henry_souhlasil_Wo5U" Text="Hráč souhlasil se zapálením donjonu" />
 				</Port>
+				<Port Name="desatnik_stepan_vrana_naverbovan" Direction="In" Type="bool">
+					<DesignName StringName="finalni_b_desatnik_stepan_Am4v" Text="Desátník Štěpán Vrána je naverbován" />
+				</Port>
 				<Port Name="start" Direction="In" Type="trigger">
 					<DesignName StringName="finalni_b_start_sJrq" Text="Start" />
 				</Port>
@@ -49,6 +52,7 @@
 				<Definition File="finalni_boj_o_hrad/boj_na_vnitrnim_nadvori.xml" />
 				<Definition File="finalni_boj_o_hrad/na_vnitrnim_nadvori.xml" />
 				<Definition File="finalni_boj_o_hrad/cin_m4480k_malesov__malesov_conquered.xml" />
+				<Definition File="finalni_boj_o_hrad/dynamicke_postavy.xml" />
 			</Definitions>
 			<Nodes>
 				<Function Name="and6" PositionY="1190" PositionX="320" MethodName="math::boolean::And" DeclaringType="math::boolean">
@@ -102,6 +106,13 @@
 					<Asset Name="Doors" Alias="malesovTowerEntranceDoor" />
 					<Edge From="not14.bool" To="IsActive" />
 				</DisableDoorInteractivity>
+				<dynamicke_postavy Name="dynamicke_postavy" PositionY="-110" PositionX="770">
+					<Edge From="cin_m4480k_malesov__malesov_conquered.beforeplay" To="beforeplay" />
+					<Edge From="desatnik_stepan_vrana_naverbovan" To="desatnik_stepan_vrana_je_naverbovan">
+						<Vertex>AXHwx9oD</Vertex>
+						<Vertex>rhEHVaun</Vertex>
+					</Edge>
+				</dynamicke_postavy>
 				<InnerCourtyardAmmo Name="InnerCourtyardAmmo" PositionY="1770" PositionX="300" Namespace="utoknamalesov_library" />
 				<na_vnitrnim_nadvori Name="na_vnitrnim_nadvori" PositionY="550" PositionX="-20">
 					<Edge From="boj_ve_vezi_optional.bojuje_se_uvnitr_tvrze" To="bojuje_se_uvnitr_tvrze">
@@ -220,17 +231,19 @@
 				<EdgeVertex Name="5k4pLxQQ" PositionY="-390" PositionX="-780" />
 				<EdgeVertex Name="a8CDcglp" PositionY="-390" PositionX="860" />
 				<EdgeVertex Name="AJp5FT42" PositionY="960" PositionX="-30" />
+				<EdgeVertex Name="AXHwx9oD" PositionY="910" PositionX="-1124" />
 				<EdgeVertex Name="bGBt4Uj6" PositionY="-380" PositionX="-780" />
 				<EdgeVertex Name="cd8tA3x4" PositionY="960" PositionX="270" />
 				<EdgeVertex Name="CN31rHQz" PositionY="-360" PositionX="656" />
 				<EdgeVertex Name="E77KgrJE" PositionY="449" PositionX="635" />
-				<EdgeVertex Name="eFxI4WC1" PositionY="220" PositionX="-570" />
+				<EdgeVertex Name="eFxI4WC1" PositionY="220" PositionX="-580" />
 				<EdgeVertex Name="ejzSGauU" PositionY="445" PositionX="-463" />
 				<EdgeVertex Name="HJSVeNtB" PositionY="918" PositionX="252" />
 				<EdgeVertex Name="IdCQxH85" PositionY="448" PositionX="-18" />
-				<EdgeVertex Name="ITf1FTlo" PositionY="190" PositionX="-570" />
+				<EdgeVertex Name="ITf1FTlo" PositionY="190" PositionX="-580" />
 				<EdgeVertex Name="K23BaCRl" PositionY="938" PositionX="205" />
 				<EdgeVertex Name="mhkUQ31q" PositionY="-380" PositionX="970" />
+				<EdgeVertex Name="rhEHVaun" PositionY="910" PositionX="660" />
 				<EdgeVertex Name="TPS5Bbo4" PositionY="950" PositionX="210" />
 				<EdgeVertex Name="TqS2pBbd" PositionY="340" PositionX="925" />
 				<EdgeVertex Name="UGDRUhm7" PositionY="-360" PositionX="-26" />
@@ -245,7 +258,7 @@
 				<EdgeVertex Name="vertex3" PositionY="470" PositionX="310" />
 				<EdgeVertex Name="vertex31" PositionY="480" PositionX="-10" />
 				<EdgeVertex Name="vertex32" PositionY="480" PositionX="920" />
-				<EdgeVertex Name="vertex36" PositionY="170" PositionX="-580" />
+				<EdgeVertex Name="vertex36" PositionY="170" PositionX="-590" />
 				<EdgeVertex Name="vertex37" PositionY="370" PositionX="920" />
 				<EdgeVertex Name="vertex38" PositionY="460" PositionX="240" />
 				<EdgeVertex Name="vertex39" PositionY="460" PositionX="-20" />

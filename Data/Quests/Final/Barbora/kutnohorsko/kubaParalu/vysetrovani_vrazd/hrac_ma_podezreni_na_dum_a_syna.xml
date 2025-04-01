@@ -123,6 +123,15 @@
 				<Port Name="hrac_je_na_stope__do_infiltrace" Direction="Out" Type="trigger">
 					<DesignName StringName="hrac_ma_p_hrac_je_na_stop_F3Or" Text="hráč je na stopě - do infiltrace" />
 				</Port>
+				<Port Name="seq220" Direction="Out" Type="bool">
+					<DesignName StringName="hrac_ma_p_seq220_MYok" Text="nezabijime Prokopa z trialogu" />
+				</Port>
+				<Port Name="obj_neaktivni" Direction="Out" Type="bool">
+					<DesignName StringName="hrac_ma_p_obj_neaktivni_rEXg" Text="obj neaktivní" />
+				</Port>
+				<Port Name="hrac_obvinil_vilema__necha_ho_jit" Direction="Out" Type="trigger">
+					<DesignName StringName="hrac_ma_p_hrac_obvinil_vi_4KzU" Text="hráč obvinil viléma - nechá ho jít" />
+				</Port>
 			</Ports>
 			<Definitions>
 				<Definition File="hrac_ma_podezreni_na_dum_a_syna/trialog_s_katerinou_a_leopoldem.xml" />
@@ -169,7 +178,29 @@
 				</n1_zahajovaci_s_katerinou>
 				<informuj_lipolda_o_vysetrovani Name="objectiveVisual6" PositionY="-700" PositionX="-360" RequiredForOutput="kutnohorsko">
 					<Edge From="sprPodezrState.State" To="Progress" />
+					<Edge From="trialog_s_katerinou_a_leopoldem.seq220" To="prokop_nezabit">
+						<Vertex>KQuvmbWJ</Vertex>
+						<Vertex>Qfgzf4xk</Vertex>
+					</Edge>
 				</informuj_lipolda_o_vysetrovani>
+				<Function Name="or14" PositionY="-400" PositionX="1160" MethodName="math::boolean::Or" DeclaringType="math::boolean">
+					<Edge From="sprPodezrState.Aborted" To="D">
+						<Vertex>FhJMA5aI</Vertex>
+						<Vertex>PLLbMUHx</Vertex>
+					</Edge>
+					<Edge From="sprPodezrState.Failed" To="C">
+						<Vertex>m6rlcMk1</Vertex>
+						<Vertex>M5PsCyQ7</Vertex>
+					</Edge>
+					<Edge From="sprPodezrState.Completed" To="B">
+						<Vertex>40ervvY0</Vertex>
+						<Vertex>s8EU2e0L</Vertex>
+					</Edge>
+					<Edge From="sprPodezrState.None" To="A">
+						<Vertex>rvecFEEa</Vertex>
+						<Vertex>7R8eJ3GI</Vertex>
+					</Edge>
+				</Function>
 				<Output Name="Output">
 					<Edge From="trialog_s_katerinou_a_leopoldem.hrac_podezdriva_rodinu" To="hrac_podezdriva_grolle">
 						<Vertex>vertex39</Vertex>
@@ -215,6 +246,15 @@
 					<Edge From="triggersequence13.B" To="pripadny_abort_barda">
 						<Vertex>aBRoULp5</Vertex>
 					</Edge>
+					<Edge From="trialog_s_katerinou_a_leopoldem.seq220" To="seq220">
+						<Vertex>NcG0HI0y</Vertex>
+						<Vertex>goMforS1</Vertex>
+					</Edge>
+					<Edge From="or14.bool" To="obj_neaktivni" />
+					<Edge From="trialog_s_katerinou_a_leopoldem.hrac_obvinil_vilema__necha_ho_jit" To="hrac_obvinil_vilema__necha_ho_jit">
+						<Vertex>mu8qRJWm</Vertex>
+						<Vertex>qF8cTtqw</Vertex>
+					</Edge>
 				</Output>
 				<State Name="sprPodezrState" PositionY="-570" PositionX="-680" RequiredForOutput="kutnohorsko" TypeT="ProgressFailableAbortable">
 					<Edge From="hrac_vysetril_stare_vrazdy_a_jde_za_leopoldem" To="SetStarted">
@@ -244,7 +284,7 @@
 						<Vertex>vertex33</Vertex>
 					</Edge>
 				</State>
-				<trialog_s_katerinou_a_leopoldem Name="trialog_s_katerinou_a_leopoldem" PositionY="-760" PositionX="310">
+				<trialog_s_katerinou_a_leopoldem Name="trialog_s_katerinou_a_leopoldem" PositionY="-760" PositionX="310" RequiredForOutput="kutnohorsko">
 					<Edge From="n1_zahajovaci_s_katerinou.zacnem_trialog" To="zacnem_trialog" />
 					<Edge From="n1_s_leopoldem_kdyz_katerina_neni_v_kh.zacit_trialog" To="zacnem_trialog" />
 					<Edge From="kubaParalu_prvniTrialog.OnTrigger" To="zacnem_trialog" />
@@ -355,7 +395,7 @@
 						<Vertex>9wN2IbHq</Vertex>
 					</Edge>
 				</trialog_s_katerinou_a_leopoldem>
-				<TriggerSequence Name="triggersequence13" PositionY="120" PositionX="770">
+				<TriggerSequence Name="triggersequence13" PositionY="240" PositionX="760">
 					<Edge From="trialog_s_katerinou_a_leopoldem.hrac_zabil_nekoho_z_domu__jde_prohledat_dum" To="Exec" />
 				</TriggerSequence>
 				<TriggerSequence Name="triggersequence8" PositionY="160" PositionX="1070">
@@ -368,28 +408,42 @@
 			<EdgeVertices>
 				<EdgeVertex Name="0az624Id" PositionY="430" PositionX="-1010" />
 				<EdgeVertex Name="1I9vNxCy" PositionY="470" PositionX="-1010" />
-				<EdgeVertex Name="3BdRFfrf" PositionY="100" PositionX="1060" />
+				<EdgeVertex Name="3BdRFfrf" PositionY="80" PositionX="1060" />
+				<EdgeVertex Name="40ervvY0" PositionY="-1070" PositionX="-350" />
 				<EdgeVertex Name="5TFj9PIT" PositionY="410" PositionX="90" />
-				<EdgeVertex Name="7jNspu7K" PositionY="100" PositionX="790" />
+				<EdgeVertex Name="7jNspu7K" PositionY="80" PositionX="790" />
+				<EdgeVertex Name="7R8eJ3GI" PositionY="-1090" PositionX="1090" />
 				<EdgeVertex Name="95zd2CRX" PositionY="450" PositionX="-1010" />
 				<EdgeVertex Name="9RpMJ8eo" PositionY="270" PositionX="-1010" />
 				<EdgeVertex Name="9wN2IbHq" PositionY="470" PositionX="90" />
-				<EdgeVertex Name="aBRoULp5" PositionY="120" PositionX="1060" />
-				<EdgeVertex Name="AQ0Mk083" PositionY="60" PositionX="1060" />
+				<EdgeVertex Name="aBRoULp5" PositionY="140" PositionX="1060" />
+				<EdgeVertex Name="AQ0Mk083" PositionY="40" PositionX="1060" />
 				<EdgeVertex Name="BfmGAtCn" PositionY="390" PositionX="-1010" />
 				<EdgeVertex Name="ddcN3QPk" PositionY="270" PositionX="90" />
-				<EdgeVertex Name="DIPHwCR8" PositionY="80" PositionX="1060" />
+				<EdgeVertex Name="DIPHwCR8" PositionY="60" PositionX="1060" />
 				<EdgeVertex Name="DjUFyNVG" PositionY="430" PositionX="90" />
 				<EdgeVertex Name="e7GBrPs5" PositionY="290" PositionX="90" />
 				<EdgeVertex Name="fc0LuG0U" PositionY="490" PositionX="639" />
+				<EdgeVertex Name="FhJMA5aI" PositionY="-1030" PositionX="-350" />
+				<EdgeVertex Name="goMforS1" PositionY="100" PositionX="1060" />
 				<EdgeVertex Name="HAQUXRKW" PositionY="370" PositionX="-1010" />
 				<EdgeVertex Name="IFsk1UCN" PositionY="330" PositionX="-1010" />
-				<EdgeVertex Name="MCHLzt2z" PositionY="100" PositionX="980" />
+				<EdgeVertex Name="KQuvmbWJ" PositionY="555" PositionX="646" />
+				<EdgeVertex Name="M5PsCyQ7" PositionY="-1050" PositionX="1090" />
+				<EdgeVertex Name="m6rlcMk1" PositionY="-1050" PositionX="-350" />
+				<EdgeVertex Name="MCHLzt2z" PositionY="80" PositionX="980" />
+				<EdgeVertex Name="mu8qRJWm" PositionY="120" PositionX="790" />
 				<EdgeVertex Name="N38Szhjx" PositionY="350" PositionX="-1010" />
+				<EdgeVertex Name="NcG0HI0y" PositionY="100" PositionX="790" />
 				<EdgeVertex Name="oMtUg4Kb" PositionY="490" PositionX="960" />
-				<EdgeVertex Name="oXdPB3s2" PositionY="60" PositionX="790" />
+				<EdgeVertex Name="oXdPB3s2" PositionY="40" PositionX="790" />
 				<EdgeVertex Name="p7m0nKsM" PositionY="330" PositionX="90" />
+				<EdgeVertex Name="PLLbMUHx" PositionY="-1030" PositionX="1090" />
 				<EdgeVertex Name="pWS8Ep4V" PositionY="350" PositionX="90" />
+				<EdgeVertex Name="qF8cTtqw" PositionY="120" PositionX="1060" />
+				<EdgeVertex Name="Qfgzf4xk" PositionY="550" PositionX="-330" />
+				<EdgeVertex Name="rvecFEEa" PositionY="-1090" PositionX="-350" />
+				<EdgeVertex Name="s8EU2e0L" PositionY="-1070" PositionX="1090" />
 				<EdgeVertex Name="sKcyYRFP" PositionY="-840" PositionX="-490" />
 				<EdgeVertex Name="SkxuqFXs" PositionY="390" PositionX="90" />
 				<EdgeVertex Name="SURvjre4" PositionY="450" PositionX="90" />
@@ -405,9 +459,9 @@
 				<EdgeVertex Name="vertex32" PositionY="490" PositionX="1220" />
 				<EdgeVertex Name="vertex33" PositionY="490" PositionX="-620" />
 				<EdgeVertex Name="vertex34" PositionY="530" PositionX="640" />
-				<EdgeVertex Name="vertex39" PositionY="-40" PositionX="790" />
-				<EdgeVertex Name="vertex40" PositionY="-60" PositionX="790" />
-				<EdgeVertex Name="vertex41" PositionY="-20" PositionX="790" />
+				<EdgeVertex Name="vertex39" PositionY="-60" PositionX="790" />
+				<EdgeVertex Name="vertex40" PositionY="-80" PositionX="790" />
+				<EdgeVertex Name="vertex41" PositionY="-40" PositionX="790" />
 				<EdgeVertex Name="vertex42" PositionY="-50" PositionX="-770" />
 				<EdgeVertex Name="vertex49" PositionY="-10" PositionX="90" />
 				<EdgeVertex Name="vertex50" PositionY="-10" PositionX="-1010" />
@@ -438,20 +492,20 @@
 				<EdgeVertex Name="vertex74" PositionY="230" PositionX="-1010" />
 				<EdgeVertex Name="vertex75" PositionY="250" PositionX="90" />
 				<EdgeVertex Name="vertex76" PositionY="250" PositionX="-1010" />
-				<EdgeVertex Name="vertex77" PositionY="-20" PositionX="1060" />
-				<EdgeVertex Name="vertex78" PositionY="-40" PositionX="1060" />
-				<EdgeVertex Name="vertex79" PositionY="-60" PositionX="1060" />
-				<EdgeVertex Name="vertex81" PositionY="0" PositionX="790" />
-				<EdgeVertex Name="vertex82" PositionY="0" PositionX="1060" />
-				<EdgeVertex Name="vertex83" PositionY="20" PositionX="790" />
-				<EdgeVertex Name="vertex84" PositionY="20" PositionX="1060" />
-				<EdgeVertex Name="vertex85" PositionY="40" PositionX="790" />
-				<EdgeVertex Name="vertex86" PositionY="40" PositionX="1060" />
+				<EdgeVertex Name="vertex77" PositionY="-40" PositionX="1060" />
+				<EdgeVertex Name="vertex78" PositionY="-60" PositionX="1060" />
+				<EdgeVertex Name="vertex79" PositionY="-80" PositionX="1060" />
+				<EdgeVertex Name="vertex81" PositionY="-20" PositionX="790" />
+				<EdgeVertex Name="vertex82" PositionY="-20" PositionX="1060" />
+				<EdgeVertex Name="vertex83" PositionY="0" PositionX="790" />
+				<EdgeVertex Name="vertex84" PositionY="0" PositionX="1060" />
+				<EdgeVertex Name="vertex85" PositionY="20" PositionX="790" />
+				<EdgeVertex Name="vertex86" PositionY="20" PositionX="1060" />
 				<EdgeVertex Name="vertex90" PositionY="-30" PositionX="90" />
 				<EdgeVertex Name="X8Td0Joy" PositionY="310" PositionX="90" />
 				<EdgeVertex Name="Xj8rgepT" PositionY="370" PositionX="90" />
 				<EdgeVertex Name="xYKKL2Em" PositionY="290" PositionX="-1010" />
-				<EdgeVertex Name="YC4NqETK" PositionY="80" PositionX="790" />
+				<EdgeVertex Name="YC4NqETK" PositionY="60" PositionX="790" />
 			</EdgeVertices>
 			<Text StringName="hrac_ma_podezreni_na_dum__uXyU" Text="Hráč má podezření na Dům a Syna" />
 			<MapVizLocation MapName="kutnohorsko" PositionX="3004" PositionY="863" />

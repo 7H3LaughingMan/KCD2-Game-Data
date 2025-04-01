@@ -134,29 +134,36 @@
 					<GraphSearch Origin="$__object.id" Borders="" depth="1" selection="true" SearchPattern="Depth" EdgePruning="&apos;parent,inventory&apos;" AllowedEdges="" SubGraph="" AllowSubtraph="false" includeOrigin="false" excludeOrigin="false" failOnEmpty="false" SetOperationChoice="Intersection|And" errorOnEmpty="false" shortCircuit="false" skipTraversed="true">
 						<LinkTagFilter tag="&apos;washGuest&apos;" prune="true" negprune="unknown" Parent="" Child="$washGuest" Data="" />
 					</GraphSearch>
-					<GraphSearch Origin="$__object.id" Borders="" depth="1" selection="true" SearchPattern="Depth" EdgePruning="&apos;parent,inventory&apos;" AllowedEdges="" SubGraph="" AllowSubtraph="false" includeOrigin="false" excludeOrigin="false" failOnEmpty="true" SetOperationChoice="Intersection|And" errorOnEmpty="false" shortCircuit="false" skipTraversed="true">
+					<GraphSearch Origin="$__object.id" Borders="" depth="1" selection="true" SearchPattern="Depth" EdgePruning="&apos;parent,inventory&apos;" AllowedEdges="" SubGraph="" AllowSubtraph="false" includeOrigin="false" excludeOrigin="false" failOnEmpty="false" SetOperationChoice="Intersection|And" errorOnEmpty="false" shortCircuit="false" skipTraversed="true">
 						<LinkTagFilter tag="&apos;spaCustomer&apos;" prune="true" negprune="unknown" Parent="" Child="$spaCustomer" Data="" />
 					</GraphSearch>
 				</Sequence>
 			</OnInit>
 			<Behavior canSkip="1">
 				<EntityContextElement context="situation_suppressMajitelkaLazniParticipation" enabled="true">
-					<AddLinkElement from="$__object.id" to="$this.id" tag="&apos;washGuest&apos;" data="" enabled="true">
-						<Sequence>
-							<IfCondition failOnCondition="false" condition="$washGuest == $__null">
-								<WaitAction />
-							</IfCondition>
-							<JoinedUnstanceAction lockContext="$__object.id" lockName="&apos;spaWash&apos;" lockCount="2" timeout="&apos;30s&apos;" ignoreOthersLeaving="false" unstance="spaWash" locationObject="$__object.id" slaveObject="" />
-							<RandomGate opensWithChance="0.300000" saveVersion="2">
-								<Then canSkip="1">
-									<Function_speech_dialogInitiator alias="&apos;situaceLazne_gossipLazebniceSeZakaznikemVKadi&apos;" animationApproach="$enum:animationApproach.dontPlayDialogAnimations" context="" customParameters="" metarole="" preset="$enum:dialogPreset.ingame" recipient="$spaCustomer" recipientMetaroles="" nodeLabel="36965268" />
-								</Then>
-								<Else canSkip="1">
-									<Wait duration="&apos;5s&apos;" timeType="GameTime" doFail="false" variation="" />
-								</Else>
-							</RandomGate>
-						</Sequence>
-					</AddLinkElement>
+					<IfElseCondition failOnCondition="false" condition="$spaCustomer ~= $__null" saveVersion="2">
+						<Then canSkip="1">
+							<AddLinkElement from="$__object.id" to="$this.id" tag="&apos;washGuest&apos;" data="" enabled="true">
+								<Sequence>
+									<IfCondition failOnCondition="false" condition="$washGuest == $__null">
+										<WaitAction />
+									</IfCondition>
+									<JoinedUnstanceAction lockContext="$__object.id" lockName="&apos;spaWash&apos;" lockCount="2" timeout="&apos;30s&apos;" ignoreOthersLeaving="false" unstance="spaWash" locationObject="$__object.id" slaveObject="" />
+									<RandomGate opensWithChance="0.300000" saveVersion="2">
+										<Then canSkip="1">
+											<Function_speech_dialogInitiator alias="&apos;situaceLazne_gossipLazebniceSeZakaznikemVKadi&apos;" animationApproach="$enum:animationApproach.dontPlayDialogAnimations" context="" customParameters="" metarole="" preset="$enum:dialogPreset.ingame" recipient="$spaCustomer" recipientMetaroles="" nodeLabel="36965268" />
+										</Then>
+										<Else canSkip="1">
+											<Wait duration="&apos;5s&apos;" timeType="GameTime" doFail="false" variation="" />
+										</Else>
+									</RandomGate>
+								</Sequence>
+							</AddLinkElement>
+						</Then>
+						<Else canSkip="1">
+							<Success />
+						</Else>
+					</IfElseCondition>
 				</EntityContextElement>
 			</Behavior>
 		</Root>
@@ -189,34 +196,44 @@
 				<Behavior>
 					<EntityContextElement hasInputBreakpoint="0" comment="" breakpointFlags="0">
 						<OutputBreakpoints />
-						<AddLinkElement hasInputBreakpoint="0" comment="" breakpointFlags="0">
+						<IfElseCondition hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
 							<OutputBreakpoints />
-							<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
-								<OutputBreakpoints />
-								<IfCondition hasInputBreakpoint="0" comment="" breakpointFlags="0">
+							<Then>
+								<AddLinkElement hasInputBreakpoint="0" comment="" breakpointFlags="0">
 									<OutputBreakpoints />
-									<WaitAction hasInputBreakpoint="0" comment="" breakpointFlags="0">
+									<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
 										<OutputBreakpoints />
-									</WaitAction>
-								</IfCondition>
-								<JoinedUnstanceAction hasInputBreakpoint="0" comment="" breakpointFlags="0">
-									<OutputBreakpoints />
-								</JoinedUnstanceAction>
-								<RandomGate hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
-									<OutputBreakpoints />
-									<Then>
-										<Function_speech_dialogInitiator hasInputBreakpoint="0" comment="" breakpointFlags="0">
+										<IfCondition hasInputBreakpoint="0" comment="" breakpointFlags="0">
 											<OutputBreakpoints />
-										</Function_speech_dialogInitiator>
-									</Then>
-									<Else>
-										<Wait hasInputBreakpoint="0" comment="" breakpointFlags="0">
+											<WaitAction hasInputBreakpoint="0" comment="" breakpointFlags="0">
+												<OutputBreakpoints />
+											</WaitAction>
+										</IfCondition>
+										<JoinedUnstanceAction hasInputBreakpoint="0" comment="" breakpointFlags="0">
 											<OutputBreakpoints />
-										</Wait>
-									</Else>
-								</RandomGate>
-							</Sequence>
-						</AddLinkElement>
+										</JoinedUnstanceAction>
+										<RandomGate hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
+											<OutputBreakpoints />
+											<Then>
+												<Function_speech_dialogInitiator hasInputBreakpoint="0" comment="" breakpointFlags="0">
+													<OutputBreakpoints />
+												</Function_speech_dialogInitiator>
+											</Then>
+											<Else>
+												<Wait hasInputBreakpoint="0" comment="" breakpointFlags="0">
+													<OutputBreakpoints />
+												</Wait>
+											</Else>
+										</RandomGate>
+									</Sequence>
+								</AddLinkElement>
+							</Then>
+							<Else>
+								<Success hasInputBreakpoint="0" comment="" breakpointFlags="0">
+									<OutputBreakpoints />
+								</Success>
+							</Else>
+						</IfElseCondition>
 					</EntityContextElement>
 				</Behavior>
 			</Root>

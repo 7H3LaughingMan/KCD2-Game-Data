@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Database xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" Name="brambora">
 	<Skald>
-		<Quest Name="sMlynariNejsouZerty" Type="Micro" Difficulty="16" ProductionCode="U34">
+		<Quest Name="sMlynariNejsouZerty" IsLocked="false" Type="Micro" Difficulty="16" ProductionCode="U34">
 			<Ports>
 				<Port Name="hrac_videl_marketu" Direction="Out" Type="bool">
 					<DesignName StringName="smlynarin_hrac_videl_mark_Mytx" Text="Hráč viděl Markétu" />
@@ -187,6 +187,7 @@
 					</Edge>
 					<Edge From="marketa_odesla_z_levelu" To="SetTrue" />
 				</State>
+				<objectivename Name="objectivename" PositionY="750" PositionX="620" Namespace="utils.commonstrings" />
 				<Function Name="or169" PositionY="-40" PositionX="-2750" MethodName="math::boolean::Or" DeclaringType="math::boolean">
 					<Edge From="timer168.Finished" To="A" />
 					<Edge From="timer168_1.Finished" To="B" />
@@ -239,9 +240,9 @@
 					<Edge From="hibernovana_gameplay.neaktivni_quest" To="neaktivni_quest" />
 					<Edge From="hibernovana_gameplay.hrac_videl_marketu" To="hrac_videl_marketu" />
 				</rozhovor_s_mlynarem_po_failu_questu_>
-				<SaveGame Name="savegame167" PositionY="670" PositionX="610">
-					<Constant Name="Objective" Value="promluv_si_s_mlynarem" />
+				<SaveGame Name="savegame167" PositionY="670" PositionX="920">
 					<Edge From="ifcompare2.True" To="EnqueueSave" />
+					<Edge From="objectivename.endquest" To="ObjectiveNameOverride" />
 				</SaveGame>
 				<smlynarinejsouzerty Name="smlynarinejsouzerty" PositionY="-350" PositionX="-260" />
 				<HasteTrigger Name="stream_MachalVranik" PositionY="-790" PositionX="130" />

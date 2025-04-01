@@ -143,11 +143,11 @@
 					<Edge From="talkToBetaAboutDuel.Active" To="A">
 						<Vertex>zvAdnVuv</Vertex>
 					</Edge>
-					<Edge From="finale.beta_ziskala_mestske_lazne" To="Exec">
+					<Edge From="triggersequence23.A" To="Exec">
 						<Vertex>vertex47</Vertex>
 						<Vertex>vertex48</Vertex>
 					</Edge>
-					<Edge From="finale.beta_nema_pravo" To="Exec">
+					<Edge From="triggersequence23_1.A" To="Exec">
 						<Vertex>vertex47</Vertex>
 						<Vertex>vertex48</Vertex>
 					</Edge>
@@ -191,17 +191,17 @@
 					</Edge>
 				</IfFunction>
 				<IfFunction Name="ifand8" PositionY="310" PositionX="1800" MethodName="math::boolean::And" DeclaringType="math::boolean">
-					<Edge From="finale.beta_nema_pravo" To="Exec">
-						<Vertex>vertex8</Vertex>
-						<Vertex>vertex9</Vertex>
-					</Edge>
-					<Edge From="finale.beta_ziskala_mestske_lazne" To="Exec">
-						<Vertex>vertex13</Vertex>
-						<Vertex>vertex3</Vertex>
-					</Edge>
 					<Edge From="state20.Active" To="A">
 						<Vertex>vertex29</Vertex>
 						<Vertex>vertex28</Vertex>
+					</Edge>
+					<Edge From="triggersequence23.A" To="Exec">
+						<Vertex>vertex13</Vertex>
+						<Vertex>vertex3</Vertex>
+					</Edge>
+					<Edge From="triggersequence23_1.A" To="Exec">
+						<Vertex>vertex8</Vertex>
+						<Vertex>vertex9</Vertex>
 					</Edge>
 				</IfFunction>
 				<IfFunction Name="ifnot22" PositionY="-200" PositionX="-90" MethodName="math::boolean::Not" DeclaringType="math::boolean">
@@ -214,7 +214,7 @@
 				<Function Name="not15" PositionY="680" PositionX="1120" MethodName="math::boolean::Not" DeclaringType="math::boolean">
 					<Edge From="cekani_na_radu.timer_dobehl" To="Value" />
 				</Function>
-				<vrat_se_za_betou Name="objectiveVisual5" PositionY="-440" PositionX="2080" RequiredForOutput="kutnohorsko">
+				<vrat_se_za_betou Name="objectiveVisual5" PositionY="-420" PositionX="2150" RequiredForOutput="kutnohorsko">
 					<Edge From="state20.State" To="Progress" />
 				</vrat_se_za_betou>
 				<back_to_beta3 Name="objectiveVisual8" PositionY="-190" PositionX="170" RequiredForOutput="kutnohorsko">
@@ -223,26 +223,13 @@
 				<wait Name="objectiveVisual8_1" PositionY="-530" PositionX="1600" RequiredForOutput="kutnohorsko">
 					<Edge From="waitForTheCouncil.State" To="Progress" />
 				</wait>
-				<Function Name="or10" PositionY="-660" PositionX="2080" MethodName="math::boolean::Or" DeclaringType="math::boolean">
-					<Edge From="talkToBetaAboutDuel.Active" To="A">
-						<Vertex>vertex17</Vertex>
-					</Edge>
-					<Edge From="waitForTheCouncil.Active" To="B" />
-					<Edge From="state20.Active" To="C" />
-				</Function>
 				<Output Name="Output">
 					<Edge From="cekani_na_radu.konec_okna" To="calculate">
 						<Vertex>vertex38</Vertex>
 						<Vertex>vertex39</Vertex>
 					</Edge>
-					<Edge From="finale.beta_nema_pravo" To="beta_nema_pravo">
-						<Vertex>vertex50</Vertex>
-					</Edge>
 					<Edge From="finale.skillteacher_mama" To="skillteacher_mama">
 						<Vertex>vertex26</Vertex>
-					</Edge>
-					<Edge From="finale.beta_ziskala_mestske_lazne" To="beta_ziskala_mestske_lazne">
-						<Vertex>vertex20</Vertex>
 					</Edge>
 					<Edge From="not15.bool" To="rada_jeste_neprobehla">
 						<Vertex>vertex51</Vertex>
@@ -260,9 +247,13 @@
 						<Vertex>zvAdnVuv</Vertex>
 						<Vertex>E83oStXQ</Vertex>
 					</Edge>
+					<Edge From="triggersequence23.B" To="beta_ziskala_mestske_lazne">
+						<Vertex>vertex20</Vertex>
+					</Edge>
+					<Edge From="triggersequence23_1.B" To="beta_nema_pravo" />
 				</Output>
-				<AddReward Name="reputationWithBeta" PositionY="240" PositionX="2550">
-					<Edge From="finale.beta_ziskala_mestske_lazne" To="AddReward" />
+				<AddReward Name="reputationWithBeta" PositionY="220" PositionX="2390">
+					<Edge From="triggersequence23.A" To="AddReward" />
 					<Rewards>
 						<SoulReputationReward ReputationChange="quest_reward_6_extraordinary" Target="beta" />
 					</Rewards>
@@ -271,11 +262,11 @@
 					<Constant Name="Objective" Value="wait" />
 					<Edge From="waitForTheCouncil.OnActive" To="EnqueueSave" />
 				</SaveGame>
-				<SchedulerLinkActivation Name="schedule11" PositionY="-630" PositionX="2330">
+				<SchedulerLinkActivation Name="schedule11" PositionY="60" PositionX="1110">
 					<Constant Name="LinkTag" Value="beta_waitsForVerdict" />
-					<Edge From="or10.bool" To="IsActive" />
+					<Edge From="cekani_na_radu.temer_rozhodnuto" To="IsActive" />
 				</SchedulerLinkActivation>
-				<State Name="state20" PositionY="-270" PositionX="1860" RequiredForOutput="kutnohorsko" TypeT="ProgressFailable">
+				<State Name="state20" PositionY="-300" PositionX="1850" RequiredForOutput="kutnohorsko" TypeT="ProgressFailable">
 					<Edge From="waitForTheCouncil.OnDone" To="SetActive" />
 					<Edge From="ifand8.True" To="SetDone">
 						<Vertex>vertex31</Vertex>
@@ -295,6 +286,12 @@
 					<Edge From="ifand17.True" To="SetCanceled" />
 					<Edge From="ifnot22.True" To="SetActive" />
 				</State>
+				<TriggerSequence Name="triggersequence23" PositionY="-240" PositionX="2400">
+					<Edge From="finale.beta_ziskala_mestske_lazne" To="Exec" />
+				</TriggerSequence>
+				<TriggerSequence Name="triggersequence23_1" PositionY="-240" PositionX="2650">
+					<Edge From="finale.beta_nema_pravo" To="Exec" />
+				</TriggerSequence>
 				<State Name="waitForTheCouncil" PositionY="-790" PositionX="1120" RequiredForOutput="kutnohorsko" TypeT="ProgressFailable">
 					<Edge From="ifand3.True" To="SetDone" />
 					<Edge From="ifand17_1.True" To="SetCanceled" />
@@ -319,7 +316,6 @@
 				<EdgeVertex Name="vertex13" PositionY="150" PositionX="2330" />
 				<EdgeVertex Name="vertex15" PositionY="-150" PositionX="1130" />
 				<EdgeVertex Name="vertex16" PositionY="-150" PositionX="1560" />
-				<EdgeVertex Name="vertex17" PositionY="-570" PositionX="460" />
 				<EdgeVertex Name="vertex2" PositionY="430" PositionX="80" />
 				<EdgeVertex Name="vertex20" PositionY="10" PositionX="2840" />
 				<EdgeVertex Name="vertex22" PositionY="510" PositionX="2050" />
@@ -336,17 +332,16 @@
 				<EdgeVertex Name="vertex35" PositionY="410" PositionX="970" />
 				<EdgeVertex Name="vertex36" PositionY="390" PositionX="480" />
 				<EdgeVertex Name="vertex37" PositionY="390" PositionX="960" />
-				<EdgeVertex Name="vertex38" PositionY="530" PositionX="1130" />
-				<EdgeVertex Name="vertex39" PositionY="480" PositionX="2760" />
+				<EdgeVertex Name="vertex38" PositionY="490" PositionX="1140" />
+				<EdgeVertex Name="vertex39" PositionY="520" PositionX="2770" />
 				<EdgeVertex Name="vertex40" PositionY="-440" PositionX="230" />
 				<EdgeVertex Name="vertex41" PositionY="510" PositionX="390" />
 				<EdgeVertex Name="vertex43" PositionY="590" PositionX="10" />
 				<EdgeVertex Name="vertex44" PositionY="590" PositionX="2120" />
 				<EdgeVertex Name="vertex45" PositionY="560" PositionX="780" />
 				<EdgeVertex Name="vertex46" PositionY="560" PositionX="10" />
-				<EdgeVertex Name="vertex47" PositionY="630" PositionX="2320" />
+				<EdgeVertex Name="vertex47" PositionY="630" PositionX="2660" />
 				<EdgeVertex Name="vertex48" PositionY="630" PositionX="420" />
-				<EdgeVertex Name="vertex50" PositionY="60" PositionX="2840" />
 				<EdgeVertex Name="vertex51" PositionY="770" PositionX="2770" />
 				<EdgeVertex Name="vertex52" PositionY="90" PositionX="2840" />
 				<EdgeVertex Name="vertex53" PositionY="110" PositionX="2840" />

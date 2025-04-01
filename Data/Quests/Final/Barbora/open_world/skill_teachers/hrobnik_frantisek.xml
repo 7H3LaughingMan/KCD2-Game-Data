@@ -3,9 +3,6 @@
 	<Skald>
 		<Gameplay Name="hrobnik_frantisek">
 			<Ports>
-				<Port Name="uinotificationtype" Direction="In" Type="BlockUINotificationType">
-					<DesignName StringName="hrobnik_f_uinotificationt_jKD2" Text="UINotificationType" />
-				</Port>
 				<Port Name="isworldtimepaused" Direction="In" Type="bool">
 					<DesignName StringName="hrobnik_f_isworldtimepaus_YN8X" Text="IsWorldTimePaused" />
 				</Port>
@@ -21,6 +18,9 @@
 				<Function Name="bufftagcheck45_3_1_1" PositionY="-370" PositionX="-550" MethodName="wh::rpgmodule::BuffTagCheck" DeclaringType="wh::rpgmodule">
 					<Asset Name="Souls" Alias="player" />
 					<Constant Name="BuffTag" Value="4" />
+				</Function>
+				<Function Name="checkgamecontext54" PositionY="141" PositionX="-950" MethodName="wh::xgenaimodule::CheckGameContext" DeclaringType="wh::xgenaimodule">
+					<Constant Name="Context" Value="worldTimePausedScriptReason" />
 				</Function>
 				<getlessoninfo Name="getl_1" PositionY="460" PositionX="-250" Namespace="utils.skillteachers">
 					<Constant Name="skill" Value="weapon_unarmed" />
@@ -46,7 +46,6 @@
 						<Vertex>AQ8aeLQH</Vertex>
 					</Edge>
 				</getlessoninfo>
-				<isitnight Name="isitnight" PositionY="-410" PositionX="-210" Namespace="utils.time" />
 				<ObjectProperties Name="isoulproperties14_1_1_2_1_1" PositionY="850" PositionX="380" DeclaringType="wh::rpgmodule::I_Soul">
 					<Edge From="special_frantisek_hrobnik.HROBNIK_FRANTISEK_KUTNA_HORA_SKILLTEACHER" To="I_Soul">
 						<Vertex>5Io2abEA</Vertex>
@@ -96,6 +95,7 @@
 					<Edge From="bufftagcheck45_1_2_1_1.HaveBuffTag" To="B" />
 				</Function>
 				<special_frantisek_hrobnik Name="special_frantisek_hrobnik" PositionY="180" PositionX="40">
+					<Constant Name="je_noc" Value="false" />
 					<Edge From="getl_1_2.lessonlevel" To="level_maintenance" />
 					<Edge From="getl_1_1.lessonlevel" To="level_stealth" />
 					<Edge From="getl_1.lessonlevel" To="level_unarmed" />
@@ -103,8 +103,7 @@
 					<Edge From="getl_1_2.price" To="Payment_maintenance" />
 					<Edge From="getl_1.price" To="Payment_unarmed" />
 					<Edge From="or46_2_1_1.bool" To="jindra_by_zemrel_pri_uceni" />
-					<Edge From="isworldtimepaused" To="je_zastaveny_cas" />
-					<Edge From="isitnight.itisnight" To="je_noc" />
+					<Edge From="checkgamecontext54.IsContextSet" To="je_zastaveny_cas" />
 				</special_frantisek_hrobnik>
 				<MemberFunction Name="visitskillteacher30_1_1_1_1" PositionY="770" PositionX="740" MethodName="VisitSkillTeacher" DeclaringType="wh::rpgmodule::SkillTeacherSoulComponent">
 					<Constant Name="Visited" Value="true" />
@@ -119,6 +118,11 @@
 				<EdgeVertex Name="AQ8aeLQH" PositionY="247" PositionX="-324" />
 				<EdgeVertex Name="yBS0EHQ9" PositionY="790" PositionX="-330" />
 			</EdgeVertices>
+			<Notes>
+				<Note Name="note1" PositionY="80" PositionX="60">
+					<Text StringName="hrobnik_f_note1_G589" Text="NOTE(Andy): KCD2-465196 A38 - Gravedigger should teach Henry immediately&#xD;&#xA;&#xD;&#xA;Tento skillteacher může být aktivní i v noci, proto je zadrátovaná konstanta je noc = false." />
+				</Note>
+			</Notes>
 			<Text StringName="hrobnik_frantisek_TpVn" Text="Hrobník František" />
 		</Gameplay>
 	</Skald>

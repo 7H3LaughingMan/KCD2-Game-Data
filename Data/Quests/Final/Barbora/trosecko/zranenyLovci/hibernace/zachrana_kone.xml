@@ -42,6 +42,9 @@
 				<Port Name="kun_byl_odevzdan_lovci" Direction="Out" Type="bool">
 					<DesignName StringName="zachrana__kun_byl_odevzda_M47W" Text="kůň byl odevzdán lovci" />
 				</Port>
+				<Port Name="seq12" Direction="Out" Type="bool">
+					<DesignName StringName="zachrana__seq12_ogGp" Text="lovec se vydal na cestu sám" />
+				</Port>
 			</Ports>
 			<Definitions>
 				<Definition File="zachrana_kone/doruceni_kone.xml" />
@@ -50,7 +53,7 @@
 				<Definition File="zachrana_kone/tabor_banditu.xml" />
 			</Definitions>
 			<Nodes>
-				<Function Name="and152212386" PositionY="480" PositionX="3550" MethodName="math::boolean::And" DeclaringType="math::boolean">
+				<Function Name="and152212386" PositionY="480" PositionX="3120" MethodName="math::boolean::And" DeclaringType="math::boolean">
 					<Edge From="doruceni_kone.kun_je_pobliz_lovce" To="A">
 						<Vertex>vertex41</Vertex>
 						<Vertex>vertex45</Vertex>
@@ -58,7 +61,14 @@
 					<Edge From="not438387_1.bool" To="C" />
 					<Edge From="not152212387.bool" To="B" />
 				</Function>
-				<Function Name="deathcheck152212380" PositionY="650" PositionX="2920" MethodName="wh::rpgmodule::DeathCheck" DeclaringType="wh::rpgmodule">
+				<Function Name="and152212409" PositionY="1260" PositionX="3370" MethodName="math::boolean::And" DeclaringType="math::boolean">
+					<Edge From="and152212386.bool" To="A" />
+					<Edge From="not152212410.bool" To="B" />
+				</Function>
+				<Function Name="createdialogparams152212407" PositionY="1480" PositionX="3670" MethodName="wh::dialogmodule::CreateDialogParams" DeclaringType="wh::dialogmodule">
+					<Asset Name="Participants" Alias="hunterVostatek" />
+				</Function>
+				<Function Name="deathcheck152212380" PositionY="650" PositionX="2490" MethodName="wh::rpgmodule::DeathCheck" DeclaringType="wh::rpgmodule">
 					<Asset Name="Souls" Alias="PepikTheHorse" />
 				</Function>
 				<doruceni_kone Name="doruceni_kone" PositionY="20" PositionX="2350" RequiredForOutput="trosecko">
@@ -89,7 +99,7 @@
 						<Vertex>vertex40</Vertex>
 					</Edge>
 				</If>
-				<jindra_odevzdava_lovci_kone Name="jindra_odevzdava_lovci_kone" PositionY="820" PositionX="4150">
+				<jindra_odevzdava_lovci_kone Name="jindra_odevzdava_lovci_kone" PositionY="800" PositionX="4160">
 					<Asset Name="DialogueHolder" Alias="dh_hideout_horseHandIn" />
 					<Edge From="tabor_banditu.aspon_jeden_bandita_zabit" To="aspon_1_bandita_je_mrtvy">
 						<Vertex>vertex6</Vertex>
@@ -100,10 +110,22 @@
 						<Vertex>vertex27</Vertex>
 					</Edge>
 					<Edge From="and152212386.bool" To="kun_je_pobliz_lovce_a_je_zivy_a_hrac_na_nem_nesedi" />
+					<Edge From="createdialogparams152212407.DialogParams" To="DialogParams" />
+					<Edge From="SpeakTrigger.onspoke" To="EnqueueDialogue" />
 				</jindra_odevzdava_lovci_kone>
-				<Function Name="not152212387" PositionY="510" PositionX="3170" MethodName="math::boolean::Not" DeclaringType="math::boolean">
+				<MakeArray Name="makearray152212408" PositionY="1450" PositionX="3410" TypeT="wh::rpgmodule::Souls">
+					<Asset Name="A" Alias="hunterVostatek" />
+					<Asset Name="B" Alias="player" />
+				</MakeArray>
+				<Function Name="not152212387" PositionY="510" PositionX="2740" MethodName="math::boolean::Not" DeclaringType="math::boolean">
 					<Edge From="doruceni_kone.hrac_sedi_na_pepikovi" To="Value">
 						<Vertex>vertex44</Vertex>
+					</Edge>
+				</Function>
+				<Function Name="not152212410" PositionY="1390" PositionX="3103" MethodName="math::boolean::Not" DeclaringType="math::boolean">
+					<Edge From="jindra_odevzdava_lovci_kone.root" To="Value">
+						<Vertex>2gT0SIoC</Vertex>
+						<Vertex>yKlMHJNh</Vertex>
 					</Edge>
 				</Function>
 				<Function Name="not438387" PositionY="960" PositionX="3510" MethodName="math::boolean::Not" DeclaringType="math::boolean">
@@ -111,7 +133,7 @@
 						<Vertex>vertex6</Vertex>
 					</Edge>
 				</Function>
-				<Function Name="not438387_1" PositionY="650" PositionX="3220" MethodName="math::boolean::Not" DeclaringType="math::boolean">
+				<Function Name="not438387_1" PositionY="650" PositionX="2790" MethodName="math::boolean::Not" DeclaringType="math::boolean">
 					<Edge From="deathcheck152212380.IsDead" To="Value" />
 				</Function>
 				<talkToHunterHorseDelivered Name="objectiveVisual43845" PositionY="30" PositionX="4880" RequiredForOutput="trosecko">
@@ -141,6 +163,7 @@
 						<Vertex>vertex29</Vertex>
 						<Vertex>vertex30</Vertex>
 					</Edge>
+					<Edge From="jindra_odevzdava_lovci_kone.seq12" To="seq12" />
 				</Output>
 				<patrani_po_ztracenem_koni Name="patrani_po_ztracenem_koni" PositionY="100" PositionX="1540" RequiredForOutput="trosecko">
 					<Edge From="jindra_jde_hledat_kone" To="lovec_uci_jindru_stopovat" />
@@ -150,6 +173,10 @@
 					<Constant Name="Objective" Value="talkToHunterReward" />
 					<Edge From="jindra_odevzdava_lovci_kone.jindra_a_lovec_se_rozdeluji" To="EnqueueSave" />
 				</SaveGame>
+				<SpeakTrigger Name="SpeakTrigger" PositionY="1250" PositionX="3680" Namespace="utils.speech">
+					<Edge From="makearray152212408.Array" To="speakers" />
+					<Edge From="and152212409.bool" To="isactive" />
+				</SpeakTrigger>
 				<tabor_banditu Name="tabor_banditu" PositionY="560" PositionX="1540" RequiredForOutput="trosecko">
 					<Edge From="patrani_po_ztracenem_koni.stopy_vedou_do_tabora" To="jindra_vstupuje_do_tabora">
 						<Vertex>vertex17</Vertex>
@@ -174,6 +201,7 @@
 				</State>
 			</Nodes>
 			<EdgeVertices>
+				<EdgeVertex Name="2gT0SIoC" PositionY="1890" PositionX="4440" />
 				<EdgeVertex Name="vertex17" PositionY="540" PositionX="1820" />
 				<EdgeVertex Name="vertex18" PositionY="540" PositionX="1560" />
 				<EdgeVertex Name="vertex2" PositionY="640" PositionX="4170" />
@@ -194,8 +222,9 @@
 				<EdgeVertex Name="vertex40" PositionY="0" PositionX="1780" />
 				<EdgeVertex Name="vertex41" PositionY="480" PositionX="2670" />
 				<EdgeVertex Name="vertex44" PositionY="600" PositionX="2640" />
-				<EdgeVertex Name="vertex45" PositionY="480" PositionX="3410" />
+				<EdgeVertex Name="vertex45" PositionY="480" PositionX="2980" />
 				<EdgeVertex Name="vertex6" PositionY="890" PositionX="3240" />
+				<EdgeVertex Name="yKlMHJNh" PositionY="1905" PositionX="3098" />
 			</EdgeVertices>
 			<Text StringName="zachrana_kone_eP8n" Text="Záchrana koně" />
 		</Module>

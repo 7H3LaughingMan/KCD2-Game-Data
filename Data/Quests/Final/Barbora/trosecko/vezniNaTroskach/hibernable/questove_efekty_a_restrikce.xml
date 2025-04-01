@@ -26,7 +26,7 @@
 						<Vertex>vertex12</Vertex>
 					</Edge>
 				</AddSoulDefaultItem>
-				<AreaLabelEffect Name="arealabel30" PositionY="1680" PositionX="-100">
+				<AreaLabelEffect Name="arealabel30" PositionY="1810" PositionX="-100">
 					<Asset Name="Areas" Alias="apolenaBarrierArea" />
 					<Constant Name="Operation" Value="Add" />
 					<Edge From="makearray31.Array" To="Labels" />
@@ -34,7 +34,7 @@
 						<Vertex>vertex10</Vertex>
 					</Edge>
 				</AreaLabelEffect>
-				<areatrespassleveleffect Name="areatrespassleveleffect_1_1" PositionY="1880" PositionX="-100" Namespace="utils.crime.trespass">
+				<areatrespassleveleffect Name="areatrespassleveleffect_1_1" PositionY="2010" PositionX="-100" Namespace="utils.crime.trespass">
 					<Asset Name="area" Alias="castleGameOverArea" />
 					<Constant Name="trespasslevel" Value="prohibited" />
 					<Edge From="quest_awake" To="isactive">
@@ -71,6 +71,11 @@
 						<Vertex>vertex7</Vertex>
 					</Edge>
 				</BuffEffect>
+				<disabledirectionschatglobal Name="disabledirectionschatglobal" PositionY="1150" PositionX="-100" Namespace="utils.hardcoremode">
+					<Edge From="quest_awake" To="enabled">
+						<Vertex>vertex10</Vertex>
+					</Edge>
+				</disabledirectionschatglobal>
 				<DisableHorseInventory Name="disablehorseinventory2" PositionY="760" PositionX="-100">
 					<Edge From="quest_awake" To="IsActive">
 						<Vertex>vertex10</Vertex>
@@ -125,7 +130,7 @@
 				<queststate Name="gameplaypart" PositionY="-330" PositionX="-330" Namespace="vezninatroskachlibrary">
 					<Edge From="gameplay_part_state" To="gameplay_state" />
 				</queststate>
-				<MakeArray Name="makearray31" PositionY="1740" PositionX="-380" TypeT="Strings">
+				<MakeArray Name="makearray31" PositionY="1870" PositionX="-380" TypeT="Strings">
 					<Constant Name="A" Value="suppressHorseCall" />
 				</MakeArray>
 				<MakeArray Name="makearray36" PositionY="70" PositionX="-410" TypeT="wh::rpgmodule::Souls">
@@ -175,6 +180,13 @@
 				</SetEntityContext>
 				<SetEntityContext Name="setentitycontext15_1" PositionY="150" PositionX="730">
 					<Constant Name="Context" Value="crime_ignoreUnconsciousBodies" />
+					<Asset Name="Souls" Alias="katerina" />
+					<Edge From="or33.bool" To="IsActive">
+						<Vertex>vertex12</Vertex>
+					</Edge>
+				</SetEntityContext>
+				<SetEntityContext Name="setentitycontext15_2" PositionY="-280" PositionX="790">
+					<Constant Name="Context" Value="ForceAllowAutoTorch" />
 					<Asset Name="Souls" Alias="katerina" />
 					<Edge From="or33.bool" To="IsActive">
 						<Vertex>vertex12</Vertex>
@@ -239,19 +251,19 @@
 						<Vertex>vertex10</Vertex>
 					</Edge>
 				</SetGameContext>
-				<SetGameContext Name="setgamecontext32" PositionY="1340" PositionX="-100">
+				<SetGameContext Name="setgamecontext32" PositionY="1470" PositionX="-100">
 					<Constant Name="Context" Value="crime_disabledThrowingOutUnconsciousPlayer" />
 					<Edge From="quest_awake" To="IsActive">
 						<Vertex>vertex10</Vertex>
 					</Edge>
 				</SetGameContext>
-				<SetGameContext Name="setgamecontext32_1" PositionY="1490" PositionX="-100">
+				<SetGameContext Name="setgamecontext32_1" PositionY="1620" PositionX="-100">
 					<Constant Name="Context" Value="crime_disableWantedStatus" />
 					<Edge From="quest_awake" To="IsActive">
 						<Vertex>vertex10</Vertex>
 					</Edge>
 				</SetGameContext>
-				<SetGameContext Name="setgamecontext41" PositionY="1180" PositionX="-100">
+				<SetGameContext Name="setgamecontext41" PositionY="1310" PositionX="-100">
 					<Constant Name="Context" Value="DisableHorseCall" />
 					<Edge From="quest_awake" To="IsActive">
 						<Vertex>vertex10</Vertex>

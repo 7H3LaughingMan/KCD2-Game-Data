@@ -26,6 +26,15 @@
 				<Function Name="deathcheck4" PositionY="-290" PositionX="-290" MethodName="wh::rpgmodule::DeathCheck" DeclaringType="wh::rpgmodule">
 					<Asset Name="Souls" Alias="lenek" />
 				</Function>
+				<State Name="HracMaPohodenBehemDialogu" PositionY="-390" PositionX="340" TypeT="Progress">
+					<Edge From="SpeakTrigger.onspoke" To="SetActive" />
+					<Edge From="vykradaci_hrobu__dialog.fight" To="SetDone" />
+					<Edge From="vykradaci_hrobu__dialog.vykradaci_odchazeji_a_budou_zabiti" To="SetDone" />
+				</State>
+				<If Name="if7" PositionY="310" PositionX="450">
+					<Edge From="vykradaci_hrobu__dialog.AfterPlay" To="Exec" />
+					<Edge From="vykradaci_hrobu__dialog.seq16" To="Condition" />
+				</If>
 				<MakeArray Name="makearray2" PositionY="-270" PositionX="-610" TypeT="wh::rpgmodule::Souls">
 					<Asset Name="A" Alias="gravelooter1" />
 					<Asset Name="B" Alias="gravelooter2" />
@@ -40,6 +49,19 @@
 					<Edge From="vykradaci_hrobu__dialog.fight" To="fight" />
 					<Edge From="vykradaci_hrobu__dialog.vykradaci_odchazeji_a_budou_zabiti" To="vykradaci_odchazeji_a_budou_zabiti" />
 				</Output>
+				<PlayerAction_DrawWeapon Name="PlayerAction_DrawWeapon" PositionY="270" PositionX="700" Namespace="utils.player">
+					<Constant Name="loadsecondaryweapon" Value="false" />
+					<Constant Name="useselectedweaponset" Value="true" />
+					<Constant Name="weaponset" Value="primary" />
+					<Constant Name="allowdifferentweaponset" Value="true" />
+					<Constant Name="urgency" Value="Instant" />
+					<Edge From="if7.True" To="drawweapon" />
+				</PlayerAction_DrawWeapon>
+				<SetEntityContext Name="setentitycontext6" PositionY="-370" PositionX="670">
+					<Constant Name="Context" Value="teleport_crime_keepItems" />
+					<Asset Name="Souls" Alias="player" />
+					<Edge From="HracMaPohodenBehemDialogu.Active" To="IsActive" />
+				</SetEntityContext>
 				<SpeakTrigger Name="SpeakTrigger" PositionY="-140" PositionX="-310" Namespace="utils.speech">
 					<Edge From="makearray2.Array" To="speakers" />
 					<Edge From="dialog_je_aktivni" To="isactive" />

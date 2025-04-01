@@ -3,6 +3,9 @@
 	<Skald>
 		<RandomEventVariant Name="kejkliri" IsGuaranteed="true">
 			<Ports>
+				<Port Name="force_leave_announcer" Direction="In" Type="trigger">
+					<DesignName StringName="kejkliri_force_leave_anno_lRsz" Text="Force leave announcer" />
+				</Port>
 				<Port Name="isenabled" Direction="In" Type="bool">
 					<DesignName StringName="kejkliri_isenabled_VpuQ" Text="IsEnabled" />
 				</Port>
@@ -52,6 +55,9 @@
 					<Edge From="PrisonersState.OnFalse" To="force_leave">
 						<Vertex>vertex34</Vertex>
 					</Edge>
+					<Edge From="force_leave_announcer" To="force_leave">
+						<Vertex>WSUYMmFD</Vertex>
+					</Edge>
 				</hlasatel_logic>
 				<CutsceneHandler Name="cutscenehandler10" PositionY="2990" PositionX="1250">
 					<Asset Name="CutsceneHolder" Alias="kejkliri_cutscene" />
@@ -61,6 +67,15 @@
 				</CutsceneHandler>
 				<david_reaguje_na_osvobozeni Name="david_reaguje_na_osvobozeni" PositionY="-890" PositionX="1510" />
 				<david_reaguje_na_vycet_zlocinu Name="david_reaguje_na_vycet_zlocinu" PositionY="-1060" PositionX="1500" />
+				<State Name="DisableDirectionsChat" PositionY="-620" PositionX="540" TypeT="bool">
+					<Edge From="OnSpawn" To="SetTrue">
+						<Vertex>2vUHBf2S</Vertex>
+					</Edge>
+				</State>
+				<disabledirectionschatsoul Name="disabledirectionschatsoul" PositionY="-530" PositionX="1130" Namespace="utils.hardcoremode">
+					<Edge From="DisableDirectionsChat.State" To="enabled" />
+					<Edge From="joinarrays14_1.Array" To="soul" />
+				</disabledirectionschatsoul>
 				<eventleavelevel Name="eventleavelevel" PositionY="3190" PositionX="2830" Namespace="events_common">
 					<Constant Name="behavior_tag" Value="eventLeaveLevel" />
 					<Constant Name="speed" Value="sprint" />
@@ -104,7 +119,7 @@
 					<Asset Name="A" Alias="prisoner" />
 					<Asset Name="B" Alias="prisoner_david" />
 				</Function>
-				<Function Name="joinarrays14_1" PositionY="4070" PositionX="1870" TypeT="wh::rpgmodule::Souls" MethodName="utilities::array::JoinArrays" DeclaringType="utilities::array">
+				<Function Name="joinarrays14_1" PositionY="-480" PositionX="860" TypeT="wh::rpgmodule::Souls" MethodName="utilities::array::JoinArrays" DeclaringType="utilities::array">
 					<Asset Name="A" Alias="prisoner" />
 					<Asset Name="B" Alias="prisoner_david" />
 				</Function>
@@ -259,9 +274,10 @@
 				<EdgeVertex Name="vertex34" PositionY="1680" PositionX="1040" />
 				<EdgeVertex Name="vertex35" PositionY="3710" PositionX="1030" />
 				<EdgeVertex Name="vertex36" PositionY="3170" PositionX="1700" />
+				<EdgeVertex Name="WSUYMmFD" PositionY="954" PositionX="389" />
 			</EdgeVertices>
 			<Assets>
-				<SoulAsset Name="prisoner_david" SharedSoulGuids="435f6426-88cc-d2bc-9707-baa8e9d1e498" />
+				<SoulAsset Name="prisoner_david" />
 				<TagPointAsset Name="spawnPoint_prisoner2" />
 				<SmartObjectAsset Name="tiedSpot_SO" />
 				<InteractionTriggerAsset Name="tiedSpot_trigger" />
@@ -272,8 +288,8 @@
 				<RandomEventTag Name="henryOnly" />
 			</Tags>
 			<NpcGroups>
-				<NpcGroup SoulName="tzel_david" TagPoints="spawnPoint_prisoner" NpcAssetName="prisoner_david" SchedulerProxy="spawnPoint_prisoner" Count="1" CountDifficultyAddPerNPC="0" />
-				<NpcGroup SoulName="tzel_michal" TagPoints="spawnPoint_prisoner2" NpcAssetName="prisoner" SchedulerProxy="spawnPoint_prisoner2" Count="1" CountDifficultyAddPerNPC="0" />
+				<NpcGroup SoulName="pranyr_david" TagPoints="spawnPoint_prisoner" NpcAssetName="prisoner_david" SchedulerProxy="spawnPoint_prisoner" Count="1" CountDifficultyAddPerNPC="0" />
+				<NpcGroup SoulName="pranyr_michal" TagPoints="spawnPoint_prisoner2" NpcAssetName="prisoner" SchedulerProxy="spawnPoint_prisoner2" Count="1" CountDifficultyAddPerNPC="0" />
 				<NpcGroup SoulName="hlasatel_man_26" TagPoints="spawnPoint_announcer" NpcAssetName="announcer" SchedulerProxy="spawnPoint_announcer" Count="1" CountDifficultyAddPerNPC="0" />
 			</NpcGroups>
 		</RandomEventVariant>

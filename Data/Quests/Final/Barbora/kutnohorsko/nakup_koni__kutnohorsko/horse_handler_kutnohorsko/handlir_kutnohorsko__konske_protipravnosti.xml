@@ -327,7 +327,7 @@
 																						</Elements>
 																						<Decision Name="dec5" Priority="General" DesignName="TransakceProdej">
 																							<Sequences>
-																								<Sequence ExitScript="Shops.DoMoneyTransaction(dc['KONSKY_HANDLIR_KUTNOHORSKO'].id, Ports['Payment_sellinghorse'] * -10, 1)" EndType="Decision" GrayOutIfSequencesUsed="Never" Type="Payment" Name="sellinghorse">
+																								<Sequence ExitScript="Shops.DoMoneyTransaction(dc['KONSKY_HANDLIR_KUTNOHORSKO'].id, Ports['Payment_sellinghorse'] * -10, 1) &#xD;&#xA;Game.ShowItemsTransfer(ItemUtils.itemIDs.money, 10 * Ports['Payment_sellinghorse'])" EndType="Decision" GrayOutIfSequencesUsed="Never" Type="Payment" Name="sellinghorse">
 																									<DesignName StringName="handlir_k_sellinghorse_PFoN" Text="sellingHorse" />
 																									<UiPrompt StringName="ui_handlir_k_sellinghorse_5UQD" Text="Přijmout." />
 																									<Triggers>
@@ -374,7 +374,7 @@
 																										</Sequences>
 																									</Decision>
 																								</Sequence>
-																								<Sequence ExitScript="SetupHaggle(Ports['Payment_sellinghorse'],1)" EndType="Decision" GrayOutIfSequencesUsed="Never" Name="seq16">
+																								<Sequence ExitScript="SetupHaggle(Ports['Payment_sellinghorse'] * -1,1)" EndType="Decision" GrayOutIfSequencesUsed="Never" Name="seq16">
 																									<DesignName StringName="handlir_k_seq16_3JzL" Text="seq16" />
 																									<UiPrompt StringName="ui_handlir_k_seq16_0JeN" Text="Smlouvat." />
 																									<Elements>
@@ -574,7 +574,7 @@
 																										</Response>
 																									</Elements>
 																								</Sequence>
-																								<Sequence SpeechCoef="0" ExitScript="Shops.DoMoneyTransaction(dc['KONSKY_HANDLIR_KUTNOHORSKO'].id, Ports['paymentappropriating_haggle'] * 10, 0)" EntryCondition="Port('hasbudgetforappropriating')" EndType="GoTo" GoToDecision="dec8" GrayOutIfSequencesUsed="Never" Name="seq28">
+																								<Sequence SpeechCoef="0" ExitScript="Shops.DoMoneyTransaction(dc['KONSKY_HANDLIR_KUTNOHORSKO'].id, Ports['paymentappropriating_haggle'] * 10, 0) &#xD;&#xA;Game.ShowItemsTransfer(ItemUtils.itemIDs.money, -10 * Ports['paymentappropriating_haggle'])" EntryCondition="Port('hasbudgetforappropriating')" EndType="GoTo" GoToDecision="dec8" GrayOutIfSequencesUsed="Never" Name="seq28">
 																									<DesignName StringName="handlir_k_seq28_8jys" Text="seq28" />
 																									<Triggers>
 																										<Port Name="sprayhorse_fullprice" />
@@ -606,7 +606,7 @@
 																							</Sequences>
 																						</Decision>
 																					</Sequence>
-																					<Sequence ExitScript="Shops.DoMoneyTransaction(dc['KONSKY_HANDLIR_KUTNOHORSKO'].id, Ports['paymentappropriating_haggle'] * 10, 0)" EntryCondition="Port('Payment_appropriating_handler') &gt; 0" EndType="GoTo" GoToDecision="dec8" GrayOutIfSequencesUsed="Never" Type="Payment" Name="appropriating_handler">
+																					<Sequence ExitScript="Shops.DoMoneyTransaction(dc['KONSKY_HANDLIR_KUTNOHORSKO'].id, Ports['paymentappropriating_haggle'] * 10, 0) &#xD;&#xA;Game.ShowItemsTransfer(ItemUtils.itemIDs.money, -10 * Ports['paymentappropriating_haggle'])" EntryCondition="Port('Payment_appropriating_handler') &gt; 0" EndType="GoTo" GoToDecision="dec8" GrayOutIfSequencesUsed="Never" Type="Payment" Name="appropriating_handler">
 																						<DesignName StringName="handlir_k_seq41_BsfW" Text="seq41" />
 																						<UiPrompt StringName="ui_handlir_k_seq41_LzId" Text="Obdržet peníze." />
 																						<Triggers>

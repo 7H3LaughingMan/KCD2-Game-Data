@@ -18,6 +18,9 @@
 				<Port Name="incident_probehl" Direction="In" Type="bool">
 					<DesignName StringName="include_d_incident_probehl_HOqy" Text="Incident proběhl" />
 				</Port>
+				<Port Name="hrac_uz_ma_ambrozuv_mec" Direction="In" Type="bool">
+					<DesignName StringName="include_d_hrac_uz_ma_ambr_bcc0" Text="Hráč už má Ambrožův meč" />
+				</Port>
 			</Ports>
 			<Text StringName="include_dotazy_na_konrada_IMDA" Text="Include: Dotazy na Konráda" />
 			<Elements>
@@ -55,7 +58,7 @@
 							</Elements>
 							<Decision Name="dec3" Priority="SideQuestSubmission" DesignName="pool dotazů" TimeLimit="15">
 								<Sequences>
-									<Sequence EntryCondition="!Port('henry_zna_pravdu_o_konradovi')" EndType="Decision" Visibility="Internal" Name="kde_je_mec">
+									<Sequence EntryCondition="!Port('henry_zna_pravdu_o_konradovi')&#xD;&#xA;AND &#xD;&#xA;!Port('hrac_uz_ma_ambrozuv_mec')&#xD;&#xA;AND &#xD;&#xA;!ThisSequenceUsed()" EndType="Decision" Visibility="Internal" Name="kde_je_mec">
 										<DesignName StringName="include_d_kde_je_mec_F75x" Text="kde je meč" />
 										<UiPrompt StringName="ui_include_d_kde_je_mec_Vg7W" Text="Kde je ten zlomený meč?" />
 										<Elements>
@@ -92,7 +95,7 @@
 											</Sequences>
 										</Decision>
 									</Sequence>
-									<Sequence EntryCondition="Port('henry_zna_pravdu_o_konradovi') AND  !ThisSequenceUsed()" EndType="GoTo" GoToDecision="dec12" Name="kde_je_">
+									<Sequence EntryCondition="Port('henry_zna_pravdu_o_konradovi') &#xD;&#xA;AND  &#xD;&#xA;!ThisSequenceUsed()&#xD;&#xA;AND &#xD;&#xA;!Port('hrac_uz_ma_ambrozuv_mec')&#xD;&#xA;AND &#xD;&#xA;!ThisSequenceUsed()" EndType="GoTo" GoToDecision="dec12" Name="kde_je_">
 										<DesignName StringName="include_d_seq20_1dUC" Text="kde je ambrozuv hrob" />
 										<UiPrompt StringName="ui_include_d_seq20_0mNM" Text="Kde najdu Ambrožův zlomený meč?" />
 										<Elements>
@@ -106,7 +109,7 @@
 											</Response>
 										</Elements>
 									</Sequence>
-									<Sequence EntryCondition="Port('jindra_mluvil_s_rytiri')&#xD;&#xA;AND &#xD;&#xA;!Port('incident_probehl')" EndType="GoTo" GoToDecision="dec3" Visibility="Internal" Reputation="quest_reward_1_micro" Name="proc_te_chteji_zabit">
+									<Sequence EntryCondition="Port('jindra_mluvil_s_rytiri')&#xD;&#xA;AND &#xD;&#xA;!Port('incident_probehl')&#xD;&#xA;AND &#xD;&#xA;!ThisSequenceUsed()" EndType="GoTo" GoToDecision="dec3" Visibility="Internal" Reputation="quest_reward_1_micro" Name="proc_te_chteji_zabit">
 										<DesignName StringName="include_d_proc_te_chteji__6hM1" Text="proc te chteji zabit" />
 										<UiPrompt StringName="ui_include_d_proc_te_chte_ZPOc" Text="Proč tě chtějí zabít?" />
 										<Elements>
@@ -154,7 +157,7 @@
 											</Response>
 										</Elements>
 									</Sequence>
-									<Sequence EntryCondition="Port('incident_probehl')" EndType="GoTo" GoToDecision="dec3" Name="seq25">
+									<Sequence EntryCondition="Port('incident_probehl') &#xD;&#xA;AND &#xD;&#xA;!ThisSequenceUsed()" EndType="GoTo" GoToDecision="dec3" Name="seq25">
 										<DesignName StringName="include_d_seq25_ZpWg" Text="seq25" />
 										<UiPrompt StringName="ui_include_d_seq25_MZwm" Text="Proč tě chtěli zabít?" />
 										<Elements>
@@ -190,7 +193,7 @@
 											</Response>
 										</Elements>
 									</Sequence>
-									<Sequence EntryCondition="!Port('henry_zna_pravdu_o_konradovi')&#xD;&#xA;AND &#xD;&#xA;!Port('jindra_mluvil_s_rytiri')" EndType="Decision" Visibility="Public" Reputation="quest_decrease_1_micro" Name="nejsi_ambroz">
+									<Sequence EntryCondition="!Port('henry_zna_pravdu_o_konradovi')&#xD;&#xA;AND &#xD;&#xA;!Port('jindra_mluvil_s_rytiri')&#xD;&#xA;AND &#xD;&#xA;!ThisSequenceUsed()" EndType="Decision" Visibility="Public" Reputation="quest_decrease_1_micro" Name="nejsi_ambroz">
 										<DesignName StringName="include_d_nejsi_ambroz_RQ8z" Text="nejsi ambroz" />
 										<UiPrompt StringName="ui_include_d_nejsi_ambroz_1oFr" Text="Ty nejsi poustevník Ambrož, co?" />
 										<Elements>
@@ -245,7 +248,7 @@
 											</Sequences>
 										</Decision>
 									</Sequence>
-									<Sequence EntryCondition="Port('jindra_vykopal_veci_u_krizku')&#xD;&#xA;AND &#xD;&#xA;!Port('henry_zna_pravdu_o_konradovi')" EndType="GoTo" GoToDecision="dec3" Visibility="Internal" Name="co_bylo_s_krizem">
+									<Sequence EntryCondition="Port('jindra_vykopal_veci_u_krizku')&#xD;&#xA;AND &#xD;&#xA;!Port('henry_zna_pravdu_o_konradovi')&#xD;&#xA;AND &#xD;&#xA;!ThisSequenceUsed()" EndType="GoTo" GoToDecision="dec3" Visibility="Internal" Name="co_bylo_s_krizem">
 										<DesignName StringName="include_d_co_bylo_s_krizem_2ydc" Text="co bylo s krizem" />
 										<UiPrompt StringName="ui_include_d_co_bylo_s_kr_0fFq" Text="Co si hledal pod smírčím křížem?" />
 										<Elements>
@@ -289,7 +292,7 @@
 											</Response>
 										</Elements>
 									</Sequence>
-									<Sequence EntryCondition="!Port('henry_zna_pravdu_o_konradovi')" EndType="GoTo" GoToDecision="dec3" Visibility="Internal" Name="proc_si_tady">
+									<Sequence EntryCondition="!Port('henry_zna_pravdu_o_konradovi')&#xD;&#xA;AND &#xD;&#xA;!ThisSequenceUsed()" EndType="GoTo" GoToDecision="dec3" Visibility="Internal" Name="proc_si_tady">
 										<DesignName StringName="include_d_proc_si_tady_nKKX" Text="proc si tady" />
 										<UiPrompt StringName="ui_include_d_proc_si_tady_cFUz" Text="Proč jsi přijel za poustevníkem?" />
 										<Elements>
@@ -334,7 +337,7 @@
 											</Response>
 										</Elements>
 									</Sequence>
-									<Sequence EntryCondition="SequenceUsed('prozradil_mec_pred_bojem')" Type="Trigger" Name="seq24">
+									<Sequence EntryCondition="SequenceUsed('prozradil_mec_pred_bojem')&#xD;&#xA;OR &#xD;&#xA;Port('hrac_uz_ma_ambrozuv_mec')" Type="Trigger" Name="seq24">
 										<DesignName StringName="include_d_seq24_LmRb" Text="seq24" />
 										<UiPrompt StringName="ui_include_d_seq24_1w3N" Text="Už vím dost." />
 										<Elements>

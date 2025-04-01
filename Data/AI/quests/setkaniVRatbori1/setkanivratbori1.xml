@@ -1850,7 +1850,7 @@
 					<Sequence>
 						<FindInArray array="$participants" keyOut="$index" condition="$__value == $this.id" />
 						<ExactMove directionType="AlignWithEntity" directionSpecification="$tagpoints[$index]" animationTriggerDist="0.150000" precise="false" changeNPCState="true" fastForwardIncludesMove="true" destinationSpecification="$tagpoints[$index]" destinationSpecification2="" destinationSpecification3="" speed="Walk" additionalParams="" pathFindingParams="" staminaPolicy="" pathInfo="" />
-						<Wait duration="&apos;1s&apos;" timeType="GameTime" doFail="false" variation="&apos;3s&apos;" skipInLOD="false" />
+						<Wait duration="&apos;1s&apos;" timeType="GameTime" doFail="false" variation="&apos;3s&apos;" />
 						<HasGenderCheck Gender="Male" SoulWUID="$participants[$index]" FailSubtMissing="false" saveVersion="2">
 							<Then canSkip="1">
 								<RandomGate opensWithChance="0.500000" saveVersion="2">
@@ -1877,17 +1877,10 @@
 								</RandomGate>
 							</Then>
 							<Else canSkip="1">
-								<RandomGate opensWithChance="0.500000" saveVersion="2">
-									<Then canSkip="1">
-										<UnstanceAction unstance="tournamentCrowd_standing_3" locationObject="" slaveObject="" />
-									</Then>
-									<Else canSkip="1">
-										<UnstanceAction unstance="tournamentCrowd_standing_1" locationObject="" slaveObject="" />
-									</Else>
-								</RandomGate>
+								<UnstanceAction unstance="tournamentCrowd_standing_1" locationObject="" slaveObject="" />
 							</Else>
 						</HasGenderCheck>
-						<Wait duration="&apos;15s&apos;" timeType="GameTime" doFail="false" variation="" skipInLOD="false" />
+						<Wait duration="&apos;15s&apos;" timeType="GameTime" doFail="false" variation="" />
 					</Sequence>
 				</ForceLook>
 			</Behavior>
@@ -1954,19 +1947,9 @@
 									</RandomGate>
 								</Then>
 								<Else>
-									<RandomGate hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
+									<UnstanceAction hasInputBreakpoint="0" comment="" breakpointFlags="0">
 										<OutputBreakpoints />
-										<Then>
-											<UnstanceAction hasInputBreakpoint="0" comment="" breakpointFlags="0">
-												<OutputBreakpoints />
-											</UnstanceAction>
-										</Then>
-										<Else>
-											<UnstanceAction hasInputBreakpoint="0" comment="" breakpointFlags="0">
-												<OutputBreakpoints />
-											</UnstanceAction>
-										</Else>
-									</RandomGate>
+									</UnstanceAction>
 								</Else>
 							</HasGenderCheck>
 							<Wait hasInputBreakpoint="0" comment="" breakpointFlags="0">
@@ -2315,6 +2298,155 @@
 							</Wait>
 						</Sequence>
 					</StanceElement>
+				</Behavior>
+			</Root>
+			<Forest />
+			<Comments />
+		</EditorData>
+	</BehaviorTree>
+	<BehaviorTree name="vaclav_leanAndSit" is_function="0">
+		<Variables>
+			<Variable name="leanSpot" type="_wuid" values="" isPersistent="0" form="single" />
+			<Variable name="sitPlace" type="_wuid" values="" isPersistent="0" form="single" />
+			<Variable name="walkPoint" type="_wuid" values="" isPersistent="0" form="single" />
+		</Variables>
+		<Root OneTimeOnly="false" FailState="Recoverable" saveVersion="2">
+			<Behavior canSkip="1">
+				<Sequence>
+					<GraphSearch Origin="" Borders="" depth="1" selection="true" SearchPattern="Depth" EdgePruning="&apos;parent,inventory&apos;" AllowedEdges="" SubGraph="" AllowSubtraph="false" includeOrigin="false" excludeOrigin="false" failOnEmpty="true" SetOperationChoice="Intersection|And" errorOnEmpty="false" shortCircuit="false" skipTraversed="true">
+						<LinkTagFilter tag="&apos;leanSpot&apos;" prune="true" negprune="unknown" Parent="" Child="$leanSpot" Data="" />
+					</GraphSearch>
+					<GraphSearch Origin="" Borders="" depth="1" selection="true" SearchPattern="Depth" EdgePruning="&apos;parent,inventory&apos;" AllowedEdges="" SubGraph="" AllowSubtraph="false" includeOrigin="false" excludeOrigin="false" failOnEmpty="true" SetOperationChoice="Intersection|And" errorOnEmpty="false" shortCircuit="false" skipTraversed="true">
+						<LinkTagFilter tag="&apos;sitPlace&apos;" prune="true" negprune="unknown" Parent="" Child="$sitPlace" Data="" />
+					</GraphSearch>
+					<GraphSearch Origin="" Borders="" depth="1" selection="true" SearchPattern="Depth" EdgePruning="&apos;parent,inventory&apos;" AllowedEdges="" SubGraph="" AllowSubtraph="false" includeOrigin="false" excludeOrigin="false" failOnEmpty="true" SetOperationChoice="Intersection|And" errorOnEmpty="false" shortCircuit="false" skipTraversed="true">
+						<LinkTagFilter tag="&apos;walkPoint&apos;" prune="true" negprune="unknown" Parent="" Child="$walkPoint" Data="" />
+					</GraphSearch>
+					<UnstanceAction unstance="LeaningLeft" locationObject="$leanSpot" slaveObject="" />
+					<Wait duration="&apos;45s&apos;" timeType="GameTime" doFail="false" variation="" />
+					<Move stopWithinDistance="0.200000" stopDistanceVariation="0.100000" rayCasteFlee="false" successDistance="3.000000" changeNPCState="true" fastForwardIncludesMove="false" destinationSpecification="$walkPoint" destinationSpecification2="" destinationSpecification3="" speed="Walk" additionalParams="" pathFindingParams="" staminaPolicy="" pathInfo="" />
+					<StanceElement smartObject="$sitPlace" stance="sitting" allowAny="false" enabled="true">
+						<WaitAction />
+					</StanceElement>
+				</Sequence>
+			</Behavior>
+		</Root>
+		<ForestContainer />
+		<EditorData EventSet="">
+			<Variables>
+				<Variable name="leanSpot" comment="" />
+				<Variable name="sitPlace" comment="" />
+				<Variable name="walkPoint" comment="" />
+			</Variables>
+			<ForwardDeclarations />
+			<Root hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
+				<OutputBreakpoints />
+				<Behavior>
+					<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
+						<OutputBreakpoints />
+						<GraphSearch hasInputBreakpoint="0" comment="" breakpointFlags="0">
+							<OutputBreakpoints />
+							<LinkTagFilter hasInputBreakpoint="0" comment="" breakpointFlags="0">
+								<OutputBreakpoints />
+							</LinkTagFilter>
+						</GraphSearch>
+						<GraphSearch hasInputBreakpoint="0" comment="" breakpointFlags="0">
+							<OutputBreakpoints />
+							<LinkTagFilter hasInputBreakpoint="0" comment="" breakpointFlags="0">
+								<OutputBreakpoints />
+							</LinkTagFilter>
+						</GraphSearch>
+						<GraphSearch hasInputBreakpoint="0" comment="" breakpointFlags="0">
+							<OutputBreakpoints />
+							<LinkTagFilter hasInputBreakpoint="0" comment="" breakpointFlags="0">
+								<OutputBreakpoints />
+							</LinkTagFilter>
+						</GraphSearch>
+						<UnstanceAction hasInputBreakpoint="0" comment="" breakpointFlags="0">
+							<OutputBreakpoints />
+						</UnstanceAction>
+						<Wait hasInputBreakpoint="0" comment="" breakpointFlags="0">
+							<OutputBreakpoints />
+						</Wait>
+						<Move hasInputBreakpoint="0" comment="" breakpointFlags="0">
+							<OutputBreakpoints />
+						</Move>
+						<StanceElement hasInputBreakpoint="0" comment="" breakpointFlags="0">
+							<OutputBreakpoints />
+							<WaitAction hasInputBreakpoint="0" comment="" breakpointFlags="0">
+								<OutputBreakpoints />
+							</WaitAction>
+						</StanceElement>
+					</Sequence>
+				</Behavior>
+			</Root>
+			<Forest />
+			<Comments />
+		</EditorData>
+	</BehaviorTree>
+	<BehaviorTree name="bohuta_mountLinkedHorse" is_function="0">
+		<Variables>
+			<Variable name="destination" type="_wuid" values="" isPersistent="0" form="single" />
+			<Variable name="horse" type="_wuid" values="" isPersistent="0" form="single" />
+		</Variables>
+		<Root OneTimeOnly="false" FailState="Recoverable" saveVersion="2">
+			<Behavior canSkip="1">
+				<Sequence>
+					<Function_getQuestAsset assetName="&apos;bohutaHorsePoint&apos;" questObject="$__object.id" assetOut="$destination" nodeLabel="51421530" />
+					<GraphSearch Origin="$__object.id" Borders="" depth="1" selection="true" SearchPattern="Depth" EdgePruning="&apos;parent,inventory&apos;" AllowedEdges="" SubGraph="" AllowSubtraph="false" includeOrigin="false" excludeOrigin="false" failOnEmpty="true" SetOperationChoice="Intersection|And" errorOnEmpty="false" shortCircuit="false" skipTraversed="true">
+						<LinkTagFilter tag="&apos;bibiana&apos;" prune="true" negprune="unknown" Parent="" Child="$horse" Data="" />
+					</GraphSearch>
+					<HorseUsageElement horse="$horse" decisionLabel="teleportOnHorse_horseUsage" useDecision="true" enabled="true" saveVersion="2">
+						<Search canSkip="1">
+							<Success />
+						</Search>
+						<Exec canSkip="1">
+							<StanceElement smartObject="$horse" stance="horse" allowAny="false" enabled="true">
+								<TeleportAction Position="$destination" EndInterruptOnActionStart="false" />
+							</StanceElement>
+						</Exec>
+					</HorseUsageElement>
+				</Sequence>
+			</Behavior>
+		</Root>
+		<ForestContainer />
+		<EditorData EventSet="">
+			<Variables>
+				<Variable name="destination" comment="" />
+				<Variable name="horse" comment="" />
+			</Variables>
+			<ForwardDeclarations />
+			<Root hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
+				<OutputBreakpoints />
+				<Behavior>
+					<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
+						<OutputBreakpoints />
+						<Function_getQuestAsset hasInputBreakpoint="0" comment="" breakpointFlags="0">
+							<OutputBreakpoints />
+						</Function_getQuestAsset>
+						<GraphSearch hasInputBreakpoint="0" comment="" breakpointFlags="0">
+							<OutputBreakpoints />
+							<LinkTagFilter hasInputBreakpoint="0" comment="" breakpointFlags="0">
+								<OutputBreakpoints />
+							</LinkTagFilter>
+						</GraphSearch>
+						<HorseUsageElement hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
+							<OutputBreakpoints />
+							<Search>
+								<Success hasInputBreakpoint="0" comment="" breakpointFlags="0">
+									<OutputBreakpoints />
+								</Success>
+							</Search>
+							<Exec>
+								<StanceElement hasInputBreakpoint="0" comment="" breakpointFlags="0">
+									<OutputBreakpoints />
+									<TeleportAction hasInputBreakpoint="0" comment="" breakpointFlags="0">
+										<OutputBreakpoints />
+									</TeleportAction>
+								</StanceElement>
+							</Exec>
+						</HorseUsageElement>
+					</Sequence>
 				</Behavior>
 			</Root>
 			<Forest />

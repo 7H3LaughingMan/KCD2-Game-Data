@@ -21,6 +21,9 @@
 				<Port Name="hrac_quest_dokoncil_pred_marketingem" Direction="Out" Type="bool">
 					<DesignName StringName="marketing_hrac_quest_doko_LWae" Text="Hráč quest dokončil pred marketingem" />
 				</Port>
+				<Port Name="hrac_prave_vyhlasuje__uklid_eventy_na_namestich" Direction="Out" Type="bool">
+					<DesignName StringName="marketing_hrac_prave_vyhl_O9ga" Text="Hráč právě vyhlašuje - ukliď eventy na náměstích" />
+				</Port>
 				<Port Name="start_marketingu" Direction="In" Type="trigger">
 					<DesignName StringName="marketing_start_marketingu_HX3D" Text="start marketingu" />
 				</Port>
@@ -53,6 +56,12 @@
 				<barky_posluchacu_2 Name="barky_posluchacu_2" PositionY="570" PositionX="1740">
 					<Constant Name="rozhlaseno" Value="false" />
 				</barky_posluchacu_2>
+				<Timer Name="disableEventsDuringMarketing" PositionY="-150" PositionX="1640">
+					<Constant Name="Duration" Value="20s" />
+					<Constant Name="TimeType" Value="GameTime" />
+					<Edge From="triggersequence50.A" To="SetStopped" />
+					<Edge From="triggersequence50.B" To="SetRunning" />
+				</Timer>
 				<districtmarketing Name="districtmarketing" PositionY="40" PositionX="-340" RequiredForOutput="kutnohorsko" Namespace="budovanilaznilibrary">
 					<Asset Name="area" Alias="marketingDistrict4" />
 					<Constant Name="actionprompt" Value="marketing_podivat_se_jCZu" />
@@ -266,11 +275,11 @@
 						<Vertex>vertex191</Vertex>
 						<Vertex>vertex192</Vertex>
 					</Edge>
+					<Edge From="disableEventsDuringMarketing.Running" To="hrac_prave_vyhlasuje__uklid_eventy_na_namestich">
+						<Vertex>8blIJSmP</Vertex>
+						<Vertex>mvV5GyG9</Vertex>
+					</Edge>
 				</Output>
-				<poi_handler Name="poi_handler" PositionY="120" PositionX="-2220" Namespace="utils.poi">
-					<Constant Name="poitype" Value="8400b6a7-ba53-45b9-acba-60e8ea702e58" />
-					<Edge From="zadani_marketingu.lazne_se_otviraji" To="setpoidiscovered" />
-				</poi_handler>
 				<SaveGame Name="savegame48" PositionY="940" PositionX="-940">
 					<Constant Name="Objective" Value="marketing" />
 					<Edge From="marketingObjective.OnmarketingCounter" To="EnqueueSave" />
@@ -309,6 +318,9 @@
 						<Vertex>vertex153</Vertex>
 					</Edge>
 				</Function>
+				<TriggerSequence Name="triggersequence50" PositionY="-10" PositionX="1370">
+					<Edge From="vyvolavani_1.vyvolano" To="Exec" />
+				</TriggerSequence>
 				<uspesne_rozhlaseno Name="uspesne_rozhlaseno" PositionY="20" PositionX="3620">
 					<Edge From="obcan_reaguje_na_hrace.slibeni_pocestnych_lazni" To="slibeni_pocestnych_lazni">
 						<Vertex>vertex4</Vertex>
@@ -332,6 +344,8 @@
 				</zadani_marketingu>
 			</Nodes>
 			<EdgeVertices>
+				<EdgeVertex Name="8blIJSmP" PositionY="-210" PositionX="2030" />
+				<EdgeVertex Name="mvV5GyG9" PositionY="-210" PositionX="4320" />
 				<EdgeVertex Name="vertex139" PositionY="860" PositionX="560" />
 				<EdgeVertex Name="vertex140" PositionY="880" PositionX="560" />
 				<EdgeVertex Name="vertex141" PositionY="1370" PositionX="530" />

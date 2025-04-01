@@ -27,6 +27,9 @@
 				<Port Name="nekdo_z_mlynarovi_rodiny_zemrel" Direction="In" Type="bool">
 					<DesignName StringName="mlynarova_nekdo_z_mlynaro_Q8ah" Text="Někdo z mlynářovi rodiny zemřel" />
 				</Port>
+				<Port Name="quest_progress" Direction="In" Type="wh::questmodule::QuestProgress">
+					<DesignName StringName="mlynarova_quest_progress_oDPq" Text="Quest progress" />
+				</Port>
 			</Ports>
 			<Nodes>
 				<Function Name="and_familyGone_questNotDone" PositionY="10" PositionX="-370" MethodName="math::boolean::And" DeclaringType="math::boolean">
@@ -40,6 +43,41 @@
 					</Edge>
 					<Edge From="not_tied.bool" To="C" />
 				</Function>
+				<Function Name="and25" PositionY="-800" PositionX="1270" MethodName="math::boolean::And" DeclaringType="math::boolean">
+					<Edge From="compare24.bool" To="A" />
+					<Edge From="malesovTrespassForMillerDrinkingRoomsOverride.Active" To="B">
+						<Vertex>PhnFH7WE</Vertex>
+					</Edge>
+				</Function>
+				<areatrespassleveleffect Name="areatrespassleveleffect" PositionY="-350" PositionX="1310" Namespace="utils.crime.trespass">
+					<Asset Name="area" Alias="malesovMillerTrespssAreas" />
+					<Constant Name="trespasslevel" Value="public" />
+					<Edge From="malesovTrespassForMillerDrinkingRoomsOverride.Active" To="isactive">
+						<Vertex>PhnFH7WE</Vertex>
+					</Edge>
+				</areatrespassleveleffect>
+				<AreaTrigger Name="areatrigger21" PositionY="-800" PositionX="1520">
+					<Asset Name="Souls" Alias="player" />
+					<Asset Name="Areas" Alias="malesovMillerTrespssAreas" />
+					<Edge From="and25.bool" To="IsActive" />
+				</AreaTrigger>
+				<Function Name="compare24" PositionY="-800" PositionX="570" TypeT="wh::questmodule::QuestProgress" MethodName="Control::Compare" DeclaringType="Control">
+					<Constant Name="Op" Value="NotEquals" />
+					<Constant Name="ValueB" Value="None" />
+					<Edge From="quest_progress" To="ValueA">
+						<Vertex>5mn0RrKK</Vertex>
+					</Edge>
+				</Function>
+				<State Name="malesovTrespassForMillerDrinkingRoomsOverride" PositionY="-560" PositionX="890" TypeT="Progress">
+					<Edge From="areatrigger21.OnAllLeave" To="SetDone">
+						<Vertex>p8k3T1nz</Vertex>
+						<Vertex>Ul2PTorR</Vertex>
+					</Edge>
+					<Edge From="prestehovat" To="SetActive">
+						<Vertex>vertex14</Vertex>
+						<Vertex>vertex16</Vertex>
+					</Edge>
+				</State>
 				<Migration_Advanced Name="migration_advanced" PositionY="-120" PositionX="400" Namespace="utils.general">
 					<Constant Name="linktag" Value="tragedieNaDanemarku_livesInMalesov" />
 					<Asset Name="souls" Alias="millerFamily" />
@@ -89,7 +127,11 @@
 				</SetEntityContext>
 			</Nodes>
 			<EdgeVertices>
+				<EdgeVertex Name="5mn0RrKK" PositionY="-710" PositionX="-620" />
+				<EdgeVertex Name="p8k3T1nz" PositionY="-880" PositionX="1810" />
+				<EdgeVertex Name="PhnFH7WE" PositionY="-310" PositionX="1220" />
 				<EdgeVertex Name="TbjFlQUe" PositionY="270" PositionX="390" />
+				<EdgeVertex Name="Ul2PTorR" PositionY="-880" PositionX="910" />
 				<EdgeVertex Name="vertex13" PositionY="-210" PositionX="-640" />
 				<EdgeVertex Name="vertex14" PositionY="-340" PositionX="-600" />
 				<EdgeVertex Name="vertex15" PositionY="-200" PositionX="650" />
@@ -98,6 +140,9 @@
 				<EdgeVertex Name="vertex5" PositionY="340" PositionX="-630" />
 				<EdgeVertex Name="vertex6" PositionY="340" PositionX="-130" />
 			</EdgeVertices>
+			<Assets>
+				<TriggerAreaAsset Name="malesovMillerTrespssAreas" />
+			</Assets>
 			<Text StringName="mlynarova_rodina_bydli_v__qEpA" Text="Mlynářova rodina bydlí v Malešově" />
 		</Module>
 	</Skald>

@@ -161,9 +161,6 @@
 					<Constant Name="weaponsetup" Value="null" />
 					<Edge From="streamprofileshandling_1.onloaded" To="activate" />
 				</initializebattlegroup>
-				<ObjectProperties Name="isoulproperties16" PositionY="1530" PositionX="220" DeclaringType="wh::rpgmodule::I_Soul">
-					<Asset Name="I_Soul" Alias="bohuta" />
-				</ObjectProperties>
 				<Function Name="kill65" PositionY="-1270" PositionX="1750" MethodName="wh::rpgmodule::Kill" DeclaringType="wh::rpgmodule">
 					<Asset Name="Souls" Alias="bohuta" />
 					<Constant Name="HideBody" Value="false" />
@@ -227,9 +224,6 @@
 					<Asset Name="CutsceneHolder" Alias="tv_attackersGate_2_move" />
 					<Edge From="lastAttackOnGate.Active" To="IsActive" />
 				</PlayTrackView>
-				<RandomElement Name="randomelement18" PositionY="1530" PositionX="590" TypeT="wh::rpgmodule::Souls">
-					<Asset Name="Array" Alias="lastStandEnemies" />
-				</RandomElement>
 				<relocate Name="relocate" PositionY="-230" PositionX="0">
 					<Edge From="zizka_jde_na_nadvori" To="zizka_jde_na_nadvori" />
 					<Edge From="zizka_jde_na_nadvori" To="zacatek_last_stand" />
@@ -296,33 +290,15 @@
 						<Vertex>vertex44</Vertex>
 					</Edge>
 				</streamprofileshandling>
-				<MemberFunction Name="takedamage15" PositionY="1190" PositionX="580" MethodName="TakeDamage" DeclaringType="wh::rpgmodule::I_CombatSoul">
-					<Constant Name="Stamina" Value="100" />
-					<Constant Name="Health" Value="100" />
-					<Constant Name="InjureBodypart" Value="head" />
-					<Edge From="timer14.OnFinished" To="Exec" />
-					<Edge From="isoulproperties16.CombatSoul" To="Victim" />
-					<Edge From="randomelement18.Value" To="Attacker">
-						<Vertex>vertex24</Vertex>
-						<Vertex>vertex25</Vertex>
-					</Edge>
-				</MemberFunction>
-				<Timer Name="timer14" PositionY="1190" PositionX="220">
-					<Constant Name="Duration" Value="2m" />
-					<Constant Name="TimeType" Value="GameTime" />
-					<Edge From="areatrigger19.OnAllEnter" To="SetStopped">
-						<Vertex>vertex27</Vertex>
-						<Vertex>vertex28</Vertex>
-					</Edge>
-					<Edge From="zizka_jde_na_nadvori" To="SetRunning">
-						<Vertex>vertex14</Vertex>
-					</Edge>
-				</Timer>
 				<Timer Name="timer64" PositionY="-1360" PositionX="1280">
 					<Constant Name="Duration" Value="30s" />
 					<Constant Name="TimeType" Value="GameTime" />
 					<Edge From="areatrigger63.OnLeave" To="SetRunning" />
 					<Edge From="areatrigger63.OnEnter" To="SetStopped" />
+					<Edge From="lastStandState.OnDone" To="SetStopped">
+						<Vertex>Cj8TDWVy</Vertex>
+						<Vertex>RMLSHwCg</Vertex>
+					</Edge>
 				</Timer>
 				<Function Name="tofloatint70" PositionY="2270" PositionX="1550" MethodName="math::conversion::ToFloat(int)" DeclaringType="math::conversion">
 					<Edge From="state69.State" To="int" />
@@ -350,6 +326,8 @@
 				<zizkovo_barkovani Name="zizkovo_barkovani" PositionY="-410" PositionX="2310" />
 			</Nodes>
 			<EdgeVertices>
+				<EdgeVertex Name="Cj8TDWVy" PositionY="-1070" PositionX="300" />
+				<EdgeVertex Name="RMLSHwCg" PositionY="-1070" PositionX="1110" />
 				<EdgeVertex Name="vertex10" PositionY="-40" PositionX="1160" />
 				<EdgeVertex Name="vertex11" PositionY="-40" PositionX="640" />
 				<EdgeVertex Name="vertex14" PositionY="1110" PositionX="0" />
@@ -361,11 +339,7 @@
 				<EdgeVertex Name="vertex21" PositionY="690" PositionX="20" />
 				<EdgeVertex Name="vertex22" PositionY="490" PositionX="180" />
 				<EdgeVertex Name="vertex23" PositionY="490" PositionX="0" />
-				<EdgeVertex Name="vertex24" PositionY="1510" PositionX="800" />
-				<EdgeVertex Name="vertex25" PositionY="1510" PositionX="600" />
 				<EdgeVertex Name="vertex26" PositionY="20" PositionX="1390" />
-				<EdgeVertex Name="vertex27" PositionY="2080" PositionX="1690" />
-				<EdgeVertex Name="vertex28" PositionY="2080" PositionX="240" />
 				<EdgeVertex Name="vertex29" PositionY="-270" PositionX="0" />
 				<EdgeVertex Name="vertex30" PositionY="-440" PositionX="1290" />
 				<EdgeVertex Name="vertex31" PositionY="-440" PositionX="1750" />

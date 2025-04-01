@@ -63,12 +63,21 @@
 					<Constant Name="itemclass" Value="dbc21be4-2854-42a6-9e34-2d619edf525e" />
 					<Constant Name="amount" Value="1" />
 				</HasItems_Soul>
+				<healing Name="healing" PositionY="-130" PositionX="1560" Namespace="utils.general">
+					<Edge From="predavani_relikviare_balsanovi_v_.jindra_predava_relikviar" To="removeallinjuriesandpoisons" />
+					<Edge From="predavani_relikviare_balsanovi_v_.jindra_predava_relikviar" To="healimmortalnpcafterfight" />
+					<Edge From="makearray57.Array" To="souls" />
+				</healing>
 				<If Name="if56" PositionY="190" PositionX="1840">
 					<Edge From="predavani_relikviare_balsanovi_v_.hrac_zna_obsah_truhly" To="Condition">
 						<Vertex>nUPmndAN</Vertex>
 					</Edge>
 					<Edge From="scenefinishedwaiter55.OnFinished" To="Exec" />
 				</If>
+				<MakeArray Name="makearray57" PositionY="-250" PositionX="1290" TypeT="wh::rpgmodule::Souls">
+					<Asset Name="A" Alias="balsan" />
+					<Asset Name="B" Alias="miroslav" />
+				</MakeArray>
 				<Output Name="Output">
 					<Edge From="if56.True" To="jindra_predava_relikviar_a_vi_co_je_v_nem" />
 					<Edge From="if56.False" To="jindra_predava_relikviar" />

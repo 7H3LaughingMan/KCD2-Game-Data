@@ -28,6 +28,10 @@
 				</Function>
 				<devil_chat Name="devil_chat" PositionY="110" PositionX="-750" />
 				<dialog Name="dialog" PositionY="-10" PositionX="650" />
+				<disabledirectionschatsoul Name="disabledirectionschatsoul" PositionY="-1040" PositionX="-90" Namespace="utils.hardcoremode">
+					<Asset Name="soul" Alias="spawnedNPCs" />
+					<Edge From="IsSpawned.State" To="enabled" />
+				</disabledirectionschatsoul>
 				<DisableRandomEvent Name="disablerandomevent10" PositionY="-430" PositionX="-70">
 					<Constant Name="RandomEventTag" Value="pocestny_devil" />
 					<Edge From="IsSpawned.State" To="IsActive" />
@@ -127,6 +131,16 @@
 					<Asset Name="LookAtTarget" Alias="player_any" />
 					<Edge From="dialog.odchazi_nespokojen" To="Exec" />
 				</Function>
+				<SetEntityContext Name="setentitycontext11" PositionY="-660" PositionX="-80">
+					<Constant Name="Context" Value="crime_dontCommentPlayersDog" />
+					<Asset Name="Souls" Alias="spawnedNPCs" />
+					<Edge From="IsSpawned.State" To="IsActive" />
+				</SetEntityContext>
+				<SetEntityContext Name="setentitycontext2" PositionY="-870" PositionX="-80">
+					<Constant Name="Context" Value="crime_ignorePlayersDrawnWeapon" />
+					<Asset Name="Souls" Alias="spawnedNPCs" />
+					<Edge From="IsSpawned.State" To="IsActive" />
+				</SetEntityContext>
 				<urgeadialog_pocestny Name="urgeadialog_pocestny" PositionY="260" PositionX="-290" Namespace="pocestny_lib">
 					<Constant Name="alias" Value="devil_devilChat" />
 					<Constant Name="waveatplayer" Value="false" />
@@ -164,7 +178,7 @@
 				<EdgeVertex Name="vertex8" PositionY="320" PositionX="-450" />
 			</EdgeVertices>
 			<Notes>
-				<Note Name="note1" PositionY="-860" PositionX="90">
+				<Note Name="note1" PositionY="-1290" PositionX="-260">
 					<Text StringName="devil_note1_0IMw" Text="-nejprve barkuje pro sebe, pak chat, pak dialog a pak odchází&#xD;&#xA;- pokud hráč nezačne dialog, tak stojí a barkuje a otáčí se na hráče&#xD;&#xA;- když hráč po chatu úplně odejde, zabarkuje &quot;zkusím to jindy&quot; a odchází z mapy&#xD;&#xA;- při napadení utíká, nebrání se&#xD;&#xA;- při crime vůči němu utíká&#xD;&#xA;- jde zajistit aby hráč tenhle event alespon jednou &quot;zažil?&quot; byla by škoda, kdyby dal jednou ve FT &quot;vyhnout se&quot; a už nikdy event neviděl. Mohla by tam být třeba podmínka, že jakmile se na hráče spustí chat tak až od té chvíle se event přestane znovu spawnovat.&#xD;&#xA;- event se může dít kdykoliv" />
 				</Note>
 			</Notes>

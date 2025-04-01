@@ -30,6 +30,9 @@
 				<Port Name="cs_ambush_onfinished" Direction="Out" Type="trigger">
 					<DesignName StringName="cin_m4430_cs_ambush_onfin_b4p5" Text="CS ambush onFinished" />
 				</Port>
+				<Port Name="odstreamovat_desatnika" Direction="Out" Type="trigger">
+					<DesignName StringName="cin_m4430_odstreamovat_de_BtpB" Text="Odstreamovat desátníka" />
+				</Port>
 			</Ports>
 			<Definitions>
 				<Definition File="cin_m4430k_zikmundtabor__ambush_praguers/preparation_streaming.xml" />
@@ -84,6 +87,7 @@
 				<Function Name="deathcheck10" PositionY="230" PositionX="-1700" MethodName="wh::rpgmodule::DeathCheck" DeclaringType="wh::rpgmodule">
 					<Asset Name="Souls" Alias="stepanVrana" />
 				</Function>
+				<HasteTrigger Name="enableNoBoomCS" PositionY="450" PositionX="-2080" />
 				<If Name="if11" PositionY="20" PositionX="-1030">
 					<Edge From="or9.bool" To="Condition" />
 					<Edge From="cutscenehandler14.OnQueued" To="Exec" />
@@ -100,6 +104,7 @@
 					<Edge From="za_vraha_uspokojive_oznacen_desatnik" To="B">
 						<Vertex>vertex42</Vertex>
 					</Edge>
+					<Edge From="state22.State" To="C" />
 				</Function>
 				<Output Name="Output">
 					<Edge From="or6.bool" To="cs_odjezdu_s_delem_skoncila">
@@ -127,6 +132,9 @@
 						<Vertex>8SWgdX8P</Vertex>
 					</Edge>
 					<Edge From="cutscenehandler21.BeforePlay" To="cs_ambush_beforeplay" />
+					<Edge From="state22.OnTrue" To="odstreamovat_desatnika">
+						<Vertex>jEVeyLmb</Vertex>
+					</Edge>
 				</Output>
 				<preparation_streaming Name="preparation_streaming" PositionY="-300" PositionX="-1700">
 					<Edge From="cutscenehandler14.BeforePlay" To="stream">
@@ -134,6 +142,9 @@
 						<Vertex>dS5twMw8</Vertex>
 					</Edge>
 				</preparation_streaming>
+				<State Name="state22" PositionY="420" PositionX="-1700" TypeT="bool">
+					<Edge From="enableNoBoomCS.OnTrigger" To="SetTrue" />
+				</State>
 			</Nodes>
 			<EdgeVertices>
 				<EdgeVertex Name="5aREh49t" PositionY="-760" PositionX="60" />
@@ -143,6 +154,7 @@
 				<EdgeVertex Name="dS5twMw8" PositionY="-100" PositionX="-1700" />
 				<EdgeVertex Name="GJLKft8K" PositionY="-720" PositionX="320" />
 				<EdgeVertex Name="GKgXnbcA" PositionY="-760" PositionX="360" />
+				<EdgeVertex Name="jEVeyLmb" PositionY="529" PositionX="906" />
 				<EdgeVertex Name="Mt3LzMBQ" PositionY="-100" PositionX="-1320" />
 				<EdgeVertex Name="P0q6mvTF" PositionY="-80" PositionX="-1700" />
 				<EdgeVertex Name="vertex24" PositionY="360" PositionX="910" />

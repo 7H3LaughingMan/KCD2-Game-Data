@@ -1712,12 +1712,10 @@
 											<Loop count="-1">
 												<Sequence>
 													<Turn target="$__player" align="false" />
-													<ForceLook LookTarget="$__player" DisableVariations="false">
-														<Sequence>
-															<Wait duration="&apos;5s&apos;" timeType="GameTime" doFail="false" variation="" />
-															<Function_speech_schedulerMonolog alias="&apos;zachranaPtacka_brabantDlouhoStojim&apos;" animationApproach="$enum:animationApproach.dontPlayDialogAnimations" context="" lookAtId="" metarole="" skipInLod="false" subtitlesDown="false" nodeLabel="23085698" />
-														</Sequence>
-													</ForceLook>
+													<Sequence>
+														<Wait duration="&apos;5s&apos;" timeType="GameTime" doFail="false" variation="" />
+														<Function_speech_schedulerMonolog alias="&apos;zachranaPtacka_brabantDlouhoStojim&apos;" animationApproach="$enum:animationApproach.dontPlayDialogAnimations" context="" lookAtId="$__player" metarole="" skipInLod="false" subtitlesDown="false" nodeLabel="23085698" />
+													</Sequence>
 												</Sequence>
 											</Loop>
 										</Sequence>
@@ -1731,7 +1729,7 @@
 								<IfCondition failOnCondition="false" condition="$data">
 									<Sequence>
 										<DialogGate Who="$this.id" Negation="true" EndDialogInRoot="false" Condition="InAny" RunLogic="KeepRunning">
-											<Function_speech_schedulerMonolog alias="&apos;zachranaPtacka_brabantKdyzHracZvednePtacka&apos;" animationApproach="$enum:animationApproach.dontPlayDialogAnimations" context="" lookAtId="$__player" metarole="" skipInLod="false" subtitlesDown="false" nodeLabel="73961504" />
+											<Function_speech_schedulerMonolog alias="&apos;zachranaPtacka_brabantKdyzHracZvednePtacka&apos;" animationApproach="$enum:animationApproach.tryDialogAnimations" context="" lookAtId="$__player" metarole="" skipInLod="false" subtitlesDown="false" nodeLabel="73961504" />
 										</DialogGate>
 										<InstantCallback_empty EventName="&apos;OnFinished&apos;" />
 									</Sequence>
@@ -1741,7 +1739,7 @@
 						</Parallel>
 					</Child>
 					<OnSuccess canSkip="1">
-						<Function_speech_schedulerMonolog alias="&apos;zachranaPtacka_brabantKdyzHracPoloziPtacka&apos;" animationApproach="$enum:animationApproach.dontPlayDialogAnimations" context="" lookAtId="" metarole="" skipInLod="false" subtitlesDown="false" nodeLabel="62995117" />
+						<Function_speech_schedulerMonolog alias="&apos;zachranaPtacka_brabantKdyzHracPoloziPtacka&apos;" animationApproach="$enum:animationApproach.tryDialogAnimations" context="" lookAtId="$__player" metarole="" skipInLod="false" subtitlesDown="false" nodeLabel="62995117" />
 					</OnSuccess>
 				</FuseBox>
 			</Behavior>
@@ -1797,18 +1795,15 @@
 														<Turn hasInputBreakpoint="0" comment="" breakpointFlags="0">
 															<OutputBreakpoints />
 														</Turn>
-														<ForceLook hasInputBreakpoint="0" comment="" breakpointFlags="0">
+														<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
 															<OutputBreakpoints />
-															<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
+															<Wait hasInputBreakpoint="0" comment="" breakpointFlags="0">
 																<OutputBreakpoints />
-																<Wait hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																	<OutputBreakpoints />
-																</Wait>
-																<Function_speech_schedulerMonolog hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																	<OutputBreakpoints />
-																</Function_speech_schedulerMonolog>
-															</Sequence>
-														</ForceLook>
+															</Wait>
+															<Function_speech_schedulerMonolog hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																<OutputBreakpoints />
+															</Function_speech_schedulerMonolog>
+														</Sequence>
 													</Sequence>
 												</Loop>
 											</Sequence>
@@ -3006,48 +3001,45 @@
 	</BehaviorTree>
 	<BehaviorTree name="ptacek_reactOnFailedKnockOut" is_function="0">
 		<Variables />
-		<Parameters>
-			<Variable name="data" type="_string" values="" isPersistent="0" form="single" requirementType="In" />
-		</Parameters>
 		<Root OneTimeOnly="false" FailState="Recoverable" saveVersion="2">
 			<Behavior canSkip="1">
 				<ForceLook LookTarget="$__player" DisableVariations="true">
-					<Sequence>
-						<Function_speech_schedulerMonolog alias="" animationApproach="$enum:animationApproach.dontPlayDialogAnimations" context="" lookAtId="" metarole="$data" subtitlesDown="false" nodeLabel="89256992" />
-						<ActorStateBarrier Who="" ToState="idle" NegateTo="false" RunLogic="KeepRunning">
-							<Success />
-						</ActorStateBarrier>
-					</Sequence>
+					<ActorStateBarrier Who="" ToState="idle" NegateTo="false" RunLogic="KeepRunning">
+						<Success />
+					</ActorStateBarrier>
 				</ForceLook>
 			</Behavior>
 		</Root>
-		<ForestContainer />
-		<EditorData Signature="stringData" EventSet="">
-			<Variables>
-				<Variable name="data" comment="" />
-			</Variables>
+		<ForestContainer>
+			<Sequence>
+				<Function_speech_schedulerMonolog alias="" animationApproach="$enum:animationApproach.dontPlayDialogAnimations" context="" lookAtId="" metarole="$data" skipInLod="false" subtitlesDown="false" nodeLabel="89256992" />
+			</Sequence>
+		</ForestContainer>
+		<EditorData EventSet="">
+			<Variables />
 			<ForwardDeclarations />
 			<Root hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
 				<OutputBreakpoints />
 				<Behavior>
 					<ForceLook hasInputBreakpoint="0" comment="" breakpointFlags="0">
 						<OutputBreakpoints />
-						<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
+						<ActorStateBarrier hasInputBreakpoint="0" comment="" breakpointFlags="0">
 							<OutputBreakpoints />
-							<Function_speech_schedulerMonolog hasInputBreakpoint="0" comment="" breakpointFlags="0">
+							<Success hasInputBreakpoint="0" comment="" breakpointFlags="0">
 								<OutputBreakpoints />
-							</Function_speech_schedulerMonolog>
-							<ActorStateBarrier hasInputBreakpoint="0" comment="" breakpointFlags="0">
-								<OutputBreakpoints />
-								<Success hasInputBreakpoint="0" comment="" breakpointFlags="0">
-									<OutputBreakpoints />
-								</Success>
-							</ActorStateBarrier>
-						</Sequence>
+							</Success>
+						</ActorStateBarrier>
 					</ForceLook>
 				</Behavior>
 			</Root>
-			<Forest />
+			<Forest>
+				<Sequence editorPosX="590" editorPosY="-230" hasInputBreakpoint="0" comment="" breakpointFlags="0">
+					<OutputBreakpoints />
+					<Function_speech_schedulerMonolog hasInputBreakpoint="0" comment="" breakpointFlags="0">
+						<OutputBreakpoints />
+					</Function_speech_schedulerMonolog>
+				</Sequence>
+			</Forest>
 			<Comments />
 		</EditorData>
 	</BehaviorTree>
@@ -3090,7 +3082,7 @@
 		<Variables />
 		<Root OneTimeOnly="false" FailState="Recoverable" saveVersion="2">
 			<Behavior canSkip="1">
-				<AddInterrupt_stringData data="&apos;PRATELSKE_NPC_DOSTALO_ZASAH_(MELEE)&apos;" Target="$this.id" Host="$overrideQSO" Behavior="&apos;ptacek_reactOnFailedKnockOut&apos;" Priority="200" IgnorePriorityOnPreviousInterrupt="false" urgency="Slow" Aliveness="Alive" Privileged="false" FastForward="false" />
+				<AddInterrupt_empty Target="$this.id" Host="$overrideQSO" Behavior="&apos;ptacek_reactOnFailedKnockOut&apos;" Priority="200" IgnorePriorityOnPreviousInterrupt="false" urgency="Slow" Aliveness="Alive" Privileged="false" FastForward="false" />
 			</Behavior>
 		</Root>
 		<ForestContainer />
@@ -3106,9 +3098,9 @@
 			<Root hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
 				<OutputBreakpoints />
 				<Behavior>
-					<AddInterrupt_stringData hasInputBreakpoint="0" comment="" breakpointFlags="0">
+					<AddInterrupt_empty hasInputBreakpoint="0" comment="" breakpointFlags="0">
 						<OutputBreakpoints />
-					</AddInterrupt_stringData>
+					</AddInterrupt_empty>
 				</Behavior>
 			</Root>
 			<Forest />
@@ -3200,6 +3192,7 @@
 			<Variable name="index" type="_int" values="" isPersistent="0" form="single" />
 			<Variable name="leftHand" type="_wuid" values="" isPersistent="0" form="single" />
 			<Variable name="leftHandContentEnabled" type="_bool" values="" isPersistent="0" form="single" />
+			<Variable name="rangedUnstanceEnabled" type="_bool" values="" isPersistent="0" form="single" />
 			<Variable name="rightHand" type="_wuid" values="" isPersistent="0" form="single" />
 			<Variable name="rightHandContentEnabled" type="_bool" values="" isPersistent="0" form="single" />
 			<Variable name="weaponSetToUse" type="enum:weaponSet" values="" isPersistent="0" form="single" />
@@ -3228,74 +3221,61 @@
 							<Success />
 						</DefaultBranch>
 					</Switch>
-					<Sequence>
-						<IfCondition failOnCondition="false" condition="$weaponSets[$index] == &apos;primary&apos; | &#10;$weaponSets[$index] == &apos;secondary&apos; | &#10;$weaponSets[$index] == &apos;oversized&apos;">
-							<Sequence>
-								<GetWeaponsFromWeaponSet WeaponSet="$weaponSetToUse" LeftHand="$leftHand" RightHand="$rightHand" UseTorchWhenAppropriate="false" />
-								<Expression expressions="$leftHandContentEnabled = $leftHand ~= $__null &#10;$rightHandContentEnabled = $rightHand ~= $__null" />
-							</Sequence>
-						</IfCondition>
-						<HandContentElement hand="Right" item="$rightHand" allowAny="false" allowHomeSlotAutoReturn="false" decisionLabel="Label1" useDecision="false" enabled="$rightHandContentEnabled" saveVersion="2">
-							<Search canSkip="1">
-								<Success />
-							</Search>
-							<Exec canSkip="1">
-								<HandContentElement hand="Left" item="$leftHand" allowAny="false" allowHomeSlotAutoReturn="false" decisionLabel="Label1" useDecision="false" enabled="$leftHandContentEnabled" saveVersion="2">
-									<Search canSkip="1">
-										<Success />
-									</Search>
-									<Exec canSkip="1">
-										<IfElseCondition failOnCondition="false" condition="$unstances[$index] ~= &apos;none&apos;" saveVersion="2">
-											<Then canSkip="1">
-												<UnstanceAction unstance="$unstances[$index]" locationObject="$locationObjects[$index]" slaveObject="" />
-											</Then>
-											<Else canSkip="1">
-												<IfElseCondition failOnCondition="false" condition="$weaponSetToUse == $enum:weaponSet.secondary" saveVersion="2">
-													<Then canSkip="1">
-														<IsWeaponLoaded failOnCondition="false" saveVersion="2">
-															<Then canSkip="1">
-																<WaitAction />
-															</Then>
-															<Else canSkip="1">
-																<LoadWeaponAction />
-															</Else>
-														</IsWeaponLoaded>
-													</Then>
-													<Else canSkip="1">
-														<WaitAction />
-													</Else>
-												</IfElseCondition>
-											</Else>
-										</IfElseCondition>
-									</Exec>
-								</HandContentElement>
-							</Exec>
-						</HandContentElement>
-					</Sequence>
+					<IfCondition failOnCondition="false" condition="$weaponSets[$index] == &apos;primary&apos; | &#10;$weaponSets[$index] == &apos;secondary&apos; | &#10;$weaponSets[$index] == &apos;oversized&apos;">
+						<Sequence>
+							<GetWeaponsFromWeaponSet WeaponSet="$weaponSetToUse" LeftHand="$leftHand" RightHand="$rightHand" UseTorchWhenAppropriate="false" />
+							<Expression expressions="$leftHandContentEnabled = $leftHand ~= $__null &#10;$rightHandContentEnabled = $rightHand ~= $__null" />
+						</Sequence>
+					</IfCondition>
+					<HandContentElement hand="Right" item="$rightHand" allowAny="false" allowHomeSlotAutoReturn="false" decisionLabel="Label1" useDecision="false" enabled="$rightHandContentEnabled" saveVersion="2">
+						<Search canSkip="1">
+							<Success />
+						</Search>
+						<Exec canSkip="1">
+							<HandContentElement hand="Left" item="$leftHand" allowAny="false" allowHomeSlotAutoReturn="false" decisionLabel="Label1" useDecision="false" enabled="$leftHandContentEnabled" saveVersion="2">
+								<Search canSkip="1">
+									<Success />
+								</Search>
+								<Exec canSkip="1">
+									<Switch>
+										<IfCondition failOnCondition="false" condition="$weaponSets[$index] == &apos;secondary&apos;">
+											<Sequence>
+												<Expression expressions="$rangedUnstanceEnabled = $unstances[$index] ~= &apos;none&apos;" />
+												<UnstanceElement unstance="$unstances[$index]" locationObject="$locationObjects[$index]" slaveObject="" enabled="$rangedUnstanceEnabled">
+													<IsWeaponLoaded failOnCondition="false" saveVersion="2">
+														<Then canSkip="1">
+															<WaitAction />
+														</Then>
+														<Else canSkip="1">
+															<LoadWeaponAction />
+														</Else>
+													</IsWeaponLoaded>
+												</UnstanceElement>
+											</Sequence>
+										</IfCondition>
+										<IfCondition failOnCondition="false" condition="$unstances[$index] ~= &apos;none&apos;">
+											<UnstanceAction unstance="$unstances[$index]" locationObject="$locationObjects[$index]" slaveObject="" />
+										</IfCondition>
+										<DefaultBranch>
+											<WaitAction />
+										</DefaultBranch>
+									</Switch>
+								</Exec>
+							</HandContentElement>
+						</Exec>
+					</HandContentElement>
 					<Wait duration="&apos;-1&apos;" timeType="GameTime" doFail="false" variation="" />
 				</Sequence>
 			</Behavior>
 		</Root>
-		<ForestContainer>
-			<IfElseCondition failOnCondition="false" condition="$weaponSets[$index] == &apos;primary&apos; | &#10;$weaponSets[$index] == &apos;secondary&apos; | &#10;$weaponSets[$index] == &apos;oversized&apos;" saveVersion="2">
-				<Else canSkip="1">
-					<IfElseCondition failOnCondition="false" condition="$unstances[$index] ~= &apos;none&apos;" saveVersion="2">
-						<Then canSkip="1">
-							<UnstanceAction unstance="$unstances[$index]" locationObject="$locationObjects[$index]" slaveObject="" />
-						</Then>
-						<Else canSkip="1">
-							<WaitAction />
-						</Else>
-					</IfElseCondition>
-				</Else>
-			</IfElseCondition>
-		</ForestContainer>
+		<ForestContainer />
 		<EditorData Signature="zachranaPtacka_standAndBeCool" EventSet="">
 			<Variables>
 				<Variable name="hand" comment="" />
 				<Variable name="index" comment="" />
 				<Variable name="leftHand" comment="" />
 				<Variable name="leftHandContentEnabled" comment="" />
+				<Variable name="rangedUnstanceEnabled" comment="" />
 				<Variable name="rightHand" comment="" />
 				<Variable name="rightHandContentEnabled" comment="" />
 				<Variable name="weaponSetToUse" comment="" />
@@ -3339,100 +3319,84 @@
 								</Success>
 							</DefaultBranch>
 						</Switch>
-						<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
+						<IfCondition hasInputBreakpoint="0" comment="" breakpointFlags="0">
 							<OutputBreakpoints />
-							<IfCondition hasInputBreakpoint="0" comment="" breakpointFlags="0">
+							<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
 								<OutputBreakpoints />
-								<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
+								<GetWeaponsFromWeaponSet hasInputBreakpoint="0" comment="" breakpointFlags="0">
 									<OutputBreakpoints />
-									<GetWeaponsFromWeaponSet hasInputBreakpoint="0" comment="" breakpointFlags="0">
-										<OutputBreakpoints />
-									</GetWeaponsFromWeaponSet>
-									<Expression hasInputBreakpoint="0" comment="" breakpointFlags="0">
-										<OutputBreakpoints />
-									</Expression>
-								</Sequence>
-							</IfCondition>
-							<HandContentElement hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
-								<OutputBreakpoints />
-								<Search>
-									<Success hasInputBreakpoint="0" comment="" breakpointFlags="0">
-										<OutputBreakpoints />
-									</Success>
-								</Search>
-								<Exec>
-									<HandContentElement hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
-										<OutputBreakpoints />
-										<Search>
-											<Success hasInputBreakpoint="0" comment="" breakpointFlags="0">
+								</GetWeaponsFromWeaponSet>
+								<Expression hasInputBreakpoint="0" comment="" breakpointFlags="0">
+									<OutputBreakpoints />
+								</Expression>
+							</Sequence>
+						</IfCondition>
+						<HandContentElement hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
+							<OutputBreakpoints />
+							<Search>
+								<Success hasInputBreakpoint="0" comment="" breakpointFlags="0">
+									<OutputBreakpoints />
+								</Success>
+							</Search>
+							<Exec>
+								<HandContentElement hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
+									<OutputBreakpoints />
+									<Search>
+										<Success hasInputBreakpoint="0" comment="" breakpointFlags="0">
+											<OutputBreakpoints />
+										</Success>
+									</Search>
+									<Exec>
+										<Switch hasInputBreakpoint="0" comment="" breakpointFlags="0">
+											<OutputBreakpoints />
+											<IfCondition hasInputBreakpoint="0" comment="" breakpointFlags="0">
 												<OutputBreakpoints />
-											</Success>
-										</Search>
-										<Exec>
-											<IfElseCondition hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
+												<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
+													<OutputBreakpoints />
+													<Expression hasInputBreakpoint="0" comment="" breakpointFlags="0">
+														<OutputBreakpoints />
+													</Expression>
+													<UnstanceElement hasInputBreakpoint="0" comment="" breakpointFlags="0">
+														<OutputBreakpoints />
+														<IsWeaponLoaded hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
+															<OutputBreakpoints />
+															<Then>
+																<WaitAction hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																	<OutputBreakpoints />
+																</WaitAction>
+															</Then>
+															<Else>
+																<LoadWeaponAction hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																	<OutputBreakpoints />
+																</LoadWeaponAction>
+															</Else>
+														</IsWeaponLoaded>
+													</UnstanceElement>
+												</Sequence>
+											</IfCondition>
+											<IfCondition hasInputBreakpoint="0" comment="" breakpointFlags="0">
 												<OutputBreakpoints />
-												<Then>
-													<UnstanceAction hasInputBreakpoint="0" comment="" breakpointFlags="0">
-														<OutputBreakpoints />
-													</UnstanceAction>
-												</Then>
-												<Else>
-													<IfElseCondition hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
-														<OutputBreakpoints />
-														<Then>
-															<IsWeaponLoaded hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
-																<OutputBreakpoints />
-																<Then>
-																	<WaitAction hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																		<OutputBreakpoints />
-																	</WaitAction>
-																</Then>
-																<Else>
-																	<LoadWeaponAction hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																		<OutputBreakpoints />
-																	</LoadWeaponAction>
-																</Else>
-															</IsWeaponLoaded>
-														</Then>
-														<Else>
-															<WaitAction hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																<OutputBreakpoints />
-															</WaitAction>
-														</Else>
-													</IfElseCondition>
-												</Else>
-											</IfElseCondition>
-										</Exec>
-									</HandContentElement>
-								</Exec>
-							</HandContentElement>
-						</Sequence>
+												<UnstanceAction hasInputBreakpoint="0" comment="" breakpointFlags="0">
+													<OutputBreakpoints />
+												</UnstanceAction>
+											</IfCondition>
+											<DefaultBranch>
+												<WaitAction hasInputBreakpoint="0" comment="" breakpointFlags="0">
+													<OutputBreakpoints />
+												</WaitAction>
+											</DefaultBranch>
+										</Switch>
+									</Exec>
+								</HandContentElement>
+							</Exec>
+						</HandContentElement>
 						<Wait hasInputBreakpoint="0" comment="" breakpointFlags="0">
 							<OutputBreakpoints />
 						</Wait>
 					</Sequence>
 				</Behavior>
 			</Root>
-			<Forest>
-				<IfElseCondition editorPosX="770" editorPosY="660" hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
-					<OutputBreakpoints />
-					<Else>
-						<IfElseCondition hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
-							<OutputBreakpoints />
-							<Then>
-								<UnstanceAction hasInputBreakpoint="0" comment="" breakpointFlags="0">
-									<OutputBreakpoints />
-								</UnstanceAction>
-							</Then>
-							<Else>
-								<WaitAction hasInputBreakpoint="0" comment="" breakpointFlags="0">
-									<OutputBreakpoints />
-								</WaitAction>
-							</Else>
-						</IfElseCondition>
-					</Else>
-				</IfElseCondition>
-			</Forest>
+			<Forest />
 			<Comments />
 		</EditorData>
 	</BehaviorTree>

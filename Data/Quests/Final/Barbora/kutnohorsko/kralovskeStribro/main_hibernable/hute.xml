@@ -71,15 +71,6 @@
 					<Edge From="makearray82_1.Array" To="ConsoleCommands" />
 					<Edge From="makearray83_1.Array" To="Prerequisites" />
 				</HasteTrigger>
-				<AddInterruptConceptNode Name="addinterruptteleport80" PositionY="-920" PositionX="1700" Signature="teleport">
-					<Asset Name="NPC" Alias="vokrak" />
-					<Constant Name="Behavior" Value="teleport" />
-					<Asset Name="SmartEntity" Alias="land" />
-					<Constant Name="Priority" Value="200" />
-					<Constant Name="Urgency" Value="Instant" />
-					<Asset Name="destination" Alias="vokrakLeaningSpot" />
-					<Edge From="cutscenehandler1.AfterPlay" To="Activate" />
-				</AddInterruptConceptNode>
 				<Function Name="and84" PositionY="-120" PositionX="-120" MethodName="math::boolean::And" DeclaringType="math::boolean">
 					<Edge From="areacheck75.IsInside" To="A" />
 					<Edge From="not85.bool" To="B" />
@@ -88,6 +79,14 @@
 					<Asset Name="Souls" Alias="player" />
 					<Asset Name="Areas" Alias="ironworksArea" />
 				</Function>
+				<AreaTrigger Name="areatrigger90" PositionY="110" PositionX="1380">
+					<Asset Name="Souls" Alias="sima" />
+					<Asset Name="Areas" Alias="simasLeaningArea" />
+					<Edge From="talkToSimaElsewhere.GoingToSpot" To="IsActive">
+						<Vertex>lNDxPhBx</Vertex>
+						<Vertex>GYRuFenQ</Vertex>
+					</Edge>
+				</AreaTrigger>
 				<Function Name="buresIsDeadBeforeOrDuringSmelter" PositionY="-420" PositionX="-120" MethodName="math::boolean::Or" DeclaringType="math::boolean">
 					<Edge From="bures_je_mrtvy_behem_pred_hutemi" To="B" />
 					<Edge From="talkToBures.Failed" To="A" />
@@ -110,39 +109,46 @@
 					<Asset Name="Souls" Alias="bures" />
 					<Edge From="talkToBures.Started" To="IsActive" />
 				</SoulDeathTrigger>
-				<SoulDeathTrigger Name="deathtrigger65" PositionY="250" PositionX="-190">
-					<Edge From="joinarrays69.Array" To="Souls" />
+				<SoulDeathTrigger Name="deathtrigger65" PositionY="460" PositionX="-260">
+					<Asset Name="Souls" Alias="smeltersGrunta" />
+					<Edge From="exploreSmelter.UpdatedSimaDead" To="IsActive" />
+				</SoulDeathTrigger>
+				<SoulDeathTrigger Name="deathtrigger65_1" PositionY="240" PositionX="-200">
+					<Asset Name="Souls" Alias="sima" />
 					<Edge From="or71.bool" To="IsActive" />
 				</SoulDeathTrigger>
 				<dialog_s_buresem Name="dialog_s_buresem" PositionY="-1240" PositionX="-800">
 					<Edge From="players_appearance_scan.hrac_vypada_vhodne" To="hrac_vypada_vhodne" />
 					<Edge From="talkToBures.Started" To="promluv_s_buresem_aktivni" />
 				</dialog_s_buresem>
-				<dialog_s_hutniky Name="dialog_s_hutniky" PositionY="-530" PositionX="320">
+				<dialog_s_hutniky Name="dialog_s_hutniky" PositionY="-550" PositionX="320">
 					<Edge From="buresIsDeadBeforeOrDuringSmelter.bool" To="bures_je_mrtvy" />
 					<Edge From="deathcheck59.IsDead" To="sima_je_mrtvy" />
-					<Edge From="or71.bool" To="patrani_hute_aktivni" />
 					<Edge From="and84.bool" To="hrac_je_v_provozu_huti" />
+					<Edge From="or71_1.bool" To="patrani_hute_aktivni" />
 				</dialog_s_hutniky>
 				<dialog_se_simou_1 Name="dialog_se_simou_1" PositionY="-170" PositionX="320">
 					<Edge From="buresIsDeadBeforeOrDuringSmelter.bool" To="bures_je_mrtvy" />
 					<Edge From="or71.bool" To="patrani_hute_aktivni" />
 					<Edge From="dialog_s_hutniky.silver_hint_sima" To="silver_hint_sima" />
-					<Edge From="talkToSimaElsewhere.GoingToSpot" To="sima_jde_na_spot">
-						<Vertex>zYfCBscE</Vertex>
-						<Vertex>cErbg3QD</Vertex>
-					</Edge>
 					<Edge From="areacheck75.IsInside" To="hrac_je_v_provozu_huti" />
+					<Edge From="or49.bool" To="sima_ceka_na_dialog">
+						<Vertex>KKNbUjhw</Vertex>
+						<Vertex>v01BIHNV</Vertex>
+					</Edge>
 				</dialog_se_simou_1>
-				<EnableBehavior Name="enablebehaviormovedataendnotification57" PositionY="-240" PositionX="1400" Signature="moveData" EventSet="endNotification">
-					<Constant Name="Behavior" Value="move" />
+				<disabledirectionschatsoul Name="disabledirectionschatsoul" PositionY="150" PositionX="-600" Namespace="utils.hardcoremode">
+					<Asset Name="soul" Alias="sima" />
+					<Edge From="and84.bool" To="enabled" />
+				</disabledirectionschatsoul>
+				<disabledirectionschatsoul Name="disabledirectionschatsoul_1" PositionY="310" PositionX="-600" Namespace="utils.hardcoremode">
+					<Asset Name="soul" Alias="smeltersGrunta" />
+					<Edge From="and84.bool" To="enabled" />
+				</disabledirectionschatsoul>
+				<EnableBehavior Name="enablebehavior92" PositionY="-140" PositionX="1380" Signature="" EventSet="">
+					<Constant Name="Behavior" Value="leaning" />
 					<Asset Name="SmartEntity" Alias="qSO" />
 					<Asset Name="NPC" Alias="sima" />
-					<Constant Name="ForceKick" Value="true" />
-					<Asset Name="destination" Alias="simasSafePoint" />
-					<Constant Name="speed" Value="Walk" />
-					<Constant Name="stealth" Value="false" />
-					<Constant Name="successDistance" Value="0" />
 					<Edge From="or49.bool" To="IsActive" />
 				</EnableBehavior>
 				<expected_status__hute_1 Name="expected_status__hute_1" PositionY="-1660" PositionX="-40">
@@ -155,7 +161,7 @@
 					<Constant Name="extenduntilplayerleavestrespass" Value="true" />
 					<Edge From="talkToBures.Started" To="isactive" />
 				</expectedeffect>
-				<State Name="exploreSmelter" PositionY="-930" PositionX="-460" RequiredForOutput="kutnohorsko" TypeT="exploreSmelter">
+				<State Name="exploreSmelter" PositionY="-990" PositionX="-460" RequiredForOutput="kutnohorsko" TypeT="exploreSmelter">
 					<Edge From="talkToBures.OnStarted" To="SetActive" />
 					<Edge From="patrej_v_hutich_rovnou" To="SetActive" />
 					<Edge From="vokrak.vokrak_nalezen_behem_huti" To="SetDone" />
@@ -166,8 +172,9 @@
 						<Vertex>vertex95</Vertex>
 						<Vertex>vertex96</Vertex>
 					</Edge>
+					<Edge From="deathtrigger65_1.OnDeath" To="SetUpdatedSimaDead" />
 				</State>
-				<State Name="goBackToKristianIfSmeltersDead" PositionY="260" PositionX="50" RequiredForOutput="kutnohorsko" TypeT="Progress">
+				<State Name="goBackToKristianIfSmeltersDead" PositionY="460" PositionX="50" RequiredForOutput="kutnohorsko" TypeT="Progress">
 					<Edge From="deathtrigger65.OnAllDeath" To="SetActive" />
 					<Edge From="kristian_behem_huti__failsafe.kristian_hintnul_vokraka" To="SetDone" />
 				</State>
@@ -184,17 +191,13 @@
 						<Vertex>gQyIF4TF</Vertex>
 					</Edge>
 				</IfFunction>
-				<Function Name="joinarrays69" PositionY="250" PositionX="-450" TypeT="wh::rpgmodule::Souls" MethodName="utilities::array::JoinArrays" DeclaringType="utilities::array">
-					<Asset Name="A" Alias="smeltersGrunta" />
-					<Asset Name="B" Alias="sima" />
-				</Function>
 				<kristian_behem_huti__failsafe Name="kristian_behem_huti__failsafe" PositionY="-920" PositionX="290">
 					<Edge From="dialog_s_buresem.hrac_nasral_burese" To="hrac_nasral_burese" />
 					<Edge From="vokrak.hledani_vokraka_aktivni" To="hledame_vokraka" />
 					<Edge From="talkToBures.Failed" To="bures_je_mrtvy_v_hutich" />
-					<Edge From="goBackToKristianIfSmeltersDead.Active" To="failsafe__vsichni_hornici_jsou_mrtvi" />
-					<Edge From="or71.bool" To="patrani_hute_aktivni" />
 					<Edge From="hledani_tajne_mincovny_akitvni" To="hledame_mincovnu" />
+					<Edge From="not87.bool" To="failsafe__vsichni_hornici_jsou_mrtvi" />
+					<Edge From="or71_1.bool" To="patrani_hute_aktivni" />
 				</kristian_behem_huti__failsafe>
 				<MakeArray Name="makearray82_1" PositionY="520" PositionX="1680" TypeT="Strings">
 					<Constant Name="A" Value="goto 3555.39 1797.44 107.00 -12.54 -0.00 142.05" />
@@ -206,23 +209,35 @@
 				<Function Name="not85" PositionY="30" PositionX="-360" MethodName="math::boolean::Not" DeclaringType="math::boolean">
 					<Edge From="expected_status__hute_1.trespassexpected_active" To="Value" />
 				</Function>
-				<prozkoumej_hute Name="objectiveVisual40" PositionY="-910" PositionX="-40" RequiredForOutput="kutnohorsko">
+				<Function Name="not87" PositionY="620" PositionX="300" MethodName="math::boolean::Not" DeclaringType="math::boolean">
+					<Edge From="goBackToKristianIfSmeltersDead.None" To="Value" />
+				</Function>
+				<Function Name="not88" PositionY="-1190" PositionX="840" MethodName="math::boolean::Not" DeclaringType="math::boolean">
+					<Edge From="exploreSmelter.Done" To="Value" />
+				</Function>
+				<prozkoumej_hute Name="objectiveVisual40" PositionY="-990" PositionX="-40" RequiredForOutput="kutnohorsko">
 					<Edge From="exploreSmelter.State" To="Progress" />
 				</prozkoumej_hute>
 				<promluv_si_s_buresem Name="objectiveVisual41" PositionY="-680" PositionX="-790" RequiredForOutput="kutnohorsko">
 					<Edge From="talkToBures.State" To="Progress" />
 				</promluv_si_s_buresem>
-				<vrat_se_za_kristianem Name="objectiveVisual69" PositionY="260" PositionX="300" RequiredForOutput="kutnohorsko">
+				<vrat_se_za_kristianem Name="objectiveVisual69" PositionY="460" PositionX="300" RequiredForOutput="kutnohorsko">
 					<Edge From="goBackToKristianIfSmeltersDead.State" To="Progress" />
 				</vrat_se_za_kristianem>
-				<Function Name="or49" PositionY="-220" PositionX="1080" MethodName="math::boolean::Or" DeclaringType="math::boolean">
+				<Function Name="or49" PositionY="-140" PositionX="1080" MethodName="math::boolean::Or" DeclaringType="math::boolean">
 					<Edge From="talkToSimaElsewhere.GoingToSpot" To="A" />
 					<Edge From="talkToSimaElsewhere.WaitingAtSpot" To="B" />
 				</Function>
-				<Function Name="or71" PositionY="-750" PositionX="-40" MethodName="math::boolean::Or" DeclaringType="math::boolean">
+				<Function Name="or71" PositionY="-600" PositionX="-40" MethodName="math::boolean::Or" DeclaringType="math::boolean">
 					<Edge From="exploreSmelter.Active" To="A" />
 					<Edge From="exploreSmelter.UpdatedSimaHint" To="B" />
 					<Edge From="exploreSmelter.UpdatedSimaWaiting" To="C" />
+				</Function>
+				<Function Name="or71_1" PositionY="-830" PositionX="-40" MethodName="math::boolean::Or" DeclaringType="math::boolean">
+					<Edge From="exploreSmelter.Active" To="A" />
+					<Edge From="exploreSmelter.UpdatedSimaHint" To="B" />
+					<Edge From="exploreSmelter.UpdatedSimaWaiting" To="C" />
+					<Edge From="exploreSmelter.UpdatedSimaDead" To="D" />
 				</Function>
 				<Function Name="or76" PositionY="-420" PositionX="1260" MethodName="math::boolean::Or" DeclaringType="math::boolean">
 					<Edge From="kristian_behem_huti__failsafe.failsafe_all_dead" To="A" />
@@ -259,7 +274,7 @@
 					</Edge>
 				</ProfileStateTrigger>
 				<pruzkum_huti Name="pruzkum_huti" PositionY="-1460" PositionX="20">
-					<Edge From="or71.bool" To="patrani_v_hutich_aktivni" />
+					<Edge From="or71_1.bool" To="patrani_v_hutich_aktivni" />
 				</pruzkum_huti>
 				<RandomElement Name="randomelement86" PositionY="770" PositionX="420" TypeT="wh::rpgmodule::Souls">
 					<Asset Name="Array" Alias="smeltersGrunta" />
@@ -283,8 +298,12 @@
 					<Constant Name="Objective" Value="prozkoumej_hute" />
 					<Edge From="dialog_s_buresem.predani_buresova_glejtu" To="EnqueueSave" />
 				</SaveGame>
+				<SchedulerLinkActivation Name="schedule89" PositionY="-1200" PositionX="1090">
+					<Constant Name="LinkTag" Value="kralovskeStribro_inFormation" />
+					<Edge From="not88.bool" To="IsActive" />
+				</SchedulerLinkActivation>
 				<sima_barkne_pred_odchodem_z_trespassu Name="sima_barkne_pred_odchodem_z_trespassu" PositionY="500" PositionX="1230" />
-				<State Name="state82" PositionY="-920" PositionX="1420" TypeT="bool">
+				<State Name="state82" PositionY="-950" PositionX="1420" TypeT="bool">
 					<Edge From="cutscenehandler1.OnQueued" To="SetTrue" />
 					<Edge From="profilestatetrigger81.OnLoaded" To="SetFalse">
 						<Vertex>k9fp5XHr</Vertex>
@@ -304,66 +323,69 @@
 					<Edge From="05_goToSecretMint.OnTrigger" To="SetCompleted" />
 					<Edge From="ifand74.True" To="SetAborted" />
 				</State>
-				<State Name="talkToSimaElsewhere" PositionY="-150" PositionX="720" TypeT="talkToNPCelsewhere">
+				<State Name="talkToSimaElsewhere" PositionY="-160" PositionX="720" TypeT="talkToNPCelsewhere">
 					<Edge From="dialog_se_simou_1.sima_jde_ven_z_trespassu" To="SetGoingToSpot" />
 					<Edge From="timer52.OnFinished" To="SetLeftTheSpot">
 						<Vertex>vertex92</Vertex>
 						<Vertex>vertex93</Vertex>
 					</Edge>
 					<Edge From="dialog_se_simou_1.sima_se_vraci_do_daycyclu" To="SetDone" />
-					<Edge From="enablebehaviormovedataendnotification57.OnFinished" To="SetWaitingAtSpot">
-						<Vertex>vertex90</Vertex>
-						<Vertex>vertex91</Vertex>
-					</Edge>
 					<Edge From="vokrak.vokrak_nalezen_behem_huti" To="SetAborted">
 						<Vertex>vertex98</Vertex>
 						<Vertex>vertex99</Vertex>
 					</Edge>
+					<Edge From="areatrigger90.OnEnter" To="SetWaitingAtSpot">
+						<Vertex>zaYfFIpM</Vertex>
+						<Vertex>5Dj2Pn60</Vertex>
+					</Edge>
 				</State>
-				<Timer Name="timer52" PositionY="-60" PositionX="1080">
+				<Timer Name="timer52" PositionY="20" PositionX="1080">
 					<Constant Name="Duration" Value="30m" />
 					<Constant Name="TimeType" Value="WorldTime" />
 					<Edge From="talkToSimaElsewhere.OnWaitingAtSpot" To="SetRunning" />
+					<Edge From="talkToSimaElsewhere.OnDone" To="SetStopped" />
+					<Edge From="talkToSimaElsewhere.OnAborted" To="SetStopped" />
 				</Timer>
 				<vokrak Name="vokrak" PositionY="-400" PositionX="1880" RequiredForOutput="kutnohorsko">
 					<Edge From="dialog_s_buresem.hrac_nasral_burese" To="hrac_nasral_burese">
 						<Vertex>vertex94</Vertex>
 					</Edge>
-					<Edge From="or71.bool" To="patrani_hute_aktivni" />
 					<Edge From="or76.bool" To="vokrak_enabled" />
 					<Edge From="cutscenehandler1.AfterPlay" To="najdi_vokraka" />
+					<Edge From="or71_1.bool" To="patrani_hute_aktivni" />
 				</vokrak>
 			</Nodes>
 			<EdgeVertices>
+				<EdgeVertex Name="5Dj2Pn60" PositionY="420" PositionX="740" />
 				<EdgeVertex Name="AvccGuDq" PositionY="-650" PositionX="1600" />
-				<EdgeVertex Name="cErbg3QD" PositionY="-184" PositionX="330" />
 				<EdgeVertex Name="ECaFHU0o" PositionY="-650" PositionX="1400" />
 				<EdgeVertex Name="FCfWFRjI" PositionY="-620" PositionX="1600" />
 				<EdgeVertex Name="gQyIF4TF" PositionY="920" PositionX="-1090" />
+				<EdgeVertex Name="GYRuFenQ" PositionY="390" PositionX="1310" />
 				<EdgeVertex Name="k9fp5XHr" PositionY="-690" PositionX="1600" />
+				<EdgeVertex Name="KKNbUjhw" PositionY="-180" PositionX="1270" />
 				<EdgeVertex Name="LL89tU26" PositionY="920" PositionX="2050" />
+				<EdgeVertex Name="lNDxPhBx" PositionY="390" PositionX="1090" />
 				<EdgeVertex Name="NAd19JdP" PositionY="-686" PositionX="1422" />
 				<EdgeVertex Name="SFvhQ5ER" PositionY="-619" PositionX="988" />
+				<EdgeVertex Name="v01BIHNV" PositionY="-177" PositionX="331" />
 				<EdgeVertex Name="vertex83" PositionY="-950" PositionX="1880" />
 				<EdgeVertex Name="vertex86" PositionY="-340" PositionX="-600" />
 				<EdgeVertex Name="vertex87" PositionY="-340" PositionX="-1060" />
 				<EdgeVertex Name="vertex88" PositionY="-880" PositionX="-580" />
 				<EdgeVertex Name="vertex89" PositionY="-880" PositionX="-1100" />
-				<EdgeVertex Name="vertex90" PositionY="480" PositionX="1680" />
-				<EdgeVertex Name="vertex91" PositionY="480" PositionX="740" />
-				<EdgeVertex Name="vertex92" PositionY="460" PositionX="1340" />
+				<EdgeVertex Name="vertex92" PositionY="460" PositionX="1320" />
 				<EdgeVertex Name="vertex93" PositionY="460" PositionX="740" />
 				<EdgeVertex Name="vertex94" PositionY="-980" PositionX="1980" />
 				<EdgeVertex Name="vertex95" PositionY="-1010" PositionX="1300" />
 				<EdgeVertex Name="vertex96" PositionY="-1010" PositionX="-410" />
 				<EdgeVertex Name="vertex98" PositionY="440" PositionX="2040" />
 				<EdgeVertex Name="vertex99" PositionY="440" PositionX="740" />
-				<EdgeVertex Name="zYfCBscE" PositionY="-180" PositionX="980" />
+				<EdgeVertex Name="zaYfFIpM" PositionY="420" PositionX="1610" />
 			</EdgeVertices>
 			<Assets>
-				<TagPointAsset Name="simasSafePoint" />
 				<TriggerAreaAsset Name="ironworksArea" />
-				<TagPointAsset Name="vokrakLeaningSpot" />
+				<TriggerAreaAsset Name="simasLeaningArea" />
 			</Assets>
 			<Text StringName="hute_QgvW" Text="HUTĚ" />
 			<Elements>

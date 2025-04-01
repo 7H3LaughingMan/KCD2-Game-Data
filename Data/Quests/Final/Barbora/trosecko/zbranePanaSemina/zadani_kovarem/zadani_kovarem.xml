@@ -24,8 +24,8 @@
 			</Elements>
 			<Dialogue TechnicalStatus="Enabled" GesturesSetDate="2023-10-12T15:37:39.1599314+02:00" GesturesSetResponseCount="23">
 				<SelectedSouls>
-					<SelectedSoul Role="KOVAR_TACHOV" Voice="fejk" Type="Wave" Language="PDG" />
 					<SelectedSoul Role="HENRY" Voice="tomMcKay" Type="Wave" Language="ENG" />
+					<SelectedSoul Role="KOVAR_TACHOV" Voice="fejk" Type="Wave" Language="PDG" />
 				</SelectedSouls>
 				<Decision Name="dec1" Priority="MainQuestAdditionals" Alias="zbranePanaSemina_zadaniKovarem" Included="true">
 					<Sequences>
@@ -33,6 +33,15 @@
 							<DesignName StringName="zadani_ko_seq1_hMyH" Text="firstLoop" />
 							<UiPrompt StringName="ui_zadani_ko_seq1_TBUe" Text="Řekni mi o té zajímavější práci." />
 							<Elements>
+								<Response Role="HENRY">
+									<Parenthetical>
+										<Text StringName="zada_henry_zvedave_TSTU" Text="zvědavě" />
+									</Parenthetical>
+									<Text StringName="zada_henry_rikals_ze_bys__8Axa" Text="Říkals, že bys měl i nějakou zajímavější práci. Co by to mělo bejt?" />
+									<Commands>
+										<CameraCommand />
+									</Commands>
+								</Response>
 								<Response Role="KOVAR_TACHOV" ReferenceLength="10.55">
 									<Text StringName="zada_kovar_tac_jde_o_ty_m_aFSL" Text="Jde o ty mý pitomý pacholky. Vašek a Francek. Odjeli s vozem zboží na Semín a... už se nevrátili." />
 									<Commands>
@@ -66,7 +75,7 @@
 							</Elements>
 							<Decision Name="dec2" Priority="SideQuestSubmission">
 								<Sequences>
-									<Sequence EndType="GoTo" GoToDecision="dec2" Name="seq2">
+									<Sequence EntryCondition="!ThisSequenceUsed()" EndType="GoTo" GoToDecision="dec2" Name="seq2">
 										<DesignName StringName="zadani_ko_seq2_CYR7" Text="seq2" />
 										<UiPrompt StringName="ui_zadani_ko_seq2_M6b1" Text="Kudy mohli jet?" />
 										<Elements>
@@ -94,7 +103,7 @@
 											</Response>
 										</Elements>
 									</Sequence>
-									<Sequence EndType="GoTo" GoToDecision="dec2" Name="seq3">
+									<Sequence EntryCondition="!ThisSequenceUsed()&#xD;&#xA;" EndType="GoTo" GoToDecision="dec2" Name="seq3">
 										<DesignName StringName="zadani_ko_seq3_WMQ7" Text="seq3" />
 										<UiPrompt StringName="ui_zadani_ko_seq3_bmAU" Text="Vašek a Francek." />
 										<Elements>
@@ -135,7 +144,7 @@
 											</Response>
 										</Elements>
 									</Sequence>
-									<Sequence EndType="GoTo" GoToDecision="dec2" Name="seq4">
+									<Sequence EntryCondition="!ThisSequenceUsed()&#xD;&#xA;" EndType="GoTo" GoToDecision="dec2" Name="seq4">
 										<DesignName StringName="zadani_ko_seq4_koXE" Text="seq4" />
 										<UiPrompt StringName="ui_zadani_ko_seq4_sRR3" Text="Náklad vozu." />
 										<Elements>

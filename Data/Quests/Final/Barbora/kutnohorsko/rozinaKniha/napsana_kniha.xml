@@ -3,6 +3,9 @@
 	<Skald>
 		<Module Name="napsana_kniha" HibernateMode="Script">
 			<Ports>
+				<Port Name="kniha_je_napsana" Direction="In" Type="bool">
+					<DesignName StringName="napsana_k_kniha_je_napsana_rNyh" Text="Kniha je napsaná" />
+				</Port>
 				<Port Name="rozina_kniha" Direction="In" Type="FinishedRozaBook">
 					<DesignName StringName="kniha_je__napsana_kniha_B3OJ" Text="Rózina kniha" />
 				</Port>
@@ -66,64 +69,64 @@
 					<Edge From="and6_1.bool" To="IsActive" />
 				</AddQuestItem>
 				<Function Name="and15" PositionY="-1330" PositionX="360" MethodName="math::boolean::And" DeclaringType="math::boolean">
-					<Edge From="Awake" To="B">
-						<Vertex>vertex3</Vertex>
-					</Edge>
 					<Edge From="quest_je_dokonceny" To="A">
 						<Vertex>Nx5lLYFq</Vertex>
+					</Edge>
+					<Edge From="kniha_je_napsana" To="B">
+						<Vertex>vertex3</Vertex>
 					</Edge>
 				</Function>
 				<Function Name="and4" PositionY="-1120" PositionX="370" MethodName="math::boolean::And" DeclaringType="math::boolean">
 					<Edge From="compare2_1.bool" To="B" />
-					<Edge From="Awake" To="A">
+					<Edge From="kniha_je_napsana" To="A">
 						<Vertex>vertex3</Vertex>
 					</Edge>
 				</Function>
 				<Function Name="and6" PositionY="-760" PositionX="360" MethodName="math::boolean::And" DeclaringType="math::boolean">
 					<Edge From="compare2.bool" To="B" />
-					<Edge From="Awake" To="A">
+					<Edge From="kniha_je_napsana" To="A">
 						<Vertex>vertex3</Vertex>
 					</Edge>
 				</Function>
 				<Function Name="and6_1" PositionY="-420" PositionX="360" MethodName="math::boolean::And" DeclaringType="math::boolean">
 					<Edge From="compare1_1.bool" To="B" />
-					<Edge From="Awake" To="A">
+					<Edge From="kniha_je_napsana" To="A">
 						<Vertex>vertex3</Vertex>
 					</Edge>
 				</Function>
 				<Function Name="and6_1_1" PositionY="270" PositionX="350" MethodName="math::boolean::And" DeclaringType="math::boolean">
 					<Edge From="compare1_2.bool" To="B" />
-					<Edge From="Awake" To="A">
+					<Edge From="kniha_je_napsana" To="A">
 						<Vertex>vertex3</Vertex>
 					</Edge>
 				</Function>
 				<Function Name="and6_1_2" PositionY="1010" PositionX="350" MethodName="math::boolean::And" DeclaringType="math::boolean">
 					<Edge From="compare2_1_2_2.bool" To="B" />
-					<Edge From="Awake" To="A">
+					<Edge From="kniha_je_napsana" To="A">
 						<Vertex>vertex3</Vertex>
 					</Edge>
 				</Function>
 				<Function Name="and8" PositionY="-60" PositionX="360" MethodName="math::boolean::And" DeclaringType="math::boolean">
 					<Edge From="compare2_1_2.bool" To="B" />
-					<Edge From="Awake" To="A">
+					<Edge From="kniha_je_napsana" To="A">
 						<Vertex>vertex3</Vertex>
 					</Edge>
 				</Function>
 				<Function Name="and8_1" PositionY="640" PositionX="340" MethodName="math::boolean::And" DeclaringType="math::boolean">
 					<Edge From="compare2_1_2_1.bool" To="B" />
-					<Edge From="Awake" To="A">
+					<Edge From="kniha_je_napsana" To="A">
 						<Vertex>vertex3</Vertex>
 					</Edge>
 				</Function>
 				<Function Name="and8_2" PositionY="1340" PositionX="360" MethodName="math::boolean::And" DeclaringType="math::boolean">
 					<Edge From="compare2_1_2_3.bool" To="B" />
-					<Edge From="Awake" To="A">
+					<Edge From="kniha_je_napsana" To="A">
 						<Vertex>vertex3</Vertex>
 					</Edge>
 				</Function>
 				<Function Name="and8_2_1" PositionY="1700" PositionX="380" MethodName="math::boolean::And" DeclaringType="math::boolean">
 					<Edge From="compare2_1_2_4.bool" To="B" />
-					<Edge From="Awake" To="A">
+					<Edge From="kniha_je_napsana" To="A">
 						<Vertex>vertex3</Vertex>
 					</Edge>
 				</Function>
@@ -172,6 +175,10 @@
 					<Constant Name="ValueB" Value="MiserWhoRoseFromTheDead" />
 					<Edge From="rozina_kniha" To="ValueA" />
 				</Function>
+				<Layer Name="profile16" PositionY="-1500" PositionX="0">
+					<Asset Name="Profiles" Alias="bookSlotsProfile" />
+					<Edge From="Awake" To="IsActive" />
+				</Layer>
 				<SchedulerLinkActivation Name="schedule14" PositionY="-1400" PositionX="710">
 					<Constant Name="LinkTag" Value="roza_waitNearFinishedBook" />
 					<Edge From="and15.bool" To="IsActive" />
@@ -190,6 +197,7 @@
 				<ItemSlotAsset Name="cleverParsonSlot" />
 				<ItemSlotAsset Name="miserlyTownsmanSlot" />
 				<ItemSlotAsset Name="miserWhoRoseFromTheDeadSlot" />
+				<ProfileAsset Name="bookSlotsProfile" AssetProfiles="rozinakniha_rozabookvariations" />
 			</Assets>
 			<Text StringName="kniha_je_u_hrace_yRso" Text="Napsaná kniha" />
 		</Module>

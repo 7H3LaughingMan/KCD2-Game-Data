@@ -49,7 +49,7 @@
 					<DesignName StringName="areaandho_mrtvola_byla_od_enlx" Text="mrtvola byla odebrana z hrobu" />
 				</Port>
 				<Port Name="on_que" Direction="Out" Type="bool">
-					<DesignName StringName="areaandho_on_que_YyQi" Text="on que" />
+					<DesignName StringName="areaandho_on_que_YyQi" Text="fader pohrbivani aktivni" />
 				</Port>
 			</Ports>
 			<Nodes>
@@ -67,6 +67,13 @@
 					</Edge>
 					<Edge From="or152024573.bool" To="IsActive" />
 				</AreaTrigger>
+				<Function Name="audiooneshot152024586" PositionY="1240" PositionX="2020" MethodName="wh::soundmodule::AudioOneShot" DeclaringType="wh::soundmodule">
+					<Constant Name="AtlTriggerName" Value="q_M02_shovel_bury_body" />
+					<Asset Name="LinkableObject" Alias="player" />
+					<Edge From="triggersequence152024585.A" To="Exec">
+						<Vertex>APTCBK2F</Vertex>
+					</Edge>
+				</Function>
 				<State Name="burryFaderActive" PositionY="1530" PositionX="2120" TypeT="bool">
 					<Edge From="cutscenehandler152024559.OnQueued" To="SetTrue" />
 					<Edge From="cutscenehandler152024559.OnFinished" To="SetFalse" />
@@ -92,7 +99,10 @@
 						<Vertex>JaB0hHH6</Vertex>
 						<Vertex>Gm77pIwk</Vertex>
 					</Edge>
-					<Edge From="timer152024584.OnFinished" To="PlayCutscene" />
+					<Edge From="triggersequence152024585.B" To="PlayCutscene">
+						<Vertex>xcQF5ufL</Vertex>
+						<Vertex>7Aw6EhgI</Vertex>
+					</Edge>
 				</CutsceneHandler>
 				<ForEach Name="foreach152024577" PositionY="20" PositionX="1390" TypeT="wh::rpgmodule::Souls">
 					<Edge From="actorcarrycorpsetrigger152024576.OnCarry" To="Begin" />
@@ -190,11 +200,11 @@
 					<Edge From="ifdeathcheck152024580.True" To="mrtvola_byla_odebrana_z_hrobu">
 						<Vertex>c9vsRH6h</Vertex>
 					</Edge>
-					<Edge From="cutscenehandler152024559.BeforePlay" To="mrtvola_pohrbena_pres_interactiontrigger">
+					<Edge From="burryFaderActive.State" To="on_que" />
+					<Edge From="triggersequence152024585.A" To="mrtvola_pohrbena_pres_interactiontrigger">
 						<Vertex>APTCBK2F</Vertex>
 						<Vertex>8v59Eq9d</Vertex>
 					</Edge>
-					<Edge From="burryFaderActive.State" To="on_que" />
 				</Output>
 				<Layer Name="profile152024556" PositionY="1410" PositionX="730">
 					<Edge From="Zakopavani.Zakopano" To="IsActive" />
@@ -228,11 +238,9 @@
 					<Constant Name="Context" Value="zachrana_burrying" />
 					<Edge From="or152024579.bool" To="IsActive" />
 				</SetGameContext>
-				<Timer Name="timer152024584" PositionY="1410" PositionX="1810">
-					<Constant Name="Duration" Value="4s" />
-					<Constant Name="TimeType" Value="GameTime" />
-					<Edge From="cutscenehandler152024559.BeforePlay" To="SetRunning" />
-				</Timer>
+				<TriggerSequence Name="triggersequence152024585" PositionY="1430" PositionX="1810">
+					<Edge From="cutscenehandler152024559.BeforePlay" To="Exec" />
+				</TriggerSequence>
 				<State Name="Zakopavani" PositionY="-350" PositionX="460" TypeT="Hrob">
 					<Edge From="holetrigger152024552_1.OnFinished" To="SetVykopano">
 						<Vertex>vertex23</Vertex>
@@ -265,6 +273,7 @@
 				<EdgeVertex Name="5XBla16z" PositionY="730" PositionX="1790" />
 				<EdgeVertex Name="6b95lwpc" PositionY="267" PositionX="1617" />
 				<EdgeVertex Name="6JFbebXT" PositionY="-264" PositionX="816" />
+				<EdgeVertex Name="7Aw6EhgI" PositionY="1428" PositionX="1545" />
 				<EdgeVertex Name="8PJverRB" PositionY="900" PositionX="860" />
 				<EdgeVertex Name="8v59Eq9d" PositionY="1460" PositionX="2440" />
 				<EdgeVertex Name="99MpxL0b" PositionY="1560" PositionX="1000" />
@@ -300,6 +309,7 @@
 				<EdgeVertex Name="vT6wTjDS" PositionY="1880" PositionX="1440" />
 				<EdgeVertex Name="W0KA137R" PositionY="1930" PositionX="1440" />
 				<EdgeVertex Name="WkR1a5f7" PositionY="630" PositionX="940" />
+				<EdgeVertex Name="xcQF5ufL" PositionY="1418" PositionX="1963" />
 				<EdgeVertex Name="YAzsssvb" PositionY="2300" PositionX="1850" />
 				<EdgeVertex Name="zsGgyQGy" PositionY="2150" PositionX="700" />
 				<EdgeVertex Name="zWsGN5v7" PositionY="616" PositionX="1789" />

@@ -30,6 +30,7 @@
 					<Edge From="ptacek_je_u_zizky_nebo_staji" To="A" />
 					<Edge From="not46.bool" To="B" />
 				</Function>
+				<HasteTrigger Name="checkCombatHistoryWithSoldiers" PositionY="-40" PositionX="-1800" />
 				<EntityContextTrigger Name="entitycontexttrigger45" PositionY="610" PositionX="-2170">
 					<Constant Name="Context" Value="crime_interruptAttack" />
 					<Asset Name="Souls" Alias="allNebakovSoldiers" />
@@ -38,7 +39,7 @@
 				<ForEach Name="foreach28_1" PositionY="320" PositionX="-1410" TypeT="wh::rpgmodule::Souls">
 					<Asset Name="Array" Alias="allNebakovSoldiers" />
 					<Edge From="triggersequence41.B" To="Begin" />
-					<Edge From="triggersequence41_2.A" To="Begin" />
+					<Edge From="triggersequence41_2.B" To="Begin" />
 				</ForEach>
 				<MemberFunction Name="hascombathistorywithsoul36" PositionY="320" PositionX="-1080" MethodName="HasCombatHistoryWithSoul" DeclaringType="wh::rpgmodule::I_CombatSoul">
 					<Constant Name="MaxTime" Value="10" />
@@ -66,10 +67,10 @@
 				<IfFunction Name="ifcompare43_2" PositionY="150" PositionX="-260" TypeT="int" MethodName="Control::Compare" DeclaringType="Control">
 					<Constant Name="Op" Value="GreaterEquals" />
 					<Constant Name="ValueB" Value="2" />
-					<Edge From="triggersequence41_2.B" To="Exec">
+					<Edge From="numberOfCombatSouls.State" To="ValueA" />
+					<Edge From="triggersequence41_2.C" To="Exec">
 						<Vertex>J15wdxG9</Vertex>
 					</Edge>
-					<Edge From="numberOfCombatSouls.State" To="ValueA" />
 				</IfFunction>
 				<ObjectProperties Name="isoulproperties38" PositionY="760" PositionX="-1400" DeclaringType="wh::rpgmodule::I_Soul">
 					<Asset Name="I_Soul" Alias="player" />
@@ -84,7 +85,12 @@
 				<State Name="numberOfCombatSouls" PositionY="620" PositionX="-540" TypeT="int">
 					<Edge From="ifcompare39.True" To="Increment" />
 					<Edge From="reset.State" To="Value" />
-					<Edge From="triggersequence41.A" To="Exec" />
+					<Edge From="triggersequence41.A" To="Exec">
+						<Vertex>bmFKJpng</Vertex>
+					</Edge>
+					<Edge From="triggersequence41_2.A" To="Exec">
+						<Vertex>bmFKJpng</Vertex>
+					</Edge>
 				</State>
 				<Output Name="Output">
 					<Edge From="timer1.OnFinished" To="ptacek_odchazi_z_hradu" />
@@ -130,12 +136,14 @@
 				<TriggerSequence Name="triggersequence41_1" PositionY="1120" PositionX="370">
 					<Edge From="timeToGiveUp.OnFinished" To="Exec" />
 				</TriggerSequence>
-				<TriggerSequence Name="triggersequence41_2" PositionY="313" PositionX="-1705">
+				<TriggerSequence Name="triggersequence41_2" PositionY="310" PositionX="-1700">
 					<Edge From="perceptiontrigger49.OnSeenShortCone" To="Exec" />
+					<Edge From="checkCombatHistoryWithSoldiers.OnTrigger" To="Exec" />
 				</TriggerSequence>
 			</Nodes>
 			<EdgeVertices>
 				<EdgeVertex Name="A1g4EopD" PositionY="1380" PositionX="-1580" />
+				<EdgeVertex Name="bmFKJpng" PositionY="710" PositionX="-1429" />
 				<EdgeVertex Name="D8CccFtr" PositionY="1380" PositionX="530" />
 				<EdgeVertex Name="f1hKkkmo" PositionY="1430" PositionX="-2460" />
 				<EdgeVertex Name="HSMUGfYA" PositionY="1410" PositionX="960" />

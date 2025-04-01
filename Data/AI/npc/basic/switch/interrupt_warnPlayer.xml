@@ -50,8 +50,8 @@
 							<Sequence>
 								<Function_crime_getAnyDecoratorPreset tryToKeepItems="true" tryToKeepSecondaryWeapon="true" presetString="$anyDecoratorPreset" nodeLabel="23469030" />
 								<AnyDecorator preset="$anyDecoratorPreset" enabled="true">
-									<EntityContext context="speech_greyOutE" target="$this.id">
-										<EntityContextElement context="speech_greyOutE" enabled="true">
+									<EntityContextPreset preset="crime_greyOutEAndDisableChat" target="$this.id">
+										<EntityContextPresetElement contextPreset="crime_greyOutEAndDisableChat" enabled="true">
 											<EntityContextElement context="crime_interrupt" enabled="true">
 												<EntityContext context="crime_interruptWarnPlayer" target="$this.id">
 													<AddPerceivableState PerceivableLabel="&apos;crime_interrupt&apos;">
@@ -80,7 +80,6 @@
 																			<LuaWrapper onEnter="entity.soul:AddMetaRoleByName(&apos;STRAZNY_RESICI_PRESTUPEK&apos;)" onExit="entity.soul:RemoveMetaRoleByName(&apos;STRAZNY_RESICI_PRESTUPEK&apos;)">
 																				<ForceLook LookTarget="$__player" DisableVariations="true">
 																					<Parallel successMode="Any" failureMode="Any">
-																						<Function_crime_weaponDecorator suppressWaitAction="false" weaponSet="&apos;Primary&apos;" shouldHaveDrawnWeapon="$shouldHaveDrawnWeapon" waitActionFinished="$weaponWaitActionFinished" nodeLabel="48833936" />
 																						<While doFail="false" propagateChildFail="false" condition="~$stopWarning">
 																							<Sequence>
 																								<IfGate atomic="false" condition="~$stopPeriodicLoops" RunLogic="Halt">
@@ -231,13 +230,9 @@
 																													<EntityContextElement context="crime_escalationLevel_script_confrontingGeneral" enabled="true">
 																														<EntityContext context="crime_escalationLevel_setFromBehavior_warnPlayer" target="">
 																															<GameContext context="crime_music_low">
-																																<Loop count="-1">
-																																	<IfGate atomic="false" condition="$weaponWaitActionFinished | ~$shouldHaveDrawnWeapon" RunLogic="Halt">
-																																		<MoveParamsDecorator speed="Walk" pathFindingParams="$pathFindingParams" doorClosingPolicy="LeaveOpened">
-																																			<CrimeFollower Target="$__player" Mode="DontBackOff" Role="Main" RelativeSpeedLimit="Walk" DisableGhosting="true" />
-																																		</MoveParamsDecorator>
-																																	</IfGate>
-																																</Loop>
+																																<MoveParamsDecorator speed="Walk" pathFindingParams="$pathFindingParams" doorClosingPolicy="LeaveOpened">
+																																	<Function_crime_drawWeaponDecorator subtreeFile="&apos;crime/warnplayer/actionsubtree.xml&apos;" subtreeName="&apos;crime_warnPlayer_actionSubtree&apos;" weaponSet="&apos;Primary&apos;" drawWeapon="$shouldHaveDrawnWeapon" subtreeData_canUrge="" subtreeData_crimesResolved="" subtreeData_followPlayer="" subtreeData_goIntoResolve="" subtreeData_playerHasFreeRoam="" subtreeData_playerLeft="" subtreeData_target="" subtreeData_teleport="" nodeLabel="83278269" />
+																																</MoveParamsDecorator>
 																															</GameContext>
 																														</EntityContext>
 																													</EntityContextElement>
@@ -271,7 +266,7 @@
 																						<IfCondition failOnCondition="false" condition="#offences &gt; 0">
 																							<Sequence>
 																								<Function_crime_createCrimesFromOffences knowViolentInformation="false" playersOffences="$offences" mostImportantCreatedCrimeInformation="$crimeInformation" nodeLabel="76511444" />
-																								<Function_callInterrupt_arrest alreadyCriminal="false" assaultData="$assaultData" crimeSeen="true" freshlyAttributedCrime="false" ignorePriority="true" information="$crimeInformation" initiator="$enum:switch_interruptInitiator.scheduler" previousReaction="$enum:crime_reactionKind.warnPlayer" source="$enum:crime_source.direct" stimulusKind="$warnPlayerData.stimulusKind" trespassingRepeatedly="false" nodeLabel="64604444" />
+																								<Function_callInterrupt_arrest assaultData="$assaultData" crimeSeen="true" criminalFreshness="$enum:crime_criminalFreshness.unknown" freshlyAttributedCrime="false" ignorePriority="true" information="$crimeInformation" initiator="$enum:switch_interruptInitiator.scheduler" previousReaction="$enum:crime_reactionKind.warnPlayer" source="$enum:crime_source.direct" stimulusKind="$warnPlayerData.stimulusKind" trespassingRepeatedly="false" nodeLabel="64604444" />
 																							</Sequence>
 																						</IfCondition>
 																					</Sequence>
@@ -306,8 +301,8 @@
 													</AddPerceivableState>
 												</EntityContext>
 											</EntityContextElement>
-										</EntityContextElement>
-									</EntityContext>
+										</EntityContextPresetElement>
+									</EntityContextPreset>
 								</AnyDecorator>
 							</Sequence>
 						</EntityContext>
@@ -315,9 +310,7 @@
 					<OnFail canSkip="1">
 						<Sequence>
 							<Function_crime_addLeavingInterruptCooldown nodeLabel="52449653" />
-							<AtomicDecorator>
-								<Function_crime_limits_removeReactionLink information="$warnPlayerData.information" reactionKind="$enum:crime_reactionKind.warnPlayer" nodeLabel="87672299" />
-							</AtomicDecorator>
+							<Function_crime_limits_removeReactionLink information="$warnPlayerData.information" reactionKind="$enum:crime_reactionKind.warnPlayer" nodeLabel="87672299" />
 						</Sequence>
 					</OnFail>
 				</FuseBox>
@@ -382,9 +375,9 @@
 									</Function_crime_getAnyDecoratorPreset>
 									<AnyDecorator hasInputBreakpoint="0" comment="" breakpointFlags="0">
 										<OutputBreakpoints />
-										<EntityContext hasInputBreakpoint="0" comment="" breakpointFlags="0">
+										<EntityContextPreset hasInputBreakpoint="0" comment="" breakpointFlags="0">
 											<OutputBreakpoints />
-											<EntityContextElement hasInputBreakpoint="0" comment="" breakpointFlags="0">
+											<EntityContextPresetElement hasInputBreakpoint="0" comment="" breakpointFlags="0">
 												<OutputBreakpoints />
 												<EntityContextElement hasInputBreakpoint="0" comment="" breakpointFlags="0">
 													<OutputBreakpoints />
@@ -442,9 +435,6 @@
 																						<OutputBreakpoints />
 																						<Parallel hasInputBreakpoint="0" comment="" breakpointFlags="0">
 																							<OutputBreakpoints />
-																							<Function_crime_weaponDecorator hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																								<OutputBreakpoints />
-																							</Function_crime_weaponDecorator>
 																							<While hasInputBreakpoint="0" comment="" breakpointFlags="0">
 																								<OutputBreakpoints />
 																								<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
@@ -731,18 +721,12 @@
 																																<OutputBreakpoints />
 																																<GameContext hasInputBreakpoint="0" comment="" breakpointFlags="0">
 																																	<OutputBreakpoints />
-																																	<Loop hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																																	<MoveParamsDecorator hasInputBreakpoint="0" comment="" breakpointFlags="0">
 																																		<OutputBreakpoints />
-																																		<IfGate hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																																		<Function_crime_drawWeaponDecorator hasInputBreakpoint="0" comment="" breakpointFlags="0">
 																																			<OutputBreakpoints />
-																																			<MoveParamsDecorator hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																																				<OutputBreakpoints />
-																																				<CrimeFollower hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																																					<OutputBreakpoints />
-																																				</CrimeFollower>
-																																			</MoveParamsDecorator>
-																																		</IfGate>
-																																	</Loop>
+																																		</Function_crime_drawWeaponDecorator>
+																																	</MoveParamsDecorator>
 																																</GameContext>
 																															</EntityContext>
 																														</EntityContextElement>
@@ -850,8 +834,8 @@
 														</AddPerceivableState>
 													</EntityContext>
 												</EntityContextElement>
-											</EntityContextElement>
-										</EntityContext>
+											</EntityContextPresetElement>
+										</EntityContextPreset>
 									</AnyDecorator>
 								</Sequence>
 							</EntityContext>
@@ -862,12 +846,9 @@
 								<Function_crime_addLeavingInterruptCooldown hasInputBreakpoint="0" comment="" breakpointFlags="0">
 									<OutputBreakpoints />
 								</Function_crime_addLeavingInterruptCooldown>
-								<AtomicDecorator hasInputBreakpoint="0" comment="" breakpointFlags="0">
+								<Function_crime_limits_removeReactionLink hasInputBreakpoint="0" comment="" breakpointFlags="0">
 									<OutputBreakpoints />
-									<Function_crime_limits_removeReactionLink hasInputBreakpoint="0" comment="" breakpointFlags="0">
-										<OutputBreakpoints />
-									</Function_crime_limits_removeReactionLink>
-								</AtomicDecorator>
+								</Function_crime_limits_removeReactionLink>
 							</Sequence>
 						</OnFail>
 					</FuseBox>

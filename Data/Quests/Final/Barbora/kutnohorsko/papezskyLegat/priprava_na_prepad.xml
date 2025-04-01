@@ -38,7 +38,6 @@
 				<Definition File="priprava_na_prepad/ptacek__o_roze.xml" />
 				<Definition File="priprava_na_prepad/katerina__o_legatovi.xml" />
 				<Definition File="priprava_na_prepad/bohuta__o_italstine.xml" />
-				<Definition File="priprava_na_prepad/jindrich__nesmim_do_lorce.xml" />
 				<Definition File="priprava_na_prepad/legat_objective.xml" />
 				<Definition File="priprava_na_prepad/zizka__o_vykradacich.xml" />
 				<Definition File="priprava_na_prepad/chovani_po_polylogu.xml" />
@@ -49,21 +48,7 @@
 					<Edge From="zizka__uvod_do_polylogu.force_polylog" To="Exec" />
 					<Edge From="makearray46.Array" To="Souls" />
 				</Function>
-				<AreaTrigger Name="areatrigger36" PositionY="-1290" PositionX="-120">
-					<Asset Name="Souls" Alias="player" />
-					<Asset Name="Areas" Alias="lorecBarierArea" />
-					<Edge From="BarieraULorce.Active" To="IsActive" />
-				</AreaTrigger>
-				<State Name="BarieraULorce" PositionY="-1320" PositionX="-460" TypeT="Progress">
-					<Edge From="poly_zizka__pokyny_pred_prepadem.zizka_rozdal_pokyny_trigger" To="SetActive">
-						<Vertex>6HB8CMgq</Vertex>
-						<Vertex>Pr6yzxIw</Vertex>
-					</Edge>
-					<Edge From="ph_zizk__ranni_odjezd.fast_travel_kousek_od_lorece" To="SetDone">
-						<Vertex>P600Jydj</Vertex>
-						<Vertex>QFIQzXzW</Vertex>
-					</Edge>
-				</State>
+				<State Name="BarieraULorce" PositionY="-1640" PositionX="200" TypeT="Progress" />
 				<State Name="beforeAmbushPolylog" PositionY="-220" PositionX="-880" RequiredForOutput="kutnohorsko" TypeT="Progress">
 					<Edge From="if4.True" To="SetActive" />
 					<Edge From="poly_zizka__pokyny_pred_prepadem.zizka_rozdal_pokyny_trigger" To="SetDone">
@@ -105,7 +90,6 @@
 						<Vertex>vertex2</Vertex>
 					</Edge>
 				</If>
-				<jindrich__nesmim_do_lorce Name="jindrich__nesmim_do_lorce" PositionY="-1170" PositionX="760" />
 				<katerina__o_legatovi Name="katerina__o_legatovi" PositionY="-720" PositionX="1050">
 					<Edge From="poly_zizka__pokyny_pred_prepadem.zizka_zadal_pokyny" To="zizka_rozdal_pokyny" />
 				</katerina__o_legatovi>
@@ -181,11 +165,6 @@
 						<Vertex>vertex7</Vertex>
 					</Edge>
 				</ptacek__o_roze>
-				<Function Name="requestmonologue33" PositionY="-1360" PositionX="730" MethodName="wh::xgenaimodule::RequestMonologue" DeclaringType="wh::xgenaimodule">
-					<Asset Name="Souls" Alias="player" />
-					<Constant Name="DecisionAlias" Value="papezskyLegat_jindrichNesmimDoLorce" />
-					<Edge From="timer34.OnFinished" To="Exec" />
-				</Function>
 				<AddReward Name="reward45" PositionY="-200" PositionX="60">
 					<Edge From="zizka__uvod_do_polylogu.add_reward" To="AddReward" />
 					<Rewards>
@@ -204,16 +183,6 @@
 				<TriggerSequence Name="triggersequence48" PositionY="-230" PositionX="1690">
 					<Edge From="ph_zizk__ranni_odjezd.fast_travel_kousek_od_lorece" To="Exec" />
 				</TriggerSequence>
-				<Timer Name="timer34" PositionY="-1370" PositionX="320">
-					<Constant Name="Duration" Value="5s" />
-					<Constant Name="TimeType" Value="GameTime" />
-					<Edge From="timer34.OnFinished" To="SetRunning">
-						<Vertex>NbwE9rS5</Vertex>
-						<Vertex>PCTpwADE</Vertex>
-					</Edge>
-					<Edge From="areatrigger36.OnEnter" To="SetRunning" />
-					<Edge From="areatrigger36.OnLeave" To="SetStopped" />
-				</Timer>
 				<zizka__o_vykradacich Name="zizka__o_vykradacich" PositionY="200" PositionX="-290">
 					<Edge From="jindra_poslal_vykradace_do_ruthardky" To="jindra_poslal_vykradace_do_ruthardky">
 						<Vertex>RopzlBMT</Vertex>
@@ -226,18 +195,12 @@
 			</Nodes>
 			<EdgeVertices>
 				<EdgeVertex Name="5v6wBl9q" PositionY="-70" PositionX="1110" />
-				<EdgeVertex Name="6HB8CMgq" PositionY="-930" PositionX="780" />
 				<EdgeVertex Name="FyVrfAHB" PositionY="261" PositionX="-1132" />
 				<EdgeVertex Name="gQyVIX7b" PositionY="-70" PositionX="1860" />
 				<EdgeVertex Name="I70Wh5ns" PositionY="60" PositionX="1480" />
 				<EdgeVertex Name="jkJ8phHB" PositionY="150" PositionX="210" />
-				<EdgeVertex Name="NbwE9rS5" PositionY="-1040" PositionX="570" />
-				<EdgeVertex Name="P600Jydj" PositionY="-970" PositionX="1500" />
 				<EdgeVertex Name="PbX6epbJ" PositionY="210" PositionX="-1130" />
 				<EdgeVertex Name="QYm04TDY" PositionY="10" PositionX="1290" />
-				<EdgeVertex Name="PCTpwADE" PositionY="-1040" PositionX="330" />
-				<EdgeVertex Name="Pr6yzxIw" PositionY="-930" PositionX="-440" />
-				<EdgeVertex Name="QFIQzXzW" PositionY="-970" PositionX="-445" />
 				<EdgeVertex Name="RopzlBMT" PositionY="237" PositionX="-1132" />
 				<EdgeVertex Name="vertex1" PositionY="-260" PositionX="-700" />
 				<EdgeVertex Name="vertex2" PositionY="-260" PositionX="-1130" />
@@ -288,6 +251,11 @@
 				<CameraAsset Name="predprepadem_customCamera_35" />
 				<CameraAsset Name="predprepadem_customCamera_36" />
 			</Assets>
+			<Notes>
+				<Note Name="note47" PositionY="-1640" PositionX="330">
+					<Text StringName="priprava__note47_qEtq" Text="KCD2-356983 - presun logiky bariery do rootu, Stav zustava kvuli patchovani" />
+				</Note>
+			</Notes>
 			<Text StringName="priprava_na_prepad_Gi5a" Text="Příprava na přepad" />
 			<Elements>
 				<GameplayActionElement>

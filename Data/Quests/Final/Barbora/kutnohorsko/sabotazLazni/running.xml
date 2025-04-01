@@ -78,6 +78,12 @@
 				<Port Name="saty_predany" Direction="In" Type="bool">
 					<DesignName StringName="running_saty_predany_CCob" Text="saty predany" />
 				</Port>
+				<Port Name="bez_mrtvol_v_arene" Direction="In" Type="bool">
+					<DesignName StringName="running_bez_mrtvol_v_arene_wrbu" Text="bez mrtvol v aréně" />
+				</Port>
+				<Port Name="player_not_on_pillory" Direction="In" Type="bool">
+					<DesignName StringName="running_player_not_on_pil_CQrg" Text="player not on pillory" />
+				</Port>
 			</Ports>
 			<Definitions>
 				<Definition File="running/permadeaths.xml" />
@@ -119,6 +125,14 @@
 						<Vertex>4TP0Pm2C</Vertex>
 					</Edge>
 					<Edge From="noneOfDuelNPCisDead.State" To="B" />
+					<Edge From="bez_mrtvol_v_arene" To="C">
+						<Vertex>FIxfV7Tk</Vertex>
+						<Vertex>6z9JJQh3</Vertex>
+					</Edge>
+					<Edge From="player_not_on_pillory" To="D">
+						<Vertex>8PcMWVAV</Vertex>
+						<Vertex>kpyyv8u4</Vertex>
+					</Edge>
 				</Function>
 				<AreaTrigger Name="areatrigger36" PositionY="780" PositionX="1980">
 					<Asset Name="Souls" Alias="player" />
@@ -155,14 +169,6 @@
 				<Function Name="deathcheck6" PositionY="-740" PositionX="1410" MethodName="wh::rpgmodule::DeathCheck" DeclaringType="wh::rpgmodule">
 					<Asset Name="Souls" Alias="adam" />
 				</Function>
-				<SoulDeathTrigger Name="deathtrigger83" PositionY="30" PositionX="1350">
-					<Asset Name="Souls" Alias="nobleman" />
-					<Edge From="duel_gameplay_active" To="IsActive">
-						<Vertex>94CzQMe7</Vertex>
-						<Vertex>txACFAvg</Vertex>
-						<Vertex>RA6E5nw5</Vertex>
-					</Edge>
-				</SoulDeathTrigger>
 				<State Name="deliveredDress" PositionY="-1860" PositionX="360" TypeT="wh::entitymodule::ItemClassId">
 					<Edge From="itemproperties4_1.ItemClass" To="Value" />
 					<Edge From="ifand16.True" To="Exec" />
@@ -206,10 +212,6 @@
 				<fail_dialog_s_betou Name="fail_dialog_s_betou" PositionY="1740" PositionX="-120">
 					<Edge From="adam_je_mrtev" To="adam_je_mrtvev_behem_questu" />
 				</fail_dialog_s_betou>
-				<FilterInput Name="filterinput51" PositionY="480" PositionX="2220">
-					<Edge From="makearray50.Array" To="Filters" />
-					<Edge From="and34.bool" To="IsActive" />
-				</FilterInput>
 				<FirstElement Name="firstelement3_1" PositionY="-1500" PositionX="120" TypeT="wh::entitymodule::Items">
 					<Edge From="saty_pro_lazebnici" To="Array" />
 				</FirstElement>
@@ -279,7 +281,6 @@
 					<Asset Name="profiles" Alias="stream_nobleman" />
 					<Asset Name="smartentity" Alias="qSO" />
 					<Asset Name="souls" Alias="nobleman" />
-					<Constant Name="speed" Value="alertedWalk" />
 					<Edge From="streaming_duel_npcs" To="streamprofiles">
 						<Vertex>vertex16</Vertex>
 					</Edge>
@@ -287,6 +288,12 @@
 						<Vertex>vertex10</Vertex>
 					</Edge>
 					<Edge From="ifcompare14.True" To="leavelevel" />
+					<Edge From="switch85.Value1" To="speed">
+						<Vertex>Enl7mTFG</Vertex>
+						<Vertex>uXWukrsG</Vertex>
+						<Vertex>zL7n2o4R</Vertex>
+						<Vertex>3wGRpoRb</Vertex>
+					</Edge>
 				</leavelevelhandling_v2>
 				<leavelevelhandling_v2 Name="leavelevelhandling_v2_1" PositionY="460" PositionX="660" Namespace="utils.streaming">
 					<Asset Name="profiles" Alias="stream_noblemansValet" />
@@ -335,9 +342,6 @@
 				<MakeArray Name="makearray12" PositionY="-440" PositionX="320" TypeT="Strings">
 					<Constant Name="A" Value="goto kkut_beta" />
 				</MakeArray>
-				<MakeArray Name="makearray50" PositionY="480" PositionX="1980" TypeT="Strings">
-					<Constant Name="A" Value="no_horse" />
-				</MakeArray>
 				<MakeArray Name="makearray78" PositionY="40" PositionX="-80" TypeT="wh::rpgmodule::Souls">
 					<Asset Name="A" Alias="nobleman" />
 					<Asset Name="B" Alias="noblemansValet" />
@@ -350,10 +354,6 @@
 						<Vertex>xxgEyCIx</Vertex>
 						<Vertex>GwMYpNfB</Vertex>
 					</Edge>
-				</State>
-				<State Name="noblemanIsDead" PositionY="30" PositionX="1630" TypeT="bool">
-					<Constant Name="DefaultValue" Value="false" />
-					<Edge From="deathtrigger83.OnDeath" To="SetTrue" />
 				</State>
 				<State Name="noblemansLighterArmor" PositionY="1020" PositionX="140" TypeT="ProgressUpdated">
 					<Edge From="noblemansLighterArmor" To="SetActive" />
@@ -368,6 +368,19 @@
 					<Edge From="zadani_betou.questprijat" To="Value">
 						<Vertex>vertex6</Vertex>
 						<Vertex>vertex7</Vertex>
+					</Edge>
+				</Function>
+				<Function Name="not89" PositionY="180" PositionX="1310" MethodName="math::boolean::Not" DeclaringType="math::boolean">
+					<Edge From="bez_mrtvol_v_arene" To="Value">
+						<Vertex>FIxfV7Tk</Vertex>
+						<Vertex>6z9JJQh3</Vertex>
+						<Vertex>dVyCHWJy</Vertex>
+					</Edge>
+				</Function>
+				<Function Name="not90" PositionY="40" PositionX="1310" MethodName="math::boolean::Not" DeclaringType="math::boolean">
+					<Edge From="noneOfDuelNPCisDead.State" To="Value">
+						<Vertex>jr7KS6qR</Vertex>
+						<Vertex>Td7FUcRJ</Vertex>
 					</Edge>
 				</Function>
 				<Function Name="or24" PositionY="1020" PositionX="420" MethodName="math::boolean::Or" DeclaringType="math::boolean">
@@ -387,6 +400,10 @@
 						<Vertex>eykvyKa9</Vertex>
 						<Vertex>LHyTauIM</Vertex>
 					</Edge>
+				</Function>
+				<Function Name="or88" PositionY="40" PositionX="1570" MethodName="math::boolean::Or" DeclaringType="math::boolean">
+					<Edge From="not89.bool" To="B" />
+					<Edge From="not90.bool" To="A" />
 				</Function>
 				<Output Name="Output">
 					<Edge From="timer1.OnFinished" To="quest_dostupny">
@@ -418,10 +435,14 @@
 				<SceneFinishedWaiter Name="scenefinishedwaiter69" PositionY="2120" PositionX="-120">
 					<Edge From="hrac_nechal_bojovat_fifleho" To="Enqueue" />
 				</SceneFinishedWaiter>
-				<SchedulerLinkActivation Name="schedule14" PositionY="40" PositionX="1010">
+				<SchedulerLinkActivation Name="schedule14" PositionY="40" PositionX="1020">
 					<Constant Name="LinkTag" Value="afterNoblemansDuel" />
 					<Edge From="and74.bool" To="IsActive" />
 				</SchedulerLinkActivation>
+				<SetGameContext Name="setgamecontext87" PositionY="600" PositionX="2210">
+					<Constant Name="Context" Value="DisableHorseCall" />
+					<Edge From="and34.bool" To="IsActive" />
+				</SetGameContext>
 				<State Name="state35" PositionY="780" PositionX="2240" TypeT="bool">
 					<Constant Name="DefaultValue" Value="false" />
 					<Edge From="areatrigger36.OnAllEnter" To="SetTrue" />
@@ -447,10 +468,10 @@
 						<Vertex>2QsTusW8</Vertex>
 					</Edge>
 				</streamprofileshandling>
-				<Switch Name="switch85" PositionY="30" PositionX="1880" TypeT="bool" ValueTypes="movementSpeed" SwitchValues="true">
+				<Switch Name="switch85" PositionY="40" PositionX="1810" TypeT="bool" ValueTypes="movementSpeed" SwitchValues="true">
 					<Constant Name="trueValue1" Value="fastRun" />
 					<Constant Name="DefaultValue1" Value="alertedWalk" />
-					<Edge From="noblemanIsDead.State" To="Switch" />
+					<Edge From="or88.bool" To="Switch" />
 				</Switch>
 				<Timer Name="timer1" PositionY="-460" PositionX="910">
 					<Constant Name="Duration" Value="3d" />
@@ -480,24 +501,31 @@
 				<EdgeVertex Name="25gFrMgM" PositionY="790" PositionX="1580" />
 				<EdgeVertex Name="2QsTusW8" PositionY="770" PositionX="1580" />
 				<EdgeVertex Name="2X9U3DcY" PositionY="940" PositionX="460" />
-				<EdgeVertex Name="4TP0Pm2C" PositionY="0" PositionX="740" />
+				<EdgeVertex Name="3wGRpoRb" PositionY="332" PositionX="119" />
+				<EdgeVertex Name="4TP0Pm2C" PositionY="-10" PositionX="740" />
 				<EdgeVertex Name="5cCTwUPs" PositionY="910" PositionX="360" />
+				<EdgeVertex Name="6z9JJQh3" PositionY="310" PositionX="750" />
 				<EdgeVertex Name="7etQVaaK" PositionY="1460" PositionX="680" />
 				<EdgeVertex Name="7Jc4xco7" PositionY="360" PositionX="1040" />
 				<EdgeVertex Name="7lA6116W" PositionY="940" PositionX="360" />
 				<EdgeVertex Name="8cDlxEqC" PositionY="1700" PositionX="560" />
+				<EdgeVertex Name="8PcMWVAV" PositionY="290" PositionX="-190" />
 				<EdgeVertex Name="94CzQMe7" PositionY="20" PositionX="-60" />
 				<EdgeVertex Name="dda5v4d9" PositionY="910" PositionX="380" />
+				<EdgeVertex Name="dVyCHWJy" PositionY="310" PositionX="1220" />
 				<EdgeVertex Name="DzdmdA6m" PositionY="950" PositionX="1450" />
-				<EdgeVertex Name="Enl7mTFG" PositionY="330" PositionX="2110" />
+				<EdgeVertex Name="Enl7mTFG" PositionY="330" PositionX="2050" />
 				<EdgeVertex Name="eykvyKa9" PositionY="1710" PositionX="1060" />
+				<EdgeVertex Name="FIxfV7Tk" PositionY="310" PositionX="-190" />
 				<EdgeVertex Name="Gn8xmAKg" PositionY="940" PositionX="860" />
-				<EdgeVertex Name="GwMYpNfB" PositionY="2330" PositionX="200" />
+				<EdgeVertex Name="GwMYpNfB" PositionY="2180" PositionX="200" />
 				<EdgeVertex Name="IH205BuA" PositionY="-240" PositionX="2110" />
 				<EdgeVertex Name="IKfVbxEm" PositionY="940" PositionX="-100" />
 				<EdgeVertex Name="jhLDDeJn" PositionY="760" PositionX="2020" />
+				<EdgeVertex Name="jr7KS6qR" PositionY="290" PositionX="830" />
 				<EdgeVertex Name="kGSd6DYM" PositionY="990" PositionX="1580" />
 				<EdgeVertex Name="kLamc3pV" PositionY="360" PositionX="20" />
+				<EdgeVertex Name="kpyyv8u4" PositionY="290" PositionX="750" />
 				<EdgeVertex Name="kYBtC9A5" PositionY="1680" PositionX="560" />
 				<EdgeVertex Name="LHyTauIM" PositionY="1710" PositionX="700" />
 				<EdgeVertex Name="NGvGtzEC" PositionY="790" PositionX="1820" />
@@ -507,12 +535,12 @@
 				<EdgeVertex Name="PTqVFFG7" PositionY="1700" PositionX="700" />
 				<EdgeVertex Name="q7UkBaA2" PositionY="1700" PositionX="820" />
 				<EdgeVertex Name="qoMGye6Q" PositionY="990" PositionX="1760" />
-				<EdgeVertex Name="RA6E5nw5" PositionY="20" PositionX="1261" />
 				<EdgeVertex Name="rQgmeHtS" PositionY="390" PositionX="1500" />
 				<EdgeVertex Name="s19tMc3j" PositionY="770" PositionX="1820" />
+				<EdgeVertex Name="Td7FUcRJ" PositionY="290" PositionX="1200" />
 				<EdgeVertex Name="TJnmV5QX" PositionY="910" PositionX="-200" />
 				<EdgeVertex Name="txACFAvg" PositionY="20" PositionX="190" />
-				<EdgeVertex Name="uXWukrsG" PositionY="330" PositionX="1230" />
+				<EdgeVertex Name="uXWukrsG" PositionY="330" PositionX="1240" />
 				<EdgeVertex Name="vertex10" PositionY="460" PositionX="20" />
 				<EdgeVertex Name="vertex13" PositionY="420" PositionX="20" />
 				<EdgeVertex Name="vertex14" PositionY="420" PositionX="410" />

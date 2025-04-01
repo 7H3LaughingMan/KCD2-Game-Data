@@ -31,7 +31,7 @@
 					<Edge From="cas.pokec_o_stealthu" To="TimeOfDay" />
 				</Function>
 				<cas_behem_questu Name="cas" PositionY="-320" PositionX="290" Namespace="utoknamalesov_library" />
-				<Function Name="changeweather3" PositionY="730" PositionX="620" MethodName="ChangeWeather" DeclaringType="">
+				<Function Name="changeweather3" PositionY="990" PositionX="620" MethodName="ChangeWeather" DeclaringType="">
 					<Constant Name="BlendTime" Value="0" />
 					<Edge From="pocasi_behem_questu.cutscena_duel_s_certem" To="Profile" />
 					<Edge From="cutscenehandler1_2.BeforePlay" To="Exec" />
@@ -75,7 +75,7 @@
 						<Vertex>fCcnWeVB</Vertex>
 					</Edge>
 				</CutsceneHandler>
-				<CutsceneHandler Name="cutscenehandler1_2" PositionY="640" PositionX="130">
+				<CutsceneHandler Name="cutscenehandler1_2" PositionY="900" PositionX="130">
 					<Asset Name="CutsceneHolder" Alias="duelWithCertEndCutscene" />
 					<Constant Name="AutoPlay" Value="false" />
 					<Edge From="hrac_souhlasil__enqueuecutscene" To="EnqueueCutscene" />
@@ -84,25 +84,36 @@
 						<Vertex>jbqQb0DG</Vertex>
 					</Edge>
 				</CutsceneHandler>
-				<InterruptWeaponSetup Name="InterruptWeaponSetup" PositionY="1350" PositionX="620" Namespace="utils.battle">
+				<healing Name="healing" PositionY="-260" PositionX="580" Namespace="utils.general">
+					<Asset Name="souls" Alias="player" />
+					<Edge From="cutscenehandler1.AfterPlay" To="removeinjuries" />
+					<Edge From="cutscenehandler1_1.AfterPlay" To="removeinjuries" />
+				</healing>
+				<HealTo Name="HealTo" PositionY="-450" PositionX="580" Namespace="utils.general">
+					<Asset Name="souls" Alias="player" />
+					<Constant Name="hp" Value="30" />
+					<Edge From="cutscenehandler1.AfterPlay" To="heal" />
+					<Edge From="cutscenehandler1_1.AfterPlay" To="heal" />
+				</HealTo>
+				<InterruptWeaponSetup Name="InterruptWeaponSetup" PositionY="1610" PositionX="620" Namespace="utils.battle">
 					<Asset Name="smartentity" Alias="qSo" />
 					<Constant Name="weaponsetup" Value="melee" />
 					<Edge From="cutscenehandler1_2.AfterPlay" To="exec" />
 					<Edge From="cutscenehandler1.AfterPlay" To="exec" />
 					<Edge From="joinarrays8.Array" To="souls" />
 				</InterruptWeaponSetup>
-				<InterruptWeaponSetup Name="InterruptWeaponSetup_1" PositionY="1590" PositionX="620" Namespace="utils.battle">
+				<InterruptWeaponSetup Name="InterruptWeaponSetup_1" PositionY="1850" PositionX="620" Namespace="utils.battle">
 					<Asset Name="souls" Alias="komar" />
 					<Asset Name="smartentity" Alias="qSo" />
 					<Constant Name="weaponsetup" Value="halberd" />
 					<Edge From="cutscenehandler1_2.AfterPlay" To="exec" />
 					<Edge From="cutscenehandler1.AfterPlay" To="exec" />
 				</InterruptWeaponSetup>
-				<Function Name="joinarrays6" PositionY="1230" PositionX="280" TypeT="wh::rpgmodule::Souls" MethodName="utilities::array::JoinArrays" DeclaringType="utilities::array">
+				<Function Name="joinarrays6" PositionY="1490" PositionX="280" TypeT="wh::rpgmodule::Souls" MethodName="utilities::array::JoinArrays" DeclaringType="utilities::array">
 					<Asset Name="A" Alias="malesovBattleVillagers" />
 					<Asset Name="B" Alias="mourningVillagers" />
 				</Function>
-				<Function Name="joinarrays8" PositionY="1420" PositionX="190" TypeT="wh::rpgmodule::Souls" MethodName="utilities::array::JoinArrays" DeclaringType="utilities::array">
+				<Function Name="joinarrays8" PositionY="1680" PositionX="190" TypeT="wh::rpgmodule::Souls" MethodName="utilities::array::JoinArrays" DeclaringType="utilities::array">
 					<Asset Name="A" Alias="malesovFightingVillagers" />
 					<Asset Name="B" Alias="zizkabandInVillageWithoutInitialAnimations" />
 					<Asset Name="C" Alias="cert" />
@@ -123,8 +134,8 @@
 						<Vertex>4JUaurN7</Vertex>
 					</Edge>
 				</Output>
-				<pocasi_behem_questu Name="pocasi_behem_questu" PositionY="900" PositionX="250" Namespace="utoknamalesov_library" />
-				<revive Name="revive" PositionY="960" PositionX="620" Namespace="utils.general">
+				<pocasi_behem_questu Name="pocasi_behem_questu" PositionY="1160" PositionX="250" Namespace="utoknamalesov_library" />
+				<revive Name="revive" PositionY="1220" PositionX="620" Namespace="utils.general">
 					<Edge From="cutscenehandler1.AfterPlay" To="exec" />
 					<Edge From="cutscenehandler1_2.AfterPlay" To="exec" />
 					<Edge From="joinarrays6.Array" To="souls" />
@@ -136,13 +147,13 @@
 				<EdgeVertex Name="fCcnWeVB" PositionY="-450" PositionX="70" />
 				<EdgeVertex Name="gw2bkfqy" PositionY="460" PositionX="1270" />
 				<EdgeVertex Name="IzDwxYg7" PositionY="-450" PositionX="720" />
-				<EdgeVertex Name="jbqQb0DG" PositionY="1200" PositionX="130" />
+				<EdgeVertex Name="jbqQb0DG" PositionY="1460" PositionX="130" />
 				<EdgeVertex Name="r5epcLm0" PositionY="0" PositionX="790" />
 				<EdgeVertex Name="vertex1" PositionY="-440" PositionX="730" />
 				<EdgeVertex Name="vertex2" PositionY="-440" PositionX="70" />
-				<EdgeVertex Name="vertex3" PositionY="670" PositionX="620" />
-				<EdgeVertex Name="vertex4" PositionY="670" PositionX="1250" />
-				<EdgeVertex Name="X8BSydPw" PositionY="1200" PositionX="770" />
+				<EdgeVertex Name="vertex3" PositionY="930" PositionX="620" />
+				<EdgeVertex Name="vertex4" PositionY="930" PositionX="1250" />
+				<EdgeVertex Name="X8BSydPw" PositionY="1460" PositionX="770" />
 				<EdgeVertex Name="XqkUs9wJ" PositionY="0" PositionX="100" />
 				<EdgeVertex Name="Y0xQ1hUS" PositionY="-930" PositionX="960" />
 			</EdgeVertices>

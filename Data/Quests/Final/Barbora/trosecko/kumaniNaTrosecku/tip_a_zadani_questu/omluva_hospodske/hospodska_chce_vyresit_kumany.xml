@@ -3,23 +3,29 @@
 	<Skald>
 		<FaderDialog Name="hospodska_chce_vyresit_kumany">
 			<Ports>
+				<Port Name="druhy_dialog_je_povoleny" Direction="In" Type="bool">
+					<DesignName StringName="hospodska_druhy_dialog_je_6qNG" Text="Druhý dialog je povolený" />
+				</Port>
 				<Port Name="stav_zivosti_kumanu" Direction="In" Type="PubCumansAliveness">
 					<DesignName StringName="hospodska_stav_zivosti_ku_bPJ6" Text="Stav živosti Kumánů" />
 				</Port>
 				<Port Name="henry_se_ma_jit_omluvit" Direction="In" Type="bool">
 					<DesignName StringName="hospodska_henry_se_ma_jit_jfXP" Text="Henry se má jít omluvit" />
 				</Port>
-				<Port Name="jindra_sel_do_hospody_behem_dne" Direction="In" Type="bool">
-					<DesignName StringName="hospodska_jindra_sel_do_h_D825" Text="Jindra šel do hospody během dne" />
-				</Port>
 				<Port Name="jindra_se_snazil_omluvit" Direction="In" Type="bool">
 					<DesignName StringName="hospodska_jindra_se_snazi_PQWs" Text="Jindra se snažil omluvit" />
 				</Port>
-				<Port Name="hospodska_vypravi_o_kumanech__odemykame_kodex" Direction="Out" Type="trigger">
-					<DesignName StringName="hospodska_hospodska_vypra_QukK" Text="Hospodská vypráví o Kumánech - odemykáme kodex" />
+				<Port Name="prvni_trackovani_odchodu_z_oblasti_neni_aktivni" Direction="In" Type="bool">
+					<DesignName StringName="hospodska_prvni_trackovan_QkNy" Text="První trackování odchodu z oblasti není aktivní" />
+				</Port>
+				<Port Name="jindra_sel_do_hospody_behem_dne" Direction="In" Type="bool">
+					<DesignName StringName="hospodska_jindra_sel_do_h_D825" Text="Jindra šel do hospody během dne" />
 				</Port>
 				<Port Name="jindra_se_rozhoduje_pomoct_hospodske" Direction="Out" Type="trigger">
 					<DesignName StringName="hospodska_jindra_se_rozho_k1Oo" Text="Jindra se rozhoduje pomoct Hospodské" />
+				</Port>
+				<Port Name="hospodska_vypravi_o_kumanech__odemykame_kodex" Direction="Out" Type="trigger">
+					<DesignName StringName="hospodska_hospodska_vypra_QukK" Text="Hospodská vypráví o Kumánech - odemykáme kodex" />
 				</Port>
 			</Ports>
 			<Text StringName="hospodska_chce_vyresit_ku_GAFX" Text="Hospodská chce vyřešit Kumány" />
@@ -28,9 +34,9 @@
 					<SelectedSoul Role="HENRY" Voice="tomMcKay" Type="Wave" Language="ENG" />
 					<SelectedSoul Role="HOSPODSKA_TROSKOVICE" Voice="angelaAlsop" Type="Wave" Language="ENG" />
 				</SelectedSouls>
-				<Decision Name="dec1" Priority="SideQuestSubmission">
+				<Decision Name="dec1" Priority="SideQuestAssignment">
 					<Sequences>
-						<Sequence EntryCondition="!ThisSequenceUsed() AND&#xD;&#xA;Port('henry_se_ma_jit_omluvit') AND &#xD;&#xA;!SequenceUsed('hospodska_rekla_jindrovi_o_ukolu_behem_dne')" EndType="Decision" Visibility="Public" Reputation="quest_reward_4_normal" Name="jindra_se_hospodske_omluvil">
+						<Sequence EntryCondition="!ThisSequenceUsed() AND&#xD;&#xA;Port('henry_se_ma_jit_omluvit') AND &#xD;&#xA;Port('prvni_trackovani_odchodu_z_oblasti_neni_aktivni') AND&#xD;&#xA;!SequenceUsed('hospodska_rekla_jindrovi_o_ukolu_behem_dne') AND &#xD;&#xA;!Port('druhy_dialog_je_povoleny')" EndType="Decision" Visibility="Public" Reputation="quest_reward_4_normal" Type="Trigger" Name="jindra_se_hospodske_omluvil">
 							<DesignName StringName="hospodska_seq1_ycA2" Text="Jindra se hospodské omluvil" />
 							<UiPrompt StringName="ui_hospodska_seq1_Drhw" Text="Přišel jsem se omluvit." />
 							<Elements>
@@ -58,7 +64,7 @@
 											<Response Role="HOSPODSKA_TROSKOVICE" />
 										</Elements>
 									</Sequence>
-									<Sequence SpeechCoef="0" EntryCondition="!Port('jindra_se_snazil_omluvit')" EndType="Decision" Name="seq16">
+									<Sequence EntryCondition="!Port('jindra_se_snazil_omluvit')" EndType="Decision" SpeechCoef="0" Name="seq16">
 										<DesignName StringName="hospodska_seq16_ZMRa" Text="seq16" />
 										<Elements>
 											<Response Role="HOSPODSKA_TROSKOVICE" StartDelay="0.13" ReferenceLength="2.63">
@@ -74,7 +80,7 @@
 										</Elements>
 										<Decision Name="dec7">
 											<Sequences>
-												<Sequence SpeechCoef="0" EndType="Decision" Name="seq18">
+												<Sequence EndType="Decision" SpeechCoef="0" Name="seq18">
 													<DesignName StringName="hospodska_seq18_jgGS" Text="seq18" />
 													<Elements>
 														<Response Role="HOSPODSKA_TROSKOVICE" StartDelay="0.29" ReferenceLength="7.66">
@@ -87,7 +93,7 @@
 													</Elements>
 													<Decision Name="dec4" Priority="SideQuestSubmission">
 														<Sequences>
-															<Sequence SpeechCoef="0" EntryCondition="Port('stav_zivosti_kumanu') == Enum('PubCumansAliveness','AllAlive')" EndType="Decision" Name="seq7">
+															<Sequence EntryCondition="Port('stav_zivosti_kumanu') == Enum('PubCumansAliveness','AllAlive')" EndType="Decision" SpeechCoef="0" Name="seq7">
 																<DesignName StringName="hospodska_seq7_gFGi" Text="seq7" />
 																<Elements>
 																	<Response Role="HOSPODSKA_TROSKOVICE" ReferenceLength="3.89">
@@ -154,7 +160,7 @@
 																			</Elements>
 																			<Decision Name="dec5" Priority="SideQuestSubmission">
 																				<Sequences>
-																					<Sequence SpeechCoef="0" EndType="Decision" Name="seq10">
+																					<Sequence EndType="Decision" SpeechCoef="0" Name="seq10">
 																						<DesignName StringName="hospodska_seq10_qqzo" Text="seq10" />
 																						<Triggers>
 																							<Port Name="hospodska_vypravi_o_kumanech__odemykame_kodex" />
@@ -346,7 +352,7 @@
 								</Sequences>
 							</Decision>
 						</Sequence>
-						<Sequence EntryCondition="Port('henry_se_ma_jit_omluvit')&#xD;&#xA;AND &#xD;&#xA;(&#xD;&#xA;  SequenceUsed('hospodska_rekla_jindrovi_o_ukolu_behem_dne') OR&#xD;&#xA;  SequenceUsed('hospodska_rekla_jindrovi_o_ukolu_jindy')&#xD;&#xA;)" EndType="GoTo" GoToDecision="dec3" Name="seq6">
+						<Sequence EntryCondition="Port('henry_se_ma_jit_omluvit') AND  &#xD;&#xA;Port('prvni_trackovani_odchodu_z_oblasti_neni_aktivni') AND&#xD;&#xA;(&#xD;&#xA;  SequenceUsed('hospodska_rekla_jindrovi_o_ukolu_behem_dne') OR&#xD;&#xA;  SequenceUsed('hospodska_rekla_jindrovi_o_ukolu_jindy')&#xD;&#xA;) AND &#xD;&#xA;!Port('druhy_dialog_je_povoleny')" EndType="GoTo" GoToDecision="dec3" Name="seq6">
 							<DesignName StringName="hospodska_seq6_Qw8R" Text="seq6" />
 							<UiPrompt StringName="ui_hospodska_seq6_rjPk" Text="Pomůžu ti s Kumány." />
 							<Elements>

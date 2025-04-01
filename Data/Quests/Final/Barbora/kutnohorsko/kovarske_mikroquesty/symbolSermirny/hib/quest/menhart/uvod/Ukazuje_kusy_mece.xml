@@ -12,6 +12,9 @@
 				<Port Name="jindra_vyhral_souboj_s_jimramem" Direction="In" Type="bool">
 					<DesignName StringName="jindra_uk_jindra_vyhral_s_mpiy" Text="Jindra vyhrál souboj s Jimramem" />
 				</Port>
+				<Port Name="jimram_je_mrtvy" Direction="In" Type="bool">
+					<DesignName StringName="ukazuje_k_jimram_je_mrtvy_HXn8" Text="Jimram je mrtvy" />
+				</Port>
 			</Ports>
 			<Text StringName="jindra_ukazuje_kusy_mece__ZWTm" Text="Jindra ukazuje kusy meče - includovat" />
 			<Elements>
@@ -98,7 +101,7 @@
 											</Response>
 										</Elements>
 									</Sequence>
-									<Sequence EntryCondition="Port('jindra_bojoval_s_jimramem') AND !Port('jindra_vyhral_souboj_s_jimramem')" EndType="GoTo" GoToDecision="dec3" Name="seq6">
+									<Sequence EntryCondition="Port('jindra_bojoval_s_jimramem') AND !Port('jindra_vyhral_souboj_s_jimramem') AND !Port('jimram_je_mrtvy')" EndType="GoTo" GoToDecision="dec3" Name="seq6">
 										<DesignName StringName="jindra_uk_seq6_h8ou" Text="seq6" />
 										<UiPrompt StringName="ui_jindra_uk_seq6_ZAbH" Text="Bojoval jsem s ním." />
 										<Elements>
@@ -159,7 +162,7 @@
 											</Response>
 										</Elements>
 									</Sequence>
-									<Sequence EntryCondition="!Port('jindra_bojoval_s_jimramem')" EndType="Decision" Reputation="quest_reward_1_micro" Name="seq2">
+									<Sequence EntryCondition="!Port('jindra_bojoval_s_jimramem') AND !Port('jimram_je_mrtvy')" EndType="Decision" Reputation="quest_reward_1_micro" Name="seq2">
 										<DesignName StringName="jindra_uk_seq2_XgwZ" Text="seq2" />
 										<UiPrompt StringName="ui_jindra_uk_seq2_Yn7o" Text="Kéž by mu někdo rozbil hubu, bastardovi." />
 										<Elements>

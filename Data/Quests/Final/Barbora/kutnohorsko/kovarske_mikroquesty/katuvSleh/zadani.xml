@@ -3,20 +3,20 @@
 	<Skald>
 		<Gameplay Name="zadani" HibernateMode="Script">
 			<Ports>
-				<Port Name="jindra_uz_nekdy_vyhral_konsky_zavod" Direction="In" Type="bool">
-					<DesignName StringName="zadani_qu_jindra_uz_nekdy_86yM" Text="Jindra už někdy vyhrál koňský závod" />
-				</Port>
 				<Port Name="zacatek_questu" Direction="Out" Type="trigger">
 					<DesignName StringName="zadani_qu_zacatek_questu_ivlE" Text="zacatek questu" />
 				</Port>
-				<Port Name="jindra_odmitnul_quest_nadobro" Direction="Out" Type="trigger">
-					<DesignName StringName="zadani_qu_jindra_odmitnul_3Y6J" Text="Jindra odmítnul quest nadobro" />
+				<Port Name="quest_tip_given" Direction="In" Type="bool">
+					<DesignName StringName="zadani_quest_tip_given_l6JF" Text="quest tip given" />
 				</Port>
 				<Port Name="jindra_splnil_s10_rasuv_ucen" Direction="In" Type="wh::questmodule::QuestProgress">
 					<DesignName StringName="zadani_jindra_splnil_s10__VS6m" Text="S10 - Rasuv ucen" />
 				</Port>
 				<Port Name="jindra_splnil_s37_stare_kosti" Direction="In" Type="wh::questmodule::QuestProgress">
 					<DesignName StringName="zadani_jindra_splnil_s37__qbCt" Text="QuestProgress stare kosti" />
+				</Port>
+				<Port Name="jindra_odlozil_nabrani_questu" Direction="Out" Type="trigger">
+					<DesignName StringName="zadani_jindra_odlozil_nab_3Cds" Text="Jindra odložil nabrání questu" />
 				</Port>
 			</Ports>
 			<Definitions>
@@ -35,18 +35,12 @@
 				</Function>
 				<Output Name="Output">
 					<Edge From="zadani_questu__kat_hynek.jindra_prijal_quest_a_dostal_zakladni_suroviny" To="zacatek_questu" />
-					<Edge From="zadani_questu__kat_hynek.jindra_odmitnul_quest" To="jindra_odmitnul_quest_nadobro" />
+					<Edge From="zadani_questu__kat_hynek.jindra_odlozil_nabrani_questu" To="jindra_odlozil_nabrani_questu" />
 				</Output>
-				<AddReward Name="reward2" PositionY="420" PositionX="180">
-					<Edge From="zadani_questu__kat_hynek.jindra_dostava_do_inventare_stastnou_podkovu" To="AddReward" />
-					<Rewards>
-						<ItemReward Amount="1" ItemClass="651333f0-36d1-4321-975f-bc7833a773eb" />
-					</Rewards>
-				</AddReward>
-				<zadani_questu__kat_hynek Name="zadani_questu__kat_hynek" PositionY="80" PositionX="-220">
-					<Edge From="jindra_uz_nekdy_vyhral_konsky_zavod" To="jindra_uz_nekdy_vyhral_konsky_zavod" />
+				<zadani_questu__kat_hynek Name="zadani_questu__kat_hynek" PositionY="60" PositionX="-220">
 					<Edge From="compare3.bool" To="jindra_splnil_s10_rasuv_ucen" />
 					<Edge From="compare3_1.bool" To="jindra_splnil_s37_stare_kosti" />
+					<Edge From="quest_tip_given" To="quest_tip_given" />
 				</zadani_questu__kat_hynek>
 			</Nodes>
 			<Text StringName="zadani_questu__katovna_AXM1" Text="zadání  questu - katovna" />

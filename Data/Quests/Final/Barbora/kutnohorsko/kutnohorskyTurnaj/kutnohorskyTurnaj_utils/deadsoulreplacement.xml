@@ -57,7 +57,7 @@
 					<Edge From="forcereplace" To="Condition">
 						<Vertex>vertex17</Vertex>
 					</Edge>
-					<Edge From="triggersequence1.A" To="Exec" />
+					<Edge From="finalizeselection" To="Exec" />
 				</If>
 				<IfFunction Name="ifdeathcheck116_1" PositionY="40" PositionX="270" MethodName="wh::rpgmodule::DeathCheck" DeclaringType="wh::rpgmodule">
 					<Edge From="makearray_preferredSoul.Array" To="Souls">
@@ -91,13 +91,15 @@
 					</Edge>
 				</MakeArray>
 				<Output Name="Output">
-					<Edge From="triggersequence1.B" To="onselectionfinalized">
-						<Vertex>vertex7</Vertex>
-						<Vertex>vertex8</Vertex>
-					</Edge>
 					<Edge From="switch128.Value1" To="finalsoul" />
 					<Edge From="state127.NotReplaced" To="ispreferredsoulalive">
 						<Vertex>vertex9</Vertex>
+					</Edge>
+					<Edge From="state127.OnNotReplaced" To="onselectionfinalized">
+						<Vertex>azUHlBjL</Vertex>
+					</Edge>
+					<Edge From="state127.OnReplaced" To="onselectionfinalized">
+						<Vertex>azUHlBjL</Vertex>
 					</Edge>
 				</Output>
 				<State Name="state127" PositionY="-200" PositionX="580" TypeT="DeadsoulReplacementProgress">
@@ -127,11 +129,9 @@
 						<Vertex>vertex4</Vertex>
 					</Edge>
 				</Switch>
-				<TriggerSequence Name="triggersequence1" PositionY="-110" PositionX="-390">
-					<Edge From="finalizeselection" To="Exec" />
-				</TriggerSequence>
 			</Nodes>
 			<EdgeVertices>
+				<EdgeVertex Name="azUHlBjL" PositionY="118" PositionX="1139" />
 				<EdgeVertex Name="lWn0qwkz" PositionY="-380" PositionX="480" />
 				<EdgeVertex Name="mTWXbQnD" PositionY="310" PositionX="860" />
 				<EdgeVertex Name="ozLtmrlv" PositionY="-380" PositionX="-340" />
@@ -148,8 +148,6 @@
 				<EdgeVertex Name="vertex4" PositionY="270" PositionX="810" />
 				<EdgeVertex Name="vertex5" PositionY="320" PositionX="540" />
 				<EdgeVertex Name="vertex6" PositionY="310" PositionX="-250" />
-				<EdgeVertex Name="vertex7" PositionY="-350" PositionX="-70" />
-				<EdgeVertex Name="vertex8" PositionY="-350" PositionX="1280" />
 				<EdgeVertex Name="vertex9" PositionY="150" PositionX="1050" />
 			</EdgeVertices>
 			<Types>

@@ -228,7 +228,7 @@
 																										</Response>
 																									</Elements>
 																								</Sequence>
-																								<Sequence Name="seq9">
+																								<Sequence Visibility="Internal" Name="seq9">
 																									<DesignName StringName="oldrich_d_seq9_QhJ6" Text="seq9" />
 																									<UiPrompt StringName="ui_oldrich_d_seq9_zeWG" Text="Ještě si něco zařídím." />
 																									<Elements>
@@ -323,7 +323,7 @@
 							</Elements>
 							<Decision Name="dec6" Priority="SideQuestSubmission">
 								<Sequences>
-									<Sequence EntryCondition="Port('nizke_charisma')" EndType="EndDialogue" Name="seq12">
+									<Sequence EntryCondition="Port('nizke_charisma') AND &#xD;&#xA;!SequenceUsed('seq9')" EndType="EndDialogue" Name="seq12">
 										<DesignName StringName="oldrich_d_seq12_5gTu" Text="seq12" />
 										<Elements>
 											<Response Role="SENKYR_HAVEL" ReferenceLength="8.78">
@@ -340,7 +340,7 @@
 											</Response>
 										</Elements>
 									</Sequence>
-									<Sequence EntryCondition="!Port('nizke_charisma') AND  SequenceUsed('playerRefused')" EndType="GoTo" GoToDecision="dec8" Name="seq13">
+									<Sequence EntryCondition="!Port('nizke_charisma') AND  &#xD;&#xA;SequenceUsed('playerRefused') AND &#xD;&#xA;!SequenceUsed('seq9')" EndType="GoTo" GoToDecision="dec8" Name="seq13">
 										<DesignName StringName="oldrich_d_seq13_74FT" Text="seq13" />
 										<Elements>
 											<Response Role="SENKYR_HAVEL" ReferenceLength="2.44">
@@ -372,7 +372,7 @@
 											</Response>
 										</Elements>
 									</Sequence>
-									<Sequence EntryCondition="!Port('nizke_charisma') AND  !SequenceUsed('playerRefused')" EndType="GoTo" GoToDecision="dec5" Name="seq17">
+									<Sequence EntryCondition="SequenceUsed('seq9')" EndType="GoTo" GoToDecision="dec5" Name="seq17">
 										<DesignName StringName="oldrich_d_seq17_IVH7" Text="seq17" />
 										<Elements>
 											<Response Role="SENKYR_HAVEL" ReferenceLength="4.27">

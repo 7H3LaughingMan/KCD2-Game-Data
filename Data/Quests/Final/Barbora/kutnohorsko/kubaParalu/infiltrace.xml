@@ -43,6 +43,8 @@
 				<Definition File="infiltrace/s_lipoldem_kdyz_hrac_failnul_infiltraci.xml" />
 			</Definitions>
 			<Nodes>
+				<HasteTrigger Name="06_hracVDome" PositionY="-40" PositionX="-810" />
+				<HasteTrigger Name="07_infiltraceDone" PositionY="-680" PositionX="-1090" />
 				<Function Name="and29" PositionY="-300" PositionX="1500" MethodName="math::boolean::And" DeclaringType="math::boolean">
 					<Edge From="or27.bool" To="B">
 						<Vertex>vertex305</Vertex>
@@ -76,24 +78,24 @@
 					<Constant Name="Mode" Value="Any" />
 					<Edge From="makearray40.Array" To="Souls" />
 				</Function>
-				<SoulDeathTrigger Name="deathtrigger35" PositionY="-880" PositionX="-1090">
+				<SoulDeathTrigger Name="deathtrigger35" PositionY="-900" PositionX="-1080">
 					<Asset Name="Souls" Alias="lipold" />
 					<Edge From="hledaniVlasu.Started" To="IsActive">
 						<Vertex>vertex327</Vertex>
 						<Vertex>vertex328</Vertex>
 					</Edge>
 				</SoulDeathTrigger>
-				<State Name="hendlDeadDuringInf" PositionY="710" PositionX="-1050" TypeT="bool">
+				<State Name="hendlDeadDuringInf" PositionY="820" PositionX="-1090" TypeT="bool">
 					<Edge From="trackovani_smrti_1.on_death" To="SetTrue" />
 				</State>
-				<State Name="hledaniVlasu" PositionY="-880" PositionX="-430" RequiredForOutput="kutnohorsko" TypeT="ProgressFailableAbortable">
+				<State Name="hledaniVlasu" PositionY="-920" PositionX="-430" RequiredForOutput="kutnohorsko" TypeT="ProgressFailableAbortable">
 					<Edge From="if18.True" To="SetStarted" />
 					<Edge From="nalezeni_vlasu.nasli_jsme_vlasy" To="SetCompleted">
 						<Vertex>vertex209</Vertex>
 						<Vertex>vertex210</Vertex>
 					</Edge>
 					<Edge From="if28.True" To="SetAborted" />
-					<Edge From="kubaParalu_infiltraceDone.OnTrigger" To="SetCompleted">
+					<Edge From="07_infiltraceDone.OnTrigger" To="SetCompleted">
 						<Vertex>vertex332</Vertex>
 						<Vertex>vertex333</Vertex>
 					</Edge>
@@ -159,6 +161,15 @@
 					</Edge>
 					<Edge From="and38.bool" To="Condition" />
 				</If>
+				<IfFunction Name="ifor45" PositionY="-640" PositionX="70" MethodName="math::boolean::Or" DeclaringType="math::boolean">
+					<Edge From="hledaniVlasu.OnCompleted" To="Exec">
+						<Vertex>EGkEeCT3</Vertex>
+					</Edge>
+					<Edge From="infiltrace.InfiltrujDum" To="A" />
+					<Edge From="infiltrace.MuzeDalAlePriselPozde" To="B" />
+					<Edge From="infiltrace.HracVDome" To="C" />
+					<Edge From="infiltrace.HracoviDochaziCas" To="D" />
+				</IfFunction>
 				<State Name="infiltrace" PositionY="-240" PositionX="-450" RequiredForOutput="kutnohorsko" TypeT="kubaParaluInfiltrace">
 					<Edge From="if5.True" To="SetInfiltrujDum" />
 					<Edge From="trackovani_smrti.on_death" To="SetFail">
@@ -195,10 +206,6 @@
 						<Vertex>vertex235</Vertex>
 						<Vertex>vertex198</Vertex>
 					</Edge>
-					<Edge From="hledaniVlasu.OnCompleted" To="SetNaselVlasy">
-						<Vertex>vertex213</Vertex>
-						<Vertex>vertex214</Vertex>
-					</Edge>
 					<Edge From="hraci_dochazi_cas.hrac_pokazil_infiltraci" To="SetHracPokazilInfiltraci">
 						<Vertex>vertex231</Vertex>
 						<Vertex>vertex199</Vertex>
@@ -211,7 +218,7 @@
 						<Vertex>vertex238</Vertex>
 						<Vertex>vertex239</Vertex>
 					</Edge>
-					<Edge From="kubaParalu_hracVDome.OnTrigger" To="SetHracVDome" />
+					<Edge From="06_hracVDome.OnTrigger" To="SetHracVDome" />
 					<Edge From="tresspass_controll.hrac_dela_crime" To="SetFail">
 						<Vertex>vertex259</Vertex>
 						<Vertex>vertex262</Vertex>
@@ -226,6 +233,10 @@
 						<Vertex>vertex71</Vertex>
 					</Edge>
 					<Edge From="infiltraceSermiri_mikulas.OnTrigger" To="SetHracVDome" />
+					<Edge From="ifor45.True" To="SetNaselVlasy">
+						<Vertex>4FCnquEI</Vertex>
+						<Vertex>vertex214</Vertex>
+					</Edge>
 				</State>
 				<infiltrace_pres_leceni_a_hromovy_kamen Name="infiltrace_pres_leceni_a_hromovy_kamen" PositionY="-400" PositionX="1000" RequiredForOutput="kutnohorsko">
 					<Edge From="trackovani_smrti.on_death" To="quest_failed">
@@ -346,8 +357,6 @@
 				<konfigurace_otce Name="konfigurace_otce" PositionY="-20" PositionX="320">
 					<Edge From="not14.bool" To="infiltrace_zacala" />
 				</konfigurace_otce>
-				<HasteTrigger Name="kubaParalu_hracVDome" PositionY="-40" PositionX="-810" />
-				<HasteTrigger Name="kubaParalu_infiltraceDone" PositionY="-680" PositionX="-1090" />
 				<MakeArray Name="makearray10" PositionY="420" PositionX="-1760" TypeT="wh::rpgmodule::Souls">
 					<Asset Name="A" Alias="mandelina" />
 					<Asset Name="B" Alias="pomocnik" />
@@ -370,16 +379,18 @@
 					<Asset Name="C" Alias="goclin" />
 					<Asset Name="D" Alias="pomocnik" />
 				</MakeArray>
-				<State Name="mandelinaTadeasDeadDuringInf" PositionY="950" PositionX="-1070" TypeT="bool">
+				<State Name="mandelinaTadeasDeadDuringInf" PositionY="1080" PositionX="-1090" TypeT="bool">
 					<Edge From="trackovani_smrti.on_death" To="SetTrue" />
 				</State>
-				<nalezeni_vlasu Name="nalezeni_vlasu" PositionY="-550" PositionX="-10">
-					<Edge From="hledaniVlasu.Started" To="hrac_ma_infiltrovat" />
+				<nalezeni_vlasu Name="nalezeni_vlasu" PositionY="-690" PositionX="320">
+					<Edge From="hledaniVlasu.Started" To="hrac_ma_infiltrovat">
+						<Vertex>D1LFAH4D</Vertex>
+					</Edge>
 				</nalezeni_vlasu>
 				<Function Name="not14" PositionY="30" PositionX="50" MethodName="math::boolean::Not" DeclaringType="math::boolean">
 					<Edge From="infiltrace.None" To="Value" />
 				</Function>
-				<Function Name="not30" PositionY="-510" PositionX="300" MethodName="math::boolean::Not" DeclaringType="math::boolean">
+				<Function Name="not30" PositionY="-520" PositionX="620" MethodName="math::boolean::Not" DeclaringType="math::boolean">
 					<Edge From="hledaniVlasu.Completed" To="Value">
 						<Vertex>vertex288</Vertex>
 						<Vertex>vertex248</Vertex>
@@ -388,7 +399,7 @@
 				<Function Name="not41" PositionY="-210" PositionX="-1310" MethodName="math::boolean::Not" DeclaringType="math::boolean">
 					<Edge From="deathcheck39.IsDead" To="Value" />
 				</Function>
-				<Function Name="not43" PositionY="-760" PositionX="310" MethodName="math::boolean::Not" DeclaringType="math::boolean">
+				<Function Name="not43" PositionY="-890" PositionX="470" MethodName="math::boolean::Not" DeclaringType="math::boolean">
 					<Edge From="hledaniVlasu.None" To="Value">
 						<Vertex>RJUzXlSj</Vertex>
 						<Vertex>hvXgGRlb</Vertex>
@@ -458,10 +469,6 @@
 						<Vertex>vertex268</Vertex>
 						<Vertex>ToRkgs7U</Vertex>
 					</Edge>
-					<Edge From="infiltrace.NaselVlasy" To="F">
-						<Vertex>pl9doccE</Vertex>
-						<Vertex>WuG6Hp92</Vertex>
-					</Edge>
 				</Function>
 				<Output Name="Output">
 					<Edge From="hledaniVlasu.OnCompleted" To="henry_sebral_vlasy">
@@ -516,7 +523,7 @@
 						<Vertex>IhLcHKBD</Vertex>
 					</Edge>
 				</trackovani_smrti>
-				<trackovani_smrti Name="trackovani_smrti_1" PositionY="800" PositionX="-1500" Namespace="kuba_paralu">
+				<trackovani_smrti Name="trackovani_smrti_1" PositionY="880" PositionX="-1490" Namespace="kuba_paralu">
 					<Asset Name="souls" Alias="hendl" />
 					<Edge From="or42.bool" To="active">
 						<Vertex>SexHsdYa</Vertex>
@@ -580,16 +587,18 @@
 				</u_dveri>
 			</Nodes>
 			<EdgeVertices>
+				<EdgeVertex Name="4FCnquEI" PositionY="-390" PositionX="250" />
 				<EdgeVertex Name="5TtTcHs8" PositionY="430" PositionX="20" />
-				<EdgeVertex Name="6dde2jGp" PositionY="-600" PositionX="570" />
+				<EdgeVertex Name="6dde2jGp" PositionY="-730" PositionX="730" />
 				<EdgeVertex Name="bBJU5f1b" PositionY="430" PositionX="520" />
+				<EdgeVertex Name="D1LFAH4D" PositionY="-650" PositionX="-60" />
+				<EdgeVertex Name="EGkEeCT3" PositionY="-630" PositionX="-60" />
 				<EdgeVertex Name="F9p0CBfn" PositionY="310" PositionX="270" />
 				<EdgeVertex Name="GahkJhAC" PositionY="470" PositionX="270" />
-				<EdgeVertex Name="HM3nSe1k" PositionY="-600" PositionX="2370" />
-				<EdgeVertex Name="hvXgGRlb" PositionY="-600" PositionX="240" />
+				<EdgeVertex Name="HM3nSe1k" PositionY="-730" PositionX="2360" />
+				<EdgeVertex Name="hvXgGRlb" PositionY="-730" PositionX="400" />
 				<EdgeVertex Name="IhLcHKBD" PositionY="790" PositionX="-1540" />
-				<EdgeVertex Name="pl9doccE" PositionY="350" PositionX="20" />
-				<EdgeVertex Name="RJUzXlSj" PositionY="-600" PositionX="-10" />
+				<EdgeVertex Name="RJUzXlSj" PositionY="-730" PositionX="-60" />
 				<EdgeVertex Name="SexHsdYa" PositionY="790" PositionX="500" />
 				<EdgeVertex Name="tG31oGNP" PositionY="510" PositionX="270" />
 				<EdgeVertex Name="ToRkgs7U" PositionY="450" PositionX="270" />
@@ -598,8 +607,8 @@
 				<EdgeVertex Name="vertex129" PositionY="650" PositionX="-1160" />
 				<EdgeVertex Name="vertex151" PositionY="370" PositionX="20" />
 				<EdgeVertex Name="vertex152" PositionY="-250" PositionX="-850" />
-				<EdgeVertex Name="vertex154" PositionY="-900" PositionX="-200" />
-				<EdgeVertex Name="vertex155" PositionY="-900" PositionX="-700" />
+				<EdgeVertex Name="vertex154" PositionY="-940" PositionX="-200" />
+				<EdgeVertex Name="vertex155" PositionY="-940" PositionX="-690" />
 				<EdgeVertex Name="vertex158" PositionY="-250" PositionX="-1370" />
 				<EdgeVertex Name="vertex166" PositionY="590" PositionX="-1160" />
 				<EdgeVertex Name="vertex167" PositionY="610" PositionX="-1160" />
@@ -626,11 +635,10 @@
 				<EdgeVertex Name="vertex202" PositionY="570" PositionX="740" />
 				<EdgeVertex Name="vertex204" PositionY="410" PositionX="520" />
 				<EdgeVertex Name="vertex207" PositionY="-310" PositionX="820" />
-				<EdgeVertex Name="vertex209" PositionY="-370" PositionX="170" />
+				<EdgeVertex Name="vertex209" PositionY="-370" PositionX="460" />
 				<EdgeVertex Name="vertex210" PositionY="-370" PositionX="-440" />
-				<EdgeVertex Name="vertex213" PositionY="-390" PositionX="-200" />
 				<EdgeVertex Name="vertex214" PositionY="-390" PositionX="-440" />
-				<EdgeVertex Name="vertex216" PositionY="-560" PositionX="2370" />
+				<EdgeVertex Name="vertex216" PositionY="-690" PositionX="2360" />
 				<EdgeVertex Name="vertex219" PositionY="670" PositionX="890" />
 				<EdgeVertex Name="vertex220" PositionY="670" PositionX="1270" />
 				<EdgeVertex Name="vertex221" PositionY="690" PositionX="890" />
@@ -654,12 +662,12 @@
 				<EdgeVertex Name="vertex242" PositionY="390" PositionX="520" />
 				<EdgeVertex Name="vertex243" PositionY="390" PositionX="20" />
 				<EdgeVertex Name="vertex245" PositionY="110" PositionX="1460" />
-				<EdgeVertex Name="vertex248" PositionY="-540" PositionX="240" />
+				<EdgeVertex Name="vertex248" PositionY="-670" PositionX="560" />
 				<EdgeVertex Name="vertex249" PositionY="-390" PositionX="1450" />
-				<EdgeVertex Name="vertex250" PositionY="-390" PositionX="560" />
-				<EdgeVertex Name="vertex251" PositionY="-920" PositionX="-700" />
+				<EdgeVertex Name="vertex250" PositionY="-400" PositionX="880" />
+				<EdgeVertex Name="vertex251" PositionY="-960" PositionX="-690" />
 				<EdgeVertex Name="vertex252" PositionY="-332" PositionX="-710" />
-				<EdgeVertex Name="vertex253" PositionY="-580" PositionX="2370" />
+				<EdgeVertex Name="vertex253" PositionY="-710" PositionX="2360" />
 				<EdgeVertex Name="vertex256" PositionY="90" PositionX="1460" />
 				<EdgeVertex Name="vertex257" PositionY="150" PositionX="1720" />
 				<EdgeVertex Name="vertex258" PositionY="150" PositionX="940" />
@@ -685,11 +693,11 @@
 				<EdgeVertex Name="vertex281" PositionY="0" PositionX="-1740" />
 				<EdgeVertex Name="vertex282" PositionY="-20" PositionX="-1740" />
 				<EdgeVertex Name="vertex286" PositionY="-330" PositionX="560" />
-				<EdgeVertex Name="vertex287" PositionY="-560" PositionX="-10" />
-				<EdgeVertex Name="vertex288" PositionY="-540" PositionX="-10" />
+				<EdgeVertex Name="vertex287" PositionY="-690" PositionX="-60" />
+				<EdgeVertex Name="vertex288" PositionY="-670" PositionX="-60" />
 				<EdgeVertex Name="vertex29" PositionY="650" PositionX="740" />
-				<EdgeVertex Name="vertex290" PositionY="-920" PositionX="-200" />
-				<EdgeVertex Name="vertex291" PositionY="-580" PositionX="-10" />
+				<EdgeVertex Name="vertex290" PositionY="-960" PositionX="-200" />
+				<EdgeVertex Name="vertex291" PositionY="-710" PositionX="-60" />
 				<EdgeVertex Name="vertex292" PositionY="270" PositionX="940" />
 				<EdgeVertex Name="vertex293" PositionY="250" PositionX="940" />
 				<EdgeVertex Name="vertex294" PositionY="230" PositionX="940" />
@@ -716,27 +724,26 @@
 				<EdgeVertex Name="vertex324" PositionY="590" PositionX="890" />
 				<EdgeVertex Name="vertex325" PositionY="-330" PositionX="820" />
 				<EdgeVertex Name="vertex326" PositionY="-330" PositionX="630" />
-				<EdgeVertex Name="vertex327" PositionY="-940" PositionX="-200" />
-				<EdgeVertex Name="vertex328" PositionY="-940" PositionX="-1070" />
+				<EdgeVertex Name="vertex327" PositionY="-980" PositionX="-200" />
+				<EdgeVertex Name="vertex328" PositionY="-980" PositionX="-1050" />
 				<EdgeVertex Name="vertex329" PositionY="570" PositionX="-580" />
 				<EdgeVertex Name="vertex33" PositionY="-270" PositionX="-60" />
 				<EdgeVertex Name="vertex330" PositionY="-370" PositionX="-540" />
 				<EdgeVertex Name="vertex331" PositionY="-370" PositionX="-710" />
 				<EdgeVertex Name="vertex332" PositionY="-390" PositionX="-710" />
 				<EdgeVertex Name="vertex333" PositionY="-390" PositionX="-540" />
-				<EdgeVertex Name="vertex334" PositionY="-880" PositionX="-700" />
-				<EdgeVertex Name="vertex335" PositionY="-880" PositionX="-500" />
+				<EdgeVertex Name="vertex334" PositionY="-920" PositionX="-690" />
+				<EdgeVertex Name="vertex335" PositionY="-920" PositionX="-510" />
 				<EdgeVertex Name="vertex338" PositionY="730" PositionX="2020" />
 				<EdgeVertex Name="vertex339" PositionY="750" PositionX="2020" />
 				<EdgeVertex Name="vertex34" PositionY="-270" PositionX="-1000" />
 				<EdgeVertex Name="vertex340" PositionY="730" PositionX="-580" />
 				<EdgeVertex Name="vertex341" PositionY="750" PositionX="-580" />
-				<EdgeVertex Name="vertex342" PositionY="-540" PositionX="2370" />
+				<EdgeVertex Name="vertex342" PositionY="-670" PositionX="2360" />
 				<EdgeVertex Name="vertex71" PositionY="650" PositionX="-580" />
 				<EdgeVertex Name="vertex80" PositionY="510" PositionX="20" />
 				<EdgeVertex Name="VJNVnVkY" PositionY="310" PositionX="20" />
 				<EdgeVertex Name="VkGgWan5" PositionY="330" PositionX="270" />
-				<EdgeVertex Name="WuG6Hp92" PositionY="350" PositionX="270" />
 				<EdgeVertex Name="yBmnIavD" PositionY="330" PositionX="20" />
 			</EdgeVertices>
 			<Types>

@@ -9,6 +9,9 @@
 				<Port Name="endquest" Direction="Out" Type="trigger">
 					<DesignName StringName="haste_endquest_cBOx" Text="endQuest" />
 				</Port>
+				<Port Name="quest_progress_none" Direction="In" Type="bool">
+					<DesignName StringName="haste_quest_progress_none_b9wy" Text="Quest progress none" />
+				</Port>
 			</Ports>
 			<Nodes>
 				<HasteTrigger Name="01_init" PositionY="-870" PositionX="430">
@@ -16,6 +19,10 @@
 				</HasteTrigger>
 				<HasteTrigger Name="01_initAndStartAndGotoFirst" PositionY="-1400" PositionX="420">
 					<Edge From="makearray7.Array" To="Prerequisites" />
+				</HasteTrigger>
+				<HasteTrigger Name="90_initMicroquest" PositionY="-570" PositionX="440">
+					<Edge From="quest_progress_none" To="IsActive" />
+					<Edge From="makearray11.Array" To="Prerequisites" />
 				</HasteTrigger>
 				<Function Name="createitempropertydescriptor2" PositionY="630" PositionX="-150" MethodName="wh::entitymodule::CreateItemPropertyDescriptor" DeclaringType="wh::entitymodule">
 					<Constant Name="EquippedFilter" Value="Pass" />
@@ -68,6 +75,10 @@
 				<ObjectProperties Name="isoulproperties1" PositionY="70" PositionX="-120" DeclaringType="wh::rpgmodule::I_Soul">
 					<Asset Name="I_Soul" Alias="player" />
 				</ObjectProperties>
+				<MakeArray Name="makearray11" PositionY="-570" PositionX="-140" TypeT="wh::conceptmodule::ConceptPaths">
+					<Constant Name="A" Value="fightClubHorany.endQuest" />
+					<Constant Name="B" Value="fightClubHorany.teleportEverybodyToArena" />
+				</MakeArray>
 				<MakeArray Name="makearray2" PositionY="-2430" PositionX="110" TypeT="Strings">
 					<Constant Name="A" Value="goto kcer_innkeeper" />
 				</MakeArray>

@@ -48,6 +48,9 @@
 				<Port Name="npc_je_hospodsky_nebo_senkyrka" Direction="In" Type="bool">
 					<DesignName StringName="zena_pron_npc_je_hospodsk_SlnN" Text="NPC je hospodský nebo šenkýřka" />
 				</Port>
+				<Port Name="znamyvagabund" Direction="In" Type="bool">
+					<DesignName StringName="zena_pron_znamyvagabund_XYtk" Text="známýVagabund" />
+				</Port>
 			</Ports>
 			<Text StringName="zena_pronajem_onenight_sa_5Utq" Text="Žena pronájem OneNight Save" />
 			<Elements>
@@ -76,7 +79,7 @@
 							</Elements>
 							<Decision Name="dec30" DesignName="ad hoc kontrola">
 								<Sequences>
-									<Sequence EntryCondition="!Port('jindra_nema_charisma')&#xD;&#xA;AND &#xD;&#xA;Port('jindra_ma_ok_reputaci')" EndType="Decision" Name="ad_hoc_je_ok">
+									<Sequence EntryCondition="Port('znamyvagabund')&#xD;&#xA;OR&#xD;&#xA;(!Port('jindra_nema_charisma')&#xD;&#xA;AND &#xD;&#xA;Port('jindra_ma_ok_reputaci'))" EndType="Decision" Name="ad_hoc_je_ok">
 										<DesignName StringName="zena_pron_ad_hoc_je_ok_BxJI" Text="ad hoc je ok" />
 										<Elements>
 											<Response Role="HENRY" />
@@ -99,7 +102,7 @@
 														</Response>
 													</Elements>
 												</Sequence>
-												<Sequence SpeechCoef="0" EntryCondition="!Port('npc_je_hospodsky_nebo_senkyrka')" EndType="Decision" Name="seq40">
+												<Sequence EntryCondition="!Port('npc_je_hospodsky_nebo_senkyrka')" EndType="Decision" SpeechCoef="0" Name="seq40">
 													<DesignName StringName="zena_pron_seq40_4Lek" Text="seq40" />
 													<Elements>
 														<Response Role="ZENA_PRONAJEM" ReferenceLength="2.67">
@@ -149,7 +152,7 @@
 																			</Elements>
 																			<Decision Name="dec3" Priority="General" DesignName="pool pronajímatelky" Autoselect="true">
 																				<Sequences>
-																					<Sequence EntryCondition="Port('jindra_nema_charisma')&#xD;&#xA;OR&#xD;&#xA;!Port('jindra_ma_ok_reputaci')" EndType="Decision" Name="hrac_nema_charisma_nebo_reputaci">
+																					<Sequence EntryCondition="(Port('jindra_nema_charisma')&#xD;&#xA;OR&#xD;&#xA;!Port('jindra_ma_ok_reputaci'))&#xD;&#xA;AND &#xD;&#xA;!Port('znamyvagabund')" EndType="Decision" Name="hrac_nema_charisma_nebo_reputaci">
 																						<DesignName StringName="zena_pron_hrac_nema_chari_mc8l" Text="hrac nema charisma nebo reputaci" />
 																						<Elements>
 																							<Response Role="ZENA_PRONAJEM" />
@@ -228,7 +231,7 @@
 																							</Sequences>
 																						</Decision>
 																					</Sequence>
-																					<Sequence EntryCondition="Port('jindra_ma_vysoke_charisma')&#xD;&#xA;AND &#xD;&#xA;Port('jindra_ma_ok_reputaci')" EndType="Decision" Name="hrac_ma_vysoke_charisma_a_ok_reputaci">
+																					<Sequence EntryCondition="Port('jindra_ma_vysoke_charisma')&#xD;&#xA;AND &#xD;&#xA;Port('jindra_ma_ok_reputaci')&#xD;&#xA;AND &#xD;&#xA;!Port('znamyvagabund')" EndType="Decision" Name="hrac_ma_vysoke_charisma_a_ok_reputaci">
 																						<DesignName StringName="zena_pron_hrac_ma_charisma_P5WL" Text="hráč má vysoké charisma a ok reputaci" />
 																						<Elements>
 																							<Response Role="ZENA_PRONAJEM" />
@@ -327,7 +330,7 @@
 																							</Sequences>
 																						</Decision>
 																					</Sequence>
-																					<Sequence EntryCondition="!Port('jindra_ma_vysoke_charisma')&#xD;&#xA;AND &#xD;&#xA;Port('jindra_ma_ok_reputaci')&#xD;&#xA;AND &#xD;&#xA;!Port('jindra_nema_charisma')" EndType="Decision" Name="bezne">
+																					<Sequence EntryCondition="(!Port('jindra_ma_vysoke_charisma')&#xD;&#xA;AND &#xD;&#xA;Port('jindra_ma_ok_reputaci')&#xD;&#xA;AND &#xD;&#xA;!Port('jindra_nema_charisma'))&#xD;&#xA;OR &#xD;&#xA;Port('znamyvagabund')" EndType="Decision" Name="bezne">
 																						<DesignName StringName="zena_pron_bezne_EW3B" Text="běžné" />
 																						<Elements>
 																							<Response Role="ZENA_PRONAJEM" />
@@ -975,7 +978,7 @@
 											</Sequences>
 										</Decision>
 									</Sequence>
-									<Sequence EntryCondition="Port('jindra_nema_charisma')&#xD;&#xA;OR&#xD;&#xA;!Port('jindra_ma_ok_reputaci')" EndType="GoTo" GoToDecision="dec14" Name="ad_hoc_neni_ok">
+									<Sequence EntryCondition="(Port('jindra_nema_charisma')&#xD;&#xA;OR&#xD;&#xA;!Port('jindra_ma_ok_reputaci'))&#xD;&#xA;AND&#xD;&#xA;!Port('znamyvagabund')" EndType="GoTo" GoToDecision="dec14" Name="ad_hoc_neni_ok">
 										<DesignName StringName="zena_pron_ad_hoc_neni_ok_2KLP" Text="ad hoc není ok" />
 										<Elements>
 											<Response Role="HENRY" />
@@ -1000,7 +1003,7 @@
 							</Elements>
 							<Decision Name="dec29" DesignName="na stálo kontrola">
 								<Sequences>
-									<Sequence EntryCondition="!Port('jindra_nema_charisma')&#xD;&#xA;AND &#xD;&#xA;Port('jindra_ma_ok_reputaci')" EndType="Decision" Name="na_stalo_je_ok">
+									<Sequence EntryCondition="Port('znamyvagabund')&#xD;&#xA;OR &#xD;&#xA;(!Port('jindra_nema_charisma')&#xD;&#xA;AND &#xD;&#xA;Port('jindra_ma_ok_reputaci'))" EndType="Decision" Name="na_stalo_je_ok">
 										<DesignName StringName="zena_pron_na_stalo_je_ok_IjUE" Text="na stálo je ok" />
 										<Elements>
 											<Response Role="HENRY" />
@@ -1075,7 +1078,7 @@
 											</Sequences>
 										</Decision>
 									</Sequence>
-									<Sequence EntryCondition="Port('jindra_nema_charisma')&#xD;&#xA;OR&#xD;&#xA;!Port('jindra_ma_ok_reputaci')" EndType="GoTo" GoToDecision="dec14" Name="na_stalo_neni_ok">
+									<Sequence EntryCondition="(Port('jindra_nema_charisma')&#xD;&#xA;OR&#xD;&#xA;!Port('jindra_ma_ok_reputaci'))&#xD;&#xA;AND&#xD;&#xA;!Port('znamyvagabund')" EndType="GoTo" GoToDecision="dec14" Name="na_stalo_neni_ok">
 										<DesignName StringName="zena_pron_na_stalo_neni_ok_tQks" Text="na stálo není ok" />
 										<Elements>
 											<Response Role="HENRY" />

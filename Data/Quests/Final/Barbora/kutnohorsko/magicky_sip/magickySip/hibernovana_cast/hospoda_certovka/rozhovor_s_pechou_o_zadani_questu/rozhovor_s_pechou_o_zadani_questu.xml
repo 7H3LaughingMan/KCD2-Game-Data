@@ -30,6 +30,9 @@
 				<Port Name="dialog_je_aktivni" Direction="In" Type="bool">
 					<DesignName StringName="rozhovor__pecha_a_zajic_s_aJky" Text="dialog je aktivni" />
 				</Port>
+				<Port Name="skillcheck_passed" Direction="Out" Type="trigger">
+					<DesignName StringName="rozhovor__skillcheck_pass_Fhv6" Text="skillcheck passed" />
+				</Port>
 			</Ports>
 			<Text StringName="rozhovor_s_pechou_o_zadan_E86Q" Text="Rozhovor s Pechou o zadání questu" />
 			<Dialogue TechnicalStatus="Enabled" DefaultMaxDistance="10" AllowGreeting="false" GesturesSetDate="2024-07-22T16:26:34.4689963+02:00" GesturesSetResponseCount="197">
@@ -147,9 +150,12 @@
 																	</Response>
 																</Elements>
 															</Sequence>
-															<Sequence EndType="EndDialogue" SkillcheckCondition="Success" Name="seq37">
+															<Sequence EndType="EndDialogue" SkillcheckCondition="Success" Visibility="Public" Name="seq37">
 																<DesignName StringName="rozhovor__seq37_vxaX" Text="seq37" />
 																<UiPrompt StringName="ui_rozhovor__seq37_3Bpg" Text="" />
+																<Triggers>
+																	<Port Name="skillcheck_passed" />
+																</Triggers>
 																<Elements>
 																	<Response Role="HENRY" StartDelay="0.34" ReferenceLength="3.15">
 																		<Parenthetical>
@@ -277,8 +283,11 @@
 																	</Response>
 																</Elements>
 															</Sequence>
-															<Sequence EndType="EndDialogue" SkillcheckCondition="Success" Name="seq55">
+															<Sequence EndType="EndDialogue" SkillcheckCondition="Success" Visibility="Public" Name="seq55">
 																<DesignName StringName="rozhovor__seq55_Lq78" Text="seq55" />
+																<Triggers>
+																	<Port Name="skillcheck_passed" />
+																</Triggers>
 																<Elements>
 																	<Response Role="HENRY" StartDelay="0.29" ReferenceLength="1.95">
 																		<Parenthetical>

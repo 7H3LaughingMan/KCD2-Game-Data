@@ -15,8 +15,14 @@
 				<Port Name="mluvil_jsem_s_kucharkou_o_nikvardovi" Direction="In" Type="bool">
 					<DesignName StringName="certinatr_mluvil_jsem_s_k_LZvK" Text="Mluvil jsem s kuchařkou o Nikvardovi." />
 				</Port>
-				<Port Name="u01__ohniste_panna_hotovo" Direction="Out" Type="bool">
-					<DesignName StringName="certinatr_u01__ohniste_pa_Rlxk" Text="U01 - ohniště panna hotovo" />
+				<Port Name="u01__quest_progress" Direction="Out" Type="wh::questmodule::QuestProgress">
+					<DesignName StringName="certinatr_u01__quest_prog_BP7E" Text="U01 - quest progress" />
+				</Port>
+				<Port Name="u01__ohniste_na_palaci_done" Direction="Out" Type="bool">
+					<DesignName StringName="certinatr_u01__ohniste_na_suV7" Text="U01 - ohniště na paláci done" />
+				</Port>
+				<Port Name="panna__stream_default" Direction="Out" Type="trigger">
+					<DesignName StringName="certinatr_panna__stream_d_EwBN" Text="Panna - Stream Default" />
 				</Port>
 			</Ports>
 			<Definitions>
@@ -126,9 +132,17 @@
 				<Output Name="Output">
 					<Edge From="QuestProgress.State" To="Progress">
 						<Vertex>vertex117</Vertex>
+						<Vertex>EgoAbPQ6</Vertex>
 					</Edge>
 					<Edge From="hibern.mluvil_jsem_s_perchtou_o_certech" To="mluvil_jsem_s_perchtou_o_certech" />
-					<Edge From="hibern.u01__ohniste_panna_hotovo" To="u01__ohniste_panna_hotovo" />
+					<Edge From="QuestProgress.State" To="u01__quest_progress">
+						<Vertex>vertex117</Vertex>
+						<Vertex>EgoAbPQ6</Vertex>
+					</Edge>
+					<Edge From="hibern.u01__ohniste_na_palaci_done" To="u01__ohniste_na_palaci_done" />
+					<Edge From="QuestProgress.OnActive" To="panna__stream_default">
+						<Vertex>BXDYemHv</Vertex>
+					</Edge>
 				</Output>
 				<platner_za_jeden_den Name="platner_za_jeden_den" PositionY="780" PositionX="590">
 					<Edge From="timer1746.Finished" To="platner_ma_dobrou_reputaci_s_hracem" />
@@ -191,7 +205,9 @@
 			</Nodes>
 			<EdgeVertices>
 				<EdgeVertex Name="AYxXmupy" PositionY="704" PositionX="-2366" />
+				<EdgeVertex Name="BXDYemHv" PositionY="615" PositionX="-169" />
 				<EdgeVertex Name="dueyfPGq" PositionY="1239" PositionX="-862" />
+				<EdgeVertex Name="EgoAbPQ6" PositionY="-82" PositionX="890" />
 				<EdgeVertex Name="feDhFqlf" PositionY="675" PositionX="-889" />
 				<EdgeVertex Name="pf6xTq68" PositionY="1238" PositionX="-664" />
 				<EdgeVertex Name="SQEdkqQ7" PositionY="580" PositionX="-950" />

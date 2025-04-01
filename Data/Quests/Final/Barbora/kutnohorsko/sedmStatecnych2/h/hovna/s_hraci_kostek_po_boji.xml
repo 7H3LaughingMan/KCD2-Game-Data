@@ -18,6 +18,9 @@
 				<Port Name="najdi_ranka_ve_stoce_none" Direction="In" Type="bool">
 					<DesignName StringName="s_hraci_k_najdi_ranka_ve__Gpxt" Text="Najdi Ranka ve stoce None" />
 				</Port>
+				<Port Name="hrac_je_v_bezvedomi" Direction="Out" Type="bool">
+					<DesignName StringName="s_hraci_k_hrac_je_v_bezve_lt7W" Text="Hrac je v bezvedomi" />
+				</Port>
 			</Ports>
 			<Definitions>
 				<Definition File="s_hraci_kostek_po_boji/s_hraci_kostek_po_boji.xml" />
@@ -102,12 +105,20 @@
 						<Vertex>vertex30</Vertex>
 						<Vertex>vertex31</Vertex>
 					</Edge>
+					<Edge From="cutscenehandler3.BeforePlay" To="stop_fight">
+						<Vertex>hCuVE4nB</Vertex>
+						<Vertex>NC6RsEaT</Vertex>
+					</Edge>
+					<Edge From="knockoutWatch.Active" To="hrac_je_v_bezvedomi">
+						<Vertex>XJeqIVFr</Vertex>
+						<Vertex>u4J2Fa15</Vertex>
+					</Edge>
 				</Output>
 				<s_hraci_kostek_po_boji Name="s_hraci_kostek_po_boji" PositionY="500" PositionX="1110">
 					<Edge From="select37.Value1" To="soula_ktera_forcuje_dialog" />
 					<Edge From="select37.OnExec" To="hrac_spadnul_do_bezvedomi" />
 				</s_hraci_kostek_po_boji>
-				<s_hraci_kostek_vzdavani_se_ Name="s_hraci_kostek_vzdavani_se_" PositionY="180" PositionX="340">
+				<s_hraci_kostek_vzdavani_se_ Name="s_hraci_kostek_vzdavani_se_" PositionY="210" PositionX="340">
 					<Edge From="hrac_mluvil_s_hraci_kostek" To="hrac_mluvil_s_hraci_kostek">
 						<Vertex>vertex15</Vertex>
 						<Vertex>vertex16</Vertex>
@@ -133,6 +144,9 @@
 				</SoulUnconsciousTrigger>
 			</Nodes>
 			<EdgeVertices>
+				<EdgeVertex Name="hCuVE4nB" PositionY="180" PositionX="60" />
+				<EdgeVertex Name="NC6RsEaT" PositionY="180" PositionX="2220" />
+				<EdgeVertex Name="u4J2Fa15" PositionY="200" PositionX="2220" />
 				<EdgeVertex Name="vertex10" PositionY="750" PositionX="-760" />
 				<EdgeVertex Name="vertex11" PositionY="750" PositionX="260" />
 				<EdgeVertex Name="vertex12" PositionY="720" PositionX="-30" />
@@ -150,6 +164,7 @@
 				<EdgeVertex Name="vertex7" PositionY="560" PositionX="-930" />
 				<EdgeVertex Name="vertex8" PositionY="560" PositionX="-1440" />
 				<EdgeVertex Name="vertex9" PositionY="720" PositionX="-760" />
+				<EdgeVertex Name="XJeqIVFr" PositionY="200" PositionX="-1150" />
 			</EdgeVertices>
 			<Assets>
 				<CutsceneHolderAsset Name="cutscene_playerConscious" />

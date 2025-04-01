@@ -51,6 +51,10 @@
 				<Function Name="and45" PositionY="860" PositionX="240" RequiredForOutput="kutnohorsko" MethodName="math::boolean::And" DeclaringType="math::boolean">
 					<Edge From="or38.bool" To="A" />
 				</Function>
+				<Function Name="and92" PositionY="1310" PositionX="310" MethodName="math::boolean::And" DeclaringType="math::boolean">
+					<Edge From="notEncumbered.State" To="A" />
+					<Edge From="state87.State" To="B" />
+				</Function>
 				<Function Name="areacheck14" PositionY="2340" PositionX="1250" MethodName="wh::rpgmodule::AreaCheck" DeclaringType="wh::rpgmodule">
 					<Asset Name="Souls" Alias="samuel" />
 					<Asset Name="Areas" Alias="stablesArea" />
@@ -60,6 +64,11 @@
 					<Asset Name="Areas" Alias="stablesArea" />
 					<Edge From="questActiveAndTalkedWithSam.bool" To="IsActive" />
 				</AreaTrigger>
+				<AudioSustainedEffect Name="audiosustainedeffect86" PositionY="1170" PositionX="-310">
+					<Constant Name="AtlTriggerName" Value="q_M49_horses" />
+					<Asset Name="LinkableObject" Alias="horse_2" />
+					<Edge From="or38.bool" To="IsActive" />
+				</AudioSustainedEffect>
 				<BuffTagTrigger Name="bufftagtrigger42" PositionY="1020" PositionX="-10">
 					<Asset Name="Souls" Alias="player" />
 					<Edge From="makearray43.Array" To="BuffTags" />
@@ -143,64 +152,64 @@
 					<Constant Name="Type" Value="Hold" />
 					<Constant Name="ActionPrompt" Value="kone_a_od_odjet_sam_OCcY" />
 					<Edge From="and45.bool" To="IsActive" />
-					<Edge From="notEncumbered.State" To="EnabledInteractor" />
-					<Edge From="notification.jsi_tak_pretizeny_ze_se_na_kone_nevysvihnes" To="DisableReason" />
+					<Edge From="switch91.Value1" To="DisableReason" />
+					<Edge From="and92.bool" To="EnabledInteractor" />
 				</InteractorOverride>
 				<InteractorOverride Name="interactoroverride12_1" PositionY="940" PositionX="730">
 					<Asset Name="Object" Alias="horse_2" />
 					<Constant Name="Type" Value="Hold" />
 					<Constant Name="ActionPrompt" Value="kone_a_od_odjet_sam_OCcY" />
 					<Edge From="and45.bool" To="IsActive" />
-					<Edge From="notEncumbered.State" To="EnabledInteractor" />
-					<Edge From="notification.jsi_tak_pretizeny_ze_se_na_kone_nevysvihnes" To="DisableReason" />
+					<Edge From="and92.bool" To="EnabledInteractor" />
+					<Edge From="switch91.Value1" To="DisableReason" />
 				</InteractorOverride>
 				<InteractorOverride Name="interactoroverride12_1_1" PositionY="2430" PositionX="720">
 					<Asset Name="Object" Alias="horse_2" />
 					<Constant Name="Type" Value="Press" />
 					<Constant Name="ActionPrompt" Value="kone_a_od_odjet_se_samem_RhHd" />
 					<Edge From="questActiveAndTalkedWithSam.bool" To="IsActive" />
-					<Edge From="notEncumbered.State" To="EnabledInteractor" />
-					<Edge From="notification.jsi_tak_pretizeny_ze_se_na_kone_nevysvihnes" To="DisableReason" />
+					<Edge From="and92.bool" To="EnabledInteractor" />
+					<Edge From="switch91.Value1" To="DisableReason" />
 				</InteractorOverride>
 				<InteractorOverride Name="interactoroverride12_1_2" PositionY="1270" PositionX="730">
 					<Asset Name="Object" Alias="horse_3" />
 					<Constant Name="Type" Value="Hold" />
 					<Constant Name="ActionPrompt" Value="kone_a_od_odjet_sam_OCcY" />
 					<Edge From="and45.bool" To="IsActive" />
-					<Edge From="notEncumbered.State" To="EnabledInteractor" />
-					<Edge From="notification.jsi_tak_pretizeny_ze_se_na_kone_nevysvihnes" To="DisableReason" />
+					<Edge From="and92.bool" To="EnabledInteractor" />
+					<Edge From="switch91.Value1" To="DisableReason" />
 				</InteractorOverride>
 				<InteractorOverride Name="interactoroverride12_1_3" PositionY="1600" PositionX="730">
 					<Asset Name="Object" Alias="horse_4" />
 					<Constant Name="Type" Value="Hold" />
 					<Constant Name="ActionPrompt" Value="kone_a_od_odjet_sam_OCcY" />
 					<Edge From="and45.bool" To="IsActive" />
-					<Edge From="notEncumbered.State" To="EnabledInteractor" />
-					<Edge From="notification.jsi_tak_pretizeny_ze_se_na_kone_nevysvihnes" To="DisableReason" />
+					<Edge From="and92.bool" To="EnabledInteractor" />
+					<Edge From="switch91.Value1" To="DisableReason" />
 				</InteractorOverride>
 				<InteractorOverride Name="interactoroverride12_1_4" PositionY="2770" PositionX="720">
 					<Asset Name="Object" Alias="horse_3" />
 					<Constant Name="Type" Value="Press" />
 					<Constant Name="ActionPrompt" Value="kone_a_od_odjet_se_samem_RhHd" />
 					<Edge From="questActiveAndTalkedWithSam.bool" To="IsActive" />
-					<Edge From="notEncumbered.State" To="EnabledInteractor" />
-					<Edge From="notification.jsi_tak_pretizeny_ze_se_na_kone_nevysvihnes" To="DisableReason" />
+					<Edge From="and92.bool" To="EnabledInteractor" />
+					<Edge From="switch91.Value1" To="DisableReason" />
 				</InteractorOverride>
 				<InteractorOverride Name="interactoroverride12_1_5" PositionY="3110" PositionX="720">
 					<Asset Name="Object" Alias="horse_4" />
 					<Constant Name="Type" Value="Press" />
 					<Constant Name="ActionPrompt" Value="kone_a_od_odjet_se_samem_RhHd" />
 					<Edge From="questActiveAndTalkedWithSam.bool" To="IsActive" />
-					<Edge From="notEncumbered.State" To="EnabledInteractor" />
-					<Edge From="notification.jsi_tak_pretizeny_ze_se_na_kone_nevysvihnes" To="DisableReason" />
+					<Edge From="and92.bool" To="EnabledInteractor" />
+					<Edge From="switch91.Value1" To="DisableReason" />
 				</InteractorOverride>
 				<InteractorOverride Name="interactoroverride12_2" PositionY="2100" PositionX="720">
 					<Asset Name="Object" Alias="horse_1" />
 					<Constant Name="Type" Value="Press" />
 					<Constant Name="ActionPrompt" Value="kone_a_od_odjet_se_samem_RhHd" />
 					<Edge From="questActiveAndTalkedWithSam.bool" To="IsActive" />
-					<Edge From="notEncumbered.State" To="EnabledInteractor" />
-					<Edge From="notification.jsi_tak_pretizeny_ze_se_na_kone_nevysvihnes" To="DisableReason" />
+					<Edge From="and92.bool" To="EnabledInteractor" />
+					<Edge From="switch91.Value1" To="DisableReason" />
 				</InteractorOverride>
 				<MakeArray Name="makearray43" PositionY="1240" PositionX="-10" TypeT="wh::rpgmodule::BuffDefinitionAITags">
 					<Constant Name="A" Value="16" />
@@ -254,6 +263,19 @@
 					<Edge From="areatrigger36.OnAllLeave" To="SetDone" />
 					<Edge From="areatrigger36.OnAllEnter" To="SetActive" />
 				</State>
+				<State Name="state87" PositionY="1620" PositionX="20" TypeT="bool">
+					<Edge From="threatstrigger89.OnAllThreatsInactive" To="SetTrue" />
+					<Edge From="threatstrigger89.OnThreatsActive" To="SetFalse" />
+				</State>
+				<Switch Name="switch91" PositionY="1520" PositionX="300" TypeT="bool" ValueTypes="wh::framework::LocalizedString" SwitchValues="false">
+					<Constant Name="falseValue1" Value="kone_a_od_p_jsi_v_combatu_33BF" />
+					<Edge From="state87.State" To="Switch" />
+					<Edge From="notification.jsi_tak_pretizeny_ze_se_na_kone_nevysvihnes" To="DefaultValue1" />
+				</Switch>
+				<SoulThreatsTrigger Name="threatstrigger89" PositionY="1600" PositionX="-300">
+					<Asset Name="Souls" Alias="player" />
+					<Edge From="or38.bool" To="IsActive" />
+				</SoulThreatsTrigger>
 			</Nodes>
 			<EdgeVertices>
 				<EdgeVertex Name="m0s4jo6o" PositionY="125" PositionX="-115" />
@@ -274,6 +296,9 @@
 				</ActionPromptElement>
 				<ActionPromptElement>
 					<Text StringName="kone_a_od_odjet_se_samem_RhHd" Text="Odjet se Samem" />
+				</ActionPromptElement>
+				<ActionPromptElement>
+					<Text StringName="kone_a_od_p_jsi_v_combatu_33BF" Text="Teď nemůžeš odjet!" />
 				</ActionPromptElement>
 			</Elements>
 			<MapVizLocation MapName="kutnohorsko" PositionX="332" PositionY="3371" />

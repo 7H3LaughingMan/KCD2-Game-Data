@@ -142,6 +142,10 @@
 				<Function Name="deathcheck20_1" PositionY="-230" PositionX="2070" MethodName="wh::rpgmodule::DeathCheck" DeclaringType="wh::rpgmodule">
 					<Asset Name="Souls" Alias="Vazoun" />
 				</Function>
+				<SoulDeathTrigger Name="deathtrigger59" PositionY="-1400" PositionX="-1850">
+					<Asset Name="Souls" Alias="Stulec" />
+					<Edge From="state60.Active" To="IsActive" />
+				</SoulDeathTrigger>
 				<eldris Name="eldris" PositionY="-460" PositionX="-1210" RequiredForOutput="kutnohorsko">
 					<Edge From="xor39.bool" To="Awake" />
 					<Edge From="zadani_stulec.cenek_je_mrtvy" To="cenek_nesmi_zemrit" />
@@ -236,6 +240,10 @@
 						<Vertex>K2zFgblA</Vertex>
 					</Edge>
 					<Edge From="po_zapaleni.boj_neprobehl" To="boj_neprobehl" />
+					<Edge From="StulecUmrelBehemQuestu.State" To="stulec_zemrel_behem_questu">
+						<Vertex>5ToonsIL</Vertex>
+						<Vertex>Q8pqFQXE</Vertex>
+					</Edge>
 				</konec_questu>
 				<HasteTrigger Name="lefirskaWall" PositionY="-1840" PositionX="2690">
 					<Edge From="makearray58.Array" To="ConsoleCommands" />
@@ -600,6 +608,13 @@
 					</Edge>
 					<Edge From="and11.bool" To="Awake" />
 				</start_questu>
+				<State Name="state60" PositionY="-1530" PositionX="-2110" TypeT="Progress">
+					<Edge From="zadani_a_uvod.po_dialogu_s_cenkem" To="SetActive" />
+					<Edge From="if44.False" To="SetDone">
+						<Vertex>UbsmYGP1</Vertex>
+						<Vertex>4G41Lo8J</Vertex>
+					</Edge>
+				</State>
 				<stulec_zije_nebo_hrac_praskal_doly Name="stulec_zije_nebo_hrac_praskal_doly" PositionY="280" PositionX="-4460">
 					<Edge From="hrac_nahlasil_stribrne_doly" To="hrac_nahlasil_stribrne_doly">
 						<Vertex>vertex364</Vertex>
@@ -609,6 +624,9 @@
 				<State Name="StulecNaZacatkuQuestu" PositionY="-340" PositionX="-2020" TypeT="StulecNaZacatkuQuestu">
 					<Edge From="ifdeathcheck31.True" To="SetDead" />
 					<Edge From="ifdeathcheck31.False" To="SetAlive" />
+				</State>
+				<State Name="StulecUmrelBehemQuestu" PositionY="-1450" PositionX="-1570" TypeT="bool">
+					<Edge From="deathtrigger59.OnDeath" To="SetTrue" />
 				</State>
 				<traskaveposelstvi_library Name="traskaveposelstvi_library" PositionY="-1310" PositionX="-3560" />
 				<v_dolech Name="v_dolech" PositionY="-590" PositionX="260" RequiredForOutput="kutnohorsko">
@@ -754,6 +772,8 @@
 				</ziskavani_soudku>
 			</Nodes>
 			<EdgeVertices>
+				<EdgeVertex Name="4G41Lo8J" PositionY="1249" PositionX="-2198" />
+				<EdgeVertex Name="5ToonsIL" PositionY="-713" PositionX="-1317" />
 				<EdgeVertex Name="6bycw1wQ" PositionY="1192" PositionX="-795" />
 				<EdgeVertex Name="6V7NcgAo" PositionY="860" PositionX="-2953" />
 				<EdgeVertex Name="7ls9trIc" PositionY="-766" PositionX="-4639" />
@@ -787,8 +807,10 @@
 				<EdgeVertex Name="PpmrUwVL" PositionY="1152" PositionX="2793" />
 				<EdgeVertex Name="pyrDGlt7" PositionY="-858" PositionX="614" />
 				<EdgeVertex Name="Q1z8FfN9" PositionY="11" PositionX="-1715" />
+				<EdgeVertex Name="Q8pqFQXE" PositionY="-689" PositionX="1272" />
 				<EdgeVertex Name="TDPljRnb" PositionY="645" PositionX="-4749" />
 				<EdgeVertex Name="tlq8YEPD" PositionY="-367" PositionX="786" />
+				<EdgeVertex Name="UbsmYGP1" PositionY="1234" PositionX="1925" />
 				<EdgeVertex Name="UCKkwvfE" PositionY="-973" PositionX="-4626" />
 				<EdgeVertex Name="UF8wBRys" PositionY="1159" PositionX="2791" />
 				<EdgeVertex Name="vertex100" PositionY="140" PositionX="520" />

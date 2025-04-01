@@ -57,6 +57,8 @@
 					<Edge From="fist_fight_line.jindra_po_fightu_nemluvil_s_oponentem" To="jindra_po_fightu_nemluvil_s_premkem">
 						<Vertex>vertex132</Vertex>
 					</Edge>
+					<Edge From="fist_fight_line.dialogparams_pro_forcovany_dialog" To="DialogParams" />
+					<Edge From="fist_fight_line.konci_fight" To="EnqueueDialogue" />
 				</damian__po_souboji_1>
 				<poraz_premka Name="defeatPremek_objectiveVIsual" PositionY="-650" PositionX="200" RequiredForOutput="kutnohorsko">
 					<Edge From="fist_fight_line.stav_objectivu_boje" To="Progress" />
@@ -196,6 +198,11 @@
 					<Edge From="fist_fight_line.vyse_sazky" To="Payment_seq9" />
 					<Edge From="fist_fight_line.jindra_ma_dost_penez" To="jindra_ma_dost_penez" />
 				</te__pred_arenkou_1>
+				<turntoplayerinidlestance Name="turntoplayerinidlestance" PositionY="832" PositionX="1208" Namespace="utils.general">
+					<Asset Name="npc" Alias="premek" />
+					<Constant Name="anydecoratorpreset" Value="changeEquipment" />
+					<Edge From="damian__po_souboji_1.AfterPlay" To="turntoplayerinidlestance" />
+				</turntoplayerinidlestance>
 				<AddReward Name="vyhra" PositionY="970" PositionX="150">
 					<Edge From="fist_fight_line.jindrich_vyhrava" To="AddReward" />
 					<Rewards>

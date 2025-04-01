@@ -24,6 +24,9 @@
 				<Port Name="hrac_nezvladl_ukrast_vino" Direction="In" Type="bool">
 					<DesignName StringName="stulec__k_hrac_nezvladl_u_FPgy" Text="hráč nezvládl ukrást víno" />
 				</Port>
+				<Port Name="quest_bezi" Direction="In" Type="bool">
+					<DesignName StringName="stulec__k_quest_bezi_8ijw" Text="quest běží" />
+				</Port>
 			</Ports>
 			<Text StringName="stulec__kradene_vino_g2CW" Text="Štulec - Kradené víno" />
 			<Dialogue TechnicalStatus="Enabled" GesturesSetDate="2024-05-06T19:39:10.5007297+02:00" GesturesSetResponseCount="35">
@@ -33,7 +36,7 @@
 				</SelectedSouls>
 				<Decision Name="dec1" Priority="SideQuestAssignment">
 					<Sequences>
-						<Sequence EntryCondition="!ThisSequenceUsed() AND &#xD;&#xA;(&#xD;&#xA;Port('hrac_ukradl_vino') OR &#xD;&#xA;Port('hrac_ma_item_vina')&#xD;&#xA;)" EndType="Decision" Name="seq1">
+						<Sequence EntryCondition="!ThisSequenceUsed() AND &#xD;&#xA;(&#xD;&#xA;Port('hrac_ukradl_vino') OR &#xD;&#xA;Port('hrac_ma_item_vina')&#xD;&#xA;) AND &#xD;&#xA;Port('quest_bezi')" EndType="Decision" Name="seq1">
 							<DesignName StringName="stulec__k_seq1_wJyL" Text="seq1" />
 							<UiPrompt StringName="ui_stulec__k_seq1_8nYn" Text="Ohledně toho Zikmundova vína..." />
 							<Elements>
@@ -327,7 +330,7 @@
 								</Sequences>
 							</Decision>
 						</Sequence>
-						<Sequence EntryCondition="Port('hrac_souhlasil_se_stulcovou_nabidkou') AND&#xD;&#xA;Port('hrac_nezvladl_ukrast_vino') AND&#xD;&#xA;!ThisSequenceUsed()" EndType="Decision" Name="seq10">
+						<Sequence EntryCondition="Port('hrac_souhlasil_se_stulcovou_nabidkou') AND&#xD;&#xA;Port('hrac_nezvladl_ukrast_vino') AND&#xD;&#xA;!ThisSequenceUsed() AND &#xD;&#xA;Port('quest_bezi')" EndType="Decision" Name="seq10">
 							<DesignName StringName="stulec__k_seq10_GYrZ" Text="seq10" />
 							<UiPrompt StringName="ui_stulec__k_seq10_9UaZ" Text="To Zikmundovo víno jsem nesehnal." />
 							<Elements>

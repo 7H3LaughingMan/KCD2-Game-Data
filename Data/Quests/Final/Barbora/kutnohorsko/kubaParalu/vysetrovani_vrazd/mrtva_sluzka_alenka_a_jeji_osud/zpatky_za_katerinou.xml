@@ -33,6 +33,12 @@
 				<Port Name="katerina_zna_lipolda" Direction="Out" Type="bool">
 					<DesignName StringName="zpatky_za_katerina_zna_li_AonA" Text="katerina zna lipolda" />
 				</Port>
+				<Port Name="prvni_trialog_probehl" Direction="In" Type="bool">
+					<DesignName StringName="zpatky_za_prvni_trialog_p_9LMo" Text="první trialog proběhl" />
+				</Port>
+				<Port Name="obj_neaktivni" Direction="Out" Type="bool">
+					<DesignName StringName="zpatky_za_obj_neaktivni_2U4A" Text="obj neaktivní" />
+				</Port>
 			</Ports>
 			<Definitions>
 				<Definition File="zpatky_za_katerinou/s_katerinou_o_lipoldovi.xml" />
@@ -64,10 +70,25 @@
 						<Vertex>8TDqQCL7</Vertex>
 					</Edge>
 				</Function>
+				<Function Name="or8" PositionY="-200" PositionX="970" MethodName="math::boolean::Or" DeclaringType="math::boolean">
+					<Edge From="sKaterinou.Aborted" To="C">
+						<Vertex>TK32L1If</Vertex>
+						<Vertex>vE3G7cH7</Vertex>
+					</Edge>
+					<Edge From="sKaterinou.Completed" To="B">
+						<Vertex>tdrD54eN</Vertex>
+						<Vertex>pSae2hze</Vertex>
+					</Edge>
+					<Edge From="sKaterinou.None" To="A">
+						<Vertex>8cIxzVXg</Vertex>
+						<Vertex>SAgj2ufF</Vertex>
+					</Edge>
+				</Function>
 				<Output Name="Output">
 					<Edge From="s_katerinou_o_lipoldovi.hrac_ma_jit_za_lipoldem" To="hrac_ma_jit_za_lipoldem" />
 					<Edge From="triggersequence5.B" To="lipold_je_mrtvy__fail_questu" />
 					<Edge From="or7.bool" To="katerina_zna_lipolda" />
+					<Edge From="or8.bool" To="obj_neaktivni" />
 				</Output>
 				<Function Name="requestmonologue4" PositionY="450" PositionX="-150" MethodName="wh::xgenaimodule::RequestMonologue" DeclaringType="wh::xgenaimodule">
 					<Asset Name="Souls" Alias="player" />
@@ -81,6 +102,7 @@
 					<Edge From="hrac_slysel_o_lipoldovi_od_kamaradky" To="hrac_slysel_o_lipoldovi_od_kamaradky" />
 					<Edge From="deathcheck6.IsDead" To="lipold_je_mrtvy" />
 					<Edge From="hrac_mluvil_s_lipoldem" To="hrac_mluvil_s_lipoldem" />
+					<Edge From="prvni_trialog_probehl" To="prvni_trialog_probehl" />
 				</s_katerinou_a_alence_a_lipoldovi>
 				<s_katerinou_o_lipoldovi Name="s_katerinou_o_lipoldovi" PositionY="10" PositionX="220">
 					<Edge From="sKaterinou.Started" To="hrac_nevi_co_dal" />
@@ -107,11 +129,17 @@
 			</Nodes>
 			<EdgeVertices>
 				<EdgeVertex Name="0zVW553f" PositionY="360" PositionX="-90" />
+				<EdgeVertex Name="8cIxzVXg" PositionY="-62" PositionX="221" />
 				<EdgeVertex Name="8TDqQCL7" PositionY="330" PositionX="960" />
 				<EdgeVertex Name="AWpVnX03" PositionY="315" PositionX="-92" />
 				<EdgeVertex Name="CdGTWsRS" PositionY="310" PositionX="960" />
 				<EdgeVertex Name="Joqeef2G" PositionY="340" PositionX="-90" />
 				<EdgeVertex Name="NbooUxQq" PositionY="290" PositionX="960" />
+				<EdgeVertex Name="pSae2hze" PositionY="-39" PositionX="822" />
+				<EdgeVertex Name="SAgj2ufF" PositionY="-61" PositionX="836" />
+				<EdgeVertex Name="tdrD54eN" PositionY="-39" PositionX="220" />
+				<EdgeVertex Name="TK32L1If" PositionY="-20" PositionX="225" />
+				<EdgeVertex Name="vE3G7cH7" PositionY="-22" PositionX="823" />
 				<EdgeVertex Name="vertex1" PositionY="270" PositionX="-90" />
 				<EdgeVertex Name="vertex2" PositionY="270" PositionX="470" />
 				<EdgeVertex Name="vertex3" PositionY="290" PositionX="-90" />

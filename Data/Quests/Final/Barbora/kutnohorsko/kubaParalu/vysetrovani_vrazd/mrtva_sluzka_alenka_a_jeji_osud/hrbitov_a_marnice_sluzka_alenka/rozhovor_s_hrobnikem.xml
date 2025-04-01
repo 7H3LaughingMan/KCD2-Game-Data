@@ -33,11 +33,15 @@
 				<Port Name="hobnik_poslal_henryho_na_misto_vrazdy" Direction="Out" Type="trigger">
 					<DesignName StringName="rozhovor__hobnik_poslal_h_F6yQ" Text="hobník poslal henryho na místo vraždy" />
 				</Port>
+				<Port Name="neaktivni_obj" Direction="Out" Type="bool">
+					<DesignName StringName="rozhovor__neaktivni_obj_JHHO" Text="neaktivní obj" />
+				</Port>
 			</Ports>
 			<Definitions>
 				<Definition File="rozhovor_s_hrobnikem/rozhovor_s_hrobnikem.xml" />
 			</Definitions>
 			<Nodes>
+				<HasteTrigger Name="02_hracPromluvilSHrobnikem" PositionY="110" PositionX="-480" />
 				<Function Name="deathcheck4" PositionY="500" PositionX="-10" MethodName="wh::rpgmodule::DeathCheck" DeclaringType="wh::rpgmodule">
 					<Asset Name="Souls" Alias="lipold" />
 				</Function>
@@ -55,13 +59,22 @@
 						<Vertex>vertex12</Vertex>
 					</Edge>
 				</If>
-				<HasteTrigger Name="kubaParalu_hracPromluvilSHrobnikem" PositionY="110" PositionX="-480" />
 				<promluv_si_s_hrobnikem_o_tele Name="objectiveVisual5" PositionY="-120" PositionX="270" RequiredForOutput="kutnohorsko">
 					<Edge From="sHrobnikem.State" To="Progress" />
 				</promluv_si_s_hrobnikem_o_tele>
+				<Function Name="or7" PositionY="-370" PositionX="660" MethodName="math::boolean::Or" DeclaringType="math::boolean">
+					<Edge From="sHrobnikem.Completed" To="A">
+						<Vertex>hw0m53uD</Vertex>
+					</Edge>
+					<Edge From="sHrobnikem.Failed" To="B">
+						<Vertex>azjhq7hz</Vertex>
+					</Edge>
+					<Edge From="sHrobnikem.Aborted" To="C">
+						<Vertex>fkzpqvMp</Vertex>
+					</Edge>
+				</Function>
 				<Output Name="Output">
 					<Edge From="rozhovor_s_hrobnikem.hrac_si_ma_promluvit_s_kamaradkou_alenky" To="hrac_si_ma_promluvit_s_kamaradkou_alenky" />
-					<Edge From="rozhovor_s_hrobnikem.lipold_je_mrvty__fail_questu" To="lipold_je_mrty__fail_questu" />
 					<Edge From="sHrobnikem.OnCompleted" To="hrac_promluvil_s_hrobnikem">
 						<Vertex>vertex7</Vertex>
 						<Vertex>vertex8</Vertex>
@@ -75,6 +88,8 @@
 						<Vertex>vertex13</Vertex>
 					</Edge>
 					<Edge From="rozhovor_s_hrobnikem.hobnik_poslal_henryho_na_misto_vrazdy" To="hobnik_poslal_henryho_na_misto_vrazdy" />
+					<Edge From="sHrobnikem.OnAborted" To="lipold_je_mrty__fail_questu" />
+					<Edge From="or7.bool" To="neaktivni_obj" />
 				</Output>
 				<rozhovor_s_hrobnikem Name="rozhovor_s_hrobnikem" PositionY="330" PositionX="290">
 					<Edge From="hrac_uz_videl_telo" To="hrac_uz_videl_telo">
@@ -106,7 +121,7 @@
 						<Vertex>vertex3</Vertex>
 						<Vertex>vertex4</Vertex>
 					</Edge>
-					<Edge From="kubaParalu_hracPromluvilSHrobnikem.OnTrigger" To="SetCompleted" />
+					<Edge From="02_hracPromluvilSHrobnikem.OnTrigger" To="SetCompleted" />
 					<Edge From="if3.True" To="SetStarted" />
 					<Edge From="rozhovor_s_hrobnikem.lipold_je_mrvty__fail_questu" To="SetAborted">
 						<Vertex>vertex27</Vertex>
@@ -115,6 +130,9 @@
 				</State>
 			</Nodes>
 			<EdgeVertices>
+				<EdgeVertex Name="azjhq7hz" PositionY="-219" PositionX="215" />
+				<EdgeVertex Name="fkzpqvMp" PositionY="-185" PositionX="235" />
+				<EdgeVertex Name="hw0m53uD" PositionY="-247" PositionX="186" />
 				<EdgeVertex Name="vertex1" PositionY="430" PositionX="200" />
 				<EdgeVertex Name="vertex10" PositionY="260" PositionX="490" />
 				<EdgeVertex Name="vertex11" PositionY="-120" PositionX="110" />

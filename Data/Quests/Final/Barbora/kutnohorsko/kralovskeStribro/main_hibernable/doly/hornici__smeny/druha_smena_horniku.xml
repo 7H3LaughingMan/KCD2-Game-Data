@@ -40,9 +40,9 @@
 					<Edge From="resolveMinersShift2.TalkToPavel" To="A" />
 					<Edge From="not39.bool" To="B" />
 				</Function>
-				<Function Name="and41" PositionY="1550" PositionX="1020" MethodName="math::boolean::And" DeclaringType="math::boolean">
+				<Function Name="and41" PositionY="1990" PositionX="1030" MethodName="math::boolean::And" DeclaringType="math::boolean">
 					<Edge From="resolveMinersShift2active.bool" To="A" />
-					<Edge From="checkentitycontext19.HasContext" To="B" />
+					<Edge From="checkentitycontext27.HasContext" To="B" />
 				</Function>
 				<Function Name="and62" PositionY="10" PositionX="600" MethodName="math::boolean::And" DeclaringType="math::boolean">
 					<Edge From="resolveMinersShift2.PrayWithPavel" To="A" />
@@ -62,22 +62,37 @@
 					<Edge From="quest_active" To="A" />
 					<Edge From="not70.bool" To="B" />
 				</Function>
+				<Function Name="and75" PositionY="-130" PositionX="1720" MethodName="math::boolean::And" DeclaringType="math::boolean">
+					<Edge From="not74.bool" To="A" />
+					<Edge From="not73.bool" To="B" />
+				</Function>
 				<AreaTrigger Name="areatrigger66" PositionY="-1610" PositionX="850">
 					<Asset Name="Souls" Alias="miningForeman_2" />
 					<Asset Name="Areas" Alias="mines_shift2Area" />
 					<Edge From="or24.bool" To="IsActive" />
 				</AreaTrigger>
-				<Function Name="checkentitycontext19" PositionY="1550" PositionX="640" MethodName="wh::xgenaimodule::CheckEntityContext" DeclaringType="wh::xgenaimodule">
+				<Function Name="checkentitycontext27" PositionY="1990" PositionX="700" MethodName="wh::xgenaimodule::CheckEntityContext" DeclaringType="wh::xgenaimodule">
 					<Asset Name="Souls" Alias="miningForeman_2" />
-					<Constant Name="Context" Value="speech_sleepRefusalToTalk" />
+					<Constant Name="Context" Value="speech_sleeping" />
 				</Function>
 				<HasteTrigger Name="complete_minesShift2" PositionY="-730" PositionX="-370">
 					<Constant Name="IsHidden" Value="true" />
 				</HasteTrigger>
-				<SoulDeathTrigger Name="deathtrigger5" PositionY="1180" PositionX="920">
+				<SoulDeathTrigger Name="deathtrigger5" PositionY="1610" PositionX="920">
 					<Asset Name="Souls" Alias="miningForeman_2" />
 					<Edge From="resolveMinersShift2active.bool" To="IsActive" />
 				</SoulDeathTrigger>
+				<duelbehaviorsimple Name="duelbehaviorsimple" PositionY="-720" PositionX="2020" Namespace="utils.combat">
+					<Asset Name="attacker" Alias="miningForeman_2" />
+					<Asset Name="target" Alias="player" />
+					<Constant Name="lowhealththreshold" Value="40" />
+					<Asset Name="qso" Alias="qSO" />
+					<Constant Name="behaviorname" Value="fightRepeated_template" />
+					<Edge From="fightWithPavel.OnInProgress" To="startfight" />
+					<Edge From="fightWithPavel.OnInProgress" To="notificationsenabled" />
+					<Edge From="fightWithPavel.OnWon" To="stopfight" />
+					<Edge From="fightWithPavel.OnLost" To="stopfight" />
+				</duelbehaviorsimple>
 				<EnableBehavior Name="enablebehaviorstringresultnotification60" PositionY="-470" PositionX="730" Signature="string" EventSet="resultNotification">
 					<Constant Name="Behavior" Value="pilgrimage_player_customMonologPraying" />
 					<Asset Name="SmartEntity" Alias="playerPraying" />
@@ -89,51 +104,20 @@
 						<Vertex>1ETV6uzy</Vertex>
 					</Edge>
 				</EnableBehavior>
-				<fightconfiguration_indifference Name="fightconfiguration_indifference" PositionY="-860" PositionX="2260" Namespace="utils.combat">
+				<fightconfiguration_indifference Name="fightconfiguration_indifference" PositionY="-720" PositionX="2320" Namespace="utils.combat">
 					<Asset Name="souls" Alias="miningForeman_2" />
 					<Constant Name="unarmedonly" Value="true" />
 					<Edge From="fightWithPavel.InProgress" To="isactive" />
 				</fightconfiguration_indifference>
-				<fightnotificationtrigger Name="fightnotificationtrigger" PositionY="-670" PositionX="2260" Namespace="utils.combat">
-					<Asset Name="attacker" Alias="player" />
-					<Asset Name="reference" Alias="miningForeman_2" />
-					<Constant Name="lowhealththreshold" Value="40" />
-					<Edge From="fightWithPavel.InProgress" To="isactive" />
-				</fightnotificationtrigger>
-				<State Name="fightWithPavel" PositionY="-650" PositionX="1680" TypeT="Challenge">
+				<State Name="fightWithPavel" PositionY="-690" PositionX="1690" TypeT="Challenge">
 					<Edge From="predak_pavel.fistfight_s_pavlem" To="SetInProgress" />
-					<Edge From="skirmish.souls1won" To="SetLost">
+					<Edge From="duelbehaviorsimple.ontargetwon" To="SetWon">
+						<Vertex>SQX8N3l3</Vertex>
+						<Vertex>LFwgATnb</Vertex>
+					</Edge>
+					<Edge From="duelbehaviorsimple.onattackerwon" To="SetLost">
 						<Vertex>vertex84</Vertex>
 						<Vertex>vertex83</Vertex>
-					</Edge>
-					<Edge From="skirmish.souls2won" To="SetWon">
-						<Vertex>vertex85</Vertex>
-						<Vertex>vertex86</Vertex>
-					</Edge>
-					<Edge From="fightnotificationtrigger.onsouldeath" To="SetWon">
-						<Vertex>vertex88</Vertex>
-						<Vertex>vertex85</Vertex>
-						<Vertex>vertex86</Vertex>
-					</Edge>
-					<Edge From="fightnotificationtrigger.onsoulsurrender" To="SetWon">
-						<Vertex>vertex88</Vertex>
-						<Vertex>vertex85</Vertex>
-						<Vertex>vertex86</Vertex>
-					</Edge>
-					<Edge From="fightnotificationtrigger.onsoulunconsciousness" To="SetWon">
-						<Vertex>vertex88</Vertex>
-						<Vertex>vertex85</Vertex>
-						<Vertex>vertex86</Vertex>
-					</Edge>
-					<Edge From="fightnotificationtrigger.onsoullowhealth" To="SetWon">
-						<Vertex>vertex88</Vertex>
-						<Vertex>vertex85</Vertex>
-						<Vertex>vertex86</Vertex>
-					</Edge>
-					<Edge From="fightnotificationtrigger.onsoulflee" To="SetWon">
-						<Vertex>vertex88</Vertex>
-						<Vertex>vertex85</Vertex>
-						<Vertex>vertex86</Vertex>
 					</Edge>
 				</State>
 				<havir_o_pavlovi Name="havir_o_pavlovi" PositionY="-1030" PositionX="850">
@@ -155,10 +139,10 @@
 						<Vertex>UNJ7dsDD</Vertex>
 					</Edge>
 				</IfFunction>
-				<include_druhe_kose Name="include_druhe_kose" PositionY="690" PositionX="1500">
+				<include_druhe_kose Name="include_druhe_kose" PositionY="1080" PositionX="1470">
 					<Edge From="s_pavlem_po_modlitbe_1.po_modlitbe" To="po_modlitbe" />
 				</include_druhe_kose>
-				<State Name="isPavelDead" PositionY="1180" PositionX="1250" TypeT="bool">
+				<State Name="isPavelDead" PositionY="1600" PositionX="1260" TypeT="bool">
 					<Constant Name="DefaultValue" Value="false" />
 					<Edge From="deathtrigger5.OnAllDeath" To="SetTrue" />
 				</State>
@@ -174,6 +158,15 @@
 				<Function Name="not70" PositionY="180" PositionX="300" MethodName="math::boolean::Not" DeclaringType="math::boolean">
 					<Edge From="prayingProgress.Active" To="Value" />
 				</Function>
+				<Function Name="not73" PositionY="-50" PositionX="1470" MethodName="math::boolean::Not" DeclaringType="math::boolean">
+					<Edge From="fightWithPavel.None" To="Value">
+						<Vertex>VjbtlnjX</Vertex>
+						<Vertex>4Xoo657d</Vertex>
+					</Edge>
+				</Function>
+				<Function Name="not74" PositionY="-170" PositionX="1470" MethodName="math::boolean::Not" DeclaringType="math::boolean">
+					<Edge From="or72.bool" To="Value" />
+				</Function>
 				<zjisti_tezbu_pavlovic_synku Name="objectiveVisual20" PositionY="-730" PositionX="290" RequiredForOutput="kutnohorsko">
 					<Edge From="resolveMinersShift2.State" To="Progress" />
 				</zjisti_tezbu_pavlovic_synku>
@@ -187,6 +180,10 @@
 						<Vertex>vertex89</Vertex>
 					</Edge>
 					<Edge From="fightWithPavel.Lost" To="B" />
+				</Function>
+				<Function Name="or72" PositionY="-170" PositionX="1240" MethodName="math::boolean::Or" DeclaringType="math::boolean">
+					<Edge From="resolveMinersShift2.Completed" To="A" />
+					<Edge From="resolveMinersShift2.Canceled" To="B" />
 				</Function>
 				<Output Name="Output">
 					<Edge From="resolveMinersShift2.OnCompleted" To="informace_ziskana">
@@ -207,7 +204,7 @@
 				<pavel_se_modli Name="pavel_se_modli" PositionY="-320" PositionX="420">
 					<Edge From="resolveMinersShift2.PrayWithPavel" To="enable" />
 				</pavel_se_modli>
-				<pavel_spi Name="pavel_spi" PositionY="1520" PositionX="1270">
+				<pavel_spi Name="pavel_spi" PositionY="1960" PositionX="1280">
 					<Edge From="and41.bool" To="pavel_spi" />
 				</pavel_spi>
 				<payment Name="payment" PositionY="-1200" PositionX="1560" Namespace="utils.speech">
@@ -251,10 +248,11 @@
 						<Vertex>zsy2gmf6</Vertex>
 					</Edge>
 				</predak_pavel>
-				<questsurrenderprotection Name="questsurrenderprotection" PositionY="110" PositionX="2050" Namespace="utils.combat">
+				<questsurrenderprotection Name="questsurrenderprotection" PositionY="140" PositionX="2030" Namespace="utils.combat">
 					<Asset Name="soul" Alias="miningForeman_2" />
-					<Edge From="include_druhe_kose.druha_smena_completed" To="disable" />
+					<Constant Name="calm_down_after_surrender" Value="false" />
 					<Edge From="fightWithPavel.OnWon" To="enable" />
+					<Edge From="s_pavlem_po_bitce_1.AfterPlay" To="disable" />
 				</questsurrenderprotection>
 				<State Name="resolveMinersShift2" PositionY="-730" PositionX="-60" RequiredForOutput="kutnohorsko" TypeT="minersShift2">
 					<Edge From="promluv_si_s_druhou_smenou" To="SetTalkToShift2" />
@@ -289,7 +287,7 @@
 						<Vertex>46BDgq68</Vertex>
 					</Edge>
 				</State>
-				<Function Name="resolveMinersShift2active" PositionY="1170" PositionX="570" MethodName="math::boolean::Or" DeclaringType="math::boolean">
+				<Function Name="resolveMinersShift2active" PositionY="1610" PositionX="580" MethodName="math::boolean::Or" DeclaringType="math::boolean">
 					<Edge From="resolveMinersShift2.TalkToShift2" To="A" />
 					<Edge From="resolveMinersShift2.FindPavel" To="B" />
 					<Edge From="resolveMinersShift2.PrayWithPavel" To="C" />
@@ -313,7 +311,7 @@
 						<Vertex>xdDP71KP</Vertex>
 					</Edge>
 				</s_pavlem_po_bitce_1>
-				<s_pavlem_po_modlitbe_1 Name="s_pavlem_po_modlitbe_1" PositionY="810" PositionX="1160">
+				<s_pavlem_po_modlitbe_1 Name="s_pavlem_po_modlitbe_1" PositionY="1080" PositionX="1150">
 					<Edge From="and38.bool" To="modlitba_skoncena" />
 					<Edge From="include_druhe_kose.pavel_prokecan" To="pavel_prokecan">
 						<Vertex>vertex56</Vertex>
@@ -335,21 +333,11 @@
 					<Constant Name="LinkTag" Value="kralovskeStribro_praying" />
 					<Edge From="and69.bool" To="IsActive" />
 				</SchedulerLinkActivation>
-				<SetEntityContext Name="setentitycontext1" PositionY="1760" PositionX="750">
-					<Constant Name="Context" Value="speech_wakeUpWithDialog" />
-					<Asset Name="Souls" Alias="miningForeman_2" />
-					<Edge From="resolveMinersShift2active.bool" To="IsActive" />
-				</SetEntityContext>
-				<SetEntityContext Name="setentitycontext1_1" PositionY="-840" PositionX="1980">
+				<SetEntityContext Name="setentitycontext1_1" PositionY="-130" PositionX="1940">
 					<Constant Name="Context" Value="combat_neverSurrenderOrFlee" />
 					<Asset Name="Souls" Alias="miningForeman_2" />
-					<Edge From="fightWithPavel.InProgress" To="IsActive" />
+					<Edge From="and75.bool" To="IsActive" />
 				</SetEntityContext>
-				<skirmish Name="skirmish" PositionY="-670" PositionX="1980" Namespace="utils.combat">
-					<Asset Name="souls1" Alias="miningForeman_2" />
-					<Asset Name="souls2" Alias="player" />
-					<Edge From="fightWithPavel.InProgress" To="isactive" />
-				</skirmish>
 				<State Name="state67" PositionY="-1320" PositionX="930" TypeT="bool">
 					<Edge From="areatrigger66.OnEnter" To="SetTrue" />
 					<Edge From="areatrigger66.OnLeave" To="SetFalse" />
@@ -360,6 +348,7 @@
 				<EdgeVertex Name="1WY1t7lF" PositionY="310" PositionX="1070" />
 				<EdgeVertex Name="2wr3gU4c" PositionY="460" PositionX="80" />
 				<EdgeVertex Name="46BDgq68" PositionY="310" PositionX="40" />
+				<EdgeVertex Name="4Xoo657d" PositionY="-240" PositionX="1500" />
 				<EdgeVertex Name="AVj1KDPS" PositionY="-500" PositionX="1320" />
 				<EdgeVertex Name="aVU1uEJv" PositionY="-70" PositionX="320" />
 				<EdgeVertex Name="CvHbsmEq" PositionY="-20" PositionX="610" />
@@ -367,17 +356,19 @@
 				<EdgeVertex Name="gWfvSy1C" PositionY="590" PositionX="1860" />
 				<EdgeVertex Name="Hp1ErMr7" PositionY="350" PositionX="1070" />
 				<EdgeVertex Name="leTHzpLC" PositionY="-520" PositionX="1480" />
+				<EdgeVertex Name="LFwgATnb" PositionY="-200" PositionX="1720" />
 				<EdgeVertex Name="NqullIX3" PositionY="-590" PositionX="1200" />
+				<EdgeVertex Name="SQX8N3l3" PositionY="-200" PositionX="2220" />
 				<EdgeVertex Name="UNJ7dsDD" PositionY="-520" PositionX="1320" />
 				<EdgeVertex Name="vertex21" PositionY="420" PositionX="1080" />
 				<EdgeVertex Name="vertex22" PositionY="420" PositionX="-40" />
-				<EdgeVertex Name="vertex33" PositionY="1100" PositionX="350" />
-				<EdgeVertex Name="vertex34" PositionY="1140" PositionX="320" />
-				<EdgeVertex Name="vertex35" PositionY="1410" PositionX="1450" />
-				<EdgeVertex Name="vertex36" PositionY="1410" PositionX="120" />
-				<EdgeVertex Name="vertex42" PositionY="1140" PositionX="2090" />
-				<EdgeVertex Name="vertex43" PositionY="1100" PositionX="2090" />
-				<EdgeVertex Name="vertex50" PositionY="1340" PositionX="2090" />
+				<EdgeVertex Name="vertex33" PositionY="1540" PositionX="360" />
+				<EdgeVertex Name="vertex34" PositionY="1580" PositionX="330" />
+				<EdgeVertex Name="vertex35" PositionY="1850" PositionX="1460" />
+				<EdgeVertex Name="vertex36" PositionY="1850" PositionX="130" />
+				<EdgeVertex Name="vertex42" PositionY="1580" PositionX="2100" />
+				<EdgeVertex Name="vertex43" PositionY="1540" PositionX="2100" />
+				<EdgeVertex Name="vertex50" PositionY="1790" PositionX="2100" />
 				<EdgeVertex Name="vertex51" PositionY="460" PositionX="1480" />
 				<EdgeVertex Name="vertex52" PositionY="460" PositionX="-40" />
 				<EdgeVertex Name="vertex54" PositionY="500" PositionX="-40" />
@@ -388,7 +379,7 @@
 				<EdgeVertex Name="vertex59" PositionY="580" PositionX="-40" />
 				<EdgeVertex Name="vertex60" PositionY="380" PositionX="610" />
 				<EdgeVertex Name="vertex61" PositionY="380" PositionX="1480" />
-				<EdgeVertex Name="vertex68" PositionY="1310" PositionX="2090" />
+				<EdgeVertex Name="vertex68" PositionY="1730" PositionX="2100" />
 				<EdgeVertex Name="vertex73" PositionY="-1210" PositionX="1740" />
 				<EdgeVertex Name="vertex74" PositionY="-1210" PositionX="1280" />
 				<EdgeVertex Name="vertex75" PositionY="-1230" PositionX="1750" />
@@ -398,12 +389,10 @@
 				<EdgeVertex Name="vertex81" PositionY="530" PositionX="1190" />
 				<EdgeVertex Name="vertex82" PositionY="530" PositionX="2300" />
 				<EdgeVertex Name="vertex83" PositionY="-180" PositionX="1720" />
-				<EdgeVertex Name="vertex84" PositionY="-180" PositionX="2120" />
-				<EdgeVertex Name="vertex85" PositionY="-210" PositionX="2120" />
-				<EdgeVertex Name="vertex86" PositionY="-210" PositionX="1720" />
-				<EdgeVertex Name="vertex88" PositionY="-210" PositionX="2500" />
+				<EdgeVertex Name="vertex84" PositionY="-180" PositionX="2220" />
 				<EdgeVertex Name="vertex89" PositionY="430" PositionX="1730" />
 				<EdgeVertex Name="vertex90" PositionY="430" PositionX="2300" />
+				<EdgeVertex Name="VjbtlnjX" PositionY="-240" PositionX="1910" />
 				<EdgeVertex Name="WoBRnFSb" PositionY="100" PositionX="1100" />
 				<EdgeVertex Name="xdDP71KP" PositionY="590" PositionX="1190" />
 				<EdgeVertex Name="xMJkTY6k" PositionY="-500" PositionX="1480" />

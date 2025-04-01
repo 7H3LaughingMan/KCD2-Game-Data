@@ -2,9 +2,11 @@
 <BehaviorTrees>
 	<BehaviorTree name="crime_resolveCrimeInformation" is_function="1">
 		<Variables>
+			<Variable name="corpseMissingVolume" type="_wuid" values="" isPersistent="0" form="single" />
 			<Variable name="globalCooldowns" type="crime:globalCooldowns" values="" isPersistent="0" form="single" />
 			<Variable name="homeEscalationCounter" type="_int" values="1" isPersistent="0" form="single" />
 			<Variable name="isHomeEscalation" type="_bool" values="" isPersistent="0" form="single" />
+			<Variable name="lockType" type="_string" values="" isPersistent="0" form="single" />
 			<Variable name="now" type="_int64" values="" isPersistent="0" form="single" />
 			<Variable name="owner" type="_wuid" values="" isPersistent="0" form="single" />
 			<Variable name="perceivedWuidType" type="_string" values="" isPersistent="0" form="single" />
@@ -49,7 +51,21 @@
 						<IfCondition failOnCondition="false" condition="$information.label == &apos;murder&apos; | &#10;$information.label == &apos;murderByDog&apos; | &#10;$information.label == &apos;corpseViolation&apos;">
 							<CheckWuidValid wuid="$information.perceivedWuid" FailSubtMissing="false" saveVersion="2">
 								<Then canSkip="1">
-									<Function_crime_addCorpseLink corpse="$information.perceivedWuid" corpseState="$enum:corpseState.watched" mateReacting="false" resolve="true" storeTime="false" nodeLabel="31317174" />
+									<Sequence>
+										<Function_crime_addCorpseLink corpse="$information.perceivedWuid" corpseState="$enum:corpseState.watched" mateReacting="false" resolve="true" storeTime="false" nodeLabel="31317174" />
+										<SuppressFailure>
+											<Sequence>
+												<GraphSearch Origin="$information.perceivedWuid" Borders="" depth="1" selection="true" SearchPattern="Depth" EdgePruning="&apos;parent,inventory&apos;" AllowedEdges="" SubGraph="" AllowSubtraph="false" includeOrigin="false" excludeOrigin="false" failOnEmpty="true" SetOperationChoice="Intersection|And" errorOnEmpty="false" shortCircuit="false" skipTraversed="true">
+													<LinkTagFilter tag="&apos;crime_missingCorpse_reverse&apos;" prune="true" negprune="unknown" Parent="" Child="$corpseMissingVolume" Data="" />
+												</GraphSearch>
+												<CheckWuidValid wuid="$corpseMissingVolume" FailSubtMissing="false" saveVersion="2">
+													<Then canSkip="1">
+														<DeSpawnPerceptibleVolume Wuid="$corpseMissingVolume" />
+													</Then>
+												</CheckWuidValid>
+											</Sequence>
+										</SuppressFailure>
+									</Sequence>
 								</Then>
 							</CheckWuidValid>
 						</IfCondition>
@@ -126,19 +142,23 @@
 											</IfCondition>
 											<IfCondition failOnCondition="false" condition="$theftMethod == $enum:crime_theftMethod.pick | &#10;$theftMethod == $enum:crime_theftMethod.seenEquipped">
 												<IfCondition failOnCondition="false" condition="$owner ~= $__null">
-													<Sequence>
-														<GraphSearch Origin="$owner" Borders="" depth="1" selection="true" SearchPattern="Depth" EdgePruning="&apos;parent,inventory&apos;" AllowedEdges="" SubGraph="" AllowSubtraph="false" includeOrigin="false" excludeOrigin="false" failOnEmpty="false" SetOperationChoice="Intersection|And" errorOnEmpty="false" shortCircuit="false" skipTraversed="true">
-															<LinkTagFilter tag="&apos;stealDataReverse&apos;" prune="true" negprune="unknown" Parent="" Child="$theftVolume" Data="" />
-															<ExistPath Origin="$theftVolume" Borders="" depth="1" selection="true" SearchPattern="Depth" EdgePruning="&apos;parent,inventory&apos;" AllowedEdges="" SubGraph="" AllowSubtraph="false" includeOrigin="false" excludeOrigin="false" failOnEmpty="true" SetOperationChoice="Intersection|And" errorOnEmpty="false" shortCircuit="false" skipTraversed="true">
-																<LinkTagFilter tag="&apos;stealData&apos;" prune="true" negprune="unknown" Parent="" Child="" Data="" />
-																<LinkDataFilter tag="&apos;stealData&apos;" condition="$__link_stealData.instance == $stolenItems[0].instance | &#10;($__link_stealData.instance == $__null &amp;  &#10;$__link_stealData.class == $stolenItems[0].class)" prune="true" negprune="unknown" Parent="" Child="" Data="" />
-															</ExistPath>
-															<Nodalyzer Quantifiers="ForAll" Parent="" Child="$theftVolumes" saveVersion="2" />
-														</GraphSearch>
-														<ForEach startIndex="0" step="1" array="$theftVolumes" iterator="" value="$theftVolume" break="">
-															<DeSpawnPerceptibleVolume Wuid="$theftVolume" />
-														</ForEach>
-													</Sequence>
+													<CheckWuidValid wuid="$owner" FailSubtMissing="false" saveVersion="2">
+														<Then canSkip="1">
+															<Sequence>
+																<GraphSearch Origin="$owner" Borders="" depth="1" selection="true" SearchPattern="Depth" EdgePruning="&apos;parent,inventory&apos;" AllowedEdges="" SubGraph="" AllowSubtraph="false" includeOrigin="false" excludeOrigin="false" failOnEmpty="false" SetOperationChoice="Intersection|And" errorOnEmpty="false" shortCircuit="false" skipTraversed="true">
+																	<LinkTagFilter tag="&apos;stealDataReverse&apos;" prune="true" negprune="unknown" Parent="" Child="$theftVolume" Data="" />
+																	<ExistPath Origin="$theftVolume" Borders="" depth="1" selection="true" SearchPattern="Depth" EdgePruning="&apos;parent,inventory&apos;" AllowedEdges="" SubGraph="" AllowSubtraph="false" includeOrigin="false" excludeOrigin="false" failOnEmpty="true" SetOperationChoice="Intersection|And" errorOnEmpty="false" shortCircuit="false" skipTraversed="true">
+																		<LinkTagFilter tag="&apos;stealData&apos;" prune="true" negprune="unknown" Parent="" Child="" Data="" />
+																		<LinkDataFilter tag="&apos;stealData&apos;" condition="$__link_stealData.instance == $stolenItems[0].instance | &#10;($__link_stealData.instance == $__null &amp;  &#10;$__link_stealData.class == $stolenItems[0].class)" prune="true" negprune="unknown" Parent="" Child="" Data="" />
+																	</ExistPath>
+																	<Nodalyzer Quantifiers="ForAll" Parent="" Child="$theftVolumes" saveVersion="2" />
+																</GraphSearch>
+																<ForEach startIndex="0" step="1" array="$theftVolumes" iterator="" value="$theftVolume" break="">
+																	<DeSpawnPerceptibleVolume Wuid="$theftVolume" />
+																</ForEach>
+															</Sequence>
+														</Then>
+													</CheckWuidValid>
 												</IfCondition>
 											</IfCondition>
 											<DefaultBranch>
@@ -191,11 +211,33 @@
 								</Then>
 							</CheckWuidValid>
 						</IfCondition>
+						<IfCondition failOnCondition="false" condition="$information.label == &apos;lockpick&apos;">
+							<SuppressFailure>
+								<Sequence>
+									<LockDynamicInformationValues Information="$information">
+										<GetDynamicInformationValue Information="$information" Tag="&apos;lockType&apos;" Out="$lockType" />
+									</LockDynamicInformationValues>
+									<IfElseCondition failOnCondition="false" condition="$lockType == &apos;STASH&apos; | $lockType == &apos;UNK&apos;" saveVersion="2">
+										<Then canSkip="1">
+											<ExecuteLua code="local stash = XGenAIModule.GetEntityByWUID(data.information.perceivedWuid) &#10;stash:Lock()" />
+										</Then>
+										<Else canSkip="1">
+											<ExecuteLua code="local door = XGenAIModule.GetEntityByWUID(data.information.perceivedWuid) &#10;if not door:IsOpen() then &#10;  door:Lock(false) &#10;end" />
+										</Else>
+									</IfElseCondition>
+								</Sequence>
+							</SuppressFailure>
+						</IfCondition>
 						<DefaultBranch>
 							<Success />
 						</DefaultBranch>
 					</Switch>
-					<DestroyInformationCompletely Information="$information" />
+					<SuppressFailure>
+						<Sequence>
+							<CheckInformationKnowledge Information="$information" Holder="$this.id" />
+							<DestroyInformationCompletely Information="$information" />
+						</Sequence>
+					</SuppressFailure>
 				</Sequence>
 			</Behavior>
 		</Root>
@@ -221,12 +263,15 @@
 					</Else>
 				</IsDeadCheck>
 			</IfCondition>
+			<AddLink From="$corpseMissingVolume" To="$this.id" Tag="&apos;crime_missingCorpse&apos;" Data="" LinkOpHandleMode="Error" />
 		</ForestContainer>
 		<EditorData EventSet="">
 			<Variables>
+				<Variable name="corpseMissingVolume" comment="" />
 				<Variable name="globalCooldowns" comment="" />
 				<Variable name="homeEscalationCounter" comment="" />
 				<Variable name="isHomeEscalation" comment="" />
+				<Variable name="lockType" comment="" />
 				<Variable name="now" comment="" />
 				<Variable name="owner" comment="" />
 				<Variable name="perceivedWuidType" comment="" />
@@ -300,9 +345,32 @@
 								<CheckWuidValid hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
 									<OutputBreakpoints />
 									<Then>
-										<Function_crime_addCorpseLink hasInputBreakpoint="0" comment="" breakpointFlags="0">
+										<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
 											<OutputBreakpoints />
-										</Function_crime_addCorpseLink>
+											<Function_crime_addCorpseLink hasInputBreakpoint="0" comment="" breakpointFlags="0">
+												<OutputBreakpoints />
+											</Function_crime_addCorpseLink>
+											<SuppressFailure hasInputBreakpoint="0" comment="" breakpointFlags="0">
+												<OutputBreakpoints />
+												<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
+													<OutputBreakpoints />
+													<GraphSearch hasInputBreakpoint="0" comment="" breakpointFlags="0">
+														<OutputBreakpoints />
+														<LinkTagFilter hasInputBreakpoint="0" comment="" breakpointFlags="0">
+															<OutputBreakpoints />
+														</LinkTagFilter>
+													</GraphSearch>
+													<CheckWuidValid hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
+														<OutputBreakpoints />
+														<Then>
+															<DeSpawnPerceptibleVolume hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																<OutputBreakpoints />
+															</DeSpawnPerceptibleVolume>
+														</Then>
+													</CheckWuidValid>
+												</Sequence>
+											</SuppressFailure>
+										</Sequence>
 									</Then>
 								</CheckWuidValid>
 							</IfCondition>
@@ -437,33 +505,38 @@
 													<OutputBreakpoints />
 													<IfCondition hasInputBreakpoint="0" comment="" breakpointFlags="0">
 														<OutputBreakpoints />
-														<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
+														<CheckWuidValid hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
 															<OutputBreakpoints />
-															<GraphSearch hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																<OutputBreakpoints />
-																<LinkTagFilter hasInputBreakpoint="0" comment="" breakpointFlags="0">
+															<Then>
+																<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
 																	<OutputBreakpoints />
-																</LinkTagFilter>
-																<ExistPath hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																	<OutputBreakpoints />
-																	<LinkTagFilter hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																	<GraphSearch hasInputBreakpoint="0" comment="" breakpointFlags="0">
 																		<OutputBreakpoints />
-																	</LinkTagFilter>
-																	<LinkDataFilter hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																		<LinkTagFilter hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																			<OutputBreakpoints />
+																		</LinkTagFilter>
+																		<ExistPath hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																			<OutputBreakpoints />
+																			<LinkTagFilter hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																				<OutputBreakpoints />
+																			</LinkTagFilter>
+																			<LinkDataFilter hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																				<OutputBreakpoints />
+																			</LinkDataFilter>
+																		</ExistPath>
+																		<Nodalyzer hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
+																			<OutputBreakpoints />
+																		</Nodalyzer>
+																	</GraphSearch>
+																	<ForEach hasInputBreakpoint="0" comment="there can be multiple for divisible items" breakpointFlags="0">
 																		<OutputBreakpoints />
-																	</LinkDataFilter>
-																</ExistPath>
-																<Nodalyzer hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
-																	<OutputBreakpoints />
-																</Nodalyzer>
-															</GraphSearch>
-															<ForEach hasInputBreakpoint="0" comment="there can be multiple for divisible items" breakpointFlags="0">
-																<OutputBreakpoints />
-																<DeSpawnPerceptibleVolume hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																	<OutputBreakpoints />
-																</DeSpawnPerceptibleVolume>
-															</ForEach>
-														</Sequence>
+																		<DeSpawnPerceptibleVolume hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																			<OutputBreakpoints />
+																		</DeSpawnPerceptibleVolume>
+																	</ForEach>
+																</Sequence>
+															</Then>
+														</CheckWuidValid>
 													</IfCondition>
 												</IfCondition>
 												<DefaultBranch>
@@ -544,15 +617,52 @@
 									</Then>
 								</CheckWuidValid>
 							</IfCondition>
+							<IfCondition hasInputBreakpoint="0" comment="" breakpointFlags="0">
+								<OutputBreakpoints />
+								<SuppressFailure hasInputBreakpoint="0" comment="" breakpointFlags="0">
+									<OutputBreakpoints />
+									<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
+										<OutputBreakpoints />
+										<LockDynamicInformationValues hasInputBreakpoint="0" comment="" breakpointFlags="0">
+											<OutputBreakpoints />
+											<GetDynamicInformationValue hasInputBreakpoint="0" comment="" breakpointFlags="0">
+												<OutputBreakpoints />
+											</GetDynamicInformationValue>
+										</LockDynamicInformationValues>
+										<IfElseCondition hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
+											<OutputBreakpoints />
+											<Then>
+												<ExecuteLua hasInputBreakpoint="0" comment="" breakpointFlags="0">
+													<OutputBreakpoints />
+												</ExecuteLua>
+											</Then>
+											<Else>
+												<ExecuteLua hasInputBreakpoint="0" comment="" breakpointFlags="0">
+													<OutputBreakpoints />
+												</ExecuteLua>
+											</Else>
+										</IfElseCondition>
+									</Sequence>
+								</SuppressFailure>
+							</IfCondition>
 							<DefaultBranch>
 								<Success hasInputBreakpoint="0" comment="" breakpointFlags="0">
 									<OutputBreakpoints />
 								</Success>
 							</DefaultBranch>
 						</Switch>
-						<DestroyInformationCompletely hasInputBreakpoint="0" comment="" breakpointFlags="0">
+						<SuppressFailure hasInputBreakpoint="0" comment="" breakpointFlags="0">
 							<OutputBreakpoints />
-						</DestroyInformationCompletely>
+							<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
+								<OutputBreakpoints />
+								<CheckInformationKnowledge hasInputBreakpoint="0" comment="" breakpointFlags="0">
+									<OutputBreakpoints />
+								</CheckInformationKnowledge>
+								<DestroyInformationCompletely hasInputBreakpoint="0" comment="" breakpointFlags="0">
+									<OutputBreakpoints />
+								</DestroyInformationCompletely>
+							</Sequence>
+						</SuppressFailure>
 					</Sequence>
 				</Behavior>
 			</Root>
@@ -595,6 +705,9 @@
 						</Else>
 					</IsDeadCheck>
 				</IfCondition>
+				<AddLink editorPosX="1433" editorPosY="-1313" hasInputBreakpoint="0" comment="" breakpointFlags="0">
+					<OutputBreakpoints />
+				</AddLink>
 			</Forest>
 			<Comments />
 		</EditorData>

@@ -115,35 +115,6 @@ function BasicAIActions:ActorCanTalk(user)
 end
 
 -- =============================================================================
-function BasicAIActions:AddLootAction(output, user, firstFast)
-	if user.actor:CanLoot(self.id) then
-		local hType
-		local hint
-		if self.soul:IsPublicEnemy() or self.soul:IsLegalToLoot() then
-			hType = AHT_RELEASE
-			hint = "@ui_hud_loot"
-		else
-			hType = AHT_HOLD
-			hint = "@ui_hud_rob_body"
-		end
-
-		local reason
-		-- alive, ergo unconsious; "IsUncoscious" cannot be used here because target stays Unconscious even after the death
-		if self.actor:IsDead() then
-			reason = "@ui_body_dead"
-		else
-			reason = "@ui_body_unconscious"
-		end
-
-		if AddInteractorAction( output, firstFast, Action():hint(hint):action("use"):hintType(hType):func(BasicAIActions.OnLoot):interaction(inr_loot)) then
-			return true
-		end
-	end
-
-	return false
-end
-
--- =============================================================================
 function BasicAIActions:GetCanTalkHintType()
 	local bDialogRestricted = self.soul:IsDialogRestricted(player.id)
 	local bIsInCombatDanger = player.soul:IsInCombatDanger()
@@ -163,6 +134,16 @@ function BasicAIActions:GetCanTalkHintType()
 	end
 
 	return true
+end
+
+-- =============================================================================
+-- Used in StartDialog command to determine if the NPC has E active, just combines
+-- functions, so we don't have to call all of them via C++
+function BasicAIActions:TestActorCanTalk()
+	local actorCanTalk = self:ActorCanTalk(player)
+	local canTalkHintType = self:GetCanTalkHintType()
+
+	return actorCanTalk and canTalkHintType
 end
 
 -- =============================================================================

@@ -21,6 +21,9 @@
 				<Port Name="kun6available" Direction="In" Type="bool">
 					<DesignName StringName="podkoni_m_kun6available_6E4C" Text="kun6Available" />
 				</Port>
+				<Port Name="je_noc" Direction="In" Type="bool">
+					<DesignName StringName="podkoni_m_je_noc_9V2E" Text="je noc" />
+				</Port>
 			</Ports>
 			<Text StringName="podkoni_malesov__inspekce_DoNT" Text="Podkoní Malešov - Inspekce koní" />
 			<Dialogue TechnicalStatus="Enabled" GesturesSetDate="2024-09-20T16:37:06.7236823+02:00" GesturesSetResponseCount="31">
@@ -28,11 +31,11 @@
 					<SelectedSoul Role="HENRY" Voice="tomMcKay" Soul="player_henry" Type="Wave" Language="ENG" />
 					<SelectedSoul Role="PODKONI_MALESOV" Voice="gabrielAndrews" Soul="kmal_hastal" Type="Wave" Language="ENG" />
 				</SelectedSouls>
-				<Decision Name="dec1" Priority="General">
+				<Decision Name="dec1" Priority="Shop">
 					<Sequences>
-						<Sequence EntryCondition="!ThisSequenceUsed() AND &#xD;&#xA;(&#xD;&#xA;Port('kun1available') OR&#xD;&#xA;Port('kun2available') OR&#xD;&#xA;Port('kun3available') OR&#xD;&#xA;Port('kun4available') OR &#xD;&#xA;Port('kun5available') OR&#xD;&#xA;Port('kun6available')&#xD;&#xA;)" EndType="Decision" Visibility="Public" GrayOutIfSequencesUsed="Never" Name="podkonimalesov_forcedtutorial">
+						<Sequence EntryCondition="!Port('je_noc') AND !ThisSequenceUsed() AND &#xD;&#xA;(&#xD;&#xA;Port('kun1available') OR&#xD;&#xA;Port('kun2available') OR&#xD;&#xA;Port('kun3available') OR&#xD;&#xA;Port('kun4available') OR &#xD;&#xA;Port('kun5available') OR&#xD;&#xA;Port('kun6available')&#xD;&#xA;)" EndType="Decision" Visibility="Public" GrayOutIfSequencesUsed="Never" Name="podkonimalesov_forcedtutorial">
 							<DesignName StringName="podkoni_m_podkonimalesov__RZdy" Text="podkoniMalesov_forcedTutorial" />
-							<UiPrompt StringName="ui_podkoni_m_podkonimales_acX4" Text="(Koupit koně.)" />
+							<UiPrompt StringName="ui_podkoni_m_podkonimales_acX4" Text="(Koupit koně)" />
 							<Elements>
 								<Response Role="HENRY" ReferenceLength="1.32">
 									<Parenthetical>
@@ -291,7 +294,7 @@
 								</Sequences>
 							</Decision>
 						</Sequence>
-						<Sequence EntryCondition="SequenceUsed('podkonimalesov_forcedtutorial')" GrayOutIfSequencesUsed="Never" Name="seq8">
+						<Sequence EntryCondition="!Port('je_noc') AND SequenceUsed('podkonimalesov_forcedtutorial')" GrayOutIfSequencesUsed="Never" Name="seq8">
 							<DesignName StringName="podkoni_m_seq8_bfCF" Text="seq8" />
 							<UiPrompt StringName="ui_podkoni_m_seq8_4Qmq" Text="Jak fungujou stáje na Malešově?" />
 							<Elements>

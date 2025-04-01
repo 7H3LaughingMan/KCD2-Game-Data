@@ -80,7 +80,10 @@
 																<Sequence>
 																	<GetType WUID="$playerDogTarget" OutString="$playerDogTargetType" ShowTrueIdentity="false" TreatPlayerAsNPC="true" />
 																	<IfCondition failOnCondition="false" condition="$playerDogTargetType == &apos;NPC&apos;">
-																		<CreateCombatInformation Victim="$playerDogTarget" AttackKind="$enum:crime_attackKind.dog" DirectHit="true" AddConfiscation="false" Information="$assaultByDogInformation" />
+																		<Sequence>
+																			<CreateCombatInformation Victim="$playerDogTarget" AttackKind="$enum:crime_attackKind.dog" DirectHit="true" AddConfiscation="false" Information="$assaultByDogInformation" />
+																			<TransferInformation source="$this.id" target="$playerDogTarget" information="$assaultByDogInformation" />
+																		</Sequence>
 																	</IfCondition>
 																</Sequence>
 															</Else>
@@ -94,23 +97,23 @@
 								<IfElseCondition failOnCondition="false" condition="$playerIsInSkirmish | $playerDogIsInSkirmish" saveVersion="2">
 									<Then canSkip="1">
 										<Sequence>
-										<Switch>
-											<EntityContextCheck context="switch_recognitionLevel_I" target="" saveVersion="2">
-												<Then canSkip="1">
-													<Success />
-												</Then>
-											</EntityContextCheck>
-											<EntityContextCheck context="switch_recognitionLevel_II" target="" saveVersion="2">
-												<Then canSkip="1">
-													<Success />
-												</Then>
-											</EntityContextCheck>
-											<DefaultBranch>
-												<IfCondition failOnCondition="false" condition="~$isBff">
-													<CreateAssaultInformationsFromLastHits Candidates="$skirmishParticipants" Informations="$skirmishInformations" />
-												</IfCondition>
-											</DefaultBranch>
-										</Switch>
+											<Switch>
+												<EntityContextCheck context="switch_recognitionLevel_I" target="" saveVersion="2">
+													<Then canSkip="1">
+														<Success />
+													</Then>
+												</EntityContextCheck>
+												<EntityContextCheck context="switch_recognitionLevel_II" target="" saveVersion="2">
+													<Then canSkip="1">
+														<Success />
+													</Then>
+												</EntityContextCheck>
+												<DefaultBranch>
+													<IfCondition failOnCondition="false" condition="~$isBff">
+														<CreateAssaultInformationsFromLastHits Candidates="$skirmishParticipants" Informations="$skirmishInformations" />
+													</IfCondition>
+												</DefaultBranch>
+											</Switch>
 											<Sequence>
 												<ForEach startIndex="0" step="1" array="$skirmishParticipants" iterator="" value="$skirmishParticipants_value" break="">
 													<EntityContextCheck context="crime_isCombatableAnimal" target="$skirmishParticipants_value" saveVersion="2">
@@ -123,8 +126,8 @@
 																<CheckRelationshipInterval_SoulToSoul TargetSoul="$skirmishParticipants_value" Soul="$this.id" Flag="friend" saveVersion="2">
 																	<Then canSkip="1">
 																		<Expression expressions="$isFriendWithCombatableAnimal = true" />
-									</Then>
-									<Else canSkip="1">
+																	</Then>
+																	<Else canSkip="1">
 																		<Expression expressions="$isFriendWithCombatableAnimal = false" />
 																	</Else>
 																</CheckRelationshipInterval_SoulToSoul>
@@ -136,6 +139,29 @@
 																</IfCondition>
 															</Sequence>
 														</Then>
+														<Else canSkip="1">
+															<IfCondition failOnCondition="false" condition="$skirmishParticipants_value ~= $__player &amp; &#10;$skirmishParticipants_value ~= $__playerDog">
+																<SuppressFailure>
+																	<Sequence>
+																		<ReinitVariable variable="$mostImportantInformation" />
+																		<EntityContextCheck context="crime_isAuthority" target="" saveVersion="2">
+																			<Then canSkip="1">
+																				<GetMostImportantCrimeInformation Npc="$skirmishParticipants_value" OnlyRelated="false" MostImportantInformation="$mostImportantInformation" />
+																			</Then>
+																			<Else canSkip="1">
+																				<GetMostImportantCrimeInformation Npc="$skirmishParticipants_value" OnlyRelated="true" MostImportantInformation="$mostImportantInformation" />
+																			</Else>
+																		</EntityContextCheck>
+																		<IfCondition failOnCondition="false" condition="$mostImportantInformation.label ~= &apos;&apos;">
+																			<Selector>
+																				<CheckInformationKnowledge Information="$mostImportantInformation" Holder="$this.id" />
+																				<TransferInformation source="$skirmishParticipants_value" target="$this.id" information="$mostImportantInformation" />
+																			</Selector>
+																		</IfCondition>
+																	</Sequence>
+																</SuppressFailure>
+															</IfCondition>
+														</Else>
 													</EntityContextCheck>
 												</ForEach>
 												<SuppressFailure>
@@ -183,6 +209,7 @@
 										<Expression expressions="$reactionNpc = $__player" />
 									</Else>
 								</IfElseCondition>
+								<ReinitVariable variable="$mostImportantInformation" />
 								<GetMostImportantCrimeInformation Npc="$this.id" OnlyRelated="false" MostImportantInformation="$mostImportantInformation" />
 								<EntityContextCheck context="crime_stimulusInitiatedByScheduler" target="" saveVersion="2">
 									<Then canSkip="1">
@@ -424,20 +451,7 @@
 				</Sequence>
 			</Behavior>
 		</Root>
-		<ForestContainer>
-			<Sequence>
-				<Function_crime_isInSkirmish reference="$playerDogTarget" isInSkirmish="$isInSkirmish" nodeLabel="90873638" />
-				<IfElseCondition failOnCondition="false" condition="$isInSkirmish" saveVersion="2">
-					<Then canSkip="1">
-						<IsIndifferent NPC="$playerDogTarget" saveVersion="2">
-							<Else canSkip="1">
-								<CreateCombatInformation Victim="$playerDogTarget" AttackKind="$enum:crime_attackKind.dog" DirectHit="true" AddConfiscation="false" Information="$assaultByDogInformation" />
-							</Else>
-						</IsIndifferent>
-					</Then>
-				</IfElseCondition>
-			</Sequence>
-		</ForestContainer>
+		<ForestContainer />
 		<EditorData EventSet="">
 			<Variables>
 				<Variable name="assaultByDogInformation" comment="" />
@@ -552,9 +566,15 @@
 																		</GetType>
 																		<IfCondition hasInputBreakpoint="0" comment="#KCD2-466115" breakpointFlags="0">
 																			<OutputBreakpoints />
-																			<CreateCombatInformation hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																			<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
 																				<OutputBreakpoints />
-																			</CreateCombatInformation>
+																				<CreateCombatInformation hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																					<OutputBreakpoints />
+																				</CreateCombatInformation>
+																				<TransferInformation hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																					<OutputBreakpoints />
+																				</TransferInformation>
+																			</Sequence>
 																		</IfCondition>
 																	</Sequence>
 																</Else>
@@ -570,33 +590,33 @@
 										<Then>
 											<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
 												<OutputBreakpoints />
-											<Switch hasInputBreakpoint="0" comment="" breakpointFlags="0">
-												<OutputBreakpoints />
-												<EntityContextCheck hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
+												<Switch hasInputBreakpoint="0" comment="" breakpointFlags="0">
 													<OutputBreakpoints />
-													<Then>
-														<Success hasInputBreakpoint="0" comment="" breakpointFlags="0">
-															<OutputBreakpoints />
-														</Success>
-													</Then>
-												</EntityContextCheck>
-												<EntityContextCheck hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
-													<OutputBreakpoints />
-													<Then>
-														<Success hasInputBreakpoint="0" comment="" breakpointFlags="0">
-															<OutputBreakpoints />
-														</Success>
-													</Then>
-												</EntityContextCheck>
-												<DefaultBranch>
-													<IfCondition hasInputBreakpoint="0" comment="" breakpointFlags="0">
+													<EntityContextCheck hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
 														<OutputBreakpoints />
-														<CreateAssaultInformationsFromLastHits hasInputBreakpoint="0" comment="" breakpointFlags="0">
+														<Then>
+															<Success hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																<OutputBreakpoints />
+															</Success>
+														</Then>
+													</EntityContextCheck>
+													<EntityContextCheck hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
+														<OutputBreakpoints />
+														<Then>
+															<Success hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																<OutputBreakpoints />
+															</Success>
+														</Then>
+													</EntityContextCheck>
+													<DefaultBranch>
+														<IfCondition hasInputBreakpoint="0" comment="" breakpointFlags="0">
 															<OutputBreakpoints />
-														</CreateAssaultInformationsFromLastHits>
-													</IfCondition>
-												</DefaultBranch>
-											</Switch>
+															<CreateAssaultInformationsFromLastHits hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																<OutputBreakpoints />
+															</CreateAssaultInformationsFromLastHits>
+														</IfCondition>
+													</DefaultBranch>
+												</Switch>
 												<Sequence hasInputBreakpoint="0" comment="@KCD2-468784 Handle combatable animals" breakpointFlags="0">
 													<OutputBreakpoints />
 													<ForEach hasInputBreakpoint="0" comment="My animal has player as a target" breakpointFlags="0">
@@ -642,6 +662,45 @@
 																	</IfCondition>
 																</Sequence>
 															</Then>
+															<Else>
+																<IfCondition hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																	<OutputBreakpoints />
+																	<SuppressFailure hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																		<OutputBreakpoints />
+																		<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																			<OutputBreakpoints />
+																			<ReinitVariable hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																				<OutputBreakpoints />
+																			</ReinitVariable>
+																			<EntityContextCheck hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
+																				<OutputBreakpoints />
+																				<Then>
+																					<GetMostImportantCrimeInformation hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																						<OutputBreakpoints />
+																					</GetMostImportantCrimeInformation>
+																				</Then>
+																				<Else>
+																					<GetMostImportantCrimeInformation hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																						<OutputBreakpoints />
+																					</GetMostImportantCrimeInformation>
+																				</Else>
+																			</EntityContextCheck>
+																			<IfCondition hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																				<OutputBreakpoints />
+																				<Selector hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																					<OutputBreakpoints />
+																					<CheckInformationKnowledge hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																						<OutputBreakpoints />
+																					</CheckInformationKnowledge>
+																					<TransferInformation hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																						<OutputBreakpoints />
+																					</TransferInformation>
+																				</Selector>
+																			</IfCondition>
+																		</Sequence>
+																	</SuppressFailure>
+																</IfCondition>
+															</Else>
 														</EntityContextCheck>
 													</ForEach>
 													<SuppressFailure hasInputBreakpoint="0" comment="" breakpointFlags="0">
@@ -716,6 +775,9 @@
 											</Expression>
 										</Else>
 									</IfElseCondition>
+									<ReinitVariable hasInputBreakpoint="0" comment="" breakpointFlags="0">
+										<OutputBreakpoints />
+									</ReinitVariable>
 									<GetMostImportantCrimeInformation hasInputBreakpoint="0" comment="" breakpointFlags="0">
 										<OutputBreakpoints />
 									</GetMostImportantCrimeInformation>
@@ -1103,27 +1165,7 @@
 					</Sequence>
 				</Behavior>
 			</Root>
-			<Forest>
-				<Sequence editorPosX="2410" editorPosY="-270" hasInputBreakpoint="0" comment="" breakpointFlags="0">
-					<OutputBreakpoints />
-					<Function_crime_isInSkirmish hasInputBreakpoint="0" comment="" breakpointFlags="0">
-						<OutputBreakpoints />
-					</Function_crime_isInSkirmish>
-					<IfElseCondition hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
-						<OutputBreakpoints />
-						<Then>
-							<IsIndifferent hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
-								<OutputBreakpoints />
-								<Else>
-									<CreateCombatInformation hasInputBreakpoint="0" comment="" breakpointFlags="0">
-										<OutputBreakpoints />
-									</CreateCombatInformation>
-								</Else>
-							</IsIndifferent>
-						</Then>
-					</IfElseCondition>
-				</Sequence>
-			</Forest>
+			<Forest />
 			<Comments />
 		</EditorData>
 	</BehaviorTree>

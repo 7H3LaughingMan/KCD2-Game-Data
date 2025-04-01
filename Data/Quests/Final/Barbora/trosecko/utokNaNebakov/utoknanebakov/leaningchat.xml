@@ -32,19 +32,49 @@
 				</Port>
 			</Ports>
 			<Nodes>
+				<Function Name="and9" PositionY="310" PositionX="90" MethodName="math::boolean::And" DeclaringType="math::boolean">
+					<Edge From="activechat" To="A">
+						<Vertex>g0sc2tbB</Vertex>
+					</Edge>
+					<Edge From="isNearLeaningSpot.State" To="B" />
+				</Function>
+				<DistanceTrigger Name="distancetrigger8" PositionY="310" PositionX="-520">
+					<Constant Name="Operator" Value="LessEquals" />
+					<Constant Name="Distance" Value="1" />
+					<Edge From="isactive" To="IsActive" />
+					<Edge From="firstelement12.Value" To="Origin" />
+					<Edge From="leaningspot" To="Target">
+						<Vertex>GeY67HRR</Vertex>
+					</Edge>
+				</DistanceTrigger>
 				<EnableBehavior Name="enablebehaviorleaningspotchat7" PositionY="-110" PositionX="360" Signature="leaningSpotChat" EventSet="">
 					<Constant Name="Behavior" Value="leaningWithChat" />
+					<Constant Name="ForceKick" Value="true" />
 					<Edge From="isactive" To="IsActive" />
 					<Edge From="smartentity" To="SmartEntity" />
 					<Edge From="alias" To="alias" />
-					<Edge From="leaningspot" To="leaningSpot" />
+					<Edge From="leaningspot" To="leaningSpot">
+						<Vertex>GeY67HRR</Vertex>
+					</Edge>
 					<Edge From="chatmaxdistance" To="chatMaxDistance" />
 					<Edge From="npc" To="NPC" />
-					<Edge From="activechat" To="activeChat" />
 					<Edge From="chatupdate" To="UpdateReferences" />
 					<Edge From="area" To="area" />
+					<Edge From="and9.bool" To="activeChat" />
 				</EnableBehavior>
+				<FirstElement Name="firstelement12" PositionY="310" PositionX="-900" TypeT="wh::rpgmodule::Souls">
+					<Edge From="npc" To="Array" />
+				</FirstElement>
+				<State Name="isNearLeaningSpot" PositionY="310" PositionX="-200" TypeT="bool">
+					<Constant Name="DefaultValue" Value="true" />
+					<Edge From="distancetrigger8.OnMatch" To="SetTrue" />
+					<Edge From="distancetrigger8.OnUnmatch" To="SetFalse" />
+				</State>
 			</Nodes>
+			<EdgeVertices>
+				<EdgeVertex Name="g0sc2tbB" PositionY="280" PositionX="-10" />
+				<EdgeVertex Name="GeY67HRR" PositionY="138" PositionX="-666" />
+			</EdgeVertices>
 			<Assets>
 				<SmartObjectAsset Name="bartosLeanSpot" />
 			</Assets>

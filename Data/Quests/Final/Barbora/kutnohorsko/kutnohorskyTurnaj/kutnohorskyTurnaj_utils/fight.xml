@@ -64,7 +64,7 @@
 					<DesignName StringName="fight_instant_heal_npcs_a_dlMU" Text="instant heal npcs after fight" />
 				</Port>
 				<Port Name="start_fightconfinguration_earlier" Direction="In" Type="trigger">
-					<DesignName StringName="fight_start_fightconfingu_w6Mx" Text="start  fightconfinguration earlier" />
+					<DesignName StringName="fight_start_fightconfingu_w6Mx" Text="start oponent vip earlier" />
 				</Port>
 			</Ports>
 			<Definitions>
@@ -127,12 +127,6 @@
 						<Vertex>vertex295</Vertex>
 						<Vertex>vertex297</Vertex>
 					</Edge>
-					<Edge From="state73.OnFight" To="notificationsenabled">
-						<Vertex>vertex303</Vertex>
-					</Edge>
-					<Edge From="state73.OnFight" To="startfight">
-						<Vertex>vertex303</Vertex>
-					</Edge>
 					<Edge From="fight_surrendering_1.finished" To="stopfight">
 						<Vertex>vertex235</Vertex>
 						<Vertex>vertex320</Vertex>
@@ -163,6 +157,9 @@
 						<Vertex>vertex53</Vertex>
 						<Vertex>vertex193</Vertex>
 					</Edge>
+					<Edge From="safeDisAndEnaNotsAndStartFight.A" To="notificationsdisabled" />
+					<Edge From="safeDisAndEnaNotsAndStartFight.B" To="notificationsenabled" />
+					<Edge From="safeDisAndEnaNotsAndStartFight.C" To="startfight" />
 				</duelbehavioradvanced>
 				<execmerger Name="execmerger_2" PositionY="2210" PositionX="2310" Namespace="utils.general">
 					<Edge From="ifHasteA.True" To="in" />
@@ -351,10 +348,6 @@
 						<Vertex>MrfhfofY</Vertex>
 						<Vertex>pbDKvlEf</Vertex>
 					</Edge>
-					<Edge From="timer25.OnFinished" To="heal_them">
-						<Vertex>S5eVsgVz</Vertex>
-						<Vertex>9hEopWyY</Vertex>
-					</Edge>
 					<Edge From="state73.OnFight" To="set_ready">
 						<Vertex>vertex290</Vertex>
 						<Vertex>vertex291</Vertex>
@@ -364,6 +357,10 @@
 					<Edge From="instant_heal_npcs_after_fight" To="heal_them">
 						<Vertex>9LHM7JKh</Vertex>
 						<Vertex>ScNunyRr</Vertex>
+					</Edge>
+					<Edge From="timer25.OnRunning" To="heal_them">
+						<Vertex>S5eVsgVz</Vertex>
+						<Vertex>9hEopWyY</Vertex>
 					</Edge>
 				</heal_npc>
 				<If Name="if70" PositionY="1760" PositionX="3550">
@@ -397,7 +394,6 @@
 				<IfFunction Name="ifcompare47_1_1" PositionY="1530" PositionX="520" TypeT="wh::rpgmodule::I_Soul*" MethodName="Control::Compare" DeclaringType="Control">
 					<Constant Name="Op" Value="Equals" />
 					<Asset Name="ValueB" Alias="player" />
-					<Edge From="ifHracTimeSkipuje.True" To="Exec" />
 					<Edge From="soul__fighter_a" To="ValueA">
 						<Vertex>vertex305</Vertex>
 						<Vertex>vertex198</Vertex>
@@ -407,6 +403,7 @@
 						<Vertex>m4uoFm77</Vertex>
 						<Vertex>pt83Wb15</Vertex>
 					</Edge>
+					<Edge From="ifHracTimeSkipuje.True" To="Exec" />
 				</IfFunction>
 				<If Name="ifHasteA" PositionY="2230" PositionX="1930">
 					<Edge From="ifor52_1.True" To="Exec" />
@@ -582,9 +579,12 @@
 					<Asset Name="Profiles" Alias="npcArenaBarrier" />
 					<Edge From="state73.Fight" To="IsActive" />
 				</Layer>
-				<random_trigger_pick Name="random_trigger_pick" PositionY="1660" PositionX="780">
+				<random_trigger_pick Name="random_trigger_pick" PositionY="1710" PositionX="830">
 					<Edge From="ifcompare47_1_1.False" To="start" />
 				</random_trigger_pick>
+				<TriggerSequence Name="safeDisAndEnaNotsAndStartFight" PositionY="640" PositionX="-480">
+					<Edge From="watchbool.onchangedtotrue" To="Exec" />
+				</TriggerSequence>
 				<State Name="state73" PositionY="690" PositionX="-1250" TypeT="TournamentFightProgress">
 					<Edge From="if75.False" To="SetGetReady" />
 					<Edge From="if75.True" To="SetDoneDiskvalifikace" />
@@ -711,7 +711,7 @@
 				</Switch>
 				<Switch Name="switch88_1" PositionY="829" PositionX="1066" TypeT="bool" ValueTypes="wh::framework::TimeSpan" SwitchValues="true">
 					<Constant Name="trueValue1" Value="5m" />
-					<Constant Name="DefaultValue1" Value="2m" />
+					<Constant Name="DefaultValue1" Value="3m" />
 					<Edge From="isinactorstate87.InState" To="Switch">
 						<Vertex>aTE1RDLU</Vertex>
 						<Vertex>P2B0bVgU</Vertex>
@@ -750,8 +750,6 @@
 					</Edge>
 					<Edge From="switch88_1.Value1" To="Duration" />
 					<Edge From="start_fightconfinguration_earlier" To="SetStopped">
-						<Vertex>f2yvU8aQ</Vertex>
-						<Vertex>LA2I4PVz</Vertex>
 						<Vertex>jrJLFv8e</Vertex>
 					</Edge>
 				</Timer>
@@ -773,8 +771,6 @@
 						<Vertex>vertex315</Vertex>
 					</Edge>
 					<Edge From="start_fightconfinguration_earlier" To="SetTrue">
-						<Vertex>f2yvU8aQ</Vertex>
-						<Vertex>LA2I4PVz</Vertex>
 						<Vertex>jrJLFv8e</Vertex>
 					</Edge>
 					<Edge From="state73.OnFight" To="SetFalse">
@@ -793,6 +789,10 @@
 						<Vertex>vertex319</Vertex>
 					</Edge>
 				</State>
+				<watchbool Name="watchbool" PositionY="290" PositionX="-770" Namespace="utils.general">
+					<Constant Name="isactive" Value="true" />
+					<Edge From="state73.Fight" To="watchedstate" />
+				</watchbool>
 			</Nodes>
 			<EdgeVertices>
 				<EdgeVertex Name="0kgSSqUW" PositionY="1618" PositionX="1496" />
@@ -823,7 +823,6 @@
 				<EdgeVertex Name="eBnAxvpl" PositionY="440" PositionX="-1210" />
 				<EdgeVertex Name="eL9qK89f" PositionY="1256" PositionX="-1232" />
 				<EdgeVertex Name="EuwBmoCS" PositionY="1034" PositionX="-407" />
-				<EdgeVertex Name="f2yvU8aQ" PositionY="220" PositionX="-1340" />
 				<EdgeVertex Name="f5sM1w81" PositionY="1033" PositionX="-725" />
 				<EdgeVertex Name="FRlQp6QH" PositionY="1325" PositionX="1998" />
 				<EdgeVertex Name="gVthSLg6" PositionY="630" PositionX="-1580" />
@@ -836,7 +835,6 @@
 				<EdgeVertex Name="jrJLFv8e" PositionY="100" PositionX="1320" />
 				<EdgeVertex Name="JSooGx6P" PositionY="580" PositionX="-750" />
 				<EdgeVertex Name="kBpI1tDf" PositionY="2380" PositionX="-800" />
-				<EdgeVertex Name="LA2I4PVz" PositionY="212" PositionX="-1154" />
 				<EdgeVertex Name="LfSUtVdS" PositionY="660" PositionX="-1814" />
 				<EdgeVertex Name="LMTPqMLL" PositionY="2010" PositionX="1490" />
 				<EdgeVertex Name="LRMKY0sW" PositionY="1380" PositionX="-150" />
@@ -894,7 +892,7 @@
 				<EdgeVertex Name="vertex283" PositionY="580" PositionX="-970" />
 				<EdgeVertex Name="vertex286" PositionY="550" PositionX="-970" />
 				<EdgeVertex Name="vertex287" PositionY="1470" PositionX="-1810" />
-				<EdgeVertex Name="vertex288" PositionY="1290" PositionX="-596" />
+				<EdgeVertex Name="vertex288" PositionY="1290" PositionX="-470" />
 				<EdgeVertex Name="vertex289" PositionY="1291" PositionX="-1227" />
 				<EdgeVertex Name="vertex290" PositionY="1340" PositionX="-760" />
 				<EdgeVertex Name="vertex291" PositionY="1350" PositionX="1710" />
@@ -907,7 +905,6 @@
 				<EdgeVertex Name="vertex300" PositionY="631" PositionX="-1242" />
 				<EdgeVertex Name="vertex301" PositionY="639" PositionX="175" />
 				<EdgeVertex Name="vertex302" PositionY="652" PositionX="-1240" />
-				<EdgeVertex Name="vertex303" PositionY="980" PositionX="-460" />
 				<EdgeVertex Name="vertex305" PositionY="1580" PositionX="-1810" />
 				<EdgeVertex Name="vertex306" PositionY="-70" PositionX="-90" />
 				<EdgeVertex Name="vertex307" PositionY="-100" PositionX="-80" />

@@ -39,9 +39,6 @@
 				<Port Name="henryVyhral" Direction="Out" Type="bool">
 					<DesignName StringName="konsel_o__henryvyhral_FZvi" Text="henry vyhrál" />
 				</Port>
-				<Port Name="henryProhral" Direction="Out" Type="bool">
-					<DesignName StringName="konsel_o__henryprohral_ZyWv" Text="henry prohrál" />
-				</Port>
 				<Port Name="henry_porusil_pravidla" Direction="Out" Type="bool">
 					<DesignName StringName="konsel_o__henry_porusil_p_d8ve" Text="henry porušil pravidla" />
 				</Port>
@@ -70,15 +67,17 @@
 					<Edge From="utek_ze_souboje" To="henry_utekl_ze_souboje">
 						<Vertex>vertex9</Vertex>
 					</Edge>
-					<Edge From="or4.bool" To="slechtic_zabit" />
 					<Edge From="or5.bool" To="henry_nezacal_duel" />
 					<Edge From="henry_utocil_kde_nemel" To="henry_utocil_kde_nemel">
 						<Vertex>vertex13</Vertex>
 					</Edge>
+					<Edge From="or4.bool" To="slechtic_zabit" />
 				</konsel_o_souboji>
-				<Function Name="or10" PositionY="260" PositionX="320" MethodName="math::boolean::Or" DeclaringType="math::boolean">
-					<Edge From="konsel_o_souboji.henryZabil" To="A" />
-					<Edge From="konsel_o_souboji.henryPorusil" To="B" />
+				<Function Name="or10" PositionY="390" PositionX="330" MethodName="math::boolean::Or" DeclaringType="math::boolean">
+					<Edge From="henry_utocil_kde_nemel" To="B">
+						<Vertex>vertex13</Vertex>
+					</Edge>
+					<Edge From="or4.bool" To="A" />
 				</Function>
 				<Function Name="or4" PositionY="220" PositionX="-340" MethodName="math::boolean::Or" DeclaringType="math::boolean">
 					<Edge From="slechtic_zabit_behem_duelu" To="A" />
@@ -94,7 +93,6 @@
 					<Edge From="ifnot7.True" To="konsel_nepodporuje_betu" />
 					<Edge From="konsel_o_souboji.nikdo_betu_nepodpori" To="konsel_dodatecne_serval_hrace" />
 					<Edge From="konsel_o_souboji.henryVyhral" To="henryVyhral" />
-					<Edge From="konsel_o_souboji.henryProhral" To="henryProhral" />
 					<Edge From="or10.bool" To="henry_porusil_pravidla" />
 					<Edge From="or4.bool" To="slechtic_zabit" />
 				</Output>

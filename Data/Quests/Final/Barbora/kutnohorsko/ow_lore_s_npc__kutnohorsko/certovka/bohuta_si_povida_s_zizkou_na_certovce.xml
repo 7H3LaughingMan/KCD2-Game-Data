@@ -2,6 +2,11 @@
 <Database xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" Name="brambora">
 	<Skald>
 		<Dialog Name="bohuta_si_povida_s_zizkou_na_certovce">
+			<Ports>
+				<Port Name="jsou_na_certovce" Direction="In" Type="bool">
+					<DesignName StringName="bohuta_si_jsou_na_certovce_sgqy" Text="jsou na Čertovce" />
+				</Port>
+			</Ports>
 			<Text StringName="zizka_si_povida_s_certem__InqH" Text="Bohuta si povídá s Žižkou na Čertovce" />
 			<Elements>
 				<GameplayActionElement>
@@ -89,7 +94,7 @@
 								</Response>
 							</Elements>
 						</Sequence>
-						<Sequence EndType="EndDialogue" Name="seq3">
+						<Sequence EntryCondition="Port('jsou_na_certovce')" EndType="EndDialogue" Name="seq3">
 							<DesignName StringName="zizka_si__seq3_g4Rc" Text="seq3" />
 							<Elements>
 								<Response Role="ZIZKA_GOSSIP" ReferenceLength="6.17">
@@ -141,7 +146,7 @@
 										<AnimationCommand Role="BOHUTA_GOSSIP" Delay="1.25" FragmentId="ADLG_Surprised_light" Guid="078c2b11-e2e3-4f4c-baf5-92aa3590fa78" Variant="1" />
 									</Commands>
 								</Response>
-								<Response Role="BOHUTA_GOSSIP" StartDelay="0" ReferenceLength="3.74">
+								<Response Role="BOHUTA_GOSSIP" ReferenceLength="3.74">
 									<Parenthetical>
 										<Text StringName="bohu_bohuta_ce_laka_Vpif" Text="láká" />
 									</Parenthetical>

@@ -42,6 +42,9 @@
 				<Port Name="active" Direction="In" Type="bool">
 					<DesignName StringName="obj_zachr_active_OgxL" Text="Pbj Najdi Pavlenu - Active" />
 				</Port>
+				<Port Name="quest_failuje_smrti_bozeny" Direction="In" Type="bool">
+					<DesignName StringName="obj_zachr_quest_failuje_s_6JLe" Text="Quest failuju mainquesty" />
+				</Port>
 			</Ports>
 			<Nodes>
 				<SoulDeathTrigger Name="deathtrigger2" PositionY="990" PositionX="1050">
@@ -62,9 +65,9 @@
 						<Vertex>vertex11</Vertex>
 						<Vertex>vertex12</Vertex>
 					</Edge>
-					<Edge From="fail__oldrich_zabil_pavlenu_a_hrac_zdrhnul_z_combatu" To="Exec" />
+					<Edge From="ifnot29.True" To="Exec" />
 				</If>
-				<If Name="if27" PositionY="610" PositionX="0">
+				<If Name="if27" PositionY="620" PositionX="-10">
 					<Edge From="active" To="Condition">
 						<Vertex>Xf61vpba</Vertex>
 					</Edge>
@@ -90,6 +93,10 @@
 						<Vertex>vertex12</Vertex>
 					</Edge>
 				</If>
+				<IfFunction Name="ifnot29" PositionY="854" PositionX="-556" MethodName="math::boolean::Not" DeclaringType="math::boolean">
+					<Edge From="fail__oldrich_zabil_pavlenu_a_hrac_zdrhnul_z_combatu" To="Exec" />
+					<Edge From="quest_failuje_smrti_bozeny" To="Value" />
+				</IfFunction>
 				<MakeArray Name="makearray24" PositionY="1180" PositionX="1050" TypeT="wh::rpgmodule::Souls">
 					<Asset Name="A" Alias="pavlena" />
 					<Asset Name="B" Alias="oldrich" />
@@ -163,8 +170,11 @@
 				<EdgeVertex Name="Xf61vpba" PositionY="730" PositionX="-400" />
 			</EdgeVertices>
 			<Notes>
-				<Note Name="note28" PositionY="690" PositionX="-280">
+				<Note Name="note28" PositionY="750" PositionX="-150">
 					<Text StringName="obj_zachr_note28_hdBI" Text="Stupídne ošetrenie edge casov KCD2-462217" />
+				</Note>
+				<Note Name="note30" PositionY="990" PositionX="-670">
+					<Text StringName="obj_zachr_note30_K6ra" Text="Keď quest failujem začatim mq koridoru v M09 alebo cestovaním na Kutnohorsko, tak chceme aby sa situácia v jaskyni vyriešila offscreen (Olda zabil Pavlenu)&#xD;&#xA;Nechcem ale aby sa tento stav posunul do &#xD;&#xA;PlayerLeftPavlenaDeadOldaFree" />
 				</Note>
 			</Notes>
 			<Text StringName="obj_zachran_pavlenu_49Sc" Text="Obj Zachraň Pavlenu" />

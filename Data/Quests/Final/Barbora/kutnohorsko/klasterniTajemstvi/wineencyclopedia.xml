@@ -11,23 +11,22 @@
 				</Port>
 			</Ports>
 			<Nodes>
-				<IfFunction Name="ifcompare12" PositionY="0" PositionX="640" TypeT="wh::entitymodule::ItemClassId" MethodName="Control::Compare" DeclaringType="Control">
-					<Constant Name="Op" Value="Equals" />
-					<Constant Name="ValueB" Value="cc07e392-08be-4bd1-a0f7-078c461ee5f5" />
-					<Edge From="itemproperties11.ItemClass" To="ValueA" />
-					<Edge From="useitemtrigger4.OnUsed" To="Exec" />
-				</IfFunction>
-				<ObjectProperties Name="itemproperties11" PositionY="120" PositionX="320" DeclaringType="wh::entitymodule::Item">
-					<Edge From="useitemtrigger4.Item" To="Item" />
-				</ObjectProperties>
 				<Output Name="Output">
-					<Edge From="ifcompare12.True" To="read" />
+					<Edge From="usebooktrigger13.OnLastPageTurned" To="read">
+						<Vertex>vNoWmdjJ</Vertex>
+					</Edge>
+					<Edge From="usebooktrigger13.OnClosed" To="read">
+						<Vertex>vNoWmdjJ</Vertex>
+					</Edge>
 				</Output>
-				<UseItemTrigger Name="useitemtrigger4">
-					<Asset Name="Soul" Alias="player" />
+				<UseBookTrigger Name="usebooktrigger13" PositionY="-180" PositionX="110">
+					<Constant Name="Book" Value="cc07e392-08be-4bd1-a0f7-078c461ee5f5" />
 					<Edge From="active" To="IsActive" />
-				</UseItemTrigger>
+				</UseBookTrigger>
 			</Nodes>
+			<EdgeVertices>
+				<EdgeVertex Name="vNoWmdjJ" PositionY="90" PositionX="660" />
+			</EdgeVertices>
 			<Text StringName="wineencyclopedia_MJrd" Text="wineEncyclopedia" />
 		</Module>
 	</Skald>

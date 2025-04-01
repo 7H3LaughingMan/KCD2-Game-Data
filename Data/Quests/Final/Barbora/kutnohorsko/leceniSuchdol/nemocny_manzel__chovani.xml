@@ -18,6 +18,9 @@
 				<Port Name="manzel_odchazi_z_levelu" Direction="In" Type="trigger">
 					<DesignName StringName="nemocny_m_manzel_odchazi__Etsu" Text="manžel odchází z levelu" />
 				</Port>
+				<Port Name="quest_active" Direction="In" Type="bool">
+					<DesignName StringName="nemocny_m_quest_active_UjIc" Text="Quest active" />
+				</Port>
 			</Ports>
 			<Definitions>
 				<Definition File="nemocny_manzel__chovani/petr_barkuje_behem_sve_nemoci.xml" />
@@ -28,6 +31,17 @@
 					<Constant Name="BuffGUID" Value="fb737451-20e9-4338-a8d3-5121b50804a8" />
 					<Edge From="state1.Sick" To="IsActive" />
 				</BuffEffect>
+				<disabledirectionschatsoul Name="disabledirectionschatsoul" PositionY="-400" PositionX="610" Namespace="utils.hardcoremode">
+					<Asset Name="soul" Alias="petr" />
+					<Edge From="or10.bool" To="enabled" />
+				</disabledirectionschatsoul>
+				<Function Name="or10" PositionY="-350" PositionX="330" MethodName="math::boolean::Or" DeclaringType="math::boolean">
+					<Edge From="state1.Sick" To="B" />
+					<Edge From="quest_active" To="A">
+						<Vertex>rYJGTx5I</Vertex>
+						<Vertex>VjwGHekL</Vertex>
+					</Edge>
+				</Function>
 				<Output Name="Output">
 					<Edge From="state1.Dead" To="petr_je_mrtvy">
 						<Vertex>h9FaHXDk</Vertex>
@@ -35,7 +49,7 @@
 					</Edge>
 				</Output>
 				<petr_barkuje_behem_sve_nemoci Name="petr_barkuje_behem_sve_nemoci" PositionY="-980" PositionX="360" />
-				<SchedulerLinkActivation Name="petrBehavior" PositionY="-80" PositionX="330">
+				<SchedulerLinkActivation Name="petrBehavior" PositionY="-110" PositionX="340">
 					<Constant Name="LinkTag" Value="leceniSuchdol_petrSick" />
 					<Edge From="state1.Sick" To="IsActive" />
 				</SchedulerLinkActivation>
@@ -60,6 +74,8 @@
 			<EdgeVertices>
 				<EdgeVertex Name="fVes4wRS" PositionY="-690" PositionX="-100" />
 				<EdgeVertex Name="h9FaHXDk" PositionY="180" PositionX="280" />
+				<EdgeVertex Name="rYJGTx5I" PositionY="-430" PositionX="-110" />
+				<EdgeVertex Name="VjwGHekL" PositionY="-430" PositionX="207" />
 				<EdgeVertex Name="yV4agrTY" PositionY="190" PositionX="770" />
 			</EdgeVertices>
 			<Text StringName="nemocny_manzel__chovani_wgdV" Text="Nemocný manžel - chování" />

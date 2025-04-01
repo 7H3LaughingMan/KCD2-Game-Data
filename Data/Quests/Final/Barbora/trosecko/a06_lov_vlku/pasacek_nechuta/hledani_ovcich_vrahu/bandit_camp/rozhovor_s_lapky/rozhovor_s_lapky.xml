@@ -15,18 +15,27 @@
 				<Port Name="predat_odmenu" Direction="Out" Type="trigger">
 					<DesignName StringName="rozhovor__predat_odmenu_hJvK" Text="Předat odměnu" />
 				</Port>
+				<Port Name="zacatek_dialogu" Direction="Out" Type="trigger">
+					<DesignName StringName="rozhovor__zacatek_dialogu_1MeY" Text="začátek dialogu" />
+				</Port>
+				<Port Name="active" Direction="In" Type="bool">
+					<DesignName StringName="rozhovor__active_GSx8" Text="active" />
+				</Port>
 			</Ports>
 			<Text StringName="rozhovor_s_kumani_zQgF" Text="Rozhovor s Lapky" />
-			<Dialogue TechnicalStatus="Enabled" AllowGreeting="false" Priority="2" GesturesSetDate="2024-02-21T14:07:59.7445502+01:00" GesturesSetResponseCount="31">
+			<Dialogue TechnicalStatus="Enabled" AllowFarewell="false" AllowGreeting="false" Priority="3" GesturesSetDate="2024-02-21T14:07:59.7445502+01:00" GesturesSetResponseCount="31">
 				<SelectedSouls>
 					<SelectedSoul Role="HENRY" Voice="tomMcKay" Type="Wave" Language="ENG" />
 					<SelectedSoul Role="LOVVLKU_KUMAN" Voice="alechMontyro" Type="Wave" Language="ENG" />
 				</SelectedSouls>
 				<Decision Name="dec1" Priority="SideQuestSubmission" Alias="lovVlku_thieves_1">
 					<Sequences>
-						<Sequence EntryCondition="!ThisSequenceUsed()" EndType="Decision" Name="seq2">
+						<Sequence EntryCondition="Port('active')" EndType="Decision" Name="seq2">
 							<DesignName StringName="rozhovor__seq2_1G3Q" Text="seq2" />
 							<UiPrompt StringName="ui_rozhovor__seq2_Lgxp" Text="Co tu děláte? " />
+							<Triggers>
+								<Port Name="zacatek_dialogu" />
+							</Triggers>
 							<Elements>
 								<Response Role="HENRY" StartDelay="0.15" ReferenceLength="1.16">
 									<Text StringName="rozh_henry_co_to_tu_delate_y4N3" Text="Co tu děláte?" />

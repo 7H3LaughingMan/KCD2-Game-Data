@@ -18,12 +18,59 @@
 				<Definition File="fightClubVelmistrKutnohorska/hrbitov.xml" />
 			</Definitions>
 			<Nodes>
-				<AddReward Name="codexRingen" PositionY="-140" PositionX="200">
+				<ActorCrouchTrigger Name="actorcrouchtrigger20" PositionY="1040" PositionX="1070">
+					<Asset Name="Soul" Alias="player_any" />
+					<Edge From="deactivateTriggers.Active" To="IsActive">
+						<Vertex>n2Xp8b0Q</Vertex>
+					</Edge>
+				</ActorCrouchTrigger>
+				<ActorMountedTrigger Name="actormountedtrigger22" PositionY="1390" PositionX="1070">
+					<Asset Name="Soul" Alias="player_any" />
+					<Edge From="deactivateTriggers.Active" To="IsActive">
+						<Vertex>n2Xp8b0Q</Vertex>
+					</Edge>
+				</ActorMountedTrigger>
+				<ActorSprintTrigger Name="actorsprinttrigger21" PositionY="1210" PositionX="1070">
+					<Asset Name="Soul" Alias="player_any" />
+					<Edge From="deactivateTriggers.Active" To="IsActive">
+						<Vertex>n2Xp8b0Q</Vertex>
+					</Edge>
+				</ActorSprintTrigger>
+				<AddReward Name="codexRingen" PositionY="-150" PositionX="200">
 					<Edge From="QuestProgressExpanded_NonRepeatable.ondone" To="AddReward" />
 					<Rewards>
 						<PerkReward Perk="codex_gen_ringen" />
 					</Rewards>
 				</AddReward>
+				<DisplayTutorial Name="comboShoulderThrow_tutorial" PositionY="810" PositionX="1410">
+					<Constant Name="Tutorial" Value="combo_shoulderThrow" />
+					<Edge From="deactivateTriggers.OnDone" To="Hide">
+						<Vertex>NE7x9koj</Vertex>
+					</Edge>
+					<Edge From="deactivateTriggers.OnActive" To="Show">
+						<Vertex>1cxoXTfp</Vertex>
+					</Edge>
+				</DisplayTutorial>
+				<State Name="deactivateTriggers" PositionY="810" PositionX="730" TypeT="Progress">
+					<Edge From="actorcrouchtrigger20.OnCrouch" To="SetDone">
+						<Vertex>tjvjuebV</Vertex>
+						<Vertex>lKKtuynB</Vertex>
+						<Vertex>8jo4X5f3</Vertex>
+					</Edge>
+					<Edge From="actorsprinttrigger21.OnEnterSprint" To="SetDone">
+						<Vertex>tjvjuebV</Vertex>
+						<Vertex>lKKtuynB</Vertex>
+						<Vertex>8jo4X5f3</Vertex>
+					</Edge>
+					<Edge From="actormountedtrigger22.OnMount" To="SetDone">
+						<Vertex>tjvjuebV</Vertex>
+						<Vertex>lKKtuynB</Vertex>
+						<Vertex>8jo4X5f3</Vertex>
+					</Edge>
+					<Edge From="hibernation.quest_konci_successem" To="SetActive">
+						<Vertex>1UofKrhh</Vertex>
+					</Edge>
+				</State>
 				<fighting_presets_outside_quest Name="fighting_preset_outside_quest" PositionY="280" PositionX="770" Namespace="fist_fights_common_library">
 					<Asset Name="soul" Alias="frantisek" />
 					<Constant Name="soulclothingpreset" Value="f884feae-4dd3-40f2-b85c-533346fce7e5" />
@@ -69,6 +116,7 @@
 						<Vertex>vertex3</Vertex>
 					</Edge>
 					<Edge From="hibernation.quest_konci_successem" To="setdone">
+						<Vertex>1UofKrhh</Vertex>
 						<Vertex>vertex4</Vertex>
 						<Vertex>vertex5</Vertex>
 					</Edge>
@@ -87,6 +135,14 @@
 						<StatReward Type="storyProgress" ExperienceChange="2-minor" />
 					</Rewards>
 				</AddReward>
+				<AddReward Name="reward_comboShoulderThrow" PositionY="760" PositionX="1080">
+					<Edge From="deactivateTriggers.OnActive" To="AddReward">
+						<Vertex>1cxoXTfp</Vertex>
+					</Edge>
+					<Rewards>
+						<PerkReward Perk="Combo Prehoz Unarmed" />
+					</Rewards>
+				</AddReward>
 				<skillteacher_frantisek Name="skillteacher_frantisek" PositionY="580" PositionX="130">
 					<Edge From="QuestProgressExpanded_NonRepeatable.done" To="enabled" />
 				</skillteacher_frantisek>
@@ -100,9 +156,16 @@
 				</ukladani>
 			</Nodes>
 			<EdgeVertices>
+				<EdgeVertex Name="1cxoXTfp" PositionY="900" PositionX="1010" />
+				<EdgeVertex Name="1UofKrhh" PositionY="710" PositionX="550" />
+				<EdgeVertex Name="8jo4X5f3" PositionY="1650" PositionX="760" />
 				<EdgeVertex Name="HcTtcAnY" PositionY="340" PositionX="118" />
 				<EdgeVertex Name="KFb9WfEz" PositionY="330" PositionX="530" />
+				<EdgeVertex Name="lKKtuynB" PositionY="1650" PositionX="1470" />
+				<EdgeVertex Name="n2Xp8b0Q" PositionY="1300" PositionX="1000" />
+				<EdgeVertex Name="NE7x9koj" PositionY="930" PositionX="1120" />
 				<EdgeVertex Name="pFxdU72C" PositionY="280" PositionX="450" />
+				<EdgeVertex Name="tjvjuebV" PositionY="1480" PositionX="1480" />
 				<EdgeVertex Name="vertex1" PositionY="-200" PositionX="-460" />
 				<EdgeVertex Name="vertex2" PositionY="780" PositionX="350" />
 				<EdgeVertex Name="vertex3" PositionY="780" PositionX="-280" />

@@ -33,6 +33,16 @@
 						<Vertex>vertex4</Vertex>
 					</Edge>
 				</EventMemberFunction>
+				<EventMemberFunction Name="deleteitems1_2" PositionY="350" PositionX="640" MethodName="DeleteItems" DeclaringType="wh::entitymodule::Inventory">
+					<Constant Name="AllowPartialMatch" Value="false" />
+					<Constant Name="ShowUINotification" Value="false" />
+					<Edge From="isoulproperties2_1.Inventory" To="Inventory" />
+					<Edge From="foreach9_1.OnValue" To="Exec" />
+					<Edge From="createitemcategorydescriptor3_1.ItemDescriptor" To="ItemDescriptor">
+						<Vertex>vertex3</Vertex>
+						<Vertex>vertex4</Vertex>
+					</Edge>
+				</EventMemberFunction>
 				<ForEach Name="foreach11" PositionY="70" PositionX="-10" TypeT="wh::entitymodule::Stashes">
 					<Edge From="odebrat_jidlo_z_truhly_a_inventare" To="Begin">
 						<Vertex>vertex1</Vertex>
@@ -41,6 +51,12 @@
 				</ForEach>
 				<ForEach Name="foreach9" PositionY="-210" PositionX="-10" TypeT="wh::rpgmodule::Souls">
 					<Asset Name="Array" Alias="npcsSuchdol" />
+					<Edge From="odebrat_jidlo_z_truhly_a_inventare" To="Begin">
+						<Vertex>vertex1</Vertex>
+					</Edge>
+				</ForEach>
+				<ForEach Name="foreach9_1" PositionY="350" PositionX="-10" TypeT="wh::rpgmodule::Souls">
+					<Asset Name="Array" Alias="playerHorse" />
 					<Edge From="odebrat_jidlo_z_truhly_a_inventare" To="Begin">
 						<Vertex>vertex1</Vertex>
 					</Edge>
@@ -57,6 +73,9 @@
 				</InstantSendMessage>
 				<ObjectProperties Name="isoulproperties2" PositionY="-760" PositionX="340" DeclaringType="wh::rpgmodule::I_Soul">
 					<Edge From="foreach9.Value" To="I_Soul" />
+				</ObjectProperties>
+				<ObjectProperties Name="isoulproperties2_1" PositionY="510" PositionX="320" DeclaringType="wh::rpgmodule::I_Soul">
+					<Edge From="foreach9_1.Value" To="I_Soul" />
 				</ObjectProperties>
 				<MakeArray Name="makearray10" PositionY="230" PositionX="-310" TypeT="wh::entitymodule::Stashes">
 					<Asset Name="A" Alias="player_stash" />
@@ -84,7 +103,7 @@
 			<EdgeVertices>
 				<EdgeVertex Name="vertex1" PositionY="40" PositionX="-120" />
 				<EdgeVertex Name="vertex3" PositionY="40" PositionX="0" />
-				<EdgeVertex Name="vertex4" PositionY="40" PositionX="220" />
+				<EdgeVertex Name="vertex4" PositionY="40" PositionX="500" />
 			</EdgeVertices>
 			<Assets>
 				<SmartObjectAsset Name="kotlikVKuchyne" />

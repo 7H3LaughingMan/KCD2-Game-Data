@@ -164,11 +164,11 @@
 					<Constant Name="ForceSubtitles" Value="true" />
 					<Edge From="knifeWatch.OnCompleted" To="Exec" />
 				</Function>
-				<Function Name="requestmonologue4_1" PositionY="1720" PositionX="460" MethodName="wh::xgenaimodule::RequestMonologue" DeclaringType="wh::xgenaimodule">
+				<Function Name="requestmonologue4_1" PositionY="1720" PositionX="540" MethodName="wh::xgenaimodule::RequestMonologue" DeclaringType="wh::xgenaimodule">
 					<Asset Name="Souls" Alias="player" />
 					<Constant Name="DecisionAlias" Value="zikmunduvTabor_stabClueBark_iou" />
 					<Constant Name="ForceSubtitles" Value="true" />
-					<Edge From="state63.OnRead" To="Exec" />
+					<Edge From="timer74.OnFinished" To="Exec" />
 				</Function>
 				<Function Name="requestmonologue4_2" PositionY="-1480" PositionX="370" MethodName="wh::xgenaimodule::RequestMonologue" DeclaringType="wh::xgenaimodule">
 					<Asset Name="Souls" Alias="player" />
@@ -185,11 +185,16 @@
 						<Vertex>vertex47</Vertex>
 						<Vertex>vertex48</Vertex>
 					</Edge>
-					<Edge From="usebooktrigger73.OnClosed" To="SetRead">
+					<Edge From="usebooktrigger73.OnOpened" To="SetRead">
 						<Vertex>vertex8</Vertex>
 						<Vertex>vertex9</Vertex>
 					</Edge>
 				</State>
+				<Timer Name="timer74" PositionY="1680" PositionX="250">
+					<Constant Name="Duration" Value="1s" />
+					<Constant Name="TimeType" Value="GameTime" />
+					<Edge From="state63.OnRead" To="SetRunning" />
+				</Timer>
 				<UseBookTrigger Name="usebooktrigger73" PositionY="1450" PositionX="970">
 					<Constant Name="Book" Value="59700da5-0293-4239-a17b-48ca88a5c65e" />
 					<Edge From="state63.Found" To="IsActive" />

@@ -57,10 +57,10 @@
 					</Edge>
 					<Edge From="hrac_utekl" To="Exec" />
 				</If>
-				<If Name="if23" PositionY="110" PositionX="1320">
-					<Edge From="notCaught.bool" To="Condition" />
-					<Edge From="dialog_po_uspesnem_stealthu.objective_najdi_truhlu_startuje" To="Exec" />
-				</If>
+				<MakeArray Name="makearray24" PositionY="730" PositionX="600" TypeT="wh::rpgmodule::Souls">
+					<Asset Name="A" Alias="balsan" />
+					<Asset Name="B" Alias="miroslav" />
+				</MakeArray>
 				<Function Name="notCaught" PositionY="-50" PositionX="670" MethodName="math::boolean::Not" DeclaringType="math::boolean">
 					<Edge From="hrac_failnul_stealth" To="Value" />
 				</Function>
@@ -79,16 +79,10 @@
 						<Vertex>vtjofRxc</Vertex>
 					</Edge>
 				</Output>
-				<playanimoneshot Name="playanimoneshot" PositionY="-340" PositionX="1720" Namespace="relikviarprocimburky_library">
-					<Constant Name="fragment_name" Value="TournamentCheersHappyGesture" />
-					<Asset Name="soul" Alias="miroslav" />
-					<Edge From="if23.True" To="exec" />
-				</playanimoneshot>
-				<playanimoneshot Name="playanimoneshot_1" PositionY="-170" PositionX="1720" Namespace="relikviarprocimburky_library">
-					<Constant Name="fragment_name" Value="TournamentCheersHappyGesture" />
-					<Asset Name="soul" Alias="balsan" />
-					<Edge From="if23.True" To="exec" />
-				</playanimoneshot>
+				<wakeupfromunconsciousness Name="wakeupfromunconsciousness" PositionY="690" PositionX="910" Namespace="utokNaMalesov.utoknamalesov_library">
+					<Edge From="dialogSBalsanem.OnActive" To="exec" />
+					<Edge From="makearray24.Array" To="souls" />
+				</wakeupfromunconsciousness>
 			</Nodes>
 			<EdgeVertices>
 				<EdgeVertex Name="CE7zLm7B" PositionY="890" PositionX="560" />

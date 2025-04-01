@@ -33,6 +33,10 @@
 					<Edge From="threatsTrigger.OnThreatsActive" To="SetTrue" />
 					<Edge From="threatsTrigger.OnThreatsInactive" To="SetFalse" />
 				</State>
+				<MakeArray Name="makearray4" PositionY="220" PositionX="-270" TypeT="wh::rpgmodule::Souls">
+					<Asset Name="A" Alias="player" />
+					<Asset Name="B" Alias="companionDog" />
+				</MakeArray>
 				<Output Name="Output">
 					<Edge From="hracJeVCombatu.OnTrue" To="hrac_se_dostal_do_combatu" />
 					<Edge From="hracFailnulStealth.State" To="hrac_failnul_stealth" />
@@ -44,8 +48,8 @@
 					<Edge From="kumani" To="Souls" />
 				</SetEntityContext>
 				<SoulThreatsTrigger Name="threatsTrigger">
-					<Asset Name="Souls" Alias="player" />
 					<Edge From="najdi_truhlicku" To="IsActive" />
+					<Edge From="makearray4.Array" To="Souls" />
 				</SoulThreatsTrigger>
 			</Nodes>
 			<EdgeVertices>

@@ -12,6 +12,9 @@
 				<Port Name="stolba_podplacen" Direction="Out" Type="bool">
 					<DesignName StringName="uplatit_s_stolba_podplacen_p6uB" Text="štolba podplacen" />
 				</Port>
+				<Port Name="pay" Direction="Out" Type="trigger">
+					<DesignName StringName="uplatit_s_pay_xbnn" Text="Pay" />
+				</Port>
 			</Ports>
 			<Definitions>
 				<Definition File="uplatit_stolbu/uplatit_stolbu.xml" />
@@ -28,8 +31,9 @@
 				</Function>
 				<Output Name="Output">
 					<Edge From="uplatit_stolbu.stolba_podplacen" To="stolba_podplacen" />
+					<Edge From="uplatit_stolbu.pay" To="pay" />
 				</Output>
-				<payment Name="payment" PositionY="330" PositionX="280" Namespace="utils.speech">
+				<payment Name="payment" PositionY="320" PositionX="330" Namespace="utils.speech">
 					<Constant Name="moneysettings" Value="50" />
 					<Edge From="uplatit_stolbu.pay" To="pay" />
 					<Edge From="uplatit_stolbu.STOLBA_RATBOR" To="recipient" />

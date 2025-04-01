@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Database xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" Name="brambora">
 	<Skald>
-		<FaderDialog Name="jindra_odevzdava_lovci_kone" Time="ANYTIME">
+		<ForcedDialog Name="jindra_odevzdava_lovci_kone" Time="ANYTIME">
 			<Ports>
 				<Port Name="kun_je_pobliz_lovce_a_je_zivy_a_hrac_na_nem_nesedi" Direction="In" Type="bool">
 					<DesignName StringName="jindra_od_kun_je_pobliz_l_49tb" Text="kůň je poblíž lovce a je živý a hráč na něm nesedí" />
@@ -23,14 +23,14 @@
 				</Port>
 			</Ports>
 			<Text StringName="jindra_odevzdava_lovci_ko_buXd" Text="Jindra odevzdává lovci koně" />
-			<Dialogue TechnicalStatus="Enabled" DefaultMaxDistance="10" AllowGreeting="false" Priority="1" GesturesSetDate="2024-03-26T11:33:45.9442538+01:00" GesturesSetResponseCount="21">
+			<Dialogue TechnicalStatus="Enabled" DefaultMaxDistance="10" AllowGreeting="false" Priority="1" Initiator="NonPlayer" GesturesSetDate="2024-03-26T11:33:45.9442538+01:00" GesturesSetResponseCount="21">
 				<SelectedSouls>
 					<SelectedSoul Role="HENRY" Voice="tomMcKay" Type="Wave" Language="ENG" />
 					<SelectedSoul Role="LOVCI_VOSTATEK" Voice="stewartMoore" Type="Wave" Language="ENG" />
 				</SelectedSouls>
 				<Decision Name="dec1" Priority="SideQuestAssignment" CustomCamera="s16_JsLvK_customCamera_02">
 					<Sequences>
-						<Sequence EntryCondition="Port('kun_je_pobliz_lovce_a_je_zivy_a_hrac_na_nem_nesedi') AND !ThisSequenceUsed()" EndType="Decision" Reputation="quest_reward_4_normal" Name="root">
+						<Sequence EntryCondition="Port('kun_je_pobliz_lovce_a_je_zivy_a_hrac_na_nem_nesedi') AND !ThisSequenceUsed()" EndType="Decision" Visibility="Public" Reputation="quest_reward_4_normal" Name="root">
 							<DesignName StringName="jindra_od_root_qc3b" Text="root" />
 							<UiPrompt StringName="ui_jindra_od_root_Uthb" Text="Přivedl jsem ti koně." />
 							<Elements>
@@ -198,7 +198,7 @@
 																	</Response>
 																</Elements>
 															</Sequence>
-															<Sequence EndType="EndDialogue" Name="seq12">
+															<Sequence EndType="EndDialogue" Visibility="Public" Name="seq12">
 																<DesignName StringName="jindra_od_seq12_2yJw" Text="seq12" />
 																<UiPrompt StringName="ui_jindra_od_seq12_kacH" Text="Potkáme se později." />
 																<Triggers>
@@ -243,6 +243,6 @@
 					</Sequences>
 				</Decision>
 			</Dialogue>
-		</FaderDialog>
+		</ForcedDialog>
 	</Skald>
 </Database>

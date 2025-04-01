@@ -26,8 +26,8 @@ RoeDeerHind = {
 		
 		CharacterSounds =
 		{
-			footstepEffect = "footsteps_Roebuck",			-- Footstep mfx library to use
-			foleyEffect = "foley_Roebuck",					-- Foley signal effect name
+			footstepEffect = "footsteps_deer",			-- Footstep mfx library to use
+			foleyEffect = "foley_deer",					-- Foley signal effect name
 		},
 	},
 	

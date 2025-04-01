@@ -54,24 +54,28 @@
 					</Edge>
 					<Edge From="not26092.bool" To="B" />
 				</Function>
+				<State Name="barkNotRequestedYet" PositionY="-360" PositionX="1080" TypeT="bool">
+					<Constant Name="DefaultValue" Value="true" />
+					<Edge From="requestmonologue22.OnExec" To="SetFalse" />
+				</State>
 				<constants Name="constants" PositionY="1340" PositionX="740" Namespace="sabotazlazni" />
-				<ContainsElement Name="containselement26095" PositionY="2570" PositionX="1750" TypeT="wh::rpgmodule::Souls">
+				<ContainsElement Name="containselement26095" PositionY="2660" PositionX="1640" TypeT="wh::rpgmodule::Souls">
 					<Edge From="constants.adamsbathhousestaff" To="Array" />
-					<Edge From="informationdifftrigger26116_1.Who" To="Value" />
+					<Edge From="informationdifftrigger26122.Who" To="Value" />
 				</ContainsElement>
 				<ContainsElement Name="containselement26095_1" PositionY="1160" PositionX="1760" TypeT="wh::rpgmodule::Souls">
 					<Edge From="constants.adamsbathhousestaff" To="Array" />
-					<Edge From="informationdifftrigger26116.Who" To="Value" />
+					<Edge From="informationdifftrigger26122_1.Who" To="Value" />
 				</ContainsElement>
-				<ContainsElement Name="containselement26100" PositionY="2720" PositionX="1750" TypeT="Strings">
+				<ContainsElement Name="containselement26100" PositionY="2820" PositionX="1650" TypeT="Strings">
 					<Edge From="makearray26101.Array" To="Array" />
-					<Edge From="informationdifftrigger26116_1.Label" To="Value">
+					<Edge From="informationdifftrigger26122.Label" To="Value">
 						<Vertex>j9ho0gPP</Vertex>
 					</Edge>
 				</ContainsElement>
 				<ContainsElement Name="containselement26100_1" PositionY="1310" PositionX="1760" TypeT="Strings">
 					<Edge From="makearray26101_1.Array" To="Array" />
-					<Edge From="informationdifftrigger26116.Label" To="Value" />
+					<Edge From="informationdifftrigger26122_1.Label" To="Value" />
 				</ContainsElement>
 				<IfFunction Name="ifand26084" PositionY="1830" PositionX="410" MethodName="math::boolean::And" DeclaringType="math::boolean">
 					<Edge From="itemclasstrigger_playerinventory.ontargetamoutlose" To="Exec">
@@ -116,15 +120,13 @@
 					</Edge>
 					<Edge From="containselement26095.Result" To="B" />
 					<Edge From="containselement26100.Result" To="C" />
-					<Edge From="ifcompare26117_1.True" To="Exec">
-						<Vertex>oF28SK7W</Vertex>
-					</Edge>
+					<Edge From="ifcompare26123.True" To="Exec" />
 				</IfFunction>
 				<IfFunction Name="ifand26098" PositionY="970" PositionX="2060" MethodName="math::boolean::And" DeclaringType="math::boolean">
 					<Edge From="containselement26095_1.Result" To="B" />
 					<Edge From="or26099.bool" To="A" />
 					<Edge From="containselement26100_1.Result" To="C" />
-					<Edge From="ifcompare26117.True" To="Exec" />
+					<Edge From="ifcompare26123_1.True" To="Exec" />
 				</IfFunction>
 				<IfFunction Name="ifand26109" PositionY="190" PositionX="1700" MethodName="math::boolean::And" DeclaringType="math::boolean">
 					<Edge From="stashState.Active" To="A" />
@@ -152,6 +154,11 @@
 					</Edge>
 					<Edge From="or26075.bool" To="A" />
 				</IfFunction>
+				<IfFunction Name="ifand26117" PositionY="-510" PositionX="1090" MethodName="math::boolean::And" DeclaringType="math::boolean">
+					<Edge From="sabotagePerfume.OnPerfumeAcquired" To="Exec" />
+					<Edge From="perfumeAcquiredEarlier.OnCompleted" To="Exec" />
+					<Edge From="barkNotRequestedYet.State" To="A" />
+				</IfFunction>
 				<IfFunction Name="ifand26121" PositionY="1630" PositionX="410" MethodName="math::boolean::And" DeclaringType="math::boolean">
 					<Edge From="ifand26084.True" To="Exec" />
 					<Edge From="sabotagePerfume.None" To="A" />
@@ -165,29 +172,25 @@
 					</Edge>
 					<Edge From="quest_vyfailovan" To="Exec" />
 				</IfFunction>
-				<IfFunction Name="ifcompare26117" PositionY="970" PositionX="1170" TypeT="wh::xgenaimodule::E_InformationMessageStatus" MethodName="Control::Compare" DeclaringType="Control">
+				<IfFunction Name="ifcompare26123" PositionY="2440" PositionX="1640" TypeT="wh::xgenaimodule::E_InformationMessageStatus" MethodName="Control::Compare" DeclaringType="Control">
 					<Constant Name="Op" Value="NotEquals" />
 					<Constant Name="ValueB" Value="Deleted" />
-					<Edge From="informationdifftrigger26116.OnNotification" To="Exec" />
-					<Edge From="informationdifftrigger26116.Status" To="ValueA" />
+					<Edge From="informationdifftrigger26122.OnNotification" To="Exec" />
+					<Edge From="informationdifftrigger26122.Status" To="ValueA" />
 				</IfFunction>
-				<IfFunction Name="ifcompare26117_1" PositionY="2460" PositionX="1330" TypeT="wh::xgenaimodule::E_InformationMessageStatus" MethodName="Control::Compare" DeclaringType="Control">
+				<IfFunction Name="ifcompare26123_1" PositionY="930" PositionX="1670" TypeT="wh::xgenaimodule::E_InformationMessageStatus" MethodName="Control::Compare" DeclaringType="Control">
 					<Constant Name="Op" Value="NotEquals" />
 					<Constant Name="ValueB" Value="Deleted" />
-					<Edge From="informationdifftrigger26116_1.OnNotification" To="Exec" />
-					<Edge From="informationdifftrigger26116_1.Status" To="ValueA" />
+					<Edge From="informationdifftrigger26122_1.OnNotification" To="Exec" />
+					<Edge From="informationdifftrigger26122_1.Status" To="ValueA" />
 				</IfFunction>
-				<IfFunction Name="ifnot26086" PositionY="1680" PositionX="410" MethodName="math::boolean::Not" DeclaringType="math::boolean">
-					<Edge From="ifand26084.True" To="Exec" />
-					<Edge From="sabotagePerfume.None" To="Value" />
-				</IfFunction>
-				<InformationDiffTrigger Name="informationdifftrigger26116" PositionY="970" PositionX="670">
-					<Asset Name="PerceivedWuidFilter" Alias="bathhousePerfumeStash" />
-					<Edge From="or26075.bool" To="IsActive" />
-				</InformationDiffTrigger>
-				<InformationDiffTrigger Name="informationdifftrigger26116_1" PositionY="2460" PositionX="830">
+				<InformationDiffTrigger Name="informationdifftrigger26122" PositionY="2450" PositionX="910">
 					<Asset Name="PerceivedWuidFilter" Alias="bathhousePerfumeStash" />
 					<Edge From="perfumeAcquiredEarlier.Started" To="IsActive" />
+				</InformationDiffTrigger>
+				<InformationDiffTrigger Name="informationdifftrigger26122_1" PositionY="950" PositionX="1070">
+					<Asset Name="PerceivedWuidFilter" Alias="bathhousePerfumeStash" />
+					<Edge From="or26075.bool" To="IsActive" />
 				</InformationDiffTrigger>
 				<itemclasstrigger_playerinventory Name="itemclasstrigger_playerinventory" PositionY="60" PositionX="870" Namespace="utils.item">
 					<Constant Name="itemclass" Value="a55d34e5-6127-469c-a4cd-838b86df074e" />
@@ -199,7 +202,7 @@
 					<Constant Name="amount" Value="1" />
 					<Edge From="perfumeAcquiredEarlier.Started" To="isactive" />
 				</itemclasstrigger_playerinventory>
-				<MakeArray Name="makearray26101" PositionY="2770" PositionX="1370" TypeT="Strings">
+				<MakeArray Name="makearray26101" PositionY="2790" PositionX="1220" TypeT="Strings">
 					<Constant Name="A" Value="theft" />
 					<Constant Name="B" Value="lockpick" />
 				</MakeArray>
@@ -226,7 +229,7 @@
 						<Vertex>4o2radmx</Vertex>
 					</Edge>
 				</Function>
-				<Function Name="or26099" PositionY="-310" PositionX="1690" MethodName="math::boolean::Or" DeclaringType="math::boolean">
+				<Function Name="or26099" PositionY="-310" PositionX="1910" MethodName="math::boolean::Or" DeclaringType="math::boolean">
 					<Edge From="sabotagePerfume.AcquirePerfumeAgain" To="B" />
 					<Edge From="sabotagePerfume.AcquirePerfume" To="A">
 						<Vertex>RhnDENoS</Vertex>
@@ -271,11 +274,11 @@
 						<Vertex>9ltpQb5b</Vertex>
 					</Edge>
 				</State>
-				<Function Name="requestmonologue22" PositionY="-510" PositionX="1200" MethodName="wh::xgenaimodule::RequestMonologue" DeclaringType="wh::xgenaimodule">
+				<Function Name="requestmonologue22" PositionY="-510" PositionX="1340" MethodName="wh::xgenaimodule::RequestMonologue" DeclaringType="wh::xgenaimodule">
 					<Asset Name="Souls" Alias="player" />
 					<Constant Name="DecisionAlias" Value="sabotazLazni_parfemVymenen" />
 					<Constant Name="CanBeDelayed" Value="true" />
-					<Edge From="sabotagePerfume.OnPerfumeAcquired" To="Exec" />
+					<Edge From="ifand26117.True" To="Exec" />
 				</Function>
 				<State Name="sabotagePerfume" PositionY="-500" PositionX="340" RequiredForOutput="kutnohorsko" TypeT="GetPerfume">
 					<Edge From="parfem_activated" To="SetAcquirePerfume">
@@ -297,6 +300,10 @@
 				<SaveGame Name="savegame26115" PositionY="-700" PositionX="800">
 					<Constant Name="Objective" Value="perfume" />
 					<Edge From="sabotagePerfume.OnAcquirePerfume" To="EnqueueSave" />
+					<Edge From="parfem_uz_znam_ale_nemam" To="EnqueueSave">
+						<Vertex>YzpSVKtH</Vertex>
+						<Vertex>CTNTvnvz</Vertex>
+					</Edge>
 				</SaveGame>
 				<State Name="stashState" PositionY="470" PositionX="1370" TypeT="Progress">
 					<Edge From="stashtrigger26102_1.OnOpened" To="SetActive" />
@@ -360,15 +367,15 @@
 				<EdgeVertex Name="aJ4Bh3T5" PositionY="380" PositionX="2000" />
 				<EdgeVertex Name="Bh7CTtvh" PositionY="-90" PositionX="2370" />
 				<EdgeVertex Name="Butt65ST" PositionY="2410" PositionX="1160" />
+				<EdgeVertex Name="CTNTvnvz" PositionY="-610" PositionX="60" />
 				<EdgeVertex Name="eqDdc7fQ" PositionY="440" PositionX="1370" />
 				<EdgeVertex Name="FBScJmqH" PositionY="1630" PositionX="1800" />
 				<EdgeVertex Name="fsexr5pg" PositionY="40" PositionX="350" />
-				<EdgeVertex Name="j9ho0gPP" PositionY="2770" PositionX="1650" />
+				<EdgeVertex Name="j9ho0gPP" PositionY="2760" PositionX="1470" />
 				<EdgeVertex Name="k6gD4BFH" PositionY="2410" PositionX="2550" />
 				<EdgeVertex Name="KCsr5sTX" PositionY="-120" PositionX="2180" />
 				<EdgeVertex Name="LMldS5rV" PositionY="2010" PositionX="1910" />
 				<EdgeVertex Name="M3jBsYnX" PositionY="1600" PositionX="1250" />
-				<EdgeVertex Name="oF28SK7W" PositionY="2550" PositionX="1930" />
 				<EdgeVertex Name="P7t8qW8o" PositionY="-50" PositionX="2370" />
 				<EdgeVertex Name="rGQ1cTRl" PositionY="2410" PositionX="1990" />
 				<EdgeVertex Name="RhnDENoS" PositionY="-250" PositionX="1530" />

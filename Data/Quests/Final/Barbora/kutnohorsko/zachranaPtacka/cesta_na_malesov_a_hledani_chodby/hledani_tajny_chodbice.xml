@@ -12,14 +12,8 @@
 				<Port Name="hrac_ma_mluvit_s_hastalem" Direction="In" Type="bool">
 					<DesignName StringName="hledani_t_hrac_ma_mluvit__qV2t" Text="Hráč má mluvit s Haštalem" />
 				</Port>
-				<Port Name="hastal_slibil_kone" Direction="In" Type="bool">
-					<DesignName StringName="hledani_t_konak_slibil_ko_W10T" Text="Haštal slíbil koně" />
-				</Port>
 				<Port Name="zadat_objective_hledej_chodbu" Direction="In" Type="trigger">
 					<DesignName StringName="hledani_t_zadat_objective_LoAu" Text="Zadat objective hledej chodbu" />
-				</Port>
-				<Port Name="hastal_uz_nepomuze" Direction="In" Type="bool">
-					<DesignName StringName="hledani_t_konak_uz_nepomu_RXKV" Text="Haštal už nepomůže" />
 				</Port>
 				<Port Name="hrac_mluvil_s_hastalem_po_vykopani_chodby" Direction="In" Type="trigger">
 					<DesignName StringName="hledani_t_hrac_mluvil_s_k_vQS1" Text="Hráč mluvil s haštalem po vykopání chodby" />
@@ -74,9 +68,8 @@
 				<hledani_a_vykopavani_chodby Name="hledani_a_vykopavani_chodby" PositionY="20" PositionX="-50" RequiredForOutput="kutnohorsko">
 					<Edge From="zadat_objective_hledej_chodbu" To="zadat_objective" />
 					<Edge From="nevykopana_dira_je_nastreamovana" To="nevykopana_dira_je_nastreamovana" />
-					<Edge From="hastal_uz_nepomuze" To="hastal_uz_nepomuze" />
-					<Edge From="hastal_slibil_kone" To="hastal_slibil_kone" />
 					<Edge From="promluv_s_hastalem_zadano" To="promluv_s_hastalem_zadano" />
+					<Edge From="hrac_ma_mluvit_s_hastalem" To="hastal_uz_nepomuze" />
 				</hledani_a_vykopavani_chodby>
 				<IfFunction Name="ifnot2" PositionY="-180" PositionX="320" MethodName="math::boolean::Not" DeclaringType="math::boolean">
 					<Edge From="hledani_a_vykopavani_chodby.hrac_splnil_objective" To="Exec" />

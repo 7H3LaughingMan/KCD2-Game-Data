@@ -162,24 +162,16 @@
 					</Edge>
 				</barkovani_kdyz_hrac_jde_spatnym_smerem>
 				<behem_bitvy Name="behem_bitvy" PositionY="960" PositionX="7240">
-					<Edge From="and24.bool" To="isactive">
-						<Vertex>MVoev85E</Vertex>
-					</Edge>
 					<Edge From="nahravani_je_povolene" To="nahravani_je_zapnute">
 						<Vertex>BxB8fL95</Vertex>
 						<Vertex>7GaATjHq</Vertex>
 						<Vertex>ebqhjj0o</Vertex>
 					</Edge>
+					<Edge From="and24.bool" To="isactive">
+						<Vertex>xTFL3HlR</Vertex>
+					</Edge>
 				</behem_bitvy>
 				<bitevni_hodiny Name="bitevni_hodiny" PositionY="90" PositionX="360">
-					<Edge From="z_vrhacich_otvoru_nad_branou_se_vylije_horky_olej.olej_vylit" To="zastavit_timer_druhe_faze">
-						<Vertex>vertex66</Vertex>
-						<Vertex>vertex255</Vertex>
-						<Vertex>vertex251</Vertex>
-						<Vertex>vertex67</Vertex>
-						<Vertex>vertex121</Vertex>
-						<Vertex>vertex72</Vertex>
-					</Edge>
 					<Edge From="hrac_pribehl_k_brane__situace_s_prazanem.hrac_prisel_na_hradbu" To="zastavit_timer_prvni_faze">
 						<Vertex>vertex42</Vertex>
 						<Vertex>vertex43</Vertex>
@@ -196,6 +188,10 @@
 					<Edge From="nahravani_je_povolene" To="nahravani_je_povolene">
 						<Vertex>81uhkHqC</Vertex>
 						<Vertex>JaQHHWDw</Vertex>
+					</Edge>
+					<Edge From="triggersequence97.B" To="zastavit_timer_druhe_faze">
+						<Vertex>XA1B6S6r</Vertex>
+						<Vertex>a5HTfK4N</Vertex>
 					</Edge>
 				</bitevni_hodiny>
 				<bohuta_v_bitve_vrazi_do_bariery Name="bohuta_v_bitve_vrazi_do_bariery" PositionY="900" PositionX="8440">
@@ -223,24 +219,29 @@
 					<Edge From="followCert.OnActive" To="start" />
 					<Edge From="followCert.Active" To="isactive" />
 				</cert_jde_na_bocni_hradbu>
-				<cert_rozkazuje_u_pavezniku Name="cert_rozkazuje_u_pavezniku" PositionY="100" PositionX="3280">
+				<cert_rozkazuje_u_pavezniku Name="cert_rozkazuje_u_pavezniku" PositionY="150" PositionX="3280">
 					<Edge From="paveznici_se_sikuji_na_nadvori_a_presouvaji_se_k_brane.paveznici_vyrazi_k_brane" To="poslat_certa_k_mrizi">
 						<Vertex>vertex63</Vertex>
 						<Vertex>vertex64</Vertex>
 					</Edge>
-					<Edge From="z_vrhacich_otvoru_nad_branou_se_vylije_horky_olej.olej_vylit" To="pustit_bark_certa_po_vyliti_oleje">
-						<Vertex>vertex66</Vertex>
-						<Vertex>vertex255</Vertex>
-						<Vertex>vertex251</Vertex>
-						<Vertex>vertex67</Vertex>
-					</Edge>
-					<Edge From="tezkoodenci_utoci_na_branu__strelci.strelci_strileji_skrze_mriz" To="pustit_bark_certa_opetujte_palbu" />
-					<Edge From="tezkoodenci_utoci_na_branu__strelci.strelci_se_skryli" To="pustit_certovi_barky_behem_utoku_sekerniku" />
 					<Edge From="tezkoodenci_utoci_na_branu__sekernici.sekernici_sekaji" To="probiha_utok_sekerniku">
 						<Vertex>vertex237</Vertex>
 						<Vertex>vertex252</Vertex>
 					</Edge>
 					<Edge From="tezkoodenci_bezi_na_branu_1.tezkoodenci_vyrazili_k_brane" To="tezkoodenci_vyrazili_k_brane" />
+					<Edge From="tezkoodenci_utoci_na_branu__strelci.tezkoodenci_dorazili_k_brane" To="tezkoodenci_dorazili_k_brane" />
+					<Edge From="tezkoodenci_bezi_na_branu_1.tezkoodenci_bezi_k_brane" To="tezkoodenci_bezi_k_brane" />
+					<Edge From="tezkoodenci_utoci_na_branu__sekernici.sekernici_jdou_sekat" To="pustit_bark_certa_opetujte_palbu">
+						<Vertex>luLrnDEj</Vertex>
+						<Vertex>k3gJgaN9</Vertex>
+					</Edge>
+					<Edge From="triggersequence97.A" To="pustit_bark_certa_po_vyliti_oleje">
+						<Vertex>vertex66</Vertex>
+						<Vertex>vertex255</Vertex>
+						<Vertex>vertex251</Vertex>
+						<Vertex>vertex67</Vertex>
+					</Edge>
+					<Edge From="tezkoodenci_utoci_na_branu__strelci.strelci_strili_skrze_mriz" To="strelci_strili_skrze_mriz" />
 				</cert_rozkazuje_u_pavezniku>
 				<cin_m5020k_obranabohuta__siege_finale Name="cin_m5020k_obranabohuta__siege_finale" PositionY="-330" PositionX="9770">
 					<Edge From="savegamewithnotification74.OnDone" To="enqueuecutscene" />
@@ -375,6 +376,14 @@
 						<Vertex>z2FNeFAf</Vertex>
 					</Edge>
 				</IfFunction>
+				<IfFunction Name="ifand95" PositionY="-420" PositionX="3220" MethodName="math::boolean::And" DeclaringType="math::boolean">
+					<Edge From="tezkoodenci_utoci_na_branu__strelci.strelci_strileji_skrze_mriz" To="Exec" />
+					<Edge From="tezkoodenci_bezi_na_branu_1.tezkoodenci_dorazili_k_brane" To="A" />
+				</IfFunction>
+				<IfFunction Name="ifand96" PositionY="-80" PositionX="3290" MethodName="math::boolean::And" DeclaringType="math::boolean">
+					<Edge From="tezkoodenci_utoci_na_branu__strelci.strelci_dostrileli" To="A" />
+					<Edge From="tezkoodenci_bezi_na_branu_1.tezkoodenci_jsou_v_brane" To="Exec" />
+				</IfFunction>
 				<IfFunction Name="ifnot67" PositionY="-300" PositionX="1300" MethodName="math::boolean::Not" DeclaringType="math::boolean">
 					<Edge From="hrac_pribehl_k_brane__situace_s_prazanem.hrac_prisel_na_hradbu" To="Exec" />
 					<Edge From="nahravani_je_povolene" To="Value">
@@ -483,15 +492,16 @@
 						<Vertex>RzPeYdE2</Vertex>
 					</Edge>
 				</Output>
-				<paveznici_jsou_pod_palbou_a_pak_zacinaji_strilet Name="paveznici_jsou_pod_palbou_a_pak_zacinaji_strilet_1" PositionY="110" PositionX="2730">
-					<Edge From="tezkoodenci_utoci_na_branu__strelci.strelci_strileji_skrze_mriz" To="zapnout_strileni">
-						<Vertex>vertex65</Vertex>
-						<Vertex>vertex19</Vertex>
-					</Edge>
+				<paveznici_jsou_pod_palbou_a_pak_zacinaji_strilet Name="paveznici_jsou_pod_palbou_a_pak_zacinaji_strilet_1" PositionY="200" PositionX="2720">
 					<Edge From="paveznici_se_sikuji_na_nadvori_a_presouvaji_se_k_brane.paveznici_se_presunuli_k_brane" To="nabit_kuse">
 						<Vertex>vertex150</Vertex>
 					</Edge>
-					<Edge From="z_vrhacich_otvoru_nad_branou_se_vylije_horky_olej.olej_vylit" To="vypnout_strileni">
+					<Edge From="tezkoodenci_utoci_na_branu__sekernici.sekernici_jdou_sekat" To="zapnout_strileni">
+						<Vertex>luLrnDEj</Vertex>
+						<Vertex>k3gJgaN9</Vertex>
+						<Vertex>sDc8LR9f</Vertex>
+					</Edge>
+					<Edge From="triggersequence97.A" To="vypnout_strileni">
 						<Vertex>vertex66</Vertex>
 						<Vertex>vertex255</Vertex>
 						<Vertex>vertex251</Vertex>
@@ -499,9 +509,10 @@
 						<Vertex>vertex121</Vertex>
 					</Edge>
 				</paveznici_jsou_pod_palbou_a_pak_zacinaji_strilet>
-				<paveznici_po_utoku_na_branu Name="paveznici_po_utoku_na_branu" PositionY="160" PositionX="4630">
+				<paveznici_po_utoku_na_branu Name="paveznici_po_utoku_na_branu" PositionY="240" PositionX="4620">
 					<Edge From="z_vrhacich_otvoru_nad_branou_se_vylije_horky_olej.olej_vylit" To="start" />
 					<Edge From="defendGate.Done" To="padaci_mriz_je_ubranena">
+						<Vertex>QLotaMFH</Vertex>
 						<Vertex>XuMcRhf1</Vertex>
 						<Vertex>xNoIFKTR</Vertex>
 					</Edge>
@@ -538,6 +549,7 @@
 				<State Name="saveLock" PositionY="-140" PositionX="8850" TypeT="Progress">
 					<Edge From="savegamewithnotification76.OnDone" To="SetActive">
 						<Vertex>vertex303</Vertex>
+						<Vertex>zbpFjQ9b</Vertex>
 						<Vertex>vertex304</Vertex>
 					</Edge>
 					<Edge From="triggersequence85.A" To="SetDone" />
@@ -551,10 +563,6 @@
 						<Vertex>vertex217</Vertex>
 						<Vertex>vertex218</Vertex>
 					</Edge>
-					<Edge From="triggersequence82.A" To="zacina_oblehani_za_bohutu">
-						<Vertex>tB1UTM87</Vertex>
-						<Vertex>5cAUMsga</Vertex>
-					</Edge>
 					<Edge From="init" To="init">
 						<Vertex>vertex219</Vertex>
 						<Vertex>smtL9bQN</Vertex>
@@ -563,8 +571,12 @@
 						<Vertex>H4wSByRA</Vertex>
 						<Vertex>J0t0q3mo</Vertex>
 					</Edge>
+					<Edge From="savegamewithnotification76.OnDone" To="zacina_oblehani_za_bohutu">
+						<Vertex>vertex303</Vertex>
+						<Vertex>zbpFjQ9b</Vertex>
+					</Edge>
 				</situace_na_nadvori__uvod>
-				<strelci_v_predhradi_se_presouvaji Name="strelci_v_predhradi_se_presouvaji" PositionY="-230" PositionX="3210">
+				<strelci_v_predhradi_se_presouvaji Name="strelci_v_predhradi_se_presouvaji" PositionY="-250" PositionX="3220">
 					<Edge From="tezkoodenci_se_sikuji_v_predhradi.velitel_domaval" To="tezkoodenci_se_sesikovali">
 						<Vertex>F29TFoAc</Vertex>
 						<Vertex>L7tVrCS9</Vertex>
@@ -573,9 +585,11 @@
 				<strelciNaPredniHradbeABarkovaniKdyzHracZustavaNaHradbe Name="strelciNaPredniHradbeABarkovaniKdyzHracZustavaNaHradbe" PositionY="-900" PositionX="3190">
 					<Edge From="tezkoodenci_bezi_na_branu_1.tezkoodenci_prave_vyrazili_k_brane" To="start" />
 					<Edge From="defendGate.OnDone" To="stop">
+						<Vertex>RJucTkVL</Vertex>
 						<Vertex>fp71vcBu</Vertex>
 					</Edge>
 					<Edge From="defendGate.Done" To="utok_na_branu_hotov">
+						<Vertex>QLotaMFH</Vertex>
 						<Vertex>XuMcRhf1</Vertex>
 					</Edge>
 					<Edge From="tezkoodenci_bezi_na_branu_1.tezkoodenci_vyrazili_k_brane" To="tezkoodenci_vyrazili_k_brane" />
@@ -589,7 +603,7 @@
 						<Vertex>oUup2edt</Vertex>
 					</Edge>
 				</strelciNaPredniHradbeABarkovaniKdyzHracZustavaNaHradbe>
-				<tezkoodenci_bezi_na_branu Name="tezkoodenci_bezi_na_branu_1" PositionY="-270" PositionX="2760">
+				<tezkoodenci_bezi_na_branu Name="tezkoodenci_bezi_na_branu_1" PositionY="-210" PositionX="2780">
 					<Edge From="tezkoodenci_se_sikuji_v_predhradi.tezkoodenci_se_sesikovali" To="poslat_tezkoodence_na_branu">
 						<Vertex>vertex40</Vertex>
 						<Vertex>vertex151</Vertex>
@@ -611,22 +625,20 @@
 					</Edge>
 				</tezkoodenci_se_sikuji_v_predhradi>
 				<tezkoodenci_utoci_na_branu__sekernici Name="tezkoodenci_utoci_na_branu__sekernici" PositionY="-360" PositionX="3650">
-					<Edge From="tezkoodenci_utoci_na_branu__strelci.strelci_strileji_skrze_mriz" To="poslat_sekerniky_sekat" />
-					<Edge From="tezkoodenci_bezi_na_branu_1.tezkoodenci_jsou_v_brane" To="zacit_prepinat_sekerniky">
-						<Vertex>V80qUzzm</Vertex>
-						<Vertex>vertex125</Vertex>
-					</Edge>
 					<Edge From="tezkoodenci_se_davaji_na_utek.hotovo" To="konec">
 						<Vertex>vertex210</Vertex>
 						<Vertex>vertex211</Vertex>
 					</Edge>
-					<Edge From="z_vrhacich_otvoru_nad_branou_se_vylije_horky_olej.olej_vylit" To="olej_vylit">
+					<Edge From="ifand95.True" To="poslat_sekerniky_sekat" />
+					<Edge From="ifand96.True" To="poslat_sekerniky_sekat" />
+					<Edge From="ifand96.False" To="zacit_prepinat_sekerniky" />
+					<Edge From="triggersequence97.A" To="olej_vylit">
 						<Vertex>vertex66</Vertex>
 						<Vertex>vertex255</Vertex>
 						<Vertex>vertex251</Vertex>
 					</Edge>
 				</tezkoodenci_utoci_na_branu__sekernici>
-				<tezkoodenci_utoci_na_branu__strelci Name="tezkoodenci_utoci_na_branu__strelci" PositionY="-510" PositionX="2760">
+				<tezkoodenci_utoci_na_branu__strelci Name="tezkoodenci_utoci_na_branu__strelci" PositionY="-500" PositionX="2760">
 					<Edge From="tezkoodenci_se_sikuji_v_predhradi.tezkoodenci_se_sesikovali" To="strelci_budou_strilet">
 						<Vertex>vertex40</Vertex>
 						<Vertex>vertex151</Vertex>
@@ -644,8 +656,11 @@
 				<TriggerSequence Name="triggersequence85" PositionY="0" PositionX="8610">
 					<Edge From="ifnot93.True" To="Exec" />
 				</TriggerSequence>
-				<troubeni_na_bocni_hradbe Name="troubeni_na_bocni_hradbe" PositionY="140" PositionX="4120">
-					<Edge From="z_vrhacich_otvoru_nad_branou_se_vylije_horky_olej.olej_vylit" To="start">
+				<TriggerSequence Name="triggersequence97" PositionY="100" PositionX="4720">
+					<Edge From="z_vrhacich_otvoru_nad_branou_se_vylije_horky_olej.olej_vylit" To="Exec" />
+				</TriggerSequence>
+				<troubeni_na_bocni_hradbe Name="troubeni_na_bocni_hradbe" PositionY="190" PositionX="4120">
+					<Edge From="triggersequence97.A" To="start">
 						<Vertex>vertex66</Vertex>
 						<Vertex>vertex255</Vertex>
 					</Edge>
@@ -658,7 +673,7 @@
 						<Vertex>L7mjS8GM</Vertex>
 					</Edge>
 				</utocnici_na_bocni_hradbe>
-				<utok_na_bocni_hradbu__bitva Name="utok_na_bocni_hradbu__bitva" PositionY="-260" PositionX="7160">
+				<utok_na_bocni_hradbu__bitva Name="utok_na_bocni_hradbu__bitva" PositionY="-220" PositionX="7160">
 					<Edge From="pushDownLadders.OnDone" To="zkontrolovat_nepratele_na_hradbe" />
 					<Edge From="pushDownLadders.Done" To="zebriky_jsou_dole" />
 					<Edge From="cert_jde_na_bocni_hradbu.hotovo" To="start">
@@ -684,6 +699,10 @@
 					<Edge From="ulozit_na_konci_bitvy" To="ulozit_na_konci_bitvy">
 						<Vertex>vertex291</Vertex>
 						<Vertex>4CTI9ttY</Vertex>
+					</Edge>
+					<Edge From="defendGate.Done" To="padaci_mriz_je_ubranena">
+						<Vertex>BjFaTkUR</Vertex>
+						<Vertex>Iz1J7Emt</Vertex>
 					</Edge>
 				</utok_na_bocni_hradbu__bitva>
 				<utok_na_bocni_hradbu__zebriky Name="utok_na_bocni_hradbu__zebriky" PositionY="390" PositionX="7150">
@@ -712,10 +731,6 @@
 						<Vertex>XwerYf5V</Vertex>
 						<Vertex>Nfs6oLAX</Vertex>
 					</Edge>
-					<Edge From="tezkoodenci_utoci_na_branu__strelci.strelci_strileji_skrze_mriz" To="prepnout_pri_utoku_na_padaci_mriz">
-						<Vertex>hWEyyqN2</Vertex>
-						<Vertex>9HeI7uQy</Vertex>
-					</Edge>
 					<Edge From="z_vrhacich_otvoru_nad_branou_se_vylije_horky_olej.olej_se_zacal_vylevat" To="prepnout_pri_vyliti_oleje">
 						<Vertex>sGNMb0g8</Vertex>
 						<Vertex>Jnxt5EvG</Vertex>
@@ -736,6 +751,10 @@
 						<Vertex>Ag9U7wDT</Vertex>
 						<Vertex>SuojhcMA</Vertex>
 					</Edge>
+					<Edge From="tezkoodenci_utoci_na_branu__sekernici.sekernici_jdou_sekat" To="prepnout_pri_utoku_na_padaci_mriz">
+						<Vertex>hWEyyqN2</Vertex>
+						<Vertex>9HeI7uQy</Vertex>
+					</Edge>
 				</zvuky_a_hu_bitvy>
 			</Nodes>
 			<EdgeVertices>
@@ -749,9 +768,11 @@
 				<EdgeVertex Name="81uhkHqC" PositionY="529" PositionX="-1318" />
 				<EdgeVertex Name="8Rv1cmnD" PositionY="-399" PositionX="7172" />
 				<EdgeVertex Name="9HeI7uQy" PositionY="-940" PositionX="7446" />
+				<EdgeVertex Name="a5HTfK4N" PositionY="530" PositionX="380" />
 				<EdgeVertex Name="Ag9U7wDT" PositionY="-400" PositionX="10050" />
 				<EdgeVertex Name="BGkYmDww" PositionY="-550" PositionX="-700" />
-				<EdgeVertex Name="bV6gsuMa" PositionY="48" PositionX="2759" />
+				<EdgeVertex Name="BjFaTkUR" PositionY="-488" PositionX="2765" />
+				<EdgeVertex Name="bV6gsuMa" PositionY="150" PositionX="2790" />
 				<EdgeVertex Name="BxB8fL95" PositionY="1220" PositionX="-1270" />
 				<EdgeVertex Name="cAeL53wg" PositionY="-330" PositionX="-320" />
 				<EdgeVertex Name="CrErNJuD" PositionY="-520" PositionX="1457" />
@@ -762,21 +783,23 @@
 				<EdgeVertex Name="eKg2La0k" PositionY="-240" PositionX="7490" />
 				<EdgeVertex Name="Eoqcd5yS" PositionY="910" PositionX="6380" />
 				<EdgeVertex Name="F29TFoAc" PositionY="-522" PositionX="2031" />
-				<EdgeVertex Name="fp71vcBu" PositionY="67" PositionX="3078" />
+				<EdgeVertex Name="fp71vcBu" PositionY="160" PositionX="3090" />
 				<EdgeVertex Name="fyXN4ATE" PositionY="1150" PositionX="7571" />
 				<EdgeVertex Name="Gh8YAo5l" PositionY="240" PositionX="8850" />
 				<EdgeVertex Name="H4wSByRA" PositionY="539" PositionX="-1318" />
-				<EdgeVertex Name="hWEyyqN2" PositionY="-939" PositionX="3190" />
+				<EdgeVertex Name="hWEyyqN2" PositionY="-940" PositionX="4120" />
 				<EdgeVertex Name="ChN4P8xp" PositionY="370" PositionX="1180" />
+				<EdgeVertex Name="Iz1J7Emt" PositionY="-489" PositionX="7022" />
 				<EdgeVertex Name="J0t0q3mo" PositionY="540" PositionX="282" />
 				<EdgeVertex Name="JaQHHWDw" PositionY="530" PositionX="285" />
 				<EdgeVertex Name="JIH8Atmh" PositionY="520" PositionX="720" />
 				<EdgeVertex Name="Jnxt5EvG" PositionY="-920" PositionX="7440" />
+				<EdgeVertex Name="k3gJgaN9" PositionY="540" PositionX="3282" />
 				<EdgeVertex Name="KUNEBLRa" PositionY="-250" PositionX="1930" />
 				<EdgeVertex Name="L7mjS8GM" PositionY="859" PositionX="5841" />
 				<EdgeVertex Name="L7tVrCS9" PositionY="-520" PositionX="3137" />
+				<EdgeVertex Name="luLrnDEj" PositionY="541" PositionX="3960" />
 				<EdgeVertex Name="m088txEp" PositionY="-350" PositionX="350" />
-				<EdgeVertex Name="MVoev85E" PositionY="700" PositionX="7000" />
 				<EdgeVertex Name="N8891ILN" PositionY="370" PositionX="-1300" />
 				<EdgeVertex Name="NaLbMNGx" PositionY="900" PositionX="10390" />
 				<EdgeVertex Name="Nfs6oLAX" PositionY="-950" PositionX="7450" />
@@ -786,8 +809,11 @@
 				<EdgeVertex Name="oXDEo95g" PositionY="519" PositionX="1487" />
 				<EdgeVertex Name="pRu6k915" PositionY="-530" PositionX="3710" />
 				<EdgeVertex Name="PxV5dthx" PositionY="720" PositionX="7170" />
+				<EdgeVertex Name="QLotaMFH" PositionY="170" PositionX="2790" />
 				<EdgeVertex Name="QTE4fXIQ" PositionY="-540" PositionX="3531" />
+				<EdgeVertex Name="RJucTkVL" PositionY="160" PositionX="2790" />
 				<EdgeVertex Name="RzPeYdE2" PositionY="1150" PositionX="10270" />
+				<EdgeVertex Name="sDc8LR9f" PositionY="540" PositionX="2730" />
 				<EdgeVertex Name="sGNMb0g8" PositionY="-920" PositionX="4800" />
 				<EdgeVertex Name="SmrravYu" PositionY="-257" PositionX="7148" />
 				<EdgeVertex Name="smtL9bQN" PositionY="-483" PositionX="185" />
@@ -796,18 +822,15 @@
 				<EdgeVertex Name="TrVMIbg0" PositionY="820" PositionX="-1340" />
 				<EdgeVertex Name="uhVppDLA" PositionY="210" PositionX="210" />
 				<EdgeVertex Name="V7X85bl8" PositionY="100" PositionX="9370" />
-				<EdgeVertex Name="V80qUzzm" PositionY="20" PositionX="3210" />
 				<EdgeVertex Name="vertex110" PositionY="370" PositionX="8000" />
 				<EdgeVertex Name="vertex111" PositionY="370" PositionX="7560" />
 				<EdgeVertex Name="vertex114" PositionY="350" PositionX="8000" />
 				<EdgeVertex Name="vertex115" PositionY="350" PositionX="7560" />
 				<EdgeVertex Name="vertex121" PositionY="550" PositionX="2730" />
-				<EdgeVertex Name="vertex125" PositionY="20" PositionX="3520" />
 				<EdgeVertex Name="vertex149" PositionY="800" PositionX="7410" />
 				<EdgeVertex Name="vertex150" PositionY="290" PositionX="2610" />
 				<EdgeVertex Name="vertex151" PositionY="-260" PositionX="2670" />
 				<EdgeVertex Name="vertex189" PositionY="700" PositionX="-730" />
-				<EdgeVertex Name="vertex19" PositionY="110" PositionX="2750" />
 				<EdgeVertex Name="vertex190" PositionY="840" PositionX="-1340" />
 				<EdgeVertex Name="vertex208" PositionY="840" PositionX="1220" />
 				<EdgeVertex Name="vertex210" PositionY="48" PositionX="4944" />
@@ -870,17 +893,15 @@
 				<EdgeVertex Name="vertex43" PositionY="470" PositionX="370" />
 				<EdgeVertex Name="vertex45" PositionY="140" PositionX="790" />
 				<EdgeVertex Name="vertex46" PositionY="140" PositionX="1510" />
-				<EdgeVertex Name="vertex63" PositionY="380" PositionX="2260" />
-				<EdgeVertex Name="vertex64" PositionY="380" PositionX="3180" />
-				<EdgeVertex Name="vertex65" PositionY="110" PositionX="3070" />
-				<EdgeVertex Name="vertex66" PositionY="550" PositionX="4480" />
+				<EdgeVertex Name="vertex63" PositionY="470" PositionX="2250" />
+				<EdgeVertex Name="vertex64" PositionY="470" PositionX="3170" />
+				<EdgeVertex Name="vertex66" PositionY="550" PositionX="4910" />
 				<EdgeVertex Name="vertex67" PositionY="550" PositionX="3270" />
-				<EdgeVertex Name="vertex72" PositionY="540" PositionX="380" />
 				<EdgeVertex Name="vertex76" PositionY="470" PositionX="3690" />
 				<EdgeVertex Name="vertex79" PositionY="-440" PositionX="6390" />
 				<EdgeVertex Name="vertex80" PositionY="-450" PositionX="10410" />
-				<EdgeVertex Name="vertex81" PositionY="480" PositionX="2280" />
-				<EdgeVertex Name="vertex82" PositionY="480" PositionX="5690" />
+				<EdgeVertex Name="vertex81" PositionY="520" PositionX="2280" />
+				<EdgeVertex Name="vertex82" PositionY="520" PositionX="5690" />
 				<EdgeVertex Name="vertex86" PositionY="140" PositionX="6730" />
 				<EdgeVertex Name="vertex87" PositionY="140" PositionX="5850" />
 				<EdgeVertex Name="vertex96" PositionY="520" PositionX="-1070" />
@@ -890,16 +911,19 @@
 				<EdgeVertex Name="W7TgoTrC" PositionY="730" PositionX="7440" />
 				<EdgeVertex Name="wdjWcQYq" PositionY="-248" PositionX="2663" />
 				<EdgeVertex Name="WjpuyC5R" PositionY="-930" PositionX="3910" />
-				<EdgeVertex Name="wkKtl4ga" PositionY="48" PositionX="3076" />
+				<EdgeVertex Name="wkKtl4ga" PositionY="150" PositionX="3090" />
 				<EdgeVertex Name="wpc1mPdE" PositionY="-197" PositionX="8266" />
+				<EdgeVertex Name="XA1B6S6r" PositionY="530" PositionX="4910" />
 				<EdgeVertex Name="xjhyI73U" PositionY="-380" PositionX="-720" />
 				<EdgeVertex Name="XLhSU7Qk" PositionY="-340" PositionX="-861" />
-				<EdgeVertex Name="xNoIFKTR" PositionY="99" PositionX="4516" />
-				<EdgeVertex Name="XuMcRhf1" PositionY="95" PositionX="3063" />
+				<EdgeVertex Name="xNoIFKTR" PositionY="170" PositionX="4490" />
+				<EdgeVertex Name="xTFL3HlR" PositionY="700" PositionX="7040" />
+				<EdgeVertex Name="XuMcRhf1" PositionY="170" PositionX="3090" />
 				<EdgeVertex Name="XwerYf5V" PositionY="-950" PositionX="-990" />
 				<EdgeVertex Name="y3Sevkzo" PositionY="-240" PositionX="6880" />
 				<EdgeVertex Name="YhF3ndMC" PositionY="890" PositionX="10390" />
 				<EdgeVertex Name="z2FNeFAf" PositionY="210" PositionX="-510" />
+				<EdgeVertex Name="zbpFjQ9b" PositionY="899" PositionX="249" />
 				<EdgeVertex Name="zmF4A8nQ" PositionY="720" PositionX="7440" />
 			</EdgeVertices>
 			<Types>
@@ -910,6 +934,12 @@
 					<StateTypeEnumeration Name="GateDefending" ObjectiveValueType="None" />
 					<StateTypeEnumeration Name="OilSpilled" ObjectiveValueType="None" />
 					<StateTypeEnumeration Name="FinalSideWallDefending" ObjectiveValueType="None" />
+					<StateTypeEnumeration Name="Done" ObjectiveValueType="None" />
+					<StateTypeEnumeration Name="Canceled" ObjectiveValueType="None" />
+				</Type>
+				<Type TypeName="ZoufalaObranaZaBohutu_ProgressFailable">
+					<StateTypeEnumeration Name="None" ObjectiveValueType="None" />
+					<StateTypeEnumeration Name="Active" ObjectiveValueType="None" />
 					<StateTypeEnumeration Name="Done" ObjectiveValueType="None" />
 					<StateTypeEnumeration Name="Canceled" ObjectiveValueType="None" />
 				</Type>
@@ -998,6 +1028,8 @@
 				<TriggerAreaAsset Name="backWallArea" />
 				<TriggerAreaAsset Name="sideWallArea" />
 				<SoulAsset Name="frontWallAxeAttackers" SharedSoulGuids="02b8075e-5343-46c4-a32b-e71d45740d94 36ef552c-ce6b-4127-a90c-bbb3dc22e8eb b6b99386-e1e3-4857-a023-1643687008e7 1208292a-cc0d-412a-a0ad-ec65f0c4b922 17475b7b-a2ad-4720-9037-719c2d9f9366 497c0a5b-a7af-4454-b449-8e70493f627f 78ed2006-f6d8-4836-8fa1-6ec4a90f2690 4d2eb2d5-7c11-482e-b83e-d3cf84b7881b 25c8e9e7-4a8f-4cd2-890b-c5662e6eb770 44033d8b-895b-45ed-b6be-d3af1f109234 f611a3b7-6fd2-4961-9772-15594967dcbf e4a39f21-f668-4201-b7a8-4a155562d323 ad87912a-e2db-4876-b883-876ac53a6f30 237653f0-c1ce-4ef7-a362-491decfc2590 5023fff2-fd27-44a6-9e1c-29d3b0709257 98741639-b4ed-4758-a00e-553b3b2b73b8" />
+				<SoulAsset Name="frontWallGroupA" SharedSoulGuids="b4fdf532-8f72-43b4-9bed-59a63cebd857 d9e7fbe1-bf0b-4522-bbc6-ba0c3ef51de0" />
+				<SoulAsset Name="frontWallGroupB" SharedSoulGuids="7c148628-c135-4275-9c81-0f7b8ef1cdef fb937ce4-4b54-40da-afb9-1d8bc559032e" />
 			</Assets>
 			<Notes>
 				<Note Name="note16_1" PositionY="400" PositionX="810">
@@ -1008,6 +1040,9 @@
 				</Note>
 				<Note Name="planekBitvy" PositionY="-1230" PositionX="2950">
 					<Text StringName="bitevnica_planekbitvy_xPvs" Text="https://warhorsest.sharepoint.com/:f:/r/Sdilene%20dokumenty/Design/KCD2/Questy/Main%20Quest/M00%20Obl%C3%A9h%C3%A1n%C3%AD%20za%20Bohutu?csf=1&amp;web=1&amp;e=JaW1xd" />
+				</Note>
+				<Note Name="note94" PositionY="580" PositionX="330">
+					<Text StringName="bitevnica_note94_6R8A" Text="Na certu byla defaultní hodnota stavu soldierToSideWall Acitve. Defaultní hodnota se neukládá a je teda potřeba stav přepnout až na OnDone ze SaveGameWithNotificaton, aby měl stav správnou hodnotu i po načtení savu (KCD2-504881). " />
 				</Note>
 			</Notes>
 			<Text StringName="bohutabitva_47KI" Text="Bitevní část" />

@@ -36,6 +36,9 @@
 				<Port Name="hrac_utek" Direction="Out" Type="trigger">
 					<DesignName StringName="bitva_o_c_hrac_utek_XFlD" Text="hrac utek" />
 				</Port>
+				<Port Name="hrac_a_balsan_prohrali_bitku" Direction="Out" Type="trigger">
+					<DesignName StringName="bitva_o_c_hrac_a_balsan_p_RhHU" Text="Hrac a Balsan prohrali bitku" />
+				</Port>
 			</Ports>
 			<Definitions>
 				<Definition File="bitva_o_cimburk/balsan_periodicky_barkuje_aby_hrac_s_nim_promluvil.xml" />
@@ -46,6 +49,17 @@
 				<Definition File="bitva_o_cimburk/osvobozeni_miroslava_po_bitve.xml" />
 			</Definitions>
 			<Nodes>
+				<AddInterruptConceptNode Name="addinterruptteleport8_2" PositionY="730" PositionX="270" Signature="teleport">
+					<Asset Name="NPC" Alias="balsan" />
+					<Constant Name="Behavior" Value="teleport" />
+					<Asset Name="SmartEntity" Alias="land" />
+					<Constant Name="Priority" Value="222" />
+					<Constant Name="Urgency" Value="Instant" />
+					<Constant Name="Aliveness" Value="AliveOrUnconscious" />
+					<Constant Name="Privileged" Value="true" />
+					<Asset Name="destination" Alias="balsanWaitCimburk" />
+					<Edge From="test_teleport_balsan.OnTrigger" To="Activate" />
+				</AddInterruptConceptNode>
 				<balsan_ceka_na_hrace Name="balsan_ceka_na_hrace_1" PositionY="340" PositionX="3490" Namespace="bratrizcimburka">
 					<Constant Name="operator_barky" Value="GreaterEquals" />
 					<Constant Name="distance_barky" Value="50" />
@@ -85,8 +99,9 @@
 						<Vertex>vertex122</Vertex>
 					</Edge>
 					<Edge From="ifand33.False" To="SetDone" />
+					<Edge From="test_planAttack.OnTrigger" To="SetActive" />
 				</State>
-				<bitva Name="bitva" PositionY="-850" PositionX="2060" RequiredForOutput="kutnohorsko">
+				<bitva Name="bitva" PositionY="-890" PositionX="2060" RequiredForOutput="kutnohorsko">
 					<Edge From="stealth_reseni_a_osvobozeni_miroslava.miroslav_dostal_zbran_a_jde_do_boje" To="miroslav_osvobozen_a_ozbrojen" />
 					<Edge From="hrac_odesel" To="hrac_odesel">
 						<Vertex>vertex73</Vertex>
@@ -183,6 +198,14 @@
 						<Vertex>RDNepwHM</Vertex>
 					</Edge>
 				</IfFunction>
+				<MakeArray Name="makearray37" PositionY="410" PositionX="-70" TypeT="wh::conceptmodule::ConceptPaths">
+					<Constant Name="A" Value="bratriZCimburka.test_moveToPillagersDone" />
+					<Constant Name="B" Value="bratriZCimburka.test_lootersConflictDone" />
+					<Constant Name="C" Value="bratriZCimburka.test_teleport_balsan" />
+				</MakeArray>
+				<MakeArray Name="makearray40" PositionY="600" PositionX="-70" TypeT="Strings">
+					<Constant Name="A" Value="goto bratriZCimburka_balsanWaitCimburk" />
+				</MakeArray>
 				<planAttackWithBalsan Name="objectiveVisual4" PositionY="-690" PositionX="570" RequiredForOutput="kutnohorsko">
 					<Edge From="planAttackWithBalsan.State" To="Progress" />
 				</planAttackWithBalsan>
@@ -250,6 +273,10 @@
 						<Vertex>3qlX8D8W</Vertex>
 						<Vertex>1adMaa0s</Vertex>
 					</Edge>
+					<Edge From="bitva.hrac_a_balsan_prohrali_bitku" To="hrac_a_balsan_prohrali_bitku">
+						<Vertex>o6sdvsvK</Vertex>
+						<Vertex>fHXmbfIb</Vertex>
+					</Edge>
 				</Output>
 				<patch_pro_miroslava_a_guardy Name="patch_pro_miroslava_a_guardy" PositionY="-840" PositionX="3300">
 					<Edge From="quest_nastartovan" To="start_patch_pro_miroslava">
@@ -297,6 +324,7 @@
 					</Edge>
 					<Edge From="ifand26.True" To="SetAborted" />
 					<Edge From="ifand27.False" To="SetStarted" />
+					<Edge From="test_planAttack.OnTrigger" To="SetStarted" />
 				</State>
 				<SaveGame Name="savegame18" PositionY="-510" PositionX="570">
 					<Constant Name="Objective" Value="planAttackWithBalsan" />
@@ -352,6 +380,13 @@
 						<Vertex>5BsvRb4L</Vertex>
 					</Edge>
 				</stealth_reseni_a_osvobozeni_miroslava>
+				<HasteTrigger Name="test_planAttack" PositionY="220" PositionX="-70">
+					<Edge From="makearray37.Array" To="Prerequisites" />
+					<Edge From="makearray40.Array" To="ConsoleCommands" />
+				</HasteTrigger>
+				<HasteTrigger Name="test_teleport_balsan" PositionY="730" PositionX="-70">
+					<Constant Name="IsHidden" Value="true" />
+				</HasteTrigger>
 				<TriggerSequence Name="triggersequence28" PositionY="-370" PositionX="1030">
 					<Edge From="balsan_s_jindrou_planuji_utok.jindra_se_bude_plizit" To="Exec" />
 				</TriggerSequence>
@@ -371,11 +406,13 @@
 				<EdgeVertex Name="c0hPJdLP" PositionY="-10" PositionX="200" />
 				<EdgeVertex Name="DDnfalnn" PositionY="-1308" PositionX="3127" />
 				<EdgeVertex Name="ePFQoReI" PositionY="180" PositionX="-60" />
+				<EdgeVertex Name="fHXmbfIb" PositionY="180" PositionX="3770" />
 				<EdgeVertex Name="gHyRnY5R" PositionY="160" PositionX="-60" />
 				<EdgeVertex Name="GW1yCdCf" PositionY="200" PositionX="2340" />
 				<EdgeVertex Name="H3jFaTpw" PositionY="-700" PositionX="-20" />
 				<EdgeVertex Name="IzMvf5t4" PositionY="-60" PositionX="3150" />
 				<EdgeVertex Name="NIAAb6NS" PositionY="-40" PositionX="1820" />
+				<EdgeVertex Name="o6sdvsvK" PositionY="180" PositionX="2460" />
 				<EdgeVertex Name="RDNepwHM" PositionY="200" PositionX="-60" />
 				<EdgeVertex Name="rzEuBuoX" PositionY="710" PositionX="3220" />
 				<EdgeVertex Name="SHxwrfJs" PositionY="180" PositionX="2340" />

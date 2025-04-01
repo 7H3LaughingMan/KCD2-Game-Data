@@ -57,6 +57,8 @@
 					<Edge From="fist_fight_line.jindra_po_fightu_nemluvil_s_oponentem" To="jindra_po_fightu_nemluvil_s_damianem">
 						<Vertex>vertex132</Vertex>
 					</Edge>
+					<Edge From="fist_fight_line.dialogparams_pro_forcovany_dialog" To="DialogParams" />
+					<Edge From="fist_fight_line.jindrich_vyhrava" To="EnqueueDialogue" />
 				</damian__po_souboji>
 				<damian_pred_vyzvou__jindrich_je_blizko Name="damian_pred_vyzvou__jindrich_je_blizko" PositionY="-590" PositionX="1150" />
 				<damian_pred_vyzvou__jindrich_odchazi Name="damian_pred_vyzvou__jindrich_odchazi" PositionY="-440" PositionX="1150" />
@@ -178,6 +180,11 @@
 					</Edge>
 					<Edge From="fist_fight_line.jindra_ma_dost_penez" To="jindra_ma_dost_penez" />
 				</te__pred_arenkou>
+				<turntoplayerinidlestance Name="turntoplayerinidlestance" PositionY="880" PositionX="1330" Namespace="utils.general">
+					<Asset Name="npc" Alias="damian" />
+					<Constant Name="anydecoratorpreset" Value="changeEquipment" />
+					<Edge From="damian__po_souboji.AfterPlay" To="turntoplayerinidlestance" />
+				</turntoplayerinidlestance>
 				<AddReward Name="vyhra" PositionY="750" PositionX="-100">
 					<Edge From="fist_fight_line.jindrich_vyhrava" To="AddReward" />
 					<Rewards>

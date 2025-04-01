@@ -11,12 +11,14 @@
 		</Parameters>
 		<Root OneTimeOnly="false" FailState="Recoverable" saveVersion="2">
 			<Behavior canSkip="1">
+				<AnyDecorator preset="crime_keepConfiscatedItems" enabled="true">
 					<Parallel successMode="Any" failureMode="Any">
 						<Function_searchForBeer shouldDrinkBeer="$shouldDrinkBeer" nodeLabel="39077139" />
 						<ExternalLock atomic="false" OutsideQueuePosVariable="" InsidePosVariable="" TimerType="GameTime" OutsideTimerValue="&apos;-1&apos;" LockManagerType="Intellect" SemaphoreName="&apos;beerInitializationDone&apos;" RunLogic="KeepRunning">
 							<Function_sitAndRepeatPolylogInitiator_withoutBeer alias="$alias" lockName="$lockName" participants="$participants" tableToNotCleanDuringBehavior="$tableToNotCleanDuringBehavior" nodeLabel="89215297" />
 						</ExternalLock>
 					</Parallel>
+				</AnyDecorator>
 			</Behavior>
 		</Root>
 		<ForestContainer />
@@ -32,6 +34,8 @@
 			<Root hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
 				<OutputBreakpoints />
 				<Behavior>
+					<AnyDecorator hasInputBreakpoint="0" comment="" breakpointFlags="0">
+						<OutputBreakpoints />
 						<Parallel hasInputBreakpoint="0" comment="" breakpointFlags="0">
 							<OutputBreakpoints />
 							<Function_searchForBeer hasInputBreakpoint="0" comment="" breakpointFlags="0">
@@ -44,6 +48,7 @@
 								</Function_sitAndRepeatPolylogInitiator_withoutBeer>
 							</ExternalLock>
 						</Parallel>
+					</AnyDecorator>
 				</Behavior>
 			</Root>
 			<Forest />
@@ -60,12 +65,14 @@
 		</Parameters>
 		<Root OneTimeOnly="false" FailState="Recoverable" saveVersion="2">
 			<Behavior canSkip="1">
+				<AnyDecorator preset="crime_keepConfiscatedItems" enabled="true">
 					<Parallel successMode="Any" failureMode="Any">
 						<Function_searchForBeer shouldDrinkBeer="$shouldDrinkBeer" nodeLabel="77298715" />
 						<ExternalLock atomic="false" OutsideQueuePosVariable="" InsidePosVariable="" TimerType="GameTime" OutsideTimerValue="&apos;-1&apos;" LockManagerType="Intellect" SemaphoreName="&apos;beerInitializationDone&apos;" RunLogic="KeepRunning">
 							<Function_sitAndRepeatPolylogReceiver_withoutBeer alias="$alias" wuidData="$wuidData" wuidDataArray="$wuidDataArray" nodeLabel="21764412" />
 						</ExternalLock>
 					</Parallel>
+				</AnyDecorator>
 			</Behavior>
 		</Root>
 		<ForestContainer />
@@ -80,6 +87,8 @@
 			<Root hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
 				<OutputBreakpoints />
 				<Behavior>
+					<AnyDecorator hasInputBreakpoint="0" comment="" breakpointFlags="0">
+						<OutputBreakpoints />
 						<Parallel hasInputBreakpoint="0" comment="" breakpointFlags="0">
 							<OutputBreakpoints />
 							<Function_searchForBeer hasInputBreakpoint="0" comment="" breakpointFlags="0">
@@ -92,6 +101,7 @@
 								</Function_sitAndRepeatPolylogReceiver_withoutBeer>
 							</ExternalLock>
 						</Parallel>
+					</AnyDecorator>
 				</Behavior>
 			</Root>
 			<Forest />
@@ -149,12 +159,14 @@
 		</Parameters>
 		<Root OneTimeOnly="false" FailState="Recoverable" saveVersion="2">
 			<Behavior canSkip="1">
+				<AnyDecorator preset="crime_keepConfiscatedItems" enabled="true">
 					<Parallel successMode="Any" failureMode="Any">
 						<Function_searchForBeer shouldDrinkBeer="$shouldDrinkBeer" nodeLabel="11041756" />
 						<ExternalLock atomic="false" OutsideQueuePosVariable="" InsidePosVariable="" TimerType="GameTime" OutsideTimerValue="&apos;-1&apos;" LockManagerType="Intellect" SemaphoreName="&apos;beerInitializationDone&apos;" RunLogic="KeepRunning">
 							<Function_sitAndRepeatMonolog_withoutBeer alias="$alias" lockName="$lockName" nodeLabel="29872558" />
 						</ExternalLock>
 					</Parallel>
+				</AnyDecorator>
 			</Behavior>
 		</Root>
 		<ForestContainer />
@@ -168,6 +180,8 @@
 			<Root editorPosX="-40" editorPosY="10" hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
 				<OutputBreakpoints />
 				<Behavior>
+					<AnyDecorator hasInputBreakpoint="0" comment="" breakpointFlags="0">
+						<OutputBreakpoints />
 						<Parallel hasInputBreakpoint="0" comment="" breakpointFlags="0">
 							<OutputBreakpoints />
 							<Function_searchForBeer hasInputBreakpoint="0" comment="" breakpointFlags="0">
@@ -180,6 +194,7 @@
 								</Function_sitAndRepeatMonolog_withoutBeer>
 							</ExternalLock>
 						</Parallel>
+					</AnyDecorator>
 				</Behavior>
 			</Root>
 			<Forest />
@@ -188,13 +203,19 @@
 	</BehaviorTree>
 	<BehaviorTree name="drunkFaint" is_function="0">
 		<Variables />
+		<Parameters>
+			<Variable name="string" type="_string" values="" isPersistent="0" form="single" requirementType="In" />
+		</Parameters>
 		<Root OneTimeOnly="false" FailState="Recoverable" saveVersion="2">
 			<Behavior canSkip="1">
 				<AnyDecorator preset="bothHands_changeEquipment" enabled="true">
+					<EntityContext context="combat_actorSupressHitreactionAnimation" target="">
 						<FuseBox StatusPropagation="Child" OneCleanup="true" saveVersion="2">
 							<Child canSkip="1">
 								<Parallel successMode="All" failureMode="Any">
-								<Function_speech_schedulerMonolog alias="&apos;kumaniNaTrosecku_barkyPriOmdleniKumanaCiVaska&apos;" animationApproach="$enum:animationApproach.dontPlayDialogAnimations" context="" metarole="" subtitlesDown="false" nodeLabel="36483503" />
+									<IfCondition failOnCondition="false" condition="$string ~= &apos;&apos;">
+										<Function_speech_schedulerMonolog alias="$string" animationApproach="$enum:animationApproach.dontPlayDialogAnimations" context="" lookAtId="" metarole="" skipInLod="false" subtitlesDown="false" nodeLabel="36483503" />
+									</IfCondition>
 									<AnimationAction fragment="&apos;Quest_DrunkFall&apos;" tags="" eventReferenceObject="" alignObject="" slaveObject="" resourceOverride="" allowTorchForPlayer="false" />
 								</Parallel>
 							</Child>
@@ -202,26 +223,34 @@
 								<Callback_empty EventName="&apos;OnFinished&apos;" />
 							</OnSuccess>
 						</FuseBox>
+					</EntityContext>
 				</AnyDecorator>
 			</Behavior>
 		</Root>
 		<ForestContainer />
-		<EditorData EventSet="endNotification">
-			<Variables />
+		<EditorData Signature="string" EventSet="endNotification">
+			<Variables>
+				<Variable name="string" comment="" />
+			</Variables>
 			<ForwardDeclarations />
 			<Root hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
 				<OutputBreakpoints />
 				<Behavior>
 					<AnyDecorator hasInputBreakpoint="0" comment="" breakpointFlags="0">
 						<OutputBreakpoints />
+						<EntityContext hasInputBreakpoint="0" comment="" breakpointFlags="0">
+							<OutputBreakpoints />
 							<FuseBox hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
 								<OutputBreakpoints />
 								<Child>
 									<Parallel hasInputBreakpoint="0" comment="" breakpointFlags="0">
 										<OutputBreakpoints />
+										<IfCondition hasInputBreakpoint="0" comment="" breakpointFlags="0">
+											<OutputBreakpoints />
 											<Function_speech_schedulerMonolog hasInputBreakpoint="0" comment="" breakpointFlags="0">
 												<OutputBreakpoints />
 											</Function_speech_schedulerMonolog>
+										</IfCondition>
 										<AnimationAction hasInputBreakpoint="0" comment="" breakpointFlags="0">
 											<OutputBreakpoints />
 										</AnimationAction>
@@ -233,6 +262,7 @@
 									</Callback_empty>
 								</OnSuccess>
 							</FuseBox>
+						</EntityContext>
 					</AnyDecorator>
 				</Behavior>
 			</Root>
@@ -550,23 +580,24 @@
 		</Parameters>
 		<Root OneTimeOnly="false" FailState="Recoverable" saveVersion="2">
 			<Behavior canSkip="1">
+				<AnyDecorator preset="crime_keepConfiscatedItems" enabled="true">
 					<ContinuousSwitch>
 						<IfCondition failOnCondition="false" condition="$phase == $enum:kumaniNaTrosecku_pubFightEscalation.BarkingFromTable | &#10;$phase == $enum:kumaniNaTrosecku_pubFightEscalation.CumansLeaving">
 							<Function_turnToTargetIfStanding target="$vujtek" nodeLabel="78101067" />
 						</IfCondition>
 						<IfCondition failOnCondition="false" condition="$phase == $enum:kumaniNaTrosecku_pubFightEscalation.ChasingOutCumans">
 							<Sequence>
-							<Wait duration="&apos;500ms&apos;" timeType="GameTime" doFail="false" variation="&apos;300ms&apos;" skipInLOD="false" />
-							<CrimeFollower Target="$vasko" Role="Assist" RelativeSpeedLimit="AlertedWalk" BlockWay="false" />
+								<Wait duration="&apos;500ms&apos;" timeType="GameTime" doFail="false" variation="&apos;300ms&apos;" />
+								<CrimeFollower Target="$vasko" Mode="Default" Role="Assist" RelativeSpeedLimit="AlertedWalk" DisableGhosting="false" />
 							</Sequence>
 						</IfCondition>
 						<IfCondition failOnCondition="false" condition="$phase == $enum:kumaniNaTrosecku_pubFightEscalation.BarkingNearPubExit">
 							<Parallel successMode="Any" failureMode="Any">
-							<CrimeFollower Target="$vasko" Role="Assist" RelativeSpeedLimit="AlertedWalk" BlockWay="false" />
+								<CrimeFollower Target="$vasko" Mode="Default" Role="Assist" RelativeSpeedLimit="AlertedWalk" DisableGhosting="false" />
 								<Loop count="-1">
 									<Sequence>
-									<Function_speech_schedulerMonolog alias="&apos;kumaniNaTrosecku_vesnicanNadavaNaVaska&apos;" animationApproach="$enum:animationApproach.dontPlayDialogAnimations" context="" metarole="" subtitlesDown="false" nodeLabel="69774930" />
-									<Wait duration="&apos;500ms&apos;" timeType="GameTime" doFail="false" variation="" skipInLOD="false" />
+										<Function_speech_schedulerMonolog alias="&apos;kumaniNaTrosecku_vesnicanNadavaNaVaska&apos;" animationApproach="$enum:animationApproach.dontPlayDialogAnimations" context="" lookAtId="" metarole="" skipInLod="false" subtitlesDown="false" nodeLabel="69774930" />
+										<Wait duration="&apos;500ms&apos;" timeType="GameTime" doFail="false" variation="" />
 									</Sequence>
 								</Loop>
 								<Loop count="-1">
@@ -575,6 +606,7 @@
 							</Parallel>
 						</IfCondition>
 					</ContinuousSwitch>
+				</AnyDecorator>
 			</Behavior>
 		</Root>
 		<ForestContainer />
@@ -588,6 +620,8 @@
 			<Root hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
 				<OutputBreakpoints />
 				<Behavior>
+					<AnyDecorator hasInputBreakpoint="0" comment="" breakpointFlags="0">
+						<OutputBreakpoints />
 						<ContinuousSwitch hasInputBreakpoint="0" comment="" breakpointFlags="0">
 							<OutputBreakpoints />
 							<IfCondition hasInputBreakpoint="0" comment="" breakpointFlags="0">
@@ -636,6 +670,7 @@
 								</Parallel>
 							</IfCondition>
 						</ContinuousSwitch>
+					</AnyDecorator>
 				</Behavior>
 			</Root>
 			<Forest />
@@ -654,6 +689,7 @@
 		</Parameters>
 		<Root OneTimeOnly="false" FailState="Recoverable" saveVersion="2">
 			<Behavior canSkip="1">
+				<AnyDecorator preset="crime_keepConfiscatedItems" enabled="true">
 					<Parallel successMode="Any" failureMode="Any">
 						<Loop count="-1">
 							<Sequence>
@@ -669,7 +705,7 @@
 									<Parallel successMode="All" failureMode="Any">
 										<SuppressFailure>
 											<LoopUntil until="Success" attemptCount="$retryCount">
-												<Function_speech_schedulerMonolog alias="&apos;kumaniNaTrosecku_fracekSpoustiBitkuUStolu&apos;" animationApproach="$enum:animationApproach.dontPlayDialogAnimations" context="" lookAtId="" metarole="" skipInLod="false" subtitlesDown="false" nodeLabel="56802392" />
+												<Function_speech_schedulerMonolog alias="&apos;kumaniNaTrosecku_fracekSpoustiBitkuUStolu&apos;" animationApproach="$enum:animationApproach.dontPlayDialogAnimations" context="" lookAtId="" metarole="" skipInLod="true" subtitlesDown="false" nodeLabel="56802392" />
 											</LoopUntil>
 										</SuppressFailure>
 										<Sequence>
@@ -691,7 +727,7 @@
 									<Sequence>
 										<SuppressFailure>
 											<LoopUntil until="Success" attemptCount="$retryCount">
-												<Function_speech_schedulerMonolog alias="&apos;kumaniNaTrosecku_vujtekVyhaneniKumanu&apos;" animationApproach="$enum:animationApproach.dontPlayDialogAnimations" context="" lookAtId="" metarole="" skipInLod="false" subtitlesDown="false" nodeLabel="21622104" />
+												<Function_speech_schedulerMonolog alias="&apos;kumaniNaTrosecku_vujtekVyhaneniKumanu&apos;" animationApproach="$enum:animationApproach.dontPlayDialogAnimations" context="" lookAtId="" metarole="" skipInLod="true" subtitlesDown="false" nodeLabel="21622104" />
 											</LoopUntil>
 										</SuppressFailure>
 										<InstantCallback_empty EventName="&apos;OnFinished&apos;" />
@@ -704,7 +740,7 @@
 									<Sequence>
 										<SuppressFailure>
 											<LoopUntil until="Success" attemptCount="$retryCount">
-												<Function_npc_ingameDialogInitiator alias="&apos;kumaniNaTrosecku_vujtekSeHadaSVaskem&apos;" participants="$dialogParticipants" nodeLabel="87719149" />
+												<Function_npc_ingameDialogInitiator alias="&apos;kumaniNaTrosecku_vujtekSeHadaSVaskem&apos;" animationApproach="$enum:animationApproach.dontPlayDialogAnimations" participants="$dialogParticipants" nodeLabel="87719149" />
 											</LoopUntil>
 										</SuppressFailure>
 										<InstantCallback_empty EventName="&apos;OnFinished&apos;" />
@@ -716,6 +752,7 @@
 							</IfCondition>
 						</ContinuousSwitch>
 					</Parallel>
+				</AnyDecorator>
 			</Behavior>
 		</Root>
 		<ForestContainer />
@@ -731,6 +768,8 @@
 			<Root hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
 				<OutputBreakpoints />
 				<Behavior>
+					<AnyDecorator hasInputBreakpoint="0" comment="" breakpointFlags="0">
+						<OutputBreakpoints />
 						<Parallel hasInputBreakpoint="0" comment="" breakpointFlags="0">
 							<OutputBreakpoints />
 							<Loop hasInputBreakpoint="0" comment="" breakpointFlags="0">
@@ -845,6 +884,7 @@
 								</IfCondition>
 							</ContinuousSwitch>
 						</Parallel>
+					</AnyDecorator>
 				</Behavior>
 			</Root>
 			<Forest />
@@ -1003,6 +1043,7 @@
 		<Root OneTimeOnly="false" FailState="Recoverable" saveVersion="2">
 			<Behavior canSkip="1">
 				<AnyDecorator preset="bothHands_changeEquipment" enabled="true">
+					<AnyDecorator preset="crime_keepConfiscatedItems" enabled="true">
 						<Parallel successMode="Any" failureMode="Any">
 							<Loop count="-1">
 								<IfGate atomic="false" condition="$isTurningToVujtek" RunLogic="Halt">
@@ -1033,7 +1074,7 @@
 										<SuppressFailure>
 											<LoopUntil until="Success" attemptCount="$retryCount">
 												<Selector>
-													<Function_speech_schedulerMonolog alias="&apos;kumaniNaTrosecku_vaskoBarkujeKOdchodu&apos;" animationApproach="$enum:animationApproach.dontPlayDialogAnimations" context="" lookAtId="" metarole="" skipInLod="false" subtitlesDown="false" nodeLabel="32797879" />
+													<Function_speech_schedulerMonolog alias="&apos;kumaniNaTrosecku_vaskoBarkujeKOdchodu&apos;" animationApproach="$enum:animationApproach.dontPlayDialogAnimations" context="" lookAtId="" metarole="" skipInLod="true" subtitlesDown="false" nodeLabel="32797879" />
 													<Sequence>
 														<Wait duration="&apos;200ms&apos;" timeType="GameTime" doFail="false" variation="" />
 														<Fail />
@@ -1054,17 +1095,17 @@
 												<Function_npc_ingameDialogRecipient alias="&apos;kumaniNaTrosecku_vujtekSeHadaSVaskem&apos;" participants="$dialogParticipants" nodeLabel="53605556" />
 											</SuppressFailure>
 										</LoopUntil>
+										<InstantCallback_empty EventName="&apos;OnFinished&apos;" />
 										<Wait duration="&apos;-1&apos;" timeType="GameTime" doFail="false" variation="" />
 									</Sequence>
 								</IfCondition>
 							</ContinuousSwitch>
 						</Parallel>
 					</AnyDecorator>
+				</AnyDecorator>
 			</Behavior>
 		</Root>
-		<ForestContainer>
-			<WaitAction />
-		</ForestContainer>
+		<ForestContainer />
 		<EditorData Signature="kumaniNaTrosecku_vaskoPubEscalation" EventSet="endNotification">
 			<Variables>
 				<Variable name="isDelayingMoveCancellation" comment="" />
@@ -1078,11 +1119,13 @@
 				<Variable name="vujtek" comment="" />
 			</Variables>
 			<ForwardDeclarations />
-			<Root hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
+			<Root editorPosX="20" editorPosY="-130" hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
 				<OutputBreakpoints />
 				<Behavior>
 					<AnyDecorator hasInputBreakpoint="0" comment="" breakpointFlags="0">
 						<OutputBreakpoints />
+						<AnyDecorator hasInputBreakpoint="0" comment="" breakpointFlags="0">
+							<OutputBreakpoints />
 							<Parallel hasInputBreakpoint="0" comment="" breakpointFlags="0">
 								<OutputBreakpoints />
 								<Loop hasInputBreakpoint="0" comment="" breakpointFlags="0">
@@ -1181,6 +1224,9 @@
 													</Function_npc_ingameDialogRecipient>
 												</SuppressFailure>
 											</LoopUntil>
+											<InstantCallback_empty hasInputBreakpoint="0" comment="" breakpointFlags="0">
+												<OutputBreakpoints />
+											</InstantCallback_empty>
 											<Wait hasInputBreakpoint="0" comment="" breakpointFlags="0">
 												<OutputBreakpoints />
 											</Wait>
@@ -1189,6 +1235,7 @@
 								</ContinuousSwitch>
 							</Parallel>
 						</AnyDecorator>
+					</AnyDecorator>
 				</Behavior>
 			</Root>
 			<Forest />
@@ -1363,17 +1410,17 @@
 		<Root OneTimeOnly="false" FailState="Recoverable" saveVersion="2">
 			<Behavior canSkip="1">
 				<AnyDecorator preset="crime_keepStateAndItems" enabled="true">
-				<FuseBox StatusPropagation="Child" OneCleanup="false" saveVersion="2">
-					<Child canSkip="1">
-						<Parallel successMode="All" failureMode="Any">
-							<AnimationAction fragment="&apos;CrimeScareMedium&apos;" tags="" eventReferenceObject="" alignObject="" slaveObject="" resourceOverride="" allowTorchForPlayer="false" />
+					<FuseBox StatusPropagation="Child" OneCleanup="false" saveVersion="2">
+						<Child canSkip="1">
+							<Parallel successMode="All" failureMode="Any">
+								<AnimationAction fragment="&apos;CrimeScareMedium&apos;" tags="" eventReferenceObject="" alignObject="" slaveObject="" resourceOverride="" allowTorchForPlayer="false" />
 								<Function_speech_schedulerMonolog alias="$string" animationApproach="$enum:animationApproach.dontPlayDialogAnimations" context="" lookAtId="$__player" metarole="" skipInLod="false" subtitlesDown="false" nodeLabel="86613150" />
-						</Parallel>
-					</Child>
-					<OnSuccess canSkip="1">
-						<Callback_empty EventName="&apos;OnFinished&apos;" />
-					</OnSuccess>
-				</FuseBox>
+							</Parallel>
+						</Child>
+						<OnSuccess canSkip="1">
+							<Callback_empty EventName="&apos;OnFinished&apos;" />
+						</OnSuccess>
+					</FuseBox>
 				</AnyDecorator>
 			</Behavior>
 		</Root>
@@ -1388,25 +1435,25 @@
 				<Behavior>
 					<AnyDecorator hasInputBreakpoint="0" comment="" breakpointFlags="0">
 						<OutputBreakpoints />
-					<FuseBox hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
-						<OutputBreakpoints />
-						<Child>
-							<Parallel hasInputBreakpoint="0" comment="" breakpointFlags="0">
-								<OutputBreakpoints />
-								<AnimationAction hasInputBreakpoint="0" comment="" breakpointFlags="0">
+						<FuseBox hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
+							<OutputBreakpoints />
+							<Child>
+								<Parallel hasInputBreakpoint="0" comment="" breakpointFlags="0">
 									<OutputBreakpoints />
-								</AnimationAction>
-								<Function_speech_schedulerMonolog hasInputBreakpoint="0" comment="" breakpointFlags="0">
+									<AnimationAction hasInputBreakpoint="0" comment="" breakpointFlags="0">
+										<OutputBreakpoints />
+									</AnimationAction>
+									<Function_speech_schedulerMonolog hasInputBreakpoint="0" comment="" breakpointFlags="0">
+										<OutputBreakpoints />
+									</Function_speech_schedulerMonolog>
+								</Parallel>
+							</Child>
+							<OnSuccess>
+								<Callback_empty hasInputBreakpoint="0" comment="" breakpointFlags="0">
 									<OutputBreakpoints />
-								</Function_speech_schedulerMonolog>
-							</Parallel>
-						</Child>
-						<OnSuccess>
-							<Callback_empty hasInputBreakpoint="0" comment="" breakpointFlags="0">
-								<OutputBreakpoints />
-							</Callback_empty>
-						</OnSuccess>
-					</FuseBox>
+								</Callback_empty>
+							</OnSuccess>
+						</FuseBox>
 					</AnyDecorator>
 				</Behavior>
 			</Root>
@@ -1594,12 +1641,14 @@
 		<Variables />
 		<Root OneTimeOnly="false" FailState="Recoverable" saveVersion="2">
 			<Behavior canSkip="1">
+				<AnyDecorator preset="crime_keepConfiscatedItems" enabled="true">
 					<AnyDecorator preset="bothHands_changeEquipment" enabled="true">
 						<Sequence>
 							<WaitAction />
 							<Wait duration="&apos;-1&apos;" timeType="GameTime" doFail="false" variation="" />
 						</Sequence>
 					</AnyDecorator>
+				</AnyDecorator>
 			</Behavior>
 		</Root>
 		<ForestContainer />
@@ -1611,6 +1660,8 @@
 				<Behavior>
 					<AnyDecorator hasInputBreakpoint="0" comment="" breakpointFlags="0">
 						<OutputBreakpoints />
+						<AnyDecorator hasInputBreakpoint="0" comment="" breakpointFlags="0">
+							<OutputBreakpoints />
 							<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
 								<OutputBreakpoints />
 								<WaitAction hasInputBreakpoint="0" comment="" breakpointFlags="0">
@@ -1621,6 +1672,7 @@
 								</Wait>
 							</Sequence>
 						</AnyDecorator>
+					</AnyDecorator>
 				</Behavior>
 			</Root>
 			<Forest />
@@ -1915,7 +1967,7 @@
 				<Variable name="lockName" comment="" />
 			</Variables>
 			<ForwardDeclarations />
-			<Root hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
+			<Root editorPosX="210" editorPosY="-20" hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
 				<OutputBreakpoints />
 				<Behavior>
 					<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
@@ -1971,7 +2023,9 @@
 			<Variable name="shouldDrinkBeer" type="_bool" values="" isPersistent="0" form="single" requirementType="In" />
 		</Parameters>
 		<Root OneTimeOnly="false" FailState="Recoverable" saveVersion="2">
-			<OnInit canSkip="1">
+			<Behavior canSkip="1">
+				<Selector>
+					<Sequence>
 						<IfCondition failOnCondition="false" condition="$shouldDrinkBeer">
 							<Sequence>
 								<GraphSearch Origin="$this.id" Borders="" depth="1" selection="true" SearchPattern="Depth" EdgePruning="&apos;parent,inventory&apos;" AllowedEdges="" SubGraph="" AllowSubtraph="false" includeOrigin="false" excludeOrigin="false" failOnEmpty="true" SetOperationChoice="Intersection|And" errorOnEmpty="false" shortCircuit="false" skipTraversed="true">
@@ -1982,8 +2036,6 @@
 								</GraphSearch>
 							</Sequence>
 						</IfCondition>
-			</OnInit>
-			<Behavior canSkip="1">
 						<IfElseCondition failOnCondition="false" condition="$shouldDrinkBeer" saveVersion="2">
 							<Then canSkip="1">
 								<AddLinkElement from="$this.id" to="$hiddenBeerSlot" tag="&apos;guestHidden&apos;" data="" enabled="true">
@@ -2011,6 +2063,12 @@
 								</Sequence>
 							</Else>
 						</IfElseCondition>
+					</Sequence>
+					<Sequence>
+						<SetExternalLock LockManagerType="Intellect" Locked="false" LockName="&apos;beerInitializationDone&apos;" />
+						<Wait duration="&apos;-1&apos;" timeType="GameTime" doFail="false" variation="" />
+					</Sequence>
+				</Selector>
 			</Behavior>
 		</Root>
 		<ForestContainer />
@@ -2023,9 +2081,13 @@
 				<Variable name="shouldDrinkBeer" comment="" />
 			</Variables>
 			<ForwardDeclarations />
-			<Root hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
+			<Root editorPosX="-200" editorPosY="10" hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
 				<OutputBreakpoints />
-				<OnInit>
+				<Behavior>
+					<Selector hasInputBreakpoint="0" comment="KCD2-468802" breakpointFlags="0">
+						<OutputBreakpoints />
+						<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
+							<OutputBreakpoints />
 							<IfCondition hasInputBreakpoint="0" comment="" breakpointFlags="0">
 								<OutputBreakpoints />
 								<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
@@ -2044,8 +2106,6 @@
 									</GraphSearch>
 								</Sequence>
 							</IfCondition>
-				</OnInit>
-				<Behavior>
 							<IfElseCondition hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
 								<OutputBreakpoints />
 								<Then>
@@ -2090,6 +2150,17 @@
 									</Sequence>
 								</Else>
 							</IfElseCondition>
+						</Sequence>
+						<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
+							<OutputBreakpoints />
+							<SetExternalLock hasInputBreakpoint="0" comment="" breakpointFlags="0">
+								<OutputBreakpoints />
+							</SetExternalLock>
+							<Wait hasInputBreakpoint="0" comment="" breakpointFlags="0">
+								<OutputBreakpoints />
+							</Wait>
+						</Sequence>
+					</Selector>
 				</Behavior>
 			</Root>
 			<Forest />

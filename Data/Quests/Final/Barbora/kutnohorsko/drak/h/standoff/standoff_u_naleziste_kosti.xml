@@ -48,9 +48,6 @@
 				<Port Name="mluvil_jsem_s_gerhartem" Direction="In" Type="bool">
 					<DesignName StringName="standoff__mluvil_jsem_s_g_2fTY" Text="mluvil jsem s gerhartem" />
 				</Port>
-				<Port Name="dialog_or_trialog_ends" Direction="Out" Type="trigger">
-					<DesignName StringName="standoff__dialog_or_trial_3PAr" Text="dialog or trialog ends" />
-				</Port>
 				<Port Name="stream_bodyguard3" Direction="Out" Type="trigger">
 					<DesignName StringName="standoff__stream_bodyguar_7A2D" Text="stream bodyguard3" />
 				</Port>
@@ -71,6 +68,15 @@
 				</Port>
 				<Port Name="leader_i_alch_dead" Direction="Out" Type="trigger">
 					<DesignName StringName="standoff__leader_i_alch_d_B6zU" Text="leader i alch dead" />
+				</Port>
+				<Port Name="dialog_skoncil" Direction="Out" Type="trigger">
+					<DesignName StringName="standoff__dialog_skoncil_k5Ae" Text="dialog skoncil soldier" />
+				</Port>
+				<Port Name="dialog_skoncil_1" Direction="Out" Type="trigger">
+					<DesignName StringName="standoff__dialog_skoncil_1_gEiS" Text="dialog skoncil alch" />
+				</Port>
+				<Port Name="vsechny_dialogy_skoncili" Direction="Out" Type="trigger">
+					<DesignName StringName="standoff__vsechny_dialogy_hh21" Text="vsechny dialogy skoncili" />
 				</Port>
 			</Ports>
 			<Definitions>
@@ -212,7 +218,6 @@
 					<Edge From="trialog_part_1.boj_1v1v1" To="boj" />
 					<Edge From="trialog_part_1.rozdeleni_na_tretiny" To="rozdeleni_na_tretiny" />
 					<Edge From="trialog_part_1.boj_do_hrace_2v1" To="boj_na_smrt_all" />
-					<Edge From="bodyguardsWaitingInBackground.OnDone" To="dialog_or_trialog_ends" />
 					<Edge From="dialog_s_velitelem.velitel_zastrasen" To="velitel_byl_zastrasen" />
 					<Edge From="dialog_s_velitelem.probehl_standoff_jen_s_velitelem" To="probehl_standoff_jen_s_velitelem" />
 					<Edge From="dialog_s_alchymistou_u_kosti.probehl_standoff_jen_s_alchymistou" To="probehl_standoff_jen_s_alchymistou" />
@@ -230,6 +235,11 @@
 					<Edge From="ifand17.False" To="leader_i_alch_dead">
 						<Vertex>grlWRT59</Vertex>
 						<Vertex>nw4Rs4yG</Vertex>
+					</Edge>
+					<Edge From="dialog_s_velitelem.dialog_skoncil" To="dialog_skoncil" />
+					<Edge From="dialog_s_alchymistou_u_kosti.dialog_skoncil" To="dialog_skoncil_1" />
+					<Edge From="bodyguardsWaitingInBackground.OnDone" To="vsechny_dialogy_skoncili">
+						<Vertex>leIj0puo</Vertex>
 					</Edge>
 				</Output>
 				<cin_s3060k_drak__archesite_standoff Name="prichod_akteru_na_scenu1" PositionY="-2380" PositionX="1380">
@@ -285,6 +295,7 @@
 				<EdgeVertex Name="ec16U5Vl" PositionY="-205" PositionX="-390" />
 				<EdgeVertex Name="grlWRT59" PositionY="570" PositionX="1070" />
 				<EdgeVertex Name="hU2o34EP" PositionY="-520" PositionX="2772" />
+				<EdgeVertex Name="leIj0puo" PositionY="440" PositionX="4580" />
 				<EdgeVertex Name="nICMpuD4" PositionY="-1210" PositionX="3530" />
 				<EdgeVertex Name="nw4Rs4yG" PositionY="624" PositionX="4426" />
 				<EdgeVertex Name="PXD6lRL1" PositionY="-189" PositionX="2835" />

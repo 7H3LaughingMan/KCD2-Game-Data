@@ -32,7 +32,7 @@
 					<Edge From="ifareacheck36.True" To="SetActive" />
 					<Edge From="ifareacheck36.False" To="SetUpdated" />
 				</State>
-				<chat_se_zajicem_v_prubehu_cesty Name="chat_se_zajicem_v_prubehu_cesty" PositionY="-540" PositionX="-10" />
+				<chat_se_zajicem_v_prubehu_cesty Name="chat_se_zajicem_v_prubehu_cesty" PositionY="-790" PositionX="-10" />
 				<constant Name="constant" PositionY="570" PositionX="-40" Namespace="magickysip" />
 				<DistanceTrigger Name="distancetrigger3" PositionY="400" PositionX="270">
 					<Asset Name="Origin" Alias="player" />
@@ -45,7 +45,7 @@
 					<Constant Name="Behavior" Value="zajic_moveAndChat" />
 					<Asset Name="SmartEntity" Alias="magickySip" />
 					<Asset Name="NPC" Alias="zajic" />
-					<Asset Name="tagpoint" Alias="zajicWantsTipOfArrowSpot" />
+					<Asset Name="tagpoint" Alias="cestaDoDialoguZajic" />
 					<Edge From="CestaDoKempuSZajicem.Updated" To="IsActive" />
 				</EnableBehavior>
 				<If Name="if32" PositionY="-130" PositionX="-1050">
@@ -60,6 +60,10 @@
 					<Asset Name="Areas" Alias="certovkaArea" />
 					<Edge From="if32.True" To="Exec" />
 				</IfFunction>
+				<keepdooropen Name="keepdooropen" PositionY="-400" PositionX="80" Namespace="utils.general">
+					<Asset Name="door" Alias="dvereCertovka" />
+					<Edge From="CestaDoKempuSZajicem.Active" To="isactive" />
+				</keepdooropen>
 				<Move Name="Move" PositionY="-240" PositionX="90" Namespace="utils.move">
 					<Asset Name="soul" Alias="zajic" />
 					<Asset Name="smartentity" Alias="magickySip" />
@@ -85,7 +89,7 @@
 						<Vertex>4GtPWWcC</Vertex>
 					</Edge>
 				</Timer>
-				<zajic_na_hrace_barkuje_aby_se_vratil_a_sli_do_kempu Name="zajic_si_chce_s_jindrou_promluvit_a_tak_barkuje_1_1" PositionY="-400" PositionX="-10" />
+				<zajic_na_hrace_barkuje_aby_se_vratil_a_sli_do_kempu Name="zajic_si_chce_s_jindrou_promluvit_a_tak_barkuje_1_1" PositionY="-650" PositionX="-10" />
 			</Nodes>
 			<EdgeVertices>
 				<EdgeVertex Name="4GtPWWcC" PositionY="789" PositionX="629" />
@@ -99,6 +103,8 @@
 			</EdgeVertices>
 			<Assets>
 				<TagPointAsset Name="zajicChatWithPlayerSpot" />
+				<AnimDoorAsset Name="dvereCertovka" />
+				<PredefinedPathAsset Name="cestaDoDialoguZajic" />
 			</Assets>
 			<Text StringName="chovani_a_chat_po_ceste__DReR" Text="chování a chat po cestě " />
 		</Module>

@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Database xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" Name="brambora">
 	<Skald>
-		<FaderDialog Name="phstanik__po_souboji">
+		<ForcedDialog Name="phstanik__po_souboji">
 			<Ports>
 				<Port Name="jindra_vyhral" Direction="In" Type="bool">
 					<DesignName StringName="stanik__p_jindra_vyhral_1ClA" Text="Jindra vyhrál" />
@@ -20,7 +20,7 @@
 				</Port>
 			</Ports>
 			<Text StringName="stanik__po_souboji_yS4H" Text="Staník - po souboji" />
-			<Dialogue TechnicalStatus="Enabled" AllowFarewell="false" AllowGreeting="false" Priority="1" GesturesSetDate="2024-04-23T12:13:49.9399445+02:00" GesturesSetResponseCount="15">
+			<Dialogue TechnicalStatus="Enabled" AllowFarewell="false" AllowGreeting="false" Priority="1" Initiator="NonPlayer" GesturesSetDate="2024-04-23T12:13:49.9399445+02:00" GesturesSetResponseCount="15">
 				<SelectedSouls>
 					<SelectedSoul Role="PACHOLEK_STANIK_HORANY" Voice="paulDean" Soul="khor_man_24" Type="Wave" Language="ENG" />
 					<SelectedSoul Role="HENRY" Voice="tomMcKay" Type="Wave" Language="ENG" />
@@ -98,6 +98,9 @@
 																		</Commands>
 																	</Response>
 																</Elements>
+																<FastForwards>
+																	<FastForwardAll />
+																</FastForwards>
 															</Sequence>
 														</Sequences>
 													</Decision>
@@ -167,6 +170,9 @@
 												</ReviewNotesStylistic>
 											</Response>
 										</Elements>
+										<FastForwards>
+											<FastForwardAll />
+										</FastForwards>
 									</Sequence>
 									<Sequence EntryCondition="!Port('jindra_vyhral')&#xD;&#xA;AND &#xD;&#xA;SequenceUsed('jindra_mluvil_se_stanikem_po_p')" EndType="Decision" Name="seq4">
 										<DesignName StringName="stanik__p_seq4_SBDf" Text="seq4" />
@@ -215,6 +221,9 @@
 															</Commands>
 														</Response>
 													</Elements>
+													<FastForwards>
+														<FastForwardAll />
+													</FastForwards>
 												</Sequence>
 												<Sequence EntryCondition="SequenceUsed('jindra_mluvil_se_stanikem_o_prohre')" EndType="EndDialogue" Name="seq9">
 													<DesignName StringName="phstanik__seq9_ryvx" Text="seq9" />
@@ -242,6 +251,9 @@
 															</Commands>
 														</Response>
 													</Elements>
+													<FastForwards>
+														<FastForwardAll />
+													</FastForwards>
 												</Sequence>
 												<Sequence EntryCondition="SequenceUsed('jindra_mluvil_se_stanikem_o_prohre')" EndType="EndDialogue" Name="seq10">
 													<DesignName StringName="phstanik__seq10_DRF0" Text="seq10" />
@@ -267,6 +279,9 @@
 															</Commands>
 														</Response>
 													</Elements>
+													<FastForwards>
+														<FastForwardAll />
+													</FastForwards>
 												</Sequence>
 											</Sequences>
 										</Decision>
@@ -277,6 +292,6 @@
 					</Sequences>
 				</Decision>
 			</Dialogue>
-		</FaderDialog>
+		</ForcedDialog>
 	</Skald>
 </Database>

@@ -27,6 +27,9 @@
 				<Port Name="skoncil_quest" Direction="In" Type="trigger">
 					<DesignName StringName="ignac_jak_skoncil_quest_kgSk" Text="skončil quest" />
 				</Port>
+				<Port Name="jindra_si_promluvil_s_ignacem" Direction="Out" Type="bool">
+					<DesignName StringName="ignac_jak_jindra_si_proml_HM6x" Text="Jindra si promluvil s ignácem" />
+				</Port>
 			</Ports>
 			<Definitions>
 				<Definition File="ignac_jako_bait/henry_oznamuje_ze_tady_je_to_spravne_misto.xml" />
@@ -100,7 +103,7 @@
 					<Edge From="ignaz_logic.ignaz_zemrel" To="SetFailed" />
 					<Edge From="ifand71_1.True" To="SetAborted" />
 				</State>
-				<ignaz_logic Name="ignaz_logic" PositionY="-60" PositionX="2270">
+				<ignaz_logic Name="ignaz_logic" PositionY="-70" PositionX="2270">
 					<Edge From="smecka_vyrizena" To="walk_home" />
 					<Edge From="deathtrigger415.OnAllDeath" To="walk_home">
 						<Vertex>vertex64</Vertex>
@@ -128,13 +131,20 @@
 				<Output Name="Output">
 					<Edge From="Ignaz.OnCompleted" To="ignac_trigger" />
 					<Edge From="Ignaz.Completed" To="ignac_je_nastrazen" />
+					<Edge From="ignaz_logic.jindra_si_promluvil_s_ignacem" To="jindra_si_promluvil_s_ignacem">
+						<Vertex>F58jRlh5</Vertex>
+						<Vertex>TGa25ACG</Vertex>
+						<Vertex>Y49WRprT</Vertex>
+					</Edge>
 				</Output>
 			</Nodes>
 			<EdgeVertices>
+				<EdgeVertex Name="F58jRlh5" PositionY="194" PositionX="2618" />
+				<EdgeVertex Name="TGa25ACG" PositionY="660" PositionX="2760" />
 				<EdgeVertex Name="vertex62" PositionY="270" PositionX="2890" />
 				<EdgeVertex Name="vertex63" PositionY="260" PositionX="2170" />
-				<EdgeVertex Name="vertex64" PositionY="200" PositionX="2430" />
-				<EdgeVertex Name="vertex65" PositionY="200" PositionX="2290" />
+				<EdgeVertex Name="vertex64" PositionY="250" PositionX="2430" />
+				<EdgeVertex Name="vertex65" PositionY="250" PositionX="2290" />
 				<EdgeVertex Name="vertex66" PositionY="-340" PositionX="2880" />
 				<EdgeVertex Name="vertex67" PositionY="-340" PositionX="2300" />
 				<EdgeVertex Name="vertex70" PositionY="-350" PositionX="1160" />
@@ -142,6 +152,7 @@
 				<EdgeVertex Name="vertex72" PositionY="-390" PositionX="1160" />
 				<EdgeVertex Name="vertex73" PositionY="240" PositionX="2840" />
 				<EdgeVertex Name="vertex74" PositionY="230" PositionX="2170" />
+				<EdgeVertex Name="Y49WRprT" PositionY="660" PositionX="3300" />
 			</EdgeVertices>
 			<Types>
 				<Type TypeName="Ignaz">

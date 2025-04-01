@@ -20,6 +20,7 @@
 			<Variable name="playerHorse" type="_wuid" values="" isPersistent="0" form="single" />
 			<Variable name="playerMountedVolumeData" type="crime:playerMountedVolume" values="" isPersistent="0" form="single" />
 			<Variable name="player_request" type="player:request" values="" isPersistent="0" form="single" />
+			<Variable name="player_sleepWalking" type="_bool" values="" isPersistent="0" form="single" />
 			<Variable name="produceSound" type="crime:produceSound" values="" isPersistent="0" form="single" />
 			<Variable name="setPerceptibleRequest" type="player:setPerceptible" values="" isPersistent="0" form="single" />
 			<Variable name="stance" type="_string" values="" isPersistent="0" form="single" />
@@ -109,6 +110,11 @@
 								<Function_hangoverTeleport unconsciousState="$unconsciousState" nodeLabel="74648745" />
 								<Function_player_postUnconsciousness unconsciousState="$unconsciousState" nodeLabel="56198865" />
 							</Parallel>
+						</ProcessMessage>
+					</While>
+					<While doFail="false" propagateChildFail="false" condition="true">
+						<ProcessMessage Atomic="false" timeout="&apos;-1&apos;" timeType="GameTime" variable="$player_sleepWalking" senderInfo="" inbox="&apos;player_sleepWalking&apos;" condition="" answerVar="">
+							<Function_player_sleepWalkingTeleport player_sleepWalking="$player_sleepWalking" nodeLabel="14499894" />
 						</ProcessMessage>
 					</While>
 					<While doFail="false" propagateChildFail="false" condition="true">
@@ -303,6 +309,7 @@
 				<Variable name="playerHorse" comment="" />
 				<Variable name="playerMountedVolumeData" comment="" />
 				<Variable name="player_request" comment="" />
+				<Variable name="player_sleepWalking" comment="" />
 				<Variable name="produceSound" comment="" />
 				<Variable name="setPerceptibleRequest" comment="" />
 				<Variable name="stance" comment="" />
@@ -459,6 +466,15 @@
 										<OutputBreakpoints />
 									</Function_player_postUnconsciousness>
 								</Parallel>
+							</ProcessMessage>
+						</While>
+						<While hasInputBreakpoint="0" comment="HC_sleepWalkingPerk" breakpointFlags="0">
+							<OutputBreakpoints />
+							<ProcessMessage hasInputBreakpoint="0" comment="" breakpointFlags="0">
+								<OutputBreakpoints />
+								<Function_player_sleepWalkingTeleport hasInputBreakpoint="0" comment="" breakpointFlags="0">
+									<OutputBreakpoints />
+								</Function_player_sleepWalkingTeleport>
 							</ProcessMessage>
 						</While>
 						<While hasInputBreakpoint="0" comment="" breakpointFlags="0">

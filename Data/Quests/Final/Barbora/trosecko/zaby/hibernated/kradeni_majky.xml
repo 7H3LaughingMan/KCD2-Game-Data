@@ -58,7 +58,7 @@
 					<DesignName StringName="kradeni_m_majka_aktivni_wAaw" Text="májka aktivní" />
 				</Port>
 				<Port Name="rande_probiha" Direction="Out" Type="bool">
-					<DesignName StringName="kradeni_m_rande_probiha_y6A7" Text="Rande probíhá" />
+					<DesignName StringName="kradeni_m_rande_probiha_y6A7" Text="Rande - vypni trespass u májky" />
 				</Port>
 				<Port Name="odevzdano_olbramovi" Direction="In" Type="trigger">
 					<DesignName StringName="kradeni_m_odevzdano_olbra_OuLy" Text="odevzdáno olbramovi" />
@@ -114,6 +114,11 @@
 				<Definition File="Kradeni_majky/henik_hlida.xml" />
 			</Definitions>
 			<Nodes>
+				<MemberFunction Name="adddirt74" PositionY="-1720" PositionX="-1210" MethodName="AddDirt" DeclaringType="wh::rpgmodule::I_Soul">
+					<Asset Name="Soul" Alias="player" />
+					<Constant Name="Value" Value="0.3" />
+					<Edge From="cutscenehandler73.AfterPlay" To="Exec" />
+				</MemberFunction>
 				<biti_henika Name="biti_henika" PositionY="-750" PositionX="210" RequiredForOutput="trosecko">
 					<Edge From="ukradniTachovskouMajku.OnCanceledMysi" To="majka_skoncila">
 						<Vertex>vertex388</Vertex>
@@ -173,6 +178,10 @@
 						<Vertex>vertex424</Vertex>
 					</Edge>
 				</If>
+				<CutsceneHandler Name="cutscenehandler73" PositionY="-1660" PositionX="-1700">
+					<Asset Name="CutsceneHolder" Alias="manureTeleport" />
+					<Edge From="unconscioustrigger39.OnConscious" To="EnqueueCutscene" />
+				</CutsceneHandler>
 				<Function Name="dateAwaitingOrInProgress" PositionY="1600" PositionX="1270" MethodName="math::boolean::Or" DeclaringType="math::boolean">
 					<Edge From="zaridHenikoviAManceSchuzku.UpdateHenikDateSet" To="A">
 						<Vertex>hr3TJJka</Vertex>
@@ -182,7 +191,7 @@
 						<Vertex>vertex437</Vertex>
 					</Edge>
 				</Function>
-				<Function Name="dateCanceledSomehow" PositionY="2540" PositionX="1240" MethodName="math::boolean::Or" DeclaringType="math::boolean">
+				<Function Name="dateCanceledSomehow" PositionY="2490" PositionX="1180" MethodName="math::boolean::Or" DeclaringType="math::boolean">
 					<Edge From="zaridHenikoviAManceSchuzku.CanceledMankaRefused" To="A" />
 					<Edge From="zaridHenikoviAManceSchuzku.CanceledHenikFight" To="B" />
 					<Edge From="zaridHenikoviAManceSchuzku.CanceledMaypoleDone" To="C" />
@@ -226,21 +235,17 @@
 					</Edge>
 				</Function>
 				<Function Name="domlouvaniRandeNeniAktualni" PositionY="1430" PositionX="810" MethodName="math::boolean::Or" DeclaringType="math::boolean">
-					<Edge From="zaridHenikoviAManceSchuzku.HenikCurrentlyOnDate" To="A">
-						<Vertex>rYVQCPfX</Vertex>
-						<Vertex>f4dCM60E</Vertex>
-					</Edge>
-					<Edge From="zaridHenikoviAManceSchuzku.Done" To="B">
+					<Edge From="zaridHenikoviAManceSchuzku.Done" To="A">
 						<Vertex>98q3SsRs</Vertex>
 						<Vertex>aYwpwWtI</Vertex>
 					</Edge>
-					<Edge From="dateCanceledSomehow.bool" To="C">
+					<Edge From="dateCanceledSomehow.bool" To="B">
 						<Vertex>KEv2z5QP</Vertex>
 						<Vertex>PyUeBB8Y</Vertex>
 						<Vertex>3UTw4lC7</Vertex>
 					</Edge>
 				</Function>
-				<expectedeffect Name="expectedeffect" PositionY="2920" PositionX="1960" Namespace="utils.crime.trespass">
+				<expectedeffect Name="expectedeffect" PositionY="2690" PositionX="1990" Namespace="utils.crime.trespass">
 					<Asset Name="npcs" Alias="henik" />
 					<Constant Name="extenduntilplayerleavestrespass" Value="true" />
 					<Edge From="henikExpectingHenryHome.bool" To="isactive" />
@@ -278,20 +283,46 @@
 						<Vertex>ssIg1o9K</Vertex>
 					</Edge>
 				</henik_hlida>
-				<Function Name="henikExpectingHenryHome" PositionY="2770" PositionX="1540" MethodName="math::boolean::Or" DeclaringType="math::boolean">
-					<Edge From="zaridHenikoviAManceSchuzku.UpdateHenikDateSet" To="E" />
-					<Edge From="zaridHenikoviAManceSchuzku.UpdateMankaAgreed" To="D" />
-					<Edge From="zaridHenikoviAManceSchuzku.StartHenik" To="C" />
-					<Edge From="zaridHenikoviAManceSchuzku.UpdateHenik" To="B">
+				<If Name="henikCurrentlyOnDate" PositionY="2610" PositionX="-240">
+					<Edge From="ukradniTachovskouMajku.OnZvedniMajku" To="Exec">
+						<Vertex>vertex338</Vertex>
+					</Edge>
+					<Edge From="zaridHenikoviAManceSchuzku.HenikCurrentlyOnDate" To="Condition">
+						<Vertex>vVpzQ1cy</Vertex>
+						<Vertex>r5IFLxNX</Vertex>
+					</Edge>
+				</If>
+				<Function Name="henikExpectingHenryHome" PositionY="2880" PositionX="1610" MethodName="math::boolean::Or" DeclaringType="math::boolean">
+					<Edge From="zaridHenikoviAManceSchuzku.UpdateHenikDateSet" To="F">
+						<Vertex>yRsnIu6z</Vertex>
+					</Edge>
+					<Edge From="zaridHenikoviAManceSchuzku.UpdateMankaAgreed" To="E">
+						<Vertex>WYU4wIfU</Vertex>
+					</Edge>
+					<Edge From="zaridHenikoviAManceSchuzku.StartHenik" To="D">
+						<Vertex>6KYaBewU</Vertex>
+					</Edge>
+					<Edge From="zaridHenikoviAManceSchuzku.UpdateHenik" To="C">
 						<Vertex>lXljskVU</Vertex>
 					</Edge>
-					<Edge From="zaridHenikoviAManceSchuzku.StartManka" To="A">
+					<Edge From="zaridHenikoviAManceSchuzku.StartManka" To="B">
 						<Vertex>DHzVeLuM</Vertex>
+					</Edge>
+					<Edge From="henikovo_rande.bezi_cas_12h_po_konci_rande" To="A">
+						<Vertex>drM8cqTu</Vertex>
+						<Vertex>fQGAULfp</Vertex>
+					</Edge>
+					<Edge From="zaridHenikoviAManceSchuzku.HenikCurrentlyOnDate" To="G">
+						<Vertex>6BgDHX3G</Vertex>
 					</Edge>
 				</Function>
 				<Function Name="henikExpectingHenryMaypole" PositionY="3200" PositionX="2050" MethodName="math::boolean::Or" DeclaringType="math::boolean">
-					<Edge From="zaridHenikoviAManceSchuzku.UpdateMankaAgreed" To="A" />
-					<Edge From="zaridHenikoviAManceSchuzku.UpdateHenikDateSet" To="B" />
+					<Edge From="zaridHenikoviAManceSchuzku.UpdateMankaAgreed" To="A">
+						<Vertex>hwfQ5QNN</Vertex>
+					</Edge>
+					<Edge From="zaridHenikoviAManceSchuzku.UpdateHenikDateSet" To="B">
+						<Vertex>LUka2uPm</Vertex>
+					</Edge>
 				</Function>
 				<If Name="HenikFight" PositionY="2330" PositionX="80">
 					<Edge From="dialogy_kolem_henika_pred_kradenim.henik_triggered" To="Exec">
@@ -306,14 +337,14 @@
 						<Vertex>vertex305</Vertex>
 					</Edge>
 				</Function>
-				<henikovo_rande Name="henikovo_rande" PositionY="1350" PositionX="1990">
-					<Edge From="triggersequence45.A" To="jindra_mluvil_s_henikem__rande_zacalo" />
+				<henikovo_rande Name="henikovo_rande" PositionY="1320" PositionX="1970">
 					<Edge From="zaridHenikoviAManceSchuzku.OnUpdateMankaAgreed" To="manka_ceka_na_rande">
 						<Vertex>elrCep2r</Vertex>
 					</Edge>
 					<Edge From="zaridHenikoviAManceSchuzku.OnUpdateHenikDateSet" To="jindra_predal_henikovi_zpravu_od_manky">
 						<Vertex>q50x9P2V</Vertex>
 					</Edge>
+					<Edge From="s_henikem_v_noci_o_rande.rande_zacalo" To="jindra_mluvil_s_henikem__rande_zacalo" />
 				</henikovo_rande>
 				<If Name="HenikStartOrUpdate" PositionY="2480" PositionX="80">
 					<Edge From="zaridHenikoviAManceSchuzku.None" To="Condition">
@@ -339,6 +370,10 @@
 					<Edge From="samotne_kradeni.henry_byl_viden" To="Condition">
 						<Vertex>vertex420</Vertex>
 						<Vertex>vertex421</Vertex>
+					</Edge>
+					<Edge From="intermissiontrigger61.OnIntermission" To="Exec">
+						<Vertex>V5weSVMA</Vertex>
+						<Vertex>Az1WGkg9</Vertex>
 					</Edge>
 				</If>
 				<Function Name="HenryNotSeen" PositionY="340" PositionX="1250" MethodName="math::boolean::Not" DeclaringType="math::boolean">
@@ -376,6 +411,21 @@
 						<Vertex>vertex424</Vertex>
 					</Edge>
 				</If>
+				<IfFunction Name="ifnot60" PositionY="1920" PositionX="120" MethodName="math::boolean::Not" DeclaringType="math::boolean">
+					<Edge From="henikovo_rande.rande_skoncilo" To="Exec">
+						<Vertex>LFH5xPTl</Vertex>
+						<Vertex>CoWF4aJY</Vertex>
+					</Edge>
+					<Edge From="dateCanceledSomehow.bool" To="Value">
+						<Vertex>KEv2z5QP</Vertex>
+						<Vertex>PyUeBB8Y</Vertex>
+						<Vertex>3UTw4lC7</Vertex>
+						<Vertex>QmWGePu3</Vertex>
+					</Edge>
+				</IfFunction>
+				<IntermissionTrigger Name="intermissiontrigger61" PositionY="-540" PositionX="-2350">
+					<Edge From="ukradniTachovskouMajku.ZvedniMajku" To="IsActive" />
+				</IntermissionTrigger>
 				<Function Name="majkaFailNejak" PositionY="780" PositionX="-2350" MethodName="math::boolean::Or" DeclaringType="math::boolean">
 					<Edge From="ukradniTachovskouMajku.CanceledMysi" To="A" />
 					<Edge From="ukradniTachovskouMajku.Bonz" To="B" />
@@ -400,10 +450,8 @@
 					<Edge From="ukradniTachovskouMajku.OdrezMajkuPoProckovi" To="B" />
 				</Function>
 				<If Name="maypoleDone" PositionY="2630" PositionX="80">
-					<Edge From="ukradniTachovskouMajku.OnZvedniMajku" To="Exec">
-						<Vertex>vertex338</Vertex>
-					</Edge>
 					<Edge From="questInProgress.bool" To="Condition" />
+					<Edge From="henikCurrentlyOnDate.False" To="Exec" />
 				</If>
 				<If Name="maypoleNotPickedUp" PositionY="-560" PositionX="-3170">
 					<Edge From="activate_maypole_objective" To="Exec">
@@ -425,15 +473,15 @@
 					</Edge>
 				</If>
 				<naprasit_henika_s_mankou_prockovi Name="naprasit_henika_s_mankou_prockovi" PositionY="1920" PositionX="1110">
-					<Edge From="triggersequence45.A" To="henry_vi_o_rande">
+					<Edge From="s_henikem_v_noci_o_rande.rande_zacalo" To="henry_vi_o_rande">
 						<Vertex>vertex232</Vertex>
 						<Vertex>vertex371</Vertex>
 					</Edge>
 				</naprasit_henika_s_mankou_prockovi>
-				<zarid_henikovi_a_mance_schuzku Name="objectiveVisual13" PositionY="2160" PositionX="1230" RequiredForOutput="trosecko">
+				<zarid_henikovi_a_mance_schuzku Name="objectiveVisual13" PositionY="2130" PositionX="1170" RequiredForOutput="trosecko">
 					<Edge From="zaridHenikoviAManceSchuzku.State" To="Progress" />
 				</zarid_henikovi_a_mance_schuzku>
-				<ukradni_tachovskou_majku Name="objectiveVisual29" PositionY="-720" PositionX="-2280" RequiredForOutput="trosecko">
+				<ukradni_tachovskou_majku Name="objectiveVisual29" PositionY="-850" PositionX="-2280" RequiredForOutput="trosecko">
 					<Edge From="ukradniTachovskouMajku.State" To="Progress" />
 				</ukradni_tachovskou_majku>
 				<Function Name="odrezMajkuPrediPoProckovi" PositionY="-450" PositionX="-1540" MethodName="math::boolean::Or" DeclaringType="math::boolean">
@@ -447,10 +495,12 @@
 					</Edge>
 					<Edge From="olbram_umrel" To="Exec" />
 				</If>
-				<Function Name="or36" PositionY="3370" PositionX="1110" MethodName="math::boolean::Or" DeclaringType="math::boolean">
-					<Edge From="zaridHenikoviAManceSchuzku.StartHenik" To="A" />
-					<Edge From="zaridHenikoviAManceSchuzku.UpdateMankaAgreed" To="B" />
-					<Edge From="zaridHenikoviAManceSchuzku.UpdateHenikDateSet" To="C" />
+				<Function Name="or72" PositionY="-1220" PositionX="-2330" MethodName="math::boolean::Or" DeclaringType="math::boolean">
+					<Edge From="ukradniTachovskouMajku.ZvedniMajku" To="B" />
+					<Edge From="waitingForWake.State" To="A">
+						<Vertex>PptvSGs9</Vertex>
+						<Vertex>YcX9NXGF</Vertex>
+					</Edge>
 				</Function>
 				<Output Name="Output">
 					<Edge From="biti_henika.henry_zbil_henika" To="henry_zbil_henika">
@@ -462,7 +512,6 @@
 					<Edge From="ukradniTachovskouMajku.Utekl" To="fail__utekl" />
 					<Edge From="henikovo_rande.rande_skoncilo_radne" To="henikovo_rande_radne_skoncilo" />
 					<Edge From="dialogy_kolem_henika_pred_kradenim.manka_je_segra_alsika" To="info__manka_je_alsikova_segra" />
-					<Edge From="henikovo_rande.rande_probiha" To="rande_probiha" />
 					<Edge From="ukradniTachovskouMajku.OnZvedniMajku" To="majka_odriznuta">
 						<Vertex>vertex332</Vertex>
 						<Vertex>vertex285</Vertex>
@@ -518,7 +567,14 @@
 						<Vertex>CXJ65GoB</Vertex>
 						<Vertex>sw1ysu3B</Vertex>
 					</Edge>
+					<Edge From="henikExpectingHenryHome.bool" To="rande_probiha">
+						<Vertex>DqUGbGwr</Vertex>
+					</Edge>
 				</Output>
+				<PlayerAction_WakeUpOnBed Name="PlayerAction_WakeUpOnBed" PositionY="-1800" PositionX="-890" Namespace="utils.player">
+					<Asset Name="targetobject" Alias="manureBed" />
+					<Edge From="adddirt74.OnExec" To="wakeuponbed" />
+				</PlayerAction_WakeUpOnBed>
 				<If Name="procekTalk" PositionY="-400" PositionX="-3190">
 					<Edge From="ukradniTachovskouMajku.OdrezMajku" To="Condition">
 						<Vertex>4QjC5301</Vertex>
@@ -551,14 +607,17 @@
 						<Vertex>DKK1R1NA</Vertex>
 					</Edge>
 					<Edge From="zaridHenikoviAManceSchuzku.HenikCurrentlyOnDate" To="F">
-						<Vertex>rYVQCPfX</Vertex>
-						<Vertex>f4dCM60E</Vertex>
-						<Vertex>BdThjz6R</Vertex>
+						<Vertex>vVpzQ1cy</Vertex>
+						<Vertex>r5IFLxNX</Vertex>
 					</Edge>
 				</Function>
 				<Function Name="randeEventy" PositionY="3360" PositionX="2060" MethodName="math::boolean::Or" DeclaringType="math::boolean">
-					<Edge From="zaridHenikoviAManceSchuzku.UpdateHenikDateSet" To="A" />
-					<Edge From="zaridHenikoviAManceSchuzku.HenikCurrentlyOnDate" To="B" />
+					<Edge From="zaridHenikoviAManceSchuzku.UpdateHenikDateSet" To="A">
+						<Vertex>nj4kouU5</Vertex>
+					</Edge>
+					<Edge From="zaridHenikoviAManceSchuzku.HenikCurrentlyOnDate" To="B">
+						<Vertex>fKMo0MDY</Vertex>
+					</Edge>
 				</Function>
 				<s_henikem_v_noci_o_rande Name="s_henikem_v_noci_o_rande" PositionY="1320" PositionX="1200">
 					<Edge From="zaridHenikoviAManceSchuzku.UpdateHenikDateSet" To="rande_domluveno">
@@ -586,7 +645,7 @@
 						<Vertex>59w8sAMp</Vertex>
 					</Edge>
 				</samotne_kradeni>
-				<SaveGame Name="savegame44" PositionY="2310" PositionX="1230">
+				<SaveGame Name="savegame44" PositionY="2280" PositionX="1160">
 					<Constant Name="Objective" Value="zarid_henikovi_a_mance_schuzku" />
 					<Edge From="zaridHenikoviAManceSchuzku.OnDone" To="EnqueueSave" />
 				</SaveGame>
@@ -597,12 +656,6 @@
 					</Edge>
 					<Edge From="nekdo_umrel" To="Exec" />
 				</If>
-				<TriggerSequence Name="triggersequence45" PositionY="1440" PositionX="1610">
-					<Edge From="s_henikem_v_noci_o_rande.rande_zacalo" To="Exec" />
-				</TriggerSequence>
-				<TriggerSequence Name="triggersequence48" PositionY="-1910" PositionX="-2060">
-					<Edge From="unconscioustrigger39.OnUnconscious" To="Exec" />
-				</TriggerSequence>
 				<State Name="ukradniTachovskouMajku" PositionY="-520" PositionX="-2850" RequiredForOutput="trosecko" TypeT="ProgressFailableMajka">
 					<Edge From="samotne_kradeni.henry_odseknul_majku_ze_stozaru" To="SetZvedniMajku">
 						<Vertex>vertex254</Vertex>
@@ -611,10 +664,6 @@
 					</Edge>
 					<Edge From="henryFled.True" To="SetUtekl" />
 					<Edge From="henryFled.False" To="SetNesebral" />
-					<Edge From="triggersequence48.A" To="SetNesebral">
-						<Vertex>vertex418</Vertex>
-						<Vertex>vertex419</Vertex>
-					</Edge>
 					<Edge From="somebodyDied.True" To="SetNekdoUmrel" />
 					<Edge From="henryAcceptedMysi.True" To="SetCanceledMysi" />
 					<Edge From="maypolePickedUp.True" To="SetDone" />
@@ -631,12 +680,16 @@
 					<Edge From="OlbramDied.True" To="SetOlbramUmrel" />
 					<Edge From="cancelOther.True" To="SetCanceledOther" />
 					<Edge From="procekTalk.True" To="SetOdrezMajkuPoProckovi" />
+					<Edge From="unconscioustrigger39.OnUnconscious" To="SetNesebral">
+						<Vertex>vertex418</Vertex>
+						<Vertex>vertex419</Vertex>
+					</Edge>
 				</State>
-				<SoulUnconsciousTrigger Name="unconscioustrigger39" PositionY="-1240" PositionX="-2380">
+				<SoulUnconsciousTrigger Name="unconscioustrigger39" PositionY="-1270" PositionX="-2080">
 					<Asset Name="Souls" Alias="player" />
-					<Edge From="ukradniTachovskouMajku.ZvedniMajku" To="IsActive" />
+					<Edge From="or72.bool" To="IsActive" />
 				</SoulUnconsciousTrigger>
-				<Function Name="unlockdoor59" PositionY="3160" PositionX="1240" MethodName="wh::entitymodule::UnlockDoor" DeclaringType="wh::entitymodule">
+				<Function Name="unlockdoor59" PositionY="3730" PositionX="1250" MethodName="wh::entitymodule::UnlockDoor" DeclaringType="wh::entitymodule">
 					<Asset Name="Door" Alias="henikDoor" />
 					<Edge From="zaridHenikoviAManceSchuzku.OnStartHenik" To="Exec">
 						<Vertex>WqTkQjWs</Vertex>
@@ -645,7 +698,14 @@
 						<Vertex>WqTkQjWs</Vertex>
 					</Edge>
 				</Function>
-				<State Name="zaridHenikoviAManceSchuzku" PositionY="2300" PositionX="540" RequiredForOutput="trosecko" TypeT="ProgressFailableHenikMankaRande">
+				<State Name="waitingForWake" PositionY="-1260" PositionX="-1630" TypeT="bool">
+					<Edge From="unconscioustrigger39.OnUnconscious" To="SetTrue" />
+					<Edge From="cutscenehandler73.BeforePlay" To="SetFalse">
+						<Vertex>Q6FkSLlI</Vertex>
+						<Vertex>qv8Vz5Ys</Vertex>
+					</Edge>
+				</State>
+				<State Name="zaridHenikoviAManceSchuzku" PositionY="2320" PositionX="590" RequiredForOutput="trosecko" TypeT="ProgressFailableHenikMankaRande">
 					<Edge From="HenikStartOrUpdate.True" To="SetStartHenik" />
 					<Edge From="HenikStartOrUpdate.False" To="SetUpdateHenik" />
 					<Edge From="dialogy_kolem_henika_pred_kradenim.manka_nepujde_na_rande_trigger" To="SetCanceledMankaRefused">
@@ -660,10 +720,6 @@
 						<Vertex>jwtp64tm</Vertex>
 						<Vertex>5k2J2Ddc</Vertex>
 					</Edge>
-					<Edge From="triggersequence45.B" To="SetDone">
-						<Vertex>vertex240</Vertex>
-						<Vertex>vertex239</Vertex>
-					</Edge>
 					<Edge From="dialogy_kolem_henika_pred_kradenim.rande_domluveno_finis" To="SetUpdateHenikDateSet">
 						<Vertex>zzj7GYJQ</Vertex>
 						<Vertex>couk382r</Vertex>
@@ -676,6 +732,10 @@
 					<Edge From="maypoleDone.True" To="SetCanceledMaypoleDone" />
 					<Edge From="HenikFight.True" To="SetCanceledHenikFight" />
 					<Edge From="cancelDateOther.True" To="SetCanceledOther" />
+					<Edge From="ifnot60.True" To="SetDone" />
+					<Edge From="henikCurrentlyOnDate.True" To="SetDone">
+						<Vertex>NcdMfYct</Vertex>
+					</Edge>
 				</State>
 			</Nodes>
 			<EdgeVertices>
@@ -692,57 +752,72 @@
 				<EdgeVertex Name="59w8sAMp" PositionY="415" PositionX="669" />
 				<EdgeVertex Name="5Isngq6u" PositionY="-470" PositionX="1360" />
 				<EdgeVertex Name="5k2J2Ddc" PositionY="3390" PositionX="440" />
+				<EdgeVertex Name="6BgDHX3G" PositionY="3154" PositionX="1208" />
+				<EdgeVertex Name="6KYaBewU" PositionY="3060" PositionX="1210" />
 				<EdgeVertex Name="98q3SsRs" PositionY="2130" PositionX="950" />
 				<EdgeVertex Name="9CouQXcv" PositionY="-953" PositionX="-3249" />
 				<EdgeVertex Name="A3PS0tQ1" PositionY="1060" PositionX="1160" />
 				<EdgeVertex Name="aVsEFLzE" PositionY="1164" PositionX="2415" />
 				<EdgeVertex Name="aYwpwWtI" PositionY="2130" PositionX="810" />
-				<EdgeVertex Name="BdThjz6R" PositionY="2134" PositionX="-212" />
+				<EdgeVertex Name="Az1WGkg9" PositionY="-702" PositionX="-3157" />
 				<EdgeVertex Name="BGxrAowz" PositionY="140" PositionX="-1690" />
 				<EdgeVertex Name="couk382r" PositionY="3460" PositionX="450" />
+				<EdgeVertex Name="CoWF4aJY" PositionY="1762" PositionX="150" />
 				<EdgeVertex Name="cV5Enp6r" PositionY="190" PositionX="1670" />
 				<EdgeVertex Name="CXJ65GoB" PositionY="-877" PositionX="-2306" />
-				<EdgeVertex Name="DHzVeLuM" PositionY="2860" PositionX="1250" />
+				<EdgeVertex Name="DHzVeLuM" PositionY="3000" PositionX="1220" />
 				<EdgeVertex Name="DKK1R1NA" PositionY="2210" PositionX="-210" />
+				<EdgeVertex Name="DqUGbGwr" PositionY="2974" PositionX="2380" />
+				<EdgeVertex Name="drM8cqTu" PositionY="1784" PositionX="2253" />
 				<EdgeVertex Name="dtbRVluL" PositionY="3420" PositionX="440" />
 				<EdgeVertex Name="e8Sh9VYf" PositionY="-470" PositionX="-3320" />
 				<EdgeVertex Name="eLK8nfxg" PositionY="1050" PositionX="-1200" />
-				<EdgeVertex Name="elrCep2r" PositionY="3034" PositionX="1775" />
+				<EdgeVertex Name="elrCep2r" PositionY="2760" PositionX="1750" />
 				<EdgeVertex Name="EnCuIEBo" PositionY="-1200" PositionX="-620" />
-				<EdgeVertex Name="f4dCM60E" PositionY="2142" PositionX="794" />
 				<EdgeVertex Name="Fa3jgkJ8" PositionY="1384" PositionX="-1246" />
 				<EdgeVertex Name="faSXjlp2" PositionY="1826" PositionX="626" />
+				<EdgeVertex Name="fKMo0MDY" PositionY="3470" PositionX="1120" />
+				<EdgeVertex Name="fQGAULfp" PositionY="1770" PositionX="1610" />
 				<EdgeVertex Name="fs9NUGEM" PositionY="3410" PositionX="-620" />
 				<EdgeVertex Name="fxBh8hrG" PositionY="-740" PositionX="-1190" />
 				<EdgeVertex Name="hF4T5AH0" PositionY="1059" PositionX="-2362" />
 				<EdgeVertex Name="HPBjnfPs" PositionY="-620" PositionX="-2480" />
 				<EdgeVertex Name="hr3TJJka" PositionY="1690" PositionX="1080" />
+				<EdgeVertex Name="hwfQ5QNN" PositionY="3280" PositionX="1200" />
 				<EdgeVertex Name="hxEW7HNY" PositionY="-600" PositionX="-3170" />
 				<EdgeVertex Name="IpBUJc5z" PositionY="2580" PositionX="-670" />
 				<EdgeVertex Name="jHHFoRk6" PositionY="400" PositionX="-90" />
 				<EdgeVertex Name="jN1qtl6L" PositionY="1372" PositionX="1001" />
 				<EdgeVertex Name="JndYnTzV" PositionY="1405" PositionX="-2365" />
 				<EdgeVertex Name="jwtp64tm" PositionY="3380" PositionX="-610" />
-				<EdgeVertex Name="KEv2z5QP" PositionY="2630" PositionX="1510" />
+				<EdgeVertex Name="KEv2z5QP" PositionY="2590" PositionX="1500" />
 				<EdgeVertex Name="kHWHGF0h" PositionY="100" PositionX="-3179" />
 				<EdgeVertex Name="kYGlm8Mq" PositionY="2260" PositionX="900" />
 				<EdgeVertex Name="kz9Bvkdj" PositionY="-655" PositionX="-3163" />
+				<EdgeVertex Name="LFH5xPTl" PositionY="1810" PositionX="2260" />
 				<EdgeVertex Name="LIpGMKmn" PositionY="3420" PositionX="-680" />
-				<EdgeVertex Name="lXljskVU" PositionY="2900" PositionX="1250" />
+				<EdgeVertex Name="LUka2uPm" PositionY="3310" PositionX="1190" />
+				<EdgeVertex Name="lXljskVU" PositionY="3030" PositionX="1220" />
 				<EdgeVertex Name="M2m180Uq" PositionY="-472" PositionX="1002" />
 				<EdgeVertex Name="MMzJ4nk0" PositionY="-750" PositionX="500" />
 				<EdgeVertex Name="MVuRIn0L" PositionY="1280" PositionX="2371" />
 				<EdgeVertex Name="n4B1KLWB" PositionY="3630" PositionX="1550" />
 				<EdgeVertex Name="NBPfwEjq" PositionY="1330" PositionX="-2160" />
+				<EdgeVertex Name="NcdMfYct" PositionY="2957" PositionX="107" />
+				<EdgeVertex Name="nj4kouU5" PositionY="3440" PositionX="1130" />
 				<EdgeVertex Name="pjaK5zDz" PositionY="-1200" PositionX="-1150" />
+				<EdgeVertex Name="PptvSGs9" PositionY="-1320" PositionX="-1450" />
 				<EdgeVertex Name="ptRMKz2C" PositionY="2220" PositionX="920" />
-				<EdgeVertex Name="PyUeBB8Y" PositionY="2110" PositionX="1500" />
-				<EdgeVertex Name="q50x9P2V" PositionY="3100" PositionX="1840" />
+				<EdgeVertex Name="PyUeBB8Y" PositionY="2110" PositionX="1470" />
+				<EdgeVertex Name="q50x9P2V" PositionY="2820" PositionX="1760" />
+				<EdgeVertex Name="Q6FkSLlI" PositionY="-1349" PositionX="-1408" />
+				<EdgeVertex Name="QmWGePu3" PositionY="2104" PositionX="132" />
 				<EdgeVertex Name="QovuhDUM" PositionY="2230" PositionX="-210" />
+				<EdgeVertex Name="qv8Vz5Ys" PositionY="-1345" PositionX="-1632" />
+				<EdgeVertex Name="r5IFLxNX" PositionY="2149" PositionX="-202" />
 				<EdgeVertex Name="rHu3jU2a" PositionY="730" PositionX="2060" />
 				<EdgeVertex Name="RtSKN5Vh" PositionY="2420" PositionX="-630" />
-				<EdgeVertex Name="RUt9MRTI" PositionY="1822" PositionX="2263" />
-				<EdgeVertex Name="rYVQCPfX" PositionY="2140" PositionX="940" />
+				<EdgeVertex Name="RUt9MRTI" PositionY="1860" PositionX="2260" />
 				<EdgeVertex Name="sq3PNnUv" PositionY="102" PositionX="-3030" />
 				<EdgeVertex Name="ssIg1o9K" PositionY="-980" PositionX="-3268" />
 				<EdgeVertex Name="sw1ysu3B" PositionY="-825" PositionX="627" />
@@ -752,6 +827,7 @@
 				<EdgeVertex Name="v0bwbtr9" PositionY="3620" PositionX="1080" />
 				<EdgeVertex Name="v1xxx5uC" PositionY="-221" PositionX="-3023" />
 				<EdgeVertex Name="V3r3dIyH" PositionY="-938" PositionX="-1004" />
+				<EdgeVertex Name="V5weSVMA" PositionY="-669" PositionX="-2157" />
 				<EdgeVertex Name="vertex102" PositionY="-900" PositionX="610" />
 				<EdgeVertex Name="vertex105" PositionY="1270" PositionX="2470" />
 				<EdgeVertex Name="vertex169" PositionY="1270" PositionX="-1580" />
@@ -760,9 +836,7 @@
 				<EdgeVertex Name="vertex210" PositionY="1270" PositionX="1440" />
 				<EdgeVertex Name="vertex222" PositionY="1230" PositionX="-3220" />
 				<EdgeVertex Name="vertex223" PositionY="1240" PositionX="1000" />
-				<EdgeVertex Name="vertex232" PositionY="1850" PositionX="1800" />
-				<EdgeVertex Name="vertex239" PositionY="3320" PositionX="560" />
-				<EdgeVertex Name="vertex240" PositionY="3340" PositionX="1750" />
+				<EdgeVertex Name="vertex232" PositionY="1850" PositionX="1470" />
 				<EdgeVertex Name="vertex253" PositionY="1330" PositionX="-2900" />
 				<EdgeVertex Name="vertex254" PositionY="1330" PositionX="860" />
 				<EdgeVertex Name="vertex279" PositionY="-770" PositionX="-1510" />
@@ -792,9 +866,9 @@
 				<EdgeVertex Name="vertex412" PositionY="2100" PositionX="2350" />
 				<EdgeVertex Name="vertex415" PositionY="-1140" PositionX="610" />
 				<EdgeVertex Name="vertex416" PositionY="-1140" PositionX="1380" />
-				<EdgeVertex Name="vertex417" PositionY="1790" PositionX="2270" />
-				<EdgeVertex Name="vertex418" PositionY="-1710" PositionX="-1920" />
-				<EdgeVertex Name="vertex419" PositionY="-1710" PositionX="-2650" />
+				<EdgeVertex Name="vertex417" PositionY="1830" PositionX="2260" />
+				<EdgeVertex Name="vertex418" PositionY="-1340" PositionX="-1840" />
+				<EdgeVertex Name="vertex419" PositionY="-1340" PositionX="-2790" />
 				<EdgeVertex Name="vertex420" PositionY="1120" PositionX="1050" />
 				<EdgeVertex Name="vertex421" PositionY="1150" PositionX="-3160" />
 				<EdgeVertex Name="vertex423" PositionY="760" PositionX="-2150" />
@@ -804,15 +878,21 @@
 				<EdgeVertex Name="vertex436" PositionY="-20" PositionX="-1690" />
 				<EdgeVertex Name="vertex437" PositionY="1790" PositionX="1290" />
 				<EdgeVertex Name="vertex82" PositionY="1300" PositionX="-1940" />
-				<EdgeVertex Name="WqTkQjWs" PositionY="3250" PositionX="1100" />
+				<EdgeVertex Name="vVpzQ1cy" PositionY="2146" PositionX="922" />
+				<EdgeVertex Name="WqTkQjWs" PositionY="3820" PositionX="1110" />
+				<EdgeVertex Name="WYU4wIfU" PositionY="3090" PositionX="1210" />
 				<EdgeVertex Name="xcx0dwAG" PositionY="837" PositionX="2167" />
 				<EdgeVertex Name="xEKU4dhJ" PositionY="2250" PositionX="-210" />
+				<EdgeVertex Name="YcX9NXGF" PositionY="-1313" PositionX="-2344" />
 				<EdgeVertex Name="yGe7aE2q" PositionY="1332" PositionX="2084" />
+				<EdgeVertex Name="yRsnIu6z" PositionY="3120" PositionX="1210" />
 				<EdgeVertex Name="zzj7GYJQ" PositionY="3450" PositionX="-690" />
 			</EdgeVertices>
 			<Assets>
 				<TagPointAsset Name="overrideSelfHelp" />
 				<TagPointAsset Name="overrideSelfHelpOvce" />
+				<CutsceneHolderAsset Name="manureTeleport" />
+				<SmartObjectAsset Name="manureBed" />
 			</Assets>
 			<Text StringName="kradeni_majky_k6uY" Text="Kradení májky" />
 			<Elements>

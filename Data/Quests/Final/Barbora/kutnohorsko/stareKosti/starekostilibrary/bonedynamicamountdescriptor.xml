@@ -15,11 +15,17 @@
 				<Port Name="itemclass_bone" Direction="In" Type="wh::entitymodule::ItemClassId">
 					<DesignName StringName="bonedynam_itemclass_bone_qgxt" Text="ItemClass Bone" />
 				</Port>
+				<Port Name="ammount" Direction="Out" Type="int">
+					<DesignName StringName="bonedynam_ammount_GC3O" Text="ammount" />
+				</Port>
+				<Port Name="odecitame_extra" Direction="In" Type="int">
+					<DesignName StringName="bonedynam_odecitame_extra_aGls" Text="odecitame extra" />
+				</Port>
 			</Ports>
 			<Nodes>
-				<Function Name="createitemclassdescriptor7" PositionY="-20" PositionX="700" MethodName="wh::entitymodule::CreateItemClassDescriptor" DeclaringType="wh::entitymodule">
+				<Function Name="createitemclassdescriptor7" PositionY="10" PositionX="890" MethodName="wh::entitymodule::CreateItemClassDescriptor" DeclaringType="wh::entitymodule">
 					<Edge From="itemclass_bone" To="ItemClass" />
-					<Edge From="sub120.int" To="Amount" />
+					<Edge From="sub120_1.int" To="Amount" />
 				</Function>
 				<MemberFunction Name="items15" PositionY="-110" PositionX="-360" MethodName="Items" DeclaringType="wh::entitymodule::Inventory">
 					<Edge From="stashproperties5.Inventory" To="Inventory" />
@@ -29,6 +35,7 @@
 				</Function>
 				<Output Name="Output">
 					<Edge From="createitemclassdescriptor7.ItemDescriptor" To="boneitemdescriptor" />
+					<Edge From="sub120.int" To="ammount" />
 				</Output>
 				<ObjectProperties Name="stashproperties5" PositionY="-110" PositionX="-610" DeclaringType="wh::entitymodule::Stash">
 					<Edge From="stash" To="Stash" />
@@ -36,6 +43,10 @@
 				<Function Name="sub120" PositionY="-80" PositionX="440" MethodName="math::integer::Sub" DeclaringType="math::integer">
 					<Edge From="total_amount_to_be_full" To="A" />
 					<Edge From="tointuint4.int" To="B" />
+				</Function>
+				<Function Name="sub120_1" PositionY="-150" PositionX="680" MethodName="math::integer::Sub" DeclaringType="math::integer">
+					<Edge From="sub120.int" To="A" />
+					<Edge From="odecitame_extra" To="B" />
 				</Function>
 				<Function Name="tointuint4" PositionY="-150" PositionX="200" MethodName="math::conversion::ToInt(uint)" DeclaringType="math::conversion">
 					<Edge From="itemsamount3.Amount" To="uint" />

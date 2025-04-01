@@ -18,6 +18,9 @@
 				<Port Name="tabor_nastreamovan" Direction="Out" Type="bool">
 					<DesignName StringName="falesnapo_tabor_nastreamo_wTSG" Text="U61a - tábor nastreamován" />
 				</Port>
+				<Port Name="m45__papezsky_legat__honicka_probiha" Direction="In" Type="bool">
+					<DesignName StringName="falesnapo_m45__papezsky_l_ZGKI" Text="M45 - Papežský legát - Honička probíhá" />
+				</Port>
 			</Ports>
 			<Definitions>
 				<Definition File="falesnaPosadka/streaming.xml" />
@@ -127,6 +130,9 @@
 						<Vertex>aQmfG3pj</Vertex>
 						<Vertex>qBu6vBnM</Vertex>
 					</Edge>
+					<Edge From="streaming.npc__fakesoldiers__profile_streamed" To="npc__fakesoldiers__profile_streamed" />
+					<Edge From="streaming.npc__fakesoldiers__profile_unstreamed" To="npc__fakesoldiers__profile_unstreamed" />
+					<Edge From="streaming.patch_1_2__camp_je_odstreamovany" To="patch_1_2__camp_je_odstreamovany" />
 				</quest_item_and_looting>
 				<quest_tipster Name="quest_tipster" PositionY="-60" PositionX="-300">
 					<Edge From="zadani_questu_v_hospode.zacatek_questu" To="quest_zacal" />
@@ -167,6 +173,14 @@
 					<Constant Name="Objective" Value="najdi_tabor_vojaku" />
 					<Edge From="QuestProgressExpanded_NonRepeatable.onactive" To="EnqueueSave" />
 				</SaveGame>
+				<SetEntityContext Name="setentitycontext12" PositionY="1360" PositionX="730">
+					<Constant Name="Context" Value="crime_suppressNearTrespassStimulus" />
+					<Asset Name="Souls" Alias="posadka" />
+					<Edge From="QuestProgressExpanded_NonRepeatable.active" To="IsActive">
+						<Vertex>jYcxeI9W</Vertex>
+						<Vertex>HAG823Ru</Vertex>
+					</Edge>
+				</SetEntityContext>
 				<AddReward Name="StoryProgress" PositionY="-730" PositionX="470">
 					<Edge From="QuestProgressExpanded_NonRepeatable.ondone" To="AddReward" />
 					<Rewards>
@@ -214,6 +228,9 @@
 						<Vertex>vertex22</Vertex>
 						<Vertex>aQmfG3pj</Vertex>
 					</Edge>
+					<Edge From="m45__papezsky_legat__honicka_probiha" To="m45__papezsky_legat__honicka_probiha">
+						<Vertex>gSrXozUg</Vertex>
+					</Edge>
 				</streaming>
 				<zadani_questu_v_hospode Name="zadani_questu_v_hospode" PositionY="-250" PositionX="-750">
 					<Edge From="QuestProgressExpanded_NonRepeatable.isavailable" To="quest_je_k_dispozici">
@@ -247,6 +264,8 @@
 				<EdgeVertex Name="cNXlI2KL" PositionY="180" PositionX="-740" />
 				<EdgeVertex Name="D0MDufBz" PositionY="-380" PositionX="-340" />
 				<EdgeVertex Name="fXJKN9U7" PositionY="470" PositionX="-1390" />
+				<EdgeVertex Name="gSrXozUg" PositionY="560" PositionX="-1390" />
+				<EdgeVertex Name="HAG823Ru" PositionY="1455" PositionX="582" />
 				<EdgeVertex Name="HebxuqyI" PositionY="430" PositionX="370" />
 				<EdgeVertex Name="jEaDpamK" PositionY="400" PositionX="1070" />
 				<EdgeVertex Name="jYcxeI9W" PositionY="1170" PositionX="480" />

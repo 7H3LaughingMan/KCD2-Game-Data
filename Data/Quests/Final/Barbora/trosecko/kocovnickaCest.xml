@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Database xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" Name="brambora">
 	<Skald>
-		<Quest Name="kocovnickaCest" Type="Side" Difficulty="9" IsImportant="true" ProductionCode="S25">
+		<Quest Name="kocovnickaCest" IsLocked="false" Type="Side" Difficulty="9" IsImportant="true" ProductionCode="S25">
 			<Ports>
 				<Port Name="s25__jindra_a_marika_uz_se_znaji" Direction="Out" Type="bool">
 					<DesignName StringName="kocovnick_s25__jindra_a_m_T2x7" Text="S25 - Jindra a Marika už se znají" />
@@ -29,6 +29,9 @@
 				</Port>
 				<Port Name="vezni_na_troskach__zacatek" Direction="In" Type="trigger">
 					<DesignName StringName="kocovnick_hrac_je_zajat_b_o3Jf" Text="Vězni na Troskách - Začátek" />
+				</Port>
+				<Port Name="quest_failed" Direction="Out" Type="bool">
+					<DesignName StringName="kocovnick_quest_failed_OK13" Text="&lt;quest failed&gt;" />
 				</Port>
 				<Port Name="s25__potlaceni_spawnovani_vlku_v_apolene" Direction="Out" Type="bool">
 					<DesignName StringName="kocovnick_s25__probiha_ga_w31l" Text="S25 - Potlačení spawnování vlků v Apoleně" />
@@ -62,6 +65,8 @@
 				<Definition File="kocovnickaCest/bohusuv_hrob_streamed_enviro.xml" />
 				<Definition File="kocovnickaCest/stado_jelenu_streamed_spawners.xml" />
 				<Definition File="kocovnickaCest/hracuv_pujceny_zavodni_kun.xml" />
+				<Definition File="kocovnickaCest/vesnicka_stodola.xml" />
+				<Definition File="kocovnickaCest/omezeni_vyptavani_se_na_cestu.xml" />
 			</Definitions>
 			<Nodes>
 				<Function Name="and11" PositionY="130" PositionX="-1370" MethodName="math::boolean::And" DeclaringType="math::boolean">
@@ -148,7 +153,7 @@
 					<Edge From="kocovnickaCest_hib.hlidac_prijal_vykupne_za_tibora" To="hlidac_prijal_vykupne_za_tibora" />
 					<Edge From="kocovnickaCest_hib.learnedAboutKeys" To="learnedAboutKeys" />
 				</klic_od_tiborova_vezeni_item>
-				<hib Name="kocovnickaCest_hib" PositionY="-130" PositionX="-1040" RequiredForOutput="trosecko">
+				<hib Name="kocovnickaCest_hib" PositionY="-130" PositionX="-1050" RequiredForOutput="trosecko">
 					<Edge From="bozena__is_loaded" To="bozena__is_loaded" />
 					<Edge From="korenarka_zachrana__hrac_zachranil_pavlenu_a_bozena_to_vi" To="korenarka_zachrana__hrac_zachranil_pavlenu_a_bozena_to_vi" />
 					<Edge From="korenarka_zachrana__pavlena_zemrela_a_bozena_to_vi" To="korenarka_zachrana__pavlena_zemrela_a_bozena_to_vi" />
@@ -200,6 +205,15 @@
 						<Vertex>fXkp6D5d</Vertex>
 					</Edge>
 				</Function>
+				<omezeni_vyptavani_se_na_cestu Name="omezeni_vyptavani_se_na_cestu" PositionY="-450" PositionX="560">
+					<Edge From="kocovnickaCest_hib.questending" To="questending">
+						<Vertex>vzSP3zKI</Vertex>
+					</Edge>
+					<Edge From="kocovnickaCest_hib.quest_failed" To="quest_failed" />
+					<Edge From="kocovnickaCest_hib.jindra_a_marika_uz_se_znaji" To="jindra_a_marika_uz_se_znaji">
+						<Vertex>U87meFKo</Vertex>
+					</Edge>
+				</omezeni_vyptavani_se_na_cestu>
 				<Output Name="Output">
 					<Edge From="kocovnickaCest_hib.Progress" To="Progress" />
 					<Edge From="kocovnickaCest_hib.gejza_byl_radne_pohrben" To="gejza_byl_radne_pohrben" />
@@ -212,6 +226,7 @@
 					<Edge From="kocovnickaCest_hib.hrac_osvobodil_tibora_ze_zajeti" To="hrac_osvobodil_tibora_ze_zajeti" />
 					<Edge From="kocovnickaCest_hib.vajda_hraci_rekl_o_ztracenych_synech" To="vajda_hraci_rekl_o_ztracenych_synech" />
 					<Edge From="restrictingSpawnedWolvesInApolena.bool" To="s25__potlaceni_spawnovani_vlku_v_apolene" />
+					<Edge From="kocovnickaCest_hib.quest_failed" To="quest_failed" />
 				</Output>
 				<permadeath_npcs_script Name="permadeath_npcs_script" PositionY="640" PositionX="-1420">
 					<Edge From="kocovnickaCest_hib.quest_has_ever_started" To="quest_has_ever_started">
@@ -262,6 +277,9 @@
 					</Edge>
 					<Edge From="kocovnickaCest_hib.glejt__predan_vajdovi" To="glejt__predan_vajdovi" />
 				</vajduv_glejt>
+				<vesnicka_stodola Name="vesnicka_stodola" PositionY="60" PositionX="560">
+					<Edge From="kocovnickaCest_hib.vesnicka_stodola__potlacovan_ow_trespass" To="vesnicka_stodola__potlacovan_ow_trespass" />
+				</vesnicka_stodola>
 				<vlci_streamed_souls Name="vlci_streamed_souls" PositionY="650" PositionX="560">
 					<Edge From="kocovnickaCest_hib.streaming__wolves_leaving_level" To="vlci__leave_level" />
 					<Edge From="kocovnickaCest_hib.streaming__vajda_zadal_ukoly_se_syny" To="vlci__stream_in">
@@ -274,9 +292,9 @@
 				<EdgeVertex Name="0x5Agdyy" PositionY="390" PositionX="-450" />
 				<EdgeVertex Name="5f3fxW1B" PositionY="170" PositionX="-430" />
 				<EdgeVertex Name="8U6Lj6sM" PositionY="-503" PositionX="-1063" />
-				<EdgeVertex Name="dM0YW7JG" PositionY="1300" PositionX="-730" />
+				<EdgeVertex Name="dM0YW7JG" PositionY="1380" PositionX="-730" />
 				<EdgeVertex Name="FcKtFErp" PositionY="1423" PositionX="781" />
-				<EdgeVertex Name="fXkp6D5d" PositionY="1300" PositionX="-1750" />
+				<EdgeVertex Name="fXkp6D5d" PositionY="1390" PositionX="-1760" />
 				<EdgeVertex Name="GsnNHUfB" PositionY="1420" PositionX="-1026" />
 				<EdgeVertex Name="gtNj9nkG" PositionY="-150" PositionX="-1360" />
 				<EdgeVertex Name="IxrCjCDV" PositionY="130" PositionX="-460" />
@@ -543,7 +561,6 @@
 				<TagPointAsset Name="marikasHideout_bloodStain_2_point" />
 				<TriggerAreaAsset Name="marikasHideout_looseLocation_area" />
 				<SmartObjectAsset Name="gejzasBed_SO" />
-				<TriggerAreaAsset Name="saddlerBarnPrison" />
 				<ItemAsset Name="amulet" ItemClassGuids="320ec2b7-af1e-4201-97cf-c8a8a8676027" />
 				<SoulAsset Name="villageGuard_woman_1" SharedSoulGuids="4d96c832-8ee4-9153-bb55-a72b4663ea98" />
 				<SoulAsset Name="villageGuard_woman_2" SharedSoulGuids="4f96ebf4-fa43-02d7-94ae-19c021560b8b" />
@@ -567,6 +584,9 @@
 				<SmartObjectAsset Name="marikasHideout_fireplace_SO" />
 				<TriggerAreaAsset Name="marikasTent_trespass_area" />
 				<DialogueHolderAsset Name="playerWonFistFight_dialog" />
+				<CutsceneHolderAsset Name="marika_priorityHealing_cutscene" />
+				<TriggerAreaAsset Name="villageBarn_trespass_semipersonal_area" />
+				<TriggerAreaAsset Name="villageBarn_trespass_personal_area" />
 			</Assets>
 			<Notes>
 				<Note Name="note7" PositionY="-880" PositionX="-470">
@@ -780,7 +800,7 @@
 						<EnumLog Type="Updated" Name="FindTiborAtSaddler" Marker="tiborAtSaddlersArea">
 							<Log StringName="rescuingt_od_lidi_ze_semi_hjEP" Text="Od lidí ze Semína jsem se dověděl, že Tibora drží někde u sedláře." />
 						</EnumLog>
-						<EnumLog Type="Updated" Name="SaddlerRevealedTiborLocation" Marker="saddlerBarnPrison">
+						<EnumLog Type="Updated" Name="SaddlerRevealedTiborLocation" Marker="villageBarn_trespass_personal_area">
 							<Log StringName="rescuingt_zjistil_jsem_ze_Bnti" Text="Zjistil jsem, že Tibora drží ve stodole na sedlářově statku." />
 						</EnumLog>
 						<EnumLog Type="Updated" Name="FreeTibor" Marker="tibor">
@@ -1102,7 +1122,7 @@
 					<Logs>
 						<EnumLog Type="None" Name="None" />
 						<EnumLog Type="Started" Name="StartWithVajda" Marker="vajda">
-							<Log StringName="betcontes_na_sazku_to_byl_WZZa" Text="Na sázku to bylo jedna-jedna, takže rozhodující kolo budou kostky přímo s vajdou!" />
+							<Log StringName="betcontes_na_sazku_to_byl_WZZa" Text="Na sázku to bylo s Tiborem jedna-jedna, takže rozhodující kolo proběhne přímo s vajdou!" />
 						</EnumLog>
 						<EnumLog Type="Updated" Name="RoundInProgress">
 							<Log StringName="betcontes_musim_porazit_v_mqtV" Text="Musím porazit vajdu!" />

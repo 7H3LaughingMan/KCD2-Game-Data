@@ -36,6 +36,7 @@ AnimChar =
 		esClothingConfig = "male2",
 		bClothingRemoveHelmet = true,
 		characterDetail = 0,
+		guidBeardHairOverrideId = "0",
 	},
 
 }

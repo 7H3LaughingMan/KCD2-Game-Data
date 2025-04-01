@@ -42,6 +42,11 @@
 				<Definition File="stopovani_zdeny_a_nalez_mrtveho_tela/hrac_barkuje_na_mrtvolu_nevi_ze_zdena.xml" />
 			</Definitions>
 			<Nodes>
+				<MemberFunction Name="adddirt33" PositionY="780" PositionX="-160" MethodName="AddDirt" DeclaringType="wh::rpgmodule::I_Soul">
+					<Asset Name="Soul" Alias="player" />
+					<Constant Name="Value" Value="0.4" />
+					<Edge From="triggersequence34.A" To="Exec" />
+				</MemberFunction>
 				<Function Name="and12" PositionY="-800" PositionX="-1600" MethodName="math::boolean::And" DeclaringType="math::boolean">
 					<Edge From="not13.bool" To="B" />
 					<Edge From="mostekNenalezen.State" To="C" />
@@ -62,7 +67,7 @@
 					<Edge From="or10.bool" To="A" />
 					<Edge From="not24.bool" To="B" />
 				</Function>
-				<Function Name="and26" PositionY="450" PositionX="-1300" MethodName="math::boolean::And" DeclaringType="math::boolean">
+				<Function Name="and26" PositionY="640" PositionX="-1300" MethodName="math::boolean::And" DeclaringType="math::boolean">
 					<Edge From="zdena_je_nastreamovana" To="B">
 						<Vertex>f9Ue9Rvn</Vertex>
 						<Vertex>mAlfRmTY</Vertex>
@@ -76,16 +81,23 @@
 					<Edge From="and12.bool" To="IsActive" />
 				</AreaTrigger>
 				<bark_na_psa_at_stopuje_zdenu Name="bark_na_psa_at_stopuje_zdenu" PositionY="-890" PositionX="-2120" />
-				<FocusCamWithinArea Name="FocusCamWithinArea" PositionY="-1130" PositionX="-830" Namespace="utils.general">
+				<State Name="focusCamWasDisab" PositionY="-810" PositionX="-880" TypeT="bool">
+					<Constant Name="DefaultValue" Value="true" />
+					<Constant Name="Value" Value="true" />
+					<Edge From="interactiontrigger6.OnInteraction" To="SetFalse" />
+					<Edge From="interactiontrigger8.OnInteraction" To="SetFalse" />
+				</State>
+				<FocusCamWithinArea Name="FocusCamWithinArea" PositionY="-900" PositionX="-150" Namespace="utils.general">
 					<Asset Name="target" Alias="zdeninyVeci" />
-					<Asset Name="area" Alias="areaZdena" />
+					<Asset Name="area" Alias="zdenaStuffFocusArea" />
 					<Constant Name="actionprompt" Value="stopovani_podivat_se_QYki" />
 					<Constant Name="focuscam_horizontallimits" Value="0.5,0.5" />
 					<Constant Name="focuscam_verticallimits" Value="0.5,0.5" />
 					<Constant Name="focuscam_dampingfactor" Value="12" />
-					<Edge From="areatrigger3.OnEnter" To="enable" />
-					<Edge From="interactiontrigger6.OnInteraction" To="disable" />
-					<Edge From="interactiontrigger8.OnInteraction" To="disable" />
+					<Edge From="if31.True" To="enable" />
+					<Edge From="focusCamWasDisab.OnFalse" To="disable">
+						<Vertex>A4A3R25p</Vertex>
+					</Edge>
 				</FocusCamWithinArea>
 				<hrac_barkuje_na_mrtvolu_nevi_ze_zdena Name="hrac_barkuje_na_mrtvolu_nevi_ze_zdena" PositionY="960" PositionX="-880">
 					<Edge From="zdena_je_nastreamovana" To="zdena_je_nastreamovana">
@@ -96,7 +108,14 @@
 						<Vertex>F3M1fcrH</Vertex>
 					</Edge>
 				</hrac_barkuje_na_mrtvolu_nevi_ze_zdena>
-				<InteractionTriggerNode Name="interactiontrigger25" PositionY="450" PositionX="-1040">
+				<If Name="if31" PositionY="-750" PositionX="-540">
+					<Edge From="areatrigger3.OnEnter" To="Exec">
+						<Vertex>VR1A4gkr</Vertex>
+						<Vertex>eV8uzvy0</Vertex>
+					</Edge>
+					<Edge From="focusCamWasDisab.State" To="Condition" />
+				</If>
+				<InteractionTriggerNode Name="interactiontrigger25" PositionY="1270" PositionX="-890">
 					<Asset Name="Interactors" Alias="inspectZdena" />
 					<Constant Name="Type" Value="Press" />
 					<Edge From="and26.bool" To="IsActive" />
@@ -157,9 +176,6 @@
 					<Edge From="pruzkum_mrtve_zdeny.hrac_nasel_prsten" To="hrac_nasel_prsten">
 						<Vertex>vertex17</Vertex>
 					</Edge>
-					<Edge From="pruzkum_mrtve_zdeny.hrac_prohledal_zdenu" To="hrac_prohledal_zdenu">
-						<Vertex>vertex29</Vertex>
-					</Edge>
 					<Edge From="interactiontrigger6.OnInteraction" To="hrac_nasel_zdeniny_veci">
 						<Vertex>vertex15</Vertex>
 					</Edge>
@@ -167,29 +183,37 @@
 						<Vertex>7BElSDjn</Vertex>
 					</Edge>
 					<Edge From="pruzkum_mrtve_zdeny.seq1" To="seq1" />
+					<Edge From="triggersequence34.B" To="hrac_prohledal_zdenu">
+						<Vertex>vertex29</Vertex>
+					</Edge>
 				</Output>
-				<pruzkum_mrtve_zdeny Name="pruzkum_mrtve_zdeny" PositionY="630" PositionX="-790">
+				<pruzkum_mrtve_zdeny Name="pruzkum_mrtve_zdeny" PositionY="600" PositionX="-800">
 					<Edge From="interactiontrigger8.OnInteraction" To="enqueue" />
 				</pruzkum_mrtve_zdeny>
-				<Function Name="requestmonologue28" PositionY="440" PositionX="-650" MethodName="wh::xgenaimodule::RequestMonologue" DeclaringType="wh::xgenaimodule">
+				<Function Name="requestmonologue28" PositionY="1270" PositionX="-470" MethodName="wh::xgenaimodule::RequestMonologue" DeclaringType="wh::xgenaimodule">
 					<Asset Name="Souls" Alias="player" />
 					<Constant Name="DecisionAlias" Value="kubaParalu_hracBarkujeNaMrtvoluNeviZeZdena" />
 					<Edge From="interactiontrigger25.OnInteraction" To="Exec" />
 				</Function>
-				<Function Name="requestmonologue4" PositionY="-670" PositionX="-890" MethodName="wh::xgenaimodule::RequestMonologue" DeclaringType="wh::xgenaimodule">
+				<Function Name="requestmonologue4" PositionY="-550" PositionX="-870" MethodName="wh::xgenaimodule::RequestMonologue" DeclaringType="wh::xgenaimodule">
 					<Asset Name="Souls" Alias="player" />
 					<Constant Name="DecisionAlias" Value="kubaParalu_jindraDoselKMostku" />
 					<Edge From="areatrigger3.OnEnter" To="Exec" />
 				</Function>
-				<Function Name="requestmonologue7" PositionY="-90" PositionX="-880" MethodName="wh::xgenaimodule::RequestMonologue" DeclaringType="wh::xgenaimodule">
+				<Function Name="requestmonologue7" PositionY="-60" PositionX="-870" MethodName="wh::xgenaimodule::RequestMonologue" DeclaringType="wh::xgenaimodule">
 					<Asset Name="Souls" Alias="player" />
 					<Constant Name="DecisionAlias" Value="kubaParalu_jindraNaselZdeninyVeci" />
 					<Edge From="interactiontrigger6.OnInteraction" To="Exec" />
 				</Function>
+				<TriggerSequence Name="triggersequence34" PositionY="680" PositionX="-420">
+					<Edge From="pruzkum_mrtve_zdeny.hrac_prohledal_zdenu" To="Exec" />
+				</TriggerSequence>
 			</Nodes>
 			<EdgeVertices>
 				<EdgeVertex Name="7BElSDjn" PositionY="1140" PositionX="-191" />
+				<EdgeVertex Name="A4A3R25p" PositionY="-590" PositionX="-280" />
 				<EdgeVertex Name="CEY0FrI9" PositionY="890" PositionX="-550" />
+				<EdgeVertex Name="eV8uzvy0" PositionY="-850" PositionX="-620" />
 				<EdgeVertex Name="F3M1fcrH" PositionY="1055" PositionX="-1865" />
 				<EdgeVertex Name="f9Ue9Rvn" PositionY="590" PositionX="-1920" />
 				<EdgeVertex Name="H9x34dQU" PositionY="910" PositionX="-1010" />
@@ -198,21 +222,23 @@
 				<EdgeVertex Name="Mw5UQEDr" PositionY="890" PositionX="-1570" />
 				<EdgeVertex Name="qRglWbAn" PositionY="870" PositionX="-1570" />
 				<EdgeVertex Name="vertex14" PositionY="-90" PositionX="-2120" />
-				<EdgeVertex Name="vertex15" PositionY="-110" PositionX="-270" />
-				<EdgeVertex Name="vertex17" PositionY="-90" PositionX="-270" />
+				<EdgeVertex Name="vertex15" PositionY="-140" PositionX="-120" />
+				<EdgeVertex Name="vertex17" PositionY="-120" PositionX="-120" />
 				<EdgeVertex Name="vertex18" PositionY="90" PositionX="-2240" />
 				<EdgeVertex Name="vertex19" PositionY="110" PositionX="-2240" />
-				<EdgeVertex Name="vertex29" PositionY="-70" PositionX="-270" />
+				<EdgeVertex Name="vertex29" PositionY="-100" PositionX="-120" />
 				<EdgeVertex Name="vertex30" PositionY="-70" PositionX="-2120" />
 				<EdgeVertex Name="vertex31" PositionY="-70" PositionX="-1960" />
 				<EdgeVertex Name="vertex32" PositionY="-710" PositionX="-2210" />
 				<EdgeVertex Name="vertex33" PositionY="-290" PositionX="-1050" />
 				<EdgeVertex Name="vertex34" PositionY="-290" PositionX="-1900" />
 				<EdgeVertex Name="vertex35" PositionY="-90" PositionX="-1700" />
+				<EdgeVertex Name="VR1A4gkr" PositionY="-850" PositionX="-910" />
 				<EdgeVertex Name="wWXp12T4" PositionY="910" PositionX="-1840" />
 			</EdgeVertices>
 			<Assets>
 				<InteractionTriggerAsset Name="zdeninyVeci" />
+				<TriggerAreaAsset Name="zdenaStuffFocusArea" />
 			</Assets>
 			<Text StringName="stopovani_zdeny_a_nalez_m_TTY5" Text="Stopování Zdeny a nález mrtvého těla" />
 			<Elements>

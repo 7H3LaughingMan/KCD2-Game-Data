@@ -80,7 +80,7 @@
 																	</IfCondition>
 																	<IfCondition failOnCondition="false" condition="$resolution.kind == $enum:crime_resolutionKind.fine">
 																		<Sequence>
-																			<Function_crime_getStolenItemsStorageChest storage="$stolenItemsChest" nodeLabel="36440566" />
+																			<Function_crime_getStolenItemsStorageChest inventory="" storage="$stolenItemsChest" nodeLabel="36440566" />
 																			<Confiscate ConfiscateItems="None" ConfiscateFine="true" TargetStash="$stolenItemsChest" />
 																			<SendAIConceptSignal_crime_moneyTaken amount="$punishment.fine" />
 																		</Sequence>
@@ -91,7 +91,6 @@
 																			<GetMostImportantCrimeInformation Npc="$this.id" OnlyRelated="false" MostImportantInformation="$mostImportantInformation" />
 																			<Function_crime_broadcastCooperationNotification cooperationNotification="$enum:crime_cooperationNotification.arrestEscalation" nodeLabel="27067091" />
 																			<Function_crime_getStimulusKindFromString label="$mostImportantInformation.label" stimulusKind="$stimulusKind" nodeLabel="63615492" />
-																			<AddArrestEscalation Npc="$this.id" Reset="false" />
 																			<Function_callInterrupt_attack assaultData="$assaultData" criminalFreshness="$enum:crime_criminalFreshness.unknown" defenceMode="false" escalatedFromFailedSurrender="true" freshlyAttributedCrime="false" ignorePriority="true" information="$mostImportantInformation" initiator="$enum:switch_interruptInitiator.scheduler" previousReaction="$enum:crime_reactionKind.arrest" priority="160" questBehavior="false" relationOverride="true" stimulusKind="$stimulusKind" target="$__player" nodeLabel="65056351" />
 																		</Sequence>
 																	</IfCondition>
@@ -285,9 +284,6 @@
 																				<Function_crime_getStimulusKindFromString hasInputBreakpoint="0" comment="" breakpointFlags="0">
 																					<OutputBreakpoints />
 																				</Function_crime_getStimulusKindFromString>
-																				<AddArrestEscalation hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																					<OutputBreakpoints />
-																				</AddArrestEscalation>
 																				<Function_callInterrupt_attack hasInputBreakpoint="0" comment="note to future self: reactionKind was always arrest here, but it might have changed since" breakpointFlags="0">
 																					<OutputBreakpoints />
 																				</Function_callInterrupt_attack>

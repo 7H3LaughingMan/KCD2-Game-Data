@@ -69,6 +69,9 @@
 				<Port Name="poprveMluvenoSruthardem" Direction="Out" Type="bool">
 					<DesignName StringName="kralovske_poprvemluvenosr_DamV" Text="poprvé mluveno s Ruthardem" />
 				</Port>
+				<Port Name="odevzdat_ucetni_knihy" Direction="In" Type="trigger">
+					<DesignName StringName="kralovske_odevzdat_ucetni_Sboe" Text="Odevzdat Vavákův dopis v M35" />
+				</Port>
 			</Ports>
 			<Definitions>
 				<Definition File="kralovskeStribro/kralovskestribro.xml" />
@@ -164,8 +167,6 @@
 					<Edge From="main_hibernable.raznice_predana_hraci" To="raznice_predana_hraci" />
 					<Edge From="main_hibernable.zacina_tajna_mincovna" To="zacina_tajna_mincovna" />
 					<Edge From="main_hibernable.raznice_predana_1" To="raznice_predana_1" />
-					<Edge From="main_hibernable.predani_vavakova_dopisu" To="predani_vavakova_dopisu" />
-					<Edge From="main_hibernable.predani_dopisu_od_vavaka_hraci" To="predani_dopisu_od_vavaka_hraci" />
 					<Edge From="main_hibernable.initial_cutscene_beforeplay" To="initial_cutscene_beforeplay" />
 					<Edge From="main_hibernable.najdi_vokraka" To="najdi_vokraka" />
 					<Edge From="main_hibernable.vokrakovi_boys_odchazeji" To="vokrakovi_boys_odchazeji" />
@@ -181,6 +182,10 @@
 					<Edge From="main_hibernable.straze_zustavaji_v_mincovne" To="straze_zustavaji_v_mincovne" />
 					<Edge From="main_hibernable.fight_active" To="fight_active" />
 					<Edge From="main_hibernable.predani_buresova_glejtu" To="predani_buresova_glejtu" />
+					<Edge From="main_hibernable.initial_cutscene_active" To="initial_cutscene_active" />
+					<Edge From="main_hibernable.poprveMluvenoSruthardem" To="poprveMluvenoSruthardem" />
+					<Edge From="odevzdat_ucetni_knihy" To="odevzdat_ucetni_knihy" />
+					<Edge From="main_hibernable.predani_dopisu_od_vavaka_hraci" To="predani_dopisu_od_vavaka_hraci" />
 				</running>
 			</Nodes>
 			<EdgeVertices>
@@ -291,6 +296,7 @@
 					<StateTypeEnumeration Name="Active" ObjectiveValueType="Started" />
 					<StateTypeEnumeration Name="UpdatedSimaHint" ObjectiveValueType="Updated" />
 					<StateTypeEnumeration Name="UpdatedSimaWaiting" ObjectiveValueType="Updated" />
+					<StateTypeEnumeration Name="UpdatedSimaDead" ObjectiveValueType="Updated" />
 					<StateTypeEnumeration Name="Done" ObjectiveValueType="Completed" />
 				</Type>
 			</Types>
@@ -321,7 +327,6 @@
 				<CutsceneHolderAsset Name="fader_streamMiners" />
 				<TriggerAreaAsset Name="smelterEntrance" />
 				<TriggerAreaAsset Name="secretMint" />
-				<CutsceneHolderAsset Name="fastTravel_goToSecretMint" />
 				<TriggerAreaAsset Name="secretMintArea" />
 				<CutsceneHolderAsset Name="fader_teleportOreseller" />
 				<TriggerAreaAsset Name="secretAditEntrance" />
@@ -341,8 +346,6 @@
 				<SoulAsset Name="secretMint_guard_2" SharedSoulGuids="0e6dc4ef-54a0-4c72-b17e-137750e08afd" />
 				<SoulAsset Name="secretMint_guard_3" SharedSoulGuids="7415f871-bf75-4f7e-900e-1e05762b638a" />
 				<TriggerAreaAsset Name="secretMintLockedRoom" />
-				<CarryItemPileAsset Name="carryItemPile_grinder_source" />
-				<CarryItemPileAsset Name="carryItemPile_grinder_target" />
 				<ProfileAsset Name="ruthardsBattleContestants" AssetProfiles="kralovskeStribro_oldrichsSoldiers kralovskeStribro_oldrichsSoldier_deadBody" />
 				<SoulAsset Name="oldrichsSoldiers" SharedSoulGuids="29eb8f7a-1e8b-4301-b44f-15c62baa2b64 32af6f11-9954-4a44-9a2c-6a493745f1a0 78a69769-e11d-4a4c-b847-945d9f3923a3 84c6c080-4600-45bd-9e9b-f5f0eb1b0477 a701f003-58f2-4a34-b2dd-328cf6804c0a eeb6b12b-7abd-4056-bcea-64899afdabe5" />
 				<SoulAsset Name="ruthardsSoldiers" SharedSoulGuids="c7026dc5-69f5-49c7-8b06-f627406f6c1b 8d10ffd8-0aeb-46af-a422-8799a0a42088 f82ce18a-49a0-4c59-abf5-3713b09b8502" />
@@ -353,7 +356,6 @@
 				<SoulAsset Name="horanyMiners" SharedSoulGuids="57b9ea06-fcbb-40e4-b2b2-390b088ae908 c6160a7c-afaa-43de-8465-07fa27978524 d40a5240-4b70-474a-a9a9-b57fb9c13873 bf8c883b-2351-46bc-a2d7-0a1be8abc6f2 98147dbe-9b62-42e3-a4c1-5c349870eab1 82c4e495-fb29-43df-8efb-b9258baba348 38d7924f-09fe-4e7b-9e26-8f55324115ca 68ec3244-3a43-49c7-b6a6-68cc0cb371c8 6099ee6d-1d4b-4340-bb0d-1c7b91313fcf 45c5ec8f-1ba8-4ea4-9132-d1358f209710 7d33f6df-b52f-451d-9e80-c0c553489d5e 3a63a42f-754e-4904-9089-97efa73c2cfd" />
 				<StashAsset Name="kristiansStash" />
 				<SoulAsset Name="bures" SharedSoulGuids="c84dbff0-636c-40dc-b160-4865598e6bb8" />
-				<TagPointAsset Name="frantasLyingPoint" />
 				<SoulAsset Name="sima" SharedSoulGuids="3266e0e7-37b9-423a-a808-0dc56e805c25" />
 				<InteractionTriggerAsset Name="prayingInteractor" />
 				<TriggerAreaAsset Name="smelterArea" />
@@ -369,6 +371,7 @@
 				<CutsceneHolderAsset Name="fader_streamVokrak" />
 				<TriggerAreaAsset Name="ruthardkaCourtyardArea" />
 				<ItemSlotAsset Name="minterJailKeySlot" />
+				<TriggerAreaAsset Name="minesEntrance" />
 			</Assets>
 			<Text StringName="kralovskestribro_mQPc" Text="Královské stříbro" />
 			<Elements>
@@ -448,7 +451,7 @@
 						<EnumLog Type="Updated" Name="UpdatedInSecretMint" Marker="secretMint">
 							<Log StringName="ziskej_du_po_kutne_hore_s_A253" Text="Po Kutné Hoře se povídá, že mincmistr Vavák bohatne mnohem víc, než by se podle jeho úřadu slušelo - jakkoliv je vysoký. Podle všeho se dokonce obohacuje krádežemi královského stříbra, což je hrdelní zločin. Nejsou na to však žádné důkazy. Kdyby je měl Ruthard v ruce, vyřešilo by to jeho problém s Vavákem jednou provždy. Pověřil mě tedy, abych mu ty důkazy obstaral. S podporou spřáteleného šafáře Kristiána z Písku jsem v hořanských dolech vypátral, že se do důlních knih zapisuje méně rudy, než kolik odsud skutečně odchází do hutí. Tam jsem zjistil, že celou krádež řídí majitel hutí v Gruntě Bureš a jeho lidi. Nepřiznané stříbro posílají do tajné mincovny. Jestli někde bude důkaz o napojení celého zločinu na Vaváka, bude to právě zde." />
 						</EnumLog>
-						<EnumLog Type="Updated" Name="UpdatedSearchSecretMint" Marker="secretMint">
+						<EnumLog Type="Updated" Name="UpdatedSearchSecretMint" Marker="secretMintLockedRoom">
 							<Log StringName="ziskej_du_po_kutne_hore_s_BGLK" Text="Po Kutné Hoře se povídá, že mincmistr Vavák bohatne mnohem víc, než by se podle jeho úřadu slušelo - jakkoliv je vysoký. Podle všeho se dokonce obohacuje krádežemi královského stříbra, což je hrdelní zločin. Nejsou na to však žádné důkazy. Kdyby je měl Ruthard v ruce, vyřešilo by to jeho problém s Vavákem jednou provždy. Pověřil mě tedy, abych mu ty důkazy obstaral. S podporou spřáteleného šafáře Kristiána z Písku jsem v hořanských dolech vypátral, že se do důlních knih zapisuje méně rudy, než kolik odsud skutečně odchází do hutí. Tam jsem zjistil, že celou krádež řídí majitel hutí v Gruntě Bureš a jeho lidi. Nepřiznané stříbro posílají do tajné mincovny. Jestli někde bude důkaz o napojení celého zločinu na Vaváka, bude to právě zde. Měl bych se po něm v podzemí důkladně porozhlédnout." />
 						</EnumLog>
 						<EnumLog Type="Updated" Name="UpdatedAfterSecretMint">
@@ -488,6 +491,18 @@
 							<Log StringName="promluv_s_kristian_si_cht_zt2x" Text="Kristián si chtěl o celé věci promluvit v ústraní, abychom nebudili rozruch. Slíbil mi veškerou pomoc a předložil mi plán vyšetřování. Pod záminkou návštěvy dolů jsem měl zjistit od havířů ze tří zdejších paret, kolik za určitý den - svátek svaté Petronily - vytěžili košů rudy. Tak se nejlépe pozná, jestli skutečný objem těžby odpovídá tomu, co je napsáno v důlní knize." />
 						</EnumLog>
 						<EnumLog Type="None" Name="Aborted" />
+					</Logs>
+				</Objective>
+				<Objective TypeT="Progress" Name="najdi_vstup_do_dolu">
+					<LocalizedName StringName="kralovske_najdi_vstup_do__vEQj" Text="Vstup do dolů." />
+					<Logs>
+						<EnumLog Type="None" Name="None" />
+						<EnumLog Type="Started" Name="Active" Marker="minesEntrance">
+							<Log StringName="najdi_vst_mam_kristianuv__0Txu" Text="Mám Kristiánův glejt, s jehož pomocí můžu vstoupit do dolů." />
+						</EnumLog>
+						<EnumLog Type="Completed" Name="Done">
+							<Log StringName="najdi_vst_zastiten_kristi_fPau" Text="Zaštítěn Kristiánovým glejtem jsem bez potíží vstoupil do dolů." />
+						</EnumLog>
 					</Logs>
 				</Objective>
 				<Objective TypeT="minersShift1" Name="zjisti_tezbu_frantovic_synku">
@@ -582,7 +597,7 @@
 							<Log StringName="promuv_si_predak_maslo_mi_X5mn" Text="Za falešné záznamy o těžbě byl zodpovědný vrchní předák Máslo. Přiznal se mi, že za jejich falšování a krytí celého podvodu dostával peníze od neznámého člověka z hutí. " />
 						</EnumLog>
 						<EnumLog Type="Canceled" Name="Canceled">
-							<Log StringName="promuv_si_predak_maslo_uz_0j2P" Text="Za falešné záznamy o těžbě zodpovědný byl zdopovědný vrchní předák Máslo. Bohužel zemřel dřív, než jsem ho mohl vyslechnout." />
+							<Log StringName="promuv_si_predak_maslo_uz_0j2P" Text="Za falešné záznamy o těžbě byl zdopovědný vrchní předák Máslo. Bohužel jsem ho nemohl vyslechnout." />
 						</EnumLog>
 					</Logs>
 				</Objective>
@@ -597,7 +612,7 @@
 							<Log StringName="promluv_s_promluvil_jsem__wSC9" Text="Za kontrolu objemu rudy na výstupu ručil rudokupec Heřman, který kontroloval kvalitu rudy a určoval její cenu. Přiznal, že ho do celého podvodu zatáhl hlavně předák Máslo, ale že v hutích při předávce rudy bylo jasné, že je do toho zataženo víc lidí. " />
 						</EnumLog>
 						<EnumLog Type="Canceled" Name="Canceled">
-							<Log StringName="p2_donut__za_kontrolu_obj_M5wg" Text="Za kontrolu objemu rudy na výstupu ručil rudokupec Heřman, který kontroloval kvalitu rudy a určoval její cenu. Bohužel zemřel dřív, než jsem z něj mohl něco bližšího dostat." />
+							<Log StringName="p2_donut__za_kontrolu_obj_M5wg" Text="Za kontrolu objemu rudy na výstupu ručil rudokupec Heřman, který kontroloval kvalitu a určoval cenu. Bohužel jsem z něj nemohl nic bližšího dostat." />
 						</EnumLog>
 					</Logs>
 				</Objective>
@@ -642,6 +657,9 @@
 						<EnumLog Type="Updated" Name="UpdatedSimaWaiting" Marker="sima">
 							<Log StringName="prozkoume_p_sima_si_se_mn_k0wD" Text="Hutník Šíma si se mnou chce promluvit někde mimo provoz. Zjevně ví, co se v Gruntě děje nekalého. Měl bych ho následovat. " />
 						</EnumLog>
+						<EnumLog Type="Updated" Name="UpdatedSimaDead" Marker="smelterArea">
+							<Log StringName="prozkoume__sima_je_mrtvej_6vDP" Text="Šíma je po smrti. Měl bych se na to, co se děje v Gruntě nekalého, zeptat nějakého jiného hutníka." />
+						</EnumLog>
 						<EnumLog Type="Completed" Name="Done">
 							<Log StringName="prozkoume_od_hutniku_jsem_ienj" Text="Od hutníků jsem se dozvěděl, že pokud se v provozech děje nějaký podvod, určitě v něm má prsty předák tavičů Vokřák." />
 						</EnumLog>
@@ -682,7 +700,7 @@
 					<Logs>
 						<EnumLog Type="None" Name="None" />
 						<EnumLog Type="Started" Name="Started" Marker="vokrak">
-							<Log StringName="promluv_s_v_boji_jsem_zvi_h6Dz" Text="V boji jsem zvítězil a Vokřák se vzdává. Měl bych si s ním promluvit." />
+							<Log StringName="promluv_s_v_boji_jsem_zvi_h6Dz" Text="Musím si s Vokřákem promluvit." />
 						</EnumLog>
 						<EnumLog Type="Completed" Name="Talked">
 							<Log StringName="promluv_s_v_boji_jsem_zvi_yUTS" Text="V boji jsem zvítězil a Vokřák se mi vzdal. Přiznal, že za celým podvodem stojí pan Bureš a že ho ke spolupráci donutil kombinací výhrůžek a úplatků. Zatáhl ho do podvodu tak daleko, že mu dal na starosti i řízení kontaktů v dolech - byl to právě on, kdo předával peníze Máslovi. Hlavní informace ale byla, že nepřiznané stříbro, už v čisté formě, odchází z hutí do tajné mincovny, skryté ve vytěžené štole u Staré Kutny." />

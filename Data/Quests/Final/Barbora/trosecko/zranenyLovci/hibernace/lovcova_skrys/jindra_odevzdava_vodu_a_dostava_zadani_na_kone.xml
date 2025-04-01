@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Database xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" Name="brambora">
 	<Skald>
-		<FaderDialog Name="jindra_odevzdava_vodu_a_dostava_zadani_na_kone">
+		<ForcedDialog Name="jindra_odevzdava_vodu_a_dostava_zadani_na_kone">
 			<Ports>
 				<Port Name="jdi_stopovat_meho_kone" Direction="Out" Type="trigger">
 					<DesignName StringName="jindra_od_jdi_stopovat_me_WSI1" Text="jdi stopovat mého koně" />
@@ -33,14 +33,14 @@
 				</Port>
 			</Ports>
 			<Text StringName="jindra_odevzdava_vodu_a_d_XgX9" Text="Jindra odevzdává vodu a dostává zadání na koně" />
-			<Dialogue TechnicalStatus="Enabled" DefaultMaxDistance="10" AllowFarewell="false" AllowGreeting="false" Priority="1" GesturesSetDate="2024-04-03T17:03:01.1264892+02:00" GesturesSetResponseCount="74">
+			<Dialogue TechnicalStatus="Enabled" DefaultMaxDistance="10" AllowFarewell="false" AllowGreeting="false" Priority="1" Initiator="NonPlayer" GesturesSetDate="2024-04-03T17:03:01.1264892+02:00" GesturesSetResponseCount="74">
 				<SelectedSouls>
 					<SelectedSoul Role="HENRY" Voice="tomMcKay" Soul="player_henry" Type="Wave" Language="ENG" />
 					<SelectedSoul Role="LOVCI_VOSTATEK" Voice="stewartMoore" Soul="tvid_huntsman" Type="Wave" Language="ENG" />
 				</SelectedSouls>
 				<Decision Name="dec1" Priority="SideQuestSubmission" CustomCamera="s16_JsLvK_customCamera_01">
 					<Sequences>
-						<Sequence EntryCondition="Port('hrac_ma_u_sebe_mech_s_vodou') AND !ThisSequenceUsed()" EndType="Decision" Visibility="Internal" Name="root">
+						<Sequence EntryCondition="Port('hrac_ma_u_sebe_mech_s_vodou') AND !ThisSequenceUsed()" EndType="Decision" Visibility="Public" Name="root">
 							<DesignName StringName="jindra_od_root_TFmo" Text="root" />
 							<UiPrompt StringName="ui_jindra_od_root_Qdhk" Text="Tady máš tu vodu." />
 							<Triggers>
@@ -57,13 +57,13 @@
 										<CameraCommand Delay="-2.29" CustomCamera="s16_JsLvK_customCamera_01" />
 									</Commands>
 								</Response>
-								<Response Role="LOVCI_VOSTATEK" StartDelay="1.09" ReferenceLength="3.18">
+								<Response Role="LOVCI_VOSTATEK" StartDelay="0.36" ReferenceLength="3.18">
 									<Parenthetical>
 										<Text StringName="jind_lovci_vos_uz_je_skor_SLjT" Text="už je skoro střízlivý" />
 									</Parenthetical>
 									<Text StringName="jind_lovci_vos_dekuju_kam_NUYX" Text="Děkuju, kamaráde, tohle mi pročistí hlavu." />
 									<Commands>
-										<CameraCommand CustomCamera="s16_JsLvK_customCamera_05" />
+										<CameraCommand Delay="0" CustomCamera="s16_JsLvK_customCamera_07" />
 									</Commands>
 									<ReviewNotesStylistic>
 										<Item Date="2019-11-07 13:41:38" UserName="zdenek.glatz" Text="Mohl by se zmínit, že mu ta voda nebo ta cesat sem docela pročistily hlavu. Dál už totiž vůbec nezní tak opile." AcceptState="Accepted" />
@@ -75,7 +75,7 @@
 								<Response Role="LOVCI_VOSTATEK" ReferenceLength="5.96">
 									<Text StringName="jind_lovci_vos_musime_naj_dWQQ" Text="Musíš najít Pepíka. Ať už utek, nebo mi ho někdo ukradnul, je to průser.  " />
 									<Commands>
-										<CameraCommand Delay="0.06" CustomCamera="s16_JsLvK_customCamera_07" />
+										<CameraCommand Delay="0.06" CustomCamera="s16_JsLvK_customCamera_05" />
 									</Commands>
 								</Response>
 							</Elements>
@@ -815,8 +815,8 @@
 								</Sequences>
 							</Decision>
 						</Sequence>
-						<Sequence EntryCondition="Port('hrac_odmitnul_pomahat_rovnou') AND !ThisSequenceUsed()" EndType="GoTo" GoToDecision="dec13" Name="seq37">
-							<DesignName StringName="jindra_od_seq37_ULMR" Text="seq37" />
+						<Sequence EntryCondition="Port('hrac_odmitnul_pomahat_rovnou') AND !ThisSequenceUsed()" EndType="GoTo" GoToDecision="dec13" Visibility="Public" Name="seq37">
+							<DesignName StringName="jindra_od_seq37_ULMR" Text="návratovka" />
 							<UiPrompt StringName="ui_jindra_od_seq37_UBuZ" Text="Tak já ti pomůžu." />
 							<Elements>
 								<Response Role="HENRY" ReferenceLength="2.95">
@@ -841,6 +841,6 @@
 					</Sequences>
 				</Decision>
 			</Dialogue>
-		</FaderDialog>
+		</ForcedDialog>
 	</Skald>
 </Database>

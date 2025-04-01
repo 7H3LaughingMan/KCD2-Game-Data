@@ -55,27 +55,29 @@
 					<Edge From="if1.True" To="SetActive" />
 					<Edge From="navrat_od_bedny.jindra_dostal_vino" To="SetDone">
 						<Vertex>vertex11</Vertex>
+						<Vertex>BSNymBMx</Vertex>
 						<Vertex>vertex6</Vertex>
 						<Vertex>vertex9</Vertex>
 						<Vertex>vertex10</Vertex>
 					</Edge>
 					<Edge From="give_wineForCapon.OnTrigger" To="SetDone">
 						<Vertex>vertex11</Vertex>
+						<Vertex>BSNymBMx</Vertex>
 						<Vertex>vertex6</Vertex>
 						<Vertex>vertex9</Vertex>
 						<Vertex>vertex10</Vertex>
-					</Edge>
-					<Edge From="objective__otevri_bednu_s_jablky.mezi_tim_hrac_okradl_kucharku" To="SetDoneWineStolen">
-						<Vertex>cUw9PJN1</Vertex>
-						<Vertex>HH2sWfRY</Vertex>
-						<Vertex>bhnmW3ve</Vertex>
-						<Vertex>B2SppF7P</Vertex>
 					</Edge>
 					<Edge From="itemclasstrigger_playerinventory.onacquire" To="SetDoneWineStolen">
 						<Vertex>kNteAKN8</Vertex>
 						<Vertex>cH3Wmuss</Vertex>
 						<Vertex>bhnmW3ve</Vertex>
 						<Vertex>B2SppF7P</Vertex>
+					</Edge>
+					<Edge From="dialog_v_kuchyni.dostal_vino" To="SetDone">
+						<Vertex>BSNymBMx</Vertex>
+						<Vertex>vertex6</Vertex>
+						<Vertex>vertex9</Vertex>
+						<Vertex>vertex10</Vertex>
 					</Edge>
 				</State>
 				<HasteTrigger Name="give_wineForCapon" PositionY="-330" PositionX="2070" />
@@ -110,11 +112,16 @@
 				<Function Name="not8" PositionY="-200" PositionX="1320" MethodName="math::boolean::Not" DeclaringType="math::boolean">
 					<Edge From="HasItems_Soul.hasitems" To="Value" />
 				</Function>
-				<objective__otevri_bednu_s_jablky Name="objective__otevri_bednu_s_jablky" PositionY="70" PositionX="1580" RequiredForOutput="trosecko">
+				<objective__otevri_bednu_s_jablky Name="objective__otevri_bednu_s_jablky" PositionY="50" PositionX="1580" RequiredForOutput="trosecko">
 					<Edge From="dialog_v_kuchyni.hrac_mluvil_s_kucharkou" To="hrac_mluvil_s_kucharkou" />
 					<Edge From="navrat_od_bedny.hrac_bednu_neotevrel" To="hrac_bednu_neotevrel">
 						<Vertex>vertex4</Vertex>
 						<Vertex>vertex5</Vertex>
+					</Edge>
+					<Edge From="dialog_v_kuchyni.dostal_vino" To="hrac_bednu_neotevrel" />
+					<Edge From="itemclasstrigger_playerinventory.onacquire" To="hrac_okradl_kucharku">
+						<Vertex>Y55HXle6</Vertex>
+						<Vertex>lBuP7RSC</Vertex>
 					</Edge>
 				</objective__otevri_bednu_s_jablky>
 				<zajdi_do_kuchyne_pro_vino Name="objectiveVisual2" PositionY="90" PositionX="720" RequiredForOutput="trosecko">
@@ -124,14 +131,16 @@
 					<Edge From="navrat_od_bedny.jindra_dostal_vino" To="jindra_dostal_vino" />
 					<Edge From="give_wineForCapon.OnTrigger" To="jindra_dostal_vino" />
 					<Edge From="dialog_v_kuchyni.dostal_vino" To="jindra_dostal_vino">
-						<Vertex>SRwLSE20</Vertex>
+						<Vertex>J9tScmp2</Vertex>
 						<Vertex>vertex14</Vertex>
 					</Edge>
 					<Edge From="getWine.OnActive" To="pridani_itemu_do_truhli_v_kuchyni">
 						<Vertex>vertex15</Vertex>
 					</Edge>
-					<Edge From="objective__otevri_bednu_s_jablky.mezi_tim_hrac_okradl_kucharku" To="jindra_dostal_vino">
-						<Vertex>SRwLSE20</Vertex>
+					<Edge From="itemclasstrigger_playerinventory.onacquire" To="jindra_dostal_vino">
+						<Vertex>Y55HXle6</Vertex>
+						<Vertex>lBuP7RSC</Vertex>
+						<Vertex>J9tScmp2</Vertex>
 						<Vertex>vertex14</Vertex>
 					</Edge>
 				</Output>
@@ -143,11 +152,11 @@
 				<EdgeVertex Name="B2SppF7P" PositionY="580" PositionX="250" />
 				<EdgeVertex Name="bg98D7gc" PositionY="590" PositionX="900" />
 				<EdgeVertex Name="bhnmW3ve" PositionY="580" PositionX="520" />
+				<EdgeVertex Name="BSNymBMx" PositionY="410" PositionX="1420" />
 				<EdgeVertex Name="cH3Wmuss" PositionY="680" PositionX="730" />
-				<EdgeVertex Name="cUw9PJN1" PositionY="440" PositionX="1890" />
-				<EdgeVertex Name="HH2sWfRY" PositionY="440" PositionX="1130" />
+				<EdgeVertex Name="J9tScmp2" PositionY="332" PositionX="1598" />
 				<EdgeVertex Name="kNteAKN8" PositionY="680" PositionX="1050" />
-				<EdgeVertex Name="SRwLSE20" PositionY="330" PositionX="2070" />
+				<EdgeVertex Name="lBuP7RSC" PositionY="440" PositionX="1420" />
 				<EdgeVertex Name="vertex1" PositionY="610" PositionX="520" />
 				<EdgeVertex Name="vertex10" PositionY="550" PositionX="250" />
 				<EdgeVertex Name="vertex11" PositionY="410" PositionX="2290" />
@@ -160,6 +169,7 @@
 				<EdgeVertex Name="vertex6" PositionY="410" PositionX="1130" />
 				<EdgeVertex Name="vertex9" PositionY="550" PositionX="520" />
 				<EdgeVertex Name="XtGSD9WP" PositionY="590" PositionX="1424" />
+				<EdgeVertex Name="Y55HXle6" PositionY="440" PositionX="1130" />
 			</EdgeVertices>
 			<Text StringName="v_kuchyni_ltv4" Text="V kuchyni" />
 			<Elements>

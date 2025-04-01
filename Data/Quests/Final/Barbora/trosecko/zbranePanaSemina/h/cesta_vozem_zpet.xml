@@ -45,6 +45,9 @@
 				<Port Name="vasek_unstream_beforeplay" Direction="Out" Type="trigger">
 					<DesignName StringName="cesta_voz_vasek_unstream__98dI" Text="Vašek unstream beforePlay" />
 				</Port>
+				<Port Name="hrac_zada_o_strpeni_po_zasolovani" Direction="In" Type="trigger">
+					<DesignName StringName="cesta_voz_hrac_zada_o_str_rvn7" Text="Hráč žádá o strpení po zasólování" />
+				</Port>
 			</Ports>
 			<Definitions>
 				<Definition File="cesta_vozem_zpet/debata_na_voze_bez_vaska.xml" />
@@ -79,6 +82,10 @@
 					<Edge From="tourBackHome.OnActivePrvniPart" To="instanthealandremoveallinjuriesandpoisons">
 						<Vertex>vertex30</Vertex>
 					</Edge>
+				</healing>
+				<healing Name="healing_1" PositionY="-1050" PositionX="570" Namespace="utils.general">
+					<Asset Name="souls" Alias="player" />
+					<Edge From="wagonPhase.OnWagonActive" To="removeallinjuriesandpoisons" />
 				</healing>
 				<If Name="if_finalDestination" PositionY="-350" PositionX="2440">
 					<Edge From="wagonPhase.WagonWithoutPlayer" To="Condition" />
@@ -354,8 +361,13 @@
 						<Vertex>u60pl5B4</Vertex>
 						<Vertex>DIgd790R</Vertex>
 						<Vertex>9XMMQYC4</Vertex>
+						<Vertex>coMSvCmw</Vertex>
 					</Edge>
 					<Edge From="semin_suk_jedou_bez_hrace" To="SetFinished" />
+					<Edge From="hrac_zada_o_strpeni_po_zasolovani" To="SetStopped">
+						<Vertex>PgRNAAAs</Vertex>
+						<Vertex>coMSvCmw</Vertex>
+					</Edge>
 				</Timer>
 				<tour_advanced Name="tour_advanced" PositionY="250" PositionX="580" Namespace="utils.speech">
 					<Asset Name="smartentity" Alias="zbraneSO" />
@@ -365,6 +377,7 @@
 					<Constant Name="preferedposition" Value="back" />
 					<Constant Name="formationspeedlimit" Value="fastRun" />
 					<Asset Name="finaltagpoint" Alias="seminCrossroadTwoPoint" />
+					<Constant Name="disableorca" Value="false" />
 					<Constant Name="followtype" Value="none" />
 					<Asset Name="followablesoul" Alias="semin" />
 					<Constant Name="followablesoulpreferedposition" Value="none" />
@@ -429,6 +442,9 @@
 						<Vertex>f9gCgHqu</Vertex>
 					</Edge>
 					<Edge From="if60.True" To="SetActivePrvniPart" />
+					<Edge From="hrac_zada_o_strpeni_po_zasolovani" To="SetNone">
+						<Vertex>PgRNAAAs</Vertex>
+					</Edge>
 				</State>
 				<vystupovat Name="vystupovat" PositionY="-1470" PositionX="1520" />
 				<State Name="wagonPhase" PositionY="-750" PositionX="30" TypeT="WagonState">
@@ -468,7 +484,7 @@
 				<EdgeVertex Name="7vr7eVSB" PositionY="-440" PositionX="530" />
 				<EdgeVertex Name="8ALK2JNX" PositionY="-120" PositionX="980" />
 				<EdgeVertex Name="9pTSwe5p" PositionY="120" PositionX="3100" />
-				<EdgeVertex Name="9XMMQYC4" PositionY="0" PositionX="-2310" />
+				<EdgeVertex Name="9XMMQYC4" PositionY="0" PositionX="-2410" />
 				<EdgeVertex Name="aPlj433q" PositionY="600" PositionX="-1520" />
 				<EdgeVertex Name="aQSNBA5h" PositionY="-70" PositionX="650" />
 				<EdgeVertex Name="As2SsJnc" PositionY="310" PositionX="410" />
@@ -476,6 +492,7 @@
 				<EdgeVertex Name="beR0u89B" PositionY="60" PositionX="3100" />
 				<EdgeVertex Name="cGWgrDwC" PositionY="600" PositionX="-2080" />
 				<EdgeVertex Name="Ck3tNmk2" PositionY="20" PositionX="2580" />
+				<EdgeVertex Name="coMSvCmw" PositionY="654" PositionX="-2399" />
 				<EdgeVertex Name="cRBWf9av" PositionY="20" PositionX="50" />
 				<EdgeVertex Name="d08f0F80" PositionY="670" PositionX="-460" />
 				<EdgeVertex Name="DIgd790R" PositionY="0" PositionX="-1510" />
@@ -499,6 +516,7 @@
 				<EdgeVertex Name="odNDF8EW" PositionY="-160" PositionX="-300" />
 				<EdgeVertex Name="oSW4BaDu" PositionY="-520" PositionX="2370" />
 				<EdgeVertex Name="P0TJMWot" PositionY="-1990" PositionX="830" />
+				<EdgeVertex Name="PgRNAAAs" PositionY="654" PositionX="-2495" />
 				<EdgeVertex Name="QJlpgH1X" PositionY="-120" PositionX="3180" />
 				<EdgeVertex Name="QlLMG5qa" PositionY="-990" PositionX="1280" />
 				<EdgeVertex Name="R086o8Gw" PositionY="790" PositionX="-2690" />

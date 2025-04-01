@@ -413,18 +413,20 @@
 					<IfCondition failOnCondition="false" condition="$useVictimsGender">
 						<Sequence>
 							<DetermineCrimeVictim Information="$information" Victim="$victim" />
-							<CheckWuidValid wuid="$victim" FailSubtMissing="false" saveVersion="2">
-								<Then canSkip="1">
-									<HasGenderCheck Gender="Female" SoulWUID="$victim" FailSubtMissing="false" saveVersion="2">
-										<Then canSkip="1">
-											<Expression expressions="$dialogContext[&apos;isMan&apos;] = 0" />
-										</Then>
-										<Else canSkip="1">
-											<Expression expressions="$dialogContext[&apos;isMan&apos;] = 1" />
-										</Else>
-									</HasGenderCheck>
-								</Then>
-							</CheckWuidValid>
+							<IfCondition failOnCondition="false" condition="$victim ~= $__null">
+								<CheckWuidValid wuid="$victim" FailSubtMissing="false" saveVersion="2">
+									<Then canSkip="1">
+										<HasGenderCheck Gender="Female" SoulWUID="$victim" FailSubtMissing="false" saveVersion="2">
+											<Then canSkip="1">
+												<Expression expressions="$dialogContext[&apos;isMan&apos;] = 0" />
+											</Then>
+											<Else canSkip="1">
+												<Expression expressions="$dialogContext[&apos;isMan&apos;] = 1" />
+											</Else>
+										</HasGenderCheck>
+									</Then>
+								</CheckWuidValid>
+							</IfCondition>
 						</Sequence>
 					</IfCondition>
 				</Sequence>
@@ -1158,24 +1160,27 @@
 								<DetermineCrimeVictim hasInputBreakpoint="0" comment="" breakpointFlags="0">
 									<OutputBreakpoints />
 								</DetermineCrimeVictim>
-								<CheckWuidValid hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
+								<IfCondition hasInputBreakpoint="0" comment="" breakpointFlags="0">
 									<OutputBreakpoints />
-									<Then>
-										<HasGenderCheck hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
-											<OutputBreakpoints />
-											<Then>
-												<Expression hasInputBreakpoint="0" comment="" breakpointFlags="0">
-													<OutputBreakpoints />
-												</Expression>
-											</Then>
-											<Else>
-												<Expression hasInputBreakpoint="0" comment="" breakpointFlags="0">
-													<OutputBreakpoints />
-												</Expression>
-											</Else>
-										</HasGenderCheck>
-									</Then>
-								</CheckWuidValid>
+									<CheckWuidValid hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
+										<OutputBreakpoints />
+										<Then>
+											<HasGenderCheck hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
+												<OutputBreakpoints />
+												<Then>
+													<Expression hasInputBreakpoint="0" comment="" breakpointFlags="0">
+														<OutputBreakpoints />
+													</Expression>
+												</Then>
+												<Else>
+													<Expression hasInputBreakpoint="0" comment="" breakpointFlags="0">
+														<OutputBreakpoints />
+													</Expression>
+												</Else>
+											</HasGenderCheck>
+										</Then>
+									</CheckWuidValid>
+								</IfCondition>
 							</Sequence>
 						</IfCondition>
 					</Sequence>

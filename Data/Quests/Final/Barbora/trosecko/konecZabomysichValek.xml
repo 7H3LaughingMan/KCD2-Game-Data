@@ -58,7 +58,7 @@
 				<Definition File="konecZabomysichValek/bezici_cast.xml" />
 			</Definitions>
 			<Nodes>
-				<bezici_cast Name="bezici_cast" PositionY="840" PositionX="-2110">
+				<bezici_cast Name="bezici_cast" PositionY="1010" PositionX="-2100">
 					<Edge From="hibernovana_cast.konec_questu" To="konec_questu" />
 					<Edge From="hibernovana_cast.hreb_na_strane_tachova" To="hreb_na_strane_tachova" />
 					<Edge From="hibernovana_cast.hreb_ve_stredu_louky" To="hreb_ve_stredu_louky" />
@@ -92,6 +92,8 @@
 						<Vertex>vertex55</Vertex>
 						<Vertex>WLQHQ5jb</Vertex>
 					</Edge>
+					<Edge From="hibernovana_cast.v_souboji_nekdo_umrel" To="v_souboji_nekdo_umrel" />
+					<Edge From="hibernovana_cast.smrt_na_pastvine" To="smrt_na_pastvine" />
 				</bezici_cast>
 				<Function Name="compare3" PositionY="200" PositionX="-3460" TypeT="NomadsHonourQuestEnding" MethodName="Control::Compare" DeclaringType="Control">
 					<Constant Name="Op" Value="Equals" />
@@ -238,12 +240,12 @@
 			</Nodes>
 			<EdgeVertices>
 				<EdgeVertex Name="0UpChSnD" PositionY="537" PositionX="-3488" />
-				<EdgeVertex Name="410qLuo8" PositionY="1330" PositionX="-3380" />
+				<EdgeVertex Name="410qLuo8" PositionY="1500" PositionX="-3370" />
 				<EdgeVertex Name="HbbH4f94" PositionY="-44" PositionX="-2097" />
 				<EdgeVertex Name="JIjen5ww" PositionY="506" PositionX="-2828" />
 				<EdgeVertex Name="r4JH0B0p" PositionY="535" PositionX="-2834" />
-				<EdgeVertex Name="vertex45" PositionY="1780" PositionX="-1800" />
-				<EdgeVertex Name="vertex46" PositionY="1780" PositionX="-2640" />
+				<EdgeVertex Name="vertex45" PositionY="1950" PositionX="-1790" />
+				<EdgeVertex Name="vertex46" PositionY="1950" PositionX="-2630" />
 				<EdgeVertex Name="vertex47" PositionY="-230" PositionX="-2350" />
 				<EdgeVertex Name="vertex48" PositionY="-231" PositionX="-2995" />
 				<EdgeVertex Name="vertex49" PositionY="-90" PositionX="-2150" />
@@ -256,9 +258,9 @@
 				<EdgeVertex Name="vertex56" PositionY="470" PositionX="-2830" />
 				<EdgeVertex Name="vertex57" PositionY="420" PositionX="-3480" />
 				<EdgeVertex Name="vertex58" PositionY="420" PositionX="-2830" />
-				<EdgeVertex Name="vGlzDsuM" PositionY="1310" PositionX="-3380" />
+				<EdgeVertex Name="vGlzDsuM" PositionY="1480" PositionX="-3370" />
 				<EdgeVertex Name="WgPeymUq" PositionY="507" PositionX="-3487" />
-				<EdgeVertex Name="WLQHQ5jb" PositionY="1350" PositionX="-3380" />
+				<EdgeVertex Name="WLQHQ5jb" PositionY="1520" PositionX="-3370" />
 			</EdgeVertices>
 			<Types>
 				<Type TypeName="KonecZabomysichValek_aboutQuest">
@@ -284,6 +286,7 @@
 					<StateTypeEnumeration Name="FledButTheFightIsStillOn" ObjectiveValueType="Updated" />
 					<StateTypeEnumeration Name="Fled" ObjectiveValueType="Canceled" />
 					<StateTypeEnumeration Name="DrawnWeapon" ObjectiveValueType="Canceled" />
+					<StateTypeEnumeration Name="Abort" ObjectiveValueType="None" />
 				</Type>
 				<Type TypeName="ProgressFailableDoubleDone">
 					<StateTypeEnumeration Name="none" ObjectiveValueType="None" />
@@ -319,6 +322,7 @@
 				<Type TypeName="KonecZabomysichValek_killingImportantPeople">
 					<StateTypeEnumeration Name="None" ObjectiveValueType="None" />
 					<StateTypeEnumeration Name="Death" ObjectiveValueType="None" />
+					<StateTypeEnumeration Name="DeathInPasture" ObjectiveValueType="None" />
 				</Type>
 				<Type TypeName="KonecZabomysichValek_ZaDrozdem">
 					<StateTypeEnumeration Name="None" ObjectiveValueType="None" />
@@ -550,6 +554,7 @@
 						<EnumLog Type="Canceled" Name="DrawnWeapon">
 							<Log StringName="rozbij_ze_mozna_jsem_se_n_zl2l" Text="Možná jsem se nechal v zápalu boje trochu unést... Každopádně po tom, co jsem provedl nečekám, že by mě v Tachově nebo v Želejově vítali s otevřenou náručí." />
 						</EnumLog>
+						<EnumLog Type="None" Name="Abort" />
 					</Logs>
 				</Objective>
 				<Objective TypeT="SkirmishOnField" Name="rozbij_tachovakum_hubu">
@@ -574,6 +579,7 @@
 						<EnumLog Type="Canceled" Name="DrawnWeapon">
 							<Log StringName="rozbij_ta_mozna_jsem_se_n_msLX" Text="Možná jsem se nechal v zápalu boje trochu unést... Každopádně po tom, co jsem provedl nečekám, že by mě v Tachově nebo v Želejově vítali s otevřenou náručí." />
 						</EnumLog>
+						<EnumLog Type="None" Name="Abort" />
 					</Logs>
 				</Objective>
 				<Objective TypeT="SkirmishOnField" Name="bij_se_nebo_utec">
@@ -598,6 +604,7 @@
 						<EnumLog Type="Canceled" Name="DrawnWeapon">
 							<Log StringName="utec_nebo_mozna_jsem_se_n_djMN" Text="Možná jsem se nechal v zápalu boje trochu unést, ale koneckonců, to oni napadli mě! Každopádně po tom, co jsem provedl nečekám, že by mě v Tachově nebo v Želejově vítali s otevřenou náručí." />
 						</EnumLog>
+						<EnumLog Type="None" Name="Abort" />
 					</Logs>
 				</Objective>
 				<Objective TypeT="ProgressFailableDoubleDone" Name="promluv_si_s_olbramem">
@@ -641,8 +648,12 @@
 					<Logs>
 						<EnumLog Type="None" Name="None" />
 						<EnumLog Type="None" Name="Death" />
+						<EnumLog Type="None" Name="DeathInPasture" />
 						<Log Name="SomeoneIsDead">
 							<Log StringName="dulezita__zacali_umirat_l_wM3m" Text="V kraji začali umírat lidé, na nějaké bitky na louce teď nemá nikdo náladu." />
+						</Log>
+						<Log Name="SomeoneDiedInPasture">
+							<Log StringName="dulezita__bitka_na_pastvi_kj7R" Text="Bitka na pastvině se trochu zvrhla a lidé začali umírat. Zatraceně, všechno se pokazilo!" />
 						</Log>
 					</Logs>
 				</Objective>

@@ -51,6 +51,9 @@
 				<Port Name="dobra_reputace" Direction="In" Type="bool">
 					<DesignName StringName="s_mankou_dobra_reputace_SXLa" Text="Dobrá reputace" />
 				</Port>
+				<Port Name="henik_mrtvy" Direction="In" Type="bool">
+					<DesignName StringName="s_mankou_henik_mrtvy_nFrp" Text="Heník mrtvý" />
+				</Port>
 			</Ports>
 			<Text StringName="with_manka_UqlX" Text="S Mankou" />
 			<Elements>
@@ -58,14 +61,14 @@
 					<Text StringName="with_manka_obecne_mluvit__DsTv" Text="Obecně mluvit o májce. Lze se doptat na Henika. Lze zjisti, že spolu tajně choděj. Lze přesvědčit Manku aby šla s Henikem v noci na rande, že jim to Henry pohlídá a nikdo se o ničem nedozví." />
 				</GameplayActionElement>
 			</Elements>
-			<Dialogue TechnicalStatus="Enabled" AllowGreeting="false" GesturesSetDate="2024-03-18T16:53:34.9949657+01:00" GesturesSetResponseCount="52">
+			<Dialogue TechnicalStatus="Enabled" GesturesSetDate="2024-03-18T16:53:34.9949657+01:00" GesturesSetResponseCount="52">
 				<SelectedSouls>
 					<SelectedSoul Role="HENRY" Voice="tomMcKay" Type="Wave" Language="ENG" />
 					<SelectedSoul Role="MANKA" Voice="fejka" Type="Wave" Language="PDG" />
 				</SelectedSouls>
 				<Decision Name="dec1" Priority="SideQuestSubmission">
 					<Sequences>
-						<Sequence EntryCondition="Port('enabled') &amp;&#xD;&#xA;Port('henry_uz_mluvil_s_henikem_o_mance') &amp;&#xD;&#xA;!Port('manka_rekla_henrymu_o_henikovi') &amp;&#xD;&#xA;!Port('domluvit_rande_s_henikem_seqused') &amp;&#xD;&#xA;!Port('majka_uriznuta__nelze_uz_plnit_rande') &amp;&#xD;&#xA;!Port('vyprovokovat_henika')" EndType="Decision" Visibility="Public" Name="domluvitRandeSHenikem">
+						<Sequence EntryCondition="Port('enabled') &amp;&#xD;&#xA;Port('henry_uz_mluvil_s_henikem_o_mance') &amp;&#xD;&#xA;!Port('manka_rekla_henrymu_o_henikovi') &amp;&#xD;&#xA;!Port('domluvit_rande_s_henikem_seqused') &amp;&#xD;&#xA;!Port('majka_uriznuta__nelze_uz_plnit_rande') &amp;&#xD;&#xA;!Port('vyprovokovat_henika') AND &#xD;&#xA;!Port('henik_mrtvy')" EndType="Decision" Visibility="Public" Name="domluvitRandeSHenikem">
 							<DesignName StringName="with_manka_domluvitrandes_ynbU" Text="Domluvit rande s Henikem" />
 							<UiPrompt StringName="ui_with_manka_domluvitran_rOJ3" Text="Mluvil jsem o tobě s Heníkem." />
 							<Elements>
@@ -253,7 +256,7 @@
 																</Elements>
 																<Decision Name="dec18" Priority="SideQuestSubmission">
 																	<Sequences>
-																		<Sequence SpeechCoef="0" EndType="Decision" Visibility="Internal" Name="zkusil_skillcheck">
+																		<Sequence EndType="Decision" SpeechCoef="0" Visibility="Internal" Name="zkusil_skillcheck">
 																			<DesignName StringName="with_manka_seq4_85M4" Text="zkusil skillcheck" />
 																			<Elements>
 																				<Response Role="HENRY" />
@@ -373,7 +376,7 @@
 								</Sequences>
 							</Decision>
 						</Sequence>
-						<Sequence EntryCondition="!SequenceUsed('zkusil_skillcheck') AND&#xD;&#xA;SequenceUsed('nevybral_skillcheck') AND&#xD;&#xA;!Port('majka_uriznuta__nelze_uz_plnit_rande') &amp;&#xD;&#xA;!Port('vyprovokovat_henika')" EndType="GoTo" GoToDecision="dec18" SkillCheckType="persuade" Type="Skillcheck" SkillCheck="Easy" Name="seq34">
+						<Sequence EntryCondition="!SequenceUsed('zkusil_skillcheck') AND&#xD;&#xA;SequenceUsed('nevybral_skillcheck') AND&#xD;&#xA;!Port('majka_uriznuta__nelze_uz_plnit_rande') &amp;&#xD;&#xA;!Port('vyprovokovat_henika') AND &#xD;&#xA;!Port('henik_mrtvy')" EndType="GoTo" GoToDecision="dec18" SkillCheckType="persuade" Type="Skillcheck" SkillCheck="Easy" Name="seq34">
 							<DesignName StringName="s_mankou_seq34_0K8H" Text="seq34" />
 							<UiPrompt StringName="ui_s_mankou_seq34_HQhH" Text="Vyjdi si s Heníkem." />
 							<Elements>
@@ -389,7 +392,7 @@
 								</Response>
 							</Elements>
 						</Sequence>
-						<Sequence EntryCondition="Port('enabled') &amp;&#xD;&#xA;!Port('o_majce_seqused') &amp;&#xD;&#xA;!Port('henry_uz_mluvil_s_henikem_o_mance') &amp;&#xD;&#xA;!Port('majka_uriznuta__nelze_uz_plnit_rande') AND &#xD;&#xA;!ThisSequenceUsed() &amp;&#xD;&#xA;!Port('vyprovokovat_henika')" EndType="Decision" Visibility="Public" Name="oMajce">
+						<Sequence EntryCondition="Port('enabled') &amp;&#xD;&#xA;!Port('o_majce_seqused') &amp;&#xD;&#xA;!Port('henry_uz_mluvil_s_henikem_o_mance') &amp;&#xD;&#xA;!Port('majka_uriznuta__nelze_uz_plnit_rande') AND &#xD;&#xA;!ThisSequenceUsed() &amp;&#xD;&#xA;!Port('vyprovokovat_henika') AND &#xD;&#xA;!Port('henik_mrtvy')" EndType="Decision" Visibility="Public" Name="oMajce">
 							<DesignName StringName="with_manka_omajce_VlXI" Text="O Majce" />
 							<UiPrompt StringName="ui_with_manka_omajce_KUVl" Text="Moc hezká májka." />
 							<Elements>
@@ -707,7 +710,7 @@
 								</Sequences>
 							</Decision>
 						</Sequence>
-						<Sequence EntryCondition="!SequenceUsed('manka_skillcheck') AND&#xD;&#xA;SequenceUsed('henry_se_nepta') AND&#xD;&#xA;!Port('majka_uriznuta__nelze_uz_plnit_rande') &amp;&#xD;&#xA;!Port('vyprovokovat_henika')" EndType="GoTo" GoToDecision="dec17" SkillCheckType="persuade" Type="Skillcheck" SkillCheck="Medium" Name="seq31">
+						<Sequence EntryCondition="!SequenceUsed('manka_skillcheck') AND&#xD;&#xA;SequenceUsed('henry_se_nepta') AND&#xD;&#xA;!Port('majka_uriznuta__nelze_uz_plnit_rande') &amp;&#xD;&#xA;!Port('vyprovokovat_henika') AND &#xD;&#xA;!Port('henik_mrtvy')" EndType="GoTo" GoToDecision="dec17" SkillCheckType="persuade" Type="Skillcheck" SkillCheck="Medium" Name="seq31">
 							<DesignName StringName="with_manka_seq31_HhTJ" Text="seq31" />
 							<UiPrompt StringName="ui_with_manka_seq31_mxAR" Text="Pověz mi o problému s Heníkem." />
 							<Elements>
@@ -724,7 +727,7 @@
 								</Response>
 							</Elements>
 						</Sequence>
-						<Sequence EntryCondition="Port('enabled') &amp;&#xD;&#xA;Port('henry_uz_mluvil_s_henikem_o_mance') &amp;&#xD;&#xA;Port('manka_rekla_henrymu_o_henikovi') &amp;&#xD;&#xA;!Port('mame_s_henikem_plan_seqused') &amp;&#xD;&#xA;!Port('majka_uriznuta__nelze_uz_plnit_rande')&amp;&#xD;&#xA;!Port('vyprovokovat_henika')" EndType="GoTo" GoToDecision="dec14" Visibility="Public" Name="mameSHenikemPlan">
+						<Sequence EntryCondition="Port('enabled') &amp;&#xD;&#xA;Port('henry_uz_mluvil_s_henikem_o_mance') &amp;&#xD;&#xA;Port('manka_rekla_henrymu_o_henikovi') &amp;&#xD;&#xA;!Port('mame_s_henikem_plan_seqused') &amp;&#xD;&#xA;!Port('majka_uriznuta__nelze_uz_plnit_rande')&amp;&#xD;&#xA;!Port('vyprovokovat_henika') AND &#xD;&#xA;!Port('henik_mrtvy')" EndType="GoTo" GoToDecision="dec14" Visibility="Public" Name="mameSHenikemPlan">
 							<DesignName StringName="with_manka_mameshenikempl_wvA8" Text="Máme s Heníkem plán" />
 							<UiPrompt StringName="ui_with_manka_mameshenike_bkne" Text="Máme s Heníkem plán." />
 							<Elements>

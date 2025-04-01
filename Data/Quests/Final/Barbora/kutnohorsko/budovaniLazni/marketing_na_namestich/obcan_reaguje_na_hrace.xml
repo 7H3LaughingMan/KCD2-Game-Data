@@ -112,6 +112,10 @@
 						<Vertex>vertex24</Vertex>
 					</Edge>
 				</dialog_s_uvedomelym_obcanem>
+				<disabledirectionschatsoul Name="disabledirectionschatsoul" PositionY="-330" PositionX="180" Namespace="utils.hardcoremode">
+					<Asset Name="soul" Alias="uvedomelyObcan" />
+					<Edge From="switch20.Value1" To="enabled" />
+				</disabledirectionschatsoul>
 				<Function Name="getdistance10" PositionY="1850" PositionX="-690" MethodName="wh::xgenaimodule::GetDistance" DeclaringType="wh::xgenaimodule">
 					<Asset Name="Origin" Alias="uvedomelyObcan" />
 					<Asset Name="Target" Alias="player" />
@@ -171,6 +175,14 @@
 					<Edge From="citizenBehavior.OnFight" To="start" />
 					<Edge From="citizenBehavior.Fight" To="active" />
 				</souboj_s_obcanem>
+				<Switch Name="switch20" PositionY="-310" PositionX="-140" TypeT="CitizenBehavior" ValueTypes="bool" SwitchValues="WaitOnSquare UrgeDialog Fight Flee">
+					<Constant Name="WaitOnSquareValue1" Value="true" />
+					<Constant Name="UrgeDialogValue1" Value="true" />
+					<Constant Name="FightValue1" Value="true" />
+					<Constant Name="FleeValue1" Value="true" />
+					<Constant Name="DefaultValue1" Value="false" />
+					<Edge From="citizenBehavior.State" To="Switch" />
+				</Switch>
 				<UrgeADialog Name="UrgeADialog" PositionY="40" PositionX="30" Namespace="utils.speech">
 					<Constant Name="behaviorname" Value="urgeDialog" />
 					<Asset Name="smartentity" Alias="budovaniLazni" />

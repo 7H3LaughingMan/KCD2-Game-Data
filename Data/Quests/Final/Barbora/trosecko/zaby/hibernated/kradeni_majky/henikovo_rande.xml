@@ -3,9 +3,6 @@
 	<Skald>
 		<Gameplay Name="henikovo_rande">
 			<Ports>
-				<Port Name="henry_smrdel_v_okoli_behem_rande" Direction="Out" Type="bool">
-					<DesignName StringName="henikovo__henry_smrdel_v__6hGH" Text="Henry smrděl v okolí během rande" />
-				</Port>
 				<Port Name="jindra_mluvil_s_henikem__rande_zacalo" Direction="In" Type="trigger">
 					<DesignName StringName="henikovo__rande_zacalo_P95Y" Text="Jindra mluvil s Heníkem - Rande začalo" />
 				</Port>
@@ -23,6 +20,12 @@
 				</Port>
 				<Port Name="rande_zacalo" Direction="Out" Type="trigger">
 					<DesignName StringName="henikovo__rande_zacalo_GJZH" Text="Rande začalo" />
+				</Port>
+				<Port Name="rande_skoncilo" Direction="Out" Type="trigger">
+					<DesignName StringName="henikovo__rande_skoncilo_0GXq" Text="Rande skončilo" />
+				</Port>
+				<Port Name="bezi_cas_12h_po_konci_rande" Direction="Out" Type="bool">
+					<DesignName StringName="henikovo__bezi_cas_12h_po_V3L1" Text="Běží čas (12h) po konci rande" />
 				</Port>
 			</Ports>
 			<Definitions>
@@ -55,7 +58,15 @@
 						<Vertex>vertex42</Vertex>
 					</Edge>
 					<Edge From="timeofdaywatch41.OnTimeOfDay" To="SetTrue" />
+					<Edge From="enablebehavior_wrapper.rande_skoncilo_radne" To="SetFalse">
+						<Vertex>vertex52</Vertex>
+						<Vertex>nUytI4Mk</Vertex>
+					</Edge>
 				</State>
+				<disabledirectionschatsoul Name="disabledirectionschatsoul" PositionY="-1310" PositionX="-500" Namespace="utils.hardcoremode">
+					<Edge From="dateActive.State" To="enabled" />
+					<Edge From="makearray42.Array" To="soul" />
+				</disabledirectionschatsoul>
 				<enablebehavior_wrapper Name="enablebehavior_wrapper" PositionY="-440" PositionX="-510">
 					<Constant Name="pocet_liebes_dialogu" Value="3" />
 					<Edge From="dateActive.OnTrue" To="rande_zacalo" />
@@ -120,12 +131,16 @@
 						<Vertex>vertex41</Vertex>
 					</Edge>
 				</If>
-				<IfFunction Name="ifcompare27" PositionY="-680" PositionX="2180" TypeT="int" MethodName="Control::Compare" DeclaringType="Control">
+				<IfFunction Name="ifcompare27" PositionY="-750" PositionX="2170" TypeT="int" MethodName="Control::Compare" DeclaringType="Control">
 					<Constant Name="Op" Value="Equals" />
 					<Constant Name="ValueB" Value="4" />
 					<Edge From="warningsGiven.OnExec" To="Exec" />
 					<Edge From="warningsGiven.State" To="ValueA" />
 				</IfFunction>
+				<MakeArray Name="makearray42" PositionY="-1280" PositionX="-870" TypeT="wh::rpgmodule::Souls">
+					<Asset Name="A" Alias="manka" />
+					<Asset Name="B" Alias="henik" />
+				</MakeArray>
 				<manka_lituje_skonceneho_rande Name="manka_lituje_skonceneho_rande" PositionY="1140" PositionX="-250" />
 				<Function Name="not17" PositionY="480" PositionX="300" MethodName="math::boolean::Not" DeclaringType="math::boolean">
 					<Edge From="state14.WarningsNotActive" To="Value" />
@@ -134,9 +149,6 @@
 					<Edge From="state39.State" To="Value" />
 				</Function>
 				<Output Name="Output">
-					<Edge From="state14.EndEarly" To="henry_smrdel_v_okoli_behem_rande">
-						<Vertex>vertex62</Vertex>
-					</Edge>
 					<Edge From="state37.State" To="rande_skoncilo_radne" />
 					<Edge From="dateActive.State" To="rande_probiha">
 						<Vertex>vertex60</Vertex>
@@ -146,6 +158,13 @@
 						<Vertex>vertex56</Vertex>
 						<Vertex>vertex57</Vertex>
 						<Vertex>QNz5K3Pz</Vertex>
+					</Edge>
+					<Edge From="enablebehavior_wrapper.rande_skoncilo_radne" To="rande_skoncilo">
+						<Vertex>DxoG13v6</Vertex>
+						<Vertex>trXRhb3f</Vertex>
+					</Edge>
+					<Edge From="Wait12hAfterDate.Running" To="bezi_cas_12h_po_konci_rande">
+						<Vertex>B1QlxBgz</Vertex>
 					</Edge>
 				</Output>
 				<Layer Name="pathsStreamed" PositionY="-630" PositionX="-500">
@@ -157,7 +176,7 @@
 					<Asset Name="PerceptibleSouls" Alias="player" />
 					<Edge From="and35.bool" To="IsActive" />
 				</PerceptionTrigger>
-				<Function Name="requestmonologue25" PositionY="-450" PositionX="1830" MethodName="wh::xgenaimodule::RequestMonologue" DeclaringType="wh::xgenaimodule">
+				<Function Name="requestmonologue25" PositionY="-520" PositionX="1820" MethodName="wh::xgenaimodule::RequestMonologue" DeclaringType="wh::xgenaimodule">
 					<Asset Name="Souls" Alias="henik" />
 					<Constant Name="DecisionAlias" Value="zaby_dateWarning" />
 					<Asset Name="LookAtTarget" Alias="player" />
@@ -170,14 +189,18 @@
 				</Function>
 				<State Name="state14" PositionY="490" PositionX="-340" TypeT="dateWarnings">
 					<Constant Name="DefaultValue" Value="WarningsNotActive" />
-					<Edge From="jindra_mluvil_s_henikem__rande_zacalo" To="SetNoneGiven">
-						<Vertex>vertex35</Vertex>
-						<Vertex>vertex34</Vertex>
-					</Edge>
 					<Edge From="henry_vypadni.prvni_varovani_given" To="SetFisrtGiven" />
 					<Edge From="henry_vypadni.druhe_varovani_given" To="SetSecondGiven" />
 					<Edge From="henry_vypadni.treti_varovani_given" To="SetThirdGiven" />
 					<Edge From="henry_vypadni.koncime_predcasne" To="SetEndEarly" />
+					<Edge From="dateActive.OnFalse" To="SetWarningsNotActive">
+						<Vertex>JY3UdV44</Vertex>
+						<Vertex>4vPk6VXx</Vertex>
+					</Edge>
+					<Edge From="henik_a_manka_zacatek_rande.rande_zacalo" To="SetNoneGiven">
+						<Vertex>jmAJ02Bt</Vertex>
+						<Vertex>ej4FdvRu</Vertex>
+					</Edge>
 				</State>
 				<State Name="state15" PositionY="-300" PositionX="0" TypeT="bool">
 					<Edge From="henik_a_manka_zacatek_rande.rande_zacalo" To="SetTrue" />
@@ -212,7 +235,7 @@
 						<Vertex>k56zXf2y</Vertex>
 					</Edge>
 				</TimeOfDayWatch>
-				<Timer Name="timer22" PositionY="-1000" PositionX="1830">
+				<Timer Name="timer22" PositionY="-1070" PositionX="1820">
 					<Constant Name="Duration" Value="2m" />
 					<Constant Name="TimeType" Value="WorldTime" />
 					<Edge From="perceptiontrigger21.OnSeenShortCone" To="SetRunning" />
@@ -221,20 +244,38 @@
 						<Vertex>vertex57</Vertex>
 					</Edge>
 				</Timer>
-				<State Name="warningsGiven" PositionY="-680" PositionX="1830" TypeT="int">
+				<Timer Name="Wait12hAfterDate" PositionY="380" PositionX="1900">
+					<Constant Name="Duration" Value="12h" />
+					<Constant Name="TimeType" Value="WorldTime" />
+					<Edge From="enablebehavior_wrapper.rande_skoncilo_radne" To="SetRunning">
+						<Vertex>vertex52</Vertex>
+						<Vertex>vertex53</Vertex>
+						<Vertex>qE6xYmIV</Vertex>
+					</Edge>
+				</Timer>
+				<State Name="warningsGiven" PositionY="-750" PositionX="1820" TypeT="int">
 					<Constant Name="DefaultValue" Value="0" />
 					<Edge From="perceptiontrigger21.OnSeenShortCone" To="Increment" />
 				</State>
 			</Nodes>
 			<EdgeVertices>
 				<EdgeVertex Name="1QRIqSa5" PositionY="-708" PositionX="-1328" />
+				<EdgeVertex Name="4vPk6VXx" PositionY="680" PositionX="-500" />
 				<EdgeVertex Name="6kdXSJaU" PositionY="-600" PositionX="-770" />
+				<EdgeVertex Name="B1QlxBgz" PositionY="660" PositionX="2500" />
+				<EdgeVertex Name="DxoG13v6" PositionY="215" PositionX="33" />
+				<EdgeVertex Name="ej4FdvRu" PositionY="440" PositionX="-410" />
 				<EdgeVertex Name="fKNuex7K" PositionY="-130" PositionX="-490" />
 				<EdgeVertex Name="GpB7kxNJ" PositionY="100" PositionX="-580" />
 				<EdgeVertex Name="HvF2gwds" PositionY="120" PositionX="-640" />
+				<EdgeVertex Name="jmAJ02Bt" PositionY="440" PositionX="-270" />
+				<EdgeVertex Name="JY3UdV44" PositionY="-320" PositionX="-670" />
 				<EdgeVertex Name="k56zXf2y" PositionY="-710" PositionX="-1560" />
+				<EdgeVertex Name="nUytI4Mk" PositionY="156" PositionX="-912" />
+				<EdgeVertex Name="qE6xYmIV" PositionY="500" PositionX="1360" />
 				<EdgeVertex Name="QNz5K3Pz" PositionY="-60" PositionX="1880" />
 				<EdgeVertex Name="rV7Da4Uh" PositionY="-130" PositionX="-240" />
+				<EdgeVertex Name="trXRhb3f" PositionY="213" PositionX="2443" />
 				<EdgeVertex Name="vertex20" PositionY="710" PositionX="540" />
 				<EdgeVertex Name="vertex21" PositionY="740" PositionX="560" />
 				<EdgeVertex Name="vertex22" PositionY="770" PositionX="580" />
@@ -249,14 +290,12 @@
 				<EdgeVertex Name="vertex31" PositionY="380" PositionX="-850" />
 				<EdgeVertex Name="vertex32" PositionY="380" PositionX="500" />
 				<EdgeVertex Name="vertex33" PositionY="680" PositionX="520" />
-				<EdgeVertex Name="vertex34" PositionY="220" PositionX="-480" />
-				<EdgeVertex Name="vertex35" PositionY="220" PositionX="-1020" />
 				<EdgeVertex Name="vertex37" PositionY="-990" PositionX="1560" />
 				<EdgeVertex Name="vertex38" PositionY="-990" PositionX="-120" />
-				<EdgeVertex Name="vertex40" PositionY="-1030" PositionX="2080" />
-				<EdgeVertex Name="vertex41" PositionY="-1030" PositionX="-480" />
+				<EdgeVertex Name="vertex40" PositionY="-1120" PositionX="2040" />
+				<EdgeVertex Name="vertex41" PositionY="-1110" PositionX="-440" />
 				<EdgeVertex Name="vertex42" PositionY="190" PositionX="-920" />
-				<EdgeVertex Name="vertex52" PositionY="160" PositionX="10" />
+				<EdgeVertex Name="vertex52" PositionY="170" PositionX="-250" />
 				<EdgeVertex Name="vertex53" PositionY="160" PositionX="1150" />
 				<EdgeVertex Name="vertex56" PositionY="-440" PositionX="-510" />
 				<EdgeVertex Name="vertex57" PositionY="-440" PositionX="1560" />
@@ -264,7 +303,6 @@
 				<EdgeVertex Name="vertex59" PositionY="190" PositionX="2310" />
 				<EdgeVertex Name="vertex60" PositionY="130" PositionX="-480" />
 				<EdgeVertex Name="vertex61" PositionY="130" PositionX="2310" />
-				<EdgeVertex Name="vertex62" PositionY="1000" PositionX="2300" />
 			</EdgeVertices>
 			<Types>
 				<Type TypeName="dateWarnings">

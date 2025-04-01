@@ -56,7 +56,7 @@
 					<Asset Name="Slots" Alias="foodAwaiting" />
 					<Edge From="or51.bool" To="IsActive" />
 				</AddSlotDefaultItem>
-				<alsik_barkuje_a_bezi_zvracet Name="alsik_barkuje_a_bezi_zvracet" PositionY="1290" PositionX="1220" />
+				<alsik_barkuje_a_bezi_zvracet Name="alsik_barkuje_a_bezi_zvracet" PositionY="1300" PositionX="1980" />
 				<alsik_zvraci_a_nechce_mluvit Name="alsik_zvraci_a_nechce_mluvit" PositionY="1470" PositionX="1990">
 					<Edge From="state35.Vomit" To="zvraci">
 						<Vertex>JLSxYl7f</Vertex>
@@ -74,7 +74,18 @@
 					<Constant Name="TimeType" Value="WorldTime" />
 					<Edge From="ifnot40.True" To="SetRunning" />
 				</Timer>
+				<Function Name="and76" PositionY="-20" PositionX="1670" MethodName="math::boolean::And" DeclaringType="math::boolean">
+					<Edge From="state43.TriggerActive" To="B" />
+					<Edge From="triggerActive.State" To="A" />
+				</Function>
 				<barky_alsika_kdyz_hlida_ovce Name="barky_alsika_kdyz_hlida_ovce" PositionY="1910" PositionX="1500" />
+				<customswitchtree Name="customswitchtree" PositionY="-930" PositionX="860" Namespace="utils.crime">
+					<Asset Name="souls" Alias="manka" />
+					<Asset Name="qso" Alias="zaby_qso" />
+					<Constant Name="treefilename" Value="quests/zaby/zaby_poisoningBowlCrime.xml" />
+					<Constant Name="treename" Value="zaby_poisoningBowlCrime" />
+					<Edge From="state43.FoodPoisonedOnPickup" To="isactive" />
+				</customswitchtree>
 				<SoulDeathTrigger Name="deathtrigger56" PositionY="1000" PositionX="300">
 					<Asset Name="Souls" Alias="alsik" />
 					<Edge From="or37.bool" To="IsActive">
@@ -89,6 +100,17 @@
 						<Vertex>zXR5Ff1t</Vertex>
 					</Edge>
 				</SoulDeathTrigger>
+				<disabledirectionschatsoul Name="disabledirectionschatsoul" PositionY="1470" PositionX="2410" Namespace="utils.hardcoremode">
+					<Asset Name="soul" Alias="alsik" />
+					<Edge From="or59.bool" To="enabled" />
+				</disabledirectionschatsoul>
+				<DistanceTrigger Name="distancetrigger77" PositionY="-280" PositionX="940">
+					<Asset Name="Origin" Alias="alsik" />
+					<Asset Name="Target" Alias="spiceUpFoodTrigger" />
+					<Constant Name="Operator" Value="Less" />
+					<Constant Name="Distance" Value="7" />
+					<Edge From="state43.TriggerActive" To="IsActive" />
+				</DistanceTrigger>
 				<If Name="doWeHaveLaxative" PositionY="-10" PositionX="-10">
 					<Edge From="ifor45.True" To="Exec" />
 					<Edge From="henryMaProjimadlo.State" To="Condition" />
@@ -131,27 +153,21 @@
 						<Vertex>xJ0vR7df</Vertex>
 					</Edge>
 				</If>
-				<Function Name="getdistance69" PositionY="-200" PositionX="1150" MethodName="wh::xgenaimodule::GetDistance" DeclaringType="wh::xgenaimodule">
-					<Asset Name="Origin" Alias="alsik" />
-					<Asset Name="Target" Alias="spiceUpFoodTrigger" />
-				</Function>
 				<State Name="henryMaProjimadlo" PositionY="-570" PositionX="-380" TypeT="bool">
 					<Edge From="hrac_dostal_projimadlo" To="SetTrue">
 						<Vertex>dVgdCzzq</Vertex>
 					</Edge>
+					<Edge From="interactiontrigger6.OnInteraction" To="SetFalse">
+						<Vertex>zB35XYvk</Vertex>
+						<Vertex>4fdvJnn6</Vertex>
+					</Edge>
 				</State>
-				<If Name="if44" PositionY="190" PositionX="1760">
+				<If Name="if44" PositionY="180" PositionX="1920">
 					<Edge From="enablebehaviorzabyeatingzabyeating38.OnFoodPicked" To="Exec" />
 					<Edge From="state43.TriggerActive" To="Condition">
 						<Vertex>IAhbXItg</Vertex>
 					</Edge>
 				</If>
-				<IfFunction Name="ifcompare74" PositionY="-30" PositionX="1830" TypeT="float" MethodName="Control::Compare" DeclaringType="Control">
-					<Constant Name="Op" Value="Greater" />
-					<Constant Name="ValueB" Value="2" />
-					<Edge From="getdistance69.Distance" To="ValueA" />
-					<Edge From="interactiontrigger6.OnInteraction" To="Exec" />
-				</IfFunction>
 				<IfFunction Name="ifdeathcheck63" PositionY="930" PositionX="-2090" MethodName="wh::rpgmodule::DeathCheck" DeclaringType="wh::rpgmodule">
 					<Asset Name="Souls" Alias="manka" />
 					<Edge From="enablebehaviorzabyeatingzabyeating38.OnFinishedNotPoisoned" To="Exec">
@@ -185,10 +201,10 @@
 					</Edge>
 					<Edge From="enablebehaviorzabycookingzabycooking34.OnFinished" To="Exec" />
 				</IfFunction>
-				<InteractionTriggerNode Name="interactiontrigger6" PositionY="40" PositionX="1070">
+				<InteractionTriggerNode Name="interactiontrigger6" PositionY="-230" PositionX="1930">
 					<Asset Name="Interactors" Alias="spiceUpFoodTrigger" />
 					<Constant Name="Type" Value="Hold" />
-					<Edge From="state43.TriggerActive" To="IsActive" />
+					<Edge From="and76.bool" To="IsActive" />
 				</InteractionTriggerNode>
 				<ItemSlotTrigger Name="itemslottrigger49" PositionY="-360" PositionX="-990">
 					<Asset Name="ItemSlot" Alias="foodInKitchen" />
@@ -242,7 +258,7 @@
 					</Edge>
 					<Edge From="state28.FoodDespawnDelay" To="B" />
 				</Function>
-				<Function Name="or59" PositionY="1160" PositionX="2020" MethodName="math::boolean::Or" DeclaringType="math::boolean">
+				<Function Name="or59" PositionY="1170" PositionX="2030" MethodName="math::boolean::Or" DeclaringType="math::boolean">
 					<Edge From="state35.Transition" To="A">
 						<Vertex>PfvpvrXa</Vertex>
 					</Edge>
@@ -282,12 +298,12 @@
 						<Vertex>NfrQ5vD7</Vertex>
 						<Vertex>JBVnjKcg</Vertex>
 					</Edge>
-					<Edge From="ifcompare74.True" To="henry_pouzil_projimadlo" />
 					<Edge From="ifdeathcheck63_1.True" To="manka_death_fail_objective">
 						<Vertex>deoAFeRo</Vertex>
 						<Vertex>gaa461KE</Vertex>
 					</Edge>
 					<Edge From="ifdeathcheck63_1.False" To="alsik_si_vzal_jidlo" />
+					<Edge From="interactiontrigger6.OnInteraction" To="henry_pouzil_projimadlo" />
 				</Output>
 				<SchedulerLinkActivation Name="schedule27" PositionY="720" PositionX="-1020">
 					<Constant Name="LinkTag" Value="zaby_cooking" />
@@ -374,7 +390,7 @@
 					<Edge From="doWeHaveLaxative.True" To="SetTriggerActive" />
 					<Edge From="foodReady.True" To="SetTriggerActive" />
 					<Edge From="noLongerActive.True" To="SetNone" />
-					<Edge From="ifcompare74.True" To="SetFoodPoisonedOnPickup">
+					<Edge From="interactiontrigger6.OnInteraction" To="SetFoodPoisonedOnPickup">
 						<Vertex>vertex3</Vertex>
 						<Vertex>vertex4</Vertex>
 					</Edge>
@@ -418,12 +434,19 @@
 					<Constant Name="DaysToInterrupt" Value="1" />
 					<Edge From="enablebehaviorzabycookingzabycooking34.OnCarying" To="SetRunning" />
 				</TimeOfDayWatch>
+				<State Name="triggerActive" PositionY="-240" PositionX="1320" TypeT="bool">
+					<Constant Name="DefaultValue" Value="true" />
+					<Constant Name="Value" Value="true" />
+					<Edge From="distancetrigger77.OnMatch" To="SetFalse" />
+					<Edge From="distancetrigger77.OnUnmatch" To="SetTrue" />
+				</State>
 			</Nodes>
 			<EdgeVertices>
 				<EdgeVertex Name="06PAp5wj" PositionY="860" PositionX="50" />
 				<EdgeVertex Name="2AcABYgu" PositionY="1670" PositionX="2690" />
 				<EdgeVertex Name="3vdKq32s" PositionY="480" PositionX="-1930" />
-				<EdgeVertex Name="5LGNk9CL" PositionY="1284" PositionX="1199" />
+				<EdgeVertex Name="4fdvJnn6" PositionY="-589" PositionX="-395" />
+				<EdgeVertex Name="5LGNk9CL" PositionY="1290" PositionX="1240" />
 				<EdgeVertex Name="7LHH9lph" PositionY="48" PositionX="-1226" />
 				<EdgeVertex Name="8s0Mg6Mf" PositionY="350" PositionX="780" />
 				<EdgeVertex Name="9aowJcA7" PositionY="480" PositionX="-2072" />
@@ -449,13 +472,13 @@
 				<EdgeVertex Name="LLrxFeWL" PositionY="1729" PositionX="939" />
 				<EdgeVertex Name="NfrQ5vD7" PositionY="1821" PositionX="-1791" />
 				<EdgeVertex Name="nNytoEHW" PositionY="1710" PositionX="2700" />
-				<EdgeVertex Name="PfvpvrXa" PositionY="1261" PositionX="1196" />
+				<EdgeVertex Name="PfvpvrXa" PositionY="1260" PositionX="1250" />
 				<EdgeVertex Name="s8Fv5eXU" PositionY="-209" PositionX="40" />
 				<EdgeVertex Name="uVPJvDgQ" PositionY="58" PositionX="-414" />
 				<EdgeVertex Name="VadQmxo5" PositionY="-205" PositionX="665" />
 				<EdgeVertex Name="vertex25" PositionY="1620" PositionX="-120" />
 				<EdgeVertex Name="vertex26" PositionY="1620" PositionX="-1720" />
-				<EdgeVertex Name="vertex3" PositionY="380" PositionX="2020" />
+				<EdgeVertex Name="vertex3" PositionY="370" PositionX="2200" />
 				<EdgeVertex Name="vertex31" PositionY="1580" PositionX="-500" />
 				<EdgeVertex Name="vertex32" PositionY="1580" PositionX="-1680" />
 				<EdgeVertex Name="vertex33" PositionY="1540" PositionX="-540" />
@@ -478,7 +501,7 @@
 				<EdgeVertex Name="vertex54" PositionY="-230" PositionX="680" />
 				<EdgeVertex Name="vertex55" PositionY="-250" PositionX="700" />
 				<EdgeVertex Name="vertex57" PositionY="390" PositionX="300" />
-				<EdgeVertex Name="vertex58" PositionY="400" PositionX="1940" />
+				<EdgeVertex Name="vertex58" PositionY="390" PositionX="2100" />
 				<EdgeVertex Name="vertex59" PositionY="1110" PositionX="1660" />
 				<EdgeVertex Name="vertex60" PositionY="1460" PositionX="840" />
 				<EdgeVertex Name="vertex61" PositionY="1460" PositionX="-1240" />
@@ -493,6 +516,7 @@
 				<EdgeVertex Name="xJ0vR7df" PositionY="-30" PositionX="-360" />
 				<EdgeVertex Name="yBKhyng9" PositionY="900" PositionX="-2100" />
 				<EdgeVertex Name="YbNo8ELl" PositionY="1680" PositionX="-1240" />
+				<EdgeVertex Name="zB35XYvk" PositionY="-570" PositionX="2210" />
 				<EdgeVertex Name="zXR5Ff1t" PositionY="-670" PositionX="-2060" />
 			</EdgeVertices>
 			<Types>

@@ -20,11 +20,27 @@
 				</Port>
 			</Ports>
 			<Nodes>
-				<expectedeffect Name="expectedeffect" PositionY="770" PositionX="-140" Namespace="utils.crime.trespass">
+				<Function Name="and9" PositionY="560" PositionX="990" MethodName="math::boolean::And" DeclaringType="math::boolean">
+					<Edge From="or2.bool" To="A" />
+					<Edge From="compare12.bool" To="B" />
+				</Function>
+				<Function Name="compare12" PositionY="560" PositionX="690" TypeT="wh::framework::E_GameReleaseVersion" MethodName="Control::Compare" DeclaringType="Control">
+					<Constant Name="Op" Value="Less" />
+					<Constant Name="ValueB" Value="ver_01_02" />
+					<Edge From="moduleversionstate6.Version" To="ValueA" />
+				</Function>
+				<expectedeffect Name="expectedeffect" PositionY="920" PositionX="-140" Namespace="utils.crime.trespass">
 					<Asset Name="npcs" Alias="pavlena" />
 					<Constant Name="extenduntilplayerleavestrespass" Value="true" />
 					<Edge From="pavlena_je_skill_teacher" To="isactive" />
 				</expectedeffect>
+				<ModuleVersionState Name="moduleversionstate6" PositionY="560" PositionX="410" />
+				<Function Name="or10" PositionY="740" PositionX="1240" MethodName="math::boolean::Or" DeclaringType="math::boolean">
+					<Edge From="and9.bool" To="A" />
+					<Edge From="pavlena_je_skill_teacher" To="B">
+						<Vertex>BgugknEQ</Vertex>
+					</Edge>
+				</Function>
 				<Function Name="or2" PositionY="-170" PositionX="650" MethodName="math::boolean::Or" DeclaringType="math::boolean">
 					<Edge From="pavlenaStreaming.StreamedZachrana" To="A" />
 					<Edge From="pavlenaStreaming.StreamedKorenarka" To="B" />
@@ -39,6 +55,10 @@
 				<Layer Name="profile3" PositionY="-130" PositionX="940">
 					<Asset Name="Profiles" Alias="profile_pavlena" />
 					<Edge From="or2.bool" To="IsActive" />
+				</Layer>
+				<Layer Name="profile5" PositionY="560" PositionX="1480">
+					<Asset Name="Profiles" Alias="profile_pavlenasShop_addedInPatch_01_02" />
+					<Edge From="or10.bool" To="IsActive" />
 				</Layer>
 				<SchedulerLinkActivation Name="schedule1" PositionY="620" PositionX="-140">
 					<Constant Name="LinkTag" Value="korenarkaZachrana_pavlenaIsTrader" />
@@ -58,6 +78,9 @@
 					<Constant Name="IsHidden" Value="true" />
 				</HasteTrigger>
 			</Nodes>
+			<EdgeVertices>
+				<EdgeVertex Name="BgugknEQ" PositionY="865" PositionX="-116" />
+			</EdgeVertices>
 			<Types>
 				<Type TypeName="PavlenaStreaming">
 					<StateTypeEnumeration Name="Unstreamed" ObjectiveValueType="None" />
@@ -70,7 +93,13 @@
 			<Assets>
 				<ProfileAsset Name="profile_pavlena" AssetProfiles="korenarkazachrana_pavlena" />
 				<SoulAsset Name="pavlena" SharedSoulGuids="4c027101-6813-374e-b0df-ef9ab7e40387" />
+				<ProfileAsset Name="profile_pavlenasShop_addedInPatch_01_02" AssetProfiles="tvez_pavlenaShop" />
 			</Assets>
+			<Notes>
+				<Note Name="note11" PositionY="340" PositionX="1480">
+					<Text StringName="pavlena_note11_0DRF" Text="KCD2-486520 S15 - korenarkaZachrana - Logic: The loot inside of tvez_bozena chest is changing when Henry accepts to find Pavlena when observed during S15 in vezicko.&#xD;&#xA;&#xD;&#xA;Pavlena si otvorí obchod po dokončení questu S15 Kořenářka záchrana&#xD;&#xA;Vrstva obchodu sa streamovala nesprávne spolu s vrstvou Pavleny v jednom profile. Obchod som premiestnila do nového profilu a opatchovala aby tento profil bol nastreamovaný počas patchovacej fáze." />
+				</Note>
+			</Notes>
 			<Text StringName="streaming__pavlena_SZzZ" Text="Pavlena" />
 			<Elements>
 				<GameplayActionElement>

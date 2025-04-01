@@ -128,6 +128,7 @@
 	</BehaviorTree>
 	<BehaviorTree name="run" is_function="0">
 		<Variables>
+			<Variable name="inSprint" type="_bool" values="" isPersistent="0" form="single" />
 			<Variable name="path" type="_wuid" values="" isPersistent="0" form="single" />
 			<Variable name="pathParams" type="predefinedPathParams" values="approachFirstNode(true)" isPersistent="0" form="single" />
 		</Variables>
@@ -141,15 +142,36 @@
 				</Sequence>
 			</OnInit>
 			<Behavior canSkip="1">
-				<Sequence>
-					<Move stopWithinDistance="0.200000" stopDistanceVariation="0.100000" rayCasteFlee="false" successDistance="0.000000" changeNPCState="true" fastForwardIncludesMove="true" destinationSpecification="$path" destinationSpecification2="$pathParams" destinationSpecification3="" speed="Walk" additionalParams="" pathFindingParams="" staminaPolicy="" pathInfo="" />
-					<Move stopWithinDistance="0.200000" stopDistanceVariation="0.100000" rayCasteFlee="false" successDistance="1.000000" changeNPCState="true" fastForwardIncludesMove="false" destinationSpecification="$path" destinationSpecification2="" destinationSpecification3="" speed="Sprint" additionalParams="" pathFindingParams="" staminaPolicy="" pathInfo="" />
-				</Sequence>
+				<Decision decisionLabel="animal_howl" variable="$inSprint" saveVersion="2">
+					<Search canSkip="1">
+						<Success />
+					</Search>
+					<Exec canSkip="1">
+						<Sequence>
+							<Parallel successMode="Any" failureMode="Any">
+								<DistanceGate Origin="$path" ReferencePt="$this.id" Low="2.000000" High="4000.000000" Negation="false" OpenInMiddle="false" RunLogic="KeepRunning">
+									<Success />
+								</DistanceGate>
+								<IfElseCondition failOnCondition="false" condition="$inSprint" saveVersion="2">
+									<Then canSkip="1">
+										<Move stopWithinDistance="0.200000" stopDistanceVariation="0.100000" rayCasteFlee="false" successDistance="2.000000" changeNPCState="true" fastForwardIncludesMove="true" destinationSpecification="$path" destinationSpecification2="$pathParams" destinationSpecification3="" speed="Sprint" additionalParams="" pathFindingParams="" staminaPolicy="" pathInfo="" />
+									</Then>
+									<Else canSkip="1">
+										<Move stopWithinDistance="0.200000" stopDistanceVariation="0.100000" rayCasteFlee="false" successDistance="2.000000" changeNPCState="true" fastForwardIncludesMove="true" destinationSpecification="$path" destinationSpecification2="$pathParams" destinationSpecification3="" speed="Walk" additionalParams="" pathFindingParams="" staminaPolicy="" pathInfo="" />
+									</Else>
+								</IfElseCondition>
+							</Parallel>
+							<Expression expressions="$inSprint = true" />
+							<Move stopWithinDistance="0.200000" stopDistanceVariation="0.100000" rayCasteFlee="false" successDistance="2.000000" changeNPCState="true" fastForwardIncludesMove="false" destinationSpecification="$path" destinationSpecification2="" destinationSpecification3="" speed="Sprint" additionalParams="" pathFindingParams="" staminaPolicy="" pathInfo="" />
+						</Sequence>
+					</Exec>
+				</Decision>
 			</Behavior>
 		</Root>
 		<ForestContainer />
 		<EditorData EventSet="">
 			<Variables>
+				<Variable name="inSprint" comment="" />
 				<Variable name="path" comment="" />
 				<Variable name="pathParams" comment="" />
 			</Variables>
@@ -171,15 +193,47 @@
 					</Sequence>
 				</OnInit>
 				<Behavior>
-					<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
+					<Decision hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
 						<OutputBreakpoints />
-						<Move hasInputBreakpoint="0" comment="" breakpointFlags="0">
-							<OutputBreakpoints />
-						</Move>
-						<Move hasInputBreakpoint="0" comment="" breakpointFlags="0">
-							<OutputBreakpoints />
-						</Move>
-					</Sequence>
+						<Search>
+							<Success hasInputBreakpoint="0" comment="" breakpointFlags="0">
+								<OutputBreakpoints />
+							</Success>
+						</Search>
+						<Exec>
+							<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
+								<OutputBreakpoints />
+								<Parallel hasInputBreakpoint="0" comment="" breakpointFlags="0">
+									<OutputBreakpoints />
+									<DistanceGate hasInputBreakpoint="0" comment="" breakpointFlags="0">
+										<OutputBreakpoints />
+										<Success hasInputBreakpoint="0" comment="" breakpointFlags="0">
+											<OutputBreakpoints />
+										</Success>
+									</DistanceGate>
+									<IfElseCondition hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
+										<OutputBreakpoints />
+										<Then>
+											<Move hasInputBreakpoint="0" comment="" breakpointFlags="0">
+												<OutputBreakpoints />
+											</Move>
+										</Then>
+										<Else>
+											<Move hasInputBreakpoint="0" comment="" breakpointFlags="0">
+												<OutputBreakpoints />
+											</Move>
+										</Else>
+									</IfElseCondition>
+								</Parallel>
+								<Expression hasInputBreakpoint="0" comment="" breakpointFlags="0">
+									<OutputBreakpoints />
+								</Expression>
+								<Move hasInputBreakpoint="0" comment="" breakpointFlags="0">
+									<OutputBreakpoints />
+								</Move>
+							</Sequence>
+						</Exec>
+					</Decision>
 				</Behavior>
 			</Root>
 			<Forest />

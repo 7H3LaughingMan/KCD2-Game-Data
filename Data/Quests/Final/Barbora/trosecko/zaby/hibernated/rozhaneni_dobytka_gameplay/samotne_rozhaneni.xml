@@ -34,13 +34,58 @@
 					</Edge>
 					<Edge From="ENABLED.State" To="IsActive" />
 				</AreaTrigger>
+				<AreaTrigger Name="areatrigger82" PositionY="1370" PositionX="2700">
+					<Asset Name="Souls" Alias="alsik" />
+					<Asset Name="Areas" Alias="sheepMarkerArea" />
+					<Edge From="state38.State" To="IsActive" />
+				</AreaTrigger>
 				<State Name="ENABLED" PositionY="-40" PositionX="380" TypeT="bool">
 					<Constant Name="DefaultValue" Value="false" />
 					<Edge From="start" To="SetTrue" />
 				</State>
-				<State Name="HenryCaughtByAlsik" PositionY="40" PositionX="3350" TypeT="bool">
+				<State Name="HenryCaughtByAlsik" PositionY="50" PositionX="3610" TypeT="bool">
 					<Edge From="perceptiontrigger12.OnSeenShortCone" To="SetTrue" />
 				</State>
+				<IfFunction Name="ifareacheck40" PositionY="300" PositionX="2050" MethodName="wh::rpgmodule::AreaCheck" DeclaringType="wh::rpgmodule">
+					<Asset Name="Souls" Alias="alsik" />
+					<Asset Name="Areas" Alias="sheepMarkerArea" />
+					<Edge From="perceptible_ovce.ovce_vyhnana_z_arei" To="Exec">
+						<Vertex>bfa74CGI</Vertex>
+					</Edge>
+					<Edge From="perceptible_ovce_1.ovce_vyhnana_z_arei" To="Exec">
+						<Vertex>bfa74CGI</Vertex>
+					</Edge>
+					<Edge From="perceptible_ovce_2.ovce_vyhnana_z_arei" To="Exec">
+						<Vertex>bfa74CGI</Vertex>
+					</Edge>
+					<Edge From="perceptible_ovce_1_1.ovce_vyhnana_z_arei" To="Exec">
+						<Vertex>bfa74CGI</Vertex>
+					</Edge>
+					<Edge From="perceptible_ovce_3.ovce_vyhnana_z_arei" To="Exec">
+						<Vertex>bfa74CGI</Vertex>
+					</Edge>
+					<Edge From="perceptible_ovce_1_2.ovce_vyhnana_z_arei" To="Exec">
+						<Vertex>bfa74CGI</Vertex>
+					</Edge>
+					<Edge From="perceptible_ovce_4.ovce_vyhnana_z_arei" To="Exec">
+						<Vertex>bfa74CGI</Vertex>
+					</Edge>
+					<Edge From="perceptible_ovce_1_3.ovce_vyhnana_z_arei" To="Exec">
+						<Vertex>bfa74CGI</Vertex>
+					</Edge>
+					<Edge From="perceptible_ovce_2_1.ovce_vyhnana_z_arei" To="Exec">
+						<Vertex>bfa74CGI</Vertex>
+					</Edge>
+					<Edge From="perceptible_ovce_1_1_1.ovce_vyhnana_z_arei" To="Exec">
+						<Vertex>bfa74CGI</Vertex>
+					</Edge>
+					<Edge From="perceptible_ovce_3_1.ovce_vyhnana_z_arei" To="Exec">
+						<Vertex>bfa74CGI</Vertex>
+					</Edge>
+					<Edge From="perceptible_ovce_1_2_1.ovce_vyhnana_z_arei" To="Exec">
+						<Vertex>bfa74CGI</Vertex>
+					</Edge>
+				</IfFunction>
 				<IfFunction Name="ifcompare36" PositionY="-20" PositionX="1780" TypeT="int" MethodName="Control::Compare" DeclaringType="Control">
 					<Constant Name="Op" Value="Less" />
 					<Edge From="perceptible_ovce.ovce_vyhnana_z_arei" To="Exec">
@@ -112,24 +157,24 @@
 						<Vertex>o4KNPRnd</Vertex>
 					</Edge>
 				</IfFunction>
-				<IfFunction Name="ifcompare8" PositionY="40" PositionX="2410" TypeT="int" MethodName="Control::Compare" DeclaringType="Control">
+				<IfFunction Name="ifcompare8" PositionY="50" PositionX="2670" TypeT="int" MethodName="Control::Compare" DeclaringType="Control">
 					<Constant Name="Op" Value="GreaterEquals" />
 					<Edge From="state7.OnExec" To="Exec" />
 					<Edge From="state7.State" To="ValueA" />
 					<Edge From="zlomek_ovci.pocet_ovci" To="ValueB" />
 				</IfFunction>
-				<InstantSendMessage Name="instantsendmessagecrimeforgetcrimesdata39" PositionY="1160" PositionX="2440" MessageType="crime:forgetCrimesData">
+				<InstantSendMessage Name="instantsendmessagecrimeforgetcrimesdata39" PositionY="1170" PositionX="2700" MessageType="crime:forgetCrimesData">
 					<Asset Name="Receiver" Alias="alsik" />
 					<Edge From="state38.OnFalse" To="Exec" />
 				</InstantSendMessage>
-				<InstantSendMessage Name="instantsendmessageswitchcancelperceptionignorerequest35" PositionY="510" PositionX="3330" MessageType="switch:cancelPerceptionIgnoreRequest">
+				<InstantSendMessage Name="instantsendmessageswitchcancelperceptionignorerequest35" PositionY="520" PositionX="3590" MessageType="switch:cancelPerceptionIgnoreRequest">
 					<Asset Name="Receiver" Alias="alsik" />
 					<Constant Name="Content_wasIgnoredAtLeastFor" Value="1" />
 					<Edge From="perceptiontrigger12.OnSeenShortCone" To="Exec">
 						<Vertex>U4eh0gzJ</Vertex>
 					</Edge>
 				</InstantSendMessage>
-				<MakeArray Name="makearray13" PositionY="430" PositionX="2460" TypeT="Strings">
+				<MakeArray Name="makearray13" PositionY="440" PositionX="2720" TypeT="Strings">
 					<Constant Name="A" Value="zaby_sheepHome" />
 				</MakeArray>
 				<Function Name="maketracker28" PositionY="-300" PositionX="2680" MethodName="wh::questmodule::nodes::MakeTracker" DeclaringType="wh::questmodule::nodes">
@@ -217,13 +262,13 @@
 					<Edge From="areatrigger21.Soul" To="ovce_z_area_triggeru" />
 					<Edge From="areatrigger21.OnEnter" To="ovce_opustila_areu" />
 				</ovce>
-				<PerceptionTrigger Name="perceptiontrigger12" PositionY="310" PositionX="2710">
+				<PerceptionTrigger Name="perceptiontrigger12" PositionY="320" PositionX="2970">
 					<Asset Name="PerceivingSouls" Alias="alsik" />
 					<Asset Name="PerceptibleSouls" Alias="player" />
 					<Edge From="makearray13.Array" To="PerceptibleVolumeLabels" />
 					<Edge From="state38.State" To="IsActive" />
 				</PerceptionTrigger>
-				<pushstimulus_escalatedtrespass Name="pushstimulus_escalatedtrespass" PositionY="300" PositionX="3340" Namespace="utils.crime.trespass">
+				<pushstimulus_escalatedtrespass Name="pushstimulus_escalatedtrespass" PositionY="310" PositionX="3600" Namespace="utils.crime.trespass">
 					<Asset Name="receiver" Alias="alsik" />
 					<Constant Name="ignoretrespassarea" Value="true" />
 					<Asset Name="trespassarea" Alias="ovce_trespass" />
@@ -231,64 +276,34 @@
 						<Vertex>U4eh0gzJ</Vertex>
 					</Edge>
 				</pushstimulus_escalatedtrespass>
-				<SetEntityContext Name="setentitycontext34" PositionY="960" PositionX="2440">
+				<SetEntityContext Name="setentitycontext34" PositionY="970" PositionX="2700">
 					<Constant Name="Context" Value="combat_neverSurrenderOrFlee" />
 					<Asset Name="Souls" Alias="alsik" />
 					<Edge From="state38.State" To="IsActive" />
 				</SetEntityContext>
-				<SetEntityContext Name="setentitycontext34_1" PositionY="760" PositionX="2440">
+				<SetEntityContext Name="setentitycontext34_1" PositionY="770" PositionX="2700">
 					<Constant Name="Context" Value="combat_alwaysJoinSkirmish" />
 					<Asset Name="Souls" Alias="alsik" />
 					<Edge From="state38.State" To="IsActive" />
 				</SetEntityContext>
-				<SetEntityContext Name="setentitycontext34_2" PositionY="570" PositionX="2450">
+				<SetEntityContext Name="setentitycontext34_2" PositionY="580" PositionX="2710">
 					<Constant Name="Context" Value="crime_useAttackForArrest" />
 					<Asset Name="Souls" Alias="alsik" />
 					<Edge From="state38.State" To="IsActive" />
 				</SetEntityContext>
-				<State Name="state38" PositionY="290" PositionX="2140" TypeT="bool">
-					<Edge From="perceptible_ovce.ovce_vyhnana_z_arei" To="SetTrue">
-						<Vertex>bfa74CGI</Vertex>
-					</Edge>
-					<Edge From="perceptible_ovce_1.ovce_vyhnana_z_arei" To="SetTrue">
-						<Vertex>bfa74CGI</Vertex>
-					</Edge>
-					<Edge From="perceptible_ovce_2.ovce_vyhnana_z_arei" To="SetTrue">
-						<Vertex>bfa74CGI</Vertex>
-					</Edge>
-					<Edge From="perceptible_ovce_1_1.ovce_vyhnana_z_arei" To="SetTrue">
-						<Vertex>bfa74CGI</Vertex>
-					</Edge>
-					<Edge From="perceptible_ovce_3.ovce_vyhnana_z_arei" To="SetTrue">
-						<Vertex>bfa74CGI</Vertex>
-					</Edge>
-					<Edge From="perceptible_ovce_1_2.ovce_vyhnana_z_arei" To="SetTrue">
-						<Vertex>bfa74CGI</Vertex>
-					</Edge>
-					<Edge From="perceptible_ovce_4.ovce_vyhnana_z_arei" To="SetTrue">
-						<Vertex>bfa74CGI</Vertex>
-					</Edge>
-					<Edge From="perceptible_ovce_1_3.ovce_vyhnana_z_arei" To="SetTrue">
-						<Vertex>bfa74CGI</Vertex>
-					</Edge>
-					<Edge From="perceptible_ovce_2_1.ovce_vyhnana_z_arei" To="SetTrue">
-						<Vertex>bfa74CGI</Vertex>
-					</Edge>
-					<Edge From="perceptible_ovce_1_1_1.ovce_vyhnana_z_arei" To="SetTrue">
-						<Vertex>bfa74CGI</Vertex>
-					</Edge>
-					<Edge From="perceptible_ovce_3_1.ovce_vyhnana_z_arei" To="SetTrue">
-						<Vertex>bfa74CGI</Vertex>
-					</Edge>
-					<Edge From="perceptible_ovce_1_2_1.ovce_vyhnana_z_arei" To="SetTrue">
-						<Vertex>bfa74CGI</Vertex>
-					</Edge>
+				<State Name="state38" PositionY="300" PositionX="2400" TypeT="bool">
 					<Edge From="alsik__usmireni" To="SetFalse">
+						<Vertex>EUbFTvCA</Vertex>
 						<Vertex>aawdoljJ</Vertex>
 						<Vertex>0c96uFI8</Vertex>
 					</Edge>
+					<Edge From="ifareacheck40.True" To="SetTrue" />
+					<Edge From="areatrigger82.OnLeave" To="SetFalse">
+						<Vertex>U4XymDkx</Vertex>
+						<Vertex>MAd1nmEh</Vertex>
+					</Edge>
 				</State>
-				<State Name="state7" PositionY="-10" PositionX="2030" TypeT="int">
+				<State Name="state7" PositionY="-20" PositionX="2030" TypeT="int">
 					<Constant Name="DefaultValue" Value="0" />
 					<Edge From="ifcompare36.True" To="Increment" />
 				</State>
@@ -307,12 +322,15 @@
 				<EdgeVertex Name="5VDMErtj" PositionY="-80" PositionX="2230" />
 				<EdgeVertex Name="aawdoljJ" PositionY="240" PositionX="1730" />
 				<EdgeVertex Name="bfa74CGI" PositionY="290" PositionX="1970" />
+				<EdgeVertex Name="EUbFTvCA" PositionY="221" PositionX="189" />
 				<EdgeVertex Name="Kwb0Amp6" PositionY="240" PositionX="1810" />
 				<EdgeVertex Name="lSYTf5WS" PositionY="-50" PositionX="1780" />
+				<EdgeVertex Name="MAd1nmEh" PositionY="1659" PositionX="2457" />
 				<EdgeVertex Name="o4KNPRnd" PositionY="-80" PositionX="1780" />
 				<EdgeVertex Name="r5or3rkk" PositionY="240" PositionX="1920" />
 				<EdgeVertex Name="rdfKtwva" PositionY="-50" PositionX="2220" />
-				<EdgeVertex Name="U4eh0gzJ" PositionY="410" PositionX="3190" />
+				<EdgeVertex Name="U4eh0gzJ" PositionY="420" PositionX="3450" />
+				<EdgeVertex Name="U4XymDkx" PositionY="1665" PositionX="2935" />
 				<EdgeVertex Name="vertex10" PositionY="-210" PositionX="990" />
 				<EdgeVertex Name="vertex13" PositionY="-210" PositionX="3160" />
 				<EdgeVertex Name="vertex21" PositionY="-200" PositionX="280" />

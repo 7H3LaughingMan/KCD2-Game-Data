@@ -54,6 +54,9 @@
 				<Port Name="henry_se_vykecal" Direction="Out" Type="bool">
 					<DesignName StringName="henry_a_d_henry_se_vykecal_nqIs" Text="Henry se vykecal z podezření za býka" />
 				</Port>
+				<Port Name="uz_byly_zacaty_zabomysi_valky" Direction="In" Type="bool">
+					<DesignName StringName="henry_a_d_uz_byly_zacaty__P1nX" Text="Už byly začaty žabomyší války" />
+				</Port>
 			</Ports>
 			<Definitions>
 				<Definition File="henry_a_dialogy_o_mysich_s_olbramem/priority_dlg_olbram_je_neskutecne_nasran.xml" />
@@ -61,11 +64,12 @@
 				<Definition File="henry_a_dialogy_o_mysich_s_olbramem/vrchni_sedlon__henry_pomaloval_byka.xml" />
 			</Definitions>
 			<Nodes>
-				<olbram__henry_je_v_podezreni_na_byka Name="olbram__henry_je_v_podezreni_na_byka" PositionY="-450" PositionX="-770">
+				<olbram__henry_je_v_podezreni_na_byka Name="olbram__henry_je_v_podezreni_na_byka" PositionY="-760" PositionX="-780">
 					<Edge From="henry_namaloval_bejka_podezrelej" To="henry_v_podezreni" />
 					<Edge From="henry_namaloval_bejka_neviden" To="henry_neviden" />
 					<Edge From="henry_namaloval_bejka_viden" To="henry_viden" />
 					<Edge From="hrac_se_vykecal_z_malovani" To="hrac_se_vykecal_z_malovani" />
+					<Edge From="uz_byly_zacaty_zabomysi_valky" To="uz_byly_zacaty_zabomysi_valky" />
 				</olbram__henry_je_v_podezreni_na_byka>
 				<Function Name="or4" PositionY="-290" PositionX="-270" MethodName="math::boolean::Or" DeclaringType="math::boolean">
 					<Edge From="olbram__henry_je_v_podezreni_na_byka.henry_se_nevykecal" To="A" />
@@ -84,10 +88,11 @@
 						<Vertex>a2KsweQB</Vertex>
 					</Edge>
 				</Output>
-				<priority_dlg_olbram_je_neskutecne_nasran Name="priority_dlg_olbram_je_neskutecne_nasran" PositionY="-910" PositionX="-780">
+				<priority_dlg_olbram_je_neskutecne_nasran Name="priority_dlg_olbram_je_neskutecne_nasran" PositionY="-1220" PositionX="-770">
 					<Edge From="henry_namaloval_bejka_neviden" To="henry_neviden" />
 					<Edge From="henry_namaloval_bejka_podezrelej" To="henry_v_podezreni" />
 					<Edge From="henry_namaloval_bejka_viden" To="henry_viden" />
+					<Edge From="uz_byly_zacaty_zabomysi_valky" To="uz_byly_zacaty_zabomysi_valky" />
 				</priority_dlg_olbram_je_neskutecne_nasran>
 				<vrchni_sedlon__henry_pomaloval_byka Name="vrchni_sedlon__henry_pomaloval_byka" PositionY="70" PositionX="-780">
 					<Edge From="henry_nese_majku" To="henry_ziskal_majku" />
@@ -106,6 +111,7 @@
 						<Vertex>a2KsweQB</Vertex>
 						<Vertex>bJCF8E04</Vertex>
 					</Edge>
+					<Edge From="uz_byly_zacaty_zabomysi_valky" To="uz_byly_zacaty_zabomysi_valky" />
 				</vrchni_sedlon__henry_pomaloval_byka>
 			</Nodes>
 			<EdgeVertices>

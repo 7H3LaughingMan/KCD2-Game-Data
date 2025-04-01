@@ -33,10 +33,12 @@
 					<Asset Name="Souls" Alias="ptacek" />
 					<Constant Name="Context" Value="utokNaNebakov_leaningRail" />
 				</Function>
-				<CleanAndHealTo Name="CleanAndHealTo" PositionY="530" PositionX="1740" Namespace="utils.general">
+				<CleanAndHealTo Name="CleanAndHealTo" PositionY="530" PositionX="2730" Namespace="utils.general">
 					<Constant Name="hp" Value="50" />
-					<Edge From="revive.onexec" To="exec" />
-					<Edge From="joinarrays13.Array" To="souls" />
+					<Edge From="joinarrays13.Array" To="souls">
+						<Vertex>n5V2Keue</Vertex>
+					</Edge>
+					<Edge From="revive1.OnExec" To="exec" />
 				</CleanAndHealTo>
 				<dialog_s_ptackem Name="dialog_s_ptackem" PositionY="-220" PositionX="30">
 					<Asset Name="DialogueHolder" Alias="beforeFeastDH" />
@@ -46,6 +48,27 @@
 					<Edge From="checkentitycontext2.HasContext" To="je_vecer_a_ptacek_se_opira" />
 					<Edge From="co_se_stalo_na_semine" To="co_se_stalo_na_semine" />
 				</dialog_s_ptackem>
+				<ForEach Name="foreach2" PositionY="270" PositionX="1540" TypeT="wh::rpgmodule::Souls">
+					<Edge From="triggersequence15.A" To="Begin" />
+					<Edge From="joinarrays13.Array" To="Array">
+						<Vertex>n5V2Keue</Vertex>
+					</Edge>
+				</ForEach>
+				<IfFunction Name="ifcompare16" PositionY="270" PositionX="1860" TypeT="wh::rpgmodule::I_Soul*" MethodName="Control::Compare" DeclaringType="Control">
+					<Constant Name="Op" Value="NotEquals" />
+					<Asset Name="ValueB" Alias="Jitka" />
+					<Edge From="foreach2.OnValue" To="Exec" />
+					<Edge From="foreach2.Value" To="ValueA" />
+				</IfFunction>
+				<IfFunction Name="ifcompare17" PositionY="270" PositionX="2170" TypeT="wh::rpgmodule::I_Soul*" MethodName="Control::Compare" DeclaringType="Control">
+					<Constant Name="Op" Value="NotEquals" />
+					<Asset Name="ValueB" Alias="Hasek" />
+					<Edge From="ifcompare16.True" To="Exec" />
+					<Edge From="foreach2.Value" To="ValueA">
+						<Vertex>WL50gwNu</Vertex>
+						<Vertex>FYvwIuhe</Vertex>
+					</Edge>
+				</IfFunction>
 				<Function Name="joinarrays13" PositionY="500" PositionX="1160" TypeT="wh::rpgmodule::Souls" MethodName="utilities::array::JoinArrays" DeclaringType="utilities::array">
 					<Asset Name="A" Alias="feast_NPCs" />
 					<Edge From="makearray12.Array" To="B" />
@@ -63,10 +86,14 @@
 				<Function Name="passlongtime4" PositionY="0" PositionX="490" MethodName="wh::conceptmodule::PassLongTime" DeclaringType="wh::conceptmodule">
 					<Edge From="dialog_s_ptackem.BeforePlay" To="Exec" />
 				</Function>
-				<revive Name="revive" PositionY="340" PositionX="1450" Namespace="utils.general">
-					<Edge From="joinarrays13.Array" To="souls" />
-					<Edge From="triggersequence15.A" To="exec" />
-				</revive>
+				<MemberFunction Name="revive1" PositionY="270" PositionX="2480" MethodName="Revive" DeclaringType="wh::rpgmodule::I_Soul">
+					<Edge From="foreach2.Value" To="Soul">
+						<Vertex>WL50gwNu</Vertex>
+						<Vertex>FYvwIuhe</Vertex>
+						<Vertex>e3D4Nzn8</Vertex>
+					</Edge>
+					<Edge From="ifcompare17.True" To="Exec" />
+				</MemberFunction>
 				<SceneFinishedWaiter Name="scenefinishedwaiter3" PositionY="200" PositionX="490">
 					<Edge From="dialog_s_ptackem.jindra_pokecal_s_ptackem" To="Enqueue" />
 				</SceneFinishedWaiter>
@@ -74,6 +101,12 @@
 					<Edge From="scenefinishedwaiter3.OnFinished" To="Exec" />
 				</TriggerSequence>
 			</Nodes>
+			<EdgeVertices>
+				<EdgeVertex Name="e3D4Nzn8" PositionY="510" PositionX="2360" />
+				<EdgeVertex Name="FYvwIuhe" PositionY="509" PositionX="2053" />
+				<EdgeVertex Name="n5V2Keue" PositionY="590" PositionX="1440" />
+				<EdgeVertex Name="WL50gwNu" PositionY="510" PositionX="1870" />
+			</EdgeVertices>
 			<Assets>
 				<DialogueHolderAsset Name="beforeFeastDH" />
 			</Assets>

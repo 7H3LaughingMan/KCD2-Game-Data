@@ -2,6 +2,11 @@
 <Database xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" Name="brambora">
 	<Skald>
 		<Dialog Name="zizka_si_povida_s_katerinou_na_certovce">
+			<Ports>
+				<Port Name="jsou_na_certovce" Direction="In" Type="bool">
+					<DesignName StringName="zizka_si__jsou_na_certovce_YcE3" Text="jsou na Čertovce" />
+				</Port>
+			</Ports>
 			<Text StringName="zizka_si_povida_s_katerin_MMNT" Text="Žižka si povídá s kateřinou na čertovce" />
 			<Elements>
 				<GameplayActionElement>
@@ -188,7 +193,7 @@
 								</Response>
 							</Elements>
 						</Sequence>
-						<Sequence EntryCondition="!ThisSequenceUsed()" EndType="EndDialogue" Name="seq3">
+						<Sequence EntryCondition="!ThisSequenceUsed() &#xD;&#xA;AND &#xD;&#xA;Port('jsou_na_certovce')" EndType="EndDialogue" Name="seq3">
 							<DesignName StringName="zizka_si__seq3_2VMu" Text="seq3" />
 							<Elements>
 								<Response Role="ZIZKA_GOSSIP" ReferenceLength="3.41">
@@ -259,7 +264,7 @@
 									<Commands>
 										<FacialMoodCommand FacialMood="sad1" />
 										<FacialMoodCommand Role="ZIZKA_GOSSIP" FacialMood="thinking1" />
-										<AnimationCommand Delay="0" FragmentId="ADLG_Surprised_light" Guid="ec1ef83e-f206-5b50-63ea-27915e5061a3" Variant="0" />
+										<AnimationCommand FragmentId="ADLG_Surprised_light" Guid="ec1ef83e-f206-5b50-63ea-27915e5061a3" Variant="0" />
 										<AnimationCommand Role="ZIZKA_GOSSIP" Delay="2.17" FragmentId="ADLG_Discard" Guid="cbf80eb0-9c3b-4a91-bacd-2019196c5059" Variant="3" DesiredDuration="2.85" />
 									</Commands>
 								</Response>
@@ -279,7 +284,7 @@
 									<Text StringName="zizk_katerina__asi_te_toh_K46y" Text="Myslíš, že mi na tom záleží? Jestli chceš pochválit, jakej seš teď drsňák, běž si do lázní." />
 									<Commands>
 										<FacialMoodCommand FacialMood="angry1" />
-										<AnimationCommand Delay="0" FragmentId="ADLG_Frustration" Guid="db7e2543-4ce2-4f48-aaca-aaa2bbbd4f1d" Variant="3" DesiredDuration="1.96" />
+										<AnimationCommand FragmentId="ADLG_Frustration" Guid="db7e2543-4ce2-4f48-aaca-aaa2bbbd4f1d" Variant="3" DesiredDuration="1.96" />
 										<AnimationCommand Delay="5.13" FragmentId="ADLG_Point" Guid="3fd7f2ee-0f33-47b1-bb9d-eb6701629cc7" Variant="2" />
 									</Commands>
 								</Response>

@@ -15,8 +15,11 @@
 				<Port Name="rutina__vypad_uspech" Direction="In" Type="bool">
 					<DesignName StringName="celni_uto_rutina__vypad_u_MwWx" Text="Rutina - výpad úspěch" />
 				</Port>
+				<Port Name="dobyti_predhradi__beforeplay" Direction="In" Type="trigger">
+					<DesignName StringName="celni_uto_dobyti_predhrad_ZQV5" Text="dobytí předhradí - beforePlay" />
+				</Port>
 				<Port Name="beforeplay_cutscene" Direction="In" Type="trigger">
-					<DesignName StringName="celni_uto_beforeplay_cuts_jPt2" Text="dobytí předhradí - beforePlay" />
+					<DesignName StringName="celni_uto_beforeplay_cuts_jPt2" Text="dobytí předhradí - afterPlay" />
 				</Port>
 				<Port Name="stream_envira__beforeplay" Direction="In" Type="trigger">
 					<DesignName StringName="celni_uto_stream_envira___Gl63" Text="stream envira - BeforePlay" />
@@ -73,6 +76,7 @@
 				<Definition File="celni_utok_prazskeho_vojska/streamovani__questovy_vojak_na_obou_hradbach.xml" />
 				<Definition File="celni_utok_prazskeho_vojska/streamovani__mrtvoly_na_zapadni_palisade.xml" />
 				<Definition File="celni_utok_prazskeho_vojska/krev_na_zapadni_hradbe.xml" />
+				<Definition File="celni_utok_prazskeho_vojska/streamovani_mess1_envira_za_hradnou.xml" />
 			</Definitions>
 			<Nodes>
 				<AddFactionRelationBetweenArrays Name="addfactionrelationbetweenarrays32" PositionY="-480" PositionX="3000">
@@ -108,10 +112,6 @@
 						<Vertex>vertex254</Vertex>
 						<Vertex>vertex255</Vertex>
 					</Edge>
-					<Edge From="objective__shod_zebriky_ze_zadni_hradby.shozeny_vsechny_zebriky" To="zebriky_ze_zadni_hradby_byly_shozeny">
-						<Vertex>vertex351</Vertex>
-						<Vertex>vertex352</Vertex>
-					</Edge>
 					<Edge From="vykopnuti_dveri.dvere_vykopnuty" To="dvere_vykopnuty" />
 					<Edge From="obsazeni_veze_a_zadni_hradby.nekdo_jde_nahoru_ke_strelcum" To="nekdo_jde_nahoru_ke_strelcum">
 						<Vertex>vertex389</Vertex>
@@ -122,6 +122,10 @@
 						<Vertex>vertex392</Vertex>
 					</Edge>
 					<Edge From="vykopnuti_dveri.spojenci_strili_pred_vezi" To="spojenci_strili_pred_vezi" />
+					<Edge From="ifand35.True" To="zebriky_ze_zadni_hradby_byly_shozeny">
+						<Vertex>VsT2aETN</Vertex>
+						<Vertex>RS8Qn54m</Vertex>
+					</Edge>
 				</bitva_na_zadni_hradbe>
 				<boj_na_hradbach Name="boj_na_hradbach" PositionY="70" PositionX="-2080" RequiredForOutput="kutnohorsko">
 					<Edge From="objective__shod_zebriky_z_bocni_hradby.active" To="hrac_neshodil_zebriky">
@@ -240,7 +244,6 @@
 				<haste__zabit_celou_hracovu_jednotku Name="haste__zabit_celou_hracovu_jednotku" PositionY="-1070" PositionX="-3140" />
 				<heal_dulezitych_npc Name="heal_dulezitych_npc" PositionY="1190" PositionX="4260">
 					<Edge From="vitezna_animace.konec_animace" To="utok_byl_odrazen" />
-					<Edge From="if34.False" To="utok_byl_odrazen" />
 				</heal_dulezitych_npc>
 				<hejtman_frenczl_chatuje_na_hrace Name="hejtman_frenczl_chatuje_na_hrace" PositionY="70" PositionX="-2510">
 					<Edge From="battleStatusWest.OnDone" To="deaktivace_chovani">
@@ -255,10 +258,18 @@
 						<Vertex>vertex76</Vertex>
 					</Edge>
 				</hracuv_start>
-				<If Name="if34" PositionY="1100" PositionX="3620">
-					<Edge From="bitva_na_zadni_hradbe.utok_byl_odrazen" To="Exec" />
-					<Edge From="bitva_na_zadni_hradbe.nepritel_neni_ve_hrade" To="Condition" />
-				</If>
+				<IfFunction Name="ifand35" PositionY="1030" PositionX="3630" MethodName="math::boolean::And" DeclaringType="math::boolean">
+					<Edge From="objective__shod_zebriky_ze_zadni_hradby.zebriky_shozeny" To="A">
+						<Vertex>K7WXC4En</Vertex>
+						<Vertex>C8kty3tD</Vertex>
+					</Edge>
+					<Edge From="bitva_na_zadni_hradbe.nepritel_neni_ve_hrad" To="Exec" />
+					<Edge From="bitva_na_zadni_hradbe.nepritel_neni_ve_hrade" To="B" />
+					<Edge From="objective__shod_zebriky_ze_zadni_hradby.zebriky_shozen" To="Exec">
+						<Vertex>njfU6X9G</Vertex>
+						<Vertex>e7bIzTEB</Vertex>
+					</Edge>
+				</IfFunction>
 				<inicializace_bitevnich_so Name="inicializace_bitevnich_so" PositionY="1130" PositionX="2630">
 					<Edge From="haste__stav_rutina.vysledek" To="vysledek" />
 					<Edge From="battleStatusSouth.State" To="bitva_na_hradbe" />
@@ -294,8 +305,8 @@
 					</Edge>
 				</krev_na_zapadni_hradbe>
 				<nestrilet_na_hrace_behem_faderu Name="nestrilet_na_hrace_behem_faderu" PositionY="-980" PositionX="2620">
-					<Edge From="battleStatusSouth.DuringCutscene" To="behem_faderu">
-						<Vertex>vertex350</Vertex>
+					<Edge From="battleStatusSouth.State" To="battle_status">
+						<Vertex>vertex253</Vertex>
 					</Edge>
 				</nestrilet_na_hrace_behem_faderu>
 				<objective__odraz_nepritele_z_hradeb_ Name="objective__odraz_nepritele_z_hradeb_" PositionY="280" PositionX="-1240" RequiredForOutput="kutnohorsko">
@@ -534,6 +545,12 @@
 					<Edge From="battleStatusSouth.OnDuringCutscene" To="stream__afterplay">
 						<Vertex>vertex205</Vertex>
 					</Edge>
+					<Edge From="dobyti_predhradi__beforeplay" To="dobyti_predhradi__beforeplay">
+						<Vertex>k00eRcLQ</Vertex>
+						<Vertex>bY6RKWuN</Vertex>
+						<Vertex>IMzPGBXn</Vertex>
+						<Vertex>RJ6zwcGj</Vertex>
+					</Edge>
 				</streamovani__vez_a_jizni_strana>
 				<streamovani_bitva Name="streamovani_bitva" PositionY="-860" PositionX="-2510">
 					<Edge From="divadlo_v_pozadi_a_bitva_predhradi.stream_envira_kolem_hradu__zapad" To="po_cutscene__fastforwad">
@@ -549,12 +566,24 @@
 						<Vertex>vertex73</Vertex>
 					</Edge>
 				</streamovani_bitva>
+				<streamovani_mess1_envira_za_hradnou Name="streamovani_mess1_envira_za_hradnou" PositionY="-1270" PositionX="2620">
+					<Edge From="dobyti_predhradi__beforeplay" To="unstream">
+						<Vertex>k00eRcLQ</Vertex>
+						<Vertex>bY6RKWuN</Vertex>
+						<Vertex>IMzPGBXn</Vertex>
+						<Vertex>RJ6zwcGj</Vertex>
+					</Edge>
+					<Edge From="cin_m4870k_oblehanisuchdol__tower_seized.cutscena__afterplay" To="stream">
+						<Vertex>QTfcxs4J</Vertex>
+						<Vertex>nDrAVayL</Vertex>
+					</Edge>
+				</streamovani_mess1_envira_za_hradnou>
 				<vitezna_animace Name="vitezna_animace" PositionY="1000" PositionX="3910">
-					<Edge From="if34.True" To="utok_byl_odrazen" />
 					<Edge From="zebriky_na_zadni_hradbe.haste__win" To="haste__win">
 						<Vertex>nqpWgzfQ</Vertex>
 						<Vertex>kzBYoDP7</Vertex>
 					</Edge>
+					<Edge From="ifand35.True" To="utok_byl_odrazen" />
 				</vitezna_animace>
 				<vojaci_na_jizni_strane_utikaji Name="vojaci_na_jizni_strane_utikaji" PositionY="1070" PositionX="4260">
 					<Edge From="vitezna_animace.timer_bezi" To="timer_bezi" />
@@ -604,22 +633,31 @@
 				<EdgeVertex Name="9XsIvJoK" PositionY="1870" PositionX="4840" />
 				<EdgeVertex Name="9zU0ujE0" PositionY="-210" PositionX="-2500" />
 				<EdgeVertex Name="aLjneleL" PositionY="1070" PositionX="2640" />
+				<EdgeVertex Name="bY6RKWuN" PositionY="-240" PositionX="-1780" />
 				<EdgeVertex Name="c40ItXxf" PositionY="630" PositionX="4260" />
+				<EdgeVertex Name="C8kty3tD" PositionY="790" PositionX="3720" />
 				<EdgeVertex Name="cWl9NFE2" PositionY="-120" PositionX="260" />
+				<EdgeVertex Name="e7bIzTEB" PositionY="820" PositionX="3720" />
 				<EdgeVertex Name="E9u36vsl" PositionY="1370" PositionX="3110" />
 				<EdgeVertex Name="En3WF4jI" PositionY="-240" PositionX="4900" />
 				<EdgeVertex Name="eW49b2JG" PositionY="-210" PositionX="2630" />
 				<EdgeVertex Name="FzKchEk4" PositionY="550" PositionX="1510" />
+				<EdgeVertex Name="IMzPGBXn" PositionY="-210" PositionX="-1320" />
 				<EdgeVertex Name="Ionp0xXz" PositionY="1860" PositionX="-2060" />
 				<EdgeVertex Name="jAesW7hu" PositionY="1370" PositionX="3390" />
-				<EdgeVertex Name="JKX2nocV" PositionY="-189" PositionX="2453" />
+				<EdgeVertex Name="JKX2nocV" PositionY="-190" PositionX="2450" />
+				<EdgeVertex Name="k00eRcLQ" PositionY="-240" PositionX="-3130" />
+				<EdgeVertex Name="K7WXC4En" PositionY="790" PositionX="4860" />
 				<EdgeVertex Name="kzBYoDP7" PositionY="760" PositionX="3720" />
 				<EdgeVertex Name="NA0eqodf" PositionY="1070" PositionX="2880" />
 				<EdgeVertex Name="nDrAVayL" PositionY="80" PositionX="2370" />
+				<EdgeVertex Name="njfU6X9G" PositionY="820" PositionX="4860" />
 				<EdgeVertex Name="nqpWgzfQ" PositionY="760" PositionX="3110" />
 				<EdgeVertex Name="nuaYmFNb" PositionY="-240" PositionX="2630" />
 				<EdgeVertex Name="oWdQzT37" PositionY="-180" PositionX="-1320" />
 				<EdgeVertex Name="QTfcxs4J" PositionY="80" PositionX="2060" />
+				<EdgeVertex Name="RJ6zwcGj" PositionY="-220" PositionX="2450" />
+				<EdgeVertex Name="RS8Qn54m" PositionY="1340" PositionX="3110" />
 				<EdgeVertex Name="rt6n0P63" PositionY="-91" PositionX="-2194" />
 				<EdgeVertex Name="vertex12" PositionY="-180" PositionX="-2500" />
 				<EdgeVertex Name="vertex13" PositionY="-180" PositionX="-1780" />
@@ -694,9 +732,6 @@
 				<EdgeVertex Name="vertex345" PositionY="-330" PositionX="-1780" />
 				<EdgeVertex Name="vertex346" PositionY="-150" PositionX="120" />
 				<EdgeVertex Name="vertex347" PositionY="-250" PositionX="2100" />
-				<EdgeVertex Name="vertex350" PositionY="400" PositionX="2460" />
-				<EdgeVertex Name="vertex351" PositionY="790" PositionX="4860" />
-				<EdgeVertex Name="vertex352" PositionY="790" PositionX="3110" />
 				<EdgeVertex Name="vertex363" PositionY="-30" PositionX="-2500" />
 				<EdgeVertex Name="vertex364" PositionY="-30" PositionX="-2190" />
 				<EdgeVertex Name="vertex367" PositionY="1400" PositionX="3390" />
@@ -727,6 +762,7 @@
 				<EdgeVertex Name="vertex76" PositionY="160" PositionX="-2710" />
 				<EdgeVertex Name="vertex9" PositionY="200" PositionX="4360" />
 				<EdgeVertex Name="vlWL07JB" PositionY="630" PositionX="3730" />
+				<EdgeVertex Name="VsT2aETN" PositionY="1340" PositionX="3810" />
 				<EdgeVertex Name="WjX2t0ks" PositionY="730" PositionX="4860" />
 				<EdgeVertex Name="yx5RkcCe" PositionY="1100" PositionX="2880" />
 			</EdgeVertices>

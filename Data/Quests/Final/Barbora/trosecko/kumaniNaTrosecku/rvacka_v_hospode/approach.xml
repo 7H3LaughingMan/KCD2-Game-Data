@@ -12,6 +12,9 @@
 				<Port Name="jindra_vstupuje_do_hospody" Direction="Out" Type="trigger">
 					<DesignName StringName="area_trig_jindra_vstupuje_GSNu" Text="Jindra vstupuje do hospody" />
 				</Port>
+				<Port Name="prvni_trackovani_odchodu_z_oblasti_je_aktivni" Direction="Out" Type="bool">
+					<DesignName StringName="approach_prvni_trackovani_0m7B" Text="První trackování odchodu z oblasti je aktivní" />
+				</Port>
 			</Ports>
 			<Nodes>
 				<AreaTrigger Name="areatrigger3" PositionY="-10" PositionX="920">
@@ -22,7 +25,9 @@
 				<AreaTrigger Name="areatrigger3_1" PositionY="-410" PositionX="500">
 					<Asset Name="Souls" Alias="player" />
 					<Asset Name="Areas" Alias="tavernTeleportationArea" />
-					<Edge From="trackingPlayerNearPub.LeaveLargeAreaFirst" To="IsActive" />
+					<Edge From="trackingPlayerNearPub.LeaveLargeAreaFirst" To="IsActive">
+						<Vertex>owj2B7a8</Vertex>
+					</Edge>
 				</AreaTrigger>
 				<If Name="if9" PositionY="-140" PositionX="-400">
 					<Edge From="OnWake" To="Exec" />
@@ -46,6 +51,9 @@
 					</Edge>
 					<Edge From="smallAreaTrigger.OnAllEnter" To="jindra_vstupuje_do_hospody">
 						<Vertex>vertex9</Vertex>
+					</Edge>
+					<Edge From="trackingPlayerNearPub.LeaveLargeAreaFirst" To="prvni_trackovani_odchodu_z_oblasti_je_aktivni">
+						<Vertex>owj2B7a8</Vertex>
 					</Edge>
 				</Output>
 				<AreaTrigger Name="smallAreaTrigger" PositionY="380" PositionX="490">
@@ -83,6 +91,7 @@
 				<EdgeVertex Name="2jhIy2qE" PositionY="10" PositionX="-90" />
 				<EdgeVertex Name="JgYAfK4X" PositionY="-470" PositionX="-100" />
 				<EdgeVertex Name="mU3gP70F" PositionY="-310" PositionX="260" />
+				<EdgeVertex Name="owj2B7a8" PositionY="-110" PositionX="385" />
 				<EdgeVertex Name="tx6WCmqW" PositionY="-470" PositionX="790" />
 				<EdgeVertex Name="vertex1" PositionY="110" PositionX="420" />
 				<EdgeVertex Name="vertex18" PositionY="-70" PositionX="480" />

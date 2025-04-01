@@ -296,6 +296,7 @@
 														<Success />
 													</DefaultBranch>
 												</Switch>
+												<Expression expressions="$ignoreVolumeTimer = &apos;1h&apos;" />
 											</Sequence>
 										</Then>
 									</HasPerceivableState>
@@ -326,39 +327,52 @@
 						</IfCondition>
 						<IfCondition failOnCondition="false" condition="$type == &apos;NHNPC&apos;">
 							<Sequence>
-								<Function_switch_handleAwareness_checkHotEntities perceptible="$awareness.perceptible" nodeLabel="26339687" />
-								<CheckRelationshipInterval_SoulToSoul TargetSoul="$awareness.perceptible" Soul="$this.id" Flag="enemy" saveVersion="2">
-									<Then canSkip="1">
-										<EntityContextCheck context="switch_isHorse" target="$awareness.perceptible" saveVersion="2">
-											<Else canSkip="1">
-												<Function_switch_handleAwareness_enemy enemy="$awareness.perceptible" nodeLabel="19687502" />
-											</Else>
-										</EntityContextCheck>
-									</Then>
-									<Else canSkip="1">
-										<Success />
-									</Else>
-								</CheckRelationshipInterval_SoulToSoul>
-								<Sequence>
-									<Function_crime_getPlayerCompanionType entity="$awareness.perceptible" companionType="$companionType" nodeLabel="80331639" />
-									<IfCondition failOnCondition="false" condition="$companionType ~= $enum:crime_banishCompanionType.Unknown">
-										<Function_switch_handleAwareness_playerCompanion companion="$awareness.perceptible" companionType="$companionType" reactionIntermediateData="$reactionIntermediateData" nodeLabel="12439009" />
-									</IfCondition>
-								</Sequence>
-								<HasPerceivableState PerceivableState="&apos;combat&apos;" PerceivedWUID="$awareness.perceptible" PerceptorWUID="" FailSubtMissing="false" saveVersion="2">
-									<Then canSkip="1">
-										<Function_switch_handleAwareness_combat perceptible="$awareness.perceptible" reactionIntermediateData="$reactionIntermediateData" nodeLabel="81926568" />
-									</Then>
-								</HasPerceivableState>
 								<HasPerceivableState PerceivableState="&apos;dead&apos;" PerceivedWUID="$awareness.perceptible" PerceptorWUID="" FailSubtMissing="false" saveVersion="2">
 									<Then canSkip="1">
 										<Function_switch_handleAwareness_animal_corpse corpse="$awareness.perceptible" nodeLabel="47253296" />
 									</Then>
-								</HasPerceivableState>
-								<HasPerceivableState PerceivableState="&apos;crime_animal_startled&apos;" PerceivedWUID="$awareness.perceptible" PerceptorWUID="" FailSubtMissing="false" saveVersion="2">
-									<Then canSkip="1">
-										<Function_switch_handleAwareness_animal_startled perceptible="$awareness.perceptible" reactionIntermediateData="$reactionIntermediateData" nodeLabel="13649609" />
-									</Then>
+									<Else canSkip="1">
+										<HasPerceivableState PerceivableState="&apos;unconscious&apos;" PerceivedWUID="$awareness.perceptible" PerceptorWUID="" FailSubtMissing="false" saveVersion="2">
+											<Then canSkip="1">
+												<Success />
+											</Then>
+											<Else canSkip="1">
+												<Sequence>
+													<Function_switch_handleAwareness_checkHotEntities perceptible="$awareness.perceptible" nodeLabel="26339687" />
+													<Function_crime_getPlayerCompanionType entity="$awareness.perceptible" companionType="$companionType" nodeLabel="80331639" />
+													<HasPerceivableState PerceivableState="&apos;combat&apos;" PerceivedWUID="$awareness.perceptible" PerceptorWUID="" FailSubtMissing="false" saveVersion="2">
+														<Then canSkip="1">
+															<Function_switch_handleAwareness_combat perceptible="$awareness.perceptible" reactionIntermediateData="$reactionIntermediateData" nodeLabel="81926568" />
+														</Then>
+													</HasPerceivableState>
+													<IfElseCondition failOnCondition="false" condition="$companionType == $enum:crime_banishCompanionType.Unknown" saveVersion="2">
+														<Then canSkip="1">
+															<CheckRelationshipInterval_SoulToSoul TargetSoul="$awareness.perceptible" Soul="$this.id" Flag="enemy" saveVersion="2">
+																<Then canSkip="1">
+																	<EntityContextCheck context="switch_isHorse" target="$awareness.perceptible" saveVersion="2">
+																		<Else canSkip="1">
+																			<Function_switch_handleAwareness_enemy enemy="$awareness.perceptible" nodeLabel="19687502" />
+																		</Else>
+																	</EntityContextCheck>
+																</Then>
+																<Else canSkip="1">
+																	<Success />
+																</Else>
+															</CheckRelationshipInterval_SoulToSoul>
+														</Then>
+														<Else canSkip="1">
+															<Function_switch_handleAwareness_playerCompanion companion="$awareness.perceptible" companionType="$companionType" shouldForcePublicReaction="false" reactionIntermediateData="$reactionIntermediateData" nodeLabel="12439009" />
+														</Else>
+													</IfElseCondition>
+													<HasPerceivableState PerceivableState="&apos;crime_animal_startled&apos;" PerceivedWUID="$awareness.perceptible" PerceptorWUID="" FailSubtMissing="false" saveVersion="2">
+														<Then canSkip="1">
+															<Function_switch_handleAwareness_animal_startled perceptible="$awareness.perceptible" reactionIntermediateData="$reactionIntermediateData" nodeLabel="13649609" />
+														</Then>
+													</HasPerceivableState>
+												</Sequence>
+											</Else>
+										</HasPerceivableState>
+									</Else>
 								</HasPerceivableState>
 								<Function_crime_ignorePerceivedEntity disableIgnore="$skipIgnore" perceivedEntity="$awareness.perceptible" nodeLabel="69026901" />
 							</Sequence>
@@ -887,6 +901,9 @@
 															</Success>
 														</DefaultBranch>
 													</Switch>
+													<Expression hasInputBreakpoint="0" comment="" breakpointFlags="0">
+														<OutputBreakpoints />
+													</Expression>
 												</Sequence>
 											</Then>
 										</HasPerceivableState>
@@ -929,49 +946,8 @@
 							</IfCondition>
 							<IfCondition hasInputBreakpoint="0" comment="" breakpointFlags="0">
 								<OutputBreakpoints />
-								<Sequence hasInputBreakpoint="0" comment="Check if player is the master of this companion" breakpointFlags="0">
+								<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
 									<OutputBreakpoints />
-									<Function_switch_handleAwareness_checkHotEntities hasInputBreakpoint="0" comment="" breakpointFlags="0">
-										<OutputBreakpoints />
-									</Function_switch_handleAwareness_checkHotEntities>
-									<CheckRelationshipInterval_SoulToSoul hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
-										<OutputBreakpoints />
-										<Then>
-											<EntityContextCheck hasInputBreakpoint="0" comment="KCD2-460467, do not mind enemy horses" breakpointFlags="0" saveVersion="2">
-												<OutputBreakpoints />
-												<Else>
-													<Function_switch_handleAwareness_enemy hasInputBreakpoint="0" comment="" breakpointFlags="0">
-														<OutputBreakpoints />
-													</Function_switch_handleAwareness_enemy>
-												</Else>
-											</EntityContextCheck>
-										</Then>
-										<Else>
-											<Success hasInputBreakpoint="0" comment="" breakpointFlags="0">
-												<OutputBreakpoints />
-											</Success>
-										</Else>
-									</CheckRelationshipInterval_SoulToSoul>
-									<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
-										<OutputBreakpoints />
-										<Function_crime_getPlayerCompanionType hasInputBreakpoint="0" comment="" breakpointFlags="0">
-											<OutputBreakpoints />
-										</Function_crime_getPlayerCompanionType>
-										<IfCondition hasInputBreakpoint="0" comment="" breakpointFlags="0">
-											<OutputBreakpoints />
-											<Function_switch_handleAwareness_playerCompanion hasInputBreakpoint="0" comment="" breakpointFlags="0">
-												<OutputBreakpoints />
-											</Function_switch_handleAwareness_playerCompanion>
-										</IfCondition>
-									</Sequence>
-									<HasPerceivableState hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
-										<OutputBreakpoints />
-										<Then>
-											<Function_switch_handleAwareness_combat hasInputBreakpoint="0" comment="" breakpointFlags="0">
-												<OutputBreakpoints />
-											</Function_switch_handleAwareness_combat>
-										</Then>
-									</HasPerceivableState>
 									<HasPerceivableState hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
 										<OutputBreakpoints />
 										<Then>
@@ -979,14 +955,71 @@
 												<OutputBreakpoints />
 											</Function_switch_handleAwareness_animal_corpse>
 										</Then>
-									</HasPerceivableState>
-									<HasPerceivableState hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
-										<OutputBreakpoints />
-										<Then>
-											<Function_switch_handleAwareness_animal_startled hasInputBreakpoint="0" comment="" breakpointFlags="0">
+										<Else>
+											<HasPerceivableState hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
 												<OutputBreakpoints />
-											</Function_switch_handleAwareness_animal_startled>
-										</Then>
+												<Then>
+													<Success hasInputBreakpoint="0" comment="" breakpointFlags="0">
+														<OutputBreakpoints />
+													</Success>
+												</Then>
+												<Else>
+													<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
+														<OutputBreakpoints />
+														<Function_switch_handleAwareness_checkHotEntities hasInputBreakpoint="0" comment="" breakpointFlags="0">
+															<OutputBreakpoints />
+														</Function_switch_handleAwareness_checkHotEntities>
+														<Function_crime_getPlayerCompanionType hasInputBreakpoint="0" comment="Check if player is the master of this companion" breakpointFlags="0">
+															<OutputBreakpoints />
+														</Function_crime_getPlayerCompanionType>
+														<HasPerceivableState hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
+															<OutputBreakpoints />
+															<Then>
+																<Function_switch_handleAwareness_combat hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																	<OutputBreakpoints />
+																</Function_switch_handleAwareness_combat>
+															</Then>
+														</HasPerceivableState>
+														<IfElseCondition hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
+															<OutputBreakpoints />
+															<Then>
+																<CheckRelationshipInterval_SoulToSoul hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
+																	<OutputBreakpoints />
+																	<Then>
+																		<EntityContextCheck hasInputBreakpoint="0" comment="KCD2-460467, do not mind enemy horses" breakpointFlags="0" saveVersion="2">
+																			<OutputBreakpoints />
+																			<Else>
+																				<Function_switch_handleAwareness_enemy hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																					<OutputBreakpoints />
+																				</Function_switch_handleAwareness_enemy>
+																			</Else>
+																		</EntityContextCheck>
+																	</Then>
+																	<Else>
+																		<Success hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																			<OutputBreakpoints />
+																		</Success>
+																	</Else>
+																</CheckRelationshipInterval_SoulToSoul>
+															</Then>
+															<Else>
+																<Function_switch_handleAwareness_playerCompanion hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																	<OutputBreakpoints />
+																</Function_switch_handleAwareness_playerCompanion>
+															</Else>
+														</IfElseCondition>
+														<HasPerceivableState hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
+															<OutputBreakpoints />
+															<Then>
+																<Function_switch_handleAwareness_animal_startled hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																	<OutputBreakpoints />
+																</Function_switch_handleAwareness_animal_startled>
+															</Then>
+														</HasPerceivableState>
+													</Sequence>
+												</Else>
+											</HasPerceivableState>
+										</Else>
 									</HasPerceivableState>
 									<Function_crime_ignorePerceivedEntity hasInputBreakpoint="0" comment="" breakpointFlags="0">
 										<OutputBreakpoints />

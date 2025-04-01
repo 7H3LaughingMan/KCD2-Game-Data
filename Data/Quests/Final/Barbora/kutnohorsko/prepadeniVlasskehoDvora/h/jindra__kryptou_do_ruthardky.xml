@@ -42,10 +42,6 @@
 					</Edge>
 					<Edge From="priprava.streamovani_pri_utek_do_krypty" To="SetActive" />
 				</State>
-				<FilterInput Name="filterinput15" PositionY="780" PositionX="170">
-					<Edge From="makearray16.Array" To="Filters" />
-					<Edge From="DostanSeDoRuthardky.Active" To="IsActive" />
-				</FilterInput>
 				<gp_krypta__metro Name="gp_krypta__metro" PositionY="210" PositionX="190" RequiredForOutput="kutnohorsko">
 					<Edge From="balim_katku" To="balim_katku" />
 					<Edge From="DostanSeDoRuthardky.Active" To="Awake" />
@@ -54,9 +50,6 @@
 					<Edge From="patchtrigger20.OnPatch" To="Exec" />
 					<Edge From="DostanSeDoRuthardky.Active" To="Condition" />
 				</If>
-				<MakeArray Name="makearray16" PositionY="820" PositionX="-100" TypeT="Strings">
-					<Constant Name="A" Value="no_horse" />
-				</MakeArray>
 				<MakeArray Name="makearray19" PositionY="50" PositionX="-100" TypeT="wh::rpgmodule::Souls">
 					<Asset Name="A" Alias="cert" />
 					<Asset Name="B" Alias="kubenka" />
@@ -109,8 +102,12 @@
 					<Edge From="DostanSeDoRuthardky.Active" To="IsActive" />
 					<Edge From="makearray19.Array" To="Souls" />
 				</SetEntityContext>
-				<SetGameContext Name="setgamecontext8" PositionY="950" PositionX="166">
+				<SetGameContext Name="setgamecontext8" PositionY="950" PositionX="170">
 					<Constant Name="Context" Value="NoDog" />
+					<Edge From="DostanSeDoRuthardky.Active" To="IsActive" />
+				</SetGameContext>
+				<SetGameContext Name="setgamecontext8_1" PositionY="780" PositionX="180">
+					<Constant Name="Context" Value="DisableHorseCall" />
 					<Edge From="DostanSeDoRuthardky.Active" To="IsActive" />
 				</SetGameContext>
 				<SwitchPlayer Name="switchplayer16" PositionY="-1140" PositionX="-690">

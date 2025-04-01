@@ -33,6 +33,9 @@
 				<Port Name="m45__papezsky_legat__point_of_no_return" Direction="In" Type="trigger">
 					<DesignName StringName="hospoda_m45__papezsky_leg_mFfN" Text="M45 - Papežský Legát - Point of no return" />
 				</Port>
+				<Port Name="vim_kde_je_krizovatka_bez_pomoci_cernika" Direction="In" Type="trigger">
+					<DesignName StringName="hospoda_vim_kde_je_krizov_6Ins" Text="vím kde je křižovatka bez pomoci Černíka" />
+				</Port>
 			</Ports>
 			<Definitions>
 				<Definition File="hospoda/dialog_hospodsky_bylany.xml" />
@@ -93,6 +96,7 @@
 						<Vertex>vertex11</Vertex>
 					</Edge>
 					<Edge From="m45__papezsky_legat__point_of_no_return" To="Exec" />
+					<Edge From="vim_kde_je_krizovatka_bez_pomoci_cernika" To="Exec" />
 				</If>
 				<If Name="if3" PositionY="1120" PositionX="960">
 					<Edge From="mikus_nalezen" To="Exec">
@@ -102,6 +106,10 @@
 					<Edge From="zeptejSeCernikaNaMikuse.Started" To="Condition">
 						<Vertex>vertex8</Vertex>
 						<Vertex>vertex9</Vertex>
+					</Edge>
+					<Edge From="vim_kde_je_krizovatka_bez_pomoci_cernika" To="Exec">
+						<Vertex>vertex12</Vertex>
+						<Vertex>vertex21</Vertex>
 					</Edge>
 				</If>
 				<IfFunction Name="ifdeathcheck14" PositionY="810" PositionX="1990" MethodName="wh::rpgmodule::DeathCheck" DeclaringType="wh::rpgmodule">

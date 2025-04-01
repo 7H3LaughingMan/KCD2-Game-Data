@@ -124,34 +124,41 @@
 											<Function_callInterrupt_mindPlayer ignorePriority="$ignorePriority" initiator="$initiator" previousReaction="$enum:crime_reactionKind.unknown" soundType="$enum:sound.invalid" stimulusKind="$enum:crime_stimulusKind.threat" nodeLabel="34806808" />
 										</Then>
 										<Else canSkip="1">
-											<Sequence>
-												<GraphSearch Origin="$__player" Borders="" depth="1" selection="true" SearchPattern="Depth" EdgePruning="&apos;parent,inventory&apos;" AllowedEdges="" SubGraph="&apos;crime_reactor&apos;" AllowSubtraph="false" includeOrigin="false" excludeOrigin="false" failOnEmpty="false" SetOperationChoice="Intersection|And" errorOnEmpty="false" shortCircuit="false" skipTraversed="true">
-													<LinkTagFilter tag="&apos;crime_reactor&apos;" prune="true" negprune="unknown" Parent="" Child="" Data="" />
-													<LinkDataFilter tag="&apos;crime_reactor&apos;" condition="$__link_crime_reactor.reactionKind == $enum:crime_reactionKind.mindPlayer | &#10;$__link_crime_reactor.reactionKind == $enum:crime_reactionKind.watch" prune="true" negprune="unknown" Parent="" Child="" Data="" />
-													<Datalyzer Tag="&apos;crime_reactor&apos;" Quantifiers="ForAll" Parent="" Child="" Data="$reactorData" saveVersion="2" />
-												</GraphSearch>
-												<ForEach startIndex="0" step="1" array="$reactorData" iterator="" value="$reactorData_value" break="$break">
+											<IsPublicEnemy Soul="$this.id" FailOnSubtreeMissing="false" saveVersion="2">
+												<Then canSkip="1">
+													<Function_callInterrupt_mindPlayer ignorePriority="$ignorePriority" initiator="$initiator" previousReaction="$enum:crime_reactionKind.unknown" soundType="$enum:sound.invalid" stimulusKind="$enum:crime_stimulusKind.threat" nodeLabel="98121809" />
+												</Then>
+												<Else canSkip="1">
 													<Sequence>
-														<GetReactorStimulusKind ReactorData="$reactorData_value" StimulusKind="$reactorData_value_stimulusKind" />
-														<IfCondition failOnCondition="false" condition="$reactorData_value_stimulusKind == $enum:crime_stimulusKind.threat">
-															<Expression expressions="$shouldReact = false &#10;$break = true" />
+														<GraphSearch Origin="$__player" Borders="" depth="1" selection="true" SearchPattern="Depth" EdgePruning="&apos;parent,inventory&apos;" AllowedEdges="" SubGraph="&apos;crime_reactor&apos;" AllowSubtraph="false" includeOrigin="false" excludeOrigin="false" failOnEmpty="false" SetOperationChoice="Intersection|And" errorOnEmpty="false" shortCircuit="false" skipTraversed="true">
+															<LinkTagFilter tag="&apos;crime_reactor&apos;" prune="true" negprune="unknown" Parent="" Child="" Data="" />
+															<LinkDataFilter tag="&apos;crime_reactor&apos;" condition="$__link_crime_reactor.reactionKind == $enum:crime_reactionKind.mindPlayer | &#10;$__link_crime_reactor.reactionKind == $enum:crime_reactionKind.watch" prune="true" negprune="unknown" Parent="" Child="" Data="" />
+															<Datalyzer Tag="&apos;crime_reactor&apos;" Quantifiers="ForAll" Parent="" Child="" Data="$reactorData" saveVersion="2" />
+														</GraphSearch>
+														<ForEach startIndex="0" step="1" array="$reactorData" iterator="" value="$reactorData_value" break="$break">
+															<Sequence>
+																<GetReactorStimulusKind ReactorData="$reactorData_value" StimulusKind="$reactorData_value_stimulusKind" />
+																<IfCondition failOnCondition="false" condition="$reactorData_value_stimulusKind == $enum:crime_stimulusKind.threat">
+																	<Expression expressions="$shouldReact = false &#10;$break = true" />
+																</IfCondition>
+															</Sequence>
+														</ForEach>
+														<IfCondition failOnCondition="false" condition="$shouldReact">
+															<DecideSkirmishReaction ReferenceNPC="$this.id" TargetNPC="$stimulus.threatSource" Reason="Perception" RelationOverride="Hostile" MoraleBoost="0.000000" AllowFemaleJoin="true" saveVersion="2">
+																<Join canSkip="1">
+																	<Function_callInterrupt_mindPlayer ignorePriority="$ignorePriority" initiator="$initiator" previousReaction="$enum:crime_reactionKind.unknown" soundType="$enum:sound.invalid" stimulusKind="$enum:crime_stimulusKind.threat" nodeLabel="15972551" />
+																</Join>
+																<Withdraw canSkip="1">
+																	<Function_callInterrupt_watch assaultData="" corpseState="$enum:corpseState.undiscovered" criminalFreshness="$enum:crime_criminalFreshness.unknown" defenceMode="false" freshlyAttributedCrime="false" ignorePriority="$ignorePriority" information="" initiator="$initiator" previousReaction="$enum:crime_reactionKind.unknown" source="$source" stimulusKind="$enum:crime_stimulusKind.threat" target="$stimulus.threatSource" nodeLabel="33220170" />
+																</Withdraw>
+																<Indifference canSkip="1">
+																	<Function_callInterrupt_watch assaultData="" corpseState="$enum:corpseState.undiscovered" criminalFreshness="$enum:crime_criminalFreshness.unknown" defenceMode="false" freshlyAttributedCrime="false" ignorePriority="$ignorePriority" information="" initiator="$initiator" previousReaction="$enum:crime_reactionKind.unknown" source="$source" stimulusKind="$enum:crime_stimulusKind.threat" target="$stimulus.threatSource" nodeLabel="42817498" />
+																</Indifference>
+															</DecideSkirmishReaction>
 														</IfCondition>
 													</Sequence>
-												</ForEach>
-												<IfCondition failOnCondition="false" condition="$shouldReact">
-													<DecideSkirmishReaction ReferenceNPC="$this.id" TargetNPC="$stimulus.threatSource" Reason="Perception" RelationOverride="Hostile" MoraleBoost="0.000000" AllowFemaleJoin="true" saveVersion="2">
-														<Join canSkip="1">
-															<Function_callInterrupt_mindPlayer ignorePriority="$ignorePriority" initiator="$initiator" previousReaction="$enum:crime_reactionKind.unknown" soundType="$enum:sound.invalid" stimulusKind="$enum:crime_stimulusKind.threat" nodeLabel="15972551" />
-														</Join>
-														<Withdraw canSkip="1">
-															<Function_callInterrupt_watch assaultData="" corpseState="$enum:corpseState.undiscovered" criminalFreshness="$enum:crime_criminalFreshness.unknown" defenceMode="false" freshlyAttributedCrime="false" ignorePriority="$ignorePriority" information="" initiator="$initiator" previousReaction="$enum:crime_reactionKind.unknown" source="$source" stimulusKind="$enum:crime_stimulusKind.threat" target="$stimulus.threatSource" nodeLabel="33220170" />
-														</Withdraw>
-														<Indifference canSkip="1">
-															<Function_callInterrupt_watch assaultData="" corpseState="$enum:corpseState.undiscovered" criminalFreshness="$enum:crime_criminalFreshness.unknown" defenceMode="false" freshlyAttributedCrime="false" ignorePriority="$ignorePriority" information="" initiator="$initiator" previousReaction="$enum:crime_reactionKind.unknown" source="$source" stimulusKind="$enum:crime_stimulusKind.threat" target="$stimulus.threatSource" nodeLabel="42817498" />
-														</Indifference>
-													</DecideSkirmishReaction>
-												</IfCondition>
-											</Sequence>
+												</Else>
+											</IsPublicEnemy>
 										</Else>
 									</EntityContextCheck>
 								</Else>
@@ -354,57 +361,67 @@
 												</Function_callInterrupt_mindPlayer>
 											</Then>
 											<Else>
-												<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
+												<IsPublicEnemy hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
 													<OutputBreakpoints />
-													<GraphSearch hasInputBreakpoint="0" comment="KCD2-430088" breakpointFlags="0">
-														<OutputBreakpoints />
-														<LinkTagFilter hasInputBreakpoint="0" comment="" breakpointFlags="0">
+													<Then>
+														<Function_callInterrupt_mindPlayer hasInputBreakpoint="0" comment="" breakpointFlags="0">
 															<OutputBreakpoints />
-														</LinkTagFilter>
-														<LinkDataFilter hasInputBreakpoint="0" comment="" breakpointFlags="0">
-															<OutputBreakpoints />
-														</LinkDataFilter>
-														<Datalyzer hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
-															<OutputBreakpoints />
-														</Datalyzer>
-													</GraphSearch>
-													<ForEach hasInputBreakpoint="0" comment="" breakpointFlags="0">
-														<OutputBreakpoints />
+														</Function_callInterrupt_mindPlayer>
+													</Then>
+													<Else>
 														<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
 															<OutputBreakpoints />
-															<GetReactorStimulusKind hasInputBreakpoint="0" comment="" breakpointFlags="0">
+															<GraphSearch hasInputBreakpoint="0" comment="KCD2-430088" breakpointFlags="0">
 																<OutputBreakpoints />
-															</GetReactorStimulusKind>
+																<LinkTagFilter hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																	<OutputBreakpoints />
+																</LinkTagFilter>
+																<LinkDataFilter hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																	<OutputBreakpoints />
+																</LinkDataFilter>
+																<Datalyzer hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
+																	<OutputBreakpoints />
+																</Datalyzer>
+															</GraphSearch>
+															<ForEach hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																<OutputBreakpoints />
+																<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																	<OutputBreakpoints />
+																	<GetReactorStimulusKind hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																		<OutputBreakpoints />
+																	</GetReactorStimulusKind>
+																	<IfCondition hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																		<OutputBreakpoints />
+																		<Expression hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																			<OutputBreakpoints />
+																		</Expression>
+																	</IfCondition>
+																</Sequence>
+															</ForEach>
 															<IfCondition hasInputBreakpoint="0" comment="" breakpointFlags="0">
 																<OutputBreakpoints />
-																<Expression hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																<DecideSkirmishReaction hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
 																	<OutputBreakpoints />
-																</Expression>
+																	<Join>
+																		<Function_callInterrupt_mindPlayer hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																			<OutputBreakpoints />
+																		</Function_callInterrupt_mindPlayer>
+																	</Join>
+																	<Withdraw>
+																		<Function_callInterrupt_watch hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																			<OutputBreakpoints />
+																		</Function_callInterrupt_watch>
+																	</Withdraw>
+																	<Indifference>
+																		<Function_callInterrupt_watch hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																			<OutputBreakpoints />
+																		</Function_callInterrupt_watch>
+																	</Indifference>
+																</DecideSkirmishReaction>
 															</IfCondition>
 														</Sequence>
-													</ForEach>
-													<IfCondition hasInputBreakpoint="0" comment="" breakpointFlags="0">
-														<OutputBreakpoints />
-														<DecideSkirmishReaction hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
-															<OutputBreakpoints />
-															<Join>
-																<Function_callInterrupt_mindPlayer hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																	<OutputBreakpoints />
-																</Function_callInterrupt_mindPlayer>
-															</Join>
-															<Withdraw>
-																<Function_callInterrupt_watch hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																	<OutputBreakpoints />
-																</Function_callInterrupt_watch>
-															</Withdraw>
-															<Indifference>
-																<Function_callInterrupt_watch hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																	<OutputBreakpoints />
-																</Function_callInterrupt_watch>
-															</Indifference>
-														</DecideSkirmishReaction>
-													</IfCondition>
-												</Sequence>
+													</Else>
+												</IsPublicEnemy>
 											</Else>
 										</EntityContextCheck>
 									</Else>

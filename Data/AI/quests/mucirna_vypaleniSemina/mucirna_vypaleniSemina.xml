@@ -354,39 +354,39 @@
 			<Behavior canSkip="1">
 				<EntityContextPreset preset="switch_unresponsive" target="$this.id">
 					<EntityContext context="crime_ignorePebbleHit" target="$this.id">
-						<EntityContext context="combat_actorSupressHitreactionAnimation" target="$this.id">
-							<FuseBox StatusPropagation="Child" OneCleanup="true" saveVersion="2">
-								<Child canSkip="1">
-									<Sequence>
-										<AddBuff SoulWUID="$this.id" BuffGUID="&apos;b5e6123f-dcb3-4c7e-8096-5b584fbc87f6&apos;" />
-										<UnstanceElement unstance="WoundedLyingWoman_noAlign" locationObject="" slaveObject="" enabled="true">
-											<Parallel successMode="Any" failureMode="Any">
+						<FuseBox StatusPropagation="Child" OneCleanup="true" saveVersion="2">
+							<Child canSkip="1">
+								<Sequence>
+									<AddBuff SoulWUID="$this.id" BuffGUID="&apos;b5e6123f-dcb3-4c7e-8096-5b584fbc87f6&apos;" />
+									<UnstanceElement unstance="WoundedLyingWoman_noAlign" locationObject="" slaveObject="" enabled="true">
+										<Parallel successMode="Any" failureMode="Any">
+											<EntityContext context="combat_actorSupressHitreactionAnimation" target="$this.id">
 												<JoinedAnimationAction requiresMovement="true" lockContext="$__object.id" lockName="&apos;pullDown&apos;" lockCount="2" timeout="&apos;-1&apos;" ignoreOthersLeaving="false" fragment="&apos;Quest_AttackOnFemalePullOnGround&apos;" tags="" eventReferenceObject="" alignObject="$__object.id" slaveObject="" resourceOverride="&apos;victim&apos;" allowTorchForPlayer="false" />
-												<NPCStateGate State="Stamina" Target="$this.id" Low="1.000000" High="100.000000" Negation="false" RunLogic="KeepRunning">
-													<KillNPC KillTarget="$this.id" Scream="false" />
-												</NPCStateGate>
-											</Parallel>
-										</UnstanceElement>
-									</Sequence>
-								</Child>
-								<OnSuccess canSkip="1">
-									<ActorStateCheck Who="$this.id" State="ragdoll" FailWithSubtreeMissing="false" saveVersion="2">
-										<Then canSkip="1">
-											<KillNPC KillTarget="$this.id" Scream="false" />
-										</Then>
-										<Else canSkip="1">
-											<Sequence>
-												<RemoveBuffs SoulWUID="$this.id" BuffGUID="&apos;b5e6123f-dcb3-4c7e-8096-5b584fbc87f6&apos;" BuffTagId="-1" />
-												<AddBuff SoulWUID="$this.id" BuffGUID="&apos;f8d60fe4-e2c1-420a-946a-213e1cd09264&apos;" />
-												<WaitAction />
-												<Wait duration="&apos;3s&apos;" timeType="GameTime" doFail="false" variation="" />
-												<AddBuff SoulWUID="$this.id" BuffGUID="&apos;bd22f98a-e61f-4d83-b39c-79d1d85b6b91&apos;" />
-											</Sequence>
-										</Else>
-									</ActorStateCheck>
-								</OnSuccess>
-							</FuseBox>
-						</EntityContext>
+											</EntityContext>
+											<NPCStateGate State="Stamina" Target="$this.id" Low="1.000000" High="100.000000" Negation="false" RunLogic="KeepRunning">
+												<KillNPC KillTarget="$this.id" Scream="false" />
+											</NPCStateGate>
+										</Parallel>
+									</UnstanceElement>
+								</Sequence>
+							</Child>
+							<OnSuccess canSkip="1">
+								<ActorStateCheck Who="$this.id" State="ragdoll" FailWithSubtreeMissing="false" saveVersion="2">
+									<Then canSkip="1">
+										<KillNPC KillTarget="$this.id" Scream="false" />
+									</Then>
+									<Else canSkip="1">
+										<Sequence>
+											<RemoveBuffs SoulWUID="$this.id" BuffGUID="&apos;b5e6123f-dcb3-4c7e-8096-5b584fbc87f6&apos;" BuffTagId="-1" />
+											<AddBuff SoulWUID="$this.id" BuffGUID="&apos;f8d60fe4-e2c1-420a-946a-213e1cd09264&apos;" />
+											<WaitAction />
+											<Wait duration="&apos;3s&apos;" timeType="GameTime" doFail="false" variation="" />
+											<AddBuff SoulWUID="$this.id" BuffGUID="&apos;bd22f98a-e61f-4d83-b39c-79d1d85b6b91&apos;" />
+										</Sequence>
+									</Else>
+								</ActorStateCheck>
+							</OnSuccess>
+						</FuseBox>
 					</EntityContext>
 				</EntityContextPreset>
 			</Behavior>
@@ -402,65 +402,65 @@
 						<OutputBreakpoints />
 						<EntityContext hasInputBreakpoint="0" comment="" breakpointFlags="0">
 							<OutputBreakpoints />
-							<EntityContext hasInputBreakpoint="0" comment="" breakpointFlags="0">
+							<FuseBox hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
 								<OutputBreakpoints />
-								<FuseBox hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
-									<OutputBreakpoints />
-									<Child>
-										<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
+								<Child>
+									<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
+										<OutputBreakpoints />
+										<AddBuff hasInputBreakpoint="0" comment="" breakpointFlags="0">
 											<OutputBreakpoints />
-											<AddBuff hasInputBreakpoint="0" comment="" breakpointFlags="0">
+										</AddBuff>
+										<UnstanceElement hasInputBreakpoint="0" comment="" breakpointFlags="0">
+											<OutputBreakpoints />
+											<Parallel hasInputBreakpoint="0" comment="" breakpointFlags="0">
 												<OutputBreakpoints />
-											</AddBuff>
-											<UnstanceElement hasInputBreakpoint="0" comment="" breakpointFlags="0">
-												<OutputBreakpoints />
-												<Parallel hasInputBreakpoint="0" comment="" breakpointFlags="0">
+												<EntityContext hasInputBreakpoint="0" comment="" breakpointFlags="0">
 													<OutputBreakpoints />
 													<JoinedAnimationAction hasInputBreakpoint="0" comment="" breakpointFlags="0">
 														<OutputBreakpoints />
 													</JoinedAnimationAction>
-													<NPCStateGate hasInputBreakpoint="0" comment="" breakpointFlags="0">
-														<OutputBreakpoints />
-														<KillNPC hasInputBreakpoint="0" comment="" breakpointFlags="0">
-															<OutputBreakpoints />
-														</KillNPC>
-													</NPCStateGate>
-												</Parallel>
-											</UnstanceElement>
-										</Sequence>
-									</Child>
-									<OnSuccess>
-										<ActorStateCheck hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
-											<OutputBreakpoints />
-											<Then>
-												<KillNPC hasInputBreakpoint="0" comment="" breakpointFlags="0">
+												</EntityContext>
+												<NPCStateGate hasInputBreakpoint="0" comment="" breakpointFlags="0">
 													<OutputBreakpoints />
-												</KillNPC>
-											</Then>
-											<Else>
-												<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
+													<KillNPC hasInputBreakpoint="0" comment="" breakpointFlags="0">
+														<OutputBreakpoints />
+													</KillNPC>
+												</NPCStateGate>
+											</Parallel>
+										</UnstanceElement>
+									</Sequence>
+								</Child>
+								<OnSuccess>
+									<ActorStateCheck hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
+										<OutputBreakpoints />
+										<Then>
+											<KillNPC hasInputBreakpoint="0" comment="" breakpointFlags="0">
+												<OutputBreakpoints />
+											</KillNPC>
+										</Then>
+										<Else>
+											<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
+												<OutputBreakpoints />
+												<RemoveBuffs hasInputBreakpoint="0" comment="" breakpointFlags="0">
 													<OutputBreakpoints />
-													<RemoveBuffs hasInputBreakpoint="0" comment="" breakpointFlags="0">
-														<OutputBreakpoints />
-													</RemoveBuffs>
-													<AddBuff hasInputBreakpoint="0" comment="" breakpointFlags="0">
-														<OutputBreakpoints />
-													</AddBuff>
-													<WaitAction hasInputBreakpoint="0" comment="" breakpointFlags="0">
-														<OutputBreakpoints />
-													</WaitAction>
-													<Wait hasInputBreakpoint="0" comment="" breakpointFlags="0">
-														<OutputBreakpoints />
-													</Wait>
-													<AddBuff hasInputBreakpoint="0" comment="" breakpointFlags="0">
-														<OutputBreakpoints />
-													</AddBuff>
-												</Sequence>
-											</Else>
-										</ActorStateCheck>
-									</OnSuccess>
-								</FuseBox>
-							</EntityContext>
+												</RemoveBuffs>
+												<AddBuff hasInputBreakpoint="0" comment="" breakpointFlags="0">
+													<OutputBreakpoints />
+												</AddBuff>
+												<WaitAction hasInputBreakpoint="0" comment="" breakpointFlags="0">
+													<OutputBreakpoints />
+												</WaitAction>
+												<Wait hasInputBreakpoint="0" comment="" breakpointFlags="0">
+													<OutputBreakpoints />
+												</Wait>
+												<AddBuff hasInputBreakpoint="0" comment="" breakpointFlags="0">
+													<OutputBreakpoints />
+												</AddBuff>
+											</Sequence>
+										</Else>
+									</ActorStateCheck>
+								</OnSuccess>
+							</FuseBox>
 						</EntityContext>
 					</EntityContextPreset>
 				</Behavior>
@@ -480,27 +480,27 @@
 			<Behavior canSkip="1">
 				<EntityContextPreset preset="switch_unresponsive" target="$this.id">
 					<EntityContext context="crime_ignorePebbleHit" target="$this.id">
-						<EntityContext context="combat_actorSupressHitreactionAnimation" target="$this.id">
-							<EntityContext context="mucirna_pullDownBrutality" target="$this.id">
-								<Sequence>
-									<Function_brutality_kickDoor SO="$__object.id" nodeLabel="61620266" />
-									<Parallel successMode="Any" failureMode="Any">
+						<EntityContext context="mucirna_pullDownBrutality" target="$this.id">
+							<Sequence>
+								<Function_brutality_kickDoor SO="$__object.id" nodeLabel="61620266" />
+								<Parallel successMode="Any" failureMode="Any">
+									<EntityContext context="combat_actorSupressHitreactionAnimation" target="$this.id">
 										<UnstanceElement unstance="Loot" locationObject="" slaveObject="" enabled="true">
 											<JoinedAnimationAction requiresMovement="true" lockContext="$__object.id" lockName="&apos;pullDown&apos;" lockCount="2" timeout="&apos;-1&apos;" ignoreOthersLeaving="false" fragment="&apos;Quest_AttackOnFemalePullOnGround&apos;" tags="" eventReferenceObject="" alignObject="$__object.id" slaveObject="" resourceOverride="&apos;agressor&apos;" allowTorchForPlayer="false" />
 										</UnstanceElement>
-										<IfGate atomic="false" condition="$string ~= &apos;&apos; &amp; $string ~= &apos; &apos; &amp; $string ~= &apos;-&apos;" RunLogic="KeepRunning">
-											<Loop count="-1">
-												<SuppressFailure>
-													<Sequence>
-														<Function_speech_schedulerMonolog alias="$string" animationApproach="$enum:animationApproach.dontPlayDialogAnimations" context="" lookAtId="" metarole="" skipInLod="false" subtitlesDown="false" nodeLabel="44509320" />
-														<Wait duration="&apos;3s&apos;" timeType="GameTime" doFail="false" variation="&apos;1s&apos;" />
-													</Sequence>
-												</SuppressFailure>
-											</Loop>
-										</IfGate>
-									</Parallel>
-								</Sequence>
-							</EntityContext>
+									</EntityContext>
+									<IfGate atomic="false" condition="$string ~= &apos;&apos; &amp; $string ~= &apos; &apos; &amp; $string ~= &apos;-&apos;" RunLogic="KeepRunning">
+										<Loop count="-1">
+											<SuppressFailure>
+												<Sequence>
+													<Function_speech_schedulerMonolog alias="$string" animationApproach="$enum:animationApproach.dontPlayDialogAnimations" context="" lookAtId="" metarole="" skipInLod="false" subtitlesDown="false" nodeLabel="44509320" />
+													<Wait duration="&apos;3s&apos;" timeType="GameTime" doFail="false" variation="&apos;1s&apos;" />
+												</Sequence>
+											</SuppressFailure>
+										</Loop>
+									</IfGate>
+								</Parallel>
+							</Sequence>
 						</EntityContext>
 					</EntityContext>
 				</EntityContextPreset>
@@ -522,14 +522,14 @@
 							<OutputBreakpoints />
 							<EntityContext hasInputBreakpoint="0" comment="" breakpointFlags="0">
 								<OutputBreakpoints />
-								<EntityContext hasInputBreakpoint="0" comment="" breakpointFlags="0">
+								<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
 									<OutputBreakpoints />
-									<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
+									<Function_brutality_kickDoor hasInputBreakpoint="0" comment="" breakpointFlags="0">
 										<OutputBreakpoints />
-										<Function_brutality_kickDoor hasInputBreakpoint="0" comment="" breakpointFlags="0">
-											<OutputBreakpoints />
-										</Function_brutality_kickDoor>
-										<Parallel hasInputBreakpoint="0" comment="" breakpointFlags="0">
+									</Function_brutality_kickDoor>
+									<Parallel hasInputBreakpoint="0" comment="" breakpointFlags="0">
+										<OutputBreakpoints />
+										<EntityContext hasInputBreakpoint="0" comment="" breakpointFlags="0">
 											<OutputBreakpoints />
 											<UnstanceElement hasInputBreakpoint="0" comment="" breakpointFlags="0">
 												<OutputBreakpoints />
@@ -537,27 +537,27 @@
 													<OutputBreakpoints />
 												</JoinedAnimationAction>
 											</UnstanceElement>
-											<IfGate hasInputBreakpoint="0" comment="" breakpointFlags="0">
+										</EntityContext>
+										<IfGate hasInputBreakpoint="0" comment="" breakpointFlags="0">
+											<OutputBreakpoints />
+											<Loop hasInputBreakpoint="0" comment="" breakpointFlags="0">
 												<OutputBreakpoints />
-												<Loop hasInputBreakpoint="0" comment="" breakpointFlags="0">
+												<SuppressFailure hasInputBreakpoint="0" comment="" breakpointFlags="0">
 													<OutputBreakpoints />
-													<SuppressFailure hasInputBreakpoint="0" comment="" breakpointFlags="0">
+													<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
 														<OutputBreakpoints />
-														<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
+														<Function_speech_schedulerMonolog hasInputBreakpoint="0" comment="" breakpointFlags="0">
 															<OutputBreakpoints />
-															<Function_speech_schedulerMonolog hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																<OutputBreakpoints />
-															</Function_speech_schedulerMonolog>
-															<Wait hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																<OutputBreakpoints />
-															</Wait>
-														</Sequence>
-													</SuppressFailure>
-												</Loop>
-											</IfGate>
-										</Parallel>
-									</Sequence>
-								</EntityContext>
+														</Function_speech_schedulerMonolog>
+														<Wait hasInputBreakpoint="0" comment="" breakpointFlags="0">
+															<OutputBreakpoints />
+														</Wait>
+													</Sequence>
+												</SuppressFailure>
+											</Loop>
+										</IfGate>
+									</Parallel>
+								</Sequence>
 							</EntityContext>
 						</EntityContext>
 					</EntityContextPreset>
@@ -760,17 +760,17 @@
 			<Behavior canSkip="1">
 				<EntityContextPreset preset="switch_unresponsive" target="$this.id">
 					<EntityContext context="crime_ignorePebbleHit" target="$this.id">
-						<EntityContext context="combat_actorSupressHitreactionAnimation" target="$this.id">
-							<EntityContext context="combat_disabledAsTarget" target="">
-								<FuseBox StatusPropagation="Child" OneCleanup="true" saveVersion="2">
-									<Child canSkip="1">
+						<EntityContext context="combat_disabledAsTarget" target="">
+							<FuseBox StatusPropagation="Child" OneCleanup="true" saveVersion="2">
+								<Child canSkip="1">
+									<EntityContext context="combat_actorSupressHitreactionAnimation" target="$this.id">
 										<JoinedAnimationAction requiresMovement="true" lockContext="$__object.id" lockName="&apos;undercutting&apos;" lockCount="2" timeout="&apos;-1&apos;" ignoreOthersLeaving="true" fragment="&apos;Quest_AttackOnMaleUndercuttingSlave&apos;" tags="" eventReferenceObject="" alignObject="$__object.id" slaveObject="" resourceOverride="&apos;victim&apos;" allowTorchForPlayer="false" />
-									</Child>
-									<OnSuccess canSkip="1">
-										<KillNPC KillTarget="$this.id" Scream="false" />
-									</OnSuccess>
-								</FuseBox>
-							</EntityContext>
+									</EntityContext>
+								</Child>
+								<OnSuccess canSkip="1">
+									<KillNPC KillTarget="$this.id" Scream="false" />
+								</OnSuccess>
+							</FuseBox>
 						</EntityContext>
 					</EntityContext>
 				</EntityContextPreset>
@@ -789,22 +789,22 @@
 							<OutputBreakpoints />
 							<EntityContext hasInputBreakpoint="0" comment="" breakpointFlags="0">
 								<OutputBreakpoints />
-								<EntityContext hasInputBreakpoint="0" comment="" breakpointFlags="0">
+								<FuseBox hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
 									<OutputBreakpoints />
-									<FuseBox hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
-										<OutputBreakpoints />
-										<Child>
+									<Child>
+										<EntityContext hasInputBreakpoint="0" comment="" breakpointFlags="0">
+											<OutputBreakpoints />
 											<JoinedAnimationAction hasInputBreakpoint="0" comment="" breakpointFlags="0">
 												<OutputBreakpoints />
 											</JoinedAnimationAction>
-										</Child>
-										<OnSuccess>
-											<KillNPC hasInputBreakpoint="0" comment="" breakpointFlags="0">
-												<OutputBreakpoints />
-											</KillNPC>
-										</OnSuccess>
-									</FuseBox>
-								</EntityContext>
+										</EntityContext>
+									</Child>
+									<OnSuccess>
+										<KillNPC hasInputBreakpoint="0" comment="" breakpointFlags="0">
+											<OutputBreakpoints />
+										</KillNPC>
+									</OnSuccess>
+								</FuseBox>
 							</EntityContext>
 						</EntityContext>
 					</EntityContextPreset>
@@ -824,18 +824,18 @@
 			<Behavior canSkip="1">
 				<EntityContextPreset preset="switch_unresponsive" target="$this.id">
 					<EntityContext context="crime_ignorePebbleHit" target="$this.id">
-						<EntityContext context="combat_actorSupressHitreactionAnimation" target="$this.id">
-							<EntityContext context="combat_disabledAsTarget" target="">
-								<EntityContext context="mucirna_undercuttingManBrutality" target="$this.id">
-									<HandContentElement hand="Right" item="$Rweapon" allowAny="false" allowHomeSlotAutoReturn="false" decisionLabel="Label1" useDecision="true" enabled="true" saveVersion="2">
-										<Search canSkip="1">
-											<GetWeaponsFromWeaponSet WeaponSet="Primary" LeftHand="$Lweapon" RightHand="$Rweapon" UseTorchWhenAppropriate="true" />
-										</Search>
-										<Exec canSkip="1">
+						<EntityContext context="combat_disabledAsTarget" target="">
+							<EntityContext context="mucirna_undercuttingManBrutality" target="$this.id">
+								<HandContentElement hand="Right" item="$Rweapon" allowAny="false" allowHomeSlotAutoReturn="false" decisionLabel="Label1" useDecision="true" enabled="true" saveVersion="2">
+									<Search canSkip="1">
+										<GetWeaponsFromWeaponSet WeaponSet="Primary" LeftHand="$Lweapon" RightHand="$Rweapon" UseTorchWhenAppropriate="true" />
+									</Search>
+									<Exec canSkip="1">
+										<EntityContext context="combat_actorSupressHitreactionAnimation" target="$this.id">
 											<JoinedAnimationAction requiresMovement="true" lockContext="$__object.id" lockName="&apos;undercutting&apos;" lockCount="2" timeout="&apos;-1&apos;" ignoreOthersLeaving="true" fragment="&apos;Quest_AttackOnMaleUndercutting&apos;" tags="" eventReferenceObject="" alignObject="$__object.id" slaveObject="" resourceOverride="&apos;agressor&apos;" allowTorchForPlayer="false" />
-										</Exec>
-									</HandContentElement>
-								</EntityContext>
+										</EntityContext>
+									</Exec>
+								</HandContentElement>
 							</EntityContext>
 						</EntityContext>
 					</EntityContext>
@@ -861,22 +861,22 @@
 								<OutputBreakpoints />
 								<EntityContext hasInputBreakpoint="0" comment="" breakpointFlags="0">
 									<OutputBreakpoints />
-									<EntityContext hasInputBreakpoint="0" comment="" breakpointFlags="0">
+									<HandContentElement hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
 										<OutputBreakpoints />
-										<HandContentElement hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
-											<OutputBreakpoints />
-											<Search>
-												<GetWeaponsFromWeaponSet hasInputBreakpoint="0" comment="" breakpointFlags="0">
-													<OutputBreakpoints />
-												</GetWeaponsFromWeaponSet>
-											</Search>
-											<Exec>
+										<Search>
+											<GetWeaponsFromWeaponSet hasInputBreakpoint="0" comment="" breakpointFlags="0">
+												<OutputBreakpoints />
+											</GetWeaponsFromWeaponSet>
+										</Search>
+										<Exec>
+											<EntityContext hasInputBreakpoint="0" comment="" breakpointFlags="0">
+												<OutputBreakpoints />
 												<JoinedAnimationAction hasInputBreakpoint="0" comment="" breakpointFlags="0">
 													<OutputBreakpoints />
 												</JoinedAnimationAction>
-											</Exec>
-										</HandContentElement>
-									</EntityContext>
+											</EntityContext>
+										</Exec>
+									</HandContentElement>
 								</EntityContext>
 							</EntityContext>
 						</EntityContext>
@@ -1258,57 +1258,57 @@
 			<Behavior canSkip="1">
 				<EntityContextPreset preset="switch_unresponsive" target="$this.id">
 					<EntityContext context="crime_ignorePebbleHit" target="$this.id">
-						<EntityContext context="combat_actorSupressHitreactionAnimation" target="$this.id">
-							<FuseBox StatusPropagation="Child" OneCleanup="true" saveVersion="2">
-								<Child canSkip="1">
-									<Parallel successMode="Any" failureMode="Any">
-										<Sequence>
-											<AddBuff SoulWUID="$this.id" BuffGUID="&apos;b5e6123f-dcb3-4c7e-8096-5b584fbc87f6&apos;" />
-											<GetHelper smartObjectName="$__object.id" helperName="&apos;brutality&apos;" categoryName="" targetVar="$helperID" policy="Name" />
-											<GetAnimationHelperData smartObject="$__object.id" helperID="$helperID" fragment="&apos;Quest_AttackOnMaleSlave&apos;" tags="" positionTargetVar="$pos" orientationTargetVar="" transformTargetVar="" />
-											<TeleportAction Position="$pos" EndInterruptOnActionStart="false" />
+						<FuseBox StatusPropagation="Child" OneCleanup="true" saveVersion="2">
+							<Child canSkip="1">
+								<Parallel successMode="Any" failureMode="Any">
+									<Sequence>
+										<AddBuff SoulWUID="$this.id" BuffGUID="&apos;b5e6123f-dcb3-4c7e-8096-5b584fbc87f6&apos;" />
+										<GetHelper smartObjectName="$__object.id" helperName="&apos;brutality&apos;" categoryName="" targetVar="$helperID" policy="Name" />
+										<GetAnimationHelperData smartObject="$__object.id" helperID="$helperID" fragment="&apos;Quest_AttackOnMaleSlave&apos;" tags="" positionTargetVar="$pos" orientationTargetVar="" transformTargetVar="" />
+										<TeleportAction Position="$pos" EndInterruptOnActionStart="false" />
+										<EntityContext context="combat_actorSupressHitreactionAnimation" target="$this.id">
 											<UnstanceElement unstance="woundedLying" locationObject="" slaveObject="" enabled="true">
 												<JoinedAnimationAction requiresMovement="true" lockContext="$__object.id" lockName="&apos;maleUnderAttack&apos;" lockCount="2" timeout="&apos;-1&apos;" ignoreOthersLeaving="false" fragment="&apos;Quest_AttackOnMaleSlave&apos;" tags="" eventReferenceObject="" alignObject="$__object.id" slaveObject="" resourceOverride="&apos;victim&apos;" allowTorchForPlayer="false" />
 											</UnstanceElement>
+										</EntityContext>
+									</Sequence>
+									<NPCStateGate State="Stamina" Target="$this.id" Low="1.000000" High="100.000000" Negation="false" RunLogic="KeepRunning">
+										<KillNPC KillTarget="$this.id" Scream="false" />
+									</NPCStateGate>
+									<Synchronize SemaphoreCount="2" InsideTimerValue="&apos;-1&apos;" InvalidateOnExpire="false" atomic="false" OutsideQueuePosVariable="" InsidePosVariable="" TimerType="GameTime" OutsideTimerValue="&apos;-1&apos;" LockManagerType="Local" SemaphoreName="&apos;needToGetAttacker&apos;" RunLogic="KeepRunning">
+										<Sequence>
+											<GetLockParticipants OutArray="$attacker" IncludeSelf="false" />
+											<DistanceGate Origin="$this.id" ReferencePt="$attacker[0]" Low="1.500000" High="4000.000000" Negation="false" OpenInMiddle="false" RunLogic="KeepRunning">
+												<Sequence>
+													<Expression expressions="$attackerPassedDistanceThreshold = true" />
+													<Wait duration="&apos;-1&apos;" timeType="GameTime" doFail="false" variation="" />
+												</Sequence>
+											</DistanceGate>
 										</Sequence>
-										<NPCStateGate State="Stamina" Target="$this.id" Low="1.000000" High="100.000000" Negation="false" RunLogic="KeepRunning">
-											<KillNPC KillTarget="$this.id" Scream="false" />
-										</NPCStateGate>
-										<Synchronize SemaphoreCount="2" InsideTimerValue="&apos;-1&apos;" InvalidateOnExpire="false" atomic="false" OutsideQueuePosVariable="" InsidePosVariable="" TimerType="GameTime" OutsideTimerValue="&apos;-1&apos;" LockManagerType="Local" SemaphoreName="&apos;needToGetAttacker&apos;" RunLogic="KeepRunning">
-											<Sequence>
-												<GetLockParticipants OutArray="$attacker" IncludeSelf="false" />
-												<DistanceGate Origin="$this.id" ReferencePt="$attacker[0]" Low="1.500000" High="4000.000000" Negation="false" OpenInMiddle="false" RunLogic="KeepRunning">
-													<Sequence>
-														<Expression expressions="$attackerPassedDistanceThreshold = true" />
-														<Wait duration="&apos;-1&apos;" timeType="GameTime" doFail="false" variation="" />
-													</Sequence>
-												</DistanceGate>
-											</Sequence>
-										</Synchronize>
-									</Parallel>
-								</Child>
-								<OnSuccess canSkip="1">
-									<ActorStateCheck Who="$this.id" State="ragdoll" FailWithSubtreeMissing="false" saveVersion="2">
-										<Then canSkip="1">
-											<KillNPC KillTarget="$this.id" Scream="false" />
-										</Then>
-										<Else canSkip="1">
-											<Sequence>
-												<RemoveBuffs SoulWUID="$this.id" BuffGUID="&apos;b5e6123f-dcb3-4c7e-8096-5b584fbc87f6&apos;" BuffTagId="-1" />
-												<IfElseCondition failOnCondition="false" condition="$attackerPassedDistanceThreshold == true" saveVersion="2">
-													<Then canSkip="1">
-														<AddBuff SoulWUID="$this.id" BuffGUID="&apos;f8d60fe4-e2c1-420a-946a-213e1cd09264&apos;" />
-													</Then>
-													<Else canSkip="1">
-														<Success />
-													</Else>
-												</IfElseCondition>
-											</Sequence>
-										</Else>
-									</ActorStateCheck>
-								</OnSuccess>
-							</FuseBox>
-						</EntityContext>
+									</Synchronize>
+								</Parallel>
+							</Child>
+							<OnSuccess canSkip="1">
+								<ActorStateCheck Who="$this.id" State="ragdoll" FailWithSubtreeMissing="false" saveVersion="2">
+									<Then canSkip="1">
+										<KillNPC KillTarget="$this.id" Scream="false" />
+									</Then>
+									<Else canSkip="1">
+										<Sequence>
+											<RemoveBuffs SoulWUID="$this.id" BuffGUID="&apos;b5e6123f-dcb3-4c7e-8096-5b584fbc87f6&apos;" BuffTagId="-1" />
+											<IfElseCondition failOnCondition="false" condition="$attackerPassedDistanceThreshold == true" saveVersion="2">
+												<Then canSkip="1">
+													<AddBuff SoulWUID="$this.id" BuffGUID="&apos;f8d60fe4-e2c1-420a-946a-213e1cd09264&apos;" />
+												</Then>
+												<Else canSkip="1">
+													<Success />
+												</Else>
+											</IfElseCondition>
+										</Sequence>
+									</Else>
+								</ActorStateCheck>
+							</OnSuccess>
+						</FuseBox>
 					</EntityContext>
 				</EntityContextPreset>
 			</Behavior>
@@ -1329,96 +1329,96 @@
 						<OutputBreakpoints />
 						<EntityContext hasInputBreakpoint="0" comment="" breakpointFlags="0">
 							<OutputBreakpoints />
-							<EntityContext hasInputBreakpoint="0" comment="" breakpointFlags="0">
+							<FuseBox hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
 								<OutputBreakpoints />
-								<FuseBox hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
-									<OutputBreakpoints />
-									<Child>
-										<Parallel hasInputBreakpoint="0" comment="" breakpointFlags="0">
+								<Child>
+									<Parallel hasInputBreakpoint="0" comment="" breakpointFlags="0">
+										<OutputBreakpoints />
+										<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
 											<OutputBreakpoints />
-											<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
+											<AddBuff hasInputBreakpoint="0" comment="" breakpointFlags="0">
 												<OutputBreakpoints />
-												<AddBuff hasInputBreakpoint="0" comment="" breakpointFlags="0">
-													<OutputBreakpoints />
-												</AddBuff>
-												<GetHelper hasInputBreakpoint="0" comment="" breakpointFlags="0">
-													<OutputBreakpoints />
-												</GetHelper>
-												<GetAnimationHelperData hasInputBreakpoint="0" comment="" breakpointFlags="0">
-													<OutputBreakpoints />
-												</GetAnimationHelperData>
-												<TeleportAction hasInputBreakpoint="0" comment="" breakpointFlags="0">
-													<OutputBreakpoints />
-												</TeleportAction>
+											</AddBuff>
+											<GetHelper hasInputBreakpoint="0" comment="" breakpointFlags="0">
+												<OutputBreakpoints />
+											</GetHelper>
+											<GetAnimationHelperData hasInputBreakpoint="0" comment="" breakpointFlags="0">
+												<OutputBreakpoints />
+											</GetAnimationHelperData>
+											<TeleportAction hasInputBreakpoint="0" comment="" breakpointFlags="0">
+												<OutputBreakpoints />
+											</TeleportAction>
+											<EntityContext hasInputBreakpoint="0" comment="" breakpointFlags="0">
+												<OutputBreakpoints />
 												<UnstanceElement hasInputBreakpoint="0" comment="" breakpointFlags="0">
 													<OutputBreakpoints />
 													<JoinedAnimationAction hasInputBreakpoint="0" comment="" breakpointFlags="0">
 														<OutputBreakpoints />
 													</JoinedAnimationAction>
 												</UnstanceElement>
-											</Sequence>
-											<NPCStateGate hasInputBreakpoint="0" comment="" breakpointFlags="0">
-												<OutputBreakpoints />
-												<KillNPC hasInputBreakpoint="0" comment="" breakpointFlags="0">
-													<OutputBreakpoints />
-												</KillNPC>
-											</NPCStateGate>
-											<Synchronize hasInputBreakpoint="0" comment="" breakpointFlags="0">
-												<OutputBreakpoints />
-												<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
-													<OutputBreakpoints />
-													<GetLockParticipants hasInputBreakpoint="0" comment="" breakpointFlags="0">
-														<OutputBreakpoints />
-													</GetLockParticipants>
-													<DistanceGate hasInputBreakpoint="0" comment="" breakpointFlags="0">
-														<OutputBreakpoints />
-														<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
-															<OutputBreakpoints />
-															<Expression hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																<OutputBreakpoints />
-															</Expression>
-															<Wait hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																<OutputBreakpoints />
-															</Wait>
-														</Sequence>
-													</DistanceGate>
-												</Sequence>
-											</Synchronize>
-										</Parallel>
-									</Child>
-									<OnSuccess>
-										<ActorStateCheck hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
+											</EntityContext>
+										</Sequence>
+										<NPCStateGate hasInputBreakpoint="0" comment="" breakpointFlags="0">
 											<OutputBreakpoints />
-											<Then>
-												<KillNPC hasInputBreakpoint="0" comment="" breakpointFlags="0">
+											<KillNPC hasInputBreakpoint="0" comment="" breakpointFlags="0">
+												<OutputBreakpoints />
+											</KillNPC>
+										</NPCStateGate>
+										<Synchronize hasInputBreakpoint="0" comment="" breakpointFlags="0">
+											<OutputBreakpoints />
+											<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
+												<OutputBreakpoints />
+												<GetLockParticipants hasInputBreakpoint="0" comment="" breakpointFlags="0">
 													<OutputBreakpoints />
-												</KillNPC>
-											</Then>
-											<Else>
-												<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
+												</GetLockParticipants>
+												<DistanceGate hasInputBreakpoint="0" comment="" breakpointFlags="0">
 													<OutputBreakpoints />
-													<RemoveBuffs hasInputBreakpoint="0" comment="" breakpointFlags="0">
+													<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
 														<OutputBreakpoints />
-													</RemoveBuffs>
-													<IfElseCondition hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
-														<OutputBreakpoints />
-														<Then>
-															<AddBuff hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																<OutputBreakpoints />
-															</AddBuff>
-														</Then>
-														<Else>
-															<Success hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																<OutputBreakpoints />
-															</Success>
-														</Else>
-													</IfElseCondition>
-												</Sequence>
-											</Else>
-										</ActorStateCheck>
-									</OnSuccess>
-								</FuseBox>
-							</EntityContext>
+														<Expression hasInputBreakpoint="0" comment="" breakpointFlags="0">
+															<OutputBreakpoints />
+														</Expression>
+														<Wait hasInputBreakpoint="0" comment="" breakpointFlags="0">
+															<OutputBreakpoints />
+														</Wait>
+													</Sequence>
+												</DistanceGate>
+											</Sequence>
+										</Synchronize>
+									</Parallel>
+								</Child>
+								<OnSuccess>
+									<ActorStateCheck hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
+										<OutputBreakpoints />
+										<Then>
+											<KillNPC hasInputBreakpoint="0" comment="" breakpointFlags="0">
+												<OutputBreakpoints />
+											</KillNPC>
+										</Then>
+										<Else>
+											<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
+												<OutputBreakpoints />
+												<RemoveBuffs hasInputBreakpoint="0" comment="" breakpointFlags="0">
+													<OutputBreakpoints />
+												</RemoveBuffs>
+												<IfElseCondition hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
+													<OutputBreakpoints />
+													<Then>
+														<AddBuff hasInputBreakpoint="0" comment="" breakpointFlags="0">
+															<OutputBreakpoints />
+														</AddBuff>
+													</Then>
+													<Else>
+														<Success hasInputBreakpoint="0" comment="" breakpointFlags="0">
+															<OutputBreakpoints />
+														</Success>
+													</Else>
+												</IfElseCondition>
+											</Sequence>
+										</Else>
+									</ActorStateCheck>
+								</OnSuccess>
+							</FuseBox>
 						</EntityContext>
 					</EntityContextPreset>
 				</Behavior>
@@ -1436,25 +1436,25 @@
 			<Behavior canSkip="1">
 				<EntityContextPreset preset="switch_unresponsive" target="$this.id">
 					<EntityContext context="crime_ignorePebbleHit" target="$this.id">
-						<EntityContext context="combat_actorSupressHitreactionAnimation" target="$this.id">
-							<EntityContext context="mucirna_kickMaleBrutality" target="$this.id">
-								<Parallel successMode="Any" failureMode="Any">
+						<EntityContext context="mucirna_kickMaleBrutality" target="$this.id">
+							<Parallel successMode="Any" failureMode="Any">
+								<EntityContext context="combat_actorSupressHitreactionAnimation" target="$this.id">
 									<JoinedAnimationAction requiresMovement="true" lockContext="$__object.id" lockName="&apos;maleUnderAttack&apos;" lockCount="2" timeout="&apos;-1&apos;" ignoreOthersLeaving="false" fragment="&apos;Quest_AttackOnMale&apos;" tags="" eventReferenceObject="" alignObject="$__object.id" slaveObject="" resourceOverride="&apos;agressor&apos;" allowTorchForPlayer="false" />
-									<Synchronize SemaphoreCount="2" InsideTimerValue="&apos;-1&apos;" InvalidateOnExpire="false" atomic="false" OutsideQueuePosVariable="" InsidePosVariable="" TimerType="GameTime" OutsideTimerValue="&apos;-1&apos;" LockManagerType="Local" SemaphoreName="&apos;needToGetAttacker&apos;" RunLogic="KeepRunning">
-										<Wait duration="&apos;-1&apos;" timeType="GameTime" doFail="false" variation="" />
-									</Synchronize>
-									<IfGate atomic="false" condition="$string ~= &apos;&apos; &amp; $string ~= &apos; &apos; &amp; $string ~= &apos;-&apos;" RunLogic="KeepRunning">
-										<Loop count="-1">
-											<SuppressFailure>
-												<Sequence>
-													<Function_speech_schedulerMonolog alias="$string" animationApproach="$enum:animationApproach.dontPlayDialogAnimations" context="" lookAtId="" metarole="" skipInLod="false" subtitlesDown="false" nodeLabel="12468106" />
-													<Wait duration="&apos;3s&apos;" timeType="GameTime" doFail="false" variation="&apos;1s&apos;" />
-												</Sequence>
-											</SuppressFailure>
-										</Loop>
-									</IfGate>
-								</Parallel>
-							</EntityContext>
+								</EntityContext>
+								<Synchronize SemaphoreCount="2" InsideTimerValue="&apos;-1&apos;" InvalidateOnExpire="false" atomic="false" OutsideQueuePosVariable="" InsidePosVariable="" TimerType="GameTime" OutsideTimerValue="&apos;-1&apos;" LockManagerType="Local" SemaphoreName="&apos;needToGetAttacker&apos;" RunLogic="KeepRunning">
+									<Wait duration="&apos;-1&apos;" timeType="GameTime" doFail="false" variation="" />
+								</Synchronize>
+								<IfGate atomic="false" condition="$string ~= &apos;&apos; &amp; $string ~= &apos; &apos; &amp; $string ~= &apos;-&apos;" RunLogic="KeepRunning">
+									<Loop count="-1">
+										<SuppressFailure>
+											<Sequence>
+												<Function_speech_schedulerMonolog alias="$string" animationApproach="$enum:animationApproach.dontPlayDialogAnimations" context="" lookAtId="" metarole="" skipInLod="false" subtitlesDown="false" nodeLabel="12468106" />
+												<Wait duration="&apos;3s&apos;" timeType="GameTime" doFail="false" variation="&apos;1s&apos;" />
+											</Sequence>
+										</SuppressFailure>
+									</Loop>
+								</IfGate>
+							</Parallel>
 						</EntityContext>
 					</EntityContext>
 				</EntityContextPreset>
@@ -1475,39 +1475,39 @@
 							<OutputBreakpoints />
 							<EntityContext hasInputBreakpoint="0" comment="" breakpointFlags="0">
 								<OutputBreakpoints />
-								<EntityContext hasInputBreakpoint="0" comment="" breakpointFlags="0">
+								<Parallel hasInputBreakpoint="0" comment="" breakpointFlags="0">
 									<OutputBreakpoints />
-									<Parallel hasInputBreakpoint="0" comment="" breakpointFlags="0">
+									<EntityContext hasInputBreakpoint="0" comment="" breakpointFlags="0">
 										<OutputBreakpoints />
 										<JoinedAnimationAction hasInputBreakpoint="0" comment="" breakpointFlags="0">
 											<OutputBreakpoints />
 										</JoinedAnimationAction>
-										<Synchronize hasInputBreakpoint="0" comment="" breakpointFlags="0">
+									</EntityContext>
+									<Synchronize hasInputBreakpoint="0" comment="" breakpointFlags="0">
+										<OutputBreakpoints />
+										<Wait hasInputBreakpoint="0" comment="" breakpointFlags="0">
 											<OutputBreakpoints />
-											<Wait hasInputBreakpoint="0" comment="" breakpointFlags="0">
-												<OutputBreakpoints />
-											</Wait>
-										</Synchronize>
-										<IfGate hasInputBreakpoint="0" comment="" breakpointFlags="0">
+										</Wait>
+									</Synchronize>
+									<IfGate hasInputBreakpoint="0" comment="" breakpointFlags="0">
+										<OutputBreakpoints />
+										<Loop hasInputBreakpoint="0" comment="" breakpointFlags="0">
 											<OutputBreakpoints />
-											<Loop hasInputBreakpoint="0" comment="" breakpointFlags="0">
+											<SuppressFailure hasInputBreakpoint="0" comment="" breakpointFlags="0">
 												<OutputBreakpoints />
-												<SuppressFailure hasInputBreakpoint="0" comment="" breakpointFlags="0">
+												<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
 													<OutputBreakpoints />
-													<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
+													<Function_speech_schedulerMonolog hasInputBreakpoint="0" comment="" breakpointFlags="0">
 														<OutputBreakpoints />
-														<Function_speech_schedulerMonolog hasInputBreakpoint="0" comment="" breakpointFlags="0">
-															<OutputBreakpoints />
-														</Function_speech_schedulerMonolog>
-														<Wait hasInputBreakpoint="0" comment="" breakpointFlags="0">
-															<OutputBreakpoints />
-														</Wait>
-													</Sequence>
-												</SuppressFailure>
-											</Loop>
-										</IfGate>
-									</Parallel>
-								</EntityContext>
+													</Function_speech_schedulerMonolog>
+													<Wait hasInputBreakpoint="0" comment="" breakpointFlags="0">
+														<OutputBreakpoints />
+													</Wait>
+												</Sequence>
+											</SuppressFailure>
+										</Loop>
+									</IfGate>
+								</Parallel>
 							</EntityContext>
 						</EntityContext>
 					</EntityContextPreset>
@@ -1559,22 +1559,22 @@
 			<Behavior canSkip="1">
 				<EntityContextPreset preset="switch_unresponsive" target="$this.id">
 					<EntityContext context="crime_ignorePebbleHit" target="$this.id">
-						<EntityContext context="combat_actorSupressHitreactionAnimation" target="$this.id">
-							<EntityContext context="mucirna_drowningWomanBrutality" target="$this.id">
-								<Parallel successMode="Any" failureMode="Any">
+						<EntityContext context="mucirna_drowningWomanBrutality" target="$this.id">
+							<Parallel successMode="Any" failureMode="Any">
+								<EntityContext context="combat_actorSupressHitreactionAnimation" target="$this.id">
 									<JoinedAnimationAction requiresMovement="true" lockContext="$__object.id" lockName="&apos;drowning&apos;" lockCount="2" timeout="&apos;-1&apos;" ignoreOthersLeaving="false" fragment="&apos;Quest_AttackOnFemaleDrowning&apos;" tags="" eventReferenceObject="" alignObject="$__object.id" slaveObject="" resourceOverride="&apos;agressor&apos;" allowTorchForPlayer="false" />
-									<IfGate atomic="false" condition="$string ~= &apos;&apos; &amp; $string ~= &apos; &apos; &amp; $string ~= &apos;-&apos;" RunLogic="KeepRunning">
-										<Loop count="-1">
-											<SuppressFailure>
-												<Sequence>
-													<Function_speech_schedulerMonolog alias="$string" animationApproach="$enum:animationApproach.dontPlayDialogAnimations" context="" lookAtId="" metarole="" skipInLod="false" subtitlesDown="false" nodeLabel="98909184" />
-													<Wait duration="&apos;3s&apos;" timeType="GameTime" doFail="false" variation="&apos;1s&apos;" />
-												</Sequence>
-											</SuppressFailure>
-										</Loop>
-									</IfGate>
-								</Parallel>
-							</EntityContext>
+								</EntityContext>
+								<IfGate atomic="false" condition="$string ~= &apos;&apos; &amp; $string ~= &apos; &apos; &amp; $string ~= &apos;-&apos;" RunLogic="KeepRunning">
+									<Loop count="-1">
+										<SuppressFailure>
+											<Sequence>
+												<Function_speech_schedulerMonolog alias="$string" animationApproach="$enum:animationApproach.dontPlayDialogAnimations" context="" lookAtId="" metarole="" skipInLod="false" subtitlesDown="false" nodeLabel="98909184" />
+												<Wait duration="&apos;3s&apos;" timeType="GameTime" doFail="false" variation="&apos;1s&apos;" />
+											</Sequence>
+										</SuppressFailure>
+									</Loop>
+								</IfGate>
+							</Parallel>
 						</EntityContext>
 					</EntityContext>
 				</EntityContextPreset>
@@ -1595,33 +1595,33 @@
 							<OutputBreakpoints />
 							<EntityContext hasInputBreakpoint="0" comment="" breakpointFlags="0">
 								<OutputBreakpoints />
-								<EntityContext hasInputBreakpoint="0" comment="" breakpointFlags="0">
+								<Parallel hasInputBreakpoint="0" comment="" breakpointFlags="0">
 									<OutputBreakpoints />
-									<Parallel hasInputBreakpoint="0" comment="" breakpointFlags="0">
+									<EntityContext hasInputBreakpoint="0" comment="" breakpointFlags="0">
 										<OutputBreakpoints />
 										<JoinedAnimationAction hasInputBreakpoint="0" comment="" breakpointFlags="0">
 											<OutputBreakpoints />
 										</JoinedAnimationAction>
-										<IfGate hasInputBreakpoint="0" comment="" breakpointFlags="0">
+									</EntityContext>
+									<IfGate hasInputBreakpoint="0" comment="" breakpointFlags="0">
+										<OutputBreakpoints />
+										<Loop hasInputBreakpoint="0" comment="" breakpointFlags="0">
 											<OutputBreakpoints />
-											<Loop hasInputBreakpoint="0" comment="" breakpointFlags="0">
+											<SuppressFailure hasInputBreakpoint="0" comment="" breakpointFlags="0">
 												<OutputBreakpoints />
-												<SuppressFailure hasInputBreakpoint="0" comment="" breakpointFlags="0">
+												<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
 													<OutputBreakpoints />
-													<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
+													<Function_speech_schedulerMonolog hasInputBreakpoint="0" comment="" breakpointFlags="0">
 														<OutputBreakpoints />
-														<Function_speech_schedulerMonolog hasInputBreakpoint="0" comment="" breakpointFlags="0">
-															<OutputBreakpoints />
-														</Function_speech_schedulerMonolog>
-														<Wait hasInputBreakpoint="0" comment="" breakpointFlags="0">
-															<OutputBreakpoints />
-														</Wait>
-													</Sequence>
-												</SuppressFailure>
-											</Loop>
-										</IfGate>
-									</Parallel>
-								</EntityContext>
+													</Function_speech_schedulerMonolog>
+													<Wait hasInputBreakpoint="0" comment="" breakpointFlags="0">
+														<OutputBreakpoints />
+													</Wait>
+												</Sequence>
+											</SuppressFailure>
+										</Loop>
+									</IfGate>
+								</Parallel>
 							</EntityContext>
 						</EntityContext>
 					</EntityContextPreset>
@@ -1745,39 +1745,39 @@
 				<LuaWrapper onEnter="entity.soul:RestrictDialog(true)" onExit="entity.soul:RestrictDialog(false)">
 					<EntityContextPreset preset="switch_unresponsive" target="$this.id">
 						<EntityContext context="crime_ignorePebbleHit" target="$this.id">
-							<EntityContext context="combat_actorSupressHitreactionAnimation" target="$this.id">
-								<FuseBox StatusPropagation="Child" OneCleanup="true" saveVersion="2">
-									<Child canSkip="1">
-										<UnstanceElement unstance="woman_cookingCampfire_loop" locationObject="" slaveObject="" enabled="true">
-											<Sequence>
-												<AddBuff SoulWUID="$this.id" BuffGUID="&apos;b5e6123f-dcb3-4c7e-8096-5b584fbc87f6&apos;" />
-												<GetHelper smartObjectName="$__object.id" helperName="&apos;brutality&apos;" categoryName="" targetVar="$helperID" policy="Name" />
-												<GetAnimationHelperData smartObject="$__object.id" helperID="$helperID" fragment="&apos;Quest_AttackOnFemaleDrowning&apos;" tags="" positionTargetVar="$pos" orientationTargetVar="" transformTargetVar="" />
-												<TeleportAction Position="$pos" EndInterruptOnActionStart="false" />
-												<Parallel successMode="Any" failureMode="Any">
+							<FuseBox StatusPropagation="Child" OneCleanup="true" saveVersion="2">
+								<Child canSkip="1">
+									<UnstanceElement unstance="woman_cookingCampfire_loop" locationObject="" slaveObject="" enabled="true">
+										<Sequence>
+											<AddBuff SoulWUID="$this.id" BuffGUID="&apos;b5e6123f-dcb3-4c7e-8096-5b584fbc87f6&apos;" />
+											<GetHelper smartObjectName="$__object.id" helperName="&apos;brutality&apos;" categoryName="" targetVar="$helperID" policy="Name" />
+											<GetAnimationHelperData smartObject="$__object.id" helperID="$helperID" fragment="&apos;Quest_AttackOnFemaleDrowning&apos;" tags="" positionTargetVar="$pos" orientationTargetVar="" transformTargetVar="" />
+											<TeleportAction Position="$pos" EndInterruptOnActionStart="false" />
+											<Parallel successMode="Any" failureMode="Any">
+												<EntityContext context="combat_actorSupressHitreactionAnimation" target="$this.id">
 													<JoinedAnimationAction requiresMovement="true" lockContext="$__object.id" lockName="&apos;drowning&apos;" lockCount="2" timeout="&apos;-1&apos;" ignoreOthersLeaving="false" fragment="&apos;Quest_AttackOnFemaleDrowning&apos;" tags="" eventReferenceObject="" alignObject="$__object.id" slaveObject="" resourceOverride="&apos;victim&apos;" allowTorchForPlayer="false" />
-													<NPCStateGate State="Stamina" Target="$this.id" Low="1.000000" High="100.000000" Negation="false" RunLogic="KeepRunning">
-														<KillNPC KillTarget="$this.id" Scream="false" />
-													</NPCStateGate>
-												</Parallel>
+												</EntityContext>
+												<NPCStateGate State="Stamina" Target="$this.id" Low="1.000000" High="100.000000" Negation="false" RunLogic="KeepRunning">
+													<KillNPC KillTarget="$this.id" Scream="false" />
+												</NPCStateGate>
+											</Parallel>
+										</Sequence>
+									</UnstanceElement>
+								</Child>
+								<OnSuccess canSkip="1">
+									<ActorStateCheck Who="$this.id" State="ragdoll" FailWithSubtreeMissing="false" saveVersion="2">
+										<Then canSkip="1">
+											<KillNPC KillTarget="$this.id" Scream="false" />
+										</Then>
+										<Else canSkip="1">
+											<Sequence>
+												<RemoveBuffs SoulWUID="$this.id" BuffGUID="&apos;b5e6123f-dcb3-4c7e-8096-5b584fbc87f6&apos;" BuffTagId="-1" />
+												<AddBuff SoulWUID="$this.id" BuffGUID="&apos;f8d60fe4-e2c1-420a-946a-213e1cd09264&apos;" />
 											</Sequence>
-										</UnstanceElement>
-									</Child>
-									<OnSuccess canSkip="1">
-										<ActorStateCheck Who="$this.id" State="ragdoll" FailWithSubtreeMissing="false" saveVersion="2">
-											<Then canSkip="1">
-												<KillNPC KillTarget="$this.id" Scream="false" />
-											</Then>
-											<Else canSkip="1">
-												<Sequence>
-													<RemoveBuffs SoulWUID="$this.id" BuffGUID="&apos;b5e6123f-dcb3-4c7e-8096-5b584fbc87f6&apos;" BuffTagId="-1" />
-													<AddBuff SoulWUID="$this.id" BuffGUID="&apos;f8d60fe4-e2c1-420a-946a-213e1cd09264&apos;" />
-												</Sequence>
-											</Else>
-										</ActorStateCheck>
-									</OnSuccess>
-								</FuseBox>
-							</EntityContext>
+										</Else>
+									</ActorStateCheck>
+								</OnSuccess>
+							</FuseBox>
 						</EntityContext>
 					</EntityContextPreset>
 				</LuaWrapper>
@@ -1799,65 +1799,65 @@
 							<OutputBreakpoints />
 							<EntityContext hasInputBreakpoint="0" comment="" breakpointFlags="0">
 								<OutputBreakpoints />
-								<EntityContext hasInputBreakpoint="0" comment="" breakpointFlags="0">
+								<FuseBox hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
 									<OutputBreakpoints />
-									<FuseBox hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
-										<OutputBreakpoints />
-										<Child>
-											<UnstanceElement hasInputBreakpoint="0" comment="" breakpointFlags="0">
+									<Child>
+										<UnstanceElement hasInputBreakpoint="0" comment="" breakpointFlags="0">
+											<OutputBreakpoints />
+											<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
 												<OutputBreakpoints />
-												<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
+												<AddBuff hasInputBreakpoint="0" comment="" breakpointFlags="0">
 													<OutputBreakpoints />
-													<AddBuff hasInputBreakpoint="0" comment="" breakpointFlags="0">
-														<OutputBreakpoints />
-													</AddBuff>
-													<GetHelper hasInputBreakpoint="0" comment="" breakpointFlags="0">
-														<OutputBreakpoints />
-													</GetHelper>
-													<GetAnimationHelperData hasInputBreakpoint="0" comment="" breakpointFlags="0">
-														<OutputBreakpoints />
-													</GetAnimationHelperData>
-													<TeleportAction hasInputBreakpoint="0" comment="" breakpointFlags="0">
-														<OutputBreakpoints />
-													</TeleportAction>
-													<Parallel hasInputBreakpoint="0" comment="" breakpointFlags="0">
+												</AddBuff>
+												<GetHelper hasInputBreakpoint="0" comment="" breakpointFlags="0">
+													<OutputBreakpoints />
+												</GetHelper>
+												<GetAnimationHelperData hasInputBreakpoint="0" comment="" breakpointFlags="0">
+													<OutputBreakpoints />
+												</GetAnimationHelperData>
+												<TeleportAction hasInputBreakpoint="0" comment="" breakpointFlags="0">
+													<OutputBreakpoints />
+												</TeleportAction>
+												<Parallel hasInputBreakpoint="0" comment="" breakpointFlags="0">
+													<OutputBreakpoints />
+													<EntityContext hasInputBreakpoint="0" comment="" breakpointFlags="0">
 														<OutputBreakpoints />
 														<JoinedAnimationAction hasInputBreakpoint="0" comment="" breakpointFlags="0">
 															<OutputBreakpoints />
 														</JoinedAnimationAction>
-														<NPCStateGate hasInputBreakpoint="0" comment="" breakpointFlags="0">
+													</EntityContext>
+													<NPCStateGate hasInputBreakpoint="0" comment="" breakpointFlags="0">
+														<OutputBreakpoints />
+														<KillNPC hasInputBreakpoint="0" comment="" breakpointFlags="0">
 															<OutputBreakpoints />
-															<KillNPC hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																<OutputBreakpoints />
-															</KillNPC>
-														</NPCStateGate>
-													</Parallel>
+														</KillNPC>
+													</NPCStateGate>
+												</Parallel>
+											</Sequence>
+										</UnstanceElement>
+									</Child>
+									<OnSuccess>
+										<ActorStateCheck hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
+											<OutputBreakpoints />
+											<Then>
+												<KillNPC hasInputBreakpoint="0" comment="" breakpointFlags="0">
+													<OutputBreakpoints />
+												</KillNPC>
+											</Then>
+											<Else>
+												<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
+													<OutputBreakpoints />
+													<RemoveBuffs hasInputBreakpoint="0" comment="" breakpointFlags="0">
+														<OutputBreakpoints />
+													</RemoveBuffs>
+													<AddBuff hasInputBreakpoint="0" comment="" breakpointFlags="0">
+														<OutputBreakpoints />
+													</AddBuff>
 												</Sequence>
-											</UnstanceElement>
-										</Child>
-										<OnSuccess>
-											<ActorStateCheck hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
-												<OutputBreakpoints />
-												<Then>
-													<KillNPC hasInputBreakpoint="0" comment="" breakpointFlags="0">
-														<OutputBreakpoints />
-													</KillNPC>
-												</Then>
-												<Else>
-													<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
-														<OutputBreakpoints />
-														<RemoveBuffs hasInputBreakpoint="0" comment="" breakpointFlags="0">
-															<OutputBreakpoints />
-														</RemoveBuffs>
-														<AddBuff hasInputBreakpoint="0" comment="" breakpointFlags="0">
-															<OutputBreakpoints />
-														</AddBuff>
-													</Sequence>
-												</Else>
-											</ActorStateCheck>
-										</OnSuccess>
-									</FuseBox>
-								</EntityContext>
+											</Else>
+										</ActorStateCheck>
+									</OnSuccess>
+								</FuseBox>
 							</EntityContext>
 						</EntityContextPreset>
 					</LuaWrapper>
@@ -1876,19 +1876,19 @@
 			<Behavior canSkip="1">
 				<EntityContextPreset preset="switch_unresponsive" target="$this.id">
 					<EntityContext context="crime_ignorePebbleHit" target="$this.id">
-						<EntityContext context="combat_actorSupressHitreactionAnimation" target="$this.id">
-							<EntityContext context="mucirna_undercuttingWomanBrutality" target="$this.id">
-								<Sequence>
-									<GraphSearch Origin="$__object.id" Borders="" depth="1" selection="true" SearchPattern="Depth" EdgePruning="&apos;parent,inventory&apos;" AllowedEdges="" SubGraph="" AllowSubtraph="false" includeOrigin="false" excludeOrigin="false" failOnEmpty="true" SetOperationChoice="Intersection|And" errorOnEmpty="false" shortCircuit="false" skipTraversed="true">
-										<LinkTagFilter tag="&apos;undercuttingTriggerArea&apos;" prune="true" negprune="unknown" Parent="" Child="$area" Data="" />
-									</GraphSearch>
-									<TeleportAction Position="$__object.id" EndInterruptOnActionStart="false" />
-									<PushToArray array="$playerInArray" value="$__player" direction="Back" />
-									<AreaPresenceGate aiObjects="$playerInArray" area="$area" amount="AtLeastOne" presence="Present" RunLogic="KeepRunning">
+						<EntityContext context="mucirna_undercuttingWomanBrutality" target="$this.id">
+							<Sequence>
+								<GraphSearch Origin="$__object.id" Borders="" depth="1" selection="true" SearchPattern="Depth" EdgePruning="&apos;parent,inventory&apos;" AllowedEdges="" SubGraph="" AllowSubtraph="false" includeOrigin="false" excludeOrigin="false" failOnEmpty="true" SetOperationChoice="Intersection|And" errorOnEmpty="false" shortCircuit="false" skipTraversed="true">
+									<LinkTagFilter tag="&apos;undercuttingTriggerArea&apos;" prune="true" negprune="unknown" Parent="" Child="$area" Data="" />
+								</GraphSearch>
+								<TeleportAction Position="$__object.id" EndInterruptOnActionStart="false" />
+								<PushToArray array="$playerInArray" value="$__player" direction="Back" />
+								<AreaPresenceGate aiObjects="$playerInArray" area="$area" amount="AtLeastOne" presence="Present" RunLogic="KeepRunning">
+									<EntityContext context="combat_actorSupressHitreactionAnimation" target="$this.id">
 										<JoinedAnimationAction requiresMovement="true" lockContext="$__object.id" lockName="&apos;undercutting&apos;" lockCount="2" timeout="&apos;-1&apos;" ignoreOthersLeaving="false" fragment="&apos;Quest_AttackOnFemaleUndercutting&apos;" tags="" eventReferenceObject="" alignObject="$__object.id" slaveObject="" resourceOverride="&apos;agressor&apos;" allowTorchForPlayer="false" />
-									</AreaPresenceGate>
-								</Sequence>
-							</EntityContext>
+									</EntityContext>
+								</AreaPresenceGate>
+							</Sequence>
 						</EntityContext>
 					</EntityContext>
 				</EntityContextPreset>
@@ -1910,30 +1910,30 @@
 							<OutputBreakpoints />
 							<EntityContext hasInputBreakpoint="0" comment="" breakpointFlags="0">
 								<OutputBreakpoints />
-								<EntityContext hasInputBreakpoint="0" comment="" breakpointFlags="0">
+								<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
 									<OutputBreakpoints />
-									<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
+									<GraphSearch hasInputBreakpoint="0" comment="" breakpointFlags="0">
 										<OutputBreakpoints />
-										<GraphSearch hasInputBreakpoint="0" comment="" breakpointFlags="0">
+										<LinkTagFilter hasInputBreakpoint="0" comment="" breakpointFlags="0">
 											<OutputBreakpoints />
-											<LinkTagFilter hasInputBreakpoint="0" comment="" breakpointFlags="0">
-												<OutputBreakpoints />
-											</LinkTagFilter>
-										</GraphSearch>
-										<TeleportAction hasInputBreakpoint="0" comment="" breakpointFlags="0">
-											<OutputBreakpoints />
-										</TeleportAction>
-										<PushToArray hasInputBreakpoint="0" comment="" breakpointFlags="0">
-											<OutputBreakpoints />
-										</PushToArray>
-										<AreaPresenceGate hasInputBreakpoint="0" comment="" breakpointFlags="0">
+										</LinkTagFilter>
+									</GraphSearch>
+									<TeleportAction hasInputBreakpoint="0" comment="" breakpointFlags="0">
+										<OutputBreakpoints />
+									</TeleportAction>
+									<PushToArray hasInputBreakpoint="0" comment="" breakpointFlags="0">
+										<OutputBreakpoints />
+									</PushToArray>
+									<AreaPresenceGate hasInputBreakpoint="0" comment="" breakpointFlags="0">
+										<OutputBreakpoints />
+										<EntityContext hasInputBreakpoint="0" comment="" breakpointFlags="0">
 											<OutputBreakpoints />
 											<JoinedAnimationAction hasInputBreakpoint="0" comment="" breakpointFlags="0">
 												<OutputBreakpoints />
 											</JoinedAnimationAction>
-										</AreaPresenceGate>
-									</Sequence>
-								</EntityContext>
+										</EntityContext>
+									</AreaPresenceGate>
+								</Sequence>
 							</EntityContext>
 						</EntityContext>
 					</EntityContextPreset>
@@ -1956,42 +1956,42 @@
 			<Behavior canSkip="1">
 				<EntityContextPreset preset="switch_unresponsive" target="$this.id">
 					<EntityContext context="crime_ignorePebbleHit" target="$this.id">
-						<EntityContext context="combat_actorSupressHitreactionAnimation" target="$this.id">
-							<Sequence>
-								<GraphSearch Origin="$__object.id" Borders="" depth="1" selection="true" SearchPattern="Depth" EdgePruning="&apos;parent,inventory&apos;" AllowedEdges="" SubGraph="" AllowSubtraph="false" includeOrigin="false" excludeOrigin="false" failOnEmpty="true" SetOperationChoice="Intersection|And" errorOnEmpty="false" shortCircuit="false" skipTraversed="true">
-									<LinkTagFilter tag="&apos;undercuttingTriggerArea&apos;" prune="true" negprune="unknown" Parent="" Child="$undercuttingArea" Data="" />
-								</GraphSearch>
-								<PushToArray array="$areaEntities" value="$__player" direction="Back" />
-								<Parallel successMode="Any" failureMode="Any">
-									<ContinuousSwitch>
-										<IfCondition failOnCondition="false" condition="$phase == &apos;barking&apos;">
-											<While doFail="false" propagateChildFail="false" condition="true">
-												<Sequence>
-													<Function_speech_schedulerMonolog alias="$string" animationApproach="$enum:animationApproach.dontPlayDialogAnimations" context="" lookAtId="" metarole="" skipInLod="false" subtitlesDown="false" nodeLabel="27558348" />
-													<Wait duration="&apos;2s&apos;" timeType="GameTime" doFail="false" variation="" />
-												</Sequence>
-											</While>
-										</IfCondition>
-										<IfCondition failOnCondition="false" condition="$phase == &apos;brutality&apos;">
-											<FuseBox StatusPropagation="Child" OneCleanup="true" saveVersion="2">
-												<Child canSkip="1">
+						<FuseBox StatusPropagation="Child" OneCleanup="true" saveVersion="2">
+							<Child canSkip="1">
+								<Sequence>
+									<GraphSearch Origin="$__object.id" Borders="" depth="1" selection="true" SearchPattern="Depth" EdgePruning="&apos;parent,inventory&apos;" AllowedEdges="" SubGraph="" AllowSubtraph="false" includeOrigin="false" excludeOrigin="false" failOnEmpty="true" SetOperationChoice="Intersection|And" errorOnEmpty="false" shortCircuit="false" skipTraversed="true">
+										<LinkTagFilter tag="&apos;undercuttingTriggerArea&apos;" prune="true" negprune="unknown" Parent="" Child="$undercuttingArea" Data="" />
+									</GraphSearch>
+									<PushToArray array="$areaEntities" value="$__player" direction="Back" />
+									<Parallel successMode="Any" failureMode="Any">
+										<ContinuousSwitch>
+											<IfCondition failOnCondition="false" condition="$phase == &apos;barking&apos;">
+												<While doFail="false" propagateChildFail="false" condition="true">
+													<Sequence>
+														<Function_speech_schedulerMonolog alias="$string" animationApproach="$enum:animationApproach.dontPlayDialogAnimations" context="" lookAtId="" metarole="" skipInLod="false" subtitlesDown="false" nodeLabel="27558348" />
+														<Wait duration="&apos;2s&apos;" timeType="GameTime" doFail="false" variation="" />
+													</Sequence>
+												</While>
+											</IfCondition>
+											<IfCondition failOnCondition="false" condition="$phase == &apos;brutality&apos;">
+												<EntityContext context="combat_actorSupressHitreactionAnimation" target="$this.id">
 													<JoinedAnimationAction requiresMovement="true" lockContext="$__object.id" lockName="&apos;undercutting&apos;" lockCount="2" timeout="&apos;-1&apos;" ignoreOthersLeaving="false" fragment="&apos;Quest_AttackOnFemaleUndercuttingSlave&apos;" tags="" eventReferenceObject="" alignObject="$__object.id" slaveObject="" resourceOverride="&apos;victim&apos;" allowTorchForPlayer="false" />
-												</Child>
-												<OnSuccess canSkip="1">
-													<KillNPC KillTarget="$this.id" Scream="false" />
-												</OnSuccess>
-											</FuseBox>
-										</IfCondition>
-									</ContinuousSwitch>
-									<AreaPresenceGate aiObjects="$areaEntities" area="$undercuttingArea" amount="AtLeastOne" presence="Present" RunLogic="KeepRunning">
-										<Sequence>
-											<Expression expressions="$phase = &apos;brutality&apos;" />
-											<Wait duration="&apos;-1&apos;" timeType="GameTime" doFail="false" variation="" />
-										</Sequence>
-									</AreaPresenceGate>
-								</Parallel>
-							</Sequence>
-						</EntityContext>
+												</EntityContext>
+											</IfCondition>
+										</ContinuousSwitch>
+										<AreaPresenceGate aiObjects="$areaEntities" area="$undercuttingArea" amount="AtLeastOne" presence="Present" RunLogic="KeepRunning">
+											<Sequence>
+												<Expression expressions="$phase = &apos;brutality&apos;" />
+												<Wait duration="&apos;-1&apos;" timeType="GameTime" doFail="false" variation="" />
+											</Sequence>
+										</AreaPresenceGate>
+									</Parallel>
+								</Sequence>
+							</Child>
+							<OnSuccess canSkip="1">
+								<KillNPC KillTarget="$this.id" Scream="false" />
+							</OnSuccess>
+						</FuseBox>
 					</EntityContext>
 				</EntityContextPreset>
 			</Behavior>
@@ -2012,70 +2012,70 @@
 						<OutputBreakpoints />
 						<EntityContext hasInputBreakpoint="0" comment="" breakpointFlags="0">
 							<OutputBreakpoints />
-							<EntityContext hasInputBreakpoint="0" comment="" breakpointFlags="0">
+							<FuseBox hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
 								<OutputBreakpoints />
-								<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
-									<OutputBreakpoints />
-									<GraphSearch hasInputBreakpoint="0" comment="" breakpointFlags="0">
+								<Child>
+									<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
 										<OutputBreakpoints />
-										<LinkTagFilter hasInputBreakpoint="0" comment="" breakpointFlags="0">
+										<GraphSearch hasInputBreakpoint="0" comment="" breakpointFlags="0">
 											<OutputBreakpoints />
-										</LinkTagFilter>
-									</GraphSearch>
-									<PushToArray hasInputBreakpoint="0" comment="" breakpointFlags="0">
-										<OutputBreakpoints />
-									</PushToArray>
-									<Parallel hasInputBreakpoint="0" comment="" breakpointFlags="0">
-										<OutputBreakpoints />
-										<ContinuousSwitch hasInputBreakpoint="0" comment="" breakpointFlags="0">
-											<OutputBreakpoints />
-											<IfCondition hasInputBreakpoint="0" comment="" breakpointFlags="0">
+											<LinkTagFilter hasInputBreakpoint="0" comment="" breakpointFlags="0">
 												<OutputBreakpoints />
-												<While hasInputBreakpoint="0" comment="" breakpointFlags="0">
+											</LinkTagFilter>
+										</GraphSearch>
+										<PushToArray hasInputBreakpoint="0" comment="" breakpointFlags="0">
+											<OutputBreakpoints />
+										</PushToArray>
+										<Parallel hasInputBreakpoint="0" comment="" breakpointFlags="0">
+											<OutputBreakpoints />
+											<ContinuousSwitch hasInputBreakpoint="0" comment="" breakpointFlags="0">
+												<OutputBreakpoints />
+												<IfCondition hasInputBreakpoint="0" comment="" breakpointFlags="0">
 													<OutputBreakpoints />
-													<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
+													<While hasInputBreakpoint="0" comment="" breakpointFlags="0">
 														<OutputBreakpoints />
-														<Function_speech_schedulerMonolog hasInputBreakpoint="0" comment="" breakpointFlags="0">
+														<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
 															<OutputBreakpoints />
-														</Function_speech_schedulerMonolog>
-														<Wait hasInputBreakpoint="0" comment="" breakpointFlags="0">
-															<OutputBreakpoints />
-														</Wait>
-													</Sequence>
-												</While>
-											</IfCondition>
-											<IfCondition hasInputBreakpoint="0" comment="" breakpointFlags="0">
-												<OutputBreakpoints />
-												<FuseBox hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
+															<Function_speech_schedulerMonolog hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																<OutputBreakpoints />
+															</Function_speech_schedulerMonolog>
+															<Wait hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																<OutputBreakpoints />
+															</Wait>
+														</Sequence>
+													</While>
+												</IfCondition>
+												<IfCondition hasInputBreakpoint="0" comment="" breakpointFlags="0">
 													<OutputBreakpoints />
-													<Child>
+													<EntityContext hasInputBreakpoint="0" comment="" breakpointFlags="0">
+														<OutputBreakpoints />
 														<JoinedAnimationAction hasInputBreakpoint="0" comment="" breakpointFlags="0">
 															<OutputBreakpoints />
 														</JoinedAnimationAction>
-													</Child>
-													<OnSuccess>
-														<KillNPC hasInputBreakpoint="0" comment="" breakpointFlags="0">
-															<OutputBreakpoints />
-														</KillNPC>
-													</OnSuccess>
-												</FuseBox>
-											</IfCondition>
-										</ContinuousSwitch>
-										<AreaPresenceGate hasInputBreakpoint="0" comment="" breakpointFlags="0">
-											<OutputBreakpoints />
-											<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
+													</EntityContext>
+												</IfCondition>
+											</ContinuousSwitch>
+											<AreaPresenceGate hasInputBreakpoint="0" comment="" breakpointFlags="0">
 												<OutputBreakpoints />
-												<Expression hasInputBreakpoint="0" comment="" breakpointFlags="0">
+												<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
 													<OutputBreakpoints />
-												</Expression>
-												<Wait hasInputBreakpoint="0" comment="" breakpointFlags="0">
-													<OutputBreakpoints />
-												</Wait>
-											</Sequence>
-										</AreaPresenceGate>
-									</Parallel>
-								</Sequence>
-							</EntityContext>
+													<Expression hasInputBreakpoint="0" comment="" breakpointFlags="0">
+														<OutputBreakpoints />
+													</Expression>
+													<Wait hasInputBreakpoint="0" comment="" breakpointFlags="0">
+														<OutputBreakpoints />
+													</Wait>
+												</Sequence>
+											</AreaPresenceGate>
+										</Parallel>
+									</Sequence>
+								</Child>
+								<OnSuccess>
+									<KillNPC hasInputBreakpoint="0" comment="" breakpointFlags="0">
+										<OutputBreakpoints />
+									</KillNPC>
+								</OnSuccess>
+							</FuseBox>
 						</EntityContext>
 					</EntityContextPreset>
 				</Behavior>
@@ -3035,50 +3035,50 @@
 				<LuaWrapper onEnter="entity.soul:RestrictDialog(true)" onExit="entity.soul:RestrictDialog(false)">
 					<EntityContextPreset preset="switch_unresponsive" target="$this.id">
 						<EntityContext context="crime_ignorePebbleHit" target="$this.id">
-							<EntityContext context="combat_actorSupressHitreactionAnimation" target="$this.id">
-								<FuseBox StatusPropagation="Child" OneCleanup="true" saveVersion="2">
-									<Child canSkip="1">
-										<Sequence>
-											<AddBuff SoulWUID="$this.id" BuffGUID="&apos;b5e6123f-dcb3-4c7e-8096-5b584fbc87f6&apos;" />
-											<Parallel successMode="Any" failureMode="Any">
-												<Sequence>
-													<IsFastForwarded failOnCondition="false" saveVersion="2">
-														<Then canSkip="1">
+							<FuseBox StatusPropagation="Child" OneCleanup="true" saveVersion="2">
+								<Child canSkip="1">
+									<Sequence>
+										<AddBuff SoulWUID="$this.id" BuffGUID="&apos;b5e6123f-dcb3-4c7e-8096-5b584fbc87f6&apos;" />
+										<Parallel successMode="Any" failureMode="Any">
+											<Sequence>
+												<IsFastForwarded failOnCondition="false" saveVersion="2">
+													<Then canSkip="1">
+														<UnstanceAction unstance="QuestAttackDrowningFirstFrameSlave" locationObject="$__object.id" slaveObject="" />
+													</Then>
+													<Else canSkip="1">
+														<UrgencyDecorator Urgency="Instant">
 															<UnstanceAction unstance="QuestAttackDrowningFirstFrameSlave" locationObject="$__object.id" slaveObject="" />
-														</Then>
-														<Else canSkip="1">
-															<UrgencyDecorator Urgency="Instant">
-																<UnstanceAction unstance="QuestAttackDrowningFirstFrameSlave" locationObject="$__object.id" slaveObject="" />
-															</UrgencyDecorator>
-														</Else>
-													</IsFastForwarded>
-													<IfGate atomic="false" condition="$data" RunLogic="KeepRunning">
-														<UnstanceElement unstance="QuestCaponBreathing_loop" locationObject="" slaveObject="" enabled="true">
+														</UrgencyDecorator>
+													</Else>
+												</IsFastForwarded>
+												<IfGate atomic="false" condition="$data" RunLogic="KeepRunning">
+													<UnstanceElement unstance="QuestCaponBreathing_loop" locationObject="" slaveObject="" enabled="true">
+														<EntityContext context="combat_actorSupressHitreactionAnimation" target="$this.id">
 															<JoinedAnimationAction requiresMovement="true" lockContext="$__object.id" lockName="&apos;drowning&apos;" lockCount="2" timeout="&apos;-1&apos;" ignoreOthersLeaving="false" fragment="&apos;Quest_AttackOnMaleDrowningSlave&apos;" tags="" eventReferenceObject="" alignObject="$__resource.id" slaveObject="" resourceOverride="&apos;use&apos;" allowTorchForPlayer="false" />
-														</UnstanceElement>
-													</IfGate>
-												</Sequence>
-												<NPCStateGate State="Stamina" Target="$this.id" Low="1.000000" High="100.000000" Negation="false" RunLogic="KeepRunning">
-													<KillNPC KillTarget="$this.id" Scream="false" />
-												</NPCStateGate>
-											</Parallel>
-										</Sequence>
-									</Child>
-									<OnFail canSkip="1">
-										<ActorStateCheck Who="$this.id" State="ragdoll" FailWithSubtreeMissing="false" saveVersion="2">
-											<Then canSkip="1">
+														</EntityContext>
+													</UnstanceElement>
+												</IfGate>
+											</Sequence>
+											<NPCStateGate State="Stamina" Target="$this.id" Low="1.000000" High="100.000000" Negation="false" RunLogic="KeepRunning">
 												<KillNPC KillTarget="$this.id" Scream="false" />
-											</Then>
-											<Else canSkip="1">
-												<Sequence>
-													<RemoveBuffs SoulWUID="$this.id" BuffGUID="&apos;b5e6123f-dcb3-4c7e-8096-5b584fbc87f6&apos;" BuffTagId="-1" />
-													<AddBuff SoulWUID="$this.id" BuffGUID="&apos;f8d60fe4-e2c1-420a-946a-213e1cd09264&apos;" />
-												</Sequence>
-											</Else>
-										</ActorStateCheck>
-									</OnFail>
-								</FuseBox>
-							</EntityContext>
+											</NPCStateGate>
+										</Parallel>
+									</Sequence>
+								</Child>
+								<OnFail canSkip="1">
+									<ActorStateCheck Who="$this.id" State="ragdoll" FailWithSubtreeMissing="false" saveVersion="2">
+										<Then canSkip="1">
+											<KillNPC KillTarget="$this.id" Scream="false" />
+										</Then>
+										<Else canSkip="1">
+											<Sequence>
+												<RemoveBuffs SoulWUID="$this.id" BuffGUID="&apos;b5e6123f-dcb3-4c7e-8096-5b584fbc87f6&apos;" BuffTagId="-1" />
+												<AddBuff SoulWUID="$this.id" BuffGUID="&apos;f8d60fe4-e2c1-420a-946a-213e1cd09264&apos;" />
+											</Sequence>
+										</Else>
+									</ActorStateCheck>
+								</OnFail>
+							</FuseBox>
 						</EntityContext>
 					</EntityContextPreset>
 				</LuaWrapper>
@@ -3099,78 +3099,78 @@
 							<OutputBreakpoints />
 							<EntityContext hasInputBreakpoint="0" comment="" breakpointFlags="0">
 								<OutputBreakpoints />
-								<EntityContext hasInputBreakpoint="0" comment="" breakpointFlags="0">
+								<FuseBox hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
 									<OutputBreakpoints />
-									<FuseBox hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
-										<OutputBreakpoints />
-										<Child>
-											<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
+									<Child>
+										<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
+											<OutputBreakpoints />
+											<AddBuff hasInputBreakpoint="0" comment="" breakpointFlags="0">
 												<OutputBreakpoints />
-												<AddBuff hasInputBreakpoint="0" comment="" breakpointFlags="0">
+											</AddBuff>
+											<Parallel hasInputBreakpoint="0" comment="" breakpointFlags="0">
+												<OutputBreakpoints />
+												<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
 													<OutputBreakpoints />
-												</AddBuff>
-												<Parallel hasInputBreakpoint="0" comment="" breakpointFlags="0">
-													<OutputBreakpoints />
-													<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
+													<IsFastForwarded hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
 														<OutputBreakpoints />
-														<IsFastForwarded hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
-															<OutputBreakpoints />
-															<Then>
+														<Then>
+															<UnstanceAction hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																<OutputBreakpoints />
+															</UnstanceAction>
+														</Then>
+														<Else>
+															<UrgencyDecorator hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																<OutputBreakpoints />
 																<UnstanceAction hasInputBreakpoint="0" comment="" breakpointFlags="0">
 																	<OutputBreakpoints />
 																</UnstanceAction>
-															</Then>
-															<Else>
-																<UrgencyDecorator hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																	<OutputBreakpoints />
-																	<UnstanceAction hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																		<OutputBreakpoints />
-																	</UnstanceAction>
-																</UrgencyDecorator>
-															</Else>
-														</IsFastForwarded>
-														<IfGate hasInputBreakpoint="0" comment="" breakpointFlags="0">
+															</UrgencyDecorator>
+														</Else>
+													</IsFastForwarded>
+													<IfGate hasInputBreakpoint="0" comment="" breakpointFlags="0">
+														<OutputBreakpoints />
+														<UnstanceElement hasInputBreakpoint="0" comment="" breakpointFlags="0">
 															<OutputBreakpoints />
-															<UnstanceElement hasInputBreakpoint="0" comment="" breakpointFlags="0">
+															<EntityContext hasInputBreakpoint="0" comment="" breakpointFlags="0">
 																<OutputBreakpoints />
 																<JoinedAnimationAction hasInputBreakpoint="0" comment="" breakpointFlags="0">
 																	<OutputBreakpoints />
 																</JoinedAnimationAction>
-															</UnstanceElement>
-														</IfGate>
-													</Sequence>
-													<NPCStateGate hasInputBreakpoint="0" comment="" breakpointFlags="0">
-														<OutputBreakpoints />
-														<KillNPC hasInputBreakpoint="0" comment="" breakpointFlags="0">
-															<OutputBreakpoints />
-														</KillNPC>
-													</NPCStateGate>
-												</Parallel>
-											</Sequence>
-										</Child>
-										<OnFail>
-											<ActorStateCheck hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
-												<OutputBreakpoints />
-												<Then>
+															</EntityContext>
+														</UnstanceElement>
+													</IfGate>
+												</Sequence>
+												<NPCStateGate hasInputBreakpoint="0" comment="" breakpointFlags="0">
+													<OutputBreakpoints />
 													<KillNPC hasInputBreakpoint="0" comment="" breakpointFlags="0">
 														<OutputBreakpoints />
 													</KillNPC>
-												</Then>
-												<Else>
-													<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
+												</NPCStateGate>
+											</Parallel>
+										</Sequence>
+									</Child>
+									<OnFail>
+										<ActorStateCheck hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
+											<OutputBreakpoints />
+											<Then>
+												<KillNPC hasInputBreakpoint="0" comment="" breakpointFlags="0">
+													<OutputBreakpoints />
+												</KillNPC>
+											</Then>
+											<Else>
+												<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
+													<OutputBreakpoints />
+													<RemoveBuffs hasInputBreakpoint="0" comment="" breakpointFlags="0">
 														<OutputBreakpoints />
-														<RemoveBuffs hasInputBreakpoint="0" comment="" breakpointFlags="0">
-															<OutputBreakpoints />
-														</RemoveBuffs>
-														<AddBuff hasInputBreakpoint="0" comment="" breakpointFlags="0">
-															<OutputBreakpoints />
-														</AddBuff>
-													</Sequence>
-												</Else>
-											</ActorStateCheck>
-										</OnFail>
-									</FuseBox>
-								</EntityContext>
+													</RemoveBuffs>
+													<AddBuff hasInputBreakpoint="0" comment="" breakpointFlags="0">
+														<OutputBreakpoints />
+													</AddBuff>
+												</Sequence>
+											</Else>
+										</ActorStateCheck>
+									</OnFail>
+								</FuseBox>
 							</EntityContext>
 						</EntityContextPreset>
 					</LuaWrapper>
@@ -3190,12 +3190,12 @@
 			<Behavior canSkip="1">
 				<EntityContextPreset preset="switch_unresponsive" target="$this.id">
 					<EntityContext context="crime_ignorePebbleHit" target="$this.id">
-						<EntityContext context="combat_actorSupressHitreactionAnimation" target="$this.id">
-							<EntityContextElement context="mucirna_drowningManBrutality" enabled="true">
-								<Sequence>
-									<UnstanceAction unstance="QuestAttackDrowningFirstFrame" locationObject="$__object.id" slaveObject="" />
-									<IfGate atomic="false" condition="$boolRef" RunLogic="KeepRunning">
-										<Parallel successMode="Any" failureMode="Any">
+						<EntityContextElement context="mucirna_drowningManBrutality" enabled="true">
+							<Sequence>
+								<UnstanceAction unstance="QuestAttackDrowningFirstFrame" locationObject="$__object.id" slaveObject="" />
+								<IfGate atomic="false" condition="$boolRef" RunLogic="KeepRunning">
+									<Parallel successMode="Any" failureMode="Any">
+										<EntityContext context="combat_actorSupressHitreactionAnimation" target="$this.id">
 											<IsFastForwarded failOnCondition="false" saveVersion="2">
 												<Then canSkip="1">
 													<JoinedAnimationAction requiresMovement="true" lockContext="$__object.id" lockName="&apos;drowning&apos;" lockCount="2" timeout="&apos;-1&apos;" ignoreOthersLeaving="false" fragment="&apos;Quest_AttackOnMaleDrowning&apos;" tags="" eventReferenceObject="" alignObject="$__object.id" slaveObject="" resourceOverride="&apos;agressor&apos;" allowTorchForPlayer="false" />
@@ -3206,21 +3206,21 @@
 													</UrgencyDecorator>
 												</Else>
 											</IsFastForwarded>
-											<IfGate atomic="false" condition="$string ~= &apos;&apos; &amp; $string ~= &apos; &apos; &amp; $string ~= &apos;-&apos;" RunLogic="KeepRunning">
-												<Loop count="-1">
-													<SuppressFailure>
-														<Sequence>
-															<Function_speech_schedulerMonolog alias="$string" animationApproach="$enum:animationApproach.dontPlayDialogAnimations" context="" lookAtId="" metarole="" skipInLod="false" subtitlesDown="false" nodeLabel="57967613" />
-															<Wait duration="&apos;3s&apos;" timeType="GameTime" doFail="false" variation="&apos;1s&apos;" />
-														</Sequence>
-													</SuppressFailure>
-												</Loop>
-											</IfGate>
-										</Parallel>
-									</IfGate>
-								</Sequence>
-							</EntityContextElement>
-						</EntityContext>
+										</EntityContext>
+										<IfGate atomic="false" condition="$string ~= &apos;&apos; &amp; $string ~= &apos; &apos; &amp; $string ~= &apos;-&apos;" RunLogic="KeepRunning">
+											<Loop count="-1">
+												<SuppressFailure>
+													<Sequence>
+														<Function_speech_schedulerMonolog alias="$string" animationApproach="$enum:animationApproach.dontPlayDialogAnimations" context="" lookAtId="" metarole="" skipInLod="false" subtitlesDown="false" nodeLabel="57967613" />
+														<Wait duration="&apos;3s&apos;" timeType="GameTime" doFail="false" variation="&apos;1s&apos;" />
+													</Sequence>
+												</SuppressFailure>
+											</Loop>
+										</IfGate>
+									</Parallel>
+								</IfGate>
+							</Sequence>
+						</EntityContextElement>
 					</EntityContext>
 				</EntityContextPreset>
 			</Behavior>
@@ -3239,18 +3239,18 @@
 						<OutputBreakpoints />
 						<EntityContext hasInputBreakpoint="0" comment="" breakpointFlags="0">
 							<OutputBreakpoints />
-							<EntityContext hasInputBreakpoint="0" comment="" breakpointFlags="0">
+							<EntityContextElement hasInputBreakpoint="0" comment="" breakpointFlags="0">
 								<OutputBreakpoints />
-								<EntityContextElement hasInputBreakpoint="0" comment="" breakpointFlags="0">
+								<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
 									<OutputBreakpoints />
-									<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
+									<UnstanceAction hasInputBreakpoint="0" comment="" breakpointFlags="0">
 										<OutputBreakpoints />
-										<UnstanceAction hasInputBreakpoint="0" comment="" breakpointFlags="0">
+									</UnstanceAction>
+									<IfGate hasInputBreakpoint="0" comment="" breakpointFlags="0">
+										<OutputBreakpoints />
+										<Parallel hasInputBreakpoint="0" comment="" breakpointFlags="0">
 											<OutputBreakpoints />
-										</UnstanceAction>
-										<IfGate hasInputBreakpoint="0" comment="" breakpointFlags="0">
-											<OutputBreakpoints />
-											<Parallel hasInputBreakpoint="0" comment="" breakpointFlags="0">
+											<EntityContext hasInputBreakpoint="0" comment="" breakpointFlags="0">
 												<OutputBreakpoints />
 												<IsFastForwarded hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
 													<OutputBreakpoints />
@@ -3268,29 +3268,29 @@
 														</UrgencyDecorator>
 													</Else>
 												</IsFastForwarded>
-												<IfGate hasInputBreakpoint="0" comment="" breakpointFlags="0">
+											</EntityContext>
+											<IfGate hasInputBreakpoint="0" comment="" breakpointFlags="0">
+												<OutputBreakpoints />
+												<Loop hasInputBreakpoint="0" comment="" breakpointFlags="0">
 													<OutputBreakpoints />
-													<Loop hasInputBreakpoint="0" comment="" breakpointFlags="0">
+													<SuppressFailure hasInputBreakpoint="0" comment="" breakpointFlags="0">
 														<OutputBreakpoints />
-														<SuppressFailure hasInputBreakpoint="0" comment="" breakpointFlags="0">
+														<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
 															<OutputBreakpoints />
-															<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
+															<Function_speech_schedulerMonolog hasInputBreakpoint="0" comment="" breakpointFlags="0">
 																<OutputBreakpoints />
-																<Function_speech_schedulerMonolog hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																	<OutputBreakpoints />
-																</Function_speech_schedulerMonolog>
-																<Wait hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																	<OutputBreakpoints />
-																</Wait>
-															</Sequence>
-														</SuppressFailure>
-													</Loop>
-												</IfGate>
-											</Parallel>
-										</IfGate>
-									</Sequence>
-								</EntityContextElement>
-							</EntityContext>
+															</Function_speech_schedulerMonolog>
+															<Wait hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																<OutputBreakpoints />
+															</Wait>
+														</Sequence>
+													</SuppressFailure>
+												</Loop>
+											</IfGate>
+										</Parallel>
+									</IfGate>
+								</Sequence>
+							</EntityContextElement>
 						</EntityContext>
 					</EntityContextPreset>
 				</Behavior>

@@ -56,9 +56,10 @@
 						<Vertex>vertex23</Vertex>
 					</Edge>
 				</FilterInput>
-				<ObjectProperties Name="isoulproperties44" PositionY="-130" PositionX="1030" DeclaringType="wh::rpgmodule::I_Soul">
-					<Asset Name="I_Soul" Alias="zizka" />
-				</ObjectProperties>
+				<healing Name="healing" PositionY="350" PositionX="480" Namespace="utils.general">
+					<Asset Name="souls" Alias="zizka" />
+					<Edge From="nasledujFormaci.OnDone" To="removeinjuries" />
+				</healing>
 				<Function Name="joinarrays35" PositionY="-90" PositionX="470" TypeT="wh::rpgmodule::Souls" MethodName="utilities::array::JoinArrays" DeclaringType="utilities::array">
 					<Asset Name="A" Alias="zizka" />
 					<Asset Name="B" Alias="katerina" />
@@ -75,7 +76,7 @@
 					<Constant Name="C" Value="no_attack" />
 					<Constant Name="D" Value="no_move" />
 					<Constant Name="E" Value="no_inventory" />
-					<Constant Name="F" Value="no_road_magnetizer_enable" />
+					<Constant Name="F" Value="no_horse_magnetism_activate" />
 				</MakeArray>
 				<music_control Name="music_control" PositionY="-1280" PositionX="270">
 					<Edge From="nasledujFormaci.OnActive" To="nasleduj_formaci_onactive" />
@@ -99,7 +100,7 @@
 					<Edge From="nasledujFormaci.State" To="Progress" />
 				</nasleduj_zizku_a_katerinu>
 				<Output Name="Output">
-					<Edge From="takedamage43.OnExec" To="hrac_je_na_suchdole_onafterplay" />
+					<Edge From="leave_arrival_area_trigger.hrac_dorazil_do_suchdola_onafterplay" To="hrac_je_na_suchdole_onafterplay" />
 				</Output>
 				<AddReward Name="reward40" PositionY="-1020" PositionX="270">
 					<Edge From="nasledujFormaci.OnActive" To="AddReward" />
@@ -119,15 +120,6 @@
 					</Edge>
 					<Edge From="joinarrays35.Array" To="Souls" />
 				</SetEntityContextPreset>
-				<MemberFunction Name="takedamage43" PositionY="-280" PositionX="1340" MethodName="TakeDamage" DeclaringType="wh::rpgmodule::I_CombatSoul">
-					<Constant Name="Stamina" Value="75" />
-					<Constant Name="Health" Value="75" />
-					<Asset Name="Attacker" Alias="zizka" />
-					<Constant Name="SuppressHitReaction" Value="true" />
-					<Constant Name="InjureBodypart" Value="arm_left" />
-					<Edge From="leave_arrival_area_trigger.hrac_dorazil_do_suchdola_onafterplay" To="Exec" />
-					<Edge From="isoulproperties44.CombatSoul" To="Victim" />
-				</MemberFunction>
 				<whilefader Name="whilefader" PositionY="-40" PositionX="-10">
 					<Edge From="hrac_prijel_z_trosecka" To="hrac_prijel_z_trosecka" />
 					<Edge From="nasledujFormaci.OnActive" To="followformation_onactive" />

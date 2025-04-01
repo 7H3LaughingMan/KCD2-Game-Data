@@ -60,6 +60,9 @@
 				<Port Name="seq279" Direction="Out" Type="bool">
 					<DesignName StringName="finalni_p_seq279_UevF" Text="Jindřich chce skončit s Terezou" />
 				</Port>
+				<Port Name="bergov_nevyslal_jizdu_vypalit_semin" Direction="In" Type="bool">
+					<DesignName StringName="finalni_p_bergov_nevyslal_83ft" Text="Bergov nevyslal jízdu vypálit Semín" />
+				</Port>
 			</Ports>
 			<Definitions>
 				<Definition File="finalni_polylog_s_rodici/finalni_polylog_s_rodici.xml" />
@@ -92,6 +95,7 @@
 						<Vertex>sFJp8wUM</Vertex>
 					</Edge>
 					<Edge From="not_sideWithSemins.bool" To="B" />
+					<Edge From="not_bergovForfeitedRideToSemin.bool" To="C" />
 				</Function>
 				<Function Name="and22" PositionY="410" PositionX="250" MethodName="math::boolean::And" DeclaringType="math::boolean">
 					<Edge From="compare19_1.bool" To="B" />
@@ -283,10 +287,13 @@
 						<Vertex>vertex74</Vertex>
 					</Edge>
 				</HasteTrigger>
+				<Function Name="not_bergovForfeitedRideToSemin" PositionY="-210" PositionX="-1980" MethodName="math::boolean::Not" DeclaringType="math::boolean">
+					<Edge From="bergov_nevyslal_jizdu_vypalit_semin" To="Value" />
+				</Function>
 				<Function Name="not_noSettling" PositionY="250" PositionX="1420" MethodName="math::boolean::Not" DeclaringType="math::boolean">
 					<Edge From="or_anySettling.bool" To="Value" />
 				</Function>
-				<Function Name="not_sideWithSemins" PositionY="-260" PositionX="-2000" MethodName="math::boolean::Not" DeclaringType="math::boolean">
+				<Function Name="not_sideWithSemins" PositionY="-260" PositionX="-2340" MethodName="math::boolean::Not" DeclaringType="math::boolean">
 					<Edge From="jindra_byl_na_semine_na_strane_seminskych" To="Value">
 						<Vertex>vertex65</Vertex>
 					</Edge>

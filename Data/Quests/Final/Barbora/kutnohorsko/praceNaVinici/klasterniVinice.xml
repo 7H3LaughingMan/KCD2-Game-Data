@@ -55,6 +55,19 @@
 					</Edge>
 					<Edge From="praceNaKlasterniVinici.None" To="B" />
 				</Function>
+				<Function Name="and1772" PositionY="220" PositionX="1040" RequiredForOutput="kutnohorsko" MethodName="math::boolean::And" DeclaringType="math::boolean">
+					<Edge From="praceNaKlasterniVinici.Aborted" To="A" />
+					<Edge From="spravce__na_konci_dne.hrac_si_uz_nekdy_sel_pro_odmenu" To="B">
+						<Vertex>zUodMqS2</Vertex>
+						<Vertex>XIyWCA2b</Vertex>
+						<Vertex>snoQ68w0</Vertex>
+					</Edge>
+				</Function>
+				<Function Name="compare1773" PositionY="-340" PositionX="-1580" TypeT="wh::questmodule::QuestProgress" MethodName="Control::Compare" DeclaringType="Control">
+					<Constant Name="Op" Value="Equals" />
+					<Constant Name="ValueB" Value="Active" />
+					<Edge From="s32__quest_progress" To="ValueA" />
+				</Function>
 				<SoulDeathTrigger Name="deathtrigger1712" PositionY="970" PositionX="2080">
 					<Asset Name="Souls" Alias="manager" />
 					<Edge From="or1757.bool" To="IsActive" />
@@ -156,7 +169,7 @@
 					<Edge From="state1717.State" To="B" />
 				</Function>
 				<Function Name="multiply1711" PositionY="650" PositionX="3580" MethodName="math::integer::Multiply" DeclaringType="math::integer">
-					<Constant Name="A" Value="3" />
+					<Constant Name="A" Value="5" />
 					<Edge From="state1718.State" To="B" />
 				</Function>
 				<Function Name="multiply1741" PositionY="120" PositionX="4010" MethodName="math::integer::Multiply" DeclaringType="math::integer">
@@ -197,10 +210,11 @@
 						<Vertex>vertex107</Vertex>
 					</Edge>
 				</nosenipytlu>
-				<pracuj_na_klasterni_vinici Name="objectiveVisual11" PositionY="220" PositionX="1270" RequiredForOutput="kutnohorsko">
+				<pracuj_na_klasterni_vinici Name="objectiveVisual11" PositionY="200" PositionX="1350" RequiredForOutput="kutnohorsko">
 					<Edge From="praceNaKlasterniVinici.State" To="Progress">
 						<Vertex>vertex11</Vertex>
 					</Edge>
+					<Edge From="and1772.bool" To="LeftJob" />
 				</pracuj_na_klasterni_vinici>
 				<dojdi_si_pro_mzdu Name="objectiveVisual1739" PositionY="870" PositionX="4400" RequiredForOutput="kutnohorsko">
 					<Edge From="dojdi_si_pro_prachy.State" To="Progress" />
@@ -287,23 +301,23 @@
 				<spravce__fail_prace Name="spravce__fail_prace" PositionY="1920" PositionX="1510">
 					<Edge From="state1721.Active" To="Awake" />
 				</spravce__fail_prace>
-				<spravce__na_konci_dne Name="spravce__na_konci_dne" PositionY="350" PositionX="4760">
+				<spravce__na_konci_dne Name="spravce__na_konci_dne" PositionY="350" PositionX="4760" RequiredForOutput="kutnohorsko">
 					<Edge From="praceNaKlasterniVinici.State" To="vyhodnoceni">
 						<Vertex>vertex11</Vertex>
 						<Vertex>vertex99</Vertex>
 					</Edge>
 					<Edge From="add170.int" To="vysledek_prace" />
-					<Edge From="aktivni_quest_klasterni_tajemstvi" To="aktivni_quest_klasterni_tajemstvi">
-						<Vertex>vertex98</Vertex>
-						<Vertex>vertex124</Vertex>
-						<Vertex>vertex97</Vertex>
-					</Edge>
 					<Edge From="multiply1741.int" To="vyplevelene_daystart" />
 					<Edge From="multiply171.int" To="vyplevelene_dayend">
 						<Vertex>Sol7Teh4</Vertex>
 					</Edge>
 					<Edge From="dojdi_si_pro_prachy.OnActive" To="hrac_skoncil_sichtu">
 						<Vertex>6dNgkn6D</Vertex>
+					</Edge>
+					<Edge From="compare1773.bool" To="aktivni_quest_klasterni_tajemstvi">
+						<Vertex>vertex98</Vertex>
+						<Vertex>vertex124</Vertex>
+						<Vertex>vertex97</Vertex>
 					</Edge>
 				</spravce__na_konci_dne>
 				<spravce__tady_to_je Name="spravce__tady_to_je" PositionY="470" PositionX="1020">
@@ -313,11 +327,6 @@
 					<Edge From="talkToJeronym_progress.Active" To="hrac_si_ma_promluvit_s_jeronymem">
 						<Vertex>vertex123</Vertex>
 					</Edge>
-					<Edge From="aktivni_quest_klasterni_tajemstvi" To="hrac_shani_praci_na_vinici">
-						<Vertex>vertex98</Vertex>
-						<Vertex>vertex124</Vertex>
-						<Vertex>vertex125</Vertex>
-					</Edge>
 					<Edge From="spravce__na_konci_dne.hrac_si_uz_nekdy_sel_pro_odmenu" To="hrac_si_uz_nekdy_sel_pro_odmenu">
 						<Vertex>zUodMqS2</Vertex>
 						<Vertex>XIyWCA2b</Vertex>
@@ -326,6 +335,11 @@
 					<Edge From="managerExplainingBehavior_state.Completed" To="chovani_s_chatem_skocilo">
 						<Vertex>L5t9FPEh</Vertex>
 						<Vertex>mJ5IvgNH</Vertex>
+					</Edge>
+					<Edge From="compare1773.bool" To="hrac_shani_praci_na_vinici">
+						<Vertex>vertex98</Vertex>
+						<Vertex>vertex124</Vertex>
+						<Vertex>vertex125</Vertex>
 					</Edge>
 				</spravce__zadani>
 				<State Name="state1717" PositionY="440" PositionX="3240" TypeT="int">
@@ -472,6 +486,7 @@
 				<EdgeVertex Name="P1C2FEuE" PositionY="-160" PositionX="280" />
 				<EdgeVertex Name="p7l94qf4" PositionY="1600" PositionX="3970" />
 				<EdgeVertex Name="PbB6psT5" PositionY="1237" PositionX="253" />
+				<EdgeVertex Name="snoQ68w0" PositionY="-190" PositionX="1010" />
 				<EdgeVertex Name="Sol7Teh4" PositionY="490" PositionX="3870" />
 				<EdgeVertex Name="TRLUJ6Tb" PositionY="1420" PositionX="4280" />
 				<EdgeVertex Name="ukM6CSnC" PositionY="-160" PositionX="-150" />

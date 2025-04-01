@@ -9,6 +9,9 @@
 				<Port Name="prestehovat_na_certovku_optional__zimunduv_tabor" Direction="In" Type="trigger">
 					<DesignName StringName="desatnik__prestehovat_na__mGhg" Text="Přestěhovat na Čertovku (optional) - Zimundův tábor" />
 				</Port>
+				<Port Name="prestehovat_do_suchdole_optional__utok_na_malesov" Direction="In" Type="trigger">
+					<DesignName StringName="desatnik__prestehovat_do__PhQY" Text="Přestěhovat do Suchdole (optional) - Útok na Malešov" />
+				</Port>
 				<Port Name="desatnik_naverbovan" Direction="In" Type="bool">
 					<DesignName StringName="desatnik__desatnik_naverb_x8O7" Text="Desátník naverbován" />
 				</Port>
@@ -33,6 +36,7 @@
 				</ClothingPresetOverride>
 				<State Name="desatnik_migrations" PositionY="130" PositionX="-60" TypeT="StepanVranaMigrations">
 					<Edge From="if3.True" To="SetCertovka" />
+					<Edge From="if3_1.True" To="SetSuchdol" />
 				</State>
 				<State Name="desatnik_streaming" PositionY="-490" PositionX="-400" TypeT="StreamedStatus">
 					<Constant Name="DefaultValue" Value="StreamedInitial" />
@@ -47,6 +51,24 @@
 					<Edge From="prestehovat_na_certovku_optional__zimunduv_tabor" To="Exec" />
 					<Edge From="desatnik_naverbovan" To="Condition" />
 				</If>
+				<If Name="if3_1" PositionY="350" PositionX="-390">
+					<Edge From="prestehovat_do_suchdole_optional__utok_na_malesov" To="Exec" />
+					<Edge From="desatnik_naverbovan" To="Condition" />
+				</If>
+				<Migration_Simple_StreamingSafeguard Name="Migration_Simple_StreamingSafeguard" PositionY="220" PositionX="380" Namespace="utils.general">
+					<Asset Name="profiles" Alias="desatnik_stepan" />
+					<Constant Name="linktag" Value="desatnik_certovka" />
+					<Asset Name="souls" Alias="StepanVrana" />
+					<Edge From="desatnik_migrations.Certovka" To="isactive" />
+					<Edge From="desatnik_migrations.OnCertovka" To="forgetcrime" />
+				</Migration_Simple_StreamingSafeguard>
+				<Migration_Simple_StreamingSafeguard Name="Migration_Simple_StreamingSafeguard_1" PositionY="520" PositionX="380" Namespace="utils.general">
+					<Asset Name="profiles" Alias="desatnik_stepan" />
+					<Constant Name="linktag" Value="desatnik_suchdol" />
+					<Asset Name="souls" Alias="StepanVrana" />
+					<Edge From="desatnik_migrations.Suchdol" To="isactive" />
+					<Edge From="desatnik_migrations.OnSuchdol" To="forgetcrime" />
+				</Migration_Simple_StreamingSafeguard>
 				<Function Name="or6" PositionY="-330" PositionX="240" MethodName="math::boolean::Or" DeclaringType="math::boolean">
 					<Edge From="desatnik_streaming.StreamedInitial" To="B" />
 					<Edge From="desatnik_streaming.StreamedDebug" To="A" />
@@ -59,14 +81,6 @@
 					<Asset Name="Profiles" Alias="desatnik_stepan" />
 					<Edge From="or6.bool" To="IsActive" />
 				</Layer>
-				<SchedulerLinkActivation Name="schedule2" PositionY="190" PositionX="400">
-					<Constant Name="LinkTag" Value="desatnik_certovka" />
-					<Edge From="desatnik_migrations.Certovka" To="IsActive" />
-				</SchedulerLinkActivation>
-				<SchedulerLinkActivation Name="schedule2_1" PositionY="370" PositionX="400">
-					<Constant Name="LinkTag" Value="desatnik_suchdol" />
-					<Edge From="desatnik_migrations.Suchdol" To="IsActive" />
-				</SchedulerLinkActivation>
 				<HasteTrigger Name="unstream_suchdol" PositionY="290" PositionX="-880">
 					<Constant Name="IsHidden" Value="true" />
 				</HasteTrigger>

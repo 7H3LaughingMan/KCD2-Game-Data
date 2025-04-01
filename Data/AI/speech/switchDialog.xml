@@ -6,8 +6,6 @@
 			<Variable name="dialogueContext" type="_float" values="" isPersistent="0" form="associative" />
 			<Variable name="dialogueContextString" type="_string" values="" isPersistent="0" form="single" />
 			<Variable name="initiatorChecksPassed" type="_bool" values="" isPersistent="0" form="single" />
-			<Variable name="lockName" type="_string" values="" isPersistent="0" form="single" />
-			<Variable name="numberOfNpcParticipants" type="_int" values="" isPersistent="0" form="single" />
 			<Variable name="participant" type="_wuid" values="" isPersistent="0" form="single" />
 			<Variable name="participantChecksPassed" type="_bool" values="" isPersistent="0" form="single" />
 			<Variable name="participantMetarole" type="_string" values="" isPersistent="0" form="single" />
@@ -60,7 +58,7 @@
 													</Sequence>
 												</Else>
 											</IfElseCondition>
-											<Function_speech_switchDialog_participantChecks switchDialog="$switchDialog" participantChecksPassed="$participantChecksPassed" nodeLabel="69588789" />
+											<Function_speech_switchDialog_participantChecks numberOfNpcParticipants="" participants="$participants" switchDialog="$switchDialog" participantChecksPassed="$participantChecksPassed" nodeLabel="69588789" />
 											<Loop count="-1">
 												<IfGate atomic="false" condition="$initiatorChecksPassed" RunLogic="KeepRunning">
 													<IfGate atomic="false" condition="$participantChecksPassed" RunLogic="Halt">
@@ -75,45 +73,32 @@
 																			<Function_speech_schedulerMonolog alias="$switchDialog.alias" animationApproach="$animationApproach" context="$dialogueContext" lookAtId="" metarole="$switchDialog.metarole" skipInLod="false" subtitlesDown="false" nodeLabel="41953472" />
 																		</Then>
 																		<Else canSkip="1">
-																			<Sequence>
-																				<IfElseCondition failOnCondition="false" condition="$switchDialog.playerInDialog" saveVersion="2">
-																					<Then canSkip="1">
-																						<Expression expressions="$numberOfNpcParticipants = #participants - 1" />
-																					</Then>
-																					<Else canSkip="1">
-																						<Expression expressions="$numberOfNpcParticipants = #participants" />
-																					</Else>
-																				</IfElseCondition>
-																				<Function_speech_createLock alias="$switchDialog.alias" initiator="$switchDialog.initiator" metarole="$switchDialog.metarole" lockName="$lockName" nodeLabel="73353909" />
-																				<Synchronize SemaphoreCount="$numberOfNpcParticipants" InsideTimerValue="&apos;-1&apos;" InvalidateOnExpire="false" atomic="false" OutsideQueuePosVariable="" InsidePosVariable="" TimerType="GameTime" OutsideTimerValue="&apos;-1&apos;" LockManagerType="Global" SemaphoreName="&apos;$lockName&apos;" RunLogic="Halt">
-																					<IfElseCondition failOnCondition="false" condition="$this.id == $switchDialog.initiator" saveVersion="2">
-																						<Then canSkip="1">
-																							<Switch>
-																								<IfCondition failOnCondition="false" condition="$switchDialog.ingameDialogType == $enum:speech_ingameDialogType.Ingame">
+																			<IfElseCondition failOnCondition="false" condition="$this.id == $switchDialog.initiator" saveVersion="2">
+																				<Then canSkip="1">
+																					<Switch>
+																						<IfCondition failOnCondition="false" condition="$switchDialog.ingameDialogType == $enum:speech_ingameDialogType.Ingame">
+																							<Sequence>
+																								<ForEach startIndex="0" step="1" array="$participants" iterator="" value="$participant" break="">
 																									<Sequence>
-																										<ForEach startIndex="0" step="1" array="$participants" iterator="" value="$participant" break="">
-																											<Sequence>
-																												<GraphSearch Origin="$participant" Borders="" depth="1" selection="true" SearchPattern="Depth" EdgePruning="&apos;parent,inventory&apos;" AllowedEdges="" SubGraph="" AllowSubtraph="false" includeOrigin="false" excludeOrigin="false" failOnEmpty="true" SetOperationChoice="Intersection|And" errorOnEmpty="false" shortCircuit="false" skipTraversed="true">
-																													<LinkTagFilter tag="&apos;speech_switchDialog_participantMetarole&apos;" prune="true" negprune="unknown" Parent="" Child="" Data="$participantMetarole" />
-																												</GraphSearch>
-																												<Expression expressions="$participantSoulToMetaroles.soul = $participant &#10;$participantSoulToMetaroles.metaroles = $participantMetarole" />
-																												<PushToArray array="$participantSoulsToMetaroles" value="$participantSoulToMetaroles" direction="Back" />
-																											</Sequence>
-																										</ForEach>
-																										<Function_speech_polylogInitiator alias="$switchDialog.alias" animationApproach="$animationApproach" context="$dialogueContext" customParameters="" metarole="$switchDialog.metarole" participants="$participants" participantsMetaroles="$participantSoulsToMetaroles" preset="$enum:dialogPreset.ingame" nodeLabel="36051095" />
+																										<GraphSearch Origin="$participant" Borders="" depth="1" selection="true" SearchPattern="Depth" EdgePruning="&apos;parent,inventory&apos;" AllowedEdges="" SubGraph="" AllowSubtraph="false" includeOrigin="false" excludeOrigin="false" failOnEmpty="true" SetOperationChoice="Intersection|And" errorOnEmpty="false" shortCircuit="false" skipTraversed="true">
+																											<LinkTagFilter tag="&apos;speech_switchDialog_participantMetarole&apos;" prune="true" negprune="unknown" Parent="" Child="" Data="$participantMetarole" />
+																										</GraphSearch>
+																										<Expression expressions="$participantSoulToMetaroles.soul = $participant &#10;$participantSoulToMetaroles.metaroles = $participantMetarole" />
+																										<PushToArray array="$participantSoulsToMetaroles" value="$participantSoulToMetaroles" direction="Back" />
 																									</Sequence>
-																								</IfCondition>
-																								<IfCondition failOnCondition="false" condition="$switchDialog.ingameDialogType == $enum:speech_ingameDialogType.Chat">
-																									<Function_speech_polylogInitiator alias="$switchDialog.alias" animationApproach="$animationApproach" context="$dialogueContext" customParameters="" metarole="$switchDialog.metarole" participants="$participants" participantsMetaroles="" preset="$enum:dialogPreset.chat" nodeLabel="76668516" />
-																								</IfCondition>
-																							</Switch>
-																						</Then>
-																						<Else canSkip="1">
-																							<Wait duration="&apos;-1&apos;" timeType="GameTime" doFail="false" variation="" />
-																						</Else>
-																					</IfElseCondition>
-																				</Synchronize>
-																			</Sequence>
+																								</ForEach>
+																								<Function_speech_polylogInitiator alias="$switchDialog.alias" animationApproach="$animationApproach" context="$dialogueContext" customParameters="" metarole="$switchDialog.metarole" participants="$participants" participantsMetaroles="$participantSoulsToMetaroles" preset="$enum:dialogPreset.ingame" nodeLabel="36051095" />
+																							</Sequence>
+																						</IfCondition>
+																						<IfCondition failOnCondition="false" condition="$switchDialog.ingameDialogType == $enum:speech_ingameDialogType.Chat">
+																							<Function_speech_polylogInitiator alias="$switchDialog.alias" animationApproach="$animationApproach" context="$dialogueContext" customParameters="" metarole="$switchDialog.metarole" participants="$participants" participantsMetaroles="" preset="$enum:dialogPreset.chat" nodeLabel="76668516" />
+																						</IfCondition>
+																					</Switch>
+																				</Then>
+																				<Else canSkip="1">
+																					<Wait duration="&apos;-1&apos;" timeType="GameTime" doFail="false" variation="" />
+																				</Else>
+																			</IfElseCondition>
 																		</Else>
 																	</IfElseCondition>
 																	<Sequence>
@@ -155,8 +140,6 @@
 				<Variable name="dialogueContext" comment="" />
 				<Variable name="dialogueContextString" comment="" />
 				<Variable name="initiatorChecksPassed" comment="" />
-				<Variable name="lockName" comment="" />
-				<Variable name="numberOfNpcParticipants" comment="" />
 				<Variable name="participant" comment="" />
 				<Variable name="participantChecksPassed" comment="" />
 				<Variable name="participantMetarole" comment="" />
@@ -283,74 +266,52 @@
 																				</Function_speech_schedulerMonolog>
 																			</Then>
 																			<Else>
-																				<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																				<IfElseCondition hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
 																					<OutputBreakpoints />
-																					<IfElseCondition hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
-																						<OutputBreakpoints />
-																						<Then>
-																							<Expression hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																								<OutputBreakpoints />
-																							</Expression>
-																						</Then>
-																						<Else>
-																							<Expression hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																								<OutputBreakpoints />
-																							</Expression>
-																						</Else>
-																					</IfElseCondition>
-																					<Function_speech_createLock hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																						<OutputBreakpoints />
-																					</Function_speech_createLock>
-																					<Synchronize hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																						<OutputBreakpoints />
-																						<IfElseCondition hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
+																					<Then>
+																						<Switch hasInputBreakpoint="0" comment="" breakpointFlags="0">
 																							<OutputBreakpoints />
-																							<Then>
-																								<Switch hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																							<IfCondition hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																								<OutputBreakpoints />
+																								<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
 																									<OutputBreakpoints />
-																									<IfCondition hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																									<ForEach hasInputBreakpoint="0" comment="" breakpointFlags="0">
 																										<OutputBreakpoints />
 																										<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
 																											<OutputBreakpoints />
-																											<ForEach hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																											<GraphSearch hasInputBreakpoint="0" comment="" breakpointFlags="0">
 																												<OutputBreakpoints />
-																												<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																												<LinkTagFilter hasInputBreakpoint="0" comment="" breakpointFlags="0">
 																													<OutputBreakpoints />
-																													<GraphSearch hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																														<OutputBreakpoints />
-																														<LinkTagFilter hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																															<OutputBreakpoints />
-																														</LinkTagFilter>
-																													</GraphSearch>
-																													<Expression hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																														<OutputBreakpoints />
-																													</Expression>
-																													<PushToArray hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																														<OutputBreakpoints />
-																													</PushToArray>
-																												</Sequence>
-																											</ForEach>
-																											<Function_speech_polylogInitiator hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																												</LinkTagFilter>
+																											</GraphSearch>
+																											<Expression hasInputBreakpoint="0" comment="" breakpointFlags="0">
 																												<OutputBreakpoints />
-																											</Function_speech_polylogInitiator>
+																											</Expression>
+																											<PushToArray hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																												<OutputBreakpoints />
+																											</PushToArray>
 																										</Sequence>
-																									</IfCondition>
-																									<IfCondition hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																									</ForEach>
+																									<Function_speech_polylogInitiator hasInputBreakpoint="0" comment="" breakpointFlags="0">
 																										<OutputBreakpoints />
-																										<Function_speech_polylogInitiator hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																											<OutputBreakpoints />
-																										</Function_speech_polylogInitiator>
-																									</IfCondition>
-																								</Switch>
-																							</Then>
-																							<Else>
-																								<Wait hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																									</Function_speech_polylogInitiator>
+																								</Sequence>
+																							</IfCondition>
+																							<IfCondition hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																								<OutputBreakpoints />
+																								<Function_speech_polylogInitiator hasInputBreakpoint="0" comment="" breakpointFlags="0">
 																									<OutputBreakpoints />
-																								</Wait>
-																							</Else>
-																						</IfElseCondition>
-																					</Synchronize>
-																				</Sequence>
+																								</Function_speech_polylogInitiator>
+																							</IfCondition>
+																						</Switch>
+																					</Then>
+																					<Else>
+																						<Wait hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																							<OutputBreakpoints />
+																						</Wait>
+																					</Else>
+																				</IfElseCondition>
 																			</Else>
 																		</IfElseCondition>
 																		<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">

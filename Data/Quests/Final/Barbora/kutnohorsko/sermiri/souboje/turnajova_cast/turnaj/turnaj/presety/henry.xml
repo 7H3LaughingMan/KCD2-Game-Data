@@ -11,7 +11,7 @@
 				</Port>
 			</Ports>
 			<Nodes>
-				<Function Name="createitemcategorydescriptor16" PositionY="-1400" PositionX="540" MethodName="wh::entitymodule::CreateItemCategoryDescriptor" DeclaringType="wh::entitymodule">
+				<Function Name="createitemcategorydescriptor16" PositionY="-1420" PositionX="560" MethodName="wh::entitymodule::CreateItemCategoryDescriptor" DeclaringType="wh::entitymodule">
 					<Constant Name="Category" Value="MeleeWeapon" />
 					<Constant Name="EquippedFilter" Value="Pass" />
 				</Function>
@@ -27,7 +27,15 @@
 				<Function Name="createitemreferencedescriptor31" PositionY="-1430" PositionX="1990" MethodName="wh::entitymodule::CreateItemReferenceDescriptor" DeclaringType="wh::entitymodule">
 					<Edge From="foreach23.Value" To="Item" />
 				</Function>
+				<Function Name="createitemreferencedescriptor31_1" PositionY="-2080" PositionX="2100" MethodName="wh::entitymodule::CreateItemReferenceDescriptor" DeclaringType="wh::entitymodule">
+					<Edge From="foreach23_1.Value" To="Item" />
+				</Function>
+				<Function Name="createitemreferencedescriptor31_2" PositionY="-1820" PositionX="2270" MethodName="wh::entitymodule::CreateItemReferenceDescriptor" DeclaringType="wh::entitymodule">
+					<Edge From="foreach23_2.Value" To="Item" />
+				</Function>
 				<EventFunction Name="createplayerreward11" PositionY="150" PositionX="190" MethodName="wh::entitymodule::CreatePlayerReward" DeclaringType="wh::entitymodule">
+					<Constant Name="Quality" Value="3" />
+					<Constant Name="Condition" Value="100" />
 					<Edge From="triggersequence1.D" To="Exec" />
 					<Edge From="tournamentequipment.sword" To="ItemClass" />
 				</EventFunction>
@@ -39,11 +47,6 @@
 					<Edge From="triggersequence1.C" To="Exec" />
 					<Edge From="tournamentequipment.waffenrock" To="ItemClass" />
 				</EventFunction>
-				<Function Name="createunionitemdescriptor24" PositionY="-1730" PositionX="1120" MethodName="wh::entitymodule::CreateUnionItemDescriptor" DeclaringType="wh::entitymodule">
-					<Edge From="createitemcategorydescriptor16_1.ItemDescriptor" To="A" />
-					<Edge From="createitemcategorydescriptor16.ItemDescriptor" To="B" />
-					<Edge From="createitemcategorydescriptor16_1_1.ItemDescriptor" To="C" />
-				</Function>
 				<HasteTrigger Name="equip" PositionY="-320" PositionX="1010" />
 				<MemberFunction Name="equipplayersitem10" PositionY="450" PositionX="690" MethodName="EquipPlayersItem" DeclaringType="wh::entitymodule::EquipmentManager">
 					<Edge From="createplayerreward9.OnExec" To="Exec" />
@@ -71,10 +74,35 @@
 					<Edge From="triggersequence1.A" To="Begin">
 						<Vertex>SJYGI6a3</Vertex>
 						<Vertex>RuGCRKgK</Vertex>
+						<Vertex>y7fqVSbU</Vertex>
+					</Edge>
+				</ForEach>
+				<ForEach Name="foreach23_1" PositionY="-2270" PositionX="1840" TypeT="wh::entitymodule::Items">
+					<Edge From="getmatchingitems25_1.Items" To="Array" />
+					<Edge From="triggersequence1.A" To="Begin">
+						<Vertex>SJYGI6a3</Vertex>
+						<Vertex>RuGCRKgK</Vertex>
+						<Vertex>y7fqVSbU</Vertex>
+					</Edge>
+				</ForEach>
+				<ForEach Name="foreach23_2" PositionY="-1880" PositionX="1890" TypeT="wh::entitymodule::Items">
+					<Edge From="getmatchingitems25_2.Items" To="Array" />
+					<Edge From="triggersequence1.A" To="Begin">
+						<Vertex>SJYGI6a3</Vertex>
+						<Vertex>RuGCRKgK</Vertex>
+						<Vertex>y7fqVSbU</Vertex>
 					</Edge>
 				</ForEach>
 				<MemberFunction Name="getmatchingitems25" PositionY="-1770" PositionX="1460" MethodName="GetMatchingItems" DeclaringType="wh::entitymodule::ItemDescriptor">
-					<Edge From="createunionitemdescriptor24.ItemDescriptor" To="ItemDescriptor" />
+					<Edge From="items26.Items" To="InputItems" />
+					<Edge From="createitemcategorydescriptor16.ItemDescriptor" To="ItemDescriptor" />
+				</MemberFunction>
+				<MemberFunction Name="getmatchingitems25_1" PositionY="-2420" PositionX="1570" MethodName="GetMatchingItems" DeclaringType="wh::entitymodule::ItemDescriptor">
+					<Edge From="items26.Items" To="InputItems" />
+					<Edge From="createitemcategorydescriptor16_1_1.ItemDescriptor" To="ItemDescriptor" />
+				</MemberFunction>
+				<MemberFunction Name="getmatchingitems25_2" PositionY="-2070" PositionX="1460" MethodName="GetMatchingItems" DeclaringType="wh::entitymodule::ItemDescriptor">
+					<Edge From="createitemcategorydescriptor16_1.ItemDescriptor" To="ItemDescriptor" />
 					<Edge From="items26.Items" To="InputItems" />
 				</MemberFunction>
 				<ObjectProperties Name="isoulproperties6" PositionY="-1030" PositionX="200" DeclaringType="wh::rpgmodule::I_Soul">
@@ -107,7 +135,7 @@
 				<RestrictWeaponsInQAM Name="RestrictWeaponsInQAM" PositionY="890" PositionX="490" Namespace="utils.player">
 					<Constant Name="mainhand_weaponselection" Value="specifiedByItemClassId" />
 					<Constant Name="mainhand_specificitemclassid" Value="2d466cad-74df-4337-ae97-4c7433a54b6d" />
-					<Constant Name="offhand_weaponselection" Value="anything" />
+					<Constant Name="offhand_weaponselection" Value="emptyHand" />
 					<Constant Name="loadsecondaryweapon" Value="false" />
 					<Constant Name="drawweaponurgency" Value="Slow" />
 					<Edge From="state32.State" To="isactive" />
@@ -143,6 +171,23 @@
 					<Edge From="createitemreferencedescriptor31.ItemDescriptor" To="ItemDescriptor" />
 					<Edge From="isoulproperties6.EquipmentManager" To="Manager">
 						<Vertex>uKqfj4uh</Vertex>
+						<Vertex>t0Syh996</Vertex>
+					</Edge>
+				</MemberFunction>
+				<MemberFunction Name="unequipplayersitem27_1" PositionY="-2280" PositionX="2400" MethodName="UnequipPlayersItem" DeclaringType="wh::entitymodule::EquipmentManager">
+					<Edge From="foreach23_1.OnValue" To="Exec" />
+					<Edge From="createitemreferencedescriptor31_1.ItemDescriptor" To="ItemDescriptor" />
+					<Edge From="isoulproperties6.EquipmentManager" To="Manager">
+						<Vertex>uKqfj4uh</Vertex>
+						<Vertex>t0Syh996</Vertex>
+					</Edge>
+				</MemberFunction>
+				<MemberFunction Name="unequipplayersitem27_2" PositionY="-2000" PositionX="2560" MethodName="UnequipPlayersItem" DeclaringType="wh::entitymodule::EquipmentManager">
+					<Edge From="foreach23_2.OnValue" To="Exec" />
+					<Edge From="createitemreferencedescriptor31_2.ItemDescriptor" To="ItemDescriptor" />
+					<Edge From="isoulproperties6.EquipmentManager" To="Manager">
+						<Vertex>uKqfj4uh</Vertex>
+						<Vertex>t0Syh996</Vertex>
 					</Edge>
 				</MemberFunction>
 			</Nodes>
@@ -152,15 +197,12 @@
 				<EdgeVertex Name="K5JdNTX1" PositionY="880" PositionX="120" />
 				<EdgeVertex Name="RuGCRKgK" PositionY="-512" PositionX="861" />
 				<EdgeVertex Name="SJYGI6a3" PositionY="-490" PositionX="130" />
+				<EdgeVertex Name="t0Syh996" PositionY="-1500" PositionX="2211" />
 				<EdgeVertex Name="TX44wBKG" PositionY="-694" PositionX="965" />
 				<EdgeVertex Name="uKqfj4uh" PositionY="-1337" PositionX="1121" />
 				<EdgeVertex Name="xTV8uy2Y" PositionY="880" PositionX="-250" />
+				<EdgeVertex Name="y7fqVSbU" PositionY="-1430" PositionX="1610" />
 			</EdgeVertices>
-			<Notes>
-				<Note Name="note18" PositionY="-420" PositionX="1060">
-					<Text StringName="henry_note18_drku" Text="player outfit override + zakázat převlíkání" />
-				</Note>
-			</Notes>
 			<Text StringName="henry_RxzO" Text="Henry" />
 		</Module>
 	</Skald>

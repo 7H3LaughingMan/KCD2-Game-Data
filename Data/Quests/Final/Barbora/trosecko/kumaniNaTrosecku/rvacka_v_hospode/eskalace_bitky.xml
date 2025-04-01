@@ -52,8 +52,8 @@
 				<Definition File="eskalace_bitky/vujtek_se_hada_s_vaskem.xml" />
 			</Definitions>
 			<Nodes>
-				<HasteTrigger Name="_inPubFinishTimer" PositionY="350" PositionX="110" />
-				<HasteTrigger Name="_inPubResetTimer" PositionY="160" PositionX="110" />
+				<HasteTrigger Name="_inPubFinishTimer" PositionY="150" PositionX="40" />
+				<HasteTrigger Name="_inPubResetTimer" PositionY="180" PositionX="-1260" />
 				<AddInterruptConceptNode Name="addinterruptteleport18" PositionY="-1910" PositionX="3210" Signature="teleport">
 					<Constant Name="Behavior" Value="teleport" />
 					<Asset Name="SmartEntity" Alias="land" />
@@ -114,6 +114,55 @@
 						<Vertex>vertex17</Vertex>
 					</Edge>
 				</SoulDeathTrigger>
+				<EnableBehavior Name="enablebehavior_vaskoPubEscalation" PositionY="-660" PositionX="2830" Signature="kumaniNaTrosecku_vaskoPubEscalation" EventSet="endNotification">
+					<Constant Name="Behavior" Value="vasko_pubFightEscalation" />
+					<Asset Name="SmartEntity" Alias="qso" />
+					<Asset Name="NPC" Alias="vasko" />
+					<Constant Name="ForceKick" Value="false" />
+					<Asset Name="leaveSpot" Alias="leavingPubTagpoint" />
+					<Asset Name="vujtek" Alias="vujtek" />
+					<Edge From="switch12.Value2" To="IsActive">
+						<Vertex>vertex55</Vertex>
+						<Vertex>vertex41</Vertex>
+					</Edge>
+					<Edge From="pubFightEscalation.OnExec" To="UpdateReferences">
+						<Vertex>vertex42</Vertex>
+					</Edge>
+					<Edge From="pubFightEscalation.State" To="phase">
+						<Vertex>vertex46</Vertex>
+						<Vertex>vertex49</Vertex>
+						<Vertex>vertex59</Vertex>
+						<Vertex>vertex48</Vertex>
+						<Vertex>vertex47</Vertex>
+					</Edge>
+					<Edge From="joinarrays16.Array" To="dialogParticipants">
+						<Vertex>vertex50</Vertex>
+					</Edge>
+				</EnableBehavior>
+				<EnableBehavior Name="enablebehavior_vujtekPubEscalation" PositionY="-1030" PositionX="2820" Signature="kumaniNaTrosecku_vujtekPubEscalation" EventSet="endNotification">
+					<Constant Name="Behavior" Value="vujtek_pubFightEscalation" />
+					<Asset Name="SmartEntity" Alias="qso" />
+					<Asset Name="NPC" Alias="vujtek" />
+					<Constant Name="ForceKick" Value="false" />
+					<Asset Name="crimeFollwerTarget" Alias="vasko" />
+					<Edge From="switch12.Value2" To="IsActive">
+						<Vertex>vertex55</Vertex>
+						<Vertex>vertex41</Vertex>
+					</Edge>
+					<Edge From="pubFightEscalation.OnExec" To="UpdateReferences">
+						<Vertex>vertex42</Vertex>
+					</Edge>
+					<Edge From="pubFightEscalation.State" To="phase">
+						<Vertex>vertex46</Vertex>
+						<Vertex>vertex49</Vertex>
+						<Vertex>vertex59</Vertex>
+						<Vertex>vertex48</Vertex>
+						<Vertex>vertex47</Vertex>
+					</Edge>
+					<Edge From="joinarrays16.Array" To="dialogParticipants">
+						<Vertex>vertex50</Vertex>
+					</Edge>
+				</EnableBehavior>
 				<EnableBehavior Name="enablebehaviorkumaninatroseckugeneralpubescalation17" PositionY="-1050" PositionX="3800" Signature="kumaniNaTrosecku_generalPubEscalation" EventSet="">
 					<Constant Name="Behavior" Value="villager_pubFightEscalation" />
 					<Asset Name="SmartEntity" Alias="qso" />
@@ -168,73 +217,9 @@
 					</Edge>
 					<Edge From="fight_sides_at_tavern_1.kumani" To="NPC" />
 				</EnableBehavior>
-				<EnableBehavior Name="enablebehaviorkumaninatroseckuvaskopubescalationendnotification13" PositionY="-660" PositionX="2830" Signature="kumaniNaTrosecku_vaskoPubEscalation" EventSet="endNotification">
-					<Constant Name="Behavior" Value="vasko_pubFightEscalation" />
-					<Asset Name="SmartEntity" Alias="qso" />
-					<Asset Name="NPC" Alias="vasko" />
-					<Constant Name="ForceKick" Value="false" />
-					<Asset Name="leaveSpot" Alias="leavingPubTagpoint" />
-					<Asset Name="vujtek" Alias="vujtek" />
-					<Edge From="switch12.Value2" To="IsActive">
-						<Vertex>vertex55</Vertex>
-						<Vertex>vertex41</Vertex>
-					</Edge>
-					<Edge From="pubFightEscalation.OnExec" To="UpdateReferences">
-						<Vertex>vertex42</Vertex>
-					</Edge>
-					<Edge From="pubFightEscalation.State" To="phase">
-						<Vertex>vertex46</Vertex>
-						<Vertex>vertex49</Vertex>
-						<Vertex>vertex59</Vertex>
-						<Vertex>vertex48</Vertex>
-						<Vertex>vertex47</Vertex>
-					</Edge>
-					<Edge From="joinarrays16.Array" To="dialogParticipants">
-						<Vertex>vertex50</Vertex>
-					</Edge>
-				</EnableBehavior>
-				<EnableBehavior Name="enablebehaviorkumaninatroseckuvujtekpubescalationendnotification15" PositionY="-1030" PositionX="2820" Signature="kumaniNaTrosecku_vujtekPubEscalation" EventSet="endNotification">
-					<Constant Name="Behavior" Value="vujtek_pubFightEscalation" />
-					<Asset Name="SmartEntity" Alias="qso" />
-					<Asset Name="NPC" Alias="vujtek" />
-					<Constant Name="ForceKick" Value="false" />
-					<Asset Name="crimeFollwerTarget" Alias="vasko" />
-					<Edge From="switch12.Value2" To="IsActive">
-						<Vertex>vertex55</Vertex>
-						<Vertex>vertex41</Vertex>
-					</Edge>
-					<Edge From="pubFightEscalation.OnExec" To="UpdateReferences">
-						<Vertex>vertex42</Vertex>
-					</Edge>
-					<Edge From="pubFightEscalation.State" To="phase">
-						<Vertex>vertex46</Vertex>
-						<Vertex>vertex49</Vertex>
-						<Vertex>vertex59</Vertex>
-						<Vertex>vertex48</Vertex>
-						<Vertex>vertex47</Vertex>
-					</Edge>
-					<Edge From="joinarrays16.Array" To="dialogParticipants">
-						<Vertex>vertex50</Vertex>
-					</Edge>
-				</EnableBehavior>
 				<Timer Name="escalationTimer" PositionY="10" PositionX="470">
 					<Constant Name="TimeType" Value="WorldTime" />
 					<Edge From="konstanty.doba_pri_necinosti_kdy_dojde_k_bitce" To="Duration" />
-					<Edge From="_inPubResetTimer.OnTrigger" To="SetRunning">
-						<Vertex>vertex1</Vertex>
-					</Edge>
-					<Edge From="jindra_vstupuje_do_hospody" To="SetRunning">
-						<Vertex>vertex2</Vertex>
-						<Vertex>vertex1</Vertex>
-					</Edge>
-					<Edge From="zacina_quest" To="SetRunning">
-						<Vertex>vertex2</Vertex>
-						<Vertex>vertex1</Vertex>
-					</Edge>
-					<Edge From="jindra_bere_jidlo_ze_stolu_v_kuchyni" To="SetRunning">
-						<Vertex>vertex2</Vertex>
-						<Vertex>vertex1</Vertex>
-					</Edge>
 					<Edge From="_inPubFinishTimer.OnTrigger" To="SetFinished" />
 					<Edge From="pubFightEscalation.OnDone" To="SetStopped">
 						<Vertex>vertex64</Vertex>
@@ -244,12 +229,20 @@
 						<Vertex>vertex68</Vertex>
 					</Edge>
 					<Edge From="jindra_dava_kumanum_na_stul_jidlo" To="SetStopped">
+						<Vertex>yDBNDX5u</Vertex>
 						<Vertex>vertex68</Vertex>
 					</Edge>
-					<Edge From="if28.True" To="SetStopped">
+					<Edge From="if_playerHitsCumansWithPebbleBeforeEscalation.True" To="SetStopped">
 						<Vertex>MUmSNstg</Vertex>
 						<Vertex>o10AokQ4</Vertex>
 						<Vertex>vertex65</Vertex>
+						<Vertex>vertex68</Vertex>
+					</Edge>
+					<Edge From="triggersequence_resetEscalationTimer.B" To="SetRunning">
+						<Vertex>JxGfAv1H</Vertex>
+					</Edge>
+					<Edge From="triggersequence_resetEscalationTimer.A" To="SetStopped">
+						<Vertex>yDBNDX5u</Vertex>
 						<Vertex>vertex68</Vertex>
 					</Edge>
 				</Timer>
@@ -266,10 +259,15 @@
 					<Asset Name="Array" Alias="vujtekAndHisFriend" />
 					<Edge From="teleportVillagersToPlayer.OnTrigger" To="Begin" />
 				</ForEach>
-				<If Name="if28" PositionY="-550" PositionX="760">
+				<If Name="if_playerHitsCumansWithPebbleBeforeEscalation" PositionY="-550" PositionX="760">
 					<Edge From="containselement27.Result" To="Condition" />
 					<Edge From="aiconceptsignaltriggerhitreactionnotification26.OnNotification" To="Exec" />
 				</If>
+				<IfFunction Name="ifEscalationTimesOutWithPlayerNearPub" PositionY="10" PositionX="820" MethodName="wh::rpgmodule::AreaCheck" DeclaringType="wh::rpgmodule">
+					<Asset Name="Souls" Alias="player" />
+					<Asset Name="Areas" Alias="tavernTeleportationArea" />
+					<Edge From="escalationTimer.OnFinished" To="Exec" />
+				</IfFunction>
 				<If Name="ifHitWasEscalationWorthy" PositionY="510" PositionX="2670">
 					<Edge From="aiconceptsignaltriggerhitreactionnotification2.OnNotification" To="Exec" />
 					<Edge From="switch3.Value1" To="Condition" />
@@ -277,26 +275,36 @@
 				<IfFunction Name="ifisinactorstate22" PositionY="-430" PositionX="1190" MethodName="wh::entitymodule::IsInActorState" DeclaringType="wh::entitymodule">
 					<Asset Name="Souls" Alias="player" />
 					<Constant Name="State" Value="skipTime" />
-					<Edge From="ifPlayerIsNearPub.True" To="Exec" />
+					<Edge From="ifEscalationTimesOutWithPlayerNearPub.True" To="Exec" />
 				</IfFunction>
-				<IfFunction Name="ifisinactorstate22_1" PositionY="-690" PositionX="1180" MethodName="wh::entitymodule::IsInActorState" DeclaringType="wh::entitymodule">
+				<IfFunction Name="ifisinactorstate22_1" PositionY="-690" PositionX="1100" MethodName="wh::entitymodule::IsInActorState" DeclaringType="wh::entitymodule">
 					<Asset Name="Souls" Alias="player" />
 					<Constant Name="State" Value="skipTime" />
-					<Edge From="enablebehaviorkumaninatroseckuvujtekpubescalationendnotification15.OnFinished" To="Exec">
+					<Edge From="enablebehavior_vujtekPubEscalation.OnFinished" To="Exec">
 						<Vertex>vertex45</Vertex>
 						<Vertex>vertex44</Vertex>
 						<Vertex>vertex43</Vertex>
 					</Edge>
-					<Edge From="enablebehaviorkumaninatroseckuvaskopubescalationendnotification13.OnFinished" To="Exec">
+					<Edge From="enablebehavior_vaskoPubEscalation.OnFinished" To="Exec">
 						<Vertex>vertex45</Vertex>
 						<Vertex>vertex44</Vertex>
 						<Vertex>vertex43</Vertex>
 					</Edge>
 				</IfFunction>
-				<IfFunction Name="ifPlayerIsNearPub" PositionY="10" PositionX="820" MethodName="wh::rpgmodule::AreaCheck" DeclaringType="wh::rpgmodule">
-					<Asset Name="Souls" Alias="player" />
-					<Asset Name="Areas" Alias="tavernTeleportationArea" />
-					<Edge From="escalationTimer.OnFinished" To="Exec" />
+				<IfFunction Name="ifnot_escalationFinished" PositionY="90" PositionX="-780" MethodName="math::boolean::Not" DeclaringType="math::boolean">
+					<Edge From="jindra_vstupuje_do_hospody" To="Exec">
+						<Vertex>vertex2</Vertex>
+					</Edge>
+					<Edge From="zacina_quest" To="Exec">
+						<Vertex>vertex2</Vertex>
+					</Edge>
+					<Edge From="jindra_bere_jidlo_ze_stolu_v_kuchyni" To="Exec">
+						<Vertex>vertex2</Vertex>
+					</Edge>
+					<Edge From="escalationTimer.Finished" To="Value">
+						<Vertex>9vvKJUDk</Vertex>
+						<Vertex>T8NJyPCm</Vertex>
+					</Edge>
 				</IfFunction>
 				<If Name="ifVictimIsCuman" PositionY="540" PositionX="3400">
 					<Edge From="ifVictimIsVillager.False" To="Exec" />
@@ -314,7 +322,7 @@
 					<Asset Name="A" Alias="vasko" />
 					<Asset Name="B" Alias="vujtek" />
 				</Function>
-				<konstanty Name="konstanty" PositionY="520" PositionX="70" Namespace="kumani_na_trosecku" />
+				<konstanty Name="konstanty" PositionY="380" PositionX="40" Namespace="kumani_na_trosecku" />
 				<kuman_nadava_na_vujtka Name="kuman_nadava_na_vujtka" PositionY="-1420" PositionX="3300" />
 				<Function Name="or1" PositionY="230" PositionX="1190" MethodName="math::boolean::Or" DeclaringType="math::boolean">
 					<Edge From="compare24.bool" To="A">
@@ -334,7 +342,7 @@
 					<Edge From="ifVictimIsVillager.True" To="jindra_zacina_boj_proti_vesnicanum">
 						<Vertex>vertex15</Vertex>
 					</Edge>
-					<Edge From="ifPlayerIsNearPub.False" To="situace_eskaluje_kdyz_je_jindra_daleko__vyhravaji_kumani" />
+					<Edge From="ifEscalationTimesOutWithPlayerNearPub.False" To="situace_eskaluje_kdyz_je_jindra_daleko__vyhravaji_kumani" />
 					<Edge From="pubFightEscalation.OnDone" To="situace_eskaluje">
 						<Vertex>vertex64</Vertex>
 					</Edge>
@@ -348,6 +356,7 @@
 					</Edge>
 					<Edge From="ifisinactorstate22.True" To="bitka_zacina_a_jindra_je_v_hospode_v_timeskipu">
 						<Vertex>FsM12eq9</Vertex>
+						<Vertex>RkKUeaeE</Vertex>
 					</Edge>
 				</Output>
 				<State Name="pubFightEscalation" PositionY="-660" PositionX="1640" TypeT="kumaniNaTrosecku_pubFightEscalation">
@@ -397,7 +406,7 @@
 					</Edge>
 					<Edge From="ifisinactorstate22_1.False" To="Exec" />
 					<Edge From="ifisinactorstate22.False" To="SetBarkingFromTable" />
-					<Edge From="if28.True" To="SetCumansLeaving">
+					<Edge From="if_playerHitsCumansWithPebbleBeforeEscalation.True" To="SetCumansLeaving">
 						<Vertex>MUmSNstg</Vertex>
 						<Vertex>fBmSyShR</Vertex>
 					</Edge>
@@ -440,6 +449,14 @@
 					<Edge From="aiconceptsignaltriggerhitreactionnotification2.hitType" To="Switch" />
 				</Switch>
 				<HasteTrigger Name="teleportVillagersToPlayer" PositionY="-1910" PositionX="2590" />
+				<TriggerSequence Name="triggersequence_resetEscalationTimer" PositionY="180" PositionX="-450">
+					<Edge From="_inPubResetTimer.OnTrigger" To="Exec">
+						<Vertex>vertex1</Vertex>
+					</Edge>
+					<Edge From="ifnot_escalationFinished.True" To="Exec">
+						<Vertex>vertex1</Vertex>
+					</Edge>
+				</TriggerSequence>
 				<vasko_barkuje_k_odchodu Name="vasko_barkuje_k_odchodu" PositionY="-1410" PositionX="2140" />
 				<vesnican_nadava_na_vaska Name="vesnican_nadava_na_vaska" PositionY="-1280" PositionX="3300" />
 				<ContainsElement Name="villagersContainVictim" PositionY="370" PositionX="2400" TypeT="wh::xgenaimodule::LinkableObjects">
@@ -457,18 +474,22 @@
 			<EdgeVertices>
 				<EdgeVertex Name="5ggKBDpT" PositionY="-460" PositionX="-710" />
 				<EdgeVertex Name="7T3q9XMJ" PositionY="-180" PositionX="1510" />
+				<EdgeVertex Name="9vvKJUDk" PositionY="350" PositionX="710" />
 				<EdgeVertex Name="a9eSMo4l" PositionY="-200" PositionX="980" />
 				<EdgeVertex Name="fBmSyShR" PositionY="-460" PositionX="1460" />
-				<EdgeVertex Name="FsM12eq9" PositionY="-339" PositionX="1412" />
+				<EdgeVertex Name="FsM12eq9" PositionY="-340" PositionX="1420" />
+				<EdgeVertex Name="JxGfAv1H" PositionY="130" PositionX="-100" />
 				<EdgeVertex Name="LDaqvdM0" PositionY="-500" PositionX="-70" />
 				<EdgeVertex Name="MUmSNstg" PositionY="-460" PositionX="1060" />
-				<EdgeVertex Name="NN8s9NgA" PositionY="-340" PositionX="1450" />
+				<EdgeVertex Name="NN8s9NgA" PositionY="-340" PositionX="1480" />
 				<EdgeVertex Name="Nq0hnHpj" PositionY="210" PositionX="2680" />
 				<EdgeVertex Name="NVWHnydA" PositionY="200" PositionX="1220" />
 				<EdgeVertex Name="o10AokQ4" PositionY="-10" PositionX="1040" />
+				<EdgeVertex Name="RkKUeaeE" PositionY="-40" PositionX="1490" />
 				<EdgeVertex Name="RxvW77F5" PositionY="-780" PositionX="-280" />
+				<EdgeVertex Name="T8NJyPCm" PositionY="350" PositionX="-740" />
 				<EdgeVertex Name="V0IstmYv" PositionY="-780" PositionX="1940" />
-				<EdgeVertex Name="vertex1" PositionY="130" PositionX="420" />
+				<EdgeVertex Name="vertex1" PositionY="270" PositionX="-530" />
 				<EdgeVertex Name="vertex10" PositionY="320" PositionX="1730" />
 				<EdgeVertex Name="vertex12" PositionY="1050" PositionX="3190" />
 				<EdgeVertex Name="vertex13" PositionY="1050" PositionX="3690" />
@@ -476,7 +497,7 @@
 				<EdgeVertex Name="vertex15" PositionY="600" PositionX="3230" />
 				<EdgeVertex Name="vertex16" PositionY="1040" PositionX="10" />
 				<EdgeVertex Name="vertex17" PositionY="560" PositionX="1760" />
-				<EdgeVertex Name="vertex2" PositionY="30" PositionX="80" />
+				<EdgeVertex Name="vertex2" PositionY="10" PositionX="-880" />
 				<EdgeVertex Name="vertex21" PositionY="1050" PositionX="2050" />
 				<EdgeVertex Name="vertex3" PositionY="-180" PositionX="520" />
 				<EdgeVertex Name="vertex39" PositionY="-690" PositionX="1640" />
@@ -484,7 +505,7 @@
 				<EdgeVertex Name="vertex40" PositionY="-690" PositionX="2540" />
 				<EdgeVertex Name="vertex41" PositionY="-540" PositionX="2700" />
 				<EdgeVertex Name="vertex42" PositionY="-570" PositionX="2650" />
-				<EdgeVertex Name="vertex43" PositionY="-1070" PositionX="1190" />
+				<EdgeVertex Name="vertex43" PositionY="-1070" PositionX="1110" />
 				<EdgeVertex Name="vertex44" PositionY="-1070" PositionX="3310" />
 				<EdgeVertex Name="vertex45" PositionY="-940" PositionX="3390" />
 				<EdgeVertex Name="vertex46" PositionY="-450" PositionX="2080" />
@@ -504,13 +525,14 @@
 				<EdgeVertex Name="vertex59" PositionY="-90" PositionX="2560" />
 				<EdgeVertex Name="vertex6" PositionY="230" PositionX="2260" />
 				<EdgeVertex Name="vertex64" PositionY="-60" PositionX="2060" />
-				<EdgeVertex Name="vertex65" PositionY="-10" PositionX="410" />
+				<EdgeVertex Name="vertex65" PositionY="-10" PositionX="330" />
 				<EdgeVertex Name="vertex66" PositionY="0" PositionX="1980" />
-				<EdgeVertex Name="vertex68" PositionY="60" PositionX="420" />
+				<EdgeVertex Name="vertex68" PositionY="50" PositionX="340" />
 				<EdgeVertex Name="vertex7" PositionY="250" PositionX="2200" />
 				<EdgeVertex Name="vertex71" PositionY="-90" PositionX="3760" />
 				<EdgeVertex Name="vertex8" PositionY="460" PositionX="2860" />
 				<EdgeVertex Name="vertex9" PositionY="740" PositionX="3130" />
+				<EdgeVertex Name="yDBNDX5u" PositionY="50" PositionX="-120" />
 			</EdgeVertices>
 			<Assets>
 				<TagPointAsset Name="leavingPubTagpoint" />

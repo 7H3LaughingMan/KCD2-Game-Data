@@ -15,6 +15,9 @@
 				<Port Name="stav_bitvy" Direction="In" Type="BattleSouthFight">
 					<DesignName StringName="skupinka__stav_bitvy_gBiy" Text="stav bitvy" />
 				</Port>
+				<Port Name="z_hradby_prisli_do_veze" Direction="Out" Type="trigger">
+					<DesignName StringName="skupinka__z_hradby_prisli_A2my" Text="z hradby přišli do věže" />
+				</Port>
 			</Ports>
 			<Nodes>
 				<AIConceptSignalTrigger Name="aiconceptsignaltriggerhitreactionnotification15" PositionY="20" PositionX="30" NotificationName="hitReactionNotification">
@@ -54,6 +57,14 @@
 					<Constant Name="BuffGUID" Value="f46120bf-b45f-4ec5-95c6-03d526cb40bf" />
 					<Edge From="and3.bool" To="IsActive" />
 				</BuffEffect>
+				<SoulDeathTrigger Name="deathtrigger21" PositionY="730" PositionX="40">
+					<Asset Name="Souls" Alias="southPalisade_meleeEnemy" />
+					<Edge From="and19.bool" To="IsActive" />
+				</SoulDeathTrigger>
+				<State Name="enemiesAreDead" PositionY="390" PositionX="490" TypeT="bool">
+					<Edge From="fight.first_group_won" To="SetTrue" />
+					<Edge From="deathtrigger21.OnAllDeath" To="SetTrue" />
+				</State>
 				<fight Name="fight" PositionY="370" PositionX="40" Namespace="utils.battle">
 					<Constant Name="isrecordingsession" Value="false" />
 					<Constant Name="redordingsession" Value="_" />
@@ -72,8 +83,20 @@
 					<Asset Name="F" Alias="behindTower_friend_2" />
 					<Asset Name="G" Alias="allyBothPallisade" />
 				</MakeArray>
+				<movewithweapon Name="movewithweapon" PositionY="370" PositionX="810" Namespace="utils.utoknanebakov_utils">
+					<Asset Name="smartentity" Alias="battleSO" />
+					<Asset Name="npc" Alias="southPalisade_meleeFriends" />
+					<Asset Name="destination" Alias="palisadeAlliesGoToTower" />
+					<Constant Name="speed" Value="Run" />
+					<Constant Name="successdistance" Value="1" />
+					<Constant Name="deactivateoninterrupt" Value="true" />
+					<Constant Name="exactmove" Value="false" />
+					<Constant Name="weaponslot" Value="Primary" />
+					<Edge From="enemiesAreDead.State" To="active" />
+				</movewithweapon>
 				<Output Name="Output">
 					<Edge From="temporaryImmortality.OnDisabled" To="dvere_k_zadni_palisade_otevreny" />
+					<Edge From="movewithweapon.reacheddestination" To="z_hradby_prisli_do_veze" />
 				</Output>
 				<SetEntityContext Name="setentitycontext16" PositionY="-210" PositionX="1010">
 					<Constant Name="Context" Value="combat_disabledAsTarget" />
@@ -119,6 +142,7 @@
 			<Assets>
 				<SoulAsset Name="southPalisade_meleeEnemy" SharedSoulGuids="c805cc67-7957-44b4-bdec-497bcf4bbf82 48ac7b16-d383-4577-94f5-0d40974209e2" />
 				<SoulAsset Name="southPalisade_meleeFriends" SharedSoulGuids="3965655b-c894-423f-a4b3-2da8324bc279 691ba049-df43-4510-a3ad-6ac6293bddb8" />
+				<TagPointAsset Name="palisadeAlliesGoToTower" />
 			</Assets>
 			<Text StringName="skupinka_na_hradbe_bojuji_sGVw" Text="Skupinka na hradbě bojující dokola" />
 		</Module>

@@ -5,11 +5,13 @@ KettleActionTrigger =
 {
     Properties =
     {
+		bIsWineBarrel = false,
+		guidWineItemGuid = 'da94ed8b-5b3b-4e2f-8c85-34ea3d0090ea',
         Click = 
         {
             sPersistentKettleStateVariable = "",
-        }
-    }
+        },
+    },
 }
 
 -- =============================================================================
@@ -55,7 +57,7 @@ function KettleActionTrigger:IsEnabledHold(user)
         return false, baseReason;
     end
 
-    if self:IsKettleVirtuallyEmpty() then
+    if not self.Properties.bIsWineBarrel and self:IsKettleVirtuallyEmpty() then
         return false, '@fireplace_cannotPoisonEmptyKettle';
     end
 
@@ -64,7 +66,7 @@ end
 
 -- =============================================================================
 function KettleActionTrigger:CanEat(user)
-    if self:IsKettleVirtuallyEmpty() then
+    if not self.Properties.bIsWineBarrel and self:IsKettleVirtuallyEmpty() then
         return false, '@fireplace_cannotEatFromEmptyKettle', 'HRAC_UZ_NEMUZE_JIST_Z_KOTLIKU_KOTLIK_JE_PRAZDNY';
     end
 
@@ -92,8 +94,12 @@ end
 
 -- =============================================================================
 function KettleActionTrigger:GetEatItemClassId()
-    local link = self:GetLinkedSmartObject();
-	return link:GetEatItemClassId();
+	if self.Properties.bIsWineBarrel then
+		return self.Properties.guidWineItemGuid;
+	else
+		local link = self:GetLinkedSmartObject();
+		return link:GetEatItemClassId();
+	end
 end
 
 -- =============================================================================

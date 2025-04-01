@@ -523,21 +523,28 @@
 																											</Loop>
 																										</Parallel>
 																									</Sequence>
-																									<StanceBarrier soul="$__player" stance="lying" smartObject="" negate="false" failOnCondition="false" RunLogic="KeepRunning">
-																										<Sequence>
-																											<IfCondition failOnCondition="false" condition="$home ~= $__null &amp; $canTalk">
-																												<AddHomeTrespassEscalation Home="$home" Counter="$counter" IsPaused="false" />
-																											</IfCondition>
-																											<Expression expressions="$stimulusEscalatedTrespass.stimulusKind = $watchTrespassData.stimulusKind &#10;$stimulusEscalatedTrespass.trespassArea = $trespassArea &#10;$stimulusEscalatedTrespass.wuidType = $enum:crime_trespassInformationWuid.homeArea &#10;$stimulusEscalatedTrespass.trespassingRepeatedly = $watchTrespassData.onlyWaitingForDeparture" />
-																											<EntityContext context="crime_stimulusInitiatedByScheduler" target="">
-																												<Function_switch_handleStimulusEscalatedTrespass stimulus="$stimulusEscalatedTrespass" nodeLabel="34956485" />
-																											</EntityContext>
-																										</Sequence>
-																									</StanceBarrier>
 																									<While doFail="false" propagateChildFail="false" condition="~$endWatching">
 																										<Sequence>
 																											<Wait duration="&apos;1s&apos;" timeType="GameTime" doFail="false" variation="" />
 																											<DetermineTrespassReaction Observer="$this.id" Target="$__player" Position="" ForceSemipublicReaction="false" ShouldUseVec3Position="false" TrespassAreaSevereness="$trespassSevereness" TrespassArea="$trespassArea" Reaction="$reaction" ReactionSuppressed="$reactionSuppressed" />
+																											<StanceCheck soul="$__player" stance="lying" smartObject="" negate="false" failOnCondition="false" saveVersion="2">
+																												<Then canSkip="1">
+																													<IfCondition failOnCondition="false" condition="$trespassSevereness &gt;= $enum:trespassLevel.personal">
+																														<Sequence>
+																															<IfCondition failOnCondition="false" condition="$home ~= $__null &amp; $canTalk">
+																																<AddHomeTrespassEscalation Home="$home" Counter="$counter" IsPaused="false" />
+																															</IfCondition>
+																															<Expression expressions="$stimulusEscalatedTrespass.stimulusKind = $watchTrespassData.stimulusKind &#10;$stimulusEscalatedTrespass.trespassArea = $trespassArea &#10;$stimulusEscalatedTrespass.wuidType = $enum:crime_trespassInformationWuid.homeArea &#10;$stimulusEscalatedTrespass.trespassingRepeatedly = $watchTrespassData.onlyWaitingForDeparture" />
+																															<EntityContext context="crime_stimulusInitiatedByScheduler" target="">
+																																<Function_switch_handleStimulusEscalatedTrespass stimulus="$stimulusEscalatedTrespass" nodeLabel="34956485" />
+																															</EntityContext>
+																														</Sequence>
+																													</IfCondition>
+																												</Then>
+																												<Else canSkip="1">
+																													<Success />
+																												</Else>
+																											</StanceCheck>
 																											<IsTimeSkipping saveVersion="2">
 																												<Then canSkip="1">
 																													<IsUnconsciousCheck SoulWUID="$__player" FailSubtMissing="false" saveVersion="2">
@@ -824,9 +831,7 @@
 					<OnFail canSkip="1">
 						<Sequence>
 							<Function_crime_addLeavingInterruptCooldown nodeLabel="62766144" />
-							<AtomicDecorator>
-								<Function_crime_limits_removeReactionLink information="$watchTrespassData.information" reactionKind="$enum:crime_reactionKind.watchTrespass" nodeLabel="98147911" />
-							</AtomicDecorator>
+							<Function_crime_limits_removeReactionLink information="$watchTrespassData.information" reactionKind="$enum:crime_reactionKind.watchTrespass" nodeLabel="98147911" />
 						</Sequence>
 					</OnFail>
 				</FuseBox>
@@ -1693,27 +1698,6 @@
 																												</Loop>
 																											</Parallel>
 																										</Sequence>
-																										<StanceBarrier hasInputBreakpoint="0" comment="escalate immediatly if player goes to sleep" breakpointFlags="0">
-																											<OutputBreakpoints />
-																											<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																												<OutputBreakpoints />
-																												<IfCondition hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																													<OutputBreakpoints />
-																													<AddHomeTrespassEscalation hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																														<OutputBreakpoints />
-																													</AddHomeTrespassEscalation>
-																												</IfCondition>
-																												<Expression hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																													<OutputBreakpoints />
-																												</Expression>
-																												<EntityContext hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																													<OutputBreakpoints />
-																													<Function_switch_handleStimulusEscalatedTrespass hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																														<OutputBreakpoints />
-																													</Function_switch_handleStimulusEscalatedTrespass>
-																												</EntityContext>
-																											</Sequence>
-																										</StanceBarrier>
 																										<While hasInputBreakpoint="0" comment="" breakpointFlags="0">
 																											<OutputBreakpoints />
 																											<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
@@ -1724,6 +1708,37 @@
 																												<DetermineTrespassReaction hasInputBreakpoint="0" comment="" breakpointFlags="0">
 																													<OutputBreakpoints />
 																												</DetermineTrespassReaction>
+																												<StanceCheck hasInputBreakpoint="0" comment="escalate immediatly if player goes to sleep in personal+" breakpointFlags="0" saveVersion="2">
+																													<OutputBreakpoints />
+																													<Then>
+																														<IfCondition hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																															<OutputBreakpoints />
+																															<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																																<OutputBreakpoints />
+																																<IfCondition hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																																	<OutputBreakpoints />
+																																	<AddHomeTrespassEscalation hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																																		<OutputBreakpoints />
+																																	</AddHomeTrespassEscalation>
+																																</IfCondition>
+																																<Expression hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																																	<OutputBreakpoints />
+																																</Expression>
+																																<EntityContext hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																																	<OutputBreakpoints />
+																																	<Function_switch_handleStimulusEscalatedTrespass hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																																		<OutputBreakpoints />
+																																	</Function_switch_handleStimulusEscalatedTrespass>
+																																</EntityContext>
+																															</Sequence>
+																														</IfCondition>
+																													</Then>
+																													<Else>
+																														<Success hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																															<OutputBreakpoints />
+																														</Success>
+																													</Else>
+																												</StanceCheck>
 																												<IsTimeSkipping hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
 																													<OutputBreakpoints />
 																													<Then>
@@ -2187,12 +2202,9 @@
 								<Function_crime_addLeavingInterruptCooldown hasInputBreakpoint="0" comment="" breakpointFlags="0">
 									<OutputBreakpoints />
 								</Function_crime_addLeavingInterruptCooldown>
-								<AtomicDecorator hasInputBreakpoint="0" comment="" breakpointFlags="0">
+								<Function_crime_limits_removeReactionLink hasInputBreakpoint="0" comment="" breakpointFlags="0">
 									<OutputBreakpoints />
-									<Function_crime_limits_removeReactionLink hasInputBreakpoint="0" comment="" breakpointFlags="0">
-										<OutputBreakpoints />
-									</Function_crime_limits_removeReactionLink>
-								</AtomicDecorator>
+								</Function_crime_limits_removeReactionLink>
 							</Sequence>
 						</OnFail>
 					</FuseBox>

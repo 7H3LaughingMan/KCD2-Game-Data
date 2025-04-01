@@ -170,7 +170,7 @@ function AlchemyTable:GetActions(user, firstFast)
 		end
 	end
 
-	if user.soul:HaveSkill('alchemy') then
+	if user.soul:HaveSkill('alchemy') and not user.soul:HasScriptContext("minigame_disabledAlchemy") then
 
 		local canUseMinigame = Minigame.CanUseMinigame(user.id);
 		AddInteractorAction( output, firstFast, Action():hint( "@ui_hud_start_alchemy" ):action( "use" ):func( AlchemyTable.OnUsed ):enabled( canUseMinigame ):interaction( inr_alchemy ) )

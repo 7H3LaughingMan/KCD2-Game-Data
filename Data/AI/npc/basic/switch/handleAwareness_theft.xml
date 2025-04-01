@@ -38,11 +38,6 @@
 							<Success />
 						</Then>
 					</EntityContextCheck>
-					<EntityContextCheck context="crime_bff" target="" saveVersion="2">
-						<Then canSkip="1">
-							<Function_crime_addBffIntermediateBarkData corpse="" isCorpse="false" isViolent="false" reactionIntermediateData="$reactionIntermediateData" nodeLabel="76042325" />
-						</Then>
-					</EntityContextCheck>
 					<DefaultBranch>
 						<Sequence>
 							<GraphSearch Origin="$volume" Borders="" depth="1" selection="true" SearchPattern="Depth" EdgePruning="&apos;parent,inventory&apos;" AllowedEdges="" SubGraph="" AllowSubtraph="false" includeOrigin="false" excludeOrigin="false" failOnEmpty="true" SetOperationChoice="Intersection|And" errorOnEmpty="false" shortCircuit="false" skipTraversed="true">
@@ -58,9 +53,9 @@
 									<GetAreMates Npc1="$this.id" Npc2="$owner" AreMates="$ownerIsMeOrMate" />
 								</Else>
 							</IfElseCondition>
+							<GetTime TimeType="GameTime" OutVar="$now" Delta="" />
 							<IfCondition failOnCondition="false" condition="$check">
 								<Sequence>
-									<GetTime TimeType="GameTime" OutVar="$now" Delta="" />
 									<Switch>
 										<IfCondition failOnCondition="false" condition="$now &lt; $data.timestamp + $data:script_param[&apos;crime_theft_autoAttributionTimer&apos;].value">
 											<Expression expressions="$theftVolumeReactionKind = $enum:crime_theftVolumeReactionKind.immediate" />
@@ -113,154 +108,166 @@
 											</Selector>
 										</DefaultBranch>
 									</Switch>
-									<Switch>
-										<IfCondition failOnCondition="false" condition="$theftVolumeReactionKind == $enum:crime_theftVolumeReactionKind.immediate">
+									<EntityContextCheck context="crime_bff" target="" saveVersion="2">
+										<Then canSkip="1">
 											<Sequence>
-												<Expression expressions="$stimulusTheft.method = $method &#10;$stimulusTheft.owner = $owner &#10;$stimulusTheft.pivot = $volume &#10;$stimulusTheft.count = $data.count &#10;$stimulusTheft.immediate = true" />
-												<Switch>
-													<EntityContextCheck context="switch_recognitionLevel_I" target="" saveVersion="2">
-														<Then canSkip="1">
-															<Success />
-														</Then>
-													</EntityContextCheck>
-													<EntityContextCheck context="switch_recognitionLevel_II" target="" saveVersion="2">
-														<Then canSkip="1">
-															<Success />
-														</Then>
-													</EntityContextCheck>
-													<DefaultBranch>
-														<Expression expressions="$stimulusTheft.shouldCheckHomeStashes = $ownerIsMeOrMate" />
-													</DefaultBranch>
-												</Switch>
-												<EntityContext context="switch_doNotOpenRecognizingLock" target="">
-													<Function_switch_handleStimulusTheft stimulus="$stimulusTheft" nodeLabel="83728970" />
-												</EntityContext>
-												<Switch>
-													<EntityContextCheck context="switch_recognitionLevel_I" target="" saveVersion="2">
-														<Then canSkip="1">
-															<Success />
-														</Then>
-													</EntityContextCheck>
-													<EntityContextCheck context="switch_recognitionLevel_II" target="" saveVersion="2">
-														<Then canSkip="1">
-															<Success />
-														</Then>
-													</EntityContextCheck>
-													<DefaultBranch>
-														<Sequence>
-															<Expression expressions="$despawnVolumeRequest.volume = $volume &#10;$despawnVolumeRequest.timestamp = $now" />
-															<Function_crime_getMrkev mrkev="$mrkev" nodeLabel="82942703" />
-															<InstantSendMessageToNPC target="$mrkev" variable="$despawnVolumeRequest" />
-														</Sequence>
-													</DefaultBranch>
-												</Switch>
+												<IfCondition failOnCondition="false" condition="$theftVolumeReactionKind == $enum:crime_theftVolumeReactionKind.immediate">
+													<Function_crime_addBffIntermediateBarkData corpse="" isCorpse="false" isViolent="false" reactionIntermediateData="$reactionIntermediateData" nodeLabel="76042325" />
+												</IfCondition>
+												<IgnorePerception PerceptorObject="$this.id" PerceptibleObject="$volume" IgnoreFor="&apos;-1&apos;" TimerType="GameTime" Uninterruptible="false" Persistent="true" />
 											</Sequence>
-										</IfCondition>
-										<IfCondition failOnCondition="false" condition="$theftVolumeReactionKind == $enum:crime_theftVolumeReactionKind.attributed">
-											<CheckWuidValid wuid="$volume" FailSubtMissing="false" saveVersion="2">
-												<Then canSkip="1">
-													<Switch>
-														<EntityContextCheck context="switch_recognitionLevel_I" target="" saveVersion="2">
-															<Then canSkip="1">
-																<Function_stealth_recognitionState_I_reaction target="$volume" nodeLabel="81097901" />
-															</Then>
-														</EntityContextCheck>
-														<EntityContextCheck context="switch_recognitionLevel_II" target="" saveVersion="2">
-															<Then canSkip="1">
-																<Function_stealth_recognitionState_II_reaction stimulusKind="$enum:crime_stimulusKind.theft" target="$volume" nodeLabel="72753449" />
-															</Then>
-														</EntityContextCheck>
-														<DefaultBranch>
-															<Sequence>
-																<Function_crime_createTheftInformation count="0" immediate="false" isNonAttributedCrime="false" kettleType="$enum:kettleType.kettle" method="$method" owner="$owner" pivot="$volume" seenEquippedItems="" information="$information" nodeLabel="11448078" />
-																<EntityContextCheck context="crime_interruptCheckHomeStashes" target="" saveVersion="2">
+										</Then>
+										<Else canSkip="1">
+											<Switch>
+												<IfCondition failOnCondition="false" condition="$theftVolumeReactionKind == $enum:crime_theftVolumeReactionKind.immediate">
+													<Sequence>
+														<Expression expressions="$stimulusTheft.method = $method &#10;$stimulusTheft.owner = $owner &#10;$stimulusTheft.pivot = $volume &#10;$stimulusTheft.count = $data.count &#10;$stimulusTheft.immediate = true" />
+														<Switch>
+															<EntityContextCheck context="switch_recognitionLevel_I" target="" saveVersion="2">
+																<Then canSkip="1">
+																	<Success />
+																</Then>
+															</EntityContextCheck>
+															<EntityContextCheck context="switch_recognitionLevel_II" target="" saveVersion="2">
+																<Then canSkip="1">
+																	<Success />
+																</Then>
+															</EntityContextCheck>
+															<DefaultBranch>
+																<Expression expressions="$stimulusTheft.shouldCheckHomeStashes = $ownerIsMeOrMate" />
+															</DefaultBranch>
+														</Switch>
+														<EntityContext context="switch_doNotOpenRecognizingLock" target="">
+															<Function_switch_handleStimulusTheft stimulus="$stimulusTheft" nodeLabel="83728970" />
+														</EntityContext>
+														<Switch>
+															<EntityContextCheck context="switch_recognitionLevel_I" target="" saveVersion="2">
+																<Then canSkip="1">
+																	<Success />
+																</Then>
+															</EntityContextCheck>
+															<EntityContextCheck context="switch_recognitionLevel_II" target="" saveVersion="2">
+																<Then canSkip="1">
+																	<Success />
+																</Then>
+															</EntityContextCheck>
+															<DefaultBranch>
+																<Sequence>
+																	<Expression expressions="$despawnVolumeRequest.volume = $volume &#10;$despawnVolumeRequest.timestamp = $now" />
+																	<Function_crime_getMrkev mrkev="$mrkev" nodeLabel="82942703" />
+																	<InstantSendMessageToNPC target="$mrkev" variable="$despawnVolumeRequest" />
+																</Sequence>
+															</DefaultBranch>
+														</Switch>
+													</Sequence>
+												</IfCondition>
+												<IfCondition failOnCondition="false" condition="$theftVolumeReactionKind == $enum:crime_theftVolumeReactionKind.attributed">
+													<CheckWuidValid wuid="$volume" FailSubtMissing="false" saveVersion="2">
+														<Then canSkip="1">
+															<Switch>
+																<EntityContextCheck context="switch_recognitionLevel_I" target="" saveVersion="2">
 																	<Then canSkip="1">
-																		<Sequence>
-																			<GetSpatialInfo In="$volume" Out="$pos" What="Position" />
-																			<Expression expressions="$theftVolumeSeenNotification.pos = $pos &#10;$theftVolumeSeenNotification.attributed = true &#10;$theftVolumeSeenNotification.information = $information" />
-																			<InstantSendMessageToNPC target="$this.id" variable="$theftVolumeSeenNotification" />
-																		</Sequence>
+																		<Function_stealth_recognitionState_I_reaction target="$volume" nodeLabel="81097901" />
 																	</Then>
-																	<Else canSkip="1">
+																</EntityContextCheck>
+																<EntityContextCheck context="switch_recognitionLevel_II" target="" saveVersion="2">
+																	<Then canSkip="1">
+																		<Function_stealth_recognitionState_II_reaction stimulusKind="$enum:crime_stimulusKind.theft" target="$volume" nodeLabel="72753449" />
+																	</Then>
+																</EntityContextCheck>
+																<DefaultBranch>
+																	<Sequence>
+																		<Function_crime_createTheftInformation count="0" immediate="false" isNonAttributedCrime="false" kettleType="$enum:kettleType.kettle" method="$method" owner="$owner" pivot="$volume" seenEquippedItems="" information="$information" nodeLabel="11448078" />
+																		<EntityContextCheck context="crime_interruptCheckHomeStashes" target="" saveVersion="2">
+																			<Then canSkip="1">
+																				<Sequence>
+																					<GetSpatialInfo In="$volume" Out="$pos" What="Position" />
+																					<Expression expressions="$theftVolumeSeenNotification.pos = $pos &#10;$theftVolumeSeenNotification.attributed = true &#10;$theftVolumeSeenNotification.information = $information" />
+																					<InstantSendMessageToNPC target="$this.id" variable="$theftVolumeSeenNotification" />
+																				</Sequence>
+																			</Then>
+																			<Else canSkip="1">
+																				<Sequence>
+																					<GetSpatialInfo In="$volume" Out="$pos" What="Position" />
+																					<Function_callInterrupt_scan corpseState="$enum:corpseState.undiscovered" ignorePriority="false" information="$information" initiator="$enum:switch_interruptInitiator.unknown" previousReaction="$enum:crime_reactionKind.unknown" scanDirection="$pos" source="$enum:crime_source.direct" stimulusAnimalAbuse="" stimulusKind="$enum:crime_stimulusKind.theft" stimulusMissingAnimal="" stimulusShooter="" nodeLabel="50696528" />
+																					<IfCondition failOnCondition="false" condition="$ownerIsMeOrMate">
+																						<SuppressFailure>
+																							<Sequence>
+																								<GraphSearch Origin="" Borders="" depth="1" selection="true" SearchPattern="Depth" EdgePruning="&apos;parent,inventory&apos;" AllowedEdges="" SubGraph="" AllowSubtraph="false" includeOrigin="false" excludeOrigin="false" failOnEmpty="true" SetOperationChoice="Intersection|And" errorOnEmpty="false" shortCircuit="false" skipTraversed="true">
+																									<LinkTagFilter tag="&apos;home&apos;" prune="true" negprune="unknown" Parent="" Child="$home" Data="" />
+																								</GraphSearch>
+																								<Function_crime_addFollowUp_checkHomeStashes home="$home" information="$information" playerRelated="true" resetStolenItemsFound="false" stolenItemsFound="true" added="" nodeLabel="31905620" />
+																							</Sequence>
+																						</SuppressFailure>
+																					</IfCondition>
+																				</Sequence>
+																			</Else>
+																		</EntityContextCheck>
+																		<DeSpawnPerceptibleVolume Wuid="$volume" />
+																	</Sequence>
+																</DefaultBranch>
+															</Switch>
+														</Then>
+													</CheckWuidValid>
+												</IfCondition>
+												<IfCondition failOnCondition="false" condition="$theftVolumeReactionKind == $enum:crime_theftVolumeReactionKind.nonAttributed">
+													<Selector>
+														<RetrieveInformation PerceivedWuid="$volume" label="&apos;nonAttributedCrime&apos;" OutVariable="$information" />
+														<CheckWuidValid wuid="$volume" FailSubtMissing="false" saveVersion="2">
+															<Then canSkip="1">
+																<Switch>
+																	<EntityContextCheck context="switch_recognitionLevel_I" target="" saveVersion="2">
+																		<Then canSkip="1">
+																			<Function_stealth_recognitionState_I_reaction target="$volume" nodeLabel="32394830" />
+																		</Then>
+																	</EntityContextCheck>
+																	<EntityContextCheck context="switch_recognitionLevel_II" target="" saveVersion="2">
+																		<Then canSkip="1">
+																			<Function_stealth_recognitionState_II_reaction stimulusKind="$enum:crime_stimulusKind.theft" target="$volume" nodeLabel="34612498" />
+																		</Then>
+																	</EntityContextCheck>
+																	<DefaultBranch>
 																		<Sequence>
-																			<GetSpatialInfo In="$volume" Out="$pos" What="Position" />
-																			<Function_callInterrupt_scan corpseState="$enum:corpseState.undiscovered" ignorePriority="false" information="$information" initiator="$enum:switch_interruptInitiator.unknown" previousReaction="$enum:crime_reactionKind.unknown" scanDirection="$pos" source="$enum:crime_source.direct" stimulusAnimalAbuse="" stimulusKind="$enum:crime_stimulusKind.theft" stimulusMissingAnimal="" stimulusShooter="" nodeLabel="50696528" />
+																			<Function_crime_createTheftInformation count="0" immediate="true" isNonAttributedCrime="true" kettleType="$enum:kettleType.kettle" method="$method" owner="$owner" pivot="$volume" seenEquippedItems="" information="$information" nodeLabel="43417723" />
+																			<EntityContextCheck context="crime_interruptCheckHomeStashes" target="" saveVersion="2">
+																				<Then canSkip="1">
+																					<Sequence>
+																						<GetSpatialInfo In="$volume" Out="$pos" What="Position" />
+																						<Expression expressions="$theftVolumeSeenNotification.pos = $pos &#10;$theftVolumeSeenNotification.attributed = false &#10;$theftVolumeSeenNotification.information = $information" />
+																						<InstantSendMessageToNPC target="$this.id" variable="$theftVolumeSeenNotification" />
+																					</Sequence>
+																				</Then>
+																				<Else canSkip="1">
+																					<Sequence>
+																						<Expression expressions="$stimulusNonAttributedCrime.information = $information" />
+																						<Function_switch_handleStimulusNonAttributedCrime stimulus="$stimulusNonAttributedCrime" nodeLabel="52245605" />
+																					</Sequence>
+																				</Else>
+																			</EntityContextCheck>
+																			<DeSpawnPerceptibleVolume Wuid="$volume" />
 																			<IfCondition failOnCondition="false" condition="$ownerIsMeOrMate">
 																				<SuppressFailure>
 																					<Sequence>
 																						<GraphSearch Origin="" Borders="" depth="1" selection="true" SearchPattern="Depth" EdgePruning="&apos;parent,inventory&apos;" AllowedEdges="" SubGraph="" AllowSubtraph="false" includeOrigin="false" excludeOrigin="false" failOnEmpty="true" SetOperationChoice="Intersection|And" errorOnEmpty="false" shortCircuit="false" skipTraversed="true">
 																							<LinkTagFilter tag="&apos;home&apos;" prune="true" negprune="unknown" Parent="" Child="$home" Data="" />
 																						</GraphSearch>
-																						<Function_crime_addFollowUp_checkHomeStashes home="$home" information="$information" playerRelated="true" resetStolenItemsFound="false" stolenItemsFound="true" added="" nodeLabel="31905620" />
+																						<Function_crime_addFollowUp_checkHomeStashes home="$home" information="$information" playerRelated="false" resetStolenItemsFound="false" stolenItemsFound="true" added="" nodeLabel="32893200" />
 																					</Sequence>
 																				</SuppressFailure>
 																			</IfCondition>
 																		</Sequence>
-																	</Else>
-																</EntityContextCheck>
-																<DeSpawnPerceptibleVolume Wuid="$volume" />
-															</Sequence>
-														</DefaultBranch>
-													</Switch>
-												</Then>
-											</CheckWuidValid>
-										</IfCondition>
-										<IfCondition failOnCondition="false" condition="$theftVolumeReactionKind == $enum:crime_theftVolumeReactionKind.nonAttributed">
-											<Selector>
-												<RetrieveInformation PerceivedWuid="$volume" label="&apos;nonAttributedCrime&apos;" OutVariable="$information" />
-												<CheckWuidValid wuid="$volume" FailSubtMissing="false" saveVersion="2">
-													<Then canSkip="1">
-														<Switch>
-															<EntityContextCheck context="switch_recognitionLevel_I" target="" saveVersion="2">
-																<Then canSkip="1">
-																	<Function_stealth_recognitionState_I_reaction target="$volume" nodeLabel="32394830" />
-																</Then>
-															</EntityContextCheck>
-															<EntityContextCheck context="switch_recognitionLevel_II" target="" saveVersion="2">
-																<Then canSkip="1">
-																	<Function_stealth_recognitionState_II_reaction stimulusKind="$enum:crime_stimulusKind.theft" target="$volume" nodeLabel="34612498" />
-																</Then>
-															</EntityContextCheck>
-															<DefaultBranch>
-																<Sequence>
-																	<Function_crime_createTheftInformation count="0" immediate="true" isNonAttributedCrime="true" kettleType="$enum:kettleType.kettle" method="$method" owner="$owner" pivot="$volume" seenEquippedItems="" information="$information" nodeLabel="43417723" />
-																	<EntityContextCheck context="crime_interruptCheckHomeStashes" target="" saveVersion="2">
-																		<Then canSkip="1">
-																			<Sequence>
-																				<GetSpatialInfo In="$volume" Out="$pos" What="Position" />
-																				<Expression expressions="$theftVolumeSeenNotification.pos = $pos &#10;$theftVolumeSeenNotification.attributed = false &#10;$theftVolumeSeenNotification.information = $information" />
-																				<InstantSendMessageToNPC target="$this.id" variable="$theftVolumeSeenNotification" />
-																			</Sequence>
-																		</Then>
-																		<Else canSkip="1">
-																			<Sequence>
-																				<Expression expressions="$stimulusNonAttributedCrime.information = $information" />
-																				<Function_switch_handleStimulusNonAttributedCrime stimulus="$stimulusNonAttributedCrime" nodeLabel="52245605" />
-																			</Sequence>
-																		</Else>
-																	</EntityContextCheck>
-																	<DeSpawnPerceptibleVolume Wuid="$volume" />
-																	<IfCondition failOnCondition="false" condition="$ownerIsMeOrMate">
-																		<SuppressFailure>
-																			<Sequence>
-																				<GraphSearch Origin="" Borders="" depth="1" selection="true" SearchPattern="Depth" EdgePruning="&apos;parent,inventory&apos;" AllowedEdges="" SubGraph="" AllowSubtraph="false" includeOrigin="false" excludeOrigin="false" failOnEmpty="true" SetOperationChoice="Intersection|And" errorOnEmpty="false" shortCircuit="false" skipTraversed="true">
-																					<LinkTagFilter tag="&apos;home&apos;" prune="true" negprune="unknown" Parent="" Child="$home" Data="" />
-																				</GraphSearch>
-																				<Function_crime_addFollowUp_checkHomeStashes home="$home" information="$information" playerRelated="false" resetStolenItemsFound="false" stolenItemsFound="true" added="" nodeLabel="32893200" />
-																			</Sequence>
-																		</SuppressFailure>
-																	</IfCondition>
-																</Sequence>
-															</DefaultBranch>
-														</Switch>
-													</Then>
-												</CheckWuidValid>
-											</Selector>
-										</IfCondition>
-										<DefaultBranch>
-											<Success />
-										</DefaultBranch>
-									</Switch>
+																	</DefaultBranch>
+																</Switch>
+															</Then>
+														</CheckWuidValid>
+													</Selector>
+												</IfCondition>
+												<DefaultBranch>
+													<Success />
+												</DefaultBranch>
+											</Switch>
+										</Else>
+									</EntityContextCheck>
 								</Sequence>
 							</IfCondition>
 						</Sequence>
@@ -316,14 +323,6 @@
 								</Success>
 							</Then>
 						</EntityContextCheck>
-						<EntityContextCheck hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
-							<OutputBreakpoints />
-							<Then>
-								<Function_crime_addBffIntermediateBarkData hasInputBreakpoint="0" comment="" breakpointFlags="0">
-									<OutputBreakpoints />
-								</Function_crime_addBffIntermediateBarkData>
-							</Then>
-						</EntityContextCheck>
 						<DefaultBranch>
 							<Sequence hasInputBreakpoint="0" comment="ToDo: ownership check (as soon as we&apos;re able to determine the owner: KCD2-5398)" breakpointFlags="0">
 								<OutputBreakpoints />
@@ -352,13 +351,13 @@
 										</GetAreMates>
 									</Else>
 								</IfElseCondition>
+								<GetTime hasInputBreakpoint="0" comment="" breakpointFlags="0">
+									<OutputBreakpoints />
+								</GetTime>
 								<IfCondition hasInputBreakpoint="0" comment="" breakpointFlags="0">
 									<OutputBreakpoints />
 									<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
 										<OutputBreakpoints />
-										<GetTime hasInputBreakpoint="0" comment="" breakpointFlags="0">
-											<OutputBreakpoints />
-										</GetTime>
 										<Switch hasInputBreakpoint="0" comment="" breakpointFlags="0">
 											<OutputBreakpoints />
 											<IfCondition hasInputBreakpoint="0" comment="" breakpointFlags="0">
@@ -445,134 +444,246 @@
 												</Selector>
 											</DefaultBranch>
 										</Switch>
-										<Switch hasInputBreakpoint="0" comment="" breakpointFlags="0">
+										<EntityContextCheck hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
 											<OutputBreakpoints />
-											<IfCondition hasInputBreakpoint="0" comment="" breakpointFlags="0">
-												<OutputBreakpoints />
+											<Then>
 												<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
 													<OutputBreakpoints />
-													<Expression hasInputBreakpoint="0" comment="" breakpointFlags="0">
+													<IfCondition hasInputBreakpoint="0" comment="" breakpointFlags="0">
 														<OutputBreakpoints />
-													</Expression>
-													<Switch hasInputBreakpoint="0" comment="" breakpointFlags="0">
+														<Function_crime_addBffIntermediateBarkData hasInputBreakpoint="0" comment="" breakpointFlags="0">
+															<OutputBreakpoints />
+														</Function_crime_addBffIntermediateBarkData>
+													</IfCondition>
+													<IgnorePerception hasInputBreakpoint="0" comment="KCD2-472506" breakpointFlags="0">
 														<OutputBreakpoints />
-														<EntityContextCheck hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
+													</IgnorePerception>
+												</Sequence>
+											</Then>
+											<Else>
+												<Switch hasInputBreakpoint="0" comment="" breakpointFlags="0">
+													<OutputBreakpoints />
+													<IfCondition hasInputBreakpoint="0" comment="" breakpointFlags="0">
+														<OutputBreakpoints />
+														<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
 															<OutputBreakpoints />
-															<Then>
-																<Success hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																	<OutputBreakpoints />
-																</Success>
-															</Then>
-														</EntityContextCheck>
-														<EntityContextCheck hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
-															<OutputBreakpoints />
-															<Then>
-																<Success hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																	<OutputBreakpoints />
-																</Success>
-															</Then>
-														</EntityContextCheck>
-														<DefaultBranch>
 															<Expression hasInputBreakpoint="0" comment="" breakpointFlags="0">
 																<OutputBreakpoints />
 															</Expression>
-														</DefaultBranch>
-													</Switch>
-													<EntityContext hasInputBreakpoint="0" comment="" breakpointFlags="0">
+															<Switch hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																<OutputBreakpoints />
+																<EntityContextCheck hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
+																	<OutputBreakpoints />
+																	<Then>
+																		<Success hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																			<OutputBreakpoints />
+																		</Success>
+																	</Then>
+																</EntityContextCheck>
+																<EntityContextCheck hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
+																	<OutputBreakpoints />
+																	<Then>
+																		<Success hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																			<OutputBreakpoints />
+																		</Success>
+																	</Then>
+																</EntityContextCheck>
+																<DefaultBranch>
+																	<Expression hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																		<OutputBreakpoints />
+																	</Expression>
+																</DefaultBranch>
+															</Switch>
+															<EntityContext hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																<OutputBreakpoints />
+																<Function_switch_handleStimulusTheft hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																	<OutputBreakpoints />
+																</Function_switch_handleStimulusTheft>
+															</EntityContext>
+															<Switch hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																<OutputBreakpoints />
+																<EntityContextCheck hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
+																	<OutputBreakpoints />
+																	<Then>
+																		<Success hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																			<OutputBreakpoints />
+																		</Success>
+																	</Then>
+																</EntityContextCheck>
+																<EntityContextCheck hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
+																	<OutputBreakpoints />
+																	<Then>
+																		<Success hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																			<OutputBreakpoints />
+																		</Success>
+																	</Then>
+																</EntityContextCheck>
+																<DefaultBranch>
+																	<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																		<OutputBreakpoints />
+																		<Expression hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																			<OutputBreakpoints />
+																		</Expression>
+																		<Function_crime_getMrkev hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																			<OutputBreakpoints />
+																		</Function_crime_getMrkev>
+																		<InstantSendMessageToNPC hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																			<OutputBreakpoints />
+																		</InstantSendMessageToNPC>
+																	</Sequence>
+																</DefaultBranch>
+															</Switch>
+														</Sequence>
+													</IfCondition>
+													<IfCondition hasInputBreakpoint="0" comment="" breakpointFlags="0">
 														<OutputBreakpoints />
-														<Function_switch_handleStimulusTheft hasInputBreakpoint="0" comment="" breakpointFlags="0">
-															<OutputBreakpoints />
-														</Function_switch_handleStimulusTheft>
-													</EntityContext>
-													<Switch hasInputBreakpoint="0" comment="" breakpointFlags="0">
-														<OutputBreakpoints />
-														<EntityContextCheck hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
+														<CheckWuidValid hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
 															<OutputBreakpoints />
 															<Then>
-																<Success hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																<Switch hasInputBreakpoint="0" comment="" breakpointFlags="0">
 																	<OutputBreakpoints />
-																</Success>
-															</Then>
-														</EntityContextCheck>
-														<EntityContextCheck hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
-															<OutputBreakpoints />
-															<Then>
-																<Success hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																	<OutputBreakpoints />
-																</Success>
-															</Then>
-														</EntityContextCheck>
-														<DefaultBranch>
-															<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																<OutputBreakpoints />
-																<Expression hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																	<OutputBreakpoints />
-																</Expression>
-																<Function_crime_getMrkev hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																	<OutputBreakpoints />
-																</Function_crime_getMrkev>
-																<InstantSendMessageToNPC hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																	<OutputBreakpoints />
-																</InstantSendMessageToNPC>
-															</Sequence>
-														</DefaultBranch>
-													</Switch>
-												</Sequence>
-											</IfCondition>
-											<IfCondition hasInputBreakpoint="0" comment="" breakpointFlags="0">
-												<OutputBreakpoints />
-												<CheckWuidValid hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
-													<OutputBreakpoints />
-													<Then>
-														<Switch hasInputBreakpoint="0" comment="" breakpointFlags="0">
-															<OutputBreakpoints />
-															<EntityContextCheck hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
-																<OutputBreakpoints />
-																<Then>
-																	<Function_stealth_recognitionState_I_reaction hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																		<OutputBreakpoints />
-																	</Function_stealth_recognitionState_I_reaction>
-																</Then>
-															</EntityContextCheck>
-															<EntityContextCheck hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
-																<OutputBreakpoints />
-																<Then>
-																	<Function_stealth_recognitionState_II_reaction hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																		<OutputBreakpoints />
-																	</Function_stealth_recognitionState_II_reaction>
-																</Then>
-															</EntityContextCheck>
-															<DefaultBranch>
-																<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																	<OutputBreakpoints />
-																	<Function_crime_createTheftInformation hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																		<OutputBreakpoints />
-																	</Function_crime_createTheftInformation>
 																	<EntityContextCheck hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
 																		<OutputBreakpoints />
 																		<Then>
-																			<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																			<Function_stealth_recognitionState_I_reaction hasInputBreakpoint="0" comment="" breakpointFlags="0">
 																				<OutputBreakpoints />
-																				<GetSpatialInfo hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																					<OutputBreakpoints />
-																				</GetSpatialInfo>
-																				<Expression hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																					<OutputBreakpoints />
-																				</Expression>
-																				<InstantSendMessageToNPC hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																					<OutputBreakpoints />
-																				</InstantSendMessageToNPC>
-																			</Sequence>
+																			</Function_stealth_recognitionState_I_reaction>
 																		</Then>
-																		<Else>
+																	</EntityContextCheck>
+																	<EntityContextCheck hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
+																		<OutputBreakpoints />
+																		<Then>
+																			<Function_stealth_recognitionState_II_reaction hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																				<OutputBreakpoints />
+																			</Function_stealth_recognitionState_II_reaction>
+																		</Then>
+																	</EntityContextCheck>
+																	<DefaultBranch>
+																		<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																			<OutputBreakpoints />
+																			<Function_crime_createTheftInformation hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																				<OutputBreakpoints />
+																			</Function_crime_createTheftInformation>
+																			<EntityContextCheck hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
+																				<OutputBreakpoints />
+																				<Then>
+																					<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																						<OutputBreakpoints />
+																						<GetSpatialInfo hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																							<OutputBreakpoints />
+																						</GetSpatialInfo>
+																						<Expression hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																							<OutputBreakpoints />
+																						</Expression>
+																						<InstantSendMessageToNPC hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																							<OutputBreakpoints />
+																						</InstantSendMessageToNPC>
+																					</Sequence>
+																				</Then>
+																				<Else>
+																					<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																						<OutputBreakpoints />
+																						<GetSpatialInfo hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																							<OutputBreakpoints />
+																						</GetSpatialInfo>
+																						<Function_callInterrupt_scan hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																							<OutputBreakpoints />
+																						</Function_callInterrupt_scan>
+																						<IfCondition hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																							<OutputBreakpoints />
+																							<SuppressFailure hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																								<OutputBreakpoints />
+																								<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																									<OutputBreakpoints />
+																									<GraphSearch hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																										<OutputBreakpoints />
+																										<LinkTagFilter hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																											<OutputBreakpoints />
+																										</LinkTagFilter>
+																									</GraphSearch>
+																									<Function_crime_addFollowUp_checkHomeStashes hasInputBreakpoint="0" comment="TODO: add to immediate" breakpointFlags="0">
+																										<OutputBreakpoints />
+																									</Function_crime_addFollowUp_checkHomeStashes>
+																								</Sequence>
+																							</SuppressFailure>
+																						</IfCondition>
+																					</Sequence>
+																				</Else>
+																			</EntityContextCheck>
+																			<DeSpawnPerceptibleVolume hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																				<OutputBreakpoints />
+																			</DeSpawnPerceptibleVolume>
+																		</Sequence>
+																	</DefaultBranch>
+																</Switch>
+															</Then>
+														</CheckWuidValid>
+													</IfCondition>
+													<IfCondition hasInputBreakpoint="0" comment="" breakpointFlags="0">
+														<OutputBreakpoints />
+														<Selector hasInputBreakpoint="0" comment="do this once" breakpointFlags="0">
+															<OutputBreakpoints />
+															<RetrieveInformation hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																<OutputBreakpoints />
+															</RetrieveInformation>
+															<CheckWuidValid hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
+																<OutputBreakpoints />
+																<Then>
+																	<Switch hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																		<OutputBreakpoints />
+																		<EntityContextCheck hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
+																			<OutputBreakpoints />
+																			<Then>
+																				<Function_stealth_recognitionState_I_reaction hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																					<OutputBreakpoints />
+																				</Function_stealth_recognitionState_I_reaction>
+																			</Then>
+																		</EntityContextCheck>
+																		<EntityContextCheck hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
+																			<OutputBreakpoints />
+																			<Then>
+																				<Function_stealth_recognitionState_II_reaction hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																					<OutputBreakpoints />
+																				</Function_stealth_recognitionState_II_reaction>
+																			</Then>
+																		</EntityContextCheck>
+																		<DefaultBranch>
 																			<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
 																				<OutputBreakpoints />
-																				<GetSpatialInfo hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																				<Function_crime_createTheftInformation hasInputBreakpoint="0" comment="" breakpointFlags="0">
 																					<OutputBreakpoints />
-																				</GetSpatialInfo>
-																				<Function_callInterrupt_scan hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																				</Function_crime_createTheftInformation>
+																				<EntityContextCheck hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
 																					<OutputBreakpoints />
-																				</Function_callInterrupt_scan>
+																					<Then>
+																						<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																							<OutputBreakpoints />
+																							<GetSpatialInfo hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																								<OutputBreakpoints />
+																							</GetSpatialInfo>
+																							<Expression hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																								<OutputBreakpoints />
+																							</Expression>
+																							<InstantSendMessageToNPC hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																								<OutputBreakpoints />
+																							</InstantSendMessageToNPC>
+																						</Sequence>
+																					</Then>
+																					<Else>
+																						<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																							<OutputBreakpoints />
+																							<Expression hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																								<OutputBreakpoints />
+																							</Expression>
+																							<Function_switch_handleStimulusNonAttributedCrime hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																								<OutputBreakpoints />
+																							</Function_switch_handleStimulusNonAttributedCrime>
+																						</Sequence>
+																					</Else>
+																				</EntityContextCheck>
+																				<DeSpawnPerceptibleVolume hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																					<OutputBreakpoints />
+																				</DeSpawnPerceptibleVolume>
 																				<IfCondition hasInputBreakpoint="0" comment="" breakpointFlags="0">
 																					<OutputBreakpoints />
 																					<SuppressFailure hasInputBreakpoint="0" comment="" breakpointFlags="0">
@@ -592,113 +703,20 @@
 																					</SuppressFailure>
 																				</IfCondition>
 																			</Sequence>
-																		</Else>
-																	</EntityContextCheck>
-																	<DeSpawnPerceptibleVolume hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																		<OutputBreakpoints />
-																	</DeSpawnPerceptibleVolume>
-																</Sequence>
-															</DefaultBranch>
-														</Switch>
-													</Then>
-												</CheckWuidValid>
-											</IfCondition>
-											<IfCondition hasInputBreakpoint="0" comment="" breakpointFlags="0">
-												<OutputBreakpoints />
-												<Selector hasInputBreakpoint="0" comment="do this once" breakpointFlags="0">
-													<OutputBreakpoints />
-													<RetrieveInformation hasInputBreakpoint="0" comment="" breakpointFlags="0">
-														<OutputBreakpoints />
-													</RetrieveInformation>
-													<CheckWuidValid hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
-														<OutputBreakpoints />
-														<Then>
-															<Switch hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																<OutputBreakpoints />
-																<EntityContextCheck hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
-																	<OutputBreakpoints />
-																	<Then>
-																		<Function_stealth_recognitionState_I_reaction hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																			<OutputBreakpoints />
-																		</Function_stealth_recognitionState_I_reaction>
-																	</Then>
-																</EntityContextCheck>
-																<EntityContextCheck hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
-																	<OutputBreakpoints />
-																	<Then>
-																		<Function_stealth_recognitionState_II_reaction hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																			<OutputBreakpoints />
-																		</Function_stealth_recognitionState_II_reaction>
-																	</Then>
-																</EntityContextCheck>
-																<DefaultBranch>
-																	<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																		<OutputBreakpoints />
-																		<Function_crime_createTheftInformation hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																			<OutputBreakpoints />
-																		</Function_crime_createTheftInformation>
-																		<EntityContextCheck hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
-																			<OutputBreakpoints />
-																			<Then>
-																				<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																					<OutputBreakpoints />
-																					<GetSpatialInfo hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																						<OutputBreakpoints />
-																					</GetSpatialInfo>
-																					<Expression hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																						<OutputBreakpoints />
-																					</Expression>
-																					<InstantSendMessageToNPC hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																						<OutputBreakpoints />
-																					</InstantSendMessageToNPC>
-																				</Sequence>
-																			</Then>
-																			<Else>
-																				<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																					<OutputBreakpoints />
-																					<Expression hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																						<OutputBreakpoints />
-																					</Expression>
-																					<Function_switch_handleStimulusNonAttributedCrime hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																						<OutputBreakpoints />
-																					</Function_switch_handleStimulusNonAttributedCrime>
-																				</Sequence>
-																			</Else>
-																		</EntityContextCheck>
-																		<DeSpawnPerceptibleVolume hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																			<OutputBreakpoints />
-																		</DeSpawnPerceptibleVolume>
-																		<IfCondition hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																			<OutputBreakpoints />
-																			<SuppressFailure hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																				<OutputBreakpoints />
-																				<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																					<OutputBreakpoints />
-																					<GraphSearch hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																						<OutputBreakpoints />
-																						<LinkTagFilter hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																							<OutputBreakpoints />
-																						</LinkTagFilter>
-																					</GraphSearch>
-																					<Function_crime_addFollowUp_checkHomeStashes hasInputBreakpoint="0" comment="TODO: add to immediate" breakpointFlags="0">
-																						<OutputBreakpoints />
-																					</Function_crime_addFollowUp_checkHomeStashes>
-																				</Sequence>
-																			</SuppressFailure>
-																		</IfCondition>
-																	</Sequence>
-																</DefaultBranch>
-															</Switch>
-														</Then>
-													</CheckWuidValid>
-												</Selector>
-											</IfCondition>
-											<DefaultBranch>
-												<Success hasInputBreakpoint="0" comment="" breakpointFlags="0">
-													<OutputBreakpoints />
-												</Success>
-											</DefaultBranch>
-										</Switch>
+																		</DefaultBranch>
+																	</Switch>
+																</Then>
+															</CheckWuidValid>
+														</Selector>
+													</IfCondition>
+													<DefaultBranch>
+														<Success hasInputBreakpoint="0" comment="" breakpointFlags="0">
+															<OutputBreakpoints />
+														</Success>
+													</DefaultBranch>
+												</Switch>
+											</Else>
+										</EntityContextCheck>
 									</Sequence>
 								</IfCondition>
 							</Sequence>

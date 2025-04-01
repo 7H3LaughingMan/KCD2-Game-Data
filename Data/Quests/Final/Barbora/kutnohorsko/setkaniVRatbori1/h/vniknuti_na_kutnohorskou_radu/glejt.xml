@@ -24,13 +24,13 @@
 				<Port Name="hrac_dostava_glejt" Direction="Out" Type="trigger">
 					<DesignName StringName="glejt_hrac_dostava_glejt_TPJh" Text="Hráč dostává glejt" />
 				</Port>
-				<Port Name="hrac_ma_glejt" Direction="Out" Type="bool">
-					<DesignName StringName="glejt_hrac_ma_glejt_A4uc" Text="Hráč má glejt" />
+				<Port Name="hrac_ma_glejt_u_sebe" Direction="Out" Type="bool">
+					<DesignName StringName="glejt_hrac_ma_glejt_u_sebe_pnLH" Text="Hráč má glejt u sebe" />
 				</Port>
 			</Ports>
 			<Nodes>
 				<HasteTrigger Name="06_getDocument" PositionY="350" PositionX="-1260" />
-				<AddQuestItem Name="addquestitem469" PositionY="-10" PositionX="750">
+				<AddQuestItem Name="addquestitem469" PositionY="-100" PositionX="760">
 					<Constant Name="ItemClassGUID" Value="a9ecabe4-cd0c-4f13-a0dd-c32621f10a4a" />
 					<Asset Name="BackupLocation" Alias="frantaStash" />
 					<Asset Name="StartingLocation" Alias="franta" />
@@ -113,19 +113,23 @@
 					<Edge From="getDocument.Done" To="C" />
 				</Function>
 				<Output Name="Output">
-					<Edge From="or473.bool" To="hrac_ma_glejt">
-						<Vertex>vertex33</Vertex>
-						<Vertex>vertex34</Vertex>
-					</Edge>
 					<Edge From="getDocument.OnDone" To="hrac_dostava_glejt">
 						<Vertex>vertex36</Vertex>
 					</Edge>
 					<Edge From="getDocument.OnConfiscated" To="hrac_ztratil_glejt">
 						<Vertex>vertex44</Vertex>
 					</Edge>
+					<Edge From="playerHasTheCertificateOnHisPerson.bool" To="hrac_ma_glejt_u_sebe">
+						<Vertex>RLDGzEKJ</Vertex>
+					</Edge>
 				</Output>
+				<Function Name="playerHasTheCertificateOnHisPerson" PositionY="150" PositionX="70" MethodName="math::boolean::Or" DeclaringType="math::boolean">
+					<Edge From="getDocument.BeforeVavakOnPlayer" To="A" />
+					<Edge From="getDocument.Done" To="B" />
+				</Function>
 			</Nodes>
 			<EdgeVertices>
+				<EdgeVertex Name="RLDGzEKJ" PositionY="277" PositionX="1269" />
 				<EdgeVertex Name="vertex10" PositionY="-650" PositionX="-850" />
 				<EdgeVertex Name="vertex14" PositionY="-220" PositionX="-220" />
 				<EdgeVertex Name="vertex15" PositionY="-210" PositionX="-1020" />
@@ -134,8 +138,6 @@
 				<EdgeVertex Name="vertex26" PositionY="-150" PositionX="-730" />
 				<EdgeVertex Name="vertex30" PositionY="500" PositionX="-360" />
 				<EdgeVertex Name="vertex31" PositionY="500" PositionX="-830" />
-				<EdgeVertex Name="vertex33" PositionY="450" PositionX="300" />
-				<EdgeVertex Name="vertex34" PositionY="450" PositionX="1270" />
 				<EdgeVertex Name="vertex36" PositionY="380" PositionX="1270" />
 				<EdgeVertex Name="vertex40" PositionY="1530" PositionX="150" />
 				<EdgeVertex Name="vertex41" PositionY="1530" PositionX="-550" />
@@ -144,11 +146,6 @@
 				<EdgeVertex Name="vertex44" PositionY="300" PositionX="1270" />
 				<EdgeVertex Name="vertex9" PositionY="-660" PositionX="1060" />
 			</EdgeVertices>
-			<Notes>
-				<Note Name="PolishNote22" PositionY="520" PositionX="-550">
-					<Text StringName="glejt_note475_piQv" Text="Ošetřit zabavení strážemi. &#xD;&#xA;ItemClasstrigger při Done na ztraceni itemu a pak zas nastartovat&#xD;&#xA;&#xD;&#xA;To samý u disguise" />
-				</Note>
-			</Notes>
 			<Text StringName="glejt_FohN" Text="Glejt" />
 		</Gameplay>
 	</Skald>

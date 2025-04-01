@@ -60,9 +60,9 @@
 				<Definition File="hledani_dezerteru_/choose_defector.xml" />
 			</Definitions>
 			<Nodes>
-				<Function Name="areacheck49" PositionY="70" PositionX="3530" MethodName="wh::rpgmodule::AreaCheck" DeclaringType="wh::rpgmodule">
-					<Asset Name="Souls" Alias="dezerteri" />
+				<Function Name="areacheck49" PositionY="700" PositionX="4380" MethodName="wh::rpgmodule::AreaCheck" DeclaringType="wh::rpgmodule">
 					<Asset Name="Areas" Alias="dezerteriStatekWiderArea" />
+					<Edge From="makearray68.Array" To="Souls" />
 				</Function>
 				<AreaTrigger Name="areatrigger6" PositionY="1030" PositionX="770">
 					<Asset Name="Souls" Alias="player" />
@@ -124,6 +124,11 @@
 					<Constant Name="ValueB" Value="Deleted" />
 					<Edge From="informationdifftrigger57.Status" To="ValueA" />
 				</Function>
+				<Function Name="compare60_1" PositionY="2490" PositionX="3130" TypeT="wh::xgenaimodule::E_InformationMessageStatus" MethodName="Control::Compare" DeclaringType="Control">
+					<Constant Name="Op" Value="NotEquals" />
+					<Constant Name="ValueB" Value="Deleted" />
+					<Edge From="informationdifftrigger63.Status" To="ValueA" />
+				</Function>
 				<ContainsElement Name="containselement59" PositionY="2120" PositionX="3140" TypeT="wh::rpgmodule::Souls">
 					<Asset Name="Array" Alias="dezerteri" />
 					<Edge From="informationdifftrigger57.Who" To="Value" />
@@ -131,6 +136,14 @@
 				<ContainsElement Name="containselement61" PositionY="2290" PositionX="3140" TypeT="wh::xgenaimodule::LinkableObjects">
 					<Edge From="makearray62.Array" To="Array" />
 					<Edge From="informationdifftrigger57.PerceivedWuid" To="Value" />
+				</ContainsElement>
+				<ContainsElement Name="containselement65" PositionY="2670" PositionX="3140" TypeT="wh::xgenaimodule::LinkableObjects">
+					<Asset Name="Array" Alias="dezerteri" />
+					<Edge From="informationdifftrigger63.Who" To="Value" />
+				</ContainsElement>
+				<ContainsElement Name="containselement66" PositionY="2820" PositionX="3140" TypeT="wh::xgenaimodule::LinkableObjects">
+					<Asset Name="Array" Alias="dezerteri" />
+					<Edge From="informationdifftrigger63.PerceivedWuid" To="Value" />
 				</ContainsElement>
 				<SoulDeathTrigger Name="deathtrigger13" PositionY="-30" PositionX="1690">
 					<Asset Name="Souls" Alias="dezerteri" />
@@ -179,6 +192,10 @@
 						<Vertex>vertex53</Vertex>
 					</Edge>
 					<Edge From="ifand58.True" To="SetFight">
+						<Vertex>2TwGgpYM</Vertex>
+						<Vertex>vertex53</Vertex>
+					</Edge>
+					<Edge From="ifand67.True" To="SetFight">
 						<Vertex>2TwGgpYM</Vertex>
 						<Vertex>vertex53</Vertex>
 					</Edge>
@@ -302,6 +319,12 @@
 					<Edge From="compare60.bool" To="A" />
 					<Edge From="informationdifftrigger57.OnNotification" To="Exec" />
 				</IfFunction>
+				<IfFunction Name="ifand67" PositionY="2280" PositionX="3660" MethodName="math::boolean::And" DeclaringType="math::boolean">
+					<Edge From="compare60_1.bool" To="A" />
+					<Edge From="containselement65.Result" To="B" />
+					<Edge From="containselement66.Result" To="C" />
+					<Edge From="informationdifftrigger63.OnNotification" To="Exec" />
+				</IfFunction>
 				<IfFunction Name="ifnot48" PositionY="570" PositionX="-20" MethodName="math::boolean::Not" DeclaringType="math::boolean">
 					<Edge From="dialog_s_dezertery__prioritni.jindra_si_pokecal_s_dezerterem" To="Exec">
 						<Vertex>WRhRxy2I</Vertex>
@@ -364,6 +387,11 @@
 					<Constant Name="IsCrimeFilter" Value="true" />
 					<Edge From="or37.bool" To="IsActive" />
 				</InformationDiffTrigger>
+				<InformationDiffTrigger Name="informationdifftrigger63" PositionY="2160" PositionX="2410">
+					<Constant Name="LabelFilter" Value="pickpocket" />
+					<Constant Name="IsCrimeFilter" Value="true" />
+					<Edge From="or37.bool" To="IsActive" />
+				</InformationDiffTrigger>
 				<InteractionTriggerNode Name="interactiontrigger21" PositionY="510" PositionX="690">
 					<Asset Name="Interactors" Alias="closedDoorInteractor" />
 					<Constant Name="Type" Value="Press" />
@@ -389,10 +417,13 @@
 						<Vertex>Uep0uTQw</Vertex>
 					</Edge>
 				</MakeArray>
-				<MakeArray Name="makearray62" PositionY="2300" PositionX="2740" TypeT="wh::xgenaimodule::LinkableObjects">
+				<MakeArray Name="makearray62" PositionY="2150" PositionX="2780" TypeT="wh::xgenaimodule::LinkableObjects">
 					<Asset Name="A" Alias="truhlaNaPude" />
 					<Asset Name="B" Alias="sawmillDoor1" />
 					<Asset Name="C" Alias="sawmillDoor2" />
+				</MakeArray>
+				<MakeArray Name="makearray68" PositionY="670" PositionX="4080" TypeT="wh::rpgmodule::Souls">
+					<Edge From="dialog_s_dezertery__prioritni.DEZERTER_NA_STATKU_M44A" To="A" />
 				</MakeArray>
 				<MoveItem_SoulToSoul Name="MoveItem_SoulToSoul" PositionY="710" PositionX="4450" Namespace="utils.item">
 					<Asset Name="fromsoul" Alias="dezerter2" />
@@ -604,23 +635,23 @@
 				<EdgeVertex Name="0AEoIVjH" PositionY="452" PositionX="11" />
 				<EdgeVertex Name="2ljl4U7n" PositionY="-290" PositionX="0" />
 				<EdgeVertex Name="2TwGgpYM" PositionY="1250" PositionX="4280" />
-				<EdgeVertex Name="6FUg56Ph" PositionY="450" PositionX="2340" />
+				<EdgeVertex Name="6FUg56Ph" PositionY="450" PositionX="2250" />
 				<EdgeVertex Name="6tbmENXF" PositionY="1209" PositionX="3106" />
 				<EdgeVertex Name="6tKMIx1t" PositionY="490" PositionX="10" />
 				<EdgeVertex Name="87Typ445" PositionY="990" PositionX="3060" />
-				<EdgeVertex Name="88Wl2XyU" PositionY="290" PositionX="4320" />
+				<EdgeVertex Name="88Wl2XyU" PositionY="290" PositionX="4650" />
 				<EdgeVertex Name="99zvCSlf" PositionY="430" PositionX="900" />
 				<EdgeVertex Name="a4LQ1Myx" PositionY="1170" PositionX="1740" />
-				<EdgeVertex Name="AukuU0JN" PositionY="450" PositionX="2440" />
+				<EdgeVertex Name="AukuU0JN" PositionY="490" PositionX="2440" />
 				<EdgeVertex Name="bC7nwmL7" PositionY="-290" PositionX="330" />
 				<EdgeVertex Name="bQKS5Uoq" PositionY="430" PositionX="10" />
-				<EdgeVertex Name="CttfsNcM" PositionY="489" PositionX="2419" />
-				<EdgeVertex Name="f4YzPwuc" PositionY="430" PositionX="4320" />
+				<EdgeVertex Name="CttfsNcM" PositionY="450" PositionX="2440" />
+				<EdgeVertex Name="f4YzPwuc" PositionY="430" PositionX="4650" />
 				<EdgeVertex Name="f9S2z5IH" PositionY="410" PositionX="1150" />
 				<EdgeVertex Name="fGBb8JCy" PositionY="490" PositionX="450" />
 				<EdgeVertex Name="GkNdEL5G" PositionY="470" PositionX="10" />
 				<EdgeVertex Name="ID4RAt01" PositionY="290" PositionX="4180" />
-				<EdgeVertex Name="IFUzUvpt" PositionY="468" PositionX="4323" />
+				<EdgeVertex Name="IFUzUvpt" PositionY="450" PositionX="4650" />
 				<EdgeVertex Name="jggEklsr" PositionY="470" PositionX="1150" />
 				<EdgeVertex Name="KHrY2Xth" PositionY="-290" PositionX="560" />
 				<EdgeVertex Name="l9bobVX3" PositionY="410" PositionX="150" />
@@ -628,14 +659,14 @@
 				<EdgeVertex Name="lHhK0D1m" PositionY="390" PositionX="3650" />
 				<EdgeVertex Name="LHuuS9MG" PositionY="1150" PositionX="2340" />
 				<EdgeVertex Name="pELVosE6" PositionY="410" PositionX="3810" />
-				<EdgeVertex Name="Qpglbr7G" PositionY="390" PositionX="3810" />
+				<EdgeVertex Name="Qpglbr7G" PositionY="390" PositionX="4650" />
 				<EdgeVertex Name="RNmvYMaM" PositionY="1212" PositionX="3921" />
 				<EdgeVertex Name="t6p53g40" PositionY="1130" PositionX="2060" />
 				<EdgeVertex Name="Uep0uTQw" PositionY="990" PositionX="2860" />
 				<EdgeVertex Name="vertex1" PositionY="-50" PositionX="-590" />
 				<EdgeVertex Name="vertex11" PositionY="270" PositionX="460" />
 				<EdgeVertex Name="vertex12" PositionY="290" PositionX="460" />
-				<EdgeVertex Name="vertex15" PositionY="270" PositionX="4320" />
+				<EdgeVertex Name="vertex15" PositionY="270" PositionX="4650" />
 				<EdgeVertex Name="vertex16" PositionY="290" PositionX="3760" />
 				<EdgeVertex Name="vertex17" PositionY="270" PositionX="2060" />
 				<EdgeVertex Name="vertex2" PositionY="-30" PositionX="-590" />
@@ -652,11 +683,11 @@
 				<EdgeVertex Name="vertex3" PositionY="-10" PositionX="-590" />
 				<EdgeVertex Name="vertex30" PositionY="330" PositionX="1860" />
 				<EdgeVertex Name="vertex31" PositionY="310" PositionX="1670" />
-				<EdgeVertex Name="vertex32" PositionY="310" PositionX="4320" />
+				<EdgeVertex Name="vertex32" PositionY="310" PositionX="4650" />
 				<EdgeVertex Name="vertex33" PositionY="330" PositionX="2560" />
-				<EdgeVertex Name="vertex34" PositionY="330" PositionX="4320" />
+				<EdgeVertex Name="vertex34" PositionY="330" PositionX="4650" />
 				<EdgeVertex Name="vertex36" PositionY="350" PositionX="2560" />
-				<EdgeVertex Name="vertex37" PositionY="350" PositionX="4320" />
+				<EdgeVertex Name="vertex37" PositionY="350" PositionX="4650" />
 				<EdgeVertex Name="vertex38" PositionY="30" PositionX="-590" />
 				<EdgeVertex Name="vertex39" PositionY="310" PositionX="1610" />
 				<EdgeVertex Name="vertex4" PositionY="-50" PositionX="-100" />
@@ -673,7 +704,7 @@
 				<EdgeVertex Name="vertex52" PositionY="1250" PositionX="3510" />
 				<EdgeVertex Name="vertex53" PositionY="1250" PositionX="2060" />
 				<EdgeVertex Name="vertex57" PositionY="370" PositionX="2450" />
-				<EdgeVertex Name="vertex58" PositionY="370" PositionX="4320" />
+				<EdgeVertex Name="vertex58" PositionY="370" PositionX="4650" />
 				<EdgeVertex Name="vertex59" PositionY="1250" PositionX="3920" />
 				<EdgeVertex Name="vertex6" PositionY="-10" PositionX="-100" />
 				<EdgeVertex Name="vertex67" PositionY="1290" PositionX="2410" />
@@ -684,13 +715,13 @@
 				<EdgeVertex Name="vertex71" PositionY="1230" PositionX="3920" />
 				<EdgeVertex Name="vertex72" PositionY="1230" PositionX="2060" />
 				<EdgeVertex Name="vertex73" PositionY="250" PositionX="3530" />
-				<EdgeVertex Name="vertex74" PositionY="250" PositionX="4320" />
+				<EdgeVertex Name="vertex74" PositionY="250" PositionX="4650" />
 				<EdgeVertex Name="vertex8" PositionY="350" PositionX="10" />
 				<EdgeVertex Name="vertex81" PositionY="1190" PositionX="2340" />
 				<EdgeVertex Name="vertex82" PositionY="1190" PositionX="1740" />
 				<EdgeVertex Name="vertex84" PositionY="410" PositionX="10" />
 				<EdgeVertex Name="vertex9" PositionY="270" PositionX="1260" />
-				<EdgeVertex Name="W36yjhwy" PositionY="450" PositionX="3100" />
+				<EdgeVertex Name="W36yjhwy" PositionY="490" PositionX="3100" />
 				<EdgeVertex Name="WB8wVnze" PositionY="1170" PositionX="2340" />
 				<EdgeVertex Name="WRhRxy2I" PositionY="470" PositionX="3930" />
 				<EdgeVertex Name="xFUfRnSs" PositionY="430" PositionX="710" />

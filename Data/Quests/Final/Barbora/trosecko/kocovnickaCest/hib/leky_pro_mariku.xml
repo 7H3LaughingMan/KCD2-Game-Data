@@ -174,6 +174,10 @@
 					</Edge>
 					<Edge From="touintint42_1.uint" To="Amount" />
 				</EventFunction>
+				<CutsceneHandler Name="cutscenehandler79" PositionY="2340" PositionX="170">
+					<Asset Name="CutsceneHolder" Alias="marika_priorityHealing_cutscene" />
+					<Edge From="ifcheckentitycontext80.False" To="EnqueueCutscene" />
+				</CutsceneHandler>
 				<State Name="deliverMedicineToMarikaAfterAllGathered" PositionY="-410" PositionX="-100" RequiredForOutput="trosecko" TypeT="DeliverMedicine">
 					<Edge From="medicineForMarika.OnMedicineAcquired" To="SetDeliverMedicineToMarika">
 						<Vertex>gjUVxBG0</Vertex>
@@ -423,6 +427,21 @@
 						<Vertex>dEmp7e5S</Vertex>
 					</Edge>
 				</If>
+				<IfFunction Name="ifcheckentitycontext80" PositionY="2310" PositionX="-150" MethodName="wh::xgenaimodule::CheckEntityContext" DeclaringType="wh::xgenaimodule">
+					<Asset Name="Souls" Alias="marika" />
+					<Constant Name="Context" Value="healer_healing" />
+					<Edge From="marika_included_shaneni_leku_pro_bohuse.hrac_predava_byliny_a_obvazy" To="Exec">
+						<Vertex>vertex191</Vertex>
+						<Vertex>vertex178</Vertex>
+					</Edge>
+					<Edge From="marika_included_shaneni_leku_pro_bohuse.hrac_predava_lektvar" To="Exec">
+						<Vertex>Mny4l6xX</Vertex>
+						<Vertex>Cf1yPQzL</Vertex>
+					</Edge>
+					<Edge From="marika_odevzdani_leku.hrac_predal_byliny_a_obvazy" To="Exec">
+						<Vertex>6uulxXCk</Vertex>
+					</Edge>
+				</IfFunction>
 				<ObjectProperties Name="isoulproperties75" PositionY="2260" PositionX="7760" DeclaringType="wh::rpgmodule::I_Soul">
 					<Asset Name="I_Soul" Alias="player" />
 				</ObjectProperties>
@@ -490,6 +509,19 @@
 						<Vertex>vertex107</Vertex>
 					</Edge>
 				</marika_odevzdani_leku>
+				<Timer Name="marika_priorityHealing" PositionY="2670" PositionX="740">
+					<Constant Name="Duration" Value="30m" />
+					<Constant Name="TimeType" Value="WorldTime" />
+					<Edge From="fail" To="SetStopped">
+						<Vertex>vertex187</Vertex>
+						<Vertex>4XxMXGhm</Vertex>
+					</Edge>
+					<Edge From="abort" To="SetStopped">
+						<Vertex>vertex187</Vertex>
+						<Vertex>4XxMXGhm</Vertex>
+					</Edge>
+					<Edge From="cutscenehandler79.AfterPlay" To="SetRunning" />
+				</Timer>
 				<State Name="medicineForMarika" PositionY="-650" PositionX="-1350" TypeT="MedicineForMarika">
 					<Edge From="marika_included_shaneni_leku_pro_bohuse.hrac_pujde_pro_leky_za_arankou" To="SetGetMedicineFromAranka">
 						<Vertex>vertex190</Vertex>
@@ -658,7 +690,7 @@
 					<Edge From="HasItems_Soul_2.hasitems" To="C" />
 				</Function>
 				<playerhasrightpotion Name="playerhasrightpotion" PositionY="-440" PositionX="-3520" />
-				<Function Name="playerProvidedMedicineForBohus" PositionY="1970" PositionX="-270" MethodName="math::boolean::Or" DeclaringType="math::boolean">
+				<Function Name="playerProvidedMedicineForBohus" PositionY="1970" PositionX="-150" MethodName="math::boolean::Or" DeclaringType="math::boolean">
 					<Edge From="marika_odevzdani_leku.doslo_k_predani_leku" To="B" />
 					<Edge From="marika_included_shaneni_leku_pro_bohuse.probehlo_predani_leku_marice" To="A">
 						<Vertex>nAobuxcM</Vertex>
@@ -678,9 +710,13 @@
 				<AddReward Name="reward70" PositionY="-460" PositionX="-2120">
 					<Edge From="marika_included_shaneni_leku_pro_bohuse.first_aid_skill_gain" To="AddReward" />
 					<Rewards>
-						<SkillReward Type="first_aid" ExperienceChange="4-normal" />
+						<SkillReward Type="survival" ExperienceChange="4-normal" />
 					</Rewards>
 				</AddReward>
+				<SchedulerLinkActivation Name="schedule78" PositionY="2820" PositionX="1100">
+					<Constant Name="LinkTag" Value="kocovnickaCest_marika_priorityHealing" />
+					<Edge From="marika_priorityHealing.Running" To="IsActive" />
+				</SchedulerLinkActivation>
 				<Timer Name="timer69" PositionY="-2060" PositionX="-480">
 					<Constant Name="Duration" Value="4h" />
 					<Constant Name="TimeType" Value="WorldTime" />
@@ -755,13 +791,19 @@
 				<TriggerSequence Name="triggersequence61" PositionY="-570" PositionX="-1860">
 					<Edge From="marika_included_shaneni_leku_pro_bohuse.hrac_pujde_lecivo_shanet_sam" To="Exec" />
 				</TriggerSequence>
+				<turntoplayerinidlestance Name="turntoplayerinidlestance" PositionY="2460" PositionX="740" Namespace="utils.general">
+					<Asset Name="npc" Alias="marika" />
+					<Constant Name="anydecoratorpreset" Value="changeEquipment" />
+					<Edge From="cutscenehandler79.AfterPlay" To="turntoplayerinidlestance" />
+				</turntoplayerinidlestance>
 			</Nodes>
 			<EdgeVertices>
 				<EdgeVertex Name="07RfSQ1S" PositionY="470" PositionX="-1310" />
 				<EdgeVertex Name="3WvgIGLh" PositionY="-710" PositionX="8670" />
+				<EdgeVertex Name="4XxMXGhm" PositionY="2770" PositionX="-2210" />
 				<EdgeVertex Name="63Sbrjba" PositionY="-1640" PositionX="320" />
 				<EdgeVertex Name="6L4p7fIP" PositionY="-140" PositionX="8070" />
-				<EdgeVertex Name="6uulxXCk" PositionY="1580" PositionX="-390" />
+				<EdgeVertex Name="6uulxXCk" PositionY="1580" PositionX="-350" />
 				<EdgeVertex Name="A6PPg9lr" PositionY="0" PositionX="1440" />
 				<EdgeVertex Name="Ab9MVDE4" PositionY="-1710" PositionX="-1760" />
 				<EdgeVertex Name="aMkpoown" PositionY="2190" PositionX="-760" />
@@ -771,7 +813,7 @@
 				<EdgeVertex Name="CMRNUt8N" PositionY="1070" PositionX="1050" />
 				<EdgeVertex Name="D7HusDYx" PositionY="-1040" PositionX="7960" />
 				<EdgeVertex Name="dEmp7e5S" PositionY="-960" PositionX="-330" />
-				<EdgeVertex Name="DHaLL3KD" PositionY="2190" PositionX="20" />
+				<EdgeVertex Name="DHaLL3KD" PositionY="2190" PositionX="140" />
 				<EdgeVertex Name="ENnS1Uyp" PositionY="520" PositionX="830" />
 				<EdgeVertex Name="gIeseTY7" PositionY="-1000" PositionX="-100" />
 				<EdgeVertex Name="gjUVxBG0" PositionY="-180" PositionX="-640" />
@@ -783,7 +825,7 @@
 				<EdgeVertex Name="k69lnGu7" PositionY="-1130" PositionX="-3890" />
 				<EdgeVertex Name="Kl64GNHT" PositionY="-1790" PositionX="8700" />
 				<EdgeVertex Name="Kol1PDzg" PositionY="10" PositionX="-590" />
-				<EdgeVertex Name="lNmt8r77" PositionY="2060" PositionX="40" />
+				<EdgeVertex Name="lNmt8r77" PositionY="2060" PositionX="160" />
 				<EdgeVertex Name="maxoxgoq" PositionY="-1590" PositionX="-420" />
 				<EdgeVertex Name="Mny4l6xX" PositionY="-595" PositionX="-1593" />
 				<EdgeVertex Name="MXlz4UBP" PositionY="1070" PositionX="-930" />
@@ -899,7 +941,7 @@
 				<EdgeVertex Name="vertex98" PositionY="-1310" PositionX="-3890" />
 				<EdgeVertex Name="vertex99" PositionY="-1250" PositionX="-3890" />
 				<EdgeVertex Name="VN2J16C7" PositionY="-160" PositionX="410" />
-				<EdgeVertex Name="WEE8znWC" PositionY="-730" PositionX="-2260" />
+				<EdgeVertex Name="WEE8znWC" PositionY="-710" PositionX="-2240" />
 				<EdgeVertex Name="wqHeWw51" PositionY="1380" PositionX="-900" />
 				<EdgeVertex Name="XcBlvr8v" PositionY="-650" PositionX="710" />
 				<EdgeVertex Name="xDnM0lxP" PositionY="470" PositionX="690" />

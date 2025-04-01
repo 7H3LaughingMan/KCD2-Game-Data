@@ -52,12 +52,31 @@
 				<State Name="areMillersSonAndHelpersDead" PositionY="1330" PositionX="1020" TypeT="bool">
 					<Edge From="po_prepadeni_mlyna.onwake" To="SetTrue" />
 				</State>
+				<Function Name="createitemcategorydescriptor27" PositionY="2430" PositionX="1550" MethodName="wh::entitymodule::CreateItemCategoryDescriptor" DeclaringType="wh::entitymodule">
+					<Constant Name="NegateCategory" Value="true" />
+				</Function>
+				<EventMemberFunction Name="deleteitems24" PositionY="1760" PositionX="2100" MethodName="DeleteItems" DeclaringType="wh::entitymodule::Inventory">
+					<Constant Name="AllowPartialMatch" Value="true" />
+					<Constant Name="ShowUINotification" Value="false" />
+					<Edge From="foreach25.OnValue" To="Exec" />
+					<Edge From="isoulproperties26.Inventory" To="Inventory" />
+					<Edge From="createitemcategorydescriptor27.ItemDescriptor" To="ItemDescriptor" />
+				</EventMemberFunction>
 				<expectedeffect Name="expectedeffect" PositionY="20" PositionX="3010" Namespace="utils.crime.trespass">
 					<Asset Name="npcs" Alias="miller" />
 					<Constant Name="extenduntilplayerleavestrespass" Value="true" />
 					<Edge From="or14.bool" To="isactive" />
 				</expectedeffect>
-				<Function Name="joinarrays20" PositionY="1560" PositionX="1020" TypeT="wh::rpgmodule::Souls" MethodName="utilities::array::JoinArrays" DeclaringType="utilities::array">
+				<ForEach Name="foreach25" PositionY="1760" PositionX="1360" TypeT="wh::rpgmodule::Souls">
+					<Edge From="joinarrays20.Array" To="Array">
+						<Vertex>ECWJc6Sl</Vertex>
+					</Edge>
+					<Edge From="areMillersSonAndHelpersDead.OnTrue" To="Begin" />
+				</ForEach>
+				<ObjectProperties Name="isoulproperties26" PositionY="1890" PositionX="1650" DeclaringType="wh::rpgmodule::I_Soul">
+					<Edge From="foreach25.Value" To="I_Soul" />
+				</ObjectProperties>
+				<Function Name="joinarrays20" PositionY="1560" PositionX="840" TypeT="wh::rpgmodule::Souls" MethodName="utilities::array::JoinArrays" DeclaringType="utilities::array">
 					<Asset Name="A" Alias="millersSon" />
 					<Asset Name="B" Alias="millersHelpers" />
 				</Function>
@@ -135,6 +154,9 @@
 						<Vertex>WlnHRr9t</Vertex>
 						<Vertex>FVgvzLJT</Vertex>
 					</Edge>
+					<Edge From="questProgress.State" To="quest_progress">
+						<Vertex>DYTgVuj6</Vertex>
+					</Edge>
 				</mlynarova_rodina_bydli_v_malesove>
 				<Function Name="not_questNotDoneNorFailed" PositionY="-500" PositionX="0" MethodName="math::boolean::Not" DeclaringType="math::boolean">
 					<Edge From="or_questDoneOrFailed.bool" To="Value" />
@@ -164,6 +186,7 @@
 				</Function>
 				<Output Name="Output">
 					<Edge From="questProgress.State" To="Progress">
+						<Vertex>DYTgVuj6</Vertex>
 						<Vertex>vertex89</Vertex>
 					</Edge>
 					<Edge From="po_prepadeni_mlyna.hrac_promluvil_se_svazanou_rodinkou" To="hrac_promluvil_se_svazanou_rodinkou">
@@ -251,7 +274,9 @@
 					<Edge From="areMillersSonAndHelpersDead.State" To="IsActive">
 						<Vertex>rxyIMBxM</Vertex>
 					</Edge>
-					<Edge From="joinarrays20.Array" To="Souls" />
+					<Edge From="joinarrays20.Array" To="Souls">
+						<Vertex>ECWJc6Sl</Vertex>
+					</Edge>
 				</SetEntityContext>
 				<SetEntityContext Name="setentitycontext9" PositionY="-800" PositionX="1610">
 					<Constant Name="Context" Value="skillteacher_enable" />
@@ -284,7 +309,9 @@
 					<Edge From="po_prepadeni_mlyna.watch_vystrelila_s_aktivnim_tipem" To="watch_strili_s_aktivnim_tipem">
 						<Vertex>vertex160</Vertex>
 					</Edge>
-					<Edge From="questProgress.OnActive" To="quest_zacina" />
+					<Edge From="questProgress.OnActive" To="quest_zacina">
+						<Vertex>1yUTV993</Vertex>
+					</Edge>
 				</tipping>
 				<tragedienadanemarku_library Name="tragedienadanemarku_library" PositionY="-1210" PositionX="290" />
 				<zabijeni_pred_questem Name="zabijeni_pred_questem" PositionY="-270" PositionX="-20">
@@ -307,11 +334,14 @@
 				</zabijeni_pred_questem>
 			</Nodes>
 			<EdgeVertices>
+				<EdgeVertex Name="1yUTV993" PositionY="-120" PositionX="1460" />
 				<EdgeVertex Name="2964QHML" PositionY="-593" PositionX="1498" />
 				<EdgeVertex Name="2zCkvK1J" PositionY="266" PositionX="1161" />
 				<EdgeVertex Name="6aNarAll" PositionY="-130" PositionX="1680" />
 				<EdgeVertex Name="bHq4aeT3" PositionY="-420" PositionX="560" />
 				<EdgeVertex Name="c3vxsmKc" PositionY="470" PositionX="1680" />
+				<EdgeVertex Name="DYTgVuj6" PositionY="-214" PositionX="1542" />
+				<EdgeVertex Name="ECWJc6Sl" PositionY="1650" PositionX="1120" />
 				<EdgeVertex Name="FVgvzLJT" PositionY="300" PositionX="1290" />
 				<EdgeVertex Name="p2VKJE1U" PositionY="-60" PositionX="1520" />
 				<EdgeVertex Name="rv8KuIYE" PositionY="-300" PositionX="480" />
@@ -360,7 +390,7 @@
 				<EdgeVertex Name="vertex97" PositionY="330" PositionX="60" />
 				<EdgeVertex Name="vertex98" PositionY="330" PositionX="1030" />
 				<EdgeVertex Name="vertex99" PositionY="350" PositionX="560" />
-				<EdgeVertex Name="WlnHRr9t" PositionY="300" PositionX="1040" />
+				<EdgeVertex Name="WlnHRr9t" PositionY="300" PositionX="1050" />
 				<EdgeVertex Name="X7g6BPGw" PositionY="690" PositionX="750" />
 			</EdgeVertices>
 			<Assets>
@@ -391,6 +421,7 @@
 				<SmartObjectAsset Name="extraGuardsDanemark" />
 				<SmartObjectAsset Name="millerTiedSpot_SO" />
 				<TriggerAreaAsset Name="atticArea" />
+				<TriggerAreaAsset Name="lightTrespassAreas" />
 			</Assets>
 			<Text StringName="tragedienadanemarku_dfwO" Text="Tragédie na Danemarku" />
 			<Elements>

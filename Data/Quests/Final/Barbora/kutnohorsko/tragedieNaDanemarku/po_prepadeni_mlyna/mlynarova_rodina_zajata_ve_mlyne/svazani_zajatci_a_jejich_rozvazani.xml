@@ -7,7 +7,7 @@
 					<DesignName StringName="svazani_z_mlynarova_rodin_mvVP" Text="Mlynářova rodina je svázaná" />
 				</Port>
 				<Port Name="hrac_nekoho_rozvazal" Direction="Out" Type="trigger">
-					<DesignName StringName="svazani_z_hrac_nekoho_roz_Fj0t" Text="Hráč někoho rozvázal" />
+					<DesignName StringName="svazani_z_hrac_nekoho_roz_Fj0t" Text="Hráč někoho rozvazuje" />
 				</Port>
 				<Port Name="nekdo_z_mlynarovi_rodiny_zemrel" Direction="In" Type="bool">
 					<DesignName StringName="svazani_z_nekdo_z_mlynaro_qlWN" Text="Někdo z mlynářovi rodiny zemřel" />
@@ -46,6 +46,12 @@
 					<Asset Name="CutsceneHolder" Alias="untyingMillerFamilyFader" />
 					<Edge From="isFamilyUntied.OnTrue" To="EnqueueCutscene" />
 				</CutsceneHandler>
+				<disabledirectionschatsoul Name="disabledirectionschatsoul" PositionY="481" PositionX="1373" Namespace="utils.hardcoremode">
+					<Asset Name="soul" Alias="millerFamily" />
+					<Edge From="and_tiedSpotActiveAndNotInteracted.bool" To="enabled">
+						<Vertex>8QYHxM3c</Vertex>
+					</Edge>
+				</disabledirectionschatsoul>
 				<State Name="isFamilyUntied" PositionY="360" PositionX="500" TypeT="bool">
 					<Edge From="TiedSpot_1.onuntyingfinished" To="SetTrue">
 						<Vertex>vertex24</Vertex>

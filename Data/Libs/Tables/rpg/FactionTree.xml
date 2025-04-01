@@ -10,7 +10,7 @@
 				</Faction>
 				<Faction Name="animal_wild" Comment="Divoka zvirata" LocationId="d30cf4a5-2742-427b-9025-1cc22fd1f126">
 					<Children>
-						<Faction Name="animal_wild_enemy">
+						<Faction Name="animal_wild_enemy" Labels="publicEnemy">
 							<Relations>
 								<Relation target="enemies" reputation="0" />
 								<Relation target="civilians" reputation="0" />
@@ -20,7 +20,7 @@
 							</Relations>
 						</Faction>
 						<Faction Name="animal_wild_neutral" />
-						<Faction Name="animal_wild_enemy_trosecko">
+						<Faction Name="animal_wild_enemy_trosecko" Labels="publicEnemy">
 							<Relations>
 								<Relation target="enemies" reputation="0" />
 								<Relation target="civilians" reputation="0" />
@@ -29,7 +29,7 @@
 								<Relation target="player" reputation="-1" />
 							</Relations>
 						</Faction>
-						<Faction Name="animal_wild_enemy_kutnohorsko">
+						<Faction Name="animal_wild_enemy_kutnohorsko" Labels="publicEnemy">
 							<Relations>
 								<Relation target="enemies" reputation="0" />
 								<Relation target="civilians" reputation="0" />
@@ -117,6 +117,16 @@
 						</Faction>
 						<Faction Name="kutnohorsko_outskirts" UIName="ui_fac_outskirts" UIDescription="ui_fac_outskirts_kh_desc" UIIcon="outskirts" Comment="Lide lesa">
 							<Children>
+								<Faction Name="kutnohorsko_outskirts_hermit" Comment="Poustevnik, pomatenec" Labels="solitude">
+									<Children>
+										<Faction Name="kutnohorsko_outskirts_hermit_crazyMan" Comment="Pomatenec na samote" />
+									</Children>
+								</Faction>
+								<Faction Name="kutnohorsko_outskirts_miners" Comment="Hornici" Labels="solitude">
+									<Children>
+										<Faction Name="kutnohorsko_outskirts_miners_listovniTajemstvi" Comment="Hornici, Q Listovni tajemstvi" />
+									</Children>
+								</Faction>
 								<Faction Name="kutnohorsko_outskirts_herbalist" UIName="ui_fac_herbalist" UIDescription="ui_fac_herbalist_kh_desc" UIIcon="herbalist" Comment="Korenarky">
 									<Children>
 										<Faction Name="kutnohorsko_outskirts_herbalist_XXX" Comment="Korenarka XXX" Labels="solitude" />
@@ -531,7 +541,7 @@
 											<Children>
 												<Faction Name="kutnohorsko_settlements_certovka_commonFolk_tavern" UIName="ui_fac_tavern" UIDescription="ui_fac_tavern_kh_desc" UIIcon="tavern" LocationId="8c80c9b5-93db-4012-8049-a99c2855056a">
 													<Children>
-														<Faction Name="kutnohorsko_settlements_certovka_commonFolk_tavern_staff" Comment="Zamestnanci hospody : hospodsky, senkyrka, pomocnici|e " >
+														<Faction Name="kutnohorsko_settlements_certovka_commonFolk_tavern_staff" Comment="Zamestnanci hospody : hospodsky, senkyrka, pomocnici|e ">
 															<Relations>
 																<Relation target="kutnohorsko_enemies_bandits_magickySipCampCertovka" reputation="1" />
 															</Relations>
@@ -1081,7 +1091,16 @@
 												<Faction Name="kutnohorsko_settlements_kutnaHora_nobility_markolt" Comment="S35 ??? Listovni Tajemstvi : Markolt" />
 												<Faction Name="kutnohorsko_settlements_kutnaHora_nobility_vavak" Comment="Oldrich Vavak z Hradce" />
 												<Faction Name="kutnohorsko_settlements_kutnaHora_nobility_annaZHradce" Comment="Anna z Hradce : manzelka Oldricha Vavak z Hradce" />
-												<Faction Name="kutnohorsko_settlements_kutnaHora_nobility_polner" Comment="Ondrej Polner " />
+												<Faction Name="kutnohorsko_settlements_kutnaHora_nobility_polner" Comment="Ondrej Polner ">
+													<Relations>
+														<Relation target="kutnohorsko_settlements_kutnaHora_commonFolk_peasants_hradecka_parcel09" reputation="1" />
+													</Relations>
+												</Faction>
+												<Faction Name="kutnohorsko_settlements_kutnaHora_nobility_kumel" Comment="Kumel">
+													<Relations>
+														<Relation target="kutnohorsko_settlements_kutnaHora_commonFolk_peasants_hradecka_parcel09" reputation="1" />
+													</Relations>
+												</Faction>
 												<Faction Name="kutnohorsko_settlements_kutnaHora_nobility_rozaRuthard" />
 												<Faction Name="kutnohorsko_settlements_kutnaHora_nobility_kunzlinRuthard" />
 												<Faction Name="kutnohorsko_settlements_kutnaHora_nobility_janParler" Comment="Jan Parler : stavitel Barbory " />
@@ -1158,7 +1177,7 @@
 												<Faction Name="kutnohorsko_settlements_malesov_soldiers_closedCastle" Comment="Malesov - vojaci z vykuchradu" />
 												<Faction Name="kutnohorsko_settlements_malesov_soldiers_watchman" Comment="Malesov ponocny" />
 												<Faction Name="kutnohorsko_settlements_malesov_soldiers_zachranaPtacka" Comment="M35 : Zachrana Ptacka : Posadka tvrze" />
-												<Faction Name="kutnohorsko_settlements_malesov_soldiers_utokNaMalesov" Comment="M44b : Útok na Malešov : Posadka tvrze" />
+												<Faction Name="kutnohorsko_settlements_malesov_soldiers_utokNaMalesov" Comment="M44b : Útok na Malešov : Posadka tvrze" Labels="publicEnemy" />
 											</Children>
 										</Faction>
 									</Children>
@@ -1284,6 +1303,7 @@
 										</Faction>
 									</Children>
 								</Faction>
+								<Faction Name="trosecko_outskirts_campPainter" Comment="Q101:Malir, maly camp se dvema chlapikama kteri privazali malire u stromu" Labels="solitude" />
 								<Faction Name="trosecko_outskirts_apolenaHideout" Comment="Skrys Mariky a Bohuse v Apolene" LocationId="7c252a66-1319-467a-8a8a-e8d9a08e80d6" Labels="camp" />
 								<Faction Name="trosecko_outskirts_vezniNaTroskachApolenaHorses" Comment="M12 : Vezni na Troskach : streamovane kone v Apolene" />
 								<Faction Name="trosecko_outskirts_cabbageStealerPOI" Comment="POI tabor Zlodej zeli na Podseminsku" LocationId="e2771416-6e56-4543-9079-ac3973a1c0b3" Labels="camp" />
@@ -1294,6 +1314,11 @@
 									</Children>
 								</Faction>
 								<Faction Name="trosecko_outskirts_rogues" Comment="quest lovVlku : tulaci" LocationId="d30cf4a5-2742-427b-9025-1cc22fd1f126" Labels="publicEnemy camp">
+									<Relations>
+										<Relation target="trosecko_settlements" reputation="0" />
+									</Relations>
+								</Faction>
+								<Faction Name="trosecko_outskirts_rogues_leaveLevel" Comment="quest lovVlku : tulaci during leave level" LocationId="d30cf4a5-2742-427b-9025-1cc22fd1f126" Labels="publicEnemy camp">
 									<Relations>
 										<Relation target="trosecko_settlements" reputation="0" />
 									</Relations>
@@ -1755,7 +1780,7 @@
 						<Faction Name="kutnohorsko_enemies_bandits" Comment="Lapkove">
 							<Children>
 								<Faction Name="kutnohorsko_enemies_bandits_sedmStatecnych2CampKopecVysoka" Comment="Sedm Statecnych 2 : tabor banditu : Kopec Vysoka" LocationId="e4106d73-0d1a-4748-92b3-41a53dfb4e9e" Labels="camp" />
-								<Faction Name="kutnohorsko_enemies_bandits_magickySipCampCertovka" Comment="Magicky Sip : tabora v lese u Grunty|Certovky" Labels="camp" >
+								<Faction Name="kutnohorsko_enemies_bandits_magickySipCampCertovka" Comment="Magicky Sip : tabora v lese u Grunty|Certovky" Labels="camp">
 									<Relations>
 										<Relation target="kutnohorsko_settlements_certovka_commonFolk_tavern_staff" reputation="1" />
 									</Relations>
@@ -1774,6 +1799,8 @@
 										<Faction Name="kutnohorsko_enemies_bandits_zakopanyZitrek_other" />
 									</Children>
 								</Faction>
+								<Faction Name="kutnohorsko_enemies_bandits_truhlari" Comment="Lapkove, kteri unesli truhlarova apprentice, S138: Truhlari " Labels="camp" />
+								<Faction Name="kutnohorsko_enemies_bandits_maliruvLek" Comment="Dezerteri a lovci perel u potoka nad Danemarkem, S133: Maliruv lek " Labels="camp" />
 								<Faction Name="kutnohorsko_enemies_bandits_campCertovka" Comment="Lapkove, kteri osidli tabor po banditech z U48 : Tabor Certovka " Labels="camp" />
 								<Faction Name="kutnohorsko_enemies_bandits_mapaKPokladuTreasureHunersCamp" Comment="Tabor hledacu pokladu z U49 : Mapa k pokladu " Labels="camp" />
 								<Faction Name="kutnohorsko_enemies_bandits_dezerteriVKH" Comment="U61b dezerteri v kutne hore " />
@@ -1905,6 +1932,12 @@
 								<Faction Name="trosecko_enemies_bandits_poiMapkaDopadenehoZlodeje" Comment="POI - Mapka dopadeneho zlodeje" Labels="camp" />
 								<Faction Name="trosecko_enemies_bandits_poiOpilecAVandrak" Comment="POI - Opilec a vandrak" />
 								<Faction Name="trosecko_enemies_bandits_poiLapkaUCestyZTachova" Comment="POI - Lapka U Cesty z Tachova" LocationId="a0e9f8c2-76d8-4cde-ab9c-ff96d99d6c84" Labels="camp" />
+								<Faction Name="trosecko_enemies_bandits_vrahCamp" Comment="DLC quest Vrah camp" Labels="camp">
+									<Children>
+										<Faction Name="trosecko_enemies_bandits_vrahCamp_leader" />
+										<Faction Name="trosecko_enemies_bandits_vrahCamp_bandits" />
+									</Children>
+								</Faction>
 								<Faction Name="trosecko_enemies_bohutovaVlozkaEriksCompany" Comment="M10 : Bohutova vlozka : vojaci z Erikova doprovodu ">
 									<Relations>
 										<Relation target="trosecko_settlements" reputation="0" />

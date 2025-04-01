@@ -27,6 +27,15 @@
 					<Edge From="vokrakMigration.InKutnaHora" To="isactive" />
 					<Edge From="vokrakMigration.OnInKutnaHora" To="forgetcrime" />
 				</Migration_Simple_StreamingSafeguard>
+				<Move Name="Move" PositionY="290" PositionX="430" Namespace="utils.move">
+					<Asset Name="soul" Alias="vokrak" />
+					<Asset Name="smartentity" Alias="qSO" />
+					<Asset Name="destination" Alias="vokraksKHpoint" />
+					<Constant Name="speed" Value="Sprint" />
+					<Constant Name="stealth" Value="false" />
+					<Constant Name="successdistance" Value="8" />
+					<Edge From="vokrakRunsToKH.Active" To="isactive" />
+				</Move>
 				<Function Name="or87_1" PositionY="-410" PositionX="470" MethodName="math::boolean::Or" DeclaringType="math::boolean">
 					<Edge From="vokrakStreaming.StreamedInitial" To="A" />
 					<Edge From="vokrakStreaming.Streamed" To="B" />
@@ -38,19 +47,38 @@
 					<Asset Name="Profiles" Alias="streamVokrak" />
 					<Edge From="or87_1.bool" To="IsActive" />
 				</Layer>
-				<skillteacher Name="skillteacher" PositionY="140" PositionX="470">
-					<Edge From="vokrakMigration.OnInKutnaHora" To="enable" />
+				<skillteacher Name="skillteacher" PositionY="90" PositionX="430">
+					<Edge From="vokrakRunsToKH.OnDone" To="enable" />
+					<Edge From="skillteacher_vokrak_enable.OnTrigger" To="enable">
+						<Vertex>5oDRAW27</Vertex>
+					</Edge>
 				</skillteacher>
-				<HasteTrigger Name="skillteacher_vokrak_enable" PositionY="247" PositionX="-300" />
+				<HasteTrigger Name="skillteacher_vokrak_enable" PositionY="740" PositionX="30" />
 				<State Name="vokrakMigration" PositionY="-110" PositionX="60" RequiredForOutput="kutnohorsko" TypeT="vokrakMigration">
 					<Edge From="vokrak_migruje_do_kutne_hory" To="SetInKutnaHora" />
-					<Edge From="skillteacher_vokrak_enable.OnTrigger" To="SetInKutnaHora" />
+					<Edge From="skillteacher_vokrak_enable.OnTrigger" To="SetInKutnaHora">
+						<Vertex>5oDRAW27</Vertex>
+						<Vertex>aWo0I05L</Vertex>
+					</Edge>
+				</State>
+				<State Name="vokrakRunsToKH" PositionY="310" PositionX="60" TypeT="Progress">
+					<Edge From="vokrak_migruje_do_kutne_hory" To="SetActive" />
+					<Edge From="Move.onfinished" To="SetDone">
+						<Vertex>X16JXqgt</Vertex>
+						<Vertex>QP6owjE2</Vertex>
+					</Edge>
 				</State>
 				<State Name="vokrakStreaming" PositionY="-540" PositionX="60" TypeT="vokrakStreaming">
 					<Edge From="zacina_patrani_po_vokrakovi" To="SetStreamed" />
 					<Edge From="zacatek_questu_m34_kralovske_stribro" To="SetUnstreamed" />
 				</State>
 			</Nodes>
+			<EdgeVertices>
+				<EdgeVertex Name="5oDRAW27" PositionY="220" PositionX="350" />
+				<EdgeVertex Name="aWo0I05L" PositionY="210" PositionX="90" />
+				<EdgeVertex Name="QP6owjE2" PositionY="710" PositionX="70" />
+				<EdgeVertex Name="X16JXqgt" PositionY="710" PositionX="610" />
+			</EdgeVertices>
 			<Types>
 				<Type TypeName="vokrakMigration">
 					<StateTypeEnumeration Name="InGrunta" ObjectiveValueType="None" />
@@ -65,7 +93,8 @@
 			<Assets>
 				<SoulAsset Name="vokrak" SharedSoulGuids="c2be2067-23b8-493c-b3d6-ff2870e49f08" />
 				<ProfileAsset Name="streamVokrak" AssetProfiles="kralovskeStribro_vokrak" />
-				<SoulAsset Name="cervenak" />
+				<SmartObjectAsset Name="qSO" />
+				<TagPointAsset Name="vokraksKHpoint" />
 			</Assets>
 			<Text StringName="vokrak_uf4B" Text="Vokřák" />
 		</Module>

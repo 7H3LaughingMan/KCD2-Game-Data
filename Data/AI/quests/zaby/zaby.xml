@@ -221,7 +221,9 @@
 								<Sequence>
 									<Sequence>
 										<Expression expressions="$dateDialogAlias = &apos;zaby_dateTopic_&apos; + $integerData" />
-										<Function_speech_dialogInitiator alias="$dateDialogAlias" animationApproach="$enum:animationApproach.dontPlayDialogAnimations" context="$__null" customParameters="$__null" metarole="" preset="$enum:dialogPreset.ingame" recipient="$manka" recipientMetaroles="" nodeLabel="78003166" />
+										<DialogGate Who="$this.id" Negation="true" EndDialogInRoot="false" Condition="InAny" RunLogic="KeepRunning">
+											<Function_speech_dialogInitiator alias="$dateDialogAlias" animationApproach="$enum:animationApproach.ingameDialogPoseAndAnimations" context="$__null" customParameters="$__null" metarole="" preset="$enum:dialogPreset.ingame" recipient="$manka" recipientMetaroles="" nodeLabel="78003166" />
+										</DialogGate>
 									</Sequence>
 									<Wait duration="&apos;1m&apos;" timeType="GameTime" doFail="false" variation="" />
 								</Sequence>
@@ -274,9 +276,12 @@
 											<Expression hasInputBreakpoint="0" comment="" breakpointFlags="0">
 												<OutputBreakpoints />
 											</Expression>
-											<Function_speech_dialogInitiator hasInputBreakpoint="0" comment="" breakpointFlags="0">
+											<DialogGate hasInputBreakpoint="0" comment="" breakpointFlags="0">
 												<OutputBreakpoints />
-											</Function_speech_dialogInitiator>
+												<Function_speech_dialogInitiator hasInputBreakpoint="0" comment="" breakpointFlags="0">
+													<OutputBreakpoints />
+												</Function_speech_dialogInitiator>
+											</DialogGate>
 										</Sequence>
 										<Wait hasInputBreakpoint="0" comment="" breakpointFlags="0">
 											<OutputBreakpoints />
@@ -1099,7 +1104,9 @@
 											</Sequence>
 										</StanceElement>
 									</IfCondition>
-									<IfCondition failOnCondition="false" condition="true" />
+									<IfCondition failOnCondition="false" condition="true">
+										<Wait duration="&apos;-1&apos;" timeType="GameTime" doFail="false" variation="" />
+									</IfCondition>
 								</ContinuousSwitch>
 							</Exec>
 						</HandContentElement>
@@ -1111,6 +1118,9 @@
 							<Callback_empty EventName="&apos;OnFinishedPoisoned&apos;" />
 							<Wait duration="&apos;-1&apos;" timeType="GameTime" doFail="false" variation="" />
 						</Sequence>
+					</IfCondition>
+					<IfCondition failOnCondition="false" condition="true">
+						<Wait duration="&apos;-1&apos;" timeType="GameTime" doFail="false" variation="" />
 					</IfCondition>
 				</ContinuousSwitch>
 			</Behavior>
@@ -1202,6 +1212,9 @@
 										</IfCondition>
 										<IfCondition hasInputBreakpoint="0" comment="" breakpointFlags="0">
 											<OutputBreakpoints />
+											<Wait hasInputBreakpoint="0" comment="" breakpointFlags="0">
+												<OutputBreakpoints />
+											</Wait>
 										</IfCondition>
 									</ContinuousSwitch>
 								</Exec>
@@ -1224,6 +1237,12 @@
 									<OutputBreakpoints />
 								</Wait>
 							</Sequence>
+						</IfCondition>
+						<IfCondition hasInputBreakpoint="0" comment="" breakpointFlags="0">
+							<OutputBreakpoints />
+							<Wait hasInputBreakpoint="0" comment="" breakpointFlags="0">
+								<OutputBreakpoints />
+							</Wait>
 						</IfCondition>
 					</ContinuousSwitch>
 				</Behavior>
@@ -1258,14 +1277,14 @@
 	<BehaviorTree name="zaby_henikDrinks" is_function="0">
 		<Variables />
 		<Parameters>
-			<Variable name="data" type="wuid" values="" isPersistent="0" form="single" requirementType="In" />
+			<Variable name="data" type="_wuid" values="" isPersistent="0" form="single" requirementType="In" />
 		</Parameters>
 		<Root OneTimeOnly="false" FailState="Recoverable" saveVersion="2">
 			<Behavior canSkip="1">
 				<FuseBox StatusPropagation="Child" OneCleanup="true" saveVersion="2">
 					<Child canSkip="1">
 						<Sequence>
-							<Wait duration="&apos;10s&apos;" timeType="GameTime" doFail="false" variation="" skipInLOD="false" />
+							<Wait duration="&apos;10s&apos;" timeType="GameTime" doFail="false" variation="" />
 							<UseItem item="$data" count="0" bodyPartId="-1" combineWithItem="" />
 						</Sequence>
 					</Child>

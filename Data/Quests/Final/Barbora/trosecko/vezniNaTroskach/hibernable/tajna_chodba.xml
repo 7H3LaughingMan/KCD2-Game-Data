@@ -58,6 +58,7 @@
 				<addbloodallbodyparts Name="addbloodallbodyparts" PositionY="-530" PositionX="160" Namespace="utils.general">
 					<Asset Name="soul" Alias="zizka" />
 					<Constant Name="value" Value="-0.3" />
+					<Constant Name="absolute" Value="false" />
 					<Edge From="adddirt2.OnExec" To="add_blood" />
 				</addbloodallbodyparts>
 				<MemberFunction Name="adddirt2" PositionY="-520" PositionX="-100" MethodName="AddDirt" DeclaringType="wh::rpgmodule::I_Soul">
@@ -87,13 +88,13 @@
 					<Edge From="objective_dojdi_na_konec_chodby.obj_none" To="IsActive" />
 				</InteractorOverride>
 				<objective_dojdi_na_konec_chodby Name="objective_dojdi_na_konec_chodby" PositionY="-130" PositionX="860" RequiredForOutput="trosecko">
-					<Edge From="u_vratek.konec_polylogu" To="setactive">
+					<Edge From="triggersequence37.B" To="setactive">
 						<Vertex>vertex61</Vertex>
 					</Edge>
 				</objective_dojdi_na_konec_chodby>
 				<objective_nasleduj_bohutu_do_chodby Name="objective_nasleduj_bohutu_do_chodby" PositionY="-130" PositionX="320" RequiredForOutput="trosecko">
 					<Edge From="start_obj_nasleduj_bohutu_do_chodby" To="start" />
-					<Edge From="u_vratek.hrac_vesel_do_polylog_area" To="spln_objective" />
+					<Edge From="triggersequence37.A" To="spln_objective" />
 				</objective_nasleduj_bohutu_do_chodby>
 				<Output Name="Output">
 					<Edge From="cin_m1280t_vezninatroskach__zikmund_letter.cs_afterplay" To="cs_cteni_rozkazu_afterplay" />
@@ -122,13 +123,16 @@
 						<Vertex>hp1K660e</Vertex>
 					</Edge>
 				</Output>
-				<AddReward Name="reward1" PositionY="520" PositionX="410">
-					<Edge From="u_vratek.konec_polylogu" To="AddReward" />
+				<AddReward Name="reward1" PositionY="590" PositionX="340">
+					<Edge From="triggersequence37.B" To="AddReward" />
 					<Rewards>
 						<SkillReward Type="stealth" ExperienceChange="2-minor" />
 					</Rewards>
 				</AddReward>
-				<u_vratek Name="u_vratek" PositionY="430" PositionX="-40">
+				<TriggerSequence Name="triggersequence37" PositionY="450" PositionX="70">
+					<Edge From="u_vratek.konec_polylogu" To="Exec" />
+				</TriggerSequence>
+				<u_vratek Name="u_vratek" PositionY="430" PositionX="-300">
 					<Edge From="je_po_cs_s_erikom" To="chovani_pri_brane_povolene__katerina_a_zizka" />
 					<Edge From="objective_nasleduj_bohutu_do_chodby.obj_nasleduj_state" To="obj_nasleduj_state">
 						<Vertex>vertex49</Vertex>
@@ -149,8 +153,8 @@
 				<EdgeVertex Name="vertex55" PositionY="340" PositionX="1391" />
 				<EdgeVertex Name="vertex56" PositionY="340" PositionX="1830" />
 				<EdgeVertex Name="vertex59" PositionY="770" PositionX="1850" />
-				<EdgeVertex Name="vertex60" PositionY="420" PositionX="-40" />
-				<EdgeVertex Name="vertex61" PositionY="730" PositionX="790" />
+				<EdgeVertex Name="vertex60" PositionY="420" PositionX="-300" />
+				<EdgeVertex Name="vertex61" PositionY="570" PositionX="790" />
 				<EdgeVertex Name="vertex62" PositionY="791" PositionX="1850" />
 				<EdgeVertex Name="vertex63" PositionY="-250" PositionX="810" />
 				<EdgeVertex Name="vertex64" PositionY="-253" PositionX="1834" />

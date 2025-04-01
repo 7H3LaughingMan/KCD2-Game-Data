@@ -48,9 +48,6 @@
 				<Port Name="mluvil_jsem_s_gerhartem" Direction="In" Type="bool">
 					<DesignName StringName="standoff_mluvil_jsem_s_ge_54WZ" Text="mluvil jsem s gerhartem" />
 				</Port>
-				<Port Name="dialog_or_trialog_ends" Direction="Out" Type="trigger">
-					<DesignName StringName="standoff_dialog_or_trialo_5VlA" Text="dialog or trialog ends" />
-				</Port>
 				<Port Name="predanykostialchymystovi" Direction="Out" Type="bool">
 					<DesignName StringName="standoff_predanykostialch_eRhN" Text="predanyKostiAlchymystovi" />
 				</Port>
@@ -68,6 +65,15 @@
 				</Port>
 				<Port Name="leader_i_alch_dead" Direction="Out" Type="trigger">
 					<DesignName StringName="standoff_leader_i_alch_de_s3sC" Text="leader i alch dead" />
+				</Port>
+				<Port Name="dialog_skoncil" Direction="Out" Type="trigger">
+					<DesignName StringName="standoff_dialog_skoncil_NwYK" Text="dialog skoncil soldier" />
+				</Port>
+				<Port Name="dialog_skoncil_1" Direction="Out" Type="trigger">
+					<DesignName StringName="standoff_dialog_skoncil_1_A5qr" Text="dialog skoncil alch" />
+				</Port>
+				<Port Name="vsechny_dialogy_skoncili" Direction="Out" Type="trigger">
+					<DesignName StringName="standoff_vsechny_dialogy__iAoq" Text="vsechny dialogy skoncili" />
 				</Port>
 			</Ports>
 			<Definitions>
@@ -97,22 +103,6 @@
 				<druhy_standoff_trialog1 Name="druhy_standoff_trialog1" PositionY="-2070" PositionX="320">
 					<Edge From="if824.False" To="trialog" />
 				</druhy_standoff_trialog1>
-				<fightconfiguration_surrendering Name="fightconfiguration_surrendering" PositionY="-1810" PositionX="3630" Namespace="utils.combat">
-					<Constant Name="neversurrenderorflee" Value="false" />
-					<Constant Name="neveracceptsurrender" Value="true" />
-					<Constant Name="decentmercy" Value="false" />
-					<Constant Name="alwaysmercy" Value="false" />
-					<Edge From="state834_1.Active" To="isactive" />
-					<Edge From="makearray832.Array" To="souls" />
-				</fightconfiguration_surrendering>
-				<fightconfiguration_surrendering Name="fightconfiguration_surrendering_1" PositionY="-760" PositionX="3440" Namespace="utils.combat">
-					<Constant Name="neversurrenderorflee" Value="false" />
-					<Constant Name="neveracceptsurrender" Value="true" />
-					<Constant Name="decentmercy" Value="false" />
-					<Constant Name="alwaysmercy" Value="false" />
-					<Edge From="joinarrays833.Array" To="souls" />
-					<Edge From="state834.Active" To="isactive" />
-				</fightconfiguration_surrendering>
 				<If Name="if824" PositionY="-2020" PositionX="60">
 					<Edge From="sranda_boj1.klid" To="Exec" />
 					<Edge From="standOff.playerFled" To="Condition">
@@ -216,7 +206,6 @@
 					<Edge From="standOff.OnrozdeleniNaTretiny" To="rozdeleni_na_tretiny">
 						<Vertex>vertex29</Vertex>
 					</Edge>
-					<Edge From="standoff_u_naleziste_kosti.dialog_or_trialog_ends" To="dialog_or_trialog_ends" />
 					<Edge From="standoff_u_naleziste_kosti.probehl_standoff" To="probehl_standoff">
 						<Vertex>mIGfGYK1</Vertex>
 					</Edge>
@@ -238,20 +227,14 @@
 					<Edge From="standoff_u_naleziste_kosti.leader_i_alch_dead" To="leader_i_alch_dead">
 						<Vertex>HSGsC1Q2</Vertex>
 					</Edge>
+					<Edge From="standoff_u_naleziste_kosti.dialog_skoncil" To="dialog_skoncil" />
+					<Edge From="standoff_u_naleziste_kosti.dialog_skoncil_1" To="dialog_skoncil_1" />
+					<Edge From="standoff_u_naleziste_kosti.vsechny_dialogy_skoncili" To="vsechny_dialogy_skoncili">
+						<Vertex>5kpN9dKE</Vertex>
+					</Edge>
 				</Output>
-				<PerceptionTrigger Name="perceptiontrigger829" PositionY="-1490" PositionX="3440">
-					<Asset Name="PerceptibleSouls" Alias="player" />
-					<Edge From="makearray832.Array" To="PerceivingSouls" />
-					<Edge From="state834_1.Active" To="IsActive" />
-				</PerceptionTrigger>
-				<PerceptionTrigger Name="perceptiontrigger829_1" PositionY="-1030" PositionX="3430">
-					<Asset Name="PerceptibleSouls" Alias="player" />
-					<Edge From="joinarrays833.Array" To="PerceivingSouls" />
-					<Edge From="state834.Active" To="IsActive" />
-				</PerceptionTrigger>
 				<SaveGame Name="savegame828" PositionY="-1470" PositionX="2150">
 					<Constant Name="Objective" Value="stand_off" />
-					<Edge From="standOff.OnplayerFled" To="EnqueueSave" />
 					<Edge From="standOff.OnhenryWithoutBones" To="EnqueueSave" />
 					<Edge From="standOff.OnrozdeleniNaTretiny" To="EnqueueSave" />
 					<Edge From="standOff.OnafterFightToDeath" To="EnqueueSave" />
@@ -350,10 +333,6 @@
 					<Edge From="velitel_beforeleavelevel" To="velitel_beforeleavelevel" />
 				</standoff_u_naleziste_kosti>
 				<State Name="state834" PositionY="-1060" PositionX="2830" TypeT="ProgressFailable">
-					<Edge From="perceptiontrigger829_1.OnSeenShortCone" To="SetDone">
-						<Vertex>jmAKGxsg</Vertex>
-						<Vertex>vS2hI83p</Vertex>
-					</Edge>
 					<Edge From="skirmish.souls1won" To="SetActive">
 						<Vertex>8DAq0mJM</Vertex>
 						<Vertex>l0l2Nbc4</Vertex>
@@ -369,11 +348,6 @@
 					</Edge>
 				</State>
 				<State Name="state834_1" PositionY="-1490" PositionX="2820" TypeT="ProgressFailable">
-					<Edge From="perceptiontrigger829.OnSeenShortCone" To="SetDone">
-						<Vertex>t2u6dvD6</Vertex>
-						<Vertex>LWzQmABu</Vertex>
-						<Vertex>P8MuAlxh</Vertex>
-					</Edge>
 					<Edge From="skirmish_1.souls1won" To="SetActive">
 						<Vertex>NHnKgSGB</Vertex>
 						<Vertex>C8HWQg0j</Vertex>
@@ -410,6 +384,7 @@
 			<EdgeVertices>
 				<EdgeVertex Name="3jfI5zus" PositionY="-1050" PositionX="1700" />
 				<EdgeVertex Name="3KgFFnen" PositionY="-133" PositionX="2719" />
+				<EdgeVertex Name="5kpN9dKE" PositionY="193" PositionX="4369" />
 				<EdgeVertex Name="8DAq0mJM" PositionY="-596" PositionX="4259" />
 				<EdgeVertex Name="a3admKzI" PositionY="-1042" PositionX="994" />
 				<EdgeVertex Name="ADSHRDl6" PositionY="-1731" PositionX="-498" />
@@ -419,20 +394,16 @@
 				<EdgeVertex Name="g2Ss6q5H" PositionY="-1744" PositionX="512" />
 				<EdgeVertex Name="hdrQxVzy" PositionY="-220" PositionX="3130" />
 				<EdgeVertex Name="HSGsC1Q2" PositionY="135" PositionX="4336" />
-				<EdgeVertex Name="jmAKGxsg" PositionY="-540" PositionX="3840" />
 				<EdgeVertex Name="K58GPPnb" PositionY="-1627" PositionX="940" />
 				<EdgeVertex Name="KbWwfVtC" PositionY="-1509" PositionX="3920" />
 				<EdgeVertex Name="l0l2Nbc4" PositionY="-589" PositionX="2797" />
 				<EdgeVertex Name="lngszELt" PositionY="-1173" PositionX="3918" />
-				<EdgeVertex Name="LWzQmABu" PositionY="-1069" PositionX="3050" />
 				<EdgeVertex Name="mIGfGYK1" PositionY="-191" PositionX="2721" />
 				<EdgeVertex Name="NHnKgSGB" PositionY="-1100" PositionX="4140" />
-				<EdgeVertex Name="P8MuAlxh" PositionY="-1069" PositionX="2740" />
 				<EdgeVertex Name="pwuAI816" PositionY="-739" PositionX="3887" />
 				<EdgeVertex Name="qLRufrLQ" PositionY="-160" PositionX="2721" />
 				<EdgeVertex Name="R8rlXdWP" PositionY="-1179" PositionX="696" />
 				<EdgeVertex Name="RBIndfVa" PositionY="-1597" PositionX="42" />
-				<EdgeVertex Name="t2u6dvD6" PositionY="-1070" PositionX="3770" />
 				<EdgeVertex Name="UKgeAjPM" PositionY="-1090" PositionX="4090" />
 				<EdgeVertex Name="vertex11" PositionY="-740" PositionX="1810" />
 				<EdgeVertex Name="vertex12" PositionY="-2560" PositionX="1630" />
@@ -468,7 +439,6 @@
 				<EdgeVertex Name="vertex57" PositionY="-1130" PositionX="2310" />
 				<EdgeVertex Name="vertex58" PositionY="-1125" PositionX="1366" />
 				<EdgeVertex Name="vertex6" PositionY="-2050" PositionX="260" />
-				<EdgeVertex Name="vS2hI83p" PositionY="-530" PositionX="2770" />
 				<EdgeVertex Name="VTlhfcVj" PositionY="-1071" PositionX="2793" />
 				<EdgeVertex Name="ygHQ5sBw" PositionY="-1120" PositionX="3890" />
 			</EdgeVertices>

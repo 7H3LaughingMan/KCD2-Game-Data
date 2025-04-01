@@ -18,8 +18,11 @@
 				<Port Name="sima_jde_ven_z_trespassu" Direction="Out" Type="trigger">
 					<DesignName StringName="dialog_se_sima_jde_ven_z__mKBH" Text="Šíma jde ven z trespassu" />
 				</Port>
-				<Port Name="sima_jde_na_spot" Direction="In" Type="bool">
-					<DesignName StringName="dialog_se_sima_jde_na_spot_wEfO" Text="šíma jde na spot" />
+				<Port Name="sima_ceka_na_dialog" Direction="In" Type="bool">
+					<DesignName StringName="dialog_se_sima_ceka_na_di_FxIk" Text="šíma čeká na dialog" />
+				</Port>
+				<Port Name="sima_v_leaningarea" Direction="In" Type="bool">
+					<DesignName StringName="dialog_se_sima_v_leaninga_Px5U" Text="šíma v leaningArea" />
 				</Port>
 				<Port Name="hrac_ma_na_uplatek" Direction="In" Type="bool">
 					<DesignName StringName="dialog_se_hrac_ma_na_upla_HO2O" Text="hráč má na úplatek" />
@@ -229,7 +232,7 @@
 																</Elements>
 																<Decision Name="dec16" Priority="MainQuestSubmission" DesignName="od bureše">
 																	<Sequences>
-																		<Sequence SpeechCoef="0" EndType="Decision" Visibility="Internal" Name="od_burese">
+																		<Sequence EndType="Decision" SpeechCoef="0" Visibility="Internal" Name="od_burese">
 																			<DesignName StringName="dialog_se_od_burese_WOmp" Text="od bureše" />
 																			<Elements>
 																				<Response Role="HUTNIK_SIMA" ReferenceLength="3.78">
@@ -422,7 +425,7 @@
 																</Elements>
 																<Decision Name="dec15" Priority="MainQuestSubmission" DesignName="od kristiána">
 																	<Sequences>
-																		<Sequence SpeechCoef="0" EndType="Decision" Visibility="Internal" Name="od_kristiana">
+																		<Sequence EndType="Decision" SpeechCoef="0" Visibility="Internal" Name="od_kristiana">
 																			<DesignName StringName="dialog_se_od_kristiana_bTmA" Text="od kristiána" />
 																			<Elements>
 																				<Response Role="HUTNIK_SIMA" StartDelay="0.17" ReferenceLength="2.67">
@@ -480,7 +483,7 @@
 																	</Sequences>
 																</Decision>
 															</Sequence>
-															<Sequence EndType="Decision" Name="seq10">
+															<Sequence EndType="Decision" Visibility="Internal" Name="seq10">
 																<DesignName StringName="dialog_se_seq10_HxUa" Text="seq10" />
 																<UiPrompt StringName="ui_dialog_se_seq10_x4P0" Text="Jindřich." />
 																<Elements>
@@ -549,7 +552,7 @@
 																													<Response Role="HENRY" ReferenceLength="4.93">
 																														<Text StringName="dial_henry_rikam_ti_cisto_3Qoq" Text="Říkám ti čistou pravdu. Vážně po tom  pátrám už od dolů." />
 																														<Commands>
-																															<AnimationCommand Delay="0" FragmentId="ADLG_Disagree" Guid="4ffec8d6-9671-4244-a6c6-aed77fe473ad" Variant="1" />
+																															<AnimationCommand FragmentId="ADLG_Disagree" Guid="4ffec8d6-9671-4244-a6c6-aed77fe473ad" Variant="1" />
 																															<AnimationCommand Delay="2.91" FragmentId="ADLG_Gesture" Guid="649b3c66-46dc-4666-8a6c-7d8df90c80ea" Variant="10" />
 																															<CameraCommand />
 																														</Commands>
@@ -916,7 +919,7 @@
 																																	</Parenthetical>
 																																	<Text StringName="dial_henry_muzeme_si_vyzk_fwYA" Text="Můžeme vyzkoušet, jestli seš stejně silnej jako já." />
 																																	<Commands>
-																																		<MoodCommand Delay="0" Mood="angry" />
+																																		<MoodCommand Mood="angry" />
 																																		<FacialMoodCommand FacialMood="angry1" />
 																																		<AnimationCommand Role="HUTNIK_SIMA" Delay="2.57" FragmentId="ADLG_Confusion" Guid="5da7fd8b-7cec-40c8-a723-f3cc47022f36" Variant="4" />
 																																		<AnimationCommand Delay="1.31" FragmentId="ADLG_Confusion" Guid="0086f615-6d25-47ff-80cd-172dc826663b" Variant="0" />
@@ -995,7 +998,7 @@
 																																	</Parenthetical>
 																																	<Text StringName="dial_henry__nebo_uvidis_BCki" Text="... nebo uvidíš." />
 																																	<Commands>
-																																		<MoodCommand Delay="0" Mood="angry" />
+																																		<MoodCommand Mood="angry" />
 																																		<FacialMoodCommand FacialMood="angry1" />
 																																		<AnimationCommand Delay="0.99" FragmentId="ADLG_Confusion" Guid="ed83e074-2405-01b4-0353-8b15e0726ac4" Variant="2" />
 																																		<CameraCommand />
@@ -1098,7 +1101,7 @@
 																															</Elements>
 																															<Decision Name="dec44" Priority="MainQuestSubmission" DesignName="bureš raises coin">
 																																<Sequences>
-																																	<Sequence EntryCondition="SequenceUsed('od_burese') AND&#xD;&#xA;!SequenceUsed('od_kristiana')" EndType="Decision" Visibility="Internal" Type="Payment" Name="chce_vyssi_uplatek">
+																																	<Sequence EntryCondition="SequenceUsed('od_burese') AND&#xD;&#xA;!SequenceUsed('od_kristiana')" EndType="Decision" Visibility="Internal" Name="chce_vyssi_uplatek">
 																																		<DesignName StringName="dialog_se_chce_vyssi_upla_oDUc" Text="chce vyšší úplatek" />
 																																		<Elements>
 																																			<Response Role="HUTNIK_SIMA" ReferenceLength="4.26">
@@ -1114,7 +1117,7 @@
 																																		</Elements>
 																																		<Decision Name="dec46" Priority="MainQuestSubmission" DesignName="chce víc peněz">
 																																			<Sequences>
-																																				<Sequence EndType="GoTo" GoToDecision="dec45" Name="seq92">
+																																				<Sequence EndType="GoTo" GoToDecision="dec45" Type="Payment" Name="seq92">
 																																					<DesignName StringName="dialog_se_seq92_NL3P" Text="seq92" />
 																																					<UiPrompt StringName="ui_dialog_se_seq92_CRnB" Text="Dám ti kolik chceš." />
 																																					<Elements>
@@ -1130,7 +1133,7 @@
 																																						</Response>
 																																					</Elements>
 																																				</Sequence>
-																																				<Sequence EndType="GoTo" GoToDecision="dec24" Name="seq93">
+																																				<Sequence EndType="GoTo" GoToDecision="dec24" Visibility="Internal" Name="seq93">
 																																					<DesignName StringName="dialog_se_seq93_Zki2" Text="seq93" />
 																																					<UiPrompt StringName="ui_dialog_se_seq93_G9yS" Text="Tolik ti nedám." />
 																																					<Elements>
@@ -1192,7 +1195,7 @@
 																													</Sequences>
 																												</Decision>
 																											</Sequence>
-																											<Sequence EndType="Decision" Name="seq89">
+																											<Sequence EntryCondition="SequenceUsed('seq93')" EndType="Decision" Type="Payment" Name="seq89">
 																												<DesignName StringName="dialog_se_seq89_zXMS" Text="seq89" />
 																												<UiPrompt StringName="ui_dialog_se_seq89_WpEk" Text="Dám ti kolik chceš." />
 																												<Elements>
@@ -1232,6 +1235,7 @@
 																																		<DesignName StringName="dialog_se_zadani_vokraka_5PhE" Text="zadání vokřáka" />
 																																		<Triggers>
 																																			<Port Name="najdi_vokraka" />
+																																			<Port Name="sima_se_vraci_do_daycyclu" />
 																																		</Triggers>
 																																		<Elements>
 																																			<Response Role="HUTNIK_SIMA" ReferenceLength="3.95">
@@ -1296,7 +1300,7 @@
 																																	</Parenthetical>
 																																	<Text StringName="dial_hutnik_si_kdepak_to__LUhD" Text="Kdepak... to je moc málo." />
 																																	<Commands>
-																																		<AnimationCommand Delay="0" FragmentId="ADLG_Disagree_light" Guid="79d31739-0b64-45f8-804e-b13957903d82" Variant="3" />
+																																		<AnimationCommand FragmentId="ADLG_Disagree_light" Guid="79d31739-0b64-45f8-804e-b13957903d82" Variant="3" />
 																																		<CameraCommand />
 																																	</Commands>
 																																</Response>
@@ -1713,7 +1717,7 @@
 																		</Parenthetical>
 																		<Text StringName="dial_henry_nereknu_rQvi" Text="Neřeknu." />
 																		<Commands>
-																			<AnimationCommand Delay="0" FragmentId="ADLG_Disagree_light" Guid="4d0b5172-105b-411f-bf16-b6f08b544a51" Variant="2" />
+																			<AnimationCommand FragmentId="ADLG_Disagree_light" Guid="4d0b5172-105b-411f-bf16-b6f08b544a51" Variant="2" />
 																			<AnimationCommand Role="HUTNIK_SIMA" Delay="0.7" FragmentId="ADLG_Confusion" Guid="19e1b926-8753-4893-af45-10d39fa3a985" Variant="0" />
 																			<CameraCommand />
 																		</Commands>
@@ -1778,6 +1782,9 @@
 																		<Sequence EndType="EndDialogue" Visibility="Internal" Reputation="quest_decrease_2_minor" Name="ragequit">
 																			<DesignName StringName="dialog_se_ragequit_6aTB" Text="ragequit" />
 																			<UiPrompt StringName="ui_dialog_se_ragequit_Rtnq" Text="Nemusíme se bavit." />
+																			<Triggers>
+																				<Port Name="sima_se_vraci_do_daycyclu" />
+																			</Triggers>
 																			<Elements>
 																				<Response Role="HENRY">
 																					<Parenthetical>
@@ -1812,7 +1819,7 @@
 								</Sequences>
 							</Decision>
 						</Sequence>
-						<Sequence EntryCondition="Port('patrani_hute_aktivni') AND&#xD;&#xA;SequenceUsed('seznameni_s_simou') AND&#xD;&#xA;!Port('hrac_je_v_provozu_huti') AND&#xD;&#xA;SequenceUsed('opustil_trespass') AND&#xD;&#xA;!SequenceUsed('proverka_mimo_trespass') AND&#xD;&#xA;!SequenceUsed('ragequit') AND&#xD;&#xA;!SequenceUsed('zadani_vokraka')" EndType="GoTo" GoToDecision="dec5" Visibility="Internal" Name="proverka_mimo_trespass">
+						<Sequence EntryCondition="Port('patrani_hute_aktivni') AND&#xD;&#xA;SequenceUsed('seznameni_s_simou') AND&#xD;&#xA;Port('sima_ceka_na_dialog') AND &#xD;&#xA;!Port('hrac_je_v_provozu_huti') AND&#xD;&#xA;SequenceUsed('opustil_trespass') AND&#xD;&#xA;!SequenceUsed('zadani_vokraka') AND &#xD;&#xA;!ThisSequenceUsed()" EndType="GoTo" GoToDecision="dec5" Visibility="Internal" Name="proverka_mimo_trespass">
 							<DesignName StringName="dialog_se_proverka_mimo_t_ddKL" Text="prověrka mimo trespass" />
 							<UiPrompt StringName="ui_dialog_se_proverka_mim_plYl" Text="Už můžeš mluvit?" />
 							<Elements>
@@ -1838,7 +1845,7 @@
 								</Response>
 							</Elements>
 						</Sequence>
-						<Sequence EntryCondition="Port('patrani_hute_aktivni') AND&#xD;&#xA;SequenceUsed('seznameni_s_simou') AND&#xD;&#xA;!Port('hrac_je_v_provozu_huti') AND&#xD;&#xA;SequenceUsed('opustil_trespass') AND&#xD;&#xA;SequenceUsed('proverka_mimo_trespass') AND&#xD;&#xA;SequenceUsed('ragequit') AND&#xD;&#xA;!SequenceUsed('zadani_vokraka')" EndType="GoTo" GoToDecision="dec5" Name="seq34">
+						<Sequence EntryCondition="Port('patrani_hute_aktivni') AND&#xD;&#xA;SequenceUsed('seznameni_s_simou') AND&#xD;&#xA;SequenceUsed('ragequit') AND&#xD;&#xA;!SequenceUsed('zadani_vokraka') AND &#xD;&#xA;!SequenceUsed('hrac_odesel_predcasne') AND &#xD;&#xA;!(SequenceUsed('od_burese') OR  SequenceUsed('od_kristiana') OR SequenceUsed('seq10'))" EndType="GoTo" GoToDecision="dec5" Name="seq34">
 							<DesignName StringName="dialog_se_seq34_bmui" Text="seq34" />
 							<UiPrompt StringName="ui_dialog_se_seq34_FA5x" Text="Nezačali jsme nejlíp..." />
 							<Elements>
@@ -1864,7 +1871,7 @@
 								</Response>
 							</Elements>
 						</Sequence>
-						<Sequence EntryCondition="Port('patrani_hute_aktivni') AND&#xD;&#xA;SequenceUsed('seznameni_s_simou') AND&#xD;&#xA;Port('hrac_je_v_provozu_huti') AND&#xD;&#xA;SequenceUsed('opustil_trespass') AND&#xD;&#xA;!SequenceUsed('zadani_vokraka') AND &#xD;&#xA;!Port('sima_jde_na_spot')" EndType="EndDialogue" Name="seq100">
+						<Sequence EntryCondition="Port('patrani_hute_aktivni') AND&#xD;&#xA;SequenceUsed('seznameni_s_simou') AND&#xD;&#xA;SequenceUsed('opustil_trespass') AND&#xD;&#xA;!SequenceUsed('zadani_vokraka') AND &#xD;&#xA;!Port('sima_ceka_na_dialog') AND &#xD;&#xA;(!(SequenceUsed('od_burese') OR  SequenceUsed('od_kristiana') OR SequenceUsed('seq10')) AND  !SequenceUsed('ragequit')) AND &#xD;&#xA;!Port('sima_v_leaningarea')" EndType="EndDialogue" Name="seq100">
 							<DesignName StringName="dialog_se_seq100_TTQ8" Text="seq100" />
 							<UiPrompt StringName="ui_dialog_se_seq100_igdJ" Text="Jsem zpátky..." />
 							<Triggers>
@@ -1891,7 +1898,7 @@
 								</Response>
 							</Elements>
 						</Sequence>
-						<Sequence EntryCondition="Port('patrani_hute_aktivni') AND&#xD;&#xA;SequenceUsed('seznameni_s_simou') AND&#xD;&#xA;!Port('hrac_je_v_provozu_huti') AND&#xD;&#xA;SequenceUsed('opustil_trespass') AND&#xD;&#xA;SequenceUsed('proverka_mimo_trespass') AND&#xD;&#xA;SequenceUsed('hrac_odesel_predcasne') AND&#xD;&#xA;!SequenceUsed('zadani_vokraka')" EndType="GoTo" GoToDecision="dec24" Name="seq101">
+						<Sequence EntryCondition="Port('patrani_hute_aktivni') AND&#xD;&#xA;SequenceUsed('seznameni_s_simou') AND&#xD;&#xA;SequenceUsed('hrac_odesel_predcasne') AND&#xD;&#xA;!SequenceUsed('zadani_vokraka')" EndType="GoTo" GoToDecision="dec24" Name="seq101">
 							<DesignName StringName="dialog_se_seq101_o9sd" Text="seq101" />
 							<UiPrompt StringName="ui_dialog_se_seq101_hEIT" Text="Potřebuju to vědět!" />
 							<Elements>

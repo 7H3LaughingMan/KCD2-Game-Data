@@ -69,7 +69,7 @@
 			<Variable name="behaviorPhase" type="_int" values="0" isPersistent="0" form="single" />
 			<Variable name="boidData" type="animal:boid" values="" isPersistent="0" form="single" />
 			<Variable name="homeAreaType" type="_string" values="" isPersistent="0" form="single" />
-			<Variable name="init_additionalParams_idle" type="additionalMoveParams" values="turnBeforeMove(true),useStoppingDistanceForCuttingFromEnd(false)" isPersistent="0" form="single" />
+			<Variable name="init_additionalParams_idle" type="additionalMoveParams" values="useStoppingDistanceForCuttingFromEnd(false)" isPersistent="0" form="single" />
 			<Variable name="init_additionalParams_run" type="additionalMoveParams" values="destChangedThreshold(&apos;200ms&apos;)" isPersistent="0" form="single" />
 			<Variable name="init_pathFindParams" type="pathFindingParams" values="usePaths(false),useSmartObjects(false),useGeneratedNSO(false)" isPersistent="0" form="single" />
 			<Variable name="onRestBehaviorDone" type="_bool" values="" isPersistent="0" form="single" />
@@ -114,7 +114,7 @@
 										</UrgencyDecorator>
 									</IfCondition>
 									<IfCondition failOnCondition="true" condition="$behaviorPhase == 2">
-										<UrgencyDecorator Urgency="Slow">
+										<UrgencyDecorator Urgency="Fast">
 											<Parallel successMode="Any" failureMode="Any">
 												<IfGate atomic="false" condition="$behaviorPhase ~= 2" RunLogic="KeepRunning">
 													<Success />
@@ -132,6 +132,7 @@
 												<Success />
 											</IfGate>
 											<Sequence>
+												<Wait duration="&apos;3s&apos;" timeType="GameTime" doFail="false" variation="&apos;1s&apos;" />
 												<Callback_animal_boidTemplate_onRest pathFindParams="$init_pathFindParams" additionalMoveParams="$init_additionalParams_idle" EventName="&apos;OnRest&apos;" />
 												<Expression expressions="$onRestBehaviorDone = true" />
 											</Sequence>
@@ -259,6 +260,9 @@
 												</IfGate>
 												<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
 													<OutputBreakpoints />
+													<Wait hasInputBreakpoint="0" comment="" breakpointFlags="0">
+														<OutputBreakpoints />
+													</Wait>
 													<Callback_animal_boidTemplate_onRest hasInputBreakpoint="0" comment="" breakpointFlags="0">
 														<OutputBreakpoints />
 													</Callback_animal_boidTemplate_onRest>

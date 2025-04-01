@@ -124,6 +124,20 @@
 						<Vertex>uBJ91dlL</Vertex>
 					</Edge>
 				</If>
+				<If Name="if130" PositionY="840" PositionX="3300">
+					<Edge From="promluv_s_mladou_o_absenci_diagnozy.Active" To="Condition">
+						<Vertex>Dt7DG4DD</Vertex>
+						<Vertex>nsR4E7zc</Vertex>
+					</Edge>
+					<Edge From="petrDead.A" To="Exec">
+						<Vertex>b9ba3ovY</Vertex>
+						<Vertex>TQSfHPw2</Vertex>
+					</Edge>
+					<Edge From="mladaDead.A" To="Exec">
+						<Vertex>0xMQvkqE</Vertex>
+						<Vertex>XemckPu5</Vertex>
+					</Edge>
+				</If>
 				<If Name="if7" PositionY="790" PositionX="530">
 					<Edge From="petrDead.A" To="Exec" />
 					<Edge From="isActiveSomehow.bool" To="Condition">
@@ -199,7 +213,7 @@
 						<Vertex>3dnrlxdE</Vertex>
 					</Edge>
 				</leceni_>
-				<mlada__zprava_o_stavu_diagnozy Name="mlada__zprava_o_stavu_diagnozy" PositionY="1020" PositionX="2880">
+				<mlada__zprava_o_stavu_diagnozy Name="mlada__zprava_o_stavu_diagnozy" PositionY="1020" PositionX="2830">
 					<Edge From="prohlidniPetra.NoDiagnose" To="bez_diagnozy" />
 					<Edge From="or112.bool" To="leceni_dokonceno" />
 					<Edge From="or123.bool" To="diagnoza_uspesne_dokoncena" />
@@ -253,6 +267,15 @@
 				<TriggerSequence Name="mladaDead" PositionY="960" PositionX="20">
 					<Edge From="hrbitov.mlada_zkapala" To="Exec" />
 				</TriggerSequence>
+				<IfFunction Name="mladaDeadObjActive" PositionY="2960" PositionX="3840" MethodName="math::boolean::Not" DeclaringType="math::boolean">
+					<Edge From="mladaDead.A" To="Exec">
+						<Vertex>M1La9N65</Vertex>
+					</Edge>
+					<Edge From="zjisti_jestli_lecba_zabrala.None" To="Value">
+						<Vertex>xSot5bEm</Vertex>
+						<Vertex>xEeUkYN9</Vertex>
+					</Edge>
+				</IfFunction>
 				<Function Name="notOnNoDiagnose" PositionY="1620" PositionX="-290" MethodName="math::boolean::Not" DeclaringType="math::boolean">
 					<Edge From="prohlidniPetra.NoDiagnose" To="Value">
 						<Vertex>YDCaDzA0</Vertex>
@@ -320,6 +343,7 @@
 					<Edge From="ifand91.True" To="quest_done" />
 					<Edge From="petrDead.A" To="petr_zemrel">
 						<Vertex>b9ba3ovY</Vertex>
+						<Vertex>TQSfHPw2</Vertex>
 						<Vertex>LusWpnpo</Vertex>
 					</Edge>
 					<Edge From="petrDead.B" To="quest_failed">
@@ -336,16 +360,25 @@
 						<Vertex>jqlvsvKa</Vertex>
 					</Edge>
 				</Output>
-				<TriggerSequence Name="peterCuredHenryGetsStone" PositionY="3060" PositionX="3800">
+				<TriggerSequence Name="peterCuredHenryGetsStone" PositionY="3180" PositionX="3800">
 					<Edge From="mlada_manzelka_nemocnyho__zisk_kamene_nebo_rewardu.manza_udzraven_a_henry_dostane_kamen" To="Exec" />
 				</TriggerSequence>
-				<TriggerSequence Name="peterCuredNoStone" PositionY="3220" PositionX="3800">
+				<TriggerSequence Name="peterCuredNoStone" PositionY="3340" PositionX="3800">
 					<Edge From="mlada_manzelka_nemocnyho__zisk_kamene_nebo_rewardu.manzel_uzdraven_mlada_kamen_uz_nema" To="Exec" />
 				</TriggerSequence>
-				<TriggerSequence Name="peterNotCuredHenryNoStone" PositionY="3380" PositionX="3800">
+				<IfFunction Name="peterDeadObjActive" PositionY="2810" PositionX="3840" MethodName="math::boolean::Not" DeclaringType="math::boolean">
+					<Edge From="petrDead.A" To="Exec">
+						<Vertex>gUQG0CQN</Vertex>
+					</Edge>
+					<Edge From="zjisti_jestli_lecba_zabrala.None" To="Value">
+						<Vertex>xSot5bEm</Vertex>
+						<Vertex>xEeUkYN9</Vertex>
+					</Edge>
+				</IfFunction>
+				<TriggerSequence Name="peterNotCuredHenryNoStone" PositionY="3500" PositionX="3800">
 					<Edge From="mlada_manzelka_nemocnyho__zisk_kamene_nebo_rewardu.manza_neudzraven_a_henry_dostane_kamen" To="Exec" />
 				</TriggerSequence>
-				<TriggerSequence Name="peterNotCuredNoStone" PositionY="3540" PositionX="3790">
+				<TriggerSequence Name="peterNotCuredNoStone" PositionY="3660" PositionX="3780">
 					<Edge From="mlada_manzelka_nemocnyho__zisk_kamene_nebo_rewardu.manza_neudzraven" To="Exec" />
 				</TriggerSequence>
 				<If Name="petr_dead_and_pockej_active" PositionY="-1250" PositionX="1210">
@@ -410,11 +443,8 @@
 				</State>
 				<State Name="promluv_s_mladou_o_absenci_diagnozy" PositionY="1150" PositionX="3550" RequiredForOutput="kutnohorsko" TypeT="ProgressFailable">
 					<Edge From="prohlidniPetra.OnNoDiagnose" To="SetActive" />
-					<Edge From="mladaDead.A" To="SetCanceled">
-						<Vertex>0xMQvkqE</Vertex>
-						<Vertex>XemckPu5</Vertex>
-					</Edge>
 					<Edge From="cantCurePeterFail.A" To="SetDone" />
+					<Edge From="if130.True" To="SetCanceled" />
 				</State>
 				<SaveGame Name="savegame118" PositionY="460" PositionX="1990">
 					<Constant Name="Objective" Value="prohledni_petra" />
@@ -476,9 +506,8 @@
 					<Edge From="peterCuredHenryGetsStone.A" To="SetCuredWithStone" />
 					<Edge From="peterNotCuredHenryNoStone.A" To="SetNotCuredWithSTone" />
 					<Edge From="peterNotCuredNoStone.A" To="SetNotCured" />
-					<Edge From="petrDead.A" To="SetCanceled">
-						<Vertex>gUQG0CQN</Vertex>
-					</Edge>
+					<Edge From="peterDeadObjActive.True" To="SetCanceled" />
+					<Edge From="mladaDeadObjActive.True" To="SetCanceled2" />
 				</State>
 			</Nodes>
 			<EdgeVertices>
@@ -486,12 +515,12 @@
 				<EdgeVertex Name="0xMQvkqE" PositionY="1630" PositionX="400" />
 				<EdgeVertex Name="1RMBMe2I" PositionY="1700" PositionX="5350" />
 				<EdgeVertex Name="3dnrlxdE" PositionY="1260" PositionX="1510" />
-				<EdgeVertex Name="5IBWGLya" PositionY="3190" PositionX="4600" />
+				<EdgeVertex Name="5IBWGLya" PositionY="3320" PositionX="4600" />
 				<EdgeVertex Name="5UB9tVpG" PositionY="1820" PositionX="1980" />
 				<EdgeVertex Name="6aecsjnI" PositionY="1680" PositionX="1080" />
 				<EdgeVertex Name="6Dvl5G4u" PositionY="1740" PositionX="1100" />
 				<EdgeVertex Name="7np23sGo" PositionY="2370" PositionX="4800" />
-				<EdgeVertex Name="9BjCf1Sz" PositionY="3830" PositionX="3870" />
+				<EdgeVertex Name="9BjCf1Sz" PositionY="3960" PositionX="3860" />
 				<EdgeVertex Name="9nyBTeQW" PositionY="2540" PositionX="1530" />
 				<EdgeVertex Name="aNmPDGDY" PositionY="-980" PositionX="370" />
 				<EdgeVertex Name="b9ba3ovY" PositionY="-1430" PositionX="830" />
@@ -501,19 +530,20 @@
 				<EdgeVertex Name="CKjEt4BK" PositionY="1960" PositionX="-120" />
 				<EdgeVertex Name="cPqcy3nl" PositionY="340" PositionX="-220" />
 				<EdgeVertex Name="cswtc9Vv" PositionY="2480" PositionX="2720" />
+				<EdgeVertex Name="Dt7DG4DD" PositionY="810" PositionX="3720" />
 				<EdgeVertex Name="dWhCt2Rx" PositionY="2630" PositionX="-330" />
 				<EdgeVertex Name="eLDqEJvB" PositionY="1760" PositionX="420" />
 				<EdgeVertex Name="ErNql3s9" PositionY="1680" PositionX="300" />
-				<EdgeVertex Name="f410ysVn" PositionY="3530" PositionX="4610" />
+				<EdgeVertex Name="f410ysVn" PositionY="3660" PositionX="4600" />
 				<EdgeVertex Name="fAmMbGn2" PositionY="1800" PositionX="790" />
 				<EdgeVertex Name="fGLebgjI" PositionY="1700" PositionX="1090" />
 				<EdgeVertex Name="fHhfoGfv" PositionY="273" PositionX="1689" />
 				<EdgeVertex Name="FQ8MTYCB" PositionY="1780" PositionX="430" />
 				<EdgeVertex Name="ftjXyWJH" PositionY="1850" PositionX="1980" />
-				<EdgeVertex Name="G6vPHdWt" PositionY="3730" PositionX="5400" />
+				<EdgeVertex Name="G6vPHdWt" PositionY="3940" PositionX="5380" />
 				<EdgeVertex Name="gUQG0CQN" PositionY="2900" PositionX="500" />
 				<EdgeVertex Name="gXt9SpMa" PositionY="1570" PositionX="-270" />
-				<EdgeVertex Name="h5rvro9J" PositionY="3666" PositionX="4581" />
+				<EdgeVertex Name="h5rvro9J" PositionY="3790" PositionX="4580" />
 				<EdgeVertex Name="HnTWgNGe" PositionY="-170" PositionX="1360" />
 				<EdgeVertex Name="CHG0MsIT" PositionY="-1170" PositionX="440" />
 				<EdgeVertex Name="I1PV51kL" PositionY="771" PositionX="367" />
@@ -521,17 +551,19 @@
 				<EdgeVertex Name="IYSWBL8Q" PositionY="1780" PositionX="1100" />
 				<EdgeVertex Name="JEoBIVyW" PositionY="1750" PositionX="-380" />
 				<EdgeVertex Name="Jg3wsHyT" PositionY="2580" PositionX="-410" />
-				<EdgeVertex Name="jHDIPsXE" PositionY="3710" PositionX="1600" />
+				<EdgeVertex Name="jHDIPsXE" PositionY="3910" PositionX="1600" />
 				<EdgeVertex Name="JKfM7bRx" PositionY="-1310" PositionX="2210" />
 				<EdgeVertex Name="JnRuDTVC" PositionY="-830" PositionX="1530" />
 				<EdgeVertex Name="JPKaawV0" PositionY="700" PositionX="1830" />
 				<EdgeVertex Name="jqlvsvKa" PositionY="-1410" PositionX="3980" />
 				<EdgeVertex Name="LusWpnpo" PositionY="-1460" PositionX="3990" />
 				<EdgeVertex Name="lvSXTBzl" PositionY="-70" PositionX="3860" />
+				<EdgeVertex Name="M1La9N65" PositionY="3040" PositionX="520" />
 				<EdgeVertex Name="mdeTBvo7" PositionY="-480" PositionX="5130" />
 				<EdgeVertex Name="mgvw9034" PositionY="2340" PositionX="2720" />
 				<EdgeVertex Name="MLT8QhaA" PositionY="1710" PositionX="310" />
 				<EdgeVertex Name="n9tkEIyY" PositionY="2470" PositionX="1540" />
+				<EdgeVertex Name="nsR4E7zc" PositionY="810" PositionX="3330" />
 				<EdgeVertex Name="nwRqY9HT" PositionY="-220" PositionX="1350" />
 				<EdgeVertex Name="nXxMxVYz" PositionY="1662" PositionX="1360" />
 				<EdgeVertex Name="onhe4wRE" PositionY="490" PositionX="420" />
@@ -545,10 +577,11 @@
 				<EdgeVertex Name="SLHSWfUy" PositionY="1660" PositionX="290" />
 				<EdgeVertex Name="SS2zCmyR" PositionY="-200" PositionX="3630" />
 				<EdgeVertex Name="Su6sr7jD" PositionY="-350" PositionX="2000" />
-				<EdgeVertex Name="tD59uTHQ" PositionY="3350" PositionX="4590" />
+				<EdgeVertex Name="tD59uTHQ" PositionY="3480" PositionX="4580" />
 				<EdgeVertex Name="tDQjCksS" PositionY="1800" PositionX="1980" />
-				<EdgeVertex Name="tg6J32S4" PositionY="3770" PositionX="240" />
+				<EdgeVertex Name="tg6J32S4" PositionY="3970" PositionX="240" />
 				<EdgeVertex Name="thrama5m" PositionY="1830" PositionX="790" />
+				<EdgeVertex Name="TQSfHPw2" PositionY="-1450" PositionX="2830" />
 				<EdgeVertex Name="uBJ91dlL" PositionY="1960" PositionX="-280" />
 				<EdgeVertex Name="uU3RQgya" PositionY="140" PositionX="2730" />
 				<EdgeVertex Name="uyfAfk0A" PositionY="-200" PositionX="1360" />
@@ -556,8 +589,8 @@
 				<EdgeVertex Name="vertex101" PositionY="-10" PositionX="-350" />
 				<EdgeVertex Name="vertex102" PositionY="10" PositionX="-350" />
 				<EdgeVertex Name="vertex103" PositionY="-20" PositionX="420" />
-				<EdgeVertex Name="vertex108" PositionY="3690" PositionX="4390" />
-				<EdgeVertex Name="vertex109" PositionY="3550" PositionX="290" />
+				<EdgeVertex Name="vertex108" PositionY="3820" PositionX="4380" />
+				<EdgeVertex Name="vertex109" PositionY="3750" PositionX="300" />
 				<EdgeVertex Name="vertex38" PositionY="2680" PositionX="4830" />
 				<EdgeVertex Name="vertex39" PositionY="2340" PositionX="3230" />
 				<EdgeVertex Name="vertex44" PositionY="470" PositionX="1090" />
@@ -566,8 +599,10 @@
 				<EdgeVertex Name="vertex57" PositionY="1610" PositionX="2590" />
 				<EdgeVertex Name="vertex58" PositionY="620" PositionX="1080" />
 				<EdgeVertex Name="vertex59" PositionY="620" PositionX="540" />
+				<EdgeVertex Name="xEeUkYN9" PositionY="2390" PositionX="3890" />
 				<EdgeVertex Name="XemckPu5" PositionY="1630" PositionX="3200" />
 				<EdgeVertex Name="xQ3Enta8" PositionY="340" PositionX="-60" />
+				<EdgeVertex Name="xSot5bEm" PositionY="2396" PositionX="4452" />
 				<EdgeVertex Name="Y498aSzo" PositionY="1640" PositionX="1080" />
 				<EdgeVertex Name="YAGrAD55" PositionY="-1300" PositionX="1210" />
 				<EdgeVertex Name="YDCaDzA0" PositionY="1590" PositionX="1100" />

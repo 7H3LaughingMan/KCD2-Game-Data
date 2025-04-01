@@ -14,6 +14,11 @@
 				</Port>
 			</Ports>
 			<Nodes>
+				<BuffEffect Name="buff17" PositionY="-500" PositionX="800">
+					<Constant Name="BuffGUID" Value="7d89d580-f6aa-45d2-aa66-6ce68d7d817d" />
+					<Edge From="makearray16.Array" To="Souls" />
+					<Edge From="state9.NonAdvantage" To="IsActive" />
+				</BuffEffect>
 				<ClothingPresetOverride Name="clothingpresetoverride11" PositionY="440" PositionX="1310">
 					<Asset Name="Souls" Alias="Jimram" />
 					<Constant Name="ClothingPreset" Value="19479703-42b6-4e24-a7e1-0b8e5ae2eb35" />
@@ -54,6 +59,11 @@
 					<Edge From="kurna_hora_ma_vyhodu" To="Condition" />
 					<Edge From="preset_active" To="Exec" />
 				</If>
+				<MakeArray Name="makearray16" PositionY="-480" PositionX="450" TypeT="wh::rpgmodule::Souls">
+					<Asset Name="A" Alias="Jimram" />
+					<Asset Name="B" Alias="Mikulas" />
+					<Asset Name="C" Alias="Linhart" />
+				</MakeArray>
 				<Function Name="or6" PositionY="70" PositionX="730" MethodName="math::boolean::Or" DeclaringType="math::boolean">
 					<Edge From="state9.Advantage" To="A" />
 					<Edge From="state9.NonAdvantage" To="B" />
@@ -75,7 +85,12 @@
 				<WeaponPresetOverride Name="weaponpresetoverride10_1" PositionY="-70" PositionX="1060">
 					<Asset Name="Souls" Alias="menhart" />
 					<Constant Name="WeaponPreset" Value="8255b878-7950-46aa-a969-fc1bff3fd0fe" />
-					<Edge From="or6.bool" To="IsActive" />
+					<Edge From="state9.NonAdvantage" To="IsActive" />
+				</WeaponPresetOverride>
+				<WeaponPresetOverride Name="weaponpresetoverride10_1_1" PositionY="-290" PositionX="1070">
+					<Asset Name="Souls" Alias="menhart" />
+					<Constant Name="WeaponPreset" Value="2a86ab16-1d37-4f2d-9dfb-4331e00b71ba" />
+					<Edge From="state9.Advantage" To="IsActive" />
 				</WeaponPresetOverride>
 				<WeaponPresetOverride Name="weaponpresetoverride12" PositionY="440" PositionX="1760">
 					<Asset Name="Souls" Alias="Jimram" />
@@ -92,7 +107,7 @@
 					<Constant Name="WeaponPreset" Value="8255b878-7950-46aa-a969-fc1bff3fd0fe" />
 					<Edge From="or6.bool" To="IsActive" />
 				</WeaponPresetOverride>
-				<WeaponPresetOverride Name="weaponpresetoverride14" PositionY="-260" PositionX="480">
+				<WeaponPresetOverride Name="weaponpresetoverride14" PositionY="-280" PositionX="630">
 					<Asset Name="Souls" Alias="kumel" />
 					<Constant Name="PriorityEquip" Value="true" />
 					<Constant Name="WeaponPreset" Value="2213e331-d425-4813-b196-e2761566b2ec" />

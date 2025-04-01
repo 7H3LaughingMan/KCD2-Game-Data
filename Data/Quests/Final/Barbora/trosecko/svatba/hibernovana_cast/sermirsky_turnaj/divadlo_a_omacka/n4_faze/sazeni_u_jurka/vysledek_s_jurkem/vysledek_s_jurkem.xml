@@ -7,7 +7,7 @@
 					<DesignName StringName="vysledek__duel_uz_skoncil_93EI" Text="duel už skončil" />
 				</Port>
 				<Port Name="jindrich_si_nevsadil" Direction="In" Type="bool">
-					<DesignName StringName="vysledek__jindrich_si_nev_ogDn" Text="Jindřich si nevsadil" />
+					<DesignName StringName="vysledek__jindrich_si_nev_ogDn" Text="Jindřich si vsadil" />
 				</Port>
 				<Port Name="jindrich_prohral_sazku" Direction="In" Type="bool">
 					<DesignName StringName="vysledek__jindra_prohral_SkkW" Text="Jindřich prohrál sázku" />
@@ -42,7 +42,7 @@
 				</SelectedSouls>
 				<Decision Name="dec1" Priority="MainQuestSubmission">
 					<Sequences>
-						<Sequence EntryCondition="Port('duel_uz_skoncil') AND Port('jindrich_si_nevsadil')" EndType="Decision" Name="seq2">
+						<Sequence EntryCondition="Port('duel_uz_skoncil') AND&#xD;&#xA;Port('jindrich_si_nevsadil') AND &#xD;&#xA;!ThisSequenceUsed()" EndType="Decision" Name="seq2">
 							<DesignName StringName="vysledek__seq2_XZLO" Text="seq2" />
 							<Elements>
 								<Response Role="JURKO" />
@@ -82,7 +82,7 @@
 												<Text StringName="vysl_jurko_kurv_chlapena__RTIB" Text="Kurva, chlape... Máš na to nějaké oko. Tož tady máš! Pálenica je tvoja." />
 												<Commands>
 													<MoodCommand Delay="3.64" />
-													<MoodCommand Delay="0" Mood="angry" />
+													<MoodCommand Mood="angry" />
 													<AnimationCommand Delay="1.56" FragmentId="ADLG_Confusion" Guid="50b791f6-65d8-4a7c-bec6-12e917a40543" Variant="1" />
 													<AnimationCommand Delay="5.12" FragmentId="ADLG_Give" Guid="c82ba550-1031-4af2-ebc4-ccea2f571cb8" Variant="1" DesiredDuration="3.87" />
 													<AnimationCommand Role="HENRY" Delay="6.44" FragmentId="ADLG_Take" Guid="bfd17de7-2010-4498-3fc5-41a5dfb27c96" Variant="1" />
@@ -232,7 +232,7 @@
 															<Text StringName="vysl_henry_a_kurva_Qj2h" Text="A kurva!" />
 															<Commands>
 																<MoodCommand Mood="happy" />
-																<AnimationCommand Delay="0" FragmentId="ADLG_Disagree" Guid="d09a04a8-be77-bf15-314a-2b468566d0af" Variant="2" />
+																<AnimationCommand FragmentId="ADLG_Disagree" Guid="d09a04a8-be77-bf15-314a-2b468566d0af" Variant="2" />
 																<CameraCommand />
 															</Commands>
 														</Response>

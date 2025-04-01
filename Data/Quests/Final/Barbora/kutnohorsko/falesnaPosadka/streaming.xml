@@ -33,6 +33,18 @@
 				<Port Name="vojaci_leavelevel" Direction="In" Type="trigger">
 					<DesignName StringName="streaming_vojaci_leavelev_CEKG" Text="vojáci leaveLevel" />
 				</Port>
+				<Port Name="npc__fakesoldiers__profile_streamed" Direction="Out" Type="trigger">
+					<DesignName StringName="streaming_profil_s_npc_fa_ttlN" Text="NPC - FakeSoldiers - profile Streamed" />
+				</Port>
+				<Port Name="npc__fakesoldiers__profile_unstreamed" Direction="Out" Type="trigger">
+					<DesignName StringName="streaming_npc__fakesoldie_C0E2" Text="NPC - FakeSoldiers - profile Unstreamed" />
+				</Port>
+				<Port Name="patch_1_2__camp_je_odstreamovany" Direction="Out" Type="trigger">
+					<DesignName StringName="streaming_patch_1_2__camp_bx8u" Text="Patch_1_2 - Camp je odstreamovaný" />
+				</Port>
+				<Port Name="m45__papezsky_legat__honicka_probiha" Direction="In" Type="bool">
+					<DesignName StringName="streaming_m45__papezsky_l_YJ33" Text="M45 - Papežský legát - Honička probíhá" />
+				</Port>
 			</Ports>
 			<Nodes>
 				<Function Name="and21" PositionY="560" PositionX="1020" MethodName="math::boolean::And" DeclaringType="math::boolean">
@@ -77,6 +89,7 @@
 						<Vertex>92bupve5</Vertex>
 						<Vertex>g0jTnnCD</Vertex>
 					</Edge>
+					<Edge From="ifand1.True" To="SetStreamingUnloaded" />
 				</State>
 				<DistanceTrigger Name="distancetrigger3" PositionY="-70" PositionX="-440">
 					<Asset Name="Origin" Alias="player" />
@@ -104,6 +117,21 @@
 						<Vertex>vertex2</Vertex>
 					</Edge>
 				</If>
+				<IfFunction Name="ifand1" PositionY="-720" PositionX="-700" MethodName="math::boolean::And" DeclaringType="math::boolean">
+					<Edge From="not1.bool" To="A" />
+					<Edge From="dezerteri_active" To="B">
+						<Vertex>TXXJVku6</Vertex>
+					</Edge>
+					<Edge From="blockadeState.Unstreamed" To="C">
+						<Vertex>z2Nxynrd</Vertex>
+						<Vertex>yxPaIpDt</Vertex>
+					</Edge>
+					<Edge From="triggersequence1.B" To="Exec" />
+				</IfFunction>
+				<IfFunction Name="ifand2" PositionY="-1040" PositionX="730" MethodName="math::boolean::And" DeclaringType="math::boolean">
+					<Edge From="triggersequence1.A" To="Exec" />
+					<Edge From="blockadeState.Unstreamed" To="A" />
+				</IfFunction>
 				<IfFunction Name="ifand24" PositionY="870" PositionX="510" MethodName="math::boolean::And" DeclaringType="math::boolean">
 					<Edge From="patchtrigger_falesnaPosadka_TriggerLeaveLevelModulesStreaming.OnPatch" To="Exec" />
 					<Edge From="or13.bool" To="A">
@@ -136,6 +164,12 @@
 						<Vertex>AmzFB55N</Vertex>
 					</Edge>
 				</leavelevelhandling_v2>
+				<Function Name="not1" PositionY="-720" PositionX="-1070" MethodName="math::boolean::Not" DeclaringType="math::boolean">
+					<Edge From="m45__papezsky_legat__honicka_probiha" To="Value" />
+				</Function>
+				<Function Name="not28" PositionY="-710" PositionX="730" MethodName="math::boolean::Not" DeclaringType="math::boolean">
+					<Edge From="blockadeState.Unstreamed" To="Value" />
+				</Function>
 				<Function Name="or13" PositionY="-130" PositionX="740" MethodName="math::boolean::Or" DeclaringType="math::boolean">
 					<Edge From="blockadeState.StreamingUnloaded" To="A">
 						<Vertex>YYqpz5gq</Vertex>
@@ -157,21 +191,37 @@
 						<Vertex>BzAA7fFM</Vertex>
 						<Vertex>ArqKHcDR</Vertex>
 					</Edge>
+					<Edge From="leavelevelhandling_v2.onstreamed" To="npc__fakesoldiers__profile_streamed">
+						<Vertex>s1uYTF4r</Vertex>
+					</Edge>
+					<Edge From="leavelevelhandling_v2.onunstreamed" To="npc__fakesoldiers__profile_unstreamed">
+						<Vertex>81S1be7V</Vertex>
+					</Edge>
+					<Edge From="ifand2.True" To="patch_1_2__camp_je_odstreamovany">
+						<Vertex>bLQ5zJQj</Vertex>
+					</Edge>
 				</Output>
 				<PatchTrigger Name="patchtrigger_falesnaPosadka_TriggerLeaveLevelModulesStreaming" PositionY="900" PositionX="30">
 					<Constant Name="TransitionFromVersion" Value="ver_01_00" />
 				</PatchTrigger>
+				<PatchTrigger Name="patchtrigger_fixPotentionallyUnstreamedCampAndNpcs" PositionY="-1120" PositionX="-1190">
+					<Constant Name="TransitionToVersion" Value="ver_01_02" />
+				</PatchTrigger>
+				<Layer Name="profile_defaultPath" PositionY="-870" PositionX="730">
+					<Asset Name="Profiles" Alias="defaultPath_profile" />
+					<Edge From="blockadeState.Unstreamed" To="IsActive" />
+				</Layer>
 				<Layer Name="profile_falesnaPosadka_soldier_1" PositionY="980" PositionX="1610">
 					<Asset Name="Profiles" Alias="npcProfile_fakeSoldiers" />
 					<Edge From="or27.bool" To="IsActive" />
 				</Layer>
+				<Layer Name="profile_streamedCampPath" PositionY="-710" PositionX="980">
+					<Asset Name="Profiles" Alias="streamedCampPath_profile" />
+					<Edge From="not28.bool" To="IsActive" />
+				</Layer>
 				<Layer Name="profile11" PositionY="-130" PositionX="1000">
 					<Asset Name="Profiles" Alias="enviroProfile_fakeSoldiersCamp" />
 					<Edge From="or13.bool" To="IsActive" />
-				</Layer>
-				<Layer Name="profile9" PositionY="-450" PositionX="740">
-					<Asset Name="Profiles" Alias="nebanditiProfile" />
-					<Edge From="blockadeState.Unstreamed" To="IsActive" />
 				</Layer>
 				<ProfileStateTrigger Name="profilestatetrigger12" PositionY="-290" PositionX="740">
 					<Asset Name="Profiles" Alias="enviroProfile_fakeSoldiersCamp" />
@@ -191,16 +241,21 @@
 					<Constant Name="TimeType" Value="WorldTime" />
 					<Edge From="vojaci_odejdou_sami" To="SetRunning" />
 				</Timer>
+				<TriggerSequence Name="triggersequence1" PositionY="-1010" PositionX="-1070">
+					<Edge From="patchtrigger_fixPotentionallyUnstreamedCampAndNpcs.OnPatch" To="Exec" />
+				</TriggerSequence>
 			</Nodes>
 			<EdgeVertices>
 				<EdgeVertex Name="0A8gw0AH" PositionY="-110" PositionX="-1130" />
 				<EdgeVertex Name="1ntUVMSz" PositionY="1030" PositionX="490" />
 				<EdgeVertex Name="1VuP31x2" PositionY="-480" PositionX="160" />
 				<EdgeVertex Name="7boFFUbr" PositionY="-40" PositionX="640" />
+				<EdgeVertex Name="81S1be7V" PositionY="1288" PositionX="1905" />
 				<EdgeVertex Name="92bupve5" PositionY="300" PositionX="-660" />
 				<EdgeVertex Name="AmzFB55N" PositionY="1050" PositionX="-1220" />
 				<EdgeVertex Name="ArqKHcDR" PositionY="79" PositionX="1186" />
 				<EdgeVertex Name="Bhb0zeRy" PositionY="122" PositionX="907" />
+				<EdgeVertex Name="bLQ5zJQj" PositionY="-950" PositionX="1790" />
 				<EdgeVertex Name="BzAA7fFM" PositionY="80" PositionX="1040" />
 				<EdgeVertex Name="d88cDQhH" PositionY="60" PositionX="1180" />
 				<EdgeVertex Name="g0jTnnCD" PositionY="300" PositionX="-180" />
@@ -210,7 +265,9 @@
 				<EdgeVertex Name="mR4dCkNU" PositionY="-10" PositionX="560" />
 				<EdgeVertex Name="oVIdDC4I" PositionY="-480" PositionX="990" />
 				<EdgeVertex Name="RumU5tev" PositionY="1420" PositionX="460" />
+				<EdgeVertex Name="s1uYTF4r" PositionY="1261" PositionX="1833" />
 				<EdgeVertex Name="tJxTuwUK" PositionY="120" PositionX="600" />
+				<EdgeVertex Name="TXXJVku6" PositionY="-560" PositionX="-1230" />
 				<EdgeVertex Name="UyocUFLF" PositionY="60" PositionX="780" />
 				<EdgeVertex Name="vertex1" PositionY="318" PositionX="371" />
 				<EdgeVertex Name="vertex2" PositionY="320" PositionX="-70" />
@@ -220,7 +277,9 @@
 				<EdgeVertex Name="vertex7" PositionY="320" PositionX="-660" />
 				<EdgeVertex Name="vjlFpMar" PositionY="960" PositionX="800" />
 				<EdgeVertex Name="yuQpo92t" PositionY="280" PositionX="-660" />
+				<EdgeVertex Name="yxPaIpDt" PositionY="-800" PositionX="-700" />
 				<EdgeVertex Name="YYqpz5gq" PositionY="-80" PositionX="640" />
+				<EdgeVertex Name="z2Nxynrd" PositionY="-793" PositionX="462" />
 			</EdgeVertices>
 			<Types>
 				<Type TypeName="BlockadeState">
@@ -236,12 +295,13 @@
 			</Types>
 			<Assets>
 				<ProfileAsset Name="enviroProfile_fakeSoldiersCamp" AssetProfiles="falesna_posadka_bandits" />
-				<ProfileAsset Name="nebanditiProfile" AssetProfiles="staraKutna_paths_default" />
+				<ProfileAsset Name="defaultPath_profile" AssetProfiles="staraKutna_paths_default" />
 				<SoulAsset Name="fakeSoldier_1" SharedSoulGuids="2b1c5e74-07d4-4237-9dcc-17038084ee32" />
 				<SoulAsset Name="fakeSoldier_2" SharedSoulGuids="5c15a4f6-f047-41cf-9942-41f8dcaea589" />
 				<SoulAsset Name="fakeSoldier_3" SharedSoulGuids="f1d52b2c-76ab-4a15-a0d6-19cf9586f834" />
 				<SoulAsset Name="fakeSoldiersGroup" SharedSoulGuids="2b1c5e74-07d4-4237-9dcc-17038084ee32 5c15a4f6-f047-41cf-9942-41f8dcaea589 f1d52b2c-76ab-4a15-a0d6-19cf9586f834" />
 				<ProfileAsset Name="npcProfile_fakeSoldiers" AssetProfiles="falesnaPosadka_fakeSoldiers" />
+				<ProfileAsset Name="streamedCampPath_profile" AssetProfiles="staraKutna_paths_fakeSoldierCampPresent" />
 			</Assets>
 			<Notes>
 				<Note Name="note17" PositionY="360" PositionX="500">

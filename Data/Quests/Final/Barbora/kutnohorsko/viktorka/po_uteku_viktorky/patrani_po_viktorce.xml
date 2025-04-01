@@ -42,6 +42,9 @@
 				<Port Name="marta_vi_ze_viktorka_zmizela" Direction="Out" Type="bool">
 					<DesignName StringName="patrani_p_marta_vi_ze_vik_Xgce" Text="Marta ví že Viktorka zmizela" />
 				</Port>
+				<Port Name="hrac_vi_o_vojakovi" Direction="Out" Type="bool">
+					<DesignName StringName="patrani_p_hrac_vi_o_vojak_y7P1" Text="Hráč ví o vojákovi" />
+				</Port>
 				<Port Name="hrac_ma_dalsi_stopy" Direction="Out" Type="bool">
 					<DesignName StringName="patrani_p_hrac_ma_dalsi_s_0qZX" Text="Hráč má další stopy" />
 				</Port>
@@ -68,6 +71,9 @@
 				</Port>
 				<Port Name="hraci_se_nepovedlo_vylecit_vojaka" Direction="Out" Type="bool">
 					<DesignName StringName="patrani_p_hraci_se_nepove_zNAu" Text="Hráči se nepovedlo vyléčit vojáka" />
+				</Port>
+				<Port Name="o_zmizeni" Direction="In" Type="bool">
+					<DesignName StringName="patrani_p_o_zmizeni_vNh2" Text="Hráč mluvil o zmizení s Martou" />
 				</Port>
 			</Ports>
 			<Definitions>
@@ -173,12 +179,6 @@
 				</Function>
 				<Function Name="or2" PositionY="240" PositionX="2400" MethodName="math::boolean::Or" DeclaringType="math::boolean">
 					<Edge From="hledani_cerneho_vojaka_v_tabore.hrac_ma_jit_za_vojakem" To="C" />
-					<Edge From="konfrontace_se_sedlakem.hrac_ma_jit_za_sedlakem" To="E">
-						<Vertex>vertex125</Vertex>
-					</Edge>
-					<Edge From="konzultace_s_korenarkou.hrac_ma_jit_za_korenarkou" To="D">
-						<Vertex>vertex128</Vertex>
-					</Edge>
 					<Edge From="zpatky_za_kovarkou.hrac_ma_jit_za_kovarkou" To="B">
 						<Vertex>vertex140</Vertex>
 					</Edge>
@@ -186,15 +186,19 @@
 						<Vertex>vertex142</Vertex>
 						<Vertex>vertex141</Vertex>
 					</Edge>
+					<Edge From="konfrontace_se_sedlakem.hrac_ma_jit_za_sedlakem" To="D">
+						<Vertex>vertex125</Vertex>
+					</Edge>
+					<Edge From="hledani_cerneho_vojaka_v_tabore.hrac_mluvil_s_vojakem_o_viktorce" To="E" />
+				</Function>
+				<Function Name="or3" PositionY="-336" PositionX="2449" MethodName="math::boolean::Or" DeclaringType="math::boolean">
+					<Edge From="hledani_cerneho_vojaka_v_tabore.prodejci_mluvili_o_vojakovi" To="A" />
+					<Edge From="hledani_cerneho_vojaka_v_tabore.hrac_mluvil_s_vojakem" To="B" />
 				</Function>
 				<Output Name="Output">
 					<Edge From="hledani_cerneho_vojaka_v_tabore.vojak_rekl_hraci_o_viktorce" To="vojak_rekl_hraci_o_viktorce" />
 					<Edge From="hledani_cerneho_vojaka_v_tabore.hrac_vojaka_presvedcil" To="hrac_vojaka_presvedcil" />
 					<Edge From="hledani_cerneho_vojaka_v_tabore.hrac_mluvil_s_vojakem_o_viktorce" To="hrac_mluvil_s_vojakem_o_viktorce" />
-					<Edge From="zpatky_za_kovarkou.marta_vi_ze_viktorka_zmizela" To="marta_vi_ze_viktorka_zmizela">
-						<Vertex>vertex148</Vertex>
-						<Vertex>vertex111</Vertex>
-					</Edge>
 					<Edge From="pruzkum_viktorcina_domu.hrac_sebral_byliny" To="hrac_sebral_byliny">
 						<Vertex>vertex121</Vertex>
 						<Vertex>vertex120</Vertex>
@@ -217,8 +221,10 @@
 						<Vertex>QSLqLCmV</Vertex>
 					</Edge>
 					<Edge From="hledani_cerneho_vojaka_v_tabore.hraci_se_nepovedlo_vylecit_vojaka" To="hraci_se_nepovedlo_vylecit_vojaka" />
+					<Edge From="or3.bool" To="hrac_vi_o_vojakovi" />
+					<Edge From="talkedWithMartaAboutViktorka.bool" To="marta_vi_ze_viktorka_zmizela" />
 				</Output>
-				<pruzkum_viktorcina_domu Name="pruzkum_viktorcina_domu" PositionY="-280" PositionX="320" RequiredForOutput="kutnohorsko">
+				<pruzkum_viktorcina_domu Name="pruzkum_viktorcina_domu" PositionY="-340" PositionX="320" RequiredForOutput="kutnohorsko">
 					<Edge From="hrac_vesel_do_domu_viktorky" To="hrac_vesel_do_domu_viktorky" />
 					<Edge From="hrac_mluvil_s_viktorkou_brzo" To="hrac_mluvil_s_viktorkou_brzo" />
 					<Edge From="abort_objective" To="abort_objective" />
@@ -229,8 +235,12 @@
 						<Vertex>vertex90</Vertex>
 					</Edge>
 					<Edge From="aktivovat_stopy" To="patrani_muze_zacit" />
+					<Edge From="talkedWithMartaAboutViktorka.bool" To="hrac_vi_kde_je_viktorka">
+						<Vertex>wphMFCn4</Vertex>
+						<Vertex>P3w55mtV</Vertex>
+					</Edge>
 				</pruzkum_viktorcina_domu>
-				<s_kovarkou__obecna_zjisteni_o_viktorce Name="s_kovarkou__obecna_zjisteni_o_viktorce" PositionY="240" PositionX="1810">
+				<s_kovarkou__obecna_zjisteni_o_viktorce Name="s_kovarkou__obecna_zjisteni_o_viktorce" PositionY="220" PositionX="1800">
 					<Edge From="konzultace_s_korenarkou.henry_mluvil_s_korenarkou" To="henry_mluvil_s_korenarkou" />
 					<Edge From="konfrontace_se_sedlakem.henry_se_popral_se_sedlakem" To="henry_se_popral_se_sedlakem" />
 					<Edge From="hledani_cerneho_vojaka_v_tabore.hrac_mluvil_s_vojakem_o_viktorce" To="henry_od_vojaka_zjistil_kde_hledat_viktorku">
@@ -248,7 +258,18 @@
 						<Vertex>vertex149</Vertex>
 					</Edge>
 				</s_kovarkou__obecna_zjisteni_o_viktorce>
-				<zpatky_za_kovarkou Name="zpatky_za_kovarkou" PositionY="-350" PositionX="960" RequiredForOutput="kutnohorsko">
+				<Function Name="talkedWithMartaAboutViktorka" PositionY="670" PositionX="2380" MethodName="math::boolean::Or" DeclaringType="math::boolean">
+					<Edge From="s_kovarkou__obecna_zjisteni_o_viktorce.o_viktorce" To="B" />
+					<Edge From="zpatky_za_kovarkou.marta_vi_ze_viktorka_zmizela" To="A">
+						<Vertex>vertex148</Vertex>
+						<Vertex>BtIbR2d4</Vertex>
+					</Edge>
+					<Edge From="o_zmizeni" To="C">
+						<Vertex>tcR939np</Vertex>
+						<Vertex>9WfqEonz</Vertex>
+					</Edge>
+				</Function>
+				<zpatky_za_kovarkou Name="zpatky_za_kovarkou" PositionY="-380" PositionX="960" RequiredForOutput="kutnohorsko">
 					<Edge From="pruzkum_viktorcina_domu.hrac_nasel_krev" To="hrac_prohledal_dum" />
 					<Edge From="hrac_mluvil_s_viktorkou_brzo" To="hrac_mluvil_s_viktorkou_brzo">
 						<Vertex>vertex5</Vertex>
@@ -287,11 +308,14 @@
 			</Nodes>
 			<EdgeVertices>
 				<EdgeVertex Name="41jh1rHB" PositionY="-461" PositionX="308" />
+				<EdgeVertex Name="9WfqEonz" PositionY="1110" PositionX="2316" />
 				<EdgeVertex Name="BmpoQaJg" PositionY="1058" PositionX="743" />
+				<EdgeVertex Name="BtIbR2d4" PositionY="10" PositionX="2290" />
+				<EdgeVertex Name="P3w55mtV" PositionY="1101" PositionX="347" />
 				<EdgeVertex Name="QSLqLCmV" PositionY="1058" PositionX="2507" />
+				<EdgeVertex Name="tcR939np" PositionY="1111" PositionX="351" />
 				<EdgeVertex Name="vertex109" PositionY="-400" PositionX="290" />
 				<EdgeVertex Name="vertex110" PositionY="-400" PositionX="850" />
-				<EdgeVertex Name="vertex111" PositionY="40" PositionX="2620" />
 				<EdgeVertex Name="vertex113" PositionY="250" PositionX="710" />
 				<EdgeVertex Name="vertex114" PositionY="251" PositionX="1566" />
 				<EdgeVertex Name="vertex116" PositionY="340" PositionX="820" />
@@ -303,21 +327,20 @@
 				<EdgeVertex Name="vertex123" PositionY="170" PositionX="2610" />
 				<EdgeVertex Name="vertex124" PositionY="-360" PositionX="840" />
 				<EdgeVertex Name="vertex125" PositionY="980" PositionX="2240" />
-				<EdgeVertex Name="vertex126" PositionY="540" PositionX="2630" />
-				<EdgeVertex Name="vertex127" PositionY="950" PositionX="2500" />
-				<EdgeVertex Name="vertex128" PositionY="580" PositionX="2230" />
+				<EdgeVertex Name="vertex126" PositionY="550" PositionX="2700" />
+				<EdgeVertex Name="vertex127" PositionY="960" PositionX="2570" />
 				<EdgeVertex Name="vertex132" PositionY="150" PositionX="720" />
 				<EdgeVertex Name="vertex133" PositionY="369" PositionX="827" />
 				<EdgeVertex Name="vertex134" PositionY="630" PositionX="1590" />
 				<EdgeVertex Name="vertex135" PositionY="630" PositionX="900" />
 				<EdgeVertex Name="vertex14" PositionY="-530" PositionX="300" />
-				<EdgeVertex Name="vertex140" PositionY="0" PositionX="2300" />
+				<EdgeVertex Name="vertex140" PositionY="-20" PositionX="2320" />
 				<EdgeVertex Name="vertex141" PositionY="651" PositionX="2217" />
 				<EdgeVertex Name="vertex142" PositionY="657" PositionX="898" />
 				<EdgeVertex Name="vertex145" PositionY="561" PositionX="2225" />
 				<EdgeVertex Name="vertex146" PositionY="562" PositionX="1791" />
 				<EdgeVertex Name="vertex147" PositionY="-550" PositionX="1650" />
-				<EdgeVertex Name="vertex148" PositionY="40" PositionX="1750" />
+				<EdgeVertex Name="vertex148" PositionY="10" PositionX="1750" />
 				<EdgeVertex Name="vertex149" PositionY="162" PositionX="1649" />
 				<EdgeVertex Name="vertex15" PositionY="-410" PositionX="1420" />
 				<EdgeVertex Name="vertex2" PositionY="-560" PositionX="300" />
@@ -340,6 +363,7 @@
 				<EdgeVertex Name="vertex97" PositionY="200" PositionX="2280" />
 				<EdgeVertex Name="vertex98" PositionY="200" PositionX="970" />
 				<EdgeVertex Name="vertex99" PositionY="-650" PositionX="300" />
+				<EdgeVertex Name="wphMFCn4" PositionY="1099" PositionX="2499" />
 			</EdgeVertices>
 			<Text StringName="patrani_po_viktorce_1llH" Text="Pátrání po Viktorce" />
 			<Elements>

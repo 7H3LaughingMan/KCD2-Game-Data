@@ -3,11 +3,8 @@
 	<Skald>
 		<Dialog Name="henryho_bark__nasel_jsem_chodbu">
 			<Ports>
-				<Port Name="mluveno_s_hastalem" Direction="In" Type="bool">
-					<DesignName StringName="henryho_b_mluveno_s_hasta_tnfq" Text="Mluveno s Haštalem" />
-				</Port>
-				<Port Name="hastal_uz_nepomuze" Direction="In" Type="bool">
-					<DesignName StringName="henryho_b_hastal_impossib_fTNv" Text="Haštal už nepomůže" />
+				<Port Name="hrac_ma_mluvit_s_hastalem" Direction="In" Type="bool">
+					<DesignName StringName="henryho_b_hastal_impossib_fTNv" Text="Hráč má mluvit s Haštalem" />
 				</Port>
 			</Ports>
 			<Text StringName="henryho_bark__nasel_jsem__UDz8" Text="Henryho bark - našel jsem chodbu" />
@@ -40,13 +37,13 @@
 							</Elements>
 							<Decision Name="dec2" Priority="MainQuestSubmission">
 								<Sequences>
-									<Sequence EntryCondition="Port('mluveno_s_hastalem') OR &#xD;&#xA;Port('hastal_uz_nepomuze')" EndType="EndDialogue" Name="seq2">
+									<Sequence EntryCondition="!Port('hrac_ma_mluvit_s_hastalem')" EndType="EndDialogue" Name="seq2">
 										<DesignName StringName="henryho_b_seq2_D3k0" Text="seq2" />
 										<Elements>
 											<Response Role="HENRY" />
 										</Elements>
 									</Sequence>
-									<Sequence EntryCondition="!Port('mluveno_s_hastalem') AND &#xD;&#xA;!Port('hastal_uz_nepomuze')" EndType="EndDialogue" Name="seq3">
+									<Sequence EntryCondition="Port('hrac_ma_mluvit_s_hastalem')" EndType="EndDialogue" Name="seq3">
 										<DesignName StringName="henryho_b_seq3_8kNd" Text="seq3" />
 										<Elements>
 											<Response Role="HENRY">

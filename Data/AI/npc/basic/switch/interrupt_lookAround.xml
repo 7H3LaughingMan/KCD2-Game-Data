@@ -24,6 +24,7 @@
 			<Variable name="dialogContext_reactingToReportFrom_appendix" type="_float" values="" isPersistent="0" form="associative" />
 			<Variable name="distance" type="_float" values="" isPersistent="0" form="single" />
 			<Variable name="distanceMeToCorpse" type="_float" values="" isPersistent="0" form="single" />
+			<Variable name="dot" type="_float" values="" isPersistent="0" form="single" />
 			<Variable name="emitAlarmInformation" type="_bool" values="" isPersistent="0" form="single" />
 			<Variable name="emittingInformation" type="information" values="" isPersistent="0" form="single" />
 			<Variable name="escalateSoundReaction" type="_bool" values="" isPersistent="0" form="single" />
@@ -144,14 +145,18 @@
 																	<ClearInbox inbox="&apos;switch_onHotEntitySeen&apos;" type="" condition="" />
 																	<Switch>
 																		<IfCondition failOnCondition="false" condition="$lookAroundReason == $enum:crime_stimulusKind.corpse | &#10;$lookAroundReason == $enum:crime_stimulusKind.murder">
-																			<Sequence>
-																				<GraphSearch Origin="$lookAroundData.information.perceivedWuid" Borders="" depth="1" selection="true" SearchPattern="Depth" EdgePruning="&apos;parent,inventory&apos;" AllowedEdges="" SubGraph="&apos;crime_corpseReactor&apos;" AllowSubtraph="false" includeOrigin="false" excludeOrigin="false" failOnEmpty="true" SetOperationChoice="Intersection|And" errorOnEmpty="false" shortCircuit="false" skipTraversed="true">
-																					<LinkTagFilter tag="&apos;crime_corpseReactor&apos;" prune="true" negprune="unknown" Parent="" Child="" Data="" />
-																					<WUIDFilter WUID="$this.id" Source="Child" prune="true" negprune="unknown" Parent="" Child="" />
-																					<LinkDataFilter tag="&apos;crime_corpseReactor&apos;" condition="$__link_crime_corpseReactor.reactionKind == $enum:crime_reactionKind.lookAround" prune="true" negprune="unknown" Parent="" Child="" Data="$corpseReactionData" />
-																				</GraphSearch>
-																				<LinkDataExpression From="$lookAroundData.information.perceivedWuid" To="$this.id" Expresssion="$__link_crime_corpseReactor.reservation = false" />
-																			</Sequence>
+																			<CheckWuidValid wuid="$lookAroundData.information.perceivedWuid" FailSubtMissing="false" saveVersion="2">
+																				<Then canSkip="1">
+																					<Sequence>
+																						<GraphSearch Origin="$lookAroundData.information.perceivedWuid" Borders="" depth="1" selection="true" SearchPattern="Depth" EdgePruning="&apos;parent,inventory&apos;" AllowedEdges="" SubGraph="&apos;crime_corpseReactor&apos;" AllowSubtraph="false" includeOrigin="false" excludeOrigin="false" failOnEmpty="true" SetOperationChoice="Intersection|And" errorOnEmpty="false" shortCircuit="false" skipTraversed="true">
+																							<LinkTagFilter tag="&apos;crime_corpseReactor&apos;" prune="true" negprune="unknown" Parent="" Child="" Data="" />
+																							<WUIDFilter WUID="$this.id" Source="Child" prune="true" negprune="unknown" Parent="" Child="" />
+																							<LinkDataFilter tag="&apos;crime_corpseReactor&apos;" condition="$__link_crime_corpseReactor.reactionKind == $enum:crime_reactionKind.lookAround" prune="true" negprune="unknown" Parent="" Child="" Data="$corpseReactionData" />
+																						</GraphSearch>
+																						<LinkDataExpression From="$lookAroundData.information.perceivedWuid" To="$this.id" Expresssion="$__link_crime_corpseReactor.reservation = false" />
+																					</Sequence>
+																				</Then>
+																			</CheckWuidValid>
 																		</IfCondition>
 																		<IfCondition failOnCondition="false" condition="$lookAroundData.stimulusKind == $enum:crime_stimulusKind.sound">
 																			<Sequence>
@@ -173,6 +178,13 @@
 																	</Switch>
 																	<GetSpatialInfo In="$this.id" Out="$myPos" What="Position" />
 																	<Switch>
+																		<IfCondition failOnCondition="false" condition="$lookAroundData.previousReaction == $enum:crime_reactionKind.watchTrespass &amp; &#10;$lookAroundData.initiatedBy == $enum:switch_interruptInitiator.scheduler">
+																			<Sequence>
+																				<Expression expressions="$pointSearchMode = $enum:crime_crimeSceneSearchMode.concentrated" />
+																				<Function_crime_getCrimeSceneSearchPoint crimePos="$lookAroundData.information.position" desiredSearchPointCount="24" direction="$lookAroundData.direction" forceUpdate="true" searchMode="$pointSearchMode" searchPoint="$searchPoint" nodeLabel="13688531" />
+																				<Expression expressions="$originPosition = $searchPoint.position" />
+																			</Sequence>
+																		</IfCondition>
 																		<IfCondition failOnCondition="false" condition="$lookAroundData.searchPointsFromDirection">
 																			<Sequence>
 																				<GetLastNavmeshPosition Target="$this.id" OutPos="$myPosOnNavmesh" TrackingMode="MNMPos" />
@@ -181,7 +193,12 @@
 																			</Sequence>
 																		</IfCondition>
 																		<IfCondition failOnCondition="false" condition="$lookAroundReason == $enum:crime_stimulusKind.shooter |  &#10;$lookAroundReason == $enum:crime_stimulusKind.unknownShooter | &#10;$lookAroundReason == $enum:crime_stimulusKind.sound | &#10;$lookAroundReason == $enum:crime_stimulusKind.corpseMissing | &#10;$lookAroundReason == $enum:crime_stimulusKind.missingNpc">
-																			<Expression expressions="$originPosition = $lookAroundData.position" />
+																			<Sequence>
+																				<Expression expressions="$originPosition = $lookAroundData.position" />
+																				<IfCondition failOnCondition="false" condition="$lookAroundReason == $enum:crime_stimulusKind.sound &amp; &#10;( &#10;$lookAroundData.soundType == $enum:sound.movement | &#10;$lookAroundData.soundType == $enum:sound.door | &#10;$lookAroundData.soundType == $enum:sound.bio_hunger | &#10;$lookAroundData.soundType == $enum:sound.bio_exhaustion | &#10;$lookAroundData.soundType == $enum:sound.bio_drunkeness | &#10;$lookAroundData.soundType == $enum:sound.smell | &#10;$lookAroundData.soundType == $enum:sound.perfume | &#10;$lookAroundData.soundType == $enum:sound.lockpick | &#10;$lookAroundData.soundType == $enum:sound.photo_mode | &#10;$lookAroundData.soundType == $enum:sound.thrash &#10;)">
+																					<Function_crime_lookAround_randomizeSoundPosition position="$originPosition" nodeLabel="45662377" />
+																				</IfCondition>
+																			</Sequence>
 																		</IfCondition>
 																		<DefaultBranch>
 																			<Expression expressions="$originPosition = $lookAroundData.information.position" />
@@ -291,7 +308,6 @@
 																			</Switch>
 																		</ProcessMessage>
 																	</While>
-																	<Function_crime_weaponDecorator suppressWaitAction="true" weaponSet="&apos;Primary&apos;" shouldHaveDrawnWeapon="$shouldHaveWeaponDrawn" waitActionFinished="" nodeLabel="69920696" />
 																	<Selector>
 																		<Sequence>
 																			<GetLightSourceItem Item="$lightSource" />
@@ -306,26 +322,30 @@
 																		</Sequence>
 																		<Wait duration="&apos;-1&apos;" timeType="GameTime" doFail="false" variation="" />
 																	</Selector>
+																	<Function_crime_weaponDecorator suppressWaitAction="true" weaponSet="&apos;Primary&apos;" shouldHaveDrawnWeapon="$shouldHaveWeaponDrawn" waitActionFinished="" nodeLabel="88663838" />
 																	<IfElseCondition failOnCondition="false" condition="$lookAroundData.stimulusKind == $enum:crime_stimulusKind.sound" saveVersion="2">
 																		<Then canSkip="1">
 																			<Wait duration="&apos;-1&apos;" timeType="GameTime" doFail="false" variation="" />
 																		</Then>
 																		<Else canSkip="1">
-																			<EntityContext context="speech_greyOutE" target="$this.id">
-																				<EntityContextElement context="speech_greyOutE" enabled="true">
+																			<EntityContextPreset preset="crime_greyOutEAndDisableChat" target="$this.id">
+																				<EntityContextPresetElement contextPreset="crime_greyOutEAndDisableChat" enabled="true">
 																					<Wait duration="&apos;-1&apos;" timeType="GameTime" doFail="false" variation="" />
-																				</EntityContextElement>
-																			</EntityContext>
+																				</EntityContextPresetElement>
+																			</EntityContextPreset>
 																		</Else>
 																	</IfElseCondition>
 																	<Switch>
 																		<IfCondition failOnCondition="false" condition="$data:crime[$lookAroundData.information.label].isCrime">
 																			<IfGate atomic="false" condition="$lookAroundData.reactingToReportFrom == $__null | &#10;$reactedToReport" RunLogic="KeepRunning">
-																				<EntityContext context="crime_escalationLevel_investigating" target="">
-																					<EntityContextElement context="crime_escalationLevel_investigating" enabled="true">
-																						<Wait duration="&apos;-1&apos;" timeType="GameTime" doFail="false" variation="" />
-																					</EntityContextElement>
-																				</EntityContext>
+																				<Sequence>
+																					<ShowTutorial Name="crimeIcon_general" />
+																					<EntityContext context="crime_escalationLevel_investigating" target="">
+																						<EntityContextElement context="crime_escalationLevel_investigating" enabled="true">
+																							<Wait duration="&apos;-1&apos;" timeType="GameTime" doFail="false" variation="" />
+																						</EntityContextElement>
+																					</EntityContext>
+																				</Sequence>
 																			</IfGate>
 																		</IfCondition>
 																		<IfCondition failOnCondition="false" condition="$lookAroundReason == $enum:crime_stimulusKind.sound">
@@ -341,6 +361,7 @@
 																										<RangeFilter min="0.000000" max="4.000000" point="$originPosition" excludeRef="true" Source="Child" prune="true" negprune="unknown" Parent="" Child="" />
 																										<LinkDataFilter tag="&apos;crime_lastHitByPlayer&apos;" condition="$now &lt; $__link_crime_lastHitByPlayer.time + 5000" prune="true" negprune="unknown" Parent="" Child="" Data="" />
 																									</GraphSearch>
+																									<ShowTutorial Name="crimeIcon_general" />
 																									<EntityContext context="crime_escalationLevel_looking" target="">
 																										<EntityContextElement context="crime_escalationLevel_looking" enabled="true">
 																											<Wait duration="&apos;-1&apos;" timeType="GameTime" doFail="false" variation="" />
@@ -359,21 +380,27 @@
 																						</While>
 																					</Then>
 																					<Else canSkip="1">
-																						<EntityContext context="crime_escalationLevel_looking" target="">
-																							<EntityContextElement context="crime_escalationLevel_looking" enabled="true">
-																								<Wait duration="&apos;-1&apos;" timeType="GameTime" doFail="false" variation="" />
-																							</EntityContextElement>
-																						</EntityContext>
+																						<Sequence>
+																							<ShowTutorial Name="crimeIcon_general" />
+																							<EntityContext context="crime_escalationLevel_looking" target="">
+																								<EntityContextElement context="crime_escalationLevel_looking" enabled="true">
+																									<Wait duration="&apos;-1&apos;" timeType="GameTime" doFail="false" variation="" />
+																								</EntityContextElement>
+																							</EntityContext>
+																						</Sequence>
 																					</Else>
 																				</IfElseCondition>
 																			</EntityContext>
 																		</IfCondition>
-																		<IfCondition failOnCondition="false" condition="$lookAroundReason == $enum:crime_stimulusKind.suspiciousDoor | &#10;$lookAroundReason == $enum:crime_stimulusKind.shooter | &#10;$lookAroundReason == $enum:crime_stimulusKind.unknownShooter | &#10; &#10;( //lost enemy player in combat &#10; $lookAroundReason == $enum:crime_stimulusKind.enemy &amp; &#10; $lookAroundData.initiatedBy == $enum:switch_interruptInitiator.scheduler &amp; &#10; $lookAroundData.previousReaction == $enum:crime_reactionKind.attack &#10;)">
-																			<EntityContext context="crime_escalationLevel_looking" target="">
-																				<EntityContextElement context="crime_escalationLevel_looking" enabled="true">
-																					<Wait duration="&apos;-1&apos;" timeType="GameTime" doFail="false" variation="" />
-																				</EntityContextElement>
-																			</EntityContext>
+																		<IfCondition failOnCondition="false" condition="$lookAroundReason == $enum:crime_stimulusKind.suspiciousDoor | &#10;$lookAroundReason == $enum:crime_stimulusKind.shooter | &#10;$lookAroundReason == $enum:crime_stimulusKind.unknownShooter | &#10;$lookAroundReason == $enum:crime_stimulusKind.trespass | &#10; &#10;( //lost enemy player in combat &#10; $lookAroundReason == $enum:crime_stimulusKind.enemy &amp; &#10; $lookAroundData.initiatedBy == $enum:switch_interruptInitiator.scheduler &amp; &#10; $lookAroundData.previousReaction == $enum:crime_reactionKind.attack &#10;)">
+																			<Sequence>
+																				<ShowTutorial Name="crimeIcon_general" />
+																				<EntityContext context="crime_escalationLevel_looking" target="">
+																					<EntityContextElement context="crime_escalationLevel_looking" enabled="true">
+																						<Wait duration="&apos;-1&apos;" timeType="GameTime" doFail="false" variation="" />
+																					</EntityContextElement>
+																				</EntityContext>
+																			</Sequence>
 																		</IfCondition>
 																		<DefaultBranch>
 																			<Wait duration="&apos;-1&apos;" timeType="GameTime" doFail="false" variation="" />
@@ -391,15 +418,17 @@
 																			</EntityContext>
 																		</Else>
 																	</IfElseCondition>
-																	<IfElseCondition failOnCondition="false" condition="$data:crime[$lookAroundData.information.label].isCrime |  &#10;$lookAroundData.stimulusKind == $enum:crime_stimulusKind.shooter | &#10;$lookAroundData.stimulusKind == $enum:crime_stimulusKind.sound | &#10;$lookAroundData.stimulusKind == $enum:crime_stimulusKind.corpse | &#10;$lookAroundData.stimulusKind == $enum:crime_stimulusKind.corpseMissing | &#10;$lookAroundData.stimulusKind == $enum:crime_stimulusKind.suspiciousDoor | &#10;$lookAroundData.stimulusKind == $enum:crime_stimulusKind.animalCorpse | &#10;$lookAroundData.stimulusKind == $enum:crime_stimulusKind.lyingBody | &#10;$lookAroundData.stimulusKind == $enum:crime_stimulusKind.unknownShooter | &#10;$lookAroundData.stimulusKind == $enum:crime_stimulusKind.nonAttributedCrime" saveVersion="2">
+																	<IfElseCondition failOnCondition="false" condition="$data:crime[$lookAroundData.information.label].isCrime |  &#10;$lookAroundData.stimulusKind == $enum:crime_stimulusKind.shooter | &#10;$lookAroundData.stimulusKind == $enum:crime_stimulusKind.sound | &#10;$lookAroundData.stimulusKind == $enum:crime_stimulusKind.suspiciousDoor | &#10;$lookAroundData.stimulusKind == $enum:crime_stimulusKind.unknownShooter" saveVersion="2">
 																		<Then canSkip="1">
-																			<While doFail="false" propagateChildFail="false" condition="true">
-																				<DistanceGate Origin="$this.id" ReferencePt="$__player" Low="$data:script_param[&apos;crime_music_maxDistance&apos;].value" High="$data:script_param[&apos;crime_music_maxDistance&apos;].value" Negation="false" OpenInMiddle="false" RunLogic="KeepRunning">
-																					<GameContext context="crime_music_lowest">
-																						<Wait duration="&apos;-1&apos;" timeType="GameTime" doFail="false" variation="" />
-																					</GameContext>
-																				</DistanceGate>
-																			</While>
+																			<EntityContext context="crime_interruptLookAround_lookingForPlayer" target="">
+																				<While doFail="false" propagateChildFail="false" condition="true">
+																					<DistanceGate Origin="$this.id" ReferencePt="$__player" Low="$data:script_param[&apos;crime_music_maxDistance&apos;].value" High="$data:script_param[&apos;crime_music_maxDistance&apos;].value" Negation="false" OpenInMiddle="false" RunLogic="KeepRunning">
+																						<GameContext context="crime_music_lowest">
+																							<Wait duration="&apos;-1&apos;" timeType="GameTime" doFail="false" variation="" />
+																						</GameContext>
+																					</DistanceGate>
+																				</While>
+																			</EntityContext>
 																		</Then>
 																		<Else canSkip="1">
 																			<Wait duration="&apos;-1&apos;" timeType="GameTime" doFail="false" variation="" />
@@ -477,14 +506,17 @@
 																	<Sequence>
 																		<Expression expressions="$positionUpdateDirection = $lookAroundData.direction" />
 																		<Function_crime_lookAround_getSearchIterations lookAroundReason="$lookAroundReason" iterations="$iterations" iterationsParamToken="$iterationsParamToken" iterationsSet="$iterationsSet" maxIterations="$maxIterations" nodeLabel="29220694" />
-																		<IfElseCondition failOnCondition="false" condition="$distance &lt; 2 |  &#10;$lookAroundData.stimulusKind == $enum:crime_stimulusKind.sound | &#10;$lookAroundData.alarmReactionType == $enum:crime_alarmReactionType.calm" saveVersion="2">
-																			<Then canSkip="1">
+																		<Switch>
+																			<IfCondition failOnCondition="false" condition="$lookAroundReason == $enum:crime_stimulusKind.unknownShooter">
+																				<Expression expressions="$movementType = $enum:crime_lookAround_movementType.chaseShooter" />
+																			</IfCondition>
+																			<IfCondition failOnCondition="false" condition="$distance &lt; 2 |  &#10;$lookAroundData.stimulusKind == $enum:crime_stimulusKind.sound | &#10;$lookAroundData.alarmReactionType == $enum:crime_alarmReactionType.calm">
 																				<Expression expressions="$movementType = $enum:crime_lookAround_movementType.slow" />
-																			</Then>
-																			<Else canSkip="1">
+																			</IfCondition>
+																			<DefaultBranch>
 																				<Expression expressions="$movementType = $enum:crime_lookAround_movementType.fast" />
-																			</Else>
-																		</IfElseCondition>
+																			</DefaultBranch>
+																		</Switch>
 																		<IfCondition failOnCondition="false" condition="$lookAroundData.stimulusKind == $enum:crime_stimulusKind.animalAbuse">
 																			<Sequence>
 																				<ExecuteLua code="local entity = XGenAIModule.GetEntityByWUID(data.lookAroundData.stimulusAnimalAbuse.victim) &#10; &#10;if( entity.smartObject ~= nil) then &#10;  data.animalAbuse_species = &apos;Chicken&apos; &#10;else &#10;  data.animalAbuse_species = XGenAIModule.GetEntityByWUID(data.lookAroundData.stimulusAnimalAbuse.victim).soul:GetArchetype().Name &#10;end" />
@@ -507,7 +539,7 @@
 																					<Function_crime_lookAround_receiveReport lookAroundData="$lookAroundData" nonInvestigable="$noninvestigable" dialogContext_reactingToReportFrom="$dialogContext_reactingToReportFrom" dialogContext_reactingToReportFrom_appendix="$dialogContext_reactingToReportFrom_appendix" nodeLabel="67984623" />
 																					<Function_crime_lookaround_shouldHaveWeaponDrawn crimeLevel="$crimeLevel" information="$lookAroundData.information" intenseSoundReaction="$intenseSoundReaction" shouldHaveWeaponDrawn="$shouldHaveWeaponDrawn_persistent" nodeLabel="66198077" />
 																					<Expression expressions="$reactedToReport = true" />
-																					<IfElseCondition failOnCondition="false" condition="($lookAroundReason == $enum:crime_stimulusKind.corpse | &#10;$lookAroundReason == $enum:crime_stimulusKind.murder)  &amp; &#10;$lookAroundData.information.perceivedWuid ~= $__null" saveVersion="2">
+																					<IfElseCondition failOnCondition="false" condition="$lookAroundReason == $enum:crime_stimulusKind.corpse | &#10;$lookAroundReason == $enum:crime_stimulusKind.murder" saveVersion="2">
 																						<Then canSkip="1">
 																							<CheckWuidValid wuid="$lookAroundData.information.perceivedWuid" FailSubtMissing="false" saveVersion="2">
 																								<Then canSkip="1">
@@ -685,32 +717,42 @@
 																									<Success />
 																								</Then>
 																								<Else canSkip="1">
-																									<IfCondition failOnCondition="false" condition="$searchMode == $enum:crime_lookAround_searchMode.points">
-																										<Sequence>
-																											<Function_crime_getAnchor anchor="$anchor" nodeLabel="81979054" />
-																											<MeasureDistance position1="$this.id" position2="$anchor.position" mode="ThreeDimensions" result="$myDistanceToAnchor" />
-																											<EntityContextCheck context="crime_isCourageous" target="" saveVersion="2">
-																												<Then canSkip="1">
-																													<Expression expressions="$maxDistanceToAnchor = $data:script_param[&apos;crime_lookAround_anchor_maxDistance&apos;].value * $data:script_param[&apos;crime_anchor_maxDistance_courageousMultiplier&apos;].value" />
-																												</Then>
-																												<Else canSkip="1">
-																													<Expression expressions="$maxDistanceToAnchor = $data:script_param[&apos;crime_lookAround_anchor_maxDistance&apos;].value" />
-																												</Else>
-																											</EntityContextCheck>
-																											<IfElseCondition failOnCondition="false" condition="$myDistanceToAnchor &lt; $maxDistanceToAnchor" saveVersion="2">
-																												<Then canSkip="1">
-																													<Sequence>
-																														<MeasureDistance position1="$this.id" position2="$soundPositionUpdateMsg.hearingInfo.position" mode="ThreeDimensions" result="$distance" />
-																														<IfCondition failOnCondition="false" condition="$distance &gt; 0.5">
+																									<GameContextCheck context="crime_global_disableCriminalPlayerReaction" saveVersion="2">
+																										<Then canSkip="1">
+																											<Success />
+																										</Then>
+																										<Else canSkip="1">
+																											<IfCondition failOnCondition="false" condition="$searchMode == $enum:crime_lookAround_searchMode.points">
+																												<Sequence>
+																													<Function_crime_getAnchor anchor="$anchor" nodeLabel="81979054" />
+																													<MeasureDistance position1="$this.id" position2="$anchor.position" mode="ThreeDimensions" result="$myDistanceToAnchor" />
+																													<EntityContextCheck context="crime_isCourageous" target="" saveVersion="2">
+																														<Then canSkip="1">
+																															<Expression expressions="$maxDistanceToAnchor = $data:script_param[&apos;crime_lookAround_anchor_maxDistance&apos;].value * $data:script_param[&apos;crime_anchor_maxDistance_courageousMultiplier&apos;].value" />
+																														</Then>
+																														<Else canSkip="1">
+																															<Expression expressions="$maxDistanceToAnchor = $data:script_param[&apos;crime_lookAround_anchor_maxDistance&apos;].value" />
+																														</Else>
+																													</EntityContextCheck>
+																													<IfElseCondition failOnCondition="false" condition="$myDistanceToAnchor &lt; $maxDistanceToAnchor" saveVersion="2">
+																														<Then canSkip="1">
 																															<Sequence>
-																																<Expression expressions="$originPosition = $soundPositionUpdateMsg.hearingInfo.position &#10;$soundPosUpdateCount += 1" />
-																																<CheckNervousnessInterval Soul="$this.id" Flag="alerted" saveVersion="2">
-																																	<Then canSkip="1">
-																																		<IfElseCondition failOnCondition="false" condition="$soundPositionUpdateMsg.hearingInfo.soundId == $enum:sound.decoy_distract | &#10;$soundPositionUpdateMsg.hearingInfo.soundId == $enum:sound.lure_distract | &#10;$soundPositionUpdateMsg.hearingInfo.soundId == $enum:sound.whistle | &#10;$soundPositionUpdateMsg.hearingInfo.soundId == $enum:sound.dog_distract | &#10;$soundPositionUpdateMsg.hearingInfo.soundId == $enum:sound.movement | &#10;$soundPositionUpdateMsg.hearingInfo.soundId == $enum:sound.lockpick" saveVersion="2">
+																																<MeasureDistance position1="$this.id" position2="$soundPositionUpdateMsg.hearingInfo.position" mode="TwoDimensions" result="$distance" />
+																																<IfCondition failOnCondition="false" condition="$distance &gt; 0.5">
+																																	<Sequence>
+																																		<Expression expressions="$originPosition = $soundPositionUpdateMsg.hearingInfo.position &#10;$soundPosUpdateCount += 1" />
+																																		<CheckNervousnessInterval Soul="$this.id" Flag="alerted" saveVersion="2">
 																																			<Then canSkip="1">
-																																				<IfElseCondition failOnCondition="false" condition="$soundPosUpdateCount &gt;= $data:script_param[&apos;crime_fedUpWithSoundPosCount&apos;].value" saveVersion="2">
+																																				<IfElseCondition failOnCondition="false" condition="$soundPositionUpdateMsg.hearingInfo.soundId == $enum:sound.decoy_distract | &#10;$soundPositionUpdateMsg.hearingInfo.soundId == $enum:sound.lure_distract | &#10;$soundPositionUpdateMsg.hearingInfo.soundId == $enum:sound.whistle | &#10;$soundPositionUpdateMsg.hearingInfo.soundId == $enum:sound.dog_distract | &#10;$soundPositionUpdateMsg.hearingInfo.soundId == $enum:sound.movement | &#10;$soundPositionUpdateMsg.hearingInfo.soundId == $enum:sound.lockpick" saveVersion="2">
 																																					<Then canSkip="1">
-																																						<Expression expressions="$escalateSoundReaction = true" />
+																																						<IfElseCondition failOnCondition="false" condition="$soundPosUpdateCount &gt;= $data:script_param[&apos;crime_fedUpWithSoundPosCount&apos;].value" saveVersion="2">
+																																							<Then canSkip="1">
+																																								<Expression expressions="$escalateSoundReaction = true" />
+																																							</Then>
+																																							<Else canSkip="1">
+																																								<Expression expressions="$escalateSoundReaction = false" />
+																																							</Else>
+																																						</IfElseCondition>
 																																					</Then>
 																																					<Else canSkip="1">
 																																						<Expression expressions="$escalateSoundReaction = false" />
@@ -720,84 +762,90 @@
 																																			<Else canSkip="1">
 																																				<Expression expressions="$escalateSoundReaction = false" />
 																																			</Else>
-																																		</IfElseCondition>
-																																	</Then>
-																																	<Else canSkip="1">
-																																		<Expression expressions="$escalateSoundReaction = false" />
-																																	</Else>
-																																</CheckNervousnessInterval>
-																																<IfElseCondition failOnCondition="false" condition="$escalateSoundReaction" saveVersion="2">
-																																	<Then canSkip="1">
-																																		<Sequence>
-																																			<DetermineTrespassReaction Observer="$this.id" Target="$__player" Position="$soundPositionUpdateMsg.hearingInfo.position" ForceSemipublicReaction="true" ShouldUseVec3Position="true" TrespassAreaSevereness="$trespassSevereness" TrespassArea="$trespassArea" Reaction="$soundInTrespass" ReactionSuppressed="$reactionSuppressed" />
-																																			<IfCondition failOnCondition="false" condition="$soundInTrespass">
+																																		</CheckNervousnessInterval>
+																																		<IfElseCondition failOnCondition="false" condition="$escalateSoundReaction" saveVersion="2">
+																																			<Then canSkip="1">
 																																				<Sequence>
-																																					<IsBandit Npc="$this.id" IsBandit="$isBandit" />
-																																					<IfCondition failOnCondition="false" condition="~$isBandit">
-																																						<AtomicDecorator>
-																																							<Sequence>
-																																								<CreateInformationWrapper Label="&apos;nonAttributedCrime&apos;" PerceivedWuid="$this.id" PositionType="positionVec3" PositionVec3="$soundPositionUpdateMsg.hearingInfo.position" PositionWuid="" Information="$nonAttirbutedInformation" />
-																																								<LockDynamicInformationValues Information="$nonAttirbutedInformation">
+																																					<DetermineTrespassReaction Observer="$this.id" Target="$__player" Position="$soundPositionUpdateMsg.hearingInfo.position" ForceSemipublicReaction="true" ShouldUseVec3Position="true" TrespassAreaSevereness="$trespassSevereness" TrespassArea="$trespassArea" Reaction="$soundInTrespass" ReactionSuppressed="$reactionSuppressed" />
+																																					<IfCondition failOnCondition="false" condition="$soundInTrespass">
+																																						<Sequence>
+																																							<IsBandit Npc="$this.id" IsBandit="$isBandit" />
+																																							<IfCondition failOnCondition="false" condition="~$isBandit">
+																																								<AtomicDecorator>
 																																									<Sequence>
-																																										<SetDynamicInformationValue Information="$nonAttirbutedInformation" Tag="&apos;stimulusKind&apos;" Variable="" Type="&apos;enum:crime_stimulusKind&apos;" Value="$enum:crime_stimulusKind.disturbance" />
-																																										<SetDynamicInformationValue Information="$nonAttirbutedInformation" Tag="&apos;victim&apos;" Variable="$this.id" Type="" Value="" />
+																																										<CreateInformationWrapper Label="&apos;nonAttributedCrime&apos;" PerceivedWuid="$this.id" PositionType="positionVec3" PositionVec3="$soundPositionUpdateMsg.hearingInfo.position" PositionWuid="" Information="$nonAttirbutedInformation" />
+																																										<LockDynamicInformationValues Information="$nonAttirbutedInformation">
+																																											<Sequence>
+																																												<SetDynamicInformationValue Information="$nonAttirbutedInformation" Tag="&apos;stimulusKind&apos;" Variable="" Type="&apos;enum:crime_stimulusKind&apos;" Value="$enum:crime_stimulusKind.disturbance" />
+																																												<SetDynamicInformationValue Information="$nonAttirbutedInformation" Tag="&apos;victim&apos;" Variable="$this.id" Type="" Value="" />
+																																											</Sequence>
+																																										</LockDynamicInformationValues>
+																																										<Expression expressions="$stimulus_nonAttributed.information = $nonAttirbutedInformation" />
+																																										<EntityContext context="crime_stimulusInitiatedByScheduler" target="">
+																																											<Function_switch_handleStimulusNonAttributedCrime stimulus="$stimulus_nonAttributed" nodeLabel="19671536" />
+																																										</EntityContext>
 																																									</Sequence>
-																																								</LockDynamicInformationValues>
-																																								<Expression expressions="$stimulus_nonAttributed.information = $nonAttirbutedInformation" />
-																																								<EntityContext context="crime_stimulusInitiatedByScheduler" target="">
-																																									<Function_switch_handleStimulusNonAttributedCrime stimulus="$stimulus_nonAttributed" nodeLabel="19671536" />
-																																								</EntityContext>
-																																							</Sequence>
-																																						</AtomicDecorator>
+																																								</AtomicDecorator>
+																																							</IfCondition>
+																																						</Sequence>
 																																					</IfCondition>
+																																					<Function_crime_crimeSwitchBark animationApproach="$enum:animationApproach.dontPlayDialogAnimations" canBarkFromSleep="false" canBeDelayed="false" dialogContext="" dramaticBark="false" lookAt="$__null" metarole="&apos;NPC_VZDAVA_PATRANI_NA_MISTE_CINU_(ZVUK)&apos;" priority="$enum:crime_barkPriority.low" nodeLabel="55976925" />
+																																					<Function_crime_addFedUpWithSoundCooldown addBarkCooldown="true" addReactionCooldown="true" nodeLabel="89484944" />
+																																					<Expression expressions="$stopLooking = true &#10;$iterations = 0" />
 																																				</Sequence>
-																																			</IfCondition>
-																																			<Function_crime_crimeSwitchBark animationApproach="$enum:animationApproach.dontPlayDialogAnimations" canBarkFromSleep="false" canBeDelayed="false" dialogContext="" dramaticBark="false" lookAt="$__null" metarole="&apos;NPC_VZDAVA_PATRANI_NA_MISTE_CINU_(ZVUK)&apos;" priority="$enum:crime_barkPriority.low" nodeLabel="55976925" />
-																																			<Function_crime_addFedUpWithSoundCooldown addBarkCooldown="true" addReactionCooldown="true" nodeLabel="89484944" />
-																																			<Expression expressions="$stopLooking = true &#10;$iterations = 0" />
-																																		</Sequence>
-																																	</Then>
-																																	<Else canSkip="1">
-																																		<Sequence>
-																																			<RandomGate opensWithChance="$updateSoundBarkChance" saveVersion="2">
-																																				<Then canSkip="1">
-																																					<Sequence>
-																																						<Function_crime_crimeSwitchBark animationApproach="$enum:animationApproach.dontPlayDialogAnimations" canBarkFromSleep="false" canBeDelayed="false" dialogContext="" dramaticBark="false" lookAt="$__null" metarole="&apos;NPC_REINFORCUJE_REAKCI_NA_ZVUK_(UNIVERZAL)&apos;" priority="$enum:crime_barkPriority.flavor" nodeLabel="55922548" />
-																																						<Expression expressions="$updateSoundBarkChance = 0.25" />
-																																					</Sequence>
-																																				</Then>
-																																				<Else canSkip="1">
-																																					<Expression expressions="$updateSoundBarkChance = 0.75" />
-																																				</Else>
-																																			</RandomGate>
-																																			<IfElseCondition failOnCondition="false" condition="$soundType == $soundPositionUpdateMsg.hearingInfo.soundId &#10;&amp; ( &#10; $soundPositionUpdateMsg.hearingInfo.soundId == $enum:sound.combat | &#10; $soundPositionUpdateMsg.hearingInfo.soundId == $enum:sound.movement | &#10; $soundPositionUpdateMsg.hearingInfo.soundId == $enum:sound.lockpick | &#10; $soundPositionUpdateMsg.hearingInfo.soundId == $enum:sound.smell | &#10; $soundPositionUpdateMsg.hearingInfo.soundId == $enum:sound.perfume | &#10; $soundPositionUpdateMsg.hearingInfo.soundId == $enum:sound.bio_hunger | &#10; $soundPositionUpdateMsg.hearingInfo.soundId == $enum:sound.bio_exhaustion | &#10; $soundPositionUpdateMsg.hearingInfo.soundId == $enum:sound.bio_drunkeness | &#10; $soundPositionUpdateMsg.hearingInfo.soundId == $enum:sound.dog_bark &#10;)" saveVersion="2">
-																																				<Then canSkip="1">
-																																					<Expression expressions="$firstIterationSoundSkip = true" />
-																																				</Then>
-																																				<Else canSkip="1">
-																																					<Expression expressions="$firstIterationSoundSkip = false" />
-																																				</Else>
-																																			</IfElseCondition>
-																																			<Expression expressions="$soundType = $soundPositionUpdateMsg.hearingInfo.soundId &#10;$originPosition = $soundPositionUpdateMsg.hearingInfo.position" />
-																																			<MeasureDistance position1="$moveDestination" position2="$soundPositionUpdateMsg.hearingInfo.position" mode="ThreeDimensions" result="$distance" />
-																																			<Expression expressions="$firstIteration = true &#10;$iterations = $data:script_param[&apos;crime_lookAround_maxIterations&apos; + $iterationsParamToken].value &#10;$positionUpdated = true &#10;$positionUpdatedFromSound = true" />
-																																			<IfCondition failOnCondition="false" condition="$distance &lt; 2">
-																																				<Expression expressions="$firstIterationSoundSkip = true &#10;$iterations -= 1" />
-																																			</IfCondition>
-																																			<SetExternalLock LockManagerType="Intellect" Locked="false" LockName="&apos;interrupt_lookAround_positionUpdated&apos;" />
-																																		</Sequence>
-																																	</Else>
-																																</IfElseCondition>
+																																			</Then>
+																																			<Else canSkip="1">
+																																				<Sequence>
+																																					<RandomGate opensWithChance="$updateSoundBarkChance" saveVersion="2">
+																																						<Then canSkip="1">
+																																							<Sequence>
+																																								<Function_crime_crimeSwitchBark animationApproach="$enum:animationApproach.dontPlayDialogAnimations" canBarkFromSleep="false" canBeDelayed="false" dialogContext="" dramaticBark="false" lookAt="$__null" metarole="&apos;NPC_REINFORCUJE_REAKCI_NA_ZVUK_(UNIVERZAL)&apos;" priority="$enum:crime_barkPriority.flavor" nodeLabel="55922548" />
+																																								<Expression expressions="$updateSoundBarkChance = 0.25" />
+																																							</Sequence>
+																																						</Then>
+																																						<Else canSkip="1">
+																																							<Expression expressions="$updateSoundBarkChance = 0.75" />
+																																						</Else>
+																																					</RandomGate>
+																																					<CalculateLookDotProduct npc="$this.id" position="$soundPositionUpdateMsg.hearingInfo.position" result="$dot" />
+																																					<IfElseCondition failOnCondition="false" condition="$dot &gt; 0 &amp; &#10;$soundType == $soundPositionUpdateMsg.hearingInfo.soundId &#10;&amp; ( &#10; $soundPositionUpdateMsg.hearingInfo.soundId == $enum:sound.combat | &#10; $soundPositionUpdateMsg.hearingInfo.soundId == $enum:sound.movement | &#10; $soundPositionUpdateMsg.hearingInfo.soundId == $enum:sound.lockpick | &#10; $soundPositionUpdateMsg.hearingInfo.soundId == $enum:sound.smell | &#10; $soundPositionUpdateMsg.hearingInfo.soundId == $enum:sound.perfume | &#10; $soundPositionUpdateMsg.hearingInfo.soundId == $enum:sound.bio_hunger | &#10; $soundPositionUpdateMsg.hearingInfo.soundId == $enum:sound.bio_exhaustion | &#10; $soundPositionUpdateMsg.hearingInfo.soundId == $enum:sound.bio_drunkeness | &#10; $soundPositionUpdateMsg.hearingInfo.soundId == $enum:sound.dog_bark &#10;)" saveVersion="2">
+																																						<Then canSkip="1">
+																																							<Expression expressions="$firstIterationSoundSkip = true" />
+																																						</Then>
+																																						<Else canSkip="1">
+																																							<Expression expressions="$firstIterationSoundSkip = false" />
+																																						</Else>
+																																					</IfElseCondition>
+																																					<Expression expressions="$soundType = $soundPositionUpdateMsg.hearingInfo.soundId &#10;$originPosition = $soundPositionUpdateMsg.hearingInfo.position" />
+																																					<Function_crime_lookAround_validateOriginPosition originPos="$originPosition" nodeLabel="94791974" />
+																																					<MeasureDistance position1="$moveDestination" position2="$soundPositionUpdateMsg.hearingInfo.position" mode="ThreeDimensions" result="$distance" />
+																																					<Expression expressions="$firstIteration = true &#10;$iterations = $data:script_param[&apos;crime_lookAround_maxIterations&apos; + $iterationsParamToken].value &#10;$positionUpdated = true &#10;$positionUpdatedFromSound = true" />
+																																					<IfElseCondition failOnCondition="false" condition="$distance &lt; 2" saveVersion="2">
+																																						<Then canSkip="1">
+																																							<Expression expressions="$firstIterationSoundSkip = true &#10;$iterations -= 1" />
+																																						</Then>
+																																						<Else canSkip="1">
+																																							<IfCondition failOnCondition="false" condition="$soundType == $enum:sound.movement | &#10;$soundType == $enum:sound.door | &#10;$soundType == $enum:sound.bio_hunger | &#10;$soundType == $enum:sound.bio_exhaustion | &#10;$soundType == $enum:sound.bio_drunkeness | &#10;$soundType == $enum:sound.smell | &#10;$soundType == $enum:sound.perfume | &#10;$soundType == $enum:sound.lockpick | &#10;$soundType == $enum:sound.photo_mode | &#10;$soundType == $enum:sound.thrash">
+																																								<Function_crime_lookAround_randomizeSoundPosition position="$originPosition" nodeLabel="29551064" />
+																																							</IfCondition>
+																																						</Else>
+																																					</IfElseCondition>
+																																					<SetExternalLock LockManagerType="Intellect" Locked="false" LockName="&apos;interrupt_lookAround_positionUpdated&apos;" />
+																																				</Sequence>
+																																			</Else>
+																																		</IfElseCondition>
+																																	</Sequence>
+																																</IfCondition>
 																															</Sequence>
-																														</IfCondition>
-																													</Sequence>
-																												</Then>
-																												<Else canSkip="1">
-																													<Expression expressions="$anchorTooFar = true" />
-																												</Else>
-																											</IfElseCondition>
-																										</Sequence>
-																									</IfCondition>
+																														</Then>
+																														<Else canSkip="1">
+																															<Expression expressions="$anchorTooFar = true" />
+																														</Else>
+																													</IfElseCondition>
+																												</Sequence>
+																											</IfCondition>
+																										</Else>
+																									</GameContextCheck>
 																								</Else>
 																							</EntityContextCheck>
 																						</ProcessMessage>
@@ -829,64 +877,61 @@
 																							</Sequence>
 																						</ProcessMessage>
 																					</While>
-																					<IfElseCondition failOnCondition="false" condition="$lookAroundData.information.label ~= &apos;&apos;" saveVersion="2">
-																						<Then canSkip="1">
-																							<Sequence>
-																								<EntityContextCheck context="crime_isAuthority" target="" saveVersion="2">
-																									<Then canSkip="1">
-																										<Expression expressions="$requestVisualHelp = true" />
-																									</Then>
-																								</EntityContextCheck>
-																								<IfElseCondition failOnCondition="false" condition="$data:crime[$lookAroundData.information.label].isCrime" saveVersion="2">
-																									<Then canSkip="1">
-																										<CallDecorator_crime_sharePlayersPosition>
-																											<Subtree canSkip="1">
-																												<Function_crime_sharePlayersLastSeenPosition allowedAssistance="$enum:crime_allowedSharePlayerPosAssistance.none" requestVisualAssistanceFromOthers="$requestVisualHelp" direction="$positionUpdateDirection" position="$originPosition" nodeLabel="40095590" />
-																											</Subtree>
-																											<PositionUpdatedFromOtherNpc canSkip="1">
-																												<CallbackEventCatch_empty>
+																					<Sequence>
+																						<EntityContextCheck context="crime_isAuthority" target="" saveVersion="2">
+																							<Then canSkip="1">
+																								<IfCondition failOnCondition="false" condition="$data:crime[$lookAroundData.information.label].isCrime">
+																									<Expression expressions="$requestVisualHelp = true" />
+																								</IfCondition>
+																							</Then>
+																						</EntityContextCheck>
+																						<IfElseCondition failOnCondition="false" condition="$data:crime[$lookAroundData.information.label].isCrime | &#10;$lookAroundReason == $enum:crime_stimulusKind.shooter |  &#10;$lookAroundReason == $enum:crime_stimulusKind.unknownShooter | &#10;($lookAroundReason == $enum:crime_stimulusKind.sound &amp; $lookAroundData.soundType ~= $enum:sound.combat)" saveVersion="2">
+																							<Then canSkip="1">
+																								<CallDecorator_crime_sharePlayersPosition>
+																									<Subtree canSkip="1">
+																										<Function_crime_sharePlayersLastSeenPosition allowedAssistance="$enum:crime_allowedSharePlayerPosAssistance.none" requestVisualAssistanceFromOthers="$requestVisualHelp" direction="$positionUpdateDirection" position="$originPosition" nodeLabel="40095590" />
+																									</Subtree>
+																									<PositionUpdatedFromOtherNpc canSkip="1">
+																										<CallbackEventCatch_empty>
+																											<Sequence>
+																												<Expression expressions="$firstIteration = true &#10;$positionUpdated = true &#10;$positionUpdatedFromSound = false" />
+																												<SetExternalLock LockManagerType="Intellect" Locked="false" LockName="&apos;interrupt_lookAround_positionUpdated&apos;" />
+																											</Sequence>
+																										</CallbackEventCatch_empty>
+																									</PositionUpdatedFromOtherNpc>
+																									<PlayerFound canSkip="1">
+																										<CallbackEventCatch_empty>
+																											<IfCondition failOnCondition="false" condition="$data:crime[$lookAroundData.information.label].isCrime">
+																												<EntityContext context="crime_stimulusInitiatedByScheduler" target="">
 																													<Sequence>
-																														<Expression expressions="$firstIteration = true &#10;$positionUpdated = true &#10;$positionUpdatedFromSound = false" />
-																														<SetExternalLock LockManagerType="Intellect" Locked="false" LockName="&apos;interrupt_lookAround_positionUpdated&apos;" />
-																													</Sequence>
-																												</CallbackEventCatch_empty>
-																											</PositionUpdatedFromOtherNpc>
-																											<PlayerFound canSkip="1">
-																												<CallbackEventCatch_empty>
-																													<EntityContext context="crime_stimulusInitiatedByScheduler" target="">
-																														<Sequence>
-																															<Expression expressions="$awareness.perceptible = $__player" />
-																															<EntityContext context="crime_disabledRecurrentPerceptionIgnore" target="">
-																																<EntityContext context="crime_sharedPerceptionReaction" target="">
-																																	<Function_switch_handleAwareness awareness="$awareness" nodeLabel="15568702" />
-																																</EntityContext>
+																														<Expression expressions="$awareness.perceptible = $__player" />
+																														<EntityContext context="crime_disabledRecurrentPerceptionIgnore" target="">
+																															<EntityContext context="crime_sharedPerceptionReaction" target="">
+																																<Function_switch_handleAwareness awareness="$awareness" nodeLabel="15568702" />
 																															</EntityContext>
-																														</Sequence>
-																													</EntityContext>
-																												</CallbackEventCatch_empty>
-																											</PlayerFound>
-																											<PointingStart canSkip="1">
-																												<CallbackEventCatch_empty>
-																													<Success />
-																												</CallbackEventCatch_empty>
-																											</PointingStart>
-																											<PointingEnd canSkip="1">
-																												<CallbackEventCatch_empty>
-																													<Success />
-																												</CallbackEventCatch_empty>
-																											</PointingEnd>
-																										</CallDecorator_crime_sharePlayersPosition>
-																									</Then>
-																									<Else canSkip="1">
-																										<Wait duration="&apos;-1&apos;" timeType="GameTime" doFail="false" variation="" />
-																									</Else>
-																								</IfElseCondition>
-																							</Sequence>
-																						</Then>
-																						<Else canSkip="1">
-																							<Wait duration="&apos;-1&apos;" timeType="GameTime" doFail="false" variation="" />
-																						</Else>
-																					</IfElseCondition>
+																														</EntityContext>
+																													</Sequence>
+																												</EntityContext>
+																											</IfCondition>
+																										</CallbackEventCatch_empty>
+																									</PlayerFound>
+																									<PointingStart canSkip="1">
+																										<CallbackEventCatch_empty>
+																											<Success />
+																										</CallbackEventCatch_empty>
+																									</PointingStart>
+																									<PointingEnd canSkip="1">
+																										<CallbackEventCatch_empty>
+																											<Success />
+																										</CallbackEventCatch_empty>
+																									</PointingEnd>
+																								</CallDecorator_crime_sharePlayersPosition>
+																							</Then>
+																							<Else canSkip="1">
+																								<Wait duration="&apos;-1&apos;" timeType="GameTime" doFail="false" variation="" />
+																							</Else>
+																						</IfElseCondition>
+																					</Sequence>
 																					<Loop count="-1">
 																						<IfGate atomic="false" condition="~$initialMoveToDestination" RunLogic="Halt">
 																							<EntityContext context="crime_interruptLookAround_looking" target="">
@@ -1145,7 +1190,7 @@
 																																										<SetExternalLock LockManagerType="Intellect" Locked="false" LockName="&apos;moveDestinationSet&apos;" />
 																																										<Function_crime_lookAround_getParamsFromMovementType movementType="$movementType" moveParams="$move_additionalMoveParams" pathFindingParams="$move_pathFindingParams" speed="$move_speed" nodeLabel="46843147" />
 																																										<MoveParamsDecorator speed="$move_speed" pathFindingParams="$move_pathFindingParams" doorClosingPolicy="LeaveOpened">
-																																											<Move stopWithinDistance="0.500000" stopDistanceVariation="0.100000" rayCasteFlee="false" successDistance="0.000000" changeNPCState="true" fastForwardIncludesMove="false" destinationSpecification="$moveDestination" destinationSpecification2="" destinationSpecification3="" speed="$move_speed" additionalParams="$move_additionalMoveParams" pathFindingParams="$move_pathFindingParams" staminaPolicy="" pathInfo="" />
+																																											<Move stopWithinDistance="0.200000" stopDistanceVariation="0.100000" rayCasteFlee="false" successDistance="0.000000" changeNPCState="true" fastForwardIncludesMove="false" destinationSpecification="$moveDestination" destinationSpecification2="" destinationSpecification3="" speed="$move_speed" additionalParams="$move_additionalMoveParams" pathFindingParams="$move_pathFindingParams" staminaPolicy="" pathInfo="" />
 																																										</MoveParamsDecorator>
 																																									</Sequence>
 																																								</SuppressFailure>
@@ -1442,6 +1487,7 @@
 																				<IfCondition failOnCondition="false" condition="$lookAroundReason == $enum:crime_stimulusKind.corpse | &#10;$lookAroundReason == $enum:crime_stimulusKind.murder | &#10; &#10;( &#10; $lookAroundReason == $enum:crime_stimulusKind.theft &amp; &#10; $theftMethod == $enum:crime_theftMethod.lootCorpse &#10;)">
 																					<Function_crime_addCorpseLink corpse="$lookAroundData.information.perceivedWuid" corpseState="$enum:corpseState.watched" mateReacting="false" resolve="true" storeTime="false" nodeLabel="41709478" />
 																				</IfCondition>
+																				<RemoveLink From="$this.id" To="$this.id" Tag="&apos;crime_followUpBehavior_lookAround&apos;" LinkOpHandleMode="Success" />
 																				<Function_callFollowUpBehavior previousReaction="$enum:crime_reactionKind.lookAround" nodeLabel="23692707" />
 																			</Sequence>
 																		</AtomicDecorator>
@@ -1482,7 +1528,6 @@
 							<IfCondition failOnCondition="false" condition="$lookAroundData.stimulusKind == $enum:crime_stimulusKind.sound">
 								<Function_crime_updateAnchor nodeLabel="70092294" />
 							</IfCondition>
-							<RemoveLink From="$this.id" To="$this.id" Tag="&apos;crime_followUpBehavior_lookAround&apos;" LinkOpHandleMode="Success" />
 						</Sequence>
 					</OnFail>
 				</FuseBox>
@@ -1513,6 +1558,7 @@
 				<Variable name="dialogContext_reactingToReportFrom_appendix" comment="" />
 				<Variable name="distance" comment="" />
 				<Variable name="distanceMeToCorpse" comment="" />
+				<Variable name="dot" comment="" />
 				<Variable name="emitAlarmInformation" comment="" />
 				<Variable name="emittingInformation" comment="" />
 				<Variable name="escalateSoundReaction" comment="" />
@@ -1669,24 +1715,29 @@
 																			<OutputBreakpoints />
 																			<IfCondition hasInputBreakpoint="0" comment="" breakpointFlags="0">
 																				<OutputBreakpoints />
-																				<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																				<CheckWuidValid hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
 																					<OutputBreakpoints />
-																					<GraphSearch hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																						<OutputBreakpoints />
-																						<LinkTagFilter hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																					<Then>
+																						<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
 																							<OutputBreakpoints />
-																						</LinkTagFilter>
-																						<WUIDFilter hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																							<OutputBreakpoints />
-																						</WUIDFilter>
-																						<LinkDataFilter hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																							<OutputBreakpoints />
-																						</LinkDataFilter>
-																					</GraphSearch>
-																					<LinkDataExpression hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																						<OutputBreakpoints />
-																					</LinkDataExpression>
-																				</Sequence>
+																							<GraphSearch hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																								<OutputBreakpoints />
+																								<LinkTagFilter hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																									<OutputBreakpoints />
+																								</LinkTagFilter>
+																								<WUIDFilter hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																									<OutputBreakpoints />
+																								</WUIDFilter>
+																								<LinkDataFilter hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																									<OutputBreakpoints />
+																								</LinkDataFilter>
+																							</GraphSearch>
+																							<LinkDataExpression hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																								<OutputBreakpoints />
+																							</LinkDataExpression>
+																						</Sequence>
+																					</Then>
+																				</CheckWuidValid>
 																			</IfCondition>
 																			<IfCondition hasInputBreakpoint="0" comment="" breakpointFlags="0">
 																				<OutputBreakpoints />
@@ -1729,6 +1780,21 @@
 																				<OutputBreakpoints />
 																				<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
 																					<OutputBreakpoints />
+																					<Expression hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																						<OutputBreakpoints />
+																					</Expression>
+																					<Function_crime_getCrimeSceneSearchPoint hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																						<OutputBreakpoints />
+																					</Function_crime_getCrimeSceneSearchPoint>
+																					<Expression hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																						<OutputBreakpoints />
+																					</Expression>
+																				</Sequence>
+																			</IfCondition>
+																			<IfCondition hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																				<OutputBreakpoints />
+																				<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																					<OutputBreakpoints />
 																					<GetLastNavmeshPosition hasInputBreakpoint="0" comment="" breakpointFlags="0">
 																						<OutputBreakpoints />
 																					</GetLastNavmeshPosition>
@@ -1742,9 +1808,18 @@
 																			</IfCondition>
 																			<IfCondition hasInputBreakpoint="0" comment="" breakpointFlags="0">
 																				<OutputBreakpoints />
-																				<Expression hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																				<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
 																					<OutputBreakpoints />
-																				</Expression>
+																					<Expression hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																						<OutputBreakpoints />
+																					</Expression>
+																					<IfCondition hasInputBreakpoint="0" comment="this is duplicated below, always change both" breakpointFlags="0">
+																						<OutputBreakpoints />
+																						<Function_crime_lookAround_randomizeSoundPosition hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																							<OutputBreakpoints />
+																						</Function_crime_lookAround_randomizeSoundPosition>
+																					</IfCondition>
+																				</Sequence>
 																			</IfCondition>
 																			<DefaultBranch>
 																				<Expression hasInputBreakpoint="0" comment="" breakpointFlags="0">
@@ -1925,9 +2000,6 @@
 																				</Switch>
 																			</ProcessMessage>
 																		</While>
-																		<Function_crime_weaponDecorator hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																			<OutputBreakpoints />
-																		</Function_crime_weaponDecorator>
 																		<Selector hasInputBreakpoint="0" comment="" breakpointFlags="0">
 																			<OutputBreakpoints />
 																			<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
@@ -1955,6 +2027,9 @@
 																				<OutputBreakpoints />
 																			</Wait>
 																		</Selector>
+																		<Function_crime_weaponDecorator hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																			<OutputBreakpoints />
+																		</Function_crime_weaponDecorator>
 																		<IfElseCondition hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
 																			<OutputBreakpoints />
 																			<Then>
@@ -1963,15 +2038,15 @@
 																				</Wait>
 																			</Then>
 																			<Else>
-																				<EntityContext hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																				<EntityContextPreset hasInputBreakpoint="0" comment="" breakpointFlags="0">
 																					<OutputBreakpoints />
-																					<EntityContextElement hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																					<EntityContextPresetElement hasInputBreakpoint="0" comment="" breakpointFlags="0">
 																						<OutputBreakpoints />
 																						<Wait hasInputBreakpoint="0" comment="" breakpointFlags="0">
 																							<OutputBreakpoints />
 																						</Wait>
-																					</EntityContextElement>
-																				</EntityContext>
+																					</EntityContextPresetElement>
+																				</EntityContextPreset>
 																			</Else>
 																		</IfElseCondition>
 																		<Switch hasInputBreakpoint="0" comment="" breakpointFlags="0">
@@ -1980,15 +2055,21 @@
 																				<OutputBreakpoints />
 																				<IfGate hasInputBreakpoint="0" comment="" breakpointFlags="0">
 																					<OutputBreakpoints />
-																					<EntityContext hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																					<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
 																						<OutputBreakpoints />
-																						<EntityContextElement hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																						<ShowTutorial hasInputBreakpoint="0" comment="" breakpointFlags="0">
 																							<OutputBreakpoints />
-																							<Wait hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																						</ShowTutorial>
+																						<EntityContext hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																							<OutputBreakpoints />
+																							<EntityContextElement hasInputBreakpoint="0" comment="" breakpointFlags="0">
 																								<OutputBreakpoints />
-																							</Wait>
-																						</EntityContextElement>
-																					</EntityContext>
+																								<Wait hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																									<OutputBreakpoints />
+																								</Wait>
+																							</EntityContextElement>
+																						</EntityContext>
+																					</Sequence>
 																				</IfGate>
 																			</IfCondition>
 																			<IfCondition hasInputBreakpoint="0" comment="" breakpointFlags="0">
@@ -2019,6 +2100,9 @@
 																												<OutputBreakpoints />
 																											</LinkDataFilter>
 																										</GraphSearch>
+																										<ShowTutorial hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																											<OutputBreakpoints />
+																										</ShowTutorial>
 																										<EntityContext hasInputBreakpoint="0" comment="" breakpointFlags="0">
 																											<OutputBreakpoints />
 																											<EntityContextElement hasInputBreakpoint="0" comment="" breakpointFlags="0">
@@ -2048,30 +2132,42 @@
 																							</While>
 																						</Then>
 																						<Else>
-																							<EntityContext hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																							<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
 																								<OutputBreakpoints />
-																								<EntityContextElement hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																								<ShowTutorial hasInputBreakpoint="0" comment="" breakpointFlags="0">
 																									<OutputBreakpoints />
-																									<Wait hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																								</ShowTutorial>
+																								<EntityContext hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																									<OutputBreakpoints />
+																									<EntityContextElement hasInputBreakpoint="0" comment="" breakpointFlags="0">
 																										<OutputBreakpoints />
-																									</Wait>
-																								</EntityContextElement>
-																							</EntityContext>
+																										<Wait hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																											<OutputBreakpoints />
+																										</Wait>
+																									</EntityContextElement>
+																								</EntityContext>
+																							</Sequence>
 																						</Else>
 																					</IfElseCondition>
 																				</EntityContext>
 																			</IfCondition>
 																			<IfCondition hasInputBreakpoint="0" comment="" breakpointFlags="0">
 																				<OutputBreakpoints />
-																				<EntityContext hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																				<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
 																					<OutputBreakpoints />
-																					<EntityContextElement hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																					<ShowTutorial hasInputBreakpoint="0" comment="" breakpointFlags="0">
 																						<OutputBreakpoints />
-																						<Wait hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																					</ShowTutorial>
+																					<EntityContext hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																						<OutputBreakpoints />
+																						<EntityContextElement hasInputBreakpoint="0" comment="" breakpointFlags="0">
 																							<OutputBreakpoints />
-																						</Wait>
-																					</EntityContextElement>
-																				</EntityContext>
+																							<Wait hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																								<OutputBreakpoints />
+																							</Wait>
+																						</EntityContextElement>
+																					</EntityContext>
+																				</Sequence>
 																			</IfCondition>
 																			<DefaultBranch>
 																				<Wait hasInputBreakpoint="0" comment="" breakpointFlags="0">
@@ -2101,18 +2197,21 @@
 																		<IfElseCondition hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
 																			<OutputBreakpoints />
 																			<Then>
-																				<While hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																				<EntityContext hasInputBreakpoint="0" comment="" breakpointFlags="0">
 																					<OutputBreakpoints />
-																					<DistanceGate hasInputBreakpoint="0" comment="TODO: KeepRunning or Halt?" breakpointFlags="0">
+																					<While hasInputBreakpoint="0" comment="" breakpointFlags="0">
 																						<OutputBreakpoints />
-																						<GameContext hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																						<DistanceGate hasInputBreakpoint="0" comment="TODO: KeepRunning or Halt?" breakpointFlags="0">
 																							<OutputBreakpoints />
-																							<Wait hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																							<GameContext hasInputBreakpoint="0" comment="" breakpointFlags="0">
 																								<OutputBreakpoints />
-																							</Wait>
-																						</GameContext>
-																					</DistanceGate>
-																				</While>
+																								<Wait hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																									<OutputBreakpoints />
+																								</Wait>
+																							</GameContext>
+																						</DistanceGate>
+																					</While>
+																				</EntityContext>
 																			</Then>
 																			<Else>
 																				<Wait hasInputBreakpoint="0" comment="" breakpointFlags="0">
@@ -2250,19 +2349,26 @@
 																			<Function_crime_lookAround_getSearchIterations hasInputBreakpoint="0" comment="" breakpointFlags="0">
 																				<OutputBreakpoints />
 																			</Function_crime_lookAround_getSearchIterations>
-																			<IfElseCondition hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
+																			<Switch hasInputBreakpoint="0" comment="" breakpointFlags="0">
 																				<OutputBreakpoints />
-																				<Then>
+																				<IfCondition hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																					<OutputBreakpoints />
 																					<Expression hasInputBreakpoint="0" comment="" breakpointFlags="0">
 																						<OutputBreakpoints />
 																					</Expression>
-																				</Then>
-																				<Else>
+																				</IfCondition>
+																				<IfCondition hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																					<OutputBreakpoints />
 																					<Expression hasInputBreakpoint="0" comment="" breakpointFlags="0">
 																						<OutputBreakpoints />
 																					</Expression>
-																				</Else>
-																			</IfElseCondition>
+																				</IfCondition>
+																				<DefaultBranch>
+																					<Expression hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																						<OutputBreakpoints />
+																					</Expression>
+																				</DefaultBranch>
+																			</Switch>
 																			<IfCondition hasInputBreakpoint="0" comment="" breakpointFlags="0">
 																				<OutputBreakpoints />
 																				<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
@@ -2613,56 +2719,71 @@
 																										</Success>
 																									</Then>
 																									<Else>
-																										<IfCondition hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																										<GameContextCheck hasInputBreakpoint="0" comment="KCD2-498089" breakpointFlags="0" saveVersion="2">
 																											<OutputBreakpoints />
-																											<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																												<OutputBreakpoints />
-																												<Function_crime_getAnchor hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																											<Then>
+																												<Success hasInputBreakpoint="0" comment="" breakpointFlags="0">
 																													<OutputBreakpoints />
-																												</Function_crime_getAnchor>
-																												<MeasureDistance hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																												</Success>
+																											</Then>
+																											<Else>
+																												<IfCondition hasInputBreakpoint="0" comment="" breakpointFlags="0">
 																													<OutputBreakpoints />
-																												</MeasureDistance>
-																												<EntityContextCheck hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
-																													<OutputBreakpoints />
-																													<Then>
-																														<Expression hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																													<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																														<OutputBreakpoints />
+																														<Function_crime_getAnchor hasInputBreakpoint="0" comment="" breakpointFlags="0">
 																															<OutputBreakpoints />
-																														</Expression>
-																													</Then>
-																													<Else>
-																														<Expression hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																														</Function_crime_getAnchor>
+																														<MeasureDistance hasInputBreakpoint="0" comment="" breakpointFlags="0">
 																															<OutputBreakpoints />
-																														</Expression>
-																													</Else>
-																												</EntityContextCheck>
-																												<IfElseCondition hasInputBreakpoint="0" comment="TODO: TWEAK NUMBERS" breakpointFlags="0" saveVersion="2">
-																													<OutputBreakpoints />
-																													<Then>
-																														<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																														</MeasureDistance>
+																														<EntityContextCheck hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
 																															<OutputBreakpoints />
-																															<MeasureDistance hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																																<OutputBreakpoints />
-																															</MeasureDistance>
-																															<IfCondition hasInputBreakpoint="0" comment="TODO: review" breakpointFlags="0">
-																																<OutputBreakpoints />
+																															<Then>
+																																<Expression hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																																	<OutputBreakpoints />
+																																</Expression>
+																															</Then>
+																															<Else>
+																																<Expression hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																																	<OutputBreakpoints />
+																																</Expression>
+																															</Else>
+																														</EntityContextCheck>
+																														<IfElseCondition hasInputBreakpoint="0" comment="TODO: TWEAK NUMBERS" breakpointFlags="0" saveVersion="2">
+																															<OutputBreakpoints />
+																															<Then>
 																																<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
 																																	<OutputBreakpoints />
-																																	<Expression hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																																	<MeasureDistance hasInputBreakpoint="0" comment="" breakpointFlags="0">
 																																		<OutputBreakpoints />
-																																	</Expression>
-																																	<CheckNervousnessInterval hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
+																																	</MeasureDistance>
+																																	<IfCondition hasInputBreakpoint="0" comment="TODO: review" breakpointFlags="0">
 																																		<OutputBreakpoints />
-																																		<Then>
-																																			<IfElseCondition hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
+																																		<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																																			<OutputBreakpoints />
+																																			<Expression hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																																				<OutputBreakpoints />
+																																			</Expression>
+																																			<CheckNervousnessInterval hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
 																																				<OutputBreakpoints />
 																																				<Then>
 																																					<IfElseCondition hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
 																																						<OutputBreakpoints />
 																																						<Then>
-																																							<Expression hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																																							<IfElseCondition hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
 																																								<OutputBreakpoints />
-																																							</Expression>
+																																								<Then>
+																																									<Expression hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																																										<OutputBreakpoints />
+																																									</Expression>
+																																								</Then>
+																																								<Else>
+																																									<Expression hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																																										<OutputBreakpoints />
+																																									</Expression>
+																																								</Else>
+																																							</IfElseCondition>
 																																						</Then>
 																																						<Else>
 																																							<Expression hasInputBreakpoint="0" comment="" breakpointFlags="0">
@@ -2676,143 +2797,154 @@
 																																						<OutputBreakpoints />
 																																					</Expression>
 																																				</Else>
-																																			</IfElseCondition>
-																																		</Then>
-																																		<Else>
-																																			<Expression hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																																			</CheckNervousnessInterval>
+																																			<IfElseCondition hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
 																																				<OutputBreakpoints />
-																																			</Expression>
-																																		</Else>
-																																	</CheckNervousnessInterval>
-																																	<IfElseCondition hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
-																																		<OutputBreakpoints />
-																																		<Then>
-																																			<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																																				<OutputBreakpoints />
-																																				<DetermineTrespassReaction hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																																					<OutputBreakpoints />
-																																				</DetermineTrespassReaction>
-																																				<IfCondition hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																																					<OutputBreakpoints />
+																																				<Then>
 																																					<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
 																																						<OutputBreakpoints />
-																																						<IsBandit hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																																						<DetermineTrespassReaction hasInputBreakpoint="0" comment="" breakpointFlags="0">
 																																							<OutputBreakpoints />
-																																						</IsBandit>
+																																						</DetermineTrespassReaction>
 																																						<IfCondition hasInputBreakpoint="0" comment="" breakpointFlags="0">
 																																							<OutputBreakpoints />
-																																							<AtomicDecorator hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																																							<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
 																																								<OutputBreakpoints />
-																																								<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																																								<IsBandit hasInputBreakpoint="0" comment="" breakpointFlags="0">
 																																									<OutputBreakpoints />
-																																									<CreateInformationWrapper hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																																										<OutputBreakpoints />
-																																									</CreateInformationWrapper>
-																																									<LockDynamicInformationValues hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																																								</IsBandit>
+																																								<IfCondition hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																																									<OutputBreakpoints />
+																																									<AtomicDecorator hasInputBreakpoint="0" comment="" breakpointFlags="0">
 																																										<OutputBreakpoints />
 																																										<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
 																																											<OutputBreakpoints />
-																																											<SetDynamicInformationValue hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																																											<CreateInformationWrapper hasInputBreakpoint="0" comment="" breakpointFlags="0">
 																																												<OutputBreakpoints />
-																																											</SetDynamicInformationValue>
-																																											<SetDynamicInformationValue hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																																											</CreateInformationWrapper>
+																																											<LockDynamicInformationValues hasInputBreakpoint="0" comment="" breakpointFlags="0">
 																																												<OutputBreakpoints />
-																																											</SetDynamicInformationValue>
+																																												<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																																													<OutputBreakpoints />
+																																													<SetDynamicInformationValue hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																																														<OutputBreakpoints />
+																																													</SetDynamicInformationValue>
+																																													<SetDynamicInformationValue hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																																														<OutputBreakpoints />
+																																													</SetDynamicInformationValue>
+																																												</Sequence>
+																																											</LockDynamicInformationValues>
+																																											<Expression hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																																												<OutputBreakpoints />
+																																											</Expression>
+																																											<EntityContext hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																																												<OutputBreakpoints />
+																																												<Function_switch_handleStimulusNonAttributedCrime hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																																													<OutputBreakpoints />
+																																												</Function_switch_handleStimulusNonAttributedCrime>
+																																											</EntityContext>
 																																										</Sequence>
-																																									</LockDynamicInformationValues>
+																																									</AtomicDecorator>
+																																								</IfCondition>
+																																							</Sequence>
+																																						</IfCondition>
+																																						<Function_crime_crimeSwitchBark hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																																							<OutputBreakpoints />
+																																						</Function_crime_crimeSwitchBark>
+																																						<Function_crime_addFedUpWithSoundCooldown hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																																							<OutputBreakpoints />
+																																						</Function_crime_addFedUpWithSoundCooldown>
+																																						<Expression hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																																							<OutputBreakpoints />
+																																						</Expression>
+																																					</Sequence>
+																																				</Then>
+																																				<Else>
+																																					<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																																						<OutputBreakpoints />
+																																						<RandomGate hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
+																																							<OutputBreakpoints />
+																																							<Then>
+																																								<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																																									<OutputBreakpoints />
+																																									<Function_crime_crimeSwitchBark hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																																										<OutputBreakpoints />
+																																									</Function_crime_crimeSwitchBark>
 																																									<Expression hasInputBreakpoint="0" comment="" breakpointFlags="0">
 																																										<OutputBreakpoints />
 																																									</Expression>
-																																									<EntityContext hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																																										<OutputBreakpoints />
-																																										<Function_switch_handleStimulusNonAttributedCrime hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																																											<OutputBreakpoints />
-																																										</Function_switch_handleStimulusNonAttributedCrime>
-																																									</EntityContext>
 																																								</Sequence>
-																																							</AtomicDecorator>
-																																						</IfCondition>
+																																							</Then>
+																																							<Else>
+																																								<Expression hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																																									<OutputBreakpoints />
+																																								</Expression>
+																																							</Else>
+																																						</RandomGate>
+																																						<CalculateLookDotProduct hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																																							<OutputBreakpoints />
+																																						</CalculateLookDotProduct>
+																																						<IfElseCondition hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
+																																							<OutputBreakpoints />
+																																							<Then>
+																																								<Expression hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																																									<OutputBreakpoints />
+																																								</Expression>
+																																							</Then>
+																																							<Else>
+																																								<Expression hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																																									<OutputBreakpoints />
+																																								</Expression>
+																																							</Else>
+																																						</IfElseCondition>
+																																						<Expression hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																																							<OutputBreakpoints />
+																																						</Expression>
+																																						<Function_crime_lookAround_validateOriginPosition hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																																							<OutputBreakpoints />
+																																						</Function_crime_lookAround_validateOriginPosition>
+																																						<MeasureDistance hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																																							<OutputBreakpoints />
+																																						</MeasureDistance>
+																																						<Expression hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																																							<OutputBreakpoints />
+																																						</Expression>
+																																						<IfElseCondition hasInputBreakpoint="0" comment="skip turn when very close" breakpointFlags="0" saveVersion="2">
+																																							<OutputBreakpoints />
+																																							<Then>
+																																								<Expression hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																																									<OutputBreakpoints />
+																																								</Expression>
+																																							</Then>
+																																							<Else>
+																																								<IfCondition hasInputBreakpoint="0" comment="this is duplicated above, always change both" breakpointFlags="0">
+																																									<OutputBreakpoints />
+																																									<Function_crime_lookAround_randomizeSoundPosition hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																																										<OutputBreakpoints />
+																																									</Function_crime_lookAround_randomizeSoundPosition>
+																																								</IfCondition>
+																																							</Else>
+																																						</IfElseCondition>
+																																						<SetExternalLock hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																																							<OutputBreakpoints />
+																																						</SetExternalLock>
 																																					</Sequence>
-																																				</IfCondition>
-																																				<Function_crime_crimeSwitchBark hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																																					<OutputBreakpoints />
-																																				</Function_crime_crimeSwitchBark>
-																																				<Function_crime_addFedUpWithSoundCooldown hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																																					<OutputBreakpoints />
-																																				</Function_crime_addFedUpWithSoundCooldown>
-																																				<Expression hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																																					<OutputBreakpoints />
-																																				</Expression>
-																																			</Sequence>
-																																		</Then>
-																																		<Else>
-																																			<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																																				<OutputBreakpoints />
-																																				<RandomGate hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
-																																					<OutputBreakpoints />
-																																					<Then>
-																																						<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																																							<OutputBreakpoints />
-																																							<Function_crime_crimeSwitchBark hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																																								<OutputBreakpoints />
-																																							</Function_crime_crimeSwitchBark>
-																																							<Expression hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																																								<OutputBreakpoints />
-																																							</Expression>
-																																						</Sequence>
-																																					</Then>
-																																					<Else>
-																																						<Expression hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																																							<OutputBreakpoints />
-																																						</Expression>
-																																					</Else>
-																																				</RandomGate>
-																																				<IfElseCondition hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
-																																					<OutputBreakpoints />
-																																					<Then>
-																																						<Expression hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																																							<OutputBreakpoints />
-																																						</Expression>
-																																					</Then>
-																																					<Else>
-																																						<Expression hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																																							<OutputBreakpoints />
-																																						</Expression>
-																																					</Else>
-																																				</IfElseCondition>
-																																				<Expression hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																																					<OutputBreakpoints />
-																																				</Expression>
-																																				<MeasureDistance hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																																					<OutputBreakpoints />
-																																				</MeasureDistance>
-																																				<Expression hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																																					<OutputBreakpoints />
-																																				</Expression>
-																																				<IfCondition hasInputBreakpoint="0" comment="skip turn when very close" breakpointFlags="0">
-																																					<OutputBreakpoints />
-																																					<Expression hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																																						<OutputBreakpoints />
-																																					</Expression>
-																																				</IfCondition>
-																																				<SetExternalLock hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																																					<OutputBreakpoints />
-																																				</SetExternalLock>
-																																			</Sequence>
-																																		</Else>
-																																	</IfElseCondition>
+																																				</Else>
+																																			</IfElseCondition>
+																																		</Sequence>
+																																	</IfCondition>
 																																</Sequence>
-																															</IfCondition>
-																														</Sequence>
-																													</Then>
-																													<Else>
-																														<Expression hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																															<OutputBreakpoints />
-																														</Expression>
-																													</Else>
-																												</IfElseCondition>
-																											</Sequence>
-																										</IfCondition>
+																															</Then>
+																															<Else>
+																																<Expression hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																																	<OutputBreakpoints />
+																																</Expression>
+																															</Else>
+																														</IfElseCondition>
+																													</Sequence>
+																												</IfCondition>
+																											</Else>
+																										</GameContextCheck>
 																									</Else>
 																								</EntityContextCheck>
 																							</ProcessMessage>
@@ -2864,98 +2996,94 @@
 																								</Sequence>
 																							</ProcessMessage>
 																						</While>
-																						<IfElseCondition hasInputBreakpoint="0" comment="Available to share and receive player&apos;s position" breakpointFlags="0" saveVersion="2">
+																						<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
 																							<OutputBreakpoints />
-																							<Then>
-																								<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																									<OutputBreakpoints />
-																									<EntityContextCheck hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
+																							<EntityContextCheck hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
+																								<OutputBreakpoints />
+																								<Then>
+																									<IfCondition hasInputBreakpoint="0" comment="" breakpointFlags="0">
 																										<OutputBreakpoints />
-																										<Then>
-																											<Expression hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																												<OutputBreakpoints />
-																											</Expression>
-																										</Then>
-																									</EntityContextCheck>
-																									<IfElseCondition hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
+																										<Expression hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																											<OutputBreakpoints />
+																										</Expression>
+																									</IfCondition>
+																								</Then>
+																							</EntityContextCheck>
+																							<IfElseCondition hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
+																								<OutputBreakpoints />
+																								<Then>
+																									<CallDecorator_crime_sharePlayersPosition hasInputBreakpoint="0" comment="" breakpointFlags="0">
 																										<OutputBreakpoints />
-																										<Then>
-																											<CallDecorator_crime_sharePlayersPosition hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																										<Subtree>
+																											<Function_crime_sharePlayersLastSeenPosition hasInputBreakpoint="0" comment="" breakpointFlags="0">
 																												<OutputBreakpoints />
-																												<Subtree>
-																													<Function_crime_sharePlayersLastSeenPosition hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																											</Function_crime_sharePlayersLastSeenPosition>
+																										</Subtree>
+																										<PositionUpdatedFromOtherNpc>
+																											<CallbackEventCatch_empty hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																												<OutputBreakpoints />
+																												<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																													<OutputBreakpoints />
+																													<Expression hasInputBreakpoint="0" comment="" breakpointFlags="0">
 																														<OutputBreakpoints />
-																													</Function_crime_sharePlayersLastSeenPosition>
-																												</Subtree>
-																												<PositionUpdatedFromOtherNpc>
-																													<CallbackEventCatch_empty hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																													</Expression>
+																													<SetExternalLock hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																														<OutputBreakpoints />
+																													</SetExternalLock>
+																												</Sequence>
+																											</CallbackEventCatch_empty>
+																										</PositionUpdatedFromOtherNpc>
+																										<PlayerFound>
+																											<CallbackEventCatch_empty hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																												<OutputBreakpoints />
+																												<IfCondition hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																													<OutputBreakpoints />
+																													<EntityContext hasInputBreakpoint="0" comment="" breakpointFlags="0">
 																														<OutputBreakpoints />
 																														<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
 																															<OutputBreakpoints />
 																															<Expression hasInputBreakpoint="0" comment="" breakpointFlags="0">
 																																<OutputBreakpoints />
 																															</Expression>
-																															<SetExternalLock hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																															<EntityContext hasInputBreakpoint="0" comment="" breakpointFlags="0">
 																																<OutputBreakpoints />
-																															</SetExternalLock>
-																														</Sequence>
-																													</CallbackEventCatch_empty>
-																												</PositionUpdatedFromOtherNpc>
-																												<PlayerFound>
-																													<CallbackEventCatch_empty hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																														<OutputBreakpoints />
-																														<EntityContext hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																															<OutputBreakpoints />
-																															<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																																<OutputBreakpoints />
-																																<Expression hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																																	<OutputBreakpoints />
-																																</Expression>
 																																<EntityContext hasInputBreakpoint="0" comment="" breakpointFlags="0">
 																																	<OutputBreakpoints />
-																																	<EntityContext hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																																	<Function_switch_handleAwareness hasInputBreakpoint="0" comment="" breakpointFlags="0">
 																																		<OutputBreakpoints />
-																																		<Function_switch_handleAwareness hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																																			<OutputBreakpoints />
-																																		</Function_switch_handleAwareness>
-																																	</EntityContext>
+																																	</Function_switch_handleAwareness>
 																																</EntityContext>
-																															</Sequence>
-																														</EntityContext>
-																													</CallbackEventCatch_empty>
-																												</PlayerFound>
-																												<PointingStart>
-																													<CallbackEventCatch_empty hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																														<OutputBreakpoints />
-																														<Success hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																															<OutputBreakpoints />
-																														</Success>
-																													</CallbackEventCatch_empty>
-																												</PointingStart>
-																												<PointingEnd>
-																													<CallbackEventCatch_empty hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																														<OutputBreakpoints />
-																														<Success hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																															<OutputBreakpoints />
-																														</Success>
-																													</CallbackEventCatch_empty>
-																												</PointingEnd>
-																											</CallDecorator_crime_sharePlayersPosition>
-																										</Then>
-																										<Else>
-																											<Wait hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																															</EntityContext>
+																														</Sequence>
+																													</EntityContext>
+																												</IfCondition>
+																											</CallbackEventCatch_empty>
+																										</PlayerFound>
+																										<PointingStart>
+																											<CallbackEventCatch_empty hasInputBreakpoint="0" comment="" breakpointFlags="0">
 																												<OutputBreakpoints />
-																											</Wait>
-																										</Else>
-																									</IfElseCondition>
-																								</Sequence>
-																							</Then>
-																							<Else>
-																								<Wait hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																									<OutputBreakpoints />
-																								</Wait>
-																							</Else>
-																						</IfElseCondition>
+																												<Success hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																													<OutputBreakpoints />
+																												</Success>
+																											</CallbackEventCatch_empty>
+																										</PointingStart>
+																										<PointingEnd>
+																											<CallbackEventCatch_empty hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																												<OutputBreakpoints />
+																												<Success hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																													<OutputBreakpoints />
+																												</Success>
+																											</CallbackEventCatch_empty>
+																										</PointingEnd>
+																									</CallDecorator_crime_sharePlayersPosition>
+																								</Then>
+																								<Else>
+																									<Wait hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																										<OutputBreakpoints />
+																									</Wait>
+																								</Else>
+																							</IfElseCondition>
+																						</Sequence>
 																						<Loop hasInputBreakpoint="0" comment="" breakpointFlags="0">
 																							<OutputBreakpoints />
 																							<IfGate hasInputBreakpoint="0" comment="" breakpointFlags="0">
@@ -3912,6 +4040,9 @@
 																							<OutputBreakpoints />
 																						</Function_crime_addCorpseLink>
 																					</IfCondition>
+																					<RemoveLink hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																						<OutputBreakpoints />
+																					</RemoveLink>
 																					<Function_callFollowUpBehavior hasInputBreakpoint="0" comment="" breakpointFlags="0">
 																						<OutputBreakpoints />
 																					</Function_callFollowUpBehavior>
@@ -3977,9 +4108,6 @@
 										<OutputBreakpoints />
 									</Function_crime_updateAnchor>
 								</IfCondition>
-								<RemoveLink hasInputBreakpoint="0" comment="" breakpointFlags="0">
-									<OutputBreakpoints />
-								</RemoveLink>
 							</Sequence>
 						</OnFail>
 					</FuseBox>

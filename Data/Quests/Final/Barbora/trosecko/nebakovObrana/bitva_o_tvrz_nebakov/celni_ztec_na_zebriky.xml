@@ -87,10 +87,11 @@
 						<Vertex>vertex238</Vertex>
 					</Edge>
 				</Function>
-				<AreaTriggerAnonymous Name="areatriggeranonymous73" PositionY="1020" PositionX="360">
+				<AreaTrigger Name="areatrigger96" PositionY="950" PositionX="680">
+					<Asset Name="Souls" Alias="utocnici" />
 					<Asset Name="Areas" Alias="fleeArea" />
-					<Edge From="attackWithLaddersObjective.Completed" To="IsActive" />
-				</AreaTriggerAnonymous>
+					<Edge From="or97.bool" To="IsActive" />
+				</AreaTrigger>
 				<State Name="attackWithLaddersObjective" PositionY="0" PositionX="-10" RequiredForOutput="trosecko" TypeT="ProgressAbortable">
 					<Edge From="timer35.OnFinished" To="SetStarted" />
 					<Edge From="bitva_6_zebrikyOdrazeny.OnTrigger" To="SetCompleted" />
@@ -316,7 +317,7 @@
 						<Vertex>vertex194</Vertex>
 					</Edge>
 				</IfFunction>
-				<IfFunction Name="ifor76" PositionY="-1240" PositionX="5930" MethodName="math::boolean::Or" DeclaringType="math::boolean">
+				<IfFunction Name="ifand99" PositionY="-1250" PositionX="5930" MethodName="math::boolean::And" DeclaringType="math::boolean">
 					<Edge From="nebakovobrana_attackwithladder_1_1_2.ladderdisabled" To="Exec">
 						<Vertex>vertex185</Vertex>
 						<Vertex>vertex186</Vertex>
@@ -330,15 +331,15 @@
 					</Edge>
 					<Edge From="nebakovobrana_attackwithladder_1_1_1_1.ladderdropedorguyisdead" To="B" />
 				</IfFunction>
-				<IfFunction Name="ifor76_1" PositionY="-1380" PositionX="8200" MethodName="math::boolean::Or" DeclaringType="math::boolean">
+				<IfFunction Name="ifand99_1" PositionY="-1370" PositionX="8210" MethodName="math::boolean::And" DeclaringType="math::boolean">
 					<Edge From="nebakovobrana_attackwithladder_1_1_2_1.ladderdropedorguyisdead" To="A">
 						<Vertex>vertex216</Vertex>
 					</Edge>
 					<Edge From="nebakovobrana_attackwithladder_1_1_1_1_1.ladderdropedorguyisdead" To="B" />
+					<Edge From="nebakovobrana_attackwithladder_1_1_1_1_1.ladderdisabled" To="Exec" />
 					<Edge From="nebakovobrana_attackwithladder_1_1_2_1.ladderdisabled" To="Exec">
 						<Vertex>vertex217</Vertex>
 					</Edge>
-					<Edge From="nebakovobrana_attackwithladder_1_1_1_1_1.ladderdisabled" To="Exec" />
 				</IfFunction>
 				<initializebattlegroup Name="initializebattlegroup_2_2_1" PositionY="-2390" PositionX="4970" Namespace="utils.battle">
 					<Asset Name="groupcontroller" Alias="battleGroupOnWallSix" />
@@ -364,9 +365,6 @@
 					<Constant Name="weaponsetup" Value="melee" />
 					<Edge From="streamprofileshandling_1_1.onloaded" To="activate" />
 				</initializebattlegroup>
-				<ObjectProperties Name="isoulproperties59" PositionY="1200" PositionX="640" DeclaringType="wh::rpgmodule::I_Soul">
-					<Edge From="areatriggeranonymous73.Soul" To="I_Soul" />
-				</ObjectProperties>
 				<Function Name="joinarrays90" PositionY="-1310" PositionX="-20" TypeT="wh::rpgmodule::Souls" MethodName="utilities::array::JoinArrays" DeclaringType="utilities::array">
 					<Asset Name="A" Alias="attackingSouls_1" />
 					<Asset Name="B" Alias="attackingSouls_2" />
@@ -385,11 +383,19 @@
 						<Vertex>vertex120</Vertex>
 					</Edge>
 				</State>
+				<Function Name="kill95" PositionY="980" PositionX="1220" MethodName="wh::rpgmodule::Kill" DeclaringType="wh::rpgmodule">
+					<Constant Name="HideBody" Value="true" />
+					<Edge From="makearray98.Array" To="Souls" />
+					<Edge From="areatrigger96.OnEnter" To="Exec" />
+				</Function>
 				<MakeArray Name="makearray93" PositionY="-1900" PositionX="5390" TypeT="wh::xgenaimodule::SmartObjects">
 					<Asset Name="A" Alias="battleGroupOnWallFive" />
 					<Asset Name="B" Alias="battleGroupOnWallSix" />
 					<Asset Name="C" Alias="battleGroupOnWallSeven" />
 					<Asset Name="D" Alias="battleGroupOnWallEight" />
+				</MakeArray>
+				<MakeArray Name="makearray98" PositionY="1110" PositionX="960" TypeT="wh::rpgmodule::Souls">
+					<Edge From="areatrigger96.Soul" To="A" />
 				</MakeArray>
 				<michal_barkuje_na_vezi Name="michal_barkuje_na_vezi" PositionY="740" PositionX="780" />
 				<nebakovobrana_attackwithladder Name="nebakovobrana_attackwithladder" PositionY="-1180" PositionX="450" Namespace="nebakov_obrana__library">
@@ -689,6 +695,10 @@
 						<Vertex>vertex162</Vertex>
 					</Edge>
 				</Function>
+				<Function Name="or97" PositionY="990" PositionX="420" MethodName="math::boolean::Or" DeclaringType="math::boolean">
+					<Edge From="attackWithLaddersObjective.Started" To="A" />
+					<Edge From="attackWithLaddersObjective.Completed" To="B" />
+				</Function>
 				<Output Name="Output">
 					<Edge From="timer4.OnFinished" To="dalsi_utok">
 						<Vertex>vertex153</Vertex>
@@ -758,6 +768,10 @@
 					<Constant Name="DecisionAlias" Value="nebakovObrana_kecalBarkujeOZebriku" />
 					<Edge From="distancetrigger60.OnMatch" To="Exec" />
 				</Function>
+				<MemberFunction Name="revive72" PositionY="1591" PositionX="362" MethodName="Revive" DeclaringType="wh::rpgmodule::I_Soul">
+					<Asset Name="Soul" Alias="ttro_pisar" />
+					<Edge From="attackWithLaddersObjective.OnStarted" To="Exec" />
+				</MemberFunction>
 				<rozkazy_pro_celni_ztec Name="rozkazy_pro_celni_ztec" PositionY="730" PositionX="470" />
 				<streamprofileshandling Name="streamprofileshandling_1_1" PositionY="-2450" PositionX="4500" Namespace="utils.streaming">
 					<Asset Name="profiles" Alias="secondAttackOnWallProfile" />
@@ -768,12 +782,6 @@
 						<Vertex>vertex236</Vertex>
 					</Edge>
 				</streamprofileshandling>
-				<MemberFunction Name="takedamage56" PositionY="1020" PositionX="940" MethodName="TakeDamage" DeclaringType="wh::rpgmodule::I_CombatSoul">
-					<Constant Name="Stamina" Value="200" />
-					<Constant Name="Health" Value="200" />
-					<Edge From="isoulproperties59.CombatSoul" To="Victim" />
-					<Edge From="areatriggeranonymous73.OnEnter" To="Exec" />
-				</MemberFunction>
 				<Timer Name="timer33" PositionY="360" PositionX="1130">
 					<Constant Name="Duration" Value="13s" />
 					<Constant Name="TimeType" Value="GameTime" />
@@ -908,7 +916,7 @@
 					<Edge From="nebakovobrana_attackwithladder_1_1_1_1.ladderactive" To="isacti">
 						<Vertex>vertex184</Vertex>
 					</Edge>
-					<Edge From="ifor76.True" To="deactivate" />
+					<Edge From="ifand99.True" To="deactivate" />
 				</wakeanduseladder>
 				<wakeanduseladder Name="wakeanduseladder_1_2_1" PositionY="-1460" PositionX="8550" Namespace="utils.battle">
 					<Asset Name="laddercontroller" Alias="ladderController_5" />
@@ -921,7 +929,7 @@
 						<Vertex>vertex219</Vertex>
 						<Vertex>vertex218</Vertex>
 					</Edge>
-					<Edge From="ifor76_1.True" To="deactivate" />
+					<Edge From="ifand99_1.True" To="deactivate" />
 				</wakeanduseladder>
 			</Nodes>
 			<EdgeVertices>
@@ -1118,7 +1126,13 @@
 				<TagPointAsset Name="battlement_2" />
 				<TagPointAsset Name="battlement_3" />
 				<TagPointAsset Name="battlement_4" />
+				<SoulAsset Name="ttro_pisar" SharedSoulGuids="45181eae-906f-33c4-a6cf-667907e38ea0" />
 			</Assets>
+			<Notes>
+				<Note Name="note73" PositionY="1750" PositionX="370">
+					<Text StringName="celni_zte_note73_yq11" Text="Domča K. - oprava &#xD;&#xA;KCD2-524787 M11 -&gt; M12: After finishing all cutscenes player is still standing at Nebákov with Godwin and torturing never starts&#xD;&#xA;&#xD;&#xA;Problém: Písař vystupuje v M12 dialógu, ale neoživujem ho v queste. Ak ho hráč zabije pred M12, quest to rozbije. Pri enqueue dialógu už musí byť živý.&#xD;&#xA;" />
+				</Note>
+			</Notes>
 			<Text StringName="celni_ztec_na_zebriky_5ETW" Text="Čelní zteč na žebříky" />
 			<Elements>
 				<GameplayActionElement>

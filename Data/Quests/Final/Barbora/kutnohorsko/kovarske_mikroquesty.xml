@@ -33,6 +33,15 @@
 				<Port Name="u42__jindra_vytrhl_spravny_zub" Direction="Out" Type="trigger">
 					<DesignName StringName="kovarske__u42__jindra_vyt_YeBI" Text="U42 - jindra vytrhl správný zub" />
 				</Port>
+				<Port Name="u40__katuv_sleh__quest_progress" Direction="Out" Type="wh::questmodule::QuestProgress">
+					<DesignName StringName="kovarske__u40__katuv_sleh_4P2X" Text="U40 - Katův šleh - Quest progress" />
+				</Port>
+				<Port Name="u40__vykopat_enviro_hrob" Direction="Out" Type="trigger">
+					<DesignName StringName="kovarske__u40__vykopat_en_vGNh" Text="U40 - Vykopat enviro hrob" />
+				</Port>
+				<Port Name="u40__katuv_sleh__quest_done" Direction="Out" Type="trigger">
+					<DesignName StringName="kovarske__u40__katuv_sleh_GI2r" Text="U40 - Katův šleh - Quest done" />
+				</Port>
 				<Port Name="u41_asi_do_vezi__quest_progress" Direction="Out" Type="wh::questmodule::QuestProgress">
 					<DesignName StringName="kovarske__u41_asi_do_vezi_ccV7" Text="U41 Asi do vezi - Quest progress" />
 				</Port>
@@ -59,7 +68,6 @@
 					<Edge From="zacatek_levelu" To="zacatek_levelu" />
 				</asiDoVezi>
 				<katuvSleh Name="katuvSleh" PositionY="-530" PositionX="130" RequiredForOutput="kutnohorsko">
-					<Constant Name="jindra_uz_nekdy_vyhral_konsky_zavod" Value="false" />
 					<Edge From="questprogress" To="jindra_splnil_s37_stare_kosti" />
 					<Edge From="jindra_splnil_s10_rasuv_ucen" To="jindra_splnil_s10_rasuv_ucen" />
 				</katuvSleh>
@@ -87,6 +95,9 @@
 					<Edge From="symbolSermirny.hrac_ma_kusy_mece" To="hrac_ma_kusy_mece" />
 					<Edge From="symbolSermirny.u43_symbol_sermirny_done" To="u43_symbol_sermirny_done" />
 					<Edge From="symbolSermirny.u43_symbol_sermirny_failed" To="u43_symbol_sermirny_failed" />
+					<Edge From="katuvSleh.u40__katuv_sleh__quest_progress" To="u40__katuv_sleh__quest_progress" />
+					<Edge From="katuvSleh.u40__katuv_sleh__quest_done" To="u40__katuv_sleh__quest_done" />
+					<Edge From="katuvSleh.u40__vykopat_enviro_hrob" To="u40__vykopat_enviro_hrob" />
 				</Output>
 				<symbolSermirny Name="symbolSermirny" PositionY="-70" PositionX="130" RequiredForOutput="kutnohorsko">
 					<Edge From="start" To="start" />

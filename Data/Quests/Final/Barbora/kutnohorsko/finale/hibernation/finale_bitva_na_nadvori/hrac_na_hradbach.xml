@@ -59,9 +59,17 @@
 					<Edge From="or67.bool" To="IsActive" />
 					<Edge From="joinarrays87.Array" To="SoulArray1" />
 				</AddFactionRelationBetweenArrays>
-				<AIConceptSignalTrigger Name="aiconceptsignaltriggerhitreactionnotification21" PositionY="600" PositionX="2480" NotificationName="hitReactionNotification">
+				<AIConceptSignalTrigger Name="aiconceptsignaltriggerhitreactionnotification21" PositionY="490" PositionX="2480" NotificationName="hitReactionNotification">
 					<Asset Name="attacker_value_filter" Alias="player" />
 					<Asset Name="victim_value_filter" Alias="boss" />
+					<Edge From="openGateAndGetToTheSecondYardState.OpenGate" To="IsActive">
+						<Vertex>vertex20</Vertex>
+						<Vertex>vertex25</Vertex>
+						<Vertex>vertex21</Vertex>
+					</Edge>
+				</AIConceptSignalTrigger>
+				<AIConceptSignalTrigger Name="aiconceptsignaltriggernpcsawplayeraimingatthemnotification94" PositionY="970" PositionX="2480" NotificationName="NPCSawPlayerAimingAtThemNotification">
+					<Asset Name="who_value_filter" Alias="boss" />
 					<Edge From="openGateAndGetToTheSecondYardState.OpenGate" To="IsActive">
 						<Vertex>vertex20</Vertex>
 						<Vertex>vertex25</Vertex>
@@ -126,6 +134,11 @@
 					<Asset Name="LinkableObject" Alias="deadAllyOnWallSoundPoint" />
 					<Edge From="allyOnWall.OnDone" To="Exec" />
 				</Function>
+				<Function Name="audiooneshot71_1" PositionY="1330" PositionX="4160" MethodName="wh::soundmodule::AudioOneShot" DeclaringType="wh::soundmodule">
+					<Constant Name="AtlTriggerName" Value="c_mfx_chainmail_sword_passed_npc" />
+					<Asset Name="LinkableObject" Alias="deadAllyOnWallSoundPoint" />
+					<Edge From="allyOnWall.OnDone" To="Exec" />
+				</Function>
 				<Function Name="audiooneshot88_1" PositionY="1780" PositionX="2750" MethodName="wh::soundmodule::AudioOneShot" DeclaringType="wh::soundmodule">
 					<Constant Name="AtlTriggerName" Value="q_M51_gate" />
 					<Asset Name="LinkableObject" Alias="gateTrigger" />
@@ -157,6 +170,7 @@
 						<Vertex>vertex16</Vertex>
 						<Vertex>vertex51</Vertex>
 					</Edge>
+					<Edge From="aiconceptsignaltriggernpcsawplayeraimingatthemnotification94.OnNotification" To="SetActive" />
 				</State>
 				<BuffEffect Name="buff18" PositionY="3730" PositionX="1880">
 					<Constant Name="BuffGUID" Value="730503bf-735a-4f47-baae-c2d84ee77524" />
@@ -188,7 +202,7 @@
 					</Edge>
 					<Edge From="or67.bool" To="IsActive" />
 				</BuffEffect>
-				<CutsceneHandler Name="cutscenehandler11" PositionY="1110" PositionX="2230">
+				<CutsceneHandler Name="cutscenehandler11" PositionY="1120" PositionX="2230">
 					<Asset Name="CutsceneHolder" Alias="openGateFader" />
 					<Constant Name="AutoFinish" Value="false" />
 					<Edge From="interactiontrigger5.OnInteraction" To="EnqueueCutscene" />
@@ -198,7 +212,7 @@
 					<Edge From="distancetriggerPlayerToLadderGuy.OnMatch" To="SetTrue" />
 					<Edge From="distancetriggerPlayerToLadderGuy.OnUnmatch" To="SetFalse" />
 				</State>
-				<DistanceTrigger Name="distancetrigger15" PositionY="350" PositionX="2480">
+				<DistanceTrigger Name="distancetrigger15" PositionY="250" PositionX="2580">
 					<Asset Name="Origin" Alias="player" />
 					<Asset Name="Target" Alias="boss" />
 					<Constant Name="Operator" Value="LessEquals" />
@@ -222,7 +236,13 @@
 					<Asset Name="NPC" Alias="wallGuys" />
 					<Edge From="streamprofileshandling.profileactive" To="IsActive" />
 				</EnableBehavior>
-				<EnableBehavior Name="enablebehaviorchatonplayerendnotification30" PositionY="820" PositionX="2480" Signature="chatOnPlayer" EventSet="endNotification">
+				<EnableBehavior Name="enablebehavior92_1" PositionY="2310" PositionX="1460" Signature="" EventSet="">
+					<Constant Name="Behavior" Value="fight_simple" />
+					<Asset Name="SmartEntity" Alias="enemyBG_wallGuys" />
+					<Asset Name="NPC" Alias="towerGuy" />
+					<Edge From="openGateAndGetToTheSecondYardState.GetToTheSecondDoor" To="IsActive" />
+				</EnableBehavior>
+				<EnableBehavior Name="enablebehaviorchatonplayerendnotification30" PositionY="700" PositionX="2480" Signature="chatOnPlayer" EventSet="endNotification">
 					<Constant Name="Behavior" Value="bossChatOnPlayer" />
 					<Asset Name="SmartEntity" Alias="qso" />
 					<Asset Name="NPC" Alias="boss" />
@@ -252,14 +272,6 @@
 					<Constant Name="string" Value="battleEntity" />
 					<Asset Name="wuid" Alias="enemyBG_boss" />
 					<Edge From="bossFight.Active" To="IsActive" />
-				</EnableBehavior>
-				<EnableBehavior Name="enablebehaviorwuiddatastring11_1_1" PositionY="2310" PositionX="1460" Signature="wuidData_string" EventSet="">
-					<Constant Name="Behavior" Value="fight" />
-					<Asset Name="SmartEntity" Alias="enemyBG_wallGuys" />
-					<Asset Name="NPC" Alias="towerGuy" />
-					<Constant Name="string" Value="battleEntity" />
-					<Asset Name="wuid" Alias="enemyBG_wallGuys" />
-					<Edge From="openGateAndGetToTheSecondYardState.GetToTheSecondDoor" To="IsActive" />
 				</EnableBehavior>
 				<fightconfiguration_surrendering Name="fightconfiguration_surrendering" PositionY="320" PositionX="1890" Namespace="utils.combat">
 					<Asset Name="souls" Alias="boss" />

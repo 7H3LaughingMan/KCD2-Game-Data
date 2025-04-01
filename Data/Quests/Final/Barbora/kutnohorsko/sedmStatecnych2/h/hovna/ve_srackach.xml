@@ -60,6 +60,12 @@
 				<Port Name="hrac_mluvil_s_hraci_kostek" Direction="In" Type="bool">
 					<DesignName StringName="ve_sracka_hrac_napadnul_h_sEPV" Text="Hráč mluvil s hraci kostek" />
 				</Port>
+				<Port Name="hrac_muze_pohrbit_lukostrelce" Direction="Out" Type="trigger">
+					<DesignName StringName="ve_sracka_hrac_muze_pohrb_KQ9Y" Text="Hrac muze pohrbit lukostrelce" />
+				</Port>
+				<Port Name="hrac_vytahnul_ranka" Direction="Out" Type="bool">
+					<DesignName StringName="ve_sracka_hrac_vytahnul_r_roQa" Text="Hrac vytahnul Ranka" />
+				</Port>
 			</Ports>
 			<Definitions>
 				<Definition File="ve_srackach/barky_brodim_se_ve_srackach.xml" />
@@ -74,16 +80,16 @@
 						<Vertex>vertex21</Vertex>
 					</Edge>
 				</barky_brodim_se_ve_srackach>
-				<checkovani_fightu Name="checkovani_fightu" PositionY="870" PositionX="-840" Namespace="sedmstatecnych2">
-					<Edge From="vytahni_ranka_ze_stoky.Active" To="checkovani_fightu">
+				<checkovani_fightu Name="checkovani_fightu" PositionY="830" PositionX="-840" Namespace="sedmstatecnych2">
+					<Edge From="or16.bool" To="checkovani_fightu">
 						<Vertex>vertex24</Vertex>
 						<Vertex>vertex25</Vertex>
 					</Edge>
 				</checkovani_fightu>
-				<expectedeffect Name="expectedeffect" PositionY="680" PositionX="-280" Namespace="utils.crime.trespass">
+				<expectedeffect Name="expectedeffect" PositionY="690" PositionX="0" Namespace="utils.crime.trespass">
 					<Asset Name="npcs" Alias="gambler_1" />
 					<Constant Name="extenduntilplayerleavestrespass" Value="true" />
-					<Edge From="vytahni_ranka_ze_stoky.Active" To="isactive" />
+					<Edge From="or16.bool" To="isactive" />
 				</expectedeffect>
 				<hledani_ve_stoce Name="hledani_ve_stoce" PositionY="200" PositionX="-1670" RequiredForOutput="kutnohorsko">
 					<Edge From="jindra_musi_najit_lukostrelce" To="jindra_musi_najit_lukostrelce">
@@ -116,45 +122,68 @@
 				</hledani_ve_stoce>
 				<If Name="if4" PositionY="520" PositionX="-840">
 					<Edge From="zvedani_a_obirani_mrtvoly.hrac_vytahnul_lukostrelce" To="Exec" />
-					<Edge From="vytahni_ranka_ze_stoky.Active" To="Condition">
+					<Edge From="or16.bool" To="Condition">
 						<Vertex>vertex24</Vertex>
 						<Vertex>vertex25</Vertex>
 					</Edge>
 				</If>
 				<If Name="if5" PositionY="690" PositionX="-840">
-					<Edge From="vytahni_ranka_ze_stoky.Active" To="Condition">
-						<Vertex>vertex24</Vertex>
-						<Vertex>vertex25</Vertex>
-					</Edge>
 					<Edge From="jindra_sesbiral_zbytek_party" To="Exec">
 						<Vertex>vertex15</Vertex>
 						<Vertex>vertex28</Vertex>
 					</Edge>
+					<Edge From="or16.bool" To="Condition">
+						<Vertex>vertex24</Vertex>
+						<Vertex>vertex25</Vertex>
+					</Edge>
 				</If>
-				<IfFunction Name="ifand11" PositionY="180" PositionX="-280" MethodName="math::boolean::And" DeclaringType="math::boolean">
+				<IfFunction Name="ifand11" PositionY="190" PositionX="-240" MethodName="math::boolean::And" DeclaringType="math::boolean">
 					<Edge From="hledani_ve_stoce.jindra_nasel_lukostrelce" To="Exec">
 						<Vertex>vertex47</Vertex>
 						<Vertex>dgFuRzXc</Vertex>
 					</Edge>
 					<Edge From="u_latriny" To="A">
 						<Vertex>vertex46</Vertex>
-						<Vertex>F6P2vBT4</Vertex>
+						<Vertex>XRJTnf77</Vertex>
 					</Edge>
 					<Edge From="vytahni_ranka_ze_stoky.None" To="B" />
 				</IfFunction>
-				<SkaldBoxProbe Name="musicstate6" PositionY="540" PositionX="-40">
+				<IfFunction Name="ifand12" PositionY="-60" PositionX="10" MethodName="math::boolean::And" DeclaringType="math::boolean">
+					<Edge From="zvedani_a_obirani_mrtvoly.hrac_vytahnul_lukostrelce" To="Exec">
+						<Vertex>RD5duVXP</Vertex>
+						<Vertex>2zokX7YA</Vertex>
+					</Edge>
+					<Edge From="not13.bool" To="A" />
+					<Edge From="or14.bool" To="B" />
+				</IfFunction>
+				<SkaldBoxProbe Name="musicstate6" PositionY="540" PositionX="0">
 					<Constant Name="Toggle" Value="STORY_M38_SWAMP_DIVE" />
 					<Edge From="or7.bool" To="IsActive" />
 				</SkaldBoxProbe>
-				<vytahni_ranka_ze_stoky Name="objectiveVisual1" PositionY="380" PositionX="-280" RequiredForOutput="kutnohorsko">
+				<Function Name="not13" PositionY="-140" PositionX="-240" MethodName="math::boolean::Not" DeclaringType="math::boolean">
+					<Edge From="u_latriny" To="Value">
+						<Vertex>vertex46</Vertex>
+						<Vertex>XRJTnf77</Vertex>
+					</Edge>
+				</Function>
+				<vytahni_ranka_ze_stoky Name="objectiveVisual1" PositionY="380" PositionX="-240" RequiredForOutput="kutnohorsko">
 					<Edge From="vytahni_ranka_ze_stoky.State" To="Progress" />
 				</vytahni_ranka_ze_stoky>
-				<Function Name="or7" PositionY="540" PositionX="-280" MethodName="math::boolean::Or" DeclaringType="math::boolean">
+				<Function Name="or14" PositionY="-10" PositionX="-240" MethodName="math::boolean::Or" DeclaringType="math::boolean">
+					<Edge From="vytahni_ranka_ze_stoky.Canceled" To="B" />
+					<Edge From="vytahni_ranka_ze_stoky.None" To="A" />
+				</Function>
+				<Function Name="or16" PositionY="740" PositionX="-240" MethodName="math::boolean::Or" DeclaringType="math::boolean">
 					<Edge From="vytahni_ranka_ze_stoky.Active" To="A" />
-					<Edge From="hledani_ve_stoce.hrac_hleda_lukostrelce_ve_stoce" To="B">
+					<Edge From="vytahni_ranka_ze_stoky.CarryCorpse" To="B" />
+				</Function>
+				<Function Name="or7" PositionY="540" PositionX="-240" MethodName="math::boolean::Or" DeclaringType="math::boolean">
+					<Edge From="vytahni_ranka_ze_stoky.Active" To="A" />
+					<Edge From="hledani_ve_stoce.hrac_hleda_lukostrelce_ve_stoce" To="C">
 						<Vertex>vertex32</Vertex>
 						<Vertex>vertex33</Vertex>
 					</Edge>
+					<Edge From="vytahni_ranka_ze_stoky.CarryCorpse" To="B" />
 				</Function>
 				<Output Name="Output">
 					<Edge From="hledani_ve_stoce.jindra_nasel_lukostrelce" To="jindra_nasel_lukostrelce">
@@ -164,14 +193,6 @@
 					<Edge From="hledani_ve_stoce.lukostrelec_je_mrtvy" To="jindra_nasel_lukostrelce_bool">
 						<Vertex>vertex10</Vertex>
 						<Vertex>vertex11</Vertex>
-					</Edge>
-					<Edge From="vytahni_ranka_ze_stoky.OnDone" To="jindra_ma_donest_luk">
-						<Vertex>vertex26</Vertex>
-						<Vertex>vertex27</Vertex>
-					</Edge>
-					<Edge From="vytahni_ranka_ze_stoky.Done" To="jindra_uz_utopence_nasel">
-						<Vertex>vertex29</Vertex>
-						<Vertex>vertex30</Vertex>
 					</Edge>
 					<Edge From="hledani_ve_stoce.hrac_na_nekoho_zautocil" To="jindra_se_pustil_do_boje">
 						<Vertex>vertex35</Vertex>
@@ -198,15 +219,36 @@
 						<Vertex>3ezYXKw0</Vertex>
 						<Vertex>WxvyHFou</Vertex>
 					</Edge>
+					<Edge From="ifand12.True" To="hrac_muze_pohrbit_lukostrelce" />
+					<Edge From="zvedani_a_obirani_mrtvoly.hrac_vytahnul_ranka" To="hrac_vytahnul_ranka">
+						<Vertex>bHHqSIoJ</Vertex>
+						<Vertex>3XUPKIxl</Vertex>
+					</Edge>
+					<Edge From="vytahni_ranka_ze_stoky.OnDone" To="jindra_ma_donest_luk">
+						<Vertex>vertex26</Vertex>
+						<Vertex>vertex27</Vertex>
+					</Edge>
+					<Edge From="vytahni_ranka_ze_stoky.Done" To="jindra_uz_utopence_nasel">
+						<Vertex>vertex29</Vertex>
+						<Vertex>vertex30</Vertex>
+					</Edge>
 				</Output>
-				<State Name="vytahni_ranka_ze_stoky" PositionY="430" PositionX="-570" RequiredForOutput="kutnohorsko" TypeT="ProgressFailable">
+				<State Name="vytahni_ranka_ze_stoky" PositionY="420" PositionX="-570" RequiredForOutput="kutnohorsko" TypeT="PullOutRanek">
 					<Edge From="hledani_ve_stoce.jindra_musi_vytahnout_lukostrelce" To="SetActive">
 						<Vertex>vertex22</Vertex>
 						<Vertex>vertex23</Vertex>
 					</Edge>
 					<Edge From="if4.True" To="SetDone" />
-					<Edge From="if5.True" To="SetCanceled" />
 					<Edge From="checkovani_fightu.hrac_na_nekoho_zautocil" To="SetCanceled" />
+					<Edge From="if5.True" To="SetCanceled" />
+					<Edge From="zvedani_a_obirani_mrtvoly.hrac_nese_ranka" To="SetCarryCorpse">
+						<Vertex>PWU324aI</Vertex>
+						<Vertex>eJDDC0z7</Vertex>
+					</Edge>
+					<Edge From="zvedani_a_obirani_mrtvoly.hrac_polozil_ranka_ve_stoce" To="SetActive">
+						<Vertex>FgpnzMHw</Vertex>
+						<Vertex>pEEFtodz</Vertex>
+					</Edge>
 				</State>
 				<zvedani_a_obirani_mrtvoly Name="zvedani_a_obirani_mrtvoly" PositionY="200" PositionX="-1200">
 					<Edge From="hledani_ve_stoce.jindra_nasel_lukostrelce" To="jindra_nasel_lukostrelce">
@@ -219,12 +261,19 @@
 				</zvedani_a_obirani_mrtvoly>
 			</Nodes>
 			<EdgeVertices>
-				<EdgeVertex Name="3ezYXKw0" PositionY="50" PositionX="0" />
-				<EdgeVertex Name="dgFuRzXc" PositionY="50" PositionX="-350" />
-				<EdgeVertex Name="F6P2vBT4" PositionY="70" PositionX="-350" />
+				<EdgeVertex Name="2zokX7YA" PositionY="150" PositionX="-100" />
+				<EdgeVertex Name="3ezYXKw0" PositionY="150" PositionX="20" />
+				<EdgeVertex Name="3XUPKIxl" PositionY="170" PositionX="170" />
+				<EdgeVertex Name="bHHqSIoJ" PositionY="170" PositionX="-840" />
+				<EdgeVertex Name="dgFuRzXc" PositionY="50" PositionX="-340" />
+				<EdgeVertex Name="eJDDC0z7" PositionY="440" PositionX="-670" />
+				<EdgeVertex Name="FgpnzMHw" PositionY="460" PositionX="-840" />
+				<EdgeVertex Name="pEEFtodz" PositionY="460" PositionX="-670" />
+				<EdgeVertex Name="PWU324aI" PositionY="440" PositionX="-840" />
+				<EdgeVertex Name="RD5duVXP" PositionY="150" PositionX="-840" />
 				<EdgeVertex Name="RrGUh4ro" PositionY="244" PositionX="-1781" />
 				<EdgeVertex Name="vertex10" PositionY="1090" PositionX="-1240" />
-				<EdgeVertex Name="vertex11" PositionY="1090" PositionX="120" />
+				<EdgeVertex Name="vertex11" PositionY="1090" PositionX="240" />
 				<EdgeVertex Name="vertex12" PositionY="170" PositionX="-1780" />
 				<EdgeVertex Name="vertex14" PositionY="210" PositionX="-1780" />
 				<EdgeVertex Name="vertex15" PositionY="130" PositionX="-1780" />
@@ -232,34 +281,35 @@
 				<EdgeVertex Name="vertex21" PositionY="90" PositionX="-840" />
 				<EdgeVertex Name="vertex22" PositionY="480" PositionX="-1220" />
 				<EdgeVertex Name="vertex23" PositionY="480" PositionX="-670" />
-				<EdgeVertex Name="vertex24" PositionY="860" PositionX="-380" />
-				<EdgeVertex Name="vertex25" PositionY="860" PositionX="-840" />
+				<EdgeVertex Name="vertex24" PositionY="1010" PositionX="-70" />
+				<EdgeVertex Name="vertex25" PositionY="1010" PositionX="-840" />
 				<EdgeVertex Name="vertex26" PositionY="1050" PositionX="-250" />
-				<EdgeVertex Name="vertex27" PositionY="1050" PositionX="120" />
+				<EdgeVertex Name="vertex27" PositionY="1050" PositionX="240" />
 				<EdgeVertex Name="vertex28" PositionY="130" PositionX="-940" />
 				<EdgeVertex Name="vertex29" PositionY="1030" PositionX="-250" />
 				<EdgeVertex Name="vertex3" PositionY="90" PositionX="-1780" />
-				<EdgeVertex Name="vertex30" PositionY="1030" PositionX="120" />
+				<EdgeVertex Name="vertex30" PositionY="1030" PositionX="240" />
 				<EdgeVertex Name="vertex32" PositionY="1110" PositionX="-1240" />
 				<EdgeVertex Name="vertex33" PositionY="1110" PositionX="-360" />
 				<EdgeVertex Name="vertex34" PositionY="190" PositionX="-1780" />
 				<EdgeVertex Name="vertex35" PositionY="1130" PositionX="-1240" />
-				<EdgeVertex Name="vertex36" PositionY="1130" PositionX="120" />
+				<EdgeVertex Name="vertex36" PositionY="1130" PositionX="240" />
 				<EdgeVertex Name="vertex37" PositionY="1130" PositionX="-560" />
 				<EdgeVertex Name="vertex38" PositionY="150" PositionX="-1780" />
 				<EdgeVertex Name="vertex39" PositionY="1150" PositionX="-1240" />
-				<EdgeVertex Name="vertex40" PositionY="1149" PositionX="119" />
-				<EdgeVertex Name="vertex41" PositionY="1171" PositionX="116" />
+				<EdgeVertex Name="vertex40" PositionY="1150" PositionX="240" />
+				<EdgeVertex Name="vertex41" PositionY="1170" PositionX="240" />
 				<EdgeVertex Name="vertex42" PositionY="1168" PositionX="-1245" />
 				<EdgeVertex Name="vertex43" PositionY="228" PositionX="-1781" />
-				<EdgeVertex Name="vertex44" PositionY="1192" PositionX="114" />
+				<EdgeVertex Name="vertex44" PositionY="1190" PositionX="240" />
 				<EdgeVertex Name="vertex45" PositionY="1189" PositionX="-1249" />
 				<EdgeVertex Name="vertex46" PositionY="70" PositionX="-1780" />
 				<EdgeVertex Name="vertex47" PositionY="50" PositionX="-1270" />
 				<EdgeVertex Name="vertex7" PositionY="110" PositionX="-1780" />
 				<EdgeVertex Name="vertex8" PositionY="1070" PositionX="-1240" />
-				<EdgeVertex Name="vertex9" PositionY="1070" PositionX="120" />
-				<EdgeVertex Name="WxvyHFou" PositionY="50" PositionX="170" />
+				<EdgeVertex Name="vertex9" PositionY="1070" PositionX="240" />
+				<EdgeVertex Name="WxvyHFou" PositionY="150" PositionX="170" />
+				<EdgeVertex Name="XRJTnf77" PositionY="70" PositionX="-340" />
 			</EdgeVertices>
 			<Types>
 				<Type TypeName="LootableAndPickableDeadBody">

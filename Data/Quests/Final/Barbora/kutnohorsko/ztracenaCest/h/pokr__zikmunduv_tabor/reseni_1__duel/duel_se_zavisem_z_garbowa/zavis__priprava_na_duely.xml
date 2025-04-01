@@ -48,6 +48,9 @@
 				<Port Name="probiha_fastforward" Direction="Out" Type="bool">
 					<DesignName StringName="zavis__pr_probiha_fastfor_mvro" Text="Probíhá fastForward" />
 				</Port>
+				<Port Name="zavis_je_behem_turnaje_v_arene" Direction="Out" Type="bool">
+					<DesignName StringName="zavis__pr_zavis_je_behem__kRIe" Text="Záviš je během turnaje v aréně" />
+				</Port>
 			</Ports>
 			<Definitions>
 				<Definition File="zavis__priprava_na_duely/kontrola_soul_v_arene.xml" />
@@ -113,6 +116,18 @@
 						<Vertex>vertex142</Vertex>
 					</Edge>
 				</Function>
+				<AreaTrigger Name="areatrigger129" PositionY="-1300" PositionX="140">
+					<Asset Name="Souls" Alias="zavis" />
+					<Asset Name="Areas" Alias="duelArena" />
+					<Edge From="zavisArenaPresenceTracking.Active_ZavisOutside" To="IsActive" />
+				</AreaTrigger>
+				<AreaTrigger Name="areatrigger129_1" PositionY="-1010" PositionX="140">
+					<Asset Name="Souls" Alias="zavis" />
+					<Asset Name="Areas" Alias="duelArena" />
+					<Edge From="zavisArenaPresenceTracking.Active_ZavisInside" To="IsActive">
+						<Vertex>293Wcl1w</Vertex>
+					</Edge>
+				</AreaTrigger>
 				<Function Name="bufftagcheck121" PositionY="690" PositionX="-2480" MethodName="wh::rpgmodule::BuffTagCheck" DeclaringType="wh::rpgmodule">
 					<Asset Name="Souls" Alias="zavis" />
 					<Constant Name="BuffTag" Value="11" />
@@ -298,6 +313,7 @@
 					<Edge From="timer118.OnFinished" To="zavisovi_dochazi_trpelivost" />
 					<Edge From="whichWeaponEquip.OnEquippingHalberd" To="zavis_se_pripravuje_na_boj_s_halapartnou">
 						<Vertex>vertex138</Vertex>
+						<Vertex>QgLgnS6R</Vertex>
 						<Vertex>vertex137</Vertex>
 					</Edge>
 					<Edge From="or67.bool" To="halberdy_ready">
@@ -311,6 +327,9 @@
 						<Vertex>vertex115</Vertex>
 						<Vertex>24H5aNMy</Vertex>
 						<Vertex>23Iz2HlV</Vertex>
+					</Edge>
+					<Edge From="zavisArenaPresenceTracking.Active_ZavisInside" To="zavis_je_behem_turnaje_v_arene">
+						<Vertex>293Wcl1w</Vertex>
 					</Edge>
 				</Output>
 				<Layer Name="profile117" PositionY="-160" PositionX="-1070">
@@ -378,7 +397,7 @@
 						<Vertex>vertex111</Vertex>
 					</Edge>
 				</Switch>
-				<Switch Name="switch127" PositionY="160" PositionX="-2620" TypeT="WeaponHandling" ValueTypes="WeaponHandling" SwitchValues="GoingToArenaWithShortSword InArenaWithShortSword GoingToArenaWithLongSword InArenaWithLongSword">
+				<Switch Name="switch127" PositionY="160" PositionX="-2590" TypeT="WeaponHandling" ValueTypes="WeaponHandling" SwitchValues="GoingToArenaWithShortSword InArenaWithShortSword GoingToArenaWithLongSword InArenaWithLongSword">
 					<Constant Name="GoingToArenaWithShortSwordValue1" Value="InArenaWithShortSword" />
 					<Constant Name="InArenaWithShortSwordValue1" Value="InArenaWithShortSword" />
 					<Constant Name="GoingToArenaWithLongSwordValue1" Value="InArenaWithLongSword" />
@@ -432,13 +451,44 @@
 						<Vertex>vertex85</Vertex>
 					</Edge>
 				</State>
+				<State Name="zavisArenaPresenceTracking" PositionY="-1300" PositionX="-330" TypeT="ZavisArenaPresenceTracking">
+					<Edge From="areatrigger129.OnAllEnter" To="SetActive_ZavisInside">
+						<Vertex>BvMt36Tn</Vertex>
+						<Vertex>vXRjA2QD</Vertex>
+					</Edge>
+					<Edge From="whichWeaponEquip.OnEquippingHalberd" To="SetActive_ZavisOutside">
+						<Vertex>vertex138</Vertex>
+						<Vertex>QgLgnS6R</Vertex>
+						<Vertex>qN0EMeXM</Vertex>
+					</Edge>
+					<Edge From="areatrigger129_1.OnAllLeave" To="SetActive_ZavisOutside">
+						<Vertex>TBuUgxDt</Vertex>
+						<Vertex>qN0EMeXM</Vertex>
+					</Edge>
+					<Edge From="longsword_kolo_skoncilo" To="SetDone">
+						<Vertex>vertex62</Vertex>
+						<Vertex>vertex63</Vertex>
+						<Vertex>RbC9N86y</Vertex>
+					</Edge>
+					<Edge From="tourney_ended" To="SetDone">
+						<Vertex>vertex62</Vertex>
+						<Vertex>vertex63</Vertex>
+						<Vertex>RbC9N86y</Vertex>
+					</Edge>
+				</State>
 			</Nodes>
 			<EdgeVertices>
 				<EdgeVertex Name="23Iz2HlV" PositionY="90" PositionX="-390" />
 				<EdgeVertex Name="24H5aNMy" PositionY="0" PositionX="-620" />
+				<EdgeVertex Name="293Wcl1w" PositionY="-980" PositionX="70" />
 				<EdgeVertex Name="3f6Jsvqj" PositionY="-640" PositionX="-3390" />
+				<EdgeVertex Name="BvMt36Tn" PositionY="-1440" PositionX="330" />
 				<EdgeVertex Name="gwBPs3mF" PositionY="950" PositionX="-2630" />
 				<EdgeVertex Name="oWASUKYj" PositionY="930" PositionX="-1230" />
+				<EdgeVertex Name="QgLgnS6R" PositionY="-600" PositionX="-300" />
+				<EdgeVertex Name="qN0EMeXM" PositionY="-690" PositionX="-320" />
+				<EdgeVertex Name="RbC9N86y" PositionY="-950" PositionX="-2630" />
+				<EdgeVertex Name="TBuUgxDt" PositionY="-690" PositionX="320" />
 				<EdgeVertex Name="vertex100" PositionY="460" PositionX="-670" />
 				<EdgeVertex Name="vertex103" PositionY="480" PositionX="-1130" />
 				<EdgeVertex Name="vertex104" PositionY="-510" PositionX="-150" />
@@ -492,7 +542,7 @@
 				<EdgeVertex Name="vertex56" PositionY="1000" PositionX="660" />
 				<EdgeVertex Name="vertex57" PositionY="1000" PositionX="1140" />
 				<EdgeVertex Name="vertex62" PositionY="110" PositionX="-3120" />
-				<EdgeVertex Name="vertex63" PositionY="490" PositionX="-2970" />
+				<EdgeVertex Name="vertex63" PositionY="120" PositionX="-2740" />
 				<EdgeVertex Name="vertex65" PositionY="1320" PositionX="1860" />
 				<EdgeVertex Name="vertex66" PositionY="1290" PositionX="-1780" />
 				<EdgeVertex Name="vertex80" PositionY="-570" PositionX="-2570" />
@@ -503,6 +553,7 @@
 				<EdgeVertex Name="vertex88" PositionY="70" PositionX="-2440" />
 				<EdgeVertex Name="vertex91" PositionY="110" PositionX="-2230" />
 				<EdgeVertex Name="vertex94" PositionY="640" PositionX="-850" />
+				<EdgeVertex Name="vXRjA2QD" PositionY="-1440" PositionX="-310" />
 				<EdgeVertex Name="xzldAKfJ" PositionY="40" PositionX="-1230" />
 			</EdgeVertices>
 			<Types>
@@ -518,6 +569,12 @@
 					<StateTypeEnumeration Name="GoingToArenaWithLongSword" ObjectiveValueType="Updated" />
 					<StateTypeEnumeration Name="InArenaWithLongSword" ObjectiveValueType="None" />
 					<StateTypeEnumeration Name="AfterLastDuel" ObjectiveValueType="None" />
+					<StateTypeEnumeration Name="Done" ObjectiveValueType="None" />
+				</Type>
+				<Type TypeName="ZavisArenaPresenceTracking">
+					<StateTypeEnumeration Name="None" ObjectiveValueType="None" />
+					<StateTypeEnumeration Name="Active_ZavisOutside" ObjectiveValueType="None" />
+					<StateTypeEnumeration Name="Active_ZavisInside" ObjectiveValueType="None" />
 					<StateTypeEnumeration Name="Done" ObjectiveValueType="None" />
 				</Type>
 			</Types>

@@ -30,11 +30,24 @@
 					<Asset Name="Areas" Alias="vstupDoTunelu" />
 					<Edge From="NasledujLichta.Entrance" To="IsActive" />
 				</AreaTrigger>
+				<DistanceCheck Name="DistanceCheck" PositionY="430" PositionX="-500" Namespace="utils.general">
+					<Asset Name="origin" Alias="player" />
+					<Asset Name="target" Alias="licht" />
+					<Constant Name="operator" Value="GreaterEquals" />
+					<Constant Name="distance" Value="15" />
+				</DistanceCheck>
+				<DistanceTrigger Name="distancetrigger25" PositionY="510" PositionX="100">
+					<Asset Name="Origin" Alias="player" />
+					<Asset Name="Target" Alias="licht" />
+					<Constant Name="Operator" Value="LessEquals" />
+					<Constant Name="Distance" Value="15" />
+					<Edge From="NasledujLichta.Licht" To="IsActive" />
+				</DistanceTrigger>
 				<Function Name="gameover16" PositionY="280" PositionX="1060" MethodName="wh::playermodule::GameOver" DeclaringType="wh::playermodule">
 					<Constant Name="Reason" Value="45" />
 					<Edge From="timer15.OnFinished" To="Exec" />
 				</Function>
-				<henry_barkuje_ze_jde_spatne Name="henry_barkuje_ze_jde_spatne" PositionY="570" PositionX="10" />
+				<henry_barkuje_ze_jde_spatne Name="henry_barkuje_ze_jde_spatne" PositionY="770" PositionX="20" />
 				<If Name="if17" PositionY="-280" PositionX="-470">
 					<Edge From="nasleduj_lichta" To="Exec" />
 					<Edge From="NasledujLichta.None" To="Condition">
@@ -42,19 +55,21 @@
 						<Vertex>vertex15</Vertex>
 					</Edge>
 				</If>
+				<If Name="if26" PositionY="330" PositionX="-200">
+					<Edge From="licht_jde_do_kanclu" To="Exec" />
+					<Edge From="DistanceCheck.check" To="Condition" />
+				</If>
 				<IfFunction Name="ifareacheck20" PositionY="310" PositionX="380" MethodName="wh::rpgmodule::AreaCheck" DeclaringType="wh::rpgmodule">
 					<Asset Name="Souls" Alias="player" />
 					<Asset Name="Areas" Alias="kancelarArea" />
 					<Edge From="ifor23.True" To="Exec" />
 				</IfFunction>
 				<IfFunction Name="ifor23" PositionY="310" PositionX="100" MethodName="math::boolean::Or" DeclaringType="math::boolean">
-					<Edge From="licht_jde_do_kanclu" To="Exec">
-						<Vertex>vertex16</Vertex>
-					</Edge>
 					<Edge From="NasledujLichta.Licht" To="B" />
 					<Edge From="NasledujLichta.Entrance" To="A" />
+					<Edge From="if26.True" To="Exec" />
 				</IfFunction>
-				<konstanty Name="konstanty" PositionY="530" PositionX="330" Namespace="PogromKnihovna" />
+				<konstanty Name="konstanty" PositionY="670" PositionX="410" Namespace="PogromKnihovna" />
 				<State Name="NasledujLichta" PositionY="-290" PositionX="-170" RequiredForOutput="kutnohorsko" TypeT="ToSecretTunnel">
 					<Edge From="if17.True" To="SetEntrance" />
 					<Edge From="jindra_musi_prozkoumat_hospodu" To="SetDone" />
@@ -86,12 +101,13 @@
 					<Edge From="konstanty.cas_na_pomoc_lichtu" To="Duration" />
 					<Edge From="ifareacheck20.False" To="SetRunning" />
 					<Edge From="areatrigger14.OnEnter" To="SetStopped" />
+					<Edge From="distancetrigger25.OnMatch" To="SetStopped" />
+					<Edge From="distancetrigger25.OnUnmatch" To="SetRunning" />
 				</Timer>
 			</Nodes>
 			<EdgeVertices>
 				<EdgeVertex Name="vertex14" PositionY="150" PositionX="10" />
 				<EdgeVertex Name="vertex15" PositionY="150" PositionX="-430" />
-				<EdgeVertex Name="vertex16" PositionY="460" PositionX="-430" />
 				<EdgeVertex Name="vertex17" PositionY="280" PositionX="490" />
 				<EdgeVertex Name="vertex18" PositionY="280" PositionX="-140" />
 				<EdgeVertex Name="vertex19" PositionY="-50" PositionX="180" />

@@ -27,9 +27,6 @@
 				<Port Name="fasttravel__na_lovcove_koni" Direction="In" Type="trigger">
 					<DesignName StringName="cesta_domu_fasttravel__na_sJAp" Text="FastTravel - na lovcově koni" />
 				</Port>
-				<Port Name="lovec_jde_pesky" Direction="In" Type="trigger">
-					<DesignName StringName="cesta_domu_lovec_jde_pesky_Lk6A" Text="lovec jde pěšky" />
-				</Port>
 				<Port Name="lovec_jede_sam_na_koni_domu" Direction="In" Type="trigger">
 					<DesignName StringName="cesta_domu_lovec_jede_sam_pykZ" Text="Lovec jede sám na koni domů" />
 				</Port>
@@ -50,6 +47,9 @@
 				</Port>
 				<Port Name="fail_questu_kun_zabit_za_jizdy" Direction="Out" Type="trigger">
 					<DesignName StringName="cesta_domu_fail_questu_ku_Jjnw" Text="fail questu, kůń zabit za jízdy" />
+				</Port>
+				<Port Name="seq12" Direction="In" Type="bool">
+					<DesignName StringName="cesta_domu_seq12_e1u3" Text="lovec se vydal na cestu sám" />
 				</Port>
 			</Ports>
 			<Definitions>
@@ -75,7 +75,7 @@
 						<Vertex>lmsojB1d</Vertex>
 					</Edge>
 				</fasttravel__na_lovcove_koni>
-				<Function Name="getdistance152212424" PositionY="660" PositionX="520" MethodName="wh::xgenaimodule::GetDistance" DeclaringType="wh::xgenaimodule">
+				<Function Name="getdistance152212424" PositionY="630" PositionX="600" MethodName="wh::xgenaimodule::GetDistance" DeclaringType="wh::xgenaimodule">
 					<Asset Name="Origin" Alias="player" />
 					<Asset Name="Target" Alias="hunterVostatek" />
 				</Function>
@@ -105,13 +105,10 @@
 						<Vertex>vertex13</Vertex>
 						<Vertex>vertex14</Vertex>
 					</Edge>
-					<Edge From="lovec_jde_pesky" To="lovec_jde_pesky_domu">
-						<Vertex>vertex13</Vertex>
-						<Vertex>vertex14</Vertex>
-					</Edge>
 				</lovec_jde_domu_pesky>
 				<lovec_jede_domu Name="lovec_jede_domu" PositionY="0" PositionX="-30">
 					<Edge From="lovec_jede_sam_na_koni_domu" To="lovec_jede_sam_na_koni_domu" />
+					<Edge From="seq12" To="seq12" />
 				</lovec_jede_domu>
 				<talkToHunterReward Name="objectiveVisual1522116" PositionY="710" PositionX="150" RequiredForOutput="trosecko">
 					<Edge From="talkToHunterReward.State" To="Progress" />
@@ -145,6 +142,11 @@
 					<Constant Name="Objective" Value="talkToHunterReward" />
 					<Edge From="s_lovcem_kdyz_je_kun_zabit_pod_nim_cestou.lovci_s_hracem_1_den_nebude_mluvit" To="EnqueueSave" />
 				</SaveGame>
+				<SetEntityContext Name="setentitycontext152212429" PositionY="780" PositionX="600">
+					<Constant Name="Context" Value="crime_ignoredCorpse" />
+					<Asset Name="Souls" Alias="PepikTheHorse" />
+					<Edge From="pepikDiedOnTheWayHome.State" To="IsActive" />
+				</SetEntityContext>
 				<State Name="talkToHunterReward" PositionY="680" PositionX="-160" RequiredForOutput="trosecko" TypeT="ProgressFailable">
 					<Edge From="if152212398.True" To="SetCanceled" />
 					<Edge From="if152212398_2.True" To="SetDone" />
@@ -178,7 +180,7 @@
 				<EdgeVertex Name="nfc9bbyC" PositionY="-10" PositionX="-760" />
 				<EdgeVertex Name="Sh930NU6" PositionY="-430" PositionX="-710" />
 				<EdgeVertex Name="vertex1" PositionY="1120" PositionX="30" />
-				<EdgeVertex Name="vertex13" PositionY="70" PositionX="-560" />
+				<EdgeVertex Name="vertex13" PositionY="50" PositionX="-560" />
 				<EdgeVertex Name="vertex14" PositionY="310" PositionX="-390" />
 				<EdgeVertex Name="vertex2" PositionY="1120" PositionX="-630" />
 			</EdgeVertices>

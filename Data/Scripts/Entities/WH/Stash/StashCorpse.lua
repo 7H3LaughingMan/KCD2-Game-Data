@@ -5,7 +5,7 @@ StashCorpse =
 
 	Properties =
 	{
-		object_Model = "Objects/special/primitive_cylinder_nodraw.cgf", 	-- use only .cga models!!!! (.cgf does not contain slot for lockpicking)
+		object_Model = "Objects/special/primitive_cylinder_nodrawmat.cgf", 	-- use only .cga models!!!! (.cgf does not contain slot for lockpicking)
 
 		Animation =
 		{

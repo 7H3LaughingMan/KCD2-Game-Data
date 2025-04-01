@@ -11,14 +11,14 @@
 				</Port>
 			</Ports>
 			<Nodes>
-				<Function Name="and16" PositionY="980" PositionX="1130" MethodName="math::boolean::And" DeclaringType="math::boolean">
+				<Function Name="and16" PositionY="970" PositionX="1530" MethodName="math::boolean::And" DeclaringType="math::boolean">
 					<Edge From="not17.bool" To="A" />
 					<Edge From="cimros_se_pridaly_do_boje" To="B">
 						<Vertex>8ScvBLFC</Vertex>
 						<Vertex>RP41F5Db</Vertex>
 					</Edge>
 				</Function>
-				<Function Name="and7" PositionY="590" PositionX="1120" MethodName="math::boolean::And" DeclaringType="math::boolean">
+				<Function Name="and7" PositionY="580" PositionX="1520" MethodName="math::boolean::And" DeclaringType="math::boolean">
 					<Edge From="or8.bool" To="A" />
 					<Edge From="cimros_se_pridaly_do_boje" To="B">
 						<Vertex>8ScvBLFC</Vertex>
@@ -28,38 +28,48 @@
 					<Edge From="kumani_no_more" To="Exec" />
 					<Edge From="cimros_se_pridaly_do_boje" To="Condition" />
 				</If>
-				<MakeArray Name="makearray2" PositionY="790" PositionX="1120" TypeT="wh::rpgmodule::Souls">
+				<InstantSendMessage Name="instantsendmessageplayerholsterweapon19" PositionY="-40" PositionX="260" MessageType="player:holsterWeapon">
+					<Asset Name="Receiver" Alias="balsan" />
+					<Constant Name="Content_keepTorch" Value="false" />
+					<Edge From="if15.True" To="Exec" />
+				</InstantSendMessage>
+				<InstantSendMessage Name="instantsendmessageplayerholsterweapon19_1" PositionY="230" PositionX="280" MessageType="player:holsterWeapon">
+					<Asset Name="Receiver" Alias="miroslav" />
+					<Constant Name="Content_keepTorch" Value="false" />
+					<Edge From="if15.True" To="Exec" />
+				</InstantSendMessage>
+				<MakeArray Name="makearray2" PositionY="780" PositionX="1520" TypeT="wh::rpgmodule::Souls">
 					<Asset Name="A" Alias="balsan" />
 					<Asset Name="B" Alias="miroslav" />
 				</MakeArray>
-				<Function Name="not17" PositionY="900" PositionX="850" MethodName="math::boolean::Not" DeclaringType="math::boolean">
+				<Function Name="not17" PositionY="890" PositionX="1250" MethodName="math::boolean::Not" DeclaringType="math::boolean">
 					<Edge From="state6.Done" To="Value" />
 				</Function>
-				<Function Name="or8" PositionY="390" PositionX="850" MethodName="math::boolean::Or" DeclaringType="math::boolean">
+				<Function Name="or8" PositionY="380" PositionX="1250" MethodName="math::boolean::Or" DeclaringType="math::boolean">
 					<Edge From="state6.None" To="A" />
 					<Edge From="state6.Active" To="B" />
 				</Function>
-				<playanimoneshot Name="playanimoneshot" PositionY="230" PositionX="276" Namespace="relikviarprocimburky_library">
+				<playanimoneshot Name="playanimoneshot" PositionY="220" PositionX="670" Namespace="relikviarprocimburky_library">
 					<Constant Name="fragment_name" Value="Soldier_Cheers" />
 					<Asset Name="soul" Alias="miroslav" />
-					<Edge From="if15.True" To="exec" />
+					<Edge From="instantsendmessageplayerholsterweapon19_1.OnExec" To="exec" />
 				</playanimoneshot>
-				<playanimoneshot Name="playanimoneshot_1" PositionY="0" PositionX="276" Namespace="relikviarprocimburky_library">
+				<playanimoneshot Name="playanimoneshot_1" PositionY="-10" PositionX="670" Namespace="relikviarprocimburky_library">
 					<Constant Name="fragment_name" Value="Soldier_Cheers" />
 					<Asset Name="soul" Alias="balsan" />
-					<Edge From="if15.True" To="exec" />
+					<Edge From="instantsendmessageplayerholsterweapon19.OnExec" To="exec" />
 				</playanimoneshot>
-				<SetEntityContext Name="setentitycontext1" PositionY="650" PositionX="1390">
+				<SetEntityContext Name="setentitycontext1" PositionY="640" PositionX="1790">
 					<Constant Name="Context" Value="ForceForbidAutoTorch" />
 					<Edge From="makearray2.Array" To="Souls" />
 					<Edge From="and7.bool" To="IsActive" />
 				</SetEntityContext>
-				<SetEntityContext Name="setentitycontext18" PositionY="1050" PositionX="1420">
+				<SetEntityContext Name="setentitycontext18" PositionY="1040" PositionX="1820">
 					<Constant Name="Context" Value="crime_suppressBandageMyself" />
 					<Edge From="and16.bool" To="IsActive" />
 					<Edge From="makearray2.Array" To="Souls" />
 				</SetEntityContext>
-				<State Name="state6" PositionY="270" PositionX="570" TypeT="Progress">
+				<State Name="state6" PositionY="260" PositionX="970" TypeT="Progress">
 					<Edge From="if15.True" To="SetActive">
 						<Vertex>GHGFnngA</Vertex>
 					</Edge>

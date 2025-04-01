@@ -102,6 +102,15 @@
 				<Port Name="fail_opatem" Direction="In" Type="bool">
 					<DesignName StringName="h_fail_opatem_xAp6" Text="Fail Opatem" />
 				</Port>
+				<Port Name="kosti_uz_tam_nejsou" Direction="Out" Type="trigger">
+					<DesignName StringName="h_kosti_uz_tam_nejsou_4qPk" Text="kosti uz tam nejsou" />
+				</Port>
+				<Port Name="dialog_skoncil" Direction="Out" Type="trigger">
+					<DesignName StringName="h_dialog_skoncil_G7B2" Text="dialog skoncil soldier" />
+				</Port>
+				<Port Name="dialog_skoncil_1" Direction="Out" Type="trigger">
+					<DesignName StringName="h_dialog_skoncil_1_Ol2S" Text="dialog skoncil alch" />
+				</Port>
 			</Ports>
 			<Definitions>
 				<Definition File="h/konzultace_s_nadrizenym_opatem.xml" />
@@ -128,9 +137,6 @@
 				<IfFunction Name="AfterCutscenaBraniKosti" PositionY="1650" PositionX="3050" MethodName="math::boolean::Or" DeclaringType="math::boolean">
 					<Constant Name="A" Value="true" />
 					<Edge From="hledani_kosti.standoff_nebude" To="Exec">
-						<Vertex>vertex12</Vertex>
-					</Edge>
-					<Edge From="standoff.dialog_or_trialog_ends" To="Exec">
 						<Vertex>vertex12</Vertex>
 					</Edge>
 					<Edge From="standoff.leader_i_alch_dead" To="Exec" />
@@ -165,6 +171,11 @@
 					</Edge>
 					<Edge From="quest_active" To="quest_active">
 						<Vertex>ko5BUMJS</Vertex>
+					</Edge>
+					<Edge From="standoff.vsechny_dialogy_skoncili" To="hrac_uz_zna_cestu">
+						<Vertex>vertex13</Vertex>
+						<Vertex>vertex64</Vertex>
+						<Vertex>vertex65</Vertex>
 					</Edge>
 				</dostat_z_manika_polohu_kosti>
 				<TriggerSequence Name="Fail" PositionY="-410" PositionX="220">
@@ -216,6 +227,18 @@
 					<Edge From="standoff.probehl_nejaky_standoff" To="probehl_nejaky_standoff">
 						<Vertex>LmVPr11z</Vertex>
 						<Vertex>WANy1pM0</Vertex>
+					</Edge>
+					<Edge From="standoff.vsechny_dialogy_skoncili" To="aborted">
+						<Vertex>vertex13</Vertex>
+						<Vertex>vertex64</Vertex>
+						<Vertex>vertex14</Vertex>
+						<Vertex>vertex93</Vertex>
+					</Edge>
+					<Edge From="standoff.vsechny_dialogy_skoncili" To="alchemista_je_pryc">
+						<Vertex>vertex13</Vertex>
+						<Vertex>vertex64</Vertex>
+						<Vertex>vertex14</Vertex>
+						<Vertex>vertex93</Vertex>
 					</Edge>
 				</farar_a_fistfight>
 				<hledani_kosti Name="hledani_kosti" PositionY="380" PositionX="2120" RequiredForOutput="kutnohorsko">
@@ -305,6 +328,7 @@
 					<Edge From="zadani_od_zikmundovce.gerhartova_nabidka_prijata_hrac_ma_kosti" To="gerhartova_nabidka_prijata">
 						<Vertex>29YkysT4</Vertex>
 					</Edge>
+					<Edge From="standoff.vsechny_dialogy_skoncili" To="odevzdej_kosti" />
 				</odevzdani_kosti>
 				<Output Name="Output">
 					<Edge From="farar_a_fistfight.stream_alchemist" To="streamalchemistgroup_fistfight">
@@ -390,6 +414,22 @@
 					<Edge From="odevzdani_kosti.odevzdani_mene_kosti" To="gerhart_odevzdano_leave_level" />
 					<Edge From="zadani_od_zikmundovce.odevzdani_kosti" To="gerhart_odevzdano_leave_level">
 						<Vertex>9wanMnzf</Vertex>
+					</Edge>
+					<Edge From="zadani_od_zikmundovce.gerhart_leave_level" To="gerhart_odevzdano_leave_level">
+						<Vertex>XMTxeeIw</Vertex>
+					</Edge>
+					<Edge From="hledani_kosti.kosti_uz_tam_nejsou" To="kosti_uz_tam_nejsou">
+						<Vertex>vertex26</Vertex>
+						<Vertex>B05Xq1eh</Vertex>
+						<Vertex>4NkKM6sc</Vertex>
+					</Edge>
+					<Edge From="standoff.dialog_skoncil" To="dialog_skoncil">
+						<Vertex>NhLg0Uwe</Vertex>
+						<Vertex>JxmeydHA</Vertex>
+					</Edge>
+					<Edge From="standoff.dialog_skoncil_1" To="dialog_skoncil_1">
+						<Vertex>T2epfGTc</Vertex>
+						<Vertex>qACQX89U</Vertex>
 					</Edge>
 				</Output>
 				<ProfileStateTrigger Name="profilestatetrigger1" PositionY="329" PositionX="-89">
@@ -477,6 +517,11 @@
 						<Vertex>LH6BcyvD</Vertex>
 						<Vertex>LQDRrzXQ</Vertex>
 					</Edge>
+					<Edge From="standoff.vsechny_dialogy_skoncili" To="jiz_nejde_mluvit_s_gerhartem_o_pomoci">
+						<Vertex>vertex13</Vertex>
+						<Vertex>vertex64</Vertex>
+						<Vertex>vertex14</Vertex>
+					</Edge>
 				</zadani_od_zikmundovce>
 				<zavod_s_casem1 Name="zavod_s_casem1" PositionY="990" PositionX="1550">
 					<Edge From="konzultace_s_nadrizenym_opatem.vrat_se_se_zpravou_ke_slavovi" To="start_hledani_kosti">
@@ -488,21 +533,32 @@
 						<Vertex>vertex64</Vertex>
 						<Vertex>vertex65</Vertex>
 					</Edge>
+					<Edge From="standoff.vsechny_dialogy_skoncili" To="kosti_jsou_odstreamovane">
+						<Vertex>vertex13</Vertex>
+						<Vertex>vertex64</Vertex>
+						<Vertex>vertex65</Vertex>
+					</Edge>
 				</zavod_s_casem1>
 			</Nodes>
 			<EdgeVertices>
 				<EdgeVertex Name="29YkysT4" PositionY="2049" PositionX="3599" />
+				<EdgeVertex Name="4NkKM6sc" PositionY="-109" PositionX="4697" />
 				<EdgeVertex Name="9PFL2abv" PositionY="472" PositionX="825" />
 				<EdgeVertex Name="9wanMnzf" PositionY="2009" PositionX="4398" />
 				<EdgeVertex Name="aBb0sL1D" PositionY="52" PositionX="3603" />
+				<EdgeVertex Name="B05Xq1eh" PositionY="-130" PositionX="2767" />
 				<EdgeVertex Name="bGagpMA4" PositionY="-194" PositionX="134" />
 				<EdgeVertex Name="CGHolumz" PositionY="101" PositionX="2639" />
 				<EdgeVertex Name="CrLIY7cJ" PositionY="124" PositionX="2645" />
 				<EdgeVertex Name="HHhv6E1E" PositionY="1131" PositionX="3026" />
+				<EdgeVertex Name="JxmeydHA" PositionY="1186" PositionX="4590" />
 				<EdgeVertex Name="ko5BUMJS" PositionY="139" PositionX="1488" />
 				<EdgeVertex Name="LH6BcyvD" PositionY="160" PositionX="323" />
 				<EdgeVertex Name="LmVPr11z" PositionY="159" PositionX="2995" />
 				<EdgeVertex Name="LQDRrzXQ" PositionY="1750" PositionX="370" />
+				<EdgeVertex Name="NhLg0Uwe" PositionY="1170" PositionX="3116" />
+				<EdgeVertex Name="qACQX89U" PositionY="1205" PositionX="4606" />
+				<EdgeVertex Name="T2epfGTc" PositionY="1198" PositionX="3117" />
 				<EdgeVertex Name="UlwIS5To" PositionY="1131" PositionX="4589" />
 				<EdgeVertex Name="UygRxaxv" PositionY="1581" PositionX="4217" />
 				<EdgeVertex Name="vbWQU5NI" PositionY="1608" PositionX="808" />
@@ -596,6 +652,7 @@
 				<EdgeVertex Name="WANy1pM0" PositionY="167" PositionX="1043" />
 				<EdgeVertex Name="wqVUhRTL" PositionY="-182" PositionX="894" />
 				<EdgeVertex Name="wYWB0qJ1" PositionY="829" PositionX="2029" />
+				<EdgeVertex Name="XMTxeeIw" PositionY="2077" PositionX="4363" />
 				<EdgeVertex Name="xtaTBG5d" PositionY="97" PositionX="3534" />
 			</EdgeVertices>
 			<Text StringName="h_VRU1" Text="hibernace" />

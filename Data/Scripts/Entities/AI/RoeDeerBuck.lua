@@ -26,12 +26,12 @@ RoeDeerBuck = {
 		
 		CharacterSounds =
 		{
-			footstepEffect = "footsteps_Roebuck",			-- Footstep mfx library to use
-			remoteFootstepEffect = "footsteps_Roebuck",		-- Footstep mfx library to use for remote players
+			footstepEffect = "footsteps_deer",			-- Footstep mfx library to use
+			remoteFootstepEffect = "footsteps_deer",		-- Footstep mfx library to use for remote players
 			bFootstepGearEffect = true,				-- This plays a sound from materialfx
 			footstepIndGearAudioSignal_Walk = "",   -- This directly plays the specified audiosignal on every footstep
 			footstepIndGearAudioSignal_Run = "",	-- This directly plays the specified audiosignal on every footstep
-			foleyEffect = "foley_Roebuck",					-- Foley signal effect name
+			foleyEffect = "foley_deer",					-- Foley signal effect name
 		},
 	},
 

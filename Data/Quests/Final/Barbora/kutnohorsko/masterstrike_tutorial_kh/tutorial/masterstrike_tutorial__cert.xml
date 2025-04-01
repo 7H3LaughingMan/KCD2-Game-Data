@@ -39,6 +39,10 @@
 				<Function Name="createdialogparams31" PositionY="1390" PositionX="1360" MethodName="wh::dialogmodule::CreateDialogParams" DeclaringType="wh::dialogmodule">
 					<Asset Name="Participants" Alias="cert" />
 				</Function>
+				<NonInteractiveLedgeTrigger Name="disableLedge" PositionY="-310" PositionX="-160">
+					<Edge From="tutorial_aktivni" To="IsActive" />
+					<Edge From="ledges.Array" To="Ledges" />
+				</NonInteractiveLedgeTrigger>
 				<hrac_zkousi_masterstrike_podruhe Name="hrac_zkousi_masterstrike_podruhe" PositionY="430" PositionX="1270" RequiredForOutput="kutnohorsko">
 					<Edge From="state4.Phase2_starting" To="zadani_active" />
 					<Edge From="state4.OnNone" To="reset" />
@@ -70,6 +74,12 @@
 					<Edge From="nebudu_to_delat.jindra_vzdal_tutorial" To="EnqueueDialogue" />
 					<Edge From="createdialogparams31.DialogParams" To="DialogParams" />
 				</jindra_vzdal_tutorial>
+				<MakeArray Name="ledges" PositionY="-390" PositionX="-410" TypeT="wh::entitymodule::LedgeObjects">
+					<Asset Name="A" Alias="arenaLedge" />
+					<Asset Name="B" Alias="arenaLedge1" />
+					<Asset Name="C" Alias="arenaLedge2" />
+					<Asset Name="D" Alias="arenaLedge3" />
+				</MakeArray>
 				<masterstrike_tutorial_inner Name="masterstrike_tutorial_inner" PositionY="-100" PositionX="-170" Namespace="utils.masterstriketutorial_">
 					<Asset Name="trener" Alias="cert" />
 					<Edge From="tutorial_aktivni" To="tutorial_aktivni" />
@@ -83,14 +93,18 @@
 					<Edge From="or8.bool" To="tutorialactive" />
 				</nebudu_to_delat>
 				<Function Name="or8" PositionY="1100" PositionX="1180" MethodName="math::boolean::Or" DeclaringType="math::boolean">
-					<Edge From="state4.Phase3_active" To="C" />
-					<Edge From="state4.Phase2_active" To="B" />
-					<Edge From="state4.Phase1_active" To="A" />
+					<Edge From="state4.Phase3_active" To="D" />
+					<Edge From="state4.Phase2_active" To="C" />
+					<Edge From="state4.Phase1_active" To="B" />
+					<Edge From="state4.Phase0_active" To="A" />
 				</Function>
 				<Output Name="Output">
 					<Edge From="jindra_vzdal_tutorial.hrac_vzdal_tutorial" To="hrac_vzdal_tutorial" />
 					<Edge From="po_dokonceni_tutorialu.konec_tutorialu" To="hrac_dokoncil_tutorial" />
 					<Edge From="po_dokonceni_tutorialu.jindra_splnil_tutorial" To="unlock_kecy" />
+					<Edge From="unconscioustrigger32.OnUnconscious" To="hrac_vzdal_tutorial">
+						<Vertex>JglEcXTb</Vertex>
+					</Edge>
 				</Output>
 				<po_dokonceni_tutorialu Name="po_dokonceni_tutorialu" PositionY="1770" PositionX="1900">
 					<Edge From="state4.OnDone" To="EnqueueDialogue">
@@ -98,7 +112,7 @@
 					</Edge>
 					<Edge From="createdialogparams31.DialogParams" To="DialogParams" />
 				</po_dokonceni_tutorialu>
-				<removevip_protections Name="removevip_protections" PositionY="280" PositionX="-200" Namespace="utils.combat">
+				<removevip_protections Name="removevip_protections" PositionY="180" PositionX="-170" Namespace="utils.combat">
 					<Asset Name="souls" Alias="Cert" />
 					<Constant Name="stealprotection" Value="false" />
 					<Constant Name="attackprotection" Value="true" />
@@ -133,6 +147,7 @@
 						<Vertex>vertex19</Vertex>
 						<Vertex>vertex20</Vertex>
 					</Edge>
+					<Edge From="unconscioustrigger32.OnUnconscious" To="SetNone" />
 				</State>
 				<Switch Name="switch2" PositionY="150" PositionX="200" TypeT="int" ValueTypes="MasterstrikeTutorialKH" SwitchValues="1 2 3">
 					<Constant Name="1Value1" Value="Phase1_starting" />
@@ -141,9 +156,14 @@
 					<Constant Name="DefaultValue1" Value="Phase0_starting" />
 					<Edge From="masterstrike_tutorial_inner.faze" To="Switch" />
 				</Switch>
+				<SoulUnconsciousTrigger Name="unconscioustrigger32" PositionY="-690" PositionX="-410">
+					<Asset Name="Souls" Alias="player" />
+					<Edge From="tutorial_aktivni" To="IsActive" />
+				</SoulUnconsciousTrigger>
 			</Nodes>
 			<EdgeVertices>
 				<EdgeVertex Name="3BMbwddc" PositionY="1009" PositionX="320" />
+				<EdgeVertex Name="JglEcXTb" PositionY="-579" PositionX="2191" />
 				<EdgeVertex Name="vertex10" PositionY="-180" PositionX="1530" />
 				<EdgeVertex Name="vertex11" PositionY="-180" PositionX="710" />
 				<EdgeVertex Name="vertex12" PositionY="-220" PositionX="1560" />
@@ -161,6 +181,10 @@
 			</EdgeVertices>
 			<Assets>
 				<SoulAsset Name="cert" SharedSoulGuids="bd672e35-7841-4e0f-be10-4cbaccf16cda" />
+				<LedgeObjectAsset Name="arenaLedge" />
+				<LedgeObjectAsset Name="arenaLedge3" />
+				<LedgeObjectAsset Name="arenaLedge2" />
+				<LedgeObjectAsset Name="arenaLedge1" />
 			</Assets>
 			<Text StringName="masterstrike_tutorial__ce_kXi7" Text="Masterstrike tutoriál - Čert" />
 		</Module>

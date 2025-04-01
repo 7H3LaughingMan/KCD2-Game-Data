@@ -29,21 +29,21 @@
 				<Definition File="hibernation/haste__defeat_b.xml" />
 			</Definitions>
 			<Nodes>
-				<ActorCrouchTrigger Name="actorcrouchtrigger20" PositionY="1690" PositionX="1290">
+				<ActorCrouchTrigger Name="actorcrouchtrigger20" PositionY="2050" PositionX="1800">
 					<Asset Name="Soul" Alias="player_any" />
 					<Edge From="state11_1.State" To="IsActive">
 						<Vertex>FAIeCzRo</Vertex>
 						<Vertex>02N4pn2h</Vertex>
 					</Edge>
 				</ActorCrouchTrigger>
-				<ActorMountedTrigger Name="actormountedtrigger22" PositionY="2040" PositionX="1290">
+				<ActorMountedTrigger Name="actormountedtrigger22" PositionY="2400" PositionX="1800">
 					<Asset Name="Soul" Alias="player_any" />
 					<Edge From="state11_1.State" To="IsActive">
 						<Vertex>FAIeCzRo</Vertex>
 						<Vertex>02N4pn2h</Vertex>
 					</Edge>
 				</ActorMountedTrigger>
-				<ActorSprintTrigger Name="actorsprinttrigger21" PositionY="1860" PositionX="1290">
+				<ActorSprintTrigger Name="actorsprinttrigger21" PositionY="2220" PositionX="1800">
 					<Asset Name="Soul" Alias="player_any" />
 					<Edge From="state11_1.State" To="IsActive">
 						<Vertex>FAIeCzRo</Vertex>
@@ -105,11 +105,6 @@
 				<poraz_velmistra_frantiska Name="defeatFrantisek_objectiveVisual" PositionY="-450" PositionX="1920" RequiredForOutput="kutnohorsko">
 					<Edge From="fist_fight_line.stav_objectivu_boje" To="Progress" />
 				</poraz_velmistra_frantiska>
-				<DisplayTutorial Name="elbowUpperCut_tutorial" PositionY="1620" PositionX="2090">
-					<Constant Name="Tutorial" Value="combo_elbowUpperCut" />
-					<Edge From="vyhra.OnAdded" To="Show" />
-					<Edge From="state11_1.OnFalse" To="Hide" />
-				</DisplayTutorial>
 				<expectedeffect Name="expectedeffect" PositionY="70" PositionX="890" Namespace="utils.crime.trespass">
 					<Asset Name="npcs" Alias="frantisek" />
 					<Constant Name="extenduntilplayerleavestrespass" Value="true" />
@@ -202,6 +197,10 @@
 						<Vertex>vertex73</Vertex>
 						<Vertex>vertex74</Vertex>
 					</Edge>
+					<Edge From="fist_fight_line.dialogparams_pro_forcovany_dialog" To="DialogParams" />
+					<Edge From="fist_fight_line.konci_fight" To="EnqueueDialogue">
+						<Vertex>6zBAV9yQ</Vertex>
+					</Edge>
 				</hrobnik_frantisek__po_souboji>
 				<hrobnik_frantisek__vyzva_na_souboj Name="hrobnik_frantisek__vyzva_na_souboj" PositionY="-120" PositionX="2750">
 					<Constant Name="jindra_ma_na_sobe_zbroj" Value="false" />
@@ -286,30 +285,25 @@
 					<Constant Name="LinkTag" Value="fistfightsChampion_spendTimeAtGraveyard" />
 					<Edge From="and25.bool" To="IsActive" />
 				</SchedulerLinkActivation>
-				<SetEntityContext Name="setentitycontext1" PositionY="2110" PositionX="2450">
+				<SetEntityContext Name="setentitycontext1" PositionY="1590" PositionX="2450">
 					<Constant Name="Context" Value="combat_arrangedFight" />
 					<Asset Name="Souls" Alias="frantisek" />
 					<Edge From="timer_delayArrangedFightForFrantisekCombatBark.Running" To="IsActive" />
 				</SetEntityContext>
-				<AddReward Name="shoulderThrow_reward" PositionY="960" PositionX="3170">
-					<Edge From="hrobnik_frantisek__po_souboji.aktivita_je_done" To="AddReward" />
-					<Rewards>
-						<PerkReward Perk="Combo Prehoz Unarmed" />
-					</Rewards>
-				</AddReward>
-				<State Name="state11_1" PositionY="1680" PositionX="1650" TypeT="bool">
-					<Constant Name="DefaultValue" Value="true" />
-					<Constant Name="Value" Value="true" />
+				<State Name="state11_1" PositionY="2030" PositionX="2160" TypeT="bool">
 					<Edge From="actormountedtrigger22.OnMount" To="SetFalse" />
 					<Edge From="actorsprinttrigger21.OnEnterSprint" To="SetFalse" />
 					<Edge From="actorcrouchtrigger20.OnCrouch" To="SetFalse" />
+					<Edge From="vyhra.OnAdded" To="SetTrue">
+						<Vertex>ehxEUc9l</Vertex>
+					</Edge>
 				</State>
 				<promluv_si_s_frantisekem Name="talkToFrantisekAfterFight_objectiveVisual" PositionY="-300" PositionX="1940" RequiredForOutput="kutnohorsko">
 					<Edge From="fist_fight_line.stav_objectivu_po_boji" To="Progress">
 						<Vertex>lS1R1brb</Vertex>
 					</Edge>
 				</promluv_si_s_frantisekem>
-				<Timer Name="timer_delayArrangedFightForFrantisekCombatBark" PositionY="1950" PositionX="2060">
+				<Timer Name="timer_delayArrangedFightForFrantisekCombatBark" PositionY="1590" PositionX="2070">
 					<Constant Name="Duration" Value="2s" />
 					<Constant Name="TimeType" Value="GameTime" />
 					<Edge From="fist_fight_line.konci_fight" To="SetRunning">
@@ -319,21 +313,26 @@
 				<TriggerSequence Name="triggersequence11" PositionY="250" PositionX="3210">
 					<Edge From="hrobnik_frantisek__vyzva_na_souboj.teleport_and_start_fight" To="Exec" />
 				</TriggerSequence>
+				<turntoplayerinidlestance Name="turntoplayerinidlestance" PositionY="1068" PositionX="2597" Namespace="utils.general">
+					<Asset Name="npc" Alias="frantisek" />
+					<Constant Name="anydecoratorpreset" Value="changeEquipment" />
+					<Edge From="hrobnik_frantisek__po_souboji.AfterPlay" To="turntoplayerinidlestance" />
+				</turntoplayerinidlestance>
 				<AddReward Name="vyhra" PositionY="1100" PositionX="1680">
 					<Edge From="fist_fight_line.jindrich_vyhrava" To="AddReward" />
 					<Rewards>
 						<SkillReward Type="weapon_unarmed" ExperienceChange="5-notable" />
-						<PerkReward Perk="Combo Zvedak loktem Unarmed" />
 					</Rewards>
 				</AddReward>
 			</Nodes>
 			<EdgeVertices>
-				<EdgeVertex Name="02N4pn2h" PositionY="1660" PositionX="1310" />
+				<EdgeVertex Name="02N4pn2h" PositionY="2020" PositionX="1820" />
 				<EdgeVertex Name="6zBAV9yQ" PositionY="840" PositionX="1840" />
 				<EdgeVertex Name="BxQlHeVk" PositionY="360" PositionX="4800" />
+				<EdgeVertex Name="ehxEUc9l" PositionY="1950" PositionX="2020" />
 				<EdgeVertex Name="eWsd3xlp" PositionY="1212" PositionX="3242" />
 				<EdgeVertex Name="EYzUwvX6" PositionY="1005" PositionX="3477" />
-				<EdgeVertex Name="FAIeCzRo" PositionY="1660" PositionX="1830" />
+				<EdgeVertex Name="FAIeCzRo" PositionY="2020" PositionX="2340" />
 				<EdgeVertex Name="lS1R1brb" PositionY="-76" PositionX="1871" />
 				<EdgeVertex Name="vertex20" PositionY="1370" PositionX="1950" />
 				<EdgeVertex Name="vertex41" PositionY="-710" PositionX="3870" />
@@ -384,6 +383,9 @@
 			<Notes>
 				<Note Name="note26" PositionY="-830" PositionX="1500">
 					<Text StringName="hibernati_note26_wXfV" Text="NOTE(Andy): Fan soul František is there just not to spam errors in the console." />
+				</Note>
+				<Note Name="note27" PositionY="2240" PositionX="2110">
+					<Text StringName="hibernati_note27_fAHL" Text="NOTE(Andy): Disconnected state is left here for patching information.&#xD;&#xA;&#xD;&#xA;It was enabling effects, that close tutorial about newly learned combo." />
 				</Note>
 			</Notes>
 			<Text StringName="hibernation_MStM" Text="Hibernation" />

@@ -18,14 +18,11 @@
 				<Port Name="promluv_s_hastalem_zadano" Direction="In" Type="trigger">
 					<DesignName StringName="hledani_a_promluv_s_hasta_4zhW" Text="Promluv s haštalem zadáno" />
 				</Port>
-				<Port Name="hastal_slibil_kone" Direction="In" Type="bool">
-					<DesignName StringName="hledani_a_konak_slibil_ko_T65Y" Text="Haštal slíbil koně" />
-				</Port>
 				<Port Name="zadat_objective" Direction="In" Type="trigger">
 					<DesignName StringName="hledani_a_zadat_objective_0sSS" Text="Zadat objective" />
 				</Port>
 				<Port Name="hastal_uz_nepomuze" Direction="In" Type="bool">
-					<DesignName StringName="hledani_a_konak_uz_nepomu_sZti" Text="Haštal už nepomůže" />
+					<DesignName StringName="hledani_a_konak_uz_nepomu_sZti" Text="Hráč má mluvit s Haštalem" />
 				</Port>
 			</Ports>
 			<Definitions>
@@ -48,7 +45,7 @@
 					<Asset Name="Areas" Alias="nearOldChapelArea" />
 					<Edge From="findFirstCross.Start" To="IsActive" />
 				</AreaTrigger>
-				<Function Name="audiooneshot26" PositionY="-740" PositionX="1040" MethodName="wh::soundmodule::AudioOneShot" DeclaringType="wh::soundmodule">
+				<Function Name="audiooneshot26" PositionY="-730" PositionX="1040" MethodName="wh::soundmodule::AudioOneShot" DeclaringType="wh::soundmodule">
 					<Constant Name="AtlTriggerName" Value="q_M35_secret_passage_digging" />
 					<Asset Name="LinkableObject" Alias="secretPassageHole" />
 					<Edge From="cutscenehandler23.BeforePlay" To="Exec" />
@@ -106,12 +103,7 @@
 				</FocusCamWithinArea>
 				<henry_bark__nasel_jsem_misto_ke_kopani Name="henry_bark__nasel_jsem_misto_ke_kopani" PositionY="-1220" PositionX="1450" />
 				<henryho_bark__nasel_jsem_chodbu Name="henryho_bark__nasel_jsem_chodbu" PositionY="-540" PositionX="1040">
-					<Edge From="hastal_slibil_kone" To="mluveno_s_hastalem">
-						<Vertex>vertex28</Vertex>
-						<Vertex>vertex46</Vertex>
-						<Vertex>vertex38</Vertex>
-					</Edge>
-					<Edge From="hastal_uz_nepomuze" To="hastal_uz_nepomuze">
+					<Edge From="hastal_uz_nepomuze" To="hrac_ma_mluvit_s_hastalem">
 						<Vertex>vertex29</Vertex>
 						<Vertex>vertex47</Vertex>
 						<Vertex>vertex39</Vertex>
@@ -268,11 +260,9 @@
 				<EdgeVertex Name="VE2K48q6" PositionY="-198" PositionX="-1220" />
 				<EdgeVertex Name="vertex10" PositionY="520" PositionX="1790" />
 				<EdgeVertex Name="vertex11" PositionY="520" PositionX="1010" />
-				<EdgeVertex Name="vertex28" PositionY="490" PositionX="-1910" />
 				<EdgeVertex Name="vertex29" PositionY="500" PositionX="-1910" />
 				<EdgeVertex Name="vertex30" PositionY="-460" PositionX="-1810" />
 				<EdgeVertex Name="vertex31" PositionY="-230" PositionX="-1850" />
-				<EdgeVertex Name="vertex38" PositionY="490" PositionX="840" />
 				<EdgeVertex Name="vertex39" PositionY="500" PositionX="840" />
 				<EdgeVertex Name="vertex40" PositionY="-210" PositionX="-1220" />
 				<EdgeVertex Name="vertex41" PositionY="-210" PositionX="-1860" />
@@ -280,7 +270,6 @@
 				<EdgeVertex Name="vertex43" PositionY="530" PositionX="1010" />
 				<EdgeVertex Name="vertex44" PositionY="480" PositionX="-1610" />
 				<EdgeVertex Name="vertex45" PositionY="480" PositionX="840" />
-				<EdgeVertex Name="vertex46" PositionY="490" PositionX="-1220" />
 				<EdgeVertex Name="vertex47" PositionY="500" PositionX="-1220" />
 				<EdgeVertex Name="vertex49" PositionY="-460" PositionX="-960" />
 				<EdgeVertex Name="vertex50" PositionY="-460" PositionX="910" />

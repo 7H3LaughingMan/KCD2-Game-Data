@@ -114,6 +114,12 @@
 				<Port Name="prokop_je_trochu_pica" Direction="In" Type="bool">
 					<DesignName StringName="trialog_s_prokop_je_troch_9w6m" Text="prokop je trochu pica" />
 				</Port>
+				<Port Name="seq220" Direction="Out" Type="bool">
+					<DesignName StringName="trialog_s_seq220_TYK3" Text="nezabijime Prokopa z trialogu" />
+				</Port>
+				<Port Name="hrac_obvinil_vilema__necha_ho_jit" Direction="Out" Type="trigger">
+					<DesignName StringName="trialog_s_hrac_obvinil_vi_5xT9" Text="hráč obvinil viléma - nechá ho jít" />
+				</Port>
 			</Ports>
 			<Definitions>
 				<Definition File="trialog_s_katerinou_a_leopoldem/trialog_s_katerinou_a_leopoldem.xml" />
@@ -176,6 +182,18 @@
 						<Vertex>5zf8Gqnf</Vertex>
 						<Vertex>dN0DNFgG</Vertex>
 					</Edge>
+					<Edge From="trialog_s_katerinou_a_leopoldem.seq220" To="seq220">
+						<Vertex>u6j8Sqqq</Vertex>
+						<Vertex>Vt8BPehP</Vertex>
+					</Edge>
+					<Edge From="triggersequence15.A" To="hrac_obvinil_vilema__necha_ho_jit">
+						<Vertex>yD4MzCJp</Vertex>
+						<Vertex>RTBEVmc4</Vertex>
+					</Edge>
+					<Edge From="triggersequence15.B" To="konec_vysetrovani__quest_end">
+						<Vertex>QRx4DHEy</Vertex>
+						<Vertex>2m212MbX</Vertex>
+					</Edge>
 				</Output>
 				<PlayerAction_StanceObject Name="PlayerAction_StanceObject" PositionY="-470" PositionX="-690" Namespace="utils.player">
 					<Asset Name="targetobject" Alias="zaStolem" />
@@ -186,11 +204,19 @@
 						<Vertex>vertex11</Vertex>
 					</Edge>
 				</PlayerAction_StanceObject>
+				<Function Name="removebuff14" PositionY="-920" PositionX="-710" MethodName="wh::rpgmodule::RemoveBuff" DeclaringType="wh::rpgmodule">
+					<Asset Name="Souls" Alias="lipold" />
+					<Constant Name="Buff" Value="ffc20522-134d-4811-8bc5-e933b74b7081" />
+					<Edge From="zacnem_trialog" To="Exec">
+						<Vertex>vertex1</Vertex>
+						<Vertex>vertex11</Vertex>
+					</Edge>
+				</Function>
 				<SchedulerLinkActivation Name="schedule7" PositionY="-140" PositionX="-60">
 					<Constant Name="LinkTag" Value="kubaParalu_sitWithLeopold" />
 					<Edge From="hracSedi.State" To="IsActive" />
 				</SchedulerLinkActivation>
-				<trialog_s_katerinou_a_leopoldem Name="trialog_s_katerinou_a_leopoldem" PositionY="-240" PositionX="-740">
+				<trialog_s_katerinou_a_leopoldem Name="trialog_s_katerinou_a_leopoldem" PositionY="-260" PositionX="-740" RequiredForOutput="kutnohorsko">
 					<Asset Name="DialogueHolder" Alias="firstTrialogue" />
 					<Edge From="createdialogparams4.DialogParams" To="DialogParams" />
 					<Edge From="zacnem_trialog" To="EnqueueDialogue">
@@ -308,11 +334,15 @@
 						<Vertex>hGKoAwID</Vertex>
 					</Edge>
 				</trialog_s_katerinou_a_leopoldem>
+				<TriggerSequence Name="triggersequence15" PositionY="690" PositionX="-300">
+					<Edge From="trialog_s_katerinou_a_leopoldem.hrac_obvinil_vilema__necha_ho_jit" To="Exec" />
+				</TriggerSequence>
 			</Nodes>
 			<EdgeVertices>
 				<EdgeVertex Name="27QmmAQG" PositionY="330" PositionX="-1850" />
+				<EdgeVertex Name="2m212MbX" PositionY="650" PositionX="170" />
 				<EdgeVertex Name="3dqhIKMF" PositionY="290" PositionX="-810" />
-				<EdgeVertex Name="5zf8Gqnf" PositionY="590" PositionX="60" />
+				<EdgeVertex Name="5zf8Gqnf" PositionY="590" PositionX="-290" />
 				<EdgeVertex Name="7DhmDBvt" PositionY="330" PositionX="-810" />
 				<EdgeVertex Name="89jdqE2x" PositionY="390" PositionX="-1850" />
 				<EdgeVertex Name="8w1UbJSV" PositionY="290" PositionX="-1850" />
@@ -328,9 +358,12 @@
 				<EdgeVertex Name="LENI0dNx" PositionY="370" PositionX="-1850" />
 				<EdgeVertex Name="nAwkhaNw" PositionY="430" PositionX="-1850" />
 				<EdgeVertex Name="NlwYC5yj" PositionY="250" PositionX="-810" />
+				<EdgeVertex Name="QRx4DHEy" PositionY="650" PositionX="40" />
 				<EdgeVertex Name="RLcckvlV" PositionY="430" PositionX="-810" />
+				<EdgeVertex Name="RTBEVmc4" PositionY="630" PositionX="170" />
 				<EdgeVertex Name="t8crelh1" PositionY="310" PositionX="-1850" />
 				<EdgeVertex Name="tLnhno5m" PositionY="390" PositionX="-810" />
+				<EdgeVertex Name="u6j8Sqqq" PositionY="610" PositionX="-290" />
 				<EdgeVertex Name="uAgKwo3v" PositionY="250" PositionX="-1850" />
 				<EdgeVertex Name="uk2JjGPq" PositionY="370" PositionX="-810" />
 				<EdgeVertex Name="vertex1" PositionY="-90" PositionX="-1850" />
@@ -374,11 +407,13 @@
 				<EdgeVertex Name="vertex83" PositionY="530" PositionX="170" />
 				<EdgeVertex Name="vertex84" PositionY="510" PositionX="-290" />
 				<EdgeVertex Name="vertex85" PositionY="490" PositionX="-290" />
-				<EdgeVertex Name="vertex86" PositionY="470" PositionX="70" />
+				<EdgeVertex Name="vertex86" PositionY="470" PositionX="-290" />
 				<EdgeVertex Name="Vjn8eG1Y" PositionY="270" PositionX="-810" />
+				<EdgeVertex Name="Vt8BPehP" PositionY="610" PositionX="170" />
 				<EdgeVertex Name="W19UPCr3" PositionY="570" PositionX="-290" />
 				<EdgeVertex Name="X9UF4Bf3" PositionY="350" PositionX="-810" />
 				<EdgeVertex Name="ybwHY65y" PositionY="550" PositionX="170" />
+				<EdgeVertex Name="yD4MzCJp" PositionY="630" PositionX="40" />
 				<EdgeVertex Name="zYpLF6Mq" PositionY="350" PositionX="-1850" />
 			</EdgeVertices>
 			<Assets>

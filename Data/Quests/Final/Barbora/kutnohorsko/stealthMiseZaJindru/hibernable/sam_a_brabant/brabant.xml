@@ -68,11 +68,11 @@
 					<Asset Name="SoulArray1" Alias="player" />
 					<Edge From="or57.bool" To="IsActive" />
 				</AddFactionRelationBetweenArrays>
-				<AddFactionRelationBetweenArrays Name="addfactionrelationbetweenarrays6_1" PositionY="230" PositionX="-1650">
+				<AddFactionRelationBetweenArrays Name="addfactionrelationbetweenarrays6_1" PositionY="260" PositionX="-1650">
 					<Constant Name="RelationValue" Value="1" />
 					<Asset Name="SoulArray0" Alias="brabant" />
 					<Asset Name="SoulArray1" Alias="aulitzsSoldiersAll" />
-					<Edge From="quest_je_nastartovan" To="IsActive" />
+					<Edge From="and123.bool" To="IsActive" />
 				</AddFactionRelationBetweenArrays>
 				<AIConceptSignalTrigger Name="aiconceptsignaltriggerhitreactionnotification45" PositionY="1130" PositionX="180" NotificationName="hitReactionNotification">
 					<Asset Name="attacker_value_filter" Alias="player" />
@@ -102,6 +102,23 @@
 						<Vertex>vertex46</Vertex>
 					</Edge>
 				</AIConceptSignalTrigger>
+				<Function Name="and116" PositionY="150" PositionX="1930" MethodName="math::boolean::And" DeclaringType="math::boolean">
+					<Edge From="not115.bool" To="A" />
+					<Edge From="not70.bool" To="B" />
+				</Function>
+				<Function Name="and119" PositionY="-260" PositionX="1350" MethodName="math::boolean::And" DeclaringType="math::boolean">
+					<Edge From="not101.bool" To="A" />
+					<Edge From="quest_je_nastartovan" To="B">
+						<Vertex>GNVbPpwW</Vertex>
+					</Edge>
+				</Function>
+				<Function Name="and123" PositionY="100" PositionX="-1650" MethodName="math::boolean::And" DeclaringType="math::boolean">
+					<Edge From="quest_je_nastartovan" To="A" />
+					<Edge From="not124.bool" To="B">
+						<Vertex>DojWpTnn</Vertex>
+						<Vertex>zte8lY5L</Vertex>
+					</Edge>
+				</Function>
 				<Function Name="and86" PositionY="70" PositionX="-1320" MethodName="math::boolean::And" DeclaringType="math::boolean">
 					<Edge From="quest_je_nastartovan" To="A" />
 					<Edge From="not87.bool" To="B" />
@@ -113,12 +130,12 @@
 				<AreaTrigger Name="areatrigger108" PositionY="-800" PositionX="-1380">
 					<Asset Name="Souls" Alias="player" />
 					<Asset Name="Areas" Alias="samsRoom" />
-					<Edge From="not101.bool" To="IsActive">
+					<Edge From="and119.bool" To="IsActive">
 						<Vertex>pACn7xlc</Vertex>
 						<Vertex>Cxzvz6sQ</Vertex>
 					</Edge>
 				</AreaTrigger>
-				<AreInSameSkirmish Name="areinsameskirmish85" PositionY="610" PositionX="-1660">
+				<AreInSameSkirmish Name="areinsameskirmish85" PositionY="640" PositionX="-1640">
 					<Asset Name="Soul1" Alias="brabant" />
 					<Asset Name="Soul2" Alias="player" />
 					<Edge From="fightWithBrabant.Active" To="IsActive">
@@ -160,6 +177,17 @@
 						<Vertex>vertex10</Vertex>
 					</Edge>
 				</State>
+				<State Name="brabantsBodyCanBeUnstreamed" PositionY="-640" PositionX="1690" TypeT="ProgressUpdated">
+					<Constant Name="DefaultValue" Value="Active" />
+					<Edge From="deathtrigger80_1.OnDeath" To="SetUpdated">
+						<Vertex>dGgv9rqU</Vertex>
+						<Vertex>4oRpLGN5</Vertex>
+					</Edge>
+					<Edge From="profilestatetrigger111.OnUnloaded" To="SetDone">
+						<Vertex>1MPPjLn9</Vertex>
+						<Vertex>aj18z2HW</Vertex>
+					</Edge>
+				</State>
 				<State Name="brabantYelling" PositionY="-900" PositionX="100" TypeT="Progress">
 					<Edge From="perceptiontrigger21.OnSeenShortCone" To="SetDone">
 						<Vertex>vertex5</Vertex>
@@ -184,11 +212,22 @@
 						<Vertex>B5pXsGN7</Vertex>
 					</Edge>
 				</CutsceneHandler>
-				<HasteTrigger Name="damageToBarabant" PositionY="-670" PositionX="1450" />
+				<HasteTrigger Name="damageToBarabant" PositionY="-1010" PositionX="1220" />
 				<SoulDeathTrigger Name="deathtrigger80" PositionY="-400" PositionX="-690">
 					<Asset Name="Souls" Alias="brabant" />
 					<Edge From="or57.bool" To="IsActive" />
 				</SoulDeathTrigger>
+				<SoulDeathTrigger Name="deathtrigger80_1" PositionY="-930" PositionX="1990">
+					<Asset Name="Souls" Alias="brabant" />
+					<Edge From="brabantsBodyCanBeUnstreamed.Active" To="IsActive" />
+				</SoulDeathTrigger>
+				<DistanceTrigger Name="distancetrigger110" PositionY="-440" PositionX="1980">
+					<Asset Name="Origin" Alias="player" />
+					<Asset Name="Target" Alias="brabant" />
+					<Constant Name="Operator" Value="GreaterEquals" />
+					<Constant Name="Distance" Value="50m" />
+					<Edge From="brabantsBodyCanBeUnstreamed.Updated" To="IsActive" />
+				</DistanceTrigger>
 				<EnableBehavior Name="enablebehavior70" PositionY="100" PositionX="300" Signature="" EventSet="">
 					<Constant Name="Behavior" Value="brabant_surrending" />
 					<Asset Name="SmartEntity" Alias="qSO" />
@@ -225,9 +264,8 @@
 						<Vertex>vertex36</Vertex>
 					</Edge>
 				</fightconfiguration_protections>
-				<fightconfiguration_surrendering Name="fightconfiguration_surrendering" PositionY="750" PositionX="-720" Namespace="utils.combat">
+				<fightconfiguration_surrendering Name="fightconfiguration_surrendering" PositionY="740" PositionX="-730" Namespace="utils.combat">
 					<Asset Name="souls" Alias="brabant" />
-					<Constant Name="neversurrenderorflee" Value="false" />
 					<Constant Name="neveracceptsurrender" Value="true" />
 					<Constant Name="decentmercy" Value="false" />
 					<Constant Name="alwaysmercy" Value="true" />
@@ -239,6 +277,10 @@
 					<Constant Name="lowhealththreshold" Value="40" />
 					<Edge From="fightWithBrabant.Updated" To="isactive" />
 				</fightnotificationtrigger>
+				<fightstop Name="fightstop" PositionY="-1310" PositionX="-1050" Namespace="utils.combat">
+					<Asset Name="participants" Alias="aulitzsSoldiers" />
+					<Edge From="areatrigger108.OnEnter" To="stop" />
+				</fightstop>
 				<State Name="fightWithBrabant" PositionY="380" PositionX="-1320" TypeT="ProgressUpdated">
 					<Constant Name="DefaultValue" Value="Active" />
 					<Edge From="fightnotificationtrigger.onsoulsurrender" To="SetDone">
@@ -252,7 +294,19 @@
 					</Edge>
 					<Edge From="areinsameskirmish85.SkirmishStarted" To="SetUpdated" />
 					<Edge From="deathtrigger80.OnAllDeath" To="SetDone" />
+					<Edge From="triggersequence138.A" To="SetNone" />
+					<Edge From="triggersequence138.B" To="SetActive" />
+					<Edge From="fightnotificationtrigger.onsoulflee" To="SetDone">
+						<Vertex>vertex16</Vertex>
+						<Vertex>vertex18</Vertex>
+						<Vertex>vertex19</Vertex>
+					</Edge>
 				</State>
+				<IfFunction Name="ifand131" PositionY="450" PositionX="-1880" MethodName="math::boolean::And" DeclaringType="math::boolean">
+					<Edge From="patchtrigger132.OnPatch" To="Exec" />
+					<Edge From="fightWithBrabant.Updated" To="A" />
+					<Edge From="state118.State" To="B" />
+				</IfFunction>
 				<IfFunction Name="ifdeathcheck47" PositionY="1130" PositionX="570" MethodName="wh::rpgmodule::DeathCheck" DeclaringType="wh::rpgmodule">
 					<Asset Name="Souls" Alias="brabant" />
 					<Edge From="aiconceptsignaltriggerhitreactionnotification45.OnNotification" To="Exec" />
@@ -262,7 +316,7 @@
 					<Constant Name="Type" Value="Press" />
 					<Edge From="brabantIsDead.State" To="IsActive" />
 				</InteractionTriggerNode>
-				<ObjectProperties Name="isoulproperties9" PositionY="-1210" PositionX="1410" DeclaringType="wh::rpgmodule::I_Soul">
+				<ObjectProperties Name="isoulproperties9" PositionY="-1550" PositionX="1180" DeclaringType="wh::rpgmodule::I_Soul">
 					<Asset Name="I_Soul" Alias="brabant" />
 				</ObjectProperties>
 				<Function Name="joinarrays69" PositionY="2170" PositionX="380" TypeT="wh::rpgmodule::Souls" MethodName="utilities::array::JoinArrays" DeclaringType="utilities::array">
@@ -273,12 +327,18 @@
 					<Asset Name="A" Alias="samuel" />
 					<Asset Name="B" Alias="brabant" />
 				</MakeArray>
-				<SkaldBoxProbe Name="musicstate5" PositionY="1470" PositionX="-710">
+				<SkaldBoxProbe Name="musicstate5" PositionY="1830" PositionX="-710">
 					<Constant Name="Toggle" Value="STORY_M49_BRABAND_BOSS_FIGHT" />
 					<Edge From="fightWithBrabant.Updated" To="IsActive" />
 				</SkaldBoxProbe>
-				<Function Name="not101" PositionY="-280" PositionX="1400" MethodName="math::boolean::Not" DeclaringType="math::boolean">
+				<Function Name="not101" PositionY="-380" PositionX="1350" MethodName="math::boolean::Not" DeclaringType="math::boolean">
 					<Edge From="or100.bool" To="Value" />
+				</Function>
+				<Function Name="not115" PositionY="100" PositionX="1680" MethodName="math::boolean::Not" DeclaringType="math::boolean">
+					<Edge From="brabantsBodyCanBeUnstreamed.Done" To="Value" />
+				</Function>
+				<Function Name="not124" PositionY="560" PositionX="-990" MethodName="math::boolean::Not" DeclaringType="math::boolean">
+					<Edge From="fightWithBrabant.Active" To="Value" />
 				</Function>
 				<Function Name="not70" PositionY="220" PositionX="1680" MethodName="math::boolean::Not" DeclaringType="math::boolean">
 					<Edge From="brabantLeavesMap.Done" To="Value">
@@ -294,7 +354,7 @@
 						<Vertex>q4WaFgN5</Vertex>
 					</Edge>
 				</Function>
-				<Function Name="or100" PositionY="-280" PositionX="1170" MethodName="math::boolean::Or" DeclaringType="math::boolean">
+				<Function Name="or100" PositionY="-380" PositionX="1120" MethodName="math::boolean::Or" DeclaringType="math::boolean">
 					<Edge From="state81.Done" To="A" />
 					<Edge From="post_fight.seq76" To="B" />
 				</Function>
@@ -321,7 +381,6 @@
 					<Edge From="playerSeenInCombatWithBrabant.State" To="hrac_viden_v_combatu_s_brabantem">
 						<Vertex>vertex43</Vertex>
 					</Edge>
-					<Edge From="not70.bool" To="brabant_jeste_neodstreamovan" />
 					<Edge From="post_fight.dialog_s_brabantem_probehl" To="dialog_s_brabantem_probehl" />
 					<Edge From="post_fight.brabant_rekl_o_aulitzovi" To="brabant_rekl_o_aulitzovi" />
 					<Edge From="post_fight.unstream_barn_door" To="open_barn_door" />
@@ -329,10 +388,15 @@
 						<Vertex>09QGThtE</Vertex>
 						<Vertex>bgtW7tsY</Vertex>
 					</Edge>
+					<Edge From="distancetrigger110.OnMatch" To="odstreamovat_brabanta" />
+					<Edge From="and116.bool" To="brabant_jeste_neodstreamovan" />
 					<Edge From="enablebehaviorstealthmisezajindrubrabantleavingfrommapstealthmisezajindrualarmunstream120.DoUnstream" To="odstreamovat_brabanta" />
 					<Edge From="enablebehaviorstealthmisezajindrubrabantleavingfrommapstealthmisezajindrualarmunstream120.SetAlarm" To="brabant_odchazi_a_spousti_poplach" />
 				</Output>
-				<PerceptionTrigger Name="perceptiontrigger21" PositionY="-1120" PositionX="420">
+				<PatchTrigger Name="patchtrigger132" PositionY="450" PositionX="-2210">
+					<Constant Name="TransitionToVersion" Value="ver_01_02" />
+				</PatchTrigger>
+				<PerceptionTrigger Name="perceptiontrigger21" PositionY="-1180" PositionX="420">
 					<Asset Name="PerceivingSouls" Alias="brabant" />
 					<Asset Name="PerceptibleSouls" Alias="player" />
 					<Edge From="brabantYelling.Active" To="IsActive" />
@@ -362,11 +426,14 @@
 						<Vertex>vertex20</Vertex>
 					</Edge>
 					<Edge From="fightnotificationtrigger.onsoulsurrender" To="brabant_se_vzdal">
-						<Vertex>vertex16</Vertex>
-						<Vertex>IuXLxnaM</Vertex>
+						<Vertex>eRLKa8XW</Vertex>
 					</Edge>
 				</post_fight>
-				<ProfileStateTrigger Name="profilestatetrigger77" PositionY="-460" PositionX="1060">
+				<ProfileStateTrigger Name="profilestatetrigger111" PositionY="-640" PositionX="1980">
+					<Asset Name="Profiles" Alias="brabantProfile" />
+					<Edge From="brabantsBodyCanBeUnstreamed.Updated" To="IsActive" />
+				</ProfileStateTrigger>
+				<ProfileStateTrigger Name="profilestatetrigger77" PositionY="-540" PositionX="1080">
 					<Asset Name="Profiles" Alias="barnDoorsOpened" />
 					<Edge From="state81.Active" To="IsActive" />
 				</ProfileStateTrigger>
@@ -380,11 +447,18 @@
 						<Vertex>JAnPVm9e</Vertex>
 						<Vertex>pkbCFKAR</Vertex>
 					</Edge>
+					<Edge From="fightnotificationtrigger.onsoulflee" To="enable">
+						<Vertex>vertex16</Vertex>
+					</Edge>
 				</questsurrenderprotection>
 				<Function Name="removebuffswithtag41" PositionY="1070" PositionX="-260" MethodName="wh::rpgmodule::RemoveBuffsWithTag" DeclaringType="wh::rpgmodule">
 					<Asset Name="Souls" Alias="brabant" />
 					<Constant Name="BuffTag" Value="4" />
 					<Edge From="fightnotificationtrigger.onsoulsurrender" To="Exec">
+						<Vertex>vertex16</Vertex>
+						<Vertex>vertex18</Vertex>
+					</Edge>
+					<Edge From="fightnotificationtrigger.onsoulflee" To="Exec">
 						<Vertex>vertex16</Vertex>
 						<Vertex>vertex18</Vertex>
 					</Edge>
@@ -396,13 +470,32 @@
 						<Vertex>vertex16</Vertex>
 						<Vertex>vertex18</Vertex>
 					</Edge>
+					<Edge From="fightnotificationtrigger.onsoulflee" To="Exec">
+						<Vertex>vertex16</Vertex>
+						<Vertex>vertex18</Vertex>
+					</Edge>
 				</Function>
 				<SetEntityContext Name="setentitycontext105" PositionY="-650" PositionX="-710">
 					<Constant Name="Context" Value="deterrenceImmunity" />
 					<Edge From="makearray107.Array" To="Souls" />
 					<Edge From="streamprofileshandling_1.profileactive" To="IsActive" />
 				</SetEntityContext>
-				<SetEntityContext Name="setentitycontext17" PositionY="1620" PositionX="-710">
+				<SetEntityContext Name="setentitycontext117" PositionY="-1070" PositionX="-730">
+					<Constant Name="Context" Value="crime_ignorePlayersSounds" />
+					<Asset Name="Souls" Alias="brabant" />
+					<Edge From="state118.State" To="IsActive" />
+				</SetEntityContext>
+				<SetEntityContext Name="setentitycontext117_1" PositionY="1470" PositionX="-710">
+					<Constant Name="Context" Value="combat_neverSurrenderOrFlee" />
+					<Asset Name="Souls" Alias="brabant" />
+					<Edge From="fightWithBrabant.Active" To="IsActive" />
+				</SetEntityContext>
+				<SetEntityContext Name="setentitycontext117_2" PositionY="-1260" PositionX="-730">
+					<Constant Name="Context" Value="crime_ignoreCombatSounds" />
+					<Asset Name="Souls" Alias="brabant" />
+					<Edge From="state118.State" To="IsActive" />
+				</SetEntityContext>
+				<SetEntityContext Name="setentitycontext17" PositionY="1980" PositionX="-710">
 					<Constant Name="Context" Value="crime_disabledDenialDialog" />
 					<Asset Name="Souls" Alias="brabant" />
 					<Edge From="and92.bool" To="IsActive" />
@@ -418,6 +511,11 @@
 					<Constant Name="Context" Value="combat_forceArmed" />
 					<Asset Name="Souls" Alias="brabant" />
 					<Edge From="or57.bool" To="IsActive" />
+				</SetEntityContext>
+				<SetEntityContext Name="setentitycontext44_1" PositionY="1650" PositionX="-710">
+					<Constant Name="Context" Value="combat_alwaysChooseMercy" />
+					<Asset Name="Souls" Alias="brabant" />
+					<Edge From="fightWithBrabant.Updated" To="IsActive" />
 				</SetEntityContext>
 				<SetEntityContext Name="setentitycontext60" PositionY="440" PositionX="210">
 					<Constant Name="Context" Value="crime_disableCrimeInformationEmit" />
@@ -445,6 +543,10 @@
 					<Constant Name="Context" Value="global_deterrentAreasActive" />
 					<Edge From="streamprofileshandling_1.profileactive" To="IsActive" />
 				</SetGameContext>
+				<State Name="state118" PositionY="-1070" PositionX="-1050" TypeT="bool">
+					<Constant Name="DefaultValue" Value="true" />
+					<Edge From="areatrigger108.OnEnter" To="SetFalse" />
+				</State>
 				<State Name="state81" PositionY="-540" PositionX="810" TypeT="Progress">
 					<Edge From="cutscenehandler76.BeforePlay" To="SetActive" />
 					<Edge From="profilestatetrigger77.OnLoaded" To="SetDone">
@@ -467,29 +569,38 @@
 						<Vertex>aMtCLk4U</Vertex>
 					</Edge>
 				</streamprofileshandling>
-				<MemberFunction Name="takedamage8" PositionY="-850" PositionX="1830" MethodName="TakeDamage" DeclaringType="wh::rpgmodule::I_CombatSoul">
+				<MemberFunction Name="takedamage8" PositionY="-1190" PositionX="1600" MethodName="TakeDamage" DeclaringType="wh::rpgmodule::I_CombatSoul">
 					<Constant Name="Stamina" Value="0" />
 					<Constant Name="Health" Value="80" />
 					<Asset Name="Attacker" Alias="player" />
 					<Edge From="damageToBarabant.OnTrigger" To="Exec" />
 					<Edge From="isoulproperties9.CombatSoul" To="Victim" />
 				</MemberFunction>
+				<TriggerSequence Name="triggersequence138" PositionY="480" PositionX="-1650">
+					<Edge From="ifand131.True" To="Exec" />
+				</TriggerSequence>
 			</Nodes>
 			<EdgeVertices>
 				<EdgeVertex Name="09QGThtE" PositionY="-10" PositionX="1100" />
-				<EdgeVertex Name="6hSI0tAa" PositionY="-130" PositionX="580" />
-				<EdgeVertex Name="aMtCLk4U" PositionY="-130" PositionX="-980" />
+				<EdgeVertex Name="1MPPjLn9" PositionY="-680" PositionX="2210" />
+				<EdgeVertex Name="4oRpLGN5" PositionY="-700" PositionX="1700" />
+				<EdgeVertex Name="6hSI0tAa" PositionY="-100" PositionX="580" />
+				<EdgeVertex Name="aj18z2HW" PositionY="-680" PositionX="1700" />
+				<EdgeVertex Name="aMtCLk4U" PositionY="-110" PositionX="-980" />
 				<EdgeVertex Name="B2GbGM4e" PositionY="-20" PositionX="-190" />
-				<EdgeVertex Name="B5pXsGN7" PositionY="-130" PositionX="340" />
+				<EdgeVertex Name="B5pXsGN7" PositionY="-100" PositionX="340" />
 				<EdgeVertex Name="bgtW7tsY" PositionY="-10" PositionX="2070" />
 				<EdgeVertex Name="cxtFPhyY" PositionY="-60" PositionX="2070" />
 				<EdgeVertex Name="Cxzvz6sQ" PositionY="-80" PositionX="-1340" />
+				<EdgeVertex Name="dGgv9rqU" PositionY="-700" PositionX="2210" />
+				<EdgeVertex Name="DojWpTnn" PositionY="870" PositionX="-830" />
+				<EdgeVertex Name="eRLKa8XW" PositionY="60" PositionX="-330" />
 				<EdgeVertex Name="f47Q5e1m" PositionY="20" PositionX="820" />
+				<EdgeVertex Name="GNVbPpwW" PositionY="-140" PositionX="-1480" />
 				<EdgeVertex Name="GSul2rjq" PositionY="-130" PositionX="1000" />
-				<EdgeVertex Name="IuXLxnaM" PositionY="70" PositionX="-290" />
 				<EdgeVertex Name="JAnPVm9e" PositionY="380" PositionX="740" />
 				<EdgeVertex Name="oQaCJX5R" PositionY="1040" PositionX="-1670" />
-				<EdgeVertex Name="pACn7xlc" PositionY="-80" PositionX="1580" />
+				<EdgeVertex Name="pACn7xlc" PositionY="-80" PositionX="1530" />
 				<EdgeVertex Name="pkbCFKAR" PositionY="380" PositionX="-30" />
 				<EdgeVertex Name="q4WaFgN5" PositionY="-20" PositionX="-940" />
 				<EdgeVertex Name="sXnJB1dt" PositionY="400" PositionX="-260" />
@@ -524,11 +635,13 @@
 				<EdgeVertex Name="vertex9" PositionY="1020" PositionX="1880" />
 				<EdgeVertex Name="X3t4eEgY" PositionY="400" PositionX="740" />
 				<EdgeVertex Name="xfH56QDK" PositionY="-160" PositionX="-370" />
+				<EdgeVertex Name="zte8lY5L" PositionY="870" PositionX="-1610" />
 			</EdgeVertices>
 			<Assets>
 				<TagPointAsset Name="exitFromMapForBrabant" />
 				<CutsceneHolderAsset Name="fader_interactiveBarnDoor" />
 				<ProfileAsset Name="brabantDeterrentArea" AssetProfiles="stealthMiseZaJindru_brabantDeterrentArea" />
+				<ProfileAsset Name="brabantProfile" AssetProfiles="krat_baronBrabant" />
 				<TagPointAsset Name="outsideBarn" />
 			</Assets>
 			<Notes>

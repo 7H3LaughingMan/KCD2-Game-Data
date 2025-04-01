@@ -3,6 +3,9 @@
 	<Skald>
 		<FaderDialog Name="sedivka_s_podkonnim">
 			<Ports>
+				<Port Name="sedivka_privlastnena" Direction="In" Type="bool">
+					<DesignName StringName="sedivka_s_sedivka_privlas_6LUs" Text="Šedivka přivlastněna" />
+				</Port>
 				<Port Name="sedivka_je_mrtva" Direction="In" Type="bool">
 					<DesignName StringName="sedivka_s_sedivka_je_mrtva_t4Lh" Text="Šedivka je mrtvá" />
 				</Port>
@@ -24,6 +27,9 @@
 				<Port Name="hint_na_kone_od_mlynare" Direction="In" Type="bool">
 					<DesignName StringName="sedivka_s_hint_na_kone_od_f4UY" Text="Hint na koně od mlynáře" />
 				</Port>
+				<Port Name="je_noc" Direction="In" Type="bool">
+					<DesignName StringName="sedivka_s_je_noc_kLou" Text="je noc" />
+				</Port>
 				<Port Name="playergetsstartingequip" Direction="Out" Type="trigger">
 					<DesignName StringName="sedivka_s_playergetsstart_d0Py" Text="PlayerGetsStartingEquip" />
 				</Port>
@@ -36,7 +42,7 @@
 				</SelectedSouls>
 				<Decision Name="dec1" Priority="General">
 					<Sequences>
-						<Sequence EntryCondition="Port('focus_cam_used') AND&#xD;&#xA;!ThisSequenceUsed() AND &#xD;&#xA;!Port('sedivka_je_mrtva')" EndType="Decision" Name="seq1">
+						<Sequence EntryCondition="!Port('je_noc') AND Port('focus_cam_used') AND&#xD;&#xA;!ThisSequenceUsed() AND &#xD;&#xA;!Port('sedivka_je_mrtva') AND &#xD;&#xA;!Port('sedivka_privlastnena')" EndType="Decision" Name="seq1">
 							<DesignName StringName="sedivka_s_seq1_4B5Q" Text="seq1" />
 							<UiPrompt StringName="ui_sedivka_s_seq1_vDt0" Text="Šedivka!" />
 							<Elements>
@@ -627,7 +633,7 @@
 								</Sequences>
 							</Decision>
 						</Sequence>
-						<Sequence EntryCondition="!Port('focus_cam_used') AND&#xD;&#xA;Port('hint_na_kone_od_mlynare') AND &#xD;&#xA;!ThisSequenceUsed() AND &#xD;&#xA;!Port('sedivka_je_mrtva')" EndType="Decision" Name="seq3">
+						<Sequence EntryCondition="!Port('je_noc') AND !Port('focus_cam_used') AND&#xD;&#xA;Port('hint_na_kone_od_mlynare') AND &#xD;&#xA;!ThisSequenceUsed() AND &#xD;&#xA;!Port('sedivka_je_mrtva') AND &#xD;&#xA;!Port('sedivka_privlastnena')" EndType="Decision" Name="seq3">
 							<DesignName StringName="sedivka_s_seq3_Fih8" Text="seq3" />
 							<UiPrompt StringName="ui_sedivka_s_seq3_Y63l" Text="Levný kůň." />
 							<Elements>
@@ -770,7 +776,7 @@
 								</Sequences>
 							</Decision>
 						</Sequence>
-						<Sequence EntryCondition="!Port('focus_cam_used') AND&#xD;&#xA;!Port('hint_na_kone_od_mlynare') AND&#xD;&#xA;!ThisSequenceUsed() AND &#xD;&#xA;!Port('sedivka_je_mrtva')" EndType="GoTo" GoToDecision="dec3" Name="seq6">
+						<Sequence EntryCondition="!Port('je_noc') AND !Port('focus_cam_used') AND&#xD;&#xA;!Port('hint_na_kone_od_mlynare') AND&#xD;&#xA;!ThisSequenceUsed() AND &#xD;&#xA;!Port('sedivka_je_mrtva') AND &#xD;&#xA;!Port('sedivka_privlastnena')" EndType="GoTo" GoToDecision="dec3" Name="seq6">
 							<DesignName StringName="sedivka_s_seq6_7CnQ" Text="seq6" />
 							<UiPrompt StringName="ui_sedivka_s_seq6_WeYx" Text="Levný kůň." />
 							<Elements>

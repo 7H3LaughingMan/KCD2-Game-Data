@@ -20,6 +20,9 @@
 				</Port>
 			</Ports>
 			<Nodes>
+				<isplayerindialog Name="isplayerindialog" PositionY="460" PositionX="-960" Namespace="utoknanebakov">
+					<Edge From="hostina_nastreamovana" To="active" />
+				</isplayerindialog>
 				<leaningchat Name="leaningchat" PositionY="-40" PositionX="20" Namespace="utoknanebakov">
 					<Asset Name="smartentity" Alias="feast" />
 					<Asset Name="npc" Alias="bartos" />
@@ -32,6 +35,9 @@
 						<Vertex>vertex1</Vertex>
 					</Edge>
 					<Edge From="not2.bool" To="activechat" />
+					<Edge From="isplayerindialog.onupdate" To="chatupdate">
+						<Vertex>vertex1</Vertex>
+					</Edge>
 				</leaningchat>
 				<Function Name="not2" PositionY="280" PositionX="-300" MethodName="math::boolean::Not" DeclaringType="math::boolean">
 					<Edge From="or3.bool" To="Value" />
@@ -46,6 +52,7 @@
 					<Edge From="chatoval_s_hracem" To="A" />
 					<Edge From="not5.bool" To="B" />
 					<Edge From="not6.bool" To="C" />
+					<Edge From="isplayerindialog.indialog" To="D" />
 				</Function>
 			</Nodes>
 			<EdgeVertices>

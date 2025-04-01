@@ -128,8 +128,11 @@
 				</MakeArray>
 				<MakeArray Name="makearray15" PositionY="340" PositionX="0" TypeT="wh::entitymodule::LayerProfiles">
 					<Asset Name="A" Alias="attackersProfile" />
+					<Asset Name="B" Alias="laddersProfile" />
+				</MakeArray>
+				<MakeArray Name="makearray19" PositionY="970" PositionX="340" TypeT="wh::entitymodule::LayerProfiles">
+					<Asset Name="A" Alias="erikProfile" />
 					<Asset Name="B" Alias="erikHrose_profile" />
-					<Asset Name="C" Alias="laddersProfile" />
 				</MakeArray>
 				<MakeArray Name="makearray4" PositionY="320" PositionX="2330" TypeT="wh::xgenaimodule::SmartObjects">
 					<Asset Name="A" Alias="BG_ladder_1" />
@@ -180,12 +183,12 @@
 					<Edge From="streamprofileshandling_1.profileactive" To="IsActive" />
 				</SetEntityContext>
 				<streamprofileshandling Name="streamprofileshandling" PositionY="790" PositionX="760" Namespace="utils.streaming">
-					<Asset Name="profiles" Alias="erikProfile" />
 					<Constant Name="autodeactivatenotificationafterstream" Value="false" />
 					<Edge From="streamprofileshandling_1.onloaded" To="streamprofiles" />
 					<Edge From="unstream_erik" To="unstreamprofiles">
 						<Vertex>L5RylnF2</Vertex>
 					</Edge>
+					<Edge From="makearray19.Array" To="profiles" />
 				</streamprofileshandling>
 				<streamprofileshandling Name="streamprofileshandling_1" PositionY="290" PositionX="290" Namespace="utils.streaming">
 					<Constant Name="autodeactivatenotificationafterstream" Value="false" />

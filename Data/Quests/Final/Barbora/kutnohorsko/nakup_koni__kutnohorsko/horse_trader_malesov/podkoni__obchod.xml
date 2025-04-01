@@ -6,6 +6,9 @@
 				<Port Name="tutorial_o_inspekci_dokoncen" Direction="In" Type="bool">
 					<DesignName StringName="podkoni___tutorial_o_insp_t7Q1" Text="Tutorial o inspekci dokončen" />
 				</Port>
+				<Port Name="je_noc" Direction="In" Type="bool">
+					<DesignName StringName="podkoni___je_noc_DUQ5" Text="je noc" />
+				</Port>
 				<Port Name="kun1_exchange_value" Direction="In" Type="float">
 					<DesignName StringName="podkoni___kun1_exchange_v_tMu8" Text="Kun1_exchange_value" />
 				</Port>
@@ -108,9 +111,9 @@
 				</SelectedSouls>
 				<Decision Name="dec1" Priority="General">
 					<Sequences>
-						<Sequence EntryCondition="Port('tutorial_o_inspekci_dokoncen') AND&#xD;&#xA;(&#xD;&#xA;Port('kun1available') OR &#xD;&#xA;Port('kun2available') OR &#xD;&#xA;Port('kun3available') OR &#xD;&#xA;Port('kun4available') OR &#xD;&#xA;Port('kun5available') OR&#xD;&#xA;Port('kun6available')&#xD;&#xA;)" EndType="Decision" GrayOutIfSequencesUsed="Never" Name="seq1">
+						<Sequence EntryCondition="!Port('je_noc') AND Port('tutorial_o_inspekci_dokoncen') AND&#xD;&#xA;(&#xD;&#xA;Port('kun1available') OR &#xD;&#xA;Port('kun2available') OR &#xD;&#xA;Port('kun3available') OR &#xD;&#xA;Port('kun4available') OR &#xD;&#xA;Port('kun5available') OR&#xD;&#xA;Port('kun6available')&#xD;&#xA;)" EndType="Decision" GrayOutIfSequencesUsed="Never" Name="seq1">
 							<DesignName StringName="podkoni___seq1_nP2g" Text="seq1" />
-							<UiPrompt StringName="ui_podkoni___seq1_SwAm" Text="(Koupit koně.)" />
+							<UiPrompt StringName="ui_podkoni___seq1_SwAm" Text="(Koupit koně)" />
 							<Triggers>
 								<Port Name="entereddialogue" />
 							</Triggers>
@@ -157,7 +160,7 @@
 													</Elements>
 													<Decision Name="dec5" Priority="General" DesignName="Kůň 1 Enough Money?">
 														<Sequences>
-															<Sequence ExitScript="Shops.DoMoneyTransaction(dc['PODKONI_MALESOV'].id, Ports['Payment_kutnohorsko_malesov_kun1'] * 10, 0)" EntryCondition="Port('playerhasenoughmoneykun1')" EndType="Decision" GrayOutIfSequencesUsed="Never" Name="kutnohorsko_malesov_kun1bought">
+															<Sequence ExitScript="Shops.DoMoneyTransaction(dc['PODKONI_MALESOV'].id, Ports['Payment_kutnohorsko_malesov_kun1'] * 10, 0) &#xD;&#xA;Game.ShowItemsTransfer(ItemUtils.itemIDs.money, -10 * Ports['Payment_kutnohorsko_malesov_kun1'])" EntryCondition="Port('playerhasenoughmoneykun1')" EndType="Decision" GrayOutIfSequencesUsed="Never" Name="kutnohorsko_malesov_kun1bought">
 																<DesignName StringName="podkoni___trosecko_kun1bo_ypWE" Text="kutnohorsko_malesov_kun1Bought" />
 																<Triggers>
 																	<Port Name="paykun_fullprice_1" />
@@ -242,7 +245,7 @@
 														</Sequences>
 													</Decision>
 												</Sequence>
-												<Sequence ExitScript="Shops.DoMoneyTransaction(dc['PODKONI_MALESOV'].id, Ports['Payment_kutnohorsko_malesov_kun1_cashback'] * -10, 0)" EntryCondition="!Port('Payment_kutnohorsko_malesov_kun1')" EndType="GoTo" GoToDecision="dec9" Visibility="Internal" GrayOutIfSequencesUsed="Never" Type="Payment" Name="kutnohorsko_malesov_kun1_cashback">
+												<Sequence ExitScript="Shops.DoMoneyTransaction(dc['PODKONI_MALESOV'].id, Ports['Payment_kutnohorsko_malesov_kun1_cashback'] * -10, 0) &#xD;&#xA;Game.ShowItemsTransfer(ItemUtils.itemIDs.money, 10 * Ports['Payment_kutnohorsko_malesov_kun1_cashback'])" EntryCondition="!Port('Payment_kutnohorsko_malesov_kun1')" EndType="GoTo" GoToDecision="dec9" Visibility="Internal" GrayOutIfSequencesUsed="Never" Type="Payment" Name="kutnohorsko_malesov_kun1_cashback">
 													<DesignName StringName="podkoni___trosecko_kun1_c_lkrJ" Text="kutnohorsko_malesov_kun1_cashback" />
 													<UiPrompt StringName="ui_podkoni___trosecko_kun_IPUj" Text="Obdržet peníze." />
 													<Triggers>
@@ -462,7 +465,7 @@
 													</Elements>
 													<Decision Name="dec7" Priority="General" DesignName="Kůň 2 Enough Money?">
 														<Sequences>
-															<Sequence ExitScript="Shops.DoMoneyTransaction(dc['PODKONI_MALESOV'].id, Ports['Payment_kutnohorsko_malesov_kun2'] * 10, 0)" EntryCondition="Port('playerhasenoughmoneykun2')" EndType="GoTo" GoToDecision="dec9" Visibility="Internal" GrayOutIfSequencesUsed="Never" Name="kutnohorsko_malesov_kun2bought">
+															<Sequence ExitScript="Shops.DoMoneyTransaction(dc['PODKONI_MALESOV'].id, Ports['Payment_kutnohorsko_malesov_kun2'] * 10, 0) &#xD;&#xA;Game.ShowItemsTransfer(ItemUtils.itemIDs.money, -10 * Ports['Payment_kutnohorsko_malesov_kun2'])" EntryCondition="Port('playerhasenoughmoneykun2')" EndType="GoTo" GoToDecision="dec9" Visibility="Internal" GrayOutIfSequencesUsed="Never" Name="kutnohorsko_malesov_kun2bought">
 																<DesignName StringName="podkoni___trosecko_kun2bo_cwMO" Text="kutnohorsko_malesov_kun2Bought" />
 																<Triggers>
 																	<Port Name="paykun_fullprice_2" />
@@ -521,7 +524,7 @@
 														</Sequences>
 													</Decision>
 												</Sequence>
-												<Sequence ExitScript="Shops.DoMoneyTransaction(dc['PODKONI_MALESOV'].id, Ports['Payment_kutnohorsko_malesov_kun2_cashback'] * -10, 0)" EntryCondition="!Port('Payment_kutnohorsko_malesov_kun2')" EndType="GoTo" GoToDecision="dec9" Visibility="Internal" GrayOutIfSequencesUsed="Never" Type="Payment" Name="kutnohorsko_malesov_kun2_cashback">
+												<Sequence ExitScript="Shops.DoMoneyTransaction(dc['PODKONI_MALESOV'].id, Ports['Payment_kutnohorsko_malesov_kun2_cashback'] * -10, 0) &#xD;&#xA;Game.ShowItemsTransfer(ItemUtils.itemIDs.money, 10 * Ports['Payment_kutnohorsko_malesov_kun2_cashback'])" EntryCondition="!Port('Payment_kutnohorsko_malesov_kun2')" EndType="GoTo" GoToDecision="dec9" Visibility="Internal" GrayOutIfSequencesUsed="Never" Type="Payment" Name="kutnohorsko_malesov_kun2_cashback">
 													<DesignName StringName="podkoni___trosecko_kun2_c_lApq" Text="kutnohorsko_malesov_kun2_cashback" />
 													<UiPrompt StringName="ui_podkoni___trosecko_kun_G9bp" Text="Obdržet peníze." />
 													<Triggers>
@@ -724,7 +727,7 @@
 													</Elements>
 													<Decision Name="dec13" Priority="General" DesignName="Kůň 3 Enough Money?">
 														<Sequences>
-															<Sequence ExitScript="Shops.DoMoneyTransaction(dc['PODKONI_MALESOV'].id, Ports['Payment_kutnohorsko_malesov_kun3'] * 10, 0)" EntryCondition="Port('playerhasenoughmoneykun3')" EndType="GoTo" GoToDecision="dec9" Visibility="Internal" GrayOutIfSequencesUsed="Never" Name="kutnohorsko_malesov_kun3bought">
+															<Sequence ExitScript="Shops.DoMoneyTransaction(dc['PODKONI_MALESOV'].id, Ports['Payment_kutnohorsko_malesov_kun3'] * 10, 0) &#xD;&#xA;Game.ShowItemsTransfer(ItemUtils.itemIDs.money, -10 * Ports['Payment_kutnohorsko_malesov_kun3'])" EntryCondition="Port('playerhasenoughmoneykun3')" EndType="GoTo" GoToDecision="dec9" Visibility="Internal" GrayOutIfSequencesUsed="Never" Name="kutnohorsko_malesov_kun3bought">
 																<DesignName StringName="podkoni___trosecko_kun3bo_3AUQ" Text="kutnohorsko_malesov_kun3Bought" />
 																<Triggers>
 																	<Port Name="paykun_fullprice_3" />
@@ -783,7 +786,7 @@
 														</Sequences>
 													</Decision>
 												</Sequence>
-												<Sequence ExitScript="Shops.DoMoneyTransaction(dc['PODKONI_MALESOV'].id, Ports['Payment_kutnohorsko_malesov_kun3_cashback'] * -10, 0)" EntryCondition="!Port('Payment_kutnohorsko_malesov_kun3')" EndType="GoTo" GoToDecision="dec9" Visibility="Internal" GrayOutIfSequencesUsed="Never" Type="Payment" Name="kutnohorsko__malesov_kun3_cashback">
+												<Sequence ExitScript="Shops.DoMoneyTransaction(dc['PODKONI_MALESOV'].id, Ports['Payment_kutnohorsko_malesov_kun3_cashback'] * -10, 0) &#xD;&#xA;Game.ShowItemsTransfer(ItemUtils.itemIDs.money, 10 * Ports['Payment_kutnohorsko_malesov_kun3_cashback'])" EntryCondition="!Port('Payment_kutnohorsko_malesov_kun3')" EndType="GoTo" GoToDecision="dec9" Visibility="Internal" GrayOutIfSequencesUsed="Never" Type="Payment" Name="kutnohorsko__malesov_kun3_cashback">
 													<DesignName StringName="podkoni___trosecko_kun3_c_4zmE" Text="kutnohorsko__malesov_kun3_cashback" />
 													<UiPrompt StringName="ui_podkoni___trosecko_kun_iyDb" Text="Obdržet peníze." />
 													<Triggers>
@@ -966,7 +969,7 @@
 													</Elements>
 													<Decision Name="dec13_1" Priority="General" DesignName="Kůň 4 Enough Money?">
 														<Sequences>
-															<Sequence ExitScript="Shops.DoMoneyTransaction(dc['PODKONI_MALESOV'].id, Ports['Payment_kutnohorsko_malesov_kun4'] * 10, 0)" EntryCondition="Port('playerhasenoughmoneykun4')" EndType="GoTo" GoToDecision="dec9" Visibility="Internal" GrayOutIfSequencesUsed="Never" Name="kutnohorsko_malesov_kun4bought">
+															<Sequence ExitScript="Shops.DoMoneyTransaction(dc['PODKONI_MALESOV'].id, Ports['Payment_kutnohorsko_malesov_kun4'] * 10, 0) &#xD;&#xA;Game.ShowItemsTransfer(ItemUtils.itemIDs.money, -10 * Ports['Payment_kutnohorsko_malesov_kun4'])" EntryCondition="Port('playerhasenoughmoneykun4')" EndType="GoTo" GoToDecision="dec9" Visibility="Internal" GrayOutIfSequencesUsed="Never" Name="kutnohorsko_malesov_kun4bought">
 																<DesignName StringName="podkoni___trosecko_kun4bo_0Eud" Text="kutnohorsko_malesov_kun4bought" />
 																<Triggers>
 																	<Port Name="paykun_fullprice_4" />
@@ -1023,7 +1026,7 @@
 														</Sequences>
 													</Decision>
 												</Sequence>
-												<Sequence ExitScript="Shops.DoMoneyTransaction(dc['PODKONI_MALESOV'].id, Ports['Payment_kutnohorsko_malesov_kun4_cashback'] * -10, 0)" EntryCondition="!Port('Payment_kutnohorsko_malesov_kun4')" EndType="GoTo" GoToDecision="dec9" Visibility="Internal" GrayOutIfSequencesUsed="Never" Type="Payment" Name="kutnohorsko_malesov_kun4_cashback">
+												<Sequence ExitScript="Shops.DoMoneyTransaction(dc['PODKONI_MALESOV'].id, Ports['Payment_kutnohorsko_malesov_kun4_cashback'] * -10, 0) &#xD;&#xA;Game.ShowItemsTransfer(ItemUtils.itemIDs.money, 10 * Ports['Payment_kutnohorsko_malesov_kun4_cashback'])" EntryCondition="!Port('Payment_kutnohorsko_malesov_kun4')" EndType="GoTo" GoToDecision="dec9" Visibility="Internal" GrayOutIfSequencesUsed="Never" Type="Payment" Name="kutnohorsko_malesov_kun4_cashback">
 													<DesignName StringName="podkoni___trosecko_kun4_c_HxKC" Text="kutnohorsko_malesov_kun4_cashback" />
 													<UiPrompt StringName="ui_podkoni___trosecko_kun_Yg4H" Text="Obdržet peníze." />
 													<Triggers>
@@ -1229,7 +1232,7 @@
 													</Elements>
 													<Decision Name="dec13_1_1" Priority="General" DesignName="Kůň 5 Enough Money?">
 														<Sequences>
-															<Sequence ExitScript="Shops.DoMoneyTransaction(dc['PODKONI_MALESOV'].id, Ports['Payment_kutnohorsko_malesov_kun5'] * 10, 0)" EntryCondition="Port('playerhasenoughmoneykun5')" EndType="GoTo" GoToDecision="dec9" Visibility="Internal" GrayOutIfSequencesUsed="Never" Name="kutnohorsko_malesov_kun5bought">
+															<Sequence ExitScript="Shops.DoMoneyTransaction(dc['PODKONI_MALESOV'].id, Ports['Payment_kutnohorsko_malesov_kun5'] * 10, 0) &#xD;&#xA;Game.ShowItemsTransfer(ItemUtils.itemIDs.money, -10 * Ports['Payment_kutnohorsko_malesov_kun5'])" EntryCondition="Port('playerhasenoughmoneykun5')" EndType="GoTo" GoToDecision="dec9" Visibility="Internal" GrayOutIfSequencesUsed="Never" Name="kutnohorsko_malesov_kun5bought">
 																<DesignName StringName="podkoni___trosecko_kun4bo_G97X" Text="kutnohorsko_malesov_kun5bought" />
 																<Triggers>
 																	<Port Name="paykun_fullprice_5" />
@@ -1359,7 +1362,7 @@
 														</Sequences>
 													</Decision>
 												</Sequence>
-												<Sequence ExitScript="Shops.DoMoneyTransaction(dc['PODKONI_MALESOV'].id, Ports['Payment_kutnohorsko_malesov_kun5_cashback'] * -10, 0)" EntryCondition="!Port('Payment_kutnohorsko_malesov_kun5')" EndType="GoTo" GoToDecision="dec9" Visibility="Internal" GrayOutIfSequencesUsed="Never" Type="Payment" Name="kutnohorsko_malesov_kun5_cashback">
+												<Sequence ExitScript="Shops.DoMoneyTransaction(dc['PODKONI_MALESOV'].id, Ports['Payment_kutnohorsko_malesov_kun5_cashback'] * -10, 0) &#xD;&#xA;Game.ShowItemsTransfer(ItemUtils.itemIDs.money, 10 * Ports['Payment_kutnohorsko_malesov_kun5_cashback'])" EntryCondition="!Port('Payment_kutnohorsko_malesov_kun5')" EndType="GoTo" GoToDecision="dec9" Visibility="Internal" GrayOutIfSequencesUsed="Never" Type="Payment" Name="kutnohorsko_malesov_kun5_cashback">
 													<DesignName StringName="podkoni___trosecko_kun4_c_LSG4" Text="kutnohorsko_malesov_kun5_cashback" />
 													<UiPrompt StringName="ui_podkoni___trosecko_kun_z8V7" Text="Obdržet peníze." />
 													<Triggers>
@@ -1495,7 +1498,7 @@
 													</Elements>
 													<Decision Name="dec13_1_2" Priority="General" DesignName="Kůň 4 Enough Money?">
 														<Sequences>
-															<Sequence ExitScript="Shops.DoMoneyTransaction(dc['PODKONI_MALESOV'].id, Ports['Payment_kutnohorsko_malesov_kun6'] * 10, 0)" EntryCondition="Port('playerhasenoughmoneykun6')" EndType="GoTo" GoToDecision="dec9" Visibility="Internal" GrayOutIfSequencesUsed="Never" Name="kunohorsko_malesov_kun6bought">
+															<Sequence ExitScript="Shops.DoMoneyTransaction(dc['PODKONI_MALESOV'].id, Ports['Payment_kutnohorsko_malesov_kun6'] * 10, 0) &#xD;&#xA;Game.ShowItemsTransfer(ItemUtils.itemIDs.money, -10 * Ports['Payment_kutnohorsko_malesov_kun6'])" EntryCondition="Port('playerhasenoughmoneykun6')" EndType="GoTo" GoToDecision="dec9" Visibility="Internal" GrayOutIfSequencesUsed="Never" Name="kunohorsko_malesov_kun6bought">
 																<DesignName StringName="podkoni___trosecko_kun4bo_5WXm" Text="kunohorsko_malesov_kun6bought" />
 																<Triggers>
 																	<Port Name="paykun_fullprice_6" />
@@ -1552,7 +1555,7 @@
 														</Sequences>
 													</Decision>
 												</Sequence>
-												<Sequence ExitScript="Shops.DoMoneyTransaction(dc['PODKONI_MALESOV'].id, Ports['Payment_kutnohorsko_malesov_kun6_cashback'] * -10, 0)" EntryCondition="!Port('Payment_kutnohorsko_malesov_kun6')" EndType="GoTo" GoToDecision="dec9" Visibility="Internal" GrayOutIfSequencesUsed="Never" Type="Payment" Name="kutnohorsko_malesov_kun6_cashback">
+												<Sequence ExitScript="Shops.DoMoneyTransaction(dc['PODKONI_MALESOV'].id, Ports['Payment_kutnohorsko_malesov_kun6_cashback'] * -10, 0) &#xD;&#xA;Game.ShowItemsTransfer(ItemUtils.itemIDs.money, 10 * Ports['Payment_kutnohorsko_malesov_kun6_cashback'])" EntryCondition="!Port('Payment_kutnohorsko_malesov_kun6')" EndType="GoTo" GoToDecision="dec9" Visibility="Internal" GrayOutIfSequencesUsed="Never" Type="Payment" Name="kutnohorsko_malesov_kun6_cashback">
 													<DesignName StringName="podkoni___trosecko_kun4_c_H33Y" Text="kutnohorsko_malesov_kun6_cashback" />
 													<UiPrompt StringName="ui_podkoni___trosecko_kun_tcCV" Text="Obdržet peníze." />
 													<Triggers>
@@ -1734,7 +1737,7 @@
 								</Sequences>
 							</Decision>
 						</Sequence>
-						<Sequence EntryCondition="Port('tutorial_o_inspekci_dokoncen') AND &#xD;&#xA;(&#xD;&#xA;!Port('kun1available') AND &#xD;&#xA;!Port('kun2available') AND&#xD;&#xA;!Port('kun3available') AND&#xD;&#xA;!Port('kun4available') AND &#xD;&#xA;!Port('kun5available') AND&#xD;&#xA;!Port('kun6available')&#xD;&#xA;)" EndType="EndDialogue" GrayOutIfSequencesUsed="Never" Name="seq24">
+						<Sequence EntryCondition="!Port('je_noc') AND Port('tutorial_o_inspekci_dokoncen') AND &#xD;&#xA;(&#xD;&#xA;!Port('kun1available') AND &#xD;&#xA;!Port('kun2available') AND&#xD;&#xA;!Port('kun3available') AND&#xD;&#xA;!Port('kun4available') AND &#xD;&#xA;!Port('kun5available') AND&#xD;&#xA;!Port('kun6available')&#xD;&#xA;)" EndType="EndDialogue" GrayOutIfSequencesUsed="Never" Name="seq24">
 							<DesignName StringName="podkoni___seq24_b4zT" Text="seq24" />
 							<UiPrompt StringName="ui_podkoni___seq24_M4lK" Text="Koupit koně." />
 							<Elements>

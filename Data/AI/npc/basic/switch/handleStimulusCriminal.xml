@@ -141,7 +141,14 @@
 															<Sequence>
 																<Function_crime_getInformationMetadata information="$information" metadata="$informationMetadata" nodeLabel="51161688" />
 																<GetTime TimeType="GameTime" OutVar="$now" Delta="" />
-																<Expression expressions="$freshViolentInformation = $now &lt; $informationMetadata.createdAt + $data:script_param[&apos;crime_freshViolentInformationTimer&apos;].value" />
+																<IfElseCondition failOnCondition="false" condition="$crimeLevel &gt;= $enum:crime_crimeLevel.murder" saveVersion="2">
+																	<Then canSkip="1">
+																		<Expression expressions="$freshViolentInformation = $now &lt; $informationMetadata.createdAt + $data:script_param[&apos;crime_freshViolentInformationTimer&apos;].value * 3" />
+																	</Then>
+																	<Else canSkip="1">
+																		<Expression expressions="$freshViolentInformation = $now &lt; $informationMetadata.createdAt + $data:script_param[&apos;crime_freshViolentInformationTimer&apos;].value" />
+																	</Else>
+																</IfElseCondition>
 															</Sequence>
 														</IfCondition>
 														<IfElseCondition failOnCondition="false" condition="$freshViolentInformation" saveVersion="2">
@@ -296,7 +303,14 @@
 																				<Sequence>
 																					<Function_crime_getInformationMetadata information="$information" metadata="$informationMetadata" nodeLabel="12204616" />
 																					<GetTime TimeType="GameTime" OutVar="$now" Delta="" />
-																					<Expression expressions="$freshViolentInformation = $now &lt; $informationMetadata.createdAt + $data:script_param[&apos;crime_freshViolentInformationTimer&apos;].value" />
+																					<IfElseCondition failOnCondition="false" condition="$crimeLevel &gt;= $enum:crime_crimeLevel.murder" saveVersion="2">
+																						<Then canSkip="1">
+																							<Expression expressions="$freshViolentInformation = $now &lt; $informationMetadata.createdAt + $data:script_param[&apos;crime_freshViolentInformationTimer&apos;].value * 3" />
+																						</Then>
+																						<Else canSkip="1">
+																							<Expression expressions="$freshViolentInformation = $now &lt; $informationMetadata.createdAt + $data:script_param[&apos;crime_freshViolentInformationTimer&apos;].value" />
+																						</Else>
+																					</IfElseCondition>
 																				</Sequence>
 																			</IfCondition>
 																			<IfElseCondition failOnCondition="false" condition="$arrestIsEscalated | $freshViolentInformation" saveVersion="2">
@@ -811,9 +825,19 @@
 																	<GetTime hasInputBreakpoint="0" comment="" breakpointFlags="0">
 																		<OutputBreakpoints />
 																	</GetTime>
-																	<Expression hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																	<IfElseCondition hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
 																		<OutputBreakpoints />
-																	</Expression>
+																		<Then>
+																			<Expression hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																				<OutputBreakpoints />
+																			</Expression>
+																		</Then>
+																		<Else>
+																			<Expression hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																				<OutputBreakpoints />
+																			</Expression>
+																		</Else>
+																	</IfElseCondition>
 																</Sequence>
 															</IfCondition>
 															<IfElseCondition hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
@@ -1075,9 +1099,19 @@
 																						<GetTime hasInputBreakpoint="0" comment="" breakpointFlags="0">
 																							<OutputBreakpoints />
 																						</GetTime>
-																						<Expression hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																						<IfElseCondition hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
 																							<OutputBreakpoints />
-																						</Expression>
+																							<Then>
+																								<Expression hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																									<OutputBreakpoints />
+																								</Expression>
+																							</Then>
+																							<Else>
+																								<Expression hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																									<OutputBreakpoints />
+																								</Expression>
+																							</Else>
+																						</IfElseCondition>
 																					</Sequence>
 																				</IfCondition>
 																				<IfElseCondition hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">

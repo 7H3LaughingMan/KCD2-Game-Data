@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Database xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" Name="brambora">
 	<Skald>
-		<Quest Name="mysi1" Type="Side" Difficulty="7" IsImportant="true" ProductionCode="S21">
+		<Quest Name="mysi1" IsLocked="false" Type="Side" Difficulty="7" IsImportant="true" ProductionCode="S21">
 			<Ports>
 				<Port Name="mysi1_splneny_radne" Direction="Out" Type="trigger">
 					<DesignName StringName="mysi1_mysi1_splneny_radne_OGPU" Text="Myši1 splněny řádně" />
@@ -90,6 +90,7 @@
 				<Definition File="mysi1/zelejak_komentuje_ze_se_jindra_vratil_1.xml" />
 				<Definition File="mysi1/barvy__quest_item.xml" />
 				<Definition File="mysi1/reakce_na_progres_v_s23_zm_valky.xml" />
+				<Definition File="mysi1/potlaceni_pri_hc_modu.xml" />
 			</Definitions>
 			<Nodes>
 				<Function Name="and5" PositionY="20" PositionX="-1290" MethodName="math::boolean::And" DeclaringType="math::boolean">
@@ -239,6 +240,13 @@
 					<Edge From="ow_started" To="Exec" />
 					<Edge From="haste.initquest" To="Exec" />
 				</If>
+				<If Name="if29" PositionY="-190" PositionX="1210">
+					<Edge From="watch28.OnChanged" To="Exec" />
+					<Edge From="h.hrac_se_vykecal_z_malovani" To="Condition">
+						<Vertex>PxT8reGJ</Vertex>
+						<Vertex>yvuzlatL</Vertex>
+					</Edge>
+				</If>
 				<mysi_utils Name="mysi_utils" PositionY="-2310" PositionX="-1380" />
 				<Function Name="not23" PositionY="-1320" PositionX="200" MethodName="math::boolean::Not" DeclaringType="math::boolean">
 					<Edge From="QuestProgress.None" To="Value" />
@@ -328,6 +336,12 @@
 					<Asset Name="souls" Alias="importantSouls" />
 					<Edge From="not23.bool" To="isactive" />
 				</PermaDeath>
+				<potlaceni_pri_hc_modu Name="potlaceni_pri_hc_modu" PositionY="720" PositionX="720">
+					<Edge From="h.hrac_viden_u_liti" To="hrac_viden_u_liti" />
+					<Edge From="h.mluvili_jsme_o_bejkovi_1" To="mluvili_jsme_o_bejkovi_1" />
+					<Edge From="h.hrac_se_vykecal_z_liti_lektvaru" To="hrac_se_vykecal_z_liti_lektvaru" />
+					<Edge From="h.hrac_se_vykecal_z_malovani" To="hrac_se_vykecal_z_malovani" />
+				</potlaceni_pri_hc_modu>
 				<procek_bark__vem_si_quest Name="procek_bark__vem_si_quest" PositionY="-2040" PositionX="160">
 					<Edge From="QuestProgress.None" To="quest_none" />
 				</procek_bark__vem_si_quest>
@@ -415,7 +429,17 @@
 					<Edge From="if20.False" To="SetPlayerNotSeen" />
 					<Edge From="paintedBullSeen.OnTrigger" To="SetPlayerSeen" />
 					<Edge From="paintedBullNotSeen.OnTrigger" To="SetPlayerNotSeen" />
+					<Edge From="if29.True" To="SetPlayerNotSeen" />
 				</State>
+				<Watch Name="watch28" PositionY="-190" PositionX="950" TypeT="bool">
+					<Edge From="state21.PlayerSeen" To="IsActive">
+						<Vertex>AejgGncr</Vertex>
+						<Vertex>kaaJafnz</Vertex>
+					</Edge>
+					<Edge From="h.hrac_se_vykecal_z_malovani" To="WatchedState">
+						<Vertex>PxT8reGJ</Vertex>
+					</Edge>
+				</Watch>
 				<State Name="zadaniMysiType" PositionY="1310" PositionX="-60" TypeT="mysiTaskType">
 					<Edge From="sedlak_procek__zadani_questu.init_questu_normalne" To="SetNormal">
 						<Vertex>6v6eFzeb</Vertex>
@@ -441,6 +465,7 @@
 				<EdgeVertex Name="9LHxHtyK" PositionY="1840" PositionX="-1490" />
 				<EdgeVertex Name="9lo16n7v" PositionY="1005" PositionX="228" />
 				<EdgeVertex Name="9rz3UCb5" PositionY="-2040" PositionX="-1960" />
+				<EdgeVertex Name="AejgGncr" PositionY="-200" PositionX="1729" />
 				<EdgeVertex Name="bpqnQXBo" PositionY="691" PositionX="854" />
 				<EdgeVertex Name="EegorKyo" PositionY="1510" PositionX="-950" />
 				<EdgeVertex Name="EjIfnTfc" PositionY="1490" PositionX="-1460" />
@@ -449,11 +474,13 @@
 				<EdgeVertex Name="ga4lcoER" PositionY="1470" PositionX="-950" />
 				<EdgeVertex Name="H4Q8Lqe0" PositionY="-2036" PositionX="-95" />
 				<EdgeVertex Name="JXnn5bIh" PositionY="258" PositionX="1986" />
+				<EdgeVertex Name="kaaJafnz" PositionY="-200" PositionX="950" />
 				<EdgeVertex Name="kwFjNly2" PositionY="1980" PositionX="-1080" />
 				<EdgeVertex Name="LortesMn" PositionY="-170" PositionX="-390" />
 				<EdgeVertex Name="mJn2N0JE" PositionY="727" PositionX="2122" />
 				<EdgeVertex Name="NF10uq9A" PositionY="1367" PositionX="-1161" />
 				<EdgeVertex Name="Pd4yrzd9" PositionY="-1170" PositionX="489" />
+				<EdgeVertex Name="PxT8reGJ" PositionY="-25" PositionX="871" />
 				<EdgeVertex Name="QjCdwFLU" PositionY="-140" PositionX="-1510" />
 				<EdgeVertex Name="QNXwBlrs" PositionY="1510" PositionX="-1460" />
 				<EdgeVertex Name="QSmGDE9F" PositionY="-1165" PositionX="1" />
@@ -485,7 +512,7 @@
 				<EdgeVertex Name="vertex472" PositionY="257" PositionX="1526" />
 				<EdgeVertex Name="vertex474" PositionY="450" PositionX="830" />
 				<EdgeVertex Name="vertex475" PositionY="456" PositionX="2116" />
-				<EdgeVertex Name="vertex476" PositionY="-131" PositionX="925" />
+				<EdgeVertex Name="vertex476" PositionY="270" PositionX="1990" />
 				<EdgeVertex Name="vertex477" PositionY="-695" PositionX="836" />
 				<EdgeVertex Name="vertex484" PositionY="-458" PositionX="28" />
 				<EdgeVertex Name="vertex485" PositionY="-454" PositionX="-769" />
@@ -523,6 +550,7 @@
 				<EdgeVertex Name="XeWejQoQ" PositionY="-480" PositionX="800" />
 				<EdgeVertex Name="xFQjolPI" PositionY="1470" PositionX="-1400" />
 				<EdgeVertex Name="XTMQtARc" PositionY="-2024" PositionX="-1959" />
+				<EdgeVertex Name="yvuzlatL" PositionY="-25" PositionX="1154" />
 				<EdgeVertex Name="zgrH3zcM" PositionY="-547" PositionX="-242" />
 				<EdgeVertex Name="zu8IUaYF" PositionY="1352" PositionX="-1162" />
 			</EdgeVertices>
@@ -613,7 +641,7 @@
 				<SmartAreaAsset Name="tachovVillageArea" />
 				<SmartAreaAsset Name="zelejovVillageArea" />
 				<InteractionTriggerAsset Name="bullInteractor" />
-				<SoulAsset Name="importantSouls" SharedSoulGuids="4132dcc6-df4d-87f4-94e3-2d2413d159bd 427f64fa-1864-5c4d-09bf-c6f12a5210ac" />
+				<SoulAsset Name="importantSouls" SharedSoulGuids="4132dcc6-df4d-87f4-94e3-2d2413d159bd 427f64fa-1864-5c4d-09bf-c6f12a5210ac 4d487693-7193-dadb-8ed2-c125738f21b8" />
 				<SoulAsset Name="olbramFarmMan4" SharedSoulGuids="271ac033-a516-4928-b1f7-825bc57c46e3" />
 				<SoulAsset Name="olbramFarmMan3" SharedSoulGuids="4a1a3a6c-166c-489a-ad0c-278fd220fdb9" />
 				<TagPointAsset Name="bullCorralWaitPoint" />

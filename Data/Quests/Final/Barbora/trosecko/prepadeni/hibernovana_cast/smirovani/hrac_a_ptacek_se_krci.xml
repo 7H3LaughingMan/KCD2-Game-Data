@@ -19,12 +19,12 @@
 			</Definitions>
 			<Nodes>
 				<State Name="crouch" PositionY="-176" PositionX="115" RequiredForOutput="trosecko" TypeT="ProgressFailable">
-					<Edge From="hrac_se_prozradil" To="SetCanceled" />
 					<Edge From="enablebehavioremptyendnotification2.OnFinished" To="SetDone">
 						<Vertex>vertex10</Vertex>
 						<Vertex>vertex11</Vertex>
 					</Edge>
 					<Edge From="ifand3.True" To="SetActive" />
+					<Edge From="ifand3_1.True" To="SetCanceled" />
 				</State>
 				<EnableBehavior Name="enablebehavioremptyendnotification2" PositionY="290" PositionX="480" Signature="empty" EventSet="endNotification">
 					<Constant Name="Behavior" Value="ptacek_aboutCrouch" />
@@ -38,6 +38,13 @@
 					<Edge From="crouch.None" To="A">
 						<Vertex>vertex12</Vertex>
 						<Vertex>vertex13</Vertex>
+					</Edge>
+				</IfFunction>
+				<IfFunction Name="ifand3_1" PositionY="90" PositionX="-220" MethodName="math::boolean::And" DeclaringType="math::boolean">
+					<Edge From="hrac_se_prozradil" To="Exec" />
+					<Edge From="crouch.Active" To="A">
+						<Vertex>41Nbkv64</Vertex>
+						<Vertex>e7MNuKAH</Vertex>
 					</Edge>
 				</IfFunction>
 				<crouch Name="objectiveVisual8" PositionY="-176" PositionX="435" RequiredForOutput="trosecko">
@@ -60,6 +67,8 @@
 				</tutorial_m01_t15__v_rakosi>
 			</Nodes>
 			<EdgeVertices>
+				<EdgeVertex Name="41Nbkv64" PositionY="300" PositionX="300" />
+				<EdgeVertex Name="e7MNuKAH" PositionY="300" PositionX="-200" />
 				<EdgeVertex Name="vertex10" PositionY="800" PositionX="770" />
 				<EdgeVertex Name="vertex11" PositionY="800" PositionX="220" />
 				<EdgeVertex Name="vertex12" PositionY="260" PositionX="300" />

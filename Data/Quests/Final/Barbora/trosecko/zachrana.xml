@@ -84,7 +84,7 @@
 					<Edge From="hibernace.stream_mec" To="stream_mec" />
 					<Edge From="hibernace.unstream_mec" To="unstream_mec" />
 				</boresuv_mec>
-				<Function Name="despawnrandomevents13712174" PositionY="-1820" PositionX="200" MethodName="wh::playermodule::DespawnRandomEvents" DeclaringType="wh::playermodule">
+				<Function Name="despawnrandomevents13712174" PositionY="-2240" PositionX="330" MethodName="wh::playermodule::DespawnRandomEvents" DeclaringType="wh::playermodule">
 					<Constant Name="Tag" Value="All" />
 					<Edge From="questTrack.OnActive" To="Exec" />
 				</Function>
@@ -116,6 +116,10 @@
 						<Vertex>FWz3Ekyo</Vertex>
 					</Edge>
 				</hibernace>
+				<MakeArray Name="makearray152024571" PositionY="-1660" PositionX="1190" TypeT="wh::rpgmodule::Souls">
+					<Asset Name="A" Alias="dcera" />
+					<Asset Name="B" Alias="bozena" />
+				</MakeArray>
 				<nastaveni_v_prubehu_questu Name="nastaveni_v_prubehu_questu" PositionY="-1420" PositionX="370">
 					<Edge From="questTrack.Active" To="quest_bezi" />
 					<Edge From="questTrack.OnActive" To="start_questu" />
@@ -154,6 +158,9 @@
 						<Vertex>4rqVsTQf</Vertex>
 					</Edge>
 				</Output>
+				<PatchTrigger Name="patchtrigger13712181" PositionY="-1790" PositionX="1190">
+					<Constant Name="TransitionToVersion" Value="ver_01_02" />
+				</PatchTrigger>
 				<permadeath_zachrana Name="permadeath_zachrana" PositionY="-1270" PositionX="390">
 					<Edge From="questTrack.State" To="quest_states" />
 				</permadeath_zachrana>
@@ -175,6 +182,10 @@
 					<Edge From="hastes.start_quest" To="SetActive" />
 					<Edge From="hastes.complete_quest" To="SetDone" />
 				</State>
+				<SetGameContext Name="setgamecontext13712180" PositionY="-2050" PositionX="420">
+					<Constant Name="Context" Value="disableHangoverTeleport" />
+					<Edge From="questTrack.Active" To="IsActive" />
+				</SetGameContext>
 				<SetOwner Name="setowner13712177" PositionY="-930" PositionX="380">
 					<Asset Name="What" Alias="bed_ptacek" />
 					<Asset Name="Who" Alias="player" />
@@ -183,6 +194,16 @@
 				<slots_ownership Name="slots_ownership" PositionY="-1550" PositionX="370">
 					<Edge From="questTrack.Active" To="quest_active" />
 				</slots_ownership>
+				<stopcrime Name="stopcrime" PositionY="-1580" PositionX="1600" Namespace="utils.crime">
+					<Constant Name="forgetcrimeinformations" Value="true" />
+					<Edge From="makearray152024571.Array" To="npcs" />
+					<Edge From="patchtrigger13712181.OnPatch" To="stopcrime" />
+					<Edge From="questTrack.OnDone" To="stopcrime">
+						<Vertex>vertex122</Vertex>
+						<Vertex>JvfCr2u4</Vertex>
+						<Vertex>ePNAwfHH</Vertex>
+					</Edge>
+				</stopcrime>
 				<AddReward Name="storyProgressReward" PositionY="-620" PositionX="290">
 					<Edge From="questTrack.OnDone" To="AddReward" />
 					<Rewards>
@@ -213,10 +234,11 @@
 				<EdgeVertex Name="4rqVsTQf" PositionY="-710" PositionX="1770" />
 				<EdgeVertex Name="AjQ4Icjx" PositionY="-60" PositionX="1430" />
 				<EdgeVertex Name="E901qlpC" PositionY="-420" PositionX="880" />
+				<EdgeVertex Name="ePNAwfHH" PositionY="-1480" PositionX="1390" />
 				<EdgeVertex Name="FWz3Ekyo" PositionY="-384" PositionX="874" />
 				<EdgeVertex Name="HqnpYKWF" PositionY="-680" PositionX="-620" />
 				<EdgeVertex Name="JJkEpQkx" PositionY="-60" PositionX="1790" />
-				<EdgeVertex Name="JvfCr2u4" PositionY="-710" PositionX="1380" />
+				<EdgeVertex Name="JvfCr2u4" PositionY="-710" PositionX="1320" />
 				<EdgeVertex Name="RDww05s4" PositionY="300" PositionX="1820" />
 				<EdgeVertex Name="vertex118" PositionY="-950" PositionX="1240" />
 				<EdgeVertex Name="vertex119" PositionY="-950" PositionX="-140" />
@@ -354,6 +376,9 @@
 			<Notes>
 				<Note Name="note13712176" PositionY="-210" PositionX="560">
 					<Text StringName="zachrana_note13712176_cUYN" Text="Ptáček, Božena i Pavlena jsou po dobu questu VIP, nejde je tedy zabít ani okrást.&#xD;&#xA;Jediný crime co bude možný (snad) je zabít jim domácí zvířata.&#xD;&#xA;Bude zde možnost lootit nějaké drobné předměty (jídlo, byliny, nějaký repiarkit na oděvy...) těchto věcí bude po chatičce pár a bude legit je vzít.&#xD;&#xA;Na vytasenou zbraň by reagovat neměly.&#xD;&#xA;Všechno cenné bude zamčené v truhlách (hráč nemá paklíč) - například kořenářčina shop truhla. Lootable bude nějaké jídlo a pár bylin nejspíše, pár grošů.&#xD;&#xA;Božena je skoro slepá, takže bude mít mizivou percepci...&#xD;&#xA;Pavlena má percepci naopak dost dobrou.&#xD;&#xA;Na zabití domácích zvířat budou reagovat barkem (pokud si všimnou) a hráčovi s nimi spadne reputace.&#xD;&#xA;" />
+				</Note>
+				<Note Name="note152024572" PositionY="-1660" PositionX="1600">
+					<Text StringName="zachrana_note152024572_cF0E" Text="Patch 1.2 - odstranujeme crime z Bozeny a Pavleny pokud ho meli vcetne interupptu natvrdo i v OW." />
 				</Note>
 			</Notes>
 			<Text StringName="zachrana_dMWn" Text="Záchrana" />
@@ -499,7 +524,7 @@
 						</EnumLog>
 						<EnumLog Type="None" Name="Aborted" />
 						<Log Name="I">
-							<Log StringName="findoutwh_povedel_jsem_ji_96Oz" Text="Pověděl jsem jim, že tu jsou opravdoví Bergovovi vojáci a naštěstí tomu uvěřili a utekli. Tohle bylo těsný." />
+							<Log StringName="findoutwh_povedel_jsem_ji_96Oz" Text="Naštěstí jsem je dokázal mistrnou lží svést z naší stopy a poslat pryč. Ale bylo to těsný." />
 						</Log>
 					</Logs>
 				</Objective>

@@ -24,6 +24,9 @@
 				<Port Name="ignac_je_nastrazen" Direction="In" Type="bool">
 					<DesignName StringName="ztracena__ignac_je_nastra_6vFw" Text="Ignác byl nastražen" />
 				</Port>
+				<Port Name="jindra_si_promluvil_s_beranem" Direction="Out" Type="trigger">
+					<DesignName StringName="ztracena__jindra_si_proml_Jt1J" Text="Jindra si promluvil s beranem" />
+				</Port>
 			</Ports>
 			<Definitions>
 				<Definition File="ztracena_ovecka/chat_s_beranem.xml" />
@@ -62,6 +65,34 @@
 						<Vertex>vertex17</Vertex>
 						<Vertex>vertex18</Vertex>
 					</Edge>
+				</DistanceTrigger>
+				<DistanceTrigger Name="distancetrigger26" PositionY="250" PositionX="1340">
+					<Asset Name="Origin" Alias="wolf_1" />
+					<Asset Name="Target" Alias="lostSheeps" />
+					<Constant Name="Operator" Value="LessEquals" />
+					<Constant Name="Distance" Value="10" />
+					<Edge From="or20.bool" To="IsActive" />
+				</DistanceTrigger>
+				<DistanceTrigger Name="distancetrigger26_1" PositionY="490" PositionX="1340">
+					<Asset Name="Origin" Alias="wolf_2" />
+					<Asset Name="Target" Alias="lostSheeps" />
+					<Constant Name="Operator" Value="LessEquals" />
+					<Constant Name="Distance" Value="10" />
+					<Edge From="or20.bool" To="IsActive" />
+				</DistanceTrigger>
+				<DistanceTrigger Name="distancetrigger26_2" PositionY="730" PositionX="1340">
+					<Asset Name="Origin" Alias="wolf_3" />
+					<Asset Name="Target" Alias="lostSheeps" />
+					<Constant Name="Operator" Value="LessEquals" />
+					<Constant Name="Distance" Value="10" />
+					<Edge From="or20.bool" To="IsActive" />
+				</DistanceTrigger>
+				<DistanceTrigger Name="distancetrigger26_3" PositionY="970" PositionX="1340">
+					<Asset Name="Origin" Alias="wolf_4" />
+					<Asset Name="Target" Alias="lostSheeps" />
+					<Constant Name="Operator" Value="LessEquals" />
+					<Constant Name="Distance" Value="10" />
+					<Edge From="or20.bool" To="IsActive" />
 				</DistanceTrigger>
 				<EnableBehavior Name="enablebehavior19" PositionY="1170" PositionX="410" Signature="" EventSet="">
 					<Constant Name="Behavior" Value="sheep_home" />
@@ -122,6 +153,22 @@
 						<Vertex>vertex20</Vertex>
 					</Edge>
 				</IfFunction>
+				<IfFunction Name="ifdeathcheck27" PositionY="250" PositionX="1750" MethodName="wh::rpgmodule::DeathCheck" DeclaringType="wh::rpgmodule">
+					<Asset Name="Souls" Alias="wolf_1" />
+					<Edge From="distancetrigger26.OnMatch" To="Exec" />
+				</IfFunction>
+				<IfFunction Name="ifdeathcheck27_1" PositionY="490" PositionX="1750" MethodName="wh::rpgmodule::DeathCheck" DeclaringType="wh::rpgmodule">
+					<Asset Name="Souls" Alias="wolf_2" />
+					<Edge From="distancetrigger26_1.OnMatch" To="Exec" />
+				</IfFunction>
+				<IfFunction Name="ifdeathcheck27_2" PositionY="730" PositionX="1750" MethodName="wh::rpgmodule::DeathCheck" DeclaringType="wh::rpgmodule">
+					<Asset Name="Souls" Alias="wolf_3" />
+					<Edge From="distancetrigger26_2.OnMatch" To="Exec" />
+				</IfFunction>
+				<IfFunction Name="ifdeathcheck27_3" PositionY="970" PositionX="1750" MethodName="wh::rpgmodule::DeathCheck" DeclaringType="wh::rpgmodule">
+					<Asset Name="Souls" Alias="wolf_4" />
+					<Edge From="distancetrigger26_3.OnMatch" To="Exec" />
+				</IfFunction>
 				<ObjectProperties Name="isoulproperties16" PositionY="2670" PositionX="360" DeclaringType="wh::rpgmodule::I_Soul">
 					<Asset Name="I_Soul" Alias="player" />
 				</ObjectProperties>
@@ -152,6 +199,11 @@
 						<Vertex>YsmDYhCx</Vertex>
 					</Edge>
 				</Function>
+				<Output Name="Output">
+					<Edge From="chat_s_beranem.jindra_si_promluvil_s_beranem" To="jindra_si_promluvil_s_beranem">
+						<Vertex>LRPC9oRG</Vertex>
+					</Edge>
+				</Output>
 				<State Name="sheepFollowState" TypeT="SheepFollow">
 					<Edge From="playeristoofar" To="SetStay" />
 					<Edge From="home" To="SetHome" />
@@ -180,10 +232,6 @@
 						<Vertex>vertex9</Vertex>
 						<Vertex>vertex10</Vertex>
 					</Edge>
-					<Edge From="skirmishtrigger21.OnEvent" To="SetRunFromWolves">
-						<Vertex>josB7ced</Vertex>
-						<Vertex>SR1H8BQ5</Vertex>
-					</Edge>
 					<Edge From="ifcompare24.True" To="SetFollow">
 						<Vertex>vertex28</Vertex>
 						<Vertex>vertex29</Vertex>
@@ -196,14 +244,25 @@
 						<Vertex>G5uWX7mX</Vertex>
 						<Vertex>QIs8xmbo</Vertex>
 					</Edge>
+					<Edge From="ifdeathcheck27.False" To="SetRunFromWolves">
+						<Vertex>josB7ced</Vertex>
+						<Vertex>SR1H8BQ5</Vertex>
+					</Edge>
+					<Edge From="ifdeathcheck27_1.False" To="SetRunFromWolves">
+						<Vertex>josB7ced</Vertex>
+						<Vertex>SR1H8BQ5</Vertex>
+					</Edge>
+					<Edge From="ifdeathcheck27_2.False" To="SetRunFromWolves">
+						<Vertex>josB7ced</Vertex>
+						<Vertex>SR1H8BQ5</Vertex>
+					</Edge>
+					<Edge From="ifdeathcheck27_3.False" To="SetRunFromWolves">
+						<Vertex>josB7ced</Vertex>
+						<Vertex>SR1H8BQ5</Vertex>
+					</Edge>
 				</State>
-				<SkirmishTrigger Name="skirmishtrigger21" PositionY="260" PositionX="1340">
-					<Asset Name="Souls" Alias="wolves" />
-					<Constant Name="EventType" Value="SoulAdded" />
-					<Edge From="or20.bool" To="IsActive" />
-				</SkirmishTrigger>
 				<Timer Name="timer25" PositionY="350" PositionX="960">
-					<Constant Name="Duration" Value="30s" />
+					<Constant Name="Duration" Value="15s" />
 					<Constant Name="TimeType" Value="GameTime" />
 					<Edge From="sheepFollowState.OnRunFromPlayer" To="SetRunning" />
 				</Timer>
@@ -215,7 +274,8 @@
 				<EdgeVertex Name="dyUDPg01" PositionY="620" PositionX="170" />
 				<EdgeVertex Name="G5uWX7mX" PositionY="1188" PositionX="1219" />
 				<EdgeVertex Name="Imyaod7u" PositionY="270" PositionX="580" />
-				<EdgeVertex Name="josB7ced" PositionY="1700" PositionX="1520" />
+				<EdgeVertex Name="josB7ced" PositionY="1700" PositionX="1910" />
+				<EdgeVertex Name="LRPC9oRG" PositionY="1650" PositionX="2040" />
 				<EdgeVertex Name="QIs8xmbo" PositionY="1180" PositionX="0" />
 				<EdgeVertex Name="qljcBkKk" PositionY="1150" PositionX="1180" />
 				<EdgeVertex Name="SR1H8BQ5" PositionY="1695" PositionX="-5" />

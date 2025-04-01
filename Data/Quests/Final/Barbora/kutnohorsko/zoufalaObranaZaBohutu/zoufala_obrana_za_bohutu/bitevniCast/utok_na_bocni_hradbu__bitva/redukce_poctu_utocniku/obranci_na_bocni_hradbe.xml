@@ -12,6 +12,9 @@
 				<Port Name="aktualizovat_limit" Direction="Out" Type="trigger">
 					<DesignName StringName="obranci_n_aktualizovat_li_zKyl" Text="Aktualizovat limit" />
 				</Port>
+				<Port Name="decrement" Direction="In" Type="trigger">
+					<DesignName StringName="obranci_n_decrement_2Akn" Text="Decrement" />
+				</Port>
 			</Ports>
 			<Nodes>
 				<Function Name="add2" PositionY="170" PositionX="1290" MethodName="math::integer::Add" DeclaringType="math::integer">
@@ -39,13 +42,8 @@
 					<Constant Name="EventType" Value="DeadSoul" />
 					<Edge From="isactive" To="IsActive" />
 				</BattleTrigger>
-				<BattleTrigger Name="battletrigger15_2_1_1" PositionY="1220" PositionX="10">
+				<BattleTrigger Name="battletrigger15_2_1_1" PositionY="950" PositionX="40">
 					<Asset Name="SmartObject" Alias="sideWallLadderPusherGroupController" />
-					<Constant Name="EventType" Value="DeadSoul" />
-					<Edge From="isactive" To="IsActive" />
-				</BattleTrigger>
-				<BattleTrigger Name="battletrigger15_2_2" PositionY="960" PositionX="10">
-					<Asset Name="SmartObject" Alias="sideWallSubstitutesGroupController" />
 					<Constant Name="EventType" Value="DeadSoul" />
 					<Edge From="isactive" To="IsActive" />
 				</BattleTrigger>
@@ -72,15 +70,20 @@
 					</Edge>
 				</Output>
 				<State Name="transformatedNPCs" PositionY="460" PositionX="1000" TypeT="int">
-					<Edge From="battletrigger15_2_2.OnEvent" To="Decrement" />
 					<Edge From="battletrigger15_2_1_1.OnEvent" To="Decrement" />
 					<Edge From="ifand7.True" To="Increment" />
+					<Edge From="decrement" To="Decrement">
+						<Vertex>W9mr6RFg</Vertex>
+						<Vertex>x9RbTLqm</Vertex>
+					</Edge>
 				</State>
 			</Nodes>
 			<EdgeVertices>
 				<EdgeVertex Name="aESFjIKC" PositionY="550" PositionX="1470" />
 				<EdgeVertex Name="lghRAGBX" PositionY="-62" PositionX="592" />
 				<EdgeVertex Name="ocWQcBkr" PositionY="-60" PositionX="1470" />
+				<EdgeVertex Name="W9mr6RFg" PositionY="1169" PositionX="9" />
+				<EdgeVertex Name="x9RbTLqm" PositionY="1165" PositionX="875" />
 			</EdgeVertices>
 			<Assets>
 				<SoulAsset Name="backWallReinforcements" SharedSoulGuids="fb881c5f-692c-487f-86e8-035fa35c0c0b c35a7864-3849-44b8-9bc5-d00c0ab70932 4d9ab854-a2fe-4943-a560-37f2bd53189e a1417956-88e7-4d81-a9dc-334408c14822" />

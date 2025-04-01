@@ -56,7 +56,7 @@
 				<Definition File="marika_a_bohus/trespass_v_maricine_stanu.xml" />
 			</Definitions>
 			<Nodes>
-				<Function Name="and59" PositionY="1330" PositionX="-2060" MethodName="math::boolean::And" DeclaringType="math::boolean">
+				<Function Name="and59" PositionY="1540" PositionX="-2020" MethodName="math::boolean::And" DeclaringType="math::boolean">
 					<Edge From="bohus_profile_active.bool" To="A" />
 					<Edge From="woundedOrDead.bool" To="B" />
 				</Function>
@@ -68,7 +68,7 @@
 						<Vertex>E6MFSRSN</Vertex>
 					</Edge>
 				</Function>
-				<BodyPartOverride Name="bodypartoverride48" PositionY="1220" PositionX="-1740">
+				<BodyPartOverride Name="bodypartoverride48" PositionY="1430" PositionX="-1700">
 					<Asset Name="Soul" Alias="bohus" />
 					<Constant Name="BodyPart" Value="Underwear" />
 					<Constant Name="Component" Value="zachranaCaponBandages" />
@@ -90,7 +90,7 @@
 						<Vertex>vertex39</Vertex>
 					</Edge>
 				</bohus_se_leci_v_tabore>
-				<bohus_umira_marika_ho_muze_pohrbit_a_truchlit Name="bohus_umira_marika_ho_muze_pohrbit_a_truchlit" PositionY="1520" PositionX="-4340">
+				<bohus_umira_marika_ho_muze_pohrbit_a_truchlit Name="bohus_umira_marika_ho_muze_pohrbit_a_truchlit" PositionY="1510" PositionX="-4340">
 					<Edge From="bohusuv_konec_prave_byl_zabit_nebo_by_mel_umrit" To="bohusuv_konec_prave_byl_zabit_nebo_by_mel_umrit" />
 					<Edge From="unavailable_quest" To="bohusuv_konec_prave_byl_zabit_nebo_by_mel_umrit" />
 					<Edge From="bohus_se_leci_v_jeskyni.bohusuv_konec_prave_byl_zabit_nebo_by_mel_umrit" To="bohusuv_konec_prave_byl_zabit_nebo_by_mel_umrit">
@@ -121,7 +121,7 @@
 				<bohusovo_vybaveni Name="bohusovo_vybaveni" PositionY="210" PositionX="-2240">
 					<Edge From="and60.bool" To="bohus_se_vylecil_v_tabore" />
 				</bohusovo_vybaveni>
-				<State Name="bohussState" PositionY="1270" PositionX="-3230" TypeT="BohussState">
+				<State Name="bohussState" PositionY="1470" PositionX="-3230" TypeT="BohussState">
 					<Edge From="deathtrigger9.OnAllDeath" To="SetDead">
 						<Vertex>vertex11</Vertex>
 						<Vertex>vertex10</Vertex>
@@ -145,18 +145,24 @@
 						<Vertex>8N00J2Gg</Vertex>
 					</Edge>
 				</State>
-				<ClothingPresetOverride Name="clothingpresetoverride35" PositionY="1450" PositionX="-1740">
+				<ClothingPresetOverride Name="clothingpresetoverride35" PositionY="1660" PositionX="-1700">
 					<Asset Name="Souls" Alias="bohus" />
 					<Constant Name="PriorityEquip" Value="true" />
 					<Constant Name="ClothingPreset" Value="993c4269-fead-47a6-ba7f-76853507ded3" />
 					<Edge From="and59.bool" To="IsActive" />
 				</ClothingPresetOverride>
-				<SoulDeathTrigger Name="deathtrigger9" PositionY="1260" PositionX="-2740">
+				<SoulDeathTrigger Name="deathtrigger9" PositionY="1420" PositionX="-2740">
 					<Asset Name="Souls" Alias="bohus" />
 					<Edge From="bohussState.Wounded" To="IsActive">
 						<Vertex>vertex48</Vertex>
 					</Edge>
 				</SoulDeathTrigger>
+				<disabledirectionschatsoul Name="disabledirectionschatsoul" PositionY="1240" PositionX="-2740" Namespace="utils.hardcoremode">
+					<Asset Name="soul" Alias="bohus" />
+					<Edge From="bohussState.Wounded" To="enabled">
+						<Vertex>vertex48</Vertex>
+					</Edge>
+				</disabledirectionschatsoul>
 				<hrac_utoci_na_bohuse Name="hrac_utoci_na_bohuse" PositionY="1250" PositionX="-4340">
 					<Edge From="bohussState.Wounded" To="bohus_je_zraneny">
 						<Vertex>vertex48</Vertex>
@@ -298,15 +304,17 @@
 						<Vertex>vertex48</Vertex>
 					</Edge>
 				</SchedulerLinkActivation>
-				<SchedulerLinkActivation Name="schedule13" PositionY="1760" PositionX="-2730">
+				<SchedulerLinkActivation Name="schedule13" PositionY="1960" PositionX="-2730">
 					<Constant Name="LinkTag" Value="kocovnickaCest_bohusIsDead" />
 					<Edge From="bohussState.Dead" To="IsActive">
 						<Vertex>Kj5gTLBo</Vertex>
 					</Edge>
 				</SchedulerLinkActivation>
-				<SchedulerLinkActivation Name="schedule14" PositionY="1940" PositionX="-2730">
+				<SchedulerLinkActivation Name="schedule14" PositionY="2140" PositionX="-2730">
 					<Constant Name="LinkTag" Value="kocovnickaCest_bohusIsBuried" />
-					<Edge From="bohus_umira_marika_ho_muze_pohrbit_a_truchlit.bohus_byl_pohrben" To="IsActive" />
+					<Edge From="bohus_umira_marika_ho_muze_pohrbit_a_truchlit.bohus_byl_pohrben" To="IsActive">
+						<Vertex>oK0xfas8</Vertex>
+					</Edge>
 				</SchedulerLinkActivation>
 				<SchedulerLinkActivation Name="schedule7" PositionY="-2200" PositionX="-2290">
 					<Constant Name="LinkTag" Value="kocovnickaCest_marika_inHideout" />
@@ -349,7 +357,7 @@
 					<Asset Name="Souls" Alias="marika" />
 					<Edge From="marikaInApolena.bool" To="IsActive" />
 				</SetEntityContextPreset>
-				<trespass_v_maricine_stanu Name="trespass_v_maricine_stanu" PositionY="1840" PositionX="-4340">
+				<trespass_v_maricine_stanu Name="trespass_v_maricine_stanu" PositionY="1830" PositionX="-4340">
 					<Edge From="quest_has_ever_started" To="quest_has_ever_started">
 						<Vertex>EIt5gdar</Vertex>
 					</Edge>
@@ -364,7 +372,7 @@
 						<Vertex>qakJIGID</Vertex>
 					</Edge>
 				</Switch>
-				<Function Name="woundedOrDead" PositionY="1360" PositionX="-2390" MethodName="math::boolean::Or" DeclaringType="math::boolean">
+				<Function Name="woundedOrDead" PositionY="1570" PositionX="-2350" MethodName="math::boolean::Or" DeclaringType="math::boolean">
 					<Edge From="bohussState.Wounded" To="A">
 						<Vertex>vertex48</Vertex>
 					</Edge>
@@ -390,29 +398,30 @@
 				<EdgeVertex Name="2cxuVxaW" PositionY="520" PositionX="-2090" />
 				<EdgeVertex Name="3MbAYNur" PositionY="1110" PositionX="-4450" />
 				<EdgeVertex Name="3XazwcHf" PositionY="-1550" PositionX="-2170" />
-				<EdgeVertex Name="63QM1vQI" PositionY="1580" PositionX="-4520" />
+				<EdgeVertex Name="63QM1vQI" PositionY="1570" PositionX="-4520" />
 				<EdgeVertex Name="6dF8B87I" PositionY="90" PositionX="-2810" />
 				<EdgeVertex Name="7gPEFUBL" PositionY="-1550" PositionX="-2640" />
 				<EdgeVertex Name="8N00J2Gg" PositionY="120" PositionX="-3370" />
-				<EdgeVertex Name="AKQpLzMY" PositionY="2150" PositionX="-4560" />
-				<EdgeVertex Name="b5rdDBdN" PositionY="1700" PositionX="-3840" />
+				<EdgeVertex Name="AKQpLzMY" PositionY="2350" PositionX="-4560" />
+				<EdgeVertex Name="b5rdDBdN" PositionY="1690" PositionX="-3840" />
 				<EdgeVertex Name="Cd24zdYV" PositionY="1210" PositionX="-4320" />
 				<EdgeVertex Name="d6m14sVc" PositionY="-590" PositionX="-3230" />
 				<EdgeVertex Name="E6MFSRSN" PositionY="450" PositionX="-2840" />
-				<EdgeVertex Name="EIt5gdar" PositionY="1870" PositionX="-4450" />
+				<EdgeVertex Name="EIt5gdar" PositionY="1860" PositionX="-4450" />
 				<EdgeVertex Name="FYMH7N8z" PositionY="1430" PositionX="-3660" />
 				<EdgeVertex Name="HqdNkLFe" PositionY="-1190" PositionX="-2920" />
 				<EdgeVertex Name="JbosnjwJ" PositionY="1150" PositionX="-3220" />
-				<EdgeVertex Name="JIqCBhSN" PositionY="1760" PositionX="-3750" />
+				<EdgeVertex Name="JIqCBhSN" PositionY="1750" PositionX="-3750" />
 				<EdgeVertex Name="jIW6S643" PositionY="-1030" PositionX="-3340" />
 				<EdgeVertex Name="JpNpmA25" PositionY="-1030" PositionX="-2590" />
-				<EdgeVertex Name="Kj5gTLBo" PositionY="1590" PositionX="-2830" />
-				<EdgeVertex Name="KWbMsJqA" PositionY="2160" PositionX="-3660" />
+				<EdgeVertex Name="Kj5gTLBo" PositionY="1790" PositionX="-2830" />
+				<EdgeVertex Name="KWbMsJqA" PositionY="2360" PositionX="-3660" />
 				<EdgeVertex Name="ME6Ix3fJ" PositionY="1110" PositionX="-4060" />
 				<EdgeVertex Name="mkb9hwMg" PositionY="30" PositionX="-2950" />
 				<EdgeVertex Name="MRjo6hh9" PositionY="1310" PositionX="-4370" />
-				<EdgeVertex Name="NwRxbMLT" PositionY="2220" PositionX="-1240" />
+				<EdgeVertex Name="NwRxbMLT" PositionY="2430" PositionX="-1240" />
 				<EdgeVertex Name="o3yLnHcS" PositionY="-1100" PositionX="-3500" />
+				<EdgeVertex Name="oK0xfas8" PositionY="2220" PositionX="-3830" />
 				<EdgeVertex Name="oWmDegVR" PositionY="1160" PositionX="-4370" />
 				<EdgeVertex Name="PbRUKW0V" PositionY="1200" PositionX="-2890" />
 				<EdgeVertex Name="PXAzVCUe" PositionY="-1130" PositionX="-2880" />
@@ -422,22 +431,22 @@
 				<EdgeVertex Name="rDBGExhH" PositionY="-1160" PositionX="-4400" />
 				<EdgeVertex Name="rwm3zW7z" PositionY="-590" PositionX="-2450" />
 				<EdgeVertex Name="rWy248hJ" PositionY="-1060" PositionX="-2780" />
-				<EdgeVertex Name="sGpW04YH" PositionY="2160" PositionX="-3340" />
-				<EdgeVertex Name="Uegfbpwt" PositionY="1480" PositionX="-3370" />
+				<EdgeVertex Name="sGpW04YH" PositionY="2360" PositionX="-3340" />
+				<EdgeVertex Name="Uegfbpwt" PositionY="1690" PositionX="-3360" />
 				<EdgeVertex Name="ueLECBvU" PositionY="520" PositionX="-2730" />
 				<EdgeVertex Name="uoP9d6dW" PositionY="-1030" PositionX="-2140" />
 				<EdgeVertex Name="vDQ0AjPL" PositionY="120" PositionX="-3720" />
-				<EdgeVertex Name="vertex10" PositionY="1680" PositionX="-3220" />
-				<EdgeVertex Name="vertex11" PositionY="1680" PositionX="-2550" />
+				<EdgeVertex Name="vertex10" PositionY="1880" PositionX="-3220" />
+				<EdgeVertex Name="vertex11" PositionY="1880" PositionX="-2550" />
 				<EdgeVertex Name="vertex39" PositionY="70" PositionX="-4910" />
-				<EdgeVertex Name="vertex48" PositionY="1450" PositionX="-2880" />
+				<EdgeVertex Name="vertex48" PositionY="1660" PositionX="-2870" />
 				<EdgeVertex Name="vertex53" PositionY="990" PositionX="-3470" />
 				<EdgeVertex Name="vertex60" PositionY="440" PositionX="-1480" />
-				<EdgeVertex Name="vFJEhw3M" PositionY="2230" PositionX="-3740" />
+				<EdgeVertex Name="vFJEhw3M" PositionY="2430" PositionX="-3740" />
 				<EdgeVertex Name="w2BIdKd8" PositionY="-990" PositionX="-2170" />
-				<EdgeVertex Name="X1cAVo9J" PositionY="2160" PositionX="-1450" />
+				<EdgeVertex Name="X1cAVo9J" PositionY="2360" PositionX="-1450" />
 				<EdgeVertex Name="XqWgEfvu" PositionY="-1430" PositionX="-4530" />
-				<EdgeVertex Name="zoameMN4" PositionY="1900" PositionX="-4490" />
+				<EdgeVertex Name="zoameMN4" PositionY="1890" PositionX="-4490" />
 			</EdgeVertices>
 			<Types>
 				<Type TypeName="MarikasWhereabouts">

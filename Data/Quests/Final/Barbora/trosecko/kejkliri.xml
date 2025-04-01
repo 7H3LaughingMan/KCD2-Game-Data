@@ -39,6 +39,12 @@
 				<Port Name="onlevelswitched__resetovat_pytle" Direction="In" Type="trigger">
 					<DesignName StringName="kejkliri_onlevelswitched_lTkz" Text="OnLevelSwitched - resetovat pytle" />
 				</Port>
+				<Port Name="dialog_po_cs_probehl" Direction="Out" Type="bool">
+					<DesignName StringName="kejkliri_dialog_po_cs_pro_56kV" Text="Quest dokončen s CS písničkou" />
+				</Port>
+				<Port Name="quest_ukoncen_mrtvym_hospodskym" Direction="Out" Type="trigger">
+					<DesignName StringName="kejkliri_quest_ukoncen_mr_LSPs" Text="Quest dokončen mrtvým hospodským" />
+				</Port>
 			</Ports>
 			<Definitions>
 				<Definition File="kejkliri/bezici_cast.xml" />
@@ -58,7 +64,7 @@
 						<Vertex>vertex233</Vertex>
 					</Edge>
 				</Function>
-				<bezici_cast Name="bezici_cast" PositionY="230" PositionX="-2280" RequiredForOutput="trosecko">
+				<bezici_cast Name="bezici_cast" PositionY="150" PositionX="-2300" RequiredForOutput="trosecko">
 					<Edge From="hibernovana_cast.stream_nicitele_louten" To="stream_nicitele_louten" />
 					<Edge From="hibernovana_cast.nicitel_louten_odchazi_z_mapy" To="nicitel_louten_odchazi_z_mapy" />
 					<Edge From="input1" To="quest_ready">
@@ -85,6 +91,7 @@
 						<Vertex>5t8CVNqq</Vertex>
 						<Vertex>94KjEbJL</Vertex>
 					</Edge>
+					<Edge From="hibernovana_cast.quest_ukoncen_mrtvym_hospodskym" To="quest_ukoncen_mrtvym_hospodskym" />
 				</bezici_cast>
 				<HasteTrigger Name="completeQuest" PositionY="870" PositionX="-3720">
 					<Constant Name="IsHidden" Value="true" />
@@ -107,7 +114,7 @@
 				<HasteTrigger Name="gotoMichal" PositionY="-1260" PositionX="-2650">
 					<Edge From="makearray23145_1.Array" To="ConsoleCommands" />
 				</HasteTrigger>
-				<hibernovana_cast Name="hibernovana_cast" PositionY="410" PositionX="-2760" RequiredForOutput="trosecko">
+				<hibernovana_cast Name="hibernovana_cast" PositionY="320" PositionX="-2760" RequiredForOutput="trosecko">
 					<Edge From="lovac_je_doma" To="lovec_je_doma">
 						<Vertex>vertex229</Vertex>
 					</Edge>
@@ -130,7 +137,7 @@
 					<Edge From="kejkliriQuest.State" To="kejkliri__stav" />
 					<Edge From="levelSwitched.State" To="level_switched" />
 				</hibernovana_cast>
-				<kejkliri Name="kejkliri" PositionY="100" PositionX="-2270" />
+				<kejkliri Name="kejkliri" PositionY="-50" PositionX="-2240" />
 				<State Name="kejkliriQuest" PositionY="650" PositionX="-3300" RequiredForOutput="trosecko" TypeT="wh::questmodule::QuestProgress">
 					<Edge From="bezici_cast.jindrich_prijal_quest" To="SetActive">
 						<Vertex>vertex211</Vertex>
@@ -146,7 +153,7 @@
 						<Vertex>vertex243</Vertex>
 					</Edge>
 				</State>
-				<State Name="levelSwitched" PositionY="500" PositionX="-3900" TypeT="bool">
+				<State Name="levelSwitched" PositionY="410" PositionX="-3900" TypeT="bool">
 					<Edge From="hibernovana_cast.reset_level_switched_bool" To="SetFalse">
 						<Vertex>uP4vPbyh</Vertex>
 						<Vertex>Cq55eye0</Vertex>
@@ -221,11 +228,17 @@
 					<Edge From="bezici_cast.muzikanti__start_leavelevel" To="muzikanti__start_leavelevel">
 						<Vertex>3mcIAkWW</Vertex>
 					</Edge>
+					<Edge From="hibernovana_cast.dialog_po_cs_probehl" To="dialog_po_cs_probehl">
+						<Vertex>mjRTWdoL</Vertex>
+					</Edge>
+					<Edge From="bezici_cast.muzikanti__start_leave_level_hned_po_vrazde_hospodskeho" To="quest_ukoncen_mrtvym_hospodskym">
+						<Vertex>6Md8HkgV</Vertex>
+					</Edge>
 				</Output>
 				<HasteTrigger Name="owStart" PositionY="-80" PositionX="-2660">
 					<Constant Name="IsHidden" Value="true" />
 				</HasteTrigger>
-				<poquestove_eventy Name="poquestove_eventy" PositionY="420" PositionX="-1650" RequiredForOutput="trosecko">
+				<poquestove_eventy Name="poquestove_eventy" PositionY="300" PositionX="-1650" RequiredForOutput="trosecko">
 					<Edge From="bezici_cast.loutna_ziskana_legalne" To="loutna_ziskana_legalne" />
 					<Edge From="kejkliriQuest.State" To="stav_questu">
 						<Vertex>vertex240</Vertex>
@@ -240,6 +253,7 @@
 						<Vertex>L6qBM0bG</Vertex>
 						<Vertex>6ju8IgtK</Vertex>
 					</Edge>
+					<Edge From="bezici_cast.lute_theft_has_been_seen" To="lute_theft_has_been_seen" />
 				</poquestove_eventy>
 				<HasteTrigger Name="teleportQuestPlace" PositionY="-1480" PositionX="-2650">
 					<Constant Name="IsHidden" Value="true" />
@@ -247,9 +261,10 @@
 				</HasteTrigger>
 			</Nodes>
 			<EdgeVertices>
-				<EdgeVertex Name="3mcIAkWW" PositionY="815" PositionX="-1168" />
+				<EdgeVertex Name="3mcIAkWW" PositionY="690" PositionX="-1200" />
 				<EdgeVertex Name="5t8CVNqq" PositionY="1185" PositionX="-3907" />
 				<EdgeVertex Name="6ju8IgtK" PositionY="1215" PositionX="-1711" />
+				<EdgeVertex Name="6Md8HkgV" PositionY="718" PositionX="-1196" />
 				<EdgeVertex Name="94KjEbJL" PositionY="1180" PositionX="-2360" />
 				<EdgeVertex Name="bs2upEPU" PositionY="956" PositionX="-2541" />
 				<EdgeVertex Name="Cq55eye0" PositionY="1154" PositionX="-3873" />
@@ -257,6 +272,7 @@
 				<EdgeVertex Name="L6qBM0bG" PositionY="1224" PositionX="-3907" />
 				<EdgeVertex Name="lR98MDbM" PositionY="1566" PositionX="-2893" />
 				<EdgeVertex Name="m2nqvo9F" PositionY="1195" PositionX="-1713" />
+				<EdgeVertex Name="mjRTWdoL" PositionY="740" PositionX="-1190" />
 				<EdgeVertex Name="NSn8cqpp" PositionY="1307" PositionX="-2458" />
 				<EdgeVertex Name="qsTbBrGs" PositionY="1290" PositionX="-2460" />
 				<EdgeVertex Name="uP4vPbyh" PositionY="1148" PositionX="-2566" />
@@ -269,10 +285,10 @@
 				<EdgeVertex Name="vertex225" PositionY="1090" PositionX="-3310" />
 				<EdgeVertex Name="vertex226" PositionY="990" PositionX="-2100" />
 				<EdgeVertex Name="vertex227" PositionY="990" PositionX="-2780" />
-				<EdgeVertex Name="vertex229" PositionY="470" PositionX="-3860" />
-				<EdgeVertex Name="vertex230" PositionY="260" PositionX="-3840" />
-				<EdgeVertex Name="vertex233" PositionY="870" PositionX="-2100" />
-				<EdgeVertex Name="vertex235" PositionY="490" PositionX="-3860" />
+				<EdgeVertex Name="vertex229" PositionY="380" PositionX="-3860" />
+				<EdgeVertex Name="vertex230" PositionY="200" PositionX="-3860" />
+				<EdgeVertex Name="vertex233" PositionY="840" PositionX="-2110" />
+				<EdgeVertex Name="vertex235" PositionY="400" PositionX="-3860" />
 				<EdgeVertex Name="vertex236" PositionY="1025" PositionX="-2783" />
 				<EdgeVertex Name="vertex237" PositionY="1030" PositionX="-2100" />
 				<EdgeVertex Name="vertex239" PositionY="1130" PositionX="-1710" />

@@ -77,10 +77,6 @@
 					<Edge From="s07_kucharska_kniha_probehla" To="s07_kucharska_kniha_probehla">
 						<Vertex>vertex131</Vertex>
 					</Edge>
-					<Edge From="profilestatetrigger4.OnLoaded" To="play_standoff_cutscene">
-						<Vertex>vertex142</Vertex>
-						<Vertex>vertex27</Vertex>
-					</Edge>
 					<Edge From="Awake" To="quest_je_aktivni">
 						<Vertex>vertex105</Vertex>
 						<Vertex>vertex147</Vertex>
@@ -88,6 +84,10 @@
 					<Edge From="henryho_cast.stop_mutiny_gameover_timer" To="stop_mutiny_gameover_timer">
 						<Vertex>D38dzFj9</Vertex>
 						<Vertex>Cgkq5PW5</Vertex>
+					</Edge>
+					<Edge From="foreach12.OnEnd" To="play_standoff_cutscene">
+						<Vertex>vertex142</Vertex>
+						<Vertex>vertex27</Vertex>
 					</Edge>
 				</bohutova_cast>
 				<DespawnAndDisableRandomEvents Name="DespawnAndDisableRandomEvents" PositionY="-400" PositionX="-1190" Namespace="random_events.events_common">
@@ -105,6 +105,14 @@
 						<Vertex>vertex149</Vertex>
 					</Edge>
 				</expectedeffect>
+				<ForEach Name="foreach12" PositionY="590" PositionX="2710" TypeT="wh::rpgmodule::Souls">
+					<Asset Name="Array" Alias="secondFight_zizkaWithCompany" />
+					<Edge From="profilestatetrigger4.OnLoaded" To="Begin" />
+				</ForEach>
+				<Function Name="fullyrestock11" PositionY="590" PositionX="3140" MethodName="wh::entitymodule::FullyRestock" DeclaringType="wh::entitymodule">
+					<Edge From="foreach12.Value" To="RestockableObject" />
+					<Edge From="foreach12.OnValue" To="Exec" />
+				</Function>
 				<henryho_cast Name="henryho_cast" PositionY="-100" PositionX="750" RequiredForOutput="trosecko">
 					<Edge From="bohutova_cast.bohuta_odrazil_vzpouru_na_nebakove" To="vracime_se_v_case_kousek_zpet">
 						<Vertex>vertex82</Vertex>
@@ -225,7 +233,14 @@
 					<Asset Name="soul" Alias="innkeeperZelejov" />
 					<Edge From="DespawnAndDisableRandomEvents.onexec" To="revive" />
 				</reviveifdead>
-				<streamprofileshandling Name="streamprofileshandling" PositionY="210" PositionX="1290" Namespace="utils.streaming">
+				<SchedulerLinkActivation Name="schedule13" PositionY="-1230" PositionX="-1376">
+					<Constant Name="LinkTag" Value="bohutovaVlozka_pistaStaysPut" />
+					<Edge From="Awake" To="IsActive">
+						<Vertex>vertex105</Vertex>
+						<Vertex>vertex149</Vertex>
+					</Edge>
+				</SchedulerLinkActivation>
+				<streamprofileshandling Name="streamprofileshandling" PositionY="210" PositionX="1300" Namespace="utils.streaming">
 					<Asset Name="profiles" Alias="battlefieldProfiles" />
 					<Constant Name="autodeactivatenotificationafterstream" Value="false" />
 					<Edge From="bohutova_cast.on_intro_cutscene_after_switch" To="streamprofiles">
@@ -267,7 +282,7 @@
 				<EdgeVertex Name="vertex110" PositionY="-270" PositionX="620" />
 				<EdgeVertex Name="vertex111" PositionY="-270" PositionX="1400" />
 				<EdgeVertex Name="vertex112" PositionY="40" PositionX="1210" />
-				<EdgeVertex Name="vertex113" PositionY="60" PositionX="2040" />
+				<EdgeVertex Name="vertex113" PositionY="70" PositionX="1240" />
 				<EdgeVertex Name="vertex116" PositionY="90" PositionX="-150" />
 				<EdgeVertex Name="vertex126" PositionY="-170" PositionX="1400" />
 				<EdgeVertex Name="vertex127" PositionY="-170" PositionX="640" />
@@ -281,7 +296,7 @@
 				<EdgeVertex Name="vertex138" PositionY="710" PositionX="660" />
 				<EdgeVertex Name="vertex139" PositionY="680" PositionX="660" />
 				<EdgeVertex Name="vertex14" PositionY="510" PositionX="-1520" />
-				<EdgeVertex Name="vertex142" PositionY="540" PositionX="2630" />
+				<EdgeVertex Name="vertex142" PositionY="540" PositionX="3020" />
 				<EdgeVertex Name="vertex143" PositionY="1000" PositionX="640" />
 				<EdgeVertex Name="vertex145" PositionY="1000" PositionX="1640" />
 				<EdgeVertex Name="vertex147" PositionY="-660" PositionX="-110" />
@@ -309,6 +324,7 @@
 				<AnimDoorAsset Name="courtyardDoor" />
 				<ProfileAsset Name="zizkasNPCsProfile" AssetProfiles="tneb_fortress_npcs_inM10Fight" />
 				<SoulAsset Name="pista" SharedSoulGuids="46c0e15f-70b6-4898-55ef-d8984d5715a9" />
+				<SoulAsset Name="secondFight_zizkaWithCompany" SharedSoulGuids="4a705738-fd86-23bd-5eb9-ee16d727038a 4afff511-c74c-a1f9-16df-f0376a0223bb 47bb9ac7-124b-e5e2-c8e8-58da176d9494 45670f45-dc2f-fdf4-332f-94aa46fd43a3 7f3eb34c-cec4-4b00-aec1-e2dc34134da4 4a76a819-cfd0-5d25-2fda-0aa88e1b37a5 0e118323-c699-4e4f-8bfa-15e1681e154f 410bfd11-19a4-a900-9987-4db1429c569a 4b86d6c0-5a6f-ad48-25da-431521880792" />
 			</Assets>
 			<Text StringName="hibernation_2R4k" Text="Hibernation" />
 		</Module>

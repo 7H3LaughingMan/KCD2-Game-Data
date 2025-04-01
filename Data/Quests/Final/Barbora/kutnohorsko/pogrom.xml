@@ -65,6 +65,11 @@
 					<Edge From="PogromHaste.initnodialogue" To="SetNoDialogue" />
 					<Edge From="PogromHaste.init_trackview_recodring" To="SetTrackview" />
 				</State>
+				<disabledirectionschatglobal Name="disabledirectionschatglobal" PositionY="-1130" PositionX="-1160" Namespace="utils.hardcoremode">
+					<Edge From="Pogrom.Active" To="enabled">
+						<Vertex>vertex81</Vertex>
+					</Edge>
+				</disabledirectionschatglobal>
 				<DisableHorseInventory Name="disablehorseinventory6" PositionY="-620" PositionX="-1160">
 					<Edge From="Pogrom.Active" To="IsActive">
 						<Vertex>vertex81</Vertex>
@@ -76,12 +81,6 @@
 				<HasteTrigger Name="endQuest" PositionY="-870" PositionX="-2030">
 					<Edge From="makearray32.Array" To="Prerequisites" />
 				</HasteTrigger>
-				<FilterInput Name="filterinput15" PositionY="-780" PositionX="-1160">
-					<Edge From="makearray16.Array" To="Filters" />
-					<Edge From="Pogrom.Active" To="IsActive">
-						<Vertex>vertex81</Vertex>
-					</Edge>
-				</FilterInput>
 				<FilterInput Name="filterinput15_1" PositionY="-640" PositionX="-790">
 					<Edge From="makearray16_1.Array" To="Filters" />
 					<Edge From="or29.bool" To="IsActive" />
@@ -109,9 +108,6 @@
 						<Vertex>IPzxTprY</Vertex>
 					</Edge>
 				</hibernace>
-				<MakeArray Name="makearray16" PositionY="-930" PositionX="-1440" TypeT="Strings">
-					<Constant Name="A" Value="no_horse" />
-				</MakeArray>
 				<MakeArray Name="makearray16_1" PositionY="-940" PositionX="-1090" TypeT="Strings">
 					<Constant Name="A" Value="no_dog" />
 				</MakeArray>
@@ -197,6 +193,12 @@
 				<SetGameContext Name="setgamecontext36" PositionY="-960" PositionX="-790">
 					<Constant Name="Context" Value="global_disableBells" />
 					<Edge From="or29.bool" To="IsActive" />
+				</SetGameContext>
+				<SetGameContext Name="setgamecontext38" PositionY="-770" PositionX="-1160">
+					<Constant Name="Context" Value="DisableHorseCall" />
+					<Edge From="Pogrom.Active" To="IsActive">
+						<Vertex>vertex81</Vertex>
+					</Edge>
 				</SetGameContext>
 				<streamovani Name="streamovani" PositionY="500" PositionX="-420">
 					<Edge From="hibernace.streamovani_na_zacatku_questu" To="stream_na_zacatku" />
@@ -460,10 +462,10 @@
 							<Log StringName="rozluc_se_mel_bych_si_pro_iXA5" Text="Měl bych si promluvit se Sárou a zeptat se jí na kováře Martina. Když to neudělám teď, už nebudu mít jinou příležitost." />
 						</EnumLog>
 						<EnumLog Type="Completed" Name="PromluvilJsemSeSarou">
-							<Log StringName="rozluc_se_sara_mi_povedel_Xs2U" Text="Sára mi vyprávěla, jak se seznámila s Martinem a jak od ní utekl. Skoro se mi nechtělo věřit, že mužskej, co se jen s mečem vrhl proti jezdcům kvůli ženě, kterou miloval, byl ten samý, který nerozebral celou Kutnou Horu holýma rukama, aby Sáru našel. " />
+							<Log StringName="rozluc_se_sara_mi_povedel_Xs2U" Text="Jen co jsem se ujistil, že je Sára vpořádku, zavedli jsme rozhovor směrem k mému otci Martinovi. Přišlo mi, že k němu pořád chovala značnou náklonost a jejich příběh mě ujistil, že lidská existence je plná velkých i malých tragédií, které je třeba přežít a doufat, že je alespoň částečně vyváží dostatek radostných chvil." />
 						</EnumLog>
 						<EnumLog Type="Completed" Name="PromluvilJsemSeSarouAOstatnima">
-							<Log StringName="rozluc_se_promluvil_jsem__Pa5C" Text="Sára mi vyprávěla, jak se seznámila s Martinem a jak od ní utekl. Skoro se mi nechtělo věřit, že mužskej, co se jen s mečem vrhl proti jezdcům kvůli ženě, kterou miloval, byl ten samý, který nerozebral celou Kutnou Horu holýma rukama, aby Sáru našel. &#xD;&#xA;Potom jsem mluvil s přeživšími. Říkali, že se pokusí dostat do Kolína, kde se dokáží ukrýt. Samuel pojede s nimi, stejně jako Lichtenštejn, tak se jim po cestě snad nic nestane. Zůstal jsem jen já s Kuběnkou, který pomalu vyrazil zpátky na Čertovku." />
+							<Log StringName="rozluc_se_promluvil_jsem__Pa5C" Text="Jen co jsem se ujistil, že je Sára vpořádku, zavedli jsme rozhovor směrem k mému otci Martinovi. Přišlo mi, že k němu pořád chovala značnou náklonost a jejich příběh mě ujistil, že lidská existence je plná velkých i malých tragédií, které je třeba přežít a doufat, že je alespoň částečně vyváží dostatek radostných chvil.&#xD;&#xA;Potom jsem mluvil s přeživšími. Říkali, že se pokusí dostat do Kolína, kde se dokáží ukrýt. Samuel pojede s nimi, stejně jako Lichtenštejn, tak se jim po cestě snad nic nestane. Zůstal jsem jen já s Kuběnkou, který pomalu vyrazil zpátky na Čertovku." />
 						</EnumLog>
 					</Logs>
 				</Objective>

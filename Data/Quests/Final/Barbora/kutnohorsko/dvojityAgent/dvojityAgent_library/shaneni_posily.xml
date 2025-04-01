@@ -33,6 +33,9 @@
 				<Port Name="cancel" Direction="In" Type="trigger">
 					<DesignName StringName="shaneni_p_cancel_uyXe" Text="&lt;cancel&gt;" />
 				</Port>
+				<Port Name="force_cancel" Direction="In" Type="trigger">
+					<DesignName StringName="shaneni_p_force_cancel_Np9l" Text="&lt;force cancel&gt;" />
+				</Port>
 				<Port Name="slozene_aktivni_posily__zaklad" Direction="In" Type="wh::rpgmodule::Souls">
 					<DesignName StringName="shaneni_p_slozene_aktivni_KM27" Text="Složené aktivní posily - základ" />
 				</Port>
@@ -169,6 +172,9 @@
 						<Vertex>vertex46</Vertex>
 					</Edge>
 					<Edge From="if31.True" To="SetTrue" />
+					<Edge From="force_cancel" To="SetFalse">
+						<Vertex>n1tCPHwU</Vertex>
+					</Edge>
 				</State>
 				<State Name="singleReinforcementGroup" PositionY="-440" PositionX="1360" RequiredForOutput="kutnohorsko" TypeT="SingleReinforcementGroup">
 					<Edge From="if4.True" To="SetAskForHelp" />
@@ -182,6 +188,10 @@
 						<Vertex>vertex14</Vertex>
 					</Edge>
 					<Edge From="if13.True" To="SetCanceled" />
+					<Edge From="force_cancel" To="SetCanceled">
+						<Vertex>n1tCPHwU</Vertex>
+						<Vertex>M9ocprfo</Vertex>
+					</Edge>
 				</State>
 				<State Name="state30" PositionY="-118" PositionX="339" TypeT="bool">
 					<Edge From="deathtrigger29.OnDeath" To="SetTrue" />
@@ -205,6 +215,8 @@
 			</Nodes>
 			<EdgeVertices>
 				<EdgeVertex Name="Bnk8x6oq" PositionY="-585" PositionX="-46" />
+				<EdgeVertex Name="M9ocprfo" PositionY="350" PositionX="1140" />
+				<EdgeVertex Name="n1tCPHwU" PositionY="350" PositionX="-300" />
 				<EdgeVertex Name="U1L5u6Ip" PositionY="-608" PositionX="-649" />
 				<EdgeVertex Name="vertex1" PositionY="-570" PositionX="-260" />
 				<EdgeVertex Name="vertex10" PositionY="-410" PositionX="2060" />

@@ -21,6 +21,14 @@
 				<Definition File="jindrich_v_bludisti/jindrich_predbeh_ptacka_a_je_ve_skalach.xml" />
 			</Definitions>
 			<Nodes>
+				<AreaTrigger Name="areatrigger81" PositionY="1220" PositionX="-440">
+					<Asset Name="Areas" Alias="edgeOfFightArea" />
+					<Edge From="makearray82.Array" To="Souls" />
+					<Edge From="findPtacek.Active" To="IsActive">
+						<Vertex>vertex12</Vertex>
+						<Vertex>vertex13</Vertex>
+					</Edge>
+				</AreaTrigger>
 				<State Name="backToPtacek" PositionY="-50" PositionX="220" RequiredForOutput="trosecko" TypeT="Prepadeni_backToPtacek">
 					<Edge From="objectiv_prozkoumej_vstup_do_skal_abortovan" To="SetBackToPtacekAlternative">
 						<Vertex>vertex8</Vertex>
@@ -36,6 +44,7 @@
 				<State Name="findPtacek" PositionY="690" PositionX="-90" RequiredForOutput="trosecko" TypeT="Progress">
 					<Edge From="if79_2.True" To="SetDone" />
 					<Edge From="if79_2_1.True" To="SetActive" />
+					<Edge From="areatrigger81.OnAllEnter" To="SetDone" />
 				</State>
 				<If Name="if79" PositionY="210" PositionX="-140">
 					<Edge From="backToPtacek.BackToPtacekAlternative" To="Condition">
@@ -68,6 +77,10 @@
 					</Edge>
 				</If>
 				<jindrich_predbeh_ptacka_a_je_ve_skalach Name="jindrich_predbeh_ptacka_a_je_ve_skalach" PositionY="-260" PositionX="1250" />
+				<MakeArray Name="makearray82" PositionY="1280" PositionX="-720" TypeT="wh::rpgmodule::Souls">
+					<Asset Name="A" Alias="player" />
+					<Asset Name="B" Alias="ptacek" />
+				</MakeArray>
 				<vrat_se_za_ptackem Name="objectiveVisual55" PositionY="-20" PositionX="720" RequiredForOutput="trosecko">
 					<Edge From="backToPtacek.State" To="Progress" />
 				</vrat_se_za_ptackem>

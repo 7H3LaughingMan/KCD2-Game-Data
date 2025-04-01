@@ -4,24 +4,22 @@
 		<Variables />
 		<Root OneTimeOnly="false" FailState="Recoverable" saveVersion="2">
 			<Behavior canSkip="1">
-				<Sequence>
-					<AddLinkElement from="$scribe" to="$scribeSpot" tag="&apos;scribeSpot&apos;" data="" enabled="true">
+				<AddLinkElement from="$scribe" to="$scribeSpot" tag="&apos;scribeSpot&apos;" data="" enabled="true">
+					<Sequence>
 						<UnstanceAction unstance="LookingUpward" locationObject="$__object.id" slaveObject="" />
-					</AddLinkElement>
-					<LoopUntil until="Success" attemptCount="5">
 						<Selector>
-							<Function_speech_dialogInitiator alias="" animationApproach="$enum:animationApproach.dontPlayDialogAnimations" context="" customParameters="" metarole="&apos;RYCHTAR_S_PISAREM_NA_OBCHUZCE&apos;" preset="$enum:dialogPreset.ingame" recipient="$scribe" recipientMetaroles="" nodeLabel="27224043" />
-							<Wait duration="&apos;1s&apos;" timeType="GameTime" doFail="false" variation="" />
+							<LoopUntil until="Success" attemptCount="5">
+								<DistanceGate Origin="$this.id" ReferencePt="$scribe" Low="5.000000" High="5.000000" Negation="false" OpenInMiddle="false" RunLogic="KeepRunning">
+									<Function_speech_dialogInitiator alias="" animationApproach="$enum:animationApproach.dontPlayDialogAnimations" context="" customParameters="" metarole="&apos;RYCHTAR_S_PISAREM_NA_OBCHUZCE&apos;" preset="$enum:dialogPreset.ingame" recipient="$scribe" recipientMetaroles="" nodeLabel="27224043" />
+								</DistanceGate>
+							</LoopUntil>
+							<Wait duration="&apos;5s&apos;" timeType="GameTime" doFail="false" variation="" />
 						</Selector>
-					</LoopUntil>
-				</Sequence>
+					</Sequence>
+				</AddLinkElement>
 			</Behavior>
 		</Root>
-		<ForestContainer>
-			<DistanceCondition Origin="$this.id" ReferencePt="$__object.id" Low="1.000000" High="1.000000" Negation="true" ValueOnMiddle="false" failOnCondition="false">
-				<ExactMove directionType="AlignWithEntity" directionSpecification="$__object.id" animationTriggerDist="0.150000" precise="false" changeNPCState="false" fastForwardIncludesMove="false" destinationSpecification="$__object.id" destinationSpecification2="" destinationSpecification3="" speed="Walk" additionalParams="" pathFindingParams="" staminaPolicy="" pathInfo="" />
-			</DistanceCondition>
-		</ForestContainer>
+		<ForestContainer />
 		<EditorData EventSet="">
 			<Variables>
 				<Variable name="scribe" comment="" />
@@ -34,37 +32,33 @@
 			<Root editorPosX="150" editorPosY="60" hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
 				<OutputBreakpoints />
 				<Behavior>
-					<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
+					<AddLinkElement hasInputBreakpoint="0" comment="" breakpointFlags="0">
 						<OutputBreakpoints />
-						<AddLinkElement hasInputBreakpoint="0" comment="" breakpointFlags="0">
+						<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
 							<OutputBreakpoints />
 							<UnstanceAction hasInputBreakpoint="0" comment="" breakpointFlags="0">
 								<OutputBreakpoints />
 							</UnstanceAction>
-						</AddLinkElement>
-						<LoopUntil hasInputBreakpoint="0" comment="" breakpointFlags="0">
-							<OutputBreakpoints />
 							<Selector hasInputBreakpoint="0" comment="" breakpointFlags="0">
 								<OutputBreakpoints />
-								<Function_speech_dialogInitiator hasInputBreakpoint="0" comment="" breakpointFlags="0">
+								<LoopUntil hasInputBreakpoint="0" comment="" breakpointFlags="0">
 									<OutputBreakpoints />
-								</Function_speech_dialogInitiator>
+									<DistanceGate hasInputBreakpoint="0" comment="" breakpointFlags="0">
+										<OutputBreakpoints />
+										<Function_speech_dialogInitiator hasInputBreakpoint="0" comment="" breakpointFlags="0">
+											<OutputBreakpoints />
+										</Function_speech_dialogInitiator>
+									</DistanceGate>
+								</LoopUntil>
 								<Wait hasInputBreakpoint="0" comment="" breakpointFlags="0">
 									<OutputBreakpoints />
 								</Wait>
 							</Selector>
-						</LoopUntil>
-					</Sequence>
+						</Sequence>
+					</AddLinkElement>
 				</Behavior>
 			</Root>
-			<Forest>
-				<DistanceCondition editorPosX="520" editorPosY="-340" hasInputBreakpoint="0" comment="" breakpointFlags="0">
-					<OutputBreakpoints />
-					<ExactMove hasInputBreakpoint="0" comment="" breakpointFlags="0">
-						<OutputBreakpoints />
-					</ExactMove>
-				</DistanceCondition>
-			</Forest>
+			<Forest />
 			<Comments />
 		</EditorData>
 	</BehaviorTree>

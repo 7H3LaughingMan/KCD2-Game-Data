@@ -142,6 +142,8 @@
 					<Edge From="fist_fight_line.jindra_po_fightu_nemluvil_s_oponentem" To="jindra_po_fightu_nemluvil_s_stanikem">
 						<Vertex>vertex132</Vertex>
 					</Edge>
+					<Edge From="fist_fight_line.dialogparams_pro_forcovany_dialog" To="DialogParams" />
+					<Edge From="fist_fight_line.konci_fight" To="EnqueueDialogue" />
 				</phstanik__po_souboji>
 				<AddReward Name="prohra" PositionY="1060" PositionX="-190">
 					<Edge From="fist_fight_line.jindrich_prohrava" To="AddReward" />
@@ -187,6 +189,11 @@
 				<promluv_si_se_stanikem Name="talkToStanikAfterFight_objectiveVisual" PositionY="-780" PositionX="130" RequiredForOutput="kutnohorsko">
 					<Edge From="fist_fight_line.stav_objectivu_po_boji" To="Progress" />
 				</promluv_si_se_stanikem>
+				<turntoplayerinidlestance Name="turntoplayerinidlestance" PositionY="843" PositionX="1334" Namespace="utils.general">
+					<Asset Name="npc" Alias="stanik" />
+					<Constant Name="anydecoratorpreset" Value="changeEquipment" />
+					<Edge From="phstanik__po_souboji.AfterPlay" To="turntoplayerinidlestance" />
+				</turntoplayerinidlestance>
 				<AddReward Name="vyhra" PositionY="920" PositionX="-90">
 					<Edge From="fist_fight_line.jindrich_vyhrava" To="AddReward" />
 					<Rewards>

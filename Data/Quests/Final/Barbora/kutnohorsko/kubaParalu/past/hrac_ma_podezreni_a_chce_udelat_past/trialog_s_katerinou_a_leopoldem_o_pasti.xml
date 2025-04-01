@@ -44,11 +44,15 @@
 				<Definition File="trialog_s_katerinou_a_leopoldem_o_pasti/trialog_s_katerinou_a_leopoldem_o_pasti.xml" />
 			</Definitions>
 			<Nodes>
-				<Function Name="createdialogparams2" PositionY="280" PositionX="-530" MethodName="wh::dialogmodule::CreateDialogParams" DeclaringType="wh::dialogmodule">
+				<Function Name="createdialogparams2" PositionY="580" PositionX="-540" MethodName="wh::dialogmodule::CreateDialogParams" DeclaringType="wh::dialogmodule">
 					<Constant Name="MovePlayer" Value="true" />
 					<Edge From="makearray3.Array" To="Participants" />
 				</Function>
-				<Function Name="deathcheck6" PositionY="80" PositionX="-510" MethodName="wh::rpgmodule::DeathCheck" DeclaringType="wh::rpgmodule">
+				<Function Name="deathcheck16" PositionY="220" PositionX="-520" MethodName="wh::rpgmodule::DeathCheck" DeclaringType="wh::rpgmodule">
+					<Asset Name="Souls" Alias="MatkaATadeas" />
+					<Constant Name="Mode" Value="Any" />
+				</Function>
+				<Function Name="deathcheck6" PositionY="380" PositionX="-520" MethodName="wh::rpgmodule::DeathCheck" DeclaringType="wh::rpgmodule">
 					<Asset Name="Souls" Alias="hendl" />
 				</Function>
 				<State Name="hracSedi3" PositionY="-90" PositionX="430" TypeT="bool">
@@ -63,7 +67,7 @@
 						<Vertex>CtAGBel7</Vertex>
 					</Edge>
 				</State>
-				<MakeArray Name="makearray3" PositionY="280" PositionX="-820" TypeT="wh::rpgmodule::Souls">
+				<MakeArray Name="makearray3" PositionY="580" PositionX="-830" TypeT="wh::rpgmodule::Souls">
 					<Asset Name="A" Alias="katerina" />
 					<Asset Name="B" Alias="lipold" />
 				</MakeArray>
@@ -98,6 +102,14 @@
 						<Vertex>PBdjmKND</Vertex>
 					</Edge>
 				</PlayerAction_StanceObject>
+				<Function Name="removebuff15" PositionY="-830" PositionX="-60" MethodName="wh::rpgmodule::RemoveBuff" DeclaringType="wh::rpgmodule">
+					<Asset Name="Souls" Alias="lipold" />
+					<Constant Name="Buff" Value="ffc20522-134d-4811-8bc5-e933b74b7081" />
+					<Edge From="zacit_trialog" To="Exec">
+						<Vertex>aa6HS6uN</Vertex>
+						<Vertex>vertex8</Vertex>
+					</Edge>
+				</Function>
 				<SchedulerLinkActivation Name="schedule5" PositionY="-90" PositionX="680">
 					<Constant Name="LinkTag" Value="kubaParalu_sitWithLeopold" />
 					<Edge From="hracSedi3.State" To="IsActive" />
@@ -121,15 +133,12 @@
 						<Vertex>FkEB0KpN</Vertex>
 						<Vertex>sg8WkUbr</Vertex>
 					</Edge>
-					<Edge From="behem_infiltrace_umrela_mandelina_nebo_tadeas" To="behem_infiltrace_umrela_mandelina_nebo_tadeas">
-						<Vertex>jnkdlh6W</Vertex>
-						<Vertex>we2j38fQ</Vertex>
-					</Edge>
 					<Edge From="deathcheck6.IsDead" To="hendl_je_mrtvy" />
 					<Edge From="henry_pomuze_z_vetsi_odmenou" To="henry_pomuze_z_vetsi_odmenou">
 						<Vertex>fflDJ844</Vertex>
 						<Vertex>HlBqFKXE</Vertex>
 					</Edge>
+					<Edge From="deathcheck16.IsDead" To="behem_infiltrace_umrela_mandelina_nebo_tadeas" />
 				</trialog_s_katerinou_a_leopoldem_o_pasti>
 			</Nodes>
 			<EdgeVertices>
@@ -144,7 +153,6 @@
 				<EdgeVertex Name="FkEB0KpN" PositionY="-30" PositionX="-1060" />
 				<EdgeVertex Name="glTH6VLk" PositionY="30" PositionX="-150" />
 				<EdgeVertex Name="HlBqFKXE" PositionY="10" PositionX="-150" />
-				<EdgeVertex Name="jnkdlh6W" PositionY="-10" PositionX="-1060" />
 				<EdgeVertex Name="kJlrJfok" PositionY="30" PositionX="-1060" />
 				<EdgeVertex Name="PBdjmKND" PositionY="-110" PositionX="-150" />
 				<EdgeVertex Name="pjYby21E" PositionY="50" PositionX="-1060" />
@@ -157,7 +165,6 @@
 				<EdgeVertex Name="vertex6" PositionY="-50" PositionX="-150" />
 				<EdgeVertex Name="vertex7" PositionY="-50" PositionX="-1060" />
 				<EdgeVertex Name="vertex8" PositionY="-90" PositionX="-150" />
-				<EdgeVertex Name="we2j38fQ" PositionY="-10" PositionX="-150" />
 				<EdgeVertex Name="zaHfo4rm" PositionY="360" PositionX="920" />
 			</EdgeVertices>
 			<Assets>

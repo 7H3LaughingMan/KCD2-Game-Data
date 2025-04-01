@@ -31,6 +31,7 @@ ShootableStashBase =
 		Database = {
 			guidInventoryDBId	= "0",
 			sInventoryPreset 	= "",
+			nRestockPeriodDays 	= 0, -- in how many days does the item restock after being taken, 0 to disable restock
 			bReadOnly 			= false,
 		},
     },

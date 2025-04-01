@@ -3,6 +3,9 @@
 	<Skald>
 		<Dialog Name="greeting_obchodnika__2">
 			<Ports>
+				<Port Name="obchodnik_uz_zdravil" Direction="In" Type="bool">
+					<DesignName StringName="greeting__obchodnik_uz_zd_MDO0" Text="obchodník už zdravil" />
+				</Port>
 				<Port Name="je_rano" Direction="In" Type="bool">
 					<DesignName StringName="greeting__je_rano_KtTh" Text="je ráno" />
 				</Port>
@@ -63,6 +66,9 @@
 				<Port Name="obchodnik_je_v_obchode" Direction="In" Type="bool">
 					<DesignName StringName="greeting__obchodnik_je_v__nNvM" Text="obchodník je v obchodě" />
 				</Port>
+				<Port Name="nastav_cooldown" Direction="Out" Type="trigger">
+					<DesignName StringName="greeting__nastav_cooldown_GoVj" Text="nastav cooldown" />
+				</Port>
 			</Ports>
 			<Text StringName="greeting_obchodnika__2_v5ss" Text="Greeting obchodníka - ŽENA" />
 			<Elements>
@@ -77,8 +83,11 @@
 				</SelectedSouls>
 				<Decision Name="dec1" Priority="General">
 					<Sequences>
-						<Sequence EntryCondition="Port('obchodnik_je_v_obchode')" EndType="Decision" Cooldown="15s" Name="seq1">
+						<Sequence EntryCondition="Port('obchodnik_je_v_obchode')&#xD;&#xA;AND &#xD;&#xA;!Port('obchodnik_uz_zdravil')" EndType="Decision" Cooldown="15s" Name="seq1">
 							<DesignName StringName="greeting__seq1_OCTJ" Text="seq1" />
+							<Triggers>
+								<Port Name="nastav_cooldown" />
+							</Triggers>
 							<Elements>
 								<Response Role="HRAC" />
 							</Elements>
@@ -146,7 +155,7 @@
 															<Text StringName="gree_obchodnik_cim_poslou_7IA3" Text="Čím posloužím takhle po ránu?" />
 															<Commands>
 																<FacialMoodCommand FacialMood="happy1" />
-																<AnimationCommand Delay="0" FragmentId="ADLG_Gesture" Guid="e6f97096-4f65-4d39-9d08-eb1a131b90e2" Variant="22" DesiredDuration="0.91" />
+																<AnimationCommand FragmentId="ADLG_Gesture" Guid="e6f97096-4f65-4d39-9d08-eb1a131b90e2" Variant="22" DesiredDuration="0.91" />
 															</Commands>
 														</Response>
 													</Elements>
@@ -425,7 +434,7 @@
 															<Text StringName="gree_obchodnik_cim_dneska_hpzH" Text="Čím dneska posloužím?" />
 															<Commands>
 																<FacialMoodCommand FacialMood="happy1" />
-																<AnimationCommand Delay="0" FragmentId="ADLG_Confusion" Guid="b764de7d-5880-3b11-8852-f9b840634d9f" Variant="4" DesiredDuration="1.98" />
+																<AnimationCommand FragmentId="ADLG_Confusion" Guid="b764de7d-5880-3b11-8852-f9b840634d9f" Variant="4" DesiredDuration="1.98" />
 															</Commands>
 														</Response>
 													</Elements>
@@ -487,7 +496,7 @@
 															</Text>
 															<Commands>
 																<FacialMoodCommand FacialMood="happy1" />
-																<AnimationCommand Delay="0" FragmentId="ADLG_Emphasis" Guid="4abb7e77-72cf-42f1-9924-3d448055b4d4" Variant="2" />
+																<AnimationCommand FragmentId="ADLG_Emphasis" Guid="4abb7e77-72cf-42f1-9924-3d448055b4d4" Variant="2" />
 															</Commands>
 														</Response>
 													</Elements>
@@ -561,7 +570,7 @@
 															<Text StringName="gree_obchodnik_ehm_doufam_7ul1" Text="Ehm... doufám, že grošem nesmrdíš." />
 															<Commands>
 																<FacialMoodCommand FacialMood="arrogant1" />
-																<AnimationCommand Delay="0" FragmentId="ADLG_Confusion" Guid="b764de7d-5880-3b11-8852-f9b840634d9f" Variant="4" DesiredDuration="1.96" />
+																<AnimationCommand FragmentId="ADLG_Confusion" Guid="b764de7d-5880-3b11-8852-f9b840634d9f" Variant="4" DesiredDuration="1.96" />
 															</Commands>
 														</Response>
 													</Elements>
@@ -773,7 +782,7 @@
 															<Text StringName="gree_obchodnik_co_sakra_c_KoYo" Text="Co sakra chceš?" />
 															<Commands>
 																<FacialMoodCommand FacialMood="angry1" />
-																<AnimationCommand Delay="0" FragmentId="ADLG_Gesture" Guid="962a4745-715f-478e-85ce-61c4bb981afa" Variant="9" DesiredDuration="1.61" />
+																<AnimationCommand FragmentId="ADLG_Gesture" Guid="962a4745-715f-478e-85ce-61c4bb981afa" Variant="9" DesiredDuration="1.61" />
 															</Commands>
 														</Response>
 													</Elements>
@@ -1264,7 +1273,7 @@
 															<Text StringName="gree_obchodnik_co_chces_k_gvev" Text="Co chceš, křupane?" />
 															<Commands>
 																<FacialMoodCommand FacialMood="angry1" />
-																<AnimationCommand Delay="0" FragmentId="ADLG_Surprised_light" Guid="ec1ef83e-f206-5b50-63ea-27915e5061a3" Variant="0" DesiredDuration="1.98" />
+																<AnimationCommand FragmentId="ADLG_Surprised_light" Guid="ec1ef83e-f206-5b50-63ea-27915e5061a3" Variant="0" DesiredDuration="1.98" />
 															</Commands>
 														</Response>
 													</Elements>
@@ -1279,7 +1288,7 @@
 															<Text StringName="gree_obchodnik_co_chces_h_jKqG" Text="Co chceš, hovado?" />
 															<Commands>
 																<FacialMoodCommand FacialMood="angry1" />
-																<AnimationCommand Delay="0" FragmentId="ADLG_Gesture" Guid="0ab09611-db48-4378-9218-4a5539f328c3" Variant="1" />
+																<AnimationCommand FragmentId="ADLG_Gesture" Guid="0ab09611-db48-4378-9218-4a5539f328c3" Variant="1" />
 															</Commands>
 														</Response>
 													</Elements>
@@ -1571,7 +1580,7 @@
 															<Text StringName="gree_obchodnik_co_potrebu_wAZz" Text="Co potřebuješ, cizinče?" />
 															<Commands>
 																<FacialMoodCommand FacialMood="thinking2" />
-																<AnimationCommand Delay="0" FragmentId="ADLG_Emphasis" Guid="4abb7e77-72cf-42f1-9924-3d448055b4d4" Variant="2" />
+																<AnimationCommand FragmentId="ADLG_Emphasis" Guid="4abb7e77-72cf-42f1-9924-3d448055b4d4" Variant="2" />
 															</Commands>
 														</Response>
 													</Elements>
@@ -1615,7 +1624,7 @@
 															<Text StringName="gree_obchodnic_ehm_bite_s_HwA8" Text="Ehm... Bite šejn?" />
 															<Commands>
 																<FacialMoodCommand FacialMood="thinking2" />
-																<AnimationCommand Delay="0" FragmentId="ADLG_Surprised" Guid="364379fe-358d-4b99-9356-3a769ebe21cb" Variant="1" DesiredDuration="2.44" />
+																<AnimationCommand FragmentId="ADLG_Surprised" Guid="364379fe-358d-4b99-9356-3a769ebe21cb" Variant="1" DesiredDuration="2.44" />
 															</Commands>
 														</Response>
 													</Elements>

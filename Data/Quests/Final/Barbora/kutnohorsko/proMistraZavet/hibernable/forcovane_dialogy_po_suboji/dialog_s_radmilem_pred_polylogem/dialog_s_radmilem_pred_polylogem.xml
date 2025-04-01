@@ -12,6 +12,9 @@
 				<Port Name="force_do_polylogu" Direction="Out" Type="trigger">
 					<DesignName StringName="dialog_s__forced_do_polyl_Xicg" Text="force do polylogu" />
 				</Port>
+				<Port Name="dialog_naforcovan" Direction="Out" Type="trigger">
+					<DesignName StringName="dialog_s__dialog_naforcov_UtBX" Text="Dialóg naforcován" />
+				</Port>
 				<Port Name="reputace_hit" Direction="Out" Type="trigger">
 					<DesignName StringName="dialog_s__reputace_hit_qoop" Text="reputace hit" />
 				</Port>
@@ -30,8 +33,11 @@
 				</SelectedSouls>
 				<Decision Name="dec1" Priority="SideQuestSubmission" Autoselect="true">
 					<Sequences>
-						<Sequence EntryCondition="Port('henry_vyhral') AND &#xD;&#xA;Port('dialog_aktivni')" EndType="Decision" Name="vyhra">
+						<Sequence EntryCondition="Port('henry_vyhral') AND &#xD;&#xA;Port('dialog_aktivni')" EndType="Decision" Visibility="Public" Name="vyhra">
 							<DesignName StringName="dialog_s__vyhra_vRJG" Text="výhra" />
+							<Triggers>
+								<Port Name="dialog_naforcovan" />
+							</Triggers>
 							<Elements>
 								<Response Role="RIVAL_Z_KH_DUELU" />
 							</Elements>
@@ -134,8 +140,11 @@
 								</Sequences>
 							</Decision>
 						</Sequence>
-						<Sequence EntryCondition="!Port('henry_vyhral') AND &#xD;&#xA;Port('dialog_aktivni')" EndType="Decision" Name="prohra">
+						<Sequence EntryCondition="!Port('henry_vyhral') AND &#xD;&#xA;Port('dialog_aktivni')" EndType="Decision" Visibility="Public" Name="prohra">
 							<DesignName StringName="dialog_s__prohra_Ejz6" Text="prohra" />
+							<Triggers>
+								<Port Name="dialog_naforcovan" />
+							</Triggers>
 							<Elements>
 								<Response Role="RIVAL_Z_KH_DUELU" />
 							</Elements>

@@ -51,6 +51,9 @@
 				<Port Name="hrac_pustil_pregere" Direction="In" Type="bool">
 					<DesignName StringName="zaver_u_k_hrac_pustil_pre_pabn" Text="hráč pustil pregéře" />
 				</Port>
+				<Port Name="hrac_mluvil_s_pregeri" Direction="In" Type="bool">
+					<DesignName StringName="zaver_u_k_hrac_byl_u_preg_w9W9" Text="hráč mluvil s pregéři" />
+				</Port>
 				<Port Name="maslo_mrtvy_pred_hutemi" Direction="In" Type="bool">
 					<DesignName StringName="zaver_u_k_maslo_mrtvy_pre_xnXy" Text="máslo mrtvý před hutěmi" />
 				</Port>
@@ -60,9 +63,6 @@
 				<Port Name="raznice_predana" Direction="Out" Type="trigger">
 					<DesignName StringName="zaver_u_k_raznice_predana_ZjG1" Text="raznice předána Kristiánovi" />
 				</Port>
-				<Port Name="predani_vavakova_dopisu" Direction="Out" Type="trigger">
-					<DesignName StringName="zaver_u_k_predani_vavakov_NFgx" Text="dopis od Vaváka předán Kristiánovi" />
-				</Port>
 			</Ports>
 			<Definitions>
 				<Definition File="zaver_u_kristiana/zaver_u_kristiana.xml" />
@@ -71,12 +71,22 @@
 				<Function Name="deathcheck3" PositionY="240" PositionX="-5540" MethodName="wh::rpgmodule::DeathCheck" DeclaringType="wh::rpgmodule">
 					<Asset Name="Souls" Alias="secretMint_guards" />
 				</Function>
+				<Function Name="deathcheck3_1" PositionY="530" PositionX="-5760" MethodName="wh::rpgmodule::DeathCheck" DeclaringType="wh::rpgmodule">
+					<Asset Name="Souls" Alias="secretMint_miners" />
+					<Constant Name="Mode" Value="Any" />
+				</Function>
+				<Function Name="not7" PositionY="410" PositionX="-5710" MethodName="math::boolean::Not" DeclaringType="math::boolean">
+					<Edge From="hrac_mluvil_s_pregeri" To="Value" />
+				</Function>
+				<Function Name="or6" PositionY="410" PositionX="-5490" MethodName="math::boolean::Or" DeclaringType="math::boolean">
+					<Edge From="deathcheck3_1.IsDead" To="B" />
+					<Edge From="not7.bool" To="A" />
+				</Function>
 				<Output Name="Output">
 					<Edge From="zaver_u_kristiana.hrac_ziskal_vsechny_tri_knihy" To="hrac_ziskal_vsechny_tri_knihy" />
 					<Edge From="zaver_u_kristiana.lhal_ze_burese_nezabil" To="lhal_ze_burese_nezabil" />
 					<Edge From="zaver_u_kristiana.kristianIsAngry" To="kristianIsAngry" />
 					<Edge From="zaver_u_kristiana.raznice_predana_kristianovi" To="raznice_predana" />
-					<Edge From="zaver_u_kristiana.dopis_od_vavaka_predan_kristianovi" To="predani_vavakova_dopisu" />
 					<Edge From="zaver_u_kristiana.predani_zaznamu_kristianovi" To="predani_zaznamu_kristianovi" />
 					<Edge From="triggersequence4.B" To="quest_end" />
 				</Output>
@@ -116,6 +126,7 @@
 					<Edge From="herman_mrtvy_pred_hutemi" To="herman_mrtvy_pred_hutemi" />
 					<Edge From="deathcheck3.IsDead" To="hrac_zabil_straze" />
 					<Edge From="hrac_mluvil_s_buresem_v_mincovne" To="hrac_mluvil_s_buresem_v_mincovne" />
+					<Edge From="or6.bool" To="pregeri_nedostupni" />
 				</zaver_u_kristiana>
 			</Nodes>
 		</DialogWrapper>

@@ -8,6 +8,7 @@
 			<Variable name="alwaysChooseMercy" type="_bool" values="" isPersistent="0" form="single" />
 			<Variable name="alwaysFlee" type="_bool" values="" isPersistent="0" form="single" />
 			<Variable name="canReport" type="_bool" values="" isPersistent="0" form="single" />
+			<Variable name="currentTime" type="_int64" values="" isPersistent="0" form="single" />
 			<Variable name="distanceCondition" type="_bool" values="false" isPersistent="0" form="single" />
 			<Variable name="fleeReactors" type="_wuid" values="" isPersistent="0" form="array" />
 			<Variable name="hasFriendAround" type="_bool" values="" isPersistent="0" form="single" />
@@ -20,6 +21,7 @@
 			<Variable name="lastHitByPlayer" type="crime:lastHitByPlayer" values="" isPersistent="0" form="single" />
 			<Variable name="moraleLow" type="_bool" values="" isPersistent="0" form="single" />
 			<Variable name="mostImportantInformation" type="information" values="" isPersistent="0" form="single" />
+			<Variable name="npcCooldowns" type="crime:npcCooldowns" values="" isPersistent="0" form="single" />
 			<Variable name="playersTarget" type="_wuid" values="" isPersistent="0" form="single" />
 			<Variable name="priorityForFlee" type="_int" values="135" isPersistent="0" form="single" />
 			<Variable name="reportDestination" type="_wuid" values="" isPersistent="0" form="single" />
@@ -36,6 +38,11 @@
 		<Root OneTimeOnly="false" FailState="Recoverable" saveVersion="2">
 			<Behavior canSkip="1">
 				<Sequence>
+					<GraphSearch Origin="" Borders="" depth="1" selection="true" SearchPattern="Depth" EdgePruning="&apos;parent,inventory&apos;" AllowedEdges="" SubGraph="" AllowSubtraph="false" includeOrigin="false" excludeOrigin="false" failOnEmpty="false" SetOperationChoice="Intersection|And" errorOnEmpty="false" shortCircuit="false" skipTraversed="true">
+						<WUIDFilter WUID="$this.id" Source="Child" prune="true" negprune="unknown" Parent="" Child="" />
+						<LinkTagFilter tag="&apos;crime_npcCooldowns&apos;" prune="true" negprune="unknown" Parent="" Child="" Data="" />
+						<Datalyzer Tag="&apos;crime_npcCooldowns&apos;" Quantifiers="Exists" Parent="" Child="" Data="$npcCooldowns" saveVersion="2" />
+					</GraphSearch>
 					<EntityContextCheck context="combat_neverSurrenderOrFlee" target="" saveVersion="2">
 						<Then canSkip="1">
 							<Expression expressions="$hasNeverSurrenderContext = true" />
@@ -90,12 +97,31 @@
 											</Else>
 										</EntityContextCheck>
 										<Sequence>
-											<IfElseCondition failOnCondition="false" condition="$attackData.previousReaction == $enum:crime_reactionKind.flee" saveVersion="2">
+											<IfElseCondition failOnCondition="false" condition="$attackData.initiatedBy == $enum:switch_interruptInitiator.concept" saveVersion="2">
 												<Then canSkip="1">
-													<Wait duration="&apos;20s&apos;" timeType="GameTime" doFail="false" variation="" />
+													<Wait duration="&apos;4s&apos;" timeType="GameTime" doFail="false" variation="" />
 												</Then>
 												<Else canSkip="1">
-													<Wait duration="&apos;4s&apos;" timeType="GameTime" doFail="false" variation="" />
+													<IfElseCondition failOnCondition="false" condition="$attackData.previousReaction == $enum:crime_reactionKind.flee" saveVersion="2">
+														<Then canSkip="1">
+															<Wait duration="&apos;20s&apos;" timeType="GameTime" doFail="false" variation="" />
+														</Then>
+														<Else canSkip="1">
+															<IfElseCondition failOnCondition="false" condition="$currentTime - $npcCooldowns.fledFromAttack + $data:script_param[&apos;combat_fledFromAttack&apos;].value &lt; 16 |  &#10;$npcCooldowns.fledFromAttack == 0" saveVersion="2">
+																<Then canSkip="1">
+																	<Wait duration="&apos;16s&apos;" timeType="GameTime" doFail="false" variation="" />
+																</Then>
+																<Else canSkip="1">
+																	<While doFail="false" propagateChildFail="false" condition="$npcCooldowns.fledFromAttack + $data:script_param[&apos;combat_fledFromAttack&apos;].value &gt; $currentTime">
+																		<Sequence>
+																			<GetTime TimeType="GameTime" OutVar="$currentTime" Delta="" />
+																			<Wait duration="&apos;3s&apos;" timeType="GameTime" doFail="false" variation="" />
+																		</Sequence>
+																	</While>
+																</Else>
+															</IfElseCondition>
+														</Else>
+													</IfElseCondition>
 												</Else>
 											</IfElseCondition>
 											<Expression expressions="$moraleLow = false" />
@@ -232,21 +258,30 @@
 																				<Sequence>
 																					<ChooseReportDestination Information="$mostImportantInformation" IsImportant="false" Destination="$reportDestination" DestinationType="$reportDestinationType" />
 																					<IfCondition failOnCondition="false" condition="$reportDestinationType &gt; $enum:crime_reportDestinationType.none">
-																						<CheckReactionLimit DesiredReactionType="$enum:crime_reactionType.report" Information="$mostImportantInformation" Position="" StimulusKind="$enum:crime_stimulusKind.unknown" ShouldReact="$canReport" ShouldWatch="$useless" />
+																						<EntityContextCheck context="crime_interruptAttack" target="$reportDestination" saveVersion="2">
+																							<Else canSkip="1">
+																								<CheckReactionLimit DesiredReactionType="$enum:crime_reactionType.report" Information="$mostImportantInformation" Position="" StimulusKind="$enum:crime_stimulusKind.unknown" ShouldReact="$canReport" ShouldWatch="$useless" />
+																							</Else>
+																						</EntityContextCheck>
 																					</IfCondition>
 																				</Sequence>
 																			</IfCondition>
 																		</Sequence>
 																	</IfCondition>
 																	<EntityContext context="combat_flee" target="">
-																		<IfElseCondition failOnCondition="false" condition="$canReport" saveVersion="2">
-																			<Then canSkip="1">
-																				<Function_callInterrupt_report assaultData="" corpseState="$enum:corpseState.undiscovered" criminalFreshness="$enum:crime_criminalFreshness.unknown" disableDetectedIcon="true" disableEmitting="false" freshlyAttributedCrime="false" ignorePriority="true" information="$mostImportantInformation" initiator="$enum:switch_interruptInitiator.scheduler" movementSpeed="$enum:movementSpeed.sprint" previousReaction="$enum:crime_reactionKind.attack" reportDestination="$reportDestination" reportDestinationType="$reportDestinationType" source="$enum:crime_source.direct" stimulusKind="$attackData.stimulusKind" nodeLabel="20785222" />
-																			</Then>
-																			<Else canSkip="1">
-																				<Function_callInterrupt_flee assaultData="$attackData.assaultData" corpseState="$enum:corpseState.undiscovered" criminalFreshness="$enum:crime_criminalFreshness.unknown" freshlyAttributedCrime="false" ignorePriority="true" information="$mostImportantInformation" initiator="$enum:switch_interruptInitiator.scheduler" isIndifferent="$isIndifferent" leaveLevel="false" mercyDialogueResult="$enum:crime_mercyDialogueResult.unknown" previousReaction="$enum:crime_reactionKind.attack" priority="$priorityForFlee" source="$enum:crime_source.direct" stimulusKind="$attackData.stimulusKind" target="$__player" nodeLabel="24147699" />
-																			</Else>
-																		</IfElseCondition>
+																		<Sequence>
+																			<GetTime TimeType="GameTime" OutVar="$currentTime" Delta="" />
+																			<Expression expressions="$npcCooldowns.fledFromAttack = $currentTime + $data:script_param[&apos;combat_fledFromAttack&apos;].value" />
+																			<AddLink From="$this.id" To="$this.id" Tag="&apos;crime_npcCooldowns&apos;" Data="$npcCooldowns" LinkOpHandleMode="OverWrite" />
+																			<IfElseCondition failOnCondition="false" condition="$canReport" saveVersion="2">
+																				<Then canSkip="1">
+																					<Function_callInterrupt_report assaultData="" corpseState="$enum:corpseState.undiscovered" criminalFreshness="$enum:crime_criminalFreshness.unknown" disableDetectedIcon="true" disableEmitting="false" freshlyAttributedCrime="false" ignorePriority="true" information="$mostImportantInformation" initiator="$enum:switch_interruptInitiator.scheduler" movementSpeed="$enum:movementSpeed.sprint" previousReaction="$enum:crime_reactionKind.attack" reportDestination="$reportDestination" reportDestinationType="$reportDestinationType" source="$enum:crime_source.direct" stimulusKind="$attackData.stimulusKind" nodeLabel="20785222" />
+																				</Then>
+																				<Else canSkip="1">
+																					<Function_callInterrupt_flee assaultData="$attackData.assaultData" corpseState="$enum:corpseState.undiscovered" criminalFreshness="$enum:crime_criminalFreshness.unknown" freshlyAttributedCrime="false" ignorePriority="true" information="$mostImportantInformation" initiator="$enum:switch_interruptInitiator.scheduler" isIndifferent="$isIndifferent" leaveLevel="false" mercyDialogueResult="$enum:crime_mercyDialogueResult.unknown" previousReaction="$enum:crime_reactionKind.attack" priority="$priorityForFlee" source="$enum:crime_source.direct" stimulusKind="$attackData.stimulusKind" target="$__player" nodeLabel="24147699" />
+																				</Else>
+																			</IfElseCondition>
+																		</Sequence>
 																	</EntityContext>
 																</Sequence>
 															</Sequence>
@@ -272,6 +307,7 @@
 				<Variable name="alwaysChooseMercy" comment="" />
 				<Variable name="alwaysFlee" comment="" />
 				<Variable name="canReport" comment="" />
+				<Variable name="currentTime" comment="" />
 				<Variable name="distanceCondition" comment="" />
 				<Variable name="fleeReactors" comment="" />
 				<Variable name="hasFriendAround" comment="" />
@@ -284,6 +320,7 @@
 				<Variable name="lastHitByPlayer" comment="" />
 				<Variable name="moraleLow" comment="" />
 				<Variable name="mostImportantInformation" comment="" />
+				<Variable name="npcCooldowns" comment="" />
 				<Variable name="playersTarget" comment="" />
 				<Variable name="priorityForFlee" comment="" />
 				<Variable name="reportDestination" comment="" />
@@ -301,6 +338,18 @@
 				<Behavior>
 					<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
 						<OutputBreakpoints />
+						<GraphSearch hasInputBreakpoint="0" comment="" breakpointFlags="0">
+							<OutputBreakpoints />
+							<WUIDFilter hasInputBreakpoint="0" comment="" breakpointFlags="0">
+								<OutputBreakpoints />
+							</WUIDFilter>
+							<LinkTagFilter hasInputBreakpoint="0" comment="" breakpointFlags="0">
+								<OutputBreakpoints />
+							</LinkTagFilter>
+							<Datalyzer hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
+								<OutputBreakpoints />
+							</Datalyzer>
+						</GraphSearch>
 						<EntityContextCheck hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
 							<OutputBreakpoints />
 							<Then>
@@ -404,9 +453,38 @@
 														</Wait>
 													</Then>
 													<Else>
-														<Wait hasInputBreakpoint="0" comment="" breakpointFlags="0">
+														<IfElseCondition hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
 															<OutputBreakpoints />
-														</Wait>
+															<Then>
+																<Wait hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																	<OutputBreakpoints />
+																</Wait>
+															</Then>
+															<Else>
+																<IfElseCondition hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
+																	<OutputBreakpoints />
+																	<Then>
+																		<Wait hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																			<OutputBreakpoints />
+																		</Wait>
+																	</Then>
+																	<Else>
+																		<While hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																			<OutputBreakpoints />
+																			<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																				<OutputBreakpoints />
+																				<GetTime hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																					<OutputBreakpoints />
+																				</GetTime>
+																				<Wait hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																					<OutputBreakpoints />
+																				</Wait>
+																			</Sequence>
+																		</While>
+																	</Else>
+																</IfElseCondition>
+															</Else>
+														</IfElseCondition>
 													</Else>
 												</IfElseCondition>
 												<Expression hasInputBreakpoint="0" comment="" breakpointFlags="0">
@@ -652,9 +730,14 @@
 																						</ChooseReportDestination>
 																						<IfCondition hasInputBreakpoint="0" comment="" breakpointFlags="0">
 																							<OutputBreakpoints />
-																							<CheckReactionLimit hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																							<EntityContextCheck hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
 																								<OutputBreakpoints />
-																							</CheckReactionLimit>
+																								<Else>
+																									<CheckReactionLimit hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																										<OutputBreakpoints />
+																									</CheckReactionLimit>
+																								</Else>
+																							</EntityContextCheck>
 																						</IfCondition>
 																					</Sequence>
 																				</IfCondition>
@@ -662,19 +745,31 @@
 																		</IfCondition>
 																		<EntityContext hasInputBreakpoint="0" comment="" breakpointFlags="0">
 																			<OutputBreakpoints />
-																			<IfElseCondition hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
+																			<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
 																				<OutputBreakpoints />
-																				<Then>
-																					<Function_callInterrupt_report hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																						<OutputBreakpoints />
-																					</Function_callInterrupt_report>
-																				</Then>
-																				<Else>
-																					<Function_callInterrupt_flee hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																						<OutputBreakpoints />
-																					</Function_callInterrupt_flee>
-																				</Else>
-																			</IfElseCondition>
+																				<GetTime hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																					<OutputBreakpoints />
+																				</GetTime>
+																				<Expression hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																					<OutputBreakpoints />
+																				</Expression>
+																				<AddLink hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																					<OutputBreakpoints />
+																				</AddLink>
+																				<IfElseCondition hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
+																					<OutputBreakpoints />
+																					<Then>
+																						<Function_callInterrupt_report hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																							<OutputBreakpoints />
+																						</Function_callInterrupt_report>
+																					</Then>
+																					<Else>
+																						<Function_callInterrupt_flee hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																							<OutputBreakpoints />
+																						</Function_callInterrupt_flee>
+																					</Else>
+																				</IfElseCondition>
+																			</Sequence>
 																		</EntityContext>
 																	</Sequence>
 																</Sequence>

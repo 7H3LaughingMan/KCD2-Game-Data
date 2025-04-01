@@ -45,6 +45,9 @@
 				<Port Name="timer_zvoneni_stop" Direction="In" Type="trigger">
 					<DesignName StringName="quest_set_timer_zvoneni_s_NWdw" Text="Timer zvonění stop" />
 				</Port>
+				<Port Name="stav_questu" Direction="In" Type="wh::questmodule::QuestProgress">
+					<DesignName StringName="quest_set_stav_questu_zyft" Text="stav questu" />
+				</Port>
 			</Ports>
 			<Definitions>
 				<Definition File="quest_setting/stash_door_lock.xml" />
@@ -77,13 +80,6 @@
 						<Vertex>vertex2</Vertex>
 					</Edge>
 				</DisableHorseInventory>
-				<FilterInput Name="filterinput56" PositionY="350" PositionX="770">
-					<Edge From="makearray57.Array" To="Filters" />
-					<Edge From="quest_active" To="IsActive">
-						<Vertex>vertex1</Vertex>
-						<Vertex>vertex2</Vertex>
-					</Edge>
-				</FilterInput>
 				<Function Name="gameover5" PositionY="1520" PositionX="730" MethodName="wh::playermodule::GameOver" DeclaringType="wh::playermodule">
 					<Constant Name="Reason" Value="55" />
 					<Edge From="zastaveni.cas_vyprsel" To="Exec">
@@ -118,6 +114,7 @@
 					<Edge From="quest_dokoncen_zastavit_zvoneni" To="konec_final_dialogu" />
 					<Edge From="before_final_dialog" To="pred_final_cs" />
 					<Edge From="nasilne_vraceni_vybavy_pred_prepnutim_levelu" To="nasilne_vraceni_vybavy_pred_prepnutim_levelu" />
+					<Edge From="stav_questu" To="stav_questu" />
 				</hrace_satnik>
 				<MakeArray Name="makearray51" PositionY="690" PositionX="220" TypeT="wh::rpgmodule::Souls">
 					<Asset Name="A" Alias="tomas" />
@@ -138,9 +135,6 @@
 					<Asset Name="L" Alias="katerina" />
 					<Asset Name="M" Alias="vujtek" />
 					<Asset Name="N" Alias="magda" />
-				</MakeArray>
-				<MakeArray Name="makearray57" PositionY="470" PositionX="500" TypeT="Strings">
-					<Constant Name="A" Value="no_horse" />
 				</MakeArray>
 				<MakeArray Name="makearray65" PositionY="630" PositionX="500" TypeT="wh::rpgmodule::Souls">
 					<Asset Name="A" Alias="kolda" />
@@ -264,6 +258,13 @@
 				</SetGameContext>
 				<SetGameContext Name="setgamecontext60" PositionY="-400" PositionX="770">
 					<Constant Name="Context" Value="disableHangoverTeleport" />
+					<Edge From="quest_active" To="IsActive">
+						<Vertex>vertex1</Vertex>
+						<Vertex>vertex2</Vertex>
+					</Edge>
+				</SetGameContext>
+				<SetGameContext Name="setgamecontext68" PositionY="360" PositionX="950">
+					<Constant Name="Context" Value="DisableHorseCall" />
 					<Edge From="quest_active" To="IsActive">
 						<Vertex>vertex1</Vertex>
 						<Vertex>vertex2</Vertex>

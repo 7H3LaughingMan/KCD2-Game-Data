@@ -20,6 +20,14 @@
 				</Port>
 			</Ports>
 			<Nodes>
+				<ladder_disablebattlement Name="ladder_disablebattlement" PositionY="360" PositionX="1130" Namespace="utils.battle">
+					<Asset Name="battlement" Alias="nebakov_closedCastleBattlement_1" />
+					<Edge From="or22.bool" To="isactive" />
+				</ladder_disablebattlement>
+				<ladder_disablebattlement Name="ladder_disablebattlement_1" PositionY="530" PositionX="1130" Namespace="utils.battle">
+					<Asset Name="battlement" Alias="nebakov_closedCastleBattlement_2" />
+					<Edge From="or22.bool" To="isactive" />
+				</ladder_disablebattlement>
 				<HasteTrigger Name="nebakovAfterM11" PositionY="370" PositionX="0" />
 				<State Name="nebakovOverallState" PositionY="-210" PositionX="310" TypeT="NebakovOverall">
 					<Edge From="nebakovAfterM11.OnTrigger" To="SetAfterNebakovObrana" />
@@ -31,6 +39,11 @@
 				</State>
 				<Function Name="not20" PositionY="130" PositionX="810" MethodName="math::boolean::Not" DeclaringType="math::boolean">
 					<Edge From="nebakovOverallState.NebakovObrana" To="Value" />
+				</Function>
+				<Function Name="or22" PositionY="400" PositionX="810" MethodName="math::boolean::Or" DeclaringType="math::boolean">
+					<Edge From="nebakovOverallState.NebakovPruzkum" To="A" />
+					<Edge From="nebakovOverallState.BohutovaVlozka" To="B" />
+					<Edge From="nebakovOverallState.NebakovObrana" To="C" />
 				</Function>
 				<Layer Name="profile17" PositionY="-170" PositionX="810">
 					<Asset Name="Profiles" Alias="DefaultNebakov" />
@@ -63,6 +76,8 @@
 				<ProfileAsset Name="DefaultNebakov" AssetProfiles="nebakovfortress_navmesh_default" />
 				<ProfileAsset Name="AfterNebakovObrana" AssetProfiles="nebakovobrana_navmesh_after" />
 				<ProfileAsset Name="NebakovObrana_NavPaths" AssetProfiles="nebakovObrana_navPaths" />
+				<BattlementAsset Name="nebakov_closedCastleBattlement_1" />
+				<BattlementAsset Name="nebakov_closedCastleBattlement_2" />
 			</Assets>
 			<Notes>
 				<Note Name="note18" PositionY="-290" PositionX="790">

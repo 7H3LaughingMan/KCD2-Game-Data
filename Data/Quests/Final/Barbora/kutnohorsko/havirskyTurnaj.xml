@@ -9,6 +9,12 @@
 				<Port Name="predani_hraci" Direction="Out" Type="trigger">
 					<DesignName StringName="havirskyt_predani_hraci_afQk" Text="předání čepice hráči" />
 				</Port>
+				<Port Name="stream" Direction="Out" Type="trigger">
+					<DesignName StringName="havirskyt_stream_4o01" Text="stream - barely" />
+				</Port>
+				<Port Name="unstream" Direction="Out" Type="trigger">
+					<DesignName StringName="havirskyt_unstream_Q8bS" Text="unstream - barely" />
+				</Port>
 			</Ports>
 			<Definitions>
 				<Definition File="havirskyTurnaj/prohra_v_soutezi.xml" />
@@ -40,6 +46,8 @@
 				<Output Name="Output">
 					<Edge From="questProgress.State" To="Progress" />
 					<Edge From="hibernovana_gameplay.predani_hraci" To="predani_hraci" />
+					<Edge From="hibernovana_gameplay.stream" To="stream" />
+					<Edge From="hibernovana_gameplay.unstream" To="unstream" />
 				</Output>
 				<prohra_v_soutezi Name="prohra_v_soutezi_1" PositionY="-520" PositionX="70" />
 				<State Name="questProgress" PositionY="-200" PositionX="-330" RequiredForOutput="kutnohorsko" TypeT="wh::questmodule::QuestProgress">
@@ -57,17 +65,17 @@
 					<Edge From="streamprofileshandling.onloaded" To="exec" />
 					<Edge From="makearray43.Array" To="souls" />
 				</revive>
-				<AddReward Name="reward12" PositionY="1130" PositionX="220">
+				<AddReward Name="reward12" PositionY="1180" PositionX="220">
 					<Edge From="questProgress.OnDone" To="AddReward" />
 					<Rewards>
 						<StatReward Type="storyProgress" ExperienceChange="2-minor" />
 					</Rewards>
 				</AddReward>
-				<SaveGame Name="savegame41" PositionY="360" PositionX="220">
+				<SaveGame Name="savegame41" PositionY="410" PositionX="220">
 					<Constant Name="Objective" Value="vyhraj_streleckou_soutez" />
 					<Edge From="questProgress.OnDone" To="EnqueueSave" />
 				</SaveGame>
-				<SaveGame Name="savegame45" PositionY="580" PositionX="220">
+				<SaveGame Name="savegame45" PositionY="630" PositionX="220">
 					<Constant Name="Objective" Value="brzy_rano_si_promluv_s_vlachem" />
 					<Edge From="questProgress.OnActive" To="EnqueueSave" />
 				</SaveGame>
@@ -83,12 +91,12 @@
 						<Vertex>vertex46</Vertex>
 					</Edge>
 				</streamprofileshandling>
-				<streamprofileshandling Name="streamprofileshandling_1" PositionY="120" PositionX="680" Namespace="utils.streaming">
+				<streamprofileshandling Name="streamprofileshandling_1" PositionY="340" PositionX="670" Namespace="utils.streaming">
 					<Asset Name="profiles" Alias="jorg_replacement" />
 					<Constant Name="autodeactivatenotificationafterstream" Value="false" />
 					<Edge From="hibernovana_gameplay.stream_jorga_nahradnika" To="streamprofiles" />
 				</streamprofileshandling>
-				<Timer Name="timer48" PositionY="800" PositionX="220">
+				<Timer Name="timer48" PositionY="850" PositionX="220">
 					<Constant Name="Duration" Value="1d" />
 					<Constant Name="TimeType" Value="WorldTime" />
 					<Edge From="questProgress.OnDone" To="SetRunning">
@@ -109,16 +117,16 @@
 			</Nodes>
 			<EdgeVertices>
 				<EdgeVertex Name="DI0P31X7" PositionY="1180" PositionX="660" />
-				<EdgeVertex Name="j0wUW5od" PositionY="280" PositionX="-520" />
+				<EdgeVertex Name="j0wUW5od" PositionY="330" PositionX="-520" />
 				<EdgeVertex Name="kIVbe9QE" PositionY="1180" PositionX="1240" />
 				<EdgeVertex Name="onW8f0Qg" PositionY="240" PositionX="-320" />
 				<EdgeVertex Name="r45ExG5r" PositionY="150" PositionX="20" />
-				<EdgeVertex Name="vertex43" PositionY="300" PositionX="450" />
-				<EdgeVertex Name="vertex44" PositionY="300" PositionX="-320" />
-				<EdgeVertex Name="vertex45" PositionY="330" PositionX="450" />
-				<EdgeVertex Name="vertex46" PositionY="330" PositionX="-1120" />
-				<EdgeVertex Name="vertex48" PositionY="270" PositionX="450" />
-				<EdgeVertex Name="vertex49" PositionY="270" PositionX="-320" />
+				<EdgeVertex Name="vertex43" PositionY="350" PositionX="450" />
+				<EdgeVertex Name="vertex44" PositionY="350" PositionX="-320" />
+				<EdgeVertex Name="vertex45" PositionY="380" PositionX="450" />
+				<EdgeVertex Name="vertex46" PositionY="380" PositionX="-1120" />
+				<EdgeVertex Name="vertex48" PositionY="320" PositionX="450" />
+				<EdgeVertex Name="vertex49" PositionY="320" PositionX="-320" />
 				<EdgeVertex Name="X3NDgcat" PositionY="240" PositionX="-40" />
 			</EdgeVertices>
 			<Types>

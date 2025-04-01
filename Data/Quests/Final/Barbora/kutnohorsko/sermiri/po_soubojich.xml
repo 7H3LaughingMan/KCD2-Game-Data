@@ -110,6 +110,8 @@
 				</Port>
 				<Port Name="patch_01_00" Direction="In" Type="trigger">
 					<DesignName StringName="po_souboj_patch_01_00_aJFI" Text="patch 01_00" />
+				</Port> 				<Port Name="quest_failed" Direction="In" Type="trigger">
+					<DesignName StringName="po_souboj_quest_failed_GhuM" Text="Quest failed" />
 				</Port>
 			</Ports>
 			<Definitions>
@@ -169,6 +171,10 @@
 						<Vertex>zdujmydg</Vertex>
 					</Edge>
 				</If>
+				<If Name="if52" PositionY="230" PositionX="-1030">
+					<Edge From="henry_se_spolcil_s_kutnohoraky" To="Condition" />
+					<Edge From="if51.False" To="Exec" />
+				</If>
 				<jindra_a_mikulas__v_pripade_failu Name="jindra_a_mikulas__v_pripade_failu" PositionY="-1030" PositionX="-250">
 					<Edge From="failed" To="failed">
 						<Vertex>qvz9Av34</Vertex>
@@ -182,6 +188,14 @@
 					<Edge From="mec_ukraden_nevystaven" To="mec_ukraden_a_nevystaven">
 						<Vertex>j8t55Q6D</Vertex>
 						<Vertex>DBL1lqjL</Vertex>
+					</Edge>
+					<Edge From="quest_failed" To="quest_failed">
+						<Vertex>GBULw0me</Vertex>
+						<Vertex>3D4QwMat</Vertex>
+					</Edge>
+					<Edge From="henry_se_spolcil_s_kutnohoraky" To="henry_se_spolcil_s_kutnohoraky">
+						<Vertex>SLl26e0D</Vertex>
+						<Vertex>YTSYaJbj</Vertex>
 					</Edge>
 				</jindra_a_mikulas__v_pripade_failu>
 				<kutnohorsti_po_turnaji Name="kutnohorsti_po_turnaji" PositionY="-730" PositionX="-420" RequiredForOutput="kutnohorsko">
@@ -228,7 +242,7 @@
 					<Edge From="and42.bool" To="Prohal_jsi_turnaj" />
 					<Edge From="lostTournament.State" To="Progress" />
 				</prohral_jsi_turnaj>
-				<Function Name="or40" PositionY="690" PositionX="200" MethodName="math::boolean::Or" DeclaringType="math::boolean">
+				<Function Name="or40" PositionY="680" PositionX="200" MethodName="math::boolean::Or" DeclaringType="math::boolean">
 					<Edge From="nemci_po_turnaji_1.finalmenhartdone" To="B">
 						<Vertex>wXqba8kk</Vertex>
 					</Edge>
@@ -236,6 +250,7 @@
 						<Vertex>kBSB5IUa</Vertex>
 					</Edge>
 					<Edge From="jindra_a_mikulas__v_pripade_failu.seq10" To="C" />
+					<Edge From="state53.State" To="D" />
 				</Function>
 				<Function Name="or44" PositionY="-880" PositionX="-510" MethodName="math::boolean::Or" DeclaringType="math::boolean">
 					<Edge From="and42.bool" To="B" />
@@ -341,15 +356,21 @@
 					<Edge From="nemci_zvitezili" To="nemci_zvitezili" />
 					<Edge From="if46.False" To="EnqueueDialogue" />
 				</s_menhartem_u_apatyky>
-				<SaveGame Name="savegame49" PositionY="360" PositionX="-1100">
-					<Constant Name="Objective" Value="vybojuj_souboje_proti_kutnohorskym" />
+				<SaveGame Name="savegame49" PositionY="500" PositionX="-1040">
+					<Constant Name="Objective" Value="pockej_par_dni_nez_menhart_prevezme_sermirnu" />
 					<Edge From="if51.True" To="EnqueueSave" />
+					<Edge From="if52.True" To="EnqueueSave" />
 				</SaveGame>
+				<State Name="state53" PositionY="930" PositionX="-30" TypeT="bool">
+					<Edge From="turnaj_recen.OnTrigger" To="SetTrue" />
+				</State>
+				<HasteTrigger Name="turnaj_recen" PositionY="960" PositionX="-320" />
 			</Nodes>
 			<EdgeVertices>
 				<EdgeVertex Name="0vUlyEX7" PositionY="-968" PositionX="-374" />
 				<EdgeVertex Name="1mQ022TH" PositionY="-690" PositionX="-1530" />
 				<EdgeVertex Name="37VSPuNn" PositionY="-440" PositionX="430" />
+				<EdgeVertex Name="3D4QwMat" PositionY="-1018" PositionX="-321" />
 				<EdgeVertex Name="45CuPzIs" PositionY="360" PositionX="380" />
 				<EdgeVertex Name="52HKXchk" PositionY="60" PositionX="-430" />
 				<EdgeVertex Name="684FHqVD" PositionY="575" PositionX="-593" />
@@ -360,6 +381,7 @@
 				<EdgeVertex Name="eH5uKRq6" PositionY="71" PositionX="-158" />
 				<EdgeVertex Name="fhcbjYzv" PositionY="589" PositionX="-1622" />
 				<EdgeVertex Name="GA5eSNFL" PositionY="467" PositionX="-735" />
+				<EdgeVertex Name="GBULw0me" PositionY="-1034" PositionX="-1630" />
 				<EdgeVertex Name="GYIsMtxg" PositionY="-410" PositionX="400" />
 				<EdgeVertex Name="GyxrKooq" PositionY="540" PositionX="460" />
 				<EdgeVertex Name="he8W7ych" PositionY="580" PositionX="-1608" />
@@ -376,6 +398,7 @@
 				<EdgeVertex Name="qvz9Av34" PositionY="-941" PositionX="-1585" />
 				<EdgeVertex Name="QYcXbBcX" PositionY="210" PositionX="-1600" />
 				<EdgeVertex Name="RhaUoXeK" PositionY="-334" PositionX="723" />
+				<EdgeVertex Name="SLl26e0D" PositionY="-1021" PositionX="-1559" />
 				<EdgeVertex Name="SqJ1pMGB" PositionY="890" PositionX="-200" />
 				<EdgeVertex Name="sSxIQbCW" PositionY="473" PositionX="-179" />
 				<EdgeVertex Name="Tjm3GjNr" PositionY="-490" PositionX="450" />
@@ -398,6 +421,7 @@
 				<EdgeVertex Name="xAjpWe8b" PositionY="330" PositionX="390" />
 				<EdgeVertex Name="xv42QVI4" PositionY="-620" PositionX="-1540" />
 				<EdgeVertex Name="YeaKC0FY" PositionY="880" PositionX="490" />
+				<EdgeVertex Name="YTSYaJbj" PositionY="-1035" PositionX="-391" />
 				<EdgeVertex Name="zdujmydg" PositionY="130" PositionX="-1530" />
 				<EdgeVertex Name="zv4DcxDV" PositionY="-319" PositionX="632" />
 			</EdgeVertices>
@@ -412,10 +436,10 @@
 				</Type>
 			</Types>
 			<Notes>
-				<Note Name="designKonceQuestu" PositionY="1000" PositionX="-30">
+				<Note Name="designKonceQuestu" PositionY="1290" PositionX="0">
 					<Text StringName="po_souboj_designkonceques_5kFf" Text="Design konce questu&#xD;&#xA;&#xD;&#xA;NĚMCI VYHRÁLI&#xD;&#xA;Souboje skončili a Friduš vyhlásil vítěze a jak to bude. proběhly in game reakce účastníků.&#xD;&#xA;Forcovaný dialog s Menhartem - poděkuje Henrymu za pomoc a řekne mu, že se má zastait za &quot;nějakou dobu&quot; (asi dva dny) v šermírně.&#xD;&#xA;Henry dostane objective bez markeru počkat a po uplynutí timeru nový objective &quot;zastav se za Menhartem&quot;. Henry dojde do šermírny, Menhart a ostatní němci už obývají šermírnu a mají svlj šermírnový DC...&#xD;&#xA;Henry si promluví s Mnehartem - Menhrat mu poděkuje, dá odměnu, řekne mu o turnaji co bude dělat a řekne mu o tom, že se u něj Henry může cvičit. -&gt; quest complete - log&#xD;&#xA;KUTNOHORŠTÍ VYHRÁLI&#xD;&#xA;Souboje skončili a Friduš vyhlásil vítěze a jak to bude. proběhly in game reakce účastníků.&#xD;&#xA;Němci hned řeknou henry díky, snažil ses, my jedem pryč do Němec. čaues. -&gt; quest complete (asi?) (jinej log)&#xD;&#xA;Němci se vydaj tem kde bydlej (převlíknou se) vezmou koně a odjedou pryč z mapy.&#xD;&#xA;kUTNOHORŠTÍ VYHRÁLI A HENRY ZRADIL NĚMCE&#xD;&#xA;Souboje skončili a Friduš vyhlásil vítěze a jak to bude. proběhly in game reakce účastníků.&#xD;&#xA;Němci hned řeknou henry díky, snažil ses, my jedem pryč do Němec. čaues.&#xD;&#xA;-&gt; objective promluv si zejtra s Jimramem&#xD;&#xA;-&gt; obj update promluv si s Jimramem&#xD;&#xA;Jimram poděkuje, dá odměnu, udělí právo cvičit u nich a pošle za Mikulášem.&#xD;&#xA;Mikuláš poví o možnosti trénit u něj a že budou turnaje...&#xD;&#xA;" />
 				</Note>
-				<Note Name="reputacniZmeny" PositionY="1000" PositionX="-340">
+				<Note Name="reputacniZmeny" PositionY="1290" PositionX="-310">
 					<Text StringName="po_souboj_reputacnizmeny_2yQc" Text="Reputační změny na konci questu&#xD;&#xA;&#xD;&#xA;Při Henryho výhře&#xD;&#xA;Henry získá reputaci s Menhartem a Arnem, pokud budou mít nějakou frakci tak i s ní.&#xD;&#xA;Ztratí personální reputaci s Mikulášem, Jimramem a Linhartem.&#xD;&#xA;Získá reputaci a renown v KH.&#xD;&#xA;Při Henryho prohře&#xD;&#xA;Henry získá reputaci s Menhartem a Arnem, pokud budou mít nějakou frakci tak i s ní, ale méně, než kdyby vyhrál.&#xD;&#xA;Ztratí personální reputaci s Mikulášem, Jimramem a Linhartem, ale méně než kdyby vyhrál&#xD;&#xA;Získá (méně) reputaci a renown v KH.&#xD;&#xA;" />
 				</Note>
 				<Note Name="note39" PositionY="1000" PositionX="-570">

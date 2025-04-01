@@ -51,6 +51,11 @@
 					<Edge From="not20.bool" To="B" />
 					<Edge From="boj_se_presunul_do_rokle" To="A" />
 				</Function>
+				<AreaTrigger Name="areatrigger23" PositionY="-690" PositionX="-1300">
+					<Asset Name="Areas" Alias="soldiersMillComingCloser" />
+					<Edge From="and18.bool" To="IsActive" />
+					<Edge From="makearray28.Array" To="Souls" />
+				</AreaTrigger>
 				<battlecontexts Name="battlecontexts" PositionY="480" PositionX="150" Namespace="utoknanebakov">
 					<Edge From="makearray10.Array" To="souls" />
 					<Edge From="and22.bool" To="isactive">
@@ -126,6 +131,22 @@
 						<Vertex>snANYXTN</Vertex>
 					</Edge>
 				</EnableBehavior>
+				<EnableBehavior Name="enablebehaviorwuiddata13_1_1" PositionY="-710" PositionX="-590" Signature="wuidData" EventSet="">
+					<Constant Name="Behavior" Value="guardPosition" />
+					<Asset Name="SmartEntity" Alias="utokNaNebakov_valley" />
+					<Asset Name="NPC" Alias="soldier_2" />
+					<Constant Name="ForceKick" Value="true" />
+					<Asset Name="data" Alias="enemy_2_wait" />
+					<Edge From="soldiersAreWaiting.State" To="IsActive" />
+				</EnableBehavior>
+				<EnableBehavior Name="enablebehaviorwuiddata13_2" PositionY="-980" PositionX="-590" Signature="wuidData" EventSet="">
+					<Constant Name="Behavior" Value="guardPosition" />
+					<Asset Name="SmartEntity" Alias="utokNaNebakov_valley" />
+					<Asset Name="NPC" Alias="soldier_1" />
+					<Constant Name="ForceKick" Value="true" />
+					<Asset Name="data" Alias="enemy_1_wait" />
+					<Edge From="soldiersAreWaiting.State" To="IsActive" />
+				</EnableBehavior>
 				<fight Name="fight" PositionY="80" PositionX="150" Namespace="utils.battle">
 					<Constant Name="isrecordingsession" Value="false" />
 					<Constant Name="redordingsession" Value="_" />
@@ -141,6 +162,21 @@
 					<Asset Name="A" Alias="soldier_1" />
 					<Asset Name="B" Alias="soldier_2" />
 				</MakeArray>
+				<MakeArray Name="makearray28" PositionY="-690" PositionX="-1590" TypeT="wh::rpgmodule::Souls">
+					<Asset Name="A" Alias="player" />
+					<Asset Name="B" Alias="ptacek" />
+				</MakeArray>
+				<movewithweapon Name="movewithweapon" PositionY="-440" PositionX="-590" Namespace="utils.utoknanebakov_utils">
+					<Asset Name="smartentity" Alias="utokNaNebakov_valley" />
+					<Asset Name="npc" Alias="soldier_2" />
+					<Asset Name="destination" Alias="valley_behindMill_waitSpot2" />
+					<Constant Name="speed" Value="FastRun" />
+					<Constant Name="successdistance" Value="1" />
+					<Constant Name="deactivateoninterrupt" Value="true" />
+					<Constant Name="exactmove" Value="false" />
+					<Constant Name="weaponslot" Value="Primary" />
+					<Edge From="secondSoldierIsRunning.State" To="active" />
+				</movewithweapon>
 				<Function Name="not19" PositionY="60" PositionX="-590" MethodName="math::boolean::Not" DeclaringType="math::boolean">
 					<Edge From="isCaponNearEnd.State" To="Value" />
 				</Function>
@@ -156,6 +192,15 @@
 						<Vertex>gyTjRX8Q</Vertex>
 					</Edge>
 				</registerbattlegroups>
+				<State Name="secondSoldierIsRunning" PositionY="-420" PositionX="-890" TypeT="bool">
+					<Edge From="areatrigger23.OnEnter" To="SetTrue" />
+					<Edge From="distancetrigger15.OnMatch" To="SetFalse" />
+				</State>
+				<State Name="soldiersAreWaiting" PositionY="-690" PositionX="-890" TypeT="bool">
+					<Constant Name="DefaultValue" Value="true" />
+					<Edge From="areatrigger23.OnEnter" To="SetFalse" />
+					<Edge From="distancetrigger15.OnMatch" To="SetFalse" />
+				</State>
 			</Nodes>
 			<EdgeVertices>
 				<EdgeVertex Name="6AtRHTUI" PositionY="40" PositionX="-380" />
@@ -174,6 +219,9 @@
 				<TagPointAsset Name="valley_behindMill_waitSpot1" />
 				<TagPointAsset Name="valley_behindMill_waitSpot2" />
 				<SmartObjectAsset Name="caponGroup" />
+				<TriggerAreaAsset Name="soldiersMillComingCloser" />
+				<TagPointAsset Name="enemy_2_wait" />
+				<TagPointAsset Name="enemy_1_wait" />
 			</Assets>
 			<Text StringName="nepratele_za_mlynem_cekaj_wJ5L" Text="Nepřátelé za mlýnem čekají na místě" />
 		</Module>

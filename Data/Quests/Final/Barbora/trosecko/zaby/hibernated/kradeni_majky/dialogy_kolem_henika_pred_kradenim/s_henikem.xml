@@ -73,6 +73,9 @@
 					<Edge From="henry_mluvil_s_vojkou_o_henikovi" To="A" />
 					<Edge From="henry_mluvil_s_prockem_o_henikovi" To="B" />
 				</Function>
+				<Function Name="deathcheck13" PositionY="1210" PositionX="-390" MethodName="wh::rpgmodule::DeathCheck" DeclaringType="wh::rpgmodule">
+					<Asset Name="Souls" Alias="manka" />
+				</Function>
 				<HasReputationFlag_SoulToSoul Name="HasReputationFlag_SoulToSoul" PositionY="320" PositionX="-600" Namespace="utils.reputation">
 					<Asset Name="observer" Alias="henik" />
 					<Asset Name="target" Alias="player" />
@@ -86,7 +89,7 @@
 					<Edge From="s_henikem.AfterPlay" To="turn_to_player" />
 					<Edge From="s_henikem.vyprovokovat_henika" To="vyprovokovat_henika" />
 				</Output>
-				<s_henikem Name="s_henikem" PositionY="-140" PositionX="0">
+				<s_henikem Name="s_henikem" PositionY="-450" PositionX="-30">
 					<Asset Name="DialogueHolder" Alias="henikDialog" />
 					<Edge From="and6.bool" To="henry_mluvil_s_mancinyma_rodicema" />
 					<Edge From="trigger_known" To="trigger_known" />
@@ -117,6 +120,7 @@
 					<Edge From="HasReputationFlag_SoulToSoul.hasreputationflag" To="dobra_reputace" />
 					<Edge From="TimeOfDayBetweenCheck.isbetween" To="henik_u_majky_ceka_na_rande" />
 					<Edge From="rande_bylo_zacato" To="rande_bylo_zacato" />
+					<Edge From="deathcheck13.IsDead" To="manka_mrtva" />
 				</s_henikem>
 				<State Name="state12" PositionY="810" PositionX="-410" TypeT="Progress">
 					<Edge From="s_henikem.rande_persuation_nevyslo" To="SetActive">
@@ -129,7 +133,7 @@
 					</Edge>
 				</State>
 				<TimeOfDayBetweenCheck Name="TimeOfDayBetweenCheck" PositionY="520" PositionX="-560" Namespace="utils.time">
-					<Constant Name="fromtime" Value="21h" />
+					<Constant Name="fromtime" Value="20h30m" />
 					<Constant Name="totime" Value="23h" />
 				</TimeOfDayBetweenCheck>
 			</Nodes>

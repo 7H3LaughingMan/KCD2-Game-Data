@@ -42,6 +42,9 @@
 				<Port Name="spustit_timer_pro_zabiti_zraneneho" Direction="Out" Type="trigger">
 					<DesignName StringName="s_rychtar_spustit_timer_p_0AzW" Text="Spustit timer pro zabiti zraneneho" />
 				</Port>
+				<Port Name="jindra_zaplatil_pokutu_smlouvanim" Direction="Out" Type="trigger">
+					<DesignName StringName="s_rychtar_jindra_zaplatil_HB1y" Text="Jindra zaplatil pokutu smlouvanim" />
+				</Port>
 			</Ports>
 			<Text StringName="s_rychtarem_v_miskovicich_1Uvx" Text="S rychtářem v Miskovicích" />
 			<Elements>
@@ -463,7 +466,7 @@
 																							</Sequences>
 																						</Decision>
 																					</Sequence>
-																					<Sequence ExitScript="SetupBribe(500)" EndType="Decision" Name="seq24">
+																					<Sequence ExitScript="SetupBribe(500)" EntryCondition="!ThisSequenceUsed()" EndType="Decision" Name="seq24">
 																						<DesignName StringName="s_rychtar_seq24_91gt" Text="seq24" />
 																						<UiPrompt StringName="ui_s_rychtar_seq24_A7Xe" Text="To je moc." />
 																						<Elements>
@@ -483,7 +486,7 @@
 																								<Sequence EntryCondition="var('success') == 1" EndType="GoTo" GoToDecision="dec7" Visibility="Public" Name="legalne_2">
 																									<DesignName StringName="s_rychtar_seq25_q0Px" Text="legálně 2" />
 																									<Triggers>
-																										<Port Name="jindra_zaplatil_pokutu" />
+																										<Port Name="jindra_zaplatil_pokutu_smlouvanim" />
 																									</Triggers>
 																									<Elements>
 																										<Response Role="RYCHTAR_MISKOVICE" ReferenceLength="5.4">

@@ -27,6 +27,15 @@
 				<Port Name="hrac_si_pujcil_longsword" Direction="Out" Type="bool">
 					<DesignName StringName="kontrola__hrac_si_pujcil__hV6M" Text="Hráč si pujčil longsword" />
 				</Port>
+				<Port Name="active" Direction="In" Type="bool">
+					<DesignName StringName="kontrola__active_pXn2" Text="Active vybava obj" />
+				</Port>
+				<Port Name="timeskip_vratequip" Direction="In" Type="trigger">
+					<DesignName StringName="kontrola__timeskip_vrateq_Rygv" Text="timeskip vratequip" />
+				</Port>
+				<Port Name="timeskip_vratequip_volna" Direction="In" Type="trigger">
+					<DesignName StringName="kontrola__timeskip_vrateq_5EwB" Text="timeskip vratEquip volna" />
+				</Port>
 			</Ports>
 			<Nodes>
 				<If Name="if6_2" PositionY="90" PositionX="280">
@@ -37,19 +46,43 @@
 					<Edge From="state5.BorrowedLongsword" To="Condition" />
 					<Edge From="zmena_discipliny_na_volny_boj" To="Exec" />
 				</If>
+				<If Name="if8" PositionY="-10" PositionX="790">
+					<Edge From="ifSiPucilStityANeniVMecich.False" To="Exec" />
+					<Edge From="if6_2_1.True" To="Exec" />
+					<Edge From="active" To="Condition">
+						<Vertex>ueDHpDdW</Vertex>
+					</Edge>
+					<Edge From="if9.True" To="Exec" />
+					<Edge From="if9_1.True" To="Exec" />
+				</If>
+				<If Name="if9" PositionY="730" PositionX="410">
+					<Edge From="state5.BorrowedShield" To="Condition" />
+					<Edge From="timeskip_vratequip" To="Exec">
+						<Vertex>kdb09Lr0</Vertex>
+					</Edge>
+					<Edge From="if9_1.False" To="Exec">
+						<Vertex>MPPWdeua</Vertex>
+						<Vertex>e9u8gzwb</Vertex>
+					</Edge>
+				</If>
+				<If Name="if9_1" PositionY="900" PositionX="410">
+					<Edge From="timeskip_vratequip_volna" To="Exec">
+						<Vertex>BG0lBdHr</Vertex>
+					</Edge>
+					<Edge From="state5.BorrowedLongsword" To="Condition" />
+				</If>
 				<If Name="ifSiPucilStityANeniVMecich" PositionY="-130" PositionX="520">
 					<Edge From="if6_2.True" To="Exec" />
 					<Edge From="hrac_registrovan_na_dlouhe_mece" To="Condition" />
 				</If>
 				<Output Name="Output">
-					<Edge From="if6_2_1.True" To="hrac_muze_vratit_vybavu" />
-					<Edge From="ifSiPucilStityANeniVMecich.False" To="hrac_muze_vratit_vybavu" />
 					<Edge From="state5.BorrowedShield" To="hrac_si_pujcil_shield_sword">
 						<Vertex>1NDFJ3us</Vertex>
 					</Edge>
 					<Edge From="state5.BorrowedLongsword" To="hrac_si_pujcil_longsword">
 						<Vertex>418Wz6rs</Vertex>
 					</Edge>
+					<Edge From="if8.True" To="hrac_muze_vratit_vybavu" />
 				</Output>
 				<State Name="state5" PositionY="360" PositionX="-240" TypeT="BorrowEquipmentObjective">
 					<Edge From="henry_dostane_vybavu_na_mec_a_stit" To="SetBorrowedShield" />
@@ -59,6 +92,11 @@
 			<EdgeVertices>
 				<EdgeVertex Name="1NDFJ3us" PositionY="639" PositionX="738" />
 				<EdgeVertex Name="418Wz6rs" PositionY="696" PositionX="843" />
+				<EdgeVertex Name="BG0lBdHr" PositionY="990" PositionX="-350" />
+				<EdgeVertex Name="e9u8gzwb" PositionY="1081" PositionX="425" />
+				<EdgeVertex Name="kdb09Lr0" PositionY="830" PositionX="-300" />
+				<EdgeVertex Name="MPPWdeua" PositionY="1083" PositionX="577" />
+				<EdgeVertex Name="ueDHpDdW" PositionY="41" PositionX="563" />
 			</EdgeVertices>
 			<Types>
 				<Type TypeName="BorrowEquipmentObjective">

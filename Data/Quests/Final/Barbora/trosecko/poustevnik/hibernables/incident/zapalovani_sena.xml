@@ -20,6 +20,14 @@
 				</Port>
 			</Ports>
 			<Nodes>
+				<SoulDeathTrigger Name="deathtrigger12" PositionY="-280" PositionX="-520">
+					<Asset Name="Souls" Alias="konrad" />
+					<Edge From="set_hay_on_fire.Started" To="IsActive">
+						<Vertex>vertex4</Vertex>
+						<Vertex>vertex5</Vertex>
+						<Vertex>2cKzyI6v</Vertex>
+					</Edge>
+				</SoulDeathTrigger>
 				<If Name="if10" PositionY="330" PositionX="170">
 					<Edge From="watch9.OnChanged" To="Exec" />
 					<Edge From="sledovani_sena_aktivni_nezapaleno" To="Condition">
@@ -37,7 +45,7 @@
 						<Vertex>vertex2</Vertex>
 					</Edge>
 				</If>
-				<If Name="if6" PositionY="-120" PositionX="-210">
+				<If Name="if6" PositionY="-80" PositionX="-230">
 					<Edge From="zacal_boj" To="Exec" />
 					<Edge From="set_hay_on_fire.Started" To="Condition">
 						<Vertex>vertex4</Vertex>
@@ -66,6 +74,7 @@
 					</Edge>
 					<Edge From="if6.True" To="SetAborted" />
 					<Edge From="if11.True" To="SetCompleted" />
+					<Edge From="deathtrigger12.OnDeath" To="SetAborted" />
 				</State>
 				<Watch Name="watch9" PositionY="250" PositionX="-160" TypeT="bool">
 					<Edge From="sledovani_sena_aktivni_nezapaleno" To="WatchedState">
@@ -75,6 +84,7 @@
 				</Watch>
 			</Nodes>
 			<EdgeVertices>
+				<EdgeVertex Name="2cKzyI6v" PositionY="63" PositionX="-530" />
 				<EdgeVertex Name="vertex1" PositionY="100" PositionX="330" />
 				<EdgeVertex Name="vertex10" PositionY="98" PositionX="-520" />
 				<EdgeVertex Name="vertex2" PositionY="100" PositionX="-190" />

@@ -36,6 +36,15 @@
 				<Port Name="s_jakesem_se_dohodli_na_usmireni" Direction="In" Type="bool">
 					<DesignName StringName="zmeny_ve__s_jakesem_se_do_HQPv" Text="S Jakešem se dohodli na usmíření" />
 				</Port>
+				<Port Name="hrac_odmitnul_vrazdit_az_po_zadani" Direction="In" Type="bool">
+					<DesignName StringName="zmeny_ve__hrac_odmitnul_v_YE6r" Text="Hráč odmítnul vraždit až po zadání" />
+				</Port>
+				<Port Name="konec_questu" Direction="In" Type="trigger">
+					<DesignName StringName="zmeny_ve__konec_questu_feHE" Text="konec questu" />
+				</Port>
+				<Port Name="seq7" Direction="In" Type="bool">
+					<DesignName StringName="zmeny_ve__seq7_mAuO" Text="Hráč selhal v smíření a Jakeš žije" />
+				</Port>
 				<Port Name="slama_ve_vezeni" Direction="In" Type="trigger">
 					<DesignName StringName="zmeny_ve__slama_ve_vezeni_tepF" Text="Sláma ve vězení" />
 				</Port>
@@ -48,6 +57,7 @@
 				<Definition File="zmeny_ve_svete_na_konci_questu/jindra_nad_hrobem_korenarky.xml" />
 				<Definition File="zmeny_ve_svete_na_konci_questu/jindrich_si_barkuje_u_popravene_pavleny.xml" />
 				<Definition File="zmeny_ve_svete_na_konci_questu/patch_pro_jakese.xml" />
+				<Definition File="zmeny_ve_svete_na_konci_questu/patch__pavlena_se_neobesila_po_faile_usmireni.xml" />
 			</Definitions>
 			<Nodes>
 				<Function Name="and61" PositionY="-1460" PositionX="490" MethodName="math::boolean::And" DeclaringType="math::boolean">
@@ -62,7 +72,6 @@
 					<Edge From="bozenaHanged.Hanged_barkInteractor" To="IsActive" />
 				</AreaTrigger>
 				<State Name="bozenaHanged" PositionY="-60" PositionX="2260" TypeT="BozenaHangedStage">
-					<Edge From="ifdeathcheck39.False" To="SetHanged_barkInteractor" />
 					<Edge From="cutscenehandler10.AfterPlay" To="SetBuried">
 						<Vertex>vertex94</Vertex>
 						<Vertex>vertex95</Vertex>
@@ -79,6 +88,7 @@
 						<Vertex>vertex92</Vertex>
 						<Vertex>vertex93</Vertex>
 					</Edge>
+					<Edge From="if76.True" To="SetHanged_barkInteractor" />
 				</State>
 				<Timer Name="countdownBeforePavlenaMurders" PositionY="-1580" PositionX="-550">
 					<Constant Name="Duration" Value="24h" />
@@ -97,6 +107,7 @@
 						<Vertex>SPIhchLX</Vertex>
 						<Vertex>vertex84</Vertex>
 					</Edge>
+					<Edge From="ifor74.True" To="SetRunning" />
 				</Timer>
 				<CutsceneHandler Name="cutscenehandler10" PositionY="230" PositionX="3320">
 					<Asset Name="CutsceneHolder" Alias="herbalistGrave" />
@@ -129,7 +140,7 @@
 					<Constant Name="Distance" Value="300" />
 					<Edge From="countdownBeforePavlenaMurders.Finished" To="IsActive" />
 				</DistanceTrigger>
-				<HasteTrigger Name="hangPavlena" PositionY="-1190" PositionX="1750" />
+				<HasteTrigger Name="hangPavlena" PositionY="-1330" PositionX="1760" />
 				<HasteTrigger Name="hangSlama" PositionY="1520" PositionX="-110">
 					<Constant Name="IsHidden" Value="false" />
 				</HasteTrigger>
@@ -140,16 +151,38 @@
 						<Vertex>vertex105</Vertex>
 					</Edge>
 				</If>
+				<If Name="if75" PositionY="-870" PositionX="1800">
+					<Edge From="triggersequence62.B" To="Exec">
+						<Vertex>vertex86</Vertex>
+					</Edge>
+					<Edge From="pavlenaHanged.None" To="Condition">
+						<Vertex>Bh2g8c5M</Vertex>
+						<Vertex>SJkaDD8l</Vertex>
+					</Edge>
+				</If>
+				<If Name="if76" PositionY="-80" PositionX="2000">
+					<Edge From="ifdeathcheck39.False" To="Exec" />
+					<Edge From="bozenaHanged.None" To="Condition">
+						<Vertex>UfzV4wfa</Vertex>
+						<Vertex>jen8aVto</Vertex>
+					</Edge>
+				</If>
 				<IfFunction Name="ifand41" PositionY="-950" PositionX="1110" MethodName="math::boolean::And" DeclaringType="math::boolean">
 					<Edge From="DistanceCheck_1.check" To="A" />
 					<Edge From="DistanceCheck_1_1.check" To="B" />
 					<Edge From="intermissiontrigger9.OnIntermission" To="Exec" />
 				</IfFunction>
-				<IfFunction Name="ifdeathcheck39" PositionY="-60" PositionX="2000" MethodName="wh::rpgmodule::DeathCheck" DeclaringType="wh::rpgmodule">
+				<IfFunction Name="ifdeathcheck39" PositionY="-70" PositionX="1710" MethodName="wh::rpgmodule::DeathCheck" DeclaringType="wh::rpgmodule">
 					<Asset Name="Souls" Alias="bozena" />
 					<Edge From="triggersequence62.B" To="Exec">
 						<Vertex>vertex86</Vertex>
 					</Edge>
+				</IfFunction>
+				<IfFunction Name="ifor74" PositionY="-1510" PositionX="-1150" MethodName="math::boolean::Or" DeclaringType="math::boolean">
+					<Edge From="hrac_odmitnul_vrazdit_az_po_zadani" To="B" />
+					<Edge From="seq7" To="A" />
+					<Edge From="konec_questu" To="Exec" />
+					<Edge From="patch__pavlena_se_neobesila_po_faile_usmireni.dodatocne_spustit_logiku_obeseni" To="Exec" />
 				</IfFunction>
 				<InteractionTriggerNode Name="interactiontrigger19" PositionY="230" PositionX="2860">
 					<Asset Name="Interactors" Alias="bozenaBuryTrigger" />
@@ -225,6 +258,12 @@
 						<Vertex>JobgdqRE</Vertex>
 					</Edge>
 				</Output>
+				<patch__pavlena_se_neobesila_po_faile_usmireni Name="patch__pavlena_se_neobesila_po_faile_usmireni" PositionY="-1790" PositionX="-1530">
+					<Edge From="pavlenaHanged.None" To="pavlena_neobesena">
+						<Vertex>xPg7vu3E</Vertex>
+						<Vertex>FDxvJozJ</Vertex>
+					</Edge>
+				</patch__pavlena_se_neobesila_po_faile_usmireni>
 				<patch_pro_jakese Name="patch_pro_jakese" PositionY="-370" PositionX="-20">
 					<Edge From="s_jakesem_se_dohodli_na_usmireni" To="s_jakesem_se_dohodli_na_usmireni" />
 				</patch_pro_jakese>
@@ -233,10 +272,8 @@
 						<Vertex>vertex90</Vertex>
 						<Vertex>vertex91</Vertex>
 					</Edge>
-					<Edge From="triggersequence62.B" To="SetHanged_withInteractor">
-						<Vertex>vertex86</Vertex>
-					</Edge>
 					<Edge From="hangPavlena.OnTrigger" To="SetHanged_withInteractor" />
+					<Edge From="if75.True" To="SetHanged_withInteractor" />
 				</State>
 				<Layer Name="profile54" PositionY="500" PositionX="2860">
 					<Asset Name="Profiles" Alias="bozenaGrave" />
@@ -322,10 +359,15 @@
 			</Nodes>
 			<EdgeVertices>
 				<EdgeVertex Name="aLLzeMHe" PositionY="1730" PositionX="680" />
+				<EdgeVertex Name="Bh2g8c5M" PositionY="-1038" PositionX="2484" />
 				<EdgeVertex Name="D8ER7mVV" PositionY="-1370" PositionX="-180" />
+				<EdgeVertex Name="FDxvJozJ" PositionY="-1930" PositionX="-1520" />
+				<EdgeVertex Name="jen8aVto" PositionY="-124" PositionX="2039" />
 				<EdgeVertex Name="JobgdqRE" PositionY="1714" PositionX="4280" />
 				<EdgeVertex Name="NEmn0JQC" PositionY="-840" PositionX="-210" />
+				<EdgeVertex Name="SJkaDD8l" PositionY="-1037" PositionX="1770" />
 				<EdgeVertex Name="SPIhchLX" PositionY="-1620" PositionX="220" />
+				<EdgeVertex Name="UfzV4wfa" PositionY="-121" PositionX="2635" />
 				<EdgeVertex Name="vertex100" PositionY="150" PositionX="100" />
 				<EdgeVertex Name="vertex102" PositionY="151" PositionX="551" />
 				<EdgeVertex Name="vertex104" PositionY="1473" PositionX="894" />
@@ -337,7 +379,7 @@
 				<EdgeVertex Name="vertex83" PositionY="-1630" PositionX="1530" />
 				<EdgeVertex Name="vertex84" PositionY="-1620" PositionX="-560" />
 				<EdgeVertex Name="vertex85" PositionY="-1640" PositionX="3970" />
-				<EdgeVertex Name="vertex86" PositionY="-440" PositionX="1820" />
+				<EdgeVertex Name="vertex86" PositionY="-440" PositionX="1690" />
 				<EdgeVertex Name="vertex88" PositionY="-1310" PositionX="2910" />
 				<EdgeVertex Name="vertex89" PositionY="-1310" PositionX="3960" />
 				<EdgeVertex Name="vertex90" PositionY="-440" PositionX="2970" />
@@ -350,6 +392,7 @@
 				<EdgeVertex Name="vertex97" PositionY="890" PositionX="4330" />
 				<EdgeVertex Name="vertex98" PositionY="-270" PositionX="3830" />
 				<EdgeVertex Name="vertex99" PositionY="708" PositionX="4270" />
+				<EdgeVertex Name="xPg7vu3E" PositionY="-1930" PositionX="2390" />
 			</EdgeVertices>
 			<Types>
 				<Type TypeName="PavlenaHangedStage">

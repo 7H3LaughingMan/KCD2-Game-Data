@@ -18,6 +18,9 @@
 				<Port Name="smecka_nezahnana_odevzdana_a_hrac_se_priznal" Direction="Out" Type="trigger">
 					<DesignName StringName="h_smecka_nezahnana_odevzd_SFmM" Text="Smečka nezahnána odevzdána a hráč se přiznal" />
 				</Port>
+				<Port Name="jindra_si_promluvil_s_ignacem" Direction="Out" Type="bool">
+					<DesignName StringName="h_jindra_si_promluvil_s_i_EbjV" Text="Jindra si promluvil s ignácem" />
+				</Port>
 				<Port Name="konec_s14_hledani_psa" Direction="Out" Type="trigger">
 					<DesignName StringName="h_konec_s14_hledani_psa_b4Wz" Text="Konec  S14 Hledání Psa" />
 				</Port>
@@ -53,6 +56,9 @@
 				</Port>
 				<Port Name="olupovac_odchazi" Direction="Out" Type="trigger">
 					<DesignName StringName="h_olupovac_odchazi_pNX0" Text="Olupovač odchází" />
+				</Port>
+				<Port Name="s26__objective_pij_s_kumany_je_aktivni" Direction="In" Type="bool">
+					<DesignName StringName="h_s26__objective_pij_s_ku_mEvq" Text="S26 - Objective Pij s Kumány je aktivní" />
 				</Port>
 			</Ports>
 			<Definitions>
@@ -168,6 +174,10 @@
 						<Vertex>vertex7</Vertex>
 						<Vertex>vertex25</Vertex>
 					</Edge>
+					<Edge From="s26__objective_pij_s_kumany_je_aktivni" To="s26__objective_pij_s_kumany_je_aktivni">
+						<Vertex>nzYM00wz</Vertex>
+						<Vertex>QwaJKfj1</Vertex>
+					</Edge>
 				</druha_smecka__hibernovano>
 				<If Name="if1" PositionY="-210" PositionX="-1140">
 					<Edge From="OnWake" To="Exec" />
@@ -243,6 +253,10 @@
 						<Vertex>CwC6IVBA</Vertex>
 						<Vertex>2BzokKcC</Vertex>
 					</Edge>
+					<Edge From="prvni_smecka.jindra_si_promluvil_s_ignacem" To="jindra_si_promluvil_s_ignacem">
+						<Vertex>VK2dMV3c</Vertex>
+						<Vertex>FYyVcm0q</Vertex>
+					</Edge>
 				</Output>
 				<pripravit_misto_prepadeni Name="pripravit_misto_prepadeni" PositionY="-290" PositionX="10">
 					<Edge From="hledaniPsa.OnActive" To="stream" />
@@ -250,7 +264,7 @@
 				<prozkoumat_misto_prepadeni Name="prozkoumat_misto_prepadeni" PositionY="-420" PositionX="620" RequiredForOutput="trosecko">
 					<Edge From="revive.onexec" To="quest_zacal" />
 				</prozkoumat_misto_prepadeni>
-				<prvni_smecka Name="prvni_smecka" PositionY="-360" PositionX="3030" RequiredForOutput="trosecko">
+				<prvni_smecka Name="prvni_smecka" PositionY="-390" PositionX="3030" RequiredForOutput="trosecko">
 					<Edge From="zibrid__odevzdani.smecka_zahnana_a_odevzdana" To="hrac_odevzdal_prvni_smecku">
 						<Vertex>vertex41</Vertex>
 						<Vertex>vertex42</Vertex>
@@ -349,6 +363,10 @@
 						<Vertex>vertex1</Vertex>
 						<Vertex>vertex2</Vertex>
 					</Edge>
+					<Edge From="u_hajn.jeste_me_nenapadlo_jit_za_lovcim" To="jeste_me_nenapadlo_jit_za_lovcim">
+						<Vertex>oYDfM73X</Vertex>
+						<Vertex>p9p4vxo7</Vertex>
+					</Edge>
 				</vyptavani_se_lidi_v_okoli>
 				<Watch Name="watch5" PositionY="-40" PositionX="-1220" TypeT="bool">
 					<Edge From="quest_muze_skoncit" To="WatchedState" />
@@ -391,6 +409,11 @@
 				<EdgeVertex Name="2BzokKcC" PositionY="710" PositionX="5380" />
 				<EdgeVertex Name="CwC6IVBA" PositionY="720" PositionX="1020" />
 				<EdgeVertex Name="D4rYGLEs" PositionY="680" PositionX="5370" />
+				<EdgeVertex Name="FYyVcm0q" PositionY="120" PositionX="4870" />
+				<EdgeVertex Name="nzYM00wz" PositionY="210" PositionX="-1390" />
+				<EdgeVertex Name="oYDfM73X" PositionY="160" PositionX="3780" />
+				<EdgeVertex Name="p9p4vxo7" PositionY="150" PositionX="1360" />
+				<EdgeVertex Name="QwaJKfj1" PositionY="210" PositionX="3860" />
 				<EdgeVertex Name="tF0amFlS" PositionY="690" PositionX="350" />
 				<EdgeVertex Name="vertex1" PositionY="-810" PositionX="3770" />
 				<EdgeVertex Name="vertex10" PositionY="80" PositionX="4380" />
@@ -476,6 +499,7 @@
 				<EdgeVertex Name="vertex97" PositionY="270" PositionX="4390" />
 				<EdgeVertex Name="vertex98" PositionY="-450" PositionX="1760" />
 				<EdgeVertex Name="vertex99" PositionY="330" PositionX="2400" />
+				<EdgeVertex Name="VK2dMV3c" PositionY="120" PositionX="3480" />
 			</EdgeVertices>
 			<Text StringName="h_HSfb" Text="h - Hledání psa - hibernováno" />
 			<Elements>

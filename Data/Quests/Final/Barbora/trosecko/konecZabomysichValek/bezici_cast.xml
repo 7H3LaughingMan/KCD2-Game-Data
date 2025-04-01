@@ -3,6 +3,9 @@
 	<Skald>
 		<Module Name="bezici_cast">
 			<Ports>
+				<Port Name="smrt_na_pastvine" Direction="In" Type="bool">
+					<DesignName StringName="bezici_ca_smrt_na_pastvine_ZlTL" Text="smrt na pastvině" />
+				</Port>
 				<Port Name="stav_questu" Direction="In" Type="wh::questmodule::QuestProgress">
 					<DesignName StringName="bezici_ca_stav_questu_MZiL" Text="stav questu" />
 				</Port>
@@ -57,6 +60,9 @@
 				<Port Name="konec_souboje" Direction="In" Type="trigger">
 					<DesignName StringName="bezici_ca_konec_souboje_EwbX" Text="konec souboje" />
 				</Port>
+				<Port Name="v_souboji_nekdo_umrel" Direction="In" Type="trigger">
+					<DesignName StringName="bezici_ca_v_souboji_nekdo_wcp6" Text="v souboji někdo umřel" />
+				</Port>
 				<Port Name="henry_viden_neviden_u_malovani" Direction="In" Type="PaintedBullPlayerPresence">
 					<DesignName StringName="bezici_ca_henry_viden_nev_0L2z" Text="Jindra viden neviděn u malování" />
 				</Port>
@@ -73,6 +79,7 @@
 				<Definition File="bezici_cast/drby_po_questu.xml" />
 				<Definition File="bezici_cast/dialog_po_quest_failu_pred_bitkou__procek_tachov_1.xml" />
 				<Definition File="bezici_cast/dialog_po_quest_failu_pred_bitkou__olbram_zelejov_1.xml" />
+				<Definition File="bezici_cast/souboj_vsichni_proti_jindrichovi.xml" />
 			</Definitions>
 			<Nodes>
 				<Function Name="compare12_1" PositionY="1690" PositionX="1090" TypeT="BorderPeg" MethodName="Control::Compare" DeclaringType="Control">
@@ -111,16 +118,21 @@
 					<Asset Name="Souls" Alias="drozd" />
 					<Edge From="secretReward.Started" To="IsActive" />
 				</SoulDeathTrigger>
-				<dialog_po_quest_failu_pred_bitkou__olbram_zelejov_1 Name="dialog_po_quest_failu_pred_bitkou__olbram_zelejov_1" PositionY="180" PositionX="1940">
+				<dialog_po_quest_failu_pred_bitkou__olbram_zelejov_1 Name="dialog_po_quest_failu_pred_bitkou__olbram_zelejov_1" PositionY="280" PositionX="1940">
 					<Edge From="stav_questu" To="stav_questu">
 						<Vertex>vertex18</Vertex>
 					</Edge>
-					<Edge From="henry_viden_neviden_u_malovani" To="henry_viden_neviden_u_malovani" />
+					<Edge From="henry_viden_neviden_u_malovani" To="henry_viden_neviden_u_malovani">
+						<Vertex>we7M65Wy</Vertex>
+					</Edge>
 					<Edge From="stav_questu_zaby" To="stav_questu_zaby">
 						<Vertex>vertex20</Vertex>
 					</Edge>
+					<Edge From="smrt_na_pastvine" To="smrt_na_pastvine">
+						<Vertex>9o7HyArK</Vertex>
+					</Edge>
 				</dialog_po_quest_failu_pred_bitkou__olbram_zelejov_1>
-				<dialog_po_quest_failu_pred_bitkou__procek_tachov_1 Name="dialog_po_quest_failu_pred_bitkou__procek_tachov_1" PositionY="-50" PositionX="1940">
+				<dialog_po_quest_failu_pred_bitkou__procek_tachov_1 Name="dialog_po_quest_failu_pred_bitkou__procek_tachov_1" PositionY="-20" PositionX="1940">
 					<Edge From="stav_questu" To="stav_questu">
 						<Vertex>vertex18</Vertex>
 					</Edge>
@@ -133,8 +145,11 @@
 					<Edge From="quest_state" To="stav_questu_mysi">
 						<Vertex>vertex19</Vertex>
 					</Edge>
+					<Edge From="smrt_na_pastvine" To="smrt_na_pastvine">
+						<Vertex>9o7HyArK</Vertex>
+					</Edge>
 				</dialog_po_quest_failu_pred_bitkou__procek_tachov_1>
-				<drby_po_questu Name="drby_po_questu" PositionY="-410" PositionX="240">
+				<drby_po_questu Name="drby_po_questu" PositionY="-510" PositionX="240">
 					<Edge From="stav_questu" To="stav_questu" />
 					<Edge From="quest_item_hreb.vyskyt_hrebiku_po_konci_questu" To="vyskyt_hrebiku_po_konci_questu" />
 					<Edge From="souboj_na_louce_probehl" To="souboj_na_louce_probehl" />
@@ -233,6 +248,9 @@
 					<Edge From="timer21.Running" To="IsActive" />
 					<Edge From="joinarrays23.Array" To="Souls" />
 				</SetEntityContext>
+				<souboj_vsichni_proti_jindrichovi Name="souboj_vsichni_proti_jindrichovi" PositionY="3670" PositionX="-360">
+					<Edge From="v_souboji_nekdo_umrel" To="v_souboji_nekdo_umrel" />
+				</souboj_vsichni_proti_jindrichovi>
 				<State Name="state15" PositionY="1530" PositionX="-40" TypeT="Progress">
 					<Edge From="konec_dialogu_drozd_resi_spor" To="SetActive" />
 					<Edge From="npcpolylogonspots.behavior_success" To="SetDone">
@@ -271,6 +289,7 @@
 			</Nodes>
 			<EdgeVertices>
 				<EdgeVertex Name="4eRJq06e" PositionY="310" PositionX="1870" />
+				<EdgeVertex Name="9o7HyArK" PositionY="-210" PositionX="1571" />
 				<EdgeVertex Name="E1z4HQ8E" PositionY="1670" PositionX="1020" />
 				<EdgeVertex Name="pyCTgr2W" PositionY="331" PositionX="1867" />
 				<EdgeVertex Name="vertex10" PositionY="1020" PositionX="620" />
@@ -287,6 +306,7 @@
 				<EdgeVertex Name="vertex8" PositionY="1330" PositionX="480" />
 				<EdgeVertex Name="vertex9" PositionY="1330" PositionX="-20" />
 				<EdgeVertex Name="W5lbhIWf" PositionY="250" PositionX="950" />
+				<EdgeVertex Name="we7M65Wy" PositionY="350" PositionX="-340" />
 			</EdgeVertices>
 			<Assets>
 				<ItemSlotAsset Name="placeForBorderPegCenter" />

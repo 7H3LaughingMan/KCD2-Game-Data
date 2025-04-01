@@ -5,6 +5,7 @@
 			<Variable name="additionalMoveParams" type="additionalMoveParams" values="stuckThreshold(5)" isPersistent="0" form="single" />
 			<Variable name="item" type="_wuid" values="" isPersistent="0" form="single" />
 			<Variable name="movePoints" type="_wuid" values="" isPersistent="0" form="associative" />
+			<Variable name="pathFindingParams" type="pathFindingParams" values="usePaths(false),useSmartObjects(false),useGeneratedNSO(false)" isPersistent="0" form="single" />
 		</Variables>
 		<Root OneTimeOnly="false" FailState="Recoverable" saveVersion="2">
 			<OnInit canSkip="1">
@@ -33,7 +34,7 @@
 												</Sequence>
 											</SuppressFailure>
 										</While>
-										<Move stopWithinDistance="0.200000" stopDistanceVariation="0.100000" rayCasteFlee="false" successDistance="0.000000" changeNPCState="true" fastForwardIncludesMove="false" destinationSpecification="$movePoints[&apos;second&apos;]" destinationSpecification2="" destinationSpecification3="" speed="Walk" additionalParams="$additionalMoveParams" pathFindingParams="" staminaPolicy="" pathInfo="" />
+										<Move stopWithinDistance="0.200000" stopDistanceVariation="0.100000" rayCasteFlee="false" successDistance="0.000000" changeNPCState="true" fastForwardIncludesMove="false" destinationSpecification="$movePoints[&apos;second&apos;]" destinationSpecification2="" destinationSpecification3="" speed="Walk" additionalParams="$additionalMoveParams" pathFindingParams="$pathFindingParams" staminaPolicy="" pathInfo="" />
 									</Parallel>
 									<Wait duration="&apos;5s&apos;" timeType="GameTime" doFail="false" variation="" />
 								</Sequence>
@@ -51,6 +52,7 @@
 				<Variable name="additionalMoveParams" comment="" />
 				<Variable name="item" comment="" />
 				<Variable name="movePoints" comment="" />
+				<Variable name="pathFindingParams" comment="" />
 			</Variables>
 			<ForwardDeclarations />
 			<Root hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">

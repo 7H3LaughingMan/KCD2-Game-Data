@@ -15,6 +15,15 @@
 				<Port Name="mluvil_jsem_s_mikolajem" Direction="In" Type="bool">
 					<DesignName StringName="bibrek__o_mluvil_jsem_s_m_tDP8" Text="Mluvil jsem s Mikolajem" />
 				</Port>
+				<Port Name="hracprichazizchatu" Direction="In" Type="bool">
+					<DesignName StringName="bibrek__o_hracprichazizch_s36E" Text="hracPrichaziZChatu" />
+				</Port>
+				<Port Name="mluvili_jsme_o_zavodech" Direction="Out" Type="trigger">
+					<DesignName StringName="bibrek__o_mluvili_jsme_o__wE17" Text="Mluvili jsme o závodech" />
+				</Port>
+				<Port Name="spust_dialog" Direction="In" Type="trigger">
+					<DesignName StringName="bibrek__o_spust_dialog_VmSh" Text="Spusť dialog" />
+				</Port>
 			</Ports>
 			<Definitions>
 				<Definition File="bibrek__o_konfliktu/bibrek__o_konfliktu.xml" />
@@ -25,18 +34,31 @@
 					<Edge From="mluvil_jsem_s_mikolajem" To="mluvil_jsem_s_mikolajem">
 						<Vertex>vertex4</Vertex>
 					</Edge>
+					<Edge From="createdialogparams11.DialogParams" To="DialogParams" />
+					<Edge From="spust_dialog" To="EnqueueDialogue">
+						<Vertex>P2nsmbKe</Vertex>
+					</Edge>
+					<Edge From="hracprichazizchatu" To="hrac_jde_z_chatu">
+						<Vertex>nhjxsdEI</Vertex>
+					</Edge>
 				</bibrek__o_konfliktu>
-				<Function Name="deathcheck10_1" PositionY="-360" PositionX="-340" MethodName="wh::rpgmodule::DeathCheck" DeclaringType="wh::rpgmodule">
+				<Function Name="createdialogparams11" PositionY="-790" PositionX="-490" MethodName="wh::dialogmodule::CreateDialogParams" DeclaringType="wh::dialogmodule">
+					<Asset Name="Participants" Alias="npc_bibrek" />
+				</Function>
+				<Function Name="deathcheck10_1" PositionY="-360" PositionX="-430" MethodName="wh::rpgmodule::DeathCheck" DeclaringType="wh::rpgmodule">
 					<Asset Name="Souls" Alias="npc_mikolaj" />
 				</Function>
 				<Output Name="Output">
 					<Edge From="bibrek__o_konfliktu.bibrek_promluveno" To="bibrek_promluveno" />
 					<Edge From="bibrek__o_konfliktu.startWithCuman" To="startwithcuman" />
 					<Edge From="bibrek__o_konfliktu.bibrek_me_vede_do_hadky" To="bibrek_me_vede_do_hadky" />
+					<Edge From="bibrek__o_konfliktu.mluvili_jsem_o_zavodech" To="mluvili_jsme_o_zavodech" />
 				</Output>
 			</Nodes>
 			<EdgeVertices>
-				<EdgeVertex Name="vertex4" PositionY="60" PositionX="-130" />
+				<EdgeVertex Name="nhjxsdEI" PositionY="50" PositionX="-110" />
+				<EdgeVertex Name="P2nsmbKe" PositionY="80" PositionX="-120" />
+				<EdgeVertex Name="vertex4" PositionY="20" PositionX="-110" />
 			</EdgeVertices>
 		</DialogWrapper>
 	</Skald>

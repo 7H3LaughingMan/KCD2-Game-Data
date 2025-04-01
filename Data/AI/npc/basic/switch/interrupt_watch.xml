@@ -33,6 +33,8 @@
 			<Variable name="skirmishParticipants" type="_wuid" values="" isPersistent="0" form="array" />
 			<Variable name="stimulus_hit" type="switch:stimulus:hit" values="" isPersistent="0" form="single" />
 			<Variable name="targetPosition" type="vec3" values="" isPersistent="0" form="single" />
+			<Variable name="threat_shouldDrawWeapon" type="_bool" values="true" isPersistent="0" form="single" />
+			<Variable name="threat_waitActionFinished" type="_bool" values="" isPersistent="0" form="single" />
 			<Variable name="useNonviolentAnims" type="_bool" values="true" isPersistent="0" form="single" />
 			<Variable name="useViolentAnims" type="_bool" values="true" isPersistent="0" form="single" />
 			<Variable name="useViolentAnimsForNonviolentChance" type="_float" values="0.2" isPersistent="0" form="single" />
@@ -95,11 +97,11 @@
 																			</Loop>
 																			<While doFail="false" propagateChildFail="false" condition="true">
 																				<IfGate atomic="false" condition="$watchData.defenceMode |  &#10;$data:crime[$watchData.information.label].isCrime |  &#10;$watchingCombat | &#10;$watchData.stimulusKind == $enum:crime_stimulusKind.threat" RunLogic="Halt">
-																					<EntityContext context="speech_greyOutE" target="$this.id">
-																						<EntityContextElement context="speech_greyOutE" enabled="true">
+																					<EntityContextPreset preset="crime_greyOutEAndDisableChat" target="$this.id">
+																						<EntityContextPresetElement contextPreset="crime_greyOutEAndDisableChat" enabled="true">
 																							<Wait duration="&apos;-1&apos;" timeType="GameTime" doFail="false" variation="" />
-																						</EntityContextElement>
-																					</EntityContext>
+																						</EntityContextPresetElement>
+																					</EntityContextPreset>
 																				</IfGate>
 																			</While>
 																			<While doFail="false" propagateChildFail="false" condition="true">
@@ -165,9 +167,12 @@
 																			</While>
 																			<While doFail="false" propagateChildFail="false" condition="true">
 																				<IfGate atomic="false" condition="$watchData.target == $__player &amp; &#10;($data:crime[$watchData.information.label].isCrime | &#10; $watchingCombat &#10;)" RunLogic="Halt">
-																					<EntityContext context="crime_escalationLevel_recognizing" target="">
-																						<Function_crime_playerInstantRecognitionHandler nodeLabel="21350398" />
-																					</EntityContext>
+																					<Sequence>
+																						<ShowTutorial Name="crimeIcon_general" />
+																						<EntityContext context="crime_escalationLevel_recognizing" target="">
+																							<Function_crime_playerInstantRecognitionHandler nodeLabel="21350398" />
+																						</EntityContext>
+																					</Sequence>
 																				</IfGate>
 																			</While>
 																			<IfGate atomic="false" condition="$initialInterferenceSet" RunLogic="KeepRunning">
@@ -313,7 +318,30 @@
 																															<UrgencyDecorator Urgency="Fast">
 																																<MoveParamsDecorator speed="Walk" pathFindingParams="" doorClosingPolicy="LeaveOpened">
 																																	<EntityContextElement context="actorCondition_forcedCrimeWatching_violent" enabled="$useViolentAnims">
-																																		<CrimeFollower Target="$watchData.target" Mode="Default" Role="Observer" RelativeSpeedLimit="Dash" DisableGhosting="false" />
+																																		<Parallel successMode="Any" failureMode="Any">
+																																			<CrimeFollower Target="$watchData.target" Mode="Default" Role="Observer" RelativeSpeedLimit="Dash" DisableGhosting="false" />
+																																			<DistanceGate Origin="$this.id" ReferencePt="$watchData.target" Low="$data:script_param[&apos;crime_watch_fleeDistance&apos;].value" High="$data:script_param[&apos;crime_watch_fleeDistance&apos;].value" Negation="true" OpenInMiddle="false" RunLogic="KeepRunning">
+																																				<Loop count="-1">
+																																					<IsIndifferent NPC="$watchData.target" saveVersion="2">
+																																						<Then canSkip="1">
+																																							<Wait duration="&apos;5s&apos;" timeType="GameTime" doFail="false" variation="" />
+																																						</Then>
+																																						<Else canSkip="1">
+																																							<DistanceGate Origin="$this.id" ReferencePt="$watchData.target" Low="$data:script_param[&apos;crime_watch_fleeDistance&apos;].value" High="$data:script_param[&apos;crime_watch_fleeDistance&apos;].value" Negation="false" OpenInMiddle="false" RunLogic="KeepRunning">
+																																								<EntityContextCheck context="combat_neverSurrenderOrFlee" target="" saveVersion="2">
+																																									<Then canSkip="1">
+																																										<Wait duration="&apos;5s&apos;" timeType="GameTime" doFail="false" variation="" />
+																																									</Then>
+																																									<Else canSkip="1">
+																																										<Function_callInterrupt_flee assaultData="" corpseState="$enum:corpseState.undiscovered" criminalFreshness="$enum:crime_criminalFreshness.unknown" freshlyAttributedCrime="false" ignorePriority="true" information="$watchData.information" initiator="$enum:switch_interruptInitiator.scheduler" isIndifferent="false" leaveLevel="false" mercyDialogueResult="$enum:crime_mercyDialogueResult.unknown" previousReaction="$enum:crime_reactionKind.watch" priority="135" source="$enum:crime_source.personal" stimulusKind="$watchData.stimulusKind" target="$watchData.target" nodeLabel="39705944" />
+																																									</Else>
+																																								</EntityContextCheck>
+																																							</DistanceGate>
+																																						</Else>
+																																					</IsIndifferent>
+																																				</Loop>
+																																			</DistanceGate>
+																																		</Parallel>
 																																	</EntityContextElement>
 																																</MoveParamsDecorator>
 																															</UrgencyDecorator>
@@ -347,6 +375,7 @@
 																											<IfCondition failOnCondition="false" condition="$watchData.stimulusKind == $enum:crime_stimulusKind.threat">
 																												<EntityContextElement context="actorCondition_forcedCrimeWatching_violent" enabled="$useViolentAnims">
 																													<Parallel successMode="Any" failureMode="Any">
+																														<Function_crime_weaponDecorator suppressWaitAction="false" weaponSet="&apos;Primary&apos;" shouldHaveDrawnWeapon="$threat_shouldDrawWeapon" waitActionFinished="$threat_waitActionFinished" nodeLabel="66297240" />
 																														<Loop count="-1">
 																															<Sequence>
 																																<HasPerceivableState PerceivableState="&apos;threat&apos;" PerceivedWUID="$__player" PerceptorWUID="$this.id" FailSubtMissing="false" saveVersion="2">
@@ -381,9 +410,11 @@
 																																<Wait duration="&apos;250ms&apos;" timeType="GameTime" doFail="false" variation="" />
 																															</Sequence>
 																														</Loop>
-																														<UrgencyDecorator Urgency="Fast">
-																															<CrimeFollower Target="$watchData.target" Mode="NoMoveOnlyTurn" Role="Observer" RelativeSpeedLimit="Dash" DisableGhosting="false" />
-																														</UrgencyDecorator>
+																														<IfGate atomic="false" condition="$threat_waitActionFinished" RunLogic="KeepRunning">
+																															<UrgencyDecorator Urgency="Fast">
+																																<CrimeFollower Target="$watchData.target" Mode="NoMoveOnlyTurn" Role="Observer" RelativeSpeedLimit="Dash" DisableGhosting="false" />
+																															</UrgencyDecorator>
+																														</IfGate>
 																													</Parallel>
 																												</EntityContextElement>
 																											</IfCondition>
@@ -507,7 +538,30 @@
 																															<UrgencyDecorator Urgency="Fast">
 																																<MoveParamsDecorator speed="Walk" pathFindingParams="" doorClosingPolicy="LeaveOpened">
 																																	<EntityContextElement context="actorCondition_forcedCrimeWatching_violent" enabled="$useViolentAnims">
-																																		<CrimeFollower Target="$watchData.target" Mode="Default" Role="Observer" RelativeSpeedLimit="Dash" DisableGhosting="false" />
+																																		<Parallel successMode="Any" failureMode="Any">
+																																			<CrimeFollower Target="$watchData.target" Mode="Default" Role="Observer" RelativeSpeedLimit="Dash" DisableGhosting="false" />
+																																			<DistanceGate Origin="$this.id" ReferencePt="$watchData.target" Low="$data:script_param[&apos;crime_watch_fleeDistance&apos;].value" High="$data:script_param[&apos;crime_watch_fleeDistance&apos;].value" Negation="true" OpenInMiddle="false" RunLogic="KeepRunning">
+																																				<Loop count="-1">
+																																					<IsIndifferent NPC="$watchData.target" saveVersion="2">
+																																						<Then canSkip="1">
+																																							<Wait duration="&apos;5s&apos;" timeType="GameTime" doFail="false" variation="" />
+																																						</Then>
+																																						<Else canSkip="1">
+																																							<DistanceGate Origin="$this.id" ReferencePt="$watchData.target" Low="$data:script_param[&apos;crime_watch_fleeDistance&apos;].value" High="$data:script_param[&apos;crime_watch_fleeDistance&apos;].value" Negation="false" OpenInMiddle="false" RunLogic="KeepRunning">
+																																								<EntityContextCheck context="combat_neverSurrenderOrFlee" target="" saveVersion="2">
+																																									<Then canSkip="1">
+																																										<Wait duration="&apos;5s&apos;" timeType="GameTime" doFail="false" variation="" />
+																																									</Then>
+																																									<Else canSkip="1">
+																																										<Function_callInterrupt_flee assaultData="" corpseState="$enum:corpseState.undiscovered" criminalFreshness="$enum:crime_criminalFreshness.unknown" freshlyAttributedCrime="false" ignorePriority="true" information="$watchData.information" initiator="$enum:switch_interruptInitiator.scheduler" isIndifferent="false" leaveLevel="false" mercyDialogueResult="$enum:crime_mercyDialogueResult.unknown" previousReaction="$enum:crime_reactionKind.watch" priority="135" source="$enum:crime_source.personal" stimulusKind="$watchData.stimulusKind" target="$watchData.target" nodeLabel="43109926" />
+																																									</Else>
+																																								</EntityContextCheck>
+																																							</DistanceGate>
+																																						</Else>
+																																					</IsIndifferent>
+																																				</Loop>
+																																			</DistanceGate>
+																																		</Parallel>
 																																	</EntityContextElement>
 																																</MoveParamsDecorator>
 																															</UrgencyDecorator>
@@ -636,35 +690,49 @@
 																													<Wait duration="&apos;10s&apos;" timeType="GameTime" doFail="false" variation="&apos;10s&apos;" />
 																												</DefaultBranch>
 																											</Switch>
-																											<IfElseCondition failOnCondition="false" condition="$watchData.target == $__player" saveVersion="2">
+																											<EntityContextCheck context="crime_inCrimeDialog" target="$__player" saveVersion="2">
 																												<Then canSkip="1">
-																													<HasSeenPlayer NPC="$this.id" FullyAwareOnly="true" saveVersion="2">
-																														<Then canSkip="1">
-																															<IfElseCondition failOnCondition="false" condition="$watchData.stimulusKind == $enum:crime_stimulusKind.trespass" saveVersion="2">
-																																<Then canSkip="1">
-																																	<Function_watch_shouldBarkInTrespass canBark="$canBark" nodeLabel="28591019" />
-																																</Then>
-																																<Else canSkip="1">
-																																	<Expression expressions="$canBark = true" />
-																																</Else>
-																															</IfElseCondition>
-																														</Then>
-																														<Else canSkip="1">
-																															<Expression expressions="$canBark = false" />
-																														</Else>
-																													</HasSeenPlayer>
+																													<Expression expressions="$canBark = false" />
 																												</Then>
 																												<Else canSkip="1">
-																													<IfElseCondition failOnCondition="false" condition="~$watchedCombat &amp; &#10;$watchData.previousReaction == $enum:crime_reactionKind.wakeUp &amp; &#10;$watchData.initiatedBy == $enum:switch_interruptInitiator.scheduler" saveVersion="2">
+																													<EntityContextCheck context="crime_disableInterruptWatchBarks" target="" saveVersion="2">
 																														<Then canSkip="1">
 																															<Expression expressions="$canBark = false" />
 																														</Then>
 																														<Else canSkip="1">
-																															<Expression expressions="$canBark = true" />
+																															<IfElseCondition failOnCondition="false" condition="$watchData.target == $__player" saveVersion="2">
+																																<Then canSkip="1">
+																																	<HasSeenPlayer NPC="$this.id" FullyAwareOnly="true" saveVersion="2">
+																																		<Then canSkip="1">
+																																			<IfElseCondition failOnCondition="false" condition="$watchData.stimulusKind == $enum:crime_stimulusKind.trespass" saveVersion="2">
+																																				<Then canSkip="1">
+																																					<Function_watch_shouldBarkInTrespass canBark="$canBark" nodeLabel="28591019" />
+																																				</Then>
+																																				<Else canSkip="1">
+																																					<Expression expressions="$canBark = true" />
+																																				</Else>
+																																			</IfElseCondition>
+																																		</Then>
+																																		<Else canSkip="1">
+																																			<Expression expressions="$canBark = false" />
+																																		</Else>
+																																	</HasSeenPlayer>
+																																</Then>
+																																<Else canSkip="1">
+																																	<IfElseCondition failOnCondition="false" condition="~$watchedCombat &amp; &#10;$watchData.previousReaction == $enum:crime_reactionKind.wakeUp &amp; &#10;$watchData.initiatedBy == $enum:switch_interruptInitiator.scheduler" saveVersion="2">
+																																		<Then canSkip="1">
+																																			<Expression expressions="$canBark = false" />
+																																		</Then>
+																																		<Else canSkip="1">
+																																			<Expression expressions="$canBark = true" />
+																																		</Else>
+																																	</IfElseCondition>
+																																</Else>
+																															</IfElseCondition>
 																														</Else>
-																													</IfElseCondition>
+																													</EntityContextCheck>
 																												</Else>
-																											</IfElseCondition>
+																											</EntityContextCheck>
 																											<IfCondition failOnCondition="false" condition="$canBark">
 																												<InstantSemaphore SemaphoreCount="1" LockManagerType="Global" SemaphoreName="&apos;crime_global_watchBarks&apos;">
 																													<Sequence>
@@ -778,6 +846,8 @@
 				<Variable name="skirmishParticipants" comment="" />
 				<Variable name="stimulus_hit" comment="" />
 				<Variable name="targetPosition" comment="" />
+				<Variable name="threat_shouldDrawWeapon" comment="" />
+				<Variable name="threat_waitActionFinished" comment="" />
 				<Variable name="useNonviolentAnims" comment="" />
 				<Variable name="useViolentAnims" comment="" />
 				<Variable name="useViolentAnimsForNonviolentChance" comment="" />
@@ -879,15 +949,15 @@
 																					<OutputBreakpoints />
 																					<IfGate hasInputBreakpoint="0" comment="" breakpointFlags="0">
 																						<OutputBreakpoints />
-																						<EntityContext hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																						<EntityContextPreset hasInputBreakpoint="0" comment="" breakpointFlags="0">
 																							<OutputBreakpoints />
-																							<EntityContextElement hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																							<EntityContextPresetElement hasInputBreakpoint="0" comment="" breakpointFlags="0">
 																								<OutputBreakpoints />
 																								<Wait hasInputBreakpoint="0" comment="" breakpointFlags="0">
 																									<OutputBreakpoints />
 																								</Wait>
-																							</EntityContextElement>
-																						</EntityContext>
+																							</EntityContextPresetElement>
+																						</EntityContextPreset>
 																					</IfGate>
 																				</While>
 																				<While hasInputBreakpoint="0" comment="" breakpointFlags="0">
@@ -997,12 +1067,18 @@
 																					<OutputBreakpoints />
 																					<IfGate hasInputBreakpoint="0" comment="only when wathing player in combat or for a crime" breakpointFlags="0">
 																						<OutputBreakpoints />
-																						<EntityContext hasInputBreakpoint="0" comment="watch ikonka" breakpointFlags="0">
+																						<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
 																							<OutputBreakpoints />
-																							<Function_crime_playerInstantRecognitionHandler hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																							<ShowTutorial hasInputBreakpoint="0" comment="" breakpointFlags="0">
 																								<OutputBreakpoints />
-																							</Function_crime_playerInstantRecognitionHandler>
-																						</EntityContext>
+																							</ShowTutorial>
+																							<EntityContext hasInputBreakpoint="0" comment="watch ikonka" breakpointFlags="0">
+																								<OutputBreakpoints />
+																								<Function_crime_playerInstantRecognitionHandler hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																									<OutputBreakpoints />
+																								</Function_crime_playerInstantRecognitionHandler>
+																							</EntityContext>
+																						</Sequence>
 																					</IfGate>
 																				</While>
 																				<IfGate hasInputBreakpoint="0" comment="" breakpointFlags="0">
@@ -1257,9 +1333,44 @@
 																																		<OutputBreakpoints />
 																																		<EntityContextElement hasInputBreakpoint="0" comment="" breakpointFlags="0">
 																																			<OutputBreakpoints />
-																																			<CrimeFollower hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																																			<Parallel hasInputBreakpoint="0" comment="" breakpointFlags="0">
 																																				<OutputBreakpoints />
-																																			</CrimeFollower>
+																																				<CrimeFollower hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																																					<OutputBreakpoints />
+																																				</CrimeFollower>
+																																				<DistanceGate hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																																					<OutputBreakpoints />
+																																					<Loop hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																																						<OutputBreakpoints />
+																																						<IsIndifferent hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
+																																							<OutputBreakpoints />
+																																							<Then>
+																																								<Wait hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																																									<OutputBreakpoints />
+																																								</Wait>
+																																							</Then>
+																																							<Else>
+																																								<DistanceGate hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																																									<OutputBreakpoints />
+																																									<EntityContextCheck hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
+																																										<OutputBreakpoints />
+																																										<Then>
+																																											<Wait hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																																												<OutputBreakpoints />
+																																											</Wait>
+																																										</Then>
+																																										<Else>
+																																											<Function_callInterrupt_flee hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																																												<OutputBreakpoints />
+																																											</Function_callInterrupt_flee>
+																																										</Else>
+																																									</EntityContextCheck>
+																																								</DistanceGate>
+																																							</Else>
+																																						</IsIndifferent>
+																																					</Loop>
+																																				</DistanceGate>
+																																			</Parallel>
 																																		</EntityContextElement>
 																																	</MoveParamsDecorator>
 																																</UrgencyDecorator>
@@ -1317,6 +1428,9 @@
 																														<OutputBreakpoints />
 																														<Parallel hasInputBreakpoint="0" comment="" breakpointFlags="0">
 																															<OutputBreakpoints />
+																															<Function_crime_weaponDecorator hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																																<OutputBreakpoints />
+																															</Function_crime_weaponDecorator>
 																															<Loop hasInputBreakpoint="0" comment="" breakpointFlags="0">
 																																<OutputBreakpoints />
 																																<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
@@ -1376,12 +1490,15 @@
 																																	</Wait>
 																																</Sequence>
 																															</Loop>
-																															<UrgencyDecorator hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																															<IfGate hasInputBreakpoint="0" comment="" breakpointFlags="0">
 																																<OutputBreakpoints />
-																																<CrimeFollower hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																																<UrgencyDecorator hasInputBreakpoint="0" comment="" breakpointFlags="0">
 																																	<OutputBreakpoints />
-																																</CrimeFollower>
-																															</UrgencyDecorator>
+																																	<CrimeFollower hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																																		<OutputBreakpoints />
+																																	</CrimeFollower>
+																																</UrgencyDecorator>
+																															</IfGate>
 																														</Parallel>
 																													</EntityContextElement>
 																												</IfCondition>
@@ -1580,9 +1697,44 @@
 																																		<OutputBreakpoints />
 																																		<EntityContextElement hasInputBreakpoint="0" comment="" breakpointFlags="0">
 																																			<OutputBreakpoints />
-																																			<CrimeFollower hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																																			<Parallel hasInputBreakpoint="0" comment="" breakpointFlags="0">
 																																				<OutputBreakpoints />
-																																			</CrimeFollower>
+																																				<CrimeFollower hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																																					<OutputBreakpoints />
+																																				</CrimeFollower>
+																																				<DistanceGate hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																																					<OutputBreakpoints />
+																																					<Loop hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																																						<OutputBreakpoints />
+																																						<IsIndifferent hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
+																																							<OutputBreakpoints />
+																																							<Then>
+																																								<Wait hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																																									<OutputBreakpoints />
+																																								</Wait>
+																																							</Then>
+																																							<Else>
+																																								<DistanceGate hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																																									<OutputBreakpoints />
+																																									<EntityContextCheck hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
+																																										<OutputBreakpoints />
+																																										<Then>
+																																											<Wait hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																																												<OutputBreakpoints />
+																																											</Wait>
+																																										</Then>
+																																										<Else>
+																																											<Function_callInterrupt_flee hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																																												<OutputBreakpoints />
+																																											</Function_callInterrupt_flee>
+																																										</Else>
+																																									</EntityContextCheck>
+																																								</DistanceGate>
+																																							</Else>
+																																						</IsIndifferent>
+																																					</Loop>
+																																				</DistanceGate>
+																																			</Parallel>
 																																		</EntityContextElement>
 																																	</MoveParamsDecorator>
 																																</UrgencyDecorator>
@@ -1794,49 +1946,69 @@
 																														</Wait>
 																													</DefaultBranch>
 																												</Switch>
-																												<IfElseCondition hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
+																												<EntityContextCheck hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
 																													<OutputBreakpoints />
 																													<Then>
-																														<HasSeenPlayer hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
+																														<Expression hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																															<OutputBreakpoints />
+																														</Expression>
+																													</Then>
+																													<Else>
+																														<EntityContextCheck hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
 																															<OutputBreakpoints />
 																															<Then>
+																																<Expression hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																																	<OutputBreakpoints />
+																																</Expression>
+																															</Then>
+																															<Else>
 																																<IfElseCondition hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
 																																	<OutputBreakpoints />
 																																	<Then>
-																																		<Function_watch_shouldBarkInTrespass hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																																		<HasSeenPlayer hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
 																																			<OutputBreakpoints />
-																																		</Function_watch_shouldBarkInTrespass>
+																																			<Then>
+																																				<IfElseCondition hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
+																																					<OutputBreakpoints />
+																																					<Then>
+																																						<Function_watch_shouldBarkInTrespass hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																																							<OutputBreakpoints />
+																																						</Function_watch_shouldBarkInTrespass>
+																																					</Then>
+																																					<Else>
+																																						<Expression hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																																							<OutputBreakpoints />
+																																						</Expression>
+																																					</Else>
+																																				</IfElseCondition>
+																																			</Then>
+																																			<Else>
+																																				<Expression hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																																					<OutputBreakpoints />
+																																				</Expression>
+																																			</Else>
+																																		</HasSeenPlayer>
 																																	</Then>
 																																	<Else>
-																																		<Expression hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																																		<IfElseCondition hasInputBreakpoint="0" comment="KCD2-426546" breakpointFlags="0" saveVersion="2">
 																																			<OutputBreakpoints />
-																																		</Expression>
+																																			<Then>
+																																				<Expression hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																																					<OutputBreakpoints />
+																																				</Expression>
+																																			</Then>
+																																			<Else>
+																																				<Expression hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																																					<OutputBreakpoints />
+																																				</Expression>
+																																			</Else>
+																																		</IfElseCondition>
 																																	</Else>
 																																</IfElseCondition>
-																															</Then>
-																															<Else>
-																																<Expression hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																																	<OutputBreakpoints />
-																																</Expression>
 																															</Else>
-																														</HasSeenPlayer>
-																													</Then>
-																													<Else>
-																														<IfElseCondition hasInputBreakpoint="0" comment="KCD2-426546" breakpointFlags="0" saveVersion="2">
-																															<OutputBreakpoints />
-																															<Then>
-																																<Expression hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																																	<OutputBreakpoints />
-																																</Expression>
-																															</Then>
-																															<Else>
-																																<Expression hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																																	<OutputBreakpoints />
-																																</Expression>
-																															</Else>
-																														</IfElseCondition>
+																														</EntityContextCheck>
 																													</Else>
-																												</IfElseCondition>
+																												</EntityContextCheck>
 																												<IfCondition hasInputBreakpoint="0" comment="" breakpointFlags="0">
 																													<OutputBreakpoints />
 																													<InstantSemaphore hasInputBreakpoint="0" comment="" breakpointFlags="0">

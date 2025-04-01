@@ -36,14 +36,14 @@
 				<Port Name="raznice_predana_1" Direction="In" Type="trigger">
 					<DesignName StringName="quest_ite_raznice_predana_GWEb" Text="raznice předána Kristiánovi" />
 				</Port>
-				<Port Name="predani_vavakova_dopisu" Direction="In" Type="trigger">
-					<DesignName StringName="quest_ite_predani_vavakov_WfL0" Text="dopis od Vaváka předán Kristiánovi" />
-				</Port>
 				<Port Name="predani_buresova_glejtu" Direction="In" Type="trigger">
 					<DesignName StringName="quest_ite_predani_buresov_nUA8" Text="předání burešova glejtu" />
 				</Port>
 				<Port Name="quest_ended" Direction="In" Type="trigger">
 					<DesignName StringName="quest_ite_quest_ended_6yYM" Text="quest ended" />
+				</Port>
+				<Port Name="odevzdat_ucetni_knihy" Direction="In" Type="trigger">
+					<DesignName StringName="quest_ite_odevzdat_ucetni_k12X" Text="Odevzdat Vavákův dopis v M35" />
 				</Port>
 			</Ports>
 			<Definitions>
@@ -74,12 +74,6 @@
 					<Asset Name="StartingLocation" Alias="secretMintStash_guards" />
 					<Edge From="keyToSecretMintStash_duringQuest.BuresSoldier" To="IsActive" />
 				</AddQuestItem>
-				<AddQuestItem Name="addquestitem1_1_1_1_1" PositionY="510" PositionX="570">
-					<Constant Name="ItemClassGUID" Value="4bacfae1-06e9-482a-be59-3d98ebf7410a" />
-					<Asset Name="BackupLocation" Alias="kristiansStash" />
-					<Asset Name="StartingLocation" Alias="kristian" />
-					<Edge From="letterFromVavak_duringQuest.Kristian" To="IsActive" />
-				</AddQuestItem>
 				<AddQuestItem Name="addquestitem1_1_1_1_1_1" PositionY="4040" PositionX="610">
 					<Constant Name="ItemClassGUID" Value="94f335e3-ae54-49b3-a9f8-762bf2f68620" />
 					<Asset Name="BackupLocation" Alias="secretMintStash_miners" />
@@ -104,11 +98,12 @@
 					<Asset Name="StartingLocation" Alias="bures" />
 					<Edge From="keyToSecretMintStash_duringQuest.Bures" To="IsActive" />
 				</AddQuestItem>
-				<AddQuestItem Name="addquestitem1_2_1_1" PositionY="170" PositionX="570">
+				<AddQuestItem Name="addquestitem1_2_1_1" PositionY="260" PositionX="880">
 					<Constant Name="ItemClassGUID" Value="4bacfae1-06e9-482a-be59-3d98ebf7410a" />
 					<Asset Name="BackupLocation" Alias="player_stash" />
 					<Asset Name="StartingLocation" Alias="player" />
-					<Edge From="letterFromVavak_duringQuest.Player" To="IsActive" />
+					<Edge From="or19.bool" To="IsActive" />
+					<Edge From="not21.bool" To="SuppressUINotificationOnAcquire" />
 				</AddQuestItem>
 				<AddQuestItem Name="addquestitem1_2_1_1_1" PositionY="4290" PositionX="610">
 					<Constant Name="ItemClassGUID" Value="94f335e3-ae54-49b3-a9f8-762bf2f68620" />
@@ -122,7 +117,7 @@
 					<Asset Name="StartingLocation" Alias="kristian" />
 					<Edge From="dieFromSecretMint_duringQuest.Kristian" To="IsActive" />
 				</AddQuestItem>
-				<AddQuestItem Name="addquestitem1_2_1_1_2" PositionY="-170" PositionX="570">
+				<AddQuestItem Name="addquestitem1_2_1_1_2" PositionY="-190" PositionX="600">
 					<Constant Name="ItemClassGUID" Value="4bacfae1-06e9-482a-be59-3d98ebf7410a" />
 					<Asset Name="BackupLocation" Alias="buressStash" />
 					<Asset Name="StartingLocation" Alias="bures" />
@@ -177,10 +172,6 @@
 					<Constant Name="ItemClass" Value="8f654b16-cf8c-457d-a88e-0b88aa8d823c" />
 					<Edge From="keyToSecretMintStash_afterQuest.OnPlayer" To="Exec" />
 				</EventFunction>
-				<EventFunction Name="createplayerreward3_1_1_1" PositionY="880" PositionX="570" MethodName="wh::entitymodule::CreatePlayerReward" DeclaringType="wh::entitymodule">
-					<Constant Name="ItemClass" Value="4bacfae1-06e9-482a-be59-3d98ebf7410a" />
-					<Edge From="letterFromVavak_afterQuest.OnPlayer" To="Exec" />
-				</EventFunction>
 				<EventFunction Name="createplayerreward3_1_1_1_1" PositionY="4820" PositionX="610" MethodName="wh::entitymodule::CreatePlayerReward" DeclaringType="wh::entitymodule">
 					<Constant Name="ItemClass" Value="94f335e3-ae54-49b3-a9f8-762bf2f68620" />
 					<Edge From="dieFromSecretMint_afterQuest.OnPlayer" To="Exec" />
@@ -197,6 +188,7 @@
 					<Edge From="raznice_predana_hraci" To="SetPlayer" />
 					<Edge From="itemclasstrigger_playerinventory_1.ontargetamountacquire" To="SetPlayer" />
 					<Edge From="raznice_predana_1" To="SetKristian" />
+					<Edge From="dieFromSecretMint_afterQuest.OnExec" To="SetNone" />
 				</State>
 				<expected_status__doly Name="expected_status__doly" PositionY="-3300" PositionX="520">
 					<Edge From="kristianuvGlejt.Active" To="doly_zapocaty" />
@@ -249,6 +241,7 @@
 					<Edge From="ifdeathcheck7.True" To="SetBuresSoldier" />
 					<Edge From="ifdeathcheck7.False" To="SetBures" />
 					<Edge From="predani_tajneho_klice" To="SetPlayer" />
+					<Edge From="keyToSecretMintStash_afterQuest.OnExec" To="SetNone" />
 				</State>
 				<State Name="kristianuvGlejt" PositionY="-3100" PositionX="230" TypeT="Progress">
 					<Edge From="predani_glejtu" To="SetActive" />
@@ -264,19 +257,13 @@
 				<State Name="letterForBures_duringQuest" PositionY="-2720" PositionX="230" TypeT="letterForBuresHolder">
 					<Edge From="letterforbures_predan_hraci" To="SetPlayer" />
 					<Edge From="letterforbures_predan_buresovi" To="SetBures" />
+					<Edge From="letterForBures_afterQuest.OnExec" To="SetNone" />
 				</State>
-				<State Name="letterFromVavak_afterQuest" PositionY="880" PositionX="250" TypeT="letterFromVavakHolder">
-					<Edge From="letterFromVavak_duringQuest.State" To="Value">
-						<Vertex>vertex12</Vertex>
-						<Vertex>vertex11</Vertex>
-					</Edge>
-					<Edge From="quest_ended" To="Exec" />
-				</State>
-				<State Name="letterFromVavak_duringQuest" PositionY="250" PositionX="250" TypeT="letterFromVavakHolder">
+				<State Name="letterFromVavak_duringQuest" PositionY="250" PositionX="310" TypeT="letterFromVavakHolder">
 					<Edge From="predani_dopisu_od_vavaka_hraci" To="SetPlayer" />
-					<Edge From="predani_vavakova_dopisu" To="SetKristian" />
 					<Edge From="itemclasstrigger_playerinventory_2.ontargetamountacquire" To="SetPlayer" />
 					<Edge From="quest_started" To="SetBures" />
+					<Edge From="odevzdat_ucetni_knihy" To="SetNone" />
 				</State>
 				<State Name="mapToSecretSmelter_afterQuest" PositionY="-670" PositionX="230" TypeT="mapToSecretSmelter">
 					<Edge From="mapToSecretSmelter_duringQuest.State" To="Value">
@@ -292,11 +279,20 @@
 						<Vertex>TLLg0vRl</Vertex>
 						<Vertex>Lpn3tlsK</Vertex>
 					</Edge>
+					<Edge From="mapToSecretSmelter_afterQuest.OnExec" To="SetNone" />
 				</State>
 				<State Name="minterJailKey_duringQuest" PositionY="1440" PositionX="250" TypeT="keyToMinterJail">
 					<Edge From="itemclasstrigger_playerinventory_2_1.ontargetamountacquire" To="SetPlayer" />
 					<Edge From="quest_started" To="SetSecretMintTable" />
+					<Edge From="quest_ended" To="SetNone" />
 				</State>
+				<Function Name="not21" PositionY="690" PositionX="630" MethodName="math::boolean::Not" DeclaringType="math::boolean">
+					<Edge From="letterFromVavak_duringQuest.Kristian" To="Value" />
+				</Function>
+				<Function Name="or19" PositionY="540" PositionX="630" MethodName="math::boolean::Or" DeclaringType="math::boolean">
+					<Edge From="letterFromVavak_duringQuest.Player" To="A" />
+					<Edge From="letterFromVavak_duringQuest.Kristian" To="B" />
+				</Function>
 				<ProfileStateTrigger Name="profilestatetrigger11" PositionY="-1180" PositionX="-100">
 					<Asset Name="Profiles" Alias="streamVokrak" />
 					<Edge From="quest_active" To="IsActive" />
@@ -307,8 +303,6 @@
 				<EdgeVertex Name="Lpn3tlsK" PositionY="-1080" PositionX="250" />
 				<EdgeVertex Name="Pk05B629" PositionY="-1100" PositionX="250" />
 				<EdgeVertex Name="TLLg0vRl" PositionY="-1080" PositionX="420" />
-				<EdgeVertex Name="vertex11" PositionY="840" PositionX="270" />
-				<EdgeVertex Name="vertex12" PositionY="840" PositionX="440" />
 				<EdgeVertex Name="vertex15" PositionY="2620" PositionX="490" />
 				<EdgeVertex Name="vertex16" PositionY="2620" PositionX="330" />
 				<EdgeVertex Name="vertex17" PositionY="-706" PositionX="430" />

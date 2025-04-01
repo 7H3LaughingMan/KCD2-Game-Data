@@ -18,6 +18,12 @@
 				<Port Name="streamovani_skirmish_v_ruthardce" Direction="Out" Type="trigger">
 					<DesignName StringName="jindra__s_streamovani_ski_14J4" Text="Streamovani skirmish v Ruthardce" />
 				</Port>
+				<Port Name="brabantova_zrada_cs__before_play" Direction="Out" Type="trigger">
+					<DesignName StringName="jindra__s_brabantova_zrad_rhB4" Text="Brabantova zrada CS - Before play" />
+				</Port>
+				<Port Name="cs_komar_death" Direction="Out" Type="trigger">
+					<DesignName StringName="jindra__s_cs_komar_death_9ZYe" Text="CS Komar death - Before play" />
+				</Port>
 				<Port Name="skirmish_je_aktivni" Direction="Out" Type="bool">
 					<DesignName StringName="jindra__s_skirmish_je_akt_AYdE" Text="Skirmish je aktivni" />
 				</Port>
@@ -36,13 +42,6 @@
 				<cin_m4660k_prepadenidvora__komar_death Name="cin_m4660k_prepadenidvora__komar_death" PositionY="-500" PositionX="440">
 					<Edge From="musicevent14.OnExec" To="boj_s_brabantovci_je_vyhrany" />
 				</cin_m4660k_prepadenidvora__komar_death>
-				<FilterInput Name="filterinput15" PositionY="580" PositionX="-80">
-					<Edge From="makearray16.Array" To="Filters" />
-					<Edge From="PorazBrabantovyMuze.Active" To="IsActive" />
-				</FilterInput>
-				<MakeArray Name="makearray16" PositionY="620" PositionX="-350" TypeT="Strings">
-					<Constant Name="A" Value="no_horse" />
-				</MakeArray>
 				<MakeArray Name="makearray17" PositionY="-560" PositionX="-1940" TypeT="wh::conceptmodule::ConceptPaths">
 					<Constant Name="A" Value="bohuta.stream" />
 				</MakeArray>
@@ -70,6 +69,12 @@
 						<Vertex>5PxX0tyS</Vertex>
 						<Vertex>IGvknJtC</Vertex>
 					</Edge>
+					<Edge From="cin_m4655k_prepadenidvora__brabant_treason.brabantova_zrada_cs__before_play" To="brabantova_zrada_cs__before_play">
+						<Vertex>vertex5</Vertex>
+						<Vertex>vertex6</Vertex>
+						<Vertex>qqIBQ603</Vertex>
+					</Edge>
+					<Edge From="cin_m4660k_prepadenidvora__komar_death.odstreamovani" To="cs_komar_death" />
 				</Output>
 				<State Name="PorazBrabantovyMuze" PositionY="-330" PositionX="-380" RequiredForOutput="kutnohorsko" TypeT="Progress">
 					<Edge From="skirmish_v_ruthardce.boj_s_brabantovci_je_vyhrany" To="SetDone">
@@ -85,8 +90,12 @@
 					<Constant Name="Objective" Value="poraz_brabantovy_muze" />
 					<Edge From="PorazBrabantovyMuze.OnActive" To="EnqueueSave" />
 				</SaveGame>
-				<SetGameContext Name="setgamecontext8" PositionY="740" PositionX="-76">
+				<SetGameContext Name="setgamecontext8" PositionY="490" PositionX="-80">
 					<Constant Name="Context" Value="NoDog" />
+					<Edge From="PorazBrabantovyMuze.Active" To="IsActive" />
+				</SetGameContext>
+				<SetGameContext Name="setgamecontext8_1" PositionY="330" PositionX="-80">
+					<Constant Name="Context" Value="DisableHorseCall" />
 					<Edge From="PorazBrabantovyMuze.Active" To="IsActive" />
 				</SetGameContext>
 				<skirmish_streamovani Name="skirmish_streamovani" PositionY="320" PositionX="830">
@@ -110,6 +119,7 @@
 				<EdgeVertex Name="5PxX0tyS" PositionY="282" PositionX="-63" />
 				<EdgeVertex Name="GVREC4P7" PositionY="-500" PositionX="900" />
 				<EdgeVertex Name="IGvknJtC" PositionY="288" PositionX="1000" />
+				<EdgeVertex Name="qqIBQ603" PositionY="259" PositionX="1004" />
 				<EdgeVertex Name="vertex1" PositionY="240" PositionX="250" />
 				<EdgeVertex Name="vertex2" PositionY="240" PositionX="-380" />
 				<EdgeVertex Name="vertex5" PositionY="260" PositionX="-510" />

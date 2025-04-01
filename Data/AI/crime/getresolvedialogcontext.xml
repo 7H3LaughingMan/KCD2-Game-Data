@@ -249,15 +249,31 @@
 							</IfElseCondition>
 						</Else>
 					</IfElseCondition>
-					<IsPlayerFreshlyBranded IsBranded="$playerFreshlyBranded" />
-					<IfElseCondition failOnCondition="false" condition="$playerFreshlyBranded" saveVersion="2">
+					<GameModeCondition GameMode="Hardcore" FailSubtMissing="false" saveVersion="2">
 						<Then canSkip="1">
-							<Expression expressions="$dialogContext[&apos;playerBranded&apos;] = 1" />
+							<LuaGate code="return player.soul:GetDerivedStat(&apos;brn&apos;) &gt; 0" saveVersion="2">
+								<Then canSkip="1">
+									<Expression expressions="$dialogContext[&apos;playerBranded&apos;] = 1" />
+								</Then>
+								<Else canSkip="1">
+									<Expression expressions="$dialogContext[&apos;playerBranded&apos;] = 0" />
+								</Else>
+							</LuaGate>
 						</Then>
 						<Else canSkip="1">
-							<Expression expressions="$dialogContext[&apos;playerBranded&apos;] = 0" />
+							<Sequence>
+								<IsPlayerFreshlyBranded IsBranded="$playerFreshlyBranded" />
+								<IfElseCondition failOnCondition="false" condition="$playerFreshlyBranded" saveVersion="2">
+									<Then canSkip="1">
+										<Expression expressions="$dialogContext[&apos;playerBranded&apos;] = 1" />
+									</Then>
+									<Else canSkip="1">
+										<Expression expressions="$dialogContext[&apos;playerBranded&apos;] = 0" />
+									</Else>
+								</IfElseCondition>
+							</Sequence>
 						</Else>
-					</IfElseCondition>
+					</GameModeCondition>
 					<Switch>
 						<IfCondition failOnCondition="false" condition="$dialogContext[&apos;punishment_pillory&apos;] == 1.0">
 							<Expression expressions="$punishmentType = $enum:crime_punishmentType.pillory" />
@@ -728,22 +744,45 @@
 								</IfElseCondition>
 							</Else>
 						</IfElseCondition>
-						<IsPlayerFreshlyBranded hasInputBreakpoint="0" comment="" breakpointFlags="0">
-							<OutputBreakpoints />
-						</IsPlayerFreshlyBranded>
-						<IfElseCondition hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
+						<GameModeCondition hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
 							<OutputBreakpoints />
 							<Then>
-								<Expression hasInputBreakpoint="0" comment="" breakpointFlags="0">
+								<LuaGate hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
 									<OutputBreakpoints />
-								</Expression>
+									<Then>
+										<Expression hasInputBreakpoint="0" comment="" breakpointFlags="0">
+											<OutputBreakpoints />
+										</Expression>
+									</Then>
+									<Else>
+										<Expression hasInputBreakpoint="0" comment="" breakpointFlags="0">
+											<OutputBreakpoints />
+										</Expression>
+									</Else>
+								</LuaGate>
 							</Then>
 							<Else>
-								<Expression hasInputBreakpoint="0" comment="" breakpointFlags="0">
+								<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
 									<OutputBreakpoints />
-								</Expression>
+									<IsPlayerFreshlyBranded hasInputBreakpoint="0" comment="" breakpointFlags="0">
+										<OutputBreakpoints />
+									</IsPlayerFreshlyBranded>
+									<IfElseCondition hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
+										<OutputBreakpoints />
+										<Then>
+											<Expression hasInputBreakpoint="0" comment="" breakpointFlags="0">
+												<OutputBreakpoints />
+											</Expression>
+										</Then>
+										<Else>
+											<Expression hasInputBreakpoint="0" comment="" breakpointFlags="0">
+												<OutputBreakpoints />
+											</Expression>
+										</Else>
+									</IfElseCondition>
+								</Sequence>
 							</Else>
-						</IfElseCondition>
+						</GameModeCondition>
 						<Switch hasInputBreakpoint="0" comment="" breakpointFlags="0">
 							<OutputBreakpoints />
 							<IfCondition hasInputBreakpoint="0" comment="" breakpointFlags="0">

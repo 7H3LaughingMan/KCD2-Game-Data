@@ -41,6 +41,11 @@
 				</Port>
 			</Ports>
 			<Nodes>
+				<Function Name="compare20" PositionY="1440" PositionX="420" TypeT="wh::framework::E_GameReleaseVersion" MethodName="Control::Compare" DeclaringType="Control">
+					<Constant Name="Op" Value="Less" />
+					<Constant Name="ValueB" Value="ver_01_01" />
+					<Edge From="moduleversionstate16.Version" To="ValueA" />
+				</Function>
 				<State Name="malesovFortress" PositionY="-190" PositionX="-170" TypeT="MalesovFortress">
 					<Edge From="stealth_mise_byla_prave_zahajena" To="SetUtokNaMalesov_ClosedGate" />
 					<Edge From="nastreamovat_otevrenou_branu_na_vnejsim_nadvori" To="SetUtokNaMalesov_OpenGate" />
@@ -77,9 +82,9 @@
 					<Asset Name="Profiles" Alias="utokNaMalesov_endUninhabited" />
 					<Edge From="malesovFortress.UtokNaMalesov_EndUninhabited" To="IsActive" />
 				</Layer>
-				<Layer Name="profile17" PositionY="1490" PositionX="520">
+				<Layer Name="profile17" PositionY="1440" PositionX="680">
 					<Asset Name="Profiles" Alias="malesov_weaponRacks_addedInPatch_01_01" />
-					<Edge From="moduleversionstate16.ver_01_00" To="IsActive" />
+					<Edge From="compare20.bool" To="IsActive" />
 				</Layer>
 				<Layer Name="profile2" PositionY="-1060" PositionX="590">
 					<Asset Name="Profiles" Alias="zachranaPtacka_wallIntact" />
@@ -155,7 +160,7 @@
 				<ProfileAsset Name="malesov_weaponRacks_addedInPatch_01_01" AssetProfiles="malesov_weaponRacks_addedInPatch_01_01" />
 			</Assets>
 			<Notes>
-				<Note Name="note19" PositionY="1425" PositionX="398">
+				<Note Name="note19" PositionY="1320" PositionX="400">
 					<Text StringName="malesovsk_note19_yHjy" Text="KCD2-238120" />
 				</Note>
 			</Notes>

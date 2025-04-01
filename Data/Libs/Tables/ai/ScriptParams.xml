@@ -24,6 +24,12 @@
 		<ScriptParam Name="crime_lookAround_maxIterations_crime" Value="6.0" Comment="" />
 		<ScriptParam Name="crime_lookAround_additionalIterationsNervousness_sound" Value="1.0" Comment="use even number" />
 		<ScriptParam Name="crime_lookAround_additionalIterationsNervousness_crime" Value="3.0" Comment="use even number" />
+		
+		<ScriptParam Name="crime_lookAround_soundPosRandomizer_exteriorDistanceMultiplier" Value="0.3" Comment="maxDistance += distanceFromNpcToSound_XYZ * this" />
+		<ScriptParam Name="crime_lookAround_soundPosRandomizer_interiorDistanceMultiplier_XY" Value="0.3" Comment="maxDistance += distanceFromNpcToSound_XY * this" />
+		<ScriptParam Name="crime_lookAround_soundPosRandomizer_interiorDistanceMultiplier_Z" Value="3" Comment="maxDistance += distanceFromNpcToSound_Z * this" />
+		<ScriptParam Name="crime_lookAround_soundPosRandomizer_interiorToExteriorBonus" Value="4" Comment="maxDistance += this" />
+
 		<!-- interrupt_report -->
 		<ScriptParam Name="crime_report_violentCrime_scoreMultiplier" Value="0.5" Comment="Guard score multiplier if the crime is violent" />
 		
@@ -50,6 +56,7 @@
 		<ScriptParam Name="crime_surrender_statement_maxDistance" Value="7.0" Comment="Max allowed distance to add soul as responsible authority" />
 		<!-- interrupt_watch -->
 		<ScriptParam Name="crime_watch_anchor_distanceToFlee" Value="40.0" Comment="Max allowed distance for NPC to watch, starts to flee if distance exceeded" />
+		<ScriptParam Name="crime_watch_fleeDistance" Value="3.0" Comment="Watcher will flee if watching a combat/violent crime and its target gets this close." />
 		<!--
 			HELPER FUNCTIONS PARAMS
 		-->
@@ -85,7 +92,7 @@
 		<ScriptParam Name="crime_veryFreshCriminalThreshold" Value="6000" Comment="miliseconds" />
 		<ScriptParam Name="crime_somewhatFreshCriminalThreshold" Value="15000" Comment="miliseconds" />
 
-		<ScriptParam Name="crime_freshViolentInformationTimer" Value="60000" Comment="react violently to violent crime information after created, 1min GT" />
+		<ScriptParam Name="crime_freshViolentInformationTimer" Value="20000" Comment="react violently to violent crime information after created, 1min GT" />
 		<ScriptParam Name="crime_flee_minimalDistance" Value="30.0" Comment="" />
 		<ScriptParam Name="crime_flee_stayFledDuration" Value="420000.0" Comment="" />
 		<ScriptParam Name="crime_flee_customAreaPointsDistanceFilter" Value="15.0" Comment="" />
@@ -101,6 +108,7 @@
 		<ScriptParam Name="crime_lonerMoraleBoost" Value="0.2" Comment="" />
 		<ScriptParam Name="crime_courageousMoraleBoost" Value="0.3" Comment="" />
 		<ScriptParam Name="combat_moraleForCombat" Value="0.2" Comment="" />
+		<ScriptParam Name="combat_fledFromAttack" Value="60000" Comment="ms" />
 		<ScriptParam Name="crime_surrenderingMaxDistance" Value="8.0" Comment="@KCD2-235217" />
 		<ScriptParam Name="crime_playerIsVeryBadassThreshold" Value="0.82" Comment="" />
 		<ScriptParam Name="crime_corpseDailyCheckNumberOfLoopsBeforeChecking" Value="3" Comment="" />
@@ -159,6 +167,7 @@
 		<ScriptParam Name="crime_watchMaximumDistance" Value="50" Comment="" />
 
 		<ScriptParam Name="crime_timeSkipInTrespass_detectionRange" Value="10" Comment="in m" />
+		<ScriptParam Name="crime_timeSkipInTrespass_detectionRange_z" Value="1.5" Comment="in m" />
 		<ScriptParam Name="crime_timeSkipInTrespass_detectionPeriod" Value="2000" Comment="in ms" />
 
 		<!-- CRIME MUSIC -->
@@ -174,8 +183,8 @@
 		<ScriptParam Name="crime_punishmentMultiplier_veryHigh" Value="4" Comment="" />
 
 
-		<ScriptParam Name="crime_punishmentSeverityThreshold_medium" Value="500" Comment="" />
-		<ScriptParam Name="crime_punishmentSeverityThreshold_high" Value="1000" Comment="" />
+		<ScriptParam Name="crime_punishmentSeverityThreshold_medium" Value="500" Comment="in decigroschen" />
+		<ScriptParam Name="crime_punishmentSeverityThreshold_high" Value="1000" Comment="in decigroschen" />
 
 		<ScriptParam Name="crime_punishmentFineThresholdForBranding" Value="20000" Comment="When deciding on a punishment, if fine for crime is higher than this -> instant branding/execution" />
 
@@ -328,7 +337,7 @@
 		<ScriptParam Name="switch_autowash_minimalDistanceForNPCToWash" Value="100" Comment="in meters" />
 
 		<!-- Achievements -->
-		<ScriptParam Name="achievement_notTakenOnlyGivethAway_threshold" Value="10000" Comment="in decigroschen, so do a *10" />
+		<ScriptParam Name="achievement_notTakenOnlyGivethAway_threshold" Value="100000" Comment="in decigroschen, so do a *10" />
 		<ScriptParam Name="achievement_henryTheHandyman_threshold" Value="100" Comment="Should be set to number of all quests in the game * 0.8" />
 		<ScriptParam Name="achievement_technicalAdvanceCrossbowHeadshotDistance_threshold" Value="20" Comment="Crossbow headshot distance in meters." />
 		<ScriptParam Name="achievement_groschenMushFlow_threshold" Value="100000" Comment="In decigroshen -> 100 means 10 groschen." />

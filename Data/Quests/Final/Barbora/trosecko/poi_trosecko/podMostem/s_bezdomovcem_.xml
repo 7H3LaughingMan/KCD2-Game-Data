@@ -3,6 +3,9 @@
 	<Skald>
 		<FaderDialog Name="s_bezdomovcem_">
 			<Ports>
+				<Port Name="jindra_ma_prilis_nizkou_reputaci" Direction="In" Type="bool">
+					<DesignName StringName="s_bezdomo_jindra_ma_prili_Ggyo" Text="Jindra má příliš nízkou reputaci" />
+				</Port>
 				<Port Name="bezdomovec_stoji_pod_mostem" Direction="In" Type="bool">
 					<DesignName StringName="s_bezdomo_bezdomovec_stoj_u4Fs" Text="Bezdomovec stojí pod mostem" />
 				</Port>
@@ -15,7 +18,7 @@
 				</SelectedSouls>
 				<Decision Name="dec1">
 					<Sequences>
-						<Sequence EntryCondition="!ThisSequenceUsed()" EndType="Decision" Name="seq2">
+						<Sequence EntryCondition="!ThisSequenceUsed() AND &#xD;&#xA;!Port('jindra_ma_prilis_nizkou_reputaci')" EndType="Decision" Name="seq2">
 							<DesignName StringName="s_bezdomo_seq2_c7mI" Text="seq2" />
 							<Elements>
 								<Response Role="KARL_VON_UNTERBRUCK_ZELEJOV" ReferenceLength="5.06">
@@ -285,7 +288,7 @@
 																</Elements>
 																<Decision Name="dec6">
 																	<Sequences>
-																		<Sequence SpeechCoef="0" EndType="EndDialogue" Name="seq10">
+																		<Sequence SpeechCoef="0" Name="seq10">
 																			<DesignName StringName="s_bezdomo_seq10_8gQ7" Text="seq10" />
 																			<Elements>
 																				<Response Role="KARL_VON_UNTERBRUCK_ZELEJOV" ReferenceLength="3.31">

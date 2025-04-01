@@ -3,6 +3,9 @@
 	<Skald>
 		<DialogWrapper Name="rozhovor_s_vozkou" HibernateMode="Script">
 			<Ports>
+				<Port Name="hrac_mluvil_s_holkami" Direction="In" Type="bool">
+					<DesignName StringName="rozhovor__hrac_mluvil_s_h_dDLe" Text="Hráč mluvil s holkami" />
+				</Port>
 				<Port Name="vi_o_holkach_od_lazebnic" Direction="In" Type="bool">
 					<DesignName StringName="rozhovor__vi_o_holkach_od_6qnP" Text="vi_o_holkach_od_lazebnic" />
 				</Port>
@@ -33,9 +36,11 @@
 					<Edge From="vi_o_holkach" To="vi_o_holkach" />
 					<Edge From="vi_o_holkach_od_lazebnic" To="vi_o_holkach_od_lazebnic" />
 					<Edge From="Awake" To="vuz_je_pripraven" />
+					<Edge From="hrac_mluvil_s_holkami" To="hrac_mluvil_s_holkami" />
 				</rozhovor_s_vozkou>
 				<turntoplayerinidlestance Name="turntoplayerinidlestance" PositionY="360" PositionX="700" Namespace="utils.general">
 					<Asset Name="npc" Alias="macek" />
+					<Constant Name="anydecoratorpreset" Value="changeEquipment" />
 					<Edge From="rozhovor_s_vozkou.AfterPlay" To="turntoplayerinidlestance" />
 				</turntoplayerinidlestance>
 			</Nodes>

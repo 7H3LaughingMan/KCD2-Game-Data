@@ -76,34 +76,6 @@
 									<IfCondition failOnCondition="false" condition="$informationData.isViolent">
 										<Expression expressions="$punishment.violent = 1" />
 									</IfCondition>
-									<IfCondition failOnCondition="false" condition="$punishment.confiscation &lt; 1">
-										<IfElseCondition failOnCondition="false" condition="$informationData.confiscation" saveVersion="2">
-											<Then canSkip="1">
-												<Sequence>
-													<IfCondition failOnCondition="false" condition="$informations_value.label == &apos;trespass&apos;">
-														<LockDynamicInformationValues Information="$informations_value">
-															<GetDynamicInformationValue Information="$informations_value" Tag="&apos;complementaryToOtherCrime&apos;" Out="$isComplementaryTrespass" />
-														</LockDynamicInformationValues>
-													</IfCondition>
-													<IfCondition failOnCondition="false" condition="$informations_value.label ~= &apos;trespass&apos; | &#10;~$isComplementaryTrespass">
-														<Expression expressions="$punishment.confiscation = 1" />
-													</IfCondition>
-												</Sequence>
-											</Then>
-											<Else canSkip="1">
-												<SuppressFailure>
-													<Sequence>
-														<LockDynamicInformationValues Information="$informations_value">
-															<GetDynamicInformationValue Information="$informations_value" Tag="&apos;confiscation&apos;" Out="$specialConfiscation" />
-														</LockDynamicInformationValues>
-														<IfCondition failOnCondition="false" condition="$specialConfiscation">
-															<Expression expressions="$punishment.confiscation = 1" />
-														</IfCondition>
-													</Sequence>
-												</SuppressFailure>
-											</Else>
-										</IfElseCondition>
-									</IfCondition>
 									<Sequence>
 										<ReinitVariable variable="$isMoreImportant" />
 										<Switch>
@@ -282,7 +254,8 @@
 																		<LockDynamicInformationValues Information="$informations_value">
 																			<Sequence>
 																				<GetDynamicInformationValue Information="$informations_value" Tag="&apos;value&apos;" Out="$informations_value_fine" />
-																				<Expression expressions="$informations_value_fine =  &#10;($informations_value_fine * $data:script_param[&apos;crime_theft_fineMultiplier&apos;].value) &#10;+ &#10;($data:crime[&apos;theft&apos;].fine * $socialClassMultiplier)" />
+																				<GetStatusMultiplier Victim="$crimeVictim" Multiplier="$socialClassMultiplier" />
+																				<Expression expressions="$informations_value_fine =  &#10;($informations_value_fine * $data:script_param[&apos;crime_theft_fineMultiplier&apos;].value) &#10;+ &#10;($informationData.fine * $socialClassMultiplier)" />
 																			</Sequence>
 																		</LockDynamicInformationValues>
 																	</Then>
@@ -346,9 +319,46 @@
 											<Expression expressions="$punishment.fine = -1" />
 										</Else>
 									</IfElseCondition>
-									<IfCondition failOnCondition="false" condition="$informationData.confiscation &amp; &#10;$theftMethod ~= $enum:crime_theftMethod.kettleEating">
-										<Expression expressions="$punishment.confiscation = 1" />
-									</IfCondition>
+									<Switch>
+										<IfCondition failOnCondition="false" condition="$informationData.label == &apos;theft&apos;">
+											<IfCondition failOnCondition="false" condition="$theftMethod ~= $enum:crime_theftMethod.kettleEating">
+												<Expression expressions="$punishment.confiscation = 2" />
+											</IfCondition>
+										</IfCondition>
+										<IfCondition failOnCondition="false" condition="$informationData.label == &apos;pickpocket&apos;">
+											<Expression expressions="$punishment.confiscation = 2" />
+										</IfCondition>
+										<DefaultBranch>
+											<IfCondition failOnCondition="false" condition="$punishment.confiscation &lt; 1">
+												<IfElseCondition failOnCondition="false" condition="$informationData.confiscation" saveVersion="2">
+													<Then canSkip="1">
+														<Sequence>
+															<IfCondition failOnCondition="false" condition="$informations_value.label == &apos;trespass&apos;">
+																<LockDynamicInformationValues Information="$informations_value">
+																	<GetDynamicInformationValue Information="$informations_value" Tag="&apos;complementaryToOtherCrime&apos;" Out="$isComplementaryTrespass" />
+																</LockDynamicInformationValues>
+															</IfCondition>
+															<IfCondition failOnCondition="false" condition="$informations_value.label ~= &apos;trespass&apos; | &#10;~$isComplementaryTrespass">
+																<Expression expressions="$punishment.confiscation = 1" />
+															</IfCondition>
+														</Sequence>
+													</Then>
+													<Else canSkip="1">
+														<SuppressFailure>
+															<Sequence>
+																<LockDynamicInformationValues Information="$informations_value">
+																	<GetDynamicInformationValue Information="$informations_value" Tag="&apos;confiscation&apos;" Out="$specialConfiscation" />
+																</LockDynamicInformationValues>
+																<IfCondition failOnCondition="false" condition="$specialConfiscation">
+																	<Expression expressions="$punishment.confiscation = 1" />
+																</IfCondition>
+															</Sequence>
+														</SuppressFailure>
+													</Else>
+												</IfElseCondition>
+											</IfCondition>
+										</DefaultBranch>
+									</Switch>
 								</Sequence>
 							</IfCondition>
 						</Sequence>
@@ -474,52 +484,6 @@
 											<Expression hasInputBreakpoint="0" comment="" breakpointFlags="0">
 												<OutputBreakpoints />
 											</Expression>
-										</IfCondition>
-										<IfCondition hasInputBreakpoint="0" comment="do it only once" breakpointFlags="0">
-											<OutputBreakpoints />
-											<IfElseCondition hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
-												<OutputBreakpoints />
-												<Then>
-													<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
-														<OutputBreakpoints />
-														<IfCondition hasInputBreakpoint="0" comment="" breakpointFlags="0">
-															<OutputBreakpoints />
-															<LockDynamicInformationValues hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																<OutputBreakpoints />
-																<GetDynamicInformationValue hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																	<OutputBreakpoints />
-																</GetDynamicInformationValue>
-															</LockDynamicInformationValues>
-														</IfCondition>
-														<IfCondition hasInputBreakpoint="0" comment="" breakpointFlags="0">
-															<OutputBreakpoints />
-															<Expression hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																<OutputBreakpoints />
-															</Expression>
-														</IfCondition>
-													</Sequence>
-												</Then>
-												<Else>
-													<SuppressFailure hasInputBreakpoint="0" comment="" breakpointFlags="0">
-														<OutputBreakpoints />
-														<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
-															<OutputBreakpoints />
-															<LockDynamicInformationValues hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																<OutputBreakpoints />
-																<GetDynamicInformationValue hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																	<OutputBreakpoints />
-																</GetDynamicInformationValue>
-															</LockDynamicInformationValues>
-															<IfCondition hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																<OutputBreakpoints />
-																<Expression hasInputBreakpoint="0" comment="" breakpointFlags="0">
-																	<OutputBreakpoints />
-																</Expression>
-															</IfCondition>
-														</Sequence>
-													</SuppressFailure>
-												</Else>
-											</IfElseCondition>
 										</IfCondition>
 										<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
 											<OutputBreakpoints />
@@ -832,6 +796,9 @@
 																					<GetDynamicInformationValue hasInputBreakpoint="0" comment="" breakpointFlags="0">
 																						<OutputBreakpoints />
 																					</GetDynamicInformationValue>
+																					<GetStatusMultiplier hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																						<OutputBreakpoints />
+																					</GetStatusMultiplier>
 																					<Expression hasInputBreakpoint="0" comment="" breakpointFlags="0">
 																						<OutputBreakpoints />
 																					</Expression>
@@ -945,12 +912,72 @@
 												</Expression>
 											</Else>
 										</IfElseCondition>
-										<IfCondition hasInputBreakpoint="0" comment="" breakpointFlags="0">
+										<Switch hasInputBreakpoint="0" comment="" breakpointFlags="0">
 											<OutputBreakpoints />
-											<Expression hasInputBreakpoint="0" comment="" breakpointFlags="0">
+											<IfCondition hasInputBreakpoint="0" comment="" breakpointFlags="0">
 												<OutputBreakpoints />
-											</Expression>
-										</IfCondition>
+												<IfCondition hasInputBreakpoint="0" comment="" breakpointFlags="0">
+													<OutputBreakpoints />
+													<Expression hasInputBreakpoint="0" comment="" breakpointFlags="0">
+														<OutputBreakpoints />
+													</Expression>
+												</IfCondition>
+											</IfCondition>
+											<IfCondition hasInputBreakpoint="0" comment="" breakpointFlags="0">
+												<OutputBreakpoints />
+												<Expression hasInputBreakpoint="0" comment="" breakpointFlags="0">
+													<OutputBreakpoints />
+												</Expression>
+											</IfCondition>
+											<DefaultBranch>
+												<IfCondition hasInputBreakpoint="0" comment="" breakpointFlags="0">
+													<OutputBreakpoints />
+													<IfElseCondition hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
+														<OutputBreakpoints />
+														<Then>
+															<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																<OutputBreakpoints />
+																<IfCondition hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																	<OutputBreakpoints />
+																	<LockDynamicInformationValues hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																		<OutputBreakpoints />
+																		<GetDynamicInformationValue hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																			<OutputBreakpoints />
+																		</GetDynamicInformationValue>
+																	</LockDynamicInformationValues>
+																</IfCondition>
+																<IfCondition hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																	<OutputBreakpoints />
+																	<Expression hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																		<OutputBreakpoints />
+																	</Expression>
+																</IfCondition>
+															</Sequence>
+														</Then>
+														<Else>
+															<SuppressFailure hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																<OutputBreakpoints />
+																<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																	<OutputBreakpoints />
+																	<LockDynamicInformationValues hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																		<OutputBreakpoints />
+																		<GetDynamicInformationValue hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																			<OutputBreakpoints />
+																		</GetDynamicInformationValue>
+																	</LockDynamicInformationValues>
+																	<IfCondition hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																		<OutputBreakpoints />
+																		<Expression hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																			<OutputBreakpoints />
+																		</Expression>
+																	</IfCondition>
+																</Sequence>
+															</SuppressFailure>
+														</Else>
+													</IfElseCondition>
+												</IfCondition>
+											</DefaultBranch>
+										</Switch>
 									</Sequence>
 								</IfCondition>
 							</Sequence>

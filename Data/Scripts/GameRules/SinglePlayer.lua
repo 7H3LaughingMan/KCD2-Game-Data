@@ -123,7 +123,7 @@ end
 function SinglePlayer:OnUsableMessage(obj)
 
 	if obj.GetActions then
-		g_localActor.player:AddLuaActions(obj:GetActions(g_localActor))
+		g_localActor.player:AddLuaActions(obj:GetActions(g_localActor, false))
 		return
 	end
 

@@ -3,9 +3,6 @@
 	<Skald>
 		<FaderDialog Name="predani_u_prekupnika">
 			<Ports>
-				<Port Name="zkontrolovat_penize_helgy" Direction="Out" Type="trigger">
-					<DesignName StringName="predani_u_zkontrolovat_pe_jdQJ" Text="Zkontrolovat peníze Helgy" />
-				</Port>
 				<Port Name="prestat_sledovat_predmety" Direction="Out" Type="trigger">
 					<DesignName StringName="predani_u_prestat_sledova_f42o" Text="Přestat sledovat předměty" />
 				</Port>
@@ -17,6 +14,9 @@
 				</Port>
 				<Port Name="jindra_ma_hotovo" Direction="Out" Type="trigger">
 					<DesignName StringName="predani_u_jindra_ma_hotovo_cNSu" Text="Jindra má hotovo" />
+				</Port>
+				<Port Name="zkontrolovat_penize" Direction="Out" Type="trigger">
+					<DesignName StringName="predani_u_zkontrolovat_pe_eLai" Text="Zkontrolovat peníze" />
 				</Port>
 			</Ports>
 			<Text StringName="predani_u_prekupnika_hLh4" Text="Předání u překupníka" />
@@ -253,7 +253,7 @@
 													</Elements>
 													<Decision Name="dec5" Priority="SideQuestSubmission" DesignName="MOŽNOSTI SMLOUVÁNÍ">
 														<Sequences>
-															<Sequence EntryCondition="!ThisSequenceUsed()&#xD;&#xA;OR &#xD;&#xA;!SequenceUsed('neuspech_premlouvani')" EndType="Decision" SkillCheckType="persuade" Type="Skillcheck" SkillCheck="Medium" Name="seq9">
+															<Sequence EntryCondition="!ThisSequenceUsed()" EndType="Decision" SkillCheckType="persuade" Type="Skillcheck" SkillCheck="Medium" Name="seq9">
 																<DesignName StringName="predani_u_seq9_iwsP" Text="přemlouvá překupníka" />
 																<UiPrompt StringName="ui_predani_u_seq9_KplF" Text="Vyplatí se ti to koupit." />
 																<Elements>
@@ -267,10 +267,10 @@
 																</Elements>
 																<Decision Name="dec6" Priority="SideQuestSubmission">
 																	<Sequences>
-																		<Sequence EndType="Decision" SkillcheckCondition="Success" Name="seq12">
-																			<DesignName StringName="predani_u_seq12_gksQ" Text="seq12" />
+																		<Sequence EndType="Decision" SkillcheckCondition="Success" Name="oHagglu">
+																			<DesignName StringName="predani_u_seq12_gksQ" Text="O hagglu" />
 																			<Triggers>
-																				<Port Name="zkontrolovat_penize_helgy" />
+																				<Port Name="zkontrolovat_penize" />
 																			</Triggers>
 																			<Elements>
 																				<Response Role="HENRY" ReferenceLength="2.42">

@@ -32,6 +32,12 @@
 				</Port>
 			</Ports>
 			<Nodes>
+				<DistanceCheck Name="DistanceCheck" PositionY="840" PositionX="530" Namespace="utils.general">
+					<Asset Name="origin" Alias="player" />
+					<Asset Name="target" Alias="insideSeminPoint" />
+					<Constant Name="operator" Value="GreaterEquals" />
+					<Constant Name="distance" Value="150" />
+				</DistanceCheck>
 				<If Name="if_arrivingTriggersNextState" PositionY="90" PositionX="-2250">
 					<Edge From="timerEndingAt19h.OnFinished" To="Exec">
 						<Vertex>3rzkKrEN</Vertex>
@@ -82,11 +88,11 @@
 					</Edge>
 				</If>
 				<If Name="if_waitingInsideTriggersNextState" PositionY="460" PositionX="-2250">
-					<Edge From="timerEndingAt0h.OnFinished" To="Exec">
+					<Edge From="switch19.Value3" To="Condition" />
+					<Edge From="ifand28.False" To="Exec">
 						<Vertex>d2yMW7qV</Vertex>
 						<Vertex>I4cyn6Jy</Vertex>
 					</Edge>
-					<Edge From="switch19.Value3" To="Condition" />
 				</If>
 				<If Name="if_waitingOutsideTriggersNextState" PositionY="240" PositionX="-2250">
 					<Edge From="timerEndingAt20h.OnFinished" To="Exec">
@@ -95,12 +101,21 @@
 					</Edge>
 					<Edge From="switch19.Value2" To="Condition" />
 				</If>
+				<IfFunction Name="ifand28" PositionY="440" PositionX="840" MethodName="math::boolean::And" DeclaringType="math::boolean">
+					<Edge From="timerEndingAt0h.OnFinished" To="Exec" />
+					<Edge From="DistanceCheck.check" To="B" />
+					<Edge From="isinactorstate29.InState" To="A" />
+				</IfFunction>
 				<IntermissionTriggerByDistance Name="IntermissionTriggerByDistance" PositionY="-40" PositionX="1240" Namespace="utils.general">
 					<Asset Name="origin" Alias="player" />
 					<Asset Name="target" Alias="tourFinalPoint" />
 					<Edge From="konstanty.vzdalenost_mezi_jindrichem_a_seminem_ve_ktere_se_pri_intermissione_vypali" To="minimaldistance" />
 					<Edge From="or26.bool" To="waitforintermission" />
 				</IntermissionTriggerByDistance>
+				<Function Name="isinactorstate29" PositionY="660" PositionX="470" MethodName="wh::entitymodule::IsInActorState" DeclaringType="wh::entitymodule">
+					<Asset Name="Souls" Alias="player" />
+					<Constant Name="State" Value="skipTime" />
+				</Function>
 				<Function Name="joinarrays13" PositionY="-900" PositionX="170" TypeT="wh::rpgmodule::Souls" MethodName="utilities::array::JoinArrays" DeclaringType="utilities::array">
 					<Asset Name="B" Alias="seminInhabitants" />
 					<Edge From="makearray9.Array" To="A" />
@@ -117,7 +132,7 @@
 					<Edge From="makearray24.Array" To="A" />
 					<Edge From="switch21.Value2" To="B" />
 				</Function>
-				<konstanty Name="konstanty" PositionY="710" PositionX="520" Namespace="mucirna" />
+				<konstanty Name="konstanty" PositionY="1290" PositionX="570" Namespace="mucirna" />
 				<MakeArray Name="makearray10_1" PositionY="-1460" PositionX="1060" TypeT="wh::xgenaimodule::LinkableObjects">
 					<Asset Name="A" Alias="teleportOutsideSeminCaponHorsePoint" />
 					<Asset Name="B" Alias="teleportOutsideSeminHasekPoint" />
@@ -216,6 +231,7 @@
 					<Edge From="if_waitingInsideTriggersNextState.True" To="SetSoldiersInsideSemin_WaitingForIntermission" />
 					<Edge From="IntermissionTriggerByDistance.onintermission" To="SetSoldiersInsideSemin_StreamInProgress">
 						<Vertex>fJQwxKRD</Vertex>
+						<Vertex>DWlQdmwp</Vertex>
 						<Vertex>36tK4YYF</Vertex>
 					</Edge>
 					<Edge From="profilestatetrigger25.OnLoaded" To="SetDoneWithoutHenry">
@@ -227,6 +243,10 @@
 					<Edge From="if_gotToSeminWithHenry_1.False" To="SetGotToSeminWithHenry" />
 					<Edge From="if_gotToSeminWithHenry_2.False" To="SetSoldiersInsideSemin" />
 					<Edge From="if_none.True" To="SetGoingToSemin" />
+					<Edge From="ifand28.True" To="SetSoldiersInsideSemin_StreamInProgress">
+						<Vertex>DWlQdmwp</Vertex>
+						<Vertex>36tK4YYF</Vertex>
+					</Edge>
 					<Edge From="force_donewithouthenry" To="SetDoneWithoutHenry">
 						<Vertex>GaQ5Ptdg</Vertex>
 						<Vertex>3dydqfgA</Vertex>
@@ -299,8 +319,9 @@
 				<EdgeVertex Name="Ax5wuYYY" PositionY="460" PositionX="720" />
 				<EdgeVertex Name="c8JU65dW" PositionY="-440" PositionX="-2580" />
 				<EdgeVertex Name="CLjtVXTF" PositionY="-650" PositionX="400" />
-				<EdgeVertex Name="d2yMW7qV" PositionY="630" PositionX="670" />
+				<EdgeVertex Name="d2yMW7qV" PositionY="630" PositionX="1000" />
 				<EdgeVertex Name="Dll1Qe5n" PositionY="-1600" PositionX="-2750" />
+				<EdgeVertex Name="DWlQdmwp" PositionY="340" PositionX="1020" />
 				<EdgeVertex Name="e9x9kyTG" PositionY="10" PositionX="-1890" />
 				<EdgeVertex Name="EATMHI36" PositionY="40" PositionX="-1910" />
 				<EdgeVertex Name="EUh6JfsN" PositionY="-140" PositionX="960" />

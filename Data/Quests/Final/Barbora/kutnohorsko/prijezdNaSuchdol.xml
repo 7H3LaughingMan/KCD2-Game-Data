@@ -54,6 +54,9 @@
 				<Port Name="aktivace_tipovani_questu_na_tvrzi" Direction="Out" Type="trigger">
 					<DesignName StringName="prijezdna_aktivace_tipova_1XJb" Text="aktivace tipování questů na tvrzi" />
 				</Port>
+				<Port Name="jdi_spat_finished" Direction="Out" Type="bool">
+					<DesignName StringName="prijezdna_jdi_spat_finish_uWSD" Text="jdi spat finished" />
+				</Port>
 			</Ports>
 			<Definitions>
 				<Definition File="prijezdNaSuchdol/prijezd.xml" />
@@ -84,6 +87,9 @@
 						<Vertex>gz1WnTpD</Vertex>
 						<Vertex>vertex36</Vertex>
 					</Edge>
+					<Edge From="prijezdNaSuchdol.Active" To="C">
+						<Vertex>vertex14</Vertex>
+					</Edge>
 				</Function>
 				<Function Name="and26" PositionY="-840" PositionX="-1390" MethodName="math::boolean::And" DeclaringType="math::boolean">
 					<Edge From="prijezdNaSuchdol.Active" To="B" />
@@ -103,12 +109,6 @@
 					<Edge From="streamprofileshandling.profileactive" To="IsActive" />
 					<Edge From="joinarrays34.Array" To="Souls" />
 				</BuffEffect>
-				<AddReward Name="codexJanZLichtenstejna" PositionY="1180" PositionX="-1300">
-					<Edge From="prijezdNaSuchdol.OnDone" To="AddReward" />
-					<Rewards>
-						<PerkReward Perk="codex_char_lichtenstein" />
-					</Rewards>
-				</AddReward>
 				<AddReward Name="codexJostMoravsky" PositionY="1440" PositionX="-1300">
 					<Edge From="prijezdNaSuchdol.OnDone" To="AddReward" />
 					<Rewards>
@@ -322,6 +322,7 @@
 						<Vertex>vertex15</Vertex>
 						<Vertex>Pyjy7Kpr</Vertex>
 					</Edge>
+					<Edge From="prijezd.jdi_spat_finished" To="jdi_spat_finished" />
 				</Output>
 				<pausetime Name="pausetime" PositionY="50" PositionX="-1050">
 					<Edge From="prijezdNaSuchdol.OnActive" To="quest_onactive" />
@@ -416,7 +417,7 @@
 				<EdgeVertex Name="vertex11" PositionY="-110" PositionX="-620" />
 				<EdgeVertex Name="vertex12" PositionY="380" PositionX="-610" />
 				<EdgeVertex Name="vertex13" PositionY="-480" PositionX="-560" />
-				<EdgeVertex Name="vertex14" PositionY="378" PositionX="-1175" />
+				<EdgeVertex Name="vertex14" PositionY="380" PositionX="-930" />
 				<EdgeVertex Name="vertex15" PositionY="418" PositionX="428" />
 				<EdgeVertex Name="vertex17" PositionY="-206" PositionX="846" />
 				<EdgeVertex Name="vertex19" PositionY="-20" PositionX="-710" />
@@ -482,6 +483,7 @@
 				<SoulAsset Name="leftHorse" />
 				<SoulAsset Name="rightHorse" />
 				<TagPointAsset Name="postQuestKaterinaTeleportSpot" />
+				<AnimDoorAsset Name="staircaseDoor" />
 			</Assets>
 			<Text StringName="mq13__prijezd_na_suchdol_au8n" Text="Příjezd na Suchdol" />
 			<Elements>

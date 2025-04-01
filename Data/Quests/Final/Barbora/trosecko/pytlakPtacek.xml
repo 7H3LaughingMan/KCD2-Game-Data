@@ -628,6 +628,7 @@
 					</Edge>
 					<Edge From="pytlak_3_vyresen.started" To="done">
 						<Vertex>vertex43</Vertex>
+						<Vertex>fGBgLh4X</Vertex>
 						<Vertex>vertex44</Vertex>
 					</Edge>
 					<Edge From="ukol_od_druheho_lovciho1.hledani_pytlaka3" To="start" />
@@ -720,7 +721,7 @@
 					</Rewards>
 				</AddReward>
 				<SaveGame Name="savegame35" PositionY="-910" PositionX="6380">
-					<Constant Name="Objective" Value="zjisti_jak_je_to_s_pytlakem_v_lesich_na_kopanine" />
+					<Constant Name="Objective" Value="temp_hlaseni_lovcimu_fifthCamp" />
 					<Edge From="hlaseni_lovcimu_o_pytlakovi.quest_completed" To="EnqueueSave">
 						<Vertex>LXjhgvmn</Vertex>
 						<Vertex>P8vD1wmh</Vertex>
@@ -738,24 +739,14 @@
 					<Edge From="pytlak_4_vyresen.konec_questu_bez_ptacka" To="EnqueueSave" />
 				</SaveGame>
 				<slatejov_quest_items Name="slatejov_quest_items" PositionY="-890" PositionX="2930">
-					<Edge From="ActivityObjective.OnFailed" To="quest_skoncil">
-						<Vertex>vertex302</Vertex>
-						<Vertex>vertex374</Vertex>
-						<Vertex>vertex303</Vertex>
-					</Edge>
-					<Edge From="ActivityObjective.OnDone" To="quest_skoncil">
-						<Vertex>vertex302</Vertex>
-						<Vertex>vertex374</Vertex>
-						<Vertex>vertex303</Vertex>
-					</Edge>
 					<Edge From="pytlak_3.mrtvola_zatim_nenalezena" To="mrtvola_zatim_nenalezena" />
 					<Edge From="pytlak_3.streamdone" To="zacatek_campu__statejov" />
 					<Edge From="pytlak_3.kemp_zatim_nenalezen" To="kemp_zatim_nenalezen" />
-					<Edge From="pytlak_3_vyresen.odevzdani_dukazu" To="dyka_u_hajneho">
-						<Vertex>vertex300</Vertex>
-						<Vertex>vertex301</Vertex>
-					</Edge>
 					<Edge From="pytlak_3.activated" To="dyka_v_mrtvole_pytlaka" />
+					<Edge From="pytlak_3_vyresen.started" To="quest_skoncil">
+						<Vertex>vertex43</Vertex>
+						<Vertex>fGBgLh4X</Vertex>
+					</Edge>
 				</slatejov_quest_items>
 				<sniffable_quest_item_kopanina Name="sniffable_quest_item_kopanina" PositionY="-890" PositionX="5330">
 					<Edge From="pytlak_4_vyresen.konec_questu_bez_ptacka" To="konec">
@@ -911,6 +902,7 @@
 				<EdgeVertex Name="EeVB9a1d" PositionY="-120" PositionX="2380" />
 				<EdgeVertex Name="eNLy4jns" PositionY="-310" PositionX="-1820" />
 				<EdgeVertex Name="eS8jw55v" PositionY="-120" PositionX="520" />
+				<EdgeVertex Name="fGBgLh4X" PositionY="-198" PositionX="2877" />
 				<EdgeVertex Name="H3ArKkmz" PositionY="220" PositionX="5340" />
 				<EdgeVertex Name="jbFhKq0N" PositionY="-60" PositionX="5600" />
 				<EdgeVertex Name="kDygoPJz" PositionY="-120" PositionX="1130" />
@@ -992,8 +984,6 @@
 				<EdgeVertex Name="vertex296" PositionY="-140" PositionX="80" />
 				<EdgeVertex Name="vertex298" PositionY="-20" PositionX="-3080" />
 				<EdgeVertex Name="vertex299" PositionY="-20" PositionX="2240" />
-				<EdgeVertex Name="vertex300" PositionY="-220" PositionX="3140" />
-				<EdgeVertex Name="vertex301" PositionY="-220" PositionX="2930" />
 				<EdgeVertex Name="vertex302" PositionY="-940" PositionX="6260" />
 				<EdgeVertex Name="vertex303" PositionY="-940" PositionX="2980" />
 				<EdgeVertex Name="vertex304" PositionY="80" PositionX="1560" />
@@ -1551,7 +1541,7 @@
 						<EnumLog Type="None" Name="Aborted" />
 					</Logs>
 				</Objective>
-				<Objective TypeT="ProgressAbortable" Name="poptej_se_v_brlohu_na_pytlaky" IsOptional="true">
+				<Objective TypeT="ProgressFailableAbortable" Name="poptej_se_v_brlohu_na_pytlaky" IsOptional="true">
 					<LocalizedName StringName="pytlakpta_poptej_se_v_brl_5xdC" Text="Poptej se v Brlohu na pytláky." />
 					<Logs>
 						<EnumLog Type="None" Name="None" />
@@ -1559,6 +1549,7 @@
 							<Log StringName="poptej_se_mozna_by_ale_ne_2w0x" Text="Možná by ale něco mohli vědět Krejzlovi poskoci v Brlohu. Divil bych se, kdyby si něčeho nevšimli." />
 						</EnumLog>
 						<EnumLog Type="Completed" Name="Completed" />
+						<EnumLog Type="Canceled" Name="Failed" />
 						<EnumLog Type="None" Name="Aborted" />
 					</Logs>
 				</Objective>

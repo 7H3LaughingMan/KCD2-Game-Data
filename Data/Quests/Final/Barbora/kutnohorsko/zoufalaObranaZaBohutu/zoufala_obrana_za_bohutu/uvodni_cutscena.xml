@@ -18,6 +18,9 @@
 				<Port Name="playcutscene_1" Direction="In" Type="trigger">
 					<DesignName StringName="uvodni_cu_playcutscene_1_51Kn" Text="PlayCutscene" />
 				</Port>
+				<Port Name="profily_jsou_nastreamovane" Direction="In" Type="bool">
+					<DesignName StringName="uvodni_cu_profily_jsou_na_mWwF" Text="Profily jsou nastreamované" />
+				</Port>
 				<Port Name="hrac_si_prohlidl_kusi" Direction="Out" Type="trigger">
 					<DesignName StringName="uvodni_cu_hrac_si_prohlid_8Ikz" Text="Hráč si prohlídl kuši" />
 				</Port>
@@ -30,6 +33,7 @@
 				<addbloodallbodyparts Name="addbloodallbodyparts" PositionY="750" PositionX="520" Namespace="utils.general">
 					<Asset Name="soul" Alias="defenderShotByArrow" />
 					<Constant Name="value" Value="0.8" />
+					<Constant Name="absolute" Value="false" />
 					<Edge From="cin_m5010k_obranabohuta__siege_intro.afterplay" To="add_blood" />
 				</addbloodallbodyparts>
 				<MemberFunction Name="adddirt19" PositionY="570" PositionX="510" MethodName="AddDirt" DeclaringType="wh::rpgmodule::I_Soul">
@@ -43,12 +47,19 @@
 					<Edge From="cin_m5010k_obranabohuta__siege_intro.afterplay" To="Exec" />
 				</Function>
 				<cin_m5010k_obranabohuta__siege_intro Name="cin_m5010k_obranabohuta__siege_intro" PositionY="-310" PositionX="60">
-					<Edge From="start_cutscene" To="start_cutscene" />
 					<Edge From="playcutscene_1" To="playcutscene" />
+					<Edge From="cutsceneEnqueued.OnTrue" To="start_cutscene" />
 				</cin_m5010k_obranabohuta__siege_intro>
+				<State Name="cutsceneEnqueued" PositionY="-420" PositionX="-300" TypeT="bool">
+					<Edge From="ifnot23.True" To="SetTrue" />
+				</State>
 				<hrac_si_prohlizi_kusi Name="hrac_si_prohlizi_kusi" PositionY="280" PositionX="1140">
 					<Edge From="triggersequence18.B" To="zacina_oblehani_za_bohutu" />
 				</hrac_si_prohlizi_kusi>
+				<IfFunction Name="ifnot23" PositionY="-300" PositionX="-590" MethodName="math::boolean::Not" DeclaringType="math::boolean">
+					<Edge From="profily_jsou_nastreamovane" To="Value" />
+					<Edge From="start_cutscene" To="Exec" />
+				</IfFunction>
 				<Output Name="Output">
 					<Edge From="cin_m5010k_obranabohuta__siege_intro.onfinished" To="onfinished">
 						<Vertex>vertex1</Vertex>
@@ -71,6 +82,11 @@
 				<CutsceneHolderAsset Name="battleOpeningCutscene" />
 				<SoulAsset Name="defenderShotByArrow" SharedSoulGuids="343e3897-fa5e-41cb-bb8a-7c0d9934bc39" />
 			</Assets>
+			<Notes>
+				<Note Name="note21" PositionY="-490" PositionX="-320">
+					<Text StringName="uvodni_cu_note21_4urc" Text="Po odhibernování potřebuju triggnout jen jednou, jinak chyba KCD2-496859" />
+				</Note>
+			</Notes>
 			<Text StringName="uvodni_cutscena_fiud" Text="Úvodní cutscéna" />
 		</Module>
 	</Skald>

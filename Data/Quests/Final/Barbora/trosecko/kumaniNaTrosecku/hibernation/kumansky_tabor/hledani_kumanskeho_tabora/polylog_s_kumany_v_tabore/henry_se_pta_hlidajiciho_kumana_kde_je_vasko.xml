@@ -21,23 +21,25 @@
 				</SelectedSouls>
 				<Decision Name="dec1" Priority="SideQuestSubmission">
 					<Sequences>
-						<Sequence EntryCondition="Port('isactive') AND &#xD;&#xA;Port('henry_vi_kde_je_kumansky_tabor') OR &#xD;&#xA;Port('henry_se_seznamuje_s_vaskem')" EndType="EndDialogue" Visibility="Public" Name="henry_mluvil_s_kumanem">
+						<Sequence EntryCondition="Port('isactive') AND (&#xD;&#xA;  Port('henry_vi_kde_je_kumansky_tabor') OR &#xD;&#xA;  Port('henry_se_seznamuje_s_vaskem')&#xD;&#xA;)" EndType="EndDialogue" Visibility="Public" Name="henry_mluvil_s_kumanem">
 							<DesignName StringName="henry_se__henry_mluvil_s__cQ9c" Text="henry mluvil s kumánem" />
 							<UiPrompt StringName="ui_henry_se__henry_mluvil_uuBh" Text="Hledám Vaska." />
 							<Elements>
 								<Response Role="HENRY" StartDelay="0.32" ReferenceLength="2.94">
 									<Text StringName="henr_henry_hledam_vaska_n_XXfu" Text="Hledám Vaska, nevíš, kde je?" />
 									<Commands>
+										<FacialMoodCommand FacialMood="thinking1" />
 										<AnimationCommand Delay="-0.3" FragmentId="ADLG_Gesture" Guid="c146b5f3-dae0-4959-9e7f-34c7415efe01" Variant="19" DesiredDuration="2.05" />
 										<AnimationCommand Delay="1.83" FragmentId="ADLG_Confusion" Guid="3ee18b27-3ab6-44ff-973a-dac45dd39426" Variant="1" />
 										<CameraCommand />
 									</Commands>
 								</Response>
-								<Response Role="HLIDAJICI_KUMAN_KUMANI_NA_TROSECKU">
+								<Response Role="HLIDAJICI_KUMAN_KUMANI_NA_TROSECKU" ReferenceLength="2.14">
 									<Text StringName="henr_hlidajici_amit_akars_BSdR" Text="Amit akarsz? Ne fáradj.">
 										<Note StringName="henr_hlidajici_amit_akars_BSdR_note" Text="Co chceš? Neotravuj. = maďarsky" />
 									</Text>
 									<Commands>
+										<FacialMoodCommand FacialMood="thinking2" />
 										<CameraCommand />
 									</Commands>
 								</Response>
@@ -47,6 +49,7 @@
 									</Parenthetical>
 									<Text StringName="henr_henry_snazim_se_naji_g7kB" Text="Snažím se najít Vaska... Vaska!" />
 									<Commands>
+										<FacialMoodCommand FacialMood="thinking2" />
 										<AnimationCommand Delay="1.22" FragmentId="ADLG_Gesture" Guid="34ac6648-6fd5-4005-84ec-632a56223892" Variant="5" />
 										<AnimationCommand Delay="2.8" FragmentId="ADLG_Grandeur" Guid="d1b32b74-10ad-a19a-f5c8-c76ca4cef8b7" Variant="1" />
 										<CameraCommand />

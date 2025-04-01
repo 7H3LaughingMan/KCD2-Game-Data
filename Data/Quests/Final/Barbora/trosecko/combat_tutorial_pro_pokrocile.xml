@@ -28,7 +28,7 @@
 					<DesignName StringName="combat_tu_poprve_kocour_E8LW" Text="poprvé u kocoura" />
 				</Port>
 				<Port Name="masterstrike_tutorial_zacal" Direction="In" Type="bool">
-					<DesignName StringName="combat_tu_masterstrike_tu_xb2Y" Text="Masterstrike tutoriál začal" />
+					<DesignName StringName="combat_tu_masterstrike_tu_xb2Y" Text="Masterstrike tutoriál ještě nezačal" />
 				</Port>
 			</Ports>
 			<Definitions>
@@ -75,9 +75,13 @@
 						<Vertex>vertex16</Vertex>
 					</Edge>
 				</SoulDeathTrigger>
-				<DisplayTutorial Name="displaytutorial13712181" PositionY="490" PositionX="-50">
+				<DisplayTutorial Name="displaytutorial13712181" PositionY="480" PositionX="200">
 					<Constant Name="Tutorial" Value="OB_O22_Combos" />
-					<Edge From="doonce.out" To="Show" />
+					<Edge From="ifcompare13712183.False" To="Show" />
+				</DisplayTutorial>
+				<DisplayTutorial Name="displaytutorial13712181_1" PositionY="700" PositionX="200">
+					<Constant Name="Tutorial" Value="OB_O22_CombosHC" />
+					<Edge From="ifcompare13712183.True" To="Show" />
 				</DisplayTutorial>
 				<doonce Name="doonce" PositionY="300" PositionX="-330" Namespace="utils.general">
 					<Edge From="questState.OnDone" To="in">
@@ -116,6 +120,7 @@
 						<Vertex>vertex360</Vertex>
 					</Edge>
 				</equipanddrawplayerstrainingsword>
+				<Function Name="getgamemode13712184" PositionY="690" PositionX="-330" MethodName="wh::rpgmodule::GetGameMode" DeclaringType="wh::rpgmodule" />
 				<HasteTrigger Name="goto_bara" PositionY="-510" PositionX="-1960">
 					<Edge From="makearray26_1_1.Array" To="ConsoleCommands" />
 				</HasteTrigger>
@@ -158,6 +163,12 @@
 					</Edge>
 					<Edge From="poprve_s_trenerem.kocour_jde_do_arenky" To="Exec" />
 				</If>
+				<IfFunction Name="ifcompare13712183" PositionY="600" PositionX="-60" TypeT="E_GameMode" MethodName="Control::Compare" DeclaringType="Control">
+					<Constant Name="Op" Value="Equals" />
+					<Constant Name="ValueB" Value="hardcore" />
+					<Edge From="getgamemode13712184.GameMode" To="ValueA" />
+					<Edge From="doonce.out" To="Exec" />
+				</IfFunction>
 				<EnableBehavior Name="kocour_waitForPlayerInArena" PositionY="960" PositionX="3170" Signature="goto" EventSet="endNotification">
 					<Constant Name="Behavior" Value="trainer_waitForPlayerInArena" />
 					<Asset Name="SmartEntity" Alias="QSO" />

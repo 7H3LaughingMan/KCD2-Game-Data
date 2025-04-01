@@ -15,6 +15,9 @@
 				<Definition File="kostky/kostky_pres_dialog_zena.xml" />
 			</Definitions>
 			<Nodes>
+				<AIConceptSignalTrigger Name="aiconceptsignaltriggerdiceminigameresult3" PositionY="-2118" PositionX="-27" NotificationName="dice_minigameResult">
+					<Edge From="kostkyRewarding.State" To="IsActive" />
+				</AIConceptSignalTrigger>
 				<barky Name="barky" PositionY="-760" PositionX="-1900" />
 				<AddReward Name="codexHry" PositionY="-710" PositionX="1270">
 					<Edge From="SockyDone.True" To="AddReward" />
@@ -82,6 +85,20 @@
 					<Edge From="kostky_pres_dialog_zena.setgamelevel_craftsman" To="setgamelevel_craftsman" />
 					<Edge From="kostky_pres_dialog_zena.setgamelevel_courtier" To="setgamelevel_courtier" />
 				</diceowlogic>
+				<IfFunction Name="ifcompare4" PositionY="-2118" PositionX="392" TypeT="dice_minigameResult" MethodName="Control::Compare" DeclaringType="Control">
+					<Constant Name="Op" Value="Equals" />
+					<Constant Name="ValueB" Value="playerWon" />
+					<Edge From="aiconceptsignaltriggerdiceminigameresult3.result" To="ValueA" />
+					<Edge From="aiconceptsignaltriggerdiceminigameresult3.OnNotification" To="Exec" />
+				</IfFunction>
+				<IfFunction Name="ifcompare4_1" PositionY="-1978" PositionX="662" TypeT="dice_minigameResult" MethodName="Control::Compare" DeclaringType="Control">
+					<Constant Name="Op" Value="Equals" />
+					<Constant Name="ValueB" Value="playerLost" />
+					<Edge From="ifcompare4.False" To="Exec" />
+					<Edge From="aiconceptsignaltriggerdiceminigameresult3.result" To="ValueA">
+						<Vertex>xfJDjGt3</Vertex>
+					</Edge>
+				</IfFunction>
 				<kostky_pres_dialog_muz Name="kostky_pres_dialog_muz" PositionY="-950" PositionX="160">
 					<Edge From="diceowdialogdata.price_beggar" To="Payment_zebracka" />
 					<Edge From="diceowdialogdata.price_farmer" To="Payment_sedlacka" />
@@ -130,6 +147,16 @@
 					<Edge From="diceowdialogdata_1.price_craftsman" To="Payment_formanska" />
 					<Edge From="diceowdialogdata_1.price_wagoner" To="Payment_mistrovska" />
 				</kostky_pres_dialog_zena>
+				<State Name="kostkyRewarding" PositionY="-2148" PositionX="-307" TypeT="bool">
+					<Constant Name="DefaultValue" Value="true" />
+				</State>
+				<AddReward Name="reward1" PositionY="-2118" PositionX="932">
+					<Edge From="ifcompare4.True" To="AddReward" />
+					<Edge From="ifcompare4_1.True" To="AddReward" />
+					<Rewards>
+						<StatReward Type="agility" ExperienceChange="1-micro" />
+					</Rewards>
+				</AddReward>
 				<IfFunction Name="SockyDone" PositionY="-600" PositionX="970" TypeT="wh::questmodule::QuestProgress" MethodName="Control::Compare" DeclaringType="Control">
 					<Constant Name="Op" Value="Equals" />
 					<Constant Name="ValueB" Value="Done" />
@@ -157,6 +184,7 @@
 				<EdgeVertex Name="vertex51" PositionY="325" PositionX="-205" />
 				<EdgeVertex Name="vertex52" PositionY="390" PositionX="540" />
 				<EdgeVertex Name="vertex53" PositionY="379" PositionX="-71" />
+				<EdgeVertex Name="xfJDjGt3" PositionY="-1858" PositionX="392" />
 			</EdgeVertices>
 			<Text StringName="kostky_MMtV" Text="Kostky" />
 		</Gameplay>

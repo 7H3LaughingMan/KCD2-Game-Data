@@ -21,13 +21,14 @@
 				</SelectedSouls>
 				<Decision Name="dec1" Priority="SideQuestSubmission">
 					<Sequences>
-						<Sequence SpeechCoef="0" EntryCondition="!Port('straz_je_u_brany')" EndType="Decision" Name="seq3">
+						<Sequence SpeechCoef="0" EntryCondition="!Port('straz_je_u_brany') AND &#xD;&#xA;!SequenceUsed('hotovo') AND&#xD;&#xA;!SequenceUsed('o_mrtvem_kovari')" EndType="Decision" Name="seq3">
 							<DesignName StringName="vyptavani_seq3_jlu7" Text="seq3" />
 							<UiPrompt StringName="ui_vyptavani_seq3_UGfH" Text="Hledám Viktorku." />
 							<Elements>
 								<Response Role="HENRY" ReferenceLength="2.9">
 									<Text StringName="vypt_henry_nekoho_hledam__GyB8" Text="Poradil bys mi? Někoho tu hledám." />
 									<Commands>
+										<FacialMoodCommand FacialMood="thinking1" />
 										<AnimationCommand Delay="1.35" FragmentId="ADLG_Gesture" Guid="f897a1b3-c338-416e-88ea-7345a13432a2" Variant="26" />
 										<CameraCommand CameraType="CloseShot" />
 									</Commands>
@@ -38,6 +39,7 @@
 									</Parenthetical>
 									<Text StringName="vypt_vojak_v_t_a_o_koho_j_ABZT" Text="To záleží. O koho jde?" />
 									<Commands>
+										<FacialMoodCommand FacialMood="arrogant1" />
 										<AnimationCommand Delay="0.13" FragmentId="ADLG_Confusion" Guid="19e1b926-8753-4893-af45-10d39fa3a985" Variant="0" />
 										<CameraCommand CameraType="CloseUp" />
 									</Commands>
@@ -52,12 +54,13 @@
 							</Elements>
 							<Decision Name="dec3" Priority="SideQuestSubmission">
 								<Sequences>
-									<Sequence EntryCondition="Port('kovar_je_mrtvy')" EndType="EndDialogue" Name="seq6">
-										<DesignName StringName="vyptavani_seq6_Q2yx" Text="seq6" />
+									<Sequence EntryCondition="Port('kovar_je_mrtvy')" EndType="EndDialogue" Visibility="Internal" Name="o_mrtvem_kovari">
+										<DesignName StringName="vyptavani_seq6_Q2yx" Text="O mrtvém kováři" />
 										<Elements>
 											<Response Role="VOJAK_V_TABORE_VIKTORKA" ReferenceLength="6.43">
 												<Text StringName="vypt_vojak_v_t_byl_bych_t_kLW5" Text="Tak s tím by ti bejval poradil spíš kovář, ale na to už je pozdě. Nedávno ho setla zubatá..." />
 												<Commands>
+													<FacialMoodCommand FacialMood="thinking2" />
 													<AnimationCommand Delay="3.7" FragmentId="ADLG_Terminate" Guid="693d9eab-9458-8b1b-6f67-f443fe6dc121" Variant="0" />
 													<CameraCommand CameraType="CloseShot" />
 												</Commands>
@@ -77,7 +80,7 @@
 											</Response>
 										</Elements>
 									</Sequence>
-									<Sequence SpeechCoef="0" EntryCondition="!Port('kovar_je_mrtvy')" EndType="EndDialogue" Visibility="Public" Name="hotovo">
+									<Sequence SpeechCoef="0" EntryCondition="!Port('kovar_je_mrtvy')" EndType="EndDialogue" Visibility="Internal" Name="hotovo">
 										<DesignName StringName="vyptavani_seq5_ST2M" Text="Hotovo" />
 										<Triggers>
 											<Port Name="henry_vi_kde_najit_kovare" />
@@ -86,20 +89,25 @@
 											<Response Role="VOJAK_V_TABORE_VIKTORKA" ReferenceLength="5.06">
 												<Text StringName="vypt_vojak_v_t_to_se_musi_5Ol1" Text="To se musíš zeptat asi přímo kováře. Kovárna je naproti vstupu do horní části tábora." />
 												<Commands>
+													<FacialMoodCommand FacialMood="thinking2" />
 													<AnimationCommand Delay="0.06" FragmentId="ADLG_Confusion" Guid="19e1b926-8753-4893-af45-10d39fa3a985" Variant="0" />
 													<AnimationCommand Delay="2.8" FragmentId="ADLG_Point" Guid="a0ce68d7-2cb7-4980-8ea3-dec784229b92" Variant="2" />
 													<CameraCommand CameraType="CloseShot" />
 												</Commands>
 											</Response>
-											<Response Role="VOJAK_V_TABORE_VIKTORKA">
+											<Response Role="VOJAK_V_TABORE_VIKTORKA" ReferenceLength="4.75">
 												<Parenthetical>
 													<Text StringName="vypt_vojak_v_t_pobavene_2irB" Text="pobaveně" />
 												</Parenthetical>
 												<Text StringName="vypt_vojak_v_t_i_kdybys_t_wqrP" Text="I kdybys to přehlídnul, ty rány kladivem rozhodně nepřeslechneš." />
+												<Commands>
+													<FacialMoodCommand FacialMood="happy1" />
+												</Commands>
 											</Response>
 											<Response Role="HENRY" ReferenceLength="2.29">
 												<Text StringName="vypt_henry_moc_dekuju_pop_URNI" Text="Moc děkuju, poptám se ho." />
 												<Commands>
+													<FacialMoodCommand FacialMood="thinking1" />
 													<AnimationCommand Delay="0.05" FragmentId="ADLG_Nod" Guid="ca364fe9-66bd-48fa-8178-0e49459d7038" Variant="2" />
 													<CameraCommand CameraType="CloseUp" />
 												</Commands>
