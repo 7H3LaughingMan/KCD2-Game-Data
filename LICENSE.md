@@ -1,0 +1,1 @@
+The contents of this repository are owned by PLAION/Warhorse Studios. They are meant to be used for research purposes and for creating modifications to Kingdom Come: Deliverance II. These files can not be used for commercial purposes or for profit in any means. If you do use this repository you must abide by the [End User License Agreement](EULA.md).
