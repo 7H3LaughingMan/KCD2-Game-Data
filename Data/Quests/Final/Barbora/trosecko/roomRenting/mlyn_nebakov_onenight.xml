@@ -2,6 +2,11 @@
 <Database xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" Name="brambora">
 	<Skald>
 		<Gameplay Name="mlyn_nebakov_onenight">
+			<Ports>
+				<Port Name="levelswitch" Direction="In" Type="trigger">
+					<DesignName StringName="mlyn_neba_levelswitch_GeCC" Text="LevelSwitch" />
+				</Port>
+			</Ports>
 			<Definitions>
 				<Definition File="mlyn_nebakov_onenight/nebakov_rent_room_kde_je_slamnik_muz_.xml" />
 				<Definition File="mlyn_nebakov_onenight/nebakov_rent_room_kde_je_slamnik_zena_.xml" />
@@ -37,6 +42,7 @@
 					<Asset Name="kotlik" Alias="bed" />
 					<Asset Name="postel" Alias="bed" />
 					<Constant Name="expectedeffect" Value="false" />
+					<Edge From="levelswitch" To="levelswitched" />
 				</roomrentonenight>
 			</Nodes>
 			<EdgeVertices>

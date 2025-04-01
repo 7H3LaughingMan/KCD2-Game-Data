@@ -2,6 +2,11 @@
 <Database xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" Name="brambora">
 	<Skald>
 		<Gameplay Name="tachovOneNight">
+			<Ports>
+				<Port Name="levelswitch" Direction="In" Type="trigger">
+					<DesignName StringName="tachovone_levelswitch_nbpN" Text="LevelSwitch" />
+				</Port>
+			</Ports>
 			<Definitions>
 				<Definition File="tachovOneNight/tachov_rent_room_kde_je_slamnik_muz_.xml" />
 				<Definition File="tachovOneNight/tachov_rent_room_kde_je_slamnik_zena_.xml" />
@@ -13,6 +18,7 @@
 					<Asset Name="kotlik" Alias="kotlik" />
 					<Asset Name="postel" Alias="bed" />
 					<Constant Name="expectedeffect" Value="false" />
+					<Edge From="levelswitch" To="levelswitched" />
 				</roomrentonenight>
 				<tachov_rent_room_kde_je_slamnik_muz_ Name="tachov_rent_room_kde_je_slamnik_muz_" PositionY="160" PositionX="340">
 					<Edge From="roomrentonenight.jindra_ma_pronajatej_pokoj" To="jindra_ma_pronajaty_onenoghtspot" />

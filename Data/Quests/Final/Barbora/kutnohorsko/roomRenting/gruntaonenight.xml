@@ -2,6 +2,11 @@
 <Database xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" Name="brambora">
 	<Skald>
 		<Gameplay Name="gruntaOneNight">
+			<Ports>
+				<Port Name="onlevelswitched" Direction="In" Type="trigger">
+					<DesignName StringName="gruntaone_onlevelswitched_lh0r" Text="OnLevelSwitched" />
+				</Port>
+			</Ports>
 			<Definitions>
 				<Definition File="gruntaOneNight/grunta_rent_room_kde_je_slamnik_muz_.xml" />
 				<Definition File="gruntaOneNight/grunta_rent_room_kde_je_slamnik_zena.xml" />
@@ -19,6 +24,7 @@
 					<Asset Name="kotlik" Alias="kotlik" />
 					<Asset Name="postel" Alias="bed" />
 					<Constant Name="expectedeffect" Value="false" />
+					<Edge From="onlevelswitched" To="levelswitched" />
 				</roomrentonenight>
 			</Nodes>
 			<Assets>

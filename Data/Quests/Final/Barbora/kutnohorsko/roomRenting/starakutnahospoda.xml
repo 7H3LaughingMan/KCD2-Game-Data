@@ -2,6 +2,11 @@
 <Database xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" Name="brambora">
 	<Skald>
 		<Gameplay Name="staraKutnaHospoda">
+			<Ports>
+				<Port Name="onlevelswitched" Direction="In" Type="trigger">
+					<DesignName StringName="starakutn_onlevelswitched_fOH9" Text="OnLevelSwitched" />
+				</Port>
+			</Ports>
 			<Definitions>
 				<Definition File="staraKutnaHospoda/stara_rent_room_kde_je_pokoj_zena.xml" />
 			</Definitions>
@@ -20,6 +25,7 @@
 					<Asset Name="so" Alias="so_staraKutna" />
 					<Asset Name="postel" Alias="bed" />
 					<Asset Name="kotlik" Alias="kotlik" />
+					<Edge From="onlevelswitched" To="levelswitched" />
 				</roomrent>
 				<stara_rent_room_kde_je_pokoj_zena Name="stara_rent_room_kde_je_pokoj_zena_1" PositionY="240" PositionX="310">
 					<Edge From="roomrent.jindra_ma_pronajatej_pokoj" To="jindra_ma_pronajaty_pokoj" />

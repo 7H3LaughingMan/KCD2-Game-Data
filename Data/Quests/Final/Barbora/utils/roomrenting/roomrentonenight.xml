@@ -24,6 +24,9 @@
 				<ConstantPort Name="expectedeffect" Direction="In" Type="bool" Value="true">
 					<DesignName StringName="roomrento_expectedeffect_XiIF" Text="ExpectedEffect" />
 				</ConstantPort>
+				<Port Name="levelswitched" Direction="In" Type="trigger">
+					<DesignName StringName="roomrento_levelswitched_BQvr" Text="LevelSwitched" />
+				</Port>
 			</Ports>
 			<Definitions>
 				<Definition File="roomrentonenight/muz_pronajem_onenight_save.xml" />
@@ -133,6 +136,15 @@
 						<Vertex>vertex49</Vertex>
 					</Edge>
 				</If>
+				<If Name="if61" PositionY="-970" PositionX="1050">
+					<Edge From="patchtrigger60.OnPatch" To="Exec" />
+					<Edge From="levelswitched" To="Exec">
+						<Vertex>sERd04wa</Vertex>
+						<Vertex>oUbVsEVg</Vertex>
+						<Vertex>rlq5Dfdv</Vertex>
+					</Edge>
+					<Edge From="state24.infinite" To="Condition" />
+				</If>
 				<IfFunction Name="ifcompare28" PositionY="-10" PositionX="1270" TypeT="wh::framework::TimeOfDay" MethodName="Control::Compare" DeclaringType="Control">
 					<Constant Name="Op" Value="Greater" />
 					<Constant Name="ValueB" Value="8h" />
@@ -146,6 +158,7 @@
 						<Vertex>vertex63</Vertex>
 						<Vertex>vertex64</Vertex>
 					</Edge>
+					<Edge From="if61.True" To="Exec" />
 				</InstantSendMessage>
 				<InstantSendMessage Name="instantsendmessagerentroomcheckout26" PositionY="-640" PositionX="1480" MessageType="rentRoomCheckOut">
 					<Edge From="state24.Onnone" To="Exec" />
@@ -258,6 +271,9 @@
 				<Output Name="Output">
 					<Edge From="or32.bool" To="jindra_ma_pronajatej_pokoj" />
 				</Output>
+				<PatchTrigger Name="patchtrigger60" PositionY="-1040" PositionX="640">
+					<Constant Name="TransitionToVersion" Value="ver_01_02_02" />
+				</PatchTrigger>
 				<payment Name="payment" PositionY="200" PositionX="420" Namespace="speech">
 					<Edge From="zena_pronajem_onenight_save_1.pronajem_postele_na_noc" To="pay" />
 					<Edge From="zena_pronajem_onenight_save_1.ZENA_PRONAJEM" To="recipient" />
@@ -415,9 +431,12 @@
 				<EdgeVertex Name="K0ByCC4K" PositionY="70" PositionX="-1380" />
 				<EdgeVertex Name="LEwIe5np" PositionY="-1659" PositionX="-2977" />
 				<EdgeVertex Name="mb3l4oqU" PositionY="1210" PositionX="110" />
+				<EdgeVertex Name="oUbVsEVg" PositionY="-646" PositionX="-1740" />
 				<EdgeVertex Name="PKXYY3G1" PositionY="910" PositionX="-160" />
 				<EdgeVertex Name="Q6u1hrxz" PositionY="910" PositionX="380" />
 				<EdgeVertex Name="R2ynNQPM" PositionY="1100" PositionX="-190" />
+				<EdgeVertex Name="rlq5Dfdv" PositionY="-650" PositionX="829" />
+				<EdgeVertex Name="sERd04wa" PositionY="110" PositionX="-2380" />
 				<EdgeVertex Name="TllHBXf1" PositionY="-820" PositionX="50" />
 				<EdgeVertex Name="TNUNteub" PositionY="1210" PositionX="-2410" />
 				<EdgeVertex Name="ukVnPjUA" PositionY="1120" PositionX="130" />

@@ -2,6 +2,11 @@
 <Database xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" Name="brambora">
 	<Skald>
 		<Gameplay Name="bylanyhospoda">
+			<Ports>
+				<Port Name="onlevelswitched" Direction="In" Type="trigger">
+					<DesignName StringName="bylanyhos_onlevelswitched_luZ3" Text="OnLevelSwitched" />
+				</Port>
+			</Ports>
 			<Nodes>
 				<roomrentonenight Name="roomrentonenight" PositionY="-110" PositionX="0" Namespace="utils.roomrenting">
 					<Asset Name="owners" Alias="owners" />
@@ -9,6 +14,7 @@
 					<Asset Name="kotlik" Alias="kotlik" />
 					<Asset Name="postel" Alias="bed" />
 					<Constant Name="expectedeffect" Value="false" />
+					<Edge From="onlevelswitched" To="levelswitched" />
 				</roomrentonenight>
 			</Nodes>
 			<Assets>
@@ -17,7 +23,7 @@
 				<SmartObjectAsset Name="kotlik" />
 				<SmartObjectAsset Name="bed" />
 			</Assets>
-			<Text StringName="bylanyhospoda_28H0" Text="BylanyHospoda" />
+			<Text StringName="bylanyhospoda_28H0" Text="Bylany OneNight" />
 		</Gameplay>
 	</Skald>
 </Database>

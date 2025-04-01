@@ -2,6 +2,11 @@
 <Database xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" Name="brambora">
 	<Skald>
 		<Gameplay Name="opatoviceOneNight">
+			<Ports>
+				<Port Name="onlevelswitched" Direction="In" Type="trigger">
+					<DesignName StringName="opatovice_onlevelswitched_eeQV" Text="OnLevelSwitched" />
+				</Port>
+			</Ports>
 			<Definitions>
 				<Definition File="opatoviceOneNight/opatovice_rent_room_kde_je_pokoj_muz_.xml" />
 			</Definitions>
@@ -15,6 +20,7 @@
 					<Asset Name="kotlik" Alias="kotlik" />
 					<Asset Name="postel" Alias="bed" />
 					<Constant Name="expectedeffect" Value="false" />
+					<Edge From="onlevelswitched" To="levelswitched" />
 				</roomrentonenight>
 			</Nodes>
 			<Assets>

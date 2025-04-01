@@ -2,6 +2,11 @@
 <Database xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" Name="brambora">
 	<Skald>
 		<Gameplay Name="miskoviceOneNight">
+			<Ports>
+				<Port Name="onlevelswitched" Direction="In" Type="trigger">
+					<DesignName StringName="miskovice_onlevelswitched_d6fy" Text="OnLevelSwitched" />
+				</Port>
+			</Ports>
 			<Definitions>
 				<Definition File="miskoviceOneNight/suchdol_rent_room_kde_je_pokoj_muz_.xml" />
 				<Definition File="miskoviceOneNight/suchdol_rent_room_kde_je_pokoj_zena.xml" />
@@ -13,6 +18,7 @@
 					<Asset Name="kotlik" Alias="kotlik" />
 					<Asset Name="postel" Alias="bed" />
 					<Constant Name="expectedeffect" Value="false" />
+					<Edge From="onlevelswitched" To="levelswitched" />
 				</roomrentonenight>
 				<suchdol_rent_room_kde_je_pokoj_muz_ Name="suchdol_rent_room_kde_je_pokoj_muz_" PositionY="0" PositionX="-60">
 					<Edge From="roomrentonenight.jindra_ma_pronajatej_pokoj" To="jindra_ma_pronajaty_pokoj" />

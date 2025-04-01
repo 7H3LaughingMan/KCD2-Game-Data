@@ -9,6 +9,9 @@
 				<Port Name="jindra_ma_pronajatej_pokoj_na_tarmarku" Direction="Out" Type="bool">
 					<DesignName StringName="naopratce_jindra_ma_prona_njTF" Text="Jindra má pronajatej pokoj na Tarmarku" />
 				</Port>
+				<Port Name="onlevelswitched" Direction="In" Type="trigger">
+					<DesignName StringName="naopratce_onlevelswitched_03Tc" Text="OnLevelSwitched" />
+				</Port>
 			</Ports>
 			<Definitions>
 				<Definition File="naOpratceHospoda/stara_rent_room_kde_je_pokoj_zena.xml" />
@@ -48,6 +51,7 @@
 					<Asset Name="postel" Alias="bed" />
 					<Asset Name="kotlik" Alias="kotlik" />
 					<Edge From="jindra_dostava_pokoj_jako_odmenu__u63a_duely_zavet" To="enablefull" />
+					<Edge From="onlevelswitched" To="levelswitched" />
 				</roomrent>
 				<stara_rent_room_kde_je_pokoj_zena Name="stara_rent_room_kde_je_pokoj_zena_1" PositionY="470" PositionX="310">
 					<Edge From="roomrent.jindra_ma_pronajatej_pokoj" To="jindra_ma_pronajaty_pokoj" />
