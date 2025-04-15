@@ -26,23 +26,19 @@
 				<Definition File="tour_do_troskovic/debata_suk__semin__hrac.xml" />
 			</Definitions>
 			<Nodes>
-				<ActorMountedTrigger Name="actormountedtrigger42" PositionY="460" PositionX="480">
-					<Asset Name="Soul" Alias="semin" />
-					<Edge From="troskoviceTour.WaitForLordsToMountHorses" To="IsActive" />
-				</ActorMountedTrigger>
 				<debata_suk__semin__hrac Name="debata_suk__semin__hrac" PositionY="-650" PositionX="1140">
 					<Edge From="hrac_vyhral_trenink" To="vyhral_hrac_trenink">
 						<Vertex>vertex8</Vertex>
 					</Edge>
 				</debata_suk__semin__hrac>
-				<EnableBehavior Name="enablebehaviorhorse3" PositionY="1110" PositionX="400" Signature="horse" EventSet="">
+				<EnableBehavior Name="enablebehaviorhorse3" PositionY="1410" PositionX="350" Signature="horse" EventSet="endNotification">
 					<Constant Name="Behavior" Value="actor_mount_gesture" />
 					<Asset Name="SmartEntity" Alias="zbraneSO" />
 					<Asset Name="NPC" Alias="semin" />
 					<Asset Name="horse" Alias="seminHorse" />
 					<Edge From="troskoviceTour.WaitForLordsToMountHorses" To="IsActive" />
 				</EnableBehavior>
-				<EnableBehavior Name="enablebehaviorhorse3_1" PositionY="1400" PositionX="400" Signature="horse" EventSet="">
+				<EnableBehavior Name="enablebehaviorhorse3_1" PositionY="1120" PositionX="360" Signature="horse" EventSet="">
 					<Constant Name="Behavior" Value="actor_mount" />
 					<Asset Name="SmartEntity" Alias="zbraneSO" />
 					<Asset Name="NPC" Alias="suk" />
@@ -105,8 +101,7 @@
 						<Vertex>vertex9</Vertex>
 					</Edge>
 				</Switch>
-				<Switch Name="switch49" PositionY="100" PositionX="-720" TypeT="TourToTroskovice" ValueTypes="TourToTroskovice" SwitchValues="WaitForLordsToMountHorses Travelling SlowStart">
-					<Constant Name="WaitForLordsToMountHorsesValue1" Value="SlowStart" />
+				<Switch Name="switch49" PositionY="100" PositionX="-720" TypeT="TourToTroskovice" ValueTypes="TourToTroskovice" SwitchValues="Travelling SlowStart">
 					<Constant Name="TravellingValue1" Value="Done" />
 					<Constant Name="SlowStartValue1" Value="Travelling" />
 					<Constant Name="DefaultValue1" Value="None" />
@@ -177,25 +172,21 @@
 					<Edge From="tour_advanced.onsuccess" To="Exec">
 						<Vertex>vertex5</Vertex>
 						<Vertex>vertex6</Vertex>
-						<Vertex>vertex12</Vertex>
 						<Vertex>vertex7</Vertex>
 					</Edge>
 					<Edge From="tour_advanced.ontagpointreached" To="Exec">
 						<Vertex>vertex5</Vertex>
 						<Vertex>vertex6</Vertex>
-						<Vertex>vertex12</Vertex>
 						<Vertex>vertex7</Vertex>
 					</Edge>
 					<Edge From="tour_advanced.ondialogfinished" To="Exec">
 						<Vertex>vertex5</Vertex>
 						<Vertex>vertex6</Vertex>
-						<Vertex>vertex12</Vertex>
 						<Vertex>vertex7</Vertex>
 					</Edge>
 					<Edge From="tour_advanced.ondialogfinishedandtagpointreached" To="Exec">
 						<Vertex>vertex5</Vertex>
 						<Vertex>vertex6</Vertex>
-						<Vertex>vertex12</Vertex>
 						<Vertex>vertex7</Vertex>
 					</Edge>
 					<Edge From="tour_zacina" To="SetWaitForLordsToMountHorses" />
@@ -211,14 +202,14 @@
 						<Vertex>d8lNDb7r</Vertex>
 						<Vertex>adRtKI0V</Vertex>
 					</Edge>
-					<Edge From="actormountedtrigger42.OnMount" To="Exec">
-						<Vertex>vertex12</Vertex>
-						<Vertex>vertex7</Vertex>
-					</Edge>
 					<Edge From="playeroutfromtour.timer_done" To="SetFailed">
 						<Vertex>vertex23</Vertex>
 						<Vertex>vertex20</Vertex>
 						<Vertex>vertex21</Vertex>
+					</Edge>
+					<Edge From="enablebehaviorhorse3.OnFinished" To="SetSlowStart">
+						<Vertex>jlmqWbTh</Vertex>
+						<Vertex>RFH0Ywws</Vertex>
 					</Edge>
 				</State>
 			</Nodes>
@@ -226,10 +217,11 @@
 				<EdgeVertex Name="adRtKI0V" PositionY="1690" PositionX="-130" />
 				<EdgeVertex Name="d8lNDb7r" PositionY="1690" PositionX="950" />
 				<EdgeVertex Name="EhQ20cgG" PositionY="1030" PositionX="590" />
+				<EdgeVertex Name="jlmqWbTh" PositionY="1720" PositionX="630" />
 				<EdgeVertex Name="lsvyRXM4" PositionY="1399" PositionX="1125" />
+				<EdgeVertex Name="RFH0Ywws" PositionY="1720" PositionX="-160" />
 				<EdgeVertex Name="vertex10" PositionY="420" PositionX="-720" />
 				<EdgeVertex Name="vertex11" PositionY="420" PositionX="400" />
-				<EdgeVertex Name="vertex12" PositionY="1060" PositionX="570" />
 				<EdgeVertex Name="vertex13" PositionY="-360" PositionX="440" />
 				<EdgeVertex Name="vertex14" PositionY="-340" PositionX="1020" />
 				<EdgeVertex Name="vertex15" PositionY="-410" PositionX="1150" />

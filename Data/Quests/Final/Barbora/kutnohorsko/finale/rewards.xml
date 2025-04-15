@@ -19,10 +19,10 @@
 					<Constant Name="Statistic" Value="GameModePerkCount" />
 				</Function>
 				<If Name="if_samuelLived" PositionY="-70" PositionX="-200">
-					<Edge From="reward" To="Exec">
+					<Edge From="sam_is_alive" To="Condition" />
+					<Edge From="triggersequence48.A" To="Exec">
 						<Vertex>EaRSBYgB</Vertex>
 					</Edge>
-					<Edge From="sam_is_alive" To="Condition" />
 				</If>
 				<IfFunction Name="ifcompare43" PositionY="270" PositionX="70" TypeT="E_GameMode" MethodName="Control::Compare" DeclaringType="Control">
 					<Constant Name="Op" Value="Equals" />
@@ -37,10 +37,12 @@
 					<Edge From="reward_hardcoreAchievement.OnAdded" To="Exec" />
 				</IfFunction>
 				<Output Name="Output">
-					<Edge From="reward_hardcoreAchievement_allPerks.OnAdded" To="aktualizovat_aktivitu" />
+					<Edge From="triggersequence48.B" To="aktualizovat_aktivitu">
+						<Vertex>ezf93IEM</Vertex>
+					</Edge>
 				</Output>
 				<AddReward Name="reward_achievement" PositionY="270" PositionX="-210">
-					<Edge From="reward" To="AddReward">
+					<Edge From="triggersequence48.A" To="AddReward">
 						<Vertex>EaRSBYgB</Vertex>
 					</Edge>
 					<Rewards>
@@ -66,9 +68,13 @@
 						<MoneyReward Amount="10 War horse" />
 					</Rewards>
 				</AddReward>
+				<TriggerSequence Name="triggersequence48" PositionY="-240" PositionX="-650">
+					<Edge From="reward" To="Exec" />
+				</TriggerSequence>
 			</Nodes>
 			<EdgeVertices>
 				<EdgeVertex Name="EaRSBYgB" PositionY="20" PositionX="-360" />
+				<EdgeVertex Name="ezf93IEM" PositionY="-120" PositionX="1000" />
 			</EdgeVertices>
 			<Text StringName="rewards_N06g" Text="Rewards" />
 		</Module>

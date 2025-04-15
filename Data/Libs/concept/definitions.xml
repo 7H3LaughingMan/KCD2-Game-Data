@@ -1324,6 +1324,8 @@
 			<Enumeration Name="ver_01_02" />
 			<Enumeration Name="ver_01_02_01" />
 			<Enumeration Name="ver_01_02_02" />
+			<Enumeration Name="ver_01_02_03" />
+			<Enumeration Name="ver_01_02_04" />
 		</Type>
 		<Type TypeName="wh::framework::LocalizedString" TypeClass="ValueType" IsEditable="true" />
 		<Type TypeName="wh::framework::LocalizedStrings" TypeClass="Sequential" IsEditable="false">
@@ -7380,6 +7382,21 @@
 				<RunTimePort Name="UpdateReferences" Visibility="Interface" Direction="In" ConnectionType="Any" Type="trigger" Template="None" IsOptional="true" />
 				<RunTimePort Name="parkingMode" Visibility="Interface" Direction="In" ConnectionType="Any" Type="bool" Template="None" IsOptional="false" />
 				<RunTimePort Name="Synchronize" Visibility="Interface" Direction="Out" ConnectionType="Any" Type="trigger" Template="None" IsOptional="false" />
+				<RunTimePort Name="OnFinished" Visibility="Interface" Direction="Out" ConnectionType="Any" Type="trigger" Template="None" IsOptional="false" />
+			</Ports>
+		</Definition>
+		<Definition TypeName="EnableBehavior" Name="EnableBehavior_horse_endNotification" Category="wh::xgenaimodule" Style="AIGenerated">
+			<Properties>
+				<Property Name="Signature" Value="horse" />
+				<Property Name="EventSet" Value="endNotification" />
+			</Properties>
+			<Ports>
+				<CompileTimePort Name="IsActive" Visibility="Interface" Direction="In" ConnectionType="Edge" Type="bool" Template="None" IsOptional="false" IsAutoTriggerable="true" />
+				<CompileTimePort Name="Behavior" Visibility="Interface" Direction="In" ConnectionType="Any" Type="string" Template="None" IsOptional="false" />
+				<CompileTimePort Name="SmartEntity" Visibility="Interface" Direction="In" ConnectionType="Any" Type="wh::xgenaimodule::SmartEntity*" Template="None" IsOptional="false" />
+				<CompileTimePort Name="NPC" Visibility="Interface" Direction="In" ConnectionType="Any" Type="wh::rpgmodule::Souls" Template="None" IsOptional="true" />
+				<CompileTimePort Name="ForceKick" Visibility="Interface" Direction="In" ConnectionType="Any" Type="bool" Template="None" IsOptional="true" />
+				<RunTimePort Name="horse" Visibility="Interface" Direction="In" ConnectionType="Any" Type="wh::xgenaimodule::LinkableObject*" Template="None" IsOptional="false" />
 				<RunTimePort Name="OnFinished" Visibility="Interface" Direction="Out" ConnectionType="Any" Type="trigger" Template="None" IsOptional="false" />
 			</Ports>
 		</Definition>
@@ -15207,8 +15224,10 @@
 				<RunTimePort Name="ver_01_01_01" Visibility="Interface" Direction="Out" ConnectionType="Any" Type="bool" Template="None" IsDeprecated="true" IsOptional="true" />
 				<RunTimePort Name="ver_01_01_02" Visibility="Interface" Direction="Out" ConnectionType="Any" Type="bool" Template="None" IsDeprecated="true" IsOptional="true" />
 				<RunTimePort Name="ver_01_02" Visibility="Interface" Direction="Out" ConnectionType="Any" Type="bool" Template="None" IsDeprecated="true" IsOptional="true" />
-				<RunTimePort Name="ver_01_02_01" Visibility="Interface" Direction="Out" ConnectionType="Any" Type="bool" Template="None" IsDeprecated="true" IsOptional="true" />		
+				<RunTimePort Name="ver_01_02_01" Visibility="Interface" Direction="Out" ConnectionType="Any" Type="bool" Template="None" IsDeprecated="true" IsOptional="true" />
 				<RunTimePort Name="ver_01_02_02" Visibility="Interface" Direction="Out" ConnectionType="Any" Type="bool" Template="None" IsDeprecated="true" IsOptional="true" />
+				<RunTimePort Name="ver_01_02_03" Visibility="Interface" Direction="Out" ConnectionType="Any" Type="bool" Template="None" IsDeprecated="true" IsOptional="true" />
+				<RunTimePort Name="ver_01_02_04" Visibility="Interface" Direction="Out" ConnectionType="Any" Type="bool" Template="None" IsDeprecated="true" IsOptional="true" />
 			</Ports>
 		</Definition>
 		<Definition TypeName="MoonEffect" Name="MoonEffect" Description="The parameters are in decimal degrees format and range should be from -360 to 0 for latitude and -180 to 180 for longitude." Category="wh::environmentmodule" Style="Effect">

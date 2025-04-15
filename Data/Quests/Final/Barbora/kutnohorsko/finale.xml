@@ -127,7 +127,7 @@
 					<DesignName StringName="finale_odstreamovani_samu_9d6t" Text="Unstream Samuel (optional)" />
 				</Port>
 				<Port Name="unstream_petr_z_pisku" Direction="Out" Type="trigger">
-					<DesignName StringName="finale_unstream_petr_z_pi_8C9R" Text="Unstream Petr z Písku" />
+					<DesignName StringName="finale_unstream_petr_z_pi_8C9R" Text="Přestěhovat Petra z Písku do Kutné Hory" />
 				</Port>
 				<Port Name="unstream_gerta" Direction="Out" Type="trigger">
 					<DesignName StringName="finale_unstream_gerta_yJAN" Text="Unstream Gerta" />
@@ -194,6 +194,9 @@
 				</Port>
 				<Port Name="bergov_nevyslal_jizdu_vypalit_semin" Direction="In" Type="bool">
 					<DesignName StringName="finale_bergov_nevyslal_ji_LIaT" Text="Bergov nevyslal jízdu vypálit Semín" />
+				</Port>
+				<Port Name="zizka_je_v_certovce_po_konci_main_questu" Direction="In" Type="bool">
+					<DesignName StringName="finale_zizka_je_v_certovc_cyva" Text="Žižka je v Čertovce po konci main questu" />
 				</Port>
 			</Ports>
 			<Definitions>
@@ -345,6 +348,7 @@
 					<Edge From="patchtrigger39.OnPatch" To="Exec" />
 					<Edge From="finale_questProgress.Done" To="Condition">
 						<Vertex>vertex8</Vertex>
+						<Vertex>YuX4NFx5</Vertex>
 						<Vertex>vertex34</Vertex>
 						<Vertex>vertex35</Vertex>
 						<Vertex>TT3TNhLo</Vertex>
@@ -391,6 +395,15 @@
 						<Vertex>f5UkUPE3</Vertex>
 					</Edge>
 				</If>
+				<IfFunction Name="ifand47" PositionY="-840" PositionX="970" MethodName="math::boolean::And" DeclaringType="math::boolean">
+					<Edge From="patchtrigger48.OnPatch" To="Exec" />
+					<Edge From="not49.bool" To="A" />
+					<Edge From="finale_questProgress.Done" To="B">
+						<Vertex>vertex8</Vertex>
+						<Vertex>YuX4NFx5</Vertex>
+						<Vertex>DoLl8b1T</Vertex>
+					</Edge>
+				</IfFunction>
 				<Function Name="not10" PositionY="280" PositionX="-300" MethodName="math::boolean::Not" DeclaringType="math::boolean">
 					<Edge From="jindra_za_markvartem_byl" To="Value" />
 				</Function>
@@ -399,6 +412,9 @@
 				</Function>
 				<Function Name="not42" PositionY="-100" PositionX="1020" MethodName="math::boolean::Not" DeclaringType="math::boolean">
 					<Edge From="hibernation.override_hracovo_presetu" To="Value" />
+				</Function>
+				<Function Name="not49" PositionY="-810" PositionX="-560" MethodName="math::boolean::Not" DeclaringType="math::boolean">
+					<Edge From="zizka_je_v_certovce_po_konci_main_questu" To="Value" />
 				</Function>
 				<objectivename Name="objectivename" PositionY="-1210" PositionX="1190" Namespace="utils.commonstrings" />
 				<Function Name="or22" PositionY="1920" PositionX="-40" MethodName="math::boolean::Or" DeclaringType="math::boolean">
@@ -451,6 +467,7 @@
 					</Edge>
 					<Edge From="finale_questProgress.Done" To="m51_finale_dokonceno">
 						<Vertex>vertex8</Vertex>
+						<Vertex>YuX4NFx5</Vertex>
 						<Vertex>vertex34</Vertex>
 						<Vertex>vertex35</Vertex>
 						<Vertex>TT3TNhLo</Vertex>
@@ -477,13 +494,6 @@
 						<Vertex>vertex25</Vertex>
 					</Edge>
 					<Edge From="haste_world_reconstruction.end_quest" To="unstream_markvart">
-						<Vertex>vertex68</Vertex>
-						<Vertex>vertex69</Vertex>
-						<Vertex>vertex67</Vertex>
-						<Vertex>vertex26</Vertex>
-						<Vertex>vertex25</Vertex>
-					</Edge>
-					<Edge From="haste_world_reconstruction.end_quest" To="unstream_petr_z_pisku">
 						<Vertex>vertex68</Vertex>
 						<Vertex>vertex69</Vertex>
 						<Vertex>vertex67</Vertex>
@@ -627,56 +637,125 @@
 					<Edge From="hibernation.clothing_preset__samuel__set_default" To="clothing_preset__samuel__set_default" />
 					<Edge From="rewards.aktualizovat_aktivitu" To="unstream_hanus">
 						<Vertex>3E4xADCI</Vertex>
+						<Vertex>A0dsIABA</Vertex>
 						<Vertex>vertex67</Vertex>
 						<Vertex>vertex26</Vertex>
 						<Vertex>vertex25</Vertex>
 					</Edge>
 					<Edge From="rewards.aktualizovat_aktivitu" To="finale_uspesne_konci">
 						<Vertex>3E4xADCI</Vertex>
+						<Vertex>A0dsIABA</Vertex>
 						<Vertex>vertex67</Vertex>
 						<Vertex>vertex26</Vertex>
 						<Vertex>vertex25</Vertex>
 					</Edge>
 					<Edge From="rewards.aktualizovat_aktivitu" To="unstream_markvart">
 						<Vertex>3E4xADCI</Vertex>
-						<Vertex>vertex67</Vertex>
-						<Vertex>vertex26</Vertex>
-						<Vertex>vertex25</Vertex>
-					</Edge>
-					<Edge From="rewards.aktualizovat_aktivitu" To="unstream_petr_z_pisku">
-						<Vertex>3E4xADCI</Vertex>
+						<Vertex>A0dsIABA</Vertex>
 						<Vertex>vertex67</Vertex>
 						<Vertex>vertex26</Vertex>
 						<Vertex>vertex25</Vertex>
 					</Edge>
 					<Edge From="rewards.aktualizovat_aktivitu" To="unstream_gerta">
 						<Vertex>3E4xADCI</Vertex>
+						<Vertex>A0dsIABA</Vertex>
 						<Vertex>vertex67</Vertex>
 						<Vertex>vertex26</Vertex>
 						<Vertex>vertex25</Vertex>
 					</Edge>
 					<Edge From="rewards.aktualizovat_aktivitu" To="unstream_jaroslav">
 						<Vertex>3E4xADCI</Vertex>
+						<Vertex>A0dsIABA</Vertex>
 						<Vertex>vertex67</Vertex>
 						<Vertex>vertex26</Vertex>
 						<Vertex>vertex25</Vertex>
 					</Edge>
 					<Edge From="rewards.aktualizovat_aktivitu" To="unstream_janek">
 						<Vertex>3E4xADCI</Vertex>
+						<Vertex>A0dsIABA</Vertex>
 						<Vertex>vertex67</Vertex>
 						<Vertex>vertex26</Vertex>
 						<Vertex>vertex25</Vertex>
 					</Edge>
 					<Edge From="rewards.aktualizovat_aktivitu" To="vetsina_npc_se_stehuje_do_certovky">
 						<Vertex>3E4xADCI</Vertex>
+						<Vertex>A0dsIABA</Vertex>
 						<Vertex>vertex67</Vertex>
 						<Vertex>vertex26</Vertex>
 						<Vertex>vertex25</Vertex>
 					</Edge>
 					<Edge From="rewards.aktualizovat_aktivitu" To="aktualizovat_aktivitu">
 						<Vertex>3E4xADCI</Vertex>
+						<Vertex>A0dsIABA</Vertex>
 						<Vertex>vertex67</Vertex>
 						<Vertex>vertex26</Vertex>
+					</Edge>
+					<Edge From="ifand47.True" To="aktualizovat_aktivitu">
+						<Vertex>A0dsIABA</Vertex>
+						<Vertex>vertex67</Vertex>
+						<Vertex>vertex26</Vertex>
+					</Edge>
+					<Edge From="ifand47.True" To="unstream_hanus">
+						<Vertex>A0dsIABA</Vertex>
+						<Vertex>vertex67</Vertex>
+						<Vertex>vertex26</Vertex>
+						<Vertex>vertex25</Vertex>
+					</Edge>
+					<Edge From="ifand47.True" To="finale_uspesne_konci">
+						<Vertex>A0dsIABA</Vertex>
+						<Vertex>vertex67</Vertex>
+						<Vertex>vertex26</Vertex>
+						<Vertex>vertex25</Vertex>
+					</Edge>
+					<Edge From="ifand47.True" To="unstream_markvart">
+						<Vertex>A0dsIABA</Vertex>
+						<Vertex>vertex67</Vertex>
+						<Vertex>vertex26</Vertex>
+						<Vertex>vertex25</Vertex>
+					</Edge>
+					<Edge From="ifand47.True" To="unstream_gerta">
+						<Vertex>A0dsIABA</Vertex>
+						<Vertex>vertex67</Vertex>
+						<Vertex>vertex26</Vertex>
+						<Vertex>vertex25</Vertex>
+					</Edge>
+					<Edge From="ifand47.True" To="unstream_jaroslav">
+						<Vertex>A0dsIABA</Vertex>
+						<Vertex>vertex67</Vertex>
+						<Vertex>vertex26</Vertex>
+						<Vertex>vertex25</Vertex>
+					</Edge>
+					<Edge From="ifand47.True" To="unstream_janek">
+						<Vertex>A0dsIABA</Vertex>
+						<Vertex>vertex67</Vertex>
+						<Vertex>vertex26</Vertex>
+						<Vertex>vertex25</Vertex>
+					</Edge>
+					<Edge From="ifand47.True" To="vetsina_npc_se_stehuje_do_certovky">
+						<Vertex>A0dsIABA</Vertex>
+						<Vertex>vertex67</Vertex>
+						<Vertex>vertex26</Vertex>
+						<Vertex>vertex25</Vertex>
+					</Edge>
+					<Edge From="haste_world_reconstruction.end_quest" To="unstream_petr_z_pisku">
+						<Vertex>vertex68</Vertex>
+						<Vertex>vertex69</Vertex>
+						<Vertex>vertex67</Vertex>
+						<Vertex>vertex26</Vertex>
+						<Vertex>vertex25</Vertex>
+					</Edge>
+					<Edge From="rewards.aktualizovat_aktivitu" To="unstream_petr_z_pisku">
+						<Vertex>3E4xADCI</Vertex>
+						<Vertex>A0dsIABA</Vertex>
+						<Vertex>vertex67</Vertex>
+						<Vertex>vertex26</Vertex>
+						<Vertex>vertex25</Vertex>
+					</Edge>
+					<Edge From="ifand47.True" To="unstream_petr_z_pisku">
+						<Vertex>A0dsIABA</Vertex>
+						<Vertex>vertex67</Vertex>
+						<Vertex>vertex26</Vertex>
+						<Vertex>vertex25</Vertex>
 					</Edge>
 				</Output>
 				<HasteTrigger Name="overrideSamSaved" PositionY="420" PositionX="-610">
@@ -685,6 +764,9 @@
 				<PatchTrigger Name="patchtrigger39" PositionY="640" PositionX="2110">
 					<Constant Name="TransitionFromVersion" Value="ver_01_00" />
 				</PatchTrigger>
+				<PatchTrigger Name="patchtrigger48" PositionY="-780" PositionX="570">
+					<Constant Name="TransitionToVersion" Value="ver_01_02_04" />
+				</PatchTrigger>
 				<PauseWorldTime Name="pauseworldtime17" PositionY="-250" PositionX="1550">
 					<Edge From="and41.bool" To="IsActive" />
 				</PauseWorldTime>
@@ -692,7 +774,7 @@
 					<Asset Name="Profiles" Alias="recordingProfile" />
 					<Edge From="or22.bool" To="IsActive" />
 				</Layer>
-				<rewards Name="rewards" PositionY="-710" PositionX="890">
+				<rewards Name="rewards" PositionY="-640" PositionX="640">
 					<Edge From="finale_questProgress.OnDone" To="reward">
 						<Vertex>aQJjMEd0</Vertex>
 					</Edge>
@@ -752,7 +834,7 @@
 			<EdgeVertices>
 				<EdgeVertex Name="0a6P53dY" PositionY="-340" PositionX="1170" />
 				<EdgeVertex Name="2jK0X3Sh" PositionY="-360" PositionX="630" />
-				<EdgeVertex Name="3E4xADCI" PositionY="-540" PositionX="1380" />
+				<EdgeVertex Name="3E4xADCI" PositionY="-480" PositionX="1360" />
 				<EdgeVertex Name="3yoENNgw" PositionY="-910" PositionX="1640" />
 				<EdgeVertex Name="4jbQDJek" PositionY="-321" PositionX="2774" />
 				<EdgeVertex Name="5TVPBjY1" PositionY="730" PositionX="1010" />
@@ -761,12 +843,14 @@
 				<EdgeVertex Name="7czF5AFb" PositionY="860" PositionX="660" />
 				<EdgeVertex Name="7DYnXx2M" PositionY="1200" PositionX="1330" />
 				<EdgeVertex Name="9Am5NUck" PositionY="1200" PositionX="540" />
+				<EdgeVertex Name="A0dsIABA" PositionY="-480" PositionX="1490" />
 				<EdgeVertex Name="ajf8JLVe" PositionY="960" PositionX="-560" />
-				<EdgeVertex Name="aQJjMEd0" PositionY="-670" PositionX="580" />
+				<EdgeVertex Name="aQJjMEd0" PositionY="-610" PositionX="550" />
 				<EdgeVertex Name="CJ6gCkvv" PositionY="480" PositionX="560" />
 				<EdgeVertex Name="Dnt7y3yn" PositionY="-930" PositionX="1640" />
+				<EdgeVertex Name="DoLl8b1T" PositionY="-560" PositionX="910" />
 				<EdgeVertex Name="DQ0QYjJ8" PositionY="710" PositionX="1720" />
-				<EdgeVertex Name="dUeWI7Le" PositionY="-930" PositionX="-410" />
+				<EdgeVertex Name="dUeWI7Le" PositionY="-930" PositionX="-510" />
 				<EdgeVertex Name="ENJN50lp" PositionY="1900" PositionX="1580" />
 				<EdgeVertex Name="f5UkUPE3" PositionY="1920" PositionX="720" />
 				<EdgeVertex Name="g43F9QfJ" PositionY="-150" PositionX="2010" />
@@ -774,7 +858,7 @@
 				<EdgeVertex Name="HTcPlYlU" PositionY="530" PositionX="1000" />
 				<EdgeVertex Name="JNURezkr" PositionY="1360" PositionX="1350" />
 				<EdgeVertex Name="L1jYnJsv" PositionY="-134" PositionX="534" />
-				<EdgeVertex Name="ll5JSsRB" PositionY="-910" PositionX="-390" />
+				<EdgeVertex Name="ll5JSsRB" PositionY="-910" PositionX="-490" />
 				<EdgeVertex Name="mbIfNTVo" PositionY="1500" PositionX="1380" />
 				<EdgeVertex Name="mCYhoGHA" PositionY="1360" PositionX="510" />
 				<EdgeVertex Name="MWAFqs6M" PositionY="48" PositionX="519" />
@@ -814,8 +898,8 @@
 				<EdgeVertex Name="vertex42" PositionY="-220" PositionX="470" />
 				<EdgeVertex Name="vertex46" PositionY="-220" PositionX="930" />
 				<EdgeVertex Name="vertex48" PositionY="450" PositionX="1640" />
-				<EdgeVertex Name="vertex61" PositionY="-710" PositionX="380" />
-				<EdgeVertex Name="vertex62" PositionY="-710" PositionX="-300" />
+				<EdgeVertex Name="vertex61" PositionY="-700" PositionX="370" />
+				<EdgeVertex Name="vertex62" PositionY="-700" PositionX="-300" />
 				<EdgeVertex Name="vertex64" PositionY="-60" PositionX="-20" />
 				<EdgeVertex Name="vertex65" PositionY="-130" PositionX="2010" />
 				<EdgeVertex Name="vertex66" PositionY="590" PositionX="1780" />
@@ -832,6 +916,7 @@
 				<EdgeVertex Name="vertex9" PositionY="-460" PositionX="-80" />
 				<EdgeVertex Name="XKCa8WRb" PositionY="313" PositionX="1565" />
 				<EdgeVertex Name="xYVKYKho" PositionY="460" PositionX="-680" />
+				<EdgeVertex Name="YuX4NFx5" PositionY="-270" PositionX="830" />
 			</EdgeVertices>
 			<Types>
 				<Type TypeName="ObjectiveUpdateDone">
@@ -913,6 +998,7 @@
 				<SmartObjectAsset Name="henrySittingSpot" />
 				<TagPointAsset Name="jostArmyTourEndTagpoint" />
 				<ProfileAsset Name="swordByTreeProfile" AssetProfiles="finale_swordByTree" />
+				<AnimDoorAsset Name="fortressDoors" />
 			</Assets>
 			<Notes>
 				<Note Name="note29" PositionY="-580" PositionX="1880">
@@ -920,6 +1006,9 @@
 				</Note>
 				<Note Name="note38" PositionY="1000" PositionX="1930">
 					<Text StringName="finale_note38_EoFB" Text="NOTE(Andy): Tady býval override bed interaktorů u Markvarta, ale nakonec je z postele brush. Nebude to tím pádem potřeba." />
+				</Note>
+				<Note Name="note50" PositionY="-900" PositionX="650">
+					<Text StringName="finale_note50_NyRV" Text="KCD2-534910 M51 -&gt; End: Players are not getting their &quot;congrats and thank you, you've finished&quot; screen and NPCs are walking back to suchdol" />
 				</Note>
 			</Notes>
 			<Text StringName="finale_Y6S8" Text="Finále" />
